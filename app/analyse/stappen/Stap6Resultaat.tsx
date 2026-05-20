@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import {
   getBenchmarks,
@@ -96,10 +97,12 @@ function AfwijkingRij({
 }
 
 export default function Stap6Resultaat({ data, onChange }: Props) {
+  const router = useRouter();
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
 
+  // Berekeningen op component-niveau (toegankelijk in handleSubmit via closure)
   const inkomen = berekenTotaalInkomen(data);
   const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
   const benches = getBenchmarks({
@@ -116,14 +119,21 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   const grootsteAfwijking = vindGrootsteAfwijking(data, benches);
   const verdictCfg = VERDICT_CONFIG[verdict];
 
-  // Top-2 afwijkingen
+  // Categorie totalen (ook gebruikt in DB insert)
+  const wonenTotaal = berekenWonen(data);
+  const vervoerTotaal = berekenVervoer(data);
+  const verzekeringTotaal = berekenVerzekeringen(data);
+  const abonnementenTotaal = berekenAbonnementen(data);
+  const kinderenTotaal = berekenKinderen(data);
+
+  // Top-2 afwijkingen voor weergave
   type AfwijkingEntry = { label: string; jij: number; bench: number; diff: number };
   const allAfwijkingen: AfwijkingEntry[] = [
     { label: "Boodschappen", jij: parseEur(data.boodschappen), bench: benches.boodschappen, diff: parseEur(data.boodschappen) - benches.boodschappen },
-    { label: "Abonnementen", jij: berekenAbonnementen(data), bench: benches.abonnementen, diff: berekenAbonnementen(data) - benches.abonnementen },
-    { label: "Wonen", jij: berekenWonen(data), bench: benches.wonen, diff: berekenWonen(data) - benches.wonen },
-    { label: "Verzekeringen", jij: berekenVerzekeringen(data), bench: benches.verzekeringen, diff: berekenVerzekeringen(data) - benches.verzekeringen },
-    { label: "Vervoer", jij: berekenVervoer(data), bench: benches.vervoer, diff: berekenVervoer(data) - benches.vervoer },
+    { label: "Abonnementen", jij: abonnementenTotaal, bench: benches.abonnementen, diff: abonnementenTotaal - benches.abonnementen },
+    { label: "Wonen", jij: wonenTotaal, bench: benches.wonen, diff: wonenTotaal - benches.wonen },
+    { label: "Verzekeringen", jij: verzekeringTotaal, bench: benches.verzekeringen, diff: verzekeringTotaal - benches.verzekeringen },
+    { label: "Vervoer", jij: vervoerTotaal, bench: benches.vervoer, diff: vervoerTotaal - benches.vervoer },
   ]
     .filter((a) => a.jij > 0)
     .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff))
@@ -134,7 +144,11 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
     if (!data.email || !data.toestemmingOpslaan) return;
     setSending(true);
     setError("");
+
+    const token = crypto.randomUUID();
+
     try {
+      // 1. Lead aanmaken / updaten
       const { data: lead, error: leadErr } = await supabase
         .from("leads")
         .upsert(
@@ -152,35 +166,72 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
       if (leadErr) throw leadErr;
 
-      if (data.toestemmingOpslaan && lead) {
-        await supabase.from("quiz_resultaten").insert({
-          lead_id: lead.id,
-          woonsituatie: data.woonsituatie,
-          aantal_kinderen: data.kinderen,
-          auto_situatie: data.auto,
-          salaris_1: parseEur(data.salaris1),
-          salaris_2: parseEur(data.salaris2),
-          wonen_huur_hypotheek: parseEur(data.huurHypotheek),
-          wonen_energie: parseEur(data.energie),
-          wonen_internet_tv: parseEur(data.internet),
-          boodschappen: parseEur(data.boodschappen),
-          verzekering_zorg_per_persoon: parseEur(data.zorgPerPersoon),
-          verzekering_overig: parseEur(data.verzekeringOverig),
-          totaal_inkomen_berekend: inkomen,
-          totaal_uitgaven_berekend: inkomen - over,
-          maandelijks_over_berekend: over,
-          benchmark_over_verwacht: benches.vrij_besteedbaar,
-          verschil_met_benchmark: overDiff,
-          grootste_afwijking: grootsteAfwijking,
-          verdict,
-        });
+      // 2. Quiz resultaten opslaan
+      let savedToken: string | null = null;
+
+      if (lead) {
+        const { error: resultaatErr } = await supabase
+          .from("quiz_resultaten")
+          .insert({
+            lead_id: lead.id,
+            token,
+            email: data.email,
+            woonsituatie: data.woonsituatie,
+            aantal_kinderen: data.kinderen,
+            auto_situatie: data.auto,
+            salaris_1: parseEur(data.salaris1),
+            salaris_2: parseEur(data.salaris2),
+            wonen_huur_hypotheek: parseEur(data.huurHypotheek),
+            wonen_energie: parseEur(data.energie),
+            wonen_internet_tv: parseEur(data.internet),
+            boodschappen: parseEur(data.boodschappen),
+            verzekering_zorg_per_persoon: parseEur(data.zorgPerPersoon),
+            verzekering_overig: parseEur(data.verzekeringOverig),
+            // Berekende categorie-totalen
+            wonen_totaal: wonenTotaal,
+            vervoer_totaal: vervoerTotaal,
+            verzekering_totaal: verzekeringTotaal,
+            abonnementen_totaal: abonnementenTotaal,
+            kinderen_totaal: kinderenTotaal,
+            // Financiële samenvatting
+            totaal_inkomen_berekend: inkomen,
+            totaal_uitgaven_berekend: inkomen - over,
+            maandelijks_over_berekend: over,
+            benchmark_over_verwacht: benches.vrij_besteedbaar,
+            verschil_met_benchmark: overDiff,
+            grootste_afwijking: grootsteAfwijking,
+            verdict,
+          });
+
+        if (resultaatErr) throw resultaatErr;
+        savedToken = token;
       }
 
-      setSent(true);
+      // 3. Email sturen (fire-and-forget, blokkeert de redirect niet)
+      if (savedToken && data.email) {
+        fetch("/api/send-resultaat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            email: data.email,
+            token: savedToken,
+            verdict,
+            maandelijksOver: over,
+            benchmarkOver: benches.vrij_besteedbaar,
+          }),
+        }).catch(console.error);
+      }
+
+      // 4. Doorsturen naar resultaatpagina of fallback
+      if (savedToken) {
+        router.push(`/resultaat/${savedToken}`);
+      } else {
+        setSent(true);
+        setSending(false);
+      }
     } catch (err) {
       console.error(err);
       setError("Er ging iets mis. Probeer het opnieuw.");
-    } finally {
       setSending(false);
     }
   }
@@ -254,7 +305,8 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             Wil je de volledige analyse ontvangen?
           </p>
           <p className="text-text-soft font-body font-light text-sm mb-6">
-            We sturen je een persoonlijk overzicht zodra we live gaan.
+            We sturen je een persoonlijk overzicht met een link om terug te
+            kunnen kijken — en sturen je een seintje als we live gaan.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -308,7 +360,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
               disabled={sending || !data.email || !data.toestemmingOpslaan}
               className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {sending ? "Even geduld…" : "Stuur mijn analyse"}
+              {sending ? "Even geduld…" : "Bekijk mijn volledige analyse →"}
             </button>
           </form>
         </div>
