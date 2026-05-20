@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  const resultaatUrl = `https://waarblijfthet.nl/resultaat/${token}`;
+  const resultaatUrl = `https://www.waarblijfthet.nl/resultaat/${token}`;
   const verschil = maandelijksOver - benchmarkOver;
   const verschilTekst =
     verschil >= 0
