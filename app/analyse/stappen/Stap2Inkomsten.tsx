@@ -115,7 +115,7 @@ function SalarisBlok({
 export default function Stap2Inkomsten({ data, onChange }: Props) {
   const [overigOpen, setOverigOpen] = useState(false);
   const totaalInkomen = berekenTotaalInkomen(data);
-  const percentiel = totaalInkomen > 0 ? getPercentiel(totaalInkomen, data.kinderen) : null;
+  const percentiel = totaalInkomen > 0 ? getPercentiel(totaalInkomen, data.kinderen ?? 0) : null;
 
   return (
     <div>
@@ -159,7 +159,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
             hint="Max €238/mnd voor stellen in 2026"
           />
 
-          {data.kinderen > 0 && (
+          {(data.kinderen ?? 0) > 0 && (
             <>
               <EuroInput
                 label="Kindgebonden budget"

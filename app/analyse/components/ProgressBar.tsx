@@ -4,7 +4,8 @@ interface ProgressBarProps {
 }
 
 export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProps) {
-  const pct = ((currentStep - 1) / (totalSteps - 1)) * 100;
+  // FIX 7: stap 1 begint op 10%, niet 0%
+  const pct = Math.max(10, Math.round((currentStep / totalSteps) * 100));
 
   return (
     <div className="mb-8">
@@ -12,9 +13,7 @@ export default function ProgressBar({ currentStep, totalSteps }: ProgressBarProp
         <span className="text-text-muted font-body text-xs">
           Stap {currentStep} van {totalSteps}
         </span>
-        <span className="text-text-muted font-body text-xs">
-          {Math.round(pct)}% ingevuld
-        </span>
+        {/* percentage verwijderd */}
       </div>
       <div className="h-1 bg-[#E8E0D0] rounded-full overflow-hidden">
         <div

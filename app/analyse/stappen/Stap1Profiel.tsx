@@ -31,7 +31,7 @@ function OptionBtn({
 }
 
 export default function Stap1Profiel({ data, onChange }: Props) {
-  const allFilled = data.woonsituatie !== null && data.auto !== null;
+  const allFilled = data.woonsituatie !== null && data.kinderen !== null && data.auto !== null;
 
   return (
     <div>
@@ -139,14 +139,19 @@ export default function Stap1Profiel({ data, onChange }: Props) {
       {allFilled && (
         <div className="bg-green-light rounded-xl p-4 lg:hidden">
           <p className="font-body text-sm text-primary font-medium">
-            Goed, we vergelijken je met een gezin{" "}
-            {data.kinderen === 0
-              ? "zonder kinderen"
-              : `met ${data.kinderen === 3 ? "3 of meer" : data.kinderen} ${
-                  data.kinderen === 1 ? "kind" : "kinderen"
-                }`}{" "}
-            in een{" "}
-            {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
+            {(() => {
+              const k = data.kinderen ?? 0;
+              const kindTekst =
+                k === 0
+                  ? "zonder kinderen"
+                  : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
+              return (
+                <>
+                  Goed, we vergelijken je met een gezin {kindTekst} in een{" "}
+                  {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
+                </>
+              );
+            })()}
           </p>
         </div>
       )}

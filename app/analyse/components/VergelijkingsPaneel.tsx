@@ -100,17 +100,25 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
 
   // Step 1 — only profile confirmation, no numbers yet
   if (currentStep === 1) {
-    if (!data.woonsituatie || !data.auto) return null;
+    if (!data.woonsituatie || data.kinderen === null || !data.auto) return null;
     return (
       <div className="card-base border border-[#E8E0D0] sticky top-24">
         <p className="section-eyebrow mb-4">Jouw vergelijking</p>
         <div className="bg-green-light rounded-xl p-4">
           <p className="font-body text-sm text-primary font-medium">
-            Goed, we vergelijken je met een gezin{" "}
-            {data.kinderen === 0
-              ? "zonder kinderen"
-              : `met ${data.kinderen === 3 ? "3 of meer" : data.kinderen} ${data.kinderen === 1 ? "kind" : "kinderen"}`}{" "}
-            in een {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
+            {(() => {
+              const k = data.kinderen ?? 0;
+              const kindTekst =
+                k === 0
+                  ? "zonder kinderen"
+                  : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
+              return (
+                <>
+                  Goed, we vergelijken je met een gezin {kindTekst} in een{" "}
+                  {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
+                </>
+              );
+            })()}
           </p>
         </div>
       </div>
@@ -120,7 +128,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
   // Step 2 — income overview
   if (currentStep === 2) {
     if (inkomen === 0) return null;
-    const percentiel = getPercentiel(inkomen, data.kinderen);
+    const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
     return (
       <div className="card-base border border-[#E8E0D0] sticky top-24">
         <p className="section-eyebrow mb-4">Jullie inkomen</p>

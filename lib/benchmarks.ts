@@ -40,12 +40,13 @@ export interface Benchmarks {
 
 export function getBenchmarks(profiel: {
   woonsituatie: "huur" | "koop" | null;
-  kinderen: KinderenAantal;
+  kinderen: KinderenAantal | null;
   inkomen: number;
   auto: QuizData["auto"];
   aantalVolwassenen: number;
 }): Benchmarks {
-  const { woonsituatie, kinderen, inkomen, auto, aantalVolwassenen } = profiel;
+  const { woonsituatie, inkomen, auto, aantalVolwassenen } = profiel;
+  const kinderen: KinderenAantal = profiel.kinderen ?? 0;
 
   const wonenPct = woonsituatie === "koop" ? 0.28 : 0.3;
   const wonen = Math.round(inkomen * wonenPct);
@@ -189,8 +190,8 @@ export function getVergelijkingStatus(
   return "zorgelijk";
 }
 
-export function getPercentiel(inkomen: number, kinderen: number): string {
-  if (kinderen === 0) {
+export function getPercentiel(inkomen: number, kinderen: number | null): string {
+  if ((kinderen ?? 0) === 0) {
     if (inkomen < 2500) return "onderste 25%";
     if (inkomen < 3500) return "middengroep";
     if (inkomen < 5000) return "top 35%";

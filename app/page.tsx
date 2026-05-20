@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroCards from "@/components/HeroCards";
+import EmailFormLanding from "@/components/EmailFormLanding";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -44,13 +45,11 @@ export default function HomePage() {
       <Header />
 
       <main>
-        {/* SECTIE 2 — Hero */}
+        {/* SECTIE 1 — Hero */}
         <section className="min-h-screen bg-background pt-16 flex items-center">
           <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
             <div>
-              <span className="inline-block bg-green-light text-primary text-xs font-body font-medium px-4 py-1.5 rounded-full mb-8 tracking-wide">
-                Binnenkort beschikbaar
-              </span>
+              {/* FIX 3: "Binnenkort beschikbaar" pill verwijderd */}
 
               <h1 className="font-display font-light text-primary mb-6">
                 <span className="block text-5xl sm:text-6xl lg:text-7xl leading-tight">
@@ -67,35 +66,15 @@ export default function HomePage() {
                 krap naar ruim gaat, zonder meer te hoeven verdienen.
               </p>
 
-              <form
-                id="aanmelden"
-                onSubmit={undefined}
-                className="flex flex-col sm:flex-row gap-3 max-w-md"
-                action="#"
-                method="post"
-              >
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="jouw@email.nl"
-                  required
-                  className="input-base flex-1"
-                  aria-label="E-mailadres"
-                />
-                <button type="submit" className="btn-primary whitespace-nowrap">
-                  Zet me op de lijst
-                </button>
-              </form>
-              <p className="text-text-muted font-body text-xs mt-3">
-                Geen spam. Alleen een seintje als we live gaan.
-              </p>
+              {/* FIX 1 & 2: quiz-first CTA + secundaire e-mailaanmelding */}
+              <EmailFormLanding variant="hero" />
             </div>
 
             <HeroCards />
           </div>
         </section>
 
-        {/* SECTIE 3 — Pijn */}
+        {/* SECTIE 2 — Pijn */}
         <section className="bg-background py-24">
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-12">
@@ -143,7 +122,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* SECTIE 4 — Quote blok */}
+        {/* SECTIE 3 — Quote blok */}
         <section className="bg-dark-block py-24 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full pointer-events-none select-none flex items-start justify-start">
             <span
@@ -160,14 +139,15 @@ export default function HomePage() {
                 &ldquo;We verdienden samen goed, maar elke maand hetzelfde gevoel. Tot we
                 begrepen waar het echt naartoe ging — en dat veranderde alles.&rdquo;
               </p>
+              {/* FIX 5: quote attribuering aangepast */}
               <footer className="text-white/50 font-body text-sm">
-                — De mensen achter Waar blijft het
+                — Jarno &amp; partner, twee ouders uit Tilburg
               </footer>
             </blockquote>
           </div>
         </section>
 
-        {/* SECTIE 5 — Hoe het werkt */}
+        {/* SECTIE 4 — Hoe het werkt */}
         <section className="bg-card py-24">
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-14">
@@ -179,11 +159,16 @@ export default function HomePage() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6 relative">
               {/* connector line desktop */}
-              <div className="hidden md:block absolute top-8 left-[calc(33.33%+1rem)] right-[calc(33.33%+1rem)] h-px bg-[#D6CEBC]" aria-hidden="true" />
+              <div
+                className="hidden md:block absolute top-8 left-[calc(33.33%+1rem)] right-[calc(33.33%+1rem)] h-px bg-[#D6CEBC]"
+                aria-hidden="true"
+              />
 
               <div className="relative p-6 md:p-8">
                 <div className="w-16 h-16 rounded-xl bg-green-light flex items-center justify-center mb-6">
-                  <span className="font-display font-medium text-primary text-2xl">1</span>
+                  <span className="font-display font-medium text-primary text-2xl">
+                    1
+                  </span>
                 </div>
                 <h3 className="font-display font-light text-primary text-xl mb-3">
                   Gratis analyse
@@ -196,7 +181,9 @@ export default function HomePage() {
 
               <div className="relative p-6 md:p-8 border-t border-[#E8E0D0] md:border-t-0 md:border-l md:border-r md:border-[#E8E0D0]">
                 <div className="w-16 h-16 rounded-xl bg-accent-bg flex items-center justify-center mb-6">
-                  <span className="font-display font-medium text-accent text-2xl">2</span>
+                  <span className="font-display font-medium text-accent text-2xl">
+                    2
+                  </span>
                 </div>
                 <h3 className="font-display font-light text-primary text-xl mb-3">
                   Persoonlijk inzicht
@@ -209,7 +196,9 @@ export default function HomePage() {
 
               <div className="relative p-6 md:p-8 border-t border-[#E8E0D0] md:border-t-0">
                 <div className="w-16 h-16 rounded-xl bg-[#F0EDE6] flex items-center justify-center mb-6">
-                  <span className="font-display font-medium text-text-soft text-2xl">3</span>
+                  <span className="font-display font-medium text-text-soft text-2xl">
+                    3
+                  </span>
                 </div>
                 <h3 className="font-display font-light text-primary text-xl mb-3">
                   Bijsturen en bijhouden
@@ -229,44 +218,86 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* SECTIE 6 — Statistieken */}
+        {/* SECTIE 5 — Statistieken */}
         <section className="bg-background py-24">
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-14">
-              <p className="section-eyebrow mb-4">Het probleem is groter dan je denkt</p>
+              <p className="section-eyebrow mb-4">
+                Het probleem is groter dan je denkt
+              </p>
               <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-xl">
                 Jij bent niet de enige
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* FIX 8: bronvermeldingen toegevoegd */}
               <div className="card-base border border-[#E8E0D0]">
-                <p className="font-display font-light text-primary text-6xl mb-4">47%</p>
+                <p className="font-display font-light text-primary text-6xl mb-4">
+                  47%
+                </p>
                 <p className="text-text-soft font-body font-light text-sm leading-relaxed">
                   van Nederlandse huishoudens is financieel kwetsbaar — ook met
                   een goed inkomen
                 </p>
-              </div>
-
-              <div className="card-base border border-[#E8E0D0]">
-                <p className="font-display font-light text-primary text-6xl mb-4">1 op 3</p>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  gezinnen heeft moeite rond te komen, ongeacht wat ze verdienen
+                <p
+                  className="font-body"
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "#8A9E8E",
+                    marginTop: "6px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  (Bron: Deloitte, 2024)
                 </p>
               </div>
 
               <div className="card-base border border-[#E8E0D0]">
-                <p className="font-display font-light text-primary text-6xl mb-4">3%</p>
+                <p className="font-display font-light text-primary text-6xl mb-4">
+                  1 op 3
+                </p>
+                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
+                  gezinnen heeft moeite rond te komen, ongeacht wat ze verdienen
+                </p>
+                <p
+                  className="font-body"
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "#8A9E8E",
+                    marginTop: "6px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  (Bron: Nibud, 2026)
+                </p>
+              </div>
+
+              <div className="card-base border border-[#E8E0D0]">
+                <p className="font-display font-light text-primary text-6xl mb-4">
+                  3%
+                </p>
                 <p className="text-text-soft font-body font-light text-sm leading-relaxed">
                   van Nederlanders praat openlijk over geldstress — de rest
                   draagt het alleen
+                </p>
+                <p
+                  className="font-body"
+                  style={{
+                    fontSize: "0.7rem",
+                    color: "#8A9E8E",
+                    marginTop: "6px",
+                    fontStyle: "italic",
+                  }}
+                >
+                  (Bron: Deloitte, 2024)
                 </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* SECTIE 7 — Finale CTA */}
+        {/* SECTIE 6 — Finale CTA */}
         <section className="bg-dark-block py-24" id="aanmelden-footer">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="font-display font-light text-white text-4xl sm:text-5xl mb-6">
@@ -276,23 +307,8 @@ export default function HomePage() {
               Meld je aan en ontvang als eerste toegang — inclusief de gratis
               analyse.
             </p>
-            <form
-              className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-              action="#"
-              method="post"
-            >
-              <input
-                type="email"
-                name="email"
-                placeholder="jouw@email.nl"
-                required
-                className="input-base flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/40 focus:border-white/60"
-                aria-label="E-mailadres"
-              />
-              <button type="submit" className="btn-primary whitespace-nowrap">
-                Aanmelden
-              </button>
-            </form>
+            {/* FIX 1: Supabase-gekoppeld formulier */}
+            <EmailFormLanding variant="cta" />
             <p className="text-white/40 font-body text-xs mt-4">
               Geen spam. Geen verplichtingen.
             </p>

@@ -51,7 +51,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           id="boodschappen"
           value={data.boodschappen}
           onChange={(v) => onChange({ boodschappen: v })}
-          hint={BOODSCHAPPEN_HINTS[data.kinderen]}
+          hint={BOODSCHAPPEN_HINTS[data.kinderen ?? 0]}
         />
         {boodschappenWaarde > 0 && (
           <div className="mt-2 flex items-center gap-2 flex-wrap">
@@ -141,7 +141,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
       </div>
 
       {/* Kinderkosten */}
-      {data.kinderen > 0 && (
+      {(data.kinderen ?? 0) > 0 && (
         <div className="mb-6">
           <p className="font-body font-medium text-text-soft text-sm mb-4">
             Kinderkosten
