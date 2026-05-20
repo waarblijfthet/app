@@ -37,11 +37,12 @@ export async function POST(request: NextRequest) {
       ? "Jullie zitten dicht bij het gemiddelde maar de buffer is klein."
       : "Jullie houden structureel minder over dan vergelijkbare gezinnen. Dit is precies waar wij bij helpen.";
 
-  const { error } = await resend.emails.send({
-    from: process.env.RESEND_FROM!,
-    to: email,
-    subject: "Jouw financiële analyse — Waar blijft het",
-    html: `
+  try {
+    const { error } = await resend.emails.send({
+      from: process.env.RESEND_FROM ?? "onboarding@resend.dev",
+      to: email,
+      subject: "Jouw financiële analyse — Waar blijft het",
+      html: `
 <!DOCTYPE html>
 <html lang="nl">
 <head>
@@ -126,12 +127,16 @@ export async function POST(request: NextRequest) {
   </table>
 </body>
 </html>
-    `,
-  });
+      `,
+    });
 
-  if (error) {
-    return NextResponse.json({ error: error.message }, { status: 500 });
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    return NextResponse.json({ success: true });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Onbekende fout";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-
-  return NextResponse.json({ success: true });
 }
