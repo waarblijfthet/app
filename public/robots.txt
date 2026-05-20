@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://waarblijfthet.nl
+
+# Sitemaps
+Sitemap: https://waarblijfthet.nl/sitemap.xml
