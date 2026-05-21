@@ -1,0 +1,38 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run *)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(npx plugins *)",
+      "PowerShell(Get-ChildItem \"$env:LOCALAPPDATA\\\\Programs\" -Directory | Where-Object { $_.Name -match \"claude|anthropic\" -or $_.Name -match \"Claude\" })",
+      "Bash(find /c/Users/JarnoKoopman/AppData/Roaming -name \"claude*\" -maxdepth 3 2>/dev/null | head -20; find /c/Users/JarnoKoopman/AppData/Local -name \"claude.exe\" -maxdepth 6 2>/dev/null | head -10)",
+      "Bash(npm install *)",
+      "mcp__plugin_vercel_vercel__list_teams",
+      "mcp__plugin_vercel_vercel__deploy_to_vercel",
+      "Bash(npm i *)",
+      "Bash(vercel --version)",
+      "mcp__plugin_vercel_vercel__list_projects",
+      "mcp__plugin_vercel_vercel__get_project",
+      "mcp__plugin_vercel_vercel__list_deployments",
+      "mcp__plugin_vercel_vercel__get_deployment_build_logs",
+      "mcp__plugin_vercel_vercel__get_deployment",
+      "Bash(git commit -m 'fix: remove standalone output mode \\(incompatible with Vercel\\) *)",
+      "Bash(vercel whoami *)",
+      "Bash(vercel link *)",
+      "Bash(vercel env *)",
+      "Bash(vercel deploy *)",
+      "Bash(git config *)",
+      "Bash(curl -s -X PATCH -H 'Authorization: token __CMDSUB_OUTPUT__' -H 'Accept: application/vnd.github.v3+json' https://api.github.com/repos/waarblijfthet/app -d '{\"private\": false}')",
+      "Bash(mkdir \"C:\\\\Users\\\\JarnoKoopman\\\\Documents\\\\Waar blijft het\\\\app\\\\resultaat\" 2>NUL && mkdir \"C:\\\\Users\\\\JarnoKoopman\\\\Documents\\\\Waar blijft het\\\\app\\\\resultaat\\\\[token]\" 2>NUL && mkdir \"C:\\\\Users\\\\JarnoKoopman\\\\Documents\\\\Waar blijft het\\\\app\\\\api\\\\send-resultaat\" 2>NUL && echo done)",
+      "Bash(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\JarnoKoopman\\\\Documents\\\\Waar blijft het\\\\app\\\\resultaat\\\\[token]\")",
+      "Bash(Out-Null)",
+      "Bash(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\JarnoKoopman\\\\Documents\\\\Waar blijft het\\\\app\\\\api\\\\send-resultaat\")",
+      "Bash(Write-Output \"done\")",
+      "mcp__plugin_vercel_vercel__get_runtime_logs"
+    ]
+  }
+}

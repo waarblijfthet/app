@@ -32,10 +32,10 @@ export default function Header() {
 
         <nav className="flex items-center gap-6">
           <Link
-            href="/blog"
+            href="/inzichten"
             className="text-text-soft font-body text-sm font-medium hover:text-primary transition-colors hidden sm:block"
           >
-            Blog
+            Inzichten
           </Link>
           <Link
             href="/analyse"

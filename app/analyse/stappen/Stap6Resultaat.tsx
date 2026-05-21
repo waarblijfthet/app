@@ -377,7 +377,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
       {/* Blog CTA */}
       <div className="mt-8 text-center">
         <Link
-          href="/blog/goed-salaris-toch-krap"
+          href="/inzichten/goed-salaris-toch-krap"
           className="text-text-soft font-body text-sm hover:text-primary transition-colors"
         >
           Meer leren? Lees ons artikel →

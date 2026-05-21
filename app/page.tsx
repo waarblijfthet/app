@@ -29,7 +29,7 @@ const websiteSchema = {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://waarblijfthet.nl/blog?q={search_term_string}",
+      urlTemplate: "https://waarblijfthet.nl/inzichten?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
