@@ -41,6 +41,58 @@ export const artikelen: Artikel[] = [
     externLinks: [],
   },
   {
+    slug: "vergelijken-boodschappen-nederland-duitsland",
+    titel:
+      "Boodschappen vergelijken Nederland vs Duitsland — wat koop je waar?",
+    metaTitel:
+      "Boodschappen Nederland vs Duitsland: wat is goedkoper in 2026?",
+    metaDescription:
+      "Exacte prijsvergelijking van 10 producten, per winkel uitgelegd. Zo bespaar je tot 54% op drogisterij en A-merken zonder te gokken.",
+    datum: "2026-05-21",
+    datumFormatted: "21 mei 2026",
+    leestijd: "7",
+    categorie: "Besparen",
+    excerpt:
+      "Bijna de helft goedkoper. Dat is wat Kassa ontdekte bij een vergelijking van 13 drogisterijproducten. €161,69 in Nederland, €73,75 in Duitsland. Voor exact dezelfde producten.",
+    faq: [
+      {
+        vraag: "Hoeveel goedkoper zijn boodschappen in Duitsland dan in Nederland?",
+        antwoord:
+          "Gemiddeld 15% goedkoper voor een volledig boodschappenmandje, blijkt uit Consumentenbond-onderzoek uit 2025. Voor drogisterijproducten loopt het verschil op tot 45 tot 55 procent. Bij A-merken als Oral-B, Dove en Ariel is het verschil het grootst.",
+      },
+      {
+        vraag: "Welke producten zijn het goedkoopst in Duitsland?",
+        antwoord:
+          "Drogisterijproducten (tandpasta, shampoo, wasmiddel, babyspullen), frisdrank, koffie en A-merk levensmiddelen. Verse producten zoals groente en fruit zijn niet altijd goedkoper. Typisch Nederlandse producten als stroopwafels zijn in Nederland zelf vaak goedkoper.",
+      },
+      {
+        vraag: "Welke supermarkt is het beste in Duitsland?",
+        antwoord:
+          "Voor drogisterij: DM of Rossmann. Voor levensmiddelen en A-merken: Kaufland of Lidl. De slimste aanpak is een combinatie: DM voor verzorgingsproducten, daarna Kaufland of Lidl voor de rest.",
+      },
+      {
+        vraag: "Loont boodschappen doen in Duitsland als ik ver weg woon?",
+        antwoord:
+          "Reken met tien euro per uur reistijd. Een rit van 30 minuten heen en terug kost je effectief tien tot vijftien euro. Op een boodschappenmandje van €100 met 45% drogisterijbesparing hou je dan nog €10 tot €15 netto over. Verder weg dan een uur rijden? Combineer het met een uitstapje.",
+      },
+      {
+        vraag: "Waar moet ik op letten bij boodschappen in Duitsland?",
+        antwoord:
+          "Let op statiegeld — lever in bij Kaufland want hun automaten accepteren alles. Neem contant geld mee als backup. Supermarkten zijn gesloten op zondag. Download de DM-app en Rossmann-app voor actuele coupons. Tank bij terugkomst in Duitsland als de prijs lager is.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Consumentenbond boodschappen over de grens 2025",
+        url: "https://www.consumentenbond.nl/nieuws/2025/boodschappen-over-de-grens-12-20-goedkoper",
+      },
+      {
+        label: "Kassa prijsvergelijking DM vs Kruidvat",
+        url: "https://www.bnnvara.nl/kassa/artikelen/prijsvergelijking-kassa-shoppen-in-duitsland-nog-veel-goedkoper-dan-verwacht",
+      },
+    ],
+  },
+  {
     slug: "boodschappen-duitsland-voordeel",
     titel: "Boodschappen doen in Duitsland — levert het echt wat op?",
     metaTitel:
