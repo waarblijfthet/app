@@ -6,6 +6,9 @@ import VergelijkenBoodschappenNederlandDuitsland from "./content/vergelijken-boo
 import WatIsNormaalBedragBoodschappen from "./content/wat-is-normaal-bedrag-boodschappen-per-maand";
 import Is4000EuroNettoGoedSalaris from "./content/is-4000-euro-netto-goed-salaris-nederland";
 import HoeveeSpaarenPerMaandNormaal from "./content/hoeveel-sparen-per-maand-normaal-nederland";
+import WatZijnNormaleVasteLastenGezin from "./content/wat-zijn-normale-vaste-lasten-gezin";
+import PotjesmethodeGezinHoeWerktHet from "./content/potjesmethode-gezin-hoe-werkt-het";
+import GeldStressRelatieNederland from "./content/geld-stress-relatie-nederland";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -16,6 +19,9 @@ const contentMap: Record<string, () => JSX.Element> = {
   "wat-is-normaal-bedrag-boodschappen-per-maand": WatIsNormaalBedragBoodschappen,
   "is-4000-euro-netto-goed-salaris-nederland": Is4000EuroNettoGoedSalaris,
   "hoeveel-sparen-per-maand-normaal-nederland": HoeveeSpaarenPerMaandNormaal,
+  "wat-zijn-normale-vaste-lasten-gezin": WatZijnNormaleVasteLastenGezin,
+  "potjesmethode-gezin-hoe-werkt-het": PotjesmethodeGezinHoeWerktHet,
+  "geld-stress-relatie-nederland": GeldStressRelatieNederland,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

@@ -546,6 +546,221 @@ export const artikelen: Artikel[] = [
       },
     ],
   },
+  {
+    slug: "wat-zijn-normale-vaste-lasten-gezin",
+    korteTitel: "Vaste lasten: wat is normaal?",
+    titel:
+      "Wat zijn normale vaste lasten voor een gezin? Het eerlijke overzicht voor 2026",
+    metaTitel:
+      "Wat zijn normale vaste lasten voor een gezin in 2026?",
+    metaDescription:
+      "Voor een gezin liggen de vaste lasten tussen €2.600 en €3.200 per maand. Maar wat is normaal voor jouw situatie? En waar zit de meeste bespaarruimte?",
+    datum: "2026-05-23",
+    datumFormatted: "23 mei 2026",
+    leestijd: "7",
+    categorie: "Inzicht",
+    excerpt:
+      "De vaste lasten voor een gezin in 2026 liggen gemiddeld tussen €2.600 en €3.200 per maand — exclusief boodschappen. Voor veel gezinnen is dat al meer dan twee derde van het netto inkomen. Wat is normaal, en waar zit de bespaarruimte?",
+    preview: {
+      type: "vergelijking",
+      label: "Vaste lasten 2026",
+      items: [
+        { naam: "Minimum", bedrag: 2000, kleur: "#2D6A4F" },
+        { naam: "Gemiddeld", bedrag: 2850, kleur: "#C4603A" },
+      ],
+      noot: "Per maand voor een gezin",
+    },
+    faq: [
+      {
+        vraag: "Wat zijn normale vaste lasten voor een gezin van 4 in 2026?",
+        antwoord:
+          "Gemiddeld liggen de vaste lasten voor een gezin met twee kinderen tussen de €2.600 en €3.200 per maand, exclusief boodschappen. Dit hangt sterk af van de woonsituatie (huur of koop) en de regio. In de Randstad liggen de woonkosten structureel hoger.",
+      },
+      {
+        vraag: "Hoeveel procent van je inkomen mag naar vaste lasten?",
+        antwoord:
+          "De vuistregel is maximaal 50 procent van het netto inkomen. Bij €4.000 netto is dat €2.000. In de praktijk zit een groot deel van de gezinnen in Nederland boven die grens — niet door verkeerde keuzes, maar door geleidelijk oplopende kosten.",
+      },
+      {
+        vraag: "Wat zijn de grootste vaste lasten voor een gezin?",
+        antwoord:
+          "Woonkosten (huur of hypotheek, energie, water) vormen verreweg de grootste post — gemiddeld €1.200 tot €1.800 per maand. Daarna volgen zorgverzekeringen (€316 voor twee volwassenen), vervoer (€280-€480) en abonnementen (€150-€200).",
+      },
+      {
+        vraag: "Waar zit de meeste bespaarruimte in vaste lasten?",
+        antwoord:
+          "Abonnementen, zorgverzekering en vervoer zijn de drie categorieën met de meeste flexibiliteit. Eén keer kritisch doorlopen van alle abonnementen levert gemiddeld €50 tot €100 per maand op. Zorgverzekering optimaliseren scheelt €200 tot €500 per jaar.",
+      },
+      {
+        vraag: "Zijn vaste lasten in 2026 gestegen?",
+        antwoord:
+          "Ja. Uit onderzoek blijkt dat de vaste lasten voor een gemiddeld gezin in 2026 met €474 zijn gestegen ten opzichte van 2025, vooral door hogere verzekeringspremies, energiebelasting en gemeentelijke heffingen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "FinBuddy vaste lasten overzicht 2026",
+        url: "https://www.finbuddy.nl/blogs/wat-zijn-de-gemiddelde-vaste-lasten-bekijk-ze-nu-in-een-overzicht/",
+      },
+      {
+        label: "Vaste Lasten Bond percentage inkomen",
+        url: "https://www.vastelastenbond.nl/blog/55-procent-van-inkomen-naar-vaste-lasten/",
+      },
+      {
+        label: "ConsumentWijzer kosten gezin 2026",
+        url: "https://consumentwijzer.nl/kosten-gezin-per-maand/",
+      },
+    ],
+  },
+  {
+    slug: "potjesmethode-gezin-hoe-werkt-het",
+    korteTitel: "De potjesmethode: zo werkt het",
+    titel:
+      "De potjesmethode voor gezinnen — hoe werkt het, en waarom werkt het eigenlijk?",
+    metaTitel:
+      "De potjesmethode voor gezinnen: zo werkt het echt",
+    metaDescription:
+      "De potjesmethode werkt — maar niet zo zoals de meeste uitleggen. Hoe je het praktisch inricht voor een gezin, zonder gedoe en zonder spreadsheets.",
+    datum: "2026-05-23",
+    datumFormatted: "23 mei 2026",
+    leestijd: "8",
+    categorie: "Sparen",
+    excerpt:
+      "De potjesmethode werkt — maar de meeste uitleggen zijn te ingewikkeld voor een normaal gezin. Vier potjes, één salarisdag, geen spreadsheet. Zo richt je het praktisch in.",
+    preview: {
+      type: "verdeling",
+      label: "Inkomensverdeling potjes",
+      posten: [
+        { naam: "Vaste lasten", pct: 65, kleur: "#1C3A2A" },
+        { naam: "Dagelijks", pct: 20, kleur: "#C4603A" },
+        { naam: "Sparen", pct: 10, kleur: "#2D6A4F" },
+        { naam: "Vrij", pct: 5, kleur: "#EDE6D8" },
+      ],
+      uitkomst: "4 potjes",
+    },
+    faq: [
+      {
+        vraag: "Wat is de potjesmethode precies?",
+        antwoord:
+          "De potjesmethode houdt in dat je je inkomen direct bij binnenkomst verdeelt over aparte rekeningen of doelen — vaste lasten, dagelijks leven, sparen, vrij besteedbaar. Doordat geld fysiek gescheiden is, hoef je niet bij te houden wat je uitgeeft: de grens is zichtbaar.",
+      },
+      {
+        vraag: "Hoeveel potjes heb je nodig?",
+        antwoord:
+          "Voor de meeste gezinnen zijn drie of vier potjes genoeg: vaste lasten, dagelijks leven, sparen, en optioneel een persoonlijk potje per persoon. Meer potjes maken het systeem complexer zonder dat het beter werkt.",
+      },
+      {
+        vraag: "Welke bank is het beste voor de potjesmethode?",
+        antwoord:
+          "Bunq is specifiek gebouwd voor het werken met meerdere rekeningen en is gratis voor maximaal drie rekeningen. Rabobank (Doelsparen), ING (Spaarpotjes) en ABN AMRO (Doelbedragen) bieden gratis subrekeningen aan. Je hoeft niet van bank te wisselen.",
+      },
+      {
+        vraag: "Hoeveel procent gaat naar elk potje?",
+        antwoord:
+          "Een werkbaar startpunt: 65% vaste lasten, 20% dagelijks leven, 10% sparen, 5% vrij. Pas dit aan op jouw situatie. Als vaste lasten meer dan 70% van je inkomen zijn, is dat een signaal dat de lasten te hoog zijn — niet dat het systeem niet werkt.",
+      },
+      {
+        vraag: "Wat doe je als er geen geld overblijft voor sparen?",
+        antwoord:
+          "Begin met €50. Dat is beter dan niets. De gewoonte van automatisch sparen opbouwen is waardevoller dan het bedrag. Verhoog elke drie maanden met €25 als je ruimte ziet.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Raisin over spaarpotjes maken",
+        url: "https://www.raisin.com/nl-nl/sparen/spaarpotjes-maken/",
+      },
+      {
+        label: "Mamablogger spaarpotjes 2025",
+        url: "https://mamablogger.nl/geld-budget-onze-digitale-spaarpotjes-voor-2025/",
+      },
+      {
+        label: "Nibud budgetadvies",
+        url: "https://www.nibud.nl/consumenten/budgetadvies/",
+      },
+    ],
+  },
+  {
+    slug: "geld-stress-relatie-nederland",
+    korteTitel: "Geld en relatiestress",
+    titel:
+      "Wat geldstress doet met je relatie — en hoe je eindelijk het gesprek aangaat",
+    metaTitel:
+      "Geld en relatiestress: wat het doet en hoe je erover praat",
+    metaDescription:
+      "De helft van de Nederlandse stellen heeft ooit ruzie gemaakt over geld. Maar de meeste praten er nauwelijks over. Waarom dat zo is — en wat je er aan kunt doen.",
+    datum: "2026-05-23",
+    datumFormatted: "23 mei 2026",
+    leestijd: "7",
+    categorie: "Inzicht",
+    excerpt:
+      "De helft van de Nederlandse stellen heeft er ooit ruzie over gemaakt. Maar slechts drie procent praat er openlijk over. Waarom geld zo moeilijk bespreekbaar is — en hoe je het gesprek wél aangaat.",
+    preview: {
+      type: "statistiek",
+      label: "Geld & relaties NL",
+      segmenten: [
+        {
+          label: "50% had ruzie over geld",
+          pct: 50,
+          kleur: "#FDECEA",
+          tekstKleur: "#B03A2E",
+        },
+        {
+          label: "23% wil vaker praten",
+          pct: 23,
+          kleur: "#FAF0EB",
+          tekstKleur: "#92600A",
+        },
+        {
+          label: "3% praat er openlijk over",
+          pct: 3,
+          kleur: "#E8F2EC",
+          tekstKleur: "#2D6A4F",
+        },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Is ruzie over geld normaal in een relatie?",
+        antwoord:
+          "Ja. Uit onderzoek van bunq onder meer dan 4.000 Europeanen blijkt dat de helft van de Nederlandse stellen ooit ruzie heeft gemaakt over geld. Het is het meest voorkomende conflictonderwerp in relaties. Normaal — maar niet onvermijdelijk.",
+      },
+      {
+        vraag: "Hoe praat je over geld met je partner zonder ruzie?",
+        antwoord:
+          "Begin met feiten, niet met oordelen. Kijk samen naar bankafschriften als neutrale basis. Bespreek eerst doelen — wat willen jullie samen bereiken? — voordat je het hebt over uitgaven. Geef ieder een persoonlijk budget om de irritatie over individuele aankopen te verminderen.",
+      },
+      {
+        vraag: "Wat zijn tekenen dat geldstress jullie relatie beïnvloedt?",
+        antwoord:
+          "Wanneer irritatie over geld zich verplaatst naar andere ruzies. Wanneer je financiële beslissingen vermijdt of uitstelt. Wanneer er een gevoel van oneerlijkheid is over wie wat bijdraagt. Wanneer het gesprek over geld altijd gespannen is of vermeden wordt.",
+      },
+      {
+        vraag: "Is het normaal om financiële geheimen te hebben voor je partner?",
+        antwoord:
+          "Uit onderzoek blijkt dat 23 procent van de Nederlanders weleens schulden, uitgaven of inkomsten heeft achtergehouden voor de partner. Het is veel voorkomend — maar het ondermijnt vertrouwen en maakt financiële samenwerking moeilijker.",
+      },
+      {
+        vraag: "Wanneer is professionele hulp zinvol bij geldstress in een relatie?",
+        antwoord:
+          "Als geld een structureel conflictthema is, als gesprekken steeds escaleren of als er sprake is van financiële geheimhouding. Een financieel coach of relatietherapeut kan helpen om het gesprek te structureren en objectief inzicht te geven in de situatie.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Linda.nl over geld en relaties",
+        url: "https://www.linda.nl/lifestyle/geld/geld-gescheiden-houden-relatie-onderzoek/",
+      },
+      {
+        label: "Nibud stellen en geldzaken",
+        url: "https://www.kennisbundel.nl/kennisbank/artikel/geld-relatie/",
+      },
+      {
+        label: "LISS panel geldstress en mentale gezondheid",
+        url: "https://fondsslachtofferhulp.nl/nieuws/financiele-problemen-geldzorgen-stress/",
+      },
+    ],
+  },
 ];
 
 export function getArtikel(slug: string): Artikel | undefined {
