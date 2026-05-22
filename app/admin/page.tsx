@@ -9,6 +9,20 @@ export const metadata: Metadata = {
   robots: "noindex, nofollow",
 };
 
+export interface IntakeAanvraag {
+  id: string;
+  created_at: string;
+  pakket: string;
+  gezinssituatie: string | null;
+  inkomen_bracket: string | null;
+  grootste_knelpunt: string | null;
+  analyse_gedaan: boolean | null;
+  start_voorkeur: string | null;
+  naam: string | null;
+  email: string | null;
+  status: string;
+}
+
 export interface Lead {
   id: string;
   email: string;
@@ -50,16 +64,21 @@ export default async function AdminPage() {
 
   if (!user) redirect("/admin/login");
 
-  const [{ data: leads }, { data: quizResultaten }] = await Promise.all([
-    supabase
-      .from("leads")
-      .select("*")
-      .order("created_at", { ascending: false }),
-    supabase
-      .from("quiz_resultaten")
-      .select("*")
-      .order("created_at", { ascending: false }),
-  ]);
+  const [{ data: leads }, { data: quizResultaten }, { data: aanvragen }] =
+    await Promise.all([
+      supabase
+        .from("leads")
+        .select("*")
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("quiz_resultaten")
+        .select("*")
+        .order("created_at", { ascending: false }),
+      supabase
+        .from("intake_aanvragen")
+        .select("*")
+        .order("created_at", { ascending: false }),
+    ]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -68,6 +87,7 @@ export default async function AdminPage() {
         <AdminClient
           leads={(leads as Lead[]) ?? []}
           quizResultaten={(quizResultaten as QuizResultaat[]) ?? []}
+          aanvragen={(aanvragen as IntakeAanvraag[]) ?? []}
         />
       </main>
     </div>

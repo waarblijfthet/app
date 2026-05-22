@@ -1,25 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import { Lead, QuizResultaat } from "./page";
+import { Lead, QuizResultaat, IntakeAanvraag } from "./page";
 import LeadsTabblad from "./components/LeadsTabblad";
 import QuizResultatenTabblad from "./components/QuizResultatenTabblad";
 import OverzichtTabblad from "./components/OverzichtTabblad";
+import AanvragenTabblad from "./components/AanvragenTabblad";
 
 interface Props {
   leads: Lead[];
   quizResultaten: QuizResultaat[];
+  aanvragen: IntakeAanvraag[];
 }
 
 const TABS = [
   { id: "leads", label: "Leads" },
   { id: "quiz", label: "Quiz resultaten" },
   { id: "overzicht", label: "Overzicht" },
+  { id: "aanvragen", label: "Aanvragen" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
 
-export default function AdminClient({ leads, quizResultaten }: Props) {
+export default function AdminClient({ leads, quizResultaten, aanvragen }: Props) {
   const [actief, setActief] = useState<TabId>("leads");
 
   return (
@@ -48,6 +51,23 @@ export default function AdminClient({ leads, quizResultaten }: Props) {
                 {quizResultaten.length}
               </span>
             )}
+            {tab.id === "aanvragen" && (
+              <span
+                className="ml-2 text-xs px-1.5 py-0.5 rounded-full"
+                style={{
+                  backgroundColor:
+                    aanvragen.filter((a) => a.status === "nieuw").length > 0
+                      ? "#FEE2E2"
+                      : "#E8E0D0",
+                  color:
+                    aanvragen.filter((a) => a.status === "nieuw").length > 0
+                      ? "#991B1B"
+                      : "#6B7280",
+                }}
+              >
+                {aanvragen.length}
+              </span>
+            )}
           </button>
         ))}
       </div>
@@ -58,6 +78,7 @@ export default function AdminClient({ leads, quizResultaten }: Props) {
       {actief === "overzicht" && (
         <OverzichtTabblad leads={leads} resultaten={quizResultaten} />
       )}
+      {actief === "aanvragen" && <AanvragenTabblad aanvragen={aanvragen} />}
     </div>
   );
 }

@@ -184,7 +184,7 @@ export default function AanbodPage() {
                 className="font-display font-light"
                 style={{ fontSize: "1.5rem", lineHeight: 1.25, color: "white" }}
               >
-                Zes weken samen bijsturen
+                Zes weken een spiegel voorgehouden
               </h2>
 
               <div>
@@ -206,20 +206,20 @@ export default function AanbodPage() {
                 className="font-body"
                 style={{ fontWeight: 500, color: "white", fontSize: "1rem", lineHeight: 1.6 }}
               >
-                Na zes weken heb je een systeem dat werkt. Je weet wat er
-                binnenkomt, waar het naartoe gaat, en hoe je structureel meer
-                overhoudt.
+                Na zes weken weet je precies waar het schort — en heb je iemand
+                naast je gehad die je scherp hield. Niet met een cursus, maar
+                met een eerlijke blik van buitenaf.
               </p>
 
               <hr style={{ borderColor: "rgba(255,255,255,0.15)", margin: "0.25rem 0" }} />
 
               <ul className="space-y-2">
                 {[
-                  "Persoonlijke analyse als startpunt",
-                  "Wekelijkse WhatsApp check-in (6 weken)",
-                  "Concrete opdracht per week op basis van jouw situatie",
-                  "Altijd iemand die je een spiegel voorhoudt",
-                  "Eindoverzicht met aanbevelingen",
+                  "Persoonlijk gesprek om te begrijpen waar jullie staan",
+                  "Wekelijkse check-in via WhatsApp (6 weken)",
+                  "Eerlijke feedback op wat jullie doen — wat werkt en wat niet",
+                  "Geen standaardadvies, geen spreadsheets",
+                  "Iemand die vraagt hoe het écht gaat",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span style={{ color: "#8AB89A", fontWeight: 600, flexShrink: 0 }}>✓</span>
@@ -230,17 +230,9 @@ export default function AanbodPage() {
                 ))}
               </ul>
 
-              <p
-                className="font-body"
-                style={{ fontSize: "0.8rem", color: "rgba(245,240,232,0.5)" }}
-              >
-                Maximaal 10 deelnemers tegelijk. Zo blijft de begeleiding
-                persoonlijk.
-              </p>
-
               <div className="mt-auto">
-                <a
-                  href="mailto:hallo@waarblijfthet.nl?subject=Aanmelding%206%20weken%20traject"
+                <Link
+                  href="/aanbod/intake?pakket=6weken"
                   className="block text-center font-body font-medium text-sm py-3 px-6 transition-opacity hover:opacity-90"
                   style={{
                     backgroundColor: "white",
@@ -249,8 +241,8 @@ export default function AanbodPage() {
                     textDecoration: "none",
                   }}
                 >
-                  Ik wil meer weten →
-                </a>
+                  Ja, dit wil ik →
+                </Link>
               </div>
             </div>
 
@@ -335,8 +327,8 @@ export default function AanbodPage() {
               </p>
 
               <div className="mt-auto">
-                <a
-                  href="mailto:hallo@waarblijfthet.nl?subject=Interesse%20persoonlijke%20begeleiding"
+                <Link
+                  href="/aanbod/intake?pakket=intensief"
                   className="block text-center font-body font-medium text-sm py-3 px-6 transition-all hover:bg-[#1C3A2A] hover:text-white"
                   style={{
                     border: "1.5px solid #1C3A2A",
@@ -346,8 +338,8 @@ export default function AanbodPage() {
                     textDecoration: "none",
                   }}
                 >
-                  Neem contact op →
-                </a>
+                  Ja, dit wil ik →
+                </Link>
               </div>
             </div>
           </div>
