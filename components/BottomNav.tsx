@@ -6,7 +6,7 @@ const items = [
   {
     label: 'Home',
     href: '/',
-    icon: (active: boolean) => (
+    icon: () => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
         <polyline points="9 22 9 12 15 12 15 22"/>
@@ -17,7 +17,7 @@ const items = [
   {
     label: 'Inzichten',
     href: '/inzichten',
-    icon: (active: boolean) => (
+    icon: () => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/>
         <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>
@@ -28,7 +28,7 @@ const items = [
   {
     label: 'Analyse',
     href: '/analyse',
-    icon: (active: boolean) => (
+    icon: () => (
       <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
         <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
       </svg>
@@ -65,7 +65,7 @@ export function BottomNav() {
                 className="flex flex-col items-center gap-1 min-w-[64px] py-1 px-3 rounded-xl transition-all"
               >
                 <div className="bg-[#C4603A] rounded-full p-2" style={{ color: 'white' }}>
-                  {item.icon(false)}
+                  {item.icon()}
                 </div>
                 <span className="text-[10px] font-medium text-[#C4603A]">
                   {item.label}
@@ -81,7 +81,7 @@ export function BottomNav() {
               className="relative flex flex-col items-center gap-1 min-w-[64px] py-1 px-3 rounded-xl transition-all"
               style={{ color: isActive ? '#1C3A2A' : '#8A9E8E' }}
             >
-              <span>{item.icon(isActive)}</span>
+              <span>{item.icon()}</span>
               <span className="text-[10px] font-medium">{item.label}</span>
               {isActive && (
                 <div className="absolute bottom-0 w-1 h-1 rounded-full bg-[#1C3A2A]" />
