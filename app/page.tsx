@@ -380,6 +380,8 @@ export default function HomePage() {
                   (Bron: Deloitte, 2024)
                 </p>
               </div>
+            </div>
+
             {/* Inline CTA na statistieken */}
             <div className="mt-10 text-center">
               <p className="text-sm text-[#4A5E4E] mb-4">
