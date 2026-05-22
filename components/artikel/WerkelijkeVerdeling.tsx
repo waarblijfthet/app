@@ -1,7 +1,22 @@
 'use client'
 import { useState } from 'react'
 
-const gezinnen = [
+interface Post {
+  naam: string
+  bedrag: number
+  kleur: string
+  over?: boolean
+  zorgelijk?: boolean
+}
+
+interface Gezin {
+  label: string
+  inkomen: number
+  posten: Post[]
+  commentaar: string
+}
+
+const gezinnen: Gezin[] = [
   {
     label: 'Stel, geen kinderen, huur',
     inkomen: 4000,
@@ -43,18 +58,10 @@ const gezinnen = [
   },
 ]
 
-interface Post {
-  naam: string
-  bedrag: number
-  kleur: string
-  over?: boolean
-  zorgelijk?: boolean
-}
-
 export function WerkelijkeVerdeling() {
   const [actief, setActief] = useState(1)
   const g = gezinnen[actief]
-  const over = g.posten.find((p: Post) => p.over)
+  const over = g.posten.find((p) => p.over)
 
   return (
     <div className="my-8 rounded-2xl overflow-hidden border border-[#E8E0D4]">
@@ -81,7 +88,7 @@ export function WerkelijkeVerdeling() {
 
       <div className="p-5 bg-[#FDFAF4]">
         <div className="space-y-2 mb-5">
-          {g.posten.map((p: Post) => (
+          {g.posten.map((p) => (
             <div key={p.naam} className="flex items-center gap-3">
               <span className="text-xs text-[#4A5E4E] w-44 flex-shrink-0">{p.naam}</span>
               <div className="flex-1 h-7 bg-[#EDE6D8] rounded-lg overflow-hidden">
