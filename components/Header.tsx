@@ -1,82 +1,130 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 export default function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const isActive = (href: string) => {
+    if (href === "/") return pathname === "/";
+    return pathname.startsWith(href);
+  };
 
-  // CTA: op homepage scrollen naar formulier, elders naar /analyse
-  const ctaHref = pathname === "/" ? "#aanmelden" : "/analyse";
-  const ctaLabel = pathname === "/" ? "Meld je aan" : "Start analyse";
+  const isOpAnalyse = pathname.startsWith("/analyse");
+  const isOpInzichten = pathname.startsWith("/inzichten");
+  const isOpResultaat = pathname.startsWith("/resultaat");
+
+  // CTA knop: verborgen op analyse- en inzichten-pagina's
+  const ctaConfig =
+    isOpAnalyse || isOpInzichten
+      ? null
+      : isOpResultaat
+      ? { label: "Doe analyse opnieuw", href: "/analyse" }
+      : { label: "Start analyse", href: "/analyse" };
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-background/90 backdrop-blur-md shadow-[0_1px_12px_rgba(28,58,42,0.08)]"
-          : "bg-transparent"
-      }`}
-    >
-      <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+    <header className="fixed top-0 left-0 right-0 z-50">
+      <div
+        className="
+          flex items-center justify-between
+          px-6 py-4
+          bg-[#F5F0E8]/92 backdrop-blur-md
+          border-b border-[rgba(26,46,30,0.08)]
+        "
+      >
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 group">
-          <span className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-display font-medium text-sm flex-shrink-0">
-            wb
-          </span>
-          <span className="font-display font-light text-primary text-lg tracking-tight">
+        <Link
+          href="/"
+          className="flex items-center gap-2.5 shrink-0"
+          aria-label="Waar blijft het — terug naar home"
+        >
+          <div
+            className="
+              w-8 h-8 rounded-full bg-[#1C3A2A]
+              flex items-center justify-center
+              shrink-0
+            "
+            aria-hidden="true"
+          >
+            <span
+              className="text-[#F5F0E8] text-xs font-medium"
+              style={{ fontFamily: "Fraunces, serif" }}
+            >
+              wb
+            </span>
+          </div>
+          <span
+            className="text-[#1C3A2A] text-base font-medium hidden sm:block"
+            style={{ fontFamily: "Fraunces, serif" }}
+          >
             Waar blijft het
           </span>
         </Link>
 
-        {/* Desktop navigatie — verborgen op mobiel */}
-        <nav className="flex items-center gap-8">
-          <div className="hidden md:flex items-center gap-8">
-            <Link
-              href="/inzichten"
-              className="font-body text-sm font-medium transition-colors no-underline"
-              style={{
-                color: pathname.startsWith("/inzichten") ? "#1C3A2A" : "#4A5E4E",
-                borderBottom: pathname.startsWith("/inzichten")
-                  ? "1px solid #1C3A2A"
-                  : "1px solid transparent",
-                paddingBottom: "2px",
-              }}
-            >
-              Inzichten
-            </Link>
-            <Link
-              href="/analyse"
-              className="font-body text-sm font-medium transition-colors no-underline"
-              style={{
-                color:
-                  pathname === "/analyse" || pathname.startsWith("/analyse/")
-                    ? "#1C3A2A"
-                    : "#4A5E4E",
-                borderBottom:
-                  pathname === "/analyse" || pathname.startsWith("/analyse/")
-                    ? "1px solid #1C3A2A"
-                    : "1px solid transparent",
-                paddingBottom: "2px",
-              }}
-            >
-              Analyse
-            </Link>
-          </div>
-
-          {/* CTA — altijd zichtbaar */}
-          <Link href={ctaHref} className="btn-primary text-sm py-2 px-5">
-            {ctaLabel}
+        {/* Desktop nav links: Inzichten | Aanbod | Analyse */}
+        <nav
+          className="hidden md:flex items-center gap-8"
+          aria-label="Hoofdnavigatie"
+        >
+          <Link
+            href="/inzichten"
+            className={`
+              text-sm font-medium transition-colors pb-0.5
+              ${
+                isActive("/inzichten")
+                  ? "text-[#1C3A2A] border-b border-[#1C3A2A]"
+                  : "text-[#4A5E4E] hover:text-[#1C3A2A]"
+              }
+            `}
+          >
+            Inzichten
+          </Link>
+          <Link
+            href="/aanbod"
+            className={`
+              text-sm font-medium transition-colors pb-0.5
+              ${
+                isActive("/aanbod")
+                  ? "text-[#1C3A2A] border-b border-[#1C3A2A]"
+                  : "text-[#4A5E4E] hover:text-[#1C3A2A]"
+              }
+            `}
+          >
+            Aanbod
+          </Link>
+          <Link
+            href="/analyse"
+            className={`
+              text-sm font-medium transition-colors pb-0.5
+              ${
+                isActive("/analyse")
+                  ? "text-[#1C3A2A] border-b border-[#1C3A2A]"
+                  : "text-[#4A5E4E] hover:text-[#1C3A2A]"
+              }
+            `}
+          >
+            Analyse
           </Link>
         </nav>
+
+        {/* CTA knop rechts — alleen desktop, verborgen op /analyse en /inzichten */}
+        {ctaConfig && (
+          <Link
+            href={ctaConfig.href}
+            className="
+              hidden md:inline-flex items-center gap-1.5
+              bg-[#C4603A] text-[#FDFAF4]
+              px-5 py-2 rounded-full
+              text-sm font-medium
+              hover:opacity-90 transition-opacity
+              shrink-0
+            "
+          >
+            {ctaConfig.label}
+            <span aria-hidden="true">→</span>
+          </Link>
+        )}
       </div>
     </header>
   );

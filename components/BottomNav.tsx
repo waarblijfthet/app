@@ -3,22 +3,6 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-const HomeIcon = ({ active }: { active: boolean }) => (
-  <svg
-    width="22"
-    height="22"
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={active ? 2.2 : 1.8}
-    strokeLinecap="round"
-    strokeLinejoin="round"
-  >
-    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-    <polyline points="9 22 9 12 15 12 15 22" />
-  </svg>
-);
-
 const InzichtenIcon = ({ active }: { active: boolean }) => (
   <svg
     width="22"
@@ -32,6 +16,22 @@ const InzichtenIcon = ({ active }: { active: boolean }) => (
   >
     <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
     <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+  </svg>
+);
+
+const AanbodIcon = ({ active }: { active: boolean }) => (
+  <svg
+    width="22"
+    height="22"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={active ? 2.2 : 1.8}
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z" />
+    <line x1="7" y1="7" x2="7.01" y2="7" />
   </svg>
 );
 
@@ -55,8 +55,8 @@ export function BottomNav() {
 
   if (pathname.startsWith("/admin")) return null;
 
-  const isHome = pathname === "/";
   const isInzichten = pathname.startsWith("/inzichten");
+  const isAanbod = pathname.startsWith("/aanbod");
   const isAnalyse =
     pathname.startsWith("/analyse") || pathname.startsWith("/resultaat");
 
@@ -73,17 +73,6 @@ export function BottomNav() {
         <div className="absolute inset-0 bg-[#F5F0E8]/95 backdrop-blur-lg border-t border-[#E8E0D4]" />
 
         <div className="relative flex items-stretch pb-2">
-          {/* Home */}
-          <Link
-            href="/"
-            className="flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 transition-colors"
-            style={{ color: isHome ? "#1C3A2A" : "#8A9E8E" }}
-            aria-current={isHome ? "page" : undefined}
-          >
-            <HomeIcon active={isHome} />
-            <span className="text-[10px] font-medium">Home</span>
-          </Link>
-
           {/* Inzichten */}
           <Link
             href="/inzichten"
@@ -93,6 +82,17 @@ export function BottomNav() {
           >
             <InzichtenIcon active={isInzichten} />
             <span className="text-[10px] font-medium">Inzichten</span>
+          </Link>
+
+          {/* Aanbod */}
+          <Link
+            href="/aanbod"
+            className="flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 transition-colors"
+            style={{ color: isAanbod ? "#1C3A2A" : "#8A9E8E" }}
+            aria-current={isAanbod ? "page" : undefined}
+          >
+            <AanbodIcon active={isAanbod} />
+            <span className="text-[10px] font-medium">Aanbod</span>
           </Link>
 
           {/* Analyse — altijd prominent, accent kleur als niet actief */}
