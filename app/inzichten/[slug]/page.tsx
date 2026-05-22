@@ -155,6 +155,27 @@ export default function ArtikelPage({ params }: Props) {
               <h1 className="font-display font-light text-primary text-4xl sm:text-5xl leading-tight mb-6">
                 {artikel.titel}
               </h1>
+
+              {/* Author bar */}
+              <div
+                className="flex items-center gap-3 py-4 border-t border-b border-[#E8E0D0]"
+                style={{ marginTop: "0.5rem" }}
+              >
+                <div
+                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-display font-medium text-white text-base"
+                  style={{ backgroundColor: "#1C3A2A" }}
+                >
+                  J
+                </div>
+                <div>
+                  <p className="font-body font-medium text-[#1C3A2A] text-sm leading-snug">
+                    Jarno Koopman
+                  </p>
+                  <p className="font-body text-[#8A9E8E] text-xs">
+                    Oprichter Waar blijft het · {artikel.datumFormatted}
+                  </p>
+                </div>
+              </div>
             </div>
           </header>
 
@@ -263,6 +284,68 @@ export default function ArtikelPage({ params }: Props) {
               )}
             </div>
           </div>
+
+          {/* Lees ook */}
+          {(() => {
+            const gerelateerd = artikelen
+              .filter((a) => a.slug !== artikel.slug)
+              .slice(0, 2);
+            if (gerelateerd.length === 0) return null;
+            return (
+              <div
+                className="py-12"
+                style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid #E8E0D0" }}
+              >
+                <div className="max-w-[720px] mx-auto px-6">
+                  <h2
+                    className="font-display font-light text-[#1C3A2A] mb-6"
+                    style={{ fontSize: "1.4rem" }}
+                  >
+                    Lees ook
+                  </h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {gerelateerd.map((a) => (
+                      <Link
+                        key={a.slug}
+                        href={`/inzichten/${a.slug}`}
+                        className="group block bg-[#FDFAF4] rounded-xl p-5 border border-[#E8E0D4] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                      >
+                        <span
+                          className="text-[10px] font-medium uppercase tracking-wider px-2 py-1 rounded-full mb-3 inline-block"
+                          style={{
+                            backgroundColor:
+                              a.categorie === "Besparen"
+                                ? "#E8F2EC"
+                                : a.categorie === "Inkomen"
+                                ? "#FAF0EB"
+                                : a.categorie === "Sparen"
+                                ? "#EDE6D8"
+                                : "#E8F2FA",
+                            color:
+                              a.categorie === "Besparen"
+                                ? "#2D6A4F"
+                                : a.categorie === "Inkomen"
+                                ? "#92600A"
+                                : a.categorie === "Sparen"
+                                ? "#4A5E4E"
+                                : "#1B5E8A",
+                          }}
+                        >
+                          {a.categorie}
+                        </span>
+                        <p className="font-display font-light text-[#1C3A2A] text-base leading-snug group-hover:text-[#C4603A] transition-colors">
+                          {a.titel}
+                        </p>
+                        <p className="font-body text-[#8A9E8E] text-xs mt-2">
+                          {a.leestijd} min leestijd
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          })()}
         </article>
       </main>
 

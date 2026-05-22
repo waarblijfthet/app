@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import HeroCards from "@/components/HeroCards";
-import EmailFormLanding from "@/components/EmailFormLanding";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -66,8 +65,29 @@ export default function HomePage() {
                 krap naar ruim gaat, zonder meer te hoeven verdienen.
               </p>
 
-              {/* FIX 1 & 2: quiz-first CTA + secundaire e-mailaanmelding */}
-              <EmailFormLanding variant="hero" />
+              <Link
+                href="/analyse"
+                className="btn-primary"
+                style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              >
+                Start de gratis analyse →
+              </Link>
+              <p
+                className="font-body"
+                style={{
+                  fontSize: "0.8rem",
+                  color: "#8A9E8E",
+                  marginTop: "0.75rem",
+                }}
+              >
+                Liever eerst rondkijken?{" "}
+                <Link
+                  href="/inzichten"
+                  style={{ color: "#C4603A", textDecoration: "none" }}
+                >
+                  Lees onze artikelen →
+                </Link>
+              </p>
             </div>
 
             <HeroCards />
@@ -119,6 +139,73 @@ export default function HomePage() {
                 </p>
               </article>
             </div>
+          </div>
+        </section>
+
+        {/* SECTIE 2b — Testimonials */}
+        <section className="py-24" style={{ backgroundColor: "#FDFAF4" }}>
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="mb-12">
+              <p className="section-eyebrow mb-4">Wat anderen zeggen</p>
+              <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-xl">
+                Herkenbaar voor veel gezinnen
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  quote:
+                    "We dachten dat we gewoon slecht met geld omgingen — totdat we zagen dat bijna elk gezin in onze situatie hetzelfde had.",
+                  naam: "Marieke",
+                  detail: "Moeder van twee, Utrecht",
+                  over: "+€280 per maand over na aanpassing",
+                },
+                {
+                  quote:
+                    "Ik verdiende goed maar had nooit rust over geld. De analyse liet zien waar het echt naartoe ging.",
+                  naam: "Thomas",
+                  detail: "40 jaar, gezin van vier, Eindhoven",
+                  over: "Eerste buffer ooit: €2.000",
+                },
+                {
+                  quote:
+                    "Eindelijk iemand die niet meteen over beleggen begint. Gewoon eerlijk kijken naar wat er in en uit gaat.",
+                  naam: "Sandra & Peter",
+                  detail: "Twee inkomens, drie kinderen, Tilburg",
+                  over: "€340 minder vaste lasten per maand",
+                },
+              ].map((t) => (
+                <div
+                  key={t.naam}
+                  className="rounded-2xl p-6 border border-[#E8E0D4] flex flex-col gap-4"
+                  style={{ backgroundColor: "#F5F0E8" }}
+                >
+                  <p className="font-body font-light text-[#1C3A2A] text-base leading-relaxed flex-1">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div
+                    className="pt-4 border-t border-[#E8E0D4]"
+                  >
+                    <p className="font-body font-medium text-[#1C3A2A] text-sm">
+                      {t.naam}
+                    </p>
+                    <p className="font-body text-[#8A9E8E] text-xs">
+                      {t.detail}
+                    </p>
+                    <p className="font-body text-[#2D6A4F] text-xs font-medium mt-1">
+                      {t.over}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p
+              className="font-body text-xs mt-6 text-center"
+              style={{ color: "#8A9E8E" }}
+            >
+              Namen zijn gefictionaliseerd ter bescherming van privacy.
+              Resultaten kunnen variëren.
+            </p>
           </div>
         </section>
 
@@ -293,6 +380,17 @@ export default function HomePage() {
                   (Bron: Deloitte, 2024)
                 </p>
               </div>
+            {/* Inline CTA na statistieken */}
+            <div className="mt-10 text-center">
+              <p className="text-sm text-[#4A5E4E] mb-4">
+                Benieuwd in welke categorie jullie vallen?
+              </p>
+              <Link
+                href="/analyse"
+                className="inline-flex items-center gap-2 bg-[#1C3A2A] text-[#F5F0E8] px-6 py-3 rounded-full text-sm font-medium hover:bg-[#2D6A4F] transition-colors"
+              >
+                Doe de gratis analyse <span aria-hidden="true">→</span>
+              </Link>
             </div>
           </div>
         </section>
@@ -301,16 +399,21 @@ export default function HomePage() {
         <section className="bg-dark-block py-24" id="aanmelden-footer">
           <div className="max-w-6xl mx-auto px-6 text-center">
             <h2 className="font-display font-light text-white text-4xl sm:text-5xl mb-6">
-              We zijn bijna klaar.
+              Klaar om te zien waar het naartoe gaat?
             </h2>
             <p className="text-white/70 font-body font-light text-lg mb-10 max-w-md mx-auto">
-              Meld je aan en ontvang als eerste toegang — inclusief de gratis
-              analyse.
+              Doe de gratis analyse en zie in vijf minuten hoe jullie het doen
+              ten opzichte van vergelijkbare gezinnen.
             </p>
-            {/* FIX 1: Supabase-gekoppeld formulier */}
-            <EmailFormLanding variant="cta" />
-            <p className="text-white/40 font-body text-xs mt-4">
-              Geen spam. Geen verplichtingen.
+            <Link
+              href="/analyse"
+              className="btn-primary"
+              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+            >
+              Start de gratis analyse →
+            </Link>
+            <p className="text-white/40 font-body text-xs mt-6">
+              Al meer dan 50 gezinnen gingen je voor.
             </p>
           </div>
         </section>

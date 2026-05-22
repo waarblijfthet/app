@@ -60,7 +60,7 @@ function ArtikelKaart({
               featured ? "text-xl md:text-2xl" : "text-lg"
             }`}
           >
-            {artikel.titel}
+            {artikel.korteTitel || artikel.titel}
           </h2>
 
           {/* Excerpt */}

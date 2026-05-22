@@ -63,6 +63,7 @@ export type ArticlePreviewData =
 export interface Artikel {
   slug: string;
   titel: string;
+  korteTitel: string;
   metaTitel: string;
   metaDescription: string;
   datum: string;
@@ -80,6 +81,7 @@ export interface Artikel {
 export const artikelen: Artikel[] = [
   {
     slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
+    korteTitel: "Boodschappen: norm vs. werkelijkheid",
     titel:
       "Wat zijn normale boodschappenkosten per maand? Nibud vs. werkelijkheid",
     metaTitel:
@@ -145,6 +147,7 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "is-4000-euro-netto-goed-salaris-nederland",
+    korteTitel: "Is €4.000 netto een goed salaris?",
     titel:
       "Is €4.000 netto per maand een goed salaris? Ja — maar dit is wat er werkelijk van overblijft",
     metaTitel:
@@ -212,6 +215,7 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "hoeveel-sparen-per-maand-normaal-nederland",
+    korteTitel: "Hoeveel sparen is normaal?",
     titel:
       "Hoeveel sparen per maand is normaal? Het eerlijke antwoord — inclusief de mensen die helemaal niks sparen",
     metaTitel:
@@ -278,6 +282,7 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "goed-salaris-toch-krap",
+    korteTitel: "Goed salaris, toch krap — waarom?",
     titel:
       "Goed salaris, toch krap aan het einde van de maand — hoe kan dat?",
     metaTitel: "Goed salaris, toch krap — hoe kan dat? | Waar blijft het",
@@ -299,6 +304,7 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "vergelijken-boodschappen-nederland-duitsland",
+    korteTitel: "Boodschappen: Nederland vs. Duitsland",
     titel:
       "Boodschappen vergelijken Nederland vs Duitsland — wat koop je waar?",
     metaTitel:
@@ -360,6 +366,7 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "boodschappen-duitsland-voordeel",
+    korteTitel: "Boodschappen in Duitsland: het voordeel",
     titel: "Boodschappen doen in Duitsland — levert het echt wat op?",
     metaTitel:
       "Boodschappen in Duitsland: echt voordeel of niet? | Waar blijft het",
@@ -420,6 +427,7 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "spaardoelen-maandelijkse-inleg",
+    korteTitel: "Spaardoelen: zo werkt het",
     titel:
       "Werken met spaardoelen en maandelijkse inleg — hoe werkt het en wat heb je eraan?",
     metaTitel: "Spaardoelen en maandelijkse inleg: hoe pak je dat aan?",
@@ -480,6 +488,7 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "salarisverhoging-boven-76000-weinig-netto",
+    korteTitel: "Waarom salarisverhoging boven €76k weinig oplevert",
     titel:
       "Waarom levert een salarisverhoging boven de €76.000 zo weinig netto op?",
     metaTitel:

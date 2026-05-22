@@ -40,6 +40,20 @@ export default function QuizClient() {
 
   return (
     <div>
+      {step === 1 && (
+        <div className="text-center mb-8 max-w-lg mx-auto">
+          <div className="inline-flex items-center gap-2 bg-[#E8F2EC] text-[#2D6A4F] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
+            <span>⏱</span>
+            <span>5 minuten · Anoniem · Geen producten</span>
+          </div>
+          <p className="text-[#4A5E4E] text-sm leading-relaxed">
+            Vul je situatie in en zie direct hoe jullie het doen ten opzichte
+            van vergelijkbare gezinnen. Na stap 2 zie je al de eerste
+            vergelijking.
+          </p>
+        </div>
+      )}
+
       <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
 
       {step < TOTAL_STEPS ? (
