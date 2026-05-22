@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
+import { BottomNav } from "@/components/BottomNav";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -68,7 +69,10 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
-      <body className="font-body antialiased">{children}</body>
+      <body className="font-body antialiased pb-20 md:pb-0">
+        {children}
+        <BottomNav />
+      </body>
     </html>
   );
 }

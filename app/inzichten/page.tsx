@@ -34,15 +34,15 @@ export default function InzichtenPage() {
 
         <section className="bg-background py-12 pb-24">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
               {artikelen.map((artikel) => (
                 <article
                   key={artikel.slug}
-                  className="card-base border border-[#E8E0D0] group flex flex-col"
+                  className="card-base border border-[#E8E0D0] group flex flex-col min-h-[120px]"
                 >
-                  {/* Decorative header */}
+                  {/* Decorative header — kleiner op mobiel */}
                   <div
-                    className="w-full h-48 rounded-lg mb-5 bg-green-light flex items-end p-4"
+                    className="w-full h-28 md:h-48 rounded-lg mb-4 md:mb-5 bg-green-light flex items-end p-4"
                     aria-hidden="true"
                   >
                     <span className="font-display font-light text-primary/30 text-5xl leading-none italic">
