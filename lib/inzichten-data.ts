@@ -8,6 +8,58 @@ export interface ExternLink {
   url: string;
 }
 
+// ── Preview types (discriminated union) ──────────────────────────────────────
+
+export type PreviewVergelijking = {
+  type: "vergelijking";
+  label: string;
+  items: { naam: string; bedrag: number; kleur: string }[];
+  noot?: string;
+};
+
+export type PreviewVerdeling = {
+  type: "verdeling";
+  label: string;
+  posten: { naam: string; pct: number; kleur: string }[];
+  uitkomst: string;
+};
+
+export type PreviewStatistiek = {
+  type: "statistiek";
+  label: string;
+  segmenten: { label: string; pct: number; kleur: string; tekstKleur: string }[];
+};
+
+export type PreviewTarief = {
+  type: "tarief";
+  label: string;
+  netto: number;
+  belasting: number;
+  kortingsafbouw: number;
+};
+
+export type PreviewPijn = {
+  type: "pijn";
+  label: string;
+  items: string[];
+};
+
+export type PreviewDoelen = {
+  type: "doelen";
+  label: string;
+  stappen: { bedrag: number; maanden: number; kleur: string }[];
+};
+
+export type ArticlePreviewData =
+  | PreviewVergelijking
+  | PreviewVerdeling
+  | PreviewStatistiek
+  | PreviewTarief
+  | PreviewPijn
+  | PreviewDoelen;
+
+// ── Artikel interface ────────────────────────────────────────────────────────
+
 export interface Artikel {
   slug: string;
   titel: string;
@@ -20,7 +72,10 @@ export interface Artikel {
   excerpt: string;
   faq: FAQItem[];
   externLinks?: ExternLink[];
+  preview: ArticlePreviewData;
 }
+
+// ── Artikeldata ──────────────────────────────────────────────────────────────
 
 export const artikelen: Artikel[] = [
   {
@@ -37,6 +92,15 @@ export const artikelen: Artikel[] = [
     categorie: "Besparen",
     excerpt:
       "Het Nibud zegt €553 voor een gezin van vier. Maar in de praktijk geeft datzelfde gezin €700-900 uit — en bij pubers loopt het op naar €1.000 of meer. De kloof is groter dan je denkt, en er zijn drie oorzaken die vrijwel niemand benoemt.",
+    preview: {
+      type: "vergelijking",
+      label: "Nibud norm vs. werkelijkheid",
+      items: [
+        { naam: "Nibud minimum", bedrag: 655, kleur: "#2D6A4F" },
+        { naam: "Werkelijk gemiddeld", bedrag: 875, kleur: "#C4603A" },
+      ],
+      noot: "Gezin + 2 kinderen /mnd",
+    },
     faq: [
       {
         vraag: "Wat zijn normale boodschappenkosten voor een gezin van 4 in 2026?",
@@ -93,6 +157,17 @@ export const artikelen: Artikel[] = [
     categorie: "Inkomen",
     excerpt:
       "€4.000 netto is top 25% van Nederland. En toch houdt een gezin met koopwoning en twee kinderen er gemiddeld €505 van over. Dat voelt niet als top 25 procent. Hoe dat kan — en wat je eraan doet.",
+    preview: {
+      type: "verdeling",
+      label: "Van €4.000 netto blijft over",
+      posten: [
+        { naam: "Wonen", pct: 39, kleur: "#1C3A2A" },
+        { naam: "Boodschappen", pct: 22, kleur: "#2D6A4F" },
+        { naam: "Vervoer", pct: 15, kleur: "#8AB89A" },
+        { naam: "Rest", pct: 24, kleur: "#EDE6D8" },
+      ],
+      uitkomst: "€505 over",
+    },
     faq: [
       {
         vraag: "Is €4.000 netto per maand een goed salaris in Nederland?",
@@ -149,6 +224,16 @@ export const artikelen: Artikel[] = [
     categorie: "Sparen",
     excerpt:
       "Nibud adviseert 10%. Maar meer dan een kwart van de Nederlandse huishoudens spaart helemaal niets — en van de rest haalt de meerderheid die 10% niet. Dit is wat normaal is, en wat een realistisch beginpunt is als je nu niks overhoudt.",
+    preview: {
+      type: "statistiek",
+      label: "Nederlanders die sparen",
+      segmenten: [
+        { label: "Spaart niets", pct: 27, kleur: "#FDECEA", tekstKleur: "#B03A2E" },
+        { label: "< 5%", pct: 31, kleur: "#FAF0EB", tekstKleur: "#92600A" },
+        { label: "5-10%", pct: 24, kleur: "#EDE6D8", tekstKleur: "#4A5E4E" },
+        { label: "10%+", pct: 18, kleur: "#E8F2EC", tekstKleur: "#2D6A4F" },
+      ],
+    },
     faq: [
       {
         vraag: "Hoeveel procent van de Nederlanders spaart helemaal niets?",
@@ -195,8 +280,7 @@ export const artikelen: Artikel[] = [
     slug: "goed-salaris-toch-krap",
     titel:
       "Goed salaris, toch krap aan het einde van de maand — hoe kan dat?",
-    metaTitel:
-      "Goed salaris, toch krap — hoe kan dat? | Waar blijft het",
+    metaTitel: "Goed salaris, toch krap — hoe kan dat? | Waar blijft het",
     metaDescription:
       "Goed verdienen maar toch weinig over? Je bent niet de enige. Ontdek waarom het geld verdwijnt en wat je er zonder grote offers aan kunt doen.",
     datum: "2026-05-19",
@@ -205,6 +289,11 @@ export const artikelen: Artikel[] = [
     categorie: "Inzicht",
     excerpt:
       "Je verdient genoeg. Niet extreem, maar genoeg. En toch staat er aan het einde van de maand bijna niks meer op de rekening. Hoe kan dat?",
+    preview: {
+      type: "pijn",
+      label: "Herken jij dit?",
+      items: ["Goed verdienen", "Toch krap", "Geen idee waarom"],
+    },
     faq: [],
     externLinks: [],
   },
@@ -222,6 +311,15 @@ export const artikelen: Artikel[] = [
     categorie: "Besparen",
     excerpt:
       "Bijna de helft goedkoper. Dat is wat Kassa ontdekte bij een vergelijking van 13 drogisterijproducten. €161,69 in Nederland, €73,75 in Duitsland. Voor exact dezelfde producten.",
+    preview: {
+      type: "vergelijking",
+      label: "Nederland vs. Duitsland",
+      items: [
+        { naam: "Nederland", bedrag: 161.69, kleur: "#C4603A" },
+        { naam: "Duitsland", bedrag: 73.75, kleur: "#2D6A4F" },
+      ],
+      noot: "Zelfde 13 producten (Kassa 2025)",
+    },
     faq: [
       {
         vraag: "Hoeveel goedkoper zijn boodschappen in Duitsland dan in Nederland?",
@@ -273,6 +371,15 @@ export const artikelen: Artikel[] = [
     categorie: "Besparen",
     excerpt:
       "Bijna iedereen kent iemand die er prat op gaat: grote boodschappen haalt hij in Duitsland. Maar of je er echt op vooruitgaat, hangt af van waar je woont en hoe je winkelt.",
+    preview: {
+      type: "vergelijking",
+      label: "Volle kar: NL vs. DE",
+      items: [
+        { naam: "Nederland", bedrag: 100, kleur: "#C4603A" },
+        { naam: "Duitsland", bedrag: 85, kleur: "#2D6A4F" },
+      ],
+      noot: "Gemiddeld 15% goedkoper (Consumentenbond 2025)",
+    },
     faq: [
       {
         vraag: "Is boodschappen doen in Duitsland echt goedkoper?",
@@ -315,8 +422,7 @@ export const artikelen: Artikel[] = [
     slug: "spaardoelen-maandelijkse-inleg",
     titel:
       "Werken met spaardoelen en maandelijkse inleg — hoe werkt het en wat heb je eraan?",
-    metaTitel:
-      "Spaardoelen en maandelijkse inleg: hoe pak je dat aan?",
+    metaTitel: "Spaardoelen en maandelijkse inleg: hoe pak je dat aan?",
     metaDescription:
       "Sparen lukt pas als je weet waarvoor je spaart. Hoe stel je spaardoelen in die werken, en wat is een realistisch maandbedrag? Een praktische uitleg.",
     datum: "2026-05-21",
@@ -325,6 +431,15 @@ export const artikelen: Artikel[] = [
     categorie: "Sparen",
     excerpt:
       "Sparen zonder doel is een beetje zoals afvallen zonder te weten hoeveel je wilt afvallen. Een spaardoel geeft het concreet. Je weet wat je wil, wanneer je het nodig hebt, en wat je maandelijks opzij moet zetten.",
+    preview: {
+      type: "doelen",
+      label: "Hoe lang tot €5.000?",
+      stappen: [
+        { bedrag: 50, maanden: 100, kleur: "#FDECEA" },
+        { bedrag: 100, maanden: 50, kleur: "#FAF0EB" },
+        { bedrag: 200, maanden: 25, kleur: "#E8F2EC" },
+      ],
+    },
     faq: [
       {
         vraag: "Hoeveel moet je maandelijks sparen?",
@@ -377,6 +492,13 @@ export const artikelen: Artikel[] = [
     categorie: "Inkomen",
     excerpt:
       "Je hebt hard gewerkt, een mooie salarisverhoging gekregen, en dan valt je nettoloon amper op. Wat is er aan de hand? Het antwoord zit in de manier waarop het Nederlandse belastingstelsel werkt.",
+    preview: {
+      type: "tarief",
+      label: "Van €10.000 bruto meer houd je over",
+      netto: 375,
+      belasting: 4950,
+      kortingsafbouw: 675,
+    },
     faq: [
       {
         vraag: "Hoeveel belasting betaal je boven €76.000 in Nederland?",
