@@ -1,0 +1,134 @@
+'use client'
+import { useState } from 'react'
+
+const categorieen = [
+  {
+    label: 'Spaart niets',
+    pct: 27,
+    kleur: '#FDECEA',
+    tekstKleur: '#B03A2E',
+    beschrijving: 'Meer dan een kwart van de Nederlandse huishoudens spaart structureel niks. Niet omdat ze lui zijn, maar omdat er aan het einde van de maand niets meer over is.',
+  },
+  {
+    label: 'Spaart minder dan 5%',
+    pct: 31,
+    kleur: '#FAF0EB',
+    tekstKleur: '#92600A',
+    beschrijving: 'De grootste groep. Zet elke maand iets opzij, maar te weinig om een echte buffer op te bouwen. Nibud-advies van 10% is buiten bereik.',
+  },
+  {
+    label: 'Spaart 5-10%',
+    pct: 24,
+    kleur: '#EDE6D8',
+    tekstKleur: '#4A5E4E',
+    beschrijving: 'Dichter bij de norm. Bouwt langzaam een buffer op. Voor een modaal gezin met kinderen is dit al een prestatie.',
+  },
+  {
+    label: 'Spaart 10%+ (Nibud-norm)',
+    pct: 18,
+    kleur: '#E8F2EC',
+    tekstKleur: '#2D6A4F',
+    beschrijving: 'De minderheid. Haalt de officiële Nibud-norm. Bijna altijd met een actief systeem: automatische overschrijving op salarisdag, aparte spaarrekeningen per doel.',
+  },
+]
+
+const bufferDoelen = [
+  { doel: 'Begin (€1.000)', maanden: [20, 13, 8, 5], kleur: '#8AB89A' },
+  { doel: 'Noodbuffer 3 mnd (€9.300)', maanden: [186, 120, 77, 47], kleur: '#2D6A4F' },
+  { doel: 'Vakantie €3.000', maanden: [60, 39, 25, 15], kleur: '#C4603A' },
+]
+
+const inkomens = ['€50/mnd', '€100/mnd', '€200/mnd (6,5%)', '€310/mnd (10%)']
+
+export function SpaarRealiteit() {
+  const [tab, setTab] = useState<'verdeling' | 'doelen'>('verdeling')
+
+  return (
+    <div className="my-8 rounded-2xl overflow-hidden border border-[#E8E0D4]">
+      <div className="bg-[#1C3A2A] px-5 py-4">
+        <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">Spaargedrag Nederlanders</p>
+        <p className="text-[#F5F0E8] text-sm font-medium">Hoe de werkelijkheid eruitziet</p>
+      </div>
+
+      <div className="flex border-b border-[#E8E0D4] bg-[#F5F0E8]">
+        {([['verdeling', 'Wie spaart wat?'], ['doelen', 'Hoe lang duurt het?']] as [string, string][]).map(([key, label]) => (
+          <button
+            key={key}
+            onClick={() => setTab(key as 'verdeling' | 'doelen')}
+            className={`flex-1 py-3 text-sm font-medium transition-colors ${
+              tab === key
+                ? 'text-[#1C3A2A] border-b-2 border-[#1C3A2A] bg-white'
+                : 'text-[#8A9E8E]'
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      <div className="p-5 bg-[#FDFAF4]">
+        {tab === 'verdeling' ? (
+          <div className="space-y-3">
+            {categorieen.map(c => (
+              <div
+                key={c.label}
+                className="rounded-xl p-4 border border-[#E8E0D4]"
+                style={{ backgroundColor: c.kleur }}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium" style={{ color: c.tekstKleur }}>{c.label}</span>
+                  <span className="text-2xl font-semibold" style={{ color: c.tekstKleur }}>{c.pct}%</span>
+                </div>
+                <div className="h-2 bg-white/50 rounded-full overflow-hidden mb-2">
+                  <div
+                    className="h-full rounded-full transition-all"
+                    style={{ width: `${c.pct}%`, backgroundColor: c.tekstKleur }}
+                  />
+                </div>
+                <p className="text-xs text-[#4A5E4E]">{c.beschrijving}</p>
+              </div>
+            ))}
+            <p className="text-xs text-[#8A9E8E] mt-2">Bron: CBS vermogensstatistieken 2024, FinBuddy spaaronderzoek 2026.</p>
+          </div>
+        ) : (
+          <div>
+            <p className="text-sm text-[#4A5E4E] mb-4">Hoeveel maanden duurt het om een spaardoel te bereiken bij modaal inkomen (€3.100 netto)?</p>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm min-w-[400px]">
+                <thead>
+                  <tr className="border-b border-[#E8E0D4]">
+                    <th className="text-left py-2 text-xs text-[#8A9E8E] font-medium">Spaardoel</th>
+                    {inkomens.map(inc => (
+                      <th key={inc} className="text-right py-2 text-xs text-[#8A9E8E] font-medium">{inc}</th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {bufferDoelen.map(b => (
+                    <tr key={b.doel} className="border-b border-[#E8E0D4]">
+                      <td className="py-3 text-[#4A5E4E]">{b.doel}</td>
+                      {b.maanden.map((m, i) => (
+                        <td key={i} className="text-right py-3">
+                          <span
+                            className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
+                              m > 100 ? 'bg-[#FDECEA] text-[#B03A2E]' :
+                              m > 30 ? 'bg-[#FAF0EB] text-[#92600A]' :
+                              'bg-[#E8F2EC] text-[#2D6A4F]'
+                            }`}
+                          >
+                            {m} mnd
+                          </span>
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-[#8A9E8E] mt-3">Zonder rente. Met rente (2%) gaat het iets sneller. Maar het patroon is helder: wie meer spaart bereikt doelen veel eerder.</p>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}

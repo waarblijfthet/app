@@ -24,6 +24,174 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
+    titel:
+      "Wat zijn normale boodschappenkosten per maand? Nibud vs. werkelijkheid",
+    metaTitel:
+      "Wat zijn normale boodschappenkosten per maand? Nibud vs. werkelijkheid",
+    metaDescription:
+      "Nibud zegt €553 voor een gezin van 4. Maar in de praktijk geeft datzelfde gezin €700-900 uit. Wat verklaart dat verschil — en wat betekent het voor jou?",
+    datum: "2026-05-21",
+    datumFormatted: "21 mei 2026",
+    leestijd: "7",
+    categorie: "Besparen",
+    excerpt:
+      "Het Nibud zegt €553 voor een gezin van vier. Maar in de praktijk geeft datzelfde gezin €700-900 uit — en bij pubers loopt het op naar €1.000 of meer. De kloof is groter dan je denkt, en er zijn drie oorzaken die vrijwel niemand benoemt.",
+    faq: [
+      {
+        vraag: "Wat zijn normale boodschappenkosten voor een gezin van 4 in 2026?",
+        antwoord:
+          "Nibud hanteert een minimum van €553-674 per maand voor voeding. Maar uit forum-polls en blogs blijkt dat de meeste gezinnen van vier €700-875 per maand uitgeven als je ook drogisterij, bakker en tussendoor meeneemt. Met pubers loopt dit snel op naar €900-1.100.",
+      },
+      {
+        vraag: "Waarom geef ik zoveel meer uit aan boodschappen dan het Nibud-advies?",
+        antwoord:
+          "Omdat het Nibud-bedrag een minimum is voor voeding — geen drogisterij, geen bakker, geen schoollunches. Bovendien onderschat Nibud hoeveel kinderen boven de 10 jaar eten. In de praktijk geeft bijna elk gezin met oudere kinderen structureel meer uit dan de norm.",
+      },
+      {
+        vraag: "Hoeveel geven gezinnen met drie kinderen werkelijk uit aan boodschappen?",
+        antwoord:
+          "Uit ervaringen van bloggers en forums: gezinnen van vijf met kinderen van 8-14 jaar geven gemiddeld €900-1.400 per maand uit. Dat hangt sterk af van de winkelkeuze, of je actief plant en of je drogisterijproducten meetelt.",
+      },
+      {
+        vraag: "Hoe bespaar ik op boodschappen zonder in te leveren op kwaliteit?",
+        antwoord:
+          "Begin met weekmenu's maken — dat vermindert verspilling en impulsaankopen. Kies bewust je winkel per categorie: drogisterij goedkoper bij Aldi of over de grens bij DM. Stel een wekelijks budget in dat zichtbaar is. Een realistisch doel is 10-15% besparen op je huidige bedrag.",
+      },
+      {
+        vraag: "Telt de bakker en slager mee in het Nibud-bedrag voor boodschappen?",
+        antwoord:
+          "Nee. Het Nibud-bedrag betreft alleen voeding bereid thuis, gebaseerd op supermarktprijzen. Brood van de bakker, vlees van de slager en alle drogisterijproducten komen er bovenop. Voor een gemiddeld gezin is dat al snel €150-250 extra per maand.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud huishoudelijke uitgaven 2026",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
+      },
+      {
+        label: "Forum poll boodschappen per maand (Zeg maar Yes)",
+        url: "https://www.zegmaaryes.nl/boodschappen-per-maand-gezin-t38420.html",
+      },
+      {
+        label: "Mamablogger boodschappenbudget 2025",
+        url: "https://mamablogger.nl/boodschappenbudget-en-weekbudget-voor-2025/",
+      },
+    ],
+  },
+  {
+    slug: "is-4000-euro-netto-goed-salaris-nederland",
+    titel:
+      "Is €4.000 netto per maand een goed salaris? Ja — maar dit is wat er werkelijk van overblijft",
+    metaTitel:
+      "Is €4.000 netto een goed salaris? Ja — maar dit is wat er echt van overblijft",
+    metaDescription:
+      "€4.000 netto is top 25% in Nederland. Maar een gezin met koopwoning en 2 kinderen houdt er vaak minder dan €500 van over. Hoe dat kan, leggen we eerlijk uit.",
+    datum: "2026-05-21",
+    datumFormatted: "21 mei 2026",
+    leestijd: "6",
+    categorie: "Inkomen",
+    excerpt:
+      "€4.000 netto is top 25% van Nederland. En toch houdt een gezin met koopwoning en twee kinderen er gemiddeld €505 van over. Dat voelt niet als top 25 procent. Hoe dat kan — en wat je eraan doet.",
+    faq: [
+      {
+        vraag: "Is €4.000 netto per maand een goed salaris in Nederland?",
+        antwoord:
+          "Ja. Het meest voorkomende netto inkomen in Nederland is €3.100 (modaal 2026). Wie €4.000 netto verdient, zit in de top 25 procent. Maar of het 'genoeg' voelt, hangt volledig af van gezinssamenstelling en vaste lasten.",
+      },
+      {
+        vraag: "Hoeveel houdt een gezin met twee kinderen over van €4.000 netto?",
+        antwoord:
+          "Op basis van werkelijke gemiddelden: na hypotheek/huur, boodschappen, auto, kinderkosten en abonnementen blijft er €400-600 over per maand. Met oudere kinderen of hogere woonlasten kan dit dalen naar €100-300.",
+      },
+      {
+        vraag: "Waarom voelt €4.000 netto toch krap aan?",
+        antwoord:
+          "Door de combinatie van hoge vaste lasten, boodschappenkosten die structureel boven de Nibud-norm liggen, en het ontbreken van een systeem voor geldbeheer. Geld op één rekening zonder bestemming verdwijnt altijd sneller dan je denkt.",
+      },
+      {
+        vraag: "Hoeveel moet je overhouden van €4.000 netto?",
+        antwoord:
+          "Het Nibud adviseert minimaal 10% te sparen — dus €400 per maand. Dat is voor een gezin met kinderen en een koopwoning al uitdagend. Een realistischer doel voor veel gezinnen is beginnen met €150-200 per maand automatisch apart zetten.",
+      },
+      {
+        vraag: "Verdient Jan Modaal €4.000 netto in 2026?",
+        antwoord:
+          "Nee. Jan Modaal verdient in 2026 bruto €48.000 per jaar, ofwel €4.000 bruto per maand. Netto houdt hij daar €3.100 van over. Wie €4.000 netto verdient, heeft een bruto salaris van €65.000 of meer.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "CPB modaal inkomen 2026",
+        url: "https://www.cpb.nl",
+      },
+      {
+        label: "CBS inkomensverdeling 2024",
+        url: "https://www.cbs.nl",
+      },
+      {
+        label: "KekMama gemiddelde kosten van een gezin",
+        url: "https://www.kekmama.nl/artikel/financien-en-verzekering/gemiddelde-kosten-van-een-gezin",
+      },
+    ],
+  },
+  {
+    slug: "hoeveel-sparen-per-maand-normaal-nederland",
+    titel:
+      "Hoeveel sparen per maand is normaal? Het eerlijke antwoord — inclusief de mensen die helemaal niks sparen",
+    metaTitel:
+      "Hoeveel sparen per maand is normaal? Nibud zegt 10% — de werkelijkheid is anders",
+    metaDescription:
+      "Nibud adviseert 10%. Maar de gemiddelde Nederlander spaart 6,5% — en een kwart spaart helemaal niets. Wat is realistisch, en waar begin je als je nu niks overhoudt?",
+    datum: "2026-05-21",
+    datumFormatted: "21 mei 2026",
+    leestijd: "6",
+    categorie: "Sparen",
+    excerpt:
+      "Nibud adviseert 10%. Maar meer dan een kwart van de Nederlandse huishoudens spaart helemaal niets — en van de rest haalt de meerderheid die 10% niet. Dit is wat normaal is, en wat een realistisch beginpunt is als je nu niks overhoudt.",
+    faq: [
+      {
+        vraag: "Hoeveel procent van de Nederlanders spaart helemaal niets?",
+        antwoord:
+          "Meer dan een kwart van de Nederlandse huishoudens spaart structureel niets, blijkt uit CBS-data en onderzoek van FinBuddy. Dat is niet uitzonderlijk — het is de werkelijkheid voor veel gezinnen met hoge vaste lasten en weinig overschot.",
+      },
+      {
+        vraag: "Hoeveel sparen Nederlanders gemiddeld per maand?",
+        antwoord:
+          "Structurele spaarders sparen gemiddeld €240 per maand. De Nibud-norm van 10% zou voor een modaal netto inkomen van €3.100 neerkomen op €310. De meeste mensen halen die norm niet — het werkelijke gemiddelde ligt op 6,5% van het netto inkomen.",
+      },
+      {
+        vraag: "Hoe begin ik met sparen als ik nu niets overhou?",
+        antwoord:
+          "Stel een automatische overschrijving in op de dag dat je salaris binnenkomt — ook al is het maar €50. Spaar eerst, geef daarna uit. Dat ene principe maakt meer verschil dan elk ander financieel advies. Verhoog het bedrag elke drie maanden met €25.",
+      },
+      {
+        vraag: "Hoeveel spaargeld is normaal voor mijn leeftijd?",
+        antwoord:
+          "Het CBS-mediaan: dertigers hebben gemiddeld €23.000 spaargeld, veertigers €34.000. Maar het gemiddelde wordt sterk omhoog getrokken door een kleine groep. De helft van de dertigers heeft minder dan €10.000. Vergelijk jezelf niet met gemiddelden — vergelijk jezelf met wie je gisteren was.",
+      },
+      {
+        vraag: "Is het Nibud-advies van 10% realistisch voor een gezin met kinderen?",
+        antwoord:
+          "Voor veel gezinnen met hoge vaste lasten en kinderen is 10% lastig haalbaar. Maar begin is wat telt. Zelfs €50 per maand automatisch apart zetten is beter dan niets, en bouwt het patroon op dat later makkelijker op te schalen is.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud spaarnorm en bufferbedragen",
+        url: "https://www.nibud.nl/consumenten/sparen/",
+      },
+      {
+        label: "FinBuddy gemiddeld spaarbedrag Nederlanders 2026",
+        url: "https://www.finbuddy.nl/blogs/sparen/wat-sparen-nederlanders-gemiddeld-per-maand/",
+      },
+      {
+        label: "CBS vermogensstatistieken 2024",
+        url: "https://www.cbs.nl/nl-nl/cijfers/detail/83834NED",
+      },
+    ],
+  },
+  {
     slug: "goed-salaris-toch-krap",
     titel:
       "Goed salaris, toch krap aan het einde van de maand — hoe kan dat?",
