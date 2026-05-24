@@ -83,7 +83,7 @@ export async function POST(request: NextRequest) {
     // Notificatie naar Jarno
     await resend.emails.send({
       from: process.env.RESEND_FROM ?? "onboarding@resend.dev",
-      to: "hallo@waarblijfthet.nl",
+      to: "jarnomilankoopman@gmail.com",
       subject: `Nieuwe intake aanvraag: ${pakketLabel}`,
       html: `<p>Nieuwe aanmelding ontvangen voor <strong>${pakketLabel}</strong> van <strong>${naam}</strong> (${email}).</p><p>Bekijk de details in het <a href="https://waarblijfthet.nl/admin">admin panel</a>.</p>`,
     });
