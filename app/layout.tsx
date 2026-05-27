@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { BottomNav } from "@/components/BottomNav";
+import { PageTracker } from "@/components/PageTracker";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className="font-body antialiased">
         {children}
         <BottomNav />
+        <PageTracker />
       </body>
     </html>
   );

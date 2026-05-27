@@ -6,6 +6,7 @@ import LeadsTabblad from "./components/LeadsTabblad";
 import QuizResultatenTabblad from "./components/QuizResultatenTabblad";
 import OverzichtTabblad from "./components/OverzichtTabblad";
 import AanvragenTabblad from "./components/AanvragenTabblad";
+import { BezoekersTabblad } from "./components/BezoekersTabblad";
 
 interface Props {
   leads: Lead[];
@@ -14,6 +15,7 @@ interface Props {
 }
 
 const TABS = [
+  { id: "bezoekers", label: "👁 Bezoekers" },
   { id: "leads", label: "Leads" },
   { id: "quiz", label: "Quiz resultaten" },
   { id: "overzicht", label: "Overzicht" },
@@ -23,7 +25,7 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 
 export default function AdminClient({ leads, quizResultaten, aanvragen }: Props) {
-  const [actief, setActief] = useState<TabId>("leads");
+  const [actief, setActief] = useState<TabId>("bezoekers");
 
   return (
     <div>
@@ -73,6 +75,7 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
       </div>
 
       {/* Content */}
+      {actief === "bezoekers" && <BezoekersTabblad />}
       {actief === "leads" && <LeadsTabblad leads={leads} />}
       {actief === "quiz" && <QuizResultatenTabblad resultaten={quizResultaten} />}
       {actief === "overzicht" && (
