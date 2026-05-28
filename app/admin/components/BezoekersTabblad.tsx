@@ -10,6 +10,9 @@ type Bezoek = {
   apparaat: string;
   referrer: string | null;
   sessie_id: string;
+  stad: string | null;
+  regio: string | null;
+  land: string | null;
 };
 
 type PaginaStat = {
@@ -67,12 +70,36 @@ function vanafDatum(filter: FilterOptie): string {
   return new Date(0).toISOString();
 }
 
+function isEigenaarGezet(): boolean {
+  if (typeof document === "undefined") return false;
+  return document.cookie.includes("wb_eigenaar=true");
+}
+
+function setEigenaarCookie() {
+  const expires = new Date();
+  expires.setFullYear(expires.getFullYear() + 1);
+  document.cookie = `wb_eigenaar=true; expires=${expires.toUTCString()}; path=/; SameSite=Lax`;
+  window.location.reload();
+}
+
+function verwijderEigenaarCookie() {
+  document.cookie =
+    "wb_eigenaar=true; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/";
+  window.location.reload();
+}
+
 export function BezoekersTabblad() {
   const [bezoeken, setBezoeken] = useState<Bezoek[]>([]);
   const [stats, setStats] = useState<PaginaStat[]>([]);
   const [view, setView] = useState<ViewOptie>("live");
   const [laden, setLaden] = useState(true);
   const [filter, setFilter] = useState<FilterOptie>("week");
+  // Client-side cookie state (avoids hydration mismatch)
+  const [eigenaarGezet, setEigenaarGezet] = useState(false);
+
+  useEffect(() => {
+    setEigenaarGezet(isEigenaarGezet());
+  }, []);
 
   useEffect(() => {
     laadData();
@@ -138,13 +165,50 @@ export function BezoekersTabblad() {
 
   return (
     <div>
+      {/* Eigenaar filter banner */}
+      <div
+        className={`flex items-center justify-between px-4 py-3 rounded-xl mb-4 border ${
+          eigenaarGezet
+            ? "bg-[#E8F2EC] border-[#C0DDB0]"
+            : "bg-[#FAF0EB] border-[#F0D8C8]"
+        }`}
+      >
+        <div className="flex items-center gap-2">
+          <div
+            className={`w-2 h-2 rounded-full ${
+              eigenaarGezet ? "bg-[#2D6A4F]" : "bg-[#C4603A]"
+            }`}
+          />
+          <p className="text-sm text-[#1C3A2A] font-body">
+            {eigenaarGezet
+              ? "Jouw bezoeken worden niet meegeteld"
+              : "Jouw bezoeken tellen nu mee in de statistieken"}
+          </p>
+        </div>
+        <button
+          onClick={eigenaarGezet ? verwijderEigenaarCookie : setEigenaarCookie}
+          className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all font-body ${
+            eigenaarGezet
+              ? "border-[#2D6A4F] text-[#2D6A4F] hover:bg-[#2D6A4F] hover:text-white"
+              : "bg-[#C4603A] text-white border-[#C4603A] hover:opacity-90"
+          }`}
+        >
+          {eigenaarGezet
+            ? "Filter verwijderen"
+            : "Dit ben ik — filter mijn bezoeken"}
+        </button>
+      </div>
+
       {/* Filter + refresh indicator */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div className="flex gap-2">
           {(["vandaag", "week", "maand", "alles"] as const).map((f) => (
             <button
               key={f}
-              onClick={() => { setLaden(true); setFilter(f); }}
+              onClick={() => {
+                setLaden(true);
+                setFilter(f);
+              }}
               className={`text-xs px-3 py-1.5 rounded-full border transition-all capitalize font-body ${
                 filter === f
                   ? "bg-[#1C3A2A] text-[#F5F0E8] border-[#1C3A2A]"
@@ -223,7 +287,7 @@ export function BezoekersTabblad() {
             </div>
           ) : (
             <div style={{ overflowX: "auto" }}>
-              <table className="w-full text-sm" style={{ minWidth: "520px" }}>
+              <table className="w-full text-sm" style={{ minWidth: "620px" }}>
                 <thead>
                   <tr className="bg-[#1C3A2A]">
                     <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body">
@@ -231,6 +295,9 @@ export function BezoekersTabblad() {
                     </th>
                     <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body">
                       Apparaat
+                    </th>
+                    <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body hidden sm:table-cell">
+                      Locatie
                     </th>
                     <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body">
                       Tijdstip
@@ -260,6 +327,11 @@ export function BezoekersTabblad() {
                           {b.apparaat === "mobiel" ? "📱 Mobiel" : "💻 Desktop"}
                         </span>
                       </td>
+                      <td className="px-4 py-2.5 text-[#8A9E8E] text-xs font-body hidden sm:table-cell">
+                        {b.stad
+                          ? `${b.stad}${b.regio ? `, ${b.regio}` : ""}`
+                          : b.land || "Onbekend"}
+                      </td>
                       <td className="px-4 py-2.5 text-[#8A9E8E] text-xs font-body">
                         {formatTijd(b.created_at)}
                       </td>
@@ -283,42 +355,90 @@ export function BezoekersTabblad() {
               Nog geen bezoeken in deze periode
             </div>
           ) : (
-            stats.map((s) => (
-              <div
-                key={s.pagina}
-                className="bg-white rounded-xl p-4 border border-[#E8E0D4]"
-              >
-                <div className="flex items-center justify-between mb-2">
-                  <p className="font-medium text-[#1C3A2A] text-sm font-body">
-                    {paginaLabel(s.pagina)}
-                  </p>
-                  <span
-                    className="text-lg font-semibold text-[#1C3A2A]"
-                    style={{ fontFamily: "Fraunces, serif" }}
-                  >
-                    {s.totaal}
-                  </span>
-                </div>
-                <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden mb-2">
-                  <div
-                    className="h-full bg-[#2D6A4F] rounded-full transition-all"
-                    style={{
-                      width: `${Math.min(
-                        100,
-                        (s.totaal / (stats[0]?.totaal || 1)) * 100
-                      )}%`,
-                    }}
-                  />
-                </div>
-                <div className="flex items-center justify-between text-xs text-[#8A9E8E] font-body">
-                  <div className="flex gap-3">
-                    <span>📱 {s.mobiel} mobiel</span>
-                    <span>💻 {s.desktop} desktop</span>
+            <>
+              {stats.map((s) => (
+                <div
+                  key={s.pagina}
+                  className="bg-white rounded-xl p-4 border border-[#E8E0D4]"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <p className="font-medium text-[#1C3A2A] text-sm font-body">
+                      {paginaLabel(s.pagina)}
+                    </p>
+                    <span
+                      className="text-lg font-semibold text-[#1C3A2A]"
+                      style={{ fontFamily: "Fraunces, serif" }}
+                    >
+                      {s.totaal}
+                    </span>
                   </div>
-                  <span>Laatste: {formatTijd(s.laatste_bezoek)}</span>
+                  <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden mb-2">
+                    <div
+                      className="h-full bg-[#2D6A4F] rounded-full transition-all"
+                      style={{
+                        width: `${Math.min(
+                          100,
+                          (s.totaal / (stats[0]?.totaal || 1)) * 100
+                        )}%`,
+                      }}
+                    />
+                  </div>
+                  <div className="flex items-center justify-between text-xs text-[#8A9E8E] font-body">
+                    <div className="flex gap-3">
+                      <span>📱 {s.mobiel} mobiel</span>
+                      <span>💻 {s.desktop} desktop</span>
+                    </div>
+                    <span>Laatste: {formatTijd(s.laatste_bezoek)}</span>
+                  </div>
+                </div>
+              ))}
+
+              {/* Top steden */}
+              <div className="mt-6">
+                <p className="text-xs font-medium text-[#4A5E4E] mb-3 uppercase tracking-wider font-body">
+                  Top steden
+                </p>
+                <div className="bg-white rounded-xl border border-[#E8E0D4] overflow-hidden">
+                  {(() => {
+                    const stedenMap = new Map<string, number>();
+                    bezoeken.forEach((b) => {
+                      if (b.stad) {
+                        stedenMap.set(b.stad, (stedenMap.get(b.stad) || 0) + 1);
+                      }
+                    });
+                    const steden = Array.from(stedenMap.entries())
+                      .sort((a, b) => b[1] - a[1])
+                      .slice(0, 8);
+                    const max = steden[0]?.[1] || 1;
+
+                    return steden.length > 0 ? (
+                      <div className="p-4 space-y-2">
+                        {steden.map(([stad, aantal]) => (
+                          <div key={stad} className="flex items-center gap-3">
+                            <span className="text-xs text-[#4A5E4E] w-28 flex-shrink-0 font-body">
+                              {stad}
+                            </span>
+                            <div className="flex-1 h-4 bg-[#EDE6D8] rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-[#1C3A2A] rounded-full transition-all"
+                                style={{ width: `${(aantal / max) * 100}%` }}
+                              />
+                            </div>
+                            <span className="text-xs font-medium text-[#1C3A2A] w-6 text-right font-body">
+                              {aantal}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-[#8A9E8E] p-4 font-body">
+                        Nog geen locatiedata beschikbaar
+                      </p>
+                    );
+                  })()}
                 </div>
               </div>
-            ))
+            </>
           )}
         </div>
       )}
