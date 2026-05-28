@@ -763,6 +763,218 @@ export const artikelen: Artikel[] = [
   },
 ];
 
+  {
+    slug: "hoe-bespaar-je-op-boodschappen",
+    korteTitel: "Besparen op boodschappen: zo werkt het",
+    titel:
+      "Hoe bespaar je op boodschappen in 2026? Niet met bezuinigingstips, maar door te begrijpen waar het weglekt",
+    metaTitel:
+      "Hoe bespaar je op boodschappen in 2026? Eerlijk antwoord",
+    metaDescription:
+      "Niet met bezuinigingstips, maar door te begrijpen waarom je meer uitgeeft dan je denkt. De vijf plekken waar het meeste geld weglekt — en wat je eraan doet.",
+    datum: "2026-05-28",
+    datumFormatted: "28 mei 2026",
+    leestijd: "8",
+    categorie: "Besparen",
+    excerpt:
+      "Een gemiddeld gezin van vier geeft structureel €200-400 meer uit aan boodschappen dan ze zelf denken. Niet door luxe — maar door vijf gedragspatronen die onzichtbaar optellen. Dit zijn de lekken, en zo dicht je ze.",
+    preview: {
+      type: "statistiek",
+      label: "Waar lekt het geld?",
+      segmenten: [
+        { label: "Dagelijks winkelen +€180", pct: 33, kleur: "#FAF0EB", tekstKleur: "#C4603A" },
+        { label: "Verspilling +€65", pct: 24, kleur: "#FDF3E3", tekstKleur: "#92600A" },
+        { label: "A-merken +€90", pct: 33, kleur: "#E8F2EC", tekstKleur: "#2D6A4F" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Hoeveel kun je besparen op boodschappen per maand?",
+        antwoord:
+          "Dat hangt af van je huidige gedrag. Gezinnen die overstappen op één vaste boodschappendag en weekmenu's gaan maken, besparen gemiddeld €100-200 per maand. Wie daarnaast drogisterijproducten apart inkoopt, kan oplopen tot €300 per maand besparing — zonder kwaliteit in te leveren.",
+      },
+      {
+        vraag: "Wat is de goedkoopste supermarkt in Nederland in 2026?",
+        antwoord:
+          "Volgens dagelijkse metingen van Voordly en onderzoek van de Consumentenbond zijn Aldi en Dirk structureel het goedkoopst voor basisproducten. Voor A-merken loont het om aanbiedingen te vergelijken. Maar de winkelkeuze heeft minder impact dan je boodschappengedrag — hoe je winkelt telt meer dan waar.",
+      },
+      {
+        vraag: "Hoe maak ik een boodschappenbudget voor een gezin?",
+        antwoord:
+          "Begin met het werkelijke getal: kijk in je bankapp wat je de afgelopen twee maanden hebt uitgegeven inclusief alle kleine aankopen. Vergelijk dat met het Nibud-minimum voor jouw gezin. Het verschil is je bespaardoelstelling. Stel daarna een wekelijks budget in en houd het bij via een rekening die je specifiek voor boodschappen gebruikt.",
+      },
+      {
+        vraag: "Helpt een boodschappenlijst echt?",
+        antwoord:
+          "Ja, aantoonbaar. Onderzoek van het Nibud laat zien dat gezinnen met een vaste boodschappendag en lijst gemiddeld 20% minder uitgeven dan gezinnen die dagelijks winkelen. Het effect zit niet alleen in minder impulsen, maar ook in minder verspilling omdat je precies koopt wat je nodig hebt.",
+      },
+      {
+        vraag: "Is huismerk altijd goedkoper en even goed?",
+        antwoord:
+          "Niet altijd even goed, maar bijna altijd goedkoper. Voor basiscategorieën als pasta, rijst, melk, bloem, eieren en schoonmaakproducten is het verschil in kwaliteit minimaal. Voor vlees, kaas en zuivel varieert het per persoon. De Consumentenbond raadt aan om per categorie te testen in plaats van alles tegelijk over te schakelen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Consumentenbond A-merk vs. huismerk onderzoek",
+        url: "https://www.consumentenbond.nl",
+      },
+      {
+        label: "Wageningen University voedselverspilling monitor",
+        url: "https://www.wur.nl/nl/onderzoek-resultaten/onderzoeksprojecten/monitor-voedselverspilling.htm",
+      },
+      {
+        label: "Voordly dagelijkse prijsvergelijking",
+        url: "https://voordly.com/goedkoopste-supermarkt",
+      },
+      {
+        label: "Kassa prijsvergelijking DM vs. Kruidvat 2025",
+        url: "https://www.bnnvara.nl/kassa",
+      },
+    ],
+  },
+  {
+    slug: "nibud-boodschappen-versus-werkelijkheid",
+    korteTitel: "Nibud norm vs. wat gezinnen écht uitgeven",
+    titel:
+      "Het Nibud-boodschappenbudget 2026 — wat de norm zegt en wat gezinnen werkelijk uitgeven",
+    metaTitel:
+      "Nibud boodschappenbudget 2026: norm versus werkelijkheid",
+    metaDescription:
+      "Nibud zegt €627 voor een gezin van vier. Maar wat geven gezinnen werkelijk uit? Het eerlijke verhaal achter de normen — en waarom ze bijna niemand halen.",
+    datum: "2026-05-28",
+    datumFormatted: "28 mei 2026",
+    leestijd: "7",
+    categorie: "Inzicht",
+    excerpt:
+      "Het Nibud-minimum voor een gezin van vier is €627 per maand. De werkelijkheid is €875 — en bij pubers loopt het op naar €1.200. Wat meet de Nibud-norm eigenlijk, en waarom halen bijna geen gezinnen hem?",
+    preview: {
+      type: "vergelijking",
+      label: "Nibud vs. werkelijkheid (gezin 2 kinderen)",
+      items: [
+        { naam: "Nibud norm", bedrag: 627, kleur: "#2D6A4F" },
+        { naam: "Werkelijk gemiddeld", bedrag: 875, kleur: "#C4603A" },
+      ],
+      noot: "Per maand, excl. drogisterij",
+    },
+    faq: [
+      {
+        vraag: "Wat is het Nibud-boodschappenbudget in 2026?",
+        antwoord:
+          "Voor een gezin van twee volwassenen met twee kinderen (8 en 13 jaar) hanteert het Nibud een minimum van €627 per maand voor voeding. Dit is exclusief drogisterijproducten, schoonmaakmiddelen en alles buiten de supermarkt. Het bedrag is bijgewerkt in de Nibud Prijzengids 2025/2026.",
+      },
+      {
+        vraag: "Hoeveel geeft een gemiddeld gezin werkelijk uit aan boodschappen?",
+        antwoord:
+          "Aanzienlijk meer dan de Nibud-norm. Uit forum-onderzoek en blogdata blijkt dat gezinnen van vier structureel €700-900 per maand uitgeven inclusief drogisterij. Met pubers of grote kinderen loopt dit op naar €1.000-1.400 per maand.",
+      },
+      {
+        vraag: "Waarom is de Nibud-norm zo laag?",
+        antwoord:
+          "De Nibud-norm is een minimum voor gezonde voeding, berekend op basis van calorische en voedingskundige normen. Het is geen beschrijving van hoe een gemiddeld Nederlands gezin boodschappen doet. Bakker, slager, drogisterij, koffie en tussendoor-aankopen zitten er niet in.",
+      },
+      {
+        vraag: "Klopt het Nibud-budget voor alleenstaanden?",
+        antwoord:
+          "Het Nibud-minimum voor een alleenstaande is circa €200 per maand voor voeding. In de praktijk geven alleenstaanden gemiddeld €300-400 uit inclusief drogisterij en kleine aankopen. De kloof is procentueel vergelijkbaar met die voor gezinnen.",
+      },
+      {
+        vraag: "Hoe gebruik ik het Nibud-budget als referentie?",
+        antwoord:
+          "Gebruik het als minimumgrens, niet als doel. Als je er ruim boven zit, is dat niet per definitie slecht — het hangt af van de samenstelling van je huishouden en wat je meeneemt in de berekening. Vergelijk jezelf bij voorkeur met vergelijkbare huishoudens in vergelijkbare omstandigheden.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud huishoudelijke uitgaven 2026",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
+      },
+      {
+        label: "Nibud Prijzengids 2025/2026",
+        url: "https://www.nibud.nl",
+      },
+      {
+        label: "Mamablogger boodschappenbudget 2024",
+        url: "https://mamablogger.nl/boodschappenbudget-en-weekbudget-voor-2025/",
+      },
+      {
+        label: "Forum Zeg maar Yes boodschappen poll",
+        url: "https://www.zegmaaryes.nl/boodschappen-per-maand-gezin-t38420.html",
+      },
+    ],
+  },
+  {
+    slug: "kosten-levensonderhoud-alleenstaande-2026",
+    korteTitel: "Kosten levensonderhoud alleenstaande 2026",
+    titel:
+      "Kosten levensonderhoud alleenstaande in 2026 — wat je werkelijk nodig hebt om rond te komen",
+    metaTitel:
+      "Kosten levensonderhoud alleenstaande 2026: volledig overzicht",
+    metaDescription:
+      "Wat kost het leven als alleenstaande in 2026? Van huur tot boodschappen tot verzekeringen — alle gemiddelden op een rij, plus waar de meeste ruimte zit.",
+    datum: "2026-05-28",
+    datumFormatted: "28 mei 2026",
+    leestijd: "7",
+    categorie: "Inzicht",
+    excerpt:
+      "De vaste lasten voor een alleenstaande liggen in 2026 gemiddeld tussen €2.000 en €2.400 per maand — en in de Randstad structureel €300-400 hoger. Dit is het volledige overzicht, per kostenpost en per regio.",
+    preview: {
+      type: "vergelijking",
+      label: "Kosten levensonderhoud 2026",
+      items: [
+        { naam: "Minimum", bedrag: 1530, kleur: "#8AB89A" },
+        { naam: "Gemiddeld", bedrag: 2205, kleur: "#1C3A2A" },
+      ],
+      noot: "Middelgrote stad, excl. vrije tijd",
+    },
+    faq: [
+      {
+        vraag: "Wat zijn de gemiddelde kosten van levensonderhoud voor een alleenstaande in 2026?",
+        antwoord:
+          "Gemiddeld liggen de vaste lasten voor een alleenstaande tussen de €2.000 en €2.400 per maand, afhankelijk van woonsituatie en regio. Dit is exclusief vrije tijd, kleding en vakantie. In de Randstad liggen de kosten structureel €300-400 hoger door hogere huurprijzen.",
+      },
+      {
+        vraag: "Hoeveel netto inkomen heb je nodig als alleenstaande om rond te komen?",
+        antwoord:
+          "Minimaal €2.400-€2.600 netto per maand om alle kosten te dekken en 10% te sparen, zoals Nibud adviseert. In de Randstad is dat €2.800-€3.000. Het CBS-mediaan inkomen voor alleenstaanden lag in 2024 rond de €2.200 — veel alleenstaanden zitten dus structureel dicht bij hun grens.",
+      },
+      {
+        vraag: "Wat zijn de grootste kosten voor een alleenstaande?",
+        antwoord:
+          "Huur of hypotheek (gemiddeld €1.050/mnd), energie (€180/mnd), boodschappen inclusief drogisterij (€340/mnd), zorgverzekering na zorgtoeslag (€130/mnd) en vervoer (€220/mnd). Samen goed voor ruim €1.900 per maand aan vaste posten.",
+      },
+      {
+        vraag: "Hoeveel geeft een alleenstaande uit aan boodschappen per maand?",
+        antwoord:
+          "Het Nibud-minimum voor voeding is circa €200 per maand. In de praktijk geven alleenstaanden gemiddeld €300-400 uit inclusief drogisterijproducten en kleine aankopen. Wie dagelijks boodschappen doet in plaats van één keer per week, zit eerder aan de hoge kant.",
+      },
+      {
+        vraag: "Wat is het verschil in kosten tussen de Randstad en de rest van Nederland?",
+        antwoord:
+          "Voor een alleenstaande is het verschil gemiddeld €300-400 per maand, voornamelijk door hogere huurprijzen. CBS-data laat zien dat huurprijzen in de Randstad 20-30% hoger liggen dan het landelijk gemiddelde. Energiekosten en boodschappen verschillen nauwelijks per regio.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "FinBuddy gemiddelde vaste lasten 2026",
+        url: "https://www.finbuddy.nl/blogs/wat-zijn-de-gemiddelde-vaste-lasten-bekijk-ze-nu-in-een-overzicht/",
+      },
+      {
+        label: "CBS huurprijsontwikkeling 2026",
+        url: "https://www.cbs.nl",
+      },
+      {
+        label: "Nibud leefgeld alleenstaande januari 2026",
+        url: "https://www.nibud.nl/onderwerpen/geldproblemen/leefgeld-in-de-schuldhulpverlening/",
+      },
+      {
+        label: "HetGeldCollege uitgaven alleenstaande",
+        url: "https://hetgeldcollege.nl/uitgaven-per-maand-1-persoon/",
+      },
+    ],
+  },
+];
+
 export function getArtikel(slug: string): Artikel | undefined {
   return artikelen.find((a) => a.slug === slug);
 }

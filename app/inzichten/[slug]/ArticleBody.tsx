@@ -9,6 +9,9 @@ import HoeveeSpaarenPerMaandNormaal from "./content/hoeveel-sparen-per-maand-nor
 import WatZijnNormaleVasteLastenGezin from "./content/wat-zijn-normale-vaste-lasten-gezin";
 import PotjesmethodeGezinHoeWerktHet from "./content/potjesmethode-gezin-hoe-werkt-het";
 import GeldStressRelatieNederland from "./content/geld-stress-relatie-nederland";
+import HoeBespaarJeOpBoodschappen from "./content/hoe-bespaar-je-op-boodschappen";
+import NibudBoodschappenVersusWerkelijkheid from "./content/nibud-boodschappen-versus-werkelijkheid";
+import KostenLevensonderhoudAlleenstaande2026 from "./content/kosten-levensonderhoud-alleenstaande-2026";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -22,6 +25,9 @@ const contentMap: Record<string, () => JSX.Element> = {
   "wat-zijn-normale-vaste-lasten-gezin": WatZijnNormaleVasteLastenGezin,
   "potjesmethode-gezin-hoe-werkt-het": PotjesmethodeGezinHoeWerktHet,
   "geld-stress-relatie-nederland": GeldStressRelatieNederland,
+  "hoe-bespaar-je-op-boodschappen": HoeBespaarJeOpBoodschappen,
+  "nibud-boodschappen-versus-werkelijkheid": NibudBoodschappenVersusWerkelijkheid,
+  "kosten-levensonderhoud-alleenstaande-2026": KostenLevensonderhoudAlleenstaande2026,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {
