@@ -761,8 +761,6 @@ export const artikelen: Artikel[] = [
       },
     ],
   },
-];
-
   {
     slug: "hoe-bespaar-je-op-boodschappen",
     korteTitel: "Besparen op boodschappen: zo werkt het",
