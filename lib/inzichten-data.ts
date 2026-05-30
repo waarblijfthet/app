@@ -80,6 +80,47 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "modaal-inkomen-2026",
+    korteTitel: "Modaal inkomen 2026",
+    titel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
+    metaTitel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
+    metaDescription: "Het modaal inkomen is in 2026 ongeveer €48.000 bruto per jaar — netto zo'n €2.700 tot €3.100 per maand. Wat modaal precies is, en waarom het toch krap kan voelen.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inkomen",
+    excerpt: "Modaal is geen gemiddelde en geen minimum, maar het meest voorkomende inkomen. In 2026 is dat ongeveer €48.000 bruto per jaar — netto €2.700 tot €3.100 per maand. En toch voelt het vaak krap.",
+    preview: {
+      type: "vergelijking",
+      label: "Modaal inkomen 2026",
+      items: [
+        { naam: "Bruto per maand", bedrag: 3700, kleur: "#2D6A4F" },
+        { naam: "Netto (indicatie)", bedrag: 2900, kleur: "#C4603A" },
+      ],
+      noot: "€48.000 bruto/jaar incl. vakantiegeld (CPB)",
+    },
+    faq: [
+      {
+        vraag: "Wat is het modaal inkomen in 2026?",
+        antwoord: "Het modaal inkomen is in 2026 vastgesteld op ongeveer €48.000 bruto per jaar inclusief vakantiegeld, oftewel zo'n €3.700 bruto per maand. Het is het meest voorkomende inkomen in Nederland, niet het gemiddelde.",
+      },
+      {
+        vraag: "Wat houd je netto over van een modaal inkomen?",
+        antwoord: "Dat hangt af van je situatie (heffingskortingen, pensioen, toeslagen), maar netto komt een modaal inkomen ongeveer neer op €2.700 tot €3.100 per maand.",
+      },
+      {
+        vraag: "Is modaal hetzelfde als het gemiddelde inkomen?",
+        antwoord: "Nee. Modaal is het meest voorkomende inkomen; het gemiddelde ligt hoger omdat een kleine groep hoge inkomens het gemiddelde omhoog trekt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Modaal inkomen 2026 (CPB-kerncijfers)",
+        url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
+      },
+    ],
+  },
+  {
     slug: "wat-kost-een-kind-per-maand",
     korteTitel: "Wat kost een kind per maand?",
     titel: "Wat kost een kind per maand?",
@@ -551,7 +592,7 @@ export const artikelen: Artikel[] = [
     titel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
     metaTitel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
     metaDescription:
-      "Een eigen auto kost volgens de ANWB €413 tot €647 per maand all-in. Kopen of private leasen? De eerlijke vergelijking, inclusief de verborgen afschrijving.",
+      "Een eigen auto kost volgens de ANWB €413 tot €647 per maand all-in. Private lease of kopen — wat is voordeliger? De eerlijke vergelijking, inclusief de verborgen afschrijving.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
@@ -574,7 +615,7 @@ export const artikelen: Artikel[] = [
           "Volgens de ANWB rekent een compacte auto op zo'n €413 per maand, een kleine middenklasser rond €550 en het middensegment zo'n €647 — all-in, inclusief de afschrijving die je niet als rekening ziet. De afschrijving is meestal de grootste én meest onderschatte post.",
       },
       {
-        vraag: "Is auto kopen of private leasen goedkoper?",
+        vraag: "Private lease of kopen: wat is goedkoper?",
         antwoord:
           "Het hangt af van je situatie. Private lease geeft voorspelbaarheid (één vast bedrag, geen onverwachte reparaties) maar je zit vast aan een contract en bouwt geen eigen vermogen op. Zelf kopen is vaak goedkoper over de hele rit, zeker bij een betrouwbare occasion die je lang rijdt — maar dan draag je zelf het risico.",
       },

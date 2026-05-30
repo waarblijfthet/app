@@ -33,10 +33,10 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
       </p>
 
       <h2 className="font-display" style={h2}>
-        Kopen of private leasen?
+        Private lease of kopen: wat is voordeliger?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Bij private lease betaal je één vast bedrag per maand voor (bijna) alles
+        De vraag &ldquo;private lease of kopen?&rdquo; heeft geen vast antwoord. Bij private lease betaal je één vast bedrag per maand voor (bijna) alles
         behalve brandstof. Leasemaatschappijen kopen auto&apos;s met korting in
         en spreiden risico, waardoor lease soms verrassend concurrerend is met
         zelf rijden. Het voordeel is voorspelbaarheid: geen onverwachte

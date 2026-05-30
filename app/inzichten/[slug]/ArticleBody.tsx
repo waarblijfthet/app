@@ -30,6 +30,7 @@ import WatKostEenKindPerMaand from "./content/wat-kost-een-kind-per-maand";
 import SchoolkostenPerJaarGezin from "./content/schoolkosten-per-jaar-gezin";
 import HogereHypotheekWatKostHetPerMaand from "./content/hogere-hypotheek-wat-kost-het-per-maand";
 import VerbouwenFinancieleValkuilen from "./content/verbouwen-financiele-valkuilen";
+import ModaalInkomen2026 from "./content/modaal-inkomen-2026";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -64,6 +65,7 @@ const contentMap: Record<string, () => JSX.Element> = {
   "schoolkosten-per-jaar-gezin": SchoolkostenPerJaarGezin,
   "hogere-hypotheek-wat-kost-het-per-maand": HogereHypotheekWatKostHetPerMaand,
   "verbouwen-financiele-valkuilen": VerbouwenFinancieleValkuilen,
+  "modaal-inkomen-2026": ModaalInkomen2026,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {
