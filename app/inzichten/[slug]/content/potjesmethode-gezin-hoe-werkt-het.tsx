@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PotjesVisualisatie } from "@/components/artikel/PotjesVisualisatie";
+import PotjesCalculator from "@/components/artikel/PotjesCalculator";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -49,6 +50,8 @@ export default function PotjesmethodeGezinHoeWerktHet() {
         één rekening hebben staan. Niet omdat ze zuiniger zijn, maar omdat de
         grens zichtbaar is.
       </p>
+
+      <PotjesCalculator />
 
       <h2 className="font-display" style={h2}>
         Hoe richt je het in — praktisch, voor een gezin?

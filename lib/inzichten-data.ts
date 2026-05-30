@@ -80,6 +80,247 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "waar-blijft-het-bij-mark-en-lisa",
+    korteTitel: "Casestudy: Mark & Lisa (€4.000)",
+    titel: "Waar blijft het bij Mark & Lisa: €4.000 netto en toch krap",
+    metaTitel: "Waar blijft het bij Mark & Lisa: €4.000 netto en toch krap",
+    metaDescription: "Een fictief gezin met €4.000 netto en twee jonge kinderen. Top 25% van Nederland, en toch elke maand passen en meten. Waar blijft het?",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "Mark en Lisa verdienen samen €4.000 netto en zitten in de bovenste 25% van Nederland. En toch is het elke maand passen en meten. Een fictieve casestudy die laat zien waar het geld heen gaat.",
+    preview: {
+      type: "pijn",
+      label: "Het profiel",
+      items: ["€4.000 netto", "Top 25% van NL", "Toch krap"],
+    },
+    faq: [
+      {
+        vraag: "Hoe kan een gezin met €4.000 netto toch krap zitten?",
+        antwoord: "Op papier houdt zo'n gezin zo'n €505 over, maar dat klopt alleen als alle posten binnen de norm blijven. Boodschappen die oplopen tot €875 (norm €627) en een abonnementenstapel richting €210 eten dat bedrag op.",
+      },
+      {
+        vraag: "Is dit een echt gezin?",
+        antwoord: "Nee, Mark en Lisa zijn een fictief gezin, samengesteld uit openbare gemiddelden van Nibud, CBS en de Belastingdienst. Bedoeld ter herkenning.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },  {
+    slug: "waar-blijft-het-bij-fatima",
+    korteTitel: "Casestudy: Fatima (alleenstaand)",
+    titel: "Waar blijft het bij Fatima: €2.900 netto, één inkomen voor drie",
+    metaTitel: "Waar blijft het bij Fatima: €2.900 netto, één inkomen voor drie",
+    metaDescription: "Een fictieve alleenstaande ouder met €2.900 netto en twee kinderen. Hier ligt het niet aan de uitgaven — het is een lasten-probleem. Een eerlijk verhaal.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "Fatima is alleenstaande ouder met twee kinderen en €2.900 netto. Eén inkomen draagt alles. Een fictieve casestudy waarin het eerlijke antwoord anders is: hier ligt het niet aan de uitgaven.",
+    preview: {
+      type: "pijn",
+      label: "Het profiel",
+      items: ["€2.900 netto", "Eén inkomen draagt alles", "Lasten-probleem"],
+    },
+    faq: [
+      {
+        vraag: "Waarom houdt een alleenstaande ouder met €2.900 netto niets over?",
+        antwoord: "Omdat één inkomen alle vaste lasten draagt — vooral een vrije sector-huur die ruim 40% opslokt. Er is geen luxe of verspilling; het is een lasten-probleem, geen gedragsprobleem.",
+      },
+      {
+        vraag: "Wat helpt bij dit profiel?",
+        antwoord: "Niet 'slimmer budgetteren', maar de grote posten aanpakken: controleren of alle toeslagen binnenkomen, de huur en gemeentelijke regelingen tegen het licht houden. Bij schulden is een budgetcoach of Geldfit de juiste plek.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — rondkomen",
+        url: "https://www.nibud.nl/onderwerpen/rondkomen/",
+      },
+      {
+        label: "Geldfit",
+        url: "https://geldfit.nl/",
+      },
+    ],
+  },  {
+    slug: "waar-blijft-het-bij-david-en-tom",
+    korteTitel: "Casestudy: David & Tom (DINK)",
+    titel: "Waar blijft het bij David & Tom: €5.500, geen kinderen, toch krap",
+    metaTitel: "Waar blijft het bij David & Tom: €5.500, geen kinderen, toch krap",
+    metaDescription: "Een fictief stel met €5.500 netto, geen kinderen en geen auto. En toch verdwijnt het geld. Hoe lifestyle-inflatie ook zonder grote lasten toeslaat.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "David en Tom verdienen €5.500 netto, hebben geen kinderen en geen auto. En toch vragen ze zich af waar het geld blijft. Een fictieve casestudy over lifestyle-inflatie.",
+    preview: {
+      type: "pijn",
+      label: "Het profiel",
+      items: ["€5.500 netto", "Geen kinderen, geen auto", "Toch krap"],
+    },
+    faq: [
+      {
+        vraag: "Hoe kan een stel zonder kinderen of auto toch krap zitten?",
+        antwoord: "Juist omdat de vaste lasten laag zijn, voelt alles 'kan wel': vaak uit eten en bezorgen (€600+), veertien abonnementen, stedentrips. De levensstijl groeit tot de beschikbare ruimte — lifestyle-inflatie.",
+      },
+      {
+        vraag: "Wat zouden ze anders kunnen doen?",
+        antwoord: "Geld eerst een bestemming geven en dan pas uitgeven. Met een spaardoel dat vooraf wordt afgeroomd en een begrensd 'uit eten'-budget is €800–1.000 per maand sparen haalbaar, zonder soberder te leven.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },  {
+    slug: "seizoens-kostenkalender-per-maand",
+    korteTitel: "Seizoens-kostenkalender",
+    titel: "De seizoens-kostenkalender: welke kosten komen er per maand aan?",
+    metaTitel: "De seizoens-kostenkalender: welke kosten komen er per maand aan?",
+    metaDescription: "Het jaar zit vol verborgen kostenpieken — van de zomervakantie tot december. Bekijk per maand wat eraan komt en hoe je het uitsmeert met een potje.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "De 'gemiddelde maand' bestaat niet. Elk seizoen heeft zijn eigen kostenpiek. Bekijk met onze interactieve kalender wat er per maand aankomt — en hoe je die pieken uitsmeert over het jaar.",
+    preview: {
+      type: "pijn",
+      label: "De pieken",
+      items: ["Zomer", "Schoolstart", "December"],
+    },
+    faq: [
+      {
+        vraag: "Wat zijn de grootste kostenpieken in het jaar?",
+        antwoord: "De zomervakantie (al gauw €2.000+ voor een gezin), de schoolstart in augustus (schoolspullen, contributies, kleding) en december (Sinterklaas en kerst, samen zo'n €500).",
+      },
+      {
+        vraag: "Hoe voorkom ik dat seizoenspieken mijn budget slopen?",
+        antwoord: "Smeer ze uit over het jaar. Een piek van €1.200 in één maand is een probleem; verdeeld over twaalf maanden is dat €100 per maand. Zet het opzij in een apart potje waar je niet aankomt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },  {
+    slug: "wat-kost-een-zomervakantie-gezin",
+    korteTitel: "Wat kost een zomervakantie?",
+    titel: "Wat kost een zomervakantie voor een gezin?",
+    metaTitel: "Wat kost een zomervakantie voor een gezin?",
+    metaDescription: "Nederlanders gaven in 2024 gemiddeld €600-700 per persoon uit aan de zomervakantie — voor een gezin van vier al snel €2.400. Waar de kosten zitten en hoe je de naschok voorkomt.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "De zomervakantie is het hoogtepunt van het jaar en meteen de grootste losse uitgave. Gemiddeld €600-700 per persoon, voor een gezin van vier al snel €2.400. Waar het geld heen gaat en hoe je het uitsmeert.",
+    preview: {
+      type: "vergelijking",
+      label: "Zomervakantie 2024 (CBS)",
+      items: [
+        { naam: "Per persoon", bedrag: 650, kleur: "#2D6A4F" },
+        { naam: "Gezin van 4", bedrag: 2400, kleur: "#C4603A" },
+      ],
+      noot: "Gemiddelde uitgaven zomervakantie",
+    },
+    faq: [
+      {
+        vraag: "Wat kost een zomervakantie gemiddeld voor een gezin?",
+        antwoord: "Nederlanders gaven in 2024 gemiddeld €600 tot €700 per persoon uit aan de zomervakantie. Voor een gezin van vier kom je al snel op €2.400 of meer, inclusief reis, eten en uitjes.",
+      },
+      {
+        vraag: "Hoe voorkom ik een financiële kater na de vakantie?",
+        antwoord: "Bepaal vooraf een totaalbudget voor de hele reis en zet dat het hele jaar maandelijks opzij. €200 per maand is €2.400 in de zomer — dan betaal je met geld dat er al is.",
+      },
+      {
+        vraag: "Is vakantiegeld een bonus?",
+        antwoord: "Nee, het is uitgesteld loon. Wie het volledig in de zomer uitgeeft, slaat vaak een gat in het najaar.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS — vakanties van Nederlanders, kerncijfers",
+        url: "https://www.cbs.nl/nl-nl/cijfers/detail/85302NED",
+      },
+    ],
+  },  {
+    slug: "zonnepanelen-terugverdientijd",
+    korteTitel: "Zonnepanelen: terugverdientijd",
+    titel: "Zonnepanelen: wat kosten ze en wat is de terugverdientijd?",
+    metaTitel: "Zonnepanelen: wat kosten ze en wat is de terugverdientijd?",
+    metaDescription: "8 zonnepanelen kosten gemiddeld €3.200 en verdienen zich in 6-8 jaar terug (Milieu Centraal). Wat het einde van de salderingsregeling betekent voor de rekensom.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt: "Zonnepanelen verlagen je vaste lasten, maar met het einde van de salderingsregeling verandert de rekensom. 8 panelen kosten zo'n €3.200 en verdienen zich in 6-8 jaar terug. De eerlijke afweging.",
+    preview: {
+      type: "vergelijking",
+      label: "Zonnepanelen (Milieu Centraal, 2025)",
+      items: [
+        { naam: "Kosten 8 panelen", bedrag: 3200, kleur: "#C4603A" },
+        { naam: "Besparing/jaar", bedrag: 550, kleur: "#2D6A4F" },
+      ],
+      noot: "Terugverdientijd nu 6-8 jaar",
+    },
+    faq: [
+      {
+        vraag: "Wat kosten zonnepanelen en wat is de terugverdientijd?",
+        antwoord: "Een set van 8 zonnepanelen kost volgens Milieu Centraal gemiddeld zo'n €3.200 inclusief installatie. De terugverdientijd ligt nu rond de 6 tot 8 jaar, en de panelen gaan ongeveer 25 jaar mee.",
+      },
+      {
+        vraag: "Wat verandert er door het einde van de salderingsregeling?",
+        antwoord: "Salderen kan nog tot eind 2026 en stopt daarna in één keer. De besparing daalt dan van zo'n €550 naar ongeveer €170 per jaar. Vanaf dan loont het vooral om je opgewekte stroom zo veel mogelijk zelf direct te gebruiken.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Milieu Centraal — kosten en opbrengst zonnepanelen",
+        url: "https://www.milieucentraal.nl/energie-besparen/zonnepanelen/kosten-en-opbrengst-zonnepanelen/",
+      },
+    ],
+  },  {
+    slug: "geldmythes-die-je-arm-houden",
+    korteTitel: "5 geldmythes die je arm houden",
+    titel: "5 hardnekkige geldmythes die je arm houden",
+    metaTitel: "5 hardnekkige geldmythes die je arm houden",
+    metaDescription: "Vijf aannames over geld die logisch klinken maar je juist krap houden — van 'sparen lukt vanzelf bij meer inkomen' tot 'wie krap zit gaat slecht met geld om'.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt: "Rond geld leven hardnekkige aannames die logisch klinken, maar je juist krap houden. Vijf van de meest voorkomende mythes ontkracht — en wat er werkelijk klopt.",
+    preview: {
+      type: "pijn",
+      label: "Ontkracht",
+      items: ["5 mythes", "Klinken logisch", "Houden je krap"],
+    },
+    faq: [
+      {
+        vraag: "Lukt sparen vanzelf als je meer verdient?",
+        antwoord: "Nee, meestal niet. Naarmate je meer verdient groeien je uitgaven mee (lifestyle-inflatie), waardoor mensen met een hoog inkomen even krap kunnen zitten als met een laag inkomen.",
+      },
+      {
+        vraag: "Betekent krap zitten dat je slecht met geld omgaat?",
+        antwoord: "Nee. Bijna de helft van de Nederlandse huishoudens is financieel kwetsbaar, ook met een goed inkomen. Het zegt veel vaker iets over hoge vaste lasten en gebrek aan structuur dan over discipline.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Deloitte — 47% van Nederland is financieel kwetsbaar",
+        url: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
+      },
+    ],
+  },
+  {
     slug: "vergeten-abonnementen-opzeggen",
     korteTitel: "Vergeten abonnementen opsporen",
     titel: "Vergeten abonnementen opsporen: gemiddeld €200+ per maand",

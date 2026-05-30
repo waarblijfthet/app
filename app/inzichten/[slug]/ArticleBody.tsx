@@ -19,6 +19,13 @@ import VergetenAbonnementenOpzeggen from "./content/vergeten-abonnementen-opzegg
 import WatKostDecemberFeestdagenGezin from "./content/wat-kost-december-feestdagen-gezin";
 import AutoKopenOfLeasenKostenPerMaand from "./content/auto-kopen-of-leasen-kosten-per-maand";
 import WaarBlijftHetBijSanneEnJoost from "./content/waar-blijft-het-bij-sanne-en-joost";
+import WaarBlijftHetBijMarkEnLisa from "./content/waar-blijft-het-bij-mark-en-lisa";
+import WaarBlijftHetBijFatima from "./content/waar-blijft-het-bij-fatima";
+import WaarBlijftHetBijDavidEnTom from "./content/waar-blijft-het-bij-david-en-tom";
+import SeizoensKostenkalenderPerMaand from "./content/seizoens-kostenkalender-per-maand";
+import WatKostEenZomervakantieGezin from "./content/wat-kost-een-zomervakantie-gezin";
+import ZonnepanelenTerugverdientijd from "./content/zonnepanelen-terugverdientijd";
+import GeldmythesDieJeArmHouden from "./content/geldmythes-die-je-arm-houden";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -42,6 +49,13 @@ const contentMap: Record<string, () => JSX.Element> = {
   "wat-kost-december-feestdagen-gezin": WatKostDecemberFeestdagenGezin,
   "auto-kopen-of-leasen-kosten-per-maand": AutoKopenOfLeasenKostenPerMaand,
   "waar-blijft-het-bij-sanne-en-joost": WaarBlijftHetBijSanneEnJoost,
+  "waar-blijft-het-bij-mark-en-lisa": WaarBlijftHetBijMarkEnLisa,
+  "waar-blijft-het-bij-fatima": WaarBlijftHetBijFatima,
+  "waar-blijft-het-bij-david-en-tom": WaarBlijftHetBijDavidEnTom,
+  "seizoens-kostenkalender-per-maand": SeizoensKostenkalenderPerMaand,
+  "wat-kost-een-zomervakantie-gezin": WatKostEenZomervakantieGezin,
+  "zonnepanelen-terugverdientijd": ZonnepanelenTerugverdientijd,
+  "geldmythes-die-je-arm-houden": GeldmythesDieJeArmHouden,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {
