@@ -156,6 +156,14 @@ export default function HoeBespaarJeOpBoodschappen() {
           Start de gratis analyse →
         </Link>
       </div>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> Bij een gezin dat we begeleidden waren de boodschappen het grootste lek: veel impulsaankopen, geen plan. Een weekbudget plus een korte check-in ná elke keer boodschappen hield ze scherp — juist op de momenten dat het misging.
+        </p>
+      </div>
     </>
   );
 }

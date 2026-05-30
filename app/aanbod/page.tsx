@@ -240,11 +240,11 @@ export default function AanbodPage() {
 
               <ul className="space-y-2">
                 {[
-                  "Persoonlijk gesprek om te begrijpen waar jullie staan",
-                  "Wekelijkse check-in via WhatsApp (6 weken)",
-                  "Eerlijke feedback op wat jullie doen — wat werkt en wat niet",
-                  "Geen standaardadvies, geen spreadsheets",
-                  "Iemand die vraagt hoe het écht gaat",
+                  "Korte kickoff (videocall of telefonisch, ±20 min) om jullie situatie te begrijpen",
+                  "6 weken lang een wekelijkse check-in via WhatsApp — jij stuurt een kort bericht, ik denk mee",
+                  "Persoonlijke feedback op jullie twee grootste afwijkingen uit de analyse",
+                  "Concrete weekdoelen, bijvoorbeeld een boodschappenbudget of een eerste spaarpotje",
+                  "Geen toegang tot je bankrekening — je deelt alleen wat je zelf wilt",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span style={{ color: "#8AB89A", fontWeight: 600, flexShrink: 0 }}>✓</span>
@@ -367,6 +367,61 @@ export default function AanbodPage() {
                 </Link>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ── Sociale proof: echte resultaten ── */}
+        <section style={{ backgroundColor: "#FDFAF4", padding: "3rem 1.5rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            <p
+              className="font-body font-medium uppercase tracking-widest text-xs mb-6 text-center"
+              style={{ color: "#C4603A" }}
+            >
+              Wat het andere gezinnen opleverde
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  resultaat: "Geen verrassingen meer in de piekmaanden",
+                  quote:
+                    "Periodieke kosten uitgerekend en opgesplitst in maandpotjes — de kerstpot staat er nu gewoon.",
+                  naam: "Daan & Roos",
+                },
+                {
+                  resultaat: "Boodschappen eindelijk onder controle",
+                  quote:
+                    "Samen een weekbudget en een korte check-in na elke keer boodschappen. Dat hield ons scherp.",
+                  naam: "Bram & Eva",
+                },
+                {
+                  resultaat: "Twee dagen minder BSO — rust én geld over",
+                  quote:
+                    "Meegedacht over flexibeler werken in plaats van alleen bezuinigen. Thuis is het rustiger.",
+                  naam: "Karim & Noor",
+                },
+              ].map((t) => (
+                <div
+                  key={t.naam}
+                  className="rounded-2xl p-6 border border-[#E8E0D4]"
+                  style={{ backgroundColor: "white" }}
+                >
+                  <p className="font-body font-medium text-[#2D6A4F] text-sm mb-2">
+                    {t.resultaat}
+                  </p>
+                  <p className="font-body font-light text-[#1C3A2A] text-sm leading-relaxed mb-3">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <p className="font-body text-[#8A9E8E] text-xs">{t.naam}</p>
+                </div>
+              ))}
+            </div>
+            <p
+              className="font-body text-xs mt-6 text-center"
+              style={{ color: "#8A9E8E" }}
+            >
+              Echte ervaringen van de eerste gezinnen die we hielpen. Namen
+              aangepast voor hun privacy.
+            </p>
           </div>
         </section>
 

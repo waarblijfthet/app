@@ -102,7 +102,8 @@ export default function HeroCards() {
           marginTop: "8px",
         }}
       >
-        Gebaseerd op een voorbeeldgezin. Jouw situatie kan anders zijn.
+        Voorbeeld ter illustratie — geen belofte. Wat je overhoudt hangt af van
+        jouw eigen situatie.
       </p>
     </div>
   );

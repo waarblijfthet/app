@@ -42,6 +42,14 @@ export default function SeizoensKostenkalenderPerMaand() {
         Wil je zien of er in jullie maandbudget ruimte is voor zulke potjes?{" "}
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
       </p>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> Een van de eerste gezinnen die we hielpen, rekende verjaardagen, de vakantie en december om naar vaste maandpotjes. Sindsdien voelen de piekmaanden niet meer als een klap — de kerstpot staat er gewoon.
+        </p>
+      </div>
     </>
   );
 }

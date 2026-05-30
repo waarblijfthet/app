@@ -48,6 +48,14 @@ export default function WatKostEenKindPerMaand() {
         Benieuwd hoe jullie ervoor staan met de kinderen erbij?{" "}
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
       </p>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> Een gezin met hoge opvangkosten dacht met ons mee over flexibeler werken in plaats van alleen bezuinigen. Twee dagen minder BSO gaf een flinke besparing én meer rust thuis.
+        </p>
+      </div>
     </>
   );
 }

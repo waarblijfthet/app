@@ -146,30 +146,33 @@ export default function HomePage() {
         <section className="py-24" style={{ backgroundColor: "#FDFAF4" }}>
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-12">
-              <p className="section-eyebrow mb-4">Herkenbaar</p>
+              <p className="section-eyebrow mb-4">Echte verhalen</p>
               <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-xl">
-                Herkenbaar voor veel gezinnen
+                Wat het andere gezinnen opleverde
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {[
                 {
                   quote:
-                    "We dachten dat we gewoon slecht met geld omgingen — totdat we zagen dat bijna elk gezin in onze situatie hetzelfde had.",
-                  naam: "Marieke",
-                  detail: "Moeder van twee, Utrecht",
+                    "Elk jaar werden we overvallen door verjaardagen, de vakantie en december. We hebben die kosten samen uitgerekend en opgesplitst in kleine potjes per maand. Nu staat de kerstpot er gewoon — geen stress meer in de dure maanden.",
+                  naam: "Daan & Roos",
+                  detail: "Twee kinderen, koopwoning",
+                  resultaat: "Geen verrassingen meer in de piekmaanden",
                 },
                 {
                   quote:
-                    "Ik verdiende goed maar had nooit rust over geld. De analyse liet zien waar het echt naartoe ging.",
-                  naam: "Thomas",
-                  detail: "40 jaar, gezin van vier, Eindhoven",
+                    "Onze boodschappen waren een zwart gat: veel impulsaankopen, nooit een plan. Samen een weekbudget gezet en na elke keer boodschappen een korte check-in. Dat hield ons scherp, juist op de momenten dat het misging.",
+                  naam: "Bram & Eva",
+                  detail: "Gezin van vier, twee inkomens",
+                  resultaat: "Boodschappen eindelijk onder controle",
                 },
                 {
                   quote:
-                    "Eindelijk iemand die niet meteen over beleggen begint. Gewoon eerlijk kijken naar wat er in en uit gaat.",
-                  naam: "Sandra & Peter",
-                  detail: "Twee inkomens, drie kinderen, Tilburg",
+                    "De kosten voor de BSO liepen de pan uit. In plaats van alleen bezuinigen dachten we samen na over flexibeler werken — en hoe je dat op je werk bespreekt. Twee dagen minder opvang scheelt fors, én het is rustiger thuis.",
+                  naam: "Karim & Noor",
+                  detail: "Twee jonge kinderen",
+                  resultaat: "Twee dagen minder BSO — rust én geld over",
                 },
               ].map((t) => (
                 <div
@@ -189,6 +192,9 @@ export default function HomePage() {
                     <p className="font-body text-[#8A9E8E] text-xs">
                       {t.detail}
                     </p>
+                    <p className="font-body text-[#2D6A4F] text-xs font-medium mt-2">
+                      {t.resultaat}
+                    </p>
                   </div>
                 </div>
               ))}
@@ -197,8 +203,8 @@ export default function HomePage() {
               className="font-body text-xs mt-6 text-center"
               style={{ color: "#8A9E8E" }}
             >
-              Illustratieve voorbeelden ter herkenning — geen weergave van
-              werkelijke klantresultaten. Namen zijn gefictionaliseerd.
+              Echte ervaringen van de eerste gezinnen die we hielpen. Namen zijn
+              aangepast voor hun privacy.
             </p>
           </div>
         </section>
@@ -285,8 +291,8 @@ export default function HomePage() {
                   Bijsturen en bijhouden
                 </h3>
                 <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Wekelijkse check-ins via WhatsApp. Een stok achter de deur van
-                  iemand die meekijkt.
+                  Een wekelijkse check-in via WhatsApp: jij deelt wat je wilt, ik
+                  denk mee en houd je scherp. Geen toegang tot je rekening.
                 </p>
               </div>
             </div>
