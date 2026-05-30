@@ -194,7 +194,7 @@ export default function AanbodPage() {
                 className="font-display font-light"
                 style={{ fontSize: "1.5rem", lineHeight: 1.25, color: "white" }}
               >
-                Zes weken een spiegel voorgehouden
+                Zes weken begeleiding
               </h2>
 
               <div>
@@ -296,7 +296,7 @@ export default function AanbodPage() {
                 className="font-display font-light text-[#1C3A2A]"
                 style={{ fontSize: "1.5rem", lineHeight: 1.25 }}
               >
-                Persoonlijke begeleiding op maat
+                Persoonlijk traject (3 maanden)
               </h2>
 
               <div>
@@ -460,7 +460,7 @@ export default function AanbodPage() {
               >
                 <thead>
                   <tr style={{ backgroundColor: "#1C3A2A" }}>
-                    {["Kenmerk", "Gratis", "6 Weken", "Intensief"].map(
+                    {["Kenmerk", "Gratis", "6 weken", "Traject"].map(
                       (h, i) => (
                         <th
                           key={h}
