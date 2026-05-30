@@ -7,6 +7,7 @@ import QuizResultatenTabblad from "./components/QuizResultatenTabblad";
 import OverzichtTabblad from "./components/OverzichtTabblad";
 import AanvragenTabblad from "./components/AanvragenTabblad";
 import { BezoekersTabblad } from "./components/BezoekersTabblad";
+import FunnelTabblad from "./components/FunnelTabblad";
 
 interface Props {
   leads: Lead[];
@@ -15,6 +16,7 @@ interface Props {
 }
 
 const TABS = [
+  { id: "funnel", label: "📊 Funnel" },
   { id: "bezoekers", label: "👁 Bezoekers" },
   { id: "leads", label: "Leads" },
   { id: "quiz", label: "Quiz resultaten" },
@@ -25,7 +27,7 @@ const TABS = [
 type TabId = (typeof TABS)[number]["id"];
 
 export default function AdminClient({ leads, quizResultaten, aanvragen }: Props) {
-  const [actief, setActief] = useState<TabId>("bezoekers");
+  const [actief, setActief] = useState<TabId>("funnel");
 
   return (
     <div>
@@ -75,6 +77,13 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
       </div>
 
       {/* Content */}
+      {actief === "funnel" && (
+        <FunnelTabblad
+          leads={leads}
+          quizResultaten={quizResultaten}
+          aanvragen={aanvragen}
+        />
+      )}
       {actief === "bezoekers" && <BezoekersTabblad />}
       {actief === "leads" && <LeadsTabblad leads={leads} />}
       {actief === "quiz" && <QuizResultatenTabblad resultaten={quizResultaten} />}

@@ -35,7 +35,8 @@
       "mcp__plugin_vercel_vercel__get_runtime_logs",
       "Bash(npx tsc *)",
       "Bash(vercel --prod)",
-      "Bash(vercel logs *)"
+      "Bash(vercel logs *)",
+      "Bash(git commit *)"
     ]
   }
 }

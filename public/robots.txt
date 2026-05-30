@@ -1,9 +1,12 @@
 # *
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /aanbod/intake
+Disallow: /resultaat
 
 # Host
-Host: https://waarblijfthet.nl
+Host: https://www.waarblijfthet.nl
 
 # Sitemaps
-Sitemap: https://waarblijfthet.nl/sitemap.xml
+Sitemap: https://www.waarblijfthet.nl/sitemap.xml

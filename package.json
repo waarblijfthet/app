@@ -4,9 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "postbuild": "next-sitemap"
+    "build": "next build && node scripts/generate-sitemap.mjs",
+    "start": "next start"
   },
   "dependencies": {
     "@supabase/ssr": "^0.10.3",
