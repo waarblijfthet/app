@@ -42,11 +42,16 @@ export default function Stap3Wonen({ data, onChange }: Props) {
             label={
               data.woonsituatie === "huur"
                 ? "Maandelijkse huur"
-                : "Hypotheek per maand (netto, na aftrek)"
+                : "Hypotheek per maand (bruto)"
             }
             id="huurHypotheek"
             value={data.huurHypotheek}
             onChange={(v) => onChange({ huurHypotheek: v })}
+            hint={
+              data.woonsituatie === "koop"
+                ? "Het bedrag dat je maandelijks aan de bank overmaakt. De hypotheekrenteaftrek vul je apart in als inkomen (stap 2)."
+                : undefined
+            }
           />
         </div>
 
@@ -101,12 +106,31 @@ export default function Stap3Wonen({ data, onChange }: Props) {
               value={data.servicekosten}
               onChange={(v) => onChange({ servicekosten: v })}
             />
-            <EuroInput
-              label="Gemeentelijke belastingen (OZB e.d.)"
-              id="gemeenteBelastingen"
-              value={data.gemeenteBelastingen}
-              onChange={(v) => onChange({ gemeenteBelastingen: v })}
-            />
+            <div>
+              <div className="flex gap-2 mb-2">
+                {(["maand", "jaar"] as const).map((per) => (
+                  <button
+                    key={per}
+                    type="button"
+                    onClick={() => onChange({ gemeenteBelastingenPer: per })}
+                    className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
+                      data.gemeenteBelastingenPer === per
+                        ? "bg-primary text-white"
+                        : "bg-[#E8E0D0] text-text-soft"
+                    }`}
+                  >
+                    Per {per}
+                  </button>
+                ))}
+              </div>
+              <EuroInput
+                label={`Gemeentelijke belastingen (OZB e.d.) — per ${data.gemeenteBelastingenPer}`}
+                id="gemeenteBelastingen"
+                value={data.gemeenteBelastingen}
+                onChange={(v) => onChange({ gemeenteBelastingen: v })}
+                hint="Vaak een jaaraanslag — kies dan 'per jaar'."
+              />
+            </div>
           </div>
         )}
       </div>

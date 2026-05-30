@@ -23,6 +23,8 @@ export interface QuizData {
   toeslagKinderbijslag: string;
   toeslagHuur: string;
   toeslagOverig: string;
+  hypotheekRenteAftrek: string; // teruggave = inkomen (alleen koop)
+  hypotheekRenteAftrekPer: "maand" | "jaar";
 
   // Stap 3 — Wonen
   huurHypotheek: string;
@@ -30,6 +32,7 @@ export interface QuizData {
   internet: string;
   servicekosten: string;
   gemeenteBelastingen: string;
+  gemeenteBelastingenPer: "maand" | "jaar";
 
   // Stap 4 — Vervoer & Verzekeringen
   ovAbonnement: string;
@@ -77,11 +80,14 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   toeslagKinderbijslag: "",
   toeslagHuur: "",
   toeslagOverig: "",
+  hypotheekRenteAftrek: "",
+  hypotheekRenteAftrekPer: "jaar",
   huurHypotheek: "",
   energie: "",
   internet: "",
   servicekosten: "",
   gemeenteBelastingen: "",
+  gemeenteBelastingenPer: "jaar",
   ovAbonnement: "",
   brandstof: "",
   autoVerzWB: "",

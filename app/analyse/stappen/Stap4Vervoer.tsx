@@ -138,8 +138,8 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
             onChange={(v) => onChange({ zorgPerPersoon: v })}
             hint={
               data.zorgToggle === "per_persoon"
-                ? "Gemiddeld €148/mnd per persoon in 2026. Vul bedrag IN na aftrek van zorgtoeslag."
-                : "Vul het totale bedrag in voor jullie gezin, na aftrek van zorgtoeslag."
+                ? "De volledige premie per persoon (bruto). Gemiddeld €148/mnd in 2026. De zorgtoeslag heb je al als inkomen ingevuld."
+                : "De volledige premie voor jullie gezin (bruto). De zorgtoeslag heb je al als inkomen ingevuld."
             }
           />
         </div>

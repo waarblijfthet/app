@@ -13,6 +13,7 @@ interface Props {
 type FilterOptie = "week" | "maand" | "alles";
 
 type BezoekRij = { pagina: string; sessie_id: string; created_at: string };
+type VoortgangRij = { max_stap: number | null; voltooid: boolean | null; created_at: string; totaal_inkomen: number | null; maandelijks_over: number | null; verdict: string | null; aantal_kinderen: number | null; woonsituatie: string | null };
 
 const PAGINA_LABELS: Record<string, string> = {
   "/": "Homepage",
@@ -42,6 +43,7 @@ function pct(deel: number, totaal: number): string {
 
 export default function FunnelTabblad({ leads, quizResultaten, aanvragen }: Props) {
   const [bezoeken, setBezoeken] = useState<BezoekRij[]>([]);
+  const [voortgang, setVoortgang] = useState<VoortgangRij[]>([]);
   const [laden, setLaden] = useState(true);
   const [filter, setFilter] = useState<FilterOptie>("maand");
 
@@ -50,14 +52,24 @@ export default function FunnelTabblad({ leads, quizResultaten, aanvragen }: Prop
     async function laad() {
       setLaden(true);
       const supabase = createClient();
-      const { data } = await supabase
-        .from("paginabezoeken")
-        .select("pagina,sessie_id,created_at")
-        .gte("created_at", new Date(vanafMs(filter)).toISOString())
-        .order("created_at", { ascending: false })
-        .limit(8000);
+      const sinds = new Date(vanafMs(filter)).toISOString();
+      const [bezoekRes, voortgangRes] = await Promise.all([
+        supabase
+          .from("paginabezoeken")
+          .select("pagina,sessie_id,created_at")
+          .gte("created_at", sinds)
+          .order("created_at", { ascending: false })
+          .limit(8000),
+        supabase
+          .from("quiz_voortgang")
+          .select("max_stap,voltooid,created_at,totaal_inkomen,maandelijks_over,verdict,aantal_kinderen,woonsituatie")
+          .order("created_at", { ascending: false })
+          .gte("created_at", sinds)
+          .limit(8000),
+      ]);
       if (actief) {
-        setBezoeken((data as BezoekRij[]) ?? []);
+        setBezoeken((bezoekRes.data as BezoekRij[]) ?? []);
+        setVoortgang((voortgangRes.data as VoortgangRij[]) ?? []);
         setLaden(false);
       }
     }
@@ -120,6 +132,16 @@ export default function FunnelTabblad({ leads, quizResultaten, aanvragen }: Prop
 
     return { bezoekers, analyseGestart, paginaNaarAnalyse };
   }, [bezoeken]);
+
+  const stapTrechter = useMemo(() => {
+    const labels = ["1. Profiel", "2. Inkomsten", "3. Wonen", "4. Vervoer", "5. Dagelijks", "6. Resultaat"];
+    const starts = voortgang.length;
+    const bereikt = labels.map(
+      (_, i) => voortgang.filter((v) => (v.max_stap ?? 1) >= i + 1).length
+    );
+    const voltooid = voortgang.filter((v) => v.voltooid).length;
+    return { labels, starts, bereikt, voltooid };
+  }, [voortgang]);
 
   const stappen = [
     { label: "Bezoekers (unieke sessies)", waarde: bezoekers, vorige: 0 },
@@ -192,6 +214,103 @@ export default function FunnelTabblad({ leads, quizResultaten, aanvragen }: Prop
               zijn indicatief (niet sessie-gekoppeld).
             </p>
           </div>
+
+          {/* Stap-voor-stap drop-off binnen de analyse */}
+          <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
+            <p className="text-xs font-medium text-[#4A5E4E] mb-1 uppercase tracking-wider font-body">
+              Drop-off binnen de analyse (per stap)
+            </p>
+            <p className="text-xs text-[#8A9E8E] mb-4 font-body">
+              Hoeveel mensen elke stap bereikten. Waar de balk terugloopt, haken
+              mensen af.
+            </p>
+            {stapTrechter.starts === 0 ? (
+              <p className="text-sm text-[#8A9E8E] py-6 text-center font-body">
+                Nog geen voortgangsdata. (Verschijnt zodra de tabel
+                quiz_voortgang bestaat en iemand de analyse start.)
+              </p>
+            ) : (
+              <div className="space-y-2.5">
+                {stapTrechter.labels.map((label, i) => {
+                  const aantal = stapTrechter.bereikt[i];
+                  const start = stapTrechter.bereikt[0] || 1;
+                  const vorige = i > 0 ? stapTrechter.bereikt[i - 1] : aantal;
+                  const drop = vorige - aantal;
+                  return (
+                    <div key={label} className="flex items-center gap-3">
+                      <span className="text-xs text-[#1C3A2A] font-body w-24 flex-shrink-0">
+                        {label}
+                      </span>
+                      <div className="flex-1 h-4 bg-[#EDE6D8] rounded-full overflow-hidden">
+                        <div
+                          className="h-full bg-[#1C3A2A] rounded-full"
+                          style={{ width: `${Math.round((aantal / start) * 100)}%` }}
+                        />
+                      </div>
+                      <span className="text-xs font-body text-[#4A5E4E] w-28 text-right flex-shrink-0">
+                        {aantal}
+                        {i > 0 && drop > 0 && (
+                          <span className="text-[#B03A2E]"> (−{drop})</span>
+                        )}
+                      </span>
+                    </div>
+                  );
+                })}
+                <p className="text-xs text-[#8A9E8E] mt-3 font-body">
+                  Voltooid: <strong>{stapTrechter.voltooid}</strong> van{" "}
+                  {stapTrechter.starts} starts ({pct(stapTrechter.voltooid, stapTrechter.starts)}).
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Laatste voltooide analyses */}
+          {voortgang.filter((v) => v.voltooid).length > 0 && (
+            <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
+              <p className="text-xs font-medium text-[#4A5E4E] mb-3 uppercase tracking-wider font-body">
+                Laatste voltooide analyses
+              </p>
+              <div style={{ overflowX: "auto" }}>
+                <table className="w-full text-sm" style={{ minWidth: "440px" }}>
+                  <thead>
+                    <tr className="bg-[#1C3A2A]">
+                      {["Profiel", "Inkomen", "Houdt over", "Oordeel"].map((h) => (
+                        <th key={h} className="text-left px-3 py-2 text-[#F5F0E8] font-medium text-xs font-body">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {voortgang
+                      .filter((v) => v.voltooid)
+                      .slice(0, 12)
+                      .map((v, i) => (
+                        <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"}>
+                          <td className="px-3 py-2 text-[#4A5E4E] text-xs font-body">
+                            {v.woonsituatie ?? "—"}, {v.aantal_kinderen ?? 0} kind(eren)
+                          </td>
+                          <td className="px-3 py-2 text-[#1C3A2A] text-xs font-body">
+                            {v.totaal_inkomen ? "€" + v.totaal_inkomen.toLocaleString("nl-NL") : "—"}
+                          </td>
+                          <td className="px-3 py-2 text-xs font-body" style={{ color: (v.maandelijks_over ?? 0) < 0 ? "#B03A2E" : "#2D6A4F" }}>
+                            {v.maandelijks_over != null ? "€" + v.maandelijks_over.toLocaleString("nl-NL") : "—"}
+                          </td>
+                          <td className="px-3 py-2 text-xs font-body">
+                            <span className="px-2 py-0.5 rounded-full" style={{
+                              backgroundColor: v.verdict === "goed" ? "#E8F2EC" : v.verdict === "matig" ? "#FDF3E3" : "#FDECEA",
+                              color: v.verdict === "goed" ? "#2D6A4F" : v.verdict === "matig" ? "#92600A" : "#B03A2E",
+                            }}>
+                              {v.verdict ?? "—"}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
 
           {/* Pagina's naar analyse */}
           <div className="bg-white rounded-xl border border-[#E8E0D4] p-5">

@@ -146,6 +146,35 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         onChange={onChange}
       />
 
+      {/* Hypotheekrenteaftrek — inkomen, alleen bij koopwoning */}
+      {data.woonsituatie === "koop" && (
+        <div className="mb-6">
+          <div className="flex gap-2 mb-2">
+            {(["maand", "jaar"] as const).map((per) => (
+              <button
+                key={per}
+                type="button"
+                onClick={() => onChange({ hypotheekRenteAftrekPer: per })}
+                className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
+                  data.hypotheekRenteAftrekPer === per
+                    ? "bg-primary text-white"
+                    : "bg-[#E8E0D0] text-text-soft"
+                }`}
+              >
+                Per {per}
+              </button>
+            ))}
+          </div>
+          <EuroInput
+            label={`Hypotheekrenteaftrek / teruggave — per ${data.hypotheekRenteAftrekPer}`}
+            id="hypotheekRenteAftrek"
+            value={data.hypotheekRenteAftrek}
+            onChange={(v) => onChange({ hypotheekRenteAftrek: v })}
+            hint="Je belastingteruggave op de hypotheekrente. Vaak weet je het jaarbedrag — kies dan 'per jaar'. Weet je het niet? Laat leeg."
+          />
+        </div>
+      )}
+
       {/* Toeslagen */}
       <div className="mb-6">
         <button

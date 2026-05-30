@@ -1,7 +1,15 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { QuizData, DEFAULT_QUIZ_DATA, canProceed } from "@/lib/quiz-types";
+import { useState, useCallback, useRef, useEffect } from "react";
+import { QuizData, DEFAULT_QUIZ_DATA, canProceed, parseEur } from "@/lib/quiz-types";
+import { createClient } from "@/lib/supabase-browser";
+import {
+  getBenchmarks,
+  berekenTotaalInkomen,
+  berekenOver,
+  bepaalVerdict,
+  vindGrootsteAfwijking,
+} from "@/lib/benchmarks";
 import ProgressBar from "./components/ProgressBar";
 import VergelijkingsPaneel from "./components/VergelijkingsPaneel";
 import Stap1Profiel from "./stappen/Stap1Profiel";
@@ -20,6 +28,87 @@ export default function QuizClient() {
   const update = useCallback((changes: Partial<QuizData>) => {
     setData((prev) => ({ ...prev, ...changes }));
   }, []);
+
+  // ── Voortgang opslaan (PII-vrij) zodat we afhaken én ingevulde data meten ──
+  const sessieIdRef = useRef<string>("");
+  const maxStapRef = useRef<number>(1);
+
+  useEffect(() => {
+    if (!sessieIdRef.current) {
+      sessieIdRef.current =
+        typeof crypto !== "undefined" && crypto.randomUUID
+          ? crypto.randomUUID()
+          : Math.random().toString(36).slice(2);
+    }
+    maxStapRef.current = Math.max(maxStapRef.current, step);
+    const voltooid = step === 6;
+
+    let inkomen = 0;
+    let over = 0;
+    let uitgaven = 0;
+    let verdict: string | null = null;
+    let grootste: string | null = null;
+    try {
+      inkomen = berekenTotaalInkomen(data);
+      if (voltooid) {
+        const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+        const benches = getBenchmarks({
+          woonsituatie: data.woonsituatie,
+          kinderen: data.kinderen,
+          inkomen,
+          auto: data.auto,
+          aantalVolwassenen,
+        });
+        over = berekenOver(data);
+        uitgaven = inkomen - over;
+        verdict = bepaalVerdict(data, benches);
+        grootste = vindGrootsteAfwijking(data, benches);
+      }
+    } catch {
+      // rekenfout mag nooit de tool breken
+    }
+
+    // PII (email/naam/toestemming) bewust NIET opslaan in voortgang
+    const {
+      email: _e,
+      naam: _n,
+      toestemmingOpslaan: _t,
+      toestemmingMarketing: _m,
+      ...antwoorden
+    } = data;
+
+    try {
+      const supabase = createClient();
+      supabase
+        .from("quiz_voortgang")
+        .upsert(
+          {
+            sessie_id: sessieIdRef.current,
+            huidige_stap: step,
+            max_stap: maxStapRef.current,
+            voltooid,
+            woonsituatie: data.woonsituatie,
+            aantal_kinderen: data.kinderen,
+            auto_situatie: data.auto,
+            totaal_inkomen: inkomen || null,
+            totaal_uitgaven: voltooid ? uitgaven : null,
+            maandelijks_over: voltooid ? over : null,
+            verdict,
+            grootste_afwijking: grootste,
+            antwoorden,
+            updated_at: new Date().toISOString(),
+          },
+          { onConflict: "sessie_id" }
+        )
+        .then(
+          () => {},
+          () => {}
+        );
+    } catch {
+      // stil falen — tracking mag de tool nooit blokkeren
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [step]);
 
   const next = () => setStep((s) => Math.min(s + 1, TOTAL_STEPS));
   const prev = () => setStep((s) => Math.max(s - 1, 1));

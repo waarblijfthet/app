@@ -91,6 +91,10 @@ export function berekenTotaalInkomen(data: QuizData): number {
     if (data.salaris2InclDertiende) e2 += Math.round(s2 / 12);
   }
 
+  const aftrekRaw = parseEur(data.hypotheekRenteAftrek);
+  const aftrekMaand =
+    data.hypotheekRenteAftrekPer === "jaar" ? Math.round(aftrekRaw / 12) : aftrekRaw;
+
   return (
     e1 +
     e2 +
@@ -99,19 +103,23 @@ export function berekenTotaalInkomen(data: QuizData): number {
     parseEur(data.toeslagKinderopvang) +
     parseEur(data.toeslagKinderbijslag) +
     parseEur(data.toeslagHuur) +
-    parseEur(data.toeslagOverig)
+    parseEur(data.toeslagOverig) +
+    aftrekMaand
   );
 }
 
 // ─── Expense sub-totals ───────────────────────────────────────────────────────
 
 export function berekenWonen(data: QuizData): number {
+  const gemRaw = parseEur(data.gemeenteBelastingen);
+  const gemMaand =
+    data.gemeenteBelastingenPer === "jaar" ? Math.round(gemRaw / 12) : gemRaw;
   return (
     parseEur(data.huurHypotheek) +
     parseEur(data.energie) +
     parseEur(data.internet) +
     parseEur(data.servicekosten) +
-    parseEur(data.gemeenteBelastingen)
+    gemMaand
   );
 }
 
