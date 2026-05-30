@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BoodschappenKloof } from "@/components/artikel/BoodschappenKloof";
+import BoodschappenSlider from "@/components/artikel/BoodschappenSlider";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -34,6 +35,8 @@ export default function WatIsNormaalBedragBoodschappen() {
       </p>
 
       <BoodschappenKloof />
+
+      <BoodschappenSlider />
 
       <h2 className="font-display" style={h2}>
         Waarom klopt de Nibud-norm niet met jouw kassabon?

@@ -33,6 +33,14 @@ export default function Footer() {
             Privacy
           </Link>
           <span className="text-white/20 mx-2">·</span>
+          <Link
+            href="/woordenlijst"
+            className="text-white/50 hover:text-white/80 transition-colors no-underline"
+            style={{ textDecoration: "none" }}
+          >
+            Woordenlijst
+          </Link>
+          <span className="text-white/20 mx-2">·</span>
           <a
             href="mailto:hallo@waarblijfthet.nl"
             className="text-white/50 hover:text-white/80 transition-colors"

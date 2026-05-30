@@ -114,6 +114,7 @@ function SalarisBlok({
 
 export default function Stap2Inkomsten({ data, onChange }: Props) {
   const [overigOpen, setOverigOpen] = useState(false);
+  const [toeslagenOpen, setToeslagenOpen] = useState(false);
   const totaalInkomen = berekenTotaalInkomen(data);
   const percentiel = totaalInkomen > 0 ? getPercentiel(totaalInkomen, data.kinderen ?? 0) : null;
 
@@ -147,9 +148,17 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
 
       {/* Toeslagen */}
       <div className="mb-6">
-        <p className="font-body font-medium text-text-soft text-sm mb-4">
-          Toeslagen en uitkeringen
-        </p>
+        <button
+          type="button"
+          onClick={() => setToeslagenOpen((o) => !o)}
+          className="flex items-center gap-2 text-sm font-body font-medium text-text-soft hover:text-primary transition-colors mb-4"
+        >
+          <span className={`transition-transform duration-200 ${toeslagenOpen ? "rotate-90" : ""}`}>
+            ▶
+          </span>
+          {toeslagenOpen ? "Verberg toeslagen" : "+ Toeslagen toevoegen (optioneel)"}
+        </button>
+        {toeslagenOpen && (
         <div className="space-y-4">
           <EuroInput
             label="Zorgtoeslag"
@@ -194,6 +203,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
             />
           )}
         </div>
+        )}
       </div>
 
       {/* Overig inkomen */}

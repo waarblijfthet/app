@@ -330,7 +330,16 @@ export default function HomePage() {
                     fontStyle: "italic",
                   }}
                 >
-                  (Bron: Deloitte, 2024)
+                  (Bron:{" "}
+                  <a
+                    href="https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "#8A9E8E", textDecoration: "underline" }}
+                  >
+                    Deloitte
+                  </a>
+                  , 2024)
                 </p>
               </div>
 
@@ -350,7 +359,16 @@ export default function HomePage() {
                     fontStyle: "italic",
                   }}
                 >
-                  (Bron: Nibud, 2026)
+                  (Bron:{" "}
+                  <a
+                    href="https://www.nibud.nl/onderwerpen/rondkomen/moeite-met-rondkomen/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "#8A9E8E", textDecoration: "underline" }}
+                  >
+                    Nibud
+                  </a>
+                  , 2026)
                 </p>
               </div>
 
@@ -371,7 +389,16 @@ export default function HomePage() {
                     fontStyle: "italic",
                   }}
                 >
-                  (Bron: Deloitte, 2024)
+                  (Bron:{" "}
+                  <a
+                    href="https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "#8A9E8E", textDecoration: "underline" }}
+                  >
+                    Deloitte
+                  </a>
+                  , 2024)
                 </p>
               </div>
             </div>

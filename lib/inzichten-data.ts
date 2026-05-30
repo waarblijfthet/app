@@ -80,6 +80,143 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "wat-kost-een-kind-per-maand",
+    korteTitel: "Wat kost een kind per maand?",
+    titel: "Wat kost een kind per maand?",
+    metaTitel: "Wat kost een kind per maand?",
+    metaDescription: "Het Nibud rekent dat één kind gemiddeld 15% van het besteedbaar inkomen kost — voor een modaal gezin €887 tot €1.000 per maand. Waar het geld heen gaat.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "Een kind krijgen verandert je financiën meer dan je vooraf inschat. Niet de luiers, maar wat er daarna elke maand bijkomt. Het Nibud rekent 15% van je inkomen voor één kind — voor een modaal gezin €887 tot €1.000 per maand.",
+    preview: {
+      type: "pijn",
+      label: "Aandeel van je inkomen (Nibud)",
+      items: ["1 kind ≈ 15%", "2 kinderen ≈ 25%", "3 kinderen ≈ 29%"],
+    },
+    faq: [
+      {
+        vraag: "Wat kost een kind gemiddeld per maand?",
+        antwoord: "Het Nibud rekent dat één kind gemiddeld 15% van het besteedbaar inkomen kost, twee kinderen 25% en drie kinderen 29%. Voor een gezin met twee modale inkomens komt één kind neer op €887 tot €1.000 per maand.",
+      },
+      {
+        vraag: "Kost een kind voor een alleenstaande ouder meer?",
+        antwoord: "Relatief wel. Het Nibud rekent voor een alleenstaande ouder ongeveer 23% van het besteedbaar inkomen voor één kind en 37% voor twee, omdat één inkomen alle kosten draagt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — wat kost een kind",
+        url: "https://www.nibud.nl/onderwerpen/kinderen-en-jongeren/wat-kost-een-kind/",
+      },
+    ],
+  },  {
+    slug: "schoolkosten-per-jaar-gezin",
+    korteTitel: "Wat kosten schoolgaande kinderen?",
+    titel: "Schoolkosten per jaar: wat kost de middelbare school echt?",
+    metaTitel: "Schoolkosten per jaar: wat kost de middelbare school echt?",
+    metaDescription: "Onderwijs is gratis, maar schoolkosten lopen op tot €400-600 per kind per jaar. Wat je betaalt, wat vrijwillig is, en hoe je de schoolpiek in augustus opvangt.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "Onderwijs is gratis, hoor je vaak — maar augustus is een van de duurste maanden. De vrijwillige ouderbijdrage is gemiddeld €188-200, maar met schoolspullen en een fiets lopen de werkelijke kosten op tot €400-600 per kind per jaar.",
+    preview: {
+      type: "vergelijking",
+      label: "Middelbare school, per jaar",
+      items: [
+        { naam: "Vrijwillige bijdrage", bedrag: 200, kleur: "#8A9E8E" },
+        { naam: "Totaal per kind", bedrag: 550, kleur: "#C4603A" },
+      ],
+      noot: "Inclusief schoolspullen en benodigdheden",
+    },
+    faq: [
+      {
+        vraag: "Wat kost de middelbare school per jaar voor ouders?",
+        antwoord: "Lesgeld is er niet, maar de vrijwillige ouderbijdrage is gemiddeld €188 tot €200 per jaar. Met schoolspullen (gemiddeld €349), sportkleding en een fiets lopen de werkelijke kosten op tot €400 à €600 per kind per jaar.",
+      },
+      {
+        vraag: "Is de ouderbijdrage verplicht?",
+        antwoord: "Nee, de ouderbijdrage is wettelijk vrijwillig. Je kind mag nergens van worden uitgesloten als je niet of slechts deels betaalt, en scholen moeten dat ook zo communiceren.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Rijksoverheid — kosten voor kind in voortgezet onderwijs",
+        url: "https://www.rijksoverheid.nl/onderwerpen/voortgezet-onderwijs/vraag-en-antwoord/kosten-voor-kind-in-voortgezet-onderwijs",
+      },
+      {
+        label: "Ouders & Onderwijs — vrijwillige ouderbijdrage",
+        url: "https://oudersenonderwijs.nl/speerpunten/ouderbijdrage/",
+      },
+    ],
+  },  {
+    slug: "hogere-hypotheek-wat-kost-het-per-maand",
+    korteTitel: "Wat kost een hogere hypotheek?",
+    titel: "Wat kost een hogere hypotheek echt per maand?",
+    metaTitel: "Wat kost een hogere hypotheek echt per maand?",
+    metaDescription: "Elke €100.000 extra hypotheek kost bij ~4% rente grofweg €475 per maand, 30 jaar lang. Waarom 'het kan net' gevaarlijk is. Rekenvoorbeeld, geen advies.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "Een groter huis of overbieden: de hypotheek net wat hoger lijkt op papier klein verschil. Maandelijks voelt het anders — elke €100.000 extra is grofweg €475 per maand, 30 jaar lang. Een rekenvoorbeeld (geen advies).",
+    preview: {
+      type: "pijn",
+      label: "Per €100.000 extra",
+      items: ["≈ €475 per maand", "Rente ~4%, 30 jaar", "Een vaste last die blijft"],
+    },
+    faq: [
+      {
+        vraag: "Wat kost €100.000 extra hypotheek per maand?",
+        antwoord: "Bij een rente van rond de 4% kost elke €100.000 extra hypotheek grofweg €475 per maand aan rente en aflossing (annuïteit, 30 jaar). Dit is een rekenvoorbeeld; je werkelijke last hangt af van rente, looptijd en aftrek.",
+      },
+      {
+        vraag: "Hoeveel van mijn inkomen mag naar woonlasten?",
+        antwoord: "Het Nibud hanteert als vuistregel dat je woonlasten bij voorkeur niet boven ongeveer een derde van je netto-inkomen uitkomen. Zit je daar ruim boven, dan wordt elke tegenvaller meteen voelbaar.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven en woonlasten",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },  {
+    slug: "verbouwen-financiele-valkuilen",
+    korteTitel: "Verbouwen: de financiële valkuilen",
+    titel: "Verbouwen: de drie financiële valkuilen",
+    metaTitel: "Verbouwen: de drie financiële valkuilen",
+    metaDescription: "Een verbouwing valt bijna altijd duurder uit dan begroot. De drie valkuilen: budgetuitloop, meefinancieren in de hypotheek, en de lifestyle-sprong erna.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: "Een verbouwing is zelden alleen een verbouwing — het valt bijna altijd duurder uit dan begroot en trekt daarna je maandlasten op. De drie valkuilen die vrijwel iedereen overkomen, en hoe je ze voor bent.",
+    preview: {
+      type: "pijn",
+      label: "De drie valkuilen",
+      items: ["Budget loopt uit", "Meefinancieren", "Lifestyle-sprong"],
+    },
+    faq: [
+      {
+        vraag: "Waarom valt een verbouwing altijd duurder uit?",
+        antwoord: "Door meerwerk, tegenvallers achter de muur en 'nu we toch bezig zijn'-keuzes eindigt een verbouwing zelden op het beginbedrag. Een marge van 10 tot 20% bovenop de offerte is geen luxe maar noodzaak.",
+      },
+      {
+        vraag: "Is een verbouwing meefinancieren in de hypotheek slim?",
+        antwoord: "Het maakt het maandelijks behapbaar, maar het is geen gratis geld: het verhoogt je woonlast voor jaren. Elke €100.000 extra is grofweg €475 per maand.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
     slug: "waar-blijft-het-bij-mark-en-lisa",
     korteTitel: "Casestudy: Mark & Lisa (€4.000)",
     titel: "Waar blijft het bij Mark & Lisa: €4.000 netto en toch krap",
