@@ -21,6 +21,12 @@ export default function GoedsalarisTochKrap() {
         Het antwoord is bijna nooit één grote oorzaak. Het is een combinatie
         van kleine dingen die samen een groot gat slaan.
       </p>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+        Kort gezegd: als je goed verdient maar toch krap zit, ligt het zelden aan
+        je inkomen. Het komt door drie dingen die ongemerkt optellen — sluipende
+        vaste lasten en abonnementen, onderschatte boodschappen, en het ontbreken
+        van een buffer. Niet méér verdienen lost dat op, maar meer structuur.
+      </p>
 
       <h2 className="font-display" style={h2}>
         Vaste lasten die stiller groeien dan je doorhebt
@@ -34,7 +40,8 @@ export default function GoedsalarisTochKrap() {
       <p className="font-body text-text-soft" style={p}>
         Een gemiddeld Nederlands gezin betaalt inmiddels meer dan €200 per
         maand aan abonnementen. Tien jaar geleden was dat een fractie daarvan.
-        De meesten schatten het op de helft.
+        De meesten schatten het op de helft. Zie ook wat{" "}
+        <Link href="/inzichten/wat-zijn-normale-vaste-lasten-gezin" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">normale vaste lasten voor een gezin</Link>{" "}zijn.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -47,7 +54,9 @@ export default function GoedsalarisTochKrap() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Voor een gezin met twee kinderen is €700 tot €900 per maand geen
-        uitzondering. Wie dat aan zichzelf vraagt, noemt vaak €500.
+        uitzondering — terwijl de Nibud-norm op €627 ligt. Wie dat aan zichzelf
+        vraagt, noemt vaak €500. Meer hierover in ons artikel over{" "}
+        <Link href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">normale boodschappenkosten</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -71,7 +80,8 @@ export default function GoedsalarisTochKrap() {
         Gezinnen die hetzelfde verdienen maar structureel meer overhouden, doen
         één ding anders: ze verdelen hun inkomen direct. Vaste lasten van een
         aparte rekening, spaardoelen in aparte potjes, een vast bedrag voor
-        dagelijkse uitgaven.
+        dagelijkse uitgaven. Hoe dat praktisch werkt, lees je in ons artikel over de{" "}
+        <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>

@@ -12,6 +12,9 @@ import GeldStressRelatieNederland from "./content/geld-stress-relatie-nederland"
 import HoeBespaarJeOpBoodschappen from "./content/hoe-bespaar-je-op-boodschappen";
 import NibudBoodschappenVersusWerkelijkheid from "./content/nibud-boodschappen-versus-werkelijkheid";
 import KostenLevensonderhoudAlleenstaande2026 from "./content/kosten-levensonderhoud-alleenstaande-2026";
+import LifestyleInflatieMeerVerdienenMeerUitgeven from "./content/lifestyle-inflatie-meer-verdienen-meer-uitgeven";
+import TweeverdienersTochKrap from "./content/tweeverdieners-toch-krap";
+import VijftigDertigTwintigRegelHogerInkomen from "./content/50-30-20-regel-hoger-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -28,6 +31,9 @@ const contentMap: Record<string, () => JSX.Element> = {
   "hoe-bespaar-je-op-boodschappen": HoeBespaarJeOpBoodschappen,
   "nibud-boodschappen-versus-werkelijkheid": NibudBoodschappenVersusWerkelijkheid,
   "kosten-levensonderhoud-alleenstaande-2026": KostenLevensonderhoudAlleenstaande2026,
+  "lifestyle-inflatie-meer-verdienen-meer-uitgeven": LifestyleInflatieMeerVerdienenMeerUitgeven,
+  "tweeverdieners-toch-krap": TweeverdienersTochKrap,
+  "50-30-20-regel-hoger-inkomen": VijftigDertigTwintigRegelHogerInkomen,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

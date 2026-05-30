@@ -80,6 +80,151 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "50-30-20-regel-hoger-inkomen",
+    korteTitel: "Werkt 50/30/20 bij een hoger inkomen?",
+    titel:
+      "Werkt de 50/30/20-regel nog bij een hoger inkomen?",
+    metaTitel:
+      "Werkt de 50/30/20-regel nog bij een hoger inkomen?",
+    metaDescription:
+      "De 50/30/20-regel is een prima startpunt, maar bij een hoger inkomen klopt de verdeling niet meer. Waarom — en welke verdeling dan wel werkt.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "6",
+    categorie: "Sparen",
+    excerpt:
+      "50% vaste lasten, 30% vrij, 20% sparen — het bekendste budgetadvies dat er is. Maar wie goed verdient en de regel letterlijk volgt, legitimeert vooral zijn eigen lifestyle-inflatie. Zo pak je het slimmer aan.",
+    preview: {
+      type: "verdeling",
+      label: "De klassieke 50/30/20-regel",
+      posten: [
+        { naam: "Vaste lasten", pct: 50, kleur: "#1C3A2A" },
+        { naam: "Vrij besteedbaar", pct: 30, kleur: "#C4603A" },
+        { naam: "Sparen", pct: 20, kleur: "#2D6A4F" },
+      ],
+      uitkomst: "Bij een hoger inkomen is 20% sparen een ondergrens",
+    },
+    faq: [
+      {
+        vraag: "Wat houdt de 50/30/20-regel precies in?",
+        antwoord:
+          "Je verdeelt je netto-inkomen in drie delen: 50% naar behoeften (huur of hypotheek, energie, verzekeringen, boodschappen, vervoer), 30% naar wensen (uit eten, hobby's, vakanties, abonnementen) en 20% naar sparen en aflossen. De kracht zit in de eenvoud.",
+      },
+      {
+        vraag: "Werkt de 50/30/20-regel ook bij een hoog inkomen?",
+        antwoord:
+          "Als startpunt wel, maar de verdeling klopt dan niet meer. Je behoeften groeien niet automatisch mee tot de helft van je inkomen, en 20% sparen is bij een hoger inkomen eerder een ondergrens dan een doel. Wie de regel letterlijk volgt, legitimeert vooral zijn eigen lifestyle-inflatie.",
+      },
+      {
+        vraag: "Welke verdeling is beter als je goed verdient?",
+        antwoord:
+          "Draai de logica om: bepaal eerst hoeveel je opzij wilt zetten en leef van de rest. Houd je vaste lasten bewust onder de 50% en laat het verschil naar sparen vloeien — denk eerder aan 50/20/30 met sparen richting 30%, of meer naarmate je inkomen stijgt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven en de 50%-norm voor vaste lasten",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
+    slug: "tweeverdieners-toch-krap",
+    korteTitel: "Tweeverdieners en toch krap",
+    titel:
+      "Tweeverdieners en toch krap: hoe kan dat?",
+    metaTitel:
+      "Tweeverdieners en toch krap: hoe kan dat?",
+    metaDescription:
+      "Twee inkomens en toch elke maand krap? Je bent niet de enige. Waarom twee salarissen vaak dubbele vaste lasten betekenen — en wat eraan helpt.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Twee salarissen die binnenkomen, en toch net zo krap als bij één inkomen. Hoe kan dat? Het tweede inkomen wordt zelden gespaard — het wordt meebesteed. Wat er speelt en wat helpt.",
+    preview: {
+      type: "pijn",
+      label: "Herken jij dit?",
+      items: ["Twee inkomens", "Dubbele vaste lasten", "Toch krap"],
+    },
+    faq: [
+      {
+        vraag: "Waarom komen tweeverdieners toch niet rond?",
+        antwoord:
+          "Omdat twee inkomens meestal ook dubbele kosten betekenen: een tweede auto, kinderopvang, een groter huis en vaker eten bestellen door tijdgebrek. Het tweede inkomen wordt zelden gespaard maar meebesteed, waardoor rondkomen met twee salarissen niet automatisch ruimer voelt.",
+      },
+      {
+        vraag: "Houden we netto wel iets over van de tweede baan?",
+        antwoord:
+          "Voor gezinnen met jonge kinderen valt dat vaak tegen. Een groot deel van het tweede inkomen kan opgaan aan kinderopvang, ook na toeslag. De drukte en de kosten zijn er volop, terwijl er netto verrassend weinig overblijft.",
+      },
+      {
+        vraag: "Wat helpt als je met twee inkomens toch krap zit?",
+        antwoord:
+          "Overzicht, geen hoger inkomen. Behandel het tweede inkomen niet als vrije ruimte die vanzelf opgaat, maar geef het een bestemming voordat het binnenkomt. Een vaste verdeling, zoals de potjesmethode, maakt dat concreet.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Modaal inkomen 2026 (CPB-kerncijfers)",
+        url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
+      },
+      {
+        label: "CBS — inkomen van tweeverdieners",
+        url: "https://www.cbs.nl/nl-nl/longread/statistische-trends/2023/inkomen-van-tweeverdieners-hoeveel-beide-partners-willen-bijdragen",
+      },
+    ],
+  },
+  {
+    slug: "lifestyle-inflatie-meer-verdienen-meer-uitgeven",
+    korteTitel: "Lifestyle-inflatie: meer verdienen, niks over",
+    titel:
+      "Lifestyle-inflatie: waarom meer verdienen niet meer overhouden betekent",
+    metaTitel:
+      "Lifestyle-inflatie: waarom meer verdienen niet meer overhouden betekent",
+    metaDescription:
+      "Je verdient meer dan vroeger, maar houdt niks extra over? Dat heet lifestyle-inflatie. Zo groeien je uitgaven ongemerkt mee — en zo houd je het tegen.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Je kreeg er salaris bij, en toch voelt het elke maand even krap. Dat is lifestyle-inflatie: je uitgaven groeien ongemerkt mee met je inkomen. Wat het is, waarom het iedereen overkomt, en hoe je het tegenhoudt.",
+    preview: {
+      type: "pijn",
+      label: "Het patroon",
+      items: ["Meer verdienen", "Meer uitgeven", "Niks extra over"],
+    },
+    faq: [
+      {
+        vraag: "Wat is lifestyle-inflatie?",
+        antwoord:
+          "Lifestyle-inflatie is het verschijnsel dat je uitgaven meegroeien met je inkomen. Als je meer gaat verdienen, ga je bijna ongemerkt duurder leven — een duurdere auto, vaker uit eten, een groter huis. Het gevolg is dat een hoger inkomen niet leidt tot meer overhouden.",
+      },
+      {
+        vraag: "Waarom houd ik niks over terwijl ik meer ben gaan verdienen?",
+        antwoord:
+          "Twee dingen tegelijk: een deel van je loonsverhoging is alleen inflatiecorrectie (in 2026 was de cao-stijging 4,5% nominaal, maar reëel zo'n 2%), en de rest lekt weg doordat je uitgaven meegroeien. Bij hogere inkomens verdwijnt bovendien meer aan belasting en afbouw van heffingskortingen.",
+      },
+      {
+        vraag: "Hoe houd ik lifestyle-inflatie tegen?",
+        antwoord:
+          "Laat je uitgaven niet automatisch meestijgen met je inkomen. De simpelste methode: zet bij elke loonsverhoging meteen een vast deel apart, vóórdat het normaal gaat voelen op je rekening. Een vaste verdeling, zoals de potjesmethode, maakt dat concreet.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS — cao-lonen eerste kwartaal 2026 (+4,5%)",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2026/14/cao-lonen-in-eerste-kwartaal-4-5-procent-hoger",
+      },
+      {
+        label: "Modaal inkomen 2026 (CPB-kerncijfers)",
+        url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
+      },
+    ],
+  },
+  {
     slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
     korteTitel: "Boodschappen: norm vs. werkelijkheid",
     titel:
@@ -98,7 +243,7 @@ export const artikelen: Artikel[] = [
       type: "vergelijking",
       label: "Nibud norm vs. werkelijkheid",
       items: [
-        { naam: "Nibud minimum", bedrag: 655, kleur: "#2D6A4F" },
+        { naam: "Nibud minimum", bedrag: 627, kleur: "#2D6A4F" },
         { naam: "Werkelijk gemiddeld", bedrag: 875, kleur: "#C4603A" },
       ],
       noot: "Gezin + 2 kinderen /mnd",
@@ -290,7 +435,7 @@ export const artikelen: Artikel[] = [
       "Goed verdienen maar toch weinig over? Je bent niet de enige. Ontdek waarom het geld verdwijnt en wat je er zonder grote offers aan kunt doen.",
     datum: "2026-05-19",
     datumFormatted: "19 mei 2026",
-    leestijd: "5",
+    leestijd: "7",
     categorie: "Inzicht",
     excerpt:
       "Je verdient genoeg. Niet extreem, maar genoeg. En toch staat er aan het einde van de maand bijna niks meer op de rekening. Hoe kan dat?",
@@ -299,8 +444,42 @@ export const artikelen: Artikel[] = [
       label: "Herken jij dit?",
       items: ["Goed verdienen", "Toch krap", "Geen idee waarom"],
     },
-    faq: [],
-    externLinks: [],
+    faq: [
+      {
+        vraag: "Waarom houd ik weinig over terwijl ik goed verdien?",
+        antwoord:
+          "Meestal niet door je inkomen, maar door drie dingen die ongemerkt optellen: sluipende vaste lasten en abonnementen (gemiddeld al meer dan €200 per maand), onderschatte boodschappen, en het ontbreken van een buffer voor terugkerende 'onverwachte' uitgaven. Samen slaan die een groot gat.",
+      },
+      {
+        vraag: "Ligt het aan mijn inkomen of aan iets anders?",
+        antwoord:
+          "Bijna altijd aan structuur, niet aan inkomen. Gezinnen die hetzelfde verdienen maar meer overhouden, verdelen hun geld direct: vaste lasten van een aparte rekening, sparen in aparte potjes en een vast bedrag voor dagelijkse uitgaven. Meer verdienen zonder systeem lost het zelden op.",
+      },
+      {
+        vraag: "Hoeveel geeft een gemiddeld gezin uit aan abonnementen?",
+        antwoord:
+          "Inmiddels meer dan €200 per maand aan streaming, sport, apps en telefoon samen. Tien jaar geleden was dat een fractie. De meeste mensen schatten hun eigen abonnementskosten op ongeveer de helft van wat ze werkelijk betalen.",
+      },
+      {
+        vraag: "Wat is de eerste stap om meer over te houden?",
+        antwoord:
+          "Inzicht, niet bezuinigen. Pak de afschriften van de afgelopen twee maanden en tel drie dingen op: vaste lasten, boodschappen en wat er overblijft. Pas als je ziet waar het heen gaat, kun je gericht bijsturen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+      {
+        label: "CBS — cao-lonen eerste kwartaal 2026 (+4,5%)",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2026/14/cao-lonen-in-eerste-kwartaal-4-5-procent-hoger",
+      },
+      {
+        label: "Deloitte — 47% van Nederland is financieel kwetsbaar (2024)",
+        url: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
+      },
+    ],
   },
   {
     slug: "vergelijken-boodschappen-nederland-duitsland",
