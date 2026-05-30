@@ -133,6 +133,9 @@ export default function PotjesmethodeGezinHoeWerktHet() {
         bank zijn genoeg voor het basismodel. Meer rekeningen maken het niet
         beter — ze maken het alleen complexer.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Lukt het niet om het vol te houden? Dan helpt het om iemand mee te laten kijken. Zo werkt onze{" "}<Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>.
+      </p>
     </>
   );
 }

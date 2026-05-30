@@ -87,13 +87,13 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Wat zijn normale boodschappenkosten per maand? Nibud vs. werkelijkheid",
     metaDescription:
-      "Nibud zegt €553 voor een gezin van 4. Maar in de praktijk geeft datzelfde gezin €700-900 uit. Wat verklaart dat verschil — en wat betekent het voor jou?",
+      "Nibud zegt €627 voor een gezin van 4. Maar in de praktijk geeft datzelfde gezin €700-900 uit. Wat verklaart dat verschil — en wat betekent het voor jou?",
     datum: "2026-05-21",
     datumFormatted: "21 mei 2026",
     leestijd: "7",
     categorie: "Besparen",
     excerpt:
-      "Het Nibud zegt €553 voor een gezin van vier. Maar in de praktijk geeft datzelfde gezin €700-900 uit — en bij pubers loopt het op naar €1.000 of meer. De kloof is groter dan je denkt, en er zijn drie oorzaken die vrijwel niemand benoemt.",
+      "Het Nibud zegt €627 voor een gezin van vier. Maar in de praktijk geeft datzelfde gezin €700-900 uit — en bij pubers loopt het op naar €1.000 of meer. De kloof is groter dan je denkt, en er zijn drie oorzaken die vrijwel niemand benoemt.",
     preview: {
       type: "vergelijking",
       label: "Nibud norm vs. werkelijkheid",
@@ -285,7 +285,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Goed salaris, toch krap — waarom?",
     titel:
       "Goed salaris, toch krap aan het einde van de maand — hoe kan dat?",
-    metaTitel: "Goed salaris, toch krap — hoe kan dat? | Waar blijft het",
+    metaTitel: "Goed salaris, toch krap — hoe kan dat?",
     metaDescription:
       "Goed verdienen maar toch weinig over? Je bent niet de enige. Ontdek waarom het geld verdwijnt en wat je er zonder grote offers aan kunt doen.",
     datum: "2026-05-19",
@@ -369,7 +369,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Boodschappen in Duitsland: het voordeel",
     titel: "Boodschappen doen in Duitsland — levert het echt wat op?",
     metaTitel:
-      "Boodschappen in Duitsland: echt voordeel of niet? | Waar blijft het",
+      "Boodschappen in Duitsland: echt voordeel of niet?",
     metaDescription:
       "Een volle kar in Duitsland is gemiddeld 15% goedkoper. Maar reken je de reistijd en benzine mee? Wij doen de eerlijke berekening voor jou.",
     datum: "2026-05-21",

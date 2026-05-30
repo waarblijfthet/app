@@ -25,7 +25,7 @@ const data = [
   },
   {
     label: 'Gezin + 2 kinderen',
-    nibud: 655,
+    nibud: 627,
     werkelijk: 875,
     forum: '€700-1.000 in de praktijk',
     noot: 'Mamablogger gezin van 4: €737/mnd bij AH alleen al. "Niet eens zo gek."'

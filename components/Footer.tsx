@@ -18,6 +18,14 @@ export default function Footer() {
           style={{ fontSize: "0.8rem" }}
         >
           <Link
+            href="/over"
+            className="text-white/50 hover:text-white/80 transition-colors no-underline"
+            style={{ textDecoration: "none" }}
+          >
+            Over
+          </Link>
+          <span className="text-white/20 mx-2">·</span>
+          <Link
             href="/privacy"
             className="text-white/50 hover:text-white/80 transition-colors no-underline"
             style={{ textDecoration: "none" }}

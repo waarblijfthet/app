@@ -191,7 +191,7 @@ export default async function ResultaatPage({ params }: Props) {
   const verschil = over - benchmarkOver;
   const verdict = (r.verdict ?? "matig") as Verdict;
   const verdictCfg = VERDICT_CONFIG[verdict];
-  const resultaatUrl = `https://waarblijfthet.nl/resultaat/${params.token}`;
+  const resultaatUrl = `https://www.waarblijfthet.nl/resultaat/${params.token}`;
 
   return (
     <>
@@ -398,7 +398,7 @@ export default async function ResultaatPage({ params }: Props) {
                   Lees hoe andere gezinnen hun financiën hebben omgebogen.
                 </p>
                 <Link
-                  href="/blog"
+                  href="/inzichten"
                   className="block w-full text-center px-4 py-2.5 rounded-xl border font-body text-sm font-medium transition-all hover:bg-white/10"
                   style={{
                     borderColor: "rgba(245,240,232,0.3)",

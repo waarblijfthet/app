@@ -138,6 +138,9 @@ export default function GeldStressRelatieNederland() {
         oordeel. Weten waar het geld naartoe gaat maakt het gesprek concreter en
         minder emotioneel geladen.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Wil je dat niet alleen doen? Bij onze{" "}<Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}kijkt iemand zes weken met jullie mee — objectief en zonder oordeel.
+      </p>
     </>
   );
 }

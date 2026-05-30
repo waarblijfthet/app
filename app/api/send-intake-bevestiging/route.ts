@@ -62,7 +62,7 @@ export async function POST(request: NextRequest) {
 
         <tr><td style="background-color:#1C3A2A;border-radius:16px;padding:24px;text-align:center;">
           <p style="margin:0 0 8px;font-size:13px;color:rgba(245,240,232,0.6);">Terwijl je wacht</p>
-          <a href="https://waarblijfthet.nl/analyse"
+          <a href="https://www.waarblijfthet.nl/analyse"
              style="display:inline-block;background-color:#C4603A;color:#FDFAF4;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;">
             Doe de gratis analyse →
           </a>
@@ -85,7 +85,7 @@ export async function POST(request: NextRequest) {
       from: process.env.RESEND_FROM ?? "onboarding@resend.dev",
       to: "jarnomilankoopman@gmail.com",
       subject: `Nieuwe intake aanvraag: ${pakketLabel}`,
-      html: `<p>Nieuwe aanmelding ontvangen voor <strong>${pakketLabel}</strong> van <strong>${naam}</strong> (${email}).</p><p>Bekijk de details in het <a href="https://waarblijfthet.nl/admin">admin panel</a>.</p>`,
+      html: `<p>Nieuwe aanmelding ontvangen voor <strong>${pakketLabel}</strong> van <strong>${naam}</strong> (${email}).</p><p>Bekijk de details in het <a href="https://www.waarblijfthet.nl/admin">admin panel</a>.</p>`,
     });
 
     return NextResponse.json({ success: true });

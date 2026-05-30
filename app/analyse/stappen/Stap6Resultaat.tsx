@@ -298,15 +298,37 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </p>
       </div>
 
-      {/* Lead capture */}
+      {/* Conversie-CTA naar betaald aanbod */}
+      <div
+        className="rounded-xl border border-[#E8E0D0] p-6 mb-8"
+        style={{ backgroundColor: "#FDFAF4" }}
+      >
+        <p className="section-eyebrow mb-3">En nu?</p>
+        <p className="font-display font-light text-primary text-2xl mb-2">
+          {verdict === "goed"
+            ? "Haal meer uit de ruimte die je hebt"
+            : "Dit patroon kun je ombuigen"}
+        </p>
+        <p className="text-text-soft font-body font-light text-sm mb-5">
+          Je ziet nu wáár het zit. De volgende stap is het ook echt veranderen.
+          Zes weken lang kijkt iemand met je mee en houdt je scherp — eenmalig
+          €97, geen abonnement.
+        </p>
+        <Link href="/aanbod" className="btn-primary">
+          Bekijk hoe dat werkt →
+        </Link>
+      </div>
+
+      {/* Lead capture — je analyse staat hierboven; e-mail is optioneel */}
       {!sent ? (
         <div className="card-base border border-[#E8E0D0]">
           <p className="font-display font-light text-primary text-2xl mb-2">
-            Wil je de volledige analyse ontvangen?
+            Wil je dit overzicht bewaren?
           </p>
           <p className="text-text-soft font-body font-light text-sm mb-6">
-            We sturen je een persoonlijk overzicht met een link om terug te
-            kunnen kijken — en sturen je een seintje als we live gaan.
+            Je analyse staat hierboven — je hoeft niks in te vullen om hem te
+            zien. Wil je een kopie per e-mail en een link om later terug te
+            kijken? Laat dan je gegevens achter.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -360,7 +382,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
               disabled={sending || !data.email || !data.toestemmingOpslaan}
               className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {sending ? "Even geduld…" : "Bekijk mijn volledige analyse →"}
+              {sending ? "Even geduld…" : "Stuur mij een kopie →"}
             </button>
           </form>
         </div>

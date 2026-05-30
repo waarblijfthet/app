@@ -8,12 +8,12 @@ export const metadata: Metadata = {
   title: "Waar blijft het — Goed salaris, toch altijd krap?",
   description:
     "Je bent niet de enige — en het ligt niet aan wat je verdient. Het ligt aan hoe het verdeeld wordt. Gratis analyse voor gezinnen met een modaal of boven-modaal inkomen.",
-  alternates: { canonical: "https://waarblijfthet.nl" },
+  alternates: { canonical: "https://www.waarblijfthet.nl" },
   openGraph: {
     title: "Waar blijft het — Goed salaris, toch altijd krap?",
     description:
       "Je bent niet de enige — en het ligt niet aan wat je verdient. Het ligt aan hoe het verdeeld wordt.",
-    url: "https://waarblijfthet.nl",
+    url: "https://www.waarblijfthet.nl",
   },
 };
 
@@ -21,14 +21,14 @@ const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
   name: "Waar blijft het",
-  url: "https://waarblijfthet.nl",
+  url: "https://www.waarblijfthet.nl",
   description:
     "Gratis financiële analyse voor Nederlandse gezinnen met een modaal of boven-modaal inkomen.",
   potentialAction: {
     "@type": "SearchAction",
     target: {
       "@type": "EntryPoint",
-      urlTemplate: "https://waarblijfthet.nl/inzichten?q={search_term_string}",
+      urlTemplate: "https://www.waarblijfthet.nl/inzichten?q={search_term_string}",
     },
     "query-input": "required name=search_term_string",
   },
@@ -146,7 +146,7 @@ export default function HomePage() {
         <section className="py-24" style={{ backgroundColor: "#FDFAF4" }}>
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-12">
-              <p className="section-eyebrow mb-4">Wat anderen zeggen</p>
+              <p className="section-eyebrow mb-4">Herkenbaar</p>
               <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-xl">
                 Herkenbaar voor veel gezinnen
               </h2>
@@ -158,21 +158,18 @@ export default function HomePage() {
                     "We dachten dat we gewoon slecht met geld omgingen — totdat we zagen dat bijna elk gezin in onze situatie hetzelfde had.",
                   naam: "Marieke",
                   detail: "Moeder van twee, Utrecht",
-                  over: "+€280 per maand over na aanpassing",
                 },
                 {
                   quote:
                     "Ik verdiende goed maar had nooit rust over geld. De analyse liet zien waar het echt naartoe ging.",
                   naam: "Thomas",
                   detail: "40 jaar, gezin van vier, Eindhoven",
-                  over: "Eerste buffer ooit: €2.000",
                 },
                 {
                   quote:
                     "Eindelijk iemand die niet meteen over beleggen begint. Gewoon eerlijk kijken naar wat er in en uit gaat.",
                   naam: "Sandra & Peter",
                   detail: "Twee inkomens, drie kinderen, Tilburg",
-                  over: "€340 minder vaste lasten per maand",
                 },
               ].map((t) => (
                 <div
@@ -192,9 +189,6 @@ export default function HomePage() {
                     <p className="font-body text-[#8A9E8E] text-xs">
                       {t.detail}
                     </p>
-                    <p className="font-body text-[#2D6A4F] text-xs font-medium mt-1">
-                      {t.over}
-                    </p>
                   </div>
                 </div>
               ))}
@@ -203,8 +197,8 @@ export default function HomePage() {
               className="font-body text-xs mt-6 text-center"
               style={{ color: "#8A9E8E" }}
             >
-              Namen zijn gefictionaliseerd ter bescherming van privacy.
-              Resultaten kunnen variëren.
+              Illustratieve voorbeelden ter herkenning — geen weergave van
+              werkelijke klantresultaten. Namen zijn gefictionaliseerd.
             </p>
           </div>
         </section>

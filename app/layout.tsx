@@ -20,7 +20,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://waarblijfthet.nl"),
+  metadataBase: new URL("https://www.waarblijfthet.nl"),
   title: {
     default: "Waar blijft het — Goed salaris, toch altijd krap?",
     template: "%s | Waar blijft het",
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "nl_NL",
-    url: "https://waarblijfthet.nl",
+    url: "https://www.waarblijfthet.nl",
     siteName: "Waar blijft het",
     title: "Waar blijft het — Goed salaris, toch altijd krap?",
     description:
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     googleBot: { index: true, follow: true },
   },
   alternates: {
-    canonical: "https://waarblijfthet.nl",
+    canonical: "https://www.waarblijfthet.nl",
   },
 };
 

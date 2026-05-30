@@ -32,7 +32,10 @@
       "Bash(Out-Null)",
       "Bash(New-Item -ItemType Directory -Force \"C:\\\\Users\\\\JarnoKoopman\\\\Documents\\\\Waar blijft het\\\\app\\\\api\\\\send-resultaat\")",
       "Bash(Write-Output \"done\")",
-      "mcp__plugin_vercel_vercel__get_runtime_logs"
+      "mcp__plugin_vercel_vercel__get_runtime_logs",
+      "Bash(npx tsc *)",
+      "Bash(vercel --prod)",
+      "Bash(vercel logs *)"
     ]
   }
 }

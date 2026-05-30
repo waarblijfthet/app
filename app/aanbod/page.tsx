@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
 
 export const metadata: Metadata = {
-  title: "Aanbod | Waar blijft het",
+  title: "Aanbod",
   description:
     "Drie manieren om grip te krijgen op je geld — van gratis inzicht tot persoonlijke begeleiding. Kies wat bij jouw situatie past.",
   robots: { index: true, follow: true },
@@ -19,7 +19,7 @@ const serviceSchema = {
   provider: {
     "@type": "Person",
     name: "Jarno Koopman",
-    url: "https://waarblijfthet.nl",
+    url: "https://www.waarblijfthet.nl",
   },
   serviceType: "Financiële coaching",
   areaServed: "NL",
@@ -61,6 +61,16 @@ export default function AanbodPage() {
             >
               Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig
               hebt — niks meer.
+            </p>
+            <p
+              className="font-body"
+              style={{
+                fontSize: "0.85rem",
+                color: "#8A9E8E",
+                marginTop: "1.25rem",
+              }}
+            >
+              Al meer dan 50 gezinnen deden de gratis analyse.
             </p>
           </div>
         </section>
@@ -129,7 +139,7 @@ export default function AanbodPage() {
                   "Interactieve analyse in 6 stappen",
                   "Persoonlijk vergelijkingsrapport",
                   "De twee grootste afwijkingen in jouw situatie",
-                  "Rapport per email",
+                  "Rapport direct op je scherm — optioneel per e-mail",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span style={{ color: "#2D6A4F", fontWeight: 600, flexShrink: 0 }}>✓</span>
@@ -209,6 +219,21 @@ export default function AanbodPage() {
                 Na zes weken weet je precies waar het schort — en heb je iemand
                 naast je gehad die je scherp hield. Niet met een cursus, maar
                 met een eerlijke blik van buitenaf.
+              </p>
+
+              <p
+                className="font-body"
+                style={{
+                  fontSize: "0.85rem",
+                  color: "rgba(245,240,232,0.75)",
+                  backgroundColor: "rgba(255,255,255,0.08)",
+                  borderRadius: "10px",
+                  padding: "0.75rem 0.9rem",
+                  lineHeight: 1.55,
+                }}
+              >
+                Vind je samen €97 per maand terug? Dan heb je dit er in de
+                eerste maand al uit.
               </p>
 
               <hr style={{ borderColor: "rgba(255,255,255,0.15)", margin: "0.25rem 0" }} />

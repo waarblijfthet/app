@@ -57,8 +57,8 @@ export default function WatIsNormaalBedragBoodschappen() {
       <p className="font-body text-text-soft" style={p}>
         Als je Nibud-voeding uitbreidt met persoonlijke verzorging, was- en
         schoonmaakmiddelen en huishoudelijke artikelen, kom je volgens KekMama al
-        op €875 per maand voor een gezin van vier. Dat is al €200 boven de
-        Nibud-voedingsnorm.
+        op €875 per maand voor een gezin van vier. Dat is ruim €240 boven de
+        Nibud-voedingsnorm van €627.
       </p>
 
       <h2 className="font-display" style={h2}>

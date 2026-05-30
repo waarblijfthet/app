@@ -155,6 +155,9 @@ export default function SpaardoelenMaandelijkseInleg() {
         </Link>
         .
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Wil je een stok achter de deur? Onze{" "}<Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}houdt je zes weken lang scherp.
+      </p>
     </>
   );
 }

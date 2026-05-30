@@ -1,12 +1,11 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://waarblijfthet.nl",
+  siteUrl: "https://www.waarblijfthet.nl",
   generateRobotsTxt: true,
   robotsTxtOptions: {
-    policies: [{ userAgent: "*", allow: "/" }],
-  },
-  changefreq: "weekly",
-  priority: 0.7,
-  sitemapSize: 5000,
-  exclude: [],
-};
+    policies: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admin", "/aanbod/intake", "/resultaat"],
+   

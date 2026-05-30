@@ -94,6 +94,19 @@ export default function Header() {
             Aanbod
           </Link>
           <Link
+            href="/over"
+            className={`
+              text-sm font-medium transition-colors pb-0.5
+              ${
+                isActive("/over")
+                  ? "text-[#1C3A2A] border-b border-[#1C3A2A]"
+                  : "text-[#4A5E4E] hover:text-[#1C3A2A]"
+              }
+            `}
+          >
+            Over
+          </Link>
+          <Link
             href="/analyse"
             className={`
               text-sm font-medium transition-colors pb-0.5
