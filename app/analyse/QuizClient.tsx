@@ -20,6 +20,14 @@ import Stap5Dagelijks from "./stappen/Stap5Dagelijks";
 import Stap6Resultaat from "./stappen/Stap6Resultaat";
 
 const TOTAL_STEPS = 6;
+const STAP_LABELS = [
+  "Profiel",
+  "Inkomen",
+  "Wonen",
+  "Vervoer",
+  "Dagelijks",
+  "Resultaat",
+];
 
 export default function QuizClient() {
   const [step, setStep] = useState(1);
@@ -143,7 +151,14 @@ export default function QuizClient() {
         </div>
       )}
 
-      <ProgressBar currentStep={step} totalSteps={TOTAL_STEPS} />
+      <ProgressBar
+        currentStep={step}
+        totalSteps={TOTAL_STEPS}
+        labels={STAP_LABELS}
+        onStepClick={(s) => {
+          if (s < step) setStep(s);
+        }}
+      />
 
       {step < TOTAL_STEPS ? (
         /* Two-column layout for steps 1-5 */
@@ -169,7 +184,9 @@ export default function QuizClient() {
                 disabled={!canProceed(step, data)}
                 className="flex-1 lg:flex-none btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
               >
-                {step === 5 ? "Bekijk resultaat →" : "Volgende →"}
+                {step === 5
+                  ? "Bekijk resultaat →"
+                  : `Volgende: ${STAP_LABELS[step]} →`}
               </button>
             </div>
           </div>
