@@ -1,0 +1,134 @@
+"use client";
+
+import { useState } from "react";
+
+type Abo = { naam: string; bedrag: number };
+
+const STANDAARD: Abo[] = [
+  { naam: "Streaming video (Netflix, Disney+, Videoland…)", bedrag: 25 },
+  { naam: "Muziek (Spotify, Apple Music)", bedrag: 11 },
+  { naam: "Sportschool / sportclub", bedrag: 35 },
+  { naam: "Telefoonabonnement(en)", bedrag: 40 },
+  { naam: "Internet & tv", bedrag: 55 },
+  { naam: "Krant / tijdschriften / nieuws", bedrag: 15 },
+  { naam: "Cloud / software / apps", bedrag: 12 },
+  { naam: "Goede doelen", bedrag: 15 },
+  { naam: "Verzekerings-extra's (uitvaart, rechtsbijstand…)", bedrag: 20 },
+  { naam: "Maaltijd- / boodschappenbox", bedrag: 45 },
+];
+
+const euro = (n: number) =>
+  "€" + n.toLocaleString("nl-NL", { maximumFractionDigits: 0 });
+
+export default function AbonnementenTeller() {
+  const [actief, setActief] = useState<boolean[]>(STANDAARD.map(() => false));
+
+  const toggle = (i: number) =>
+    setActief((prev) => prev.map((v, idx) => (idx === i ? !v : v)));
+
+  const maand = STANDAARD.reduce(
+    (som, a, i) => som + (actief[i] ? a.bedrag : 0),
+    0
+  );
+  const jaar = maand * 12;
+  const aantal = actief.filter(Boolean).length;
+
+  return (
+    <div
+      className="rounded-2xl border border-[#E8E0D4] p-6 my-8"
+      style={{ backgroundColor: "#FDFAF4" }}
+    >
+      <p
+        className="font-body font-medium uppercase tracking-widest text-xs mb-2"
+        style={{ color: "#C4603A" }}
+      >
+        Reken even mee
+      </p>
+      <p className="font-display font-light text-[#1C3A2A] text-xl mb-1">
+        Wat kosten jouw abonnementen samen?
+      </p>
+      <p className="font-body text-sm mb-5" style={{ color: "#4A5E4E" }}>
+        Vink aan wat je hebt. De bedragen zijn gemiddelden — pas ze in gedachten
+        aan jouw situatie aan.
+      </p>
+
+      <div className="space-y-1.5">
+        {STANDAARD.map((a, i) => (
+          <button
+            key={a.naam}
+            type="button"
+            onClick={() => toggle(i)}
+            aria-pressed={actief[i]}
+            className="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition-colors"
+            style={{
+              backgroundColor: actief[i] ? "#E8F2EC" : "white",
+              border: `1px solid ${actief[i] ? "#A8D5B5" : "#E8E0D4"}`,
+            }}
+          >
+            <span className="flex items-center gap-2.5">
+              <span
+                className="inline-flex items-center justify-center w-5 h-5 rounded-md text-xs font-bold shrink-0"
+                style={{
+                  backgroundColor: actief[i] ? "#2D6A4F" : "#EDE6D8",
+                  color: actief[i] ? "white" : "#8A9E8E",
+                }}
+                aria-hidden="true"
+              >
+                {actief[i] ? "✓" : ""}
+              </span>
+              <span
+                className="font-body text-sm"
+                style={{ color: "#1C3A2A" }}
+              >
+                {a.naam}
+              </span>
+            </span>
+            <span
+              className="font-body text-sm tabular-nums shrink-0"
+              style={{ color: "#8A9E8E" }}
+            >
+              {euro(a.bedrag)}/mnd
+            </span>
+          </button>
+        ))}
+      </div>
+
+      <div
+        className="mt-6 rounded-xl p-5 text-center"
+        style={{ backgroundColor: "#1C3A2A" }}
+      >
+        <p
+          className="font-body text-xs uppercase tracking-widest mb-2"
+          style={{ color: "rgba(245,240,232,0.6)" }}
+        >
+          {aantal} abonnement{aantal === 1 ? "" : "en"} aangevinkt
+        </p>
+        <p className="font-display font-light text-white text-4xl leading-none">
+          {euro(maand)}
+          <span className="text-lg" style={{ color: "rgba(245,240,232,0.6)" }}>
+            {" "}
+            / maand
+          </span>
+        </p>
+        <p
+          className="font-body text-sm mt-2"
+          style={{ color: "rgba(245,240,232,0.85)" }}
+        >
+          Dat is <strong>{euro(jaar)}</strong> per jaar.
+        </p>
+      </div>
+
+      <p className="font-body text-xs mt-3" style={{ color: "#8A9E8E" }}>
+        En dit is alleen wat je je nu herinnert. De{" "}
+        <a
+          href="/analyse"
+          style={{ color: "#C4603A", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          gratis analyse
+        </a>{" "}
+        vindt vaak nog meer.
+      </p>
+    </div>
+  );
+}

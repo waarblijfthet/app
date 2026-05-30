@@ -80,6 +80,190 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "vergeten-abonnementen-opzeggen",
+    korteTitel: "Vergeten abonnementen opsporen",
+    titel: "Vergeten abonnementen opsporen: gemiddeld €200+ per maand",
+    metaTitel: "Vergeten abonnementen opsporen: gemiddeld €200+ per maand",
+    metaDescription:
+      "Abonnementen zijn het sluipende lek bij uitstek. Tel met onze gratis tool je maand- en jaarbedrag op — en lees hoe je in 20 minuten opschoont.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Besparen",
+    excerpt:
+      "Klein per stuk, automatisch afgeschreven, en juist daarom onzichtbaar. Een gemiddeld gezin betaalt €200+ per maand aan abonnementen — en schat dat op de helft. Reken met onze tool je eigen totaal uit.",
+    preview: {
+      type: "pijn",
+      label: "Het sluipende lek",
+      items: ["Klein per stuk", "Loopt automatisch door", "€200+ per maand"],
+    },
+    faq: [
+      {
+        vraag: "Hoeveel geeft een gemiddeld gezin uit aan abonnementen?",
+        antwoord:
+          "Al gauw meer dan €200 per maand aan streaming, muziek, sport, telefoon, internet en allerlei kleinere diensten samen. De meeste mensen schatten hun eigen abonnementskosten op ongeveer de helft van wat ze werkelijk betalen.",
+      },
+      {
+        vraag: "Hoe spoor ik vergeten abonnementen op?",
+        antwoord:
+          "Pak één bankafschrift en zet alle terugkerende afschrijvingen op een rij. Vraag je per abonnement af of je het de afgelopen maand echt hebt gebruikt. Alles waar je over twijfelt zeg je op — terugkomen kan altijd. Breng dubbele diensten terug naar één.",
+      },
+      {
+        vraag: "Hoeveel kun je besparen door abonnementen op te schonen?",
+        antwoord:
+          "Wie eerlijk opschoont vindt vaak €30 tot €80 per maand aan abonnementen die niets meer toevoegen — €360 tot bijna €1.000 per jaar, zonder iets in te leveren wat je echt mist.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
+    slug: "wat-kost-december-feestdagen-gezin",
+    korteTitel: "Wat kost december?",
+    titel: "Wat kost december? Sinterklaas en kerst voor een gezin",
+    metaTitel: "Wat kost december? Sinterklaas en kerst voor een gezin",
+    metaDescription:
+      "Een gemiddeld huishouden geeft in december zo'n €500 extra uit aan de feestdagen. Waar het heen gaat — en hoe je de decemberklap voorkomt met een feestpotje.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Sinterklaas, kerst, oud en nieuw — allemaal in vier weken. Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar dat heen gaat, en hoe je het uitsmeert over het jaar.",
+    preview: {
+      type: "pijn",
+      label: "December opgeteld",
+      items: ["Sinterklaas", "Kerst", "~€500 in één maand"],
+    },
+    faq: [
+      {
+        vraag: "Hoeveel geeft een gemiddeld huishouden uit in december?",
+        antwoord:
+          "Aan de feestdagen samen zo'n €500 extra: Sinterklaas, kerstcadeaus, duurdere boodschappen rond kerst, versiering en uitjes. Niet door één grote aankoop, maar door tientallen kleine die allemaal in dezelfde maand vallen.",
+      },
+      {
+        vraag: "Wat geven Nederlanders gemiddeld uit aan Sinterklaas?",
+        antwoord:
+          "Gemiddeld rond de €113 per persoon aan cadeaus, al geeft ongeveer de helft minder dan €50 per cadeau. Het venijn zit in het aantal cadeaus, niet in de prijs per stuk.",
+      },
+      {
+        vraag: "Hoe voorkom ik de financiële decemberklap?",
+        antwoord:
+          "Smeer de feestdagen uit over het hele jaar. Zet maandelijks een vast bedrag opzij in een apart potje — €40 per maand is bijna €500 in december. Dan betaal je de feestdagen niet uit één maandinkomen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Vastelastenbond — wat geven we uit aan Sinterklaas",
+        url: "https://www.vastelastenbond.nl/blog/wat-geven-we-uit-aan-sinterklaas/",
+      },
+      {
+        label: "Vastelastenbond — kerst, wat kost dat?",
+        url: "https://www.vastelastenbond.nl/blog/kerst-wat-kost-dat-wat-geven-we-uit-met-kerst/",
+      },
+    ],
+  },
+  {
+    slug: "auto-kopen-of-leasen-kosten-per-maand",
+    korteTitel: "Auto kopen of leasen?",
+    titel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
+    metaTitel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
+    metaDescription:
+      "Een eigen auto kost volgens de ANWB €413 tot €647 per maand all-in. Kopen of private leasen? De eerlijke vergelijking, inclusief de verborgen afschrijving.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "De auto is vaak de tweede vaste last na het huis — en de slechtst ingeschatte. Wat kost een auto echt per maand, en is kopen of private leasen voordeliger? Een eerlijke vergelijking.",
+    preview: {
+      type: "vergelijking",
+      label: "Autokosten per maand (ANWB, all-in)",
+      items: [
+        { naam: "Compacte auto", bedrag: 413, kleur: "#2D6A4F" },
+        { naam: "Middensegment", bedrag: 647, kleur: "#C4603A" },
+      ],
+      noot: "Inclusief afschrijving, verzekering, belasting, brandstof",
+    },
+    faq: [
+      {
+        vraag: "Wat kost een auto gemiddeld per maand in Nederland?",
+        antwoord:
+          "Volgens de ANWB rekent een compacte auto op zo'n €413 per maand, een kleine middenklasser rond €550 en het middensegment zo'n €647 — all-in, inclusief de afschrijving die je niet als rekening ziet. De afschrijving is meestal de grootste én meest onderschatte post.",
+      },
+      {
+        vraag: "Is auto kopen of private leasen goedkoper?",
+        antwoord:
+          "Het hangt af van je situatie. Private lease geeft voorspelbaarheid (één vast bedrag, geen onverwachte reparaties) maar je zit vast aan een contract en bouwt geen eigen vermogen op. Zelf kopen is vaak goedkoper over de hele rit, zeker bij een betrouwbare occasion die je lang rijdt — maar dan draag je zelf het risico.",
+      },
+      {
+        vraag: "Heb ik als gezin echt twee auto's nodig?",
+        antwoord:
+          "Vaak is dat de belangrijkste vraag. Een tweede auto verdubbelt bijna de autolast — al snel €1.000+ per maand samen. Het is een post die meegroeit met het inkomen zonder dat iemand hem tegenhoudt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "ANWB — wat kost een auto per maand",
+        url: "https://www.anwb.nl/auto/autokosten/autokosten-per-maand",
+      },
+      {
+        label: "Nibud — autokosten per maand",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/autokosten/",
+      },
+    ],
+  },
+  {
+    slug: "waar-blijft-het-bij-sanne-en-joost",
+    korteTitel: "Waar blijft het bij Sanne & Joost",
+    titel: "Waar blijft het bij Sanne & Joost: €6.200 netto en toch krap",
+    metaTitel: "Waar blijft het bij Sanne & Joost: €6.200 netto en toch krap",
+    metaDescription:
+      "Een fictief gezin met €6.200 netto en toch bijna niks over. Waar blijft het? Een casestudy die laat zien dat meer verdienen het probleem zelden oplost.",
+    datum: "2026-05-30",
+    datumFormatted: "30 mei 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Sanne en Joost verdienen samen €6.200 netto en houden toch bijna niks over. Een fictieve casestudy, samengesteld uit openbare gemiddelden, die laat zien waar het geld heen gaat — en wat een vergelijkbaar gezin wél overhoudt.",
+    preview: {
+      type: "vergelijking",
+      label: "Zelfde inkomen, andere uitkomst",
+      items: [
+        { naam: "Sanne & Joost houden over", bedrag: 150, kleur: "#C4603A" },
+        { naam: "Kan ook", bedrag: 650, kleur: "#2D6A4F" },
+      ],
+      noot: "Per maand, bij hetzelfde netto-inkomen",
+    },
+    faq: [
+      {
+        vraag: "Hoe kan een gezin met €6.200 netto toch krap zitten?",
+        antwoord:
+          "Door posten die meegroeiden met het inkomen: een hoge hypotheek, twee auto's (waaronder private lease), boodschappen die met pubers oplopen tot ruim €1.100 per maand, opvang, sport en een abonnementenstapel richting €250. Samen blijft er amper €150 per maand over om te sparen.",
+      },
+      {
+        vraag: "Wat zijn de grootste afwijkingen in dit voorbeeld?",
+        antwoord:
+          "Twee springen eruit: boodschappen die €400–500 boven verwachting liggen (deels pubers, deels los winkelen zonder weekmenu), en een tweede auto via private lease die er ooit bij kwam en nooit meer ter discussie stond.",
+      },
+      {
+        vraag: "Is dit een echt gezin?",
+        antwoord:
+          "Nee. Sanne en Joost zijn een fictief gezin, samengesteld uit openbare gemiddelden van Nibud, CBS en de Belastingdienst plus praktijkindicaties. Het voorbeeld is bedoeld ter herkenning, niet als weergave van een echte klant.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
     slug: "50-30-20-regel-hoger-inkomen",
     korteTitel: "Werkt 50/30/20 bij een hoger inkomen?",
     titel:

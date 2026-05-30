@@ -15,6 +15,10 @@ import KostenLevensonderhoudAlleenstaande2026 from "./content/kosten-levensonder
 import LifestyleInflatieMeerVerdienenMeerUitgeven from "./content/lifestyle-inflatie-meer-verdienen-meer-uitgeven";
 import TweeverdienersTochKrap from "./content/tweeverdieners-toch-krap";
 import VijftigDertigTwintigRegelHogerInkomen from "./content/50-30-20-regel-hoger-inkomen";
+import VergetenAbonnementenOpzeggen from "./content/vergeten-abonnementen-opzeggen";
+import WatKostDecemberFeestdagenGezin from "./content/wat-kost-december-feestdagen-gezin";
+import AutoKopenOfLeasenKostenPerMaand from "./content/auto-kopen-of-leasen-kosten-per-maand";
+import WaarBlijftHetBijSanneEnJoost from "./content/waar-blijft-het-bij-sanne-en-joost";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -34,6 +38,10 @@ const contentMap: Record<string, () => JSX.Element> = {
   "lifestyle-inflatie-meer-verdienen-meer-uitgeven": LifestyleInflatieMeerVerdienenMeerUitgeven,
   "tweeverdieners-toch-krap": TweeverdienersTochKrap,
   "50-30-20-regel-hoger-inkomen": VijftigDertigTwintigRegelHogerInkomen,
+  "vergeten-abonnementen-opzeggen": VergetenAbonnementenOpzeggen,
+  "wat-kost-december-feestdagen-gezin": WatKostDecemberFeestdagenGezin,
+  "auto-kopen-of-leasen-kosten-per-maand": AutoKopenOfLeasenKostenPerMaand,
+  "waar-blijft-het-bij-sanne-en-joost": WaarBlijftHetBijSanneEnJoost,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {
