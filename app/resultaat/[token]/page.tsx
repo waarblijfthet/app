@@ -359,18 +359,17 @@ export default async function ResultaatPage({ params }: Props) {
                   className="font-body font-medium text-base mb-2"
                   style={{ color: "#F5F0E8" }}
                 >
-                  28-dagen reset
+                  Een eerlijk adviesgesprek
                 </h3>
                 <p
                   className="font-body font-light text-sm leading-relaxed mb-5"
                   style={{ color: "rgba(245,240,232,0.6)" }}
                 >
-                  Vier weken lang wekelijkse WhatsApp check-ins. Concrete
-                  opdrachten op basis van jouw analyse. €49/maand, stop wanneer
-                  je wil.
+                  In 45 minuten samen eerlijk naar je cijfers kijken en 2 à 3
+                  concrete doelen stellen. Eenmalig €125, geen traject.
                 </p>
                 <a
-                  href="mailto:hallo@waarblijfthet.nl?subject=28-dagen reset"
+                  href="/aanbod"
                   className="block w-full text-center px-4 py-2.5 rounded-xl font-body text-sm font-medium transition-opacity hover:opacity-90"
                   style={{
                     background: "#C4603A",
@@ -378,7 +377,7 @@ export default async function ResultaatPage({ params }: Props) {
                     textDecoration: "none",
                   }}
                 >
-                  Start de reset →
+                  Bekijk het adviesgesprek →
                 </a>
               </div>
 

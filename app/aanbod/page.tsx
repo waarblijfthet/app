@@ -194,7 +194,7 @@ export default function AanbodPage() {
                 className="font-display font-light"
                 style={{ fontSize: "1.5rem", lineHeight: 1.25, color: "white" }}
               >
-                Zes weken begeleiding
+                Eenmalig adviesgesprek
               </h2>
 
               <div>
@@ -202,13 +202,13 @@ export default function AanbodPage() {
                   className="font-display font-light"
                   style={{ fontSize: "2.5rem", lineHeight: 1, color: "white" }}
                 >
-                  €97
+                  €125
                 </p>
                 <p
                   className="font-body text-xs mt-1"
                   style={{ color: "rgba(245,240,232,0.6)" }}
                 >
-                  Eenmalig · Geen abonnement
+                  Eenmalig · 45 minuten · geen traject
                 </p>
               </div>
 
@@ -216,9 +216,9 @@ export default function AanbodPage() {
                 className="font-body"
                 style={{ fontWeight: 500, color: "white", fontSize: "1rem", lineHeight: 1.6 }}
               >
-                Na zes weken weet je precies waar het schort — en heb je iemand
-                naast je gehad die je scherp hield. Niet met een cursus, maar
-                met een eerlijke blik van buitenaf.
+                In 45 minuten kijken we samen eerlijk naar jullie cijfers. Geen
+                verkooppraat, geen traject — één gericht gesprek waar je meteen
+                mee verder kunt.
               </p>
 
               <p
@@ -232,19 +232,19 @@ export default function AanbodPage() {
                   lineHeight: 1.55,
                 }}
               >
-                Vind je samen €97 per maand terug? Dan heb je dit er in de
-                eerste maand al uit.
+                Je hoeft je nergens aan te binden. Eén gesprek — daarna bepaal jij
+                of en hoe je verder wilt.
               </p>
 
               <hr style={{ borderColor: "rgba(255,255,255,0.15)", margin: "0.25rem 0" }} />
 
               <ul className="space-y-2">
                 {[
-                  "Korte kickoff (videocall of telefonisch, ±20 min) om jullie situatie te begrijpen",
-                  "6 weken lang een wekelijkse check-in via WhatsApp — jij stuurt een kort bericht, ik denk mee",
-                  "Persoonlijke feedback op jullie twee grootste afwijkingen uit de analyse",
-                  "Concrete weekdoelen, bijvoorbeeld een boodschappenbudget of een eerste spaarpotje",
-                  "Geen toegang tot je bankrekening — je deelt alleen wat je zelf wilt",
+                  "Vooraf de gratis analyse + (optioneel) een paar recente bankafschriften",
+                  "Videogesprek van 45 minuten — eerlijk en gericht, geen verkooppraat",
+                  "Samen 2 à 3 concrete doelen en actiepunten bepalen",
+                  "Korte schriftelijke samenvatting achteraf om terug te lezen",
+                  "Daarna zelf verder — of pas een traject als je dat wilt",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span style={{ color: "#8AB89A", fontWeight: 600, flexShrink: 0 }}>✓</span>
@@ -257,7 +257,7 @@ export default function AanbodPage() {
 
               <div className="mt-auto">
                 <Link
-                  href="/aanbod/intake?pakket=6weken"
+                  href="/aanbod/intake?pakket=gesprek"
                   className="block text-center font-body font-medium text-sm py-3 px-6 transition-opacity hover:opacity-90"
                   style={{
                     backgroundColor: "white",
@@ -460,7 +460,7 @@ export default function AanbodPage() {
               >
                 <thead>
                   <tr style={{ backgroundColor: "#1C3A2A" }}>
-                    {["Kenmerk", "Gratis", "6 weken", "Traject"].map(
+                    {["Kenmerk", "Gratis", "Gesprek", "Traject"].map(
                       (h, i) => (
                         <th
                           key={h}
@@ -480,16 +480,16 @@ export default function AanbodPage() {
                 </thead>
                 <tbody>
                   {[
-                    ["Prijs", "€0", "€97", "€497"],
-                    ["Tijdsduur", "5 minuten", "6 weken", "3 maanden"],
-                    ["Persoonlijk contact", "✗", "WhatsApp", "Video + WhatsApp"],
-                    ["Opdrachten per week", "✗", "✓", "✓"],
-                    ["Financieel plan op maat", "✗", "✗", "✓"],
-                    ["Videocall", "✗", "✗", "3x"],
+                    ["Prijs", "€0", "€125", "€497"],
+                    ["Tijdsduur", "5 minuten", "Eenmalig (45 min)", "3 maanden"],
+                    ["Persoonlijk contact", "✗", "Videogesprek", "Video + WhatsApp"],
+                    ["Concrete doelen & actieplan", "✗", "✓", "✓"],
+                    ["Schriftelijke samenvatting", "✗", "✓", "✓"],
+                    ["Doorlopende begeleiding", "✗", "✗", "✓"],
                     [
                       "Geschikt voor",
                       "Eerste inzicht",
-                      "Structuur aanbrengen",
+                      "Eén eerlijke por",
                       "Volledig omgooien",
                     ],
                   ].map((row, ri) => (

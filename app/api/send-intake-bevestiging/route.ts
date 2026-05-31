@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
     const pakketLabel =
       pakket === "intensief"
         ? "Persoonlijke begeleiding op maat (€497)"
-        : "Zes weken een spiegel voorgehouden (€97)";
+        : "Eenmalig adviesgesprek (€125)";
 
     // Bevestiging naar aanvrager
     await resend.emails.send({

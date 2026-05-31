@@ -288,11 +288,12 @@ export default function HomePage() {
                   </span>
                 </div>
                 <h3 className="font-display font-light text-primary text-xl mb-3">
-                  Bijsturen en bijhouden
+                  Een eerlijk gesprek
                 </h3>
                 <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Een wekelijkse check-in via WhatsApp: jij deelt wat je wilt, ik
-                  denk mee en houd je scherp. Geen toegang tot je rekening.
+                  Wil je verder? In een eenmalig adviesgesprek van 45 minuten
+                  kijken we samen naar je cijfers en stellen we concrete doelen.
+                  Geen traject, tenzij je dat zelf wilt.
                 </p>
               </div>
             </div>

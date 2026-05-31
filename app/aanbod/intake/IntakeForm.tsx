@@ -6,7 +6,7 @@ import Link from "next/link";
 import { createClient } from "@/lib/supabase-browser";
 
 interface Props {
-  pakket: "intensief" | "6weken";
+  pakket: "intensief" | "gesprek";
 }
 
 const GEZINSSITUATIE_OPTIES = [
@@ -82,7 +82,7 @@ export function IntakeForm({ pakket }: Props) {
   const pakketLabel =
     pakket === "intensief"
       ? "Persoonlijke begeleiding op maat — €497"
-      : "Zes weken een spiegel voorgehouden — €97";
+      : "Eenmalig adviesgesprek — €125";
 
   const isValid =
     gezinssituatie &&

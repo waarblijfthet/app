@@ -201,7 +201,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                       fontWeight: 500,
                     }}
                   >
-                    {a.pakket === "intensief" ? "Intensief" : "6 weken"}
+                    {a.pakket === "intensief" ? "Intensief" : "Adviesgesprek"}
                   </span>
                 </td>
                 <td className="py-3 pr-4" style={{ color: "#4A5E4E", whiteSpace: "nowrap", fontSize: "0.82rem" }}>

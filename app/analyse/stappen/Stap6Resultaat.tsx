@@ -310,9 +310,9 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             : "Dit patroon kun je ombuigen"}
         </p>
         <p className="text-text-soft font-body font-light text-sm mb-5">
-          Je ziet nu wáár het zit. De volgende stap is het ook echt veranderen.
-          Zes weken lang kijkt iemand met je mee en houdt je scherp — eenmalig
-          €97, geen abonnement.
+          Je ziet nu wáár het zit. Wil je het samen scherp krijgen? In een
+          eenmalig adviesgesprek van 45 minuten kijken we eerlijk naar je cijfers
+          en stellen we 2 à 3 concrete doelen — €125, geen traject.
         </p>
         <Link href="/aanbod" className="btn-primary">
           Bekijk hoe dat werkt →
