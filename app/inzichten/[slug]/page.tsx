@@ -298,6 +298,41 @@ export default function ArtikelPage({ params }: Props) {
                   </ul>
                 </section>
               )}
+
+              {/* Auteur-bio — zichtbare first-hand expertise (E-E-A-T) */}
+              <section
+                className="flex items-start gap-4"
+                style={{
+                  marginTop: "2.5rem",
+                  paddingTop: "1.5rem",
+                  borderTop: "1px solid #E8E0D0",
+                }}
+              >
+                <div
+                  className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 font-display font-medium text-white text-lg"
+                  style={{ backgroundColor: "#1C3A2A" }}
+                >
+                  J
+                </div>
+                <div>
+                  <p className="font-body font-medium text-[#1C3A2A] text-sm mb-1">
+                    Geschreven door Jarno Koopman
+                  </p>
+                  <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+                    Oprichter van Waar blijft het. Ik help gezinnen die goed
+                    verdienen maar tóch krap zitten — uit eigen ervaring en de
+                    gesprekken die ik met ze voer. Geen schuldhulp, geen beleggen,
+                    geen jargon.{" "}
+                    <Link
+                      href="/over"
+                      style={{ color: "#C4603A", textDecoration: "none" }}
+                      className="hover:underline"
+                    >
+                      Meer over ons →
+                    </Link>
+                  </p>
+                </div>
+              </section>
             </div>
           </div>
 

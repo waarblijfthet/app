@@ -152,6 +152,14 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
           Start de gratis analyse →
         </Link>
       </div>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> Bij alleenstaanden die ik spreek ligt het zelden aan 'verkeerd omgaan met geld'. Eén inkomen draagt álle vaste lasten — vooral de huur — en dan is een prima salaris ineens krap. Dat is een lasten-vraagstuk, geen gedragsprobleem, en dat scheelt al een hoop schaamte om te weten.
+        </p>
+      </div>
     </>
   );
 }

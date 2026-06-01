@@ -138,6 +138,14 @@ export default function HoeveeSpaarenPerMaandNormaal() {
         </Link>{" "}
         en zie direct waar jullie geld naartoe gaat en waar de ruimte zit.
       </p>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> Bijna iedereen die ik spreek denkt dat ánderen veel meer sparen. Dat valt enorm mee. Wat het verschil maakt is niet het percentage, maar dat je het bedrag automatisch laat afromen op de dag dat je salaris binnenkomt — vóór je het ziet en kunt uitgeven.
+        </p>
+      </div>
     </>
   );
 }

@@ -139,6 +139,14 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
           Start de gratis analyse →
         </Link>
       </div>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> De Nibud-norm is een ondergrens, geen gemiddelde — dat zie ik telkens terug. Bijna geen enkel gezin dat ik spreek haalt 'm, en dat hoeft ook niet. Het gaat er niet om dat je 'de norm' redt, maar dat je weet waar je zelf zit en of dat een bewuste keuze is.
+        </p>
+      </div>
     </>
   );
 }

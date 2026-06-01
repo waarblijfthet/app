@@ -157,6 +157,14 @@ export default function WatIsNormaalBedragBoodschappen() {
         </Link>{" "}
         en zie het direct.
       </p>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> In de gesprekken die ik voer schatten gezinnen hun boodschappen bijna altijd €100 tot €200 te laag in — niet omdat ze liegen, maar omdat de tussendoor-momenten, de drogist en de bakker er niet in zitten. Pas als ze een maand écht alles bij elkaar optellen, zien ze het echte bedrag.
+        </p>
+      </div>
     </>
   );
 }

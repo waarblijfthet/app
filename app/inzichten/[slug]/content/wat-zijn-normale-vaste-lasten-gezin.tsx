@@ -147,6 +147,14 @@ export default function WatZijnNormaleVasteLastenGezin() {
         </Link>
         .
       </p>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> Wat me opvalt bij de gezinnen die ik help: de grote vaste lasten kennen ze prima, maar de kleine onderschatten ze structureel — abonnementen, verzekerings-extra's, een doorlopende app hier en daar. Bij één gezin telde dat op tot €250 per maand dat niemand miste toen we het opschoonden.
+        </p>
+      </div>
     </>
   );
 }

@@ -158,6 +158,14 @@ export default function SpaardoelenMaandelijkseInleg() {
       <p className="font-body text-text-soft" style={p}>
         Wil je een stok achter de deur? Onze{" "}<Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}houdt je zes weken lang scherp.
       </p>
+      <div
+        className="rounded-xl border p-4 my-6"
+        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <strong>Uit de praktijk.</strong> Het gezin dat ik hielp met de feestmaanden zette pas écht door toen het doel concreet werd: een kerstpot van een vast bedrag, klaar in december. Een spaardoel zonder bedrag en zonder datum blijft een wens — met allebei wordt het ineens iets wat je gewoon doet.
+        </p>
+      </div>
     </>
   );
 }
