@@ -268,6 +268,13 @@ export default function AanbodPage() {
                 >
                   Ja, dit wil ik →
                 </Link>
+                <Link
+                  href="/adviesgesprek"
+                  className="block text-center font-body text-xs mt-2"
+                  style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
+                >
+                  Wat kun je verwachten? →
+                </Link>
               </div>
             </div>
 

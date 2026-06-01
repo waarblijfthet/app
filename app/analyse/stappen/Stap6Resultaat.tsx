@@ -314,7 +314,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           eenmalig adviesgesprek van 45 minuten kijken we eerlijk naar je cijfers
           en stellen we 2 à 3 concrete doelen — €125, geen traject.
         </p>
-        <Link href="/aanbod" className="btn-primary">
+        <Link href="/adviesgesprek" className="btn-primary">
           Bekijk hoe dat werkt →
         </Link>
       </div>

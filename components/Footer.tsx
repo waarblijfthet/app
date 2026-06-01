@@ -41,6 +41,14 @@ export default function Footer() {
             Woordenlijst
           </Link>
           <span className="text-white/20 mx-2">·</span>
+          <Link
+            href="/adviesgesprek"
+            className="text-white/50 hover:text-white/80 transition-colors no-underline"
+            style={{ textDecoration: "none" }}
+          >
+            Adviesgesprek
+          </Link>
+          <span className="text-white/20 mx-2">·</span>
           <a
             href="mailto:hallo@waarblijfthet.nl"
             className="text-white/50 hover:text-white/80 transition-colors"

@@ -15,6 +15,7 @@ const statisch = [
   { loc: "/analyse", priority: "0.9" },
   { loc: "/inzichten", priority: "0.8" },
   { loc: "/aanbod", priority: "0.8" },
+  { loc: "/adviesgesprek", priority: "0.8" },
   { loc: "/over", priority: "0.6" },
   { loc: "/woordenlijst", priority: "0.6" },
 ];
