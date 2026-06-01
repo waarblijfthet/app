@@ -26,10 +26,26 @@ const personSchema = {
     "@type": "Person",
     name: "Jarno Koopman",
     jobTitle: "Oprichter",
+    url: "https://www.waarblijfthet.nl/over",
+    sameAs: [
+      "https://www.linkedin.com/in/jarnokoopman/",
+      "https://www.instagram.com/koopmanjarno/",
+    ],
+    knowsAbout: [
+      "Persoonlijke financiën",
+      "Huishoudbudget",
+      "Grip op geld",
+      "Besparen",
+      "Sparen",
+    ],
     worksFor: {
       "@type": "Organization",
       name: "Waar blijft het",
       url: "https://www.waarblijfthet.nl",
+      sameAs: [
+        "https://www.linkedin.com/in/jarnokoopman/",
+        "https://www.instagram.com/koopmanjarno/",
+      ],
     },
   },
 };

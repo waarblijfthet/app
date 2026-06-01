@@ -1,6 +1,6 @@
-// Genereert public/sitemap.xml, public/sitemap-0.xml en public/robots.txt.
+// Genereert public/sitemap.xml, public/sitemap-0.xml, public/robots.txt en public/llms.txt.
 // Dependency-vrij. Draait als onderdeel van `next build` (zie package.json),
-// zodat de sitemap bij élke deploy compleet en actueel is.
+// zodat alles bij elke deploy compleet en actueel is.
 import { readFileSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
@@ -47,14 +47,42 @@ const index =
   `<sitemap><loc>${HOST}/sitemap-0.xml</loc></sitemap>\n` +
   `</sitemapindex>\n`;
 
+const aiBots = ["GPTBot", "OAI-SearchBot", "ChatGPT-User", "ClaudeBot", "PerplexityBot", "Google-Extended"];
 const robots =
   `# *\nUser-agent: *\nAllow: /\n` +
   `Disallow: /admin\nDisallow: /aanbod/intake\nDisallow: /resultaat\n\n` +
-  `# Host\nHost: ${HOST}\n\n` +
+  `# AI-crawlers zijn welkom (vindbaarheid in AI-antwoorden)\n` +
+  aiBots.map((b) => `User-agent: ${b}\nAllow: /`).join("\n") +
+  `\n\n# Host\nHost: ${HOST}\n\n` +
   `# Sitemaps\nSitemap: ${HOST}/sitemap.xml\n`;
+
+// llms.txt — vat de site samen voor LLM's / AI-zoekmachines
+const titelMap = new Map(
+  [...data.matchAll(/slug:\s*"([^"]+)"[\s\S]*?\n\s*titel:\s*\n?\s*"([^"]+)"/g)].map(
+    (m) => [m[1], m[2]]
+  )
+);
+const artikelLijst = uniekeSlugs
+  .map((slug) => `- [${titelMap.get(slug) ?? slug}](${HOST}/inzichten/${slug})`)
+  .join("\n");
+
+const llms =
+  `# Waar blijft het\n\n` +
+  `> Gratis financiele analyse en eerlijk inzicht voor Nederlandse gezinnen die goed verdienen maar toch weinig overhouden. Geen schuldhulp, geen beleggingsadvies - alleen grip op het maandbudget.\n\n` +
+  `Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; daarnaast is er een eenmalig adviesgesprek en persoonlijke begeleiding. Auteur en oprichter: Jarno Koopman.\n\n` +
+  `## Belangrijkste pagina's\n` +
+  `- [Gratis analyse](${HOST}/analyse): vergelijk in 5 minuten je uitgaven met vergelijkbare gezinnen\n` +
+  `- [Aanbod](${HOST}/aanbod): gratis analyse, eenmalig adviesgesprek en traject\n` +
+  `- [Inzichten](${HOST}/inzichten): artikelen over grip op je geld\n` +
+  `- [Over ons](${HOST}/over): wie en waarom\n` +
+  `- [Woordenlijst](${HOST}/woordenlijst): geldbegrippen in gewone taal\n\n` +
+  `## Artikelen\n${artikelLijst}\n`;
 
 writeFileSync(join(ROOT, "public/sitemap-0.xml"), urlset);
 writeFileSync(join(ROOT, "public/sitemap.xml"), index);
 writeFileSync(join(ROOT, "public/robots.txt"), robots);
+writeFileSync(join(ROOT, "public/llms.txt"), llms);
 
-console.log(`sitemap gegenereerd: ${urls.length} URL's (${uniekeSlugs.length} artikelen)`);
+console.log(
+  `gegenereerd: ${urls.length} URL's, ${uniekeSlugs.length} artikelen, llms.txt (${titelMap.size} titels)`
+);

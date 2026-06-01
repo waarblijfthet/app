@@ -50,12 +50,28 @@ export default function ArtikelPage({ params }: Props) {
     author: {
       "@type": "Person",
       name: "Jarno Koopman",
-      url: "https://www.waarblijfthet.nl",
+      jobTitle: "Oprichter",
+      url: "https://www.waarblijfthet.nl/over",
+      sameAs: [
+        "https://www.linkedin.com/in/jarnokoopman/",
+        "https://www.instagram.com/koopmanjarno/",
+      ],
+      knowsAbout: [
+        "Persoonlijke financiën",
+        "Huishoudbudget",
+        "Grip op geld",
+        "Besparen",
+        "Sparen",
+      ],
     },
     publisher: {
       "@type": "Organization",
       name: "Waar blijft het",
       url: "https://www.waarblijfthet.nl",
+      sameAs: [
+        "https://www.linkedin.com/in/jarnokoopman/",
+        "https://www.instagram.com/koopmanjarno/",
+      ],
       logo: {
         "@type": "ImageObject",
         url: "https://www.waarblijfthet.nl/logo.png",
