@@ -185,8 +185,7 @@ export default function AdviesgesprekPage() {
               Klaar voor een eerlijk gesprek?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Plan je adviesgesprek. Je ontvangt een Tikkie (€125) om je afspraak
-              te bevestigen — daarna kijken we samen naar jullie cijfers.
+              Plan je adviesgesprek.
             </p>
             <Link
               href="/aanbod/intake?pakket=gesprek"

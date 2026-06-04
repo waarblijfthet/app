@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
       : "We nemen binnen één werkdag persoonlijk contact op — niet met een standaard mail, maar met een bericht dat aansluit op wat je hebt ingevuld.";
     const stappenTitel = isGesprek ? "Zo bereid je je voor" : "Wat er nu gebeurt";
     const stappenHtml = isGesprek
-      ? "1. Je ontvangt van ons een Tikkie (€125) om je afspraak te bevestigen<br>2. We plannen samen je videogesprek van 45 minuten<br>3. Doe vooraf de gratis analyse — dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>4. In het gesprek kijken we eerlijk naar je cijfers en stellen we 2 à 3 concrete doelen<br>5. Achteraf krijg je een korte samenvatting om terug te lezen"
+      ? "1. We plannen samen je videogesprek van 45 minuten<br>2. Doe vooraf de gratis analyse — dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijken we eerlijk naar je cijfers en stellen we 2 à 3 concrete doelen<br>4. Achteraf krijg je een korte samenvatting om terug te lezen"
       : "1. We lezen je aanmelding door<br>2. We sturen je binnen één werkdag een persoonlijk bericht<br>3. We plannen het intakegesprek (45 min, video)<br>4. Daarna stellen we samen je plan op maat op";
 
     // Bevestiging naar aanvrager
