@@ -166,6 +166,9 @@ export default function SpaardoelenMaandelijkseInleg() {
           <strong>Uit de praktijk.</strong> Het gezin dat ik hielp met de feestmaanden zette pas écht door toen het doel concreet werd: een kerstpot van een vast bedrag, klaar in december. Een spaardoel zonder bedrag en zonder datum blijft een wens — met allebei wordt het ineens iets wat je gewoon doet.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>
+        Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin spaarde voor de feestmaanden</a>.
+      </p>
     </>
   );
 }

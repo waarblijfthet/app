@@ -165,6 +165,9 @@ export default function WatIsNormaalBedragBoodschappen() {
           <strong>Uit de praktijk.</strong> In de gesprekken die ik voer schatten gezinnen hun boodschappen bijna altijd €100 tot €200 te laag in — niet omdat ze liegen, maar omdat de tussendoor-momenten, de drogist en de bakker er niet in zitten. Pas als ze een maand écht alles bij elkaar optellen, zien ze het echte bedrag.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>
+        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
+      </p>
     </>
   );
 }

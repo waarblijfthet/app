@@ -164,6 +164,9 @@ export default function HoeBespaarJeOpBoodschappen() {
           <strong>Uit de praktijk.</strong> Bij een gezin dat we begeleidden waren de boodschappen het grootste lek: veel impulsaankopen, geen plan. Een weekbudget plus een korte check-in ná elke keer boodschappen hield ze scherp — juist op de momenten dat het misging.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>
+        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
+      </p>
     </>
   );
 }

@@ -31,6 +31,9 @@ import SchoolkostenPerJaarGezin from "./content/schoolkosten-per-jaar-gezin";
 import HogereHypotheekWatKostHetPerMaand from "./content/hogere-hypotheek-wat-kost-het-per-maand";
 import VerbouwenFinancieleValkuilen from "./content/verbouwen-financiele-valkuilen";
 import ModaalInkomen2026 from "./content/modaal-inkomen-2026";
+import OnsBoodschappenbudgetMislukte from "./content/ons-boodschappenbudget-mislukte-tot-we-dit-deden";
+import KerstpotVerjaardagspotZoBouwdenWeDie from "./content/kerstpot-en-verjaardagspot-zo-bouwden-we-die";
+import BsoKostenTweedeInkomen from "./content/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -66,6 +69,9 @@ const contentMap: Record<string, () => JSX.Element> = {
   "hogere-hypotheek-wat-kost-het-per-maand": HogereHypotheekWatKostHetPerMaand,
   "verbouwen-financiele-valkuilen": VerbouwenFinancieleValkuilen,
   "modaal-inkomen-2026": ModaalInkomen2026,
+  "ons-boodschappenbudget-mislukte-tot-we-dit-deden": OnsBoodschappenbudgetMislukte,
+  "kerstpot-en-verjaardagspot-zo-bouwden-we-die": KerstpotVerjaardagspotZoBouwdenWeDie,
+  "bso-kosten-tweede-inkomen-zo-draaiden-we-het-om": BsoKostenTweedeInkomen,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

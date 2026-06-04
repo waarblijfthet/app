@@ -75,6 +75,9 @@ export default function TweeverdienersTochKrap() {
         dan kijken we via onze{" "}
         <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}mee.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Uit de praktijk: lees <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin de BSO-kosten omdraaide</a>.
+      </p>
     </>
   );
 }

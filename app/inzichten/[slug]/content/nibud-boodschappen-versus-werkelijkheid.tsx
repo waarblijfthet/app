@@ -147,6 +147,9 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
           <strong>Uit de praktijk.</strong> De Nibud-norm is een ondergrens, geen gemiddelde — dat zie ik telkens terug. Bijna geen enkel gezin dat ik spreek haalt 'm, en dat hoeft ook niet. Het gaat er niet om dat je 'de norm' redt, maar dat je weet waar je zelf zit en of dat een bewuste keuze is.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>
+        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappenbudget wél liet werken</a>.
+      </p>
     </>
   );
 }

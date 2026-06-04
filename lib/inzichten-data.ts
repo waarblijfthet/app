@@ -80,6 +80,119 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "ons-boodschappenbudget-mislukte-tot-we-dit-deden",
+    korteTitel: "Boodschappenbudget: een echte case",
+    titel: "Ons boodschappenbudget mislukte elke keer — tot we dit deden",
+    metaTitel: "Ons boodschappenbudget mislukte elke keer — tot we dit deden",
+    metaDescription: "Een gezin ging van €950 naar €720 aan boodschappen per maand — zonder honger of soberheid. De vier dingen die we veranderden, en het voor/na-resultaat.",
+    datum: "2026-05-31",
+    datumFormatted: "31 mei 2026",
+    leestijd: "6",
+    categorie: "Besparen",
+    excerpt: "Bram en Eva gaven ruim €950 per maand uit aan boodschappen zonder te weten waar het heen ging. Drie maanden later: €720, zonder in te leveren. Een echte case met de exacte aanpak en bedragen.",
+    preview: {
+      type: "vergelijking",
+      label: "Boodschappen per maand — echte case",
+      items: [
+        { naam: "Voor", bedrag: 950, kleur: "#B03A2E" },
+        { naam: "Na", bedrag: 720, kleur: "#2D6A4F" },
+      ],
+      noot: "€230/mnd minder, zonder soberheid",
+    },
+    faq: [
+      {
+        vraag: "Hoe stel je een boodschappenbudget in dat je wél volhoudt?",
+        antwoord: "Werk met één weekbudget op een aparte rekening (op is op tot maandag), maak vooraf een weekmenu zodat je één keer grote boodschappen doet, en doe na elke keer een korte check-in. Stuur op je eigen pijnmomenten, bijvoorbeeld nooit hongerig winkelen.",
+      },
+      {
+        vraag: "Hoeveel kun je besparen op boodschappen?",
+        antwoord: "In deze case zo'n €230 per maand (bijna €2.760 per jaar), van €950 naar €720 — zonder minder of slechter te eten. Het verschil zat in een plan en een zichtbare grens, niet in zuiniger zijn.",
+      },
+      {
+        vraag: "Moet je dan alles merkloos kopen?",
+        antwoord: "Nee. In deze case geen merkloos-alles en geen maaltijden overslaan. Eén weekbudget, een weekmenu en een appje na de boodschappen waren genoeg.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },  {
+    slug: "kerstpot-en-verjaardagspot-zo-bouwden-we-die",
+    korteTitel: "Kerst- en verjaardagspot: een echte case",
+    titel: "December overviel ons elk jaar — zo bouwden we een kerst- en verjaardagspot",
+    metaTitel: "December overviel ons elk jaar — zo bouwden we een kerst- en verjaardagspot",
+    metaDescription: "Een gezin werd elk jaar overvallen door een december-klap van €500+. Door jaarlijkse pieken om te rekenen naar €150 per maand in drie potjes, staat de kerstpot nu klaar. De aanpak.",
+    datum: "2026-05-31",
+    datumFormatted: "31 mei 2026",
+    leestijd: "5",
+    categorie: "Sparen",
+    excerpt: "Daan en Roos werden elk jaar overvallen door december. Door hun jaarlijkse pieken (±€1.800) om te rekenen naar €150 per maand in drie potjes, voelt geen enkele piekmaand nog als een klap. Een echte case.",
+    preview: {
+      type: "pijn",
+      label: "De rekensom",
+      items: ["€1.800/jaar aan pieken", "÷ 12 = €150/maand", "Geen december-klap meer"],
+    },
+    faq: [
+      {
+        vraag: "Hoe spaar je voor de feestdagen zonder in december klem te zitten?",
+        antwoord: "Tel je voorspelbare jaarlijkse pieken op (Sinterklaas + kerst ±€500, verjaardagen, vakantie), deel door twaalf en zet dat maandbedrag automatisch in aparte potjes op je salarisdag. Dan staat de kerstpot er gewoon.",
+      },
+      {
+        vraag: "Hoeveel kosten de feestmaanden gemiddeld?",
+        antwoord: "December kost een huishouden al gauw €500 extra aan cadeaus, duurdere boodschappen en uitjes. Tel je verjaardagen en vakantie erbij, dan kom je in deze case op zo'n €1.800 aan voorspelbare pieken per jaar.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Vastelastenbond — wat geven we uit aan Sinterklaas",
+        url: "https://www.vastelastenbond.nl/blog/wat-geven-we-uit-aan-sinterklaas/",
+      },
+    ],
+  },  {
+    slug: "bso-kosten-tweede-inkomen-zo-draaiden-we-het-om",
+    korteTitel: "BSO & tweede inkomen: een echte case",
+    titel: "De BSO slokte ons tweede inkomen op — zo draaiden we het om",
+    metaTitel: "De BSO slokte ons tweede inkomen op — zo draaiden we het om",
+    metaDescription: "Een gezin hield van het tweede inkomen netto bijna niets over door de BSO. Door de extra werkdag écht door te rekenen gingen ze van 3 naar 1 dag opvang: ~€345 per maand minder.",
+    datum: "2026-05-31",
+    datumFormatted: "31 mei 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt: "Karim en Noor hielden netto bijna niets over van het tweede inkomen — de BSO slokte het op. Door uit te rekenen wat de extra werkdag écht opleverde, gingen ze van 3 naar 1 dag opvang: ~€345 per maand minder, én meer rust.",
+    preview: {
+      type: "vergelijking",
+      label: "Eigen bijdrage opvang — echte case",
+      items: [
+        { naam: "3 dagen BSO", bedrag: 520, kleur: "#B03A2E" },
+        { naam: "1 dag BSO", bedrag: 175, kleur: "#2D6A4F" },
+      ],
+      noot: "Verschilt per inkomen — reken na op toeslagen.nl",
+    },
+    faq: [
+      {
+        vraag: "Loont het tweede inkomen nog als de opvang zoveel kost?",
+        antwoord: "Reken het door: wat blijft er ná opvang, reiskosten en een hogere belastingschijf netto over van die extra werkdag? In deze case bleek dat bijna niets. Toen ze van 3 naar 1 dag BSO gingen, was de besparing groter dan het weggevallen netto-inkomen.",
+      },
+      {
+        vraag: "Wat is de maximale vergoede opvanguurprijs in 2026?",
+        antwoord: "Voor de kinderopvangtoeslag is het maximale vergoede uurtarief voor BSO in 2026 €9,98 per uur. Hoeveel je zelf betaalt hangt sterk af van je inkomen — bovenmodale gezinnen krijgen minder toeslag.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Belastingdienst — maximaal uurtarief kinderopvangtoeslag",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/toeslagen/kinderopvangtoeslag/hoeveel-kinderopvangtoeslag-kan-ik-krijgen/maximaal-uurtarief-voor-de-kinderopvang",
+      },
+      {
+        label: "Nationale Onderwijsgids — wat kost de BSO in 2026",
+        url: "https://www.nationaleonderwijsgids.nl/kinderopvang/wat-kost-de-buitenschoolse-opvang-in-2026/",
+      },
+    ],
+  },
+  {
     slug: "modaal-inkomen-2026",
     korteTitel: "Modaal inkomen 2026",
     titel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",

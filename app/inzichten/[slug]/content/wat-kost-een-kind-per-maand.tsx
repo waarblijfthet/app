@@ -56,6 +56,9 @@ export default function WatKostEenKindPerMaand() {
           <strong>Uit de praktijk.</strong> Een gezin met hoge opvangkosten dacht met ons mee over flexibeler werken in plaats van alleen bezuinigen. Twee dagen minder BSO gaf een flinke besparing én meer rust thuis.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>
+        Uit de praktijk: lees <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin de BSO-kosten omdraaide</a>.
+      </p>
     </>
   );
 }

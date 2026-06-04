@@ -50,6 +50,9 @@ export default function SeizoensKostenkalenderPerMaand() {
           <strong>Uit de praktijk.</strong> Een van de eerste gezinnen die we hielpen, rekende verjaardagen, de vakantie en december om naar vaste maandpotjes. Sindsdien voelen de piekmaanden niet meer als een klap — de kerstpot staat er gewoon.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>
+        Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin een kerst- en verjaardagspot bouwde</a>.
+      </p>
     </>
   );
 }
