@@ -19,7 +19,7 @@ const TABS = [
   { id: "funnel", label: "📊 Funnel" },
   { id: "bezoekers", label: "👁 Bezoekers" },
   { id: "leads", label: "Leads" },
-  { id: "quiz", label: "Quiz resultaten" },
+  { id: "quiz", label: "Analyse resultaten" },
   { id: "overzicht", label: "Overzicht" },
   { id: "aanvragen", label: "Aanvragen" },
 ] as const;
@@ -80,7 +80,6 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
       {actief === "funnel" && (
         <FunnelTabblad
           leads={leads}
-          quizResultaten={quizResultaten}
           aanvragen={aanvragen}
         />
       )}

@@ -2,11 +2,10 @@
 
 import { useState, useEffect, useMemo } from "react";
 import { createClient } from "@/lib/supabase-browser";
-import { Lead, QuizResultaat, IntakeAanvraag } from "../page";
+import { Lead, IntakeAanvraag } from "../page";
 
 interface Props {
   leads: Lead[];
-  quizResultaten: QuizResultaat[];
   aanvragen: IntakeAanvraag[];
 }
 
@@ -41,7 +40,7 @@ function pct(deel: number, totaal: number): string {
   return Math.round((deel / totaal) * 100) + "%";
 }
 
-export default function FunnelTabblad({ leads, quizResultaten, aanvragen }: Props) {
+export default function FunnelTabblad({ leads, aanvragen }: Props) {
   const [bezoeken, setBezoeken] = useState<BezoekRij[]>([]);
   const [voortgang, setVoortgang] = useState<VoortgangRij[]>([]);
   const [laden, setLaden] = useState(true);
@@ -82,10 +81,6 @@ export default function FunnelTabblad({ leads, quizResultaten, aanvragen }: Prop
   const grens = vanafMs(filter);
 
   // Period-filtered counts uit props
-  const voltooid = useMemo(
-    () => quizResultaten.filter((r) => new Date(r.created_at).getTime() >= grens).length,
-    [quizResultaten, grens]
-  );
   const aantalLeads = useMemo(
     () => leads.filter((l) => new Date(l.created_at).getTime() >= grens).length,
     [leads, grens]
@@ -146,8 +141,8 @@ export default function FunnelTabblad({ leads, quizResultaten, aanvragen }: Prop
   const stappen = [
     { label: "Bezoekers (unieke sessies)", waarde: bezoekers, vorige: 0 },
     { label: "Analyse gestart", waarde: analyseGestart, vorige: bezoekers },
-    { label: "Analyse voltooid", waarde: voltooid, vorige: analyseGestart },
-    { label: "E-mail achtergelaten (lead)", waarde: aantalLeads, vorige: voltooid },
+    { label: "Analyse voltooid", waarde: stapTrechter.voltooid, vorige: analyseGestart },
+    { label: "E-mail achtergelaten (lead)", waarde: aantalLeads, vorige: stapTrechter.voltooid },
     { label: "Betaalde aanvraag", waarde: aantalAanvragen, vorige: aantalLeads },
   ];
   const maxWaarde = Math.max(bezoekers, 1);
