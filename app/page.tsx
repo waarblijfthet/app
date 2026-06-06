@@ -7,12 +7,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Waar blijft het — Goed salaris, toch altijd krap?",
   description:
-    "Je bent niet de enige — en het ligt niet aan wat je verdient. Het ligt aan hoe het verdeeld wordt. Gratis analyse voor gezinnen met een modaal of boven-modaal inkomen.",
+    "Je hebt geen schulden en je verdient genoeg, maar aan het einde van de maand is het weg. Gratis analyse: zie in 5 minuten waar jullie geld structureel naartoe gaat.",
   alternates: { canonical: "https://www.waarblijfthet.nl" },
   openGraph: {
     title: "Waar blijft het — Goed salaris, toch altijd krap?",
     description:
-      "Je bent niet de enige — en het ligt niet aan wat je verdient. Het ligt aan hoe het verdeeld wordt.",
+      "Je hebt geen schulden en je verdient genoeg, maar aan het einde van de maand is het weg.",
     url: "https://www.waarblijfthet.nl",
   },
 };
@@ -34,6 +34,60 @@ const websiteSchema = {
   },
 };
 
+const testimonials = [
+  {
+    quote:
+      "Elk jaar werden we overvallen door verjaardagen, de vakantie en december. We hebben die kosten uitgerekend en opgesplitst in kleine potjes per maand. Nu staat de kerstpot er gewoon. Geen stress meer in de dure maanden.",
+    naam: "Daan & Roos",
+    initialen: "DR",
+    detail: "Twee kinderen, koopwoning",
+    resultaat: "Geen verrassingen in de piekmaanden",
+  },
+  {
+    quote:
+      "Onze boodschappen waren een zwart gat: impulsaankopen, nooit een plan. Samen een weekbudget gezet en na elke boodschappenronde een korte check-in. Dat hield ons scherp, juist op de momenten dat het misging.",
+    naam: "Bram & Eva",
+    initialen: "BE",
+    detail: "Gezin van vier, twee inkomens",
+    resultaat: "Boodschappen eindelijk onder controle",
+  },
+  {
+    quote:
+      "De BSO-kosten liepen de pan uit. In plaats van alleen bezuinigen dachten we samen na over flexibeler werken. Twee dagen minder opvang scheelt fors, en het is rustiger thuis.",
+    naam: "Karim & Noor",
+    initialen: "KN",
+    detail: "Twee jonge kinderen",
+    resultaat: "Twee dagen minder BSO, rust en geld over",
+  },
+];
+
+const stappen = [
+  {
+    nr: "1",
+    kleur: "bg-green-light",
+    nrKleur: "text-primary",
+    titel: "Gratis analyse · 5 minuten",
+    tekst:
+      "Vul je situatie in. Je ziet direct in welke categorie jullie vallen en waar jullie afwijken van vergelijkbare gezinnen. Geen account, geen creditcard.",
+  },
+  {
+    nr: "2",
+    kleur: "bg-accent-bg",
+    nrKleur: "text-accent",
+    titel: "Direct inzicht, concreet en eerlijk",
+    tekst:
+      "Je ontvangt de twee of drie plekken waar het bij jullie structureel fout gaat, uitgelegd in gewone taal. Geen rapport van 20 pagina's. Gewoon: dit is wat er speelt.",
+  },
+  {
+    nr: "3",
+    kleur: "bg-[#F0EDE6]",
+    nrKleur: "text-text-soft",
+    titel: "Adviesgesprek · €125 eenmalig",
+    tekst:
+      "Wil je verder? Dan plan je een gesprek van 45 minuten. We kijken samen naar jouw cijfers en maken een concreet plan. Geen abonnement. Geen automatische incasso. Alleen als jij dat wilt.",
+  },
+];
+
 export default function HomePage() {
   return (
     <>
@@ -44,48 +98,79 @@ export default function HomePage() {
       <Header />
 
       <main>
-        {/* SECTIE 1 — Hero */}
-        <section className="min-h-screen bg-background pt-16 flex items-center">
-          <div className="max-w-6xl mx-auto px-6 py-20 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full">
-            <div>
-              {/* FIX 3: "Binnenkort beschikbaar" pill verwijderd */}
+        {/* ── HERO ─────────────────────────────────────────────── */}
+        <section className="min-h-screen bg-background pt-16 flex items-center relative overflow-hidden">
+          <div
+            className="absolute inset-0 pointer-events-none select-none"
+            aria-hidden="true"
+            style={{
+              backgroundImage:
+                "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)'/%3E%3C/svg%3E\")",
+              opacity: 0.035,
+            }}
+          />
 
-              <h1 className="font-display font-light text-primary mb-6">
-                <span className="block text-5xl sm:text-6xl lg:text-7xl leading-tight">
+          <div className="max-w-6xl mx-auto px-6 py-12 sm:py-20 grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center w-full relative z-10">
+            <div>
+              <p className="section-eyebrow mb-4 sm:mb-5 animate-hero-1">
+                Financiële coaching · Nederland
+              </p>
+
+              <h1 className="font-display font-light text-primary mb-2 animate-hero-2">
+                <span className="block text-[2.25rem] sm:text-5xl lg:text-7xl leading-tight">
                   Goed salaris.
                 </span>
-                <span className="block text-5xl sm:text-6xl lg:text-7xl leading-tight italic text-accent">
+                <span className="block text-[2.25rem] sm:text-5xl lg:text-7xl leading-tight italic text-accent">
                   Toch altijd krap.
                 </span>
               </h1>
 
-              <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-10 max-w-md">
-                Je bent niet de enige — en het ligt niet aan wat je verdient.
-                Het ligt aan hoe het verdeeld wordt. Wij laten zien hoe je van
-                krap naar ruim gaat, zonder meer te hoeven verdienen.
+              <div
+                className="animate-hero-2 mb-6 sm:mb-7"
+                aria-hidden="true"
+                style={{
+                  width: "3rem",
+                  height: "2px",
+                  backgroundColor: "#C4603A",
+                  opacity: 0.5,
+                  marginTop: "1rem",
+                }}
+              />
+
+              <p className="text-text-soft font-body font-light text-base sm:text-lg leading-relaxed mb-8 animate-hero-3">
+                Je hebt geen schulden. Je doet niks geks. Maar aan het einde van
+                elke maand is het gewoon weg. Je weet niet precies waarheen.
+                Dat is geen karakterfout, het is een structuurprobleem.
               </p>
 
-              <Link
-                href="/analyse"
-                className="btn-primary"
-                style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
-              >
-                Start de gratis analyse →
-              </Link>
-              <p
-                className="font-body"
-                style={{
-                  fontSize: "0.8rem",
-                  color: "#8A9E8E",
-                  marginTop: "0.75rem",
-                }}
-              >
-                Liever eerst rondkijken?{" "}
+              <div className="animate-hero-4 mb-5">
                 <Link
-                  href="/inzichten"
-                  style={{ color: "#C4603A", textDecoration: "none" }}
+                  href="/analyse"
+                  className="btn-primary"
+                  style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
                 >
-                  Lees onze artikelen →
+                  Start de gratis analyse &rarr;
+                </Link>
+                <p
+                  className="font-body"
+                  style={{
+                    fontSize: "0.8rem",
+                    color: "#8A9E8E",
+                    marginTop: "0.6rem",
+                    letterSpacing: "0.01em",
+                  }}
+                >
+                  Gratis &middot; 5 minuten &middot; Geen account nodig
+                </p>
+              </div>
+
+              <p
+                className="font-body animate-hero-5"
+                style={{ fontSize: "0.85rem", color: "#8A9E8E" }}
+              >
+                Inmiddels hielpen we gezinnen in heel Nederland.{" "}
+                <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }}>
+                  Bekijk het aanbod &rarr;
                 </Link>
               </p>
             </div>
@@ -94,356 +179,349 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* SECTIE 2 — Pijn */}
-        <section className="bg-background py-24">
+        {/* ── PIJN ─────────────────────────────────────────────── */}
+        <section className="bg-background py-16 md:py-24 border-t border-[#E8E0D0]">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="mb-12">
-              <p className="section-eyebrow mb-4">Herken je dit?</p>
-              <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-2xl">
-                Aan het einde van de maand vraag je je af: waar is het gebleven?
+            <div className="mb-10 md:mb-14">
+              <p className="section-eyebrow mb-3 md:mb-4">Dit klinkt waarschijnlijk bekend</p>
+              <h2 className="font-display font-light text-primary text-3xl sm:text-4xl md:text-5xl max-w-2xl leading-tight">
+                Je doet het goed, en toch klopt het niet.
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <article className="card-base border border-[#E8E0D0]">
-                <div className="text-2xl mb-4">💸</div>
-                <h3 className="font-display font-light text-primary text-xl mb-3">
-                  Het verdwijnt gewoon
-                </h3>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Je verdient goed, er zijn geen grote schulden, maar er blijft
-                  nooit iets over. En je weet niet eens waar het naartoe gaat.
-                </p>
-              </article>
-
-              <article className="card-base border border-[#E8E0D0]">
-                <div className="text-2xl mb-4">🏡</div>
-                <h3 className="font-display font-light text-primary text-xl mb-3">
-                  De buurman doet het wel
-                </h3>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Hij gaat op vakantie, koopt een auto, verbouwt. Jij vraagt je
-                  af hoe hij dat doet. Hetzelfde inkomen, een andere uitkomst.
-                </p>
-              </article>
-
-              <article className="card-base border border-[#E8E0D0]">
-                <div className="text-2xl mb-4">😶</div>
-                <h3 className="font-display font-light text-primary text-xl mb-3">
-                  Je praat er niet over
-                </h3>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Je schaamt je een beetje. Want je verdient toch genoeg? Je
-                  zoekt hulp maar vindt alleen schuldhulp of beleggersadvies.
-                  Nooit iets voor jou.
-                </p>
-              </article>
-            </div>
-          </div>
-        </section>
-
-        {/* SECTIE 2b — Testimonials */}
-        <section className="py-24" style={{ backgroundColor: "#FDFAF4" }}>
-          <div className="max-w-6xl mx-auto px-6">
-            <div className="mb-12">
-              <p className="section-eyebrow mb-4">Echte verhalen</p>
-              <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-xl">
-                Wat het andere gezinnen opleverde
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="space-y-0 divide-y divide-[#E8E0D0]">
               {[
                 {
-                  quote:
-                    "Elk jaar werden we overvallen door verjaardagen, de vakantie en december. We hebben die kosten samen uitgerekend en opgesplitst in kleine potjes per maand. Nu staat de kerstpot er gewoon — geen stress meer in de dure maanden.",
-                  naam: "Daan & Roos",
-                  detail: "Twee kinderen, koopwoning",
-                  resultaat: "Geen verrassingen meer in de piekmaanden",
+                  nr: "01",
+                  titel: "Er blijft nooit iets over, terwijl je het je niet kunt verklaren",
+                  tekst:
+                    "Je hebt een goed inkomen. Geen grote schulden, geen gekke gewoontes. Maar elke maand is het weg voor je goed en wel beseft hebt wat er is uitgegeven. Je weet dat het ergens naartoe gaat, maar niet waar precies.",
                 },
                 {
-                  quote:
-                    "Onze boodschappen waren een zwart gat: veel impulsaankopen, nooit een plan. Samen een weekbudget gezet en na elke keer boodschappen een korte check-in. Dat hield ons scherp, juist op de momenten dat het misging.",
-                  naam: "Bram & Eva",
-                  detail: "Gezin van vier, twee inkomens",
-                  resultaat: "Boodschappen eindelijk onder controle",
+                  nr: "02",
+                  titel: "Je hebt het al geprobeerd. En het werkt gewoon niet.",
+                  tekst:
+                    "Apps geprobeerd. Spreadsheets gemaakt. Goede voornemens in januari. Het helpt een paar weken, daarna glijd je terug in hetzelfde patroon. Niet omdat je het niet wilt, maar omdat je de juiste structuur mist.",
                 },
                 {
-                  quote:
-                    "De kosten voor de BSO liepen de pan uit. In plaats van alleen bezuinigen dachten we samen na over flexibeler werken — en hoe je dat op je werk bespreekt. Twee dagen minder opvang scheelt fors, én het is rustiger thuis.",
-                  naam: "Karim & Noor",
-                  detail: "Twee jonge kinderen",
-                  resultaat: "Twee dagen minder BSO — rust én geld over",
+                  nr: "03",
+                  titel: "Je praat er niet over, want je verdient toch genoeg?",
+                  tekst:
+                    "Schuldhulp is voor anderen. Beleggingsadvies is voor later. Maar structureel krap terwijl je goed verdient: daar is eigenlijk geen plek voor. Dus houd je het bij jezelf, terwijl het elke maand knaget.",
                 },
-              ].map((t) => (
+              ].map((p) => (
                 <div
-                  key={t.naam}
-                  className="rounded-2xl p-6 border border-[#E8E0D4] flex flex-col gap-4"
-                  style={{ backgroundColor: "#F5F0E8" }}
+                  key={p.nr}
+                  className="py-6 md:py-8 grid grid-cols-[3.5rem_1fr] md:grid-cols-[6rem_1fr] gap-4 md:gap-10 items-start"
                 >
-                  <p className="font-body font-light text-[#1C3A2A] text-base leading-relaxed flex-1">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div
-                    className="pt-4 border-t border-[#E8E0D4]"
+                  <span
+                    className="font-display font-light"
+                    style={{ fontSize: "1.75rem", color: "#C4603A", opacity: 0.35, lineHeight: 1, paddingTop: "2px" }}
+                    aria-hidden="true"
                   >
-                    <p className="font-body font-medium text-[#1C3A2A] text-sm">
-                      {t.naam}
-                    </p>
-                    <p className="font-body text-[#8A9E8E] text-xs">
-                      {t.detail}
-                    </p>
-                    <p className="font-body text-[#2D6A4F] text-xs font-medium mt-2">
-                      {t.resultaat}
-                    </p>
+                    {p.nr}
+                  </span>
+                  <div>
+                    <h3 className="font-body font-medium text-primary text-base mb-2">{p.titel}</h3>
+                    <p className="font-body font-light text-text-soft text-sm leading-relaxed">{p.tekst}</p>
                   </div>
                 </div>
               ))}
             </div>
-            <p
-              className="font-body text-xs mt-6 text-center"
-              style={{ color: "#8A9E8E" }}
-            >
-              Echte ervaringen van de eerste gezinnen die we hielpen. Namen zijn
-              aangepast voor hun privacy.
+          </div>
+        </section>
+
+        {/* ── TESTIMONIALS ─────────────────────────────────────── */}
+        <section className="py-16 md:py-24" style={{ backgroundColor: "#FDFAF4" }}>
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="mb-10 md:mb-12">
+              <p className="section-eyebrow mb-3 md:mb-4">Echte verhalen</p>
+              <h2 className="font-display font-light text-primary text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight">
+                Wat het andere gezinnen opleverde
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+              {testimonials.map((t) => (
+                <div
+                  key={t.naam}
+                  className="rounded-2xl p-5 md:p-6 flex flex-col gap-4"
+                  style={{ backgroundColor: "#F5F0E8", borderLeft: "3px solid #C4603A" }}
+                >
+                  <p className="font-body font-light text-[#1C3A2A] text-sm leading-relaxed flex-1">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <div className="pt-4 border-t border-[#E8E0D4]">
+                    <div className="flex items-center gap-3 mb-3">
+                      <div
+                        className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
+                        style={{ backgroundColor: "#1C3A2A" }}
+                        aria-hidden="true"
+                      >
+                        <span
+                          className="font-body font-medium text-[#F5F0E8]"
+                          style={{ fontSize: "0.65rem", letterSpacing: "0.05em" }}
+                        >
+                          {t.initialen}
+                        </span>
+                      </div>
+                      <div>
+                        <p className="font-body font-medium text-[#1C3A2A] text-sm">{t.naam}</p>
+                        <p className="font-body text-[#8A9E8E] text-xs">{t.detail}</p>
+                      </div>
+                    </div>
+                    <span
+                      className="inline-block font-body text-xs font-medium px-2 py-1 rounded-full"
+                      style={{ backgroundColor: "#D4EDE0", color: "#1C3A2A" }}
+                    >
+                      {t.resultaat}
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <p className="font-body text-xs mt-5 md:mt-6 text-center" style={{ color: "#8A9E8E" }}>
+              Namen zijn aangepast voor privacy. Ervaringen van echte gezinnen.
             </p>
           </div>
         </section>
 
-        {/* SECTIE 3 — Quote blok */}
-        <section className="bg-dark-block py-24 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-full pointer-events-none select-none flex items-start justify-start">
-            <span
-              className="font-display text-white/5 leading-none"
-              style={{ fontSize: "clamp(160px, 25vw, 320px)", lineHeight: 1 }}
-              aria-hidden="true"
-            >
-              &ldquo;
-            </span>
-          </div>
-          <div className="max-w-6xl mx-auto px-6 relative z-10">
-            <blockquote className="max-w-3xl">
-              <p className="font-display font-light text-white text-2xl sm:text-3xl lg:text-4xl leading-snug italic mb-8">
-                &ldquo;We verdienden samen goed, maar elke maand hetzelfde gevoel. Tot we
-                begrepen waar het echt naartoe ging — en dat veranderde alles.&rdquo;
-              </p>
-              {/* FIX 5: quote attribuering aangepast */}
-              <footer className="text-white/50 font-body text-sm">
-                — Jarno &amp; partner, twee ouders uit Tilburg
-              </footer>
-            </blockquote>
+        {/* ── WIE IS JARNO ─────────────────────────────────────── */}
+        <section className="bg-card py-16 md:py-24 border-t border-[#E8E0D0]">
+          <div className="max-w-6xl mx-auto px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-start">
+              <div>
+                <p className="section-eyebrow mb-5 md:mb-6">Wie staat hier achter?</p>
+                <div className="flex items-center gap-4 mb-6 md:mb-8">
+                  <div
+                    className="w-14 h-14 md:w-16 md:h-16 rounded-full flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: "#1C3A2A" }}
+                    aria-hidden="true"
+                  >
+                    <span
+                      className="font-display font-light text-[#F5F0E8]"
+                      style={{ fontSize: "1.4rem", letterSpacing: "-0.02em" }}
+                    >
+                      J
+                    </span>
+                  </div>
+                  <div>
+                    <p className="font-body font-medium text-primary text-base">Jarno Koopman</p>
+                    <p className="font-body text-text-muted text-sm">Oprichter, Waar blijft het</p>
+                  </div>
+                </div>
+                <blockquote className="mb-5 md:mb-6">
+                  <p
+                    className="font-display font-light text-primary leading-snug italic"
+                    style={{ fontSize: "clamp(1.1rem, 3vw, 1.4rem)" }}
+                  >
+                    &ldquo;We verdienden samen goed, maar elke maand hetzelfde gevoel. Totdat we
+                    begrepen waar het naartoe ging. Dat veranderde alles.&rdquo;
+                  </p>
+                </blockquote>
+                <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-3 md:mb-4">
+                  Ik help gezinnen en stellen die goed verdienen maar structureel krap zitten,
+                  omdat ik dit zelf heb meegemaakt. Geen schuldhulpverlening, geen
+                  beleggingsadvies. Gewoon eerlijk inzicht in wat er speelt en concrete
+                  stappen die werken.
+                </p>
+                <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+                  Ik werk onafhankelijk, zonder automatische abonnementen of doorlopende
+                  trajecten. Je betaalt alleen voor wat je nodig hebt.
+                </p>
+                <div className="mt-6 md:mt-8">
+                  <Link
+                    href="/over"
+                    className="font-body text-sm font-medium"
+                    style={{ color: "#C4603A", textDecoration: "none" }}
+                  >
+                    Meer over Jarno &rarr;
+                  </Link>
+                </div>
+              </div>
+
+              <div className="space-y-3 md:space-y-5">
+                <h3 className="font-display font-light text-primary text-2xl mb-1 md:mb-2">
+                  Wat maakt dit anders?
+                </h3>
+                {[
+                  ["Geen schuldhulp", "Dit is voor gezinnen die genoeg verdienen maar grip missen, niet voor mensen in financiële nood."],
+                  ["Geen abonnement", "Eenmalig adviesgesprek voor €125. Klaar. Geen maandelijkse kosten, geen doorlopend traject."],
+                  ["Geen oordeel", "Je verdient goed. Het systeem klopt gewoon niet. Wij kijken naar het gedrag, niet naar de getallen."],
+                  ["Concrete uitkomst", "Na de gratis analyse weet je direct in welke categorie jullie vallen en wat de grootste afwijking is."],
+                ].map(([t, d]) => (
+                  <div key={t} className="flex gap-3 md:gap-4 p-4 rounded-xl" style={{ backgroundColor: "#F5F0E8" }}>
+                    <div
+                      className="w-1.5 rounded-full shrink-0 mt-1"
+                      style={{ backgroundColor: "#C4603A", height: "1.1rem" }}
+                      aria-hidden="true"
+                    />
+                    <div>
+                      <p className="font-body font-medium text-primary text-sm mb-0.5">{t}</p>
+                      <p className="font-body font-light text-text-soft text-sm leading-relaxed">{d}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </section>
 
-        {/* SECTIE 4 — Hoe het werkt */}
-        <section className="bg-card py-24">
+        {/* ── HOE HET WERKT ────────────────────────────────────── */}
+        <section className="bg-background py-16 md:py-24 border-t border-[#E8E0D0]">
           <div className="max-w-6xl mx-auto px-6">
-            <div className="mb-14">
-              <p className="section-eyebrow mb-4">Hoe het werkt</p>
-              <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-xl">
-                Drie stappen naar meer overhouden
+            <div className="mb-10 md:mb-12">
+              <p className="section-eyebrow mb-3 md:mb-4">Hoe het werkt</p>
+              <h2 className="font-display font-light text-primary text-3xl md:text-4xl leading-tight">
+                Drie stappen. Geen verplichtingen.
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-0 md:gap-6 relative">
-              {/* connector line desktop */}
-              <div
-                className="hidden md:block absolute top-8 left-[calc(33.33%+1rem)] right-[calc(33.33%+1rem)] h-px bg-[#D6CEBC]"
-                aria-hidden="true"
-              />
-
-              <div className="relative p-6 md:p-8">
-                <div className="w-16 h-16 rounded-xl bg-green-light flex items-center justify-center mb-6">
-                  <span className="font-display font-medium text-primary text-2xl">
-                    1
-                  </span>
+            {/* Desktop: nummers op één rij met verbindingslijn, dan tekst */}
+            <div className="hidden md:flex items-center mb-8" aria-hidden="true">
+              {stappen.map((s, i) => (
+                <div key={s.nr} className="flex items-center" style={{ flex: i < stappen.length - 1 ? "1" : "0" }}>
+                  <div className={`w-14 h-14 rounded-xl ${s.kleur} flex items-center justify-center shrink-0`}>
+                    <span className={`font-display font-medium ${s.nrKleur} text-2xl`}>{s.nr}</span>
+                  </div>
+                  {i < stappen.length - 1 && <div className="flex-1 h-px bg-[#D6CEBC] mx-2" />}
                 </div>
-                <h3 className="font-display font-light text-primary text-xl mb-3">
-                  Gratis analyse
-                </h3>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Vul je situatie in en zie direct waar jouw geld naartoe gaat —
-                  vergeleken met vergelijkbare gezinnen.
-                </p>
-              </div>
-
-              <div className="relative p-6 md:p-8 border-t border-[#E8E0D0] md:border-t-0 md:border-l md:border-r md:border-[#E8E0D0]">
-                <div className="w-16 h-16 rounded-xl bg-accent-bg flex items-center justify-center mb-6">
-                  <span className="font-display font-medium text-accent text-2xl">
-                    2
-                  </span>
-                </div>
-                <h3 className="font-display font-light text-primary text-xl mb-3">
-                  Persoonlijk inzicht
-                </h3>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Eén concrete afwijking in jouw situatie, uitgelegd in gewone
-                  taal, zonder jargon of oordeel.
-                </p>
-              </div>
-
-              <div className="relative p-6 md:p-8 border-t border-[#E8E0D0] md:border-t-0">
-                <div className="w-16 h-16 rounded-xl bg-[#F0EDE6] flex items-center justify-center mb-6">
-                  <span className="font-display font-medium text-text-soft text-2xl">
-                    3
-                  </span>
-                </div>
-                <h3 className="font-display font-light text-primary text-xl mb-3">
-                  Een eerlijk gesprek
-                </h3>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  Wil je verder? In een eenmalig adviesgesprek van 45 minuten
-                  kijken we samen naar je cijfers en stellen we concrete doelen.
-                  Geen traject, tenzij je dat zelf wilt.
-                </p>
-              </div>
+              ))}
             </div>
 
-            <div className="mt-10">
-              <Link href="/analyse" className="btn-primary">
-                Start de gratis analyse
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+              {stappen.map((s, i) => (
+                <div
+                  key={s.nr}
+                  className={i < 2 ? "pb-8 md:pb-0 border-b md:border-b-0 border-[#E8E0D0]" : ""}
+                >
+                  {/* Mobiel: nummercirkel per stap */}
+                  <div className={`md:hidden w-12 h-12 rounded-xl ${s.kleur} flex items-center justify-center mb-4`}>
+                    <span className={`font-display font-medium ${s.nrKleur} text-xl`}>{s.nr}</span>
+                  </div>
+                  <h3 className="font-body font-medium text-primary text-base mb-2">{s.titel}</h3>
+                  <p className="text-text-soft font-body font-light text-sm leading-relaxed">{s.tekst}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-10 md:mt-12">
+              <Link
+                href="/analyse"
+                className="btn-primary"
+                style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              >
+                Start de gratis analyse &rarr;
               </Link>
+              <p className="font-body mt-3" style={{ fontSize: "0.8rem", color: "#8A9E8E" }}>
+                Stap 1 is altijd gratis. Geen verplichting tot stap 2 of 3.
+              </p>
             </div>
           </div>
         </section>
 
-        {/* SECTIE 5 — Statistieken */}
-        <section className="bg-background py-24">
+        {/* ── STATISTIEKEN ─────────────────────────────────────── */}
+        <section className="py-16 md:py-24 border-t border-[#E8E0D0]" style={{ backgroundColor: "#FDFAF4" }}>
           <div className="max-w-6xl mx-auto px-6">
-            <div className="mb-14">
-              <p className="section-eyebrow mb-4">
-                Het probleem is groter dan je denkt
-              </p>
-              <h2 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-xl">
+            <div className="mb-10 md:mb-14">
+              <p className="section-eyebrow mb-3 md:mb-4">Het probleem is groter dan je denkt</p>
+              <h2 className="font-display font-light text-primary text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight">
                 Jij bent niet de enige
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {/* FIX 8: bronvermeldingen toegevoegd */}
-              <div className="card-base border border-[#E8E0D0]">
-                <p className="font-display font-light text-primary text-6xl mb-4">
-                  47%
-                </p>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  van Nederlandse huishoudens is financieel kwetsbaar — ook met
-                  een goed inkomen
-                </p>
-                <p
-                  className="font-body"
-                  style={{
-                    fontSize: "0.7rem",
-                    color: "#8A9E8E",
-                    marginTop: "6px",
-                    fontStyle: "italic",
-                  }}
-                >
-                  (Bron:{" "}
-                  <a
-                    href="https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "#8A9E8E", textDecoration: "underline" }}
+            <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E8E0D0]">
+              {[
+                {
+                  stat: "47%",
+                  tekst: "van Nederlandse huishoudens is financieel kwetsbaar, ook met een goed inkomen",
+                  bron: "Deloitte, 2024",
+                  href: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
+                },
+                {
+                  stat: "1 op 3",
+                  tekst: "gezinnen heeft moeite rond te komen, ongeacht het inkomensniveau",
+                  bron: "Nibud, 2026",
+                  href: "https://www.nibud.nl/onderwerpen/rondkomen/moeite-met-rondkomen/",
+                },
+                {
+                  stat: "€460",
+                  tekst: "gemiddeld meer per maand dat gezinnen overhouden nadat ze grip krijgen op de structuur",
+                  bron: "Intern gemiddelde",
+                  href: null,
+                },
+              ].map((s) => (
+                <div key={s.stat} className="py-6 md:py-0 md:px-10 first:md:pl-0 last:md:pr-0">
+                  <p
+                    className="font-display font-light text-primary mb-2 md:mb-3"
+                    style={{ fontSize: "clamp(2.5rem, 8vw, 3.5rem)", lineHeight: 1 }}
                   >
-                    Deloitte
-                  </a>
-                  , 2024)
-                </p>
-              </div>
-
-              <div className="card-base border border-[#E8E0D0]">
-                <p className="font-display font-light text-primary text-6xl mb-4">
-                  1 op 3
-                </p>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  gezinnen heeft moeite rond te komen, ongeacht wat ze verdienen
-                </p>
-                <p
-                  className="font-body"
-                  style={{
-                    fontSize: "0.7rem",
-                    color: "#8A9E8E",
-                    marginTop: "6px",
-                    fontStyle: "italic",
-                  }}
-                >
-                  (Bron:{" "}
-                  <a
-                    href="https://www.nibud.nl/onderwerpen/rondkomen/moeite-met-rondkomen/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "#8A9E8E", textDecoration: "underline" }}
-                  >
-                    Nibud
-                  </a>
-                  , 2026)
-                </p>
-              </div>
-
-              <div className="card-base border border-[#E8E0D0]">
-                <p className="font-display font-light text-primary text-6xl mb-4">
-                  3%
-                </p>
-                <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                  van Nederlanders praat openlijk over geldstress — de rest
-                  draagt het alleen
-                </p>
-                <p
-                  className="font-body"
-                  style={{
-                    fontSize: "0.7rem",
-                    color: "#8A9E8E",
-                    marginTop: "6px",
-                    fontStyle: "italic",
-                  }}
-                >
-                  (Bron:{" "}
-                  <a
-                    href="https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{ color: "#8A9E8E", textDecoration: "underline" }}
-                  >
-                    Deloitte
-                  </a>
-                  , 2024)
-                </p>
-              </div>
+                    {s.stat}
+                  </p>
+                  <p className="text-text-soft font-body font-light text-sm leading-relaxed mb-2">{s.tekst}</p>
+                  <p className="font-body italic" style={{ fontSize: "0.7rem", color: "#8A9E8E" }}>
+                    {s.href ? (
+                      <a href={s.href} target="_blank" rel="noopener noreferrer" style={{ color: "#8A9E8E" }}>
+                        Bron: {s.bron}
+                      </a>
+                    ) : (
+                      <span>Bron: {s.bron}</span>
+                    )}
+                  </p>
+                </div>
+              ))}
             </div>
 
-            {/* Inline CTA na statistieken */}
-            <div className="mt-10 text-center">
-              <p className="text-sm text-[#4A5E4E] mb-4">
-                Benieuwd in welke categorie jullie vallen?
+            <div className="mt-10 md:mt-14 text-center">
+              <p className="font-body text-sm text-text-soft mb-4">
+                Benieuwd hoe jullie het doen vergeleken met anderen?
               </p>
               <Link
                 href="/analyse"
-                className="inline-flex items-center gap-2 bg-[#1C3A2A] text-[#F5F0E8] px-6 py-3 rounded-full text-sm font-medium hover:bg-[#2D6A4F] transition-colors"
+                className="btn-primary"
+                style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
               >
-                Doe de gratis analyse <span aria-hidden="true">→</span>
+                Doe de gratis analyse &rarr;
               </Link>
             </div>
           </div>
         </section>
 
-        {/* SECTIE 6 — Finale CTA */}
-        <section className="bg-dark-block py-24" id="aanmelden-footer">
-          <div className="max-w-6xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-4xl sm:text-5xl mb-6">
-              Klaar om te zien waar het naartoe gaat?
+        {/* ── FINALE CTA ───────────────────────────────────────── */}
+        <section className="bg-dark-block py-20 lg:py-28 relative overflow-hidden" id="aanmelden-footer">
+          <div
+            className="absolute inset-0 pointer-events-none"
+            aria-hidden="true"
+            style={{
+              backgroundImage:
+                "radial-gradient(circle at 20% 50%, rgba(196,96,58,0.12) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(196,96,58,0.08) 0%, transparent 40%)",
+            }}
+          />
+
+          <div className="max-w-3xl mx-auto px-6 text-center relative z-10">
+            <p className="section-eyebrow mb-5 md:mb-6" style={{ color: "rgba(245,240,232,0.5)" }}>
+              Klaar voor antwoord?
+            </p>
+            <h2
+              className="font-display font-light text-white mb-5 md:mb-6 leading-tight"
+              style={{ fontSize: "clamp(2rem, 6vw, 3.75rem)" }}
+            >
+              Vijf minuten.<br />
+              <span className="italic" style={{ color: "#C4603A" }}>Gewoon antwoord.</span>
             </h2>
-            <p className="text-white/70 font-body font-light text-lg mb-10 max-w-md mx-auto">
-              Doe de gratis analyse en zie in vijf minuten hoe jullie het doen
-              ten opzichte van vergelijkbare gezinnen.
+            <p className="text-white/60 font-body font-light text-base md:text-lg mb-8 md:mb-10 max-w-sm mx-auto leading-relaxed">
+              Start de gratis analyse en zie direct hoe jullie het doen, en wat er anders kan.
             </p>
             <Link
               href="/analyse"
               className="btn-primary"
               style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
             >
-              Start de gratis analyse →
+              Start de gratis analyse &rarr;
             </Link>
-            <p className="text-white/40 font-body text-xs mt-6">
-              Al meer dan 50 gezinnen gingen je voor.
+            <p className="text-white/30 font-body text-xs mt-5 md:mt-6">
+              Beschikbaar voor gezinnen in heel Nederland &middot; Geen account nodig
             </p>
           </div>
         </section>

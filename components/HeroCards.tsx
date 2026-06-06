@@ -1,3 +1,21 @@
+import React from "react";
+
+function Bar({ pct, color }: { pct: number; color: string }) {
+  return (
+    <div className="h-2 bg-[#E8E0D0] rounded-full overflow-hidden">
+      <div
+        className="h-full rounded-full"
+        style={{ width: pct + "%", background: color }}
+      />
+    </div>
+  );
+}
+
+const cardStyle: React.CSSProperties = {
+  background: "linear-gradient(145deg, #FFFFFF 0%, #F9F5EF 100%)",
+  boxShadow: "0 4px 24px rgba(28,58,42,0.08), 0 1px 4px rgba(28,58,42,0.04)",
+};
+
 const voorbeeldLabel = (
   <p
     style={{
@@ -18,29 +36,28 @@ export default function HeroCards() {
     <div className="hidden lg:block">
       <div className="relative w-full h-[520px]">
         {/* Card 1 — Wat jullie overhouden */}
-        <div className="absolute top-0 left-8 w-64 animate-float-1 card-base border border-[#E8E0D0]">
+        <div
+          className="absolute top-0 left-8 w-64 animate-float-1 rounded-xl border border-[#E8E0D0] p-6"
+          style={cardStyle}
+        >
           {voorbeeldLabel}
           <p className="section-eyebrow mb-3">Wat jullie overhouden</p>
           <p className="font-display text-4xl font-light text-primary mb-1">€80</p>
-          <p className="text-text-muted font-body text-xs mb-4">per maand bij jullie thuis</p>
+          <p className="font-body text-xs mb-4" style={{ color: "#8A9E8E" }}>per maand bij jullie thuis</p>
           <div className="space-y-2 mb-4">
             <div>
-              <div className="flex justify-between text-xs font-body text-text-muted mb-1">
+              <div className="flex justify-between text-xs font-body mb-1" style={{ color: "#8A9E8E" }}>
                 <span>Jullie</span>
                 <span className="text-accent font-medium">3%</span>
               </div>
-              <div className="h-2 bg-[#E8E0D0] rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: "3%" }} />
-              </div>
+              <Bar pct={3} color="linear-gradient(90deg, #C4603A, #e07050)" />
             </div>
             <div>
-              <div className="flex justify-between text-xs font-body text-text-muted mb-1">
+              <div className="flex justify-between text-xs font-body mb-1" style={{ color: "#8A9E8E" }}>
                 <span>Gemiddeld</span>
                 <span className="font-medium">12%</span>
               </div>
-              <div className="h-2 bg-[#E8E0D0] rounded-full overflow-hidden">
-                <div className="h-full bg-primary/30 rounded-full" style={{ width: "12%" }} />
-              </div>
+              <Bar pct={12} color="rgba(28,58,42,0.25)" />
             </div>
           </div>
           <span className="inline-block bg-[#FDE8E0] text-accent text-xs font-body font-medium px-3 py-1 rounded-full">
@@ -49,20 +66,26 @@ export default function HeroCards() {
         </div>
 
         {/* Card 2 — Na onze aanpak */}
-        <div className="absolute top-36 right-0 w-60 animate-float-2 card-base border border-[#E8E0D0]">
+        <div
+          className="absolute top-36 right-0 w-60 animate-float-2 rounded-xl border border-[#E8E0D0] p-6"
+          style={cardStyle}
+        >
           {voorbeeldLabel}
           <p className="section-eyebrow mb-3">Na onze aanpak</p>
           <p className="font-display text-4xl font-light text-primary mb-1">€460</p>
-          <p className="text-text-muted font-body text-xs mb-4">per maand meer</p>
-          <span className="inline-block bg-green-light text-primary text-xs font-body font-medium px-3 py-1 rounded-full">
+          <p className="font-body text-xs mb-4" style={{ color: "#8A9E8E" }}>per maand meer</p>
+          <span
+            className="inline-block text-xs font-body font-medium px-3 py-1 rounded-full"
+            style={{ backgroundColor: "#D4EDE0", color: "#1C3A2A" }}
+          >
             Zonder meer te verdienen
           </span>
         </div>
 
         {/* Card 3 — Waar het naartoe gaat */}
         <div
-          className="absolute bottom-0 left-4 animate-float-3 card-base border border-[#E8E0D0]"
-          style={{ width: "272px" }}
+          className="absolute bottom-0 left-4 animate-float-3 rounded-xl border border-[#E8E0D0] p-6"
+          style={{ ...cardStyle, width: "272px" }}
         >
           {voorbeeldLabel}
           <p className="section-eyebrow mb-3">Waar het naartoe gaat</p>
@@ -72,18 +95,14 @@ export default function HeroCards() {
                 <span className="text-text-soft">Abonnementen</span>
                 <span className="text-accent font-medium">€340 / 68%</span>
               </div>
-              <div className="h-2 bg-[#E8E0D0] rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: "68%" }} />
-              </div>
+              <Bar pct={68} color="linear-gradient(90deg, #C4603A, #e07050)" />
             </div>
             <div>
               <div className="flex justify-between text-xs font-body mb-1">
                 <span className="text-text-soft">Boodschappen</span>
-                <span className="text-accent font-medium">€180 te veel / 82%</span>
+                <span className="text-accent font-medium">€180 te veel</span>
               </div>
-              <div className="h-2 bg-[#E8E0D0] rounded-full overflow-hidden">
-                <div className="h-full bg-accent rounded-full" style={{ width: "82%" }} />
-              </div>
+              <Bar pct={82} color="linear-gradient(90deg, #C4603A, #e07050)" />
             </div>
           </div>
           <span className="inline-block bg-[#FDE8E0] text-accent text-xs font-body font-medium px-3 py-1 rounded-full">
@@ -92,7 +111,7 @@ export default function HeroCards() {
         </div>
       </div>
 
-      {/* Disclaimer onder de kaartjes */}
+      {/* Disclaimer */}
       <p
         className="font-body"
         style={{
