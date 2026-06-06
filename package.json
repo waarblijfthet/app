@@ -17,6 +17,12 @@
     "recharts": "^3.8.1",
     "resend": "^6.12.3"
   },
+  "browserslist": [
+    "chrome >= 90",
+    "firefox >= 90",
+    "safari >= 15",
+    "edge >= 90"
+  ],
   "devDependencies": {
     "@types/node": "^20.14.0",
     "@types/react": "^18.3.3",
