@@ -168,7 +168,7 @@ export default function HomePage() {
                 className="font-body animate-hero-5"
                 style={{ fontSize: "0.85rem", color: "#8A9E8E" }}
               >
-                Inmiddels hielpen we gezinnen in heel Nederland.{" "}
+                Inmiddels helpen we gezinnen in heel Nederland.{" "}
                 <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }}>
                   Bekijk het aanbod &rarr;
                 </Link>
@@ -207,7 +207,7 @@ export default function HomePage() {
                   nr: "03",
                   titel: "Je praat er niet over, want je verdient toch genoeg?",
                   tekst:
-                    "Schuldhulp is voor anderen. Beleggingsadvies is voor later. Maar structureel krap terwijl je goed verdient: daar is eigenlijk geen plek voor. Dus houd je het bij jezelf, terwijl het elke maand knaget.",
+                    "Schuldhulp is voor anderen. Beleggingsadvies is voor later. Maar structureel krap terwijl je goed verdient: daar is eigenlijk geen plek voor. Dus houd je het bij jezelf, terwijl het elke maand knaagt.",
                 },
               ].map((p) => (
                 <div
