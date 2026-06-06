@@ -1866,6 +1866,231 @@ export const artikelen: Artikel[] = [
       },
     ],
   },
+  {
+    slug: "pensioen-aanvullen-hoeveel-heb-je-nodig",
+    korteTitel: "Pensioen aanvullen: hoeveel heb je nodig?",
+    titel: "Pensioen aanvullen: hoeveel heb je nodig — en wanneer is het te laat?",
+    metaTitel: "Pensioen aanvullen: hoeveel heb je nodig?",
+    metaDescription: "Goed salaris maar weet je hoeveel pensioen je straks hebt? Lees wanneer aanvullen loont, hoeveel je mist bij een jobswitch, en hoe één gezin €280/mnd bespaarde.",
+    datum: "2026-06-06",
+    datumFormatted: "6 juni 2026",
+    leestijd: "7",
+    categorie: "Pensioen",
+    excerpt: "Mieke en Bas verdienen samen €6.200 netto en hadden nooit naar hun pensioen gekeken. Blijkt: een gat van €390.000. Hoe dat ontstond en hoe ze het voor €175 per maand netto aanpakten.",
+    preview: {
+      type: "vergelijking",
+      label: "Verwacht pensioen — echte case",
+      items: [
+        { naam: "Voor", bedrag: 1430, kleur: "#B03A2E" },
+        { naam: "Na aanvullen", bedrag: 4100, kleur: "#2D6A4F" },
+      ],
+      noot: "Per maand gezamenlijk incl. AOW",
+    },
+    faq: [
+      {
+        vraag: "Hoe weet ik hoeveel pensioen ik straks krijg?",
+        antwoord: "Ga naar mijnpensioenoverzicht.nl en log in met DigiD. Je ziet per fonds wat je verwachte uitkering is en wat het totaal is. Dit duurt vijf minuten en is het startpunt voor alles.",
+      },
+      {
+        vraag: "Wanneer moet ik beginnen met pensioen aanvullen?",
+        antwoord: "Zo vroeg mogelijk. Begin op je 35e met €200 per maand, dan heb je bij 4% groei op je 67e circa €190.000 opgebouwd. Begin op je 45e met hetzelfde bedrag: circa €88.000. Tijd is het enige dat hier echt telt.",
+      },
+      {
+        vraag: "Is pensioen aanvullen hetzelfde als beleggen?",
+        antwoord: "Niet per se. Een lijfrentespaarrekening bij een bank is gewoon sparen — geen beleggingsrisico. Een lijfrentebeleggingsrekening wél. Je kiest zelf welke variant je wil.",
+      },
+      {
+        vraag: "Wat is de jaarruimte voor pensioenopbouw?",
+        antwoord: "De jaarruimte is het bedrag dat je jaarlijks belastingvrij in een lijfrente mag inleggen. Bij een inkomen van €60.000 bruto is dat al gauw €3.000 tot €5.000 per jaar. Je berekent het op de site van de Belastingdienst.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Mijn Pensioenoverzicht — check je opbouw",
+        url: "https://www.mijnpensioenoverzicht.nl",
+      },
+      {
+        label: "Belastingdienst — jaarruimte berekenen",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/lijfrente/premies_voor_lijfrenten/jaarruimte/",
+      },
+    ],
+  },
+  {
+    slug: "financieel-onafhankelijk-worden-realistisch",
+    korteTitel: "Financieel onafhankelijk: hoe realistisch?",
+    titel: "Financieel onafhankelijk worden: wat het echt betekent (en wat niet)",
+    metaTitel: "Financieel onafhankelijk worden: hoe realistisch is het?",
+    metaDescription: "Financieel onafhankelijk worden hoeft geen FIRE te zijn. Lees wat het realistisch betekent voor gezinnen met een goed inkomen — met een eerlijk voor/na-verhaal.",
+    datum: "2026-06-06",
+    datumFormatted: "6 juni 2026",
+    leestijd: "7",
+    categorie: "Vermogen",
+    excerpt: "Thomas en Inge (€7.500 netto) dachten over 10 jaar te kunnen stoppen. De berekening: €1.740.000 nodig. Hoe ze hun doel herdefinieerden naar niveau 3-vrijheid — en waarom dat veel haalbaarder is.",
+    preview: {
+      type: "pijn",
+      label: "FIRE vs. niveau 3-vrijheid",
+      items: ["FIRE-doel: €1.740.000", "Niveau 3-vrijheid: €500.000", "Haalbaar in 12 jaar bij €1.200/mnd"],
+    },
+    faq: [
+      {
+        vraag: "Hoeveel geld heb ik nodig om financieel onafhankelijk te zijn?",
+        antwoord: "Voor volledige onafhankelijkheid (FIRE): 25 keer je jaarlijkse uitgaven. Voor niveau 3-vrijheid — meer keuze, minder stress — is een vrij vermogen van 5 tot 10 keer je jaarsalaris al een enorme stap.",
+      },
+      {
+        vraag: "Is beleggen noodzakelijk voor financiële onafhankelijkheid?",
+        antwoord: "Nee. Sparen zonder rendement verliest koopkracht door inflatie, maar een bankspaarrekening of lijfrenterekening biedt al meer rendement zonder beleggingsrisico. Wie wil beleggen kan dat doen, maar het is geen vereiste voor financiële rust.",
+      },
+      {
+        vraag: "Hoe lang duurt het om financieel onafhankelijk te worden?",
+        antwoord: "Dat hangt volledig af van je vrije cashflow en doel. Met €500 per maand vrij en een doel van €150.000 duurt het bij 3% rendement circa 19 jaar. Met €1.200 per maand: circa 10 jaar. Beginnen telt meer dan het bedrag.",
+      },
+      {
+        vraag: "Wat als mijn partner een ander ritme heeft qua financiële planning?",
+        antwoord: "Dat is heel normaal. Geld en relatiestress gaan vaak samen. Lees ons artikel over geld en relatiestress voor een eerlijk startpunt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — hoeveel heb je nodig na pensionering",
+        url: "https://www.nibud.nl/onderwerpen/later/",
+      },
+    ],
+  },
+  {
+    slug: "studieschuld-aflossen-of-sparen",
+    korteTitel: "Studieschuld aflossen of sparen?",
+    titel: "Studieschuld aflossen of sparen: wat is slimmer in 2026?",
+    metaTitel: "Studieschuld aflossen of sparen: wat is slimmer?",
+    metaDescription: "Moet je je studieschuld zo snel mogelijk aflossen, of is sparen slimmer? Eerlijk antwoord met rekensom — inclusief een voor/na-case van €280 per maand teruggewonnen.",
+    datum: "2026-06-06",
+    datumFormatted: "6 juni 2026",
+    leestijd: "6",
+    categorie: "Sparen",
+    excerpt: "Lotte loste elke maand €280 extra af op haar studieschuld — en had daardoor geen buffer. Na de rekensom: rente studieschuld 2,56% vs. spaarrente 2,9%. Ze stopte met overaflossen en won €280 per maand terug.",
+    preview: {
+      type: "pijn",
+      label: "De rekensom voor Lotte & Pieter",
+      items: ["Rente studieschuld 2026: 2,56%", "Spaarrente 2026: 2,90%", "€280/mnd teruggewonnen door te stoppen"],
+    },
+    faq: [
+      {
+        vraag: "Telt studieschuld mee voor hypotheek?",
+        antwoord: "Ja. Globaal geldt: €10.000 studieschuld = circa €50 per maand minder hypotheekruimte, wat neerkomt op circa €25.000 à €30.000 minder maximale hypotheek. Reken dit altijd door met een hypotheekadviseur.",
+      },
+      {
+        vraag: "Wat is de rente op mijn studieschuld in 2026?",
+        antwoord: "In 2026 is de rente voor alle studieleningen van DUO vastgesteld op 2,56%. Dit wordt jaarlijks herzien op basis van het gemiddelde van staatsleningen over de afgelopen vijf jaar.",
+      },
+      {
+        vraag: "Verdwijnt mijn studieschuld na een bepaalde tijd vanzelf?",
+        antwoord: "Ja. Bij het oude stelsel na 15 jaar, bij het sociaal leenstelsel na 35 jaar. De restschuld wordt dan kwijtgescholden, ook als er nog een saldo openstaat.",
+      },
+      {
+        vraag: "Wanneer is extra aflossen op studieschuld wél slim?",
+        antwoord: "Als je op korte termijn een huis wil kopen en de schuld je hypotheekruimte in de weg staat, als aflossing de schuld definitief nul maakt en je de ruimte daarna direct naar sparen omzet, of als de studielening-rente stijgt boven je spaarrente.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "DUO — terugbetalen studieschuld",
+        url: "https://duo.nl/particulier/terugbetalen/",
+      },
+      {
+        label: "Belastingdienst — rekenhulp jaarruimte",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/lijfrente/premies_voor_lijfrenten/jaarruimte/",
+      },
+    ],
+  },
+  {
+    slug: "gezamenlijke-rekening-voor-en-nadelen",
+    korteTitel: "Gezamenlijke rekening: voor- en nadelen",
+    titel: "Gezamenlijke rekening: voor- en nadelen voor stellen in 2026",
+    metaTitel: "Gezamenlijke rekening: voor- en nadelen voor stellen",
+    metaDescription: "Moet je als stel een gezamenlijke rekening nemen? Voor- en nadelen eerlijk uitgelegd — inclusief hoe één stel van wekelijkse geldruzie naar rust ging met een hybride systeem.",
+    datum: "2026-06-06",
+    datumFormatted: "6 juni 2026",
+    leestijd: "6",
+    categorie: "Samenwonen",
+    excerpt: "Nadia (€2.400) en Joris (€3.100) hadden wekelijks ruzie over wie wat betaalde. Na overstap naar een hybride rekening-systeem naar inkomen: discussies vrijwel nul, en voor het eerst spaardoelen samen.",
+    preview: {
+      type: "pijn",
+      label: "Nadia & Joris — hybride systeem",
+      items: ["Joris draagt 56% bij (€1.176/mnd)", "Nadia draagt 44% bij (€924/mnd)", "Gezamenlijke pot: €2.100/mnd vaste lasten"],
+    },
+    faq: [
+      {
+        vraag: "Is een gezamenlijke rekening verplicht als je trouwt of samenwoont?",
+        antwoord: "Nee. Er is geen wettelijke verplichting. Getrouwde stellen hebben standaard gemeenschap van goederen tenzij ze huwelijkse voorwaarden opstelden — maar dat zegt niets over hoe ze hun bankrekeningen inrichten.",
+      },
+      {
+        vraag: "Wat is het beste systeem als we ongelijk verdienen?",
+        antwoord: "Bijdragen naar inkomen is voor veel stellen het eerlijkst: elk draagt een percentage bij dat overeenkomt met zijn of haar aandeel in het gezamenlijke inkomen. Zo betaalt de hoogste verdiener meer, maar houden beiden procentueel evenveel over.",
+      },
+      {
+        vraag: "Hoe regel je een gezamenlijke rekening als je schulden hebt?",
+        antwoord: "Persoonlijke schulden zoals een studieschuld houd je het beste gescheiden van de gezamenlijke rekening. Op een gezamenlijke rekening zijn schulden in principe van jullie allebei.",
+      },
+      {
+        vraag: "Hoe vaak moet je het geldsysteem als stel evalueren?",
+        antwoord: "Elk kwartaal is een goed ritme. Inkomens en vaste lasten veranderen — een systeem dat een jaar geleden werkte, kan nu niet meer kloppen. Een korte check van 15 minuten voorkomt frustratie.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud — financiën regelen als stel",
+        url: "https://www.nibud.nl/onderwerpen/inkomen/samenwonen/",
+      },
+    ],
+  },
+  {
+    slug: "tweede-inkomen-loont-niet-tweeverdieners",
+    korteTitel: "Tweede inkomen loont niet: hoe kan dat?",
+    titel: "Tweede inkomen loont niet: hoe kan dat?",
+    metaTitel: "Tweede inkomen loont niet: hoe kan dat?",
+    metaDescription: "Je werkt vier dagen, maar wat blijft er netto over na BSO, reiskosten en belasting? Voor veel tweeverdieners is het antwoord schokkend weinig. Een eerlijke rekensom.",
+    datum: "2026-06-06",
+    datumFormatted: "6 juni 2026",
+    leestijd: "7",
+    categorie: "Tweeverdieners",
+    excerpt: "Marieke verdient €2.100 bruto (4 dagen). Na BSO, reiskosten en belasting blijft er per maand €-350 over. Terug naar 3 dagen leverde €180 per maand méér op — plus merkbaar minder stress.",
+    preview: {
+      type: "vergelijking",
+      label: "Tweede inkomen Marieke — netto opbrengst",
+      items: [
+        { naam: "Bruto inkomen", bedrag: 2100, kleur: "#1C3A2A" },
+        { naam: "Netto na kosten", bedrag: 0, kleur: "#B03A2E" },
+      ],
+      noot: "Na BSO, belasting en reiskosten: break-even of negatief",
+    },
+    faq: [
+      {
+        vraag: "Waarom loont het tweede inkomen bij tweeverdieners vaak niet?",
+        antwoord: "Het tweede inkomen wordt belast in de hoogste schijf (49,5% bij hogere gezinsinkomens), terwijl de kosten van werken — BSO, reiskosten, gemaksuitgaven door tijdgebrek — direct aftrekken van het netto bedrag. De combinatie maakt dat er soms vrijwel niets overblijft.",
+      },
+      {
+        vraag: "Hoeveel kinderopvangtoeslag krijg ik bij een gezinsinkomen van €80.000?",
+        antwoord: "Bij een gezinsinkomen van €80.000 bruto is de vergoeding in 2026 circa 46% van de maximale uurprijs (€10,25 voor BSO). Dat betekent circa 54% eigen bijdrage. Op jaarbasis bij één kind en 200 uur per maand: netto kosten circa €8.100.",
+      },
+      {
+        vraag: "Betekent dit dat ik beter kan stoppen met werken?",
+        antwoord: "Niet per se. Pensioenopbouw, arbeidsmarktpositie en persoonlijke voldoening spelen ook een rol. Bovendien zijn BSO-kosten tijdelijk — als de kinderen naar groep 5 gaan, kantelt de rekensom volledig. De vraag is of je werkpatroon klopt bij je situatie.",
+      },
+      {
+        vraag: "Helpt minder dagen werken financieel?",
+        antwoord: "Soms ja. Als de BSO-kosten met één dag dalen en het inkomensverlies kleiner is dan de kostenbesparing, levert minder werken netto méér op. In de case van Marieke leverde terugschroeven van 4 naar 3 dagen €180 per maand extra op.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Belastingdienst — schijventarief inkomstenbelasting 2026",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/tarieven/",
+      },
+      {
+        label: "Toeslagen.nl — kinderopvangtoeslag berekenen",
+        url: "https://www.toeslagen.nl",
+      },
+    ],
+  },
 ];
 
 export function getArtikel(slug: string): Artikel | undefined {

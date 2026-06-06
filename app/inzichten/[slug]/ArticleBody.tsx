@@ -34,6 +34,11 @@ import ModaalInkomen2026 from "./content/modaal-inkomen-2026";
 import OnsBoodschappenbudgetMislukte from "./content/ons-boodschappenbudget-mislukte-tot-we-dit-deden";
 import KerstpotVerjaardagspotZoBouwdenWeDie from "./content/kerstpot-en-verjaardagspot-zo-bouwden-we-die";
 import BsoKostenTweedeInkomen from "./content/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om";
+import PensioenAanvullenHoeveel from "./content/pensioen-aanvullen-hoeveel-heb-je-nodig";
+import FinancieelOnafhankelijkWordenRealistisch from "./content/financieel-onafhankelijk-worden-realistisch";
+import StudieschuldAflossenOfSparen from "./content/studieschuld-aflossen-of-sparen";
+import GezamenlijkeRekeningVoorEnNadelen from "./content/gezamenlijke-rekening-voor-en-nadelen";
+import TweedeInkomenLoonNietTweeverdieners from "./content/tweede-inkomen-loont-niet-tweeverdieners";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -72,6 +77,11 @@ const contentMap: Record<string, () => JSX.Element> = {
   "ons-boodschappenbudget-mislukte-tot-we-dit-deden": OnsBoodschappenbudgetMislukte,
   "kerstpot-en-verjaardagspot-zo-bouwden-we-die": KerstpotVerjaardagspotZoBouwdenWeDie,
   "bso-kosten-tweede-inkomen-zo-draaiden-we-het-om": BsoKostenTweedeInkomen,
+  "pensioen-aanvullen-hoeveel-heb-je-nodig": PensioenAanvullenHoeveel,
+  "financieel-onafhankelijk-worden-realistisch": FinancieelOnafhankelijkWordenRealistisch,
+  "studieschuld-aflossen-of-sparen": StudieschuldAflossenOfSparen,
+  "gezamenlijke-rekening-voor-en-nadelen": GezamenlijkeRekeningVoorEnNadelen,
+  "tweede-inkomen-loont-niet-tweeverdieners": TweedeInkomenLoonNietTweeverdieners,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {
