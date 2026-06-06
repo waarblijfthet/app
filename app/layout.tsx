@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
-import { BottomNav } from "@/components/BottomNav";
 import { PageTracker } from "@/components/PageTracker";
 
 const fraunces = Fraunces({
@@ -72,7 +71,6 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased">
         {children}
-        <BottomNav />
         <PageTracker />
       </body>
     </html>

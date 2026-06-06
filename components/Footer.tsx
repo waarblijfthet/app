@@ -14,7 +14,7 @@ export default function Footer() {
 
         {/* Midden: navigatielinks */}
         <nav
-          className="flex items-center font-body"
+          className="flex flex-wrap items-center justify-center gap-y-1 font-body"
           style={{ fontSize: "0.8rem" }}
         >
           <Link
