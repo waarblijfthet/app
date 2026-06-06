@@ -18,7 +18,7 @@ function OptionBtn({
     <button
       type="button"
       onClick={onClick}
-      className={`flex-1 min-w-[calc(50%-0.375rem)] px-4 py-4 rounded-xl border-[1.5px] font-body font-medium text-sm transition-all duration-150 text-left ${
+      className={`flex-1 min-w-[120px] px-4 py-4 rounded-xl border-[1.5px] font-body font-medium text-sm transition-all duration-150 text-left ${
         selected
           ? "bg-green-light border-primary text-primary shadow-card"
           : "bg-card border-[#D6CEBC] text-text-soft hover:border-primary/60"

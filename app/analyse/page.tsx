@@ -39,22 +39,21 @@ export default function AnalysePage() {
       />
       <Header />
 
-      <main className="pt-16 min-h-screen bg-background">
-        <section className="pt-16 pb-8">
-          <div className="max-w-6xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Gratis analyse</p>
-            <h1 className="font-display font-light text-primary text-4xl sm:text-5xl max-w-2xl mb-3">
-              Gratis financiële analyse — hoe doe jij het ten opzichte van
-              vergelijkbare gezinnen?
+      <main className="pt-16 min-h-screen bg-background overflow-x-hidden">
+        <section className="pt-10 pb-6 md:pt-16 md:pb-8">
+          <div className="max-w-6xl mx-auto px-5 sm:px-6">
+            <p className="section-eyebrow mb-3">Gratis analyse</p>
+            <h1 className="font-display font-light text-primary text-2xl sm:text-4xl md:text-5xl max-w-2xl mb-2 leading-snug">
+              Hoe doe jij het ten opzichte van vergelijkbare gezinnen?
             </h1>
-            <p className="text-text-soft font-body font-light text-lg max-w-xl mb-0">
+            <p className="text-text-soft font-body font-light text-base max-w-xl mb-0">
               Anoniem, geen producten, geen bankadvies.
             </p>
           </div>
         </section>
 
-        <section className="pb-16">
-          <div className="max-w-6xl mx-auto px-6">
+        <section className="pb-12 md:pb-16">
+          <div className="max-w-6xl mx-auto px-5 sm:px-6">
             <QuizClient />
           </div>
         </section>

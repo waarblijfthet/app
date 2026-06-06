@@ -20,14 +20,7 @@ import Stap5Dagelijks from "./stappen/Stap5Dagelijks";
 import Stap6Resultaat from "./stappen/Stap6Resultaat";
 
 const TOTAL_STEPS = 6;
-const STAP_LABELS = [
-  "Profiel",
-  "Inkomen",
-  "Wonen",
-  "Vervoer",
-  "Dagelijks",
-  "Resultaat",
-];
+const STAP_LABELS = ["Profiel", "Inkomen", "Wonen", "Vervoer", "Dagelijks", "Resultaat"];
 
 export default function QuizClient() {
   const [step, setStep] = useState(1);
@@ -37,7 +30,6 @@ export default function QuizClient() {
     setData((prev) => ({ ...prev, ...changes }));
   }, []);
 
-  // ── Voortgang opslaan (PII-vrij) zodat we afhaken én ingevulde data meten ──
   const sessieIdRef = useRef<string>("");
   const maxStapRef = useRef<number>(1);
 
@@ -76,7 +68,6 @@ export default function QuizClient() {
       // rekenfout mag nooit de tool breken
     }
 
-    // PII (email/naam/toestemming) bewust NIET opslaan in voortgang
     const {
       email: _e,
       naam: _n,
@@ -108,12 +99,9 @@ export default function QuizClient() {
           },
           { onConflict: "sessie_id" }
         )
-        .then(
-          () => {},
-          () => {}
-        );
+        .then(() => {}, () => {});
     } catch {
-      // stil falen — tracking mag de tool nooit blokkeren
+      // stil falen
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
@@ -132,21 +120,20 @@ export default function QuizClient() {
     6: <Stap6Resultaat {...stepProps} />,
   };
 
-  const isLastStep = step === TOTAL_STEPS;
   const showPanel = step >= 1 && step <= 5;
+  const canGo = canProceed(step, data);
 
   return (
-    <div>
+    <div className="overflow-x-hidden">
       {step === 1 && (
-        <div className="text-center mb-8 max-w-lg mx-auto">
+        <div className="text-center mb-8 max-w-lg mx-auto px-2">
           <div className="inline-flex items-center gap-2 bg-[#E8F2EC] text-[#2D6A4F] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
             <span>⏱</span>
             <span>5 minuten · Anoniem · Geen producten</span>
           </div>
           <p className="text-[#4A5E4E] text-sm leading-relaxed">
             Vul je situatie in en zie direct hoe jullie het doen ten opzichte
-            van vergelijkbare gezinnen. Na stap 2 zie je al de eerste
-            vergelijking.
+            van vergelijkbare gezinnen. Na stap 2 zie je al de eerste vergelijking.
           </p>
         </div>
       )}
@@ -155,25 +142,22 @@ export default function QuizClient() {
         currentStep={step}
         totalSteps={TOTAL_STEPS}
         labels={STAP_LABELS}
-        onStepClick={(s) => {
-          if (s < step) setStep(s);
-        }}
+        onStepClick={(s) => { if (s < step) setStep(s); }}
       />
 
       {step < TOTAL_STEPS ? (
-        /* Two-column layout for steps 1-5 */
         <div className="grid grid-cols-1 lg:grid-cols-[55%_42%] gap-8 lg:gap-12 items-start">
-          {/* Left — questions */}
-          <div className="pb-24 lg:pb-0">
+          {/* Left — vragen + navigatieknoppen inline */}
+          <div>
             {stepComponents[step]}
 
-            {/* Navigation */}
-            <div className="fixed bottom-0 left-0 right-0 lg:relative lg:bottom-auto bg-background/95 backdrop-blur-sm lg:bg-transparent lg:backdrop-blur-none border-t border-[#E8E0D0] lg:border-0 px-6 py-4 lg:px-0 lg:py-0 lg:mt-10 flex gap-3 z-40">
+            {/* Navigatie — altijd inline, geen fixed bar */}
+            <div className="mt-8 flex gap-3">
               {step > 1 && (
                 <button
                   type="button"
                   onClick={prev}
-                  className="flex-1 lg:flex-none px-6 py-3 rounded-xl border-[1.5px] border-[#D6CEBC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
+                  className="shrink-0 px-5 py-3.5 rounded-xl border-[1.5px] border-[#D6CEBC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
                 >
                   ← Vorige
                 </button>
@@ -181,17 +165,24 @@ export default function QuizClient() {
               <button
                 type="button"
                 onClick={next}
-                disabled={!canProceed(step, data)}
-                className="flex-1 lg:flex-none btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
+                disabled={!canGo}
+                className="flex-1 btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {step === 5
                   ? "Bekijk resultaat →"
                   : `Volgende: ${STAP_LABELS[step]} →`}
               </button>
             </div>
+
+            {/* Hint onder de knop als hij nog uitgeschakeld is */}
+            {!canGo && step === 1 && (
+              <p className="text-center text-xs text-text-muted mt-3">
+                Maak eerst een keuze bij alle drie de vragen hierboven.
+              </p>
+            )}
           </div>
 
-          {/* Right — sticky comparison panel */}
+          {/* Right — vergelijkingspaneel alleen op desktop */}
           {showPanel && (
             <div className="hidden lg:block">
               <VergelijkingsPaneel data={data} currentStep={step} />
@@ -199,7 +190,6 @@ export default function QuizClient() {
           )}
         </div>
       ) : (
-        /* Full-width result page */
         <div>{stepComponents[6]}</div>
       )}
     </div>
