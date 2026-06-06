@@ -123,8 +123,8 @@ export const artikelen: Artikel[] = [
     slug: "kerstpot-en-verjaardagspot-zo-bouwden-we-die",
     korteTitel: "Kerst- en verjaardagspot: een echte case",
     titel: "December overviel ons elk jaar — zo bouwden we een kerst- en verjaardagspot",
-    metaTitel: "December overviel ons elk jaar — zo bouwden we een kerst- en verjaardagspot",
-    metaDescription: "Een gezin werd elk jaar overvallen door een december-klap van €500+. Door jaarlijkse pieken om te rekenen naar €150 per maand in drie potjes, staat de kerstpot nu klaar. De aanpak.",
+    metaTitel: "Kerst- en verjaardagspot opbouwen: zo werkt het",
+    metaDescription: "Een december-klap van €500+, elk jaar. Door pieken te vertalen naar €150 per maand in drie potjes staat de kerstpot nu altijd klaar. De aanpak.",
     datum: "2026-05-31",
     datumFormatted: "31 mei 2026",
     leestijd: "5",
@@ -156,7 +156,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "BSO & tweede inkomen: een echte case",
     titel: "De BSO slokte ons tweede inkomen op — zo draaiden we het om",
     metaTitel: "De BSO slokte ons tweede inkomen op — zo draaiden we het om",
-    metaDescription: "Een gezin hield van het tweede inkomen netto bijna niets over door de BSO. Door de extra werkdag écht door te rekenen gingen ze van 3 naar 1 dag opvang: ~€345 per maand minder.",
+    metaDescription: "Van het tweede inkomen bleef netto weinig over door de BSO. Na het eerlijk doorrekenen: van 3 naar 1 dag opvang en ~€345 minder per maand.",
     datum: "2026-05-31",
     datumFormatted: "31 mei 2026",
     leestijd: "6",
@@ -197,7 +197,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Modaal inkomen 2026",
     titel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
     metaTitel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
-    metaDescription: "Het modaal inkomen is in 2026 ongeveer €48.000 bruto per jaar — netto zo'n €2.700 tot €3.100 per maand. Wat modaal precies is, en waarom het toch krap kan voelen.",
+    metaDescription: "Het modaal inkomen is in 2026 circa €48.000 bruto — netto zo'n €2.700 tot €3.100 per maand. Wat modaal betekent en waarom het toch krap kan voelen.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
@@ -406,7 +406,7 @@ export const artikelen: Artikel[] = [
     slug: "waar-blijft-het-bij-fatima",
     korteTitel: "Casestudy: Fatima (alleenstaand)",
     titel: "Waar blijft het bij Fatima: €2.900 netto, één inkomen voor drie",
-    metaTitel: "Waar blijft het bij Fatima: €2.900 netto, één inkomen voor drie",
+    metaTitel: "Casestudy Fatima: €2.900 netto, één inkomen voor drie",
     metaDescription: "Een fictieve alleenstaande ouder met €2.900 netto en twee kinderen. Hier ligt het niet aan de uitgaven — het is een lasten-probleem. Een eerlijk verhaal.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
@@ -442,7 +442,7 @@ export const artikelen: Artikel[] = [
     slug: "waar-blijft-het-bij-david-en-tom",
     korteTitel: "Casestudy: David & Tom (DINK)",
     titel: "Waar blijft het bij David & Tom: €5.500, geen kinderen, toch krap",
-    metaTitel: "Waar blijft het bij David & Tom: €5.500, geen kinderen, toch krap",
+    metaTitel: "Casestudy: €5.500 netto, geen kinderen, toch krap",
     metaDescription: "Een fictief stel met €5.500 netto, geen kinderen en geen auto. En toch verdwijnt het geld. Hoe lifestyle-inflatie ook zonder grote lasten toeslaat.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
@@ -474,7 +474,7 @@ export const artikelen: Artikel[] = [
     slug: "seizoens-kostenkalender-per-maand",
     korteTitel: "Seizoens-kostenkalender",
     titel: "De seizoens-kostenkalender: welke kosten komen er per maand aan?",
-    metaTitel: "De seizoens-kostenkalender: welke kosten komen er per maand aan?",
+    metaTitel: "Seizoenskosten per maand: wat komt er wanneer aan?",
     metaDescription: "Het jaar zit vol verborgen kostenpieken — van de zomervakantie tot december. Bekijk per maand wat eraan komt en hoe je het uitsmeert met een potje.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
@@ -507,7 +507,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Wat kost een zomervakantie?",
     titel: "Wat kost een zomervakantie voor een gezin?",
     metaTitel: "Wat kost een zomervakantie voor een gezin?",
-    metaDescription: "Nederlanders gaven in 2024 gemiddeld €600-700 per persoon uit aan de zomervakantie — voor een gezin van vier al snel €2.400. Waar de kosten zitten en hoe je de naschok voorkomt.",
+    metaDescription: "Gemiddeld €600–700 per persoon — voor een gezin van vier al snel €2.400. Waar de vakantiekosten zitten en hoe je de naschok voorkomt.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
@@ -705,7 +705,7 @@ export const artikelen: Artikel[] = [
     titel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
     metaTitel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
     metaDescription:
-      "Een eigen auto kost volgens de ANWB €413 tot €647 per maand all-in. Private lease of kopen — wat is voordeliger? De eerlijke vergelijking, inclusief de verborgen afschrijving.",
+      "Volgens de ANWB kost een eigen auto €413–€647 per maand all-in. Private lease of kopen — de eerlijke vergelijking inclusief de verborgen afschrijving.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
@@ -898,7 +898,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Lifestyle-inflatie: waarom meer verdienen niet meer overhouden betekent",
     metaTitel:
-      "Lifestyle-inflatie: waarom meer verdienen niet meer overhouden betekent",
+      "Lifestyle-inflatie — meer verdienen en toch krap",
     metaDescription:
       "Je verdient meer dan vroeger, maar houdt niks extra over? Dat heet lifestyle-inflatie. Zo groeien je uitgaven ongemerkt mee — en zo houd je het tegen.",
     datum: "2026-05-30",
@@ -946,7 +946,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Wat zijn normale boodschappenkosten per maand? Nibud vs. werkelijkheid",
     metaTitel:
-      "Wat zijn normale boodschappenkosten per maand? Nibud vs. werkelijkheid",
+      "Normale boodschappenkosten: Nibud-norm vs. werkelijkheid",
     metaDescription:
       "Nibud zegt €627 voor een gezin van 4. Maar in de praktijk geeft datzelfde gezin €700-900 uit. Wat verklaart dat verschil — en wat betekent het voor jou?",
     datum: "2026-05-21",
@@ -1012,7 +1012,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Is €4.000 netto per maand een goed salaris? Ja — maar dit is wat er werkelijk van overblijft",
     metaTitel:
-      "Is €4.000 netto een goed salaris? Ja — maar dit is wat er echt van overblijft",
+      "Is €4.000 netto een goed salaris in Nederland?",
     metaDescription:
       "€4.000 netto is top 25% in Nederland. Maar een gezin met koopwoning en 2 kinderen houdt er vaak minder dan €500 van over. Hoe dat kan, leggen we eerlijk uit.",
     datum: "2026-05-21",
@@ -1080,9 +1080,9 @@ export const artikelen: Artikel[] = [
     titel:
       "Hoeveel sparen per maand is normaal? Het eerlijke antwoord — inclusief de mensen die helemaal niks sparen",
     metaTitel:
-      "Hoeveel sparen per maand is normaal? Nibud zegt 10% — de werkelijkheid is anders",
+      "Hoeveel sparen per maand is normaal in Nederland?",
     metaDescription:
-      "Nibud adviseert 10%. Maar de gemiddelde Nederlander spaart 6,5% — en een kwart spaart helemaal niets. Wat is realistisch, en waar begin je als je nu niks overhoudt?",
+      "Nibud adviseert 10%, maar de gemiddelde Nederlander spaart 6,5% — en een kwart spaart niks. Wat is realistisch als je nu niks overhoudt?",
     datum: "2026-05-21",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
@@ -1129,7 +1129,7 @@ export const artikelen: Artikel[] = [
     externLinks: [
       {
         label: "Nibud spaarnorm en bufferbedragen",
-        url: "https://www.nibud.nl/consumenten/sparen/",
+        url: "https://www.nibud.nl/onderwerpen/sparen/",
       },
       {
         label: "FinBuddy gemiddeld spaarbedrag Nederlanders 2026",
@@ -1373,7 +1373,7 @@ export const artikelen: Artikel[] = [
     externLinks: [
       {
         label: "Nibud over sparen en buffers",
-        url: "https://www.nibud.nl/consumenten/sparen/",
+        url: "https://www.nibud.nl/onderwerpen/sparen/",
       },
       {
         label: "Deloitte onderzoek financiële kwetsbaarheid Nederland 2024",
@@ -1387,7 +1387,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Waarom levert een salarisverhoging boven de €76.000 zo weinig netto op?",
     metaTitel:
-      "Salarisverhoging boven €76.000: waarom levert het zo weinig op?",
+      "Salarisverhoging boven €76.000: zo weinig netto — hoe kan dat?",
     metaDescription:
       "Boven €76.000 gaat 49,5% van elke extra euro naar de belasting. Maar het echte verhaal is nóg ongunstiger. Wij leggen uit wat er werkelijk gebeurt.",
     datum: "2026-05-21",
@@ -1571,7 +1571,7 @@ export const artikelen: Artikel[] = [
       },
       {
         label: "Nibud budgetadvies",
-        url: "https://www.nibud.nl/consumenten/budgetadvies/",
+        url: "https://www.nibud.nl/tools/persoonlijk-budgetadvies/",
       },
     ],
   },
