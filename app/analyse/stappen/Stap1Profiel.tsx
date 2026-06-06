@@ -114,21 +114,24 @@ export default function Stap1Profiel({ data, onChange }: Props) {
 
         {data.auto === "zakelijk" && (
           <div className="mt-4 bg-[#F0EDE6] rounded-xl p-4">
-            <p className="font-body text-sm text-text-soft mb-3">
-              Is de bijtelling al verrekend in je nettosalaris?
+            <p className="font-body text-sm text-text-soft mb-1">
+              Staat de bijtelling op je salarisstrook?
+            </p>
+            <p className="font-body text-xs text-text-muted mb-3">
+              Bij de meeste zakelijke auto{"'"}s wel. Twijfel je? Kies {"'"}Ja{"'"}.
             </p>
             <div className="flex gap-3">
               <OptionBtn
                 selected={!data.zakelijkBijtellingSalaris}
                 onClick={() => onChange({ zakelijkBijtellingSalaris: false })}
               >
-                Ja (standaard)
+                Ja, staat erin
               </OptionBtn>
               <OptionBtn
                 selected={data.zakelijkBijtellingSalaris}
                 onClick={() => onChange({ zakelijkBijtellingSalaris: true })}
               >
-                Nee
+                Nee, staat er niet in
               </OptionBtn>
             </div>
           </div>

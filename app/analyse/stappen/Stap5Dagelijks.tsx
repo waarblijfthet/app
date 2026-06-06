@@ -1,5 +1,12 @@
+import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
-import { berekenTotaalInkomen, berekenAbonnementen, berekenKinderen, getBenchmarks } from "@/lib/benchmarks";
+import {
+  berekenTotaalInkomen,
+  berekenAbonnementen,
+  berekenKinderen,
+  berekenJaarlijks,
+  getBenchmarks,
+} from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
 
@@ -16,6 +23,8 @@ const BOODSCHAPPEN_HINTS: Record<number, string> = {
 };
 
 export default function Stap5Dagelijks({ data, onChange }: Props) {
+  const [spaardoelOpen, setSpaardoelOpen] = useState(false);
+
   const inkomen = berekenTotaalInkomen(data);
   const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
   const benches = getBenchmarks({
@@ -29,6 +38,8 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
   const boodschappenWaarde = parseEur(data.boodschappen);
   const abonnementenWaarde = berekenAbonnementen(data);
   const kinderenWaarde = berekenKinderen(data);
+  const vrijetijdWaarde = parseEur(data.vrijetijd);
+  const jaarlijksWaarde = berekenJaarlijks(data);
 
   const boodschappenDiff = boodschappenWaarde - benches.boodschappen;
   const abonnementenDiff = abonnementenWaarde - benches.abonnementen;
@@ -102,7 +113,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               className="w-full bg-white border border-[rgba(26,70,42,0.18)] rounded-[10px] pl-8 pr-4 py-3 text-base text-primary font-body placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
             />
             <p className="text-text-muted font-body text-xs mt-1.5">
-              Gemiddeld besteedt een gezin €150–250/mnd aan abonnementen
+              Gemiddeld €180/mnd — streaming, telefoon, gym, apps
             </p>
           </div>
         ) : (
@@ -160,7 +171,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               onChange={(v) => onChange({ schoolActiviteiten: v })}
             />
             <EuroInput
-              label="Sport en hobby's kinderen"
+              label="Sport en hobby&apos;s kinderen"
               id="sport"
               value={data.sportHobbyKinderen}
               onChange={(v) => onChange({ sportHobbyKinderen: v })}
@@ -174,18 +185,91 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         </div>
       )}
 
-      {/* Vrije tijd */}
+      {/* Vrije bestedingen */}
       <div className="mb-6">
         <EuroInput
-          label="Vrije tijd (uit eten, vakanties, hobby's)"
+          label="Vrije bestedingen"
           id="vrijetijd"
           value={data.vrijetijd}
           onChange={(v) => onChange({ vrijetijd: v })}
-          hint="Bereken je vakantiekosten terug naar een maandbedrag"
+          hint={`Restaurants, bezorgd, kleding, cadeautjes, uitjes en vakanties — gemiddeld ${fmtEur(benches.vrijetijd)}/mnd`}
         />
+        {vrijetijdWaarde > 0 && (
+          <div className="mt-2">
+            <MiniVergelijking jij={vrijetijdWaarde} benchmark={benches.vrijetijd} />
+          </div>
+        )}
+        {vrijetijdWaarde > 0 && vrijetijdWaarde < benches.vrijetijd * 0.5 && (
+          <div className="mt-2 bg-[#FDF3E3] rounded-lg px-3 py-2">
+            <p className="font-body text-xs text-[#92600A]">
+              Tip: vergeet ook restaurants, kleding en cadeautjes mee te rekenen — gemiddeld gaat daar {fmtEur(Math.round(benches.vrijetijd * 0.4))}/mnd naartoe.
+            </p>
+          </div>
+        )}
       </div>
 
-      {/* Mobile biggest afwijking highlight */}
+      {/* Jaarlijkse kosten */}
+      <div className="mb-6">
+        <div className="flex gap-2 mb-2">
+          {(["maand", "jaar"] as const).map((per) => (
+            <button
+              key={per}
+              type="button"
+              onClick={() => onChange({ jaarlijkseKostenPer: per })}
+              className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
+                data.jaarlijkseKostenPer === per
+                  ? "bg-primary text-white"
+                  : "bg-[#E8E0D0] text-text-soft"
+              }`}
+            >
+              Per {per}
+            </button>
+          ))}
+        </div>
+        <EuroInput
+          label={`Onverwachte kosten — per ${data.jaarlijkseKostenPer}`}
+          id="jaarlijkseKosten"
+          value={data.jaarlijkseKosten}
+          onChange={(v) => onChange({ jaarlijkseKosten: v })}
+          hint={
+            data.woonsituatie === "koop"
+              ? "Huisonderhoud, autoreparaties, tandarts, brillen — gemiddeld €3.600/jaar voor een gezin met koopwoning"
+              : "Autoreparaties, tandarts, brillen, kleding — gemiddeld €1.800/jaar"
+          }
+        />
+        {jaarlijksWaarde > 0 && (
+          <p className="font-body text-xs text-[#2D6A4F] mt-1.5 font-medium">
+            = {fmtEur(jaarlijksWaarde)}/mnd — wordt meegenomen in jullie totaal
+          </p>
+        )}
+      </div>
+
+      {/* Spaardoel — optioneel, achter een toggle */}
+      <div className="mb-6">
+        <button
+          type="button"
+          onClick={() => setSpaardoelOpen((o) => !o)}
+          className="flex items-center gap-2 text-sm font-body font-medium text-text-soft hover:text-primary transition-colors"
+        >
+          <span className={`transition-transform duration-200 ${spaardoelOpen ? "rotate-90" : ""}`}>
+            ▶
+          </span>
+          {spaardoelOpen ? "Verberg spaardoel" : "+ Maandelijks spaardoel toevoegen (optioneel)"}
+        </button>
+        {spaardoelOpen && (
+          <div className="mt-4">
+            <EuroInput
+              label="Wat willen jullie maandelijks sparen?"
+              id="spaardoel"
+              value={data.spaardoel}
+              onChange={(v) => onChange({ spaardoel: v })}
+              hint="Buffer, verbouwing, pensioen — wat jullie structureel opzij willen zetten"
+            />
+          </div>
+        )}
+      </div>
+
+      {/* Mobile highlight */}
       {boodschappenWaarde > 0 && abonnementenWaarde > 0 && (
         <div className="lg:hidden bg-[#FDECEA] rounded-xl p-4">
           <p className="text-xs font-body text-[#B03A2E] font-medium mb-1">

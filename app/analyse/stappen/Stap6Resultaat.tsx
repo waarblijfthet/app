@@ -13,6 +13,7 @@ import {
   berekenVerzekeringen,
   berekenAbonnementen,
   berekenKinderen,
+  berekenJaarlijks,
   vindGrootsteAfwijking,
   bepaalVerdict,
 } from "@/lib/benchmarks";
@@ -102,7 +103,6 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
 
-  // Berekeningen op component-niveau (toegankelijk in handleSubmit via closure)
   const inkomen = berekenTotaalInkomen(data);
   const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
   const benches = getBenchmarks({
@@ -119,18 +119,18 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   const grootsteAfwijking = vindGrootsteAfwijking(data, benches);
   const verdictCfg = VERDICT_CONFIG[verdict];
 
-  // Categorie totalen (ook gebruikt in DB insert)
   const wonenTotaal = berekenWonen(data);
   const vervoerTotaal = berekenVervoer(data);
   const verzekeringTotaal = berekenVerzekeringen(data);
-  const abonnementenTotaal = berekenAbonnementen(data);
+  const abonnementenTotaalWaarde = berekenAbonnementen(data);
   const kinderenTotaal = berekenKinderen(data);
+  const jaarlijksTotaal = berekenJaarlijks(data);
+  const spaardoelWaarde = parseEur(data.spaardoel);
 
-  // Top-2 afwijkingen voor weergave
   type AfwijkingEntry = { label: string; jij: number; bench: number; diff: number };
   const allAfwijkingen: AfwijkingEntry[] = [
     { label: "Boodschappen", jij: parseEur(data.boodschappen), bench: benches.boodschappen, diff: parseEur(data.boodschappen) - benches.boodschappen },
-    { label: "Abonnementen", jij: abonnementenTotaal, bench: benches.abonnementen, diff: abonnementenTotaal - benches.abonnementen },
+    { label: "Abonnementen", jij: abonnementenTotaalWaarde, bench: benches.abonnementen, diff: abonnementenTotaalWaarde - benches.abonnementen },
     { label: "Wonen", jij: wonenTotaal, bench: benches.wonen, diff: wonenTotaal - benches.wonen },
     { label: "Verzekeringen", jij: verzekeringTotaal, bench: benches.verzekeringen, diff: verzekeringTotaal - benches.verzekeringen },
     { label: "Vervoer", jij: vervoerTotaal, bench: benches.vervoer, diff: vervoerTotaal - benches.vervoer },
@@ -138,6 +138,35 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
     .filter((a) => a.jij > 0)
     .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff))
     .slice(0, 2);
+
+  // Dynamische CTA-tekst op basis van de grootste afwijking
+  const ctaKop =
+    verdict === "goed" && grootsteAfwijking === "geen"
+      ? "Haal meer uit de ruimte die je hebt"
+      : grootsteAfwijking === "Boodschappen"
+      ? `Jullie boodschappen liggen ${fmtEur(parseEur(data.boodschappen) - benches.boodschappen)}/mnd boven gemiddeld`
+      : grootsteAfwijking === "Abonnementen"
+      ? `Jullie abonnementen zijn ${fmtEur(abonnementenTotaalWaarde - benches.abonnementen)}/mnd hoger dan gemiddeld`
+      : grootsteAfwijking === "Wonen"
+      ? "Jullie woonlasten drukken zwaarder dan gemiddeld"
+      : grootsteAfwijking === "Vervoer"
+      ? "Jullie vervoerskosten liggen boven het gemiddelde"
+      : verdict === "goed"
+      ? "Haal meer uit de ruimte die je hebt"
+      : "Dit patroon kun je ombuigen";
+
+  const ctaTekst =
+    grootsteAfwijking === "Boodschappen"
+      ? "In een gesprek zoeken we uit waar dat zit: welke gewoontes, welke winkels, welke momenten. En hoe je dat ombuigt zonder alles op de schop te gooien."
+      : grootsteAfwijking === "Abonnementen"
+      ? "Daar zit vaak onbewust verlies dat makkelijk terug te winnen is. In een gesprek lopen we ze samen door."
+      : grootsteAfwijking === "Wonen"
+      ? "In een gesprek kijken we of en hoe dat te verlichten is, en wat dat in de rest van het budget betekent."
+      : grootsteAfwijking === "Vervoer"
+      ? "In een gesprek kijken we of er slim iets te veranderen is aan jullie vervoerssituatie."
+      : verdict === "goed"
+      ? "Jullie doen het goed. In een gesprek kijken we hoe jullie de ruimte die er is doelgericht inzetten: sparen, aflossen of meer van het leven genieten."
+      : "Je ziet nu wáár het zit. In een gesprek kijken we samen naar jullie cijfers en stellen we 2 à 3 concrete doelen.";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -148,7 +177,6 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
     const token = crypto.randomUUID();
 
     try {
-      // 1. Lead aanmaken / updaten
       const { data: lead, error: leadErr } = await supabase
         .from("leads")
         .upsert(
@@ -166,7 +194,6 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
       if (leadErr) throw leadErr;
 
-      // 2. Quiz resultaten opslaan
       let savedToken: string | null = null;
 
       if (lead) {
@@ -187,13 +214,11 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             boodschappen: parseEur(data.boodschappen),
             verzekering_zorg_per_persoon: parseEur(data.zorgPerPersoon),
             verzekering_overig: parseEur(data.verzekeringOverig),
-            // Berekende categorie-totalen
             wonen_totaal: wonenTotaal,
             vervoer_totaal: vervoerTotaal,
             verzekering_totaal: verzekeringTotaal,
-            abonnementen_totaal: abonnementenTotaal,
+            abonnementen_totaal: abonnementenTotaalWaarde,
             kinderen_totaal: kinderenTotaal,
-            // Financiële samenvatting
             totaal_inkomen_berekend: inkomen,
             totaal_uitgaven_berekend: inkomen - over,
             maandelijks_over_berekend: over,
@@ -207,7 +232,6 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         savedToken = token;
       }
 
-      // 3. Email sturen (fire-and-forget, blokkeert de redirect niet)
       if (savedToken && data.email) {
         fetch("/api/send-resultaat", {
           method: "POST",
@@ -222,7 +246,6 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         }).catch(console.error);
       }
 
-      // 4. Doorsturen naar resultaatpagina of fallback
       if (savedToken) {
         router.push(`/resultaat/${savedToken}`);
       } else {
@@ -271,6 +294,32 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         )}
       </div>
 
+      {/* Spaardoel vs werkelijkheid — alleen als ingevuld */}
+      {spaardoelWaarde > 0 && (
+        <div className="card-base border border-[#E8E0D0] mb-6">
+          <div className="flex justify-between items-start gap-4">
+            <div>
+              <p className="section-eyebrow mb-1">Jullie spaardoel</p>
+              <p className="font-body font-medium text-primary text-sm">
+                Jullie willen {fmtEur(spaardoelWaarde)}/mnd opzij zetten
+              </p>
+              <p className="font-body font-light text-text-soft text-xs mt-1 leading-relaxed">
+                {over >= spaardoelWaarde
+                  ? `Na dat spaardoel houden jullie nog ${fmtEur(over - spaardoelWaarde)}/mnd over.`
+                  : `Jullie houden ${fmtEur(over)}/mnd over — ${fmtEur(spaardoelWaarde - over)} te weinig om dit spaardoel te halen.`}
+              </p>
+            </div>
+            <span
+              className={`text-xl font-body font-semibold shrink-0 ${
+                over >= spaardoelWaarde ? "text-[#2D6A4F]" : "text-accent"
+              }`}
+            >
+              {over >= spaardoelWaarde ? "✓" : "!"}
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* Top-2 afwijkingen */}
       {allAfwijkingen.length > 0 && (
         <div className="card-base border border-[#E8E0D0] mb-6">
@@ -298,37 +347,35 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </p>
       </div>
 
-      {/* Conversie-CTA naar betaald aanbod */}
+      {/* Dynamische CTA naar betaald aanbod */}
       <div
         className="rounded-xl border border-[#E8E0D0] p-6 mb-8"
         style={{ backgroundColor: "#FDFAF4" }}
       >
         <p className="section-eyebrow mb-3">En nu?</p>
-        <p className="font-display font-light text-primary text-2xl mb-2">
-          {verdict === "goed"
-            ? "Haal meer uit de ruimte die je hebt"
-            : "Dit patroon kun je ombuigen"}
+        <p className="font-display font-light text-primary text-xl sm:text-2xl mb-2 leading-snug">
+          {ctaKop}
         </p>
-        <p className="text-text-soft font-body font-light text-sm mb-5">
-          Je ziet nu wáár het zit. Wil je het samen scherp krijgen? In een
-          eenmalig adviesgesprek van 45 minuten kijken we eerlijk naar je cijfers
-          en stellen we 2 à 3 concrete doelen — €125, geen traject.
+        <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
+          {ctaTekst}{" "}
+          <span className="font-medium text-primary">
+            Eenmalig adviesgesprek van 45 minuten, €125. Geen traject.
+          </span>
         </p>
         <Link href="/adviesgesprek" className="btn-primary">
-          Bekijk hoe dat werkt →
+          Bekijk hoe dat werkt &rarr;
         </Link>
       </div>
 
-      {/* Lead capture — je analyse staat hierboven; e-mail is optioneel */}
+      {/* Lead capture */}
       {!sent ? (
         <div className="card-base border border-[#E8E0D0]">
           <p className="font-display font-light text-primary text-2xl mb-2">
-            Wil je dit overzicht bewaren?
+            Ontvang je volledige analyse
           </p>
           <p className="text-text-soft font-body font-light text-sm mb-6">
-            Je analyse staat hierboven — je hoeft niks in te vullen om hem te
-            zien. Wil je een kopie per e-mail en een link om later terug te
-            kijken? Laat dan je gegevens achter.
+            Per e-mail ontvang je een gedetailleerde breakdown van jullie situatie,
+            met concrete eerste stappen voor de categorie die het meest afwijkt.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -382,7 +429,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
               disabled={sending || !data.email || !data.toestemmingOpslaan}
               className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {sending ? "Even geduld…" : "Stuur mij een kopie →"}
+              {sending ? "Even geduld…" : "Stuur mij de analyse →"}
             </button>
           </form>
         </div>
@@ -402,7 +449,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           href="/inzichten/goed-salaris-toch-krap"
           className="text-text-soft font-body text-sm hover:text-primary transition-colors"
         >
-          Meer leren? Lees ons artikel →
+          Meer leren? Lees ons artikel &rarr;
         </Link>
       </div>
     </div>

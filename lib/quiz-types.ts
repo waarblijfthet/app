@@ -55,6 +55,9 @@ export interface QuizData {
   schoolActiviteiten: string;
   sportHobbyKinderen: string;
   vrijetijd: string;
+  jaarlijkseKosten: string;
+  jaarlijkseKostenPer: "maand" | "jaar";
+  spaardoel: string;
 
   // Stap 6 — Lead
   naam: string;
@@ -106,6 +109,9 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   schoolActiviteiten: "",
   sportHobbyKinderen: "",
   vrijetijd: "",
+  jaarlijkseKosten: "",
+  jaarlijkseKostenPer: "jaar",
+  spaardoel: "",
   naam: "",
   email: "",
   toestemmingOpslaan: false,

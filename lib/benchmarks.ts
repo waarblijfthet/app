@@ -166,6 +166,12 @@ export function berekenKinderen(data: QuizData): number {
   );
 }
 
+export function berekenJaarlijks(data: QuizData): number {
+  const raw = parseEur(data.jaarlijkseKosten);
+  if (!raw) return 0;
+  return data.jaarlijkseKostenPer === "jaar" ? Math.round(raw / 12) : raw;
+}
+
 export function berekenTotaalUitgaven(data: QuizData): number {
   return (
     berekenWonen(data) +
@@ -174,7 +180,8 @@ export function berekenTotaalUitgaven(data: QuizData): number {
     parseEur(data.boodschappen) +
     berekenAbonnementen(data) +
     berekenKinderen(data) +
-    parseEur(data.vrijetijd)
+    parseEur(data.vrijetijd) +
+    berekenJaarlijks(data)
   );
 }
 
