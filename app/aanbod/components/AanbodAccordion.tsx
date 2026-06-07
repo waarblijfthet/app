@@ -19,6 +19,11 @@ const vragen = [
       "Nee. Ik begeleid je bij het dagelijks beheer van je inkomen: waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs ik je door naar een gecertificeerd adviseur.",
   },
   {
+    vraag: "Moet ik mijn bankafschriften opsturen?",
+    antwoord:
+      "Nee, dat hoeft niet. Voor het gratis analyse-rapport heb ik helemaal geen documenten nodig. Bij het adviesgesprek kun je optioneel een paar recente afschriften meenemen zodat het gesprek concreter wordt. Je deelt alleen wat je zelf wilt delen, en ik gebruik het uitsluitend voor het gesprek.",
+  },
+  {
     vraag: "Wat als ik begin met de gratis analyse maar meer wil?",
     antwoord:
       "Dan neem je gewoon contact op via hallo@waarblijfthet.nl. Ik kijk samen met je wat het beste bij jouw situatie past.",
@@ -26,7 +31,7 @@ const vragen = [
   {
     vraag: "Ben je gecertificeerd financieel adviseur?",
     antwoord:
-      "Nee. Ik ben geen gecertificeerd financieel adviseur en val niet onder de AFM-vergunningplicht. Ik adviseer niet over financiële producten. Wat ik doe is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
+      "Nee. Ik ben geen gecertificeerd financieel adviseur en val niet onder de AFM-vergunningplicht. Ik adviseer niet over financiële producten. Wat ik doe is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer. Ik heb zelf jarenlang als CTO gewerkt, goed verdiend, en niet begrepen waarom het nooit klopte. Dat inzicht is de basis van hoe ik met je meedenk.",
   },
 ];
 
