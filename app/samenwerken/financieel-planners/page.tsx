@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Samenwerken met Waar blijft het · voor financieel planners",
     description:
-      "Cliënten zonder grip op hun maandbudget kunnen niet goed investeren. Wij leggen die basis.",
+      "Cliënten zonder grip op hun maandbudget kunnen niet goed investeren. Ik leg die basis.",
     url: "https://www.waarblijfthet.nl/samenwerken/financieel-planners",
     type: "website",
   },
@@ -20,9 +20,9 @@ export const metadata: Metadata = {
 
 const faq = [
   {
-    vraag: "Wat doen jullie precies anders dan een financieel planner?",
+    vraag: "Wat doe jij anders dan een financieel planner?",
     antwoord:
-      "Een financieel planner werkt aan vermogensopbouw, pensioen en langetermijndoelen. Wij kijken alleen naar het maandbudget: wat komt er binnen, wat gaat eruit, waar lekt het. Dat zijn complementaire stukken, geen overlap.",
+      "Een financieel planner werkt aan vermogensopbouw, pensioen en langetermijndoelen. Ik kijk alleen naar het maandbudget: wat komt er binnen, wat gaat eruit, waar lekt het. Dat zijn complementaire stukken, geen overlap.",
   },
   {
     vraag: "Hoe verwijs ik iemand door?",
@@ -32,12 +32,12 @@ const faq = [
   {
     vraag: "Kunnen we samen optrekken in een traject?",
     antwoord:
-      "Dat is zeker bespreekbaar. Als jij de langetermijnstrategie bepaalt en wij de maandelijkse structuur leggen, versterken we elkaar. Stuur een mail als je dit wil bespreken.",
+      "Dat is zeker bespreekbaar. Als jij de langetermijnstrategie bepaalt en ik de maandelijkse structuur leg, versterken we elkaar. Stuur een mail als je dit wil bespreken.",
   },
   {
     vraag: "Is er een vergoeding voor doorverwijzingen?",
     antwoord:
-      "Nee. We werken onafhankelijk, geen commerciële verwijzingsconstructies.",
+      "Nee. Ik werk onafhankelijk, geen commerciële verwijzingsconstructies.",
   },
 ];
 
@@ -60,10 +60,10 @@ const pijnpunten = [
   {
     titel: "Ze verdienen goed maar hebben niets gespaard",
     tekst:
-      "Een van de meest verrassende patronen: gezinnen met €5.000 tot €7.000 netto per maand die geen spaarbuffer hebben. Niet door grote uitgaven, maar door een diffuse lekstroom, abonnementen, seizoenskosten, BSO, onverwachte kosten die altijd 'onverwacht' blijven. Dat los je niet op met een beleggingsplan.",
+      "Een van de meest verrassende patronen: gezinnen met 5.000 tot 8.000 euro netto per maand die geen spaarbuffer hebben. Niet door grote uitgaven, maar door een diffuse lekstroom van abonnementen, seizoenskosten en onverwachte kosten die altijd onverwacht blijven. Dat los je niet op met een beleggingsplan.",
   },
   {
-    titel: "Het gesprek gaat over geld, maar niet over de kern",
+    titel: "Ze weten niet hoeveel ze maandelijks vrij hebben",
     tekst:
       "Als financieel planner of vermogensadviseur werk je aan de strategie. Maar als iemand niet weet hoeveel hij maandelijks vrij heeft om te investeren, stagneert elk plan. Het maandbudget is de motor, als die niet loopt, rijdt de auto nergens naartoe.",
   },
@@ -90,7 +90,7 @@ export default function FinancieelPlannersPage() {
             <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-2xl">
               Cliënten die naar jou komen voor een financieel plan hebben soms een probleem
               dat vóór jou opgelost moet worden: ze hebben geen grip op hun maandelijkse
-              cashflow. Wij leggen die basis, zodat jij kunt bouwen op een stevige grond.
+              cashflow. Ik leg die basis, zodat jij kunt bouwen op een stevige grond.
             </p>
           </div>
         </section>
@@ -116,22 +116,22 @@ export default function FinancieelPlannersPage() {
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Wat wij doen, de basis die jij nodig hebt
+              Wat ik doe: de basis die jij nodig hebt
             </h2>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
-              Waar blijft het analyseert het maandbudget van gezinnen en stellen die goed
-              verdienen maar structureel krap zitten. We brengen de cashflow helder in kaart:
+              Waar blijft het analyseert het maandbudget van gezinnen en individuen die goed
+              verdienen maar structureel krap zitten. Ik breng de cashflow helder in kaart:
               wat komt er binnen, wat gaat er vanzelf uit, en hoeveel resteert er vrij. Dat
               zijn de getallen die jij als planner nodig hebt om een realistisch plan te maken.
             </p>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
-              Geen concurrentie, aanvulling. Jij werkt aan de lange termijn. Wij zorgen dat
+              Geen concurrentie, aanvulling. Jij werkt aan de lange termijn. Ik zorg dat
               de maand klopt. Samen is dat een stuk krachtiger dan apart.
             </p>
             <div className="rounded-xl border p-6 mt-6" style={{ borderColor: "#E8E0D0", backgroundColor: "#F5F0E8" }}>
               <p className="font-body font-medium text-primary text-sm mb-2">Wat een cliënt meeneemt naar jou</p>
               <p className="font-body font-light text-text-soft text-sm leading-relaxed">
-                Na onze analyse weet een cliënt: wat zijn vaste lasten zijn, hoeveel vrije
+                Na mijn analyse weet een cliënt: wat zijn vaste lasten zijn, hoeveel vrije
                 maandruimte er reëel is, en welke structurele uitgaven eerst aangepakt moeten
                 worden. Een veel stevigere basis voor een financieel plan.
               </p>
@@ -147,9 +147,9 @@ export default function FinancieelPlannersPage() {
             </h2>
             <div className="space-y-4">
               {[
-                ["1", "Stuur ze eerst naar ons", "Als een cliënt geen helder beeld heeft van zijn maandelijkse vrije ruimte, laat ze eerst de gratis analyse doen."],
-                ["2", "Wij leggen de basis", "Een concreet beeld van de cashflow, de lekken, en de realistische maandruimte om te investeren."],
-                ["3", "Jij bouwt het plan", "Met een cliënt die weet waar hij staat, werkt jouw financieel plan een stuk beter. Optioneel: we stemmen af over het traject."],
+                ["1", "Stuur ze eerst naar mij", "Als een cliënt geen helder beeld heeft van zijn maandelijkse vrije ruimte, laat ze eerst de gratis analyse doen."],
+                ["2", "Ik leg de basis", "Een concreet beeld van de cashflow, de lekken, en de realistische maandruimte om te investeren."],
+                ["3", "Jij bouwt het plan", "Met een cliënt die weet waar hij staat, werkt jouw financieel plan een stuk beter. Optioneel: ik stem met jou af over het traject."],
               ].map(([n, t, d]) => (
                 <div key={n} className="card-base border border-[#E8E0D0] flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-green-light flex items-center justify-center shrink-0">
@@ -165,12 +165,135 @@ export default function FinancieelPlannersPage() {
           </div>
         </section>
 
+        {/* Zo werkt het in de praktijk */}
+        <section className="py-12 md:py-16 border-t border-[#E8E0D0]" style={{ backgroundColor: "#FDFAF4" }}>
+          <div className="max-w-3xl mx-auto px-6">
+            <div className="mb-8">
+              <p className="section-eyebrow mb-3">Zo werkt het in de praktijk</p>
+              <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-tight">
+                Van &lsquo;we willen €800 investeren&rsquo; naar wat echt haalbaar is.
+              </h2>
+              <p className="font-body font-light text-text-soft text-sm mt-3">
+                Illustratief voorbeeld op basis van een doorverwijzing via een financieel planner. Namen fictief.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>01</span>
+                  <p className="font-body font-semibold text-primary text-sm">De doorverwijzing</p>
+                </div>
+                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5E4E" }}>
+                  David (44) en Anne (41) wonen in Eindhoven. Hij is IT-directeur, zij consultant. Gecombineerd netto €7.800 per maand. Ze komen bij financieel planner Marc met een duidelijk doel: €800 per maand investeren voor hun pensioen. Maar als Marc vraagt naar hun vrije maandruimte, weten ze het niet.
+                </p>
+                <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#1C3A2A", fontStyle: "italic", borderLeft: "3px solid #C4603A", paddingLeft: "0.75rem", marginLeft: 0 }}>
+                  &ldquo;Voordat we een plan maken, moeten we eerst weten wat er echt vrij is. Ik ken iemand die dat in kaart brengt. Doe jullie eerst de analyse, dan bouwen we van daaruit verder.&rdquo;
+                </blockquote>
+              </div>
+
+              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>02</span>
+                  <p className="font-body font-semibold text-primary text-sm">Wat ze invullen (5 minuten)</p>
+                </div>
+                <div className="space-y-2">
+                  {[
+                    ["Situatie", "Stel, 2 kinderen"],
+                    ["Netto inkomen", "€ 7.800 / mnd"],
+                    ["Hypotheek", "€ 1.780 / mnd"],
+                    ["Leaseauto’s (2x)", "€ 860 / mnd"],
+                    ["BSO (2 kinderen)", "€ 720 / mnd"],
+                    ["Boodschappen", "€ 700 / mnd"],
+                    ["Abonnementen + overig", "€ 890 / mnd"],
+                  ].map(([label, waarde]) => (
+                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0EAE0" }}>
+                      <span className="font-body text-xs" style={{ color: "#8A9E8E" }}>{label}</span>
+                      <span className="font-body text-sm font-medium" style={{ color: "#1C3A2A" }}>{waarde}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div style={{ backgroundColor: "#1C3A2A", border: "1px solid #2D6A4F", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#8AB89A", opacity: 0.7 }}>03</span>
+                  <p className="font-body font-semibold text-sm" style={{ color: "white" }}>Wat de analyse toont</p>
+                </div>
+                <div className="space-y-3">
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>Afwijking 1: Periodieke kosten ontbreken</p>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
+                      Schooluitjes, tandarts, vakantie, auto-onderhoud, kleding kinderen. Gemiddeld <strong style={{ color: "white" }}>€ 490 per maand</strong> voor dit profiel, maar David en Anne begroten het als nul. Dat geld gaat elke maand ergens naartoe, maar nooit als bewuste keuze.
+                    </p>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>Afwijking 2: Vrije ruimte lager dan verwacht</p>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
+                      Na aftrek van alle vaste lasten én de periodieke kosten is de reële vrije ruimte <strong style={{ color: "white" }}>€ 360 per maand</strong>. Niet de €800 waar ze van uitgingen.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>04</span>
+                  <p className="font-body font-semibold text-primary text-sm">Wat het gesprek (45 min) oplevert</p>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    {
+                      actie: "Periodieke kosten gepot",
+                      resultaat: "€490 per maand apart gezet als maandelijkse reservering. Geen verrassingen meer die het investeerbudget opslokken.",
+                    },
+                    {
+                      actie: "Vrije ruimte verhoogd naar €580",
+                      resultaat: "Twee abonnementen gecanceld (€85/mnd), één leaseauto eerder afgebouwd naar privé (€135/mnd goedkoper per saldo).",
+                    },
+                    {
+                      actie: "Realistisch startbedrag voor Marc",
+                      resultaat: "David en Anne gaan naar Marc met een onderbouwd antwoord: €580 vrij per maand, waarvan ze €500 willen investeren.",
+                    },
+                  ].map((item) => (
+                    <div key={item.actie} className="flex gap-3 items-start">
+                      <span style={{ color: "#2D6A4F", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
+                      <div>
+                        <p className="font-body text-xs font-semibold" style={{ color: "#1C3A2A" }}>{item.actie}</p>
+                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5E4E" }}>{item.resultaat}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ backgroundColor: "#F5F0E8", border: "1px solid #E0D8CC", borderRadius: "16px", padding: "1.5rem" }}>
+              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#C4603A" }}>
+                Wat Marc als financieel planner eraan had
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {[
+                  { kop: "Realistisch plan mogelijk", tekst: "Marc kon een plan bouwen op echte cijfers. €500 investeren per maand is haalbaar en onderbouwd, geen wensdenken." },
+                  { kop: "Cliënt begrijpt zijn eigen situatie", tekst: "David en Anne kwamen voorbereid terug. Geen vragen meer over hoe het kan dat ze zo weinig overhouden, dat was al opgelost." },
+                  { kop: "Efficiëntere gesprekken", tekst: "Marc hoefde geen tijd te besteden aan het uitleggen van cashflow-basisprincipes. Hij kon meteen aan de slag met de strategie." },
+                ].map((item) => (
+                  <div key={item.kop}>
+                    <p className="font-body font-semibold text-primary text-sm mb-1">{item.kop}</p>
+                    <p className="font-body font-light text-text-soft text-sm leading-relaxed">{item.tekst}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="bg-card py-12">
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl mb-5">
-              Veelgestelde vragen
-            </h2>
+            <h2 className="font-display font-light text-primary text-2xl mb-5">Veelgestelde vragen</h2>
             <div className="space-y-4">
               {faq.map((f) => (
                 <div key={f.vraag} className="card-base border border-[#E8E0D0]">
@@ -185,33 +308,21 @@ export default function FinancieelPlannersPage() {
         {/* CTA */}
         <section className="bg-dark-block py-20">
           <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
-              Laten we kennismaken
-            </h2>
+            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">Laten we kennismaken</h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Wil je zien hoe we elkaar versterken? Stuur een korte mail en we plannen
-              een gesprek van 20 minuten.
+              Past dit als aanvulling op jouw praktijk? Stuur een korte mail en ik plan een gesprek van 20 minuten.
             </p>
-            <a
-              href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20financieel%20planner"
-              className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
-            >
+            <a href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20financieel%20planner" className="btn-primary" style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}>
               Mail Jarno →
             </a>
             <p className="mt-6">
-              <Link
-                href="/samenwerken"
-                className="font-body text-sm"
-                style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
-              >
+              <Link href="/samenwerken" className="font-body text-sm" style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}>
                 ← Terug naar samenwerken overzicht
               </Link>
             </p>
           </div>
         </section>
       </main>
-
       <Footer />
     </>
   );

@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Samenwerken met Waar blijft het · voor budgetcoaches",
     description:
-      "Het middensegment: genoeg inkomen, geen schulden, maar structureel krap. Wij pakken dat aan.",
+      "Het middensegment: genoeg inkomen, geen schulden, maar structureel krap. Ik pak dat aan.",
     url: "https://www.waarblijfthet.nl/samenwerken/budgetcoaches",
     type: "website",
   },
@@ -20,24 +20,24 @@ export const metadata: Metadata = {
 
 const faq = [
   {
-    vraag: "Wat is precies het verschil tussen jullie aanpak en reguliere budgetcoaching?",
+    vraag: "Wat is het verschil tussen jouw aanpak en reguliere budgetcoaching?",
     antwoord:
-      "Schuldhulp en budgetcoaching richten zich vaak op mensen met schulden of een laag inkomen. Wij richten ons op het middensegment: modaal tot bovenmodaal inkomen, geen schulden, maar structureel krap door onduidelijkheid over waar het geld naartoe gaat. Andere doelgroep, andere aanpak.",
+      "Schuldhulp en budgetcoaching richten zich vaak op mensen met schulden of een laag inkomen. Ik richt me op het middensegment: modaal tot bovenmodaal inkomen, geen schulden, maar structureel krap door onduidelijkheid over waar het geld naartoe gaat. Andere doelgroep, andere aanpak.",
   },
   {
     vraag: "Hoe verwijs ik iemand door?",
     antwoord:
-      "Je noemt Waar blijft het als de cliënt buiten jouw scope valt, te weinig schulden voor schuldhulp, maar wel grip nodig op het maandbudget. Ze starten zelf via de gratis analyse op de site.",
+      "Je noemt Waar blijft het als de cliënt buiten jouw scope valt: te weinig schulden voor schuldhulp, maar wel grip nodig op het maandbudget. Ze starten zelf via de gratis analyse op de site.",
   },
   {
-    vraag: "Werken jullie samen met budgetcoaches in een traject?",
+    vraag: "Kunnen we samen optrekken in een traject?",
     antwoord:
-      "Dat kan. Als je een cliënt hebt die zowel jouw begeleiding als financieel inzicht nodig heeft, kijken we hoe we dat complementair kunnen oppakken. Mail ons dan even.",
+      "Dat kan. Als je een cliënt hebt die zowel jouw begeleiding als financieel inzicht nodig heeft, kijk ik met jou hoe we dat complementair kunnen oppakken. Mail me dan even.",
   },
   {
     vraag: "Is er een vergoeding voor doorverwijzingen?",
     antwoord:
-      "Nee. We werken onafhankelijk, geen affiliate-constructies of commerciële verwijzingsrelaties.",
+      "Nee. Ik werk onafhankelijk, geen affiliate-constructies of commerciële verwijzingsrelaties.",
   },
 ];
 
@@ -65,7 +65,7 @@ const pijnpunten = [
   {
     titel: "Ze zoeken hulp, maar weten niet waar",
     tekst:
-      "Schuldhulp is voor mensen met schulden. Een financieel planner is voor vermogensbeheer. Een budgetcoach klinkt als 'arm'. Ze zoeken ergens tussenin, iemand die begrijpt dat je gewoon goed wil weten waar het geld naartoe gaat, zonder dat je een probleemsituatie hoeft te zijn.",
+      "Schuldhulp is voor mensen met schulden. Een financieel planner is voor vermogensbeheer. Een budgetcoach klinkt als 'arm'. Ze zoeken ergens tussenin: iemand die begrijpt dat je gewoon wil weten waar het geld naartoe gaat, zonder dat je een probleemgeval hoeft te zijn.",
   },
 ];
 
@@ -90,7 +90,7 @@ export default function BudgetcoachesPage() {
             <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-2xl">
               Als budgetcoach of schuldhulpverlener ken je dit type: een gezin met een modaal
               of bovenmodaal inkomen, geen echte schulden, maar wel structureel krap. Ze passen
-              niet in schuldhulp, maar ze hebben wel iemand nodig. Dat is waar wij in springen.
+              niet in schuldhulp, maar ze hebben wel iemand nodig. Dat is waar ik in spring.
             </p>
           </div>
         </section>
@@ -116,25 +116,25 @@ export default function BudgetcoachesPage() {
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Wat wij doen, precies het gat dat jij niet vult
+              Wat ik doe: precies het gat dat jij niet vult
             </h2>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
-              Waar blijft het richt zich op het middensegment: gezinnen en stellen met een
+              Waar blijft het richt zich op het middensegment: gezinnen en individuen met een
               modaal tot bovenmodaal inkomen die nooit goed hebben nagedacht over hun
-              maandstructuur. We brengen het budget in kaart, benoemen de twee of drie plekken
-              waar geld structureel weglekt, en geven concrete stappen, zonder oordeel,
+              maandstructuur. Ik breng het budget in kaart, benoem de twee of drie plekken
+              waar geld structureel weglekt, en geef concrete stappen zonder oordeel en
               zonder jargon.
             </p>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
-              Geen schuldhulp. Geen beleggingsadvies. Gewoon grip op de maandelijkse cashflow —
+              Geen schuldhulp. Geen beleggingsadvies. Gewoon grip op de maandelijkse cashflow
               voor mensen die dat tot nu toe misten.
             </p>
             <div className="rounded-xl border p-6 mt-6" style={{ borderColor: "#E8E0D0", backgroundColor: "#F5F0E8" }}>
               <p className="font-body font-medium text-primary text-sm mb-2">Het middensegment, concreet</p>
               <p className="font-body font-light text-text-soft text-sm leading-relaxed">
-                Netto gezinsinkomen €3.000–€7.000 per maand. Geen schulden of betalingsachterstand.
+                Netto gezinsinkomen €3.000 tot €7.000 per maand. Geen schulden of betalingsachterstand.
                 Wel: structureel weinig over, geen buffer, onbegrip over waar het geld heen gaat.
-                Vaak tweeverdieners met jonge kinderen.
+                Vaak tweeverdieners met jonge kinderen, of alleenstaanden met een goed salaris.
               </p>
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function BudgetcoachesPage() {
               {[
                 ["1", "Verwijs door of vertel erover", "Als iemand buiten jouw scope valt (te weinig schulden, maar wel budgetvraag), noem dan Waar blijft het."],
                 ["2", "Ze starten zelf", "Via de gratis analyse op de site. Vrijblijvend, vijf minuten. Dat geeft al inzicht."],
-                ["3", "Optioneel: samen optrekken", "Heeft iemand zowel jouw begeleiding nodig als financieel inzicht? Dan overleggen we hoe we dat complementair oppakken."],
+                ["3", "Optioneel: samen optrekken", "Heeft iemand zowel jouw begeleiding nodig als financieel inzicht? Dan overleg ik met jou hoe we dat complementair oppakken."],
               ].map(([n, t, d]) => (
                 <div key={n} className="card-base border border-[#E8E0D0] flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-green-light flex items-center justify-center shrink-0">
@@ -166,12 +166,135 @@ export default function BudgetcoachesPage() {
           </div>
         </section>
 
+        {/* Zo werkt het in de praktijk */}
+        <section className="py-12 md:py-16 border-t border-[#E8E0D0]" style={{ backgroundColor: "#FDFAF4" }}>
+          <div className="max-w-3xl mx-auto px-6">
+            <div className="mb-8">
+              <p className="section-eyebrow mb-3">Zo werkt het in de praktijk</p>
+              <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-tight">
+                Van &apos;past niet bij ons&apos; naar een concrete doorverwijzing.
+              </h2>
+              <p className="font-body font-light text-text-soft text-sm mt-3">
+                Illustratief voorbeeld op basis van een doorverwijzing via een budgetcoach. Namen fictief.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
+              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>01</span>
+                  <p className="font-body font-semibold text-primary text-sm">De doorverwijzing</p>
+                </div>
+                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5E4E" }}>
+                  Sylvia (42) is HR-manager in Utrecht en alleenstaande moeder van twee kinderen. Netto €3.600 per maand. Ze klopt aan bij budgetcoach Roos, maar heeft geen schulden. Roos kan haar niet in een regulier traject plaatsen en verwijst door.
+                </p>
+                <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#1C3A2A", fontStyle: "italic", borderLeft: "3px solid #C4603A", paddingLeft: "0.75rem", marginLeft: 0 }}>
+                  &ldquo;Je past niet in ons schuldhulptraject, maar je hebt wel grip nodig. Er is iemand die precies dit doet voor jouw type situatie. Start eerst de gratis analyse, dan weet je in vijf minuten waar het knelt.&rdquo;
+                </blockquote>
+              </div>
+
+              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>02</span>
+                  <p className="font-body font-semibold text-primary text-sm">Wat ze invult (5 minuten)</p>
+                </div>
+                <div className="space-y-2">
+                  {[
+                    ["Situatie", "Alleenstaand, 2 kinderen"],
+                    ["Netto inkomen", "€ 3.600 / mnd"],
+                    ["Huur", "€ 1.250 / mnd"],
+                    ["BSO (2 kinderen)", "€ 490 / mnd"],
+                    ["Auto (private lease)", "€ 385 / mnd"],
+                    ["Boodschappen", "€ 520 / mnd"],
+                    ["Overig", "€ 680 / mnd"],
+                  ].map(([label, waarde]) => (
+                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0EAE0" }}>
+                      <span className="font-body text-xs" style={{ color: "#8A9E8E" }}>{label}</span>
+                      <span className="font-body text-sm font-medium" style={{ color: "#1C3A2A" }}>{waarde}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+              <div style={{ backgroundColor: "#1C3A2A", border: "1px solid #2D6A4F", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#8AB89A", opacity: 0.7 }}>03</span>
+                  <p className="font-body font-semibold text-sm" style={{ color: "white" }}>Wat de analyse toont</p>
+                </div>
+                <div className="space-y-3">
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>Afwijking 1: Auto</p>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
+                      Private lease van <strong style={{ color: "white" }}>€ 385 per maand</strong> voor een auto die 4 dagen per week rijdt. Vergeleken met vergelijkbare eenpersoonshuishoudens is dit de grootste kostenpost buiten de norm.
+                    </p>
+                  </div>
+                  <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>Afwijking 2: Ongespecificeerd overig</p>
+                    <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
+                      <strong style={{ color: "white" }}>€ 680 per maand</strong> &apos;overig&apos; zonder specificatie. Op basis van vergelijkbare profielen zit hier doorgaans €150 tot €200 aan vergeten automatische incasso&apos;s in.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>04</span>
+                  <p className="font-body font-semibold text-primary text-sm">Wat het gesprek (45 min) oplevert</p>
+                </div>
+                <div className="space-y-3">
+                  {[
+                    {
+                      actie: "Auto omgezet naar deelauto + trein",
+                      resultaat: "Van €385 private lease naar deelauto-abonnement + NS-abo: €195 per maand. Besparing: €190 per maand.",
+                    },
+                    {
+                      actie: "1 BSO-dag minder door thuiswerken",
+                      resultaat: "Sylvia werkt nu 1 extra dag thuis. BSO van €490 naar €370 per maand. Besparing: €120 per maand.",
+                    },
+                    {
+                      actie: "Vergeten incasso's gevonden",
+                      resultaat: "Drie automatische incasso's opgezegd die ze niet meer gebruikte: samen €85 per maand terug.",
+                    },
+                  ].map((item) => (
+                    <div key={item.actie} className="flex gap-3 items-start">
+                      <span style={{ color: "#2D6A4F", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
+                      <div>
+                        <p className="font-body text-xs font-semibold" style={{ color: "#1C3A2A" }}>{item.actie}</p>
+                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5E4E" }}>{item.resultaat}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div style={{ backgroundColor: "#F5F0E8", border: "1px solid #E0D8CC", borderRadius: "16px", padding: "1.5rem" }}>
+              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#C4603A" }}>
+                Wat Roos als budgetcoach eraan had
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                {[
+                  { kop: "Niemand meer wegsturen", tekst: "Roos hoefde Sylvia niet teleur te stellen. Ze kon haar doorsturen naar een passende plek, met een concreet en eerlijk verhaal." },
+                  { kop: "Aanvulling op haar praktijk", tekst: "Het middensegment past niet in schuldhulp, maar heeft wel hulp nodig. Roos heeft nu een doorverwijzing voor precies die groep." },
+                  { kop: "Sylvia goed geholpen", tekst: "€395 per maand vrijgemaakt, buffer opgebouwd. Sylvia heeft nu voor het eerst in jaren een positief saldo aan het einde van de maand." },
+                ].map((item) => (
+                  <div key={item.kop}>
+                    <p className="font-body font-semibold text-primary text-sm mb-1">{item.kop}</p>
+                    <p className="font-body font-light text-text-soft text-sm leading-relaxed">{item.tekst}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* FAQ */}
         <section className="bg-card py-12">
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl mb-5">
-              Veelgestelde vragen
-            </h2>
+            <h2 className="font-display font-light text-primary text-2xl mb-5">Veelgestelde vragen</h2>
             <div className="space-y-4">
               {faq.map((f) => (
                 <div key={f.vraag} className="card-base border border-[#E8E0D0]">
@@ -186,33 +309,21 @@ export default function BudgetcoachesPage() {
         {/* CTA */}
         <section className="bg-dark-block py-20">
           <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
-              Laten we kennismaken
-            </h2>
+            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">Laten we kennismaken</h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Wil je kijken hoe we elkaar kunnen aanvullen? Stuur een mail en we plannen
-              een kort kennismakingsgesprek.
+              Past dit als aanvulling op jouw praktijk? Stuur een mail en ik plan een kort kennismakingsgesprek.
             </p>
-            <a
-              href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20budgetcoach"
-              className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
-            >
+            <a href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20budgetcoach" className="btn-primary" style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}>
               Mail Jarno →
             </a>
             <p className="mt-6">
-              <Link
-                href="/samenwerken"
-                className="font-body text-sm"
-                style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
-              >
+              <Link href="/samenwerken" className="font-body text-sm" style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}>
                 ← Terug naar samenwerken overzicht
               </Link>
             </p>
           </div>
         </section>
       </main>
-
       <Footer />
     </>
   );
