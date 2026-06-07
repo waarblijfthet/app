@@ -63,7 +63,7 @@ export async function POST(request: NextRequest) {
   for (const url of urls) {
     try {
       const res = await fetch(
-        "https://searchconsole.googleapis.com/v1/urlInspectionResult:inspect",
+        "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
         {
           method: "POST",
           headers: {
