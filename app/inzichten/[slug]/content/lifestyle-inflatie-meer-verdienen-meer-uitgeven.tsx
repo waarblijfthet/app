@@ -30,20 +30,20 @@ export default function LifestyleInflatieMeerVerdienenMeerUitgeven() {
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: dat heet lifestyle-inflatie. Naarmate je meer verdient, gaan
-        je uitgaven bijna ongemerkt mee omhoog — een duurdere auto, vaker uit
+        je uitgaven bijna ongemerkt mee omhoog, een duurdere auto, vaker uit
         eten, een groter huis. Het resultaat is dat een hoger inkomen niet leidt
         tot meer overhouden, maar tot duurder leven met hetzelfde gevoel.
       </p>
 
       <h2 className="font-display" style={h2}>
-        Je loon stijgt — maar minder dan je denkt
+        Je loon stijgt, maar minder dan je denkt
       </h2>
       <p className="font-body text-text-soft" style={p}>
         In het eerste kwartaal van 2026 stegen de cao-lonen met 4,5 procent ten
         opzichte van een jaar eerder. Klinkt mooi. Maar gecorrigeerd voor
         inflatie bleef daar reëel zo&apos;n 2 procent van over. Een deel van je
         &ldquo;loonsverhoging&rdquo; is dus alleen het bijbenen van duurdere
-        boodschappen, energie en huur — geen echte vooruitgang.
+        boodschappen, energie en huur, geen echte vooruitgang.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Bij een modaal inkomen van rond de €48.000 bruto per jaar betekent dat
@@ -58,13 +58,13 @@ export default function LifestyleInflatieMeerVerdienenMeerUitgeven() {
         Wat er na inflatie overblijft, lekt vaak weg via beslissingen die los van
         elkaar redelijk lijken. De boodschappen worden net iets luxer. De
         weekendjes weg net iets vaker. Een abonnement erbij, want dat kan nu wel.
-        Niet één daarvan voelt als verspilling — samen eten ze je hele
+        Niet één daarvan voelt als verspilling, samen eten ze je hele
         loonsverhoging op.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dit is precies waarom{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed verdienen en toch krap zitten</Link>{" "}
-        hand in hand kunnen gaan. Het probleem is zelden het inkomen — het is dat
+        hand in hand kunnen gaan. Het probleem is zelden het inkomen, het is dat
         de uitgaven meegroeien zonder dat iemand het tegenhoudt.
       </p>
 
@@ -84,7 +84,7 @@ export default function LifestyleInflatieMeerVerdienenMeerUitgeven() {
       <p className="font-body text-text-soft" style={p}>
         De truc is niet om zuiniger te leven, maar om je uitgaven niet
         automatisch te laten meegroeien met je inkomen. De eenvoudigste manier:
-        zet bij elke loonsverhoging een vast deel ervan meteen apart — vóórdat
+        zet bij elke loonsverhoging een vast deel ervan meteen apart, vóórdat
         het op je rekening &ldquo;normaal&rdquo; gaat voelen. Wat je niet ziet,
         geef je niet uit.
       </p>

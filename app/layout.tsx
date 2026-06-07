@@ -21,19 +21,19 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.waarblijfthet.nl"),
   title: {
-    default: "Waar blijft het — Goed salaris, toch altijd krap?",
+    default: "Waar blijft het, Goed salaris, toch altijd krap?",
     template: "%s | Waar blijft het",
   },
   description:
-    "Je verdient goed maar houdt weinig over. Wij laten zien waar het naartoe gaat — vergeleken met gezinnen zoals jullie. Gratis analyse, geen bankadvies.",
+    "Je verdient goed maar houdt weinig over. Wij laten zien waar het naartoe gaat, vergeleken met gezinnen zoals jullie. Gratis analyse, geen bankadvies.",
   openGraph: {
     type: "website",
     locale: "nl_NL",
     url: "https://www.waarblijfthet.nl",
     siteName: "Waar blijft het",
-    title: "Waar blijft het — Goed salaris, toch altijd krap?",
+    title: "Waar blijft het, Goed salaris, toch altijd krap?",
     description:
-      "Je verdient goed maar houdt weinig over. Wij laten zien waar het naartoe gaat — vergeleken met gezinnen zoals jullie. Gratis analyse, geen bankadvies.",
+      "Je verdient goed maar houdt weinig over. Wij laten zien waar het naartoe gaat, vergeleken met gezinnen zoals jullie. Gratis analyse, geen bankadvies.",
     images: [
       {
         url: "/og-image.png",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Waar blijft het — Goed salaris, toch altijd krap?",
+    title: "Waar blijft het, Goed salaris, toch altijd krap?",
     description:
       "Je verdient goed maar houdt weinig over. Wij laten zien waar het naartoe gaat.",
   },

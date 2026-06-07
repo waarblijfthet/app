@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Woordenlijst: geldbegrippen in gewone taal",
   description:
-    "De belangrijkste geldbegrippen uitgelegd zonder jargon — van lifestyle-inflatie en de potjesmethode tot heffingskorting en salderen. Met voorbeelden.",
+    "De belangrijkste geldbegrippen uitgelegd zonder jargon, van lifestyle-inflatie en de potjesmethode tot heffingskorting en salderen. Met voorbeelden.",
   alternates: { canonical: "https://www.waarblijfthet.nl/woordenlijst" },
   openGraph: {
     title: "Woordenlijst: geldbegrippen in gewone taal",
@@ -23,7 +23,7 @@ const TERMEN: Term[] = [
   {
     term: "Lifestyle-inflatie",
     uitleg:
-      "Het verschijnsel dat je uitgaven meegroeien met je inkomen. Ga je meer verdienen, dan ga je bijna ongemerkt duurder leven — waardoor je niet meer overhoudt.",
+      "Het verschijnsel dat je uitgaven meegroeien met je inkomen. Ga je meer verdienen, dan ga je bijna ongemerkt duurder leven, waardoor je niet meer overhoudt.",
     href: "/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven",
     linkLabel: "Lees het artikel",
   },
@@ -44,19 +44,19 @@ const TERMEN: Term[] = [
   {
     term: "Noodbuffer",
     uitleg:
-      "Een potje spaargeld voor onverwachte uitgaven — een kapotte wasmachine, een hoge naheffing. Zonder buffer betaal je die uit je lopende inkomen, wat elke maand krap maakt. Een veelgenoemd doel is drie tot zes maanden vaste lasten.",
+      "Een potje spaargeld voor onverwachte uitgaven, een kapotte wasmachine, een hoge naheffing. Zonder buffer betaal je die uit je lopende inkomen, wat elke maand krap maakt. Een veelgenoemd doel is drie tot zes maanden vaste lasten.",
   },
   {
     term: "Potjesmethode",
     uitleg:
-      "Je inkomen direct verdelen over aparte potjes (vaste lasten, dagelijks, sparen, vrij) zodat je per categorie ziet wat er is. Werkt omdat de grens zichtbaar is — geen dagelijks bijhouden nodig.",
+      "Je inkomen direct verdelen over aparte potjes (vaste lasten, dagelijks, sparen, vrij) zodat je per categorie ziet wat er is. Werkt omdat de grens zichtbaar is, geen dagelijks bijhouden nodig.",
     href: "/inzichten/potjesmethode-gezin-hoe-werkt-het",
     linkLabel: "Zo werkt het",
   },
   {
     term: "Modaal en boven-modaal",
     uitleg:
-      "Het modaal inkomen is het meest voorkomende inkomen in Nederland — in 2026 rond de €48.000 bruto per jaar. Verdien je daarboven, dan ben je boven-modaal. Het zegt niets over hoeveel je overhoudt.",
+      "Het modaal inkomen is het meest voorkomende inkomen in Nederland, in 2026 rond de €48.000 bruto per jaar. Verdien je daarboven, dan ben je boven-modaal. Het zegt niets over hoeveel je overhoudt.",
     href: "/inzichten/is-4000-euro-netto-goed-salaris-nederland",
     linkLabel: "Is €4.000 netto een goed salaris?",
   },
@@ -82,14 +82,14 @@ const TERMEN: Term[] = [
   {
     term: "Afschrijving",
     uitleg:
-      "Het waardeverlies van iets duurzaams, zoals een auto. Het is een echte kostenpost — vaak de grootste van autobezit — maar je krijgt er nooit een maandelijkse rekening voor, dus hij wordt zwaar onderschat.",
+      "Het waardeverlies van iets duurzaams, zoals een auto. Het is een echte kostenpost, vaak de grootste van autobezit, maar je krijgt er nooit een maandelijkse rekening voor, dus hij wordt zwaar onderschat.",
     href: "/inzichten/auto-kopen-of-leasen-kosten-per-maand",
     linkLabel: "Wat kost een auto echt?",
   },
   {
     term: "Salderen",
     uitleg:
-      "De stroom die je zonnepanelen terugleveren wegstrepen tegen je verbruik, zodat je er niet voor betaalt. Salderen kan nog tot eind 2026 en stopt daarna — wat de terugverdientijd van zonnepanelen verandert.",
+      "De stroom die je zonnepanelen terugleveren wegstrepen tegen je verbruik, zodat je er niet voor betaalt. Salderen kan nog tot eind 2026 en stopt daarna, wat de terugverdientijd van zonnepanelen verandert.",
     href: "/inzichten/zonnepanelen-terugverdientijd",
     linkLabel: "Zonnepanelen terugverdientijd",
   },
@@ -105,7 +105,7 @@ const TERMEN: Term[] = [
 const schema = {
   "@context": "https://schema.org",
   "@type": "DefinedTermSet",
-  name: "Woordenlijst — Waar blijft het",
+  name: "Woordenlijst | Waar blijft het",
   url: "https://www.waarblijfthet.nl/woordenlijst",
   hasDefinedTerm: TERMEN.map((t) => ({
     "@type": "DefinedTerm",
@@ -132,7 +132,7 @@ export default function WoordenlijstPage() {
             </h1>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed">
               Geen jargon, geen kleine lettertjes. De begrippen die je op deze
-              site tegenkomt, kort en helder uitgelegd — met een link naar het
+              site tegenkomt, kort en helder uitgelegd, met een link naar het
               artikel waar je verder leest.
             </p>
           </div>

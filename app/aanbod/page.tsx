@@ -5,9 +5,9 @@ import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
 
 export const metadata: Metadata = {
-  title: "Financiële begeleiding voor gezinnen — Waar blijft het",
+  title: "Financiële begeleiding voor gezinnen | Waar blijft het",
   description:
-    "Van gratis inzicht tot persoonlijk traject: kies wat bij jouw situatie past. Geen abonnementen, geen verrassingen — je betaalt voor wat je nodig hebt.",
+    "Van gratis inzicht tot persoonlijk traject: kies wat bij jouw situatie past. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -34,7 +34,7 @@ const faqSchema = {
       name: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Wij richten ons op gezinnen die goed verdienen maar te weinig overhouden — en die willen begrijpen waarom, en hoe dat anders kan.",
+        text: "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Wij richten ons op gezinnen die goed verdienen maar te weinig overhouden. Die willen begrijpen waarom, en hoe dat anders kan.",
       },
     },
     {
@@ -42,7 +42,7 @@ const faqSchema = {
       name: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Ja, dat is precies de situatie waar wij voor zijn. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij gezinnen met een goed inkomen — en het is volledig op te lossen met de juiste structuur.",
+        text: "Ja, dat is precies de situatie waar wij voor zijn. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij gezinnen met een goed inkomen, en het is volledig op te lossen met de juiste structuur.",
       },
     },
     {
@@ -50,7 +50,7 @@ const faqSchema = {
       name: "Geven jullie advies over beleggen, hypotheken of pensioen?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nee. We begeleiden je bij het dagelijks beheer van je inkomen — waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs je door naar een gecertificeerd adviseur.",
+        text: "Nee. We begeleiden je bij het dagelijks beheer van je inkomen: waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs je door naar een gecertificeerd adviseur.",
       },
     },
     {
@@ -58,7 +58,7 @@ const faqSchema = {
       name: "Zijn jullie gecertificeerde financieel adviseurs?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nee. We zijn geen gecertificeerde financieel adviseurs en vallen niet onder de AFM-vergunningplicht — we adviseren niet over financiële producten. Wat we doen is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
+        text: "Nee. We zijn geen gecertificeerde financieel adviseurs en vallen niet onder de AFM-vergunningplicht. We adviseren niet over financiële producten. Wat we doen is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
       },
     },
   ],
@@ -103,7 +103,7 @@ export default function AanbodPage() {
               }}
             >
               Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig
-              hebt — niks meer.
+              hebt. Niks meer.
             </p>
             <p
               className="font-body"
@@ -124,7 +124,7 @@ export default function AanbodPage() {
             className="grid grid-cols-1 md:grid-cols-3 gap-6"
             style={{ maxWidth: "1100px", margin: "0 auto" }}
           >
-            {/* NIVEAU 1 — Gratis */}
+            {/* NIVEAU 1, Gratis */}
             <div
               style={{
                 backgroundColor: "#FDFAF4",
@@ -171,7 +171,7 @@ export default function AanbodPage() {
                 className="font-body"
                 style={{ fontWeight: 500, color: "#1C3A2A", fontSize: "1rem", lineHeight: 1.6 }}
               >
-                Na 5 minuten weet je waar jullie geld naartoe gaat — en hoe dat
+                Na 5 minuten weet je waar jullie geld naartoe gaat, en hoe dat
                 verhoudt tot vergelijkbare gezinnen.
               </p>
 
@@ -182,7 +182,7 @@ export default function AanbodPage() {
                   "Interactieve analyse in 6 stappen",
                   "Persoonlijk vergelijkingsrapport",
                   "De twee grootste afwijkingen in jouw situatie",
-                  "Rapport direct op je scherm — optioneel per e-mail",
+                  "Rapport direct op je scherm, optioneel per e-mail",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span style={{ color: "#2D6A4F", fontWeight: 600, flexShrink: 0 }}>✓</span>
@@ -209,7 +209,7 @@ export default function AanbodPage() {
               </div>
             </div>
 
-            {/* NIVEAU 2 — Aanbevolen (donkergroen) */}
+            {/* NIVEAU 2, Aanbevolen (donkergroen) */}
             <div
               style={{
                 backgroundColor: "#1C3A2A",
@@ -260,7 +260,7 @@ export default function AanbodPage() {
                 style={{ fontWeight: 500, color: "white", fontSize: "1rem", lineHeight: 1.6 }}
               >
                 In 45 minuten kijken we samen eerlijk naar jullie cijfers. Geen
-                verkooppraat, geen traject — één gericht gesprek waar je meteen
+                verkooppraat, geen traject. Één gericht gesprek waar je meteen
                 mee verder kunt.
               </p>
 
@@ -275,7 +275,7 @@ export default function AanbodPage() {
                   lineHeight: 1.55,
                 }}
               >
-                Je hoeft je nergens aan te binden. Eén gesprek — daarna bepaal jij
+                Je hoeft je nergens aan te binden. Eén gesprek, daarna bepaal jij
                 of en hoe je verder wilt.
               </p>
 
@@ -284,10 +284,10 @@ export default function AanbodPage() {
               <ul className="space-y-2">
                 {[
                   "Vooraf de gratis analyse + (optioneel) een paar recente bankafschriften",
-                  "Videogesprek van 45 minuten — eerlijk en gericht, geen verkooppraat",
+                  "Videogesprek van 45 minuten, eerlijk en gericht, geen verkooppraat",
                   "Samen 2 à 3 concrete doelen en actiepunten bepalen",
                   "Korte schriftelijke samenvatting achteraf om terug te lezen",
-                  "Daarna zelf verder — of pas een traject als je dat wilt",
+                  "Daarna zelf verder, of pas een traject als je dat wilt",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span style={{ color: "#8AB89A", fontWeight: 600, flexShrink: 0 }}>✓</span>
@@ -321,7 +321,7 @@ export default function AanbodPage() {
               </div>
             </div>
 
-            {/* NIVEAU 3 — Intensief */}
+            {/* NIVEAU 3, Intensief */}
             <div
               style={{
                 backgroundColor: "#FDFAF4",
@@ -434,7 +434,7 @@ export default function AanbodPage() {
                 {
                   resultaat: "Geen verrassingen meer in de piekmaanden",
                   quote:
-                    "Periodieke kosten uitgerekend en opgesplitst in maandpotjes — de kerstpot staat er nu gewoon.",
+                    "Periodieke kosten uitgerekend en opgesplitst in maandpotjes. De kerstpot staat er nu gewoon.",
                   naam: "Daan & Roos",
                 },
                 {
@@ -444,7 +444,7 @@ export default function AanbodPage() {
                   naam: "Bram & Eva",
                 },
                 {
-                  resultaat: "Twee dagen minder BSO — rust én geld over",
+                  resultaat: "Twee dagen minder BSO, rust én geld over",
                   quote:
                     "Meegedacht over flexibeler werken in plaats van alleen bezuinigen. Thuis is het rustiger.",
                   naam: "Karim & Noor",

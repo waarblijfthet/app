@@ -11,8 +11,8 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat een auto écht kost per maand — inclusief afschrijving, de kostenpost zonder maandelijkse rekening",
-            "Wanneer private lease voordeliger is dan kopen — en wanneer niet",
+            "Wat een auto écht kost per maand, inclusief afschrijving, de kostenpost zonder maandelijkse rekening",
+            "Wanneer private lease voordeliger is dan kopen, en wanneer niet",
             "Waarom de tweede auto voor tweeverdieners vaak de grootste verborgen last is",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
@@ -25,14 +25,14 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
 
       <p className="font-body text-text-soft" style={p}>
         De auto is voor veel gezinnen de op één na grootste vaste last, na het
-        huis. En tegelijk de last die het slechtst wordt ingeschat — omdat de
+        huis. En tegelijk de last die het slechtst wordt ingeschat, omdat de
         kosten verspreid zitten over de tank, de verzekering, de wegenbelasting,
         het onderhoud en, vooral, de afschrijving die je niet ziet.
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: een eigen auto kost volgens de ANWB al gauw €413 per maand
         voor een compacte auto, rond €550 voor een kleine middenklasser en zo&apos;n
-        €647 voor het middensegment — álle kosten meegerekend. Private lease is
+        €647 voor het middensegment, álle kosten meegerekend. Private lease is
         niet per se duurder of goedkoper; het verschil zit vooral in
         voorspelbaarheid versus flexibiliteit.
       </p>
@@ -43,8 +43,8 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
       <p className="font-body text-text-soft" style={p}>
         De maandlast van een eigen auto bestaat uit vaste kosten (afschrijving,
         verzekering, motorrijtuigenbelasting, onderhoud) en variabele kosten
-        (brandstof, banden, reparaties). De afschrijving — het waardeverlies van
-        de auto — is meestal de grootste én de meest onderschatte post, omdat er
+        (brandstof, banden, reparaties). De afschrijving, het waardeverlies van
+        de auto, is meestal de grootste én de meest onderschatte post, omdat er
         geen maandelijkse rekening voor binnenkomt. De ANWB rekent voor een
         gemiddelde middenklasser zo&apos;n €550–650 per maand all-in.
       </p>
@@ -61,8 +61,8 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
         kilometerlimiet en geen eigen vermogen opbouwt in de auto.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Zelf kopen is vaak goedkoper over de hele rit — zeker bij een
-        betrouwbare occasion die je lang rijdt — maar dan draag je zelf het
+        Zelf kopen is vaak goedkoper over de hele rit, zeker bij een
+        betrouwbare occasion die je lang rijdt, maar dan draag je zelf het
         risico van pech en waardeverlies. De vuistregel: rijd je weinig en wil je
         rust, dan kan lease lonen; rijd je veel of houd je een auto lang, dan is
         kopen meestal voordeliger.
@@ -74,7 +74,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
       <p className="font-body text-text-soft" style={p}>
         Voor tweeverdieners is de echte vraag vaak niet "kopen of leasen", maar
         "hebben we twee auto&apos;s nodig?". Een tweede auto verdubbelt bijna de
-        autolast — al snel €1.000+ per maand samen. Dat is precies zo&apos;n post
+        autolast, al snel €1.000+ per maand samen. Dat is precies zo&apos;n post
         die meegroeit met het inkomen zonder dat iemand het tegenhoudt; zie{" "}
         <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap</Link>.
       </p>
@@ -83,7 +83,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
         Hoe je de juiste keuze maakt
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Reken eerst je huidige auto eerlijk door — inclusief afschrijving — en
+        Reken eerst je huidige auto eerlijk door, inclusief afschrijving, en
         zet dat naast een leaseofferte voor dezelfde kilometers. Vergelijk de
         totale maandlast, niet alleen de leaseprijs versus de tank. Pas dan zie
         je wat een keuze echt kost.

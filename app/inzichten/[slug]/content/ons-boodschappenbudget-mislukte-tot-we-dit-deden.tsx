@@ -30,7 +30,7 @@ export default function OnsBoodschappenbudgetMislukte() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Hoe Bram en Eva van €950 naar €720 per maand gingen — zonder honger en zonder soberheid",
+            "Hoe Bram en Eva van €950 naar €720 per maand gingen, zonder honger en zonder soberheid",
             "Welke vier aanpassingen ze maakten en welke twee momenten het meeste verschil maakten",
             "Dat het niet om zuiniger zijn gaat maar om een systeem: weekbudget, weekmenu, korte check-in",
           ].map((item, i) => (
@@ -49,12 +49,12 @@ export default function OnsBoodschappenbudgetMislukte() {
       </div>
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
-        Bram en Eva gaven ruim <strong>€950 per maand</strong> uit aan boodschappen zonder te weten waar het heen ging. Drie maanden later zaten ze op <strong>€720</strong> — zonder honger en zonder soberheid. Dit is precies wat we veranderden, en wat het opleverde.
+        Bram en Eva gaven ruim <strong>€950 per maand</strong> uit aan boodschappen zonder te weten waar het heen ging. Drie maanden later zaten ze op <strong>€720</strong>, zonder honger en zonder soberheid. Dit is precies wat we veranderden, en wat het opleverde.
       </p>
 
       <h2 className="font-display" style={h2}>Wat er eerst misging</h2>
       <p className="font-body text-text-soft" style={p}>
-        Ze hadden geen budget — niet omdat ze het niet wilden, maar omdat ze er nooit aan toekwamen. Drie tot vier keer per week even langs de supermarkt, geen weekmenu, en op vrijdagmiddag met een lege maag door de winkel. De online boodschappen werden tot het laatste moment aangevuld met "even dit ook nog". Het Nibud rekent voor een gezin als dat van hen een norm van €627; zij zaten daar ruim €300 boven, zonder dat het luxe voelde.
+        Ze hadden geen budget, niet omdat ze het niet wilden, maar omdat ze er nooit aan toekwamen. Drie tot vier keer per week even langs de supermarkt, geen weekmenu, en op vrijdagmiddag met een lege maag door de winkel. De online boodschappen werden tot het laatste moment aangevuld met "even dit ook nog". Het Nibud rekent voor een gezin als dat van hen een norm van €627; zij zaten daar ruim €300 boven, zonder dat het luxe voelde.
       </p>
 
       <h2 className="font-display" style={h2}>Wat we veranderden (in drie weken)</h2>
@@ -62,7 +62,7 @@ export default function OnsBoodschappenbudgetMislukte() {
         We hebben niet bezuinigd op kwaliteit. We hebben de manier van winkelen veranderd:
       </p>
       <ol className="font-body text-text-soft" style={{ ...p, paddingLeft: "20px" }}>
-        <li style={{ marginBottom: "8px" }}><strong>Eén weekbudget van €175</strong>, op een aparte rekening. Op is op tot maandag — geen bijvullen vanuit de hoofdrekening.</li>
+        <li style={{ marginBottom: "8px" }}><strong>Eén weekbudget van €175</strong>, op een aparte rekening. Op is op tot maandag, geen bijvullen vanuit de hoofdrekening.</li>
         <li style={{ marginBottom: "8px" }}><strong>Weekmenu vóór het winkelen.</strong> Vijf avonden plannen, één keer grote boodschappen doen. Dat haalde de losse ritjes (en de impuls) eruit.</li>
         <li style={{ marginBottom: "8px" }}><strong>Een korte check-in ná elke keer boodschappen.</strong> Eén appje: wat was het, en zat je binnen budget? Niet als controle, maar als spiegel.</li>
         <li><strong>Sturen op de pijnmomenten.</strong> Voor hen waren dat de vrijdagmiddag en het online bijbestellen. Daar zetten we een simpele regel op: nooit hongerig winkelen, en de online mand 's avonds laten staan tot de volgende ochtend.</li>
@@ -76,7 +76,7 @@ export default function OnsBoodschappenbudgetMislukte() {
         ["Ruimte per maand", "€0 extra", "+€230"],
       ]} />
       <p className="font-body text-text-soft" style={p}>
-        Zo'n €230 per maand, oftewel bijna <strong>€2.760 per jaar</strong> — zonder dat er minder of slechter werd gegeten. Het verschil zat niet in zuiniger zijn, maar in een plan en een zichtbare grens.
+        Zo'n €230 per maand, oftewel bijna <strong>€2.760 per jaar</strong>, zonder dat er minder of slechter werd gegeten. Het verschil zat niet in zuiniger zijn, maar in een plan en een zichtbare grens.
       </p>
 
       <div
@@ -84,7 +84,7 @@ export default function OnsBoodschappenbudgetMislukte() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Wat het níet was:</strong> geen merkloos-alles, geen maaltijden overslaan, geen ingewikkelde spreadsheet. Eén weekbudget, een weekmenu en een appje na de boodschappen — dat was genoeg.
+          <strong>Wat het níet was:</strong> geen merkloos-alles, geen maaltijden overslaan, geen ingewikkelde spreadsheet. Eén weekbudget, een weekmenu en een appje na de boodschappen, dat was genoeg.
         </p>
       </div>
 

@@ -12,7 +12,7 @@ export default function VergetenAbonnementenOpzeggen() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Waarom je abonnementen je niet opvallen — en dat een gemiddeld gezin ruim €200 per maand betaalt",
+            "Waarom je abonnementen je niet opvallen, en dat een gemiddeld gezin ruim €200 per maand betaalt",
             "Hoe je in 20 minuten een abonnementencheck doet die €30 tot €80 per maand oplevert",
             "Dat dubbele diensten (twee muziek-, twee streamingdiensten) in bijna elk huishouden voorkomen",
           ].map((item, i) => (
@@ -31,7 +31,7 @@ export default function VergetenAbonnementenOpzeggen() {
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: een gemiddeld Nederlands gezin betaalt al gauw meer dan €200
-        per maand aan abonnementen — en de meesten schatten dat op ongeveer de
+        per maand aan abonnementen, en de meesten schatten dat op ongeveer de
         helft. Het verschil is geen luxe, maar vergeten kosten die elke maand
         gewoon doorlopen.
       </p>
@@ -44,7 +44,7 @@ export default function VergetenAbonnementenOpzeggen() {
       <p className="font-body text-text-soft" style={p}>
         Automatische incasso is gemaakt om geen aandacht te vragen. Een proef die
         stilzwijgend doorloopt, een tweede streamingdienst &ldquo;voor even&rdquo;,
-        een sportschool waar je niet meer komt — ze blijven afschrijven tot je
+        een sportschool waar je niet meer komt, ze blijven afschrijven tot je
         ingrijpt. En dat ingrijpen vergt net even moeite, dus het blijft liggen.
       </p>
 
@@ -55,7 +55,7 @@ export default function VergetenAbonnementenOpzeggen() {
         Pak één bankafschrift van de afgelopen maand en zet álle terugkerende
         afschrijvingen op een rij. Stel jezelf per abonnement één vraag: heb ik
         dit de afgelopen maand écht gebruikt? Alles waar je over twijfelt, zeg je
-        op — terugkomen kan altijd. Dubbele diensten (twee muziekdiensten, drie
+        op, terugkomen kan altijd. Dubbele diensten (twee muziekdiensten, drie
         streamingdiensten) breng je terug naar één.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -69,7 +69,7 @@ export default function VergetenAbonnementenOpzeggen() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Wie eerlijk opschoont, vindt vaak €30 tot €80 per maand aan abonnementen
-        die niets meer toevoegen. Dat is €360 tot bijna €1.000 per jaar — zonder
+        die niets meer toevoegen. Dat is €360 tot bijna €1.000 per jaar, zonder
         dat je iets inlevert wat je echt mist.
       </p>
       <p className="font-body text-text-soft" style={p}>

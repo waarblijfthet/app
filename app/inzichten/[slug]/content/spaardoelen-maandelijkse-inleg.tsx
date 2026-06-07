@@ -13,7 +13,7 @@ export default function SpaardoelenMaandelijkseInleg() {
           {[
             "Een spaardoel maakt sparen concreet: je weet wat je wil, wanneer je het nodig hebt, en wat je maandelijks opzij zet",
             "Drie categorieën die voor elk gezin relevant zijn: noodbuffer, grote terugkerende uitgaven en vakantie/feestdagen",
-            "15.000 euro in drie jaar is 417 euro per maand — klinkt als veel, maar is gewoon eerlijk rekenen",
+            "15.000 euro in drie jaar is 417 euro per maand, klinkt als veel, maar is gewoon eerlijk rekenen",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
@@ -47,7 +47,7 @@ export default function SpaardoelenMaandelijkseInleg() {
         dat je het nodig hebt.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Het kan groot zijn — een verbouwing van 15.000 euro over drie jaar — of
+        Het kan groot zijn, een verbouwing van 15.000 euro over drie jaar, of
         klein: een buffer van 2.000 euro voor onverwachte kosten. Beide zijn
         spaardoelen. Het enige verschil is het bedrag en de tijdslijn.
       </p>
@@ -76,7 +76,7 @@ export default function SpaardoelenMaandelijkseInleg() {
         De tweede categorie zijn terugkerende grote uitgaven die mensen niet
         meenemen in hun maandbudget. Denk aan de auto die ooit APK nodig heeft
         of kapot gaat, een nieuwe wasmachine, een vakantie. Die zijn helemaal
-        niet onverwacht — ze komen altijd. Toch betaalt bijna iedereen ze uit
+        niet onverwacht, ze komen altijd. Toch betaalt bijna iedereen ze uit
         het maandsalaris als ze zich aandienen, waarna de maand plots veel
         krapper is dan normaal.
       </p>
@@ -104,7 +104,7 @@ export default function SpaardoelenMaandelijkseInleg() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Automatiseer de inleg. Stel een automatische overschrijving in op de
-        dag dat je salaris binnenkomt — niet aan het einde van de maand met wat
+        dag dat je salaris binnenkomt, niet aan het einde van de maand met wat
         er dan toevallig over is. Sparen wat overblijft werkt zelden. Sparen
         wat je van tevoren apart zet, werkt altijd beter.
       </p>
@@ -180,7 +180,7 @@ export default function SpaardoelenMaandelijkseInleg() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> Het gezin dat ik hielp met de feestmaanden zette pas écht door toen het doel concreet werd: een kerstpot van een vast bedrag, klaar in december. Een spaardoel zonder bedrag en zonder datum blijft een wens — met allebei wordt het ineens iets wat je gewoon doet.
+          <strong>Uit de praktijk.</strong> Het gezin dat ik hielp met de feestmaanden zette pas écht door toen het doel concreet werd: een kerstpot van een vast bedrag, klaar in december. Een spaardoel zonder bedrag en zonder datum blijft een wens, met allebei wordt het ineens iets wat je gewoon doet.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>

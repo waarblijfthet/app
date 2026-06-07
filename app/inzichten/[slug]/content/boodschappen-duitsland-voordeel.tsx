@@ -11,7 +11,7 @@ export default function BoodschappenDuitslandVoordeel() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Boodschappen in Duitsland zijn gemiddeld 15% goedkoper — maar het netto voordeel hangt af van je reisafstand",
+            "Boodschappen in Duitsland zijn gemiddeld 15% goedkoper, maar het netto voordeel hangt af van je reisafstand",
             "De grootste winst zit bij A-merken en drogisterijproducten, niet bij vers of huismerken",
             "Wie dicht bij de grens woont en slim combineert, bespaart structureel; wie ver weg woont, nauwelijks",
           ].map((item, i) => (
@@ -25,7 +25,7 @@ export default function BoodschappenDuitslandVoordeel() {
 
       <p className="font-body text-text-soft" style={p}>
         Bijna iedereen kent iemand die er prat op gaat: grote boodschappen haalt
-        hij in Duitsland. Wasmiddel, frisdrank, shampoo — flink goedkoper dan
+        hij in Duitsland. Wasmiddel, frisdrank, shampoo, flink goedkoper dan
         hier. En dat klopt ook, voor een deel. Maar of je er echt op vooruitgaat,
         hangt af van waar je woont en hoe je winkelt.
       </p>
@@ -47,11 +47,11 @@ export default function BoodschappenDuitslandVoordeel() {
       <p className="font-body text-text-soft" style={p}>
         Niet alles is goedkoper in Duitsland. Verse producten zoals groente en
         fruit zijn er soms duurder. Bij huismerkproducten is het verschil kleiner
-        dan je denkt — soms slechts een paar procent.
+        dan je denkt, soms slechts een paar procent.
       </p>
       <p className="font-body text-text-soft" style={p}>
         De grootste winst zit bij A-merken en drogisterijproducten. Koffie,
-        frisdrank, wasmiddel, tandpasta, deodorant — dat soort spullen. Wie
+        frisdrank, wasmiddel, tandpasta, deodorant, dat soort spullen. Wie
         vooral die categorie haalt, merkt het meeste verschil.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -73,7 +73,7 @@ export default function BoodschappenDuitslandVoordeel() {
       <p className="font-body text-text-soft" style={p}>
         Verkeersonderzoeker Erik Verhoef van de VU Amsterdam heeft berekend dat
         de gemiddelde reistijdwaardering in Nederland rond de tien euro per uur
-        ligt. Tel daarbij de brandstofkosten op — al scheelt het wel dat
+        ligt. Tel daarbij de brandstofkosten op, al scheelt het wel dat
         brandstof in Duitsland zelf ook goedkoper is.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -91,8 +91,8 @@ export default function BoodschappenDuitslandVoordeel() {
         Voor wie loont het echt?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Voor mensen die dicht bij de grens wonen — Limburg, Gelderland,
-        Overijssel, Groningen, Drenthe — is een ritje naar een Duitse
+        Voor mensen die dicht bij de grens wonen, Limburg, Gelderland,
+        Overijssel, Groningen, Drenthe, is een ritje naar een Duitse
         supermarkt gewoon logisch. Zeker als je het combineert met andere
         dingen die je toch al die kant op moet.
       </p>
@@ -103,7 +103,7 @@ export default function BoodschappenDuitslandVoordeel() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Praktische tip: maak een lijst van producten die je structureel veel
-        gebruikt — wasmiddel, tandpasta, koffie, shampoo, frisdrank — en sla
+        gebruikt, wasmiddel, tandpasta, koffie, shampoo, frisdrank, en sla
         die in bulk in. Dat is waar het echte voordeel zit. Niet in de
         dagelijkse boodschappen.
       </p>

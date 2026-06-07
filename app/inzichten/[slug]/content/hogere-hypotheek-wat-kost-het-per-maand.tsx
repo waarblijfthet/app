@@ -40,14 +40,14 @@ export default function HogereHypotheekWatKostHetPerMaand() {
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: elke €100.000 extra hypotheek kost je bij een rente van
         rond de 4% grofweg €475 per maand aan rente en aflossing (annuïteit, 30
-        jaar). Dat is een vaste last die 30 jaar lang blijft — en je woonlasten
+        jaar). Dat is een vaste last die 30 jaar lang blijft, en je woonlasten
         zijn doorgaans al je grootste post.
       </p>
 
       <h2 className="font-display" style={h2}>Waarom &ldquo;het kan net&rdquo; gevaarlijk is</h2>
       <p className="font-body text-text-soft" style={p}>
         Een bank kijkt naar wat je maximaal kúnt lenen, niet naar wat comfortabel
-        is. Wie tot het maximum gaat, zit precies op de grens — en dan is er geen
+        is. Wie tot het maximum gaat, zit precies op de grens, en dan is er geen
         ruimte meer voor de boodschappen die oplopen, de tweede auto of de
         seizoenspieken. Het huis &ldquo;past&rdquo;, maar het leven eromheen niet.
       </p>

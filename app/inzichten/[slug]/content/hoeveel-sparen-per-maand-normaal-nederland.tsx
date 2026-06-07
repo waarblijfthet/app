@@ -19,7 +19,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat Nederlanders werkelijk sparen — en dat meer dan een kwart helemaal niets spaart",
+            "Wat Nederlanders werkelijk sparen, en dat meer dan een kwart helemaal niets spaart",
             "Waarom volgorde alles bepaalt: sparen vóór je iets uitgeeft, niet van wat er overblijft",
             "Dat €50 per maand een realistisch beginpunt is en hoe je dat stap voor stap opbouwt",
           ].map((item, i) => (
@@ -61,7 +61,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
       <p className="font-body text-text-soft" style={p}>
         Maar het gemiddelde vertekent. CBS-data laat zien dat een groot deel van
         de huishoudens nauwelijks vermogen opbouwt. Het mediane spaarsaldo van een
-        Nederlands huishouden is €23.000 — dat is het bedrag waarbij de helft meer
+        Nederlands huishouden is €23.000, dat is het bedrag waarbij de helft meer
         heeft en de helft minder. Het gemiddelde van €58.000 wordt omhoog
         getrokken door een kleine groep met veel vermogen.
       </p>
@@ -80,7 +80,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
         Het probleem is de volgorde. De meeste mensen betalen eerst hun vaste
         lasten, doen daarna de dagelijkse uitgaven, en sparen wat er overblijft.
         Maar er blijft bijna nooit iets over. Geld op een betaalrekening
-        verdwijnt — in kleine aankopen, in vergeten abonnementen, in een
+        verdwijnt, in kleine aankopen, in vergeten abonnementen, in een
         onverwachte rekening.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -90,7 +90,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dat klinkt simpel. En dat is het ook. Maar het vraagt dat je het één keer
-        instelt — een automatische overschrijving op de eerste van de maand — en
+        instelt, een automatische overschrijving op de eerste van de maand, en
         daarna niet meer aan denkt.
       </p>
 
@@ -103,7 +103,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Een realistisch beginpunt is €50 per maand. Dat is €600 per jaar. Na twee
-        jaar heb je €1.200 — genoeg om de meeste kapotte huishoudelijke apparaten
+        jaar heb je €1.200, genoeg om de meeste kapotte huishoudelijke apparaten
         te vervangen zonder dat het de maand kapot maakt.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -128,7 +128,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
         Maar de eerste €1.000 is het meest waardevol. Die ene duizend euro is het
         verschil tussen een kapotte wasmachine die een crisis is en een kapotte
         wasmachine die een vervelende aankoop is. Die €1.000 haal je met €50 per
-        maand in twintig maanden — minder dan twee jaar.
+        maand in twintig maanden, minder dan twee jaar.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Begin daar. De rest volgt vanzelf als het systeem staat. Meer over het
@@ -140,12 +140,12 @@ export default function HoeveeSpaarenPerMaandNormaal() {
         >
           spaardoelen stellen
         </Link>{" "}
-        lees je in dat artikel — inclusief hoe je aparte rekeningen per doel
+        lees je in dat artikel, inclusief hoe je aparte rekeningen per doel
         opzet.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je weten hoeveel ruimte er in jullie situatie zit om te beginnen met
-        sparen — of meer te sparen dan nu? Doe de{" "}
+        sparen, of meer te sparen dan nu? Doe de{" "}
         <Link
           href="/analyse"
           className="hover:underline"
@@ -160,7 +160,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> Bijna iedereen die ik spreek denkt dat ánderen veel meer sparen. Dat valt enorm mee. Wat het verschil maakt is niet het percentage, maar dat je het bedrag automatisch laat afromen op de dag dat je salaris binnenkomt — vóór je het ziet en kunt uitgeven.
+          <strong>Uit de praktijk.</strong> Bijna iedereen die ik spreek denkt dat ánderen veel meer sparen. Dat valt enorm mee. Wat het verschil maakt is niet het percentage, maar dat je het bedrag automatisch laat afromen op de dag dat je salaris binnenkomt, vóór je het ziet en kunt uitgeven.
         </p>
       </div>
     </>

@@ -5,12 +5,12 @@ import HeroCards from "@/components/HeroCards";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Waar blijft het — Goed salaris, toch altijd krap?",
+  title: "Waar blijft het, Goed salaris, toch altijd krap?",
   description:
     "Je hebt geen schulden en je verdient genoeg, maar aan het einde van de maand is het weg. Gratis analyse: zie in 5 minuten waar jullie geld structureel naartoe gaat.",
   alternates: { canonical: "https://www.waarblijfthet.nl" },
   openGraph: {
-    title: "Waar blijft het — Goed salaris, toch altijd krap?",
+    title: "Waar blijft het, Goed salaris, toch altijd krap?",
     description:
       "Je hebt geen schulden en je verdient genoeg, maar aan het einde van de maand is het weg.",
     url: "https://www.waarblijfthet.nl",

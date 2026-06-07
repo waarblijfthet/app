@@ -6,17 +6,17 @@ const vragen = [
   {
     vraag: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
     antwoord:
-      "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Wij richten ons op gezinnen die goed verdienen maar te weinig overhouden — en die willen begrijpen waarom, en hoe dat anders kan.",
+      "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Wij richten ons op gezinnen die goed verdienen maar te weinig overhouden. Die willen begrijpen waarom, en hoe dat anders kan.",
   },
   {
     vraag: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
     antwoord:
-      "Ja, dat is precies de situatie waar wij voor zijn. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij gezinnen met een goed inkomen — en het is volledig op te lossen met de juiste structuur.",
+      "Ja, dat is precies de situatie waar wij voor zijn. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij gezinnen met een goed inkomen, en het is volledig op te lossen met de juiste structuur.",
   },
   {
     vraag: "Geven jullie advies over beleggen, hypotheken of pensioen?",
     antwoord:
-      "Nee. We begeleiden je bij het dagelijks beheer van je inkomen — waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs je door naar een gecertificeerd adviseur.",
+      "Nee. We begeleiden je bij het dagelijks beheer van je inkomen: waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs je door naar een gecertificeerd adviseur.",
   },
   {
     vraag: "Wat als ik begin met de gratis analyse maar meer wil?",
@@ -26,7 +26,7 @@ const vragen = [
   {
     vraag: "Zijn jullie gecertificeerde financieel adviseurs?",
     antwoord:
-      "Nee. We zijn geen gecertificeerde financieel adviseurs en vallen niet onder de AFM-vergunningplicht — we adviseren niet over financiële producten. Wat we doen is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
+      "Nee. We zijn geen gecertificeerde financieel adviseurs en vallen niet onder de AFM-vergunningplicht. We adviseren niet over financiële producten. Wat we doen is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
   },
 ];
 

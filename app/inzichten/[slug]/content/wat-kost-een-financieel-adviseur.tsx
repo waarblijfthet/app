@@ -110,8 +110,8 @@ export default function WatKostEenFinancieelAdviseur() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat een traditionele financieel adviseur kost — en waarom dat voor de meeste gezinnen te duur is",
-            "Wanneer je een dure adviseur echt nodig hebt — en wanneer niet",
+            "Wat een traditionele financieel adviseur kost, en waarom dat voor de meeste gezinnen te duur is",
+            "Wanneer je een dure adviseur echt nodig hebt, en wanneer niet",
             "Hoe Lisanne en Thijs voor €125 meer inzicht kregen dan na drie jaar bij hun bank",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
@@ -127,7 +127,7 @@ export default function WatKostEenFinancieelAdviseur() {
         Lisanne zocht op "financieel adviseur" en klikte op het eerste resultaat. Onderaan de pagina stond een tarief: €220 per uur, minimaal twee uur voor een intakegesprek. Ze sloot het tabblad.
       </p>
       <p style={p}>
-        Ze is niet de enige. Veel mensen die weten dat ze hulp nodig hebben bij hun financiën, haken af zodra ze de kosten zien. En dat terwijl er grote prijsverschillen zijn — afhankelijk van wat je nodig hebt, hoe ingewikkeld je situatie is, en of je eigenlijk wel een Wft-gecertificeerd adviseur nodig hebt.
+        Ze is niet de enige. Veel mensen die weten dat ze hulp nodig hebben bij hun financiën, haken af zodra ze de kosten zien. En dat terwijl er grote prijsverschillen zijn, afhankelijk van wat je nodig hebt, hoe ingewikkeld je situatie is, en of je eigenlijk wel een Wft-gecertificeerd adviseur nodig hebt.
       </p>
 
       <h2 className="font-display" style={h2}>Wat kost een financieel adviseur per uur?</h2>
@@ -138,19 +138,19 @@ export default function WatKostEenFinancieelAdviseur() {
         {[
           "Een inventarisatie van je situatie (1–2 uur, dus €150–€600 alleen al voor het intakegesprek)",
           "Een financieel plan op maat, inclusief pensioen, vermogen en risico (2–5 uur)",
-          "Jaarlijkse herziening — opnieuw betaald",
+          "Jaarlijkse herziening, opnieuw betaald",
         ].map((item, i) => (
           <li key={i} className="font-body text-sm" style={{ color: "#4A5E4E", listStyleType: "disc" }}>{item}</li>
         ))}
       </ul>
       <p style={p}>
-        Tel je dat op, dan kom je voor een volledig adviestraject snel op <strong>€800 tot €2.000</strong> — éénmalig. En dat is exclusief de jaarlijkse kosten als je doorlopend begeleid wilt worden.
+        Tel je dat op, dan kom je voor een volledig adviestraject snel op <strong>€800 tot €2.000</strong>, éénmalig. En dat is exclusief de jaarlijkse kosten als je doorlopend begeleid wilt worden.
       </p>
 
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Verborgen kosten</p>
         <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
-          Niet alle adviseurs werken op uurbasis. Sommige rekenen een percentage van je vermogen (0,5–1,5% per jaar) of krijgen provisie van producten die ze adviseren. Bij €200.000 vermogen is 1% per jaar €2.000 — elk jaar opnieuw. Vraag altijd expliciet hoe een adviseur wordt betaald voordat je een gesprek inplant.
+          Niet alle adviseurs werken op uurbasis. Sommige rekenen een percentage van je vermogen (0,5–1,5% per jaar) of krijgen provisie van producten die ze adviseren. Bij €200.000 vermogen is 1% per jaar €2.000, elk jaar opnieuw. Vraag altijd expliciet hoe een adviseur wordt betaald voordat je een gesprek inplant.
         </p>
       </div>
 
@@ -159,22 +159,22 @@ export default function WatKostEenFinancieelAdviseur() {
         Een geregistreerd financieel adviseur (Wft-gecertificeerd) is verplicht voor specifieke producten: hypotheken, beleggingsverzekeringen, en pensioenoverdrachten. Heb je een hypotheek nodig, of wil je vermogen beleggen? Dan is een gecertificeerde adviseur de juiste keuze, ook al kost het meer.
       </p>
       <p style={p}>
-        Maar de meeste mensen die zoeken op "financieel adviseur" hebben daar helemaal geen behoefte aan. Ze willen weten waarom er aan het einde van de maand niets overblijft. Ze willen inzicht in hun uitgaven. Ze willen grip — niet een beleggingsplan.
+        Maar de meeste mensen die zoeken op "financieel adviseur" hebben daar helemaal geen behoefte aan. Ze willen weten waarom er aan het einde van de maand niets overblijft. Ze willen inzicht in hun uitgaven. Ze willen grip, niet een beleggingsplan.
       </p>
 
-      <h2 className="font-display" style={h2}>Lisanne en Thijs — drie jaar bij de bank, nul inzicht</h2>
+      <h2 className="font-display" style={h2}>Lisanne en Thijs, drie jaar bij de bank, nul inzicht</h2>
       <p style={p}>
         Lisanne (38) en Thijs (40) hadden een gezinsinkomen van €6.200 netto. Ze hadden jaren geleden een "financieel check-up" gedaan bij hun bank. De adviseur had ze een pensioenplan laten zien en aangeraden om maandelijks €150 extra in te leggen. Ze deden dat braaf.
       </p>
       <p style={p}>
-        Maar elke maand was er nog steeds te weinig over. Ze wisten niet waarheen het geld ging. De bankadviseur had nooit naar hun maandbudget gekeken — alleen naar hun vermogen en pensioen. Dat is precies het verschil.
+        Maar elke maand was er nog steeds te weinig over. Ze wisten niet waarheen het geld ging. De bankadviseur had nooit naar hun maandbudget gekeken, alleen naar hun vermogen en pensioen. Dat is precies het verschil.
       </p>
 
       <VoorNa rows={[
         ["Focus", "Pensioen en vermogen", "Maandbudget en uitkomst"],
         ["Tarief", "€220/uur × 3u = €660", "€125 eenmalig"],
         ["Resultaat", "Pensioenplan, geen dagelijks inzicht", "Concreet: €380/mnd bespaard"],
-        ["Verplichting", "Doorlopend advies aangeboden", "Geen — eenmalig compleet"],
+        ["Verplichting", "Doorlopend advies aangeboden", "Geen, eenmalig compleet"],
       ]} />
 
       <p style={p}>
@@ -197,13 +197,13 @@ export default function WatKostEenFinancieelAdviseur() {
         <strong>Locatie.</strong> Adviseurs in Amsterdam of Utrecht rekenen doorgaans meer dan in kleine steden.
       </p>
       <p style={p}>
-        <strong>Doorlopend of eenmalig.</strong> Een eenmalig gesprek kost altijd minder dan een begeleidingstraject — maar een traject geeft ook meer structuur en aansturing.
+        <strong>Doorlopend of eenmalig.</strong> Een eenmalig gesprek kost altijd minder dan een begeleidingstraject, maar een traject geeft ook meer structuur en aansturing.
       </p>
 
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Gratis advies bestaat niet echt</p>
         <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
-          "Gratis financieel advies" via de bank of een verzekeraar is niet gratis — de adviseur verdient provisie op de producten die je afsluit. Dat is op zich niet fout, maar je belangen hoeven dan niet parallel te lopen. Een onafhankelijk adviseur die je vooraf een uurtarief noemt is transparanter.
+          "Gratis financieel advies" via de bank of een verzekeraar is niet gratis, de adviseur verdient provisie op de producten die je afsluit. Dat is op zich niet fout, maar je belangen hoeven dan niet parallel te lopen. Een onafhankelijk adviseur die je vooraf een uurtarief noemt is transparanter.
         </p>
       </div>
 
@@ -219,13 +219,13 @@ export default function WatKostEenFinancieelAdviseur() {
       <p style={p}>
         Ben je er niet zeker van wat je nodig hebt? Begin dan met de{" "}
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>{" "}
-        — die geeft je direct inzicht in je situatie, zonder kosten en zonder verplichting. Op basis daarvan weet je of een eenmalig gesprek voldoende is of dat je meer nodig hebt.
+       , die geeft je direct inzicht in je situatie, zonder kosten en zonder verplichting. Op basis daarvan weet je of een eenmalig gesprek voldoende is of dat je meer nodig hebt.
       </p>
 
       <p style={p}>
         Wil je weten of een eenmalig gesprek voor jouw situatie genoeg is?{" "}
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
-        — dan zie je in 5 minuten wat de grootste afwijking in jullie budget is. Of bespreek het direct in een{" "}
+       , dan zie je in 5 minuten wat de grootste afwijking in jullie budget is. Of bespreek het direct in een{" "}
         <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">eenmalig financieel adviesgesprek van €125</Link>.
       </p>
     </div>

@@ -11,7 +11,7 @@ export default function ZonnepanelenTerugverdientijd() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat 8 zonnepanelen kosten en opleveren — en wat er verandert als de salderingsregeling in 2027 stopt",
+            "Wat 8 zonnepanelen kosten en opleveren, en wat er verandert als de salderingsregeling in 2027 stopt",
             "Dat de terugverdientijd nu 6-8 jaar is en waarom zelf verbruiken steeds belangrijker wordt",
             "Wanneer zonnepanelen slim zijn: alleen als de investering de buffer niet leegtrekt",
           ].map((item, i) => (
@@ -33,14 +33,14 @@ export default function ZonnepanelenTerugverdientijd() {
         Kort gezegd: een set van 8 zonnepanelen kost volgens Milieu Centraal
         gemiddeld zo&apos;n €3.200 inclusief installatie, en de terugverdientijd
         ligt nu rond de 6 tot 8 jaar. De panelen gaan ongeveer 25 jaar mee, dus
-        daarna heb je nog jaren voordeel — maar de rekensom verandert wel door de
+        daarna heb je nog jaren voordeel, maar de rekensom verandert wel door de
         salderingsregeling.
       </p>
 
       <h2 className="font-display" style={h2}>Wat ze kosten en opleveren</h2>
       <p className="font-body text-text-soft" style={p}>
         Met 8 panelen bespaar je gemiddeld zo&apos;n €550 per jaar zolang je kunt
-        salderen. Daarna — als de salderingsregeling per 2027 stopt — daalt de
+        salderen. Daarna, als de salderingsregeling per 2027 stopt, daalt de
         besparing naar ongeveer €170 per jaar, gerekend over de levensduur. Op
         een investering van €3.200 blijft het rendement daarmee netjes, maar de
         terugverdientijd hangt sterk af van wanneer en hoeveel je zelf verbruikt.
@@ -48,7 +48,7 @@ export default function ZonnepanelenTerugverdientijd() {
 
       <h2 className="font-display" style={h2}>Het saldering-kantelpunt</h2>
       <p className="font-body text-text-soft" style={p}>
-        Salderen — je teruggeleverde stroom wegstrepen tegen je verbruik — kan
+        Salderen, je teruggeleverde stroom wegstrepen tegen je verbruik, kan
         nog tot eind 2026 en stopt daarna in één keer. Vanaf dan loont het vooral
         om je opgewekte stroom zo veel mogelijk zelf direct te gebruiken
         (overdag wassen, laden, koken). Hoe meer je zelf verbruikt, hoe sneller

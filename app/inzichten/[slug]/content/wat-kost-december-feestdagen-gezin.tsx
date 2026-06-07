@@ -13,7 +13,7 @@ export default function WatKostDecemberFeestdagenGezin() {
           {[
             "Hoe €500 extra in december niet uit één grote aankoop komt maar uit tientallen kleine",
             "Waarom december je budget sloopt: alles valt in dezelfde vier weken bovenop je gewone lasten",
-            "Dat €40 per maand opzijzetten genoeg is voor december — zonder dat je het de rest van het jaar voelt",
+            "Dat €40 per maand opzijzetten genoeg is voor december, zonder dat je het de rest van het jaar voelt",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
@@ -26,7 +26,7 @@ export default function WatKostDecemberFeestdagenGezin() {
       <p className="font-body text-text-soft" style={p}>
         December voelt elk jaar weer als een maand die zichzelf niet helemaal
         uitlegt op je rekening. Sinterklaas, kerst, oud en nieuw, een vol
-        sociaal programma — het stapelt op. En in januari schrik je van het
+        sociaal programma, het stapelt op. En in januari schrik je van het
         saldo.
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
@@ -64,7 +64,7 @@ export default function WatKostDecemberFeestdagenGezin() {
       <p className="font-body text-text-soft" style={p}>
         Het probleem is niet één post, maar de timing: alles valt in dezelfde
         maand, bovenop je gewone vaste lasten en boodschappen. Wie geen apart
-        potje heeft, betaalt het uit het lopende inkomen — precies het patroon
+        potje heeft, betaalt het uit het lopende inkomen, precies het patroon
         dat we beschrijven bij{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>
@@ -82,7 +82,7 @@ export default function WatKostDecemberFeestdagenGezin() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         De eenvoudigste oplossing is de feestdagen het hele jaar uitsmeren. Zet
-        elke maand een vast bedrag opzij in een apart potje — €40 per maand is
+        elke maand een vast bedrag opzij in een apart potje, €40 per maand is
         bijna €500 in december, precies genoeg. Zo werkt de{" "}
         <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>: je voelt december niet meer als een klap, maar als iets waar je al voor gespaard hebt.
       </p>

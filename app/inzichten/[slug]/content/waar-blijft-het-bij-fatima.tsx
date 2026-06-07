@@ -12,7 +12,7 @@ export default function WaarBlijftHetBijFatima() {
         <ul className="space-y-1.5">
           {[
             "Waarom één inkomen met twee kinderen en vrije sector huur bijna wiskundig krap is",
-            "Dat bij dit profiel het probleem niet de uitgaven zijn maar de lasten — en wat dat betekent voor aanpak",
+            "Dat bij dit profiel het probleem niet de uitgaven zijn maar de lasten, en wat dat betekent voor aanpak",
             "Welke stappen werkelijk helpen als het een lastenprobleem is, geen gedragsprobleem",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
@@ -26,14 +26,14 @@ export default function WaarBlijftHetBijFatima() {
       <div className="rounded-xl border p-4 mb-8" style={{ backgroundColor: "#FDF3E3", borderColor: "#F0D07A" }}>
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
           <strong>Fictief profiel.</strong> De cijfers zijn samengesteld uit
-          openbare gemiddelden (Nibud, CBS) en praktijkindicaties — geen echte
+          openbare gemiddelden (Nibud, CBS) en praktijkindicaties, geen echte
           klant. Bedoeld ter herkenning.
         </p>
       </div>
 
       <p className="font-body text-text-soft" style={p}>
         Fatima is alleenstaande ouder met twee kinderen en verdient €2.900 netto
-        per maand — een prima salaris voor één persoon. Maar één inkomen draagt
+        per maand, een prima salaris voor één persoon. Maar één inkomen draagt
         hier álles: de huur, de boodschappen, de kinderen, de auto naar het werk.
         En dan blijkt &ldquo;een goed salaris&rdquo; ineens iets heel anders te
         betekenen.
@@ -59,7 +59,7 @@ export default function WaarBlijftHetBijFatima() {
       <p className="font-body text-text-soft" style={p}>
         Hier is het eerlijke antwoord anders dan bij de meeste verhalen op deze
         site: bij Fatima ligt het níet aan de uitgaven. Er is geen luxe, geen
-        verspilling, geen abonnementenstapel. Het is een lasten-probleem — de
+        verspilling, geen abonnementenstapel. Het is een lasten-probleem, de
         vaste kosten zijn simpelweg hoog ten opzichte van één inkomen, vooral
         door de vrije sector-huur.
       </p>
@@ -72,7 +72,7 @@ export default function WaarBlijftHetBijFatima() {
         gemeentelijke regelingen zijn. Zit je écht klem of dreigen er schulden,
         dan ben je bij een gecertificeerde budgetcoach of bij{" "}
         <a href="https://geldfit.nl" target="_blank" rel="noopener noreferrer" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Geldfit</a>{" "}
-        beter op je plek — en dat zeggen we dan ook gewoon. Meer daarover op onze{" "}
+        beter op je plek, en dat zeggen we dan ook gewoon. Meer daarover op onze{" "}
         <Link href="/over" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">over-pagina</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>

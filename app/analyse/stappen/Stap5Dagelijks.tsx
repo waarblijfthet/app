@@ -113,7 +113,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               className="w-full bg-white border border-[rgba(26,70,42,0.18)] rounded-[10px] pl-8 pr-4 py-3 text-base text-primary font-body placeholder:text-text-muted focus:outline-none focus:border-accent transition-colors"
             />
             <p className="text-text-muted font-body text-xs mt-1.5">
-              Gemiddeld €180/mnd — streaming, telefoon, gym, apps
+              Gemiddeld €180/mnd: streaming, telefoon, gym, apps
             </p>
           </div>
         ) : (
@@ -192,7 +192,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           id="vrijetijd"
           value={data.vrijetijd}
           onChange={(v) => onChange({ vrijetijd: v })}
-          hint={`Restaurants, bezorgd, kleding, cadeautjes, uitjes en vakanties — gemiddeld ${fmtEur(benches.vrijetijd)}/mnd`}
+          hint={`Restaurants, bezorgd, kleding, cadeautjes, uitjes en vakanties. Gemiddeld ${fmtEur(benches.vrijetijd)}/mnd`}
         />
         {vrijetijdWaarde > 0 && (
           <div className="mt-2">
@@ -202,7 +202,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         {vrijetijdWaarde > 0 && vrijetijdWaarde < benches.vrijetijd * 0.5 && (
           <div className="mt-2 bg-[#FDF3E3] rounded-lg px-3 py-2">
             <p className="font-body text-xs text-[#92600A]">
-              Tip: vergeet ook restaurants, kleding en cadeautjes mee te rekenen — gemiddeld gaat daar {fmtEur(Math.round(benches.vrijetijd * 0.4))}/mnd naartoe.
+              Tip: vergeet ook restaurants, kleding en cadeautjes mee te rekenen, gemiddeld gaat daar {fmtEur(Math.round(benches.vrijetijd * 0.4))}/mnd naartoe.
             </p>
           </div>
         )}
@@ -227,24 +227,24 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           ))}
         </div>
         <EuroInput
-          label={`Onverwachte kosten — per ${data.jaarlijkseKostenPer}`}
+          label={`Onverwachte kosten, per ${data.jaarlijkseKostenPer}`}
           id="jaarlijkseKosten"
           value={data.jaarlijkseKosten}
           onChange={(v) => onChange({ jaarlijkseKosten: v })}
           hint={
             data.woonsituatie === "koop"
-              ? "Huisonderhoud, autoreparaties, tandarts, brillen — gemiddeld €3.600/jaar voor een gezin met koopwoning"
-              : "Autoreparaties, tandarts, brillen, kleding — gemiddeld €1.800/jaar"
+              ? "Huisonderhoud, autoreparaties, tandarts, brillen. Gemiddeld €3.600/jaar voor een gezin met koopwoning"
+              : "Autoreparaties, tandarts, brillen, kleding, gemiddeld €1.800/jaar"
           }
         />
         {jaarlijksWaarde > 0 && (
           <p className="font-body text-xs text-[#2D6A4F] mt-1.5 font-medium">
-            = {fmtEur(jaarlijksWaarde)}/mnd — wordt meegenomen in jullie totaal
+            = {fmtEur(jaarlijksWaarde)}/mnd, wordt meegenomen in jullie totaal
           </p>
         )}
       </div>
 
-      {/* Spaardoel — optioneel, achter een toggle */}
+      {/* Spaardoel, optioneel, achter een toggle */}
       <div className="mb-6">
         <button
           type="button"
@@ -263,7 +263,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               id="spaardoel"
               value={data.spaardoel}
               onChange={(v) => onChange({ spaardoel: v })}
-              hint="Buffer, verbouwing, pensioen — wat jullie structureel opzij willen zetten"
+              hint="Buffer, verbouwing, pensioen, wat jullie structureel opzij willen zetten"
             />
           </div>
         )}

@@ -30,13 +30,13 @@ export default function WaarBlijftHetBijSanneEnJoost() {
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
           <strong>Fictief gezin.</strong> De cijfers zijn samengesteld uit
           openbare gemiddelden (Nibud, CBS, Belastingdienst) en praktijkindicaties
-          — geen echte klant en geen echt huishouden. Bedoeld ter herkenning.
+         , geen echte klant en geen echt huishouden. Bedoeld ter herkenning.
         </p>
       </div>
 
       <p className="font-body text-text-soft" style={p}>
         Sanne en Joost verdienen samen €6.200 netto per maand. Twee goede banen,
-        drie kinderen — van wie twee pubers — een koopwoning in de Randstad en
+        drie kinderen, van wie twee pubers, een koopwoning in de Randstad en
         twee auto&apos;s, waarvan één private lease. Op papier zijn ze
         welvarend. En toch staat er aan het einde van de maand bijna niks op de
         spaarrekening.
@@ -59,12 +59,12 @@ export default function WaarBlijftHetBijSanneEnJoost() {
         De grote posten zijn herkenbaar: €1.850 hypotheek, €650 aan twee
         auto&apos;s, energie en verzekeringen. Maar de echte verrassing zit
         eronder. De boodschappen lopen met twee pubers op tot ruim €1.100 per
-        maand — fors boven de Nibud-norm van €627 voor een gezin van vier. Daar
+        maand, fors boven de Nibud-norm van €627 voor een gezin van vier. Daar
         bovenop komt naschoolse opvang, sport en bijlessen, en een abonnementen-
         stapel die richting €250 per maand kruipt.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Tel het op en er blijft amper €150 per maand over om te sparen — bij een
+        Tel het op en er blijft amper €150 per maand over om te sparen, bij een
         inkomen waarvan veel mensen denken dat je er moeiteloos van rondkomt.
       </p>
 
@@ -92,12 +92,12 @@ export default function WaarBlijftHetBijSanneEnJoost() {
         €850 en de tweede auto inruilt voor af en toe huren of een goedkopere
         occasion, houdt al snel €600–700 per maand over in plaats van €150.
         Zonder dat het leven wezenlijk soberder voelt. Het verschil is niet meer
-        verdienen — het is structuur, precies zoals bij{" "}
+        verdienen, het is structuur, precies zoals bij{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Herken je iets van Sanne en Joost?{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en zie jullie eigen verdeling — en de twee grootste afwijkingen in jullie situatie.
+        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en zie jullie eigen verdeling, en de twee grootste afwijkingen in jullie situatie.
       </p>
     </>
   );

@@ -18,7 +18,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat de werkelijke vaste lasten zijn voor een gezin van vier in 2026 — inclusief de posten die mensen vergeten",
+            "Wat de werkelijke vaste lasten zijn voor een gezin van vier in 2026, inclusief de posten die mensen vergeten",
             "Dat jaarlijkse kosten teruggerekend naar een maandbedrag je totale vaste lasten hoger maken dan je dacht",
             "Drie categorieën waar vrijwel elk gezin bespaarruimte heeft: abonnementen, zorgverzekering, vervoer",
           ].map((item, i) => (
@@ -57,13 +57,13 @@ export default function WatZijnNormaleVasteLastenGezin() {
       <VasteLastenRadar />
 
       <h2 className="font-display" style={h2}>
-        Wat telt mee als vaste last — en wat niet?
+        Wat telt mee als vaste last, en wat niet?
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Vaste lasten zijn alle kosten die maandelijks of jaarlijks terugkomen,
         ongeacht of je ze gebruikt. Huur of hypotheek, energie, water,
         zorgverzekering, telefoon, internet, autoverzekering, wegenbelasting,
-        gemeentelijke belastingen — dat zijn de echte vaste lasten.
+        gemeentelijke belastingen, dat zijn de echte vaste lasten.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wat er vaak bij wordt vergeten: jaarlijkse kosten die mensen niet
@@ -75,7 +75,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         En dan zijn er de abonnementen. Een gemiddeld Nederlands gezin heeft
-        inmiddels meer dan €180 per maand aan abonnementen — streamingdiensten,
+        inmiddels meer dan €180 per maand aan abonnementen, streamingdiensten,
         sportschool, apps, kranten, telefoonabonnementen voor alle
         gezinsleden. Dat is een categorie die in tien jaar sterk is gegroeid en
         die de meeste mensen onderschatten.
@@ -96,7 +96,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
         €180.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Totaal: €2.706 per maand — en dat is zonder boodschappen, zonder
+        Totaal: €2.706 per maand, en dat is zonder boodschappen, zonder
         kleding, zonder een enkel uitje.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -106,7 +106,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
       </p>
 
       <h2 className="font-display" style={h2}>
-        Waar zit de bespaarruimte — en waar niet?
+        Waar zit de bespaarruimte, en waar niet?
       </h2>
       <p className="font-body text-text-soft" style={p}>
         De eerlijke boodschap: op sommige vaste lasten heb je nauwelijks
@@ -121,8 +121,8 @@ export default function WatZijnNormaleVasteLastenGezin() {
         De eerste is abonnementen. Niet één groot abonnement, maar de optelsom
         van tien kleine. Een streamingdienst die je nauwelijks gebruikt, een
         telefoonabonnement dat verlengd kan worden voor minder, een
-        sportschool-app die je niet meer opent. Eén keer uitzoeken — eén keer
-        opzeggen — structureel minder.
+        sportschool-app die je niet meer opent. Eén keer uitzoeken, eén keer
+        opzeggen, structureel minder.
       </p>
       <p className="font-body text-text-soft" style={p}>
         De tweede is de zorgverzekering. Het eigen risico kiezen en goed
@@ -133,7 +133,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
       <p className="font-body text-text-soft" style={p}>
         De derde is vervoer. Private lease of een te dure auto is voor veel
         gezinnen de grootste verborgen vaste last. Een auto van €450 per maand
-        versus €280 scheelt €2.040 per jaar — structureel, elke maand.
+        versus €280 scheelt €2.040 per jaar, structureel, elke maand.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -151,7 +151,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
         lager verdient, zit al snel op 55 procent of meer.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Dat laat weinig over voor de variabele kosten — en dat is precies waar
+        Dat laat weinig over voor de variabele kosten, en dat is precies waar
         het bij de meeste gezinnen misgaat. Niet door verkeerde keuzes, maar
         door vaste lasten die langzaam zijn opgelopen zonder dat je het doorhad.
         Een goed systeem om je inkomen te verdelen helpt daartegen:{" "}
@@ -169,7 +169,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> Wat me opvalt bij de gezinnen die ik help: de grote vaste lasten kennen ze prima, maar de kleine onderschatten ze structureel — abonnementen, verzekerings-extra's, een doorlopende app hier en daar. Bij één gezin telde dat op tot €250 per maand dat niemand miste toen we het opschoonden.
+          <strong>Uit de praktijk.</strong> Wat me opvalt bij de gezinnen die ik help: de grote vaste lasten kennen ze prima, maar de kleine onderschatten ze structureel, abonnementen, verzekerings-extra's, een doorlopende app hier en daar. Bij één gezin telde dat op tot €250 per maand dat niemand miste toen we het opschoonden.
         </p>
       </div>
     </>

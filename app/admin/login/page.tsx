@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import LoginForm from "./LoginForm";
 
 export const metadata: Metadata = {
-  title: "Beheerders login — Waar blijft het",
+  title: "Beheerders login | Waar blijft het",
   robots: "noindex, nofollow",
 };
 

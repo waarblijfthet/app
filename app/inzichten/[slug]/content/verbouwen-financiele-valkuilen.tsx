@@ -32,7 +32,7 @@ export default function VerbouwenFinancieleValkuilen() {
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: de drie grootste financiële valkuilen bij verbouwen zijn de
         uitloop van het budget, het meefinancieren in de hypotheek waardoor de
-        maandlast jaren stijgt, en de lifestyle-sprong erna — een mooiere keuken
+        maandlast jaren stijgt, en de lifestyle-sprong erna, een mooiere keuken
         nodigt uit tot mooiere spullen eromheen.
       </p>
 
@@ -57,7 +57,7 @@ export default function VerbouwenFinancieleValkuilen() {
       <p className="font-body text-text-soft" style={p}>
         Een nieuwe keuken vraagt om nieuw servies; een mooiere woonkamer om een
         nieuwe bank. De verbouwing zelf is eenmalig, maar de hogere
-        verwachtingen blijven — een vorm van{" "}
+        verwachtingen blijven, een vorm van{" "}
         <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>{" "}die je pas maanden later op je rekening terugziet.
       </p>
       <p className="font-body text-text-soft" style={p}>

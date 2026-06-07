@@ -19,7 +19,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Dat €4.000 netto je in de top 25% plaatst — en waarom dat toch krap kan voelen",
+            "Dat €4.000 netto je in de top 25% plaatst, en waarom dat toch krap kan voelen",
             "Hoe een doorsnee gezin met dit inkomen er na alle vaste lasten werkelijk voor staat",
             "Drie mechanismen die samen verklaren waarom een goed salaris toch krap aanvoelt",
           ].map((item, i) => (
@@ -33,7 +33,7 @@ export default function Is4000EuroNettoGoedSalaris() {
 
       <p className="font-body text-text-soft" style={p}>
         Stel: je verdient €4.000 netto per maand. Je hebt een koopwoning, twee
-        kinderen en een auto. Op papier is dat een goed inkomen — en dat is het
+        kinderen en een auto. Op papier is dat een goed inkomen, en dat is het
         ook. Je zit in de top 25 procent van Nederland.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -58,7 +58,7 @@ export default function Is4000EuroNettoGoedSalaris() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Maar &ldquo;goed&rdquo; is relatief. Het CBS mediaan inkomen voor werkende
-        Nederlanders ligt op €38.000-40.000 bruto per jaar — netto iets boven
+        Nederlanders ligt op €38.000-40.000 bruto per jaar, netto iets boven
         €2.600. Op dat niveau is €4.000 netto luxe. Op het niveau van twee
         kinderen, een koopwoning en een auto in de Randstad is het soms nauwelijks
         voldoende.
@@ -100,7 +100,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         Het eerste is lifestyle inflation. Naarmate het inkomen stijgt, stijgen de
         vaste lasten mee. Een grotere woning, een nieuwere auto, een extra
         abonnement hier en daar. Dit gaat automatisch en onbewust. Economisten
-        noemen het een welbekend fenomeen — maar het gebeurt bijna iedereen.
+        noemen het een welbekend fenomeen, maar het gebeurt bijna iedereen.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Het tweede is de{" "}
@@ -118,7 +118,7 @@ export default function Is4000EuroNettoGoedSalaris() {
       <p className="font-body text-text-soft" style={p}>
         Het derde is de afwezigheid van een systeem. Wie geen potjessysteem
         gebruikt en geen spaardoel heeft, geeft gewoon uit wat er op de rekening
-        staat. En dat zijn altijd de volle €4.000 — omdat geld op één rekening
+        staat. En dat zijn altijd de volle €4.000, omdat geld op één rekening
         zichzelf uitgeeft als er geen bestemming voor is.
       </p>
 
@@ -165,7 +165,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> Een gezin dat ik hielp met €4.000 netto dacht oprecht dat ze 'gewoon slecht met geld omgingen'. Dat was niet zo — het zat in twee posten die ongemerkt waren meegegroeid. Top 25% verdienen en tóch krap is geen gevoel; als je de cijfers naast elkaar legt, klopt het gewoon.
+          <strong>Uit de praktijk.</strong> Een gezin dat ik hielp met €4.000 netto dacht oprecht dat ze 'gewoon slecht met geld omgingen'. Dat was niet zo, het zat in twee posten die ongemerkt waren meegegroeid. Top 25% verdienen en tóch krap is geen gevoel; als je de cijfers naast elkaar legt, klopt het gewoon.
         </p>
       </div>
     </>

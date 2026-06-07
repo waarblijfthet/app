@@ -136,7 +136,7 @@ export default function IndexingTabblad() {
       const res = await fetch("/api/admin/indexing/sync", { method: "POST" });
       const data = await res.json() as { added?: number; total?: number; error?: string };
       if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
-      setResultaat({ message: `Sync klaar — ${data.added} URLs verwerkt (totaal: ${data.total})`, type: "success" });
+      setResultaat({ message: `Sync klaar: ${data.added} URLs verwerkt (totaal: ${data.total})`, type: "success" });
       await laadStatus();
     } catch (err) {
       setResultaat({ message: `Sync mislukt: ${String(err)}`, type: "error" });
@@ -237,7 +237,7 @@ export default function IndexingTabblad() {
         </div>
       ) : !laden ? (
         <div className="text-sm px-4 py-2.5 rounded-lg border border-[#E8E0D0] bg-[#F5F0E8] text-[#8A9E8E]">
-          🕐 Nog geen automatische run gedraaid — eerste run is morgen om 09:00.
+          🕐 Nog geen automatische run gedraaid. Eerste run is morgen om 09:00.
         </div>
       ) : null}
 
@@ -376,7 +376,7 @@ export default function IndexingTabblad() {
                       {row.error_message && (
                         <details className="mt-1">
                           <summary className="text-xs text-red-600 cursor-pointer select-none">
-                            ⚠ Fout — klik voor details
+                            ⚠ Fout, klik voor details
                           </summary>
                           <div className="mt-1 text-xs text-red-600 break-all leading-snug font-mono bg-red-50 rounded p-2">
                             {row.error_message}

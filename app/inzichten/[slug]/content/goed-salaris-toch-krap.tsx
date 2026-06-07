@@ -11,9 +11,9 @@ export default function GoedsalarisTochKrap() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Goed salaris en toch krap: het ligt zelden aan je inkomen — bijna altijd aan de structuur",
+            "Goed salaris en toch krap: het ligt zelden aan je inkomen, bijna altijd aan de structuur",
             "Drie oorzaken die samen een groot gat slaan: sluipende abonnementen, onderschatte boodschappen, en geen buffer",
-            "Meer verdienen lost het niet op — een systeem wel",
+            "Meer verdienen lost het niet op, een systeem wel",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
@@ -29,7 +29,7 @@ export default function GoedsalarisTochKrap() {
         er aan het einde van de maand bijna niks meer op de rekening.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Het is een van de meest gehoorde — maar zelden uitgesproken —
+        Het is een van de meest gehoorde, maar zelden uitgesproken —
         frustraties van Nederlandse gezinnen. Want hoe leg je dit uit aan een
         ander? Je kunt moeilijk klagen als je goed verdient. Dus zwijg je. En
         vraag je je &lsquo;s avonds op de bank af waar het toch naartoe gaat.
@@ -40,7 +40,7 @@ export default function GoedsalarisTochKrap() {
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: als je goed verdient maar toch krap zit, ligt het zelden aan
-        je inkomen. Het komt door drie dingen die ongemerkt optellen — sluipende
+        je inkomen. Het komt door drie dingen die ongemerkt optellen, sluipende
         vaste lasten en abonnementen, onderschatte boodschappen, en het ontbreken
         van een buffer. Niet méér verdienen lost dat op, maar meer structuur.
       </p>
@@ -51,7 +51,7 @@ export default function GoedsalarisTochKrap() {
       <p className="font-body text-text-soft" style={p}>
         De meeste mensen kennen hun grote vaste lasten: huur of hypotheek,
         verzekeringen, energie. Maar de categorie daaronder is verraderlijk.
-        Streamingdiensten, sportabonnementen, apps, telefoonabonnementen — die
+        Streamingdiensten, sportabonnementen, apps, telefoonabonnementen, die
         stapelen zich op zonder dat je het bewust doorhebt.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -62,7 +62,7 @@ export default function GoedsalarisTochKrap() {
       </p>
 
       <h2 className="font-display" style={h2}>
-        Boodschappen — de categorie die niemand echt bijhoudt
+        Boodschappen, de categorie die niemand echt bijhoudt
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Vraag iemand wat hij maandelijks uitgeeft aan boodschappen. Het antwoord
@@ -71,7 +71,7 @@ export default function GoedsalarisTochKrap() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Voor een gezin met twee kinderen is €700 tot €900 per maand geen
-        uitzondering — terwijl de Nibud-norm op €627 ligt. Wie dat aan zichzelf
+        uitzondering, terwijl de Nibud-norm op €627 ligt. Wie dat aan zichzelf
         vraagt, noemt vaak €500. Meer hierover in ons artikel over{" "}
         <Link href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">normale boodschappenkosten</Link>.
       </p>
@@ -82,7 +82,7 @@ export default function GoedsalarisTochKrap() {
       <p className="font-body text-text-soft" style={p}>
         Als er geen structurele buffer is, betaal je alles uit je maandelijkse
         inkomen. Ook de onverwachte dingen: een kapotte wasmachine, een hoge
-        energierekening, schoolspullen. Die dingen zijn niet onverwacht — ze
+        energierekening, schoolspullen. Die dingen zijn niet onverwacht, ze
         komen elke keer. Maar ze worden niet meegenomen in het maandbudget.
       </p>
 

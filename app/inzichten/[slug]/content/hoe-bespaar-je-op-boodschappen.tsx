@@ -18,7 +18,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Waar het geld bij boodschappen ongemerkt weglekt — en het is zelden in het groot",
+            "Waar het geld bij boodschappen ongemerkt weglekt, en het is zelden in het groot",
             "Welke twee gedragsveranderingen het meeste opleveren voor de minste moeite",
             "Dat dagelijks even snel iets halen een gezin gemiddeld €180 per maand extra kost",
           ].map((item, i) => (
@@ -34,7 +34,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         Er is geen tekort aan bespaartips voor boodschappen. Koop huismerk. Ga
         naar Lidl. Schrijf een lijst. Iedereen weet het. En toch geeft een
         gemiddeld gezin van vier in 2026 structureel €200-400 meer uit dan ze
-        zelf denken — zonder luxe, zonder verspilling in het groot.
+        zelf denken, zonder luxe, zonder verspilling in het groot.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Het probleem zit niet in gebrek aan kennis. Het zit in gedrag dat zich
@@ -45,7 +45,7 @@ export default function HoeBespaarJeOpBoodschappen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dit artikel gaat niet over wat je moet kopen. Het gaat over waar het
-        geld ongemerkt weglekt — en welke aanpassingen het meeste opleveren voor
+        geld ongemerkt weglekt, en welke aanpassingen het meeste opleveren voor
         de minste moeite.
       </p>
 
@@ -56,14 +56,14 @@ export default function HoeBespaarJeOpBoodschappen() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Onderzoek laat consistent zien dat mensen hun boodschappenkosten met
-        20-30% onderschatten. Dat is geen onoplettendheid — het is hoe het brein
+        20-30% onderschatten. Dat is geen onoplettendheid, het is hoe het brein
         werkt. Je onthoudt de grote weekboodschap, niet de drie
         tussendoor-aankopen van €8.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Voordly, een Nederlandse prijsvergelijker die dagelijks 14.000 producten
         bijhoudt, berekende dat dezelfde boodschappenlijst bij AH €74 kost en
-        bij Aldi €63 — maar dat het echte verschil voor de meeste gezinnen niet
+        bij Aldi €63, maar dat het echte verschil voor de meeste gezinnen niet
         zit in de winkelkeuze maar in wat er ongepland wordt toegevoegd aan het
         karretje.
       </p>
@@ -91,14 +91,14 @@ export default function HoeBespaarJeOpBoodschappen() {
       <p className="font-body text-text-soft" style={p}>
         <strong>Voedselverspilling</strong> kost een gemiddeld Nederlands
         huishouden €65 per maand. Wageningen University berekende dat 14% van
-        alle boodschappen ongebruikt wordt weggegooid — niet door overdaad maar
+        alle boodschappen ongebruikt wordt weggegooid, niet door overdaad maar
         door gebrekkige planning. Wie een weekmenu maakt, koopt alleen wat nodig
         is.
       </p>
       <p className="font-body text-text-soft" style={p}>
         <strong>A-merken versus huismerk</strong> is het bekendste bespaarpunt,
         maar ook het meest genuanceerd. De Consumentenbond stelde vast dat
-        A-merken gemiddeld 57% duurder zijn dan huismerken — maar dat het
+        A-merken gemiddeld 57% duurder zijn dan huismerken, maar dat het
         verschil het grootst is bij drogisterij, koffie en frisdrank, en het
         kleinst bij verse producten. Niet alles overschakelen, maar bewust kiezen
         per categorie.
@@ -120,7 +120,7 @@ export default function HoeBespaarJeOpBoodschappen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         De tweede is drogisterijproducten scheiden van je boodschappen.
-        Tandpasta, shampoo, wasmiddel, babyverzorging — die haal je niet meer in
+        Tandpasta, shampoo, wasmiddel, babyverzorging, die haal je niet meer in
         de supermarkt maar bij een drogisterij of{" "}
         <Link
           href="/inzichten/vergelijken-boodschappen-nederland-duitsland"
@@ -129,7 +129,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         >
           over de grens in Duitsland
         </Link>
-        . Kassa vergeleek in 2025 dezelfde producten bij Kruidvat en DM — DM was
+        . Kassa vergeleek in 2025 dezelfde producten bij Kruidvat en DM, DM was
         54% goedkoper voor een mandje van 13 producten.
       </p>
 
@@ -139,7 +139,7 @@ export default function HoeBespaarJeOpBoodschappen() {
       <p className="font-body text-text-soft" style={p}>
         Dan is er waarschijnlijk iets anders aan de hand. Als je
         boodschappenkosten redelijk zijn maar er toch weinig overblijft aan het
-        einde van de maand, zit het lek ergens anders — in vaste lasten,
+        einde van de maand, zit het lek ergens anders, in vaste lasten,
         abonnementen of vervoer.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -152,7 +152,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         >
           wat normaal is voor jouw gezin
         </Link>{" "}
-        — en wat er structureel misgaat.
+       , en wat er structureel misgaat.
       </p>
 
       {/* Intern CTA */}
@@ -167,7 +167,7 @@ export default function HoeBespaarJeOpBoodschappen() {
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
           Benieuwd hoe jouw boodschappenkosten zich verhouden tot vergelijkbare
-          gezinnen — en waar het lek bij jou zit?
+          gezinnen, en waar het lek bij jou zit?
         </p>
         <Link href="/analyse" className="btn-primary">
           Start de gratis analyse →
@@ -178,7 +178,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> Bij een gezin dat we begeleidden waren de boodschappen het grootste lek: veel impulsaankopen, geen plan. Een weekbudget plus een korte check-in ná elke keer boodschappen hield ze scherp — juist op de momenten dat het misging.
+          <strong>Uit de praktijk.</strong> Bij een gezin dat we begeleidden waren de boodschappen het grootste lek: veel impulsaankopen, geen plan. Een weekbudget plus een korte check-in ná elke keer boodschappen hield ze scherp, juist op de momenten dat het misging.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>

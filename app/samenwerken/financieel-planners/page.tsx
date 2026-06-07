@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor financieel planners — Waar blijft het",
+  title: "Samenwerken · voor financieel planners | Waar blijft het",
   description:
-    "Cliënten die vermogen willen opbouwen maar geen grip hebben op hun maandbudget. Waar blijft het zorgt voor de cashflow-basis — zodat jij aan het echte werk kunt.",
+    "Cliënten die vermogen willen opbouwen maar geen grip hebben op hun maandbudget. Waar blijft het zorgt voor de cashflow-basis, zodat jij aan het echte werk kunt.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/financieel-planners" },
   openGraph: {
     title: "Samenwerken met Waar blijft het · voor financieel planners",
@@ -22,12 +22,12 @@ const faq = [
   {
     vraag: "Wat doen jullie precies anders dan een financieel planner?",
     antwoord:
-      "Een financieel planner werkt aan vermogensopbouw, pensioen en langetermijndoelen. Wij kijken alleen naar het maandbudget: wat komt er binnen, wat gaat eruit, waar lekt het. Dat zijn complementaire stukken — geen overlap.",
+      "Een financieel planner werkt aan vermogensopbouw, pensioen en langetermijndoelen. Wij kijken alleen naar het maandbudget: wat komt er binnen, wat gaat eruit, waar lekt het. Dat zijn complementaire stukken, geen overlap.",
   },
   {
     vraag: "Hoe verwijs ik iemand door?",
     antwoord:
-      "Je noemt Waar blijft het als een cliënt wil beginnen met investeren of sparen, maar zijn maandelijkse cashflow niet op orde heeft. Ze starten met de gratis analyse — dat geeft direct inzicht in wat er maandelijks beschikbaar is.",
+      "Je noemt Waar blijft het als een cliënt wil beginnen met investeren of sparen, maar zijn maandelijkse cashflow niet op orde heeft. Ze starten met de gratis analyse, dat geeft direct inzicht in wat er maandelijks beschikbaar is.",
   },
   {
     vraag: "Kunnen we samen optrekken in een traject?",
@@ -37,7 +37,7 @@ const faq = [
   {
     vraag: "Is er een vergoeding voor doorverwijzingen?",
     antwoord:
-      "Nee. We werken onafhankelijk — geen commerciële verwijzingsconstructies.",
+      "Nee. We werken onafhankelijk, geen commerciële verwijzingsconstructies.",
   },
 ];
 
@@ -53,19 +53,19 @@ const faqSchema = {
 
 const pijnpunten = [
   {
-    titel: "Ze willen beleggen — maar hun maandbudget klopt niet",
+    titel: "Ze willen beleggen, maar hun maandbudget klopt niet",
     tekst:
       "Je zit met een cliënt die wil beginnen met vermogensopbouw. Goede intentie. Maar als je doorvraagt, blijkt er geen buffer, geen inzicht in de maandelijkse vrije ruimte en vaak ook onzekerheid over vaste lasten. Je kunt een langetermijnplan maken, maar de basis ontbreekt. Investeren met een lek maandbudget is bouwen op drijfzand.",
   },
   {
     titel: "Ze verdienen goed maar hebben niets gespaard",
     tekst:
-      "Een van de meest verrassende patronen: gezinnen met €5.000 tot €7.000 netto per maand die geen spaarbuffer hebben. Niet door grote uitgaven, maar door een diffuse lekstroom — abonnementen, seizoenskosten, BSO, onverwachte kosten die altijd 'onverwacht' blijven. Dat los je niet op met een beleggingsplan.",
+      "Een van de meest verrassende patronen: gezinnen met €5.000 tot €7.000 netto per maand die geen spaarbuffer hebben. Niet door grote uitgaven, maar door een diffuse lekstroom, abonnementen, seizoenskosten, BSO, onverwachte kosten die altijd 'onverwacht' blijven. Dat los je niet op met een beleggingsplan.",
   },
   {
     titel: "Het gesprek gaat over geld, maar niet over de kern",
     tekst:
-      "Als financieel planner of vermogensadviseur werk je aan de strategie. Maar als iemand niet weet hoeveel hij maandelijks vrij heeft om te investeren, stagneert elk plan. Het maandbudget is de motor — als die niet loopt, rijdt de auto nergens naartoe.",
+      "Als financieel planner of vermogensadviseur werk je aan de strategie. Maar als iemand niet weet hoeveel hij maandelijks vrij heeft om te investeren, stagneert elk plan. Het maandbudget is de motor, als die niet loopt, rijdt de auto nergens naartoe.",
   },
 ];
 
@@ -90,7 +90,7 @@ export default function FinancieelPlannersPage() {
             <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-2xl">
               Cliënten die naar jou komen voor een financieel plan hebben soms een probleem
               dat vóór jou opgelost moet worden: ze hebben geen grip op hun maandelijkse
-              cashflow. Wij leggen die basis — zodat jij kunt bouwen op een stevige grond.
+              cashflow. Wij leggen die basis, zodat jij kunt bouwen op een stevige grond.
             </p>
           </div>
         </section>
@@ -116,7 +116,7 @@ export default function FinancieelPlannersPage() {
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Wat wij doen — de basis die jij nodig hebt
+              Wat wij doen, de basis die jij nodig hebt
             </h2>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
               Waar blijft het analyseert het maandbudget van gezinnen en stellen die goed
@@ -125,7 +125,7 @@ export default function FinancieelPlannersPage() {
               zijn de getallen die jij als planner nodig hebt om een realistisch plan te maken.
             </p>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
-              Geen concurrentie — aanvulling. Jij werkt aan de lange termijn. Wij zorgen dat
+              Geen concurrentie, aanvulling. Jij werkt aan de lange termijn. Wij zorgen dat
               de maand klopt. Samen is dat een stuk krachtiger dan apart.
             </p>
             <div className="rounded-xl border p-6 mt-6" style={{ borderColor: "#E8E0D0", backgroundColor: "#F5F0E8" }}>

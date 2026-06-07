@@ -18,7 +18,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat de Nibud-norm voor boodschappen werkelijk meet — een minimum voor voeding, geen gemiddelde",
+            "Wat de Nibud-norm voor boodschappen werkelijk meet, een minimum voor voeding, geen gemiddelde",
             "Wat échte gezinnen in Nederland uitgeven en waarom bijna niemand de Nibud-norm haalt",
             "Dat boven de norm zitten in de meeste gevallen niet betekent dat je te veel uitgeeft",
           ].map((item, i) => (
@@ -34,7 +34,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         Het Nibud hanteert voor een gezin van twee ouders en twee kinderen een
         minimum boodschappenbudget van €627 per maand. Dat getal is gebaseerd op
         berekeningen van het Voedingscentrum en de Nederlandse Vereniging van
-        Diëtisten — wetenschappelijk onderbouwd, regelmatig bijgewerkt, en voor
+        Diëtisten, wetenschappelijk onderbouwd, regelmatig bijgewerkt, en voor
         de meeste gezinnen volledig onhaalbaar.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -51,7 +51,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
       <p className="font-body text-text-soft" style={p}>
         Het Nibud berekent de minimale kosten voor voeding op basis van
         referentievoedingen van het Voedingscentrum en calorische normen van de
-        Nederlandse Vereniging van Diëtisten — bijgewerkt in 2026. Het gaat om
+        Nederlandse Vereniging van Diëtisten, bijgewerkt in 2026. Het gaat om
         een minimum voor gezonde voeding, thuis bereid, gekocht bij een
         gemiddelde supermarkt.
       </p>
@@ -70,11 +70,11 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         Wat geven gezinnen werkelijk uit?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        De data is consistent — en schrikbarend consistent in één richting.
+        De data is consistent, en schrikbarend consistent in één richting.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Een mamablogger met een gezin van vier schreef in december 2024 dat ze
-        dat jaar €8.830 bij Albert Heijn alleen al had uitgegeven — €737 per
+        dat jaar €8.830 bij Albert Heijn alleen al had uitgegeven, €737 per
         maand, en dan had ze drogisterijproducten en de bakker nog niet
         meegerekend. Haar conclusie: "Niet eens zo heel gek voor een gezin van
         vier."
@@ -86,7 +86,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Nibud's eigen Prijzengids 2025/2026 laat zien dat een gezin met twee
-        puberkinderen minimaal €854 per maand uitgeeft aan voeding alleen — bijna
+        puberkinderen minimaal €854 per maand uitgeeft aan voeding alleen, bijna
         €230 meer dan het basisbudget voor een gezin van vier. Pubers eten bijna
         net zoveel als volwassenen, en dat zit onvoldoende in de
         standaardtabellen.
@@ -104,7 +104,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         Het probleem ontstaat als mensen die norm gebruiken als benchmark voor
         hun eigen situatie. Als je €850 uitgeeft en de norm is €627, dan lijkt
         het alsof je €223 te veel uitgeeft. Maar als je gezin pubers heeft, bij
-        AH winkelt, en ook drogisterijproducten meeneemt — dan is €850 volkomen
+        AH winkelt, en ook drogisterijproducten meeneemt, dan is €850 volkomen
         normaal.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -123,7 +123,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         vergelijkbare omstandigheden?
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Het betekent ten tweede dat er vrijwel altijd ruimte zit — niet door
+        Het betekent ten tweede dat er vrijwel altijd ruimte zit, niet door
         drastisch te bezuinigen, maar door te begrijpen waar het geld naartoe
         gaat. Voedselverspilling, tussendoor-aankopen, drogisterij in de
         supermarkt: dat zijn de drie categorieën met de meeste winst per
@@ -150,7 +150,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
           Wil je weten hoe jullie boodschappenkosten zich verhouden tot
-          vergelijkbare gezinnen — niet de Nibud-norm maar echte mensen?
+          vergelijkbare gezinnen, niet de Nibud-norm maar echte mensen?
         </p>
         <Link href="/analyse" className="btn-primary">
           Start de gratis analyse →
@@ -161,7 +161,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> De Nibud-norm is een ondergrens, geen gemiddelde — dat zie ik telkens terug. Bijna geen enkel gezin dat ik spreek haalt 'm, en dat hoeft ook niet. Het gaat er niet om dat je 'de norm' redt, maar dat je weet waar je zelf zit en of dat een bewuste keuze is.
+          <strong>Uit de praktijk.</strong> De Nibud-norm is een ondergrens, geen gemiddelde, dat zie ik telkens terug. Bijna geen enkel gezin dat ik spreek haalt 'm, en dat hoeft ook niet. Het gaat er niet om dat je 'de norm' redt, maar dat je weet waar je zelf zit en of dat een bewuste keuze is.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>

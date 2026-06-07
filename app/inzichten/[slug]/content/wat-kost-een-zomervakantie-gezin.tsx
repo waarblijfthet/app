@@ -11,8 +11,8 @@ export default function WatKostEenZomervakantieGezin() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat Nederlanders gemiddeld per persoon per vakantie uitgeven — en wat dat voor een gezin van vier is",
-            "Dat het vakantiegeld geen bonus is maar uitgesteld loon — en wat dat betekent voor je planning",
+            "Wat Nederlanders gemiddeld per persoon per vakantie uitgeven, en wat dat voor een gezin van vier is",
+            "Dat het vakantiegeld geen bonus is maar uitgesteld loon, en wat dat betekent voor je planning",
             "Hoe je de naschok voorkomt: €200 per maand opzijzetten is €2.400 in de zomer",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
@@ -24,12 +24,12 @@ export default function WatKostEenZomervakantieGezin() {
       </div>
 
       <p className="font-body text-text-soft" style={p}>
-        De zomervakantie is voor veel gezinnen het hoogtepunt van het jaar — en
+        De zomervakantie is voor veel gezinnen het hoogtepunt van het jaar, en
         meteen de grootste losse uitgave. Toch boeken de meesten op gevoel, en
         pas in september blijkt wat het echt heeft gekost.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        En dan is er dat gevoel. In de meivakantie gaat iedereen weg — zo voelt
+        En dan is er dat gevoel. In de meivakantie gaat iedereen weg, zo voelt
         het althans. Instagram staat vol met strandvakanties, collega&apos;s
         bespreken hun vluchten, kinderen komen maandag terug met verhalen. Dat
         maakt thuis blijven of een weekje camping voelen als minder dan het is.
@@ -38,7 +38,7 @@ export default function WatKostEenZomervakantieGezin() {
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: Nederlanders gaven in 2024 gemiddeld zo&apos;n €600 tot €700
         per persoon uit aan de zomervakantie. Voor een gezin van vier kom je
-        daarmee al snel op €2.400 of meer — vaak betaald uit één of twee maanden
+        daarmee al snel op €2.400 of meer, vaak betaald uit één of twee maanden
         inkomen plus het vakantiegeld.
       </p>
 
@@ -55,14 +55,14 @@ export default function WatKostEenZomervakantieGezin() {
       <p className="font-body text-text-soft" style={p}>
         Veel gezinnen zien het vakantiegeld in mei als een bonus en geven het in
         de zomer volledig uit. Maar reken je het mee als deel van je jaarinkomen,
-        dan is het geen extraatje — het is gewoon uitgesteld loon. Wie een deel
+        dan is het geen extraatje, het is gewoon uitgesteld loon. Wie een deel
         ervan apart houdt, voorkomt dat de zomer een gat in het najaar slaat.
       </p>
 
       <h2 className="font-display" style={h2}>Zo voorkom je de naschok</h2>
       <p className="font-body text-text-soft" style={p}>
-        Bepaal vooraf een totaalbudget voor de hele reis — inclusief eten,
-        uitjes en brandstof — en zet dat bedrag het hele jaar door maandelijks
+        Bepaal vooraf een totaalbudget voor de hele reis, inclusief eten,
+        uitjes en brandstof, en zet dat bedrag het hele jaar door maandelijks
         opzij. €200 per maand is €2.400 in de zomer. Zo betaal je de vakantie met
         geld dat er al is, in plaats van met de maanden erna. Dit is dezelfde
         gedachte als de{" "}

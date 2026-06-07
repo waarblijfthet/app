@@ -11,7 +11,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat de 50/30/20-regel inhoudt — en waarom die bij een hoger inkomen niet meer klopt",
+            "Wat de 50/30/20-regel inhoudt, en waarom die bij een hoger inkomen niet meer klopt",
             "Waarom de 50%-norm voor vaste lasten juist lifestyle-inflatie legitimeert als je goed verdient",
             "Hoe je de logica omdraait: sparen eerst, dan leven van wat er overblijft",
           ].map((item, i) => (
@@ -45,7 +45,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
         behoeften: huur of hypotheek, energie, verzekeringen, boodschappen,
         vervoer. 30 procent naar wensen: uit eten, hobby&apos;s, vakanties,
         abonnementen. En 20 procent naar sparen en aflossen. De kracht zit in de
-        eenvoud — je hoeft geen spreadsheet bij te houden.
+        eenvoud, je hoeft geen spreadsheet bij te houden.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -55,7 +55,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
         De regel gaat ervan uit dat je behoeften meegroeien met je inkomen. Maar
         dat is precies de valkuil. Boodschappen, energie en een fatsoenlijk dak
         boven je hoofd kosten niet automatisch meer als jij meer verdient. Wie
-        €4.500 netto binnenkrijgt heeft geen €2.250 aan échte behoeften — tenzij
+        €4.500 netto binnenkrijgt heeft geen €2.250 aan échte behoeften, tenzij
         hij bewust groter is gaan wonen en rijden omdat het kon.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -73,7 +73,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
         Draai de logica om. In plaats van &ldquo;wat overblijft, spaar ik&rdquo;,
         bepaal je eerst hoeveel je opzij wilt zetten en leeft de rest daarvan.
         Houd je behoeften bewust onder de 50 procent en laat het verschil naar
-        sparen vloeien — denk eerder aan 50/20/30 met sparen naar 30 procent, of
+        sparen vloeien, denk eerder aan 50/20/30 met sparen naar 30 procent, of
         meer, naarmate je inkomen stijgt.
       </p>
       <p className="font-body text-text-soft" style={p}>

@@ -81,8 +81,8 @@ export function IntakeForm({ pakket }: Props) {
 
   const pakketLabel =
     pakket === "intensief"
-      ? "Persoonlijke begeleiding op maat — €497"
-      : "Eenmalig adviesgesprek — €125";
+      ? "Persoonlijke begeleiding op maat (€497)"
+      : "Eenmalig adviesgesprek (€125)";
 
   const isValid =
     gezinssituatie &&
@@ -125,7 +125,7 @@ export function IntakeForm({ pakket }: Props) {
       });
 
       if (!res.ok) {
-        // Email failure is non-fatal — still redirect
+        // Email failure is non-fatal, still redirect
         console.error("Email kon niet worden verstuurd");
       }
 

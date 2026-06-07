@@ -27,7 +27,7 @@ export default function WaarBlijftHetBijMarkEnLisa() {
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
           <strong>Fictief gezin.</strong> De cijfers zijn samengesteld uit
           openbare gemiddelden (Nibud, CBS, Belastingdienst) en praktijkindicaties
-          — geen echte klant en geen echt huishouden. Bedoeld ter herkenning.
+         , geen echte klant en geen echt huishouden. Bedoeld ter herkenning.
         </p>
       </div>
 
@@ -48,7 +48,7 @@ export default function WaarBlijftHetBijMarkEnLisa() {
       <h2 className="font-display" style={h2}>Waar het geld heen gaat</h2>
       <p className="font-body text-text-soft" style={p}>
         Na hypotheek, energie, verzekeringen en de auto blijft er op papier
-        ongeveer €505 over — precies het bedrag dat een gemiddeld gezin met dit
+        ongeveer €505 over, precies het bedrag dat een gemiddeld gezin met dit
         profiel overhoudt. Maar dat getal klopt alleen als alle andere posten
         binnen de norm blijven. En dat doen ze niet.
       </p>
@@ -61,7 +61,7 @@ export default function WaarBlijftHetBijMarkEnLisa() {
       <h2 className="font-display" style={h2}>Waar blijft het?</h2>
       <p className="font-body text-text-soft" style={p}>
         De twee afwijkingen: boodschappen die €250 boven de norm liggen, en een
-        abonnementenstapel die niemand meer overziet. Geen ramp — maar samen
+        abonnementenstapel die niemand meer overziet. Geen ramp, maar samen
         eten ze de €505 op die er &ldquo;zou moeten zijn&rdquo;. Dit is hetzelfde
         patroon als bij{" "}
         <Link href="/inzichten/is-4000-euro-netto-goed-salaris-nederland" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">€4.000 netto: een goed salaris?</Link>
@@ -72,7 +72,7 @@ export default function WaarBlijftHetBijMarkEnLisa() {
         Een gezin met hetzelfde inkomen dat de boodschappen terugbrengt naar €700
         met weekmenu&apos;s en de abonnementen opschoont, houdt zonder offers al
         snel €300–400 per maand meer over. Het verschil is structuur, niet
-        inkomen — zie{" "}
+        inkomen, zie{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>

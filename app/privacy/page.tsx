@@ -38,7 +38,7 @@ export default function PrivacyPage() {
             <p className="font-body font-light text-text-soft text-base leading-relaxed">
               We verzamelen je emailadres als je je aanmeldt voor de wachtlijst
               of de gratis analyse invult. Als je toestemming geeft, bewaren we
-              ook de antwoorden die je invult in de analyse — volledig anoniem
+              ook de antwoorden die je invult in de analyse, volledig anoniem
               en alleen gebruikt om onze benchmarks te verbeteren. We slaan geen
               wachtwoorden, betaalgegevens of persoonsgegevens anders dan je
               emailadres op.
@@ -51,7 +51,7 @@ export default function PrivacyPage() {
             </h2>
             <p className="font-body font-light text-text-soft text-base leading-relaxed">
               Je emailadres gebruiken we om je te informeren als we live gaan of
-              nieuwe inzichten delen — alleen als je daar expliciet toestemming
+              nieuwe inzichten delen, alleen als je daar expliciet toestemming
               voor hebt gegeven. De quiz-antwoorden (als je toestemming geeft)
               gebruiken we om te begrijpen hoe Nederlandse gezinnen hun geld
               besteden, zodat onze vergelijkingen steeds beter worden.
@@ -82,7 +82,7 @@ export default function PrivacyPage() {
             </h2>
             <p className="font-body font-light text-text-soft text-base leading-relaxed">
               Nee. We verkopen of delen je gegevens niet met derden. We
-              gebruiken Supabase als database — een Amerikaanse dienst met
+              gebruiken Supabase als database, een Amerikaanse dienst met
               Europese servers en een geldig Data Processing Agreement.
             </p>
           </section>

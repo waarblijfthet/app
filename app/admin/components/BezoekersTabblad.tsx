@@ -195,7 +195,7 @@ export function BezoekersTabblad() {
         >
           {eigenaarGezet
             ? "Filter verwijderen"
-            : "Dit ben ik — filter mijn bezoeken"}
+            : "Dit ben ik, filter mijn bezoeken"}
         </button>
       </div>
 

@@ -147,11 +147,11 @@ export default function QuizClient() {
 
       {step < TOTAL_STEPS ? (
         <div className="grid grid-cols-1 lg:grid-cols-[55%_42%] gap-8 lg:gap-12 items-start">
-          {/* Left — vragen + navigatieknoppen inline */}
+          {/* Left, vragen + navigatieknoppen inline */}
           <div>
             {stepComponents[step]}
 
-            {/* Navigatie — altijd inline, geen fixed bar */}
+            {/* Navigatie, altijd inline, geen fixed bar */}
             <div className="mt-8 flex gap-3">
               {step > 1 && (
                 <button
@@ -182,7 +182,7 @@ export default function QuizClient() {
             )}
           </div>
 
-          {/* Right — vergelijkingspaneel alleen op desktop */}
+          {/* Right, vergelijkingspaneel alleen op desktop */}
           {showPanel && (
             <div className="hidden lg:block">
               <VergelijkingsPaneel data={data} currentStep={step} />

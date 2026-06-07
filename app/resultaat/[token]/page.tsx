@@ -151,7 +151,7 @@ export default async function ResultaatPage({ params }: Props) {
             </h1>
             <p className="text-text-soft font-body font-light text-base mb-8">
               De link is mogelijk verlopen of onjuist. Doe de gratis analyse
-              opnieuw — het kost maar 5 minuten.
+              opnieuw, het kost maar 5 minuten.
             </p>
             <Link href="/analyse" className="btn-primary">
               Doe de analyse opnieuw
@@ -210,7 +210,7 @@ export default async function ResultaatPage({ params }: Props) {
             }}
           >
             <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-6 items-start">
-              {/* Links — het getal */}
+              {/* Links, het getal */}
               <div>
                 <p
                   className="font-body text-xs font-medium mb-3"
@@ -252,7 +252,7 @@ export default async function ResultaatPage({ params }: Props) {
                 </span>
               </div>
 
-              {/* Rechts — verdict */}
+              {/* Rechts, verdict */}
               <div
                 className="rounded-2xl border p-5"
                 style={{
@@ -323,7 +323,7 @@ export default async function ResultaatPage({ params }: Props) {
               className="grid grid-cols-1 md:grid-cols-3 gap-0"
               style={{ borderTop: "1px solid rgba(245,240,232,0.1)" }}
             >
-              {/* Kaartje 1 — Deel */}
+              {/* Kaartje 1, Deel */}
               <div
                 style={{
                   padding: "1.5rem 2rem 2rem",
@@ -346,7 +346,7 @@ export default async function ResultaatPage({ params }: Props) {
                 <KopieerKnop url={resultaatUrl} />
               </div>
 
-              {/* Kaartje 2 — Betaald (hoofdoptie) */}
+              {/* Kaartje 2, Betaald (hoofdoptie) */}
               <div
                 style={{
                   padding: "1.5rem 2rem 2rem",
@@ -381,7 +381,7 @@ export default async function ResultaatPage({ params }: Props) {
                 </a>
               </div>
 
-              {/* Kaartje 3 — Blog */}
+              {/* Kaartje 3, Blog */}
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
                 <p className="text-3xl mb-3">📖</p>
                 <h3
@@ -440,7 +440,7 @@ export default async function ResultaatPage({ params }: Props) {
                   Analyse bewaren?
                 </p>
                 <p className="text-text-muted font-body text-sm mb-4">
-                  We sturen de link naar jouw analyse toe — zodat je hem altijd
+                  We sturen de link naar jouw analyse toe, zodat je hem altijd
                   terug kunt vinden.
                 </p>
                 <EmailReminderForm

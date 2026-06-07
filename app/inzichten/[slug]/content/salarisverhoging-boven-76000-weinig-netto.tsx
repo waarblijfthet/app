@@ -11,9 +11,9 @@ export default function SalarisverhoginBoven76000() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Boven €76.000 houd je van elke €100 salarisverhoging maximaal €50 over — door het toptarief van 49,5%",
+            "Boven €76.000 houd je van elke €100 salarisverhoging maximaal €50 over, door het toptarief van 49,5%",
             "De afbouw van heffingskortingen maakt het effectieve tarief tussen €43K en €76K soms 55–60% per extra euro",
-            "Dat je bijna niks voelt van een opslag is geen gevoel — het klopt gewoon, en hier is waarom",
+            "Dat je bijna niks voelt van een opslag is geen gevoel, het klopt gewoon, en hier is waarom",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
@@ -67,8 +67,8 @@ export default function SalarisverhoginBoven76000() {
       <p className="font-body text-text-soft" style={p}>
         De arbeidskorting bouwt af tussen inkomen van circa 43.000 en 124.000
         euro. In dat traject verlies je bovenop de belasting ook nog eens
-        korting — wat je effectieve marginale tarief flink verhoogt. Het
-        gecombineerde marginale tarief — belasting plus afbouw arbeidskorting —
+        korting, wat je effectieve marginale tarief flink verhoogt. Het
+        gecombineerde marginale tarief, belasting plus afbouw arbeidskorting —
         kan in het traject tussen 43.000 en 76.000 euro oplopen tot 55 tot 60
         procent van elke extra verdiende euro.
       </p>
@@ -92,7 +92,7 @@ export default function SalarisverhoginBoven76000() {
         Over die 10.000 euro extra betaal je 49,50 procent belasting: dat is
         4.950 euro. Je houdt 5.050 euro bruto-netto verschil over. Maar in dit
         traject bouwt ook je arbeidskorting nog af. Reken je dat mee, dan daalt
-        het netto voordeel verder — naar pakweg 4.000 tot 4.500 euro per jaar.
+        het netto voordeel verder, naar pakweg 4.000 tot 4.500 euro per jaar.
         Per maand is dat 333 tot 375 euro extra netto.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -104,7 +104,7 @@ export default function SalarisverhoginBoven76000() {
         Wat betekent dit voor jouw financiële planning?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Dit is geen reden om een salarisverhoging te weigeren — meer bruto is
+        Dit is geen reden om een salarisverhoging te weigeren, meer bruto is
         altijd meer netto, hoe klein ook. Maar het is wel een reden om je
         verwachtingen bij te stellen.
       </p>
@@ -142,7 +142,7 @@ export default function SalarisverhoginBoven76000() {
         >
           gratis analyse
         </Link>{" "}
-        en ontdek waar jouw geld werkelijk naartoe gaat — los van wat de
+        en ontdek waar jouw geld werkelijk naartoe gaat, los van wat de
         belasting inhoudt.
       </p>
     </>

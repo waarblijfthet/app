@@ -18,7 +18,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat een alleenstaande in 2026 minimaal nodig heeft om rond te komen — en dat is meer dan de modellen zeggen",
+            "Wat een alleenstaande in 2026 minimaal nodig heeft om rond te komen, en dat is meer dan de modellen zeggen",
             "Waarom huur de grootste variabele is en hoe groot het verschil tussen Randstad en de rest van Nederland is",
             "Dat krap zitten als alleenstaande bijna nooit aan 'slecht met geld omgaan' ligt maar aan het lastengewicht",
           ].map((item, i) => (
@@ -43,7 +43,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dit artikel geeft een volledig overzicht van alle kostenposten voor een
-        alleenstaande in 2026 — inclusief de regionale verschillen die een groot
+        alleenstaande in 2026, inclusief de regionale verschillen die een groot
         verschil maken.
       </p>
 
@@ -56,7 +56,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         Huur of hypotheek vormt verreweg de grootste post. Volgens het CBS
         betaalt een alleenstaande huurder in 2026 gemiddeld €1.050 per maand
         kale huur, maar in de Randstad loopt dit structureel op tot
-        €1.200-€1.400. Wie koopt, heeft een andere berekening — maar de netto
+        €1.200-€1.400. Wie koopt, heeft een andere berekening, maar de netto
         maandlasten zijn vergelijkbaar of hoger in de grote steden.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -85,19 +85,19 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Een alleenstaande die alle kosten dekt en ook nog iets spaart —
-        inclusief het Nibud-advies van 10% spaarbuffer — heeft op basis van de
+        inclusief het Nibud-advies van 10% spaarbuffer, heeft op basis van de
         gemiddelden minimaal €2.400-€2.600 netto per maand nodig. In de Randstad
         ligt die grens bij €2.800-€3.000.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Het CBS-mediaan netto inkomen voor alleenstaanden in 2024 lag rond de
         €2.200 per maand. Dat betekent dat een groot deel van de alleenstaanden
-        in Nederland structureel aan de grens van hun budget zit — niet door
+        in Nederland structureel aan de grens van hun budget zit, niet door
         overdaad, maar door de hoogte van de vaste lasten.
       </p>
       <p className="font-body text-text-soft" style={p}>
         De Nibud-minimumgrens voor een alleenstaande zonder kinderen lag in
-        januari 2026 op €91 per week aan leefgeld — dat is het absolute minimum
+        januari 2026 op €91 per week aan leefgeld, dat is het absolute minimum
         voor iemand in schuldhulpverlening, niet een realistische begroting voor
         een werkende alleenstaande.
       </p>
@@ -133,7 +133,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         Ja, aanzienlijk. CBS-data laat zien dat woonkosten in de Randstad
         structureel 20-30% hoger liggen dan in de rest van Nederland. Voor
         iemand die in Amsterdam woont versus iemand in Tilburg is het verschil in
-        totale kosten van levensonderhoud gemakkelijk €300-400 per maand — alleen
+        totale kosten van levensonderhoud gemakkelijk €300-400 per maand, alleen
         al door de huur.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -174,7 +174,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> Bij alleenstaanden die ik spreek ligt het zelden aan 'verkeerd omgaan met geld'. Eén inkomen draagt álle vaste lasten — vooral de huur — en dan is een prima salaris ineens krap. Dat is een lasten-vraagstuk, geen gedragsprobleem, en dat scheelt al een hoop schaamte om te weten.
+          <strong>Uit de praktijk.</strong> Bij alleenstaanden die ik spreek ligt het zelden aan 'verkeerd omgaan met geld'. Eén inkomen draagt álle vaste lasten, vooral de huur, en dan is een prima salaris ineens krap. Dat is een lasten-vraagstuk, geen gedragsprobleem, en dat scheelt al een hoop schaamte om te weten.
         </p>
       </div>
     </>

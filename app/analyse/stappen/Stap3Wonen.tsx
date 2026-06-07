@@ -124,11 +124,11 @@ export default function Stap3Wonen({ data, onChange }: Props) {
                 ))}
               </div>
               <EuroInput
-                label={`Gemeentelijke belastingen (OZB e.d.) — per ${data.gemeenteBelastingenPer}`}
+                label={`Gemeentelijke belastingen (OZB e.d.), per ${data.gemeenteBelastingenPer}`}
                 id="gemeenteBelastingen"
                 value={data.gemeenteBelastingen}
                 onChange={(v) => onChange({ gemeenteBelastingen: v })}
-                hint="Vaak een jaaraanslag — kies dan 'per jaar'."
+                hint="Vaak een jaaraanslag, kies dan 'per jaar'."
               />
             </div>
           </div>

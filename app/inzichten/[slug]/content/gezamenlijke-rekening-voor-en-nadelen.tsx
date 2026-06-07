@@ -51,7 +51,7 @@ function BijdrageCalculator() {
     <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
       <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
         <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>Bereken jullie bijdrage naar inkomen</p>
-        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>Elk draagt bij naar aandeel — geen ruzie over wie meer betaalt</p>
+        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>Elk draagt bij naar aandeel, geen ruzie over wie meer betaalt</p>
       </div>
       <div className="p-5 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -120,7 +120,7 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
       </div>
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
-        Nadia en Joris hadden wekelijks ruzie over geld. Niet omdat ze slecht verdienden — samen €5.500 netto — maar omdat er geen systeem was. Wie betaalt de streamingdienst? Telt het cadeau voor zijn moeder als gezamenlijk? Ze hadden nooit expliciet afgesproken hoe het geld verdeeld werd. Dat veranderde met één beslissing.
+        Nadia en Joris hadden wekelijks ruzie over geld. Niet omdat ze slecht verdienden, samen €5.500 netto, maar omdat er geen systeem was. Wie betaalt de streamingdienst? Telt het cadeau voor zijn moeder als gezamenlijk? Ze hadden nooit expliciet afgesproken hoe het geld verdeeld werd. Dat veranderde met één beslissing.
       </p>
 
       <h2 className="font-display" style={h2}>De drie systemen die stellen gebruiken</h2>
@@ -131,10 +131,10 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
         <strong>Volledig gescheiden:</strong> elk een eigen rekening, vaste lasten verdeeld. Werkt als het inkomensverschil groot is of als jullie financiële zelfstandigheid willen bewaren.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Hybride:</strong> allebei een eigen rekening én een gezamenlijke rekening voor vaste lasten. Op salarisdag gaat een vast bedrag naar gezamenlijk — de rest is persoonlijk. Dit werkt voor de meeste stellen het beste.
+        <strong>Hybride:</strong> allebei een eigen rekening én een gezamenlijke rekening voor vaste lasten. Op salarisdag gaat een vast bedrag naar gezamenlijk, de rest is persoonlijk. Dit werkt voor de meeste stellen het beste.
       </p>
 
-      <h2 className="font-display" style={h2}>Cas: Nadia &amp; Joris — van eindeloze discussies naar rust</h2>
+      <h2 className="font-display" style={h2}>Cas: Nadia &amp; Joris, van eindeloze discussies naar rust</h2>
       <div className="rounded-xl border p-4 mb-6" style={{ backgroundColor: "#FDF3E3", borderColor: "#F0D07A" }}>
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
           <strong>Echte situatie.</strong> Naam en details aangepast voor privacy.
@@ -144,7 +144,7 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
         Nadia (29) verdient €2.400 netto, Joris (31) €3.100 netto. Ze woonden zes maanden samen en splitsten alles 50/50. Elke maand dezelfde discussies: wie betaalt de streamingdienst? Telt het cadeau voor zijn moeder als gezamenlijk? De supermarktboodschappen klopten nooit precies.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Nadia voelde zich schuldig als ze iets voor zichzelf kocht — ze droeg immers minder bij. Joris voelde zich ongemakkelijk bij duurdere aankopen. De stress zat in de onduidelijkheid, niet in het geld zelf.
+        Nadia voelde zich schuldig als ze iets voor zichzelf kocht, ze droeg immers minder bij. Joris voelde zich ongemakkelijk bij duurdere aankopen. De stress zat in de onduidelijkheid, niet in het geld zelf.
       </p>
       <VoorNa rows={[
         ["Systeem", "50/50, eigen rekening", "Hybride naar inkomen"],
@@ -154,7 +154,7 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
         ["Discussies over geld", "Wekelijks", "Vrijwel geen"],
       ]} />
       <p className="font-body text-text-soft" style={p}>
-        Ze stapten over op het hybride model: gezamenlijke vaste lasten €2.100 per maand, verdeeld naar inkomen. Joris draagt 56% bij (€1.176), Nadia 44% (€924). Wat daarna overblijft is vrij te besteden — zonder verantwoording.
+        Ze stapten over op het hybride model: gezamenlijke vaste lasten €2.100 per maand, verdeeld naar inkomen. Joris draagt 56% bij (€1.176), Nadia 44% (€924). Wat daarna overblijft is vrij te besteden, zonder verantwoording.
       </p>
       <p className="font-body text-text-soft" style={p}>
         De discussies stopten. Joris kocht een spelconsole van zijn eigen geld. Nadia boekte een weekend met een vriendin. En voor het eerst begonnen ze te praten over gezamenlijke spaardoelen, iets wat daarvoor nooit van de grond kwam.
@@ -165,21 +165,21 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
 
       <h2 className="font-display" style={h2}>De voordelen van een gezamenlijke rekening</h2>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Transparantie:</strong> je ziet allebei precies wat er binnenkomt en uitgaat. <strong>Minder administratie:</strong> één rekening, één overzicht. <strong>Makkelijker sparen voor gezamenlijke doelen:</strong> vakantie, verbouwing, auto — het geld staat op één plek. En voor sommige stellen voelt het als een bewuste keuze: we zijn een team.
+        <strong>Transparantie:</strong> je ziet allebei precies wat er binnenkomt en uitgaat. <strong>Minder administratie:</strong> één rekening, één overzicht. <strong>Makkelijker sparen voor gezamenlijke doelen:</strong> vakantie, verbouwing, auto, het geld staat op één plek. En voor sommige stellen voelt het als een bewuste keuze: we zijn een team.
       </p>
 
       <h2 className="font-display" style={h2}>De nadelen en valkuilen</h2>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Verlies van autonomie:</strong> elke persoonlijke aankoop kan aanleiding zijn voor een gesprek. <strong>Ongelijk inkomen werkt wrijving op</strong> als de verdeling niet klopt. En een gezamenlijke rekening lost onderliggende gelddiscussies niet op — het is een systeem, geen remedie.
+        <strong>Verlies van autonomie:</strong> elke persoonlijke aankoop kan aanleiding zijn voor een gesprek. <strong>Ongelijk inkomen werkt wrijving op</strong> als de verdeling niet klopt. En een gezamenlijke rekening lost onderliggende gelddiscussies niet op, het is een systeem, geen remedie.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Meer over geld en relatiestress:{" "}
-        <Link href="/inzichten/geld-stress-relatie-nederland" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">geld en relatiestress — wat het doet en hoe je erover praat</Link>.
+        <Link href="/inzichten/geld-stress-relatie-nederland" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">geld en relatiestress, wat het doet en hoe je erover praat</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>Hoe je het systeem concreet inricht</h2>
       <p className="font-body text-text-soft" style={p}>
-        Bereken jullie gezamenlijke vaste lasten (huur/hypotheek, energie, verzekeringen, boodschappen, abonnementen). Voeg 10-15% toe als buffer voor onverwachte kosten. Bepaal de verdeelsleutel: 50/50 of naar inkomen. Automatiseer op salarisdag. Evalueer elk kwartaal — inkomens en lasten veranderen, een systeem dat nu werkt kan over een jaar niet meer kloppen.
+        Bereken jullie gezamenlijke vaste lasten (huur/hypotheek, energie, verzekeringen, boodschappen, abonnementen). Voeg 10-15% toe als buffer voor onverwachte kosten. Bepaal de verdeelsleutel: 50/50 of naar inkomen. Automatiseer op salarisdag. Evalueer elk kwartaal, inkomens en lasten veranderen, een systeem dat nu werkt kan over een jaar niet meer kloppen.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wat zijn normale vaste lasten? Lees:{" "}
@@ -190,7 +190,7 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
       <p className="font-body text-text-soft" style={p}>
         Wil je samen jullie financiële basis doorlichten?{" "}
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
-        — samen, in 15 minuten. Of bespreek jullie situatie in een{" "}
+       , samen, in 15 minuten. Of bespreek jullie situatie in een{" "}
         <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>.
       </p>
     </>

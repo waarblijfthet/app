@@ -38,10 +38,10 @@ function VrijheidsCalculator() {
   let niveau = 0;
   let niveauLabel = "Nog geen buffer";
   let niveauKleur = "#B03A2E";
-  if (s >= fireDoelJaar) { niveau = 4; niveauLabel = "Niveau 4 — Volledig onafhankelijk"; niveauKleur = "#2D6A4F"; }
-  else if (s >= niveau3Doel) { niveau = 3; niveauLabel = "Niveau 3 — Vrijheid (meer keuze in werk)"; niveauKleur = "#2D6A4F"; }
-  else if (s >= buffer * 2) { niveau = 2; niveauLabel = "Niveau 2 — Veiligheid (maanden overbruggen)"; niveauKleur = "#C4603A"; }
-  else if (s >= buffer) { niveau = 1; niveauLabel = "Niveau 1 — Stabiliteit (6-maands buffer)"; niveauKleur = "#C4603A"; }
+  if (s >= fireDoelJaar) { niveau = 4; niveauLabel = "Niveau 4, Volledig onafhankelijk"; niveauKleur = "#2D6A4F"; }
+  else if (s >= niveau3Doel) { niveau = 3; niveauLabel = "Niveau 3, Vrijheid (meer keuze in werk)"; niveauKleur = "#2D6A4F"; }
+  else if (s >= buffer * 2) { niveau = 2; niveauLabel = "Niveau 2, Veiligheid (maanden overbruggen)"; niveauKleur = "#C4603A"; }
+  else if (s >= buffer) { niveau = 1; niveauLabel = "Niveau 1, Stabiliteit (6-maands buffer)"; niveauKleur = "#C4603A"; }
 
   const heeftResultaat = u > 0;
 
@@ -84,10 +84,10 @@ function VrijheidsCalculator() {
             )}
             <div className="rounded-xl border overflow-hidden" style={{ borderColor: "#E8E0D4" }}>
               {[
-                { lvl: 1, label: "Niveau 1 — Stabiliteit", bedrag: buffer, uitleg: "6 maanden netto inkomen als buffer" },
-                { lvl: 2, label: "Niveau 2 — Veiligheid", bedrag: buffer * 2, uitleg: "Vaste lasten gedekt bij ontslag" },
-                { lvl: 3, label: "Niveau 3 — Vrijheid", bedrag: niveau3Doel, uitleg: "Werk is een keuze, niet een verplichting" },
-                { lvl: 4, label: "Niveau 4 — FIRE", bedrag: fireDoelJaar, uitleg: "25× jaaruitgaven — volledig onafhankelijk" },
+                { lvl: 1, label: "Niveau 1, Stabiliteit", bedrag: buffer, uitleg: "6 maanden netto inkomen als buffer" },
+                { lvl: 2, label: "Niveau 2, Veiligheid", bedrag: buffer * 2, uitleg: "Vaste lasten gedekt bij ontslag" },
+                { lvl: 3, label: "Niveau 3, Vrijheid", bedrag: niveau3Doel, uitleg: "Werk is een keuze, niet een verplichting" },
+                { lvl: 4, label: "Niveau 4, FIRE", bedrag: fireDoelJaar, uitleg: "25× jaaruitgaven, volledig onafhankelijk" },
               ].map(({ lvl, label, bedrag, uitleg }, i) => (
                 <div key={lvl} className="grid grid-cols-[1fr_auto] items-center gap-2 px-4 py-3 font-body text-sm"
                   style={{ backgroundColor: s >= bedrag ? "#E8F2EC" : i % 2 ? "#FDFAF4" : "white" }}>
@@ -123,7 +123,7 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Waarom FIRE voor de meeste gezinnen niet werkt — en wat een realistischer doel is",
+            "Waarom FIRE voor de meeste gezinnen niet werkt, en wat een realistischer doel is",
             "De vier vrijheidsniveaus: waar jij nu staat en wat het volgende niveau kost",
             "Hoe Thomas & Inge hun onhaalbare FIRE-doel omzetten naar een plan dat wél werkte",
           ].map((item, i) => (
@@ -136,7 +136,7 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
       </div>
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
-        Thomas wilde op zijn 53e stoppen met werken. Niet omdat hij het werk haatte — hij wilde gewoon <em>kunnen</em> stoppen. De berekening: €1.740.000 nodig. Dat werd de dag dat hij zijn doel herdefinieerde. Niet stoppen, maar <strong>meer keuze</strong>. En dat plan werkte wél.
+        Thomas wilde op zijn 53e stoppen met werken. Niet omdat hij het werk haatte, hij wilde gewoon <em>kunnen</em> stoppen. De berekening: €1.740.000 nodig. Dat werd de dag dat hij zijn doel herdefinieerde. Niet stoppen, maar <strong>meer keuze</strong>. En dat plan werkte wél.
       </p>
 
       <h2 className="font-display" style={h2}>Financieel onafhankelijk is niet hetzelfde als stoppen</h2>
@@ -152,7 +152,7 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Box 3 belasting</p>
         <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
-          Vermogen boven €57.000 (2026) wordt in box 3 belast tegen een effectief tarief van ruim 2% per jaar — ongeacht het werkelijke rendement. Bij €500.000 belegd vermogen betaal je €4.000 tot €6.000 per jaar aan vermogensbelasting. Dat knabbelt direct aan je 4%-onttrekking. FIRE-berekeningen zijn doorgaans Amerikaans en houden hier geen rekening mee.
+          Vermogen boven €57.000 (2026) wordt in box 3 belast tegen een effectief tarief van ruim 2% per jaar, ongeacht het werkelijke rendement. Bij €500.000 belegd vermogen betaal je €4.000 tot €6.000 per jaar aan vermogensbelasting. Dat knabbelt direct aan je 4%-onttrekking. FIRE-berekeningen zijn doorgaans Amerikaans en houden hier geen rekening mee.
         </p>
       </div>
 
@@ -162,22 +162,22 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
 
       <h2 className="font-display" style={h2}>De vier niveaus van financiële vrijheid</h2>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Niveau 1 — Stabiliteit:</strong> een buffer van drie tot zes maanden netto inkomen. Verrassend veel mensen met een goed inkomen hebben dit niet.
+        <strong>Niveau 1, Stabiliteit:</strong> een buffer van drie tot zes maanden netto inkomen. Verrassend veel mensen met een goed inkomen hebben dit niet.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Niveau 2 — Veiligheid:</strong> je vaste lasten worden gedekt door opgebouwd vermogen, ook zonder werk. Geen paniek bij ontslag.
+        <strong>Niveau 2, Veiligheid:</strong> je vaste lasten worden gedekt door opgebouwd vermogen, ook zonder werk. Geen paniek bij ontslag.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Niveau 3 — Vrijheid:</strong> je kunt kiezen hoeveel en wat je werkt. Minder uren, ander werk, iets opbouwen naast je baan. Dit is het zinvolste doel voor de meeste gezinnen.
+        <strong>Niveau 3, Vrijheid:</strong> je kunt kiezen hoeveel en wat je werkt. Minder uren, ander werk, iets opbouwen naast je baan. Dit is het zinvolste doel voor de meeste gezinnen.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Niveau 4 — Volledige onafhankelijkheid:</strong> het klassieke FIRE-eindpunt. Haalbaar voor weinigen, noodzakelijk voor vrijwel niemand.
+        <strong>Niveau 4, Volledige onafhankelijkheid:</strong> het klassieke FIRE-eindpunt. Haalbaar voor weinigen, noodzakelijk voor vrijwel niemand.
       </p>
 
       <h2 className="font-display" style={h2}>Op welk niveau zit jij?</h2>
       <VrijheidsCalculator />
 
-      <h2 className="font-display" style={h2}>Cas: Thomas &amp; Inge — FIRE-droom omgezet naar haalbaar plan</h2>
+      <h2 className="font-display" style={h2}>Cas: Thomas &amp; Inge, FIRE-droom omgezet naar haalbaar plan</h2>
       <p className="font-body text-text-soft" style={p}>
         Thomas (43) en Inge (41) verdienen samen €7.500 netto per maand. Twee kinderen, koopwoning met €180.000 resterende hypotheek, overwaarde circa €280.000. Thomas wilde &ldquo;over tien jaar stoppen.&rdquo; Dat hadden ze nooit echt doorgerekend.
       </p>
@@ -191,17 +191,17 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
         ["Verwacht vrij vermogen op 55", "€88.000", "€210.000+"],
       ]} />
       <p className="font-body text-text-soft" style={p}>
-        Ze herdefinieerden het doel: niet stoppen, maar <em>meer keuze</em>. Als ze op hun 55e €500.000 vrij vermogen hebben — bovenop pensioen en overwaarde — kan Thomas terugschroeven naar drie dagen. De maandelijkse inleg ging van €600 naar €1.200, wat bleek te kunnen na een analyse van hun uitgavenpatroon. Meer over dat patroon in{" "}
+        Ze herdefinieerden het doel: niet stoppen, maar <em>meer keuze</em>. Als ze op hun 55e €500.000 vrij vermogen hebben, bovenop pensioen en overwaarde, kan Thomas terugschroeven naar drie dagen. De maandelijkse inleg ging van €600 naar €1.200, wat bleek te kunnen na een analyse van hun uitgavenpatroon. Meer over dat patroon in{" "}
         <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie: meer verdienen en toch krap</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>Het enige getal dat ertoe doet</h2>
       <p className="font-body text-text-soft" style={p}>
-        Het getal dat alles bepaalt is niet je inkomen, en niet je spaarsaldo. Het is je <strong>maandelijkse vrije cashflow</strong> — wat er overblijft na vaste lasten, levensonderhoud en pensioenopbouw. Als dat getal nul of negatief is, begin dan met begrijpen waar het geld naartoe gaat. Lees:{" "}
-        <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap — hoe kan dat?</Link>
+        Het getal dat alles bepaalt is niet je inkomen, en niet je spaarsaldo. Het is je <strong>maandelijkse vrije cashflow</strong>, wat er overblijft na vaste lasten, levensonderhoud en pensioenopbouw. Als dat getal nul of negatief is, begin dan met begrijpen waar het geld naartoe gaat. Lees:{" "}
+        <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap, hoe kan dat?</Link>
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Als er wél vrije cashflow is — zelfs €200 per maand — heb je een startpunt. Drie stappen: bereken je werkelijke cashflow via drie maanden bankafschriften, bepaal je doelniveau (vrijheid of volledige onafhankelijkheid), en maak de inleg automatisch op salarisdag.
+        Als er wél vrije cashflow is, zelfs €200 per maand, heb je een startpunt. Drie stappen: bereken je werkelijke cashflow via drie maanden bankafschriften, bepaal je doelniveau (vrijheid of volledige onafhankelijkheid), en maak de inleg automatisch op salarisdag.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Lees ook:{" "}
@@ -212,7 +212,7 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
       <p className="font-body text-text-soft" style={p}>
         Wil je weten hoeveel ruimte je nu hebt?{" "}
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
-        — in 15 minuten zie je je vrije cashflow en of er meer mogelijk is dan je denkt. Als je dit wil uitwerken met iemand die concreet meekijkt, biedt Jarno een{" "}
+       , in 15 minuten zie je je vrije cashflow en of er meer mogelijk is dan je denkt. Als je dit wil uitwerken met iemand die concreet meekijkt, biedt Jarno een{" "}
         <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>{" "}
         aan.
       </p>

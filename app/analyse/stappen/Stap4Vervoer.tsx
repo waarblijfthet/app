@@ -31,7 +31,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
         Vaste maandelijkse kosten voor transport en dekking.
       </p>
 
-      {/* Vervoer — contextual */}
+      {/* Vervoer, contextual */}
       <div className="mb-8">
         <p className="font-body font-medium text-text-soft text-sm mb-4">Vervoer</p>
 
@@ -149,7 +149,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
           id="verzekeringOverig"
           value={data.verzekeringOverig}
           onChange={(v) => onChange({ verzekeringOverig: v })}
-          hint="Inboedel, opstal, rechtsbijstand, leven — gemiddeld €120/mnd"
+          hint="Inboedel, opstal, rechtsbijstand, leven. Gemiddeld €120/mnd"
         />
 
         {verzekeringen > 0 && (

@@ -34,7 +34,7 @@ const VERDICT_CONFIG: Record<
     bg: "bg-green-light",
     border: "border-[#A8D5B5]",
     title: "Jullie doen het goed.",
-    text: "Er is ruimte — de vraag is of dat geld doelbewust wordt ingezet.",
+    text: "Er is ruimte, de vraag is of dat geld doelbewust wordt ingezet.",
     textColor: "text-[#2D6A4F]",
   },
   matig: {
@@ -48,7 +48,7 @@ const VERDICT_CONFIG: Record<
     bg: "bg-[#FDECEA]",
     border: "border-[#F0A09A]",
     title: "Jullie houden structureel minder over.",
-    text: "Dit is precies het patroon dat we kennen — en dat we kunnen helpen ombuigen.",
+    text: "Dit is precies het patroon dat we kennen, en dat we kunnen helpen ombuigen.",
     textColor: "text-[#B03A2E]",
   },
 };
@@ -294,7 +294,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         )}
       </div>
 
-      {/* Spaardoel vs werkelijkheid — alleen als ingevuld */}
+      {/* Spaardoel vs werkelijkheid, alleen als ingevuld */}
       {spaardoelWaarde > 0 && (
         <div className="card-base border border-[#E8E0D0] mb-6">
           <div className="flex justify-between items-start gap-4">
@@ -306,7 +306,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
               <p className="font-body font-light text-text-soft text-xs mt-1 leading-relaxed">
                 {over >= spaardoelWaarde
                   ? `Na dat spaardoel houden jullie nog ${fmtEur(over - spaardoelWaarde)}/mnd over.`
-                  : `Jullie houden ${fmtEur(over)}/mnd over — ${fmtEur(spaardoelWaarde - over)} te weinig om dit spaardoel te halen.`}
+                  : `Jullie houden ${fmtEur(over)}/mnd over, ${fmtEur(spaardoelWaarde - over)} te weinig om dit spaardoel te halen.`}
               </p>
             </div>
             <span

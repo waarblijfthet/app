@@ -24,7 +24,7 @@ export default function WatKostEenKindPerMaand() {
       </div>
 
       <p className="font-body text-text-soft" style={p}>
-        Een kind krijgen verandert alles — ook je financiën, en vaak meer dan je
+        Een kind krijgen verandert alles, ook je financiën, en vaak meer dan je
         vooraf inschat. Niet door de luiers of de wieg, maar door wat er daarna
         elke maand bijkomt en nooit meer weggaat.
       </p>
@@ -38,8 +38,8 @@ export default function WatKostEenKindPerMaand() {
       <h2 className="font-display" style={h2}>Niet de babyspullen, maar de jaren erna</h2>
       <p className="font-body text-text-soft" style={p}>
         De eenmalige babyuitrusting valt vaak mee. Het zijn de structurele kosten
-        die tellen: meer boodschappen, een grotere woning of auto, en — de
-        grootste post voor jonge gezinnen — kinderopvang. Naarmate kinderen ouder
+        die tellen: meer boodschappen, een grotere woning of auto, en, de
+        grootste post voor jonge gezinnen, kinderopvang. Naarmate kinderen ouder
         worden verschuiven de kosten naar kleding, sport, telefoon en uiteindelijk
         school.
       </p>
@@ -49,7 +49,7 @@ export default function WatKostEenKindPerMaand() {
         Als alleenstaande ouder draagt één inkomen alle kosten. Het Nibud rekent
         daar hogere percentages: ongeveer 23% van het besteedbaar inkomen voor
         één kind en 37% voor twee. Dat verklaart waarom een prima salaris voor
-        één persoon toch krap kan voelen — zie de casestudy van{" "}
+        één persoon toch krap kan voelen, zie de casestudy van{" "}
         <Link href="/inzichten/waar-blijft-het-bij-fatima" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Fatima</Link>.
       </p>
 

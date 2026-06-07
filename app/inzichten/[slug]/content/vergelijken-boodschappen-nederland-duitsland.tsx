@@ -20,7 +20,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Drogisterijproducten zijn in Duitsland gemiddeld 50% goedkoper — wie €60/mnd uitgeeft bespaart €360 per jaar",
+            "Drogisterijproducten zijn in Duitsland gemiddeld 50% goedkoper, wie €60/mnd uitgeeft bespaart €360 per jaar",
             "Vers en huismerken zijn níet altijd goedkoper; de winst zit specifiek bij A-merken en drogisterij",
             "Per winkel: DM/Rossmann voor drogisterij, Aldi voor dagelijkse boodschappen, Kaufland voor grotere inkopen",
           ].map((item, i) => (
@@ -45,14 +45,14 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Maar wat koop je precies waar? En wat heeft geen zin? Hier is het
-        concrete antwoord — gebaseerd op actuele prijsvergelijkingen, niet op
+        concrete antwoord, gebaseerd op actuele prijsvergelijkingen, niet op
         aannames.
       </p>
 
       <PrijsvergelijkingTabel />
 
       <h2 className="font-display" style={h2}>
-        Niet alles is goedkoper — dit moet je weten
+        Niet alles is goedkoper, dit moet je weten
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Het bovenstaande mandje laat een gemiddelde besparing zien van ruim 45
@@ -61,7 +61,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
       <p className="font-body text-text-soft" style={p}>
         Verse producten zoals groente en fruit zijn in Duitsland niet altijd
         goedkoper. Soms zelfs duurder. Ook typisch Nederlandse producten —
-        stroopwafels, hagelslag, pindakaas huismerk — zijn in Nederland vaak
+        stroopwafels, hagelslag, pindakaas huismerk, zijn in Nederland vaak
         goedkoper omdat Nederlandse fabrikanten juist voor die producten scherp
         zitten.
       </p>
@@ -72,20 +72,20 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Een gezin dat maandelijks €60 uitgeeft aan drogisterijproducten —
-        wasmiddel, tandpasta, shampoo, babyspullen, schoonmaakmiddelen — betaalt
+        wasmiddel, tandpasta, shampoo, babyspullen, schoonmaakmiddelen, betaalt
         op jaarbasis €720. Koop je die producten consequent in Duitsland, dan
         betaal je volgens de Consumentenbond gemiddeld de helft. Dat is €360
         besparing per jaar op alleen die categorie.
       </p>
 
       <h2 className="font-display" style={h2}>
-        Per winkel — waar ga je voor wat?
+        Per winkel, waar ga je voor wat?
       </h2>
 
       <WinkelGids />
 
       <h2 className="font-display" style={h2}>
-        De slimme trip — hoe combineer je het?
+        De slimme trip, hoe combineer je het?
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Één winkel is zelden genoeg voor de beste deals. De slimste
@@ -98,7 +98,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Stap 2: begin bij DM of Rossmann voor je verzorgingsproducten. Vergelijk
-        de twee apps voor de laagste prijs — ze zitten vaak vlak bij elkaar.
+        de twee apps voor de laagste prijs, ze zitten vaak vlak bij elkaar.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Stap 3: ga daarna naar Kaufland of Lidl voor levensmiddelen, vlees en
@@ -135,7 +135,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Woon je verder dan een uur van de grens? Overweeg dan om de rit te
-        combineren met iets anders — een dagje weg, familie bezoeken, of een
+        combineren met iets anders, een dagje weg, familie bezoeken, of een
         uitstapje met de kinderen. Dan zijn de reiskosten toch al gemaakt.
       </p>
 
@@ -171,7 +171,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
           gratis analyse
         </Link>{" "}
         en zie in vijf minuten hoe jullie boodschappenuitgaven zich verhouden
-        tot vergelijkbare gezinnen — en waar jullie de meeste ruimte hebben.
+        tot vergelijkbare gezinnen, en waar jullie de meeste ruimte hebben.
       </p>
     </>
   );

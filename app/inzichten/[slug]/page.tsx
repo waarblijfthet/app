@@ -299,7 +299,7 @@ export default function ArtikelPage({ params }: Props) {
                 </section>
               )}
 
-              {/* Auteur-bio — zichtbare first-hand expertise (E-E-A-T) */}
+              {/* Auteur-bio, zichtbare first-hand expertise (E-E-A-T) */}
               <section
                 className="flex items-start gap-4"
                 style={{
@@ -319,16 +319,16 @@ export default function ArtikelPage({ params }: Props) {
                     Geschreven door Jarno Koopman
                   </p>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">
-                    Oprichter van Waar blijft het. Ik help gezinnen die goed
-                    verdienen maar tóch krap zitten — uit eigen ervaring en de
-                    gesprekken die ik met ze voer. Geen schuldhulp, geen beleggen,
-                    geen jargon.{" "}
+                    Keihard werken en tóch niets overhouden. Dat gevoel ken ik.
+                    Als CTO bij een financieel softwarebedrijf had ik geen excuus,
+                    en toch liepen onze spaarpotten leeg. Nu kijk ik met andere
+                    gezinnen mee.{" "}
                     <Link
                       href="/over"
                       style={{ color: "#C4603A", textDecoration: "none" }}
                       className="hover:underline"
                     >
-                      Meer over ons →
+                      Meer over mij →
                     </Link>
                   </p>
                 </div>

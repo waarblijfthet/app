@@ -5,7 +5,7 @@ import AdminNav from "./components/AdminNav";
 import AdminClient from "./AdminClient";
 
 export const metadata: Metadata = {
-  title: "Admin — Waar blijft het",
+  title: "Admin | Waar blijft het",
   robots: "noindex, nofollow",
 };
 

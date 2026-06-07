@@ -5,13 +5,13 @@ import QuizClient from "./QuizClient";
 
 export const metadata: Metadata = {
   title:
-    "Gratis financiële analyse — hoe doe jij het ten opzichte van vergelijkbare gezinnen?",
+    "Gratis financiële analyse: hoe doe jij het ten opzichte van vergelijkbare gezinnen?",
   description:
     "Vul in wat jullie verdienen en uitgeven. Zie direct hoe jullie het doen ten opzichte van vergelijkbare Nederlandse gezinnen. Gratis, anoniem, geen producten.",
   alternates: { canonical: "https://www.waarblijfthet.nl/analyse" },
   openGraph: {
     title:
-      "Gratis financiële analyse — Waar blijft het",
+      "Gratis financiële analyse | Waar blijft het",
     description:
       "Vul in wat jullie verdienen en uitgeven. Zie direct hoe jullie het doen ten opzichte van vergelijkbare Nederlandse gezinnen. Gratis, anoniem, geen producten.",
     url: "https://www.waarblijfthet.nl/analyse",
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "Financiële analyse — Waar blijft het",
+  name: "Financiële analyse | Waar blijft het",
   url: "https://www.waarblijfthet.nl/analyse",
   applicationCategory: "FinanceApplication",
   description:

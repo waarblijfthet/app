@@ -4,12 +4,12 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken met Waar blijft het — voor professionals",
+  title: "Samenwerken met Waar blijft het, voor professionals",
   description:
     "Werk je met gezinnen die financieel krap zitten ondanks een goed inkomen? Waar blijft het pakt het gelddeel aan, als aanvulling op jouw praktijk.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken" },
   openGraph: {
-    title: "Samenwerken met Waar blijft het — voor professionals",
+    title: "Samenwerken met Waar blijft het, voor professionals",
     description:
       "Voor relatiestherapeuten, budgetcoaches, financieel planners en burnout coaches. Wij pakken het gelddeel aan.",
     url: "https://www.waarblijfthet.nl/samenwerken",

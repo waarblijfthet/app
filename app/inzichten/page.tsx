@@ -6,12 +6,12 @@ import { artikelen } from "@/lib/inzichten-data";
 import { InzichtenGrid } from "./InzichtenGrid";
 
 export const metadata: Metadata = {
-  title: "Inzichten over grip op je geld — Waar blijft het",
+  title: "Inzichten over grip op je geld | Waar blijft het",
   description:
     "Praktische artikelen voor gezinnen die goed verdienen maar weinig overhouden. Herkenning, eerlijke cijfers en concrete stappen.",
   alternates: { canonical: "https://www.waarblijfthet.nl/inzichten" },
   openGraph: {
-    title: "Inzichten — Waar blijft het",
+    title: "Inzichten | Waar blijft het",
     description:
       "Praktische artikelen voor gezinnen die goed verdienen maar weinig overhouden.",
     url: "https://www.waarblijfthet.nl/inzichten",

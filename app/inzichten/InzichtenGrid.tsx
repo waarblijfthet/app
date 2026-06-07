@@ -104,7 +104,7 @@ export function InzichtenGrid({ artikelen }: { artikelen: Artikel[] }) {
   return (
     <div>
       {/*
-        Categorie filter — mobiel verbeteringen:
+        Categorie filter, mobiel verbeteringen:
         - scrollbar-hide: scrollbaar maar geen zichtbare native scrollbar
         - Fade-gradient rechts als scroll-hint op mobiel
         - Touch targets: py-2.5 voor bredere tapzone

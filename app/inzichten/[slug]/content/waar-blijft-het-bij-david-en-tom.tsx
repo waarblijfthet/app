@@ -26,7 +26,7 @@ export default function WaarBlijftHetBijDavidEnTom() {
       <div className="rounded-xl border p-4 mb-8" style={{ backgroundColor: "#FDF3E3", borderColor: "#F0D07A" }}>
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
           <strong>Fictief stel.</strong> De cijfers zijn samengesteld uit
-          openbare gemiddelden (Nibud, CBS) en praktijkindicaties — geen echte
+          openbare gemiddelden (Nibud, CBS) en praktijkindicaties, geen echte
           klant. Bedoeld ter herkenning.
         </p>
       </div>
@@ -57,7 +57,7 @@ export default function WaarBlijftHetBijDavidEnTom() {
       <h2 className="font-display" style={h2}>Waar blijft het?</h2>
       <p className="font-body text-text-soft" style={p}>
         Zonder kinderen of auto verwacht je een grote buffer. Maar omdat de
-        ruimte er is, groeit de levensstijl precies tot die ruimte op — een
+        ruimte er is, groeit de levensstijl precies tot die ruimte op, een
         schoolvoorbeeld van{" "}
         <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>. Het geld verdwijnt niet in één post, maar in tientallen comfortabele keuzes.
       </p>
@@ -66,7 +66,7 @@ export default function WaarBlijftHetBijDavidEnTom() {
       <p className="font-body text-text-soft" style={p}>
         Een stel met hetzelfde inkomen dat bewust een spaardoel vooraf afroomt en
         het &ldquo;uit eten&rdquo;-budget begrenst, zet moeiteloos €800–1.000 per
-        maand opzij — zonder soberder te leven, alleen bewuster. De truc is geld
+        maand opzij, zonder soberder te leven, alleen bewuster. De truc is geld
         eerst bestemming geven, dan pas uitgeven. Zie de{" "}
         <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
       </p>

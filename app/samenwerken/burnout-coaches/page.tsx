@@ -4,14 +4,14 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor burnout coaches & psychologen — Waar blijft het",
+  title: "Samenwerken · voor burnout coaches & psychologen | Waar blijft het",
   description:
-    "Financiële stress is een van de grootste obstakels bij burnoutherstel. Waar blijft het pakt de geldzorgen aan — zodat jij kunt werken aan de energie en het herstel.",
+    "Financiële stress is een van de grootste obstakels bij burnoutherstel. Waar blijft het pakt de geldzorgen aan, zodat jij kunt werken aan de energie en het herstel.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/burnout-coaches" },
   openGraph: {
     title: "Samenwerken met Waar blijft het · voor burnout coaches",
     description:
-      "Financiële chaos verlengt een burnout. Wij brengen de rust in het geld — jij brengt de rust in de mens.",
+      "Financiële chaos verlengt een burnout. Wij brengen de rust in het geld, jij brengt de rust in de mens.",
     url: "https://www.waarblijfthet.nl/samenwerken/burnout-coaches",
     type: "website",
   },
@@ -22,22 +22,22 @@ const faq = [
   {
     vraag: "Hoe helpt financieel inzicht bij burnoutherstel?",
     antwoord:
-      "Financiële onduidelijkheid is een chronische stressor. Als iemand niet weet waar het geld naartoe gaat, staat die stressbron altijd aan — ook tijdens herstel. Inzicht en structuur maken een van de grootste drukpunten hanteerbaar, zodat energie vrijkomt voor herstel.",
+      "Financiële onduidelijkheid is een chronische stressor. Als iemand niet weet waar het geld naartoe gaat, staat die stressbron altijd aan, ook tijdens herstel. Inzicht en structuur maken een van de grootste drukpunten hanteerbaar, zodat energie vrijkomt voor herstel.",
   },
   {
     vraag: "Op welk moment in het hersteltraject past dit?",
     antwoord:
-      "Dat verschilt per persoon. Soms is het slim om eerst de acute fase door te komen. Zodra er ruimte is voor praktische stappen, is een analyse van het maandbudget een logische volgende stap — concreet, overzichtelijk en niet overweldigend.",
+      "Dat verschilt per persoon. Soms is het slim om eerst de acute fase door te komen. Zodra er ruimte is voor praktische stappen, is een analyse van het maandbudget een logische volgende stap, concreet, overzichtelijk en niet overweldigend.",
   },
   {
     vraag: "Hoe verwijs ik iemand door?",
     antwoord:
-      "Je noemt Waar blijft het als financiële stress een rol speelt. Ze starten zelf met de gratis analyse — geen verplichtingen, geen intensieve onboarding. Dat past bij de behoefte van mensen in herstel.",
+      "Je noemt Waar blijft het als financiële stress een rol speelt. Ze starten zelf met de gratis analyse, geen verplichtingen, geen intensieve onboarding. Dat past bij de behoefte van mensen in herstel.",
   },
   {
     vraag: "Is er een vergoeding voor doorverwijzingen?",
     antwoord:
-      "Nee. We werken onafhankelijk — geen commerciële verwijzingsconstructies.",
+      "Nee. We werken onafhankelijk, geen commerciële verwijzingsconstructies.",
   },
 ];
 
@@ -53,19 +53,19 @@ const faqSchema = {
 
 const pijnpunten = [
   {
-    titel: "Ze zijn al uitgeput — en dan is er ook nog het geld",
+    titel: "Ze zijn al uitgeput, en dan is er ook nog het geld",
     tekst:
       "Mensen in burnoutherstel dragen vaak een extra last mee: financiële onduidelijkheid. Ze werken minder of niet, de inkomsten dalen, maar de vaste lasten lopen door. Of ze werken nog wel, maar zijn zo moe dat de financiële administratie al maanden onaangeroerd ligt. Die financiële chaos verlengt de stress en daarmee het herstel.",
   },
   {
-    titel: "Geldstress is een concrete stressbron — en die staat altijd aan",
+    titel: "Geldstress is een concrete stressbron, en die staat altijd aan",
     tekst:
       "Als burnout coach of psycholoog werk je aan energieherstel, grenzen en gedragspatronen. Maar als iemand thuis zit met een onduidelijk maandbudget, rekeningen die stapelen of het gevoel dat het geld niet klopt, is er een chronische stressor actief die jij niet oplost in de sessie. Financiële duidelijkheid is een stressor minder.",
   },
   {
-    titel: "Ze verdienen eigenlijk genoeg — maar het voelt niet zo",
+    titel: "Ze verdienen eigenlijk genoeg, maar het voelt niet zo",
     tekst:
-      "Veel mensen met een burnout komen uit sectoren met een goed inkomen: onderwijs, zorg, commercie, management. Ze hebben geen structurele geldzorgen in de klassieke zin — maar ze hebben ook nooit goed nagedacht over de financiën. Het gevoel van controleverlies over geld versterkt het gevoel van controleverlies in het algemeen.",
+      "Veel mensen met een burnout komen uit sectoren met een goed inkomen: onderwijs, zorg, commercie, management. Ze hebben geen structurele geldzorgen in de klassieke zin, maar ze hebben ook nooit goed nagedacht over de financiën. Het gevoel van controleverlies over geld versterkt het gevoel van controleverlies in het algemeen.",
   },
 ];
 
@@ -89,7 +89,7 @@ export default function BurnoutCoachesPage() {
             </h1>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-2xl">
               Als burnout coach of psycholoog werk je aan energie, grenzen en herstel. Maar
-              geldstress is een stressor die altijd aanstaat — ook als de rest beter gaat.
+              geldstress is een stressor die altijd aanstaat, ook als de rest beter gaat.
               Wij nemen het financiële stuk over, zodat jij kunt focussen op de mens.
             </p>
           </div>
@@ -116,24 +116,24 @@ export default function BurnoutCoachesPage() {
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Wat wij doen — één stressbron minder
+              Wat wij doen, één stressbron minder
             </h2>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
               Waar blijft het helpt gezinnen en stellen die goed verdienen maar toch krap
-              zitten — of het gevoel hebben dat het geld hen overkomt. We brengen de
+              zitten, of het gevoel hebben dat het geld hen overkomt. We brengen de
               maandelijkse cashflow helder in kaart en geven concrete stappen om structuur
-              te krijgen. Geen overweldigende analyse, geen schuldhulp — gewoon een helder
+              te krijgen. Geen overweldigende analyse, geen schuldhulp, gewoon een helder
               overzicht dat rust geeft.
             </p>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
               Voor iemand in herstel is een laagdrempelige eerste stap belangrijk. Daarom
-              begint alles met een gratis analyse van vijf minuten — geen verplichtingen,
+              begint alles met een gratis analyse van vijf minuten, geen verplichtingen,
               geen intensieve onboarding. Rustig tempo, duidelijk inzicht.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
               {[
                 ["Laagdrempelig", "Gratis analyse van 5 minuten. Geen verplichtingen."],
-                ["Concreet", "Twee of drie duidelijke stappen — niet overweldigend."],
+                ["Concreet", "Twee of drie duidelijke stappen, niet overweldigend."],
                 ["Complementair", "Wij doen het geld. Jij doet de mens. Geen overlap."],
               ].map(([t, d]) => (
                 <div key={t} className="text-center p-4 rounded-xl" style={{ backgroundColor: "#F5F0E8" }}>
@@ -155,7 +155,7 @@ export default function BurnoutCoachesPage() {
               {[
                 ["1", "Noem ons als het geld een rol speelt", "Zodra financiële stress ter sprake komt, kun je Waar blijft het noemen. Geen grote introductie nodig."],
                 ["2", "Ze starten op hun eigen tempo", "De gratis analyse op de site duurt vijf minuten en is volledig op hun eigen moment te doen. Geen drempel."],
-                ["3", "Wij pakken het financiële deel op", "Een adviesgesprek of traject, volledig gericht op het maandbudget. Jij blijft hun coach — wij zijn de financiële schakel."],
+                ["3", "Wij pakken het financiële deel op", "Een adviesgesprek of traject, volledig gericht op het maandbudget. Jij blijft hun coach, wij zijn de financiële schakel."],
               ].map(([n, t, d]) => (
                 <div key={n} className="card-base border border-[#E8E0D0] flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-green-light flex items-center justify-center shrink-0">

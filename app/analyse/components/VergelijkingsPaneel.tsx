@@ -98,7 +98,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
   const over = berekenOver(data);
   const overDiff = over - benches.vrij_besteedbaar;
 
-  // Step 1 — only profile confirmation, no numbers yet
+  // Step 1, only profile confirmation, no numbers yet
   if (currentStep === 1) {
     if (!data.woonsituatie || data.kinderen === null || !data.auto) return null;
     return (
@@ -125,7 +125,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
     );
   }
 
-  // Step 2 — income overview
+  // Step 2, income overview
   if (currentStep === 2) {
     if (inkomen === 0) return null;
     const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
@@ -162,7 +162,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
     );
   }
 
-  // Steps 3-5 — cumulative expense overview
+  // Steps 3-5, cumulative expense overview
   const wonen = berekenWonen(data);
   const vervoer = berekenVervoer(data);
   const verzekeringen = berekenVerzekeringen(data);

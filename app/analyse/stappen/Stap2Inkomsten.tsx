@@ -97,7 +97,7 @@ function SalarisBlok({
             <Toggle
               checked={false}
               onChange={() => {}}
-              label="Zakelijke auto — bijtelling nog niet verrekend"
+              label="Zakelijke auto, bijtelling nog niet verrekend"
               hint="Vink aan als de bijtelling het nettosalaris nog vermindert"
             />
           )}
@@ -124,7 +124,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         Wat komt er binnen?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Vul het netto bedrag in — dus na belasting en inhoudingen.
+        Vul het netto bedrag in, dus na belasting en inhoudingen.
       </p>
 
       <SalarisBlok
@@ -146,7 +146,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         onChange={onChange}
       />
 
-      {/* Hypotheekrenteaftrek — inkomen, alleen bij koopwoning */}
+      {/* Hypotheekrenteaftrek, inkomen, alleen bij koopwoning */}
       {data.woonsituatie === "koop" && (
         <div className="mb-6">
           <div className="flex gap-2 mb-2">
@@ -166,11 +166,11 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
             ))}
           </div>
           <EuroInput
-            label={`Hypotheekrenteaftrek / teruggave — per ${data.hypotheekRenteAftrekPer}`}
+            label={`Hypotheekrenteaftrek / teruggave, per ${data.hypotheekRenteAftrekPer}`}
             id="hypotheekRenteAftrek"
             value={data.hypotheekRenteAftrek}
             onChange={(v) => onChange({ hypotheekRenteAftrek: v })}
-            hint="Je belastingteruggave op de hypotheekrente. Vaak weet je het jaarbedrag — kies dan 'per jaar'. Weet je het niet? Laat leeg."
+            hint="Je belastingteruggave op de hypotheekrente. Vaak weet je het jaarbedrag, kies dan 'per jaar'. Weet je het niet? Laat leeg."
           />
         </div>
       )}

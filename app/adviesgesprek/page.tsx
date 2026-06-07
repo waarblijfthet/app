@@ -4,12 +4,12 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Financieel adviesgesprek — eenmalig, €125, vrijblijvend",
+  title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
   description:
     "Een eenmalig financieel adviesgesprek van 45 minuten: eerlijk naar je cijfers kijken en 2 à 3 concrete doelen stellen. €125, geen traject, geen verplichting.",
   alternates: { canonical: "https://www.waarblijfthet.nl/adviesgesprek" },
   openGraph: {
-    title: "Financieel adviesgesprek — eenmalig, €125, vrijblijvend",
+    title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
     description:
       "45 minuten, eerlijk en gericht. Samen naar je cijfers kijken en 2 à 3 concrete doelen stellen. Geen traject, geen verplichting.",
     url: "https://www.waarblijfthet.nl/adviesgesprek",
@@ -22,17 +22,17 @@ const faq = [
   {
     vraag: "Wat kost het adviesgesprek?",
     antwoord:
-      "Eenmalig €125 voor een videogesprek van 45 minuten, inclusief de voorbereiding en een schriftelijke samenvatting achteraf. Geen abonnement, geen traject — je betaalt één keer en zit nergens aan vast.",
+      "Eenmalig €125 voor een videogesprek van 45 minuten, inclusief de voorbereiding en een schriftelijke samenvatting achteraf. Geen abonnement, geen traject. Je betaalt één keer en zit nergens aan vast.",
   },
   {
     vraag: "Moet ik daarna een traject afnemen?",
     antwoord:
-      "Nee. Het gesprek is eenmalig en op zichzelf compleet. Je gaat naar huis met concrete doelen waar je zelf mee verder kunt. Wil je later meer begeleiding, dan kan dat — maar het hoeft niet.",
+      "Nee. Het gesprek is eenmalig en op zichzelf compleet. Je gaat naar huis met concrete doelen waar je zelf mee verder kunt. Wil je later meer begeleiding, dan kan dat, maar het hoeft niet.",
   },
   {
     vraag: "Krijgen jullie toegang tot mijn bankrekening?",
     antwoord:
-      "Nee. Je deelt alleen wat je zelf wilt. De gratis analyse en eventueel een paar bankafschriften die je zelf aanlevert zijn genoeg — wij koppelen niets aan je bank.",
+      "Nee. Je deelt alleen wat je zelf wilt. De gratis analyse en eventueel een paar bankafschriften die je zelf aanlevert zijn genoeg. Wij koppelen niets aan je bank.",
   },
   {
     vraag: "Is dit financieel advies of schuldhulp?",
@@ -54,28 +54,28 @@ const faqSchema = {
 const stappen = [
   {
     n: "1",
-    titel: "Vooraf — je vertrekpunt",
+    titel: "Vooraf: je vertrekpunt",
     items: [
-      "Je doet de gratis analyse (5 min) — dat is de basis van ons gesprek.",
+      "Je doet de gratis analyse (5 min), dat is de basis van ons gesprek.",
       "Optioneel: leg een paar recente bankafschriften klaar.",
       "Bedenk in één zin: wat is jullie grootste vraag of zorg?",
     ],
   },
   {
     n: "2",
-    titel: "Het gesprek — 45 minuten, eerlijk en gericht",
+    titel: "Het gesprek: 45 minuten, eerlijk en gericht",
     items: [
       "We kijken samen naar jullie cijfers en de twee grootste afwijkingen.",
-      "Geen verkooppraat, geen oordeel — gewoon een eerlijke blik van buitenaf.",
+      "Geen verkooppraat, geen oordeel. Gewoon een eerlijke blik van buitenaf.",
       "We bepalen samen 2 à 3 concrete doelen waar je meteen mee verder kunt.",
     ],
   },
   {
     n: "3",
-    titel: "Erna — iets tastbaars",
+    titel: "Erna: iets tastbaars",
     items: [
       "Je krijgt een korte schriftelijke samenvatting met je doelen, om terug te lezen.",
-      "Daarmee ga je zelf verder — in je eigen tempo.",
+      "Daarmee ga je zelf verder, in je eigen tempo.",
       "Wil je meer begeleiding? Dan kijken we naar een traject. Maar dat hoeft niet.",
     ],
   },
@@ -101,7 +101,7 @@ export default function AdviesgesprekPage() {
             <p className="text-text-soft font-body font-light text-lg leading-relaxed">
               Eén gesprek van 45 minuten waarin we eerlijk naar jullie cijfers
               kijken en 2 à 3 concrete doelen stellen. Geen traject, geen
-              verplichting — gewoon de por die je nodig hebt om van krap naar
+              verplichting. Gewoon de por die je nodig hebt om van krap naar
               ruim te gaan.
             </p>
           </div>

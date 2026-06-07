@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor budgetcoaches — Waar blijft het",
+  title: "Samenwerken · voor budgetcoaches | Waar blijft het",
   description:
-    "Cliënten die genoeg verdienen maar toch krap zitten passen niet in schuldhulp. Waar blijft het richt zich precies op dit middensegment — een logische aanvulling op jouw praktijk.",
+    "Cliënten die genoeg verdienen maar toch krap zitten passen niet in schuldhulp. Waar blijft het richt zich precies op dit middensegment, een logische aanvulling op jouw praktijk.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/budgetcoaches" },
   openGraph: {
     title: "Samenwerken met Waar blijft het · voor budgetcoaches",
@@ -27,7 +27,7 @@ const faq = [
   {
     vraag: "Hoe verwijs ik iemand door?",
     antwoord:
-      "Je noemt Waar blijft het als de cliënt buiten jouw scope valt — te weinig schulden voor schuldhulp, maar wel grip nodig op het maandbudget. Ze starten zelf via de gratis analyse op de site.",
+      "Je noemt Waar blijft het als de cliënt buiten jouw scope valt, te weinig schulden voor schuldhulp, maar wel grip nodig op het maandbudget. Ze starten zelf via de gratis analyse op de site.",
   },
   {
     vraag: "Werken jullie samen met budgetcoaches in een traject?",
@@ -37,7 +37,7 @@ const faq = [
   {
     vraag: "Is er een vergoeding voor doorverwijzingen?",
     antwoord:
-      "Nee. We werken onafhankelijk — geen affiliate-constructies of commerciële verwijzingsrelaties.",
+      "Nee. We werken onafhankelijk, geen affiliate-constructies of commerciële verwijzingsrelaties.",
   },
 ];
 
@@ -53,9 +53,9 @@ const faqSchema = {
 
 const pijnpunten = [
   {
-    titel: "Ze verdienen te veel voor schuldhulp — en te weinig om niets te doen",
+    titel: "Ze verdienen te veel voor schuldhulp, en te weinig om niets te doen",
     tekst:
-      "Een gezin met €4.500 netto per maand heeft geen recht op schuldhulpverlening. Ze hebben ook geen schulden. Maar ze leven maand tot maand, kunnen niets sparen en begrijpen niet waar het geld blijft. Ze vallen overal buiten. En als budgetcoach zie je ze soms langskomen — maar ze passen niet goed in jouw reguliere traject.",
+      "Een gezin met €4.500 netto per maand heeft geen recht op schuldhulpverlening. Ze hebben ook geen schulden. Maar ze leven maand tot maand, kunnen niets sparen en begrijpen niet waar het geld blijft. Ze vallen overal buiten. En als budgetcoach zie je ze soms langskomen, maar ze passen niet goed in jouw reguliere traject.",
   },
   {
     titel: "Het probleem zit in structuur, niet in gedrag",
@@ -65,7 +65,7 @@ const pijnpunten = [
   {
     titel: "Ze zoeken hulp, maar weten niet waar",
     tekst:
-      "Schuldhulp is voor mensen met schulden. Een financieel planner is voor vermogensbeheer. Een budgetcoach klinkt als 'arm'. Ze zoeken ergens tussenin — iemand die begrijpt dat je gewoon goed wil weten waar het geld naartoe gaat, zonder dat je een probleemsituatie hoeft te zijn.",
+      "Schuldhulp is voor mensen met schulden. Een financieel planner is voor vermogensbeheer. Een budgetcoach klinkt als 'arm'. Ze zoeken ergens tussenin, iemand die begrijpt dat je gewoon goed wil weten waar het geld naartoe gaat, zonder dat je een probleemsituatie hoeft te zijn.",
   },
 ];
 
@@ -90,7 +90,7 @@ export default function BudgetcoachesPage() {
             <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-2xl">
               Als budgetcoach of schuldhulpverlener ken je dit type: een gezin met een modaal
               of bovenmodaal inkomen, geen echte schulden, maar wel structureel krap. Ze passen
-              niet in schuldhulp — maar ze hebben wel iemand nodig. Dat is waar wij in springen.
+              niet in schuldhulp, maar ze hebben wel iemand nodig. Dat is waar wij in springen.
             </p>
           </div>
         </section>
@@ -116,13 +116,13 @@ export default function BudgetcoachesPage() {
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Wat wij doen — precies het gat dat jij niet vult
+              Wat wij doen, precies het gat dat jij niet vult
             </h2>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
               Waar blijft het richt zich op het middensegment: gezinnen en stellen met een
               modaal tot bovenmodaal inkomen die nooit goed hebben nagedacht over hun
               maandstructuur. We brengen het budget in kaart, benoemen de twee of drie plekken
-              waar geld structureel weglekt, en geven concrete stappen — zonder oordeel,
+              waar geld structureel weglekt, en geven concrete stappen, zonder oordeel,
               zonder jargon.
             </p>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
@@ -130,7 +130,7 @@ export default function BudgetcoachesPage() {
               voor mensen die dat tot nu toe misten.
             </p>
             <div className="rounded-xl border p-6 mt-6" style={{ borderColor: "#E8E0D0", backgroundColor: "#F5F0E8" }}>
-              <p className="font-body font-medium text-primary text-sm mb-2">Het middensegment — concreet</p>
+              <p className="font-body font-medium text-primary text-sm mb-2">Het middensegment, concreet</p>
               <p className="font-body font-light text-text-soft text-sm leading-relaxed">
                 Netto gezinsinkomen €3.000–€7.000 per maand. Geen schulden of betalingsachterstand.
                 Wel: structureel weinig over, geen buffer, onbegrip over waar het geld heen gaat.

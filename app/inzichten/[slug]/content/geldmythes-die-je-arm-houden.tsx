@@ -13,7 +13,7 @@ export default function GeldmythesDieJeArmHouden() {
           {[
             "Vijf veelgehoorde aannames over geld die logisch klinken maar je juist krap houden",
             "Waarom meer verdienen, een budgetapp of boodschappen in Duitsland het probleem zelden oplossen",
-            "Dat krap zitten bijna nooit aan karakter of discipline ligt — bijna altijd aan structuur",
+            "Dat krap zitten bijna nooit aan karakter of discipline ligt, bijna altijd aan structuur",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
@@ -25,14 +25,14 @@ export default function GeldmythesDieJeArmHouden() {
 
       <p className="font-body text-text-soft" style={p}>
         Rond geld leven hardnekkige aannames die logisch klinken, maar je juist
-        krap houden. Dit zijn er vijf die we het vaakst tegenkomen — en wat er
+        krap houden. Dit zijn er vijf die we het vaakst tegenkomen, en wat er
         werkelijk klopt.
       </p>
 
       <h2 className="font-display" style={h2}>Mythe 1: &ldquo;Sparen lukt vanzelf als ik meer verdien&rdquo;</h2>
       <p className="font-body text-text-soft" style={p}>
         Klinkt logisch, maar de praktijk laat het tegenovergestelde zien. Naarmate
-        je meer verdient, groeien je uitgaven mee — een groter huis, een duurdere
+        je meer verdient, groeien je uitgaven mee, een groter huis, een duurdere
         auto, vaker uit eten. Dat heet{" "}
         <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>, en het is precies waarom mensen met een hoog inkomen even krap kunnen zitten als met een laag inkomen.
       </p>

@@ -32,7 +32,7 @@ export default function BsoKostenTweedeInkomen() {
           {[
             "Hoe je uitrekent wat een extra werkdag netto werkelijk oplevert na opvang, belasting en reiskosten",
             "Waarom bovenmodale tweeverdieners weinig kinderopvangtoeslag krijgen en hoe groot dat verschil is",
-            "Dat minder BSO-dagen niet per se minder inkomen betekent — als de berekening klopt",
+            "Dat minder BSO-dagen niet per se minder inkomen betekent, als de berekening klopt",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
@@ -44,24 +44,24 @@ export default function BsoKostenTweedeInkomen() {
 
       <div className="rounded-xl border p-4 mb-8" style={{ backgroundColor: "#FDF3E3", borderColor: "#F0D07A" }}>
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
-          <strong>Echte case.</strong> Naam en details aangepast voor privacy; de aanpak en uitkomst zijn echt. Opvangkosten en toeslag verschillen per inkomen — reken je eigen situatie door op toeslagen.nl.
+          <strong>Echte case.</strong> Naam en details aangepast voor privacy; de aanpak en uitkomst zijn echt. Opvangkosten en toeslag verschillen per inkomen, reken je eigen situatie door op toeslagen.nl.
         </p>
       </div>
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
-        Karim en Noor hielden van het tweede inkomen netto bijna niets over — de BSO slokte het op. Door uit te rekenen wat die extra werkdag écht opleverde en flexibeler te gaan werken, gingen ze van <strong>3 naar 1 dag BSO</strong>: zo'n <strong>€345 per maand minder</strong>, én meer rust thuis.
+        Karim en Noor hielden van het tweede inkomen netto bijna niets over, de BSO slokte het op. Door uit te rekenen wat die extra werkdag écht opleverde en flexibeler te gaan werken, gingen ze van <strong>3 naar 1 dag BSO</strong>: zo'n <strong>€345 per maand minder</strong>, én meer rust thuis.
       </p>
 
       <h2 className="font-display" style={h2}>Wat er eerst speelde</h2>
       <p className="font-body text-text-soft" style={p}>
-        Twee goede inkomens, twee jonge kinderen, drie dagen buitenschoolse opvang. Omdat ze samen bovenmodaal verdienen, kregen ze relatief weinig kinderopvangtoeslag — hun eigen bijdrage lag rond de €520 per maand. Tel daar de reistijd, het haasten en de stress bij op, en de derde werkdag leverde netto verrassend weinig op. Maar niemand had dat ooit hardop doorgerekend.
+        Twee goede inkomens, twee jonge kinderen, drie dagen buitenschoolse opvang. Omdat ze samen bovenmodaal verdienen, kregen ze relatief weinig kinderopvangtoeslag, hun eigen bijdrage lag rond de €520 per maand. Tel daar de reistijd, het haasten en de stress bij op, en de derde werkdag leverde netto verrassend weinig op. Maar niemand had dat ooit hardop doorgerekend.
       </p>
 
       <h2 className="font-display" style={h2}>Wat we veranderden</h2>
       <ol className="font-body text-text-soft" style={{ ...p, paddingLeft: "20px" }}>
         <li style={{ marginBottom: "8px" }}><strong>We rekenden de derde werkdag echt door.</strong> Wat bleef er ná opvang, reiskosten en een hogere belastingschijf netto over? Bij hen: bijna niets.</li>
-        <li style={{ marginBottom: "8px" }}><strong>Flexibeler werken besproken.</strong> Niet minder verdienen om het verdienen, maar één dag thuis/anders ingedeeld — en hoe je dat bij je werkgever brengt.</li>
-        <li><strong>BSO terug van 3 naar 1 dag.</strong> De besparing op de opvang was groter dan het beetje netto-inkomen dat wegviel — en er kwam rust voor terug.</li>
+        <li style={{ marginBottom: "8px" }}><strong>Flexibeler werken besproken.</strong> Niet minder verdienen om het verdienen, maar één dag thuis/anders ingedeeld, en hoe je dat bij je werkgever brengt.</li>
+        <li><strong>BSO terug van 3 naar 1 dag.</strong> De besparing op de opvang was groter dan het beetje netto-inkomen dat wegviel, en er kwam rust voor terug.</li>
       </ol>
 
       <h2 className="font-display" style={h2}>De uitkomst</h2>
@@ -72,7 +72,7 @@ export default function BsoKostenTweedeInkomen() {
         ["Netto effect per maand", "—", "+ ± €345"],
       ]} />
       <p className="font-body text-text-soft" style={p}>
-        Belangrijk: dit is geen pleidooi om minder te werken — voor sommige gezinnen zijn die dagen onmisbaar. Het punt is dat ze het nooit hadden <em>doorgerekend</em>. Toen ze dat deden, bleek de "vanzelfsprekende" derde dag hen meer te kosten dan op te leveren. De maximale vergoede opvanguurprijs is in 2026 €9,98; hoeveel je zelf betaalt hangt sterk af van je inkomen.
+        Belangrijk: dit is geen pleidooi om minder te werken, voor sommige gezinnen zijn die dagen onmisbaar. Het punt is dat ze het nooit hadden <em>doorgerekend</em>. Toen ze dat deden, bleek de "vanzelfsprekende" derde dag hen meer te kosten dan op te leveren. De maximale vergoede opvanguurprijs is in 2026 €9,98; hoeveel je zelf betaalt hangt sterk af van je inkomen.
       </p>
 
       <p className="font-body text-text-soft" style={p}>
@@ -85,7 +85,7 @@ export default function BsoKostenTweedeInkomen() {
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Meer praktijkverhalen:</strong> <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Ons boodschappenbudget mislukte — tot we dit deden</a> &middot; <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">December: zo bouwden we een kerst- en verjaardagspot</a>.
+        <strong>Meer praktijkverhalen:</strong> <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Ons boodschappenbudget mislukte, tot we dit deden</a> &middot; <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">December: zo bouwden we een kerst- en verjaardagspot</a>.
       </p>
     </>
   );

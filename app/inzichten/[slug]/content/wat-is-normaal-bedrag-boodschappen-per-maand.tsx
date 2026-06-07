@@ -20,9 +20,9 @@ export default function WatIsNormaalBedragBoodschappen() {
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Wat de Nibud-boodschappennorm werkelijk meet — en waarom bijna iedereen er overheen zit",
+            "Wat de Nibud-boodschappennorm werkelijk meet, en waarom bijna iedereen er overheen zit",
             "Waarom pubers duurder zijn dan je denkt: een kind van 12 eet bijna net zoveel als een volwassene",
-            "Dat 10-15% besparen op je huidige bedrag realistisch is — en welke drie stappen daarvoor werken",
+            "Dat 10-15% besparen op je huidige bedrag realistisch is, en welke drie stappen daarvoor werken",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
@@ -40,14 +40,14 @@ export default function WatIsNormaalBedragBoodschappen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dat klinkt als veel. Maar is het dat? Het Nibud zegt voor dit gezin iets
-        van €700 minimaal. De werkelijkheid van dit specifieke gezin — en van veel
-        meer gezinnen in Nederland — ligt op het dubbele. Niet door verspilling of
+        van €700 minimaal. De werkelijkheid van dit specifieke gezin, en van veel
+        meer gezinnen in Nederland, ligt op het dubbele. Niet door verspilling of
         luxe, maar gewoon doordat drie opgroeiende kinderen eten, en eten kost
         geld.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dit artikel legt uit wat de kloof is tussen de officiële norm en wat
-        gezinnen in de praktijk uitgeven — en welke drie oorzaken vrijwel niemand
+        gezinnen in de praktijk uitgeven, en welke drie oorzaken vrijwel niemand
         benoemt.
       </p>
 
@@ -59,7 +59,7 @@ export default function WatIsNormaalBedragBoodschappen() {
         Waarom klopt de Nibud-norm niet met jouw kassabon?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Het Nibud-bedrag is een minimum voor voeding — letterlijk berekend op
+        Het Nibud-bedrag is een minimum voor voeding, letterlijk berekend op
         basis van calorieën en voedingsstoffen. Het is niet wat een gemiddeld
         gezin uitgeeft. Het is wat een gezin minimaal nodig heeft om gezond te
         eten.
@@ -72,7 +72,7 @@ export default function WatIsNormaalBedragBoodschappen() {
         Wat Nibud niet meerekent: brood van de bakker, vlees van de slager,
         drogisterijproducten, schoollunches, tussendoortjes voor sport, koekjes
         voor een verjaardag. Die kosten zijn reëel en onvermijdelijk voor de
-        meeste gezinnen — maar ze zitten niet in de basistabel.
+        meeste gezinnen, maar ze zitten niet in de basistabel.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Als je Nibud-voeding uitbreidt met persoonlijke verzorging, was- en
@@ -92,7 +92,7 @@ export default function WatIsNormaalBedragBoodschappen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Een mamablogger met een gezin van vier schreef in december 2024 dat ze dat
-        jaar €8.830 bij Albert Heijn alleen al had uitgegeven — €737 per maand.
+        jaar €8.830 bij Albert Heijn alleen al had uitgegeven, €737 per maand.
         Haar conclusie: &ldquo;Niet eens zo heel erg gek voor een gezin van
         vier.&rdquo;
       </p>
@@ -112,14 +112,14 @@ export default function WatIsNormaalBedragBoodschappen() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Dit is het punt dat bijna niemand je vertelt. Nibud rekent per
-        leeftijdsgroep — een kind van 8 jaar kost minder dan een kind van 13.
+        leeftijdsgroep, een kind van 8 jaar kost minder dan een kind van 13.
         Maar de sprong tussen 10 en 14 jaar is enorm, en in de Nibud-tabellen zit
         die niet zo prominent.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Een kind van 12 eet in de praktijk bijna evenveel als een volwassene. Een
         gezin met drie kinderen van 8, 10 en 12 jaar heeft geen
-        &ldquo;kinderkosten&rdquo; meer in de traditionele zin — het zijn drie
+        &ldquo;kinderkosten&rdquo; meer in de traditionele zin, het zijn drie
         bijna-volwassenen qua eetgedrag.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -144,7 +144,7 @@ export default function WatIsNormaalBedragBoodschappen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         De derde stap is één structurele aanpassing kiezen. Weekmenu&apos;s
-        opstellen heeft bij veel gezinnen direct effect — niet omdat je goedkoper
+        opstellen heeft bij veel gezinnen direct effect, niet omdat je goedkoper
         inkoopt, maar omdat je minder weggooit en minder improvisatie-aankopen
         doet. Wil je ook kijken of je sommige producten goedkoper kunt halen?{" "}
         <Link
@@ -158,12 +158,12 @@ export default function WatIsNormaalBedragBoodschappen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Een realistisch doel: 10-15 procent besparen op je huidige bedrag. Voor
-        een gezin dat €1.000 uitgeeft is dat €100-150 per maand — €1.200-1.800
+        een gezin dat €1.000 uitgeeft is dat €100-150 per maand, €1.200-1.800
         per jaar. Zonder dat je kwaliteit inlevert.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je weten hoe jullie boodschappenuitgaven zich verhouden tot
-        vergelijkbare gezinnen — met dezelfde gezinsgrootte en hetzelfde
+        vergelijkbare gezinnen, met dezelfde gezinsgrootte en hetzelfde
         inkomensniveau? Doe de{" "}
         <Link
           href="/analyse"
@@ -179,7 +179,7 @@ export default function WatIsNormaalBedragBoodschappen() {
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
         <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> In de gesprekken die ik voer schatten gezinnen hun boodschappen bijna altijd €100 tot €200 te laag in — niet omdat ze liegen, maar omdat de tussendoor-momenten, de drogist en de bakker er niet in zitten. Pas als ze een maand écht alles bij elkaar optellen, zien ze het echte bedrag.
+          <strong>Uit de praktijk.</strong> In de gesprekken die ik voer schatten gezinnen hun boodschappen bijna altijd €100 tot €200 te laag in, niet omdat ze liegen, maar omdat de tussendoor-momenten, de drogist en de bakker er niet in zitten. Pas als ze een maand écht alles bij elkaar optellen, zien ze het echte bedrag.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>
