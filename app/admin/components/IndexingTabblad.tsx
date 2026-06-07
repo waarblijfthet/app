@@ -28,18 +28,35 @@ interface StatusResponse {
   summary: Summary;
 }
 
+interface InspectDebug {
+  siteUrl?: string;
+  tokenAccount?: string;
+  urlsChecked?: number;
+}
+
+interface InspectResponse {
+  inspected?: number;
+  indexed?: number;
+  not_indexed?: number;
+  errors?: string[];
+  urlResults?: Record<string, string>;
+  debug?: InspectDebug;
+  error?: string;
+}
+
 interface ActionResult {
   message: string;
   type: "success" | "error" | "info";
   errors?: string[];
+  debug?: InspectDebug;
 }
 
 const STATUS_BADGE: Record<string, { label: string; kleur: string }> = {
-  pending:     { label: "pending",        kleur: "bg-gray-100 text-gray-600" },
-  submitted:   { label: "ingediend",      kleur: "bg-amber-100 text-amber-700" },
-  indexed:     { label: "geïndexeerd",    kleur: "bg-green-100 text-green-700" },
-  not_indexed: { label: "niet geïndexeerd", kleur: "bg-red-100 text-red-700" },
-  error:       { label: "fout ×",         kleur: "bg-red-100 text-red-700" },
+  pending:     { label: "pending",           kleur: "bg-gray-100 text-gray-600" },
+  submitted:   { label: "ingediend",         kleur: "bg-amber-100 text-amber-700" },
+  indexed:     { label: "geïndexeerd",       kleur: "bg-green-100 text-green-700" },
+  not_indexed: { label: "niet geïndexeerd",  kleur: "bg-red-100 text-red-700" },
+  error:       { label: "fout ×",            kleur: "bg-red-100 text-red-700" },
 };
 
 function datumKort(iso: string | null): string {
@@ -60,6 +77,7 @@ export default function IndexingTabblad() {
   const [bezig, setBezig] = useState<string | null>(null);
   const [resultaat, setResultaat] = useState<ActionResult | null>(null);
   const [foutUitgeklapt, setFoutUitgeklapt] = useState(false);
+  const [debugUitgeklapt, setDebugUitgeklapt] = useState(false);
 
   const laadStatus = useCallback(async () => {
     setLaden(true);
@@ -125,7 +143,7 @@ export default function IndexingTabblad() {
   }
 
   async function inspecteer(urls?: string[]) {
-    setBezig("inspect");
+    setBezig(urls ? `inspect-${urls[0]}` : "inspect");
     setResultaat(null);
     try {
       const res = await fetch("/api/admin/indexing/inspect", {
@@ -133,14 +151,16 @@ export default function IndexingTabblad() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(urls ? { urls } : {}),
       });
-      const data = await res.json() as { inspected?: number; indexed?: number; not_indexed?: number; errors?: string[]; error?: string };
+      const data = await res.json() as InspectResponse;
       if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
       const errCount = data.errors?.length ?? 0;
       setFoutUitgeklapt(false);
+      setDebugUitgeklapt(false);
       setResultaat({
         message: `${data.inspected ?? 0} gecheckt · ${data.indexed ?? 0} geïndexeerd · ${data.not_indexed ?? 0} niet geïndexeerd${errCount > 0 ? ` · ${errCount} fout(en)` : ""}`,
         type: errCount > 0 ? "error" : "success",
         errors: data.errors,
+        debug: data.debug,
       });
       await laadStatus();
     } catch (err) {
@@ -217,18 +237,40 @@ export default function IndexingTabblad() {
       {/* Resultaatmelding */}
       {resultaat && (
         <div className={`rounded-lg border text-sm ${resultaatKleur}`}>
-          <div className="flex items-center justify-between px-4 py-3">
+          <div className="flex items-center justify-between px-4 py-3 flex-wrap gap-2">
             <span>{resultaat.message}</span>
-            {resultaat.errors && resultaat.errors.length > 0 && (
-              <button
-                type="button"
-                onClick={() => setFoutUitgeklapt((v) => !v)}
-                className="ml-4 underline text-xs opacity-70 hover:opacity-100 whitespace-nowrap"
-              >
-                {foutUitgeklapt ? "Verberg details" : "Toon foutdetails"}
-              </button>
-            )}
+            <div className="flex gap-3">
+              {resultaat.debug && (
+                <button
+                  type="button"
+                  onClick={() => setDebugUitgeklapt((v) => !v)}
+                  className="underline text-xs opacity-70 hover:opacity-100 whitespace-nowrap"
+                >
+                  {debugUitgeklapt ? "Verberg debug" : "🔧 Debug info"}
+                </button>
+              )}
+              {resultaat.errors && resultaat.errors.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setFoutUitgeklapt((v) => !v)}
+                  className="underline text-xs opacity-70 hover:opacity-100 whitespace-nowrap"
+                >
+                  {foutUitgeklapt ? "Verberg fouten" : `⚠ ${resultaat.errors.length} fout(en)`}
+                </button>
+              )}
+            </div>
           </div>
+
+          {/* Debug info */}
+          {debugUitgeklapt && resultaat.debug && (
+            <div className="border-t border-current/20 px-4 py-3 space-y-1 font-mono text-xs">
+              <div><strong>siteUrl:</strong> {resultaat.debug.siteUrl ?? "—"}</div>
+              <div><strong>tokenAccount:</strong> {resultaat.debug.tokenAccount ?? "—"}</div>
+              <div><strong>urlsChecked:</strong> {resultaat.debug.urlsChecked ?? "—"}</div>
+            </div>
+          )}
+
+          {/* Foutdetails */}
           {foutUitgeklapt && resultaat.errors && resultaat.errors.length > 0 && (
             <div className="border-t border-current/20 px-4 py-3 space-y-1">
               {resultaat.errors.map((e, i) => (
@@ -264,6 +306,7 @@ export default function IndexingTabblad() {
             <tbody>
               {rows.map((row, i) => {
                 const badge = STATUS_BADGE[row.status] ?? { label: row.status, kleur: "bg-gray-100 text-gray-600" };
+                const bezigMetDezeUrl = bezig === `inspect-${row.url}`;
                 return (
                   <tr
                     key={row.id}
@@ -274,11 +317,14 @@ export default function IndexingTabblad() {
                         {urlKort(row.url)}
                       </div>
                       {row.error_message && (
-                        <div className="mt-1 text-xs text-red-600 break-all leading-snug" title={row.error_message}>
-                          ⚠ {row.error_message.length > 120
-                            ? row.error_message.slice(0, 120) + "…"
-                            : row.error_message}
-                        </div>
+                        <details className="mt-1">
+                          <summary className="text-xs text-red-600 cursor-pointer select-none">
+                            ⚠ Fout — klik voor details
+                          </summary>
+                          <div className="mt-1 text-xs text-red-600 break-all leading-snug font-mono bg-red-50 rounded p-2">
+                            {row.error_message}
+                          </div>
+                        </details>
                       )}
                     </td>
                     <td className="px-4 py-3">
@@ -296,16 +342,26 @@ export default function IndexingTabblad() {
                       {datumKort(row.last_submitted_at)}
                     </td>
                     <td className="px-4 py-3">
-                      {row.status !== "indexed" && (
+                      <div className="flex gap-2 flex-wrap">
                         <button
                           type="button"
-                          onClick={() => void indienen([row.url])}
+                          onClick={() => void inspecteer([row.url])}
                           disabled={!!bezig}
-                          className="text-xs px-2.5 py-1 rounded border border-[#C4603A] text-[#C4603A] hover:bg-[#FDF0EC] disabled:opacity-40 transition-colors whitespace-nowrap"
+                          className="text-xs px-2.5 py-1 rounded border border-[#1C3A2A] text-[#1C3A2A] hover:bg-[#E8F0EB] disabled:opacity-40 transition-colors whitespace-nowrap"
                         >
-                          {row.status === "pending" ? "Indienen" : "Opnieuw indienen"}
+                          {bezigMetDezeUrl ? "…" : "🔍"}
                         </button>
-                      )}
+                        {row.status !== "indexed" && (
+                          <button
+                            type="button"
+                            onClick={() => void indienen([row.url])}
+                            disabled={!!bezig}
+                            className="text-xs px-2.5 py-1 rounded border border-[#C4603A] text-[#C4603A] hover:bg-[#FDF0EC] disabled:opacity-40 transition-colors whitespace-nowrap"
+                          >
+                            {row.status === "pending" ? "Indienen" : "Opnieuw"}
+                          </button>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 );

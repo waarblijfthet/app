@@ -13,6 +13,8 @@ interface InspectResult {
   };
 }
 
+const SITE_URL = "sc-domain:waarblijfthet.nl";
+
 export async function POST(request: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet geautoriseerd" }, { status: 401 });
@@ -42,15 +44,34 @@ export async function POST(request: NextRequest) {
   }
 
   if (urls.length === 0) {
-    return NextResponse.json({ inspected: 0, indexed: 0, not_indexed: 0, errors: [] });
+    return NextResponse.json({ inspected: 0, indexed: 0, not_indexed: 0, errors: [], debug: { siteUrl: SITE_URL } });
   }
 
+  // Haal token op + controleer welk account er achter zit
   let token: string;
+  let tokenAccount = "onbekend";
   try {
     token = await getGoogleAuthToken();
+
+    // Controleer welk Google-account dit token toebehoort
+    try {
+      const infoRes = await fetch(
+        `https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${token}`
+      );
+      if (infoRes.ok) {
+        const info = await infoRes.json() as { email?: string; scope?: string };
+        tokenAccount = info.email ?? "onbekend";
+      }
+    } catch {
+      // token-info niet kritisch
+    }
   } catch (err) {
     return NextResponse.json(
-      { error: `Google auth mislukt: ${String(err)}`, inspected: 0, indexed: 0, not_indexed: 0, errors: [] },
+      {
+        error: `Google auth mislukt: ${String(err)}`,
+        inspected: 0, indexed: 0, not_indexed: 0, errors: [],
+        debug: { siteUrl: SITE_URL, tokenAccount: "auth mislukt" },
+      },
       { status: 500 }
     );
   }
@@ -59,9 +80,12 @@ export async function POST(request: NextRequest) {
   let indexed = 0;
   let not_indexed = 0;
   const errors: string[] = [];
+  const urlResults: Record<string, string> = {};
 
   for (const url of urls) {
     try {
+      const reqBody = { inspectionUrl: url, siteUrl: SITE_URL };
+
       const res = await fetch(
         "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
         {
@@ -70,23 +94,20 @@ export async function POST(request: NextRequest) {
             Authorization: `Bearer ${token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({
-            inspectionUrl: url,
-            // Moet exact overeenkomen met de Search Console property.
-            // URL prefix property:  https://www.waarblijfthet.nl/
-            // Domain property:      sc-domain:waarblijfthet.nl
-            siteUrl: process.env.GOOGLE_SEARCH_CONSOLE_SITE_URL ?? "sc-domain:waarblijfthet.nl",
-          }),
+          body: JSON.stringify(reqBody),
         }
       );
 
       if (!res.ok) {
         const errBody = await res.text();
-        errors.push(`${url}: ${res.status} ${errBody}`);
+        // Volledige foutmelding opslaan (niet afkappen)
+        const errMsg = `inspect ${res.status}: ${errBody}`;
+        errors.push(`${url}: ${errMsg}`);
+        urlResults[url] = `❌ ${res.status}`;
         await supabase
           .from("google_indexing")
           .update({
-            error_message: `inspect ${res.status}: ${errBody.slice(0, 300)}`,
+            error_message: errMsg.slice(0, 500),
             last_inspected_at: new Date().toISOString(),
           })
           .eq("url", url);
@@ -104,11 +125,14 @@ export async function POST(request: NextRequest) {
       if (verdict === "PASS") {
         status = "indexed";
         indexed++;
+        urlResults[url] = "✓ indexed";
       } else if (verdict === "FAIL") {
         status = "not_indexed";
         not_indexed++;
+        urlResults[url] = `✗ not_indexed (${coverageState ?? "?"})`;
       } else {
         status = "submitted";
+        urlResults[url] = `? verdict: ${verdict ?? "null"}`;
       }
 
       await supabase
@@ -126,8 +150,20 @@ export async function POST(request: NextRequest) {
       inspected++;
     } catch (err) {
       errors.push(`${url}: ${String(err)}`);
+      urlResults[url] = `❌ ${String(err)}`;
     }
   }
 
-  return NextResponse.json({ inspected, indexed, not_indexed, errors });
+  return NextResponse.json({
+    inspected,
+    indexed,
+    not_indexed,
+    errors,
+    urlResults,
+    debug: {
+      siteUrl: SITE_URL,
+      tokenAccount,
+      urlsChecked: urls.length,
+    },
+  });
 }
