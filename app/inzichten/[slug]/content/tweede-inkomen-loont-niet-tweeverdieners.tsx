@@ -1,3 +1,5 @@
+'use client';
+import { useState } from "react";
 import Link from "next/link";
 
 const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
@@ -22,6 +24,127 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
   );
 }
 
+function NettoRekentool() {
+  const [bruto, setBruto] = useState("");
+  const [tarief, setTarief] = useState(49.5);
+  const [bso, setBso] = useState("");
+  const [reis, setReis] = useState("");
+  const [gemak, setGemak] = useState("200");
+
+  const b = parseFloat(bruto.replace(/[^\d]/g, "")) || 0;
+  const netto = Math.round(b * (1 - tarief / 100));
+  const bsoVal = parseFloat(bso.replace(/[^\d]/g, "")) || 0;
+  const reisVal = parseFloat(reis.replace(/[^\d]/g, "")) || 0;
+  const gemakVal = parseFloat(gemak.replace(/[^\d]/g, "")) || 0;
+  const totaalKosten = bsoVal + reisVal + gemakVal;
+  const over = netto - totaalKosten;
+  const heeftResultaat = b > 0;
+
+  const inputStyle = {
+    width: "100%", padding: "10px 14px", borderRadius: "10px",
+    border: "1.5px solid #D6CEBC", fontFamily: "inherit", fontSize: "0.875rem",
+    color: "#1C3A2A", backgroundColor: "white", outline: "none",
+  } as const;
+
+  return (
+    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
+      <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
+        <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>
+          Bereken je eigen netto-opbrengst
+        </p>
+        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>
+          Vul je situatie in en zie wat er per maand overblijft
+        </p>
+      </div>
+      <div className="p-5 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+              Bruto inkomen / maand
+            </label>
+            <input
+              type="text" inputMode="numeric" placeholder="€ 2.100"
+              value={bruto} onChange={e => setBruto(e.target.value)}
+              style={inputStyle}
+            />
+          </div>
+          <div>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+              Marginaal belastingtarief
+            </label>
+            <select
+              value={tarief} onChange={e => setTarief(Number(e.target.value))}
+              style={{ ...inputStyle, backgroundColor: "white" }}
+            >
+              <option value={37.07}>37,07% (lager schijf)</option>
+              <option value={49.5}>49,5% (hogere schijf)</option>
+            </select>
+          </div>
+          <div>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+              BSO-kosten / maand (na toeslag)
+            </label>
+            <input
+              type="text" inputMode="numeric" placeholder="€ 1.140"
+              value={bso} onChange={e => setBso(e.target.value)}
+              style={inputStyle}
+            />
+          </div>
+          <div>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+              Reiskosten / maand
+            </label>
+            <input
+              type="text" inputMode="numeric" placeholder="€ 185"
+              value={reis} onChange={e => setReis(e.target.value)}
+              style={inputStyle}
+            />
+          </div>
+          <div>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+              Extra gemaksuitgaven (schatting)
+            </label>
+            <input
+              type="text" inputMode="numeric" placeholder="€ 200"
+              value={gemak} onChange={e => setGemak(e.target.value)}
+              style={inputStyle}
+            />
+          </div>
+        </div>
+
+        {heeftResultaat && (
+          <div className="rounded-xl border p-4 mt-2" style={{ backgroundColor: over >= 0 ? "#E8F2EC" : "#FEF2F2", borderColor: over >= 0 ? "#A8C5B4" : "#FCA5A5" }}>
+            <div className="grid grid-cols-2 gap-y-2 text-sm font-body">
+              <span style={{ color: "#4A5E4E" }}>Netto na belasting</span>
+              <span className="font-semibold text-right" style={{ color: "#1C3A2A" }}>€{netto.toLocaleString("nl-NL")}</span>
+              <span style={{ color: "#4A5E4E" }}>Totale kosten</span>
+              <span className="font-semibold text-right" style={{ color: "#B03A2E" }}>− €{totaalKosten.toLocaleString("nl-NL")}</span>
+              <div className="col-span-2 border-t mt-1 pt-2" style={{ borderColor: over >= 0 ? "#A8C5B4" : "#FCA5A5" }}>
+                <div className="flex justify-between">
+                  <span className="font-semibold" style={{ color: over >= 0 ? "#1C3A2A" : "#B03A2E" }}>Netto over</span>
+                  <span className="font-bold text-base" style={{ color: over >= 0 ? "#2D6A4F" : "#B03A2E" }}>
+                    {over >= 0 ? "+" : ""}€{over.toLocaleString("nl-NL")}
+                  </span>
+                </div>
+              </div>
+            </div>
+            {over < 0 && (
+              <p className="font-body text-xs mt-2" style={{ color: "#B03A2E" }}>
+                Je legt toe op je inkomen. Minder dagen werken kan financieel voordeliger zijn.
+              </p>
+            )}
+            {over >= 0 && over < 300 && (
+              <p className="font-body text-xs mt-2" style={{ color: "#4A5E4E" }}>
+                Je houdt weinig over. Bereken of een dag minder werken de BSO-kosten genoeg verlaagt.
+              </p>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function TweedeInkomenLoonNietTweeverdieners() {
   return (
     <>
@@ -31,8 +154,24 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
         </p>
       </div>
 
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Waarom een goed salaris na aftrek van BSO, belasting en reiskosten soms niets oplevert",
+            "Hoe de rekensom er voor jouw situatie uitziet — vul je eigen getallen in",
+            "Wanneer minder dagen werken netto méér oplevert",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
-        Je werkt vier dagen, verdient een fatsoenlijk salaris, en toch loopt het geld aan het einde van de maand gewoon op. Hoe? Omdat een groot deel van je tweede inkomen vrijwel direct opgaat aan de kosten die dat inkomen met zich meebrengt — <strong>zonder dat je het in de gaten hebt.</strong>
+        Je werkt vier dagen, verdient een fatsoenlijk salaris, en toch loopt het geld aan het einde van de maand gewoon op. Hoe? Omdat een groot deel van je tweede inkomen direct opgaat aan de kosten die dat inkomen met zich meebrengt — <strong>zonder dat je het in de gaten hebt.</strong>
       </p>
 
       <h2 className="font-display" style={h2}>De vier kostenvreters van het tweede inkomen</h2>
@@ -48,6 +187,8 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
       <p className="font-body text-text-soft" style={p}>
         <strong>4. Tijdgebrek dat geld kost.</strong> Meer kant-en-klaarmaaltijden, meer eten bestellen, meer mensen inhuren voor klussen. Makkelijk €150 tot €300 per maand extra.
       </p>
+
+      <NettoRekentool />
 
       <h2 className="font-display" style={h2}>Cas: Marieke &amp; Rick — €2.100 bruto, €280 netto over</h2>
       <p className="font-body text-text-soft" style={p}>
@@ -76,7 +217,7 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
       </div>
 
       <p className="font-body text-text-soft" style={p}>
-        Marieke&apos;s inkomen leverde per saldo geld op dat ze toe moesten leggen — zonder dat ze het doorhadden. Tel je de pensioenopbouw via haar werkgever mee (circa €300 per maand annualized), dan is het vrijwel break-even. Maar de stress, het haasten en het gevoel van krapte: dat was reëel.
+        Marieke&apos;s inkomen leverde per saldo een tekort op — zonder dat ze het doorhadden. Tel je de pensioenopbouw via haar werkgever mee (circa €300 per maand annualized), dan is het vrijwel break-even. Maar de stress, het haasten en het gevoel van krapte: dat was reëel.
       </p>
 
       <VoorNa rows={[
@@ -89,6 +230,13 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
       <p className="font-body text-text-soft" style={p}>
         Ze gingen terug van 4 naar 3 dagen. De BSO-kosten daalden met één dag (€285 netto minder). Haar inkomen daalde, maar de kosten daalden méér. Netto effect: <strong>€180 per maand meer over</strong> — plus aanzienlijk minder stress.
       </p>
+
+      <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
+        <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>De BSO-kosten zijn tijdelijk</p>
+        <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
+          Als de kinderen naar groep 5 gaan, vervallen de BSO-kosten. De rekensom kantelt dan volledig ten gunste van werken. De vraag is alleen of je werkpatroon <em>nu</em> klopt bij je leven en je financiën.
+        </p>
+      </div>
 
       <h2 className="font-display" style={h2}>Betekent dit dat je beter kunt stoppen?</h2>
       <p className="font-body text-text-soft" style={p}>

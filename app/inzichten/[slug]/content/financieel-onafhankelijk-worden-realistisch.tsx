@@ -1,3 +1,5 @@
+'use client';
+import { useState } from "react";
 import Link from "next/link";
 
 const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
@@ -22,20 +24,138 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
   );
 }
 
+function VrijheidsCalculator() {
+  const [uitgaven, setUitgaven] = useState("");
+  const [spaargeld, setSpaargeld] = useState("");
+
+  const u = parseInt(uitgaven.replace(/[^\d]/g, "")) || 0;
+  const s = parseInt(spaargeld.replace(/[^\d]/g, "")) || 0;
+
+  const fireDoelJaar = u * 12 * 25;
+  const niveau3Doel = Math.max(u * 60, 300000); // ~5x jaarsalaris / of 300k minimum
+  const buffer = u * 6;
+
+  let niveau = 0;
+  let niveauLabel = "Nog geen buffer";
+  let niveauKleur = "#B03A2E";
+  if (s >= fireDoelJaar) { niveau = 4; niveauLabel = "Niveau 4 — Volledig onafhankelijk"; niveauKleur = "#2D6A4F"; }
+  else if (s >= niveau3Doel) { niveau = 3; niveauLabel = "Niveau 3 — Vrijheid (meer keuze in werk)"; niveauKleur = "#2D6A4F"; }
+  else if (s >= buffer * 2) { niveau = 2; niveauLabel = "Niveau 2 — Veiligheid (maanden overbruggen)"; niveauKleur = "#C4603A"; }
+  else if (s >= buffer) { niveau = 1; niveauLabel = "Niveau 1 — Stabiliteit (6-maands buffer)"; niveauKleur = "#C4603A"; }
+
+  const heeftResultaat = u > 0;
+
+  const inputStyle = {
+    padding: "9px 13px", borderRadius: "10px", border: "1.5px solid #D6CEBC",
+    fontFamily: "inherit", fontSize: "0.875rem", color: "#1C3A2A",
+    backgroundColor: "white", outline: "none", width: "100%",
+  } as const;
+
+  return (
+    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
+      <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
+        <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>Op welk vrijheidsniveau zit jij?</p>
+        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>En hoeveel heb je nodig voor elk volgend niveau</p>
+      </div>
+      <div className="p-5 space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+              Jullie maanduitgaven (netto)
+            </label>
+            <input type="text" inputMode="numeric" placeholder="€ 4.500" value={uitgaven} onChange={e => setUitgaven(e.target.value)} style={inputStyle} />
+          </div>
+          <div>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+              Huidig vrij vermogen (spaargeld e.d.)
+            </label>
+            <input type="text" inputMode="numeric" placeholder="€ 50.000" value={spaargeld} onChange={e => setSpaargeld(e.target.value)} style={inputStyle} />
+          </div>
+        </div>
+
+        {heeftResultaat && (
+          <div className="space-y-2">
+            {s > 0 && (
+              <div className="rounded-xl p-3" style={{ backgroundColor: niveauKleur === "#2D6A4F" ? "#E8F2EC" : "#FEF9EC", border: `1.5px solid ${niveauKleur}33` }}>
+                <p className="font-body font-semibold text-sm" style={{ color: niveauKleur }}>
+                  Jij zit nu op: {niveauLabel}
+                </p>
+              </div>
+            )}
+            <div className="rounded-xl border overflow-hidden" style={{ borderColor: "#E8E0D4" }}>
+              {[
+                { lvl: 1, label: "Niveau 1 — Stabiliteit", bedrag: buffer, uitleg: "6 maanden netto inkomen als buffer" },
+                { lvl: 2, label: "Niveau 2 — Veiligheid", bedrag: buffer * 2, uitleg: "Vaste lasten gedekt bij ontslag" },
+                { lvl: 3, label: "Niveau 3 — Vrijheid", bedrag: niveau3Doel, uitleg: "Werk is een keuze, niet een verplichting" },
+                { lvl: 4, label: "Niveau 4 — FIRE", bedrag: fireDoelJaar, uitleg: "25× jaaruitgaven — volledig onafhankelijk" },
+              ].map(({ lvl, label, bedrag, uitleg }, i) => (
+                <div key={lvl} className="grid grid-cols-[1fr_auto] items-center gap-2 px-4 py-3 font-body text-sm"
+                  style={{ backgroundColor: s >= bedrag ? "#E8F2EC" : i % 2 ? "#FDFAF4" : "white" }}>
+                  <div>
+                    <p className="font-semibold" style={{ color: s >= bedrag ? "#2D6A4F" : "#1C3A2A" }}>{label}</p>
+                    <p className="text-xs" style={{ color: "#8A9E8E" }}>{uitleg}</p>
+                  </div>
+                  <div className="text-right shrink-0">
+                    <p className="font-semibold" style={{ color: s >= bedrag ? "#2D6A4F" : "#1C3A2A" }}>
+                      €{bedrag.toLocaleString("nl-NL")}
+                    </p>
+                    {s < bedrag && (
+                      <p className="text-xs" style={{ color: "#8A9E8E" }}>
+                        nog €{(bedrag - s).toLocaleString("nl-NL")}
+                      </p>
+                    )}
+                    {s >= bedrag && <p className="text-xs" style={{ color: "#2D6A4F" }}>✓ bereikt</p>}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 export default function FinancieelOnafhankelijkWordenRealistisch() {
   return (
     <>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Waarom FIRE voor de meeste gezinnen niet werkt — en wat een realistischer doel is",
+            "De vier vrijheidsniveaus: waar jij nu staat en wat het volgende niveau kost",
+            "Hoe Thomas & Inge hun onhaalbare FIRE-doel omzetten naar een plan dat wél werkte",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
-        Financieel onafhankelijk worden betekent niet dat je op je 40e stopt met werken. Voor de meeste mensen die goed verdienen betekent het iets simpelers en haalbaarders: <strong>niet meer elke maand afhankelijk zijn van dat ene salaris om de eindjes aan elkaar te knopen.</strong>
+        Thomas wilde op zijn 53e stoppen met werken. Niet omdat hij het werk haatte — hij wilde gewoon <em>kunnen</em> stoppen. De berekening: €1.740.000 nodig. Dat werd de dag dat hij zijn doel herdefinieerde. Niet stoppen, maar <strong>meer keuze</strong>. En dat plan werkte wél.
+      </p>
+
+      <h2 className="font-display" style={h2}>Financieel onafhankelijk is niet hetzelfde als stoppen</h2>
+      <p className="font-body text-text-soft" style={p}>
+        Voor de meeste mensen die goed verdienen betekent financiële onafhankelijkheid iets haalbaarders dan vroeg pensioen: <strong>niet meer elke maand afhankelijk zijn van dat ene salaris om de eindjes aan elkaar te knopen.</strong> Dat is al een enorm verschil met waar veel gezinnen nu staan.
       </p>
 
       <h2 className="font-display" style={h2}>De FIRE-mythe: waarom het voor gezinnen niet werkt</h2>
       <p className="font-body text-text-soft" style={p}>
         FIRE (Financial Independence, Retire Early) is populair. De kern: spaar 25 keer je jaaruitgaven op en leef van 4% per jaar. Wie €60.000 per jaar uitgeeft, heeft €1.500.000 nodig.
       </p>
-      <p className="font-body text-text-soft" style={p}>
-        Het probleem voor gezinnen in Nederland: box 3 belast je vermogen boven circa €57.000 (2026) effectief met ruim 2% per jaar, ongeacht het werkelijke rendement. Bij €500.000 belegd vermogen betaal je €4.000 tot €6.000 per jaar aan vermogensbelasting. Daarnaast passen kinderen, hypotheek en carrière simpelweg niet in het FIRE-model dat draait op minimale vaste lasten.
-      </p>
+
+      <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
+        <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Box 3 belasting</p>
+        <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
+          Vermogen boven €57.000 (2026) wordt in box 3 belast tegen een effectief tarief van ruim 2% per jaar — ongeacht het werkelijke rendement. Bij €500.000 belegd vermogen betaal je €4.000 tot €6.000 per jaar aan vermogensbelasting. Dat knabbelt direct aan je 4%-onttrekking. FIRE-berekeningen zijn doorgaans Amerikaans en houden hier geen rekening mee.
+        </p>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         Maar er is een bruikbaarder doel: <strong>niveau 3-vrijheid</strong>. Niet alles stoppen, maar genoeg opbouwen dat werk een keuze is in plaats van een verplichting.
       </p>
@@ -53,6 +173,9 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
       <p className="font-body text-text-soft" style={p}>
         <strong>Niveau 4 — Volledige onafhankelijkheid:</strong> het klassieke FIRE-eindpunt. Haalbaar voor weinigen, noodzakelijk voor vrijwel niemand.
       </p>
+
+      <h2 className="font-display" style={h2}>Op welk niveau zit jij?</h2>
+      <VrijheidsCalculator />
 
       <h2 className="font-display" style={h2}>Cas: Thomas &amp; Inge — FIRE-droom omgezet naar haalbaar plan</h2>
       <p className="font-body text-text-soft" style={p}>
