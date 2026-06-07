@@ -23,9 +23,23 @@ interface Summary {
   error: number;
 }
 
+interface CronRun {
+  ran_at: string;
+  status: string;
+  duration_ms: number | null;
+  result: {
+    inspected?: number;
+    indexed?: number;
+    not_indexed?: number;
+    errors?: number;
+    error?: string;
+  } | null;
+}
+
 interface StatusResponse {
   rows: IndexingRow[];
   summary: Summary;
+  lastCronRun: CronRun | null;
 }
 
 interface InspectDebug {
@@ -66,13 +80,31 @@ function datumKort(iso: string | null): string {
   });
 }
 
+function datumTijd(iso: string): string {
+  return new Date(iso).toLocaleString("nl-NL", {
+    day: "numeric", month: "short", year: "numeric",
+    hour: "2-digit", minute: "2-digit",
+  });
+}
+
 function urlKort(url: string): string {
   return url.replace("https://www.waarblijfthet.nl", "") || "/";
+}
+
+function ArtikelKaart({
+  artikel,
+  featured = false,
+}: {
+  artikel: IndexingRow;
+  featured?: boolean;
+}) {
+  return null; // unused placeholder
 }
 
 export default function IndexingTabblad() {
   const [rows, setRows] = useState<IndexingRow[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
+  const [lastCronRun, setLastCronRun] = useState<CronRun | null>(null);
   const [laden, setLaden] = useState(true);
   const [bezig, setBezig] = useState<string | null>(null);
   const [resultaat, setResultaat] = useState<ActionResult | null>(null);
@@ -87,6 +119,7 @@ export default function IndexingTabblad() {
       const data = await res.json() as StatusResponse;
       setRows(data.rows ?? []);
       setSummary(data.summary ?? null);
+      setLastCronRun(data.lastCronRun ?? null);
     } catch (err) {
       setResultaat({ message: `Laden mislukt: ${String(err)}`, type: "error" });
     } finally {
@@ -178,6 +211,36 @@ export default function IndexingTabblad() {
 
   return (
     <div className="space-y-6">
+
+      {/* Laatste automatische run */}
+      {lastCronRun ? (
+        <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 text-sm px-4 py-2.5 rounded-lg border ${
+          lastCronRun.status === "ok"
+            ? "bg-green-50 border-green-200 text-green-800"
+            : "bg-red-50 border-red-200 text-red-800"
+        }`}>
+          <span>
+            🕐 <strong>Laatste automatische run:</strong> {datumTijd(lastCronRun.ran_at)}
+          </span>
+          {lastCronRun.result && lastCronRun.status === "ok" && (
+            <span className="opacity-75">
+              {lastCronRun.result.inspected ?? 0} gecheckt · {lastCronRun.result.indexed ?? 0} geïndexeerd · {lastCronRun.result.not_indexed ?? 0} niet geïndexeerd
+              {(lastCronRun.result.errors ?? 0) > 0 && ` · ${lastCronRun.result.errors} fout(en)`}
+            </span>
+          )}
+          {lastCronRun.status === "error" && (
+            <span className="opacity-75">{lastCronRun.result?.error ?? "onbekende fout"}</span>
+          )}
+          {lastCronRun.duration_ms != null && (
+            <span className="opacity-50 text-xs">{(lastCronRun.duration_ms / 1000).toFixed(1)}s</span>
+          )}
+        </div>
+      ) : !laden ? (
+        <div className="text-sm px-4 py-2.5 rounded-lg border border-[#E8E0D0] bg-[#F5F0E8] text-[#8A9E8E]">
+          🕐 Nog geen automatische run gedraaid — eerste run is morgen om 09:00.
+        </div>
+      ) : null}
+
       {/* Statusbalk */}
       {summary && (
         <div className="flex flex-wrap gap-2">
@@ -260,8 +323,6 @@ export default function IndexingTabblad() {
               )}
             </div>
           </div>
-
-          {/* Debug info */}
           {debugUitgeklapt && resultaat.debug && (
             <div className="border-t border-current/20 px-4 py-3 space-y-1 font-mono text-xs">
               <div><strong>siteUrl:</strong> {resultaat.debug.siteUrl ?? "—"}</div>
@@ -269,14 +330,10 @@ export default function IndexingTabblad() {
               <div><strong>urlsChecked:</strong> {resultaat.debug.urlsChecked ?? "—"}</div>
             </div>
           )}
-
-          {/* Foutdetails */}
           {foutUitgeklapt && resultaat.errors && resultaat.errors.length > 0 && (
             <div className="border-t border-current/20 px-4 py-3 space-y-1">
               {resultaat.errors.map((e, i) => (
-                <div key={i} className="font-mono text-xs break-all opacity-90">
-                  {e}
-                </div>
+                <div key={i} className="font-mono text-xs break-all opacity-90">{e}</div>
               ))}
             </div>
           )}
@@ -332,15 +389,9 @@ export default function IndexingTabblad() {
                         {badge.label}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-[#4A5E4E]">
-                      {row.verdict ?? "—"}
-                    </td>
-                    <td className="px-4 py-3 text-[#4A5E4E]">
-                      {datumKort(row.last_crawled_at)}
-                    </td>
-                    <td className="px-4 py-3 text-[#4A5E4E]">
-                      {datumKort(row.last_submitted_at)}
-                    </td>
+                    <td className="px-4 py-3 text-[#4A5E4E]">{row.verdict ?? "—"}</td>
+                    <td className="px-4 py-3 text-[#4A5E4E]">{datumKort(row.last_crawled_at)}</td>
+                    <td className="px-4 py-3 text-[#4A5E4E]">{datumKort(row.last_submitted_at)}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2 flex-wrap">
                         <button

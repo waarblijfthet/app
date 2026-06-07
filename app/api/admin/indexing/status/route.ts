@@ -25,6 +25,13 @@ interface IndexingRow {
   updated_at: string;
 }
 
+interface CronRun {
+  ran_at: string;
+  status: string;
+  duration_ms: number | null;
+  result: Record<string, unknown> | null;
+}
+
 export async function GET() {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet geautoriseerd" }, { status: 401 });
@@ -43,7 +50,6 @@ export async function GET() {
 
   const rows = (data ?? []) as IndexingRow[];
 
-  // Sorteer: not_indexed/error eerst, dan pending, submitted, indexed
   rows.sort((a, b) => {
     const oa = STATUS_VOLGORDE[a.status] ?? 99;
     const ob = STATUS_VOLGORDE[b.status] ?? 99;
@@ -59,5 +65,14 @@ export async function GET() {
     error: rows.filter((r) => r.status === "error").length,
   };
 
-  return NextResponse.json({ rows, summary });
+  // Laatste cron run ophalen
+  const { data: cronData } = await supabase
+    .from("cron_runs")
+    .select("ran_at, status, result, duration_ms")
+    .eq("job", "indexing-inspect")
+    .order("ran_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  return NextResponse.json({ rows, summary, lastCronRun: (cronData ?? null) as CronRun | null });
 }
