@@ -25,6 +25,23 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
 export default function OnsBoodschappenbudgetMislukte() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Hoe Bram en Eva van €950 naar €720 per maand gingen — zonder honger en zonder soberheid",
+            "Welke vier aanpassingen ze maakten en welke twee momenten het meeste verschil maakten",
+            "Dat het niet om zuiniger zijn gaat maar om een systeem: weekbudget, weekmenu, korte check-in",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="rounded-xl border p-4 mb-8" style={{ backgroundColor: "#FDF3E3", borderColor: "#F0D07A" }}>
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
           <strong>Echte case.</strong> Een van de eerste gezinnen die ik hielp. Naam en details aangepast voor hun privacy; de aanpak en de uitkomst zijn echt. Bedragen hangen af van je eigen situatie.

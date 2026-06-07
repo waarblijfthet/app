@@ -6,10 +6,34 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function WatKostEenZomervakantieGezin() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Wat Nederlanders gemiddeld per persoon per vakantie uitgeven — en wat dat voor een gezin van vier is",
+            "Dat het vakantiegeld geen bonus is maar uitgesteld loon — en wat dat betekent voor je planning",
+            "Hoe je de naschok voorkomt: €200 per maand opzijzetten is €2.400 in de zomer",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         De zomervakantie is voor veel gezinnen het hoogtepunt van het jaar — en
         meteen de grootste losse uitgave. Toch boeken de meesten op gevoel, en
-        pas in september blijkt wat het écht heeft gekost.
+        pas in september blijkt wat het echt heeft gekost.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        En dan is er dat gevoel. In de meivakantie gaat iedereen weg — zo voelt
+        het althans. Instagram staat vol met strandvakanties, collega&apos;s
+        bespreken hun vluchten, kinderen komen maandag terug met verhalen. Dat
+        maakt thuis blijven of een weekje camping voelen als minder dan het is.
+        Dat sociale aspect kost geld, ook als je het niet bewust beslist.
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
         Kort gezegd: Nederlanders gaven in 2024 gemiddeld zo&apos;n €600 tot €700

@@ -25,6 +25,23 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
 export default function KerstpotVerjaardagspotZoBouwdenWeDie() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Hoe de drie jaarlijkse pieken van Daan en Roos samen €1.800 waren — en €150 per maand worden als je ze uitsmeert",
+            "Waarom een apart potje werkt: december voelt niet als een klap als het geld er al staat",
+            "De vier concrete stappen die ze zetten, inclusief de automatische overboeking op salarisdag",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div className="rounded-xl border p-4 mb-8" style={{ backgroundColor: "#FDF3E3", borderColor: "#F0D07A" }}>
         <p className="font-body text-sm" style={{ color: "#92600A" }}>
           <strong>Echte case.</strong> Naam en details aangepast voor privacy; de aanpak en uitkomst zijn echt. Bedragen hangen af van je eigen situatie.
@@ -32,20 +49,20 @@ export default function KerstpotVerjaardagspotZoBouwdenWeDie() {
       </div>
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
-        Daan en Roos werden elk jaar overvallen door december — een klap van <strong>€500 en meer</strong> die ineens van de rekening ging. Door hun jaarlijkse pieken om te rekenen naar <strong>€150 per maand</strong> in drie potjes, staat de kerstpot nu gewoon klaar. Dit is precies hoe we dat deden.
+        Daan en Roos werden elk jaar overvallen door december — een klap van <strong>€500 en meer</strong> die ineens van de rekening ging. Tel daar de verjaardagen en de zomervakantie bij op, en je zit op <strong>€1.800 per jaar</strong> aan voorspelbare pieken. Omgerekend: <strong>€150 per maand</strong> in drie aparte potjes — en sindsdien staat de kerstpot gewoon klaar. Dit is precies hoe we dat deden.
       </p>
 
       <h2 className="font-display" style={h2}>Wat er eerst misging</h2>
       <p className="font-body text-text-soft" style={p}>
-        Hun maandbudget klopte — op de feestmaanden na. Sinterklaas en kerst, de verjaardagen, de zomervakantie: die kwamen allemaal rechtstreeks uit de lopende rekening, op het moment zelf. In december stond de rekening dus rood of de spaarpot werd geplunderd. Het gekke was: ze hadden nooit uitgerekend hoeveel die "onregelmatige" kosten samen per jaar waren.
+        Hun maandbudget klopte — op de feestmaanden na. Sinterklaas en kerst, de verjaardagen, de zomervakantie: die kwamen allemaal rechtstreeks uit de lopende rekening, op het moment zelf. In december stond de rekening dus rood of de spaarpot werd geplunderd. Het gekke was: ze hadden nooit uitgerekend hoeveel die &ldquo;onregelmatige&rdquo; kosten samen per jaar waren.
       </p>
 
       <h2 className="font-display" style={h2}>Wat we veranderden</h2>
       <ol className="font-body text-text-soft" style={{ ...p, paddingLeft: "20px" }}>
-        <li style={{ marginBottom: "8px" }}><strong>We telden vorig jaar op.</strong> December (Sinterklaas + kerst) zo'n €500, verjaardagen samen ±€500, en de zomervakantie ±€800. Totaal ongeveer <strong>€1.800 per jaar</strong> aan voorspelbare pieken.</li>
-        <li style={{ marginBottom: "8px" }}><strong>Gedeeld door twaalf:</strong> €150 per maand. Ineens was de "klap" een vast, klein maandbedrag.</li>
+        <li style={{ marginBottom: "8px" }}><strong>We telden vorig jaar op.</strong> December (Sinterklaas + kerst) zo&apos;n €500, verjaardagen samen ±€500, en de zomervakantie ±€800. Totaal ongeveer <strong>€1.800 per jaar</strong> aan voorspelbare pieken.</li>
+        <li style={{ marginBottom: "8px" }}><strong>Gedeeld door twaalf:</strong> €150 per maand. Ineens was de &ldquo;klap&rdquo; een vast, klein maandbedrag.</li>
         <li style={{ marginBottom: "8px" }}><strong>Drie aparte potjes:</strong> een feestpotje, een verjaardagspot en een vakantiepot — met een automatische overboeking op de dag dat het salaris binnenkomt.</li>
-        <li><strong>Niet aankomen tot het moment.</strong> Het geld staat apart, dus de hoofdrekening voelt niet meer "ruimer dan het is".</li>
+        <li><strong>Niet aankomen tot het moment.</strong> Het geld staat apart, dus de hoofdrekening voelt niet meer &ldquo;ruimer dan het is&rdquo;.</li>
       </ol>
 
       <h2 className="font-display" style={h2}>De uitkomst</h2>
@@ -53,10 +70,10 @@ export default function KerstpotVerjaardagspotZoBouwdenWeDie() {
         ["December", "-€500 ineens", "Betaald uit potje"],
         ["Stress in piekmaanden", "Hoog", "Weg"],
         ["Spaargeld aangesproken", "Elk jaar", "Niet meer"],
-        ["Vast opzij per maand", "€0", "€150"],
+        ["Vast opzij per maand", "€0", "€150 (3 potjes)"],
       ]} />
       <p className="font-body text-text-soft" style={p}>
-        Hetzelfde geld, alleen anders verdeeld over het jaar. December voelt nu niet meer als een klap, maar als iets waar al voor gespaard is. En omdat het potje zichtbaar vol loopt, is er ook minder neiging om "alvast" iets te kopen.
+        Hetzelfde geld, alleen anders verdeeld over het jaar. December voelt nu niet meer als een klap, maar als iets waar al voor gespaard is. En omdat het potje zichtbaar vol loopt, is er ook minder neiging om &ldquo;alvast&rdquo; iets te kopen.
       </p>
 
       <p className="font-body text-text-soft" style={p}>
@@ -69,7 +86,9 @@ export default function KerstpotVerjaardagspotZoBouwdenWeDie() {
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Meer praktijkverhalen:</strong> <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Ons boodschappenbudget mislukte — tot we dit deden</a> &middot; <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">De BSO slokte ons tweede inkomen op</a>.
+        <strong>Meer praktijkverhalen:</strong>{" "}
+        <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Ons boodschappenbudget mislukte — tot we dit deden</a>{" "}&middot;{" "}
+        <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">De BSO slokte ons tweede inkomen op</a>.
       </p>
     </>
   );

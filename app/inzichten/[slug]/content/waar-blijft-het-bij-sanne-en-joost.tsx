@@ -6,6 +6,23 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function WaarBlijftHetBijSanneEnJoost() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Hoe €6.200 netto voor een gezin van vijf toch amper €150 per maand sparen oplevert",
+            "Welke twee kostenposten het verschil verklaren en hoe groot de werkelijke marge is",
+            "Dat structuur, niet meer verdienen, het verschil maakt tussen €150 en €600 per maand overhouden",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <div
         className="rounded-xl border p-4 mb-8"
         style={{ backgroundColor: "#FDF3E3", borderColor: "#F0D07A" }}

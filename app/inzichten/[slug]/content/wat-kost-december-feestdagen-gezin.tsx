@@ -6,6 +6,23 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function WatKostDecemberFeestdagenGezin() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Hoe €500 extra in december niet uit één grote aankoop komt maar uit tientallen kleine",
+            "Waarom december je budget sloopt: alles valt in dezelfde vier weken bovenop je gewone lasten",
+            "Dat €40 per maand opzijzetten genoeg is voor december — zonder dat je het de rest van het jaar voelt",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         December voelt elk jaar weer als een maand die zichzelf niet helemaal
         uitlegt op je rekening. Sinterklaas, kerst, oud en nieuw, een vol
@@ -50,6 +67,14 @@ export default function WatKostDecemberFeestdagenGezin() {
         potje heeft, betaalt het uit het lopende inkomen — precies het patroon
         dat we beschrijven bij{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Daar bovenop komt de sociale druk. De buren hebben de mooiste
+        kerstverlichting. Op school doet de hele klas mee met de surprise —
+        en niemand wil zijn kind als enige zonder cadeau sturen. De kinderen
+        willen hetzelfde speelgoed als de vriendjes. Dat voelt niet als een
+        vrije keuze, dat is gewoon hoe december werkt. En dat maakt
+        bezuinigen er niet makkelijker op.
       </p>
 
       <h2 className="font-display" style={h2}>

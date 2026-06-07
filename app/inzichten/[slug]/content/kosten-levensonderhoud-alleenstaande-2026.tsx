@@ -13,6 +13,23 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function KostenLevensonderhoudAlleenstaande2026() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Wat een alleenstaande in 2026 minimaal nodig heeft om rond te komen — en dat is meer dan de modellen zeggen",
+            "Waarom huur de grootste variabele is en hoe groot het verschil tussen Randstad en de rest van Nederland is",
+            "Dat krap zitten als alleenstaande bijna nooit aan 'slecht met geld omgaan' ligt maar aan het lastengewicht",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         Hoeveel heb je nodig om als alleenstaande rond te komen in 2026? Het
         eerlijke antwoord is: meer dan de meeste modellen suggereren, en sterk

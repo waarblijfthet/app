@@ -13,6 +13,23 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function GeldStressRelatieNederland() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Waarom geld het meest vermeden gespreksonderwerp in relaties is — en wat er gebeurt als je het uitstelt",
+            "Hoe je het gesprek start zonder dat het een ruzie wordt: begin met feiten, niet met verwijten",
+            "Dat een persoonlijk budget per persoon meer rust geeft dan alles samen beheren zonder grens",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         Je hoeft het niet hardop te zeggen. Het gevoel is er al. De lichte
         irritatie als de ander iets koopt zonder te overleggen. De stilte als
@@ -29,7 +46,7 @@ export default function GeldStressRelatieNederland() {
       <p className="font-body text-text-soft" style={p}>
         Dit artikel gaat niet over wie gelijk heeft. Het gaat over waarom het zo
         moeilijk is, wat het met je relatie doet als je er niet over praat, en
-        hoe je het gesprek wél aanpakt.
+        hoe je het gesprek wel aanpakt.
       </p>
 
       <GeldRelatieStats />
@@ -75,7 +92,7 @@ export default function GeldStressRelatieNederland() {
         was, de planning, wie wat doet. De onderliggende oorzaak blijft.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Uit onderzoek van Nibud blijkt dat stellen die wél afspraken maken over
+        Uit onderzoek van Nibud blijkt dat stellen die wel afspraken maken over
         geld, significant minder financiële conflicten hebben. Niet omdat ze
         meer verdienen, maar omdat de regels duidelijk zijn. Wie betaalt wat?
         Hoeveel heeft ieder van ons vrij te besteden? Wat zijn onze gezamenlijke
@@ -139,7 +156,15 @@ export default function GeldStressRelatieNederland() {
         minder emotioneel geladen.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Wil je dat niet alleen doen? Bij onze{" "}<Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}kijkt iemand zes weken met jullie mee — objectief en zonder oordeel.
+        Wil je dat niet alleen doen? Een eenmalig{" "}
+        <Link
+          href="/adviesgesprek"
+          style={{ color: "#C4603A", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          adviesgesprek van 45 minuten
+        </Link>{" "}
+        helpt al om samen naar de cijfers te kijken — objectief en zonder oordeel.
       </p>
     </>
   );

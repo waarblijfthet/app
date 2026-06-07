@@ -7,6 +7,23 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function VergetenAbonnementenOpzeggen() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Waarom je abonnementen je niet opvallen — en dat een gemiddeld gezin ruim €200 per maand betaalt",
+            "Hoe je in 20 minuten een abonnementencheck doet die €30 tot €80 per maand oplevert",
+            "Dat dubbele diensten (twee muziek-, twee streamingdiensten) in bijna elk huishouden voorkomen",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         Abonnementen zijn het sluipende lek bij uitstek. Ze zijn klein per stuk,
         ze worden automatisch afgeschreven, en juist daarom merk je ze niet op.

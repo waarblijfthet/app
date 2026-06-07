@@ -14,6 +14,23 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function Is4000EuroNettoGoedSalaris() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Dat €4.000 netto je in de top 25% plaatst — en waarom dat toch krap kan voelen",
+            "Hoe een doorsnee gezin met dit inkomen er na alle vaste lasten werkelijk voor staat",
+            "Drie mechanismen die samen verklaren waarom een goed salaris toch krap aanvoelt",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         Stel: je verdient €4.000 netto per maand. Je hebt een koopwoning, twee
         kinderen en een auto. Op papier is dat een goed inkomen — en dat is het
