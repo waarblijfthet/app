@@ -31,6 +31,7 @@ interface StatusResponse {
 interface ActionResult {
   message: string;
   type: "success" | "error" | "info";
+  errors?: string[];
 }
 
 const STATUS_BADGE: Record<string, { label: string; kleur: string }> = {
@@ -58,6 +59,7 @@ export default function IndexingTabblad() {
   const [laden, setLaden] = useState(true);
   const [bezig, setBezig] = useState<string | null>(null);
   const [resultaat, setResultaat] = useState<ActionResult | null>(null);
+  const [foutUitgeklapt, setFoutUitgeklapt] = useState(false);
 
   const laadStatus = useCallback(async () => {
     setLaden(true);
@@ -107,10 +109,12 @@ export default function IndexingTabblad() {
         return;
       }
       if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
-      const errTekst = data.errors && data.errors.length > 0 ? ` · ${data.errors.length} fout(en)` : "";
+      const errCount = data.errors?.length ?? 0;
+      setFoutUitgeklapt(false);
       setResultaat({
-        message: `${data.submitted ?? 0} ingediend, ${data.skipped ?? 0} overgeslagen${errTekst}`,
-        type: (data.errors?.length ?? 0) > 0 ? "error" : "success",
+        message: `${data.submitted ?? 0} ingediend, ${data.skipped ?? 0} overgeslagen${errCount > 0 ? ` · ${errCount} fout(en)` : ""}`,
+        type: errCount > 0 ? "error" : "success",
+        errors: data.errors,
       });
       await laadStatus();
     } catch (err) {
@@ -131,10 +135,12 @@ export default function IndexingTabblad() {
       });
       const data = await res.json() as { inspected?: number; indexed?: number; not_indexed?: number; errors?: string[]; error?: string };
       if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
-      const errTekst = data.errors && data.errors.length > 0 ? ` · ${data.errors.length} fout(en)` : "";
+      const errCount = data.errors?.length ?? 0;
+      setFoutUitgeklapt(false);
       setResultaat({
-        message: `${data.inspected ?? 0} gecheckt · ${data.indexed ?? 0} geïndexeerd · ${data.not_indexed ?? 0} niet geïndexeerd${errTekst}`,
-        type: "success",
+        message: `${data.inspected ?? 0} gecheckt · ${data.indexed ?? 0} geïndexeerd · ${data.not_indexed ?? 0} niet geïndexeerd${errCount > 0 ? ` · ${errCount} fout(en)` : ""}`,
+        type: errCount > 0 ? "error" : "success",
+        errors: data.errors,
       });
       await laadStatus();
     } catch (err) {
@@ -210,8 +216,28 @@ export default function IndexingTabblad() {
 
       {/* Resultaatmelding */}
       {resultaat && (
-        <div className={`px-4 py-3 rounded-lg border text-sm ${resultaatKleur}`}>
-          {resultaat.message}
+        <div className={`rounded-lg border text-sm ${resultaatKleur}`}>
+          <div className="flex items-center justify-between px-4 py-3">
+            <span>{resultaat.message}</span>
+            {resultaat.errors && resultaat.errors.length > 0 && (
+              <button
+                type="button"
+                onClick={() => setFoutUitgeklapt((v) => !v)}
+                className="ml-4 underline text-xs opacity-70 hover:opacity-100 whitespace-nowrap"
+              >
+                {foutUitgeklapt ? "Verberg details" : "Toon foutdetails"}
+              </button>
+            )}
+          </div>
+          {foutUitgeklapt && resultaat.errors && resultaat.errors.length > 0 && (
+            <div className="border-t border-current/20 px-4 py-3 space-y-1">
+              {resultaat.errors.map((e, i) => (
+                <div key={i} className="font-mono text-xs break-all opacity-90">
+                  {e}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
@@ -227,7 +253,7 @@ export default function IndexingTabblad() {
           <table className="w-full text-sm">
             <thead>
               <tr className="bg-[#F5F0E8] border-b border-[#E8E0D0]">
-                <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">URL</th>
+                <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">URL / Fout</th>
                 <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">Status</th>
                 <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">Verdict</th>
                 <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">Laatste crawl</th>
@@ -243,8 +269,17 @@ export default function IndexingTabblad() {
                     key={row.id}
                     className={`border-b border-[#E8E0D0] ${i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"} hover:bg-[#F5F0E8] transition-colors`}
                   >
-                    <td className="px-4 py-3 font-mono text-xs text-[#1C3A2A] max-w-xs truncate" title={row.url}>
-                      {urlKort(row.url)}
+                    <td className="px-4 py-3 max-w-xs">
+                      <div className="font-mono text-xs text-[#1C3A2A] truncate" title={row.url}>
+                        {urlKort(row.url)}
+                      </div>
+                      {row.error_message && (
+                        <div className="mt-1 text-xs text-red-600 break-all leading-snug" title={row.error_message}>
+                          ⚠ {row.error_message.length > 120
+                            ? row.error_message.slice(0, 120) + "…"
+                            : row.error_message}
+                        </div>
+                      )}
                     </td>
                     <td className="px-4 py-3">
                       <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${badge.kleur}`}>

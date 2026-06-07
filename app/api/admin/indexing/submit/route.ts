@@ -85,18 +85,22 @@ export async function POST(request: NextRequest) {
       );
 
       if (res.ok) {
+        // Haal huidige submit_count op en hoog hem op
+        const { data: bestaand } = await supabase
+          .from("google_indexing")
+          .select("submit_count")
+          .eq("url", url)
+          .single();
+
         await supabase
           .from("google_indexing")
           .update({
             status: "submitted",
             last_submitted_at: new Date().toISOString(),
             error_message: null,
+            submit_count: ((bestaand?.submit_count as number) ?? 0) + 1,
           })
-          .eq("url", url)
-          .select();
-
-        // submit_count ophogen via rpc of aparte query
-        await supabase.rpc("increment_submit_count", { p_url: url }).maybeSingle();
+          .eq("url", url);
 
         submitted++;
       } else {
