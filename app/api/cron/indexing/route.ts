@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getAllUrls } from "@/lib/sitemap-urls";
-import { getGoogleAuthToken } from "@/lib/google-auth";
 import { createServiceClient } from "@/lib/supabase-service";
 
+const INDEXNOW_KEY = "4ace44fac0c44918a2929428e9b757c5";
+const HOST = "www.waarblijfthet.nl";
 const DAGELIJKS_LIMIET = 200;
 
 export async function GET(request: NextRequest) {
-  // Beveiligd met CRON_SECRET header (Vercel Cron stuurt deze automatisch)
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
 
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
     .upsert(rows, { onConflict: "url", ignoreDuplicates: true });
   log.push(`Sync: ${urls.length} URLs`);
 
-  // ── 2. Submit ──
+  // ── 2. Submit via IndexNow ──
   const vandaag = new Date();
   vandaag.setHours(0, 0, 0, 0);
 
@@ -47,103 +47,49 @@ export async function GET(request: NextRequest) {
     const submitUrls = (toSubmit ?? []).map((r: { url: string }) => r.url);
 
     if (submitUrls.length > 0) {
-      let token: string;
       try {
-        token = await getGoogleAuthToken();
-      } catch (err) {
-        log.push(`Submit mislukt (auth): ${String(err)}`);
-        return NextResponse.json({ ok: true, log });
-      }
+        const res = await fetch("https://api.indexnow.org/indexnow", {
+          method: "POST",
+          headers: { "Content-Type": "application/json; charset=utf-8" },
+          body: JSON.stringify({
+            host: HOST,
+            key: INDEXNOW_KEY,
+            keyLocation: `https://${HOST}/${INDEXNOW_KEY}.txt`,
+            urlList: submitUrls,
+          }),
+        });
 
-      let submitted = 0;
-      for (const url of submitUrls) {
-        try {
-          const res = await fetch(
-            "https://indexing.googleapis.com/v3/urlNotifications:publish",
-            {
-              method: "POST",
-              headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-              body: JSON.stringify({ url, type: "URL_UPDATED" }),
-            }
-          );
-          if (res.ok) {
+        const nu = new Date().toISOString();
+        if (res.ok || res.status === 202) {
+          for (const url of submitUrls) {
+            const { data: bestaand } = await supabase
+              .from("google_indexing")
+              .select("submit_count")
+              .eq("url", url)
+              .single();
             await supabase
               .from("google_indexing")
-              .update({ status: "submitted", last_submitted_at: new Date().toISOString(), error_message: null })
-              .eq("url", url);
-            submitted++;
-          } else {
-            const err = await res.text();
-            await supabase
-              .from("google_indexing")
-              .update({ status: "error", error_message: `${res.status}: ${err.slice(0, 300)}` })
+              .update({
+                status: "submitted",
+                last_submitted_at: nu,
+                error_message: null,
+                submit_count: ((bestaand?.submit_count as number) ?? 0) + 1,
+              })
               .eq("url", url);
           }
-        } catch (err) {
-          await supabase
-            .from("google_indexing")
-            .update({ status: "error", error_message: String(err).slice(0, 300) })
-            .eq("url", url);
+          log.push(`Submit: ${submitUrls.length} URLs via IndexNow`);
+        } else {
+          const errBody = await res.text();
+          log.push(`Submit mislukt: IndexNow ${res.status} ${errBody.slice(0, 200)}`);
         }
+      } catch (err) {
+        log.push(`Submit mislukt: ${String(err)}`);
       }
-      log.push(`Submit: ${submitted}/${submitUrls.length} ingediend`);
     } else {
       log.push("Submit: niets te indienen");
     }
   } else {
     log.push("Submit: dagelijks limiet bereikt");
-  }
-
-  // ── 3. Inspect (eerste 50 submitted) ──
-  const { data: toInspect } = await supabase
-    .from("google_indexing")
-    .select("url")
-    .in("status", ["submitted", "not_indexed"])
-    .order("last_submitted_at", { ascending: true })
-    .limit(50);
-
-  const inspectUrls = (toInspect ?? []).map((r: { url: string }) => r.url);
-
-  if (inspectUrls.length > 0) {
-    let token: string;
-    try {
-      token = await getGoogleAuthToken();
-    } catch (err) {
-      log.push(`Inspect mislukt (auth): ${String(err)}`);
-      return NextResponse.json({ ok: true, log });
-    }
-
-    let inspected = 0;
-    for (const url of inspectUrls) {
-      try {
-        const res = await fetch(
-          "https://searchconsole.googleapis.com/v1/urlInspectionResult:inspect",
-          {
-            method: "POST",
-            headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-            body: JSON.stringify({ inspectionUrl: url, siteUrl: "https://www.waarblijfthet.nl/" }),
-          }
-        );
-        if (res.ok) {
-          const data = await res.json() as { inspectionResult?: { indexStatusResult?: { verdict?: string; coverageState?: string; lastCrawlTime?: string } } };
-          const result = data.inspectionResult?.indexStatusResult;
-          const verdict = result?.verdict ?? null;
-          let status = "submitted";
-          if (verdict === "PASS") status = "indexed";
-          else if (verdict === "FAIL") status = "not_indexed";
-          await supabase
-            .from("google_indexing")
-            .update({ status, verdict, coverage_state: result?.coverageState ?? null, last_inspected_at: new Date().toISOString(), last_crawled_at: result?.lastCrawlTime ?? null })
-            .eq("url", url);
-          inspected++;
-        }
-      } catch {
-        // stil falen per URL
-      }
-    }
-    log.push(`Inspect: ${inspected}/${inspectUrls.length} gecheckt`);
-  } else {
-    log.push("Inspect: niets te inspecteren");
   }
 
   return NextResponse.json({ ok: true, log });

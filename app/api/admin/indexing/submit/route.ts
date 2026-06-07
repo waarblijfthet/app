@@ -1,8 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getGoogleAuthToken } from "@/lib/google-auth";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
+const INDEXNOW_KEY = "4ace44fac0c44918a2929428e9b757c5";
+const HOST = "www.waarblijfthet.nl";
 const DAGELIJKS_LIMIET = 200;
 
 export async function POST(request: NextRequest) {
@@ -38,7 +39,7 @@ export async function POST(request: NextRequest) {
       urls = body.urls.slice(0, resterend);
     }
   } catch {
-    // geen body of lege body — pak pending URLs
+    // geen body
   }
 
   if (urls.length === 0) {
@@ -56,36 +57,25 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ submitted: 0, skipped: 0, errors: [] });
   }
 
-  let token: string;
-  try {
-    token = await getGoogleAuthToken();
-  } catch (err) {
-    return NextResponse.json(
-      { error: `Google auth mislukt: ${String(err)}`, submitted: 0, skipped: 0, errors: [] },
-      { status: 500 }
-    );
-  }
-
-  let submitted = 0;
-  let skipped = 0;
   const errors: string[] = [];
 
-  for (const url of urls) {
-    try {
-      const res = await fetch(
-        "https://indexing.googleapis.com/v3/urlNotifications:publish",
-        {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ url, type: "URL_UPDATED" }),
-        }
-      );
+  // IndexNow — batch submit (max 10.000 per call, wij doen alles in één keer)
+  try {
+    const res = await fetch("https://api.indexnow.org/indexnow", {
+      method: "POST",
+      headers: { "Content-Type": "application/json; charset=utf-8" },
+      body: JSON.stringify({
+        host: HOST,
+        key: INDEXNOW_KEY,
+        keyLocation: `https://${HOST}/${INDEXNOW_KEY}.txt`,
+        urlList: urls,
+      }),
+    });
 
-      if (res.ok) {
-        // Haal huidige submit_count op en hoog hem op
+    if (res.ok || res.status === 202) {
+      // Alles succesvol ingediend — update Supabase
+      const nu = new Date().toISOString();
+      for (const url of urls) {
         const { data: bestaand } = await supabase
           .from("google_indexing")
           .select("submit_count")
@@ -96,36 +86,38 @@ export async function POST(request: NextRequest) {
           .from("google_indexing")
           .update({
             status: "submitted",
-            last_submitted_at: new Date().toISOString(),
+            last_submitted_at: nu,
             error_message: null,
             submit_count: ((bestaand?.submit_count as number) ?? 0) + 1,
           })
           .eq("url", url);
+      }
 
-        submitted++;
-      } else {
-        const errBody = await res.text();
-        errors.push(`${url}: ${res.status} ${errBody}`);
+      return NextResponse.json({ submitted: urls.length, skipped: 0, errors: [] });
+    } else {
+      const errBody = await res.text();
+      const errMsg = `IndexNow ${res.status}: ${errBody.slice(0, 300)}`;
+      errors.push(errMsg);
 
+      // Zet alle URLs op error
+      for (const url of urls) {
         await supabase
           .from("google_indexing")
-          .update({
-            status: "error",
-            error_message: `${res.status}: ${errBody.slice(0, 300)}`,
-          })
+          .update({ status: "error", error_message: errMsg })
           .eq("url", url);
-
-        skipped++;
       }
-    } catch (err) {
-      errors.push(`${url}: ${String(err)}`);
+
+      return NextResponse.json({ submitted: 0, skipped: urls.length, errors });
+    }
+  } catch (err) {
+    const errMsg = `Netwerkfout: ${String(err)}`;
+    errors.push(errMsg);
+    for (const url of urls) {
       await supabase
         .from("google_indexing")
-        .update({ status: "error", error_message: String(err).slice(0, 300) })
+        .update({ status: "error", error_message: errMsg })
         .eq("url", url);
-      skipped++;
     }
+    return NextResponse.json({ submitted: 0, skipped: urls.length, errors });
   }
-
-  return NextResponse.json({ submitted, skipped, errors });
 }
