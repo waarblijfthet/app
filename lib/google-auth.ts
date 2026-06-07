@@ -1,34 +1,28 @@
-import { GoogleAuth } from "google-auth-library";
+import { OAuth2Client } from "google-auth-library";
 
-let _auth: GoogleAuth | null = null;
+let _client: OAuth2Client | null = null;
 
-function getAuth(): GoogleAuth {
-  if (_auth) return _auth;
+function getClient(): OAuth2Client {
+  if (_client) return _client;
 
-  const raw = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
-  if (!raw) {
-    throw new Error("GOOGLE_SERVICE_ACCOUNT_JSON is niet ingesteld");
+  const clientId = process.env.GOOGLE_CLIENT_ID;
+  const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+  const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+
+  if (!clientId || !clientSecret || !refreshToken) {
+    throw new Error(
+      "GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET of GOOGLE_REFRESH_TOKEN is niet ingesteld"
+    );
   }
 
-  const credentials = JSON.parse(raw) as Record<string, unknown>;
-
-  _auth = new GoogleAuth({
-    credentials,
-    scopes: [
-      "https://www.googleapis.com/auth/indexing",
-      "https://www.googleapis.com/auth/webmasters.readonly",
-    ],
-  });
-
-  return _auth;
+  _client = new OAuth2Client(clientId, clientSecret);
+  _client.setCredentials({ refresh_token: refreshToken });
+  return _client;
 }
 
 export async function getGoogleAuthToken(): Promise<string> {
-  const auth = getAuth();
-  const client = await auth.getClient();
-  const tokenResponse = await client.getAccessToken();
-  if (!tokenResponse.token) {
-    throw new Error("Kon geen Google access token ophalen");
-  }
-  return tokenResponse.token;
+  const client = getClient();
+  const { token } = await client.getAccessToken();
+  if (!token) throw new Error("Kon geen Google access token ophalen");
+  return token;
 }
