@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ─── Scrollbar utilities ───────────────────────────────── */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 /* ─── Hero entrance animations ─────────────────────────── */
 @keyframes hero-up {
   from { opacity: 0; transform: translateY(22px); }

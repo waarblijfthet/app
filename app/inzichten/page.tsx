@@ -39,18 +39,6 @@ export default function InzichtenPage() {
               </p>
             </div>
 
-            {/* Onderwerpen */}
-            <div className="flex flex-wrap gap-2 mt-6 md:mt-8">
-              {["Besparen", "Inzicht", "Sparen", "Inkomen"].map((cat) => (
-                <span
-                  key={cat}
-                  className="font-body text-xs px-3 py-1.5 rounded-full text-text-muted"
-                  style={{ backgroundColor: "#EDE8DF" }}
-                >
-                  {cat}
-                </span>
-              ))}
-            </div>
           </div>
         </section>
 

@@ -24,7 +24,8 @@ function ArtikelKaart({
   featured?: boolean;
 }) {
   const kleur = getCategorieKleur(artikel.categorie);
-  const previewH = featured ? "h-52 md:h-56" : "h-32 md:h-40";
+  // Minder hoog op mobiel voor de featured card: 160px ipv 208px
+  const previewH = featured ? "h-40 md:h-56" : "h-32 md:h-40";
 
   return (
     <Link href={`/inzichten/${artikel.slug}`} className="group block h-full">
@@ -70,9 +71,9 @@ function ArtikelKaart({
 
           {/* Lees verder */}
           <div className="mt-auto">
-            <span className="text-sm font-medium text-[#C4603A] flex items-center gap-1 group-hover:gap-2 transition-all">
+            <span className="text-sm font-medium text-[#C4603A] flex items-center gap-1.5">
               Lees verder
-              <span aria-hidden="true">→</span>
+              <span aria-hidden="true">&#8594;</span>
             </span>
           </div>
         </div>
@@ -91,36 +92,61 @@ export function InzichtenGrid({ artikelen }: { artikelen: Artikel[] }) {
       ? artikelen
       : artikelen.filter((a) => a.categorie === actief);
 
+  // Aantal per categorie voor de filterlabels
+  const aantalPerCategorie: Record<string, number> = { Alles: artikelen.length };
+  for (const f of filters.slice(1)) {
+    aantalPerCategorie[f] = artikelen.filter((a) => a.categorie === f).length;
+  }
+
   const featured = gefilterd[0];
   const rest = gefilterd.slice(1);
 
   return (
     <div>
-      {/* Categorie filter */}
-      <div className="overflow-x-auto pb-1 mb-8 -mx-6 px-6 md:mx-0 md:px-0">
-        <div className="flex gap-2 flex-nowrap md:flex-wrap min-w-max md:min-w-0">
-          {filters.map((f) => (
-            <button
-              key={f}
-              onClick={() => setActief(f)}
-              className="text-xs font-medium px-4 py-2 rounded-full border transition-all whitespace-nowrap"
-              style={
-                actief === f
-                  ? {
-                      backgroundColor: "#1C3A2A",
-                      color: "#F5F0E8",
-                      borderColor: "#1C3A2A",
-                    }
-                  : {
-                      backgroundColor: "transparent",
-                      color: "#8A9E8E",
-                      borderColor: "#E8E0D4",
-                    }
-              }
-            >
-              {f}
-            </button>
-          ))}
+      {/*
+        Categorie filter — mobiel verbeteringen:
+        - scrollbar-hide: scrollbaar maar geen zichtbare native scrollbar
+        - Fade-gradient rechts als scroll-hint op mobiel
+        - Touch targets: py-2.5 voor bredere tapzone
+        - Artikeltelling per categorie
+      */}
+      <div className="relative mb-8 -mx-6 md:mx-0">
+        {/* Scroll-hint: fade rechts, alleen mobiel */}
+        <div
+          className="absolute right-0 top-0 bottom-0 w-10 z-10 pointer-events-none md:hidden"
+          style={{ background: "linear-gradient(to left, #FDFAF4, transparent)" }}
+        />
+        <div className="overflow-x-auto scrollbar-hide px-6 md:px-0">
+          <div className="flex gap-2 flex-nowrap md:flex-wrap min-w-max md:min-w-0 pb-px">
+            {filters.map((f) => (
+              <button
+                key={f}
+                onClick={() => setActief(f)}
+                className="text-xs font-medium px-4 py-2.5 rounded-full border transition-all whitespace-nowrap"
+                style={
+                  actief === f
+                    ? {
+                        backgroundColor: "#1C3A2A",
+                        color: "#F5F0E8",
+                        borderColor: "#1C3A2A",
+                      }
+                    : {
+                        backgroundColor: "transparent",
+                        color: "#8A9E8E",
+                        borderColor: "#E8E0D4",
+                      }
+                }
+              >
+                {f}
+                <span
+                  className="ml-1.5 text-[10px]"
+                  style={{ opacity: actief === f ? 0.6 : 0.45 }}
+                >
+                  {aantalPerCategorie[f]}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -130,7 +156,7 @@ export function InzichtenGrid({ artikelen }: { artikelen: Artikel[] }) {
         </p>
       )}
 
-      {/* Featured artikel — volle breedte op desktop */}
+      {/* Featured artikel */}
       {featured && (
         <div className="mb-6">
           <ArtikelKaart artikel={featured} featured />
