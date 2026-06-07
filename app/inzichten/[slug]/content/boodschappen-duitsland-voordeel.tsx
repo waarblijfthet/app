@@ -6,6 +6,23 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function BoodschappenDuitslandVoordeel() {
   return (
     <>
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+        <ul className="space-y-1.5">
+          {[
+            "Boodschappen in Duitsland zijn gemiddeld 15% goedkoper — maar het netto voordeel hangt af van je reisafstand",
+            "De grootste winst zit bij A-merken en drogisterijproducten, niet bij vers of huismerken",
+            "Wie dicht bij de grens woont en slim combineert, bespaart structureel; wie ver weg woont, nauwelijks",
+          ].map((item, i) => (
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
         Bijna iedereen kent iemand die er prat op gaat: grote boodschappen haalt
         hij in Duitsland. Wasmiddel, frisdrank, shampoo — flink goedkoper dan
