@@ -54,7 +54,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         De echte verdeling van €4.000 netto bij een gezin met twee kinderen
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Laten we het concreet maken. Een doorsnee gezin met twee kinderen, een
+        Een doorsnee gezin met twee kinderen, een
         koopwoning net buiten de Randstad en één auto.
       </p>
       <p className="font-body text-text-soft" style={p}>

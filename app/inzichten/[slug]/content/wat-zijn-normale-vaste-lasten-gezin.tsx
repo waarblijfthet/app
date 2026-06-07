@@ -68,7 +68,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
         Hoe hoog zijn de vaste lasten voor een gezin van vier in 2026?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Laten we het concreet maken voor een gezin met twee volwassenen en twee
+        Voor een gezin met twee volwassenen en twee
         kinderen, met een koopwoning.
       </p>
       <p className="font-body text-text-soft" style={p}>

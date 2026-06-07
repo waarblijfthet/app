@@ -60,7 +60,7 @@ export default function SalarisverhoginBoven76000() {
         Boven dat inkomen heb je er geen recht meer op.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Samengevat: al ruim voordat je de formele grens van de tweede schijf
+        Al ruim voordat je de formele grens van de tweede schijf
         bereikt, betaal je effectief meer dan 50 procent over elke extra euro.
       </p>
 

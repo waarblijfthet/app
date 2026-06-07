@@ -270,7 +270,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Wat kosten schoolgaande kinderen?",
     titel: "Schoolkosten per jaar: wat kost de middelbare school echt?",
     metaTitel: "Schoolkosten per jaar: wat kost de middelbare school echt?",
-    metaDescription: "Onderwijs is gratis, maar schoolkosten lopen op tot €400-600 per kind per jaar. Wat je betaalt, wat vrijwillig is, en hoe je de schoolpiek in augustus opvangt.",
+    metaDescription: "Onderwijs is gratis, maar schoolkosten lopen op tot €400–600 per kind. Wat je betaalt, wat vrijwillig is en hoe je de augustuspiek opvangt.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
@@ -547,7 +547,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Zonnepanelen: terugverdientijd",
     titel: "Zonnepanelen: wat kosten ze en wat is de terugverdientijd?",
     metaTitel: "Zonnepanelen: wat kosten ze en wat is de terugverdientijd?",
-    metaDescription: "8 zonnepanelen kosten gemiddeld €3.200 en verdienen zich in 6-8 jaar terug (Milieu Centraal). Wat het einde van de salderingsregeling betekent voor de rekensom.",
+    metaDescription: "8 zonnepanelen kosten gemiddeld €3.200 en verdienen zich in 6-8 jaar terug. Wat het einde van salderen betekent voor de terugverdientijd.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
@@ -583,7 +583,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "5 geldmythes die je arm houden",
     titel: "5 hardnekkige geldmythes die je arm houden",
     metaTitel: "5 hardnekkige geldmythes die je arm houden",
-    metaDescription: "Vijf aannames over geld die logisch klinken maar je juist krap houden — van 'sparen lukt vanzelf bij meer inkomen' tot 'wie krap zit gaat slecht met geld om'.",
+    metaDescription: "Vijf aannames over geld die logisch klinken maar je krap houden — van 'sparen lukt vanzelf bij meer inkomen' tot 'wie krap zit gaat slecht met geld om'.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
@@ -659,7 +659,7 @@ export const artikelen: Artikel[] = [
     titel: "Wat kost december? Sinterklaas en kerst voor een gezin",
     metaTitel: "Wat kost december? Sinterklaas en kerst voor een gezin",
     metaDescription:
-      "Een gemiddeld huishouden geeft in december zo'n €500 extra uit aan de feestdagen. Waar het heen gaat — en hoe je de decemberklap voorkomt met een feestpotje.",
+      "Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar het naartoe gaat — en hoe je de decemberklap voorkomt met een feestpotje.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
@@ -1014,7 +1014,7 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Is €4.000 netto een goed salaris in Nederland?",
     metaDescription:
-      "€4.000 netto is top 25% in Nederland. Maar een gezin met koopwoning en 2 kinderen houdt er vaak minder dan €500 van over. Hoe dat kan, leggen we eerlijk uit.",
+      "€4.000 netto is top 25% in Nederland. Maar een gezin met koopwoning en 2 kinderen houdt er vaak minder dan €500 van over. Hoe dat kan.",
     datum: "2026-05-21",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
@@ -1203,7 +1203,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Boodschappen vergelijken Nederland vs Duitsland — wat koop je waar?",
     metaTitel:
-      "Boodschappen Nederland vs Duitsland: wat is goedkoper in 2026?",
+      "Boodschappen Nederland vs Duitsland: wat is goedkoper?",
     metaDescription:
       "Exacte prijsvergelijking van 10 producten, per winkel uitgelegd. Zo bespaar je tot 54% op drogisterij en A-merken zonder te gokken.",
     datum: "2026-05-21",
@@ -1387,7 +1387,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Waarom levert een salarisverhoging boven de €76.000 zo weinig netto op?",
     metaTitel:
-      "Salarisverhoging boven €76.000: zo weinig netto — hoe kan dat?",
+      "Salarisverhoging boven €76.000: zo weinig netto",
     metaDescription:
       "Boven €76.000 gaat 49,5% van elke extra euro naar de belasting. Maar het echte verhaal is nóg ongunstiger. Wij leggen uit wat er werkelijk gebeurt.",
     datum: "2026-05-21",
@@ -1583,7 +1583,7 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Geld en relatiestress: wat het doet en hoe je erover praat",
     metaDescription:
-      "De helft van de Nederlandse stellen heeft ooit ruzie gemaakt over geld. Maar de meeste praten er nauwelijks over. Waarom dat zo is — en wat je er aan kunt doen.",
+      "De helft van de Nederlandse stellen heeft ooit ruzie gemaakt over geld. Maar de meeste praten er nauwelijks over. Waarom — en wat je eraan kunt doen.",
     datum: "2026-05-23",
     datumFormatted: "23 mei 2026",
     leestijd: "7",
@@ -1664,7 +1664,7 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Hoe bespaar je op boodschappen in 2026? Eerlijk antwoord",
     metaDescription:
-      "Niet met bezuinigingstips, maar door te begrijpen waarom je meer uitgeeft dan je denkt. De vijf plekken waar het meeste geld weglekt — en wat je eraan doet.",
+      "Niet met bezuinigingstips, maar door te begrijpen waarom je meer uitgeeft dan je denkt. De vijf plekken waar het geld weglekt — en wat je eraan doet.",
     datum: "2026-05-28",
     datumFormatted: "28 mei 2026",
     leestijd: "8",
@@ -1802,7 +1802,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Kosten levensonderhoud alleenstaande in 2026 — wat je werkelijk nodig hebt om rond te komen",
     metaTitel:
-      "Kosten levensonderhoud alleenstaande 2026: volledig overzicht",
+      "Kosten levensonderhoud alleenstaande 2026: overzicht",
     metaDescription:
       "Wat kost het leven als alleenstaande in 2026? Van huur tot boodschappen tot verzekeringen — alle gemiddelden op een rij, plus waar de meeste ruimte zit.",
     datum: "2026-05-28",
@@ -1871,7 +1871,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Pensioen aanvullen: hoeveel heb je nodig?",
     titel: "Pensioen aanvullen: hoeveel heb je nodig — en wanneer is het te laat?",
     metaTitel: "Pensioen aanvullen: hoeveel heb je nodig?",
-    metaDescription: "Goed salaris maar weet je hoeveel pensioen je straks hebt? Lees wanneer aanvullen loont, hoeveel je mist bij een jobswitch, en hoe één gezin €280/mnd bespaarde.",
+    metaDescription: "Weet je hoeveel pensioen je straks hebt? Wanneer aanvullen loont, hoeveel je mist bij een jobswitch, en hoe één gezin €280 per maand bespaarde.",
     datum: "2026-06-06",
     datumFormatted: "6 juni 2026",
     leestijd: "7",
@@ -1920,7 +1920,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Financieel onafhankelijk: hoe realistisch?",
     titel: "Financieel onafhankelijk worden: wat het echt betekent (en wat niet)",
     metaTitel: "Financieel onafhankelijk worden: hoe realistisch is het?",
-    metaDescription: "Financieel onafhankelijk worden hoeft geen FIRE te zijn. Lees wat het realistisch betekent voor gezinnen met een goed inkomen — met een eerlijk voor/na-verhaal.",
+    metaDescription: "Financieel onafhankelijk worden hoeft geen FIRE te zijn. Wat het realistisch betekent voor gezinnen met een goed inkomen — met een voor/na-verhaal.",
     datum: "2026-06-06",
     datumFormatted: "6 juni 2026",
     leestijd: "7",
@@ -1961,7 +1961,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Studieschuld aflossen of sparen?",
     titel: "Studieschuld aflossen of sparen: wat is slimmer in 2026?",
     metaTitel: "Studieschuld aflossen of sparen: wat is slimmer?",
-    metaDescription: "Moet je je studieschuld zo snel mogelijk aflossen, of is sparen slimmer? Eerlijk antwoord met rekensom — inclusief een voor/na-case van €280 per maand teruggewonnen.",
+    metaDescription: "Studieschuld aflossen of sparen: eerlijk antwoord met rekensom — inclusief een voor/na-case van €280 per maand teruggewonnen.",
     datum: "2026-06-06",
     datumFormatted: "6 juni 2026",
     leestijd: "6",
@@ -2006,7 +2006,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Gezamenlijke rekening: voor- en nadelen",
     titel: "Gezamenlijke rekening: voor- en nadelen voor stellen in 2026",
     metaTitel: "Gezamenlijke rekening: voor- en nadelen voor stellen",
-    metaDescription: "Moet je als stel een gezamenlijke rekening nemen? Voor- en nadelen eerlijk uitgelegd — inclusief hoe één stel van wekelijkse geldruzie naar rust ging met een hybride systeem.",
+    metaDescription: "Gezamenlijke rekening als stel: voor- en nadelen uitgelegd. Hoe één stel van wekelijkse geldruzie naar rust ging met een hybride systeem.",
     datum: "2026-06-06",
     datumFormatted: "6 juni 2026",
     leestijd: "6",
@@ -2047,7 +2047,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Wat kost een financieel adviseur?",
     titel: "Wat kost een financieel adviseur — en heb je er echt één nodig?",
     metaTitel: "Wat kost een financieel adviseur? Tarieven en alternatieven",
-    metaDescription: "Een financieel adviseur kost €150–€300/uur. Maar voor de meeste gezinnen die krap zitten, is een eenmalig gesprek van €125 voldoende. Lees wanneer je wat nodig hebt.",
+    metaDescription: "Een financieel adviseur kost €150–€300/uur. Voor gezinnen die krap zitten is een eenmalig gesprek van €125 vaak voldoende. Wanneer je wat nodig hebt.",
     datum: "2026-06-07",
     datumFormatted: "7 juni 2026",
     leestijd: "6",
@@ -2095,8 +2095,8 @@ export const artikelen: Artikel[] = [
     slug: "wat-doet-een-financieel-adviseur",
     korteTitel: "Wat doet een financieel adviseur?",
     titel: "Wat doet een financieel adviseur — en heb jij er echt één nodig?",
-    metaTitel: "Wat doet een financieel adviseur? En wanneer heb je er een nodig?",
-    metaDescription: "Een financieel adviseur adviseert over hypotheek, beleggingen en pensioen. Maar voor gezinnen die krap zitten is er een alternatief dat beter past. Lees het verschil.",
+    metaTitel: "Wat doet een financieel adviseur en wanneer heb je er één?",
+    metaDescription: "Een financieel adviseur adviseert over hypotheek, beleggingen en pensioen. Voor gezinnen die krap zitten is er een alternatief dat beter past.",
     datum: "2026-06-07",
     datumFormatted: "7 juni 2026",
     leestijd: "5",
@@ -2142,7 +2142,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Tweede inkomen loont niet: hoe kan dat?",
     titel: "Tweede inkomen loont niet: hoe kan dat?",
     metaTitel: "Tweede inkomen loont niet: hoe kan dat?",
-    metaDescription: "Je werkt vier dagen, maar wat blijft er netto over na BSO, reiskosten en belasting? Voor veel tweeverdieners is het antwoord schokkend weinig. Een eerlijke rekensom.",
+    metaDescription: "Je werkt vier dagen, maar wat blijft er netto over na BSO, reiskosten en belasting? Voor veel tweeverdieners is het antwoord schokkend weinig.",
     datum: "2026-06-06",
     datumFormatted: "6 juni 2026",
     leestijd: "7",
