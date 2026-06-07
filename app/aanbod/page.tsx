@@ -5,9 +5,9 @@ import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
 
 export const metadata: Metadata = {
-  title: "Aanbod",
+  title: "Financiële begeleiding voor gezinnen — Waar blijft het",
   description:
-    "Drie manieren om grip te krijgen op je geld — van gratis inzicht tot persoonlijke begeleiding. Kies wat bij jouw situatie past.",
+    "Van gratis inzicht tot persoonlijk traject: kies wat bij jouw situatie past. Geen abonnementen, geen verrassingen — je betaalt voor wat je nodig hebt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -25,12 +25,55 @@ const serviceSchema = {
   areaServed: "NL",
 };
 
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: [
+    {
+      "@type": "Question",
+      name: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Wij richten ons op gezinnen die goed verdienen maar te weinig overhouden — en die willen begrijpen waarom, en hoe dat anders kan.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Ja, dat is precies de situatie waar wij voor zijn. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij gezinnen met een goed inkomen — en het is volledig op te lossen met de juiste structuur.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Geven jullie advies over beleggen, hypotheken of pensioen?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Nee. We begeleiden je bij het dagelijks beheer van je inkomen — waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs je door naar een gecertificeerd adviseur.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Zijn jullie gecertificeerde financieel adviseurs?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Nee. We zijn geen gecertificeerde financieel adviseurs en vallen niet onder de AFM-vergunningplicht — we adviseren niet over financiële producten. Wat we doen is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
+      },
+    },
+  ],
+};
+
 export default function AanbodPage() {
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
       />
       <Header />
 
@@ -526,7 +569,12 @@ export default function AanbodPage() {
                                 : ci === 0
                                 ? "#1C3A2A"
                                 : "#4A5E4E",
-                            fontWeight: cell === "✓" || cell === "✗" ? 600 : ci === 0 ? 500 : 400,
+                            fontWeight:
+                              cell === "✓" || cell === "✗"
+                                ? 600
+                                : ci === 0
+                                ? 500
+                                : 400,
                             borderBottom: "1px solid #E8E0D4",
                           }}
                         >

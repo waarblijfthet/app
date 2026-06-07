@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Over Waar blijft het",
   description:
-    "Wie zit er achter Waar blijft het, waarom het bestaat en wat we wél en niet doen. Geen schuldhulp, geen beleggingsadvies — eerlijk inzicht voor gezinnen die goed verdienen maar weinig overhouden.",
+    "Wie zit er achter Waar blijft het en waarom het bestaat. Eerlijk inzicht voor gezinnen die goed verdienen maar weinig overhouden — geen schuldhulp, geen beleggingsadvies.",
   alternates: { canonical: "https://www.waarblijfthet.nl/over" },
   openGraph: {
     title: "Over Waar blijft het",

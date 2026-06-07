@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Woordenlijst: geldbegrippen in gewone taal",
   description:
-    "De belangrijkste geldbegrippen uitgelegd zonder jargon — van lifestyle-inflatie en de potjesmethode tot heffingskorting en salderen. Kort, helder, en met voorbeelden.",
+    "De belangrijkste geldbegrippen uitgelegd zonder jargon — van lifestyle-inflatie en de potjesmethode tot heffingskorting en salderen. Met voorbeelden.",
   alternates: { canonical: "https://www.waarblijfthet.nl/woordenlijst" },
   openGraph: {
     title: "Woordenlijst: geldbegrippen in gewone taal",

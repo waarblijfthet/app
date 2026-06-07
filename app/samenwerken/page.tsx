@@ -6,7 +6,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Samenwerken met Waar blijft het — voor professionals",
   description:
-    "Werk je met gezinnen of stellen die financieel krap zitten ondanks een goed inkomen? Waar blijft het pakt het gelddeel aan, als aanvulling op jouw praktijk.",
+    "Werk je met gezinnen die financieel krap zitten ondanks een goed inkomen? Waar blijft het pakt het gelddeel aan, als aanvulling op jouw praktijk.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken" },
   openGraph: {
     title: "Samenwerken met Waar blijft het — voor professionals",
@@ -64,7 +64,7 @@ const stappen = [
     nr: "02",
     titel: "Jouw cliënt start",
     tekst:
-      "Ze doen de gratis analyse in 5 minuten, anoniem. Geen account, geen verplichtingen. Ze zien direct wat er speelt en krijgen een concreet beeld.",
+      "Ze doen de gratis analyse in 5 minuten, anoniem. Geen account, geen verplichtingen. Ze zien direct wat er speelt.",
   },
   {
     nr: "03",

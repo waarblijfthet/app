@@ -9,9 +9,9 @@ export const metadata: Metadata = {
     "Een eenmalig financieel adviesgesprek van 45 minuten: eerlijk naar je cijfers kijken en 2 à 3 concrete doelen stellen. €125, geen traject, geen verplichting.",
   alternates: { canonical: "https://www.waarblijfthet.nl/adviesgesprek" },
   openGraph: {
-    title: "Zo werkt het adviesgesprek — Waar blijft het",
+    title: "Financieel adviesgesprek — eenmalig, €125, vrijblijvend",
     description:
-      "45 minuten, eerlijk en gericht. Zo bereid je je voor, dit gebeurt er, dit krijg je achteraf.",
+      "45 minuten, eerlijk en gericht. Samen naar je cijfers kijken en 2 à 3 concrete doelen stellen. Geen traject, geen verplichting.",
     url: "https://www.waarblijfthet.nl/adviesgesprek",
     type: "website",
   },
@@ -185,7 +185,7 @@ export default function AdviesgesprekPage() {
               Klaar voor een eerlijk gesprek?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Plan je adviesgesprek.
+              Eenmalig €125. Daarna bepaal jij wat je doet.
             </p>
             <Link
               href="/aanbod/intake?pakket=gesprek"
