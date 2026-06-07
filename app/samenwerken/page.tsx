@@ -142,8 +142,8 @@ export default function SamenwerkenPage() {
           <div className="max-w-6xl mx-auto">
             <p className="font-body text-sm" style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.6 }}>
               <span style={{ color: "#8AB89A", fontWeight: 600 }}>Ik ben Jarno.</span>{" "}
-              Voormalig CTO, geen gecertificeerd adviseur. Ik verkoop geen producten en heb geen provisie-belangen.
-              Ik help mensen begrijpen waar hun geld naartoe gaat en hoe ze dat structureel veranderen.{" "}
+              Ik herken de cliënten die jij regelmatig ziet: goed inkomen, weinig grip, en dat financiële deel blokkeert jouw werk.
+              Dat stuk pak ik aan, zodat jij je kunt richten op wat jij het beste doet.{" "}
               <Link href="/over" style={{ color: "#8AB89A", textDecoration: "underline" }}>
                 Meer over mij &rarr;
               </Link>
