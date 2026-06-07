@@ -72,7 +72,10 @@ export async function POST(request: NextRequest) {
           },
           body: JSON.stringify({
             inspectionUrl: url,
-            siteUrl: "https://www.waarblijfthet.nl/",
+            // Moet exact overeenkomen met de Search Console property.
+            // URL prefix property:  https://www.waarblijfthet.nl/
+            // Domain property:      sc-domain:waarblijfthet.nl
+            siteUrl: process.env.GOOGLE_SEARCH_CONSOLE_SITE_URL ?? "sc-domain:waarblijfthet.nl",
           }),
         }
       );
