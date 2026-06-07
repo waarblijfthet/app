@@ -125,7 +125,7 @@ export default function AanbodPage() {
               style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.6 }}
             >
               <span style={{ color: "#8AB89A", fontWeight: 600 }}>Ik ben Jarno.</span>{" "}
-              Voormalig CTO. Ik verdiende goed en begreep jarenlang niet waarom het nooit klopte. Dat inzicht is de basis van hoe ik met je meedenk. Geen gecertificeerd adviseur, geen verkooppraatje. Iemand die het zelf heeft doorleefd.{" "}
+              Ik herken dit patroon van binnenuit: goed verdienen en toch elke maand niet weten waar het naartoe gaat. Dit doe ik ernaast, voor iedereen die dat herkent. Geen gecertificeerd adviseur, geen productverkoop.{" "}
               <Link href="/over" style={{ color: "#8AB89A", textDecoration: "underline" }}>
                 Meer over mij →
               </Link>
@@ -441,60 +441,6 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* Sociale proof */}
-        <section style={{ backgroundColor: "#FDFAF4", padding: "3rem 1.5rem" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <p
-              className="font-body font-medium uppercase tracking-widest text-xs mb-6 text-center"
-              style={{ color: "#C4603A" }}
-            >
-              Wat het andere gezinnen opleverde
-            </p>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {[
-                {
-                  resultaat: "Geen verrassingen meer in de piekmaanden",
-                  quote:
-                    "Periodieke kosten uitgerekend en opgesplitst in maandpotjes. De kerstpot staat er nu gewoon.",
-                  naam: "Daan & Roos",
-                },
-                {
-                  resultaat: "Boodschappen eindelijk onder controle",
-                  quote:
-                    "Samen een weekbudget en een korte check-in na elke keer boodschappen. Dat hield ons scherp.",
-                  naam: "Bram & Eva",
-                },
-                {
-                  resultaat: "Twee dagen minder BSO, rust én geld over",
-                  quote:
-                    "Meegedacht over flexibeler werken in plaats van alleen bezuinigen. Thuis is het rustiger.",
-                  naam: "Karim & Noor",
-                },
-              ].map((t) => (
-                <div
-                  key={t.naam}
-                  className="rounded-2xl p-6 border border-[#E8E0D4]"
-                  style={{ backgroundColor: "white" }}
-                >
-                  <p className="font-body font-medium text-[#2D6A4F] text-sm mb-2">
-                    {t.resultaat}
-                  </p>
-                  <p className="font-body font-light text-[#1C3A2A] text-sm leading-relaxed mb-3">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <p className="font-body text-[#8A9E8E] text-xs">{t.naam}</p>
-                </div>
-              ))}
-            </div>
-            <p
-              className="font-body text-xs mt-6 text-center"
-              style={{ color: "#8A9E8E" }}
-            >
-              Echte ervaringen van de eerste gezinnen die ik hielp. Namen aangepast voor hun privacy.
-            </p>
-          </div>
-        </section>
-
         {/* Vergelijkingstabel */}
         <section style={{ backgroundColor: "#F5F0E8", padding: "3rem 1.5rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
@@ -593,6 +539,60 @@ export default function AanbodPage() {
                 </tbody>
               </table>
             </div>
+          </div>
+        </section>
+
+        {/* Sociale proof */}
+        <section style={{ backgroundColor: "#FDFAF4", padding: "3rem 1.5rem" }}>
+          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
+            <p
+              className="font-body font-medium uppercase tracking-widest text-xs mb-6 text-center"
+              style={{ color: "#C4603A" }}
+            >
+              Wat het andere gezinnen opleverde
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                {
+                  resultaat: "Geen verrassingen meer in de piekmaanden",
+                  quote:
+                    "Periodieke kosten uitgerekend en opgesplitst in maandpotjes. De kerstpot staat er nu gewoon.",
+                  naam: "Daan & Roos",
+                },
+                {
+                  resultaat: "Boodschappen eindelijk onder controle",
+                  quote:
+                    "Samen een weekbudget en een korte check-in na elke keer boodschappen. Dat hield ons scherp.",
+                  naam: "Bram & Eva",
+                },
+                {
+                  resultaat: "Twee dagen minder BSO, rust én geld over",
+                  quote:
+                    "Meegedacht over flexibeler werken in plaats van alleen bezuinigen. Thuis is het rustiger.",
+                  naam: "Karim & Noor",
+                },
+              ].map((t) => (
+                <div
+                  key={t.naam}
+                  className="rounded-2xl p-6 border border-[#E8E0D4]"
+                  style={{ backgroundColor: "white" }}
+                >
+                  <p className="font-body font-medium text-[#2D6A4F] text-sm mb-2">
+                    {t.resultaat}
+                  </p>
+                  <p className="font-body font-light text-[#1C3A2A] text-sm leading-relaxed mb-3">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <p className="font-body text-[#8A9E8E] text-xs">{t.naam}</p>
+                </div>
+              ))}
+            </div>
+            <p
+              className="font-body text-xs mt-6 text-center"
+              style={{ color: "#8A9E8E" }}
+            >
+              Echte ervaringen van de eerste gezinnen die ik hielp. Namen aangepast voor hun privacy.
+            </p>
           </div>
         </section>
 
