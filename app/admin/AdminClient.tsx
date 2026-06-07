@@ -8,6 +8,7 @@ import OverzichtTabblad from "./components/OverzichtTabblad";
 import AanvragenTabblad from "./components/AanvragenTabblad";
 import { BezoekersTabblad } from "./components/BezoekersTabblad";
 import FunnelTabblad from "./components/FunnelTabblad";
+import IndexingTabblad from "./components/IndexingTabblad";
 
 interface Props {
   leads: Lead[];
@@ -22,6 +23,7 @@ const TABS = [
   { id: "quiz", label: "Analyse resultaten" },
   { id: "overzicht", label: "Overzicht" },
   { id: "aanvragen", label: "Aanvragen" },
+  { id: "indexering", label: "🔍 Indexering" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -90,6 +92,7 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
         <OverzichtTabblad leads={leads} resultaten={quizResultaten} />
       )}
       {actief === "aanvragen" && <AanvragenTabblad aanvragen={aanvragen} />}
+      {actief === "indexering" && <IndexingTabblad />}
     </div>
   );
 }
