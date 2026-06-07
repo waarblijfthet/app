@@ -34,7 +34,7 @@ const faqSchema = {
       name: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Wij richten ons op gezinnen die goed verdienen maar te weinig overhouden. Die willen begrijpen waarom, en hoe dat anders kan.",
+        text: "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Ik richt me op gezinnen en individuen die goed verdienen maar te weinig overhouden. Die willen begrijpen waarom, en hoe dat anders kan.",
       },
     },
     {
@@ -42,23 +42,23 @@ const faqSchema = {
       name: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Ja, dat is precies de situatie waar wij voor zijn. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij gezinnen met een goed inkomen, en het is volledig op te lossen met de juiste structuur.",
+        text: "Ja, dat is precies de situatie waar ik voor ben. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij mensen met een goed inkomen, en het is volledig op te lossen met de juiste structuur.",
       },
     },
     {
       "@type": "Question",
-      name: "Geven jullie advies over beleggen, hypotheken of pensioen?",
+      name: "Geef je advies over beleggen, hypotheken of pensioen?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nee. We begeleiden je bij het dagelijks beheer van je inkomen: waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs je door naar een gecertificeerd adviseur.",
+        text: "Nee. Ik begeleid je bij het dagelijks beheer van je inkomen: waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs ik je door naar een gecertificeerd adviseur.",
       },
     },
     {
       "@type": "Question",
-      name: "Zijn jullie gecertificeerde financieel adviseurs?",
+      name: "Ben je gecertificeerd financieel adviseur?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Nee. We zijn geen gecertificeerde financieel adviseurs en vallen niet onder de AFM-vergunningplicht. We adviseren niet over financiële producten. Wat we doen is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
+        text: "Nee. Ik ben geen gecertificeerd financieel adviseur en val niet onder de AFM-vergunningplicht. Ik adviseer niet over financiële producten. Wat ik doe is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
       },
     },
   ],
@@ -78,7 +78,7 @@ export default function AanbodPage() {
       <Header />
 
       <main className="pt-16">
-        {/* ── Hero ── */}
+        {/* Hero */}
         <section style={{ backgroundColor: "#F5F0E8", padding: "5rem 1.5rem 4rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
             <p
@@ -91,19 +91,18 @@ export default function AanbodPage() {
               className="font-display font-light text-[#1C3A2A]"
               style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.2, marginBottom: "1.25rem" }}
             >
-              Kies wat bij jouw situatie past
+              Goed verdienen en toch te weinig overhouden. Dat lost zich niet vanzelf op.
             </h1>
             <p
               className="font-body"
               style={{
                 fontSize: "1.05rem",
                 color: "#4A5E4E",
-                maxWidth: "580px",
+                maxWidth: "600px",
                 lineHeight: 1.7,
               }}
             >
-              Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig
-              hebt. Niks meer.
+              Ik help je begrijpen waar het naartoe gaat en hoe je dat structureel verandert. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.
             </p>
             <p
               className="font-body"
@@ -113,18 +112,34 @@ export default function AanbodPage() {
                 marginTop: "1.25rem",
               }}
             >
-              Al meer dan 50 gezinnen deden de gratis analyse.
+              Al meer dan 50 gezinnen en individuen deden de gratis analyse.
             </p>
           </div>
         </section>
 
-        {/* ── Drie niveaus ── */}
+        {/* Credibility-regel */}
+        <section style={{ backgroundColor: "#1C3A2A", padding: "1rem 1.5rem" }}>
+          <div style={{ maxWidth: "860px", margin: "0 auto" }}>
+            <p
+              className="font-body text-sm"
+              style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.6 }}
+            >
+              <span style={{ color: "#8AB89A", fontWeight: 600 }}>Ik ben Jarno.</span>{" "}
+              Voormalig CTO. Ik verdiende goed en begreep jarenlang niet waarom het nooit klopte. Dat inzicht is de basis van hoe ik met je meedenk. Geen gecertificeerd adviseur, geen verkooppraatje. Iemand die het zelf heeft doorleefd.{" "}
+              <Link href="/over" style={{ color: "#8AB89A", textDecoration: "underline" }}>
+                Meer over mij →
+              </Link>
+            </p>
+          </div>
+        </section>
+
+        {/* Drie niveaus */}
         <section style={{ backgroundColor: "#FDFAF4", padding: "3rem 1.5rem" }}>
           <div
             className="grid grid-cols-1 md:grid-cols-3 gap-6"
             style={{ maxWidth: "1100px", margin: "0 auto" }}
           >
-            {/* NIVEAU 1, Gratis */}
+            {/* NIVEAU 1: Gratis */}
             <div
               style={{
                 backgroundColor: "#FDFAF4",
@@ -171,8 +186,7 @@ export default function AanbodPage() {
                 className="font-body"
                 style={{ fontWeight: 500, color: "#1C3A2A", fontSize: "1rem", lineHeight: 1.6 }}
               >
-                Na 5 minuten weet je waar jullie geld naartoe gaat, en hoe dat
-                verhoudt tot vergelijkbare gezinnen.
+                Na 5 minuten weet je waar jouw geld naartoe gaat, en hoe dat verhoudt tot vergelijkbare gezinnen en individuen.
               </p>
 
               <hr style={{ borderColor: "#E8E0D4", margin: "0.25rem 0" }} />
@@ -209,7 +223,7 @@ export default function AanbodPage() {
               </div>
             </div>
 
-            {/* NIVEAU 2, Aanbevolen (donkergroen) */}
+            {/* NIVEAU 2: Gesprek (donkergroen) */}
             <div
               style={{
                 backgroundColor: "#1C3A2A",
@@ -229,7 +243,7 @@ export default function AanbodPage() {
                     color: "#F5F0E8",
                   }}
                 >
-                  Meest gekozen
+                  Meest gevraagd
                 </span>
               </div>
 
@@ -253,15 +267,19 @@ export default function AanbodPage() {
                 >
                   Eenmalig · 45 minuten · geen traject
                 </p>
+                <p
+                  className="font-body text-xs mt-2"
+                  style={{ color: "#8AB89A" }}
+                >
+                  Één concrete beslissing uit dit gesprek verdient €125 makkelijk terug.
+                </p>
               </div>
 
               <p
                 className="font-body"
                 style={{ fontWeight: 500, color: "white", fontSize: "1rem", lineHeight: 1.6 }}
               >
-                In 45 minuten kijken we samen eerlijk naar jullie cijfers. Geen
-                verkooppraat, geen traject. Één gericht gesprek waar je meteen
-                mee verder kunt.
+                In 45 minuten kijk ik samen met jou eerlijk naar jouw cijfers. Geen verkooppraat, geen traject. Één gericht gesprek waar je meteen mee verder kunt.
               </p>
 
               <p
@@ -275,19 +293,18 @@ export default function AanbodPage() {
                   lineHeight: 1.55,
                 }}
               >
-                Je hoeft je nergens aan te binden. Eén gesprek, daarna bepaal jij
-                of en hoe je verder wilt.
+                Je hoeft je nergens aan te binden. Eén gesprek, daarna bepaal jij of en hoe je verder wilt.
               </p>
 
               <hr style={{ borderColor: "rgba(255,255,255,0.15)", margin: "0.25rem 0" }} />
 
               <ul className="space-y-2">
                 {[
-                  "Vooraf de gratis analyse + (optioneel) een paar recente bankafschriften",
+                  "Vooraf de gratis analyse, bankafschriften zijn optioneel en blijven vertrouwelijk",
                   "Videogesprek van 45 minuten, eerlijk en gericht, geen verkooppraat",
                   "Samen 2 à 3 concrete doelen en actiepunten bepalen",
                   "Korte schriftelijke samenvatting achteraf om terug te lezen",
-                  "Daarna zelf verder, of pas een traject als je dat wilt",
+                  "Daarna zelf verder, of een traject als je dat wilt",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-2">
                     <span style={{ color: "#8AB89A", fontWeight: 600, flexShrink: 0 }}>✓</span>
@@ -321,7 +338,7 @@ export default function AanbodPage() {
               </div>
             </div>
 
-            {/* NIVEAU 3, Intensief */}
+            {/* NIVEAU 3: Traject */}
             <div
               style={{
                 backgroundColor: "#FDFAF4",
@@ -368,18 +385,16 @@ export default function AanbodPage() {
                 className="font-body"
                 style={{ fontWeight: 500, color: "#1C3A2A", fontSize: "1rem", lineHeight: 1.6 }}
               >
-                Jouw financiële situatie van A tot Z doorgelicht. Een plan op
-                maat. En iemand naast je die je scherp houdt totdat het systeem
-                staat.
+                Na 3 maanden heb je een systeem dat werkt zonder dat je er continu over na hoeft te denken. Niet alleen een plan, maar een gewoonte die blijft.
               </p>
 
               <hr style={{ borderColor: "#E8E0D4", margin: "0.25rem 0" }} />
 
               <ul className="space-y-2">
                 {[
-                  "Intake gesprek (45 min, video)",
+                  "Intakegesprek (45 min, video)",
                   "Volledig financieel plan op basis van jouw situatie",
-                  "Maandelijkse videocall (3x)",
+                  "Maandelijkse videocall (3x) om bij te sturen",
                   "WhatsApp bereikbaar voor vragen (3 maanden)",
                   "Tussenevaluatie na 6 weken",
                   "Eindrapport met concrete aanbevelingen",
@@ -397,8 +412,7 @@ export default function AanbodPage() {
                 className="font-body"
                 style={{ fontSize: "0.8rem", color: "#8A9E8E" }}
               >
-                Maximaal 3 trajecten tegelijk. Neem contact op voor
-                beschikbaarheid.
+                Maximaal 3 trajecten tegelijk.
               </p>
 
               <div className="mt-auto">
@@ -415,12 +429,19 @@ export default function AanbodPage() {
                 >
                   Ja, dit wil ik →
                 </Link>
+                <Link
+                  href="mailto:hallo@waarblijfthet.nl?subject=Beschikbaarheid traject"
+                  className="block text-center font-body text-xs mt-2"
+                  style={{ color: "#8A9E8E", textDecoration: "none" }}
+                >
+                  Vraag beschikbaarheid op →
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── Sociale proof: echte resultaten ── */}
+        {/* Sociale proof */}
         <section style={{ backgroundColor: "#FDFAF4", padding: "3rem 1.5rem" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <p
@@ -469,26 +490,12 @@ export default function AanbodPage() {
               className="font-body text-xs mt-6 text-center"
               style={{ color: "#8A9E8E" }}
             >
-              Echte ervaringen van de eerste gezinnen die we hielpen. Namen
-              aangepast voor hun privacy.
+              Echte ervaringen van de eerste gezinnen die ik hielp. Namen aangepast voor hun privacy.
             </p>
           </div>
         </section>
 
-        {/* ── FAQ Accordion ── */}
-        <section style={{ backgroundColor: "white", padding: "4rem 1.5rem" }}>
-          <div style={{ maxWidth: "720px", margin: "0 auto" }}>
-            <h2
-              className="font-display font-light text-[#1C3A2A]"
-              style={{ fontSize: "2rem", marginBottom: "2rem" }}
-            >
-              Veelgestelde vragen
-            </h2>
-            <AanbodAccordion />
-          </div>
-        </section>
-
-        {/* ── Vergelijkingstabel ── */}
+        {/* Vergelijkingstabel */}
         <section style={{ backgroundColor: "#F5F0E8", padding: "3rem 1.5rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>
             <h2
@@ -539,7 +546,7 @@ export default function AanbodPage() {
                     [
                       "Geschikt voor",
                       "Eerste inzicht",
-                      "Eén eerlijke por",
+                      "Eerlijk klankbord",
                       "Volledig omgooien",
                     ],
                   ].map((row, ri) => (
@@ -589,7 +596,20 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* ── Finale CTA ── */}
+        {/* FAQ Accordion */}
+        <section style={{ backgroundColor: "white", padding: "4rem 1.5rem" }}>
+          <div style={{ maxWidth: "720px", margin: "0 auto" }}>
+            <h2
+              className="font-display font-light text-[#1C3A2A]"
+              style={{ fontSize: "2rem", marginBottom: "2rem" }}
+            >
+              Veelgestelde vragen
+            </h2>
+            <AanbodAccordion />
+          </div>
+        </section>
+
+        {/* Finale CTA */}
         <section
           style={{
             backgroundColor: "#1C3A2A",
@@ -613,9 +633,7 @@ export default function AanbodPage() {
                 marginBottom: "2rem",
               }}
             >
-              Begin gewoon met de gratis analyse. Die duurt vijf minuten en geeft
-              je al een eerlijk beeld van jullie situatie. Daarna zie je vanzelf
-              of je meer wil.
+              Begin met de gratis analyse. Die duurt vijf minuten en geeft je al een eerlijk beeld van jouw situatie. Daarna zie je vanzelf of je meer wil.
             </p>
             <Link
               href="/analyse"
