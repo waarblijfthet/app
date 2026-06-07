@@ -160,7 +160,7 @@ export default function HomePage() {
                     letterSpacing: "0.01em",
                   }}
                 >
-                  Gratis &middot; 5 minuten &middot; Geen account nodig
+                  Vrijblijvend &middot; Gratis &middot; 5 minuten &middot; Geen account nodig
                 </p>
               </div>
 

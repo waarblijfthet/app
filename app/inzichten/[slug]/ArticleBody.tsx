@@ -39,6 +39,8 @@ import FinancieelOnafhankelijkWordenRealistisch from "./content/financieel-onafh
 import StudieschuldAflossenOfSparen from "./content/studieschuld-aflossen-of-sparen";
 import GezamenlijkeRekeningVoorEnNadelen from "./content/gezamenlijke-rekening-voor-en-nadelen";
 import TweedeInkomenLoonNietTweeverdieners from "./content/tweede-inkomen-loont-niet-tweeverdieners";
+import WatKostEenFinancieelAdviseur from "./content/wat-kost-een-financieel-adviseur";
+import WatDoetEenFinancieelAdviseur from "./content/wat-doet-een-financieel-adviseur";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -82,6 +84,8 @@ const contentMap: Record<string, () => JSX.Element> = {
   "studieschuld-aflossen-of-sparen": StudieschuldAflossenOfSparen,
   "gezamenlijke-rekening-voor-en-nadelen": GezamenlijkeRekeningVoorEnNadelen,
   "tweede-inkomen-loont-niet-tweeverdieners": TweedeInkomenLoonNietTweeverdieners,
+  "wat-kost-een-financieel-adviseur": WatKostEenFinancieelAdviseur,
+  "wat-doet-een-financieel-adviseur": WatDoetEenFinancieelAdviseur,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

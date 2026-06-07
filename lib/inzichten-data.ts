@@ -2043,6 +2043,101 @@ export const artikelen: Artikel[] = [
     ],
   },
   {
+    slug: "wat-kost-een-financieel-adviseur",
+    korteTitel: "Wat kost een financieel adviseur?",
+    titel: "Wat kost een financieel adviseur — en heb je er echt één nodig?",
+    metaTitel: "Wat kost een financieel adviseur? Tarieven en alternatieven",
+    metaDescription: "Een financieel adviseur kost €150–€300/uur. Maar voor de meeste gezinnen die krap zitten, is een eenmalig gesprek van €125 voldoende. Lees wanneer je wat nodig hebt.",
+    datum: "2026-06-07",
+    datumFormatted: "7 juni 2026",
+    leestijd: "6",
+    categorie: "Financieel advies",
+    excerpt: "Lisanne zocht op 'financieel adviseur' en sloot het tabblad zodra ze het tarief zag: €220/uur. Ze had geen hypotheek nodig — ze wilde weten waarom er nooit geld over was. Dat kost €125, niet €660.",
+    preview: {
+      type: "vergelijking",
+      label: "Kosten financieel advies vergelijken",
+      items: [
+        { naam: "Traditionele adviseur (3u)", bedrag: 660, kleur: "#B03A2E" },
+        { naam: "Eenmalig gesprek", bedrag: 125, kleur: "#2D6A4F" },
+      ],
+      noot: "Bij €220/uur × 3u vs. €125 eenmalig",
+    },
+    faq: [
+      {
+        vraag: "Wat kost een financieel adviseur gemiddeld?",
+        antwoord: "De meeste onafhankelijke financieel adviseurs rekenen een uurtarief tussen €150 en €300. Voor een volledig adviestraject (inventarisatie + plan + uitwerking) ben je al snel €800 tot €2.000 kwijt. Sommige adviseurs werken ook met een percentage van het beheerd vermogen, doorgaans 0,5 tot 1,5% per jaar.",
+      },
+      {
+        vraag: "Wat kost een financieel adviseur per uur?",
+        antwoord: "Een onafhankelijke financieel adviseur kost in Nederland gemiddeld €150 tot €250 per uur. Adviseurs in grote steden of met specialisatie in vermogensbeheer zitten aan de bovenkant. Bankadviseurs werken vaak niet op uurbasis maar via provisie op producten.",
+      },
+      {
+        vraag: "Heb ik een gecertificeerde financieel adviseur nodig?",
+        antwoord: "Alleen als je advies nodig hebt over hypotheek, beleggingen of pensioenverzekeringen. Voor inzicht in je maandbudget, uitgavenpatroon of spaarplan heb je geen Wft-gecertificeerde adviseur nodig. Een eenmalig financieel adviesgesprek is in dat geval voldoende.",
+      },
+      {
+        vraag: "Bestaat gratis financieel advies?",
+        antwoord: "Ja, maar het is niet echt gratis. Bankadviseurs die 'gratis' advies geven, verdienen provisie op de producten die je via hen afsluit. Hun belang en jouw belang lopen dan niet altijd parallel. Een onafhankelijke adviseur met transparant uurtarief is in de meeste gevallen eerlijker.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "AFM — vergelijk gecertificeerde financieel adviseurs",
+        url: "https://www.afm.nl/nl-nl/consumenten/diensten-producten/financieel-advies/adviseurs-vergelijken",
+      },
+      {
+        label: "Nibud — hoeveel geld heb je nodig voor een adviseur?",
+        url: "https://www.nibud.nl/consumenten/budgetadvies/",
+      },
+    ],
+  },
+  {
+    slug: "wat-doet-een-financieel-adviseur",
+    korteTitel: "Wat doet een financieel adviseur?",
+    titel: "Wat doet een financieel adviseur — en heb jij er echt één nodig?",
+    metaTitel: "Wat doet een financieel adviseur? En wanneer heb je er een nodig?",
+    metaDescription: "Een financieel adviseur adviseert over hypotheek, beleggingen en pensioen. Maar voor gezinnen die krap zitten is er een alternatief dat beter past. Lees het verschil.",
+    datum: "2026-06-07",
+    datumFormatted: "7 juni 2026",
+    leestijd: "5",
+    categorie: "Financieel advies",
+    excerpt: "Veel mensen denken dat een financieel adviseur voor rijke mensen is. Klopt niet — maar het hangt af van wat je vraag is. Voor hypotheek: ja. Voor 'waarom is ons geld op': nee. Lees het verschil.",
+    preview: {
+      type: "pijn",
+      label: "Wanneer heb je welk type hulp nodig?",
+      items: [
+        "Hypotheek of beleggingen → gecertificeerde adviseur (Wft)",
+        "Maandbudget en inzicht → financieel coach of gesprek",
+        "Pensioenproduct → Wft-adviseur verplicht",
+        "'Waar blijft ons geld?' → geen adviseur nodig",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat doet een financieel adviseur precies?",
+        antwoord: "Een financieel adviseur geeft advies over financiële producten zoals hypotheken, beleggingen en pensioenverzekeringen. In Nederland geldt voor die drie gebieden een vergunningsplicht (Wft). Buiten die producten — zoals budgetadvies of maandelijkse financiële planning — is er geen vergunning vereist.",
+      },
+      {
+        vraag: "Wat is het verschil tussen een financieel adviseur en een financieel coach?",
+        antwoord: "Een gecertificeerde financieel adviseur (Wft) mag advies geven over hypotheek, beleggingen en pensioenverzekeringen en is aansprakelijk voor dat advies. Een financieel coach of budgetadviseur heeft die vergunning niet en adviseert over maandbudgetten, uitgavenpatronen en financiële doelen. Een coach is doorgaans goedkoper en voldoende voor mensen die grip willen op hun maandelijkse financiën.",
+      },
+      {
+        vraag: "Kan ik mijn bankadviseur gebruiken voor financieel advies?",
+        antwoord: "Bankadviseurs zijn gecertificeerd maar werken voor de bank. Ze adviseren de producten van die bank en worden soms betaald op basis van wat je afsluit. Een onafhankelijk adviseur heeft geen belang bij welk product je kiest en is daardoor transparanter. Vraag altijd hoe een adviseur wordt vergoed.",
+      },
+      {
+        vraag: "Heb ik een financieel adviseur nodig als ik gewoon meer wil overhouden?",
+        antwoord: "Nee. Als je vraag is 'waarom is ons geld op?' of 'hoe houden we meer over', heb je geen Wft-gecertificeerde adviseur nodig. Een eenmalig adviesgesprek of de gratis analyse is voldoende om inzicht te krijgen in je maandbudget en concrete doelen te stellen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "AFM — gecertificeerde financieel adviseurs zoeken",
+        url: "https://www.afm.nl/nl-nl/consumenten/diensten-producten/financieel-advies/adviseurs-vergelijken",
+      },
+    ],
+  },
+  {
     slug: "tweede-inkomen-loont-niet-tweeverdieners",
     korteTitel: "Tweede inkomen loont niet: hoe kan dat?",
     titel: "Tweede inkomen loont niet: hoe kan dat?",

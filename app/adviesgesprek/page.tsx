@@ -4,9 +4,9 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Zo werkt het adviesgesprek",
+  title: "Financieel adviesgesprek — eenmalig, €125, vrijblijvend",
   description:
-    "Een eenmalig adviesgesprek van 45 minuten: eerlijk naar je cijfers kijken en 2 à 3 concrete doelen stellen. Zo bereid je je voor, dit gebeurt er, en dit krijg je achteraf. €125, geen traject, geen verplichting.",
+    "Een eenmalig financieel adviesgesprek van 45 minuten: eerlijk naar je cijfers kijken en 2 à 3 concrete doelen stellen. €125, geen traject, geen verplichting.",
   alternates: { canonical: "https://www.waarblijfthet.nl/adviesgesprek" },
   openGraph: {
     title: "Zo werkt het adviesgesprek — Waar blijft het",
