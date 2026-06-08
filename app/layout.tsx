@@ -3,6 +3,7 @@ import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import { PageTracker } from "@/components/PageTracker";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/next";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -74,6 +75,7 @@ export default function RootLayout({
         {children}
         <PageTracker />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
