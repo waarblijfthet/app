@@ -15,7 +15,7 @@ const STATISCHE_URLS = [
   `${BASE}/samenwerken/budgetcoaches`,
   `${BASE}/samenwerken/burnout-coaches`,
   `${BASE}/samenwerken/financieel-planners`,
-  `${BASE}/samenwerken/relatiestherapeuten`,
+  `${BASE}/samenwerken/relatietherapeuten`,
 ];
 
 export function getAllUrls(): string[] {

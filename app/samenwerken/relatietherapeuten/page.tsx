@@ -4,15 +4,15 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor relatiestherapeuten | Waar blijft het",
+  title: "Samenwerken · voor relatietherapeuten | Waar blijft het",
   description:
     "Veel koppels in therapie vechten over geld, maar de financiën lost een relatietherapie niet op. Waar blijft het pakt het gelddeel aan, zodat jij je kunt focussen op de relatie.",
-  alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/relatiestherapeuten" },
+  alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/relatietherapeuten" },
   openGraph: {
-    title: "Samenwerken met Waar blijft het · voor relatiestherapeuten",
+    title: "Samenwerken met Waar blijft het · voor relatietherapeuten",
     description:
       "Koppels die bij jou komen vechtend over geld. Ik pak de financiën aan, jij pakt de relatie aan.",
-    url: "https://www.waarblijfthet.nl/samenwerken/relatiestherapeuten",
+    url: "https://www.waarblijfthet.nl/samenwerken/relatietherapeuten",
     type: "website",
   },
   robots: { index: true, follow: true },
@@ -82,7 +82,7 @@ export default function RelatietherapeutenPage() {
         {/* Hero */}
         <section className="bg-background pt-16 pb-10">
           <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Voor relatiestherapeuten &amp; koppelcoaches</p>
+            <p className="section-eyebrow mb-4">Voor relatietherapeuten &amp; koppelcoaches</p>
             <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-6 max-w-2xl leading-tight">
               Je koppel vecht over geld.<br />
               Ik los het gelddeel op.

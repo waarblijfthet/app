@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Samenwerken met Waar blijft het | voor professionals",
     description:
-      "Voor relatiestherapeuten, budgetcoaches, financieel planners en burnout-coaches. Ik pak het gelddeel aan.",
+      "Voor relatietherapeuten, budgetcoaches, financieel planners en burnout-coaches. Ik pak het gelddeel aan.",
     url: "https://www.waarblijfthet.nl/samenwerken",
     type: "website",
   },
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 
 const partners = [
   {
-    href: "/samenwerken/relatiestherapeuten",
+    href: "/samenwerken/relatietherapeuten",
     label: "Relatiestherapeuten & koppelcoaches",
     beschrijving:
       "Koppels die bij jou komen over communicatie of verwijdering, terwijl het eigenlijke probleem een onopgelost maandbudget is.",
