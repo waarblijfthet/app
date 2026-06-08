@@ -9,6 +9,7 @@ import AanvragenTabblad from "./components/AanvragenTabblad";
 import { BezoekersTabblad } from "./components/BezoekersTabblad";
 import FunnelTabblad from "./components/FunnelTabblad";
 import IndexingTabblad from "./components/IndexingTabblad";
+import OutreachTabblad from "./components/OutreachTabblad";
 
 interface Props {
   leads: Lead[];
@@ -24,6 +25,7 @@ const TABS = [
   { id: "overzicht", label: "Overzicht" },
   { id: "aanvragen", label: "Aanvragen" },
   { id: "indexering", label: "🔍 Indexering" },
+  { id: "outreach", label: "📧 Outreach" },
 ] as const;
 
 type TabId = (typeof TABS)[number]["id"];
@@ -34,13 +36,13 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
   return (
     <div>
       {/* Tabbladen */}
-      <div className="flex gap-6 border-b border-[#E8E0D0] mb-7">
+      <div className="flex gap-6 border-b border-[#E8E0D0] mb-7 overflow-x-auto">
         {TABS.map((tab) => (
           <button
             key={tab.id}
             type="button"
             onClick={() => setActief(tab.id)}
-            className={`pb-3 font-body font-medium text-sm transition-colors ${
+            className={`pb-3 font-body font-medium text-sm transition-colors whitespace-nowrap ${
               actief === tab.id
                 ? "border-b-2 border-primary text-primary"
                 : "text-text-muted hover:text-text-soft"
@@ -93,6 +95,7 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
       )}
       {actief === "aanvragen" && <AanvragenTabblad aanvragen={aanvragen} />}
       {actief === "indexering" && <IndexingTabblad />}
+      {actief === "outreach" && <OutreachTabblad />}
     </div>
   );
 }
