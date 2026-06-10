@@ -1800,17 +1800,17 @@ export const artikelen: Artikel[] = [
     slug: "kosten-levensonderhoud-alleenstaande-2026",
     korteTitel: "Kosten levensonderhoud alleenstaande 2026",
     titel:
-      "Kosten levensonderhoud alleenstaande in 2026 — wat je werkelijk nodig hebt om rond te komen",
+      "Kosten levensonderhoud alleenstaande in 2026: wat je werkelijk nodig hebt om rond te komen",
     metaTitel:
       "Kosten levensonderhoud alleenstaande 2026: overzicht",
     metaDescription:
-      "Wat kost het leven als alleenstaande in 2026? Van huur tot boodschappen tot verzekeringen — alle gemiddelden op een rij, plus waar de meeste ruimte zit.",
+      "Wat kost het leven als alleenstaande in 2026? Van huur tot boodschappen tot verzekeringen: alle gemiddelden op een rij, plus waar de meeste ruimte zit.",
     datum: "2026-05-28",
     datumFormatted: "28 mei 2026",
     leestijd: "7",
     categorie: "Inzicht",
     excerpt:
-      "De vaste lasten voor een alleenstaande liggen in 2026 gemiddeld tussen €2.000 en €2.400 per maand — en in de Randstad structureel €300-400 hoger. Dit is het volledige overzicht, per kostenpost en per regio.",
+      "De vaste lasten voor een alleenstaande liggen in 2026 gemiddeld tussen €2.000 en €2.400 per maand. In de Randstad structureel €300-400 hoger. Dit is het volledige overzicht, per kostenpost en per regio.",
     preview: {
       type: "vergelijking",
       label: "Kosten levensonderhoud 2026",

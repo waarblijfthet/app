@@ -218,8 +218,8 @@ export default function ArtikelPage({ params }: Props) {
                   className="font-body font-light text-text-soft"
                   style={{ marginBottom: "1rem" }}
                 >
-                  Benieuwd hoe jullie situatie eruitziet? Doe de gratis analyse
-                  en zie direct waar jullie geld naartoe gaat.
+                  Benieuwd hoe jouw situatie eruitziet? Doe de gratis analyse
+                  en zie direct waar jouw geld naartoe gaat.
                 </p>
                 <Link href="/analyse" className="btn-primary">
                   Start de gratis analyse →

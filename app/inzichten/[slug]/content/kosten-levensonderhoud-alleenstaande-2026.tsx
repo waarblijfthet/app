@@ -84,8 +84,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         Hoeveel netto inkomen heb je nodig als alleenstaande?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Een alleenstaande die alle kosten dekt en ook nog iets spaart —
-        inclusief het Nibud-advies van 10% spaarbuffer, heeft op basis van de
+        Een alleenstaande die alle kosten dekt en ook nog iets spaart, inclusief het Nibud-advies van 10% spaarbuffer, heeft op basis van de
         gemiddelden minimaal €2.400-€2.600 netto per maand nodig. In de Randstad
         ligt die grens bij €2.800-€3.000.
       </p>
@@ -110,8 +109,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Huur is moeilijk maar niet onmogelijk. Een kamer huren in plaats van een
-        appartement, een andere regio, of een woningcorporatiewoning afwachten —
-        de opties zijn beperkt maar de impact is enorm. Elke €100 minder huur
+        appartement, een andere regio, of een woningcorporatiewoning afwachten. De opties zijn beperkt, maar de impact is enorm. Elke €100 minder huur
         per maand is €1.200 per jaar.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -148,7 +146,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         >
           wat normale vaste lasten zijn
         </Link>{" "}
-        lees je in ons uitgebreide overzicht.
+        lees je in mijn uitgebreide overzicht.
       </p>
 
       {/* Intern CTA */}
@@ -173,8 +171,11 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         className="rounded-xl border p-4 my-6"
         style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
       >
-        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
-          <strong>Uit de praktijk.</strong> Bij alleenstaanden die ik spreek ligt het zelden aan 'verkeerd omgaan met geld'. Eén inkomen draagt álle vaste lasten, vooral de huur, en dan is een prima salaris ineens krap. Dat is een lasten-vraagstuk, geen gedragsprobleem, en dat scheelt al een hoop schaamte om te weten.
+        <p className="font-body text-sm font-medium mb-2" style={{ color: "#1C3A2A" }}>
+          Uit de praktijk: Sophie, 32, IT-consultant, Amsterdam
+        </p>
+        <p className="font-body text-sm" style={{ color: "#2D4A35" }}>
+          €3.400 netto per maand, goed salaris. En toch kon ze aan het einde van de maand niet uitleggen waar het gebleven was. Huur €1.350, parkeervergunning €60, zorgverzekering €155 na toeslag, energie €190. Dat is al €1.755 aan vaste lasten, zonder eten en zonder iets leuks. Voeg daar boodschappen en een OV-abonnement bij op, en er is structureel te weinig over voor een spaarbuffer. Geen onverstandige keuzes. Gewoon: Amsterdam, alleen, en alles draag je zelf.
         </p>
       </div>
     </>
