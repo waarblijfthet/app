@@ -1867,6 +1867,181 @@ export const artikelen: Artikel[] = [
     ],
   },
   {
+    slug: "kosten-levensonderhoud-alleenstaande-ouder-2026",
+    korteTitel: "Kosten levensonderhoud alleenstaande ouder 2026",
+    titel:
+      "Kosten levensonderhoud alleenstaande ouder in 2026: wat je werkelijk nodig hebt",
+    metaTitel:
+      "Kosten levensonderhoud alleenstaande ouder 2026: overzicht",
+    metaDescription:
+      "Wat kost het als alleenstaande ouder in 2026? Van kinderopvang tot ALO-kop: alle kosten en regelingen op een rij, plus hoeveel inkomen je echt nodig hebt.",
+    datum: "2026-06-10",
+    datumFormatted: "10 juni 2026",
+    leestijd: "7",
+    categorie: "Inzicht",
+    excerpt:
+      "Als alleenstaande ouder draag je de kosten van kinderen op één inkomen. De regelingen helpen, maar de marge is structureel klein. Dit is het complete overzicht.",
+    preview: {
+      type: "vergelijking",
+      label: "Kosten alleenstaande ouder 2026",
+      items: [
+        { naam: "Basis (geen kinderen)", bedrag: 2200, kleur: "#8AB89A" },
+        { naam: "Met 1 kind", bedrag: 2850, kleur: "#1C3A2A" },
+      ],
+      noot: "Middelgrote stad, na toeslagen",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel geld heb je nodig als alleenstaande ouder?",
+        antwoord:
+          "Een alleenstaande ouder heeft in een middelgrote stad minimaal €2.600-€3.000 netto per maand nodig voor één kind, inclusief een kleine spaarbuffer. Na toeslagen als de ALO-kop en het kindgebonden budget is het netto benodigde bedrag lager, maar de bruto behoefte blijft hoog.",
+      },
+      {
+        vraag: "Hoeveel is de ALO-kop in 2026?",
+        antwoord:
+          "De alleenstaande ouderkop (ALO-kop) is in 2026 €3.407 per jaar, ofwel ca. €284 per maand. Dit is een extra bedrag bovenop het kindgebonden budget voor alleenstaande ouders die alle zorg en kosten zelf dragen.",
+      },
+      {
+        vraag: "Hoeveel kindgebonden budget krijg je als alleenstaande ouder?",
+        antwoord:
+          "Bij een inkomen tot €29.736 ontvang je als alleenstaande ouder maximaal €5.996 per jaar voor één kind, inclusief de ALO-kop. Boven die inkomensgrens bouwt het bedrag af, maar bij een modaal inkomen ontvang je vaak nog steeds een substantieel bedrag.",
+      },
+      {
+        vraag: "Zijn kinderkosten hoger voor een alleenstaande ouder?",
+        antwoord:
+          "Ja. Je betaalt dezelfde kosten als twee-oudergezinnen, maar draagt ze alleen. Kinderopvang, kleding, sport, schoolkosten en extra boodschappen tellen op tot €500-700 extra per maand voor één kind. De toeslagen compenseren een deel, maar de financiële druk blijft groter dan in een tweeoudergezin.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Belastingdienst: ALO-kop en kindgebonden budget",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/toeslagen/kindgebonden_budget/",
+      },
+      {
+        label: "Nibud: financieel overzicht alleenstaande ouders",
+        url: "https://www.nibud.nl/onderwerpen/gezin/alleenstaande-ouders/",
+      },
+    ],
+  },
+  {
+    slug: "kosten-levensonderhoud-zzp-alleenstaande-2026",
+    korteTitel: "Kosten levensonderhoud ZZP-alleenstaande 2026",
+    titel:
+      "Kosten levensonderhoud als ZZP-alleenstaande in 2026: waarom je buffer nooit genoeg voelt",
+    metaTitel:
+      "Kosten levensonderhoud ZZP-alleenstaande 2026: overzicht",
+    metaDescription:
+      "Als ZZP-alleenstaande combineer je variabel inkomen met alle vaste lasten op één naam. Wat je nodig hebt, wat je moet reserveren en hoe groot je buffer moet zijn.",
+    datum: "2026-06-10",
+    datumFormatted: "10 juni 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Een ZZP-alleenstaande heeft structureel meer bruto omzet nodig dan een werknemer in dezelfde situatie. AOV, pensioen, belasting: alles reserveer je zelf. Dit is het overzicht.",
+    preview: {
+      type: "vergelijking",
+      label: "Wat moet een ZZP-alleenstaande reserveren?",
+      items: [
+        { naam: "Vaste lasten", bedrag: 2200, kleur: "#8AB89A" },
+        { naam: "Te reserveren", bedrag: 1600, kleur: "#1C3A2A" },
+      ],
+      noot: "Bij omzet €4.000/mnd, middelgrote stad",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel moet een ZZP-alleenstaande bufferen?",
+        antwoord:
+          "Minimaal zes maanden aan vaste lasten inclusief reserveringen. Bij vaste lasten van €2.200 en reserveringen (belasting, AOV, pensioen) van €1.600 per maand is dat een buffer van minimaal €23.000. Zonder partner die bijspringt is deze buffer de enige veiligheid bij ziekte of een rustige periode.",
+      },
+      {
+        vraag: "Heb ik als ZZP-alleenstaande recht op zorgtoeslag?",
+        antwoord:
+          "Dat hangt af van je inkomen. Bij een jaarinkomen boven ca. €38.000 (2026) vervalt het recht op zorgtoeslag. Bij een wisselend inkomen kun je soms zorgtoeslag ontvangen en later terugbetalen bij een aanslag. Begroten op zorgtoeslag is daarom risicovol.",
+      },
+      {
+        vraag: "Hoeveel pensioen moet ik zelf opbouwen als ZZP-alleenstaande?",
+        antwoord:
+          "Nibud adviseert minimaal 17% van de jaarwinst opzij te zetten voor pensioen. Bij een omzet van €4.000 per maand is dat ca. €500-€680 per maand. Als alleenstaande is er geen partnerpensioen als vangnet, dus eigen opbouw is de enige buffer voor later.",
+      },
+      {
+        vraag: "Hoeveel bruto omzet heb ik nodig als ZZP-alleenstaande?",
+        antwoord:
+          "In een middelgrote stad met vaste lasten van €2.200 per maand heb je als ZZP-alleenstaande een structurele maandomzet van minimaal €4.500-€5.000 nodig om comfortabel rond te komen en buffer op te bouwen. In de Randstad is dat €5.000-€6.000.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: financieel advies voor ZZP-ers",
+        url: "https://www.nibud.nl/onderwerpen/inkomen/zelfstandigen/",
+      },
+      {
+        label: "Rijksoverheid: zelfstandigenaftrek en MKB-winstvrijstelling",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/winst/",
+      },
+    ],
+  },
+  {
+    slug: "kosten-levensonderhoud-alleenstaande-50-plus-2026",
+    korteTitel: "Kosten levensonderhoud alleenstaande 50-plus 2026",
+    titel:
+      "Kosten levensonderhoud als alleenstaande 50-plusser in 2026: het pensioenplaatje dat je moet kennen",
+    metaTitel:
+      "Kosten levensonderhoud alleenstaande 50-plus 2026: pensioen en kosten",
+    metaDescription:
+      "Als alleenstaande 50-plusser bouw je pensioen op op één inkomen. Hoeveel AOW krijg je, wat heb je nodig en wat kun je nu nog bijsturen? Dit is het overzicht.",
+    datum: "2026-06-10",
+    datumFormatted: "10 juni 2026",
+    leestijd: "7",
+    categorie: "Pensioen",
+    excerpt:
+      "Alleenstaande 50-plussers ontvangen één AOW en hebben één opgebouwd pensioen. Het verschil met samenwonenden is groot. Dit is wat je moet weten voor je met pensioen gaat.",
+    preview: {
+      type: "vergelijking",
+      label: "Inkomen bij pensioen alleenstaande",
+      items: [
+        { naam: "AOW alleenstaande", bedrag: 1400, kleur: "#8AB89A" },
+        { naam: "Benodigd minimum", bedrag: 1750, kleur: "#1C3A2A" },
+      ],
+      noot: "2026, exclusief aanvullend pensioen",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel AOW krijg je als alleenstaande in 2026?",
+        antwoord:
+          "De AOW voor alleenstaanden bedraagt in 2026 ca. €1.400 netto per maand, gebaseerd op 70% van het minimumloon. Dit is structureel minder dan wat twee partners samen ontvangen. Bovenop de AOW is er de alleenstaandeouderenkorting van €540 per jaar.",
+      },
+      {
+        vraag: "Hoeveel heb je nodig als alleenstaande gepensioneerde?",
+        antwoord:
+          "Nibud rekent dat een gepensioneerde alleenstaande minimaal €1.650-€1.900 per maand nodig heeft voor basiskosten. De AOW alleen dekt dat niet volledig. Het gat wordt gevuld door aanvullend pensioen dat je via werk hebt opgebouwd.",
+      },
+      {
+        vraag: "Wat is de alleenstaandeouderenkorting 2026?",
+        antwoord:
+          "De alleenstaandeouderenkorting is €540 per jaar in 2026. Het is een heffingskorting voor AOW-gerechtigden zonder partner, geen extra uitkering. Het verlaagt de te betalen belasting, wat netto een klein voordeel oplevert.",
+      },
+      {
+        vraag: "Wat kan ik nog doen om mijn pensioensituatie te verbeteren?",
+        antwoord:
+          "Bekijk eerst mijnpensioenoverzicht.nl om te zien wat je hebt opgebouwd. Extra storten in een lijfrente of bankspaarproduct is fiscaal aftrekbaar en werkt sterker naarmate je eerder begint. Controleer ook je verwachte vaste lasten bij pensioen: een afgeloste hypotheek verlaagt de benodigde maandsom aanzienlijk.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Mijn Pensioenoverzicht",
+        url: "https://www.mijnpensioenoverzicht.nl",
+      },
+      {
+        label: "SVB: AOW-bedragen 2026",
+        url: "https://www.svb.nl/nl/aow/hoogte-aow",
+      },
+      {
+        label: "Nibud: pensioen voor alleenstaanden",
+        url: "https://www.nibud.nl/onderwerpen/pensioen/",
+      },
+    ],
+  },
+  {
     slug: "pensioen-aanvullen-hoeveel-heb-je-nodig",
     korteTitel: "Pensioen aanvullen: hoeveel heb je nodig?",
     titel: "Pensioen aanvullen: hoeveel heb je nodig — en wanneer is het te laat?",
