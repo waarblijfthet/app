@@ -15,7 +15,7 @@ import { readFileSync } from "fs";
 
 const CSV_BESTAND = "./data/outreach-relatietherapeuten.csv";
 const VERTRAGING_MS = 3000; // 3 seconden tussen e-mails (voorkomt spam-vlaggen)
-const AFZENDER = "Jarno Koopman <jarno@waarblijfthet.nl>";
+const AFZENDER = "Jarno Koopman <hallo@waarblijfthet.nl>";
 
 // ─── CSV inladen ──────────────────────────────────────────────────────────────
 
@@ -36,13 +36,14 @@ function onderwerp(naam) {
   return `${naam}, herken je dit bij koppels?`;
 }
 
-function htmlBody() {
+function htmlBody(naam) {
   return `<!DOCTYPE html>
 <html lang="nl">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"></head>
 <body style="margin:0;padding:0;background:#ffffff;font-family:Arial,Helvetica,sans-serif;">
   <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;padding:40px 24px;">
     <tr><td style="font-size:15px;line-height:1.7;color:#1A1A1A;">
+      <p style="margin:0 0 18px 0;">Beste ${naam},</p>
 
       <p style="margin:0 0 18px 0;">
         Je kent ze waarschijnlijk: het koppel waarbij de communicatie over geld
@@ -120,7 +121,7 @@ async function verstuurAlles() {
         from: AFZENDER,
         to: email,
         subject: onderwerp(naam),
-        html: htmlBody(),
+        html: htmlBody(naam),
       });
       console.log(`  Verstuurd  ${naam} <${email}>`);
       geslaagd++;
