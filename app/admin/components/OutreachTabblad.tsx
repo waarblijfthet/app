@@ -15,12 +15,30 @@ interface Contact {
   status: "nieuw" | "verstuurd" | "geopend" | "geklikt" | "bounced";
 }
 
+const DOELGROEPEN: { value: string; label: string }[] = [
+  { value: "relatietherapeuten", label: "Relatietherapie" },
+  { value: "budgetcoaches",      label: "Budgetcoach" },
+  { value: "financieel-planners", label: "Financieel planner" },
+  { value: "burnout-coaches",    label: "Burnout-coach" },
+];
+
+const DOELGROEP_LABEL: Record<string, string> = Object.fromEntries(
+  DOELGROEPEN.map((d) => [d.value, d.label])
+);
+
+const DOELGROEP_STYLE: Record<string, string> = {
+  "relatietherapeuten":  "bg-purple-50 text-purple-700",
+  "budgetcoaches":       "bg-blue-50 text-blue-700",
+  "financieel-planners": "bg-amber-50 text-amber-700",
+  "burnout-coaches":     "bg-orange-50 text-orange-700",
+};
+
 const STATUS_LABEL: Record<Contact["status"], string> = {
-  nieuw: "Nieuw",
+  nieuw:     "Nieuw",
   verstuurd: "Verstuurd",
-  geopend: "Geopend",
-  geklikt: "Geklikt",
-  bounced: "Bounced",
+  geopend:   "Geopend",
+  geklikt:   "Geklikt",
+  bounced:   "Bounced",
 };
 
 const STATUS_STYLE: Record<Contact["status"], string> = {
@@ -46,10 +64,12 @@ export default function OutreachTabblad() {
   const [allesVerzenden, setAllesVerzenden] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
   const [melding, setMelding] = useState<string | null>(null);
+  const [filterDoelgroep, setFilterDoelgroep] = useState<string>("alle");
 
   // Nieuw contact form
   const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
+  const [doelgroep, setDoelgroep] = useState("relatietherapeuten");
   const [toevoegen, setToevoegen] = useState(false);
 
   const laadContacten = useCallback(async () => {
@@ -75,14 +95,14 @@ export default function OutreachTabblad() {
       const res = await fetch("/api/admin/outreach", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ naam: naam.trim(), email: email.trim() }),
+        body: JSON.stringify({ naam: naam.trim(), email: email.trim(), doelgroep }),
       });
       const data = await res.json();
       if (!res.ok) { setFout(data.error); return; }
       setNaam("");
       setEmail("");
       await laadContacten();
-      setMelding(`${naam} toegevoegd.`);
+      setMelding(`${naam} toegevoegd als ${DOELGROEP_LABEL[doelgroep]}.`);
       setTimeout(() => setMelding(null), 3000);
     } finally {
       setToevoegen(false);
@@ -120,21 +140,22 @@ export default function OutreachTabblad() {
   }
 
   async function stuurAlle() {
-    const nieuweIds = contacten.filter((c) => c.status === "nieuw").map((c) => c.id);
-    if (nieuweIds.length === 0) { setFout("Geen nieuwe contacten om te versturen."); return; }
-    if (!confirm(`${nieuweIds.length} e-mail(s) versturen?`)) return;
+    const gefilterd = zichtbareContacten.filter((c) => c.status === "nieuw");
+    if (gefilterd.length === 0) { setFout("Geen nieuwe contacten om te versturen."); return; }
+    const label = filterDoelgroep === "alle" ? "alle categorieën" : DOELGROEP_LABEL[filterDoelgroep];
+    if (!confirm(`${gefilterd.length} e-mail(s) versturen naar ${label}?`)) return;
     setAllesVerzenden(true);
     setFout(null);
     try {
       const res = await fetch("/api/admin/outreach/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: nieuweIds }),
+        body: JSON.stringify({ ids: gefilterd.map((c) => c.id) }),
       });
       const data = await res.json();
       if (!res.ok) { setFout(data.error); return; }
       const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
-      setMelding(`${geslaagd} van ${nieuweIds.length} verstuurd.`);
+      setMelding(`${geslaagd} van ${gefilterd.length} verstuurd.`);
       await laadContacten();
     } finally {
       setAllesVerzenden(false);
@@ -142,7 +163,11 @@ export default function OutreachTabblad() {
     }
   }
 
-  const nieuweCount = contacten.filter((c) => c.status === "nieuw").length;
+  const zichtbareContacten = filterDoelgroep === "alle"
+    ? contacten
+    : contacten.filter((c) => c.doelgroep === filterDoelgroep);
+
+  const nieuweCount = zichtbareContacten.filter((c) => c.status === "nieuw").length;
 
   return (
     <div className="space-y-6">
@@ -151,6 +176,7 @@ export default function OutreachTabblad() {
           <h2 className="font-display text-xl font-semibold text-primary">Outreach</h2>
           <p className="text-text-muted text-sm mt-0.5">
             {contacten.length} contacten &middot; {nieuweCount} nog niet verstuurd
+            {filterDoelgroep !== "alle" && ` (${DOELGROEP_LABEL[filterDoelgroep]})`}
           </p>
         </div>
         {nieuweCount > 0 && (
@@ -159,9 +185,27 @@ export default function OutreachTabblad() {
             disabled={allesVerzenden}
             className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
           >
-            {allesVerzenden ? "Versturen..." : `Verstuur alle nieuwe (${nieuweCount})`}
+            {allesVerzenden ? "Versturen..." : `Verstuur nieuwe (${nieuweCount})`}
           </button>
         )}
+      </div>
+
+      {/* Filter + nieuw contact */}
+      <div className="flex flex-wrap gap-2 items-center">
+        <span className="text-xs text-text-muted">Filter:</span>
+        {[{ value: "alle", label: "Alle" }, ...DOELGROEPEN].map((d) => (
+          <button
+            key={d.value}
+            onClick={() => setFilterDoelgroep(d.value)}
+            className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
+              filterDoelgroep === d.value
+                ? "bg-primary text-white border-primary"
+                : "bg-white text-text-soft border-[#E8E0D4] hover:border-primary"
+            }`}
+          >
+            {d.label}
+          </button>
+        ))}
       </div>
 
       {/* Nieuw contact toevoegen */}
@@ -191,6 +235,18 @@ export default function OutreachTabblad() {
             className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
         </div>
+        <div className="w-full sm:w-48">
+          <label className="block text-xs text-text-muted mb-1">Categorie</label>
+          <select
+            value={doelgroep}
+            onChange={(e) => setDoelgroep(e.target.value)}
+            className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white"
+          >
+            {DOELGROEPEN.map((d) => (
+              <option key={d.value} value={d.value}>{d.label}</option>
+            ))}
+          </select>
+        </div>
         <button
           type="submit"
           disabled={toevoegen}
@@ -214,8 +270,8 @@ export default function OutreachTabblad() {
       {/* Contactentabel */}
       {laden ? (
         <p className="text-text-muted text-sm">Laden...</p>
-      ) : contacten.length === 0 ? (
-        <p className="text-text-muted text-sm">Nog geen contacten. Voeg er een toe.</p>
+      ) : zichtbareContacten.length === 0 ? (
+        <p className="text-text-muted text-sm">Geen contacten gevonden.</p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-[#E8E0D0]">
           <table className="w-full text-sm">
@@ -223,6 +279,7 @@ export default function OutreachTabblad() {
               <tr>
                 <th className="text-left px-4 py-3">Naam</th>
                 <th className="text-left px-4 py-3">E-mail</th>
+                <th className="text-left px-4 py-3">Categorie</th>
                 <th className="text-left px-4 py-3">Status</th>
                 <th className="text-left px-4 py-3">Verstuurd</th>
                 <th className="text-left px-4 py-3">Geopend</th>
@@ -231,10 +288,15 @@ export default function OutreachTabblad() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F0EAE0]">
-              {contacten.map((c) => (
+              {zichtbareContacten.map((c) => (
                 <tr key={c.id} className="bg-white hover:bg-[#FDFAF4] transition-colors">
                   <td className="px-4 py-3 font-medium text-primary">{c.naam}</td>
                   <td className="px-4 py-3 text-text-muted">{c.email}</td>
+                  <td className="px-4 py-3">
+                    <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full ${DOELGROEP_STYLE[c.doelgroep] ?? "bg-gray-100 text-gray-600"}`}>
+                      {DOELGROEP_LABEL[c.doelgroep] ?? c.doelgroep}
+                    </span>
+                  </td>
                   <td className="px-4 py-3">
                     <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLE[c.status]}`}>
                       {STATUS_LABEL[c.status]}
@@ -244,13 +306,13 @@ export default function OutreachTabblad() {
                   <td className="px-4 py-3">
                     {c.geopend_at
                       ? <span className="text-green-600 text-xs">{datumTijd(c.geopend_at)}</span>
-                      : <span className="text-text-muted text-xs">—</span>
+                      : <span className="text-text-muted text-xs">&#8212;</span>
                     }
                   </td>
                   <td className="px-4 py-3">
                     {c.geklikt_at
                       ? <span className="text-[#C4603A] text-xs">{datumTijd(c.geklikt_at)}</span>
-                      : <span className="text-text-muted text-xs">—</span>
+                      : <span className="text-text-muted text-xs">&#8212;</span>
                     }
                   </td>
                   <td className="px-4 py-3">
