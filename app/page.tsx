@@ -138,9 +138,10 @@ export default function HomePage() {
               />
 
               <p className="text-text-soft font-body font-light text-base sm:text-lg leading-relaxed mb-8 animate-hero-3">
-                Je hebt geen schulden. Je doet niks geks. Maar aan het einde van
-                elke maand is het gewoon weg. Je weet niet precies waarheen.
-                Dat is geen karakterfout, het is een structuurprobleem.
+                Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde
+                van elke maand is het gewoon weg. Je weet niet precies waarheen.
+                Dat ligt niet aan jou, het is een structuurprobleem. Ik laat zien
+                waar het naartoe gaat, zodat je het kunt bijsturen.
               </p>
 
               <div className="animate-hero-4 mb-5">

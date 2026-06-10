@@ -31,7 +31,7 @@ const vragen = [
   {
     vraag: "Ben je gecertificeerd financieel adviseur?",
     antwoord:
-      "Nee. Ik ben geen gecertificeerd financieel adviseur en val niet onder de AFM-vergunningplicht. Ik adviseer niet over financiële producten. Wat ik doe is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer. Ik heb zelf jarenlang als CTO gewerkt, goed verdiend, en niet begrepen waarom het nooit klopte. Dat inzicht is de basis van hoe ik met je meedenk.",
+      "Nee. Ik ben geen gecertificeerd financieel adviseur en val niet onder de AFM-vergunningplicht. Ik adviseer niet over financiële producten. Wat ik doe is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dat inzicht is de basis van hoe ik met je meedenk.",
   },
 ];
 

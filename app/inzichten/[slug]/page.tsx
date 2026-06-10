@@ -320,9 +320,8 @@ export default function ArtikelPage({ params }: Props) {
                   </p>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">
                     Keihard werken en tóch niets overhouden. Dat gevoel ken ik.
-                    Als CTO bij een financieel softwarebedrijf had ik geen excuus,
-                    en toch liepen onze spaarpotten leeg. Nu kijk ik met andere
-                    gezinnen mee.{" "}
+                    Goed salaris, niks geks gedaan, en toch liepen de spaarpotten
+                    leeg. Nu kijk ik mee met mensen in dezelfde situatie.{" "}
                     <Link
                       href="/over"
                       style={{ color: "#C4603A", textDecoration: "none" }}
