@@ -76,6 +76,8 @@ export default function ProspectsTabblad() {
   // Review-selectie
   const [selectie, setSelectie] = useState<Set<string>>(new Set());
   const [reviewBezig, setReviewBezig] = useState(false);
+  // Lokale, nog niet opgeslagen naamcorrecties (id -> naam)
+  const [naamEdits, setNaamEdits] = useState<Record<string, string>>({});
 
   const laad = useCallback(async () => {
     try {
@@ -205,6 +207,15 @@ export default function ProspectsTabblad() {
     } finally {
       setReviewBezig(false);
     }
+  }
+
+  // Keurt één rij goed; slaat eerst een eventueel gecorrigeerde naam op.
+  async function keurRijGoed(p: Prospect) {
+    const bewerkt = (naamEdits[p.id] ?? p.naam).trim();
+    if (bewerkt && bewerkt !== p.naam) {
+      await werkBij(p.id, { naam: bewerkt });
+    }
+    await review([p.id], "goedkeuren");
   }
 
   async function werkBij(id: string, velden: { naam?: string; doelgroep?: string }) {
@@ -436,7 +447,16 @@ export default function ProspectsTabblad() {
         </p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-[#E8E0D0]">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm table-fixed">
+            <colgroup>
+              <col className="w-9" />
+              <col className="w-44" />
+              <col className="w-52" />
+              <col className="w-56" />
+              <col className="w-40" />
+              <col className="w-40" />
+              <col />
+            </colgroup>
             <thead className="bg-[#F5F0E8] text-text-muted text-xs uppercase tracking-wide">
               <tr>
                 <th className="px-3 py-3">
@@ -446,12 +466,12 @@ export default function ProspectsTabblad() {
                     onChange={selecteerAlles}
                   />
                 </th>
+                <th className="text-left px-3 py-3">Actie</th>
                 <th className="text-left px-4 py-3">Naam</th>
                 <th className="text-left px-4 py-3">E-mail</th>
                 <th className="text-left px-4 py-3">Website</th>
                 <th className="text-left px-4 py-3">Categorie</th>
                 <th className="text-left px-4 py-3">Context</th>
-                <th className="px-4 py-3"></th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F0EAE0]">
@@ -464,28 +484,48 @@ export default function ProspectsTabblad() {
                       onChange={() => wisselSelectie(p.id)}
                     />
                   </td>
+                  <td className="px-3 py-3">
+                    <div className="flex flex-col gap-1">
+                      <button
+                        onClick={() => keurRijGoed(p)}
+                        disabled={reviewBezig}
+                        className="text-xs bg-primary text-white px-3 py-1.5 rounded hover:bg-primary/90 disabled:opacity-50 whitespace-nowrap"
+                      >
+                        Goedkeuren
+                      </button>
+                      <button
+                        onClick={() => review([p.id], "afwijzen")}
+                        disabled={reviewBezig}
+                        className="text-xs text-red-400 hover:text-red-600"
+                      >
+                        Afwijzen
+                      </button>
+                    </div>
+                  </td>
                   <td className="px-4 py-3">
                     <input
                       type="text"
-                      defaultValue={p.naam}
+                      value={naamEdits[p.id] ?? p.naam}
+                      onChange={(e) => setNaamEdits((m) => ({ ...m, [p.id]: e.target.value }))}
                       onBlur={(e) => {
                         const nieuw = e.target.value.trim();
                         if (nieuw && nieuw !== p.naam) werkBij(p.id, { naam: nieuw });
                       }}
-                      className="w-40 font-medium text-primary bg-transparent border-b border-transparent hover:border-[#E8E0D0] focus:border-primary focus:outline-none text-sm"
+                      title="Klik om de naam te corrigeren"
+                      className="w-full font-medium text-primary bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                     />
                     {p.praktijk && (
-                      <p className="text-xs text-text-muted mt-0.5 truncate max-w-[160px]">{p.praktijk}</p>
+                      <p className="text-xs text-text-muted mt-0.5 truncate">{p.praktijk}</p>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-text-muted">{p.email}</td>
+                  <td className="px-4 py-3 text-text-muted break-all">{p.email}</td>
                   <td className="px-4 py-3">
                     {p.website && (
                       <a
                         href={p.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#C4603A] hover:underline text-xs"
+                        className="text-[#C4603A] hover:underline text-xs break-all"
                       >
                         {p.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
                       </a>
@@ -505,26 +545,8 @@ export default function ProspectsTabblad() {
                       <p className="text-[10px] text-amber-600 mt-1">Niet herkend, controleer</p>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-xs text-text-muted max-w-[220px]">
+                  <td className="px-4 py-3 text-xs text-text-muted">
                     <span className="line-clamp-2">{p.context ?? ""}</span>
-                  </td>
-                  <td className="px-4 py-3">
-                    <div className="flex gap-2 justify-end">
-                      <button
-                        onClick={() => review([p.id], "goedkeuren")}
-                        disabled={reviewBezig}
-                        className="text-xs bg-primary text-white px-3 py-1 rounded hover:bg-primary/90 disabled:opacity-50 whitespace-nowrap"
-                      >
-                        Goedkeuren
-                      </button>
-                      <button
-                        onClick={() => review([p.id], "afwijzen")}
-                        disabled={reviewBezig}
-                        className="text-xs text-red-400 hover:text-red-600 px-2 py-1"
-                      >
-                        Afwijzen
-                      </button>
-                    </div>
                   </td>
                 </tr>
               ))}

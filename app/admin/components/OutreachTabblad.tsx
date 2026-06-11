@@ -66,6 +66,11 @@ export default function OutreachTabblad() {
   const [melding, setMelding] = useState<string | null>(null);
   const [filterDoelgroep, setFilterDoelgroep] = useState<string>("alle");
 
+  // Selectie + inline bewerken
+  const [selectie, setSelectie] = useState<Set<string>>(new Set());
+  const [naamEdits, setNaamEdits] = useState<Record<string, string>>({});
+  const [emailEdits, setEmailEdits] = useState<Record<string, string>>({});
+
   // Nieuw contact form
   const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
@@ -163,11 +168,67 @@ export default function OutreachTabblad() {
     }
   }
 
+  async function werkBij(id: string, velden: { naam?: string; email?: string; doelgroep?: string }) {
+    const res = await fetch("/api/admin/outreach", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, ...velden }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      setFout(data.error);
+      await laadContacten(); // veld terugzetten naar opgeslagen waarde
+      return;
+    }
+    setContacten((lijst) => lijst.map((c) => (c.id === id ? data : c)));
+  }
+
+  function wisselSelectie(id: string) {
+    setSelectie((s) => {
+      const n = new Set(s);
+      if (n.has(id)) n.delete(id); else n.add(id);
+      return n;
+    });
+  }
+
+  function selecteerAlles() {
+    setSelectie((s) =>
+      s.size === zichtbareContacten.length ? new Set() : new Set(zichtbareContacten.map((c) => c.id))
+    );
+  }
+
+  async function stuurGeselecteerde() {
+    const ids = zichtbareContacten
+      .filter((c) => selectie.has(c.id) && c.status === "nieuw")
+      .map((c) => c.id);
+    if (ids.length === 0) { setFout("Geen geselecteerde nieuwe contacten om te versturen."); return; }
+    if (!confirm(`${ids.length} e-mail(s) versturen?`)) return;
+    setAllesVerzenden(true);
+    setFout(null);
+    try {
+      const res = await fetch("/api/admin/outreach/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setFout(data.error); return; }
+      const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
+      setMelding(`${geslaagd} van ${ids.length} verstuurd.`);
+      setSelectie(new Set());
+      await laadContacten();
+    } finally {
+      setAllesVerzenden(false);
+      setTimeout(() => setMelding(null), 5000);
+    }
+  }
+
   const zichtbareContacten = filterDoelgroep === "alle"
     ? contacten
     : contacten.filter((c) => c.doelgroep === filterDoelgroep);
 
   const nieuweCount = zichtbareContacten.filter((c) => c.status === "nieuw").length;
+  const geselecteerdeNieuw = zichtbareContacten.filter((c) => selectie.has(c.id) && c.status === "nieuw").length;
 
   return (
     <div className="space-y-6">
@@ -179,15 +240,26 @@ export default function OutreachTabblad() {
             {filterDoelgroep !== "alle" && ` (${DOELGROEP_LABEL[filterDoelgroep]})`}
           </p>
         </div>
-        {nieuweCount > 0 && (
-          <button
-            onClick={stuurAlle}
-            disabled={allesVerzenden}
-            className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
-          >
-            {allesVerzenden ? "Versturen..." : `Verstuur nieuwe (${nieuweCount})`}
-          </button>
-        )}
+        <div className="flex gap-2">
+          {geselecteerdeNieuw > 0 && (
+            <button
+              onClick={stuurGeselecteerde}
+              disabled={allesVerzenden}
+              className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
+            >
+              {allesVerzenden ? "Versturen..." : `Verstuur geselecteerde (${geselecteerdeNieuw})`}
+            </button>
+          )}
+          {nieuweCount > 0 && geselecteerdeNieuw === 0 && (
+            <button
+              onClick={stuurAlle}
+              disabled={allesVerzenden}
+              className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
+            >
+              {allesVerzenden ? "Versturen..." : `Verstuur nieuwe (${nieuweCount})`}
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Filter + nieuw contact */}
@@ -277,6 +349,13 @@ export default function OutreachTabblad() {
           <table className="w-full text-sm">
             <thead className="bg-[#F5F0E8] text-text-muted text-xs uppercase tracking-wide">
               <tr>
+                <th className="px-3 py-3">
+                  <input
+                    type="checkbox"
+                    checked={selectie.size === zichtbareContacten.length && zichtbareContacten.length > 0}
+                    onChange={selecteerAlles}
+                  />
+                </th>
                 <th className="text-left px-4 py-3">Naam</th>
                 <th className="text-left px-4 py-3">E-mail</th>
                 <th className="text-left px-4 py-3">Categorie</th>
@@ -289,13 +368,48 @@ export default function OutreachTabblad() {
             </thead>
             <tbody className="divide-y divide-[#F0EAE0]">
               {zichtbareContacten.map((c) => (
-                <tr key={c.id} className="bg-white hover:bg-[#FDFAF4] transition-colors">
-                  <td className="px-4 py-3 font-medium text-primary">{c.naam}</td>
-                  <td className="px-4 py-3 text-text-muted">{c.email}</td>
+                <tr key={c.id} className="bg-white hover:bg-[#FDFAF4] transition-colors align-top">
+                  <td className="px-3 py-3 text-center">
+                    <input
+                      type="checkbox"
+                      checked={selectie.has(c.id)}
+                      onChange={() => wisselSelectie(c.id)}
+                    />
+                  </td>
                   <td className="px-4 py-3">
-                    <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full ${DOELGROEP_STYLE[c.doelgroep] ?? "bg-gray-100 text-gray-600"}`}>
-                      {DOELGROEP_LABEL[c.doelgroep] ?? c.doelgroep}
-                    </span>
+                    <input
+                      type="text"
+                      value={naamEdits[c.id] ?? c.naam}
+                      onChange={(e) => setNaamEdits((m) => ({ ...m, [c.id]: e.target.value }))}
+                      onBlur={(e) => {
+                        const nieuw = e.target.value.trim();
+                        if (nieuw && nieuw !== c.naam) werkBij(c.id, { naam: nieuw });
+                      }}
+                      className="w-full font-medium text-primary bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                    />
+                  </td>
+                  <td className="px-4 py-3">
+                    <input
+                      type="email"
+                      value={emailEdits[c.id] ?? c.email}
+                      onChange={(e) => setEmailEdits((m) => ({ ...m, [c.id]: e.target.value }))}
+                      onBlur={(e) => {
+                        const nieuw = e.target.value.trim();
+                        if (nieuw && nieuw !== c.email) werkBij(c.id, { email: nieuw });
+                      }}
+                      className="w-full text-text-muted bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                    />
+                  </td>
+                  <td className="px-4 py-3">
+                    <select
+                      value={c.doelgroep}
+                      onChange={(e) => werkBij(c.id, { doelgroep: e.target.value })}
+                      className={`text-xs font-medium px-2 py-1 rounded-full border-0 cursor-pointer ${DOELGROEP_STYLE[c.doelgroep] ?? "bg-gray-100 text-gray-600"}`}
+                    >
+                      {DOELGROEPEN.map((d) => (
+                        <option key={d.value} value={d.value}>{d.label}</option>
+                      ))}
+                    </select>
                   </td>
                   <td className="px-4 py-3">
                     <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLE[c.status]}`}>
