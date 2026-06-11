@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { createClient } from "@/lib/supabase-server";
+import { isAdminRequest } from "@/lib/admin-auth";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -35,6 +36,7 @@ function signature(): string {
 
 function getEmailContent(naam: string, doelgroep: Doelgroep): EmailContent {
   switch (doelgroep) {
+
     case "relatietherapeuten":
       return {
         subject: `${naam}, wat als geld de belangrijkste oorzaak blijkt?`,
@@ -49,23 +51,23 @@ function getEmailContent(naam: string, doelgroep: Doelgroep): EmailContent {
 
     case "budgetcoaches":
       return {
-        subject: `${naam}, de mensen zonder schulden die toch krap zitten`,
+        subject: `${naam}, als iemand goed verdient maar jouw aanpak niet past`,
         html: wrap([
           `<p style="margin:0 0 18px 0;">Beste ${naam},</p>`,
-          '<p style="margin:0 0 18px 0;">Er is een groep die niet bij jou terechtkomt: mensen zonder schuldenprobleem, die gewoon niet begrijpen waar hun goede salaris naartoe gaat. Geen achterstanden, geen bezuinigingen nodig. Alleen structuur.</p>',
-          '<p style="margin:0 0 18px 0;">Ik ben Jarno, financieel coach voor die groep. Hoe dat eruitziet in de praktijk, lees je <a href="https://www.waarblijfthet.nl/samenwerken/budgetcoaches" style="color:#C4603A;text-decoration:underline;">hier</a>.</p>',
-          '<p style="margin:0 0 32px 0;">Past dit als aanvulling naast jouw werk?</p>',
+          '<p style="margin:0 0 18px 0;">Je kent ze waarschijnlijk: mensen met een goed inkomen die bij je aankloppen omdat ze niet weten waar het naartoe gaat. Geen schulden, geen achterstanden. Jouw aanpak is niet echt voor hen bedoeld, en dat weet je zelf ook.</p>',
+          '<p style="margin:0 0 18px 0;">Ik ben Jarno, financieel coach voor precies die groep. Hoe dat eruitziet in de praktijk, lees je <a href="https://www.waarblijfthet.nl/samenwerken/budgetcoaches" style="color:#C4603A;text-decoration:underline;">hier</a>.</p>',
+          '<p style="margin:0 0 32px 0;">Past dit als doorverwijzing naast jouw werk?</p>',
           signature(),
         ].join('\n')),
       };
 
     case "financieel-planners":
       return {
-        subject: `${naam}, als er te weinig overblijft om te plannen`,
+        subject: `${naam}, als er te weinig overblijft om jouw advies uit te voeren`,
         html: wrap([
           `<p style="margin:0 0 18px 0;">Beste ${naam},</p>`,
-          '<p style="margin:0 0 18px 0;">Soms komen mensen bij je met een inkomen dat genoeg zou moeten zijn, maar blijft er te weinig over om echt iets op te bouwen. Niet omdat ze verkeerde producten hebben. Omdat het huishouden lekt.</p>',
-          '<p style="margin:0 0 18px 0;">Ik ben Jarno, financieel coach die dat huishouden op orde brengt. Hoe dat eruitziet in de praktijk, lees je <a href="https://www.waarblijfthet.nl/samenwerken/financieel-planners" style="color:#C4603A;text-decoration:underline;">hier</a>.</p>',
+          '<p style="margin:0 0 18px 0;">Soms komen mensen bij je met een inkomen dat genoeg zou moeten zijn, maar blijft er maand na maand te weinig over om jouw advies daadwerkelijk uit te voeren. Niet omdat de strategie niet klopt. Omdat het huishouden lekt.</p>',
+          '<p style="margin:0 0 18px 0;">Ik ben Jarno, en ik los dat lek op. Hoe dat eruitziet in de praktijk, lees je <a href="https://www.waarblijfthet.nl/samenwerken/financieel-planners" style="color:#C4603A;text-decoration:underline;">hier</a>.</p>',
           '<p style="margin:0 0 32px 0;">Past dit als aanvulling op jouw adviespraktijk?</p>',
           signature(),
         ].join('\n')),
@@ -73,10 +75,10 @@ function getEmailContent(naam: string, doelgroep: Doelgroep): EmailContent {
 
     case "burnout-coaches":
       return {
-        subject: `${naam}, wat als financiele stress de burnout voedt?`,
+        subject: `${naam}, wat als geld het herstel in de weg zit?`,
         html: wrap([
           `<p style="margin:0 0 18px 0;">Beste ${naam},</p>`,
-          '<p style="margin:0 0 18px 0;">Bij mensen die opgebrand zijn, zit financiele druk er vaak als onderstroom onder. De werkdruk verdwijnt, maar thuis klopt de tent niet. Elke maand hetzelfde gevoel. Dat maakt herstel zwaarder dan nodig.</p>',
+          '<p style="margin:0 0 18px 0;">Bij mensen die herstellen van een burnout zit financiele druk er vaak als onderstroom onder. De werkdruk verdwijnt, maar thuis klopt het niet. Elke maand hetzelfde geknepen gevoel. Dat maakt herstel zwaarder dan het hoeft te zijn.</p>',
           '<p style="margin:0 0 18px 0;">Ik ben Jarno, financieel coach die die onderstroom aanpakt. Hoe dat eruitziet in de praktijk, lees je <a href="https://www.waarblijfthet.nl/samenwerken/burnout-coaches" style="color:#C4603A;text-decoration:underline;">hier</a>.</p>',
           '<p style="margin:0 0 32px 0;">Past dit als aanvulling naast jouw begeleiding?</p>',
           signature(),
@@ -89,6 +91,9 @@ function getEmailContent(naam: string, doelgroep: Doelgroep): EmailContent {
 // Body: { id: string }  — één contact versturen
 // Body: { ids: string[] } — meerdere tegelijk
 export async function POST(req: NextRequest) {
+  if (!(await isAdminRequest())) {
+    return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
+  }
   const supabase = await createClient();
   const body = await req.json();
 

@@ -20,9 +20,12 @@ create table if not exists outreach_contacts (
 create index if not exists outreach_contacts_resend_id_idx
   on outreach_contacts (resend_id);
 
--- RLS: alleen service role (API routes) heeft toegang
+-- RLS: alleen ingelogde admins (authenticated) en de service role.
+-- De anon key is publiek, dus die mag geen rijen kunnen lezen of muteren.
 alter table outreach_contacts enable row level security;
 
-create policy "Service role full access"
+create policy "Authenticated admin access"
   on outreach_contacts for all
-  using (true);
+  to authenticated
+  using (true)
+  with check (true);

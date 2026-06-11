@@ -1,13 +1,14 @@
 # Waar blijft het — projectcontext (lees dit eerst)
 
-Compacte overdracht zodat een nieuwe sessie (ook met een goedkoper model) meteen op de hoogte is. Lees dit bestand aan het begin van elke sessie.
+Compacte overdracht zodat een nieuwe sessie meteen op de hoogte is. Lees dit aan het begin van elke sessie.
 
 ## Wat het is
-Nederlandse personal-finance site voor gezinnen/stellen die **goed verdienen maar tóch krap zitten**. Géén schuldhulp, géén beleggingsadvies, eerlijk inzicht + lichte coaching.
+Nederlandse personal-finance site voor mensen die **goed verdienen maar tóch krap zitten**. Géén schuldhulp, géén beleggingsadvies, eerlijk inzicht + lichte coaching.
 - Stack: Next.js 14 (App Router), Supabase, Resend, recharts, Tailwind. Repo: github.com/waarblijfthet/app. Live: https://www.waarblijfthet.nl
 - Toon: nuchter, eerlijk, geen jargon. Fonts: Fraunces (kop) + Plus Jakarta Sans (body). Kleuren: #1C3A2A (groen), #C4603A (terracotta), #F5F0E8/#FDFAF4 (creme).
 - **Jarno is de enige persoon achter het project.** Altijd "ik/mij/mijn" in copy, nooit "wij/we/ons". Uitzondering: als hij over zijn gezin spreekt ("wij thuis") is dat logisch.
-- **Geen em dashes (,) en geen koppeltekens als scheidingsteken ( - ) in copy.** Altijd vervangen door komma, punt of nieuwe zin. Dit geldt voor alle bestanden, inclusief hints, labels en meta-teksten.
+- **Geen em dashes en geen koppeltekens als scheidingsteken in copy.** Altijd vervangen door komma, punt of nieuwe zin. Dit geldt voor alle bestanden, inclusief hints, labels en meta-teksten.
+- **CTO nooit noemen** in copy (te elitair, mensen herkennen het niet). Artikel-bio en FAQ gebruiken: "Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte."
 
 ## Aanbod / funnel
 Gratis analyse (lead-instap, primaire CTA) → **Eenmalig adviesgesprek €125** (uitlegpagina: /adviesgesprek) → Traject €497.
@@ -16,44 +17,82 @@ Gratis analyse (lead-instap, primaire CTA) → **Eenmalig adviesgesprek €125**
 ## Belangrijke beslissingen
 - Testimonials = **echte** (geanonimiseerde) gezinnen: Daan & Roos (potjes), Bram & Eva (boodschappen), Karim & Noor (BSO). Namen aangepast.
 - Primaire CTA overal = gratis analyse (warmmaker); gesprek is de vervolgstap (op analyse-resultaat + /adviesgesprek).
-- Geen losse "6-weken WhatsApp" meer (vervangen door adviesgesprek).
+- Hero-paragraph (homepage): "Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde van elke maand is het gewoon weg. Je weet niet precies waarheen. Dat ligt niet aan jou, het is een structuurprobleem. Ik laat zien waar het naartoe gaat, zodat je het kunt bijsturen."
+
+## Content-architectuur: alleenstaanden (pillar + sub-artikelen)
+Hub-and-spoke structuur rond het alleenstaande-segment:
+- **Pillar page**: `kosten-levensonderhoud-alleenstaande-2026` — persona-selector bovenaan, single premium uitleg, links naar sub-artikelen onderaan.
+- **Sub-artikel 1**: `kosten-levensonderhoud-alleenstaande-ouder-2026` — ALO-kop, kindgebonden budget, inkomendrempel boven €29.736 verduidelijkt.
+- **Sub-artikel 2**: `kosten-levensonderhoud-zzp-alleenstaande-2026` — AOV, pensioenreservering, voorlopige aanslag, buffer €23.000.
+- **Sub-artikel 3**: `kosten-levensonderhoud-alleenstaande-50-plus-2026` — AOW €1.400, Nibud minimum, pensioengat, lijfrente.
+- Alle vier ICP-gevalideerd (10-jun-2026). Content-bestanden in `app/inzichten/[slug]/content/`.
+
+## Outreach mini-CRM
+Beheer via admin-tab "Outreach". Systeem: Supabase-tabel `outreach_contacts` + Resend voor verzending.
+- **4 doelgroepen** met eigen email-template en subject:
+  - `relatietherapeuten`: "wat als geld de belangrijkste oorzaak blijkt?"
+  - `budgetcoaches`: "als iemand goed verdient maar jouw aanpak niet past"
+  - `financieel-planners`: "als er te weinig overblijft om jouw advies uit te voeren"
+  - `burnout-coaches`: "wat als geld het herstel in de weg zit?"
+- UI: categoriedropdown bij toevoegen, filterpills per doelgroep, categorie-kolom in tabel.
+- Relevante bestanden: `app/api/admin/outreach/send/route.ts` (templates), `app/admin/components/OutreachTabblad.tsx` (UI).
+- Resend-webhook voor open/klik tracking: `app/api/webhooks/resend/route.ts`. Vereist `RESEND_WEBHOOK_SECRET` in Vercel env (nog in te stellen).
+- **`supabase/outreach_contacts.sql` MOET nog eenmalig gedraaid worden** in Supabase SQL-editor voor de tabel bestaat. (RLS-policy aangescherpt naar `to authenticated` op 11-jun, draai opnieuw als de oude policy al bestond.)
+
+## Prospect-zoeker (admin-tab "Prospects")
+Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartners en zet ze na goedkeuring in de outreach mini-CRM. Toegevoegd 11-jun-2026.
+- **Twee bronnen**: (1) URL van een overzichtspagina (ledenlijst/verwijsgids), of (2) zoekwoorden (via DuckDuckGo HTML, geen API-sleutel). URL werkt het betrouwbaarst.
+- **Werking**: job-gebaseerd. POST `/api/admin/prospects` maakt een job + wachtrij van sites. De UI roept daarna in een lus POST `/api/admin/prospects/step` aan (max 3 sites per call, tijdsbudget 20s, `maxDuration=60`) tot de wachtrij leeg is. Zo blijven we binnen Vercel-limieten zonder externe queue.
+- **Per site**: homepage + max 3 contact-achtige pagina's, respecteert robots.txt, beleefde user-agent `WaarBlijftHetBot`. Extractie van e-mail (mailto eerst, ook ontsluierd `info [at] domein [dot] nl`), naam (JSON-LD Person → meta author → "ik ben ..."-patroon → titel), en doelgroep via trefwoord-classificatie (of handmatig vastgezet).
+- **Review-wachtrij**: gevonden adressen staan in tabel `prospects` (status `gevonden`). Admin keurt goed (→ `outreach_contacts`, status `nieuw`) of wijst af. Naam en categorie inline aanpasbaar. Ontdubbelt tegen bestaande outreach-contacten en eerdere prospects.
+- **SSRF-bescherming**: crawler weigert localhost, 127/10/192.168/172.16-31/169.254-ranges; redirects worden handmatig gevolgd en per hop opnieuw gecheckt.
+- **Bestanden**: `lib/prospects/` (types, extract, classify, crawler, opslag), `app/api/admin/prospects/{route,step/route,review/route}.ts`, `app/admin/components/ProspectsTabblad.tsx`, tab toegevoegd in `app/admin/AdminClient.tsx`.
+- **`supabase/prospect_zoeker.sql` MOET nog eenmalig gedraaid worden** in de Supabase SQL-editor (tabellen `prospect_jobs` + `prospects`).
+- Alle admin outreach-routes hebben nu een `isAdminRequest()`-guard (stond er nog niet op).
 
 ## SEO / AI-vindbaarheid
-- **sitemap.xml, sitemap-0.xml, robots.txt én llms.txt worden gegenereerd door `scripts/generate-sitemap.mjs`** — draait in `next build` (zie package.json + vercel.json buildCommand). Leest artikel-slugs/titels uit `lib/inzichten-data.ts`. Bij nieuw artikel: niets handmatig, build regenereert alles.
-- Canonicals/og/host = **www**. ~36 artikelen.
+- **sitemap.xml, sitemap-0.xml, robots.txt én llms.txt** worden gegenereerd door `scripts/generate-sitemap.mjs` — draait in `next build`. Leest artikel-slugs/titels uit `lib/inzichten-data.ts`. Bij nieuw artikel: niets handmatig, build regenereert alles.
+- Canonicals/og/host = **www**. ~39 artikelen (incl. 3 nieuwe alleenstaande sub-artikelen).
 - Schema: Article + FAQPage + Person (sameAs LinkedIn/Instagram van Jarno) + Organization + AboutPage + DefinedTermSet. Auteur-bio onderaan elk artikel.
-- Content-strategie (Google mei-2026 core update): **first-hand, non-commodity, voor/na-cases met echte bedragen, zichtbare auteur.** Geen llms.txt-illusies (Google gebruikt het niet), geen dunne variant-artikelen (scaled content abuse).
+- Content-strategie (Google mei-2026 core update): **first-hand, non-commodity, voor/na-cases met echte bedragen, zichtbare auteur.**
 
 ## Meting
-- **quiz_voortgang** (PII-vrije tabel) meet drop-off per stap + ingevulde antwoorden, los van e-mail. SQL staat in `supabase/quiz_voortgang.sql` — **MOET nog eenmalig in Supabase SQL-editor gedraaid worden.**
-- Admin → tab **📊 Funnel**: trechter + drop-off + "welke pagina's leiden naar de analyse".
+- **quiz_voortgang** (PII-vrije tabel) meet drop-off per stap + ingevulde antwoorden. SQL staat in `supabase/quiz_voortgang.sql` — **MOET nog eenmalig in Supabase SQL-editor gedraaid worden.**
+- Admin → tab **Funnel**: trechter + drop-off + "welke pagina's leiden naar de analyse".
+- Admin → tab **Indexing**: per-URL Google Search Console inspect + dagelijkse cron (09:00 CEST). Logt naar `cron_runs` tabel.
 
 ## Open to-dos
-- [ ] **Pushen naar git** — alle sessie-7-wijzigingen staan lokaal (lock-bestand blokkeerde push, was opgelost maar opnieuw vergrendeld; doe `git add -A && git commit -m "..." && git push` in terminal).
-- [ ] **`supabase/cron_runs.sql` draaien** in Supabase SQL-editor (nieuwe tabel voor cron-logs, anders crasht de dagelijkse inspect-cron).
-- [ ] **`supabase/quiz_voortgang.sql` draaien** in Supabase (nog steeds open uit vorige sessie).
-- [ ] **Foto van Jarno** toevoegen aan `/over` pagina: vervang de JK-initialen `<div>` door een `<img>` in `app/over/page.tsx` (kaart) en `app/inzichten/[slug]/page.tsx` (auteur-bar).
+- [ ] **Git push** — hero-tekst, CTO-verwijdering, outreach UI/templates (10-jun sessie) nog niet gepusht. Doe: `git add -A && git commit -m "fix: hero aangescherpt, CTO weg, outreach categorieen + templates" && git push`
+- [ ] **`supabase/outreach_contacts.sql` draaien** in Supabase SQL-editor (tabel voor outreach mini-CRM).
+- [ ] **`supabase/cron_runs.sql` draaien** in Supabase SQL-editor (anders crasht de dagelijkse inspect-cron).
+- [ ] **`supabase/quiz_voortgang.sql` draaien** in Supabase SQL-editor.
+- [ ] **`supabase/prospect_zoeker.sql` draaien** in Supabase SQL-editor (tabellen `prospect_jobs` + `prospects` voor de prospect-zoeker).
+- [ ] **`RESEND_WEBHOOK_SECRET`** toevoegen aan Vercel environment variables (open/klik tracking werkt pas dan).
+- [ ] **Foto van Jarno** toevoegen: vervang de JK-initialen `<div>` door `<img>` in `app/over/page.tsx` en `app/inzichten/[slug]/page.tsx` (auteur-bar).
 - [ ] KvK inschrijven + KOR aanmelden bij Belastingdienst.
-- [ ] SE Ranking-review (geplande taak ~20 juni 2026): export vergelijken met nulmeting 30 mei.
+- [ ] SE Ranking-review (~20 juni 2026): export vergelijken met nulmeting 30 mei.
+- [ ] Outreach email-templates voor 3 doelgroepen inhoudelijk reviewen met Jarno (budgetcoaches, financieel-planners, burnout-coaches zijn technisch klaar maar nog niet door Jarno gelezen).
+- [ ] Fase 2 conversie: CTA op analyse-resultaat naar betaald pakket (nog niet gebouwd).
 - [ ] Optioneel: beeld/reels in artikelen; Meta Pixel als er ooit ads komen.
-- [ ] Open beslissingen uit VERBETERPLAN.md (Fase 2 conversie): CTA op analyse-resultaat naar betaald pakket nog niet gebouwd.
 
-## Wat er in sessie 7-jun-2026 gedaan is (nog te pushen)
-- **Google Search Console Inspect API gefixed**: endpoint was fout (`urlInspectionResult` → `urlInspection/index:inspect`), siteUrl was fout (`https://www.waarblijfthet.nl/` → `sc-domain:waarblijfthet.nl`). Werkt nu. Bestand: `app/api/admin/indexing/inspect/route.ts`.
-- **Per-URL inspect-knop** toegevoegd aan admin indexing-tabel. Debug-info (tokenAccount, siteUrl) zichtbaar na inspectie. Bestand: `app/admin/components/IndexingTabblad.tsx`.
-- **Dagelijkse cron** voor automatische indexstatus-check: `app/api/cron/indexing-inspect/route.ts` + cron in `vercel.json` (elke dag 09:00 CEST). Logt naar nieuwe Supabase-tabel `cron_runs`. Admin toont "Laatste automatische run" bovenaan het indexing-tabblad.
-- **Mobiele UX inzichten-pagina** verbeterd: scrollbar verborgen op categoriepills, fade-gradient als scroll-hint, touch targets vergroot, artikeltellingen per filter, featured card minder hoog op mobiel. Bestanden: `app/inzichten/InzichtenGrid.tsx`, `app/globals.css`, `app/inzichten/page.tsx` (decoratieve pills verwijderd).
-- **5 artikel-bestanden** hersteld na truncatie door Edit tool (schrijf grote bestanden altijd via Python `open(path, 'w')`).
-- **/over pagina volledig herschreven** op basis van interview met Jarno: persoonlijk verhaal, CTO-paradox als opener, terras-vergelijking, taboe benoemd, bedrijfsmetafoor vervangen door universele taal, "wij/we" → "ik/mijn". Bestand: `app/over/page.tsx`.
-- **Auteur-bio onder artikelen** scherper: van generieke beschrijving naar 4 puntige zinnen met de CTO-paradox. Link "Meer over ons" → "Meer over mij". Bestand: `app/inzichten/[slug]/page.tsx`.
-- **471 em dashes verwijderd** uit alle 64 .tsx-bestanden die er nog bevatten (copy, labels, hints, meta-teksten). Vervangen door komma, punt of dubbele punt afhankelijk van context. In meta-titels: ` | ` als separator.
+## Wat er in sessie 11-jun-2026 gedaan is
+- **Prospect-zoeker gebouwd** (nieuwe admin-tab "Prospects"): zelfstandig namen + e-mailadressen verzamelen op basis van een overzichts-URL of zoekwoorden, met review-wachtrij naar de outreach mini-CRM. Zie de sectie "Prospect-zoeker" hierboven voor de volledige werking en bestanden.
+- **Architectuur**: job + client-driven step-lus (max 3 sites/call, 20s budget, `maxDuration=60`) zodat alles binnen Vercel-limieten draait zonder externe queue of cron.
+- **Code-review door subagent** verwerkt: RLS dichtgetrokken naar `to authenticated` (anon key is publiek), genegeerde update-error + oneindige lus opgelost, concurrency-guard (optimistic lock op `updated_at`), SSRF-bescherming tegen interne adressen, robots.txt-parser per user-agent-blok.
+- **`isAdminRequest()`-guard** toegevoegd aan de bestaande outreach-routes (`route.ts` en `send/route.ts`), die hadden nog geen serverside auth-check.
+- Geverifieerd met `npx tsc --noEmit` (schoon) + unit-tests van extractie, classificatie, SSRF-guard en robots-parser. Geen em dashes/koppeltekens in copy; ik-vorm aangehouden.
+
+## Wat er in sessie 10-jun-2026 gedaan is
+- **Alleenstaande pillar page** omgevormd: persona-selector, "single premium" sectie (30-50% meer per hoofd), Sophie-case voor de CTA, links naar sub-artikelen. Bestand: `app/inzichten/[slug]/content/kosten-levensonderhoud-alleenstaande-2026.tsx`.
+- **3 sub-artikelen** geschreven en ICP-gevalideerd: ouder (ALO-kop, regelingen), ZZP (AOV, buffer, voorlopige aanslag), 50+ (AOW, pensioengat, Ellen case gecorrigeerd). `lib/inzichten-data.ts` bijgewerkt.
+- **Hero homepage aangescherpt**: "geen schulden" → "betaalt alles op tijd", "karakterfout" vervangen door "Dat ligt niet aan jou", uitkomst toegevoegd. Bestand: `app/page.tsx`.
+- **CTO verwijderd** uit artikel-bio (`app/inzichten/[slug]/page.tsx`) en aanbod-FAQ (`app/aanbod/components/AanbodAccordion.tsx`). Vervangen door generieke formulering zonder jobtitel.
+- **Outreach UI uitgebreid**: categoriedropdown in formulier, filterpills per doelgroep, categorie-kolom met kleurcodering. Bestand: `app/admin/components/OutreachTabblad.tsx`.
+- **4 email-templates** met eigen subject per doelgroep. Bestand: `app/api/admin/outreach/send/route.ts`.
 
 ## Werkwijze-notitie
 - Werkdocumenten (verbeterplan, plan van aanpak, partner-playbook, sjablonen, PDF's) zijn losse outputs, niet in de repo. In de repo horen alleen code + `supabase/*.sql` + `scripts/`.
 - Verifieer codewijzigingen met `npx tsc --noEmit` (negeer fouten in `.next/`, dat is build-cache).
-- Grote bestanden (>100 regels) altijd schrijven via Python `open(path, 'w')`, nooit via de Edit tool (trunceert zonder waarschuwing).
+- Grote bestanden (>100 regels) altijd schrijven via Python `open(path, 'w')`, nooit via de Edit tool (trunceert zonder waarschuwing). Bij bash heredocs: `cat > file << 'PYEOF'` werkt ook.
 - Git-lock (`index.lock`) kan voorkomen als VS Code of een terminal de repo open heeft. Verwijder het bestand handmatig en retry.
-
-## Werkwijze-notitie
-- Werkdocumenten (verbeterplan, plan van aanpak, partner-playbook, sjablonen, PDF's) zijn losse outputs — niet in de repo. In de repo horen alleen code + `supabase/*.sql` + `scripts/`.
-- Verifieer codewijzigingen met `npx tsc --noEmit` (negeer fouten in `.next/` — dat is build-cache).
+- Edit tool introduceert soms null bytes. Strip ze na elke Edit met: `python3 -c "f=open(p,'rb').read(); open(p,'wb').write(f.replace(b'\x00',b''))"`.
