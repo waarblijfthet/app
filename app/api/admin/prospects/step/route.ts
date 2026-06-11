@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase-server";
+import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { verzamelSiteProspects } from "@/lib/prospects/crawler";
 import { slaProspectsOp } from "@/lib/prospects/opslag";
@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { jobId, stop } = await req.json();
   if (!jobId) return NextResponse.json({ error: "jobId ontbreekt" }, { status: 400 });
 

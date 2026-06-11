@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase-server";
+import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { Doelgroep, DOELGROEPEN } from "@/lib/prospects/types";
 
@@ -12,7 +12,7 @@ export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { ids, actie } = await req.json();
 
   if (!Array.isArray(ids) || ids.length === 0) {
@@ -63,7 +63,7 @@ export async function PATCH(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { id, naam, doelgroep } = await req.json();
   if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
 

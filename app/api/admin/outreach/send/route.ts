@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
-import { createClient } from "@/lib/supabase-server";
+import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
@@ -94,7 +94,7 @@ export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const body = await req.json();
 
   const ids: string[] = body.ids ?? (body.id ? [body.id] : []);

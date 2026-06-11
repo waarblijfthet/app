@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase-server";
+import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
 // GET /api/admin/outreach — alle contacten ophalen
@@ -7,7 +7,7 @@ export async function GET() {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { data, error } = await supabase
     .from("outreach_contacts")
     .select("*")
@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { naam, email, doelgroep } = await req.json();
 
   if (!naam || !email) {
@@ -50,7 +50,7 @@ export async function DELETE(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const id = req.nextUrl.searchParams.get("id");
 
   if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });

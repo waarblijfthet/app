@@ -51,6 +51,7 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - **Bestanden**: `lib/prospects/` (types, extract, classify, crawler, opslag), `app/api/admin/prospects/{route,step/route,review/route}.ts`, `app/admin/components/ProspectsTabblad.tsx`, tab toegevoegd in `app/admin/AdminClient.tsx`.
 - **`supabase/prospect_zoeker.sql` MOET nog eenmalig gedraaid worden** in de Supabase SQL-editor (tabellen `prospect_jobs` + `prospects`).
 - Alle admin outreach-routes hebben nu een `isAdminRequest()`-guard (stond er nog niet op).
+- **DB-toegang via `createServiceClient()` (service-role), niet de anon-cookie-client.** De RLS-policies staan op `to authenticated`, maar de SSR-cookie-client wordt door Supabase als `anon` gezien bij schrijven, dus die liep tegen "new row violates row-level security policy" aan. Oplossing: alle admin prospect- én outreach-routes gebruiken nu `createServiceClient()` (bypasst RLS), met `isAdminRequest()` als poortwachter. Vereist `SUPABASE_SERVICE_ROLE_KEY` in Vercel (stond er al voor de indexing-routes).
 
 ## SEO / AI-vindbaarheid
 - **sitemap.xml, sitemap-0.xml, robots.txt én llms.txt** worden gegenereerd door `scripts/generate-sitemap.mjs` — draait in `next build`. Leest artikel-slugs/titels uit `lib/inzichten-data.ts`. Bij nieuw artikel: niets handmatig, build regenereert alles.

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@/lib/supabase-server";
+import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { bouwWachtrijVanUrl } from "@/lib/prospects/crawler";
 import { zoekWebsites, ZoekBron } from "@/lib/prospects/search";
@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const jobId = req.nextUrl.searchParams.get("jobId");
 
   if (jobId) {
@@ -55,7 +55,7 @@ export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const { type, invoer, doelgroep } = await req.json();
 
   if (type !== "url" && type !== "zoekwoorden") {
@@ -162,7 +162,7 @@ export async function DELETE(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
-  const supabase = await createClient();
+  const supabase = createServiceClient();
   const id = req.nextUrl.searchParams.get("id");
   if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
 
