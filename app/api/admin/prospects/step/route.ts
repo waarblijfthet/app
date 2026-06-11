@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
     const item = wachtrij.shift();
     if (!item) break;
     try {
-      const prospects = await verzamelSiteProspects(item.url, vasteDoelgroep, robotsCache);
+      const prospects = await verzamelSiteProspects(item.url, vasteDoelgroep, robotsCache, item.negeerDomein);
       gevonden += await slaProspectsOp(supabase, jobId, prospects);
     } catch {
       // één kapotte site mag de job niet stoppen

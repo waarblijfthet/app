@@ -14,10 +14,15 @@ export const DOELGROEPEN: Doelgroep[] = [
 ];
 
 export interface WachtrijItem {
-  /** Website (homepage of diepere pagina) die nog gecrawld moet worden */
+  /** Pagina die nog verwerkt moet worden: een profiel/detailpagina of een site-homepage */
   url: string;
-  /** Waar deze site vandaan komt (overzichtspagina of zoekopdracht) */
+  /** Waar deze pagina vandaan komt (overzichtspagina of zoekopdracht) */
   bron: string;
+  /**
+   * Host van de overzichtspagina, bijvoorbeeld "eft.nl". E-mailadressen op dit
+   * domein (zoals info@eft.nl) zijn van de directory zelf en worden genegeerd.
+   */
+  negeerDomein?: string;
 }
 
 export interface GevondenProspect {

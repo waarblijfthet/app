@@ -5,6 +5,7 @@
 import { Doelgroep, GevondenProspect, WachtrijItem } from "./types";
 import {
   contextRondEmail,
+  decodeEntities,
   extractEmails,
   extractLinks,
   extractNaam,
@@ -32,7 +33,7 @@ const OVERSLAAN_DOMEINEN = [
 
 const CONTACT_HINTS = /contact|over[\s-]?(ons|mij)?$|over-|team|wie[\s-]?(ben|zijn)|praktijk|about/i;
 
-function hostVan(url: string): string {
+export function hostVan(url: string): string {
   try {
     return new URL(url).hostname.replace(/^www\./, "");
   } catch {
@@ -70,7 +71,7 @@ export function isVeiligeUrl(url: string): boolean {
   }
 }
 
-function isOverslaanDomein(url: string): boolean {
+export function isOverslaanDomein(url: string): boolean {
   const host = hostVan(url);
   if (!host) return true;
   return OVERSLAAN_DOMEINEN.some((d) => host === d || host.endsWith("." + d));
@@ -213,27 +214,136 @@ function wacht(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+const MAILPROVIDERS = [
+  "gmail.com", "hotmail.com", "hotmail.nl", "outlook.com", "live.nl", "live.com",
+  "ziggo.nl", "kpnmail.nl", "icloud.com", "me.com", "yahoo.com", "yahoo.nl",
+  "planet.nl", "home.nl", "telfort.nl", "casema.nl", "xs4all.nl", "online.nl",
+];
+
+/** Is dit het e-mailadres van de directory zelf (bijv. info@eft.nl)? Dat negeren we. */
+function isDirectoryEmail(email: string, negeerDomein?: string): boolean {
+  if (!negeerDomein) return false;
+  const domein = (email.split("@")[1] ?? "").toLowerCase();
+  return domein === negeerDomein || domein.endsWith("." + negeerDomein);
+}
+
+/** Pad-diepte van een URL: aantal niet-lege segmenten */
+function padDiepte(url: string): number {
+  try {
+    return new URL(url).pathname.split("/").filter(Boolean).length;
+  } catch {
+    return 0;
+  }
+}
+
 /**
- * Crawlt één praktijkwebsite: homepage plus maximaal drie contact-achtige
- * pagina's. Geeft gevonden prospects terug (één per e-mailadres).
+ * Kiest uit een lijst URL's de waarschijnlijke detail/profielpagina's: de
+ * grootste groep same-host URL's met dezelfde pad-diepte (>= 2). Op een
+ * overzichts- of sitemappagina zijn dat de honderden gelijkvormige
+ * persoonspagina's, terwijl losse navigatiepagina's (diepte 1) afvallen.
  */
-export async function verzamelSiteProspects(
-  siteUrl: string,
-  vasteDoelgroep: Doelgroep | null,
+function kiesDetailCluster(urls: string[], host: string, max: number): string[] {
+  const perDiepte = new Map<number, string[]>();
+  const gezien = new Set<string>();
+  for (const url of urls) {
+    if (hostVan(url) !== host) continue;
+    if (gezien.has(url)) continue;
+    gezien.add(url);
+    const diepte = padDiepte(url);
+    if (diepte < 2) continue;
+    if (!perDiepte.has(diepte)) perDiepte.set(diepte, []);
+    perDiepte.get(diepte)!.push(url);
+  }
+  let beste: string[] = [];
+  for (const groep of Array.from(perDiepte.values())) {
+    if (groep.length > beste.length) beste = groep;
+  }
+  return beste.slice(0, max);
+}
+
+/** Haalt URL's uit een sitemap.xml (volgt één niveau sitemap-index). */
+async function leesSitemapUrls(origin: string, max: number): Promise<string[]> {
+  const kandidaten = [origin + "/sitemap.xml", origin + "/sitemap_index.xml"];
+  for (const sitemapUrl of kandidaten) {
+    const res = await fetchMetTimeout(sitemapUrl, "application/xml,text/xml");
+    if (!res || !res.ok) continue;
+    let xml: string;
+    try {
+      xml = await res.text();
+    } catch {
+      continue;
+    }
+    const locs = Array.from(xml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/gi)).map((m) =>
+      decodeEntities(m[1].trim())
+    );
+    if (locs.length === 0) continue;
+
+    // Sitemap-index? Volg de eerste paar sub-sitemaps.
+    if (/<sitemapindex/i.test(xml)) {
+      const verzameld: string[] = [];
+      for (const sub of locs.slice(0, 5)) {
+        if (!isVeiligeUrl(sub)) continue;
+        const subRes = await fetchMetTimeout(sub, "application/xml,text/xml");
+        if (!subRes || !subRes.ok) continue;
+        try {
+          const subXml = await subRes.text();
+          for (const m of Array.from(subXml.matchAll(/<loc>\s*([^<\s]+)\s*<\/loc>/gi))) {
+            verzameld.push(decodeEntities(m[1].trim()));
+          }
+        } catch {
+          // sub-sitemap overslaan
+        }
+        if (verzameld.length >= max * 4) break;
+      }
+      return verzameld;
+    }
+    return locs;
+  }
+  return [];
+}
+
+
+/** Beste externe "eigen website"-link op een pagina (geen social, geen directory). */
+function vindEigenWebsite(html: string, basisUrl: string, startHost: string, negeerDomein?: string): string | null {
+  const tellingen = new Map<string, number>();
+  const eersteUrl = new Map<string, string>();
+  for (const link of extractLinks(html, basisUrl)) {
+    const host = hostVan(link.url);
+    if (!host || host === startHost || host === negeerDomein) continue;
+    if (isOverslaanDomein(link.url) || !isVeiligeUrl(link.url)) continue;
+    tellingen.set(host, (tellingen.get(host) ?? 0) + 1);
+    if (!eersteUrl.has(host)) eersteUrl.set(host, link.url);
+  }
+  let besteHost: string | null = null;
+  let besteAantal = 0;
+  for (const [host, aantal] of Array.from(tellingen.entries())) {
+    if (aantal > besteAantal) {
+      besteAantal = aantal;
+      besteHost = host;
+    }
+  }
+  if (!besteHost) return null;
+  try {
+    return new URL(eersteUrl.get(besteHost)!).origin + "/";
+  } catch {
+    return null;
+  }
+}
+
+/** Crawlt een pagina + maximaal enkele contact-achtige same-host pagina's. */
+async function crawlPaginas(
+  startUrl: string,
   robotsCache: Map<string, string[]>
-): Promise<GevondenProspect[]> {
-  if (!isVeiligeUrl(siteUrl) || isOverslaanDomein(siteUrl)) return [];
-  if (!(await magCrawlen(siteUrl, robotsCache))) return [];
+): Promise<{ html: string; url: string }[]> {
+  if (!isVeiligeUrl(startUrl) || isOverslaanDomein(startUrl)) return [];
+  if (!(await magCrawlen(startUrl, robotsCache))) return [];
+  const start = await fetchPagina(startUrl);
+  if (!start) return [];
 
-  const home = await fetchPagina(siteUrl);
-  if (!home) return [];
-
-  const paginas: { html: string; url: string }[] = [{ html: home.html, url: home.finalUrl }];
-  const homeHost = hostVan(home.finalUrl);
-
-  // Contact-achtige interne links zoeken
-  const kandidaten = extractLinks(home.html, home.finalUrl)
-    .filter((l) => hostVan(l.url) === homeHost)
+  const paginas = [{ html: start.html, url: start.finalUrl }];
+  const startHost = hostVan(start.finalUrl);
+  const kandidaten = extractLinks(start.html, start.finalUrl)
+    .filter((l) => hostVan(l.url) === startHost)
     .filter((l) => CONTACT_HINTS.test(l.url) || CONTACT_HINTS.test(l.tekst));
   const uniek = Array.from(new Map(kandidaten.map((l) => [l.url, l])).values())
     .slice(0, MAX_PAGINAS_PER_SITE - 1);
@@ -245,36 +355,32 @@ export async function verzamelSiteProspects(
     const pagina = await fetchPagina(link.url);
     if (pagina) paginas.push({ html: pagina.html, url: pagina.finalUrl });
   }
+  return paginas;
+}
 
-  // E-mails verzamelen over alle pagina's, met bronpagina erbij
-  const emailBron = new Map<string, { url: string; html: string }>();
-  for (const p of paginas) {
-    for (const email of extractEmails(p.html)) {
-      if (!emailBron.has(email)) emailBron.set(email, { url: p.url, html: p.html });
-      if (emailBron.size >= MAX_EMAILS_PER_SITE) break;
-    }
-    if (emailBron.size >= MAX_EMAILS_PER_SITE) break;
-  }
-  if (emailBron.size === 0) return [];
-
-  // Naam, praktijk en doelgroep bepalen op basis van alle opgehaalde tekst
-  const titel = extractTitle(home.html);
-  let naamInfo = extractNaam(home.html, titel);
+function bouwProspects(
+  paginas: { html: string; url: string }[],
+  emailBron: Map<string, { url: string; html: string }>,
+  website: string | null,
+  vasteDoelgroep: Doelgroep | null,
+  fallbackHost: string
+): GevondenProspect[] {
+  const titel = extractTitle(paginas[0]?.html ?? "");
+  let naamInfo = extractNaam(paginas[0]?.html ?? "", titel);
   for (const p of paginas.slice(1)) {
     if (naamInfo.naam) break;
     naamInfo = { ...extractNaam(p.html, titel), praktijk: naamInfo.praktijk ?? titel };
   }
-
   const alleTekst = paginas.map((p) => naarTekst(p.html)).join("\n").slice(0, 40_000);
   const { doelgroep, score } = classificeer(alleTekst, vasteDoelgroep);
 
   const prospects: GevondenProspect[] = [];
   for (const [email, bron] of Array.from(emailBron.entries())) {
     prospects.push({
-      naam: naamInfo.naam ?? naamInfo.praktijk ?? titel ?? hostVan(siteUrl),
+      naam: naamInfo.naam ?? naamInfo.praktijk ?? titel ?? fallbackHost,
       praktijk: naamInfo.praktijk ?? (naamInfo.naam ? titel : null),
       email,
-      website: home.finalUrl,
+      website,
       bronUrl: bron.url,
       doelgroep,
       doelgroepScore: score,
@@ -285,28 +391,100 @@ export async function verzamelSiteProspects(
 }
 
 /**
- * Bouwt een wachtrij van praktijkwebsites op basis van een overzichtspagina
- * (bijvoorbeeld een ledenlijst of verwijsgids). Externe links worden
- * kandidaat-sites; e-mails die al op de overzichtspagina staan komen direct
- * terug als prospects.
+ * Verwerkt één wachtrij-pagina: een profiel/detailpagina (zoals een therapeut
+ * op een verwijsgids) of een losse praktijksite. Haalt e-mail + naam van de
+ * pagina zelf; staat er geen bruikbaar adres op, dan volgt het de eigen-website-
+ * link van de persoon één hop. E-mailadressen van de directory zelf (negeerDomein,
+ * bijvoorbeeld info@eft.nl) worden genegeerd.
+ */
+export async function verzamelSiteProspects(
+  pageUrl: string,
+  vasteDoelgroep: Doelgroep | null,
+  robotsCache: Map<string, string[]>,
+  negeerDomein?: string
+): Promise<GevondenProspect[]> {
+  const paginas = await crawlPaginas(pageUrl, robotsCache);
+  if (paginas.length === 0) return [];
+  const startHost = hostVan(paginas[0].url);
+
+  // Bruikbare e-mails op de pagina zelf (directory-eigen adres negeren)
+  const emailBron = new Map<string, { url: string; html: string }>();
+  for (const p of paginas) {
+    for (const email of extractEmails(p.html)) {
+      if (isDirectoryEmail(email, negeerDomein)) continue;
+      if (!emailBron.has(email)) emailBron.set(email, { url: p.url, html: p.html });
+      if (emailBron.size >= MAX_EMAILS_PER_SITE) break;
+    }
+    if (emailBron.size >= MAX_EMAILS_PER_SITE) break;
+  }
+
+  // Eigen website van de persoon (link naar ander domein)
+  const eigenWebsite = vindEigenWebsite(paginas[0].html, paginas[0].url, startHost, negeerDomein);
+
+  if (emailBron.size > 0) {
+    // E-mail stond op de detailpagina; website = eigen site als die er is
+    return bouwProspects(paginas, emailBron, eigenWebsite ?? paginas[0].url, vasteDoelgroep, startHost);
+  }
+
+  // Geen e-mail op de detailpagina: volg de eigen website één hop
+  if (eigenWebsite) {
+    await wacht(300);
+    const sitePaginas = await crawlPaginas(eigenWebsite, robotsCache);
+    if (sitePaginas.length > 0) {
+      const siteHost = hostVan(sitePaginas[0].url);
+      const siteEmails = new Map<string, { url: string; html: string }>();
+      for (const p of sitePaginas) {
+        for (const email of extractEmails(p.html)) {
+          if (isDirectoryEmail(email, negeerDomein)) continue;
+          if (!siteEmails.has(email)) siteEmails.set(email, { url: p.url, html: p.html });
+          if (siteEmails.size >= MAX_EMAILS_PER_SITE) break;
+        }
+        if (siteEmails.size >= MAX_EMAILS_PER_SITE) break;
+      }
+      if (siteEmails.size > 0) {
+        // Naam komt het best van de detailpagina, e-mail/website van de eigen site
+        const naamPagina = [{ html: paginas[0].html, url: paginas[0].url }, ...sitePaginas];
+        return bouwProspects(naamPagina, siteEmails, sitePaginas[0].url, vasteDoelgroep, siteHost);
+      }
+    }
+  }
+
+  return [];
+}
+
+/**
+ * Bouwt een wachtrij van detail/profielpagina's op basis van een overzichtspagina
+ * (ledenlijst, verwijsgids). Volgt drie sporen, in volgorde:
+ *   1. same-host profielpagina's die als cluster op de overzichtspagina staan
+ *   2. externe links naar eigen praktijksites
+ *   3. als de lijst leeg lijkt (JavaScript-gerenderd), de sitemap van de site
+ * E-mails die rechtstreeks op de overzichtspagina staan komen alleen terug als
+ * losse prospect wanneer ze NIET van de directory zelf zijn.
  */
 export async function bouwWachtrijVanUrl(
   listingUrl: string,
   vasteDoelgroep: Doelgroep | null,
   robotsCache: Map<string, string[]>,
   maxSites: number
-): Promise<{ wachtrij: WachtrijItem[]; directeProspects: GevondenProspect[] }> {
-  if (!isVeiligeUrl(listingUrl)) return { wachtrij: [], directeProspects: [] };
+): Promise<{ wachtrij: WachtrijItem[]; directeProspects: GevondenProspect[]; jsGerenderd: boolean }> {
+  if (!isVeiligeUrl(listingUrl)) return { wachtrij: [], directeProspects: [], jsGerenderd: false };
   const pagina = await fetchPagina(listingUrl);
-  if (!pagina) return { wachtrij: [], directeProspects: [] };
+  if (!pagina) return { wachtrij: [], directeProspects: [], jsGerenderd: false };
 
   const eigenHost = hostVan(pagina.finalUrl);
+  const origin = new URL(pagina.finalUrl).origin;
+  const links = extractLinks(pagina.html, pagina.finalUrl);
+
+  // Spoor 1: cluster van same-host profielpagina's op de overzichtspagina
+  const sameHostUrls = links.map((l) => l.url).filter((u) => u !== pagina.finalUrl);
+  const profielen = kiesDetailCluster(sameHostUrls, eigenHost, maxSites);
+
+  // Spoor 2: externe praktijksites (één per domein)
   const perDomein = new Map<string, string>();
-  for (const link of extractLinks(pagina.html, pagina.finalUrl)) {
+  for (const link of links) {
     const host = hostVan(link.url);
-    if (!host || host === eigenHost || isOverslaanDomein(link.url)) continue;
+    if (!host || host === eigenHost || isOverslaanDomein(link.url) || !isVeiligeUrl(link.url)) continue;
     if (!perDomein.has(host)) {
-      // Naar de homepage van het domein, daar begint de site-crawl
       try {
         perDomein.set(host, new URL(link.url).origin + "/");
       } catch {
@@ -315,30 +493,40 @@ export async function bouwWachtrijVanUrl(
     }
     if (perDomein.size >= maxSites) break;
   }
+  const externeSites = Array.from(perDomein.values());
 
-  const wachtrij: WachtrijItem[] = Array.from(perDomein.values()).map((url) => ({
+  let kandidaten = [...profielen, ...externeSites].slice(0, maxSites);
+  let jsGerenderd = false;
+
+  // Spoor 3: weinig kandidaten = waarschijnlijk JavaScript-gerenderde lijst.
+  // Val terug op de sitemap en zoek daar het profiel-cluster.
+  if (kandidaten.length < 5) {
+    jsGerenderd = true;
+    const sitemapUrls = await leesSitemapUrls(origin, maxSites);
+    const sitemapProfielen = kiesDetailCluster(sitemapUrls, eigenHost, maxSites);
+    if (sitemapProfielen.length > 0) {
+      kandidaten = sitemapProfielen.slice(0, maxSites);
+    }
+  }
+
+  const wachtrij: WachtrijItem[] = kandidaten.map((url) => ({
     url,
     bron: listingUrl,
+    negeerDomein: eigenHost,
   }));
 
-  // E-mails die direct op de overzichtspagina staan
+  // Losse e-mails op de overzichtspagina zelf, maar nooit het directory-adres
   const directeProspects: GevondenProspect[] = [];
   const tekst = naarTekst(pagina.html);
   const { doelgroep, score } = classificeer(tekst, vasteDoelgroep);
-  const MAILPROVIDERS = [
-    "gmail.com", "hotmail.com", "outlook.com", "live.nl", "live.com",
-    "ziggo.nl", "kpnmail.nl", "icloud.com", "me.com", "yahoo.com",
-    "planet.nl", "home.nl", "telfort.nl", "casema.nl", "xs4all.nl",
-  ];
   for (const email of extractEmails(pagina.html).slice(0, 25)) {
+    if (isDirectoryEmail(email, eigenHost)) continue;
     const emailDomein = email.split("@")[1];
     const naamDeel = email.split("@")[0].replace(/[._-]/g, " ");
     directeProspects.push({
-      // Lokaal deel als ruwe naam; de admin corrigeert dit in de review
       naam: naamDeel.replace(/\b\w/g, (c) => c.toUpperCase()),
       praktijk: null,
       email,
-      // Bij vrije mailproviders is het domein geen praktijkwebsite
       website: MAILPROVIDERS.includes(emailDomein) ? null : "https://" + emailDomein,
       bronUrl: pagina.finalUrl,
       doelgroep,
@@ -347,7 +535,7 @@ export async function bouwWachtrijVanUrl(
     });
   }
 
-  return { wachtrij, directeProspects };
+  return { wachtrij, directeProspects, jsGerenderd };
 }
 
 /**

@@ -158,6 +158,9 @@ export default function ProspectsTabblad() {
       setInvoer("");
       await laad();
       if (!data.job) { setFout("Onverwacht antwoord van de server."); return; }
+      if (data.jsGerenderd) {
+        toonMelding(`Deze lijst wordt met JavaScript geladen. Ik val terug op de sitemap en open ${data.job.totaal} profielen.`);
+      }
       if (data.job.status === "klaar") {
         toonMelding(`${data.job.gevonden ?? 0} adressen direct op de pagina gevonden.`);
       } else {
@@ -271,7 +274,7 @@ export default function ProspectsTabblad() {
             <label className="block text-xs text-text-muted mb-1">
               {bronType === "url"
                 ? "URL van een overzichtspagina (ledenlijst, verwijsgids), één per regel"
-                : "Zoekwoorden, bijvoorbeeld: budgetcoach Utrecht praktijk"}
+                : "Zoekopdrachten, één per regel (doelgroep + stad)"}
             </label>
             {bronType === "url" ? (
               <textarea
@@ -283,12 +286,12 @@ export default function ProspectsTabblad() {
                 className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             ) : (
-              <input
-                type="text"
+              <textarea
                 value={invoer}
                 onChange={(e) => setInvoer(e.target.value)}
-                placeholder="relatietherapeut Amsterdam praktijk"
+                placeholder={"relatietherapeut Utrecht\nrelatietherapeut Amersfoort\nbudgetcoach Amsterdam"}
                 required
+                rows={3}
                 className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             )}
@@ -315,8 +318,21 @@ export default function ProspectsTabblad() {
           </button>
         </div>
         <p className="text-xs text-text-muted">
-          De zoeker bezoekt elke site beleefd (respecteert robots.txt) en kijkt op de
-          homepage en contactpagina. Een overzichtspagina werkt het best.
+          {bronType === "url" ? (
+            <>
+              Bij een overzichtspagina opent de zoeker elk profiel apart en haalt daar het
+              e-mailadres op. Staat er geen mail op het profiel, dan volgt hij de eigen website
+              van die persoon. Werkt de lijst met JavaScript (zoals eft.nl), dan valt de zoeker
+              terug op de sitemap. Het adres van de overzichtssite zelf wordt overgeslagen.
+            </>
+          ) : (
+            <>
+              Per regel zoek ik op het web (doelgroep + stad), bezoek ik de gevonden
+              praktijksites en pluk ik daar de naam en het e-mailadres. Betrouwbaar zoeken
+              vraagt de omgevingsvariabele BRAVE_SEARCH_API_KEY in Vercel; zonder sleutel
+              probeer ik DuckDuckGo, maar dat wordt vanaf de server vaak geblokkeerd.
+            </>
+          )}
         </p>
       </form>
 

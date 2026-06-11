@@ -1,14 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/supabase-server";
 import { isAdminRequest } from "@/lib/admin-auth";
-import { bouwWachtrijVanUrl, zoekViaDuckDuckGo } from "@/lib/prospects/crawler";
+import { bouwWachtrijVanUrl } from "@/lib/prospects/crawler";
+import { zoekWebsites, ZoekBron } from "@/lib/prospects/search";
 import { Doelgroep, DOELGROEPEN, GevondenProspect, WachtrijItem } from "@/lib/prospects/types";
 import { slaProspectsOp } from "@/lib/prospects/opslag";
 
 export const maxDuration = 60;
 export const dynamic = "force-dynamic";
 
-const MAX_SITES = 25;
+const MAX_SITES = 60;
 
 function ongeldigeDoelgroep(d: string): boolean {
   return d !== "auto" && !DOELGROEPEN.includes(d as Doelgroep);
@@ -71,9 +72,10 @@ export async function POST(req: NextRequest) {
   const robotsCache = new Map<string, string[]>();
   let wachtrij: WachtrijItem[] = [];
   let directeProspects: GevondenProspect[] = [];
+  let jsGerenderd = false;
 
   if (type === "url") {
-    const urls = invoer.split("\n").map((r: string) => r.trim()).filter(Boolean).slice(0, 5);
+    const urls = invoer.split("\n").map((r: string) => r.trim()).filter(Boolean).slice(0, 3);
     for (const ruwe of urls) {
       const url = ruwe.startsWith("http") ? ruwe : "https://" + ruwe;
       try {
@@ -84,21 +86,43 @@ export async function POST(req: NextRequest) {
       const resultaat = await bouwWachtrijVanUrl(url, vasteDoelgroep, robotsCache, MAX_SITES);
       wachtrij.push(...resultaat.wachtrij);
       directeProspects.push(...resultaat.directeProspects);
+      if (resultaat.jsGerenderd) jsGerenderd = true;
     }
     wachtrij = wachtrij.slice(0, MAX_SITES);
   } else {
-    wachtrij = await zoekViaDuckDuckGo(invoer.trim(), MAX_SITES);
+    // Elke regel is een aparte zoekopdracht, bijvoorbeeld "relatietherapeut Utrecht".
+    const zoekregels = invoer.split("\n").map((r: string) => r.trim()).filter(Boolean).slice(0, 10);
+    const gezien = new Set<string>();
+    let laatsteBron: ZoekBron = "geen";
+    for (const regel of zoekregels) {
+      if (wachtrij.length >= MAX_SITES) break;
+      const resultaat = await zoekWebsites(regel, MAX_SITES);
+      laatsteBron = resultaat.bron;
+      for (const item of resultaat.wachtrij) {
+        if (gezien.has(item.url)) continue;
+        gezien.add(item.url);
+        wachtrij.push(item);
+        if (wachtrij.length >= MAX_SITES) break;
+      }
+    }
     if (wachtrij.length === 0) {
+      const uitleg =
+        laatsteBron === "geen"
+          ? " Er is nog geen zoeksleutel ingesteld. Voeg BRAVE_SEARCH_API_KEY toe aan de Vercel-omgevingsvariabelen voor betrouwbaar zoeken, of plak een overzichtspagina-URL."
+          : " De zoekmachine gaf geen bruikbare resultaten terug (datacenter-IP's worden vaak geblokkeerd). Met BRAVE_SEARCH_API_KEY in Vercel werkt dit betrouwbaar.";
       return NextResponse.json(
-        { error: "Zoeken leverde niets op. Probeer andere zoekwoorden, of plak een overzichtspagina-URL (dat werkt betrouwbaarder)." },
+        { error: "Zoeken leverde niets op." + uitleg },
         { status: 422 }
       );
     }
   }
 
   if (wachtrij.length === 0 && directeProspects.length === 0) {
+    const extra = jsGerenderd
+      ? " Deze lijst lijkt met JavaScript geladen en heeft geen bruikbare sitemap, dus de namen zijn niet uit de broncode te halen."
+      : "";
     return NextResponse.json(
-      { error: "Geen websites of e-mailadressen gevonden op deze pagina. Controleer of de URL klopt en publiek toegankelijk is." },
+      { error: "Geen profielen of e-mailadressen gevonden op deze pagina. Controleer of de URL klopt en publiek toegankelijk is." + extra },
       { status: 422 }
     );
   }
@@ -130,7 +154,7 @@ export async function POST(req: NextRequest) {
       .eq("id", job.id);
   }
 
-  return NextResponse.json({ job: { ...job, gevonden: direct } }, { status: 201 });
+  return NextResponse.json({ job: { ...job, gevonden: direct }, jsGerenderd }, { status: 201 });
 }
 
 // DELETE /api/admin/prospects?id=xxx — job en niet-goedgekeurde prospects opruimen

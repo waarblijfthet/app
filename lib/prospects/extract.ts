@@ -119,6 +119,14 @@ export function extractLinks(html: string, basisUrl: string): { url: string; tek
   return links;
 }
 
+/** Eerste <h1> als platte tekst (vaak de persoonsnaam op een profielpagina) */
+export function extractH1(html: string): string | null {
+  const m = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+  if (!m) return null;
+  const tekst = naarTekst(m[1]).trim();
+  return tekst || null;
+}
+
 export function extractTitle(html: string): string | null {
   const og = html.match(/<meta[^>]+property=["']og:site_name["'][^>]+content=["']([^"']+)["']/i)
     ?? html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+property=["']og:site_name["']/i);
@@ -180,6 +188,9 @@ export function extractNaam(html: string, titel: string | null): { naam: string 
 
   const jsonLd = extractJsonLdNamen(html);
   if (jsonLd.length > 0) return { naam: jsonLd[0], praktijk: praktijk ?? titel };
+
+  const h1 = extractH1(html);
+  if (h1 && lijktPersoonsnaam(h1)) return { naam: h1, praktijk: praktijk ?? titel };
 
   const author = html.match(/<meta[^>]+name=["']author["'][^>]+content=["']([^"']+)["']/i)
     ?? html.match(/<meta[^>]+content=["']([^"']+)["'][^>]+name=["']author["']/i);
