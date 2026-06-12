@@ -35,19 +35,19 @@ export default function HeroCards() {
   return (
     <div className="hidden lg:block">
       <div className="relative w-full h-[520px]">
-        {/* Card 1 — Wat jullie overhouden */}
+        {/* Card 1 — Wat je overhoudt */}
         <div
           className="absolute top-0 left-8 w-64 animate-float-1 rounded-xl border border-[#E8E0D0] p-6"
           style={cardStyle}
         >
           {voorbeeldLabel}
-          <p className="section-eyebrow mb-3">Wat jullie overhouden</p>
+          <p className="section-eyebrow mb-3">Wat je overhoudt</p>
           <p className="font-display text-4xl font-light text-primary mb-1">€80</p>
-          <p className="font-body text-xs mb-4" style={{ color: "#8A9E8E" }}>per maand bij jullie thuis</p>
+          <p className="font-body text-xs mb-4" style={{ color: "#8A9E8E" }}>per maand over</p>
           <div className="space-y-2 mb-4">
             <div>
               <div className="flex justify-between text-xs font-body mb-1" style={{ color: "#8A9E8E" }}>
-                <span>Jullie</span>
+                <span>Jij</span>
                 <span className="text-accent font-medium">3%</span>
               </div>
               <Bar pct={3} color="linear-gradient(90deg, #C4603A, #e07050)" />
@@ -65,15 +65,15 @@ export default function HeroCards() {
           </span>
         </div>
 
-        {/* Card 2 — Na onze aanpak */}
+        {/* Card 2 — Na het bijsturen */}
         <div
           className="absolute top-36 right-0 w-60 animate-float-2 rounded-xl border border-[#E8E0D0] p-6"
           style={cardStyle}
         >
           {voorbeeldLabel}
-          <p className="section-eyebrow mb-3">Na onze aanpak</p>
+          <p className="section-eyebrow mb-3">Na het bijsturen</p>
           <p className="font-display text-4xl font-light text-primary mb-1">€460</p>
-          <p className="font-body text-xs mb-4" style={{ color: "#8A9E8E" }}>per maand meer</p>
+          <p className="font-body text-xs mb-4" style={{ color: "#8A9E8E" }}>per maand meer in dit voorbeeld</p>
           <span
             className="inline-block text-xs font-body font-medium px-3 py-1 rounded-full"
             style={{ backgroundColor: "#D4EDE0", color: "#1C3A2A" }}
@@ -121,7 +121,7 @@ export default function HeroCards() {
           marginTop: "8px",
         }}
       >
-        Voorbeeld ter illustratie — geen belofte. Wat je overhoudt hangt af van
+        Voorbeeld ter illustratie, geen belofte. Wat je overhoudt hangt af van
         jouw eigen situatie.
       </p>
     </div>

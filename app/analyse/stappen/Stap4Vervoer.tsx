@@ -124,14 +124,14 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
                   : "bg-[#E8E0D0] text-text-soft"
               }`}
             >
-              Totaal gezin
+              Totaal huishouden
             </button>
           </div>
           <EuroInput
             label={
               data.zorgToggle === "per_persoon"
                 ? "Zorgverzekering per persoon"
-                : "Zorgverzekering totaal gezin"
+                : "Zorgverzekering totaal huishouden"
             }
             id="zorgPerPersoon"
             value={data.zorgPerPersoon}
@@ -139,7 +139,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
             hint={
               data.zorgToggle === "per_persoon"
                 ? "De volledige premie per persoon (bruto). Gemiddeld €148/mnd in 2026. De zorgtoeslag heb je al als inkomen ingevuld."
-                : "De volledige premie voor jullie gezin (bruto). De zorgtoeslag heb je al als inkomen ingevuld."
+                : "De volledige premie voor je huishouden (bruto). De zorgtoeslag heb je al als inkomen ingevuld."
             }
           />
         </div>
@@ -165,7 +165,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
           {vervoer > 0 && (
             <div className="bg-[#F0EDE6] rounded-xl p-3">
               <p className="text-xs font-body text-text-soft">
-                <strong>Vervoer:</strong> jullie €{vervoer} vs gemiddeld €
+                <strong>Vervoer:</strong> jij €{vervoer} vs gemiddeld €
                 {benches.vervoer}
               </p>
             </div>
@@ -173,7 +173,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
           {verzekeringen > 0 && (
             <div className="bg-[#F0EDE6] rounded-xl p-3">
               <p className="text-xs font-body text-text-soft">
-                <strong>Verzekeringen:</strong> jullie €{verzekeringen} vs gemiddeld €
+                <strong>Verzekeringen:</strong> jij €{verzekeringen} vs gemiddeld €
                 {benches.verzekeringen}
               </p>
             </div>

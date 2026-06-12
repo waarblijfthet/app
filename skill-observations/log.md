@@ -46,3 +46,18 @@ Observations captured during task-oriented work. Each entry identifies a potenti
 **Suggested improvement:** Een herbruikbare `isVeiligeUrl`/`safeFetch`-helper met de standaard private-range-blokkades en `redirect: "manual"` + per-hop hercontrole, plus een test die localhost/metadata/RFC1918 weigert.
 
 **Principle:** Elke server-side fetch van niet-vertrouwde URL's is een potentiële SSRF-vector. Valideer de host vóór de fetch én na elke redirect; vertrouw nooit op `redirect: "follow"`.
+
+### Observation 4: ICP-persona-loop als herbruikbare website-reviewmethode
+
+**Status:** OPEN
+**Date:** 2026-06-12
+**Session context:** Homepage waarblijfthet.nl iteratief verbeteren door als verschillende ICP's te kijken
+**Skill:** New skill candidate: icp-persona-loop
+**Type:** open-source
+**Phase/Area:** Conversie-optimalisatie / copy review
+
+**Issue:** Jarno vroeg een loop: bezoek de homepage als elke ICP, verzamel gedachten, voer verbeteringen door, herhaal tot elke ICP "dit MOET ik hebben" denkt. De methode werkte goed: 5 parallelle persona-subagents met elk een concreet profiel, expliciete opdracht om kritisch en in de eerste persoon te reageren, en per ronde een score (klikbereidheid 1-10) plus "het ENE resterende ding". Convergente feedback (jullie-vorm sloot alleenstaanden uit, onduidelijke analyse-inhoud, onbewezen cijfers) bleek betrouwbaarder dan individuele meningen. Belangrijke grens: persona's vroegen om bewijs dat niet bestaat (testimonials, klantaantallen); verzinnen mag niet, dus die punten worden actiepunten voor de eigenaar in plaats van copy-wijzigingen.
+
+**Suggested improvement:** Skill maken met: personadefinities afleiden uit content-segmenten van de site, ronde 1 breed (5 vragen incl. CTA-verwachting), wijzigingen doorvoeren, ronde 2+ alleen op resterende blokkades met scoredelta, stopcriterium (score 8+ of blokkade vereist input van eigenaar), en een eerlijkheidsregel: nooit social proof of cijfers verzinnen om een persona tevreden te stellen.
+
+**Principle:** Persona-gebaseerde review werkt het best als loop met scores en een expliciet "ENE resterende ding" per ronde; de grens van de loop is bereikt zodra de resterende blokkade echte data van de eigenaar vereist.

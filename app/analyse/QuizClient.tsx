@@ -132,8 +132,8 @@ export default function QuizClient() {
             <span>5 minuten · Anoniem · Geen producten</span>
           </div>
           <p className="text-[#4A5E4E] text-sm leading-relaxed">
-            Vul je situatie in en zie direct hoe jullie het doen ten opzichte
-            van vergelijkbare gezinnen. Na stap 2 zie je al de eerste vergelijking.
+            Vul je situatie in en zie direct hoe je het doet ten opzichte
+            van vergelijkbare huishoudens. Na stap 2 zie je al de eerste vergelijking.
           </p>
         </div>
       )}

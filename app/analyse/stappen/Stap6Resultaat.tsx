@@ -163,10 +163,10 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
       : grootsteAfwijking === "Wonen"
       ? "In een gesprek kijken we of en hoe dat te verlichten is, en wat dat in de rest van het budget betekent."
       : grootsteAfwijking === "Vervoer"
-      ? "In een gesprek kijken we of er slim iets te veranderen is aan jullie vervoerssituatie."
+      ? "In een gesprek kijken we of er slim iets te veranderen is aan je vervoerssituatie."
       : verdict === "goed"
-      ? "Jullie doen het goed. In een gesprek kijken we hoe jullie de ruimte die er is doelgericht inzetten: sparen, aflossen of meer van het leven genieten."
-      : "Je ziet nu wáár het zit. In een gesprek kijken we samen naar jullie cijfers en stellen we 2 à 3 concrete doelen.";
+      ? "Je doet het goed. In een gesprek kijken we hoe je de ruimte die er is doelgericht inzet: sparen, aflossen of meer van het leven genieten."
+      : "Je ziet nu wáár het zit. In een gesprek kijken we samen naar je cijfers en stellen we 2 à 3 concrete doelen.";
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -276,7 +276,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
         </p>
         <p className="text-text-muted font-body text-sm mb-2">
-          Vergelijkbare gezinnen houden gemiddeld{" "}
+          Vergelijkbare huishoudens houden gemiddeld{" "}
           <strong className="text-text-soft">{fmtEur(benches.vrij_besteedbaar)}</strong>{" "}
           over
         </p>
@@ -305,7 +305,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
               </p>
               <p className="font-body font-light text-text-soft text-xs mt-1 leading-relaxed">
                 {over >= spaardoelWaarde
-                  ? `Na dat spaardoel houden jullie nog ${fmtEur(over - spaardoelWaarde)}/mnd over.`
+                  ? `Na dat spaardoel houd je nog ${fmtEur(over - spaardoelWaarde)}/mnd over.`
                   : `Jullie houden ${fmtEur(over)}/mnd over, ${fmtEur(spaardoelWaarde - over)} te weinig om dit spaardoel te halen.`}
               </p>
             </div>
@@ -374,7 +374,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             Ontvang je volledige analyse
           </p>
           <p className="text-text-soft font-body font-light text-sm mb-6">
-            Per e-mail ontvang je een gedetailleerde breakdown van jullie situatie,
+            Per e-mail ontvang je een gedetailleerde breakdown van je situatie,
             met concrete eerste stappen voor de categorie die het meest afwijkt.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">

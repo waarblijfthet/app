@@ -114,7 +114,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
                   : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
               return (
                 <>
-                  Goed, we vergelijken je met een gezin {kindTekst} in een{" "}
+                  Goed, we vergelijken je met een huishouden {kindTekst} in een{" "}
                   {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
                 </>
               );

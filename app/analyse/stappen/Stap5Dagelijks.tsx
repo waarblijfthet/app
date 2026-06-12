@@ -17,9 +17,9 @@ interface Props {
 
 const BOODSCHAPPEN_HINTS: Record<number, string> = {
   0: "Gemiddeld €485/mnd voor een stel",
-  1: "Gemiddeld €620/mnd voor jullie gezin",
-  2: "Gemiddeld €755/mnd voor jullie gezin",
-  3: "Gemiddeld €890/mnd voor jullie gezin",
+  1: "Gemiddeld €620/mnd voor je huishouden",
+  2: "Gemiddeld €755/mnd voor je huishouden",
+  3: "Gemiddeld €890/mnd voor je huishouden",
 };
 
 export default function Stap5Dagelijks({ data, onChange }: Props) {
@@ -52,7 +52,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         Wat gaat er dagelijks uit?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        De categorieën die het meeste variëren tussen gezinnen.
+        De categorieën die het meeste variëren tussen huishoudens.
       </p>
 
       {/* Boodschappen */}
@@ -126,7 +126,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               hint="Gemiddeld €25/mnd"
             />
             <EuroInput
-              label="Telefoonabonnementen (totaal gezin)"
+              label="Telefoonabonnementen (totaal huishouden)"
               id="telefoon"
               value={data.telefoonBedrag}
               onChange={(v) => onChange({ telefoonBedrag: v })}
@@ -233,13 +233,13 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           onChange={(v) => onChange({ jaarlijkseKosten: v })}
           hint={
             data.woonsituatie === "koop"
-              ? "Huisonderhoud, autoreparaties, tandarts, brillen. Gemiddeld €3.600/jaar voor een gezin met koopwoning"
+              ? "Huisonderhoud, autoreparaties, tandarts, brillen. Gemiddeld €3.600/jaar voor een huishouden met koopwoning"
               : "Autoreparaties, tandarts, brillen, kleding, gemiddeld €1.800/jaar"
           }
         />
         {jaarlijksWaarde > 0 && (
           <p className="font-body text-xs text-[#2D6A4F] mt-1.5 font-medium">
-            = {fmtEur(jaarlijksWaarde)}/mnd, wordt meegenomen in jullie totaal
+            = {fmtEur(jaarlijksWaarde)}/mnd, wordt meegenomen in je totaal
           </p>
         )}
       </div>
@@ -259,11 +259,11 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         {spaardoelOpen && (
           <div className="mt-4">
             <EuroInput
-              label="Wat willen jullie maandelijks sparen?"
+              label="Wat wil je maandelijks sparen?"
               id="spaardoel"
               value={data.spaardoel}
               onChange={(v) => onChange({ spaardoel: v })}
-              hint="Buffer, verbouwing, pensioen, wat jullie structureel opzij willen zetten"
+              hint="Buffer, verbouwing, pensioen, wat je structureel opzij wilt zetten"
             />
           </div>
         )}

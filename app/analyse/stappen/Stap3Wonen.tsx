@@ -33,7 +33,7 @@ export default function Stap3Wonen({ data, onChange }: Props) {
         Jullie woonlasten
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Vul de maandelijkse kosten in voor jullie woning.
+        Vul de maandelijkse kosten in voor je woning.
       </p>
 
       <div className="space-y-5 mb-8">

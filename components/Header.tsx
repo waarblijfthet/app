@@ -22,7 +22,7 @@ export default function Header() {
       ? null
       : isOpResultaat
       ? { label: "Doe analyse opnieuw", href: "/analyse" }
-      : { label: "Start analyse", href: "/analyse" };
+      : { label: "Gratis analyse", href: "/analyse" };
 
   const navLinks = [
     { href: "/inzichten", label: "Inzichten" },

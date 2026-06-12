@@ -7,7 +7,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Waar blijft het, Goed salaris, toch altijd krap?",
   description:
-    "Je hebt geen schulden en je verdient genoeg, maar aan het einde van de maand is het weg. Gratis analyse: zie in 5 minuten waar jullie geld structureel naartoe gaat.",
+    "Je hebt geen schulden en je verdient genoeg, maar aan het einde van de maand is het weg. Gratis analyse: zie in 5 minuten waar je geld structureel naartoe gaat.",
   alternates: { canonical: "https://www.waarblijfthet.nl" },
   openGraph: {
     title: "Waar blijft het, Goed salaris, toch altijd krap?",
@@ -23,7 +23,7 @@ const websiteSchema = {
   name: "Waar blijft het",
   url: "https://www.waarblijfthet.nl",
   description:
-    "Gratis financiële analyse voor Nederlandse gezinnen met een modaal of boven-modaal inkomen.",
+    "Gratis financiële analyse voor Nederlandse huishoudens met een modaal of boven-modaal inkomen.",
   potentialAction: {
     "@type": "SearchAction",
     target: {
@@ -68,7 +68,7 @@ const stappen = [
     nrKleur: "text-primary",
     titel: "Gratis analyse · 5 minuten",
     tekst:
-      "Vul je situatie in. Je ziet direct in welke categorie jullie vallen en waar jullie afwijken van vergelijkbare gezinnen. Geen account, geen creditcard.",
+      "Vijf korte stappen: woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven. Schattingen zijn goed genoeg, je hoeft niets op te zoeken en geen bank te koppelen. Geen account, geen creditcard.",
   },
   {
     nr: "2",
@@ -76,7 +76,7 @@ const stappen = [
     nrKleur: "text-accent",
     titel: "Direct inzicht, concreet en eerlijk",
     tekst:
-      "Je ontvangt de twee of drie plekken waar het bij jullie structureel fout gaat, uitgelegd in gewone taal. Geen rapport van 20 pagina's. Gewoon: dit is wat er speelt.",
+      "Het resultaat staat direct op je scherm: in welke categorie je valt en de twee of drie plekken waar het bij jou structureel fout gaat, uitgelegd in gewone taal. Een e-mailadres is niet verplicht en niemand belt of mailt je na, tenzij je daar zelf om vraagt. Gewoon: dit is wat er speelt.",
   },
   {
     nr: "3",
@@ -161,7 +161,7 @@ export default function HomePage() {
                     letterSpacing: "0.01em",
                   }}
                 >
-                  Vrijblijvend &middot; Gratis &middot; 5 minuten &middot; Geen account nodig
+                  Gratis &middot; 5 minuten &middot; Geen account of bankkoppeling &middot; Resultaat direct op je scherm
                 </p>
               </div>
 
@@ -169,7 +169,8 @@ export default function HomePage() {
                 className="font-body animate-hero-5"
                 style={{ fontSize: "0.85rem", color: "#8A9E8E" }}
               >
-                Inmiddels helpen we gezinnen in heel Nederland.{" "}
+                Voor gezinnen, stellen én alleenstaanden. Na de gratis analyse is er
+                één mogelijke vervolgstap: een adviesgesprek van €125.{" "}
                 <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }}>
                   Bekijk het aanbod &rarr;
                 </Link>
@@ -238,7 +239,7 @@ export default function HomePage() {
             <div className="mb-10 md:mb-12">
               <p className="section-eyebrow mb-3 md:mb-4">Echte verhalen</p>
               <h2 className="font-display font-light text-primary text-3xl sm:text-4xl md:text-5xl max-w-xl leading-tight">
-                Wat het andere gezinnen opleverde
+                Wat het anderen opleverde
               </h2>
             </div>
 
@@ -283,7 +284,7 @@ export default function HomePage() {
             </div>
 
             <p className="font-body text-xs mt-5 md:mt-6 text-center" style={{ color: "#8A9E8E" }}>
-              Namen zijn aangepast voor privacy. Ervaringen van echte gezinnen.
+              Namen zijn aangepast voor privacy. Ervaringen van echte gezinnen. Alleenstaand? De analyse vergelijkt jou met huishoudens in jouw situatie, niet met een gezin.
             </p>
           </div>
         </section>
@@ -322,16 +323,18 @@ export default function HomePage() {
                   </p>
                 </blockquote>
                 <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-3 md:mb-4">
-                  Ik help gezinnen en stellen die goed verdienen maar structureel krap zitten,
-                  omdat ik dit zelf heb meegemaakt. Geen schuldhulpverlening, geen
+                  Ik help mensen die goed verdienen maar structureel krap zitten. Gezinnen,
+                  stellen en alleenstaanden. Ik verdien zelf goed en heb jarenlang niet
+                  begrepen waarom het nooit klopte. Daarom weet ik waar je moet kijken. Geen schuldhulpverlening, geen
                   beleggingsadvies. Gewoon eerlijk inzicht in wat er speelt en concrete
                   stappen die werken.
                 </p>
                 <p className="font-body font-light text-text-soft text-sm leading-relaxed">
-                  Ik werk onafhankelijk, zonder automatische abonnementen of doorlopende
-                  trajecten. Je betaalt alleen voor wat je nodig hebt.
+                  Ik werk onafhankelijk. Ik verkoop geen financiële producten en krijg geen
+                  provisie, dus het enige dat ik lever is inzicht. Geen abonnementen,
+                  geen doorlopende trajecten. Je betaalt alleen voor wat je nodig hebt.
                 </p>
-                <div className="mt-6 md:mt-8">
+                <div className="mt-6 md:mt-8 flex flex-wrap gap-6">
                   <Link
                     href="/over"
                     className="font-body text-sm font-medium"
@@ -339,6 +342,15 @@ export default function HomePage() {
                   >
                     Meer over Jarno &rarr;
                   </Link>
+                  <a
+                    href="https://www.linkedin.com/in/jarnokoopman/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-body text-sm font-medium"
+                    style={{ color: "#C4603A", textDecoration: "none" }}
+                  >
+                    LinkedIn &rarr;
+                  </a>
                 </div>
               </div>
 
@@ -347,10 +359,11 @@ export default function HomePage() {
                   Wat maakt dit anders?
                 </h3>
                 {[
-                  ["Geen schuldhulp", "Dit is voor gezinnen die genoeg verdienen maar grip missen, niet voor mensen in financiële nood."],
+                  ["Geen schuldhulp", "Dit is voor mensen die genoeg verdienen maar grip missen, niet voor mensen in financiële nood."],
                   ["Geen abonnement", "Eenmalig adviesgesprek voor €125. Klaar. Geen maandelijkse kosten, geen doorlopend traject."],
-                  ["Geen oordeel", "Je verdient goed. Het systeem klopt gewoon niet. Wij kijken naar het gedrag, niet naar de getallen."],
-                  ["Concrete uitkomst", "Na de gratis analyse weet je direct in welke categorie jullie vallen en wat de grootste afwijking is."],
+                  ["Geen oordeel", "Je verdient goed. De structuur klopt gewoon niet. Ik kijk naar wat er weglekt, niet naar wat jij fout zou doen."],
+                  ["Concrete uitkomst", "Na de gratis analyse weet je direct in welke categorie je valt en wat de grootste afwijking is."],
+                  ["Ook met wisselend inkomen", "Zzp'er of wisselende maanden? Vul je gemiddelde maandinkomen in. Juist dan geeft zicht op je vaste structuur rust."],
                 ].map(([t, d]) => (
                   <div key={t} className="flex gap-3 md:gap-4 p-4 rounded-xl" style={{ backgroundColor: "#F5F0E8" }}>
                     <div
@@ -416,7 +429,12 @@ export default function HomePage() {
                 Start de gratis analyse &rarr;
               </Link>
               <p className="font-body mt-3" style={{ fontSize: "0.8rem", color: "#8A9E8E" }}>
-                Stap 1 is altijd gratis. Geen verplichting tot stap 2 of 3.
+                Stap 1 is altijd gratis. Geen verplichting tot stap 2 of 3. Je gegevens
+                worden alleen bewaard als je daar zelf toestemming voor geeft en worden
+                nooit gedeeld of verkocht.{" "}
+                <Link href="/privacy" style={{ color: "#C4603A", textDecoration: "none" }}>
+                  Lees hoe ik met je gegevens omga &rarr;
+                </Link>
               </p>
             </div>
           </div>
@@ -442,14 +460,14 @@ export default function HomePage() {
                 },
                 {
                   stat: "1 op 3",
-                  tekst: "gezinnen heeft moeite rond te komen, ongeacht het inkomensniveau",
+                  tekst: "huishoudens heeft moeite rond te komen, ongeacht het inkomensniveau",
                   bron: "Nibud, 2026",
                   href: "https://www.nibud.nl/onderwerpen/rondkomen/moeite-met-rondkomen/",
                 },
                 {
                   stat: "€460",
-                  tekst: "gemiddeld meer per maand dat gezinnen overhouden nadat ze grip krijgen op de structuur",
-                  bron: "Intern gemiddelde",
+                  tekst: "gemiddeld meer per maand bij de huishoudens die ik tot nu toe begeleid heb. Geen belofte, jouw uitkomst hangt af van je situatie",
+                  bron: "Eigen klantresultaten",
                   href: null,
                 },
               ].map((s) => (
@@ -476,7 +494,7 @@ export default function HomePage() {
 
             <div className="mt-10 md:mt-14 text-center">
               <p className="font-body text-sm text-text-soft mb-4">
-                Benieuwd hoe jullie het doen vergeleken met anderen?
+                Benieuwd hoe jij het doet vergeleken met vergelijkbare huishoudens?
               </p>
               <Link
                 href="/analyse"
@@ -490,6 +508,39 @@ export default function HomePage() {
         </section>
 
         {/* ── FINALE CTA ───────────────────────────────────────── */}
+        {/* ── VOOR WIE ─────────────────────────────────────── */}
+        <section className="bg-background py-16 md:py-20 border-t border-[#E8E0D0]">
+          <div className="max-w-6xl mx-auto px-6">
+            <p className="section-eyebrow mb-3 md:mb-4">Voor wie is dit?</p>
+            <h2 className="font-display font-light text-primary text-3xl sm:text-4xl max-w-2xl leading-tight mb-5">
+              Gezinnen, alleenstaanden, zzp&apos;ers en 50-plussers
+            </h2>
+            <p className="font-body font-light text-text-soft text-sm leading-relaxed max-w-2xl mb-7">
+              Het patroon is overal hetzelfde: goed inkomen, toch krap. De cijfers
+              verschillen per situatie. Daarom kijkt de analyse naar jouw woonsituatie,
+              kinderen en inkomen, niet naar een standaardgezin. Lees wat het leven
+              kost in jouw situatie:
+            </p>
+            <div className="flex flex-wrap gap-3">
+              {[
+                { titel: "Alleenstaand", href: "/inzichten/kosten-levensonderhoud-alleenstaande-2026" },
+                { titel: "Alleenstaande ouder", href: "/inzichten/kosten-levensonderhoud-alleenstaande-ouder-2026" },
+                { titel: "Zzp'er", href: "/inzichten/kosten-levensonderhoud-zzp-alleenstaande-2026" },
+                { titel: "50-plus", href: "/inzichten/kosten-levensonderhoud-alleenstaande-50-plus-2026" },
+              ].map((d) => (
+                <Link
+                  key={d.href}
+                  href={d.href}
+                  className="font-body text-sm font-medium px-4 py-2 rounded-full border transition-colors hover:border-primary"
+                  style={{ borderColor: "#D6CEBC", color: "#1C3A2A", textDecoration: "none" }}
+                >
+                  {d.titel} &rarr;
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
         <section className="bg-dark-block py-20 lg:py-28 relative overflow-hidden" id="aanmelden-footer">
           <div
             className="absolute inset-0 pointer-events-none"
@@ -512,7 +563,7 @@ export default function HomePage() {
               <span className="italic" style={{ color: "#C4603A" }}>Gewoon antwoord.</span>
             </h2>
             <p className="text-white/60 font-body font-light text-base md:text-lg mb-8 md:mb-10 max-w-sm mx-auto leading-relaxed">
-              Start de gratis analyse en zie direct hoe jullie het doen, en wat er anders kan.
+              Start de gratis analyse en zie direct hoe je het doet, en wat er anders kan.
             </p>
             <Link
               href="/analyse"
@@ -522,7 +573,7 @@ export default function HomePage() {
               Start de gratis analyse &rarr;
             </Link>
             <p className="text-white/30 font-body text-xs mt-5 md:mt-6">
-              Beschikbaar voor gezinnen in heel Nederland &middot; Geen account nodig
+              Voor huishoudens in heel Nederland &middot; Geen account of bankkoppeling &middot; Je gegevens worden nooit gedeeld of verkocht
             </p>
           </div>
         </section>

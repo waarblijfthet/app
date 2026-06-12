@@ -35,7 +35,8 @@ Beheer via admin-tab "Outreach". Systeem: Supabase-tabel `outreach_contacts` + R
   - `financieel-planners`: "als er te weinig overblijft om jouw advies uit te voeren"
   - `burnout-coaches`: "wat als geld het herstel in de weg zit?"
 - UI: categoriedropdown bij toevoegen, filterpills per doelgroep, categorie-kolom in tabel.
-- Relevante bestanden: `app/api/admin/outreach/send/route.ts` (templates), `app/admin/components/OutreachTabblad.tsx` (UI).
+- **Inline bewerken + multiselect (11-jun v3)**: naam en e-mail zijn inline-invoervelden (opslaan bij blur), categorie is een inline dropdown, alle drie via `PATCH /api/admin/outreach`. Checkbox per rij + "selecteer alles" en een knop "Verstuur geselecteerde (n)"; zonder selectie blijft "Verstuur nieuwe" zichtbaar. Versturen raakt alleen status `nieuw`.
+- Relevante bestanden: `app/api/admin/outreach/send/route.ts` (templates), `app/api/admin/outreach/route.ts` (GET/POST/PATCH/DELETE), `app/admin/components/OutreachTabblad.tsx` (UI).
 - Resend-webhook voor open/klik tracking: `app/api/webhooks/resend/route.ts`. Vereist `RESEND_WEBHOOK_SECRET` in Vercel env (nog in te stellen).
 - **`supabase/outreach_contacts.sql` MOET nog eenmalig gedraaid worden** in Supabase SQL-editor voor de tabel bestaat. (RLS-policy aangescherpt naar `to authenticated` op 11-jun, draai opnieuw als de oude policy al bestond.)
 
@@ -46,7 +47,8 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - **Werking**: job-gebaseerd. POST `/api/admin/prospects` maakt een job + wachtrij van sites. De UI roept daarna in een lus POST `/api/admin/prospects/step` aan (max 3 sites per call, tijdsbudget 20s, `maxDuration=60`) tot de wachtrij leeg is. Zo blijven we binnen Vercel-limieten zonder externe queue.
 - **Per site**: homepage + max 3 contact-achtige pagina's, respecteert robots.txt, beleefde user-agent `WaarBlijftHetBot`. Extractie van e-mail (mailto eerst, ook ontsluierd `info [at] domein [dot] nl`), naam (JSON-LD Person → `<h1>` → meta author → "ik ben ..."-patroon → titel), en doelgroep via trefwoord-classificatie (of handmatig vastgezet).
 - **Overzichtspagina volgt individuele profielen (belangrijk, 11-jun v2)**: bij een ledenlijst/verwijsgids opent de zoeker élk profiel apart i.p.v. alleen de overzichtspagina. Drie sporen in `bouwWachtrijVanUrl`: (1) same-host profiel-cluster op de pagina zelf (grootste groep URL's met gelijke pad-diepte ≥2), (2) externe praktijksites, (3) **sitemap-fallback** als de lijst JavaScript-gerenderd is (zoals eft.nl): leest `sitemap.xml`/`sitemap_index.xml` en pakt het profiel-cluster daaruit. Per profiel: staat er geen e-mail op, dan volgt hij de eigen-website-link één hop (`vindEigenWebsite`). Het e-maildomein van de directory zelf (`negeerDomein`, bijv. `info@eft.nl`) wordt altijd genegeerd. `MAX_SITES=60` per batch.
-- **Review-wachtrij**: gevonden adressen staan in tabel `prospects` (status `gevonden`). Admin keurt goed (→ `outreach_contacts`, status `nieuw`) of wijst af. Naam en categorie inline aanpasbaar. Ontdubbelt tegen bestaande outreach-contacten en eerdere prospects.
+- **Review-wachtrij**: gevonden adressen staan in tabel `prospects` (status `gevonden`). Admin keurt goed (→ `outreach_contacts`, status `nieuw`) of wijst af. Ontdubbelt tegen bestaande outreach-contacten en eerdere prospects.
+- **Review-tabel UX (11-jun v3)**: actie-knoppen (Goedkeuren/Afwijzen) staan vóóraan, `table-fixed` zodat horizontaal scrollen weg is (context-kolom truncate op 2 regels). Naam is een controlled inline-invoerveld; per-rij Goedkeuren slaat een gecorrigeerde naam eerst op (`keurRijGoed`) zodat de correctie niet verloren gaat. Categorie inline dropdown. Multiselect + bulk-goedkeuren/afwijzen via `POST /api/admin/prospects/review`.
 - **SSRF-bescherming**: crawler weigert localhost, 127/10/192.168/172.16-31/169.254-ranges; redirects worden handmatig gevolgd en per hop opnieuw gecheckt.
 - **Bestanden**: `lib/prospects/` (types, extract, classify, crawler, opslag), `app/api/admin/prospects/{route,step/route,review/route}.ts`, `app/admin/components/ProspectsTabblad.tsx`, tab toegevoegd in `app/admin/AdminClient.tsx`.
 - **`supabase/prospect_zoeker.sql` MOET nog eenmalig gedraaid worden** in de Supabase SQL-editor (tabellen `prospect_jobs` + `prospects`).
@@ -75,9 +77,24 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - [ ] **Foto van Jarno** toevoegen: vervang de JK-initialen `<div>` door `<img>` in `app/over/page.tsx` en `app/inzichten/[slug]/page.tsx` (auteur-bar).
 - [ ] KvK inschrijven + KOR aanmelden bij Belastingdienst.
 - [ ] SE Ranking-review (~20 juni 2026): export vergelijken met nulmeting 30 mei.
+- [ ] **Echte testimonial van een alleenstaande klant verzamelen** voor de homepage (grootste resterende conversieblokkade voor de alleenstaande/zzp-ICP's; niet verzinnen).
+- [ ] **Track record Jarno concretiseren** op homepage en /over: hoeveel huishoudens begeleid, sinds wanneer, relevante achtergrond (ICP "Mark" haakt hierop af; alleen echte cijfers gebruiken).
 - [ ] Outreach email-templates voor 3 doelgroepen inhoudelijk reviewen met Jarno (budgetcoaches, financieel-planners, burnout-coaches zijn technisch klaar maar nog niet door Jarno gelezen).
 - [ ] Fase 2 conversie: CTA op analyse-resultaat naar betaald pakket (nog niet gebouwd).
 - [ ] Optioneel: beeld/reels in artikelen; Meta Pixel als er ooit ads komen.
+
+## Wat er in sessie 12-jun-2026 gedaan is
+- **ICP-persona-loop op de homepage** (5 persona's: tweeverdiener, alleenstaande ouder, zzp'er, alleenstaande 50+, burn-out-herstel; 3 rondes met scores). Convergente klachten verwerkt in `app/page.tsx`, `components/HeroCards.tsx`, `components/Header.tsx`:
+  - **Jullie/gezinnen-taal vervangen** door je/huishoudens op homepage én in de hele analyse-flow (`app/analyse/*`), incl. metadata en schema. Alleenstaanden voelden zich buitengesloten terwijl dat juist een contentsegment is.
+  - **Nieuwe sectie "Voor wie is dit?"** met chips naar de 4 alleenstaande-artikelen (interne links, SEO).
+  - **CTA-twijfels weggenomen**: stap 1 noemt nu de vijf invulstappen + "schattingen zijn goed genoeg, geen bankkoppeling"; stap 2 zegt "resultaat direct op je scherm, e-mail niet verplicht, niemand belt je na"; hero-subline "Geen account of bankkoppeling · Resultaat direct op je scherm". Header-CTA "Start analyse" → "Gratis analyse". Verdict ICP's over de knop: analyse als primaire CTA is goed, mits inhoud/privacy/prijs vooraf duidelijk zijn; niemand wilde primair direct naar het aanbod.
+  - **Prijs eerder zichtbaar**: hero noemt nu de enige vervolgstap (€125 eenmalig) + link naar aanbod.
+  - **€460-claim eerlijk geherformuleerd** ("bij de huishoudens die ik tot nu toe begeleid heb. Geen belofte..."), bron "Intern gemiddelde" → "Eigen klantresultaten". HeroCards: "Na onze aanpak" → "Na het bijsturen", "per maand meer in dit voorbeeld", em dash uit disclaimer.
+  - **Privacy op het beslismoment**: link naar /privacy bij de stappen-CTA, "nooit gedeeld of verkocht" in finale CTA.
+  - **Jarno-blok**: wij-vorm eruit, gevalideerde bio-zin erin, "geen producten, geen provisie", LinkedIn-link toegevoegd.
+  - **Wat maakt dit anders**: 5e item "Ook met wisselend inkomen" (zzp).
+- Eindscores klikbereidheid: Sandra 2→8, Thomas 3→8, Ellen 3→8, Lisa 3→7, Mark 6→7,5. Resterende blokkades vereisen echte data van Jarno (zie nieuwe to-dos: alleenstaande-testimonial, track record).
+- Geverifieerd: `npx tsc --noEmit --incremental false` schoon, geen null bytes, geen em dashes in copy. Wijzigingen via Python-replace (niet de Edit-tool), conform werkwijze-notitie. **Nog niet gecommit/gepusht.**
 
 ## Wat er in sessie 11-jun-2026 gedaan is
 - **Prospect-zoeker gebouwd** (nieuwe admin-tab "Prospects"): zelfstandig namen + e-mailadressen verzamelen op basis van een overzichts-URL of zoekwoorden, met review-wachtrij naar de outreach mini-CRM. Zie de sectie "Prospect-zoeker" hierboven voor de volledige werking en bestanden.
@@ -86,19 +103,6 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - **`isAdminRequest()`-guard** toegevoegd aan de bestaande outreach-routes (`route.ts` en `send/route.ts`), die hadden nog geen serverside auth-check.
 - Geverifieerd met `npx tsc --noEmit` (schoon) + unit-tests van extractie, classificatie, SSRF-guard en robots-parser. Geen em dashes/koppeltekens in copy; ik-vorm aangehouden.
 - **v2 (zelfde sessie, na feedback Jarno)**: overzichtspagina pakte eerst alleen de pagina zelf (bij eft.nl dus `info@eft.nl`). Crawler herbouwd zodat hij individuele profielen volgt + sitemap-fallback voor JS-lijsten + doorklikken naar eigen website (zie sectie "Prospect-zoeker"). Getest met eft.nl-fixtures (profiel mét mail → eigen adres i.p.v. directory-adres; profiel zonder mail → hop naar praktijksite; JS-lijst → sitemap-cluster).
-- **Let op (tooling)**: de Edit-tool kapte tijdens deze sessie tweemaal een bestand af (route.ts en ProspectsTabblad.tsx), hersteld via Python `open(...,'w')`. tsc `--incremental` cache kan phantom-fouten geven; draai bij twijfel `npx tsc --noEmit --incremental false`.
-
-## Wat er in sessie 10-jun-2026 gedaan is
-- **Alleenstaande pillar page** omgevormd: persona-selector, "single premium" sectie (30-50% meer per hoofd), Sophie-case voor de CTA, links naar sub-artikelen. Bestand: `app/inzichten/[slug]/content/kosten-levensonderhoud-alleenstaande-2026.tsx`.
-- **3 sub-artikelen** geschreven en ICP-gevalideerd: ouder (ALO-kop, regelingen), ZZP (AOV, buffer, voorlopige aanslag), 50+ (AOW, pensioengat, Ellen case gecorrigeerd). `lib/inzichten-data.ts` bijgewerkt.
-- **Hero homepage aangescherpt**: "geen schulden" → "betaalt alles op tijd", "karakterfout" vervangen door "Dat ligt niet aan jou", uitkomst toegevoegd. Bestand: `app/page.tsx`.
-- **CTO verwijderd** uit artikel-bio (`app/inzichten/[slug]/page.tsx`) en aanbod-FAQ (`app/aanbod/components/AanbodAccordion.tsx`). Vervangen door generieke formulering zonder jobtitel.
-- **Outreach UI uitgebreid**: categoriedropdown in formulier, filterpills per doelgroep, categorie-kolom met kleurcodering. Bestand: `app/admin/components/OutreachTabblad.tsx`.
-- **4 email-templates** met eigen subject per doelgroep. Bestand: `app/api/admin/outreach/send/route.ts`.
-
-## Werkwijze-notitie
-- Werkdocumenten (verbeterplan, plan van aanpak, partner-playbook, sjablonen, PDF's) zijn losse outputs, niet in de repo. In de repo horen alleen code + `supabase/*.sql` + `scripts/`.
-- Verifieer codewijzigingen met `npx tsc --noEmit` (negeer fouten in `.next/`, dat is build-cache).
-- Grote bestanden (>100 regels) altijd schrijven via Python `open(path, 'w')`, nooit via de Edit tool (trunceert zonder waarschuwing). Bij bash heredocs: `cat > file << 'PYEOF'` werkt ook.
-- Git-lock (`index.lock`) kan voorkomen als VS Code of een terminal de repo open heeft. Verwijder het bestand handmatig en retry.
-- Edit tool introduceert soms null bytes. Strip ze na elke Edit met: `python3 -c "f=open(p,'rb').read(); open(p,'wb').write(f.replace(b'\x00',b''))"`.
+- **v2b zoekwoorden**: zoekwoorden-modus liep op DuckDuckGo-GET-scraping (faalt vanaf Vercel-IP). Vervangen door `lib/prospects/search.ts`: Brave Search API (env `BRAVE_SEARCH_API_KEY`) met DuckDuckGo-POST als fallback; meerdere zoekregels (doelgroep + stad) per keer. Brave-sleutel staat inmiddels in Vercel.
+- **RLS-writeblokkade opgelost**: admin prospect- én outreach-routes liepen op de anon-cookie-client (door Supabase als `anon` gezien → "new row violates row-level security policy"). Alle routes nu op `createServiceClient()` met `isAdminRequest()` als gate.
+- **v3 UX**: review-tabel (Prospects) acti
