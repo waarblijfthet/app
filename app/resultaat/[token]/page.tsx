@@ -412,47 +412,29 @@ export default async function ResultaatPage({ params }: Props) {
             </div>
           </div>
 
-          {/* ── SECTIE 4: Email reminder ── */}
-          <div
-            className="rounded-2xl border border-[#E8E0D0] p-6"
-            style={{ background: "#F5F0E8" }}
-          >
-            {r.email ? (
-              <div>
-                <p className="font-body font-medium text-text-soft text-sm mb-1">
-                  Analyse verstuurd
-                </p>
-                <p className="text-text-muted font-body text-sm">
-                  De analyse is al gestuurd naar{" "}
-                  <strong className="text-text-soft">{r.email}</strong>. Niet
-                  ontvangen? Check je spamfolder of mail me op{" "}
-                  <a
-                    href="mailto:hallo@waarblijfthet.nl"
-                    className="text-primary hover:underline"
-                  >
-                    hallo@waarblijfthet.nl
-                  </a>
-                  .
-                </p>
-              </div>
-            ) : (
-              <div>
-                <p className="font-body font-medium text-text-soft text-sm mb-1">
-                  Analyse bewaren?
-                </p>
-                <p className="text-text-muted font-body text-sm mb-4">
-                  Je krijgt de link naar jouw analyse toegestuurd, zodat je hem altijd
-                  terug kunt vinden.
-                </p>
-                <EmailReminderForm
-                  token={params.token}
-                  verdict={verdict}
-                  maandelijksOver={over}
-                  benchmarkOver={benchmarkOver}
-                />
-              </div>
-            )}
-          </div>
+          {/* ── SECTIE 4: Email reminder, alleen als er nog geen e-mail
+              gekoppeld is. De link is deelbaar, dus nooit een e-mailadres
+              of andere persoonsverwijzing tonen. ── */}
+          {!r.email && (
+            <div
+              className="rounded-2xl border border-[#E8E0D0] p-6"
+              style={{ background: "#F5F0E8" }}
+            >
+              <p className="font-body font-medium text-text-soft text-sm mb-1">
+                Analyse bewaren?
+              </p>
+              <p className="text-text-muted font-body text-sm mb-4">
+                Je krijgt de link naar deze analyse toegestuurd, zodat je hem
+                altijd terug kunt vinden.
+              </p>
+              <EmailReminderForm
+                token={params.token}
+                verdict={verdict}
+                maandelijksOver={over}
+                benchmarkOver={benchmarkOver}
+              />
+            </div>
+          )}
         </div>
       </main>
       <Footer />
