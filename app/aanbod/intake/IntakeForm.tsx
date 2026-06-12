@@ -3,7 +3,6 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { createClient } from "@/lib/supabase-browser";
 
 interface Props {
   pakket: "intensief" | "gesprek";
@@ -11,15 +10,15 @@ interface Props {
 
 const GEZINSSITUATIE_OPTIES = [
   "Stel zonder kinderen",
-  "Gezin met jonge kinderen (0–8)",
+  "Gezin met jonge kinderen (0 tot 8)",
   "Gezin met oudere kinderen (8+)",
   "Eénoudergezin",
 ];
 
 const INKOMEN_OPTIES = [
   "Minder dan €3.000",
-  "€3.000 – €4.500",
-  "€4.500 – €6.000",
+  "€3.000 tot €4.500",
+  "€4.500 tot €6.000",
   "Meer dan €6.000",
 ];
 
@@ -100,11 +99,10 @@ export function IntakeForm({ pakket }: Props) {
     setFout(null);
 
     try {
-      const supabase = createClient();
-
-      const { error: dbError } = await supabase
-        .from("intake_aanvragen")
-        .insert({
+      const dbRes = await fetch("/api/intake", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
           pakket,
           gezinssituatie,
           inkomen_bracket: inkomen,
@@ -113,10 +111,13 @@ export function IntakeForm({ pakket }: Props) {
           start_voorkeur: startVoorkeur,
           naam: naam.trim(),
           email: email.trim().toLowerCase(),
-          status: "nieuw",
-        });
+        }),
+      });
 
-      if (dbError) throw dbError;
+      if (!dbRes.ok) {
+        const json = await dbRes.json().catch(() => null);
+        throw new Error(json?.error || "Opslaan mislukt");
+      }
 
       const res = await fetch("/api/send-intake-bevestiging", {
         method: "POST",

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { createClient } from "@/lib/supabase-server";
+import { createServiceClient } from "@/lib/supabase-service";
 import { getBenchmarks } from "@/lib/benchmarks";
 import { fmtEur, KinderenAantal } from "@/lib/quiz-types";
 import KopieerKnop from "./KopieerKnop";
@@ -128,7 +128,7 @@ function AfwijkingKaart({
 }
 
 export default async function ResultaatPage({ params }: Props) {
-  const supabase = await createClient();
+  const supabase = createServiceClient();
 
   const { data: r, error } = await supabase
     .from("quiz_resultaten")
@@ -164,7 +164,8 @@ export default async function ResultaatPage({ params }: Props) {
   }
 
   // Bereken benchmarks opnieuw op basis van opgeslagen profiel
-  const aantalVolwassenen = (r.salaris_2 ?? 0) > 0 ? 2 : 1;
+  const aantalVolwassenen =
+    r.aantal_volwassenen ?? ((r.salaris_2 ?? 0) > 0 ? 2 : 1);
   const benches = getBenchmarks({
     woonsituatie: r.woonsituatie as "huur" | "koop" | null,
     kinderen: r.aantal_kinderen as KinderenAantal | null,

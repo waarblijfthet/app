@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { createClient } from "@/lib/supabase-browser";
 import { IntakeAanvraag } from "../page";
 
 interface Props {
@@ -96,19 +95,23 @@ function formatDatum(iso: string) {
 export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
   const [aanvragen, setAanvragen] = useState<IntakeAanvraag[]>(initAanvragen);
   const [bezig, setBezig] = useState<string | null>(null);
+  const [fout, setFout] = useState<string | null>(null);
 
   async function updateStatus(id: string, status: Status) {
     setBezig(id);
-    const supabase = createClient();
-    const { error } = await supabase
-      .from("intake_aanvragen")
-      .update({ status })
-      .eq("id", id);
+    setFout(null);
+    const res = await fetch("/api/admin/aanvragen", {
+      method: "PATCH",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, status }),
+    }).catch(() => null);
 
-    if (!error) {
+    if (res?.ok) {
       setAanvragen((prev) =>
         prev.map((a) => (a.id === id ? { ...a, status } : a))
       );
+    } else {
+      setFout("Status bijwerken mislukt. Probeer het opnieuw.");
     }
     setBezig(null);
   }
@@ -134,6 +137,12 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
           {aanvragen.filter((a) => a.status === "nieuw").length} nieuw
         </span>
       </div>
+
+      {fout && (
+        <p className="font-body text-sm mb-3" style={{ color: "#B03A2E" }}>
+          {fout}
+        </p>
+      )}
 
       <div style={{ overflowX: "auto" }}>
         <table

@@ -77,12 +77,24 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - [ ] **Foto van Jarno** toevoegen: vervang de JK-initialen `<div>` door `<img>` in `app/over/page.tsx` en `app/inzichten/[slug]/page.tsx` (auteur-bar).
 - [ ] KvK inschrijven + KOR aanmelden bij Belastingdienst.
 - [ ] SE Ranking-review (~20 juni 2026): export vergelijken met nulmeting 30 mei.
-- [ ] **Kolom `aantal_volwassenen` toevoegen aan `quiz_resultaten`** (SQL: `alter table quiz_resultaten add column if not exists aantal_volwassenen int;`), daarna meesturen in de insert in `Stap6Resultaat.tsx` en uitlezen in `app/resultaat/[token]/page.tsx` (nu fallback via salaris_2).
+- [ ] **`supabase/quiz_resultaten_volwassenen.sql` draaien** in de Supabase SQL-editor (kolom `aantal_volwassenen`). De code is al klaar: `Stap6Resultaat.tsx` stuurt de kolom mee (met automatische fallback zolang de kolom ontbreekt) en `app/resultaat/[token]/page.tsx` leest hem uit met fallback via salaris_2.
 - [ ] **Echte testimonial van een alleenstaande klant verzamelen** voor de homepage (grootste resterende conversieblokkade voor de alleenstaande/zzp-ICP's; niet verzinnen).
 - [ ] **Track record Jarno concretiseren** op homepage en /over: hoeveel huishoudens begeleid, sinds wanneer, relevante achtergrond (ICP "Mark" haakt hierop af; alleen echte cijfers gebruiken).
 - [ ] Outreach email-templates voor 3 doelgroepen inhoudelijk reviewen met Jarno (budgetcoaches, financieel-planners, burnout-coaches zijn technisch klaar maar nog niet door Jarno gelezen).
 - [ ] Fase 2 conversie: CTA op analyse-resultaat naar betaald pakket (nog niet gebouwd).
 - [ ] Optioneel: beeld/reels in artikelen; Meta Pixel als er ooit ads komen.
+
+## Wat er in sessie 12-jun-2026 gedaan is (deel 3: formulieren-fix)
+- **Leadformulier quiz gaf "Er ging iets mis"**: oorzaak is de bekende RLS-klasse-fout. Stap6 schreef met de **browser-anon-client** rechtstreeks naar `leads` (upsert + select) en `quiz_resultaten`; zodra een e-mailadres al bestond werd de upsert een UPDATE en blokkeerde RLS. Zelfde patroon als eerder bij outreach/prospects.
+- **Oplossing: alle publieke schrijfacties naar server-routes met `createServiceClient()`**:
+  - Nieuw `POST /api/quiz-lead` (whitelist van kolommen, e-mailvalidatie, fallback als kolom `aantal_volwassenen` nog ontbreekt) → `Stap6Resultaat.tsx` gebruikt nu fetch i.p.v. browser-Supabase.
+  - Nieuw `POST /api/intake` → `app/aanbod/intake/IntakeForm.tsx` (adviesgesprek/traject-aanvraag) gebruikt nu fetch.
+  - Nieuw `PATCH /api/admin/aanvragen` (isAdminRequest-guard) → admin-statusupdate van intake-aanvragen, met zichtbare foutmelding i.p.v. stil falen.
+  - `app/resultaat/[token]/page.tsx` leest nu via de service client (token = toegangscontrole), zodat de gedeelde link nooit op RLS stukloopt.
+- **E-mail robuuster**: `send-resultaat` faalt niet meer stil met een "placeholder"-API-key maar geeft een duidelijke 500 als `RESEND_API_KEY` ontbreekt, en koppelt het e-mailadres aan `quiz_resultaten` (voor het bewaar-formulier op de resultaatpagina). Check of **`RESEND_API_KEY` en `RESEND_FROM`** in Vercel staan; zonder die env-vars komt er geen mail aan.
+- **Huisstijl-sweep mails/intake**: wij-vorm en em dashes uit `send-intake-bevestiging` (klantmail), en-dash-bereiken in intake-opties vervangen door "tot".
+- Browser-Supabase wordt nu alleen nog gebruikt voor: anonieme `quiz_voortgang`-meting (bewust, PII-vrij), admin-login en admin-reads (authenticated). Geen anon-writes meer naar tabellen met RLS-onzekerheid.
+- Geverifieerd: tsc schoon, geen null bytes, geen nieuwe em dashes. **Nog niet gecommit/gepusht.**
 
 ## Wat er in sessie 12-jun-2026 gedaan is (deel 2: analyse-flow)
 - **ICP-loop op de hele analyse-flow** (5 persona's, mobiel + desktop, + aparte UX-expert-review; 3 rondes). Eindscores: Sandra 4→8, Thomas 5,5→8, Ellen 4,5→8, Mark 7→8, Lisa 5,5→9.

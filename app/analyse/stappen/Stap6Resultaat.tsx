@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { supabase } from "@/lib/supabase";
 import {
   getBenchmarks,
   berekenTotaalInkomen,
@@ -175,36 +174,17 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
     setSending(true);
     setError("");
 
-    const token = crypto.randomUUID();
-
     try {
-      const { data: lead, error: leadErr } = await supabase
-        .from("leads")
-        .upsert(
-          {
-            email: data.email,
-            naam: data.naam || null,
-            bron: "quiz",
-            toestemming_marketing: data.toestemmingMarketing,
-            quiz_voltooid: true,
-          },
-          { onConflict: "email" }
-        )
-        .select()
-        .single();
-
-      if (leadErr) throw leadErr;
-
-      let savedToken: string | null = null;
-
-      if (lead) {
-        const { error: resultaatErr } = await supabase
-          .from("quiz_resultaten")
-          .insert({
-            lead_id: lead.id,
-            token,
-            email: data.email,
+      const res = await fetch("/api/quiz-lead", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          naam: data.naam || null,
+          email: data.email,
+          toestemmingMarketing: data.toestemmingMarketing,
+          resultaat: {
             woonsituatie: data.woonsituatie,
+            aantal_volwassenen: aantalVolwassenen,
             aantal_kinderen: data.kinderen,
             auto_situatie: data.auto,
             salaris_1: parseEur(data.salaris1),
@@ -227,35 +207,34 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             verschil_met_benchmark: overDiff,
             grootste_afwijking: grootsteAfwijking,
             verdict,
-          });
+          },
+        }),
+      });
 
-        if (resultaatErr) throw resultaatErr;
-        savedToken = token;
+      const json = await res.json().catch(() => null);
+      if (!res.ok || !json?.token) {
+        throw new Error(json?.error || "Opslaan mislukt");
       }
+      const savedToken: string = json.token;
 
-      if (savedToken && data.email) {
-        fetch("/api/send-resultaat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            email: data.email,
-            token: savedToken,
-            verdict,
-            maandelijksOver: over,
-            benchmarkOver: benches.vrij_besteedbaar,
-          }),
-        }).catch(console.error);
-      }
+      fetch("/api/send-resultaat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          token: savedToken,
+          verdict,
+          maandelijksOver: over,
+          benchmarkOver: benches.vrij_besteedbaar,
+        }),
+      }).catch(console.error);
 
-      if (savedToken) {
-        router.push(`/resultaat/${savedToken}`);
-      } else {
-        setSent(true);
-        setSending(false);
-      }
+      router.push(`/resultaat/${savedToken}`);
     } catch (err) {
       console.error(err);
-      setError("Er ging iets mis. Probeer het opnieuw.");
+      setError(
+        "Er ging iets mis bij het opslaan. Probeer het opnieuw of mail naar hallo@waarblijfthet.nl."
+      );
       setSending(false);
     }
   }

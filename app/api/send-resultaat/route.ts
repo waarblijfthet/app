@@ -1,8 +1,16 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { createServiceClient } from "@/lib/supabase-service";
 
 export async function POST(request: NextRequest) {
-  const resend = new Resend(process.env.RESEND_API_KEY ?? "placeholder");
+  if (!process.env.RESEND_API_KEY) {
+    console.error("send-resultaat: RESEND_API_KEY ontbreekt in environment");
+    return NextResponse.json(
+      { error: "E-mailservice is niet geconfigureerd" },
+      { status: 500 }
+    );
+  }
+  const resend = new Resend(process.env.RESEND_API_KEY);
   const { email, token, verdict, maandelijksOver, benchmarkOver } =
     await request.json();
 
@@ -11,6 +19,19 @@ export async function POST(request: NextRequest) {
       { error: "Email en token zijn verplicht" },
       { status: 400 }
     );
+  }
+
+  // Koppel het e-mailadres aan het resultaat als dat nog niet gebeurd is
+  // (bijvoorbeeld via het bewaar-formulier op de resultaatpagina).
+  try {
+    const supabase = createServiceClient();
+    await supabase
+      .from("quiz_resultaten")
+      .update({ email })
+      .eq("token", token)
+      .is("email", null);
+  } catch (err) {
+    console.error("send-resultaat: e-mail koppelen mislukt", err);
   }
 
   const resultaatUrl = `https://www.waarblijfthet.nl/resultaat/${token}`;
