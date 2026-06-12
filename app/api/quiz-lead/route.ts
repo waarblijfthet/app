@@ -64,7 +64,13 @@ export async function POST(request: NextRequest) {
 
     if (leadErr || !lead) {
       console.error("quiz-lead: lead opslaan mislukt", leadErr);
-      return NextResponse.json({ error: "Opslaan mislukt" }, { status: 500 });
+      return NextResponse.json(
+        {
+          error: "Opslaan mislukt",
+          detail: leadErr ? `leads: ${leadErr.code ?? ""} ${leadErr.message}` : "leads: geen rij terug",
+        },
+        { status: 500 }
+      );
     }
 
     const payload: Record<string, unknown> = {
@@ -80,9 +86,24 @@ export async function POST(request: NextRequest) {
       .from("quiz_resultaten")
       .insert(payload);
 
-    // Fallback: kolom aantal_volwassenen bestaat nog niet in de database
-    if (resultaatErr && resultaatErr.message?.includes("aantal_volwassenen")) {
-      delete payload.aantal_volwassenen;
+    // Schema-drift fallback: als een kolom (nog) niet bestaat in de database,
+    // laat die dan weg en probeer opnieuw, zodat de lead nooit verloren gaat.
+    let pogingen = 0;
+    while (
+      resultaatErr &&
+      resultaatErr.code === "PGRST204" &&
+      pogingen < TOEGESTANE_VELDEN.length
+    ) {
+      const match = resultaatErr.message?.match(/the '([^']+)' column/);
+      const kolom = match?.[1];
+      if (!kolom || !(kolom in payload) || kolom === "token" || kolom === "email") {
+        break;
+      }
+      console.warn(
+        `quiz-lead: kolom ${kolom} ontbreekt in quiz_resultaten, opgeslagen zonder. Draai supabase/quiz_resultaten_kolommen.sql.`
+      );
+      delete payload[kolom];
+      pogingen += 1;
       ({ error: resultaatErr } = await supabase
         .from("quiz_resultaten")
         .insert(payload));
@@ -90,12 +111,19 @@ export async function POST(request: NextRequest) {
 
     if (resultaatErr) {
       console.error("quiz-lead: resultaat opslaan mislukt", resultaatErr);
-      return NextResponse.json({ error: "Opslaan mislukt" }, { status: 500 });
+      return NextResponse.json(
+        {
+          error: "Opslaan mislukt",
+          detail: `quiz_resultaten: ${resultaatErr.code ?? ""} ${resultaatErr.message}`,
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ token });
   } catch (err) {
     console.error("quiz-lead: onbekende fout", err);
-    return NextResponse.json({ error: "Onbekende fout" }, { status: 500 });
+    const detail = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ error: "Onbekende fout", detail }, { status: 500 });
   }
 }

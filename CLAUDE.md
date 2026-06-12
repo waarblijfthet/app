@@ -77,7 +77,7 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - [ ] **Foto van Jarno** toevoegen: vervang de JK-initialen `<div>` door `<img>` in `app/over/page.tsx` en `app/inzichten/[slug]/page.tsx` (auteur-bar).
 - [ ] KvK inschrijven + KOR aanmelden bij Belastingdienst.
 - [ ] SE Ranking-review (~20 juni 2026): export vergelijken met nulmeting 30 mei.
-- [ ] **`supabase/quiz_resultaten_volwassenen.sql` draaien** in de Supabase SQL-editor (kolom `aantal_volwassenen`). De code is al klaar: `Stap6Resultaat.tsx` stuurt de kolom mee (met automatische fallback zolang de kolom ontbreekt) en `app/resultaat/[token]/page.tsx` leest hem uit met fallback via salaris_2.
+- [ ] **`supabase/quiz_resultaten_kolommen.sql` draaien** in de Supabase SQL-editor: de productietabel `quiz_resultaten` mist kolommen die de code opslaat (gebleken: `abonnementen_totaal`; het script vult alle verwachte kolommen idempotent aan, incl. `aantal_volwassenen`, en vervangt quiz_resultaten_volwassenen.sql). `/api/quiz-lead` heeft een generieke fallback die ontbrekende kolommen weglaat zodat een lead nooit verloren gaat, maar zonder dit script worden die velden dus niet bewaard.
 - [ ] **Echte testimonial van een alleenstaande klant verzamelen** voor de homepage (grootste resterende conversieblokkade voor de alleenstaande/zzp-ICP's; niet verzinnen).
 - [ ] **Track record Jarno concretiseren** op homepage en /over: hoeveel huishoudens begeleid, sinds wanneer, relevante achtergrond (ICP "Mark" haakt hierop af; alleen echte cijfers gebruiken).
 - [ ] Outreach email-templates voor 3 doelgroepen inhoudelijk reviewen met Jarno (budgetcoaches, financieel-planners, burnout-coaches zijn technisch klaar maar nog niet door Jarno gelezen).

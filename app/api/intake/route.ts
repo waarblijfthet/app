@@ -37,12 +37,19 @@ export async function POST(request: NextRequest) {
 
     if (error) {
       console.error("intake: opslaan mislukt", error);
-      return NextResponse.json({ error: "Opslaan mislukt" }, { status: 500 });
+      return NextResponse.json(
+        {
+          error: "Opslaan mislukt",
+          detail: `intake_aanvragen: ${error.code ?? ""} ${error.message}`,
+        },
+        { status: 500 }
+      );
     }
 
     return NextResponse.json({ success: true });
   } catch (err) {
     console.error("intake: onbekende fout", err);
-    return NextResponse.json({ error: "Onbekende fout" }, { status: 500 });
+    const detail = err instanceof Error ? err.message : String(err);
+    return NextResponse.json({ error: "Onbekende fout", detail }, { status: 500 });
   }
 }

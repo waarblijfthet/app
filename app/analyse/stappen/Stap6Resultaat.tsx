@@ -213,7 +213,9 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
       const json = await res.json().catch(() => null);
       if (!res.ok || !json?.token) {
-        throw new Error(json?.error || "Opslaan mislukt");
+        throw new Error(
+          json?.detail || json?.error || `Opslaan mislukt (status ${res.status})`
+        );
       }
       const savedToken: string = json.token;
 
@@ -232,8 +234,9 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
       router.push(`/resultaat/${savedToken}`);
     } catch (err) {
       console.error(err);
+      const detail = err instanceof Error ? err.message : "";
       setError(
-        "Er ging iets mis bij het opslaan. Probeer het opnieuw of mail naar hallo@waarblijfthet.nl."
+        `Er ging iets mis bij het opslaan${detail ? ` (${detail})` : ""}. Probeer het opnieuw of mail naar hallo@waarblijfthet.nl.`
       );
       setSending(false);
     }
