@@ -1,5 +1,9 @@
 import { QuizData, parseEur, KinderenAantal } from "./quiz-types";
 
+export function aantalVolwassenenVan(data: QuizData): number {
+  return data.volwassenen ?? (parseEur(data.salaris2) > 0 ? 2 : 1);
+}
+
 // ─── Benchmark lookup tables ─────────────────────────────────────────────────
 
 const BOODSCHAPPEN_BENCH: Record<KinderenAantal, number> = {
@@ -68,7 +72,10 @@ export function getBenchmarks(profiel: {
     internet: 55,
     vervoer,
     verzekeringen: 148 * aantalVolwassenen + 120,
-    boodschappen: BOODSCHAPPEN_BENCH[kinderen],
+    boodschappen:
+      aantalVolwassenen === 1
+        ? Math.max(BOODSCHAPPEN_BENCH[kinderen] - 185, 0)
+        : BOODSCHAPPEN_BENCH[kinderen],
     abonnementen: 180,
     kinderen: Math.round(inkomen * KIND_PCT[kinderen]),
     vrijetijd: Math.round(inkomen * 0.05),
@@ -140,7 +147,7 @@ export function berekenVervoer(data: QuizData): number {
 
 export function berekenVerzekeringen(data: QuizData): number {
   const zorgRaw = parseEur(data.zorgPerPersoon);
-  const volwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+  const volwassenen = aantalVolwassenenVan(data);
   const zorgTotaal =
     data.zorgToggle === "per_persoon" ? zorgRaw * volwassenen : zorgRaw;
   return zorgTotaal + parseEur(data.verzekeringOverig);

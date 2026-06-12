@@ -5,6 +5,7 @@ export type ZorgToggle = "per_persoon" | "totaal";
 
 export interface QuizData {
   // Stap 1 — Profiel
+  volwassenen: 1 | 2 | null;
   woonsituatie: Woonsituatie | null;
   kinderen: KinderenAantal | null;
   auto: AutoSituatie | null;
@@ -67,6 +68,7 @@ export interface QuizData {
 }
 
 export const DEFAULT_QUIZ_DATA: QuizData = {
+  volwassenen: null,
   woonsituatie: null,
   kinderen: null,
   auto: null,
@@ -121,7 +123,12 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
 export function canProceed(step: number, data: QuizData): boolean {
   switch (step) {
     case 1:
-      return data.woonsituatie !== null && data.kinderen !== null && data.auto !== null;
+      return (
+        data.volwassenen !== null &&
+        data.woonsituatie !== null &&
+        data.kinderen !== null &&
+        data.auto !== null
+      );
     case 2:
       return parseEur(data.salaris1) > 0;
     case 3:

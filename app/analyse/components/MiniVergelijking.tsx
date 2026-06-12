@@ -25,7 +25,7 @@ export default function MiniVergelijking({ jij, benchmark }: MiniVergelijkingPro
   const verschil = Math.abs(jij - benchmark);
 
   const labels: Record<VergelijkingStatus, string> = {
-    goed: `Onder gemiddeld (${fmtEur(benchmark)})`,
+    goed: `Rond of onder gemiddeld (${fmtEur(benchmark)})`,
     matig: `Rond gemiddeld (${fmtEur(benchmark)})`,
     zorgelijk: `${fmtEur(verschil)} boven gemiddeld`,
   };

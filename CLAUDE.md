@@ -77,11 +77,23 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - [ ] **Foto van Jarno** toevoegen: vervang de JK-initialen `<div>` door `<img>` in `app/over/page.tsx` en `app/inzichten/[slug]/page.tsx` (auteur-bar).
 - [ ] KvK inschrijven + KOR aanmelden bij Belastingdienst.
 - [ ] SE Ranking-review (~20 juni 2026): export vergelijken met nulmeting 30 mei.
+- [ ] **Kolom `aantal_volwassenen` toevoegen aan `quiz_resultaten`** (SQL: `alter table quiz_resultaten add column if not exists aantal_volwassenen int;`), daarna meesturen in de insert in `Stap6Resultaat.tsx` en uitlezen in `app/resultaat/[token]/page.tsx` (nu fallback via salaris_2).
 - [ ] **Echte testimonial van een alleenstaande klant verzamelen** voor de homepage (grootste resterende conversieblokkade voor de alleenstaande/zzp-ICP's; niet verzinnen).
 - [ ] **Track record Jarno concretiseren** op homepage en /over: hoeveel huishoudens begeleid, sinds wanneer, relevante achtergrond (ICP "Mark" haakt hierop af; alleen echte cijfers gebruiken).
 - [ ] Outreach email-templates voor 3 doelgroepen inhoudelijk reviewen met Jarno (budgetcoaches, financieel-planners, burnout-coaches zijn technisch klaar maar nog niet door Jarno gelezen).
 - [ ] Fase 2 conversie: CTA op analyse-resultaat naar betaald pakket (nog niet gebouwd).
 - [ ] Optioneel: beeld/reels in artikelen; Meta Pixel als er ooit ads komen.
+
+## Wat er in sessie 12-jun-2026 gedaan is (deel 2: analyse-flow)
+- **ICP-loop op de hele analyse-flow** (5 persona's, mobiel + desktop, + aparte UX-expert-review; 3 rondes). Eindscores: Sandra 4→8, Thomas 5,5→8, Ellen 4,5→8, Mark 7→8, Lisa 5,5→9.
+- **Nieuwe vraag in stap 1: "Hoe woon je?" (alleen / samen met partner)**, veld `volwassenen: 1|2|null` in `lib/quiz-types.ts`. Stuurt: boodschappen-benchmark (alleenstaand = tabel minus €185, `lib/benchmarks.ts`), verzekering-benchmark, labels in stap 2 ("Jouw netto inkomen" i.p.v. "Salaris persoon 1"; partner-veld verdwijnt bij alleen en wordt gewist), zorgtoggle (verborgen bij alleen) en alle bevestigingsteksten ("huishouden van één volwassene met 2 kinderen"). Helper `aantalVolwassenenVan(data)` vervangt overal de oude afleiding uit salaris2.
+- **Mobiele vaste live-balk** (In / Uit / Over) onderaan tijdens stap 2-5 in `QuizClient.tsx`, zodat realtime vergelijken ook op mobiel voelbaar is.
+- **Dode bijtelling-toggle in stap 2 verwijderd** (deed niets) → eerlijke waarschuwingstekst bij zakelijk + bijtelling-niet-verrekend.
+- **Copy-fixes**: alle jullie/wij/gezinnen-resten weg in analyse-flow, resultaatpagina (`app/resultaat/[token]/page.tsx`) én e-mail (`app/api/send-resultaat/route.ts`, ook em dash eruit). Zorgverzekering-hint zonder "bruto"-verwarring; hypotheekrenteaftrek-hint herschreven; zzp-hint bij inkomen (gemiddelde 6-12 mnd, na belastingreservering); AOV expliciet bij overige verzekeringen; boodschappen-hint dynamisch uit benchmark; meerdere-auto's-hint in stap 1; partner-doet-niet-mee-hint bij salaris 2; spaardoel-hint noemt pensioen (50-plus/zzp).
+- **Schaamte-softening (Lisa)**: mobiel "Grootste afwijking"-blok nu oranje, "Hier valt het meeste op", alleen bij >€50 afwijking, met "Geen oordeel, wel een aanknopingspunt"; verdict zorgelijk: "Het ligt niet aan jou, en het is om te buigen"; vrije-bestedingen-tip niet meer verwijtend.
+- **Privacy op het invulmoment (Ellen)**: intro zegt "Je antwoorden blijven anoniem. Pas als je aan het eind zelf je e-mail invult, worden ze aan jou gekoppeld" + privacylink; leadform zegt dat het resultaat ook zonder e-mail zichtbaar blijft en dat er geen mails volgen zonder vinkje.
+- **Bekende beperking**: `quiz_resultaten` slaat `volwassenen` nog niet op; de gedeelde resultaatpagina leidt het af uit salaris_2 (eenverdiener-stel krijgt daar de alleenstaande-benchmark). Zie to-do.
+- Geverifieerd: tsc schoon, geen null bytes, geen em dashes in copy. **Nog niet gecommit/gepusht.**
 
 ## Wat er in sessie 12-jun-2026 gedaan is
 - **ICP-persona-loop op de homepage** (5 persona's: tweeverdiener, alleenstaande ouder, zzp'er, alleenstaande 50+, burn-out-herstel; 3 rondes met scores). Convergente klachten verwerkt in `app/page.tsx`, `components/HeroCards.tsx`, `components/Header.tsx`:

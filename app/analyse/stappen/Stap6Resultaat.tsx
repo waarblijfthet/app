@@ -16,6 +16,7 @@ import {
   berekenJaarlijks,
   vindGrootsteAfwijking,
   bepaalVerdict,
+  aantalVolwassenenVan,
 } from "@/lib/benchmarks";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
 
@@ -33,22 +34,22 @@ const VERDICT_CONFIG: Record<
   goed: {
     bg: "bg-green-light",
     border: "border-[#A8D5B5]",
-    title: "Jullie doen het goed.",
+    title: "Je doet het goed.",
     text: "Er is ruimte, de vraag is of dat geld doelbewust wordt ingezet.",
     textColor: "text-[#2D6A4F]",
   },
   matig: {
     bg: "bg-[#FDF3E3]",
     border: "border-[#F0D07A]",
-    title: "Jullie zitten dicht bij het gemiddelde.",
+    title: "Je zit dicht bij het gemiddelde.",
     text: "Maar er is weinig buffer. Een kleine tegenvaller en het klopt niet meer.",
     textColor: "text-[#92600A]",
   },
   zorgelijk: {
     bg: "bg-[#FDECEA]",
     border: "border-[#F0A09A]",
-    title: "Jullie houden structureel minder over.",
-    text: "Dit is precies het patroon dat we kennen, en dat we kunnen helpen ombuigen.",
+    title: "Je houdt structureel minder over.",
+    text: "Dit is precies het patroon waarvoor deze analyse bestaat. Het ligt niet aan jou, en het is om te buigen.",
     textColor: "text-[#B03A2E]",
   },
 };
@@ -76,7 +77,7 @@ function AfwijkingRij({
         </span>
       </div>
       <div className="flex gap-4 text-xs text-text-muted font-body mb-2">
-        <span>Jullie: {fmtEur(jij)}</span>
+        <span>Jij: {fmtEur(jij)}</span>
         <span>Gemiddeld: {fmtEur(benchmark)}</span>
       </div>
       <div className="space-y-1">
@@ -104,7 +105,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   const [error, setError] = useState("");
 
   const inkomen = berekenTotaalInkomen(data);
-  const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+  const aantalVolwassenen = aantalVolwassenenVan(data);
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
@@ -144,13 +145,13 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
     verdict === "goed" && grootsteAfwijking === "geen"
       ? "Haal meer uit de ruimte die je hebt"
       : grootsteAfwijking === "Boodschappen"
-      ? `Jullie boodschappen liggen ${fmtEur(parseEur(data.boodschappen) - benches.boodschappen)}/mnd boven gemiddeld`
+      ? `Je boodschappen liggen ${fmtEur(parseEur(data.boodschappen) - benches.boodschappen)}/mnd boven gemiddeld`
       : grootsteAfwijking === "Abonnementen"
-      ? `Jullie abonnementen zijn ${fmtEur(abonnementenTotaalWaarde - benches.abonnementen)}/mnd hoger dan gemiddeld`
+      ? `Je abonnementen zijn ${fmtEur(abonnementenTotaalWaarde - benches.abonnementen)}/mnd hoger dan gemiddeld`
       : grootsteAfwijking === "Wonen"
-      ? "Jullie woonlasten drukken zwaarder dan gemiddeld"
+      ? "Je woonlasten drukken zwaarder dan gemiddeld"
       : grootsteAfwijking === "Vervoer"
-      ? "Jullie vervoerskosten liggen boven het gemiddelde"
+      ? "Je vervoerskosten liggen boven het gemiddelde"
       : verdict === "goed"
       ? "Haal meer uit de ruimte die je hebt"
       : "Dit patroon kun je ombuigen";
@@ -262,12 +263,12 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   return (
     <div className="max-w-2xl mx-auto">
       <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-10">
-        Jullie financiële plaatje
+        Jouw financiële plaatje
       </h2>
 
       {/* Het grote getal */}
       <div className="card-base border border-[#E8E0D0] mb-6 text-center">
-        <p className="section-eyebrow mb-4">Jullie houden elke maand over</p>
+        <p className="section-eyebrow mb-4">Dit houd je elke maand over</p>
         <p
           className={`font-display font-light text-6xl mb-2 ${
             over < 0 ? "text-accent" : "text-primary"
@@ -299,14 +300,14 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         <div className="card-base border border-[#E8E0D0] mb-6">
           <div className="flex justify-between items-start gap-4">
             <div>
-              <p className="section-eyebrow mb-1">Jullie spaardoel</p>
+              <p className="section-eyebrow mb-1">Jouw spaardoel</p>
               <p className="font-body font-medium text-primary text-sm">
-                Jullie willen {fmtEur(spaardoelWaarde)}/mnd opzij zetten
+                Je wilt {fmtEur(spaardoelWaarde)}/mnd opzij zetten
               </p>
               <p className="font-body font-light text-text-soft text-xs mt-1 leading-relaxed">
                 {over >= spaardoelWaarde
                   ? `Na dat spaardoel houd je nog ${fmtEur(over - spaardoelWaarde)}/mnd over.`
-                  : `Jullie houden ${fmtEur(over)}/mnd over, ${fmtEur(spaardoelWaarde - over)} te weinig om dit spaardoel te halen.`}
+                  : `Je houdt ${fmtEur(over)}/mnd over, ${fmtEur(spaardoelWaarde - over)} te weinig om dit spaardoel te halen.`}
               </p>
             </div>
             <span
@@ -376,6 +377,8 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           <p className="text-text-soft font-body font-light text-sm mb-6">
             Per e-mail ontvang je een gedetailleerde breakdown van je situatie,
             met concrete eerste stappen voor de categorie die het meest afwijkt.
+            Je resultaat hierboven blijft ook zonder e-mail gewoon zichtbaar.
+            Geen mails daarna, tenzij je het tweede vakje aanvinkt.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -449,7 +452,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           href="/inzichten/goed-salaris-toch-krap"
           className="text-text-soft font-body text-sm hover:text-primary transition-colors"
         >
-          Meer leren? Lees ons artikel &rarr;
+          Meer leren? Lees het artikel &rarr;
         </Link>
       </div>
     </div>

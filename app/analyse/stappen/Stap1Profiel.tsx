@@ -31,7 +31,11 @@ function OptionBtn({
 }
 
 export default function Stap1Profiel({ data, onChange }: Props) {
-  const allFilled = data.woonsituatie !== null && data.kinderen !== null && data.auto !== null;
+  const allFilled =
+    data.volwassenen !== null &&
+    data.woonsituatie !== null &&
+    data.kinderen !== null &&
+    data.auto !== null;
 
   return (
     <div>
@@ -39,8 +43,40 @@ export default function Stap1Profiel({ data, onChange }: Props) {
         Eerst even kennismaken
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Drie snelle vragen zodat we je eerlijk kunnen vergelijken.
+        Vier snelle vragen zodat de vergelijking eerlijk is.
       </p>
+
+      {/* Huishouden */}
+      <fieldset className="mb-8">
+        <legend className="font-body font-medium text-text-soft text-sm mb-3">
+          Hoe woon je?
+        </legend>
+        <div className="flex flex-wrap gap-3">
+          <OptionBtn
+            selected={data.volwassenen === 1}
+            onClick={() =>
+              onChange({
+                volwassenen: 1,
+                salaris2: "",
+                salaris2InclVakantiegeld: false,
+                salaris2InclDertiende: false,
+              })
+            }
+          >
+            🧍 Alleen
+          </OptionBtn>
+          <OptionBtn
+            selected={data.volwassenen === 2}
+            onClick={() => onChange({ volwassenen: 2 })}
+          >
+            🧑‍🤝‍🧑 Samen met partner
+          </OptionBtn>
+        </div>
+        <p className="font-body text-xs text-text-muted mt-2">
+          Zo word je vergeleken met huishoudens in dezelfde situatie, niet met
+          een standaardgezin.
+        </p>
+      </fieldset>
 
       {/* Woonsituatie */}
       <fieldset className="mb-8">
@@ -111,6 +147,11 @@ export default function Stap1Profiel({ data, onChange }: Props) {
             </OptionBtn>
           ))}
         </div>
+        <p className="font-body text-xs text-text-muted mt-2">
+          Meer dan één auto? Kies de situatie van de privéauto en tel de kosten
+          van de tweede auto er straks bij op. Een zakelijke auto ernaast telt
+          alleen mee als je er een eigen bijdrage voor betaalt.
+        </p>
 
         {data.auto === "zakelijk" && (
           <div className="mt-4 bg-[#F0EDE6] rounded-xl p-4">
@@ -148,9 +189,12 @@ export default function Stap1Profiel({ data, onChange }: Props) {
                 k === 0
                   ? "zonder kinderen"
                   : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
+              const volwTekst =
+                data.volwassenen === 1 ? "één volwassene" : "twee volwassenen";
               return (
                 <>
-                  Goed, we vergelijken je met een huishouden {kindTekst} in een{" "}
+                  Je wordt vergeleken met een huishouden van {volwTekst}{" "}
+                  {kindTekst} in een{" "}
                   {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
                 </>
               );

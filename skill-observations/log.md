@@ -61,3 +61,18 @@ Observations captured during task-oriented work. Each entry identifies a potenti
 **Suggested improvement:** Skill maken met: personadefinities afleiden uit content-segmenten van de site, ronde 1 breed (5 vragen incl. CTA-verwachting), wijzigingen doorvoeren, ronde 2+ alleen op resterende blokkades met scoredelta, stopcriterium (score 8+ of blokkade vereist input van eigenaar), en een eerlijkheidsregel: nooit social proof of cijfers verzinnen om een persona tevreden te stellen.
 
 **Principle:** Persona-gebaseerde review werkt het best als loop met scores en een expliciet "ENE resterende ding" per ronde; de grens van de loop is bereikt zodra de resterende blokkade echte data van de eigenaar vereist.
+
+### Observation 5: Scope-audit bij taal-sweeps: fix de klasse, niet de instantie
+
+**Status:** OPEN
+**Date:** 2026-06-12
+**Session context:** Analyse-flow van waarblijfthet.nl herzien; eerder die dag was een "jullie"-sweep gedaan op basis van een afgekapte grep (head -30)
+**Skill:** New skill candidate: icp-persona-loop (zelfde als observatie 4)
+**Type:** open-source
+**Phase/Area:** Implementatiefase / verificatie
+
+**Issue:** Bij de homepage-sessie werden jullie-vormen vervangen op basis van een grep met head-limiet. In de vervolgsessie bleken er tientallen extra instanties te bestaan in de quiz-stappen, het vergelijkingspaneel, de resultaatpagina en de e-mail-template. De ICP's vonden ze direct. Een volledige, ongelimiteerde grep over alle gerelateerde mappen (incl. e-mail-templates en secundaire pagina's in dezelfde funnel) had dit in één keer gevangen.
+
+**Suggested improvement:** In de icp-persona-loop-skill een verplichte stap opnemen: bij elke copy-regel-fix (zoals aanspreekvorm of huisstijl) eerst de volledige scope bepalen met een ongelimiteerde zoekopdracht over de hele funnel (pagina's, componenten, e-mails, meta-teksten) en het aantal treffers loggen vóór en na.
+
+**Principle:** Een stijl- of taalfout is vrijwel nooit een instantie maar een klasse; audit de volledige scope bij het eerste exemplaar, anders vind je de rest pas in de volgende reviewronde.

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
-import { berekenTotaalInkomen, getPercentiel } from "@/lib/benchmarks";
+import { berekenTotaalInkomen, getPercentiel, aantalVolwassenenVan } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 
 interface Props {
@@ -41,6 +41,7 @@ function Toggle({
 
 function SalarisBlok({
   label,
+  hint,
   salarisKey,
   vakantieKey,
   dertiendeKey,
@@ -49,6 +50,7 @@ function SalarisBlok({
   showBijtelling,
 }: {
   label: string;
+  hint?: string;
   salarisKey: "salaris1" | "salaris2";
   vakantieKey: "salaris1InclVakantiegeld" | "salaris2InclVakantiegeld";
   dertiendeKey: "salaris1InclDertiende" | "salaris2InclDertiende";
@@ -69,7 +71,7 @@ function SalarisBlok({
         value={data[salarisKey]}
         onChange={(v) => onChange({ [salarisKey]: v } as Partial<QuizData>)}
         placeholder="bijv. 2.800"
-        hint="Netto bedrag per maand, na belasting"
+        hint={hint ?? "Netto bedrag per maand, na belasting"}
       />
       {s > 0 && (
         <div className="mt-3 space-y-2 pl-1">
@@ -94,12 +96,11 @@ function SalarisBlok({
             }
           />
           {showBijtelling && data.auto === "zakelijk" && data.zakelijkBijtellingSalaris && (
-            <Toggle
-              checked={false}
-              onChange={() => {}}
-              label="Zakelijke auto, bijtelling nog niet verrekend"
-              hint="Vink aan als de bijtelling het nettosalaris nog vermindert"
-            />
+            <p className="font-body text-xs text-[#92600A] bg-[#FDF3E3] rounded-lg px-3 py-2">
+              Je gaf aan dat de bijtelling nog niet in je salarisstrook zit.
+              Vul hier dan het salaris in dat na de bijtelling overblijft,
+              anders pakt de vergelijking te rooskleurig uit.
+            </p>
           )}
         </div>
       )}
@@ -115,6 +116,7 @@ function SalarisBlok({
 export default function Stap2Inkomsten({ data, onChange }: Props) {
   const [overigOpen, setOverigOpen] = useState(false);
   const [toeslagenOpen, setToeslagenOpen] = useState(false);
+  const alleen = aantalVolwassenenVan(data) === 1;
   const totaalInkomen = berekenTotaalInkomen(data);
   const percentiel = totaalInkomen > 0 ? getPercentiel(totaalInkomen, data.kinderen ?? 0) : null;
 
@@ -128,7 +130,8 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
       </p>
 
       <SalarisBlok
-        label="Salaris persoon 1"
+        label={alleen ? "Jouw netto inkomen per maand" : "Jouw netto salaris"}
+        hint="In loondienst: je nettosalaris na belasting. Zzp'er of wisselend inkomen? Vul het gemiddelde van de afgelopen 6 tot 12 maanden in, na belastingreservering."
         salarisKey="salaris1"
         vakantieKey="salaris1InclVakantiegeld"
         dertiendeKey="salaris1InclDertiende"
@@ -137,14 +140,17 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         showBijtelling
       />
 
-      <SalarisBlok
-        label="Salaris persoon 2 (optioneel)"
-        salarisKey="salaris2"
-        vakantieKey="salaris2InclVakantiegeld"
-        dertiendeKey="salaris2InclDertiende"
-        data={data}
-        onChange={onChange}
-      />
+      {!alleen && (
+        <SalarisBlok
+          label="Netto salaris van je partner"
+          hint="Voor een kloppend totaalplaatje telt het inkomen van je partner mee. Weet je het niet of houden jullie alles gescheiden? Laat het leeg en vul dan ook alleen jouw deel van de kosten in."
+          salarisKey="salaris2"
+          vakantieKey="salaris2InclVakantiegeld"
+          dertiendeKey="salaris2InclDertiende"
+          data={data}
+          onChange={onChange}
+        />
+      )}
 
       {/* Hypotheekrenteaftrek, inkomen, alleen bij koopwoning */}
       {data.woonsituatie === "koop" && (
@@ -170,7 +176,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
             id="hypotheekRenteAftrek"
             value={data.hypotheekRenteAftrek}
             onChange={(v) => onChange({ hypotheekRenteAftrek: v })}
-            hint="Je belastingteruggave op de hypotheekrente. Vaak weet je het jaarbedrag, kies dan 'per jaar'. Weet je het niet? Laat leeg."
+            hint="Krijg je belasting terug vanwege je hypotheek, vaak via de voorlopige aanslag? Vul dat hier in, meestal als jaarbedrag. Weet je het niet? Laat leeg, dan rekent de analyse gewoon zonder."
           />
         </div>
       )}
@@ -194,7 +200,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
             id="toeslagZorg"
             value={data.toeslagZorg}
             onChange={(v) => onChange({ toeslagZorg: v })}
-            hint="Max €238/mnd voor stellen in 2026"
+            hint="In 2026 maximaal €238/mnd voor een stel, ongeveer de helft voor een alleenstaande"
           />
 
           {(data.kinderen ?? 0) > 0 && (
@@ -270,7 +276,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
           <p className="text-text-muted font-body text-xs mb-2">totaal netto per maand</p>
           {percentiel && (
             <p className="text-text-soft font-body text-xs">
-              Jullie zitten in de <strong>{percentiel}</strong> van Nederlandse
+              Je zit in de <strong>{percentiel}</strong> van Nederlandse
               huishoudens.
             </p>
           )}

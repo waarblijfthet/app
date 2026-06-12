@@ -10,6 +10,7 @@ import {
   getVergelijkingStatus,
   getPercentiel,
   VergelijkingStatus,
+  aantalVolwassenenVan,
 } from "@/lib/benchmarks";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
 
@@ -56,7 +57,7 @@ function CompareBalk({
       <div className="space-y-1">
         <div>
           <div className="flex justify-between text-xs text-text-muted font-body mb-0.5">
-            <span>Jullie</span>
+            <span>Jij</span>
             <span className="font-medium">{fmtEur(jij)}</span>
           </div>
           <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
@@ -85,7 +86,7 @@ function CompareBalk({
 
 export default function VergelijkingsPaneel({ data, currentStep }: Props) {
   const inkomen = berekenTotaalInkomen(data);
-  const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+  const aantalVolwassenen = aantalVolwassenenVan(data);
 
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
@@ -100,7 +101,13 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
 
   // Step 1, only profile confirmation, no numbers yet
   if (currentStep === 1) {
-    if (!data.woonsituatie || data.kinderen === null || !data.auto) return null;
+    if (
+      data.volwassenen === null ||
+      !data.woonsituatie ||
+      data.kinderen === null ||
+      !data.auto
+    )
+      return null;
     return (
       <div className="card-base border border-[#E8E0D0] sticky top-24">
         <p className="section-eyebrow mb-4">Jouw vergelijking</p>
@@ -112,9 +119,12 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
                 k === 0
                   ? "zonder kinderen"
                   : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
+              const volwTekst =
+                data.volwassenen === 1 ? "één volwassene" : "twee volwassenen";
               return (
                 <>
-                  Goed, we vergelijken je met een huishouden {kindTekst} in een{" "}
+                  Je wordt vergeleken met een huishouden van {volwTekst}{" "}
+                  {kindTekst} in een{" "}
                   {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
                 </>
               );
@@ -131,14 +141,14 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
     const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
     return (
       <div className="card-base border border-[#E8E0D0] sticky top-24">
-        <p className="section-eyebrow mb-4">Jullie inkomen</p>
+        <p className="section-eyebrow mb-4">Jouw inkomen</p>
         <p className="font-display font-light text-primary text-4xl mb-1">
           {fmtEur(inkomen)}
         </p>
         <p className="text-text-muted font-body text-xs mb-4">per maand netto</p>
         <div className="bg-[#F0EDE6] rounded-xl p-3 mb-4">
           <p className="font-body text-xs text-text-soft">
-            Jullie zitten in de{" "}
+            Je zit in de{" "}
             <strong className="text-primary">{percentiel}</strong> van Nederlandse
             huishoudens.
           </p>

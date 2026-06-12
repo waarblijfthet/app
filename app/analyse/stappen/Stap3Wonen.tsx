@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
-import { berekenTotaalInkomen, berekenWonen, getBenchmarks, getVergelijkingStatus } from "@/lib/benchmarks";
+import { berekenTotaalInkomen, berekenWonen, getBenchmarks, getVergelijkingStatus, aantalVolwassenenVan } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
 
@@ -14,7 +14,7 @@ export default function Stap3Wonen({ data, onChange }: Props) {
 
   const inkomen = berekenTotaalInkomen(data);
   const wonen = berekenWonen(data);
-  const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+  const aantalVolwassenen = aantalVolwassenenVan(data);
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
@@ -30,7 +30,7 @@ export default function Stap3Wonen({ data, onChange }: Props) {
   return (
     <div>
       <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-2">
-        Jullie woonlasten
+        Je woonlasten
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
         Vul de maandelijkse kosten in voor je woning.
@@ -155,8 +155,8 @@ export default function Stap3Wonen({ data, onChange }: Props) {
                 : "text-[#B03A2E]"
             }`}
           >
-            Jullie besteden{" "}
-            <strong>{wonenPct.toFixed(0)}%</strong> aan wonen. Normaal voor een{" "}
+            Je besteedt{" "}
+            <strong>{wonenPct.toFixed(0)}%</strong> van je inkomen aan wonen. Normaal voor een{" "}
             {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"} is{" "}
             <strong>{benchPct}%</strong>.
           </p>

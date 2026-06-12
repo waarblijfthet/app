@@ -6,6 +6,7 @@ import {
   berekenKinderen,
   berekenJaarlijks,
   getBenchmarks,
+  aantalVolwassenenVan,
 } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
@@ -15,18 +16,11 @@ interface Props {
   onChange: (u: Partial<QuizData>) => void;
 }
 
-const BOODSCHAPPEN_HINTS: Record<number, string> = {
-  0: "Gemiddeld €485/mnd voor een stel",
-  1: "Gemiddeld €620/mnd voor je huishouden",
-  2: "Gemiddeld €755/mnd voor je huishouden",
-  3: "Gemiddeld €890/mnd voor je huishouden",
-};
-
 export default function Stap5Dagelijks({ data, onChange }: Props) {
   const [spaardoelOpen, setSpaardoelOpen] = useState(false);
 
   const inkomen = berekenTotaalInkomen(data);
-  const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+  const aantalVolwassenen = aantalVolwassenenVan(data);
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
@@ -62,7 +56,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           id="boodschappen"
           value={data.boodschappen}
           onChange={(v) => onChange({ boodschappen: v })}
-          hint={BOODSCHAPPEN_HINTS[data.kinderen ?? 0]}
+          hint={`Gemiddeld ${fmtEur(benches.boodschappen)}/mnd voor een huishouden als het jouwe`}
         />
         {boodschappenWaarde > 0 && (
           <div className="mt-2 flex items-center gap-2 flex-wrap">
@@ -202,7 +196,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         {vrijetijdWaarde > 0 && vrijetijdWaarde < benches.vrijetijd * 0.5 && (
           <div className="mt-2 bg-[#FDF3E3] rounded-lg px-3 py-2">
             <p className="font-body text-xs text-[#92600A]">
-              Tip: vergeet ook restaurants, kleding en cadeautjes mee te rekenen, gemiddeld gaat daar {fmtEur(Math.round(benches.vrijetijd * 0.4))}/mnd naartoe.
+              Zitten restaurants, kleding en cadeautjes erin? Die worden vaak vergeten, gemiddeld is dat zo'n {fmtEur(Math.round(benches.vrijetijd * 0.4))}/mnd.
             </p>
           </div>
         )}
@@ -263,22 +257,28 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               id="spaardoel"
               value={data.spaardoel}
               onChange={(v) => onChange({ spaardoel: v })}
-              hint="Buffer, verbouwing, pensioen, wat je structureel opzij wilt zetten"
+              hint="Buffer, pensioen (zeker belangrijk als zzp'er of 50-plusser), verbouwing. Wat je structureel opzij wilt zetten."
             />
           </div>
         )}
       </div>
 
       {/* Mobile highlight */}
-      {boodschappenWaarde > 0 && abonnementenWaarde > 0 && (
-        <div className="lg:hidden bg-[#FDECEA] rounded-xl p-4">
-          <p className="text-xs font-body text-[#B03A2E] font-medium mb-1">
-            ⚠ Grootste afwijking
+      {boodschappenWaarde > 0 &&
+        abonnementenWaarde > 0 &&
+        Math.max(boodschappenDiff, abonnementenDiff) > 50 && (
+        <div className="lg:hidden bg-[#FDF3E3] rounded-xl p-4">
+          <p className="text-xs font-body text-[#92600A] font-medium mb-1">
+            Hier valt het meeste op
           </p>
-          <p className="font-body text-sm text-[#B03A2E]">
+          <p className="font-body text-sm text-[#92600A]">
             {grootsteAfwijking === "boodschappen"
               ? `Boodschappen: ${fmtEur(boodschappenWaarde)} vs gemiddeld ${fmtEur(benches.boodschappen)}`
               : `Abonnementen: ${fmtEur(abonnementenWaarde)} vs gemiddeld ${fmtEur(benches.abonnementen)}`}
+          </p>
+          <p className="font-body text-xs text-[#92600A] mt-1 opacity-80">
+            Geen oordeel, wel een aanknopingspunt. Dit is precies wat de
+            analyse zichtbaar moet maken.
           </p>
         </div>
       )}

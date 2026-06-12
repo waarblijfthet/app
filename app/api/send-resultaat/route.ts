@@ -17,8 +17,8 @@ export async function POST(request: NextRequest) {
   const verschil = maandelijksOver - benchmarkOver;
   const verschilTekst =
     verschil >= 0
-      ? `€${Math.round(verschil)} meer dan vergelijkbare gezinnen`
-      : `€${Math.round(Math.abs(verschil))} minder dan vergelijkbare gezinnen`;
+      ? `€${Math.round(verschil)} meer dan vergelijkbare huishoudens`
+      : `€${Math.round(Math.abs(verschil))} minder dan vergelijkbare huishoudens`;
 
   const verdictKleur =
     verdict === "goed" ? "#E8F2EC" : verdict === "matig" ? "#FDF3E3" : "#FDECEA";
@@ -26,22 +26,22 @@ export async function POST(request: NextRequest) {
     verdict === "goed" ? "#2D6A4F" : verdict === "matig" ? "#92600A" : "#B03A2E";
   const verdictTitel =
     verdict === "goed"
-      ? "Jullie doen het goed"
+      ? "Je doet het goed"
       : verdict === "matig"
       ? "Er is ruimte voor verbetering"
-      : "Dit patroon kennen we";
+      : "Dit patroon is om te buigen";
   const verdictTekst =
     verdict === "goed"
-      ? "Er is ruimte — de vraag is of dat geld doelbewust wordt ingezet."
+      ? "Er is ruimte. De vraag is of dat geld doelbewust wordt ingezet."
       : verdict === "matig"
-      ? "Jullie zitten dicht bij het gemiddelde maar de buffer is klein."
-      : "Jullie houden structureel minder over dan vergelijkbare gezinnen. Dit is precies waar wij bij helpen.";
+      ? "Je zit dicht bij het gemiddelde maar de buffer is klein."
+      : "Je houdt structureel minder over dan vergelijkbare huishoudens. Dit is precies waar ik bij help, en het ligt niet aan jou.";
 
   try {
     const { error } = await resend.emails.send({
       from: process.env.RESEND_FROM ?? "onboarding@resend.dev",
       to: email,
-      subject: "Jouw financiële analyse — Waar blijft het",
+      subject: "Jouw financiële analyse | Waar blijft het",
       html: `
 <!DOCTYPE html>
 <html lang="nl">
@@ -75,7 +75,7 @@ export async function POST(request: NextRequest) {
             <td style="background-color:#FDFAF4;border-radius:16px;padding:32px;">
               <p style="margin:0 0 8px;font-size:13px;color:#8A9E8E;text-transform:uppercase;letter-spacing:0.1em;">Jouw analyse</p>
               <h1 style="margin:0 0 8px;font-size:36px;color:#1C3A2A;font-weight:300;">
-                Jullie houden €${Math.round(maandelijksOver)} over
+                Je houdt €${Math.round(maandelijksOver)} over
               </h1>
               <p style="margin:0 0 24px;font-size:15px;color:#4A5E4E;">${verschilTekst}</p>
 

@@ -28,7 +28,7 @@ const VERDICT_CONFIG: Record<
     bg: "#E8F2EC",
     border: "#A8D5B5",
     textColor: "#2D6A4F",
-    titel: "Jullie doen het goed",
+    titel: "Je doet het goed",
     tekst: "Er is ruimte. De vraag is of dat geld doelbewust wordt ingezet.",
   },
   matig: {
@@ -37,15 +37,15 @@ const VERDICT_CONFIG: Record<
     textColor: "#92600A",
     titel: "Er is ruimte voor verbetering",
     tekst:
-      "Jullie zitten dicht bij het gemiddelde maar de buffer is klein. Een tegenvaller en het klopt niet meer.",
+      "Je zit dicht bij het gemiddelde maar de buffer is klein. Een tegenvaller en het klopt niet meer.",
   },
   zorgelijk: {
     bg: "#FDECEA",
     border: "#F0A09A",
     textColor: "#B03A2E",
-    titel: "Dit patroon kennen we",
+    titel: "Dit patroon is om te buigen",
     tekst:
-      "Jullie houden structureel minder over dan vergelijkbare gezinnen. Dit is precies waar wij bij helpen.",
+      "Je houdt structureel minder over dan vergelijkbare huishoudens. Dit is precies waar ik bij help, en het ligt niet aan jou.",
   },
 };
 
@@ -67,7 +67,7 @@ function AfwijkingKaart({
       <p className="font-body font-medium text-text-soft text-sm mb-3">{label}</p>
       <div className="flex gap-6 text-sm font-body mb-3">
         <div>
-          <p className="text-text-muted text-xs mb-0.5">Jullie</p>
+          <p className="text-text-muted text-xs mb-0.5">Jij</p>
           <p
             className="font-medium"
             style={{ color: isHoog ? "#B03A2E" : "#1C3A2A" }}
@@ -84,7 +84,7 @@ function AfwijkingKaart({
       <div className="space-y-1.5 mb-3">
         <div>
           <div className="flex justify-between text-xs text-text-muted font-body mb-0.5">
-            <span>Jullie</span>
+            <span>Jij</span>
             <span className="font-medium" style={{ color: isHoog ? "#B03A2E" : "#2D6A4F" }}>
               {fmtEur(jij)}
             </span>
@@ -220,7 +220,7 @@ export default async function ResultaatPage({ params }: Props) {
                     color: "#8A9E8E",
                   }}
                 >
-                  Jullie houden elke maand over
+                  Dit houd je elke maand over
                 </p>
                 <p
                   className="font-display font-light mb-2"
@@ -233,7 +233,7 @@ export default async function ResultaatPage({ params }: Props) {
                   {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
                 </p>
                 <p className="text-text-soft font-body text-sm mb-4">
-                  Vergelijkbare gezinnen houden gemiddeld{" "}
+                  Vergelijkbare huishoudens houden gemiddeld{" "}
                   <strong className="text-text-soft">{fmtEur(benchmarkOver)}</strong>{" "}
                   over
                 </p>
@@ -394,7 +394,7 @@ export default async function ResultaatPage({ params }: Props) {
                   className="font-body font-light text-sm leading-relaxed mb-5"
                   style={{ color: "rgba(245,240,232,0.6)" }}
                 >
-                  Lees hoe andere gezinnen hun financiën hebben omgebogen.
+                  Lees hoe anderen hun financiën hebben omgebogen.
                 </p>
                 <Link
                   href="/inzichten"
@@ -422,9 +422,9 @@ export default async function ResultaatPage({ params }: Props) {
                   Analyse verstuurd
                 </p>
                 <p className="text-text-muted font-body text-sm">
-                  We hebben de analyse al gestuurd naar{" "}
+                  De analyse is al gestuurd naar{" "}
                   <strong className="text-text-soft">{r.email}</strong>. Niet
-                  ontvangen? Check je spamfolder of mail ons op{" "}
+                  ontvangen? Check je spamfolder of mail me op{" "}
                   <a
                     href="mailto:hallo@waarblijfthet.nl"
                     className="text-primary hover:underline"
@@ -440,7 +440,7 @@ export default async function ResultaatPage({ params }: Props) {
                   Analyse bewaren?
                 </p>
                 <p className="text-text-muted font-body text-sm mb-4">
-                  We sturen de link naar jouw analyse toe, zodat je hem altijd
+                  Je krijgt de link naar jouw analyse toegestuurd, zodat je hem altijd
                   terug kunt vinden.
                 </p>
                 <EmailReminderForm

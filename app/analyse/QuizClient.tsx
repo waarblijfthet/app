@@ -1,7 +1,8 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { QuizData, DEFAULT_QUIZ_DATA, canProceed, parseEur } from "@/lib/quiz-types";
+import { QuizData, DEFAULT_QUIZ_DATA, canProceed, fmtEur } from "@/lib/quiz-types";
+import Link from "next/link";
 import { createClient } from "@/lib/supabase-browser";
 import {
   getBenchmarks,
@@ -9,6 +10,8 @@ import {
   berekenOver,
   bepaalVerdict,
   vindGrootsteAfwijking,
+  berekenTotaalUitgaven,
+  aantalVolwassenenVan,
 } from "@/lib/benchmarks";
 import ProgressBar from "./components/ProgressBar";
 import VergelijkingsPaneel from "./components/VergelijkingsPaneel";
@@ -51,7 +54,7 @@ export default function QuizClient() {
     try {
       inkomen = berekenTotaalInkomen(data);
       if (voltooid) {
-        const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+        const aantalVolwassenen = aantalVolwassenenVan(data);
         const benches = getBenchmarks({
           woonsituatie: data.woonsituatie,
           kinderen: data.kinderen,
@@ -123,8 +126,13 @@ export default function QuizClient() {
   const showPanel = step >= 1 && step <= 5;
   const canGo = canProceed(step, data);
 
+  const inkomenLive = berekenTotaalInkomen(data);
+  const uitgavenLive = berekenTotaalUitgaven(data);
+  const overLive = inkomenLive - uitgavenLive;
+  const toonLiveBalk = step >= 2 && step <= 5 && inkomenLive > 0;
+
   return (
-    <div className="overflow-x-hidden">
+    <div className={"overflow-x-hidden" + (toonLiveBalk ? " pb-16 lg:pb-0" : "")}>
       {step === 1 && (
         <div className="text-center mb-8 max-w-lg mx-auto px-2">
           <div className="inline-flex items-center gap-2 bg-[#E8F2EC] text-[#2D6A4F] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
@@ -134,6 +142,13 @@ export default function QuizClient() {
           <p className="text-[#4A5E4E] text-sm leading-relaxed">
             Vul je situatie in en zie direct hoe je het doet ten opzichte
             van vergelijkbare huishoudens. Na stap 2 zie je al de eerste vergelijking.
+          </p>
+          <p className="text-[#8A9E8E] text-xs mt-3">
+            Je antwoorden blijven anoniem. Pas als je aan het eind zelf je
+            e-mail invult, worden ze aan jou gekoppeld.{" "}
+            <Link href="/privacy" style={{ color: "#C4603A", textDecoration: "none" }}>
+              Privacy &rarr;
+            </Link>
           </p>
         </div>
       )}
@@ -177,7 +192,7 @@ export default function QuizClient() {
             {/* Hint onder de knop als hij nog uitgeschakeld is */}
             {!canGo && step === 1 && (
               <p className="text-center text-xs text-text-muted mt-3">
-                Maak eerst een keuze bij alle drie de vragen hierboven.
+                Maak eerst een keuze bij alle vier de vragen hierboven.
               </p>
             )}
           </div>
@@ -191,6 +206,32 @@ export default function QuizClient() {
         </div>
       ) : (
         <div>{stepComponents[6]}</div>
+      )}
+
+      {toonLiveBalk && (
+        <div
+          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[#E8E0D0] px-4 py-2.5"
+          style={{ backgroundColor: "rgba(253,250,244,0.96)", backdropFilter: "blur(6px)" }}
+        >
+          <div className="flex items-center justify-between gap-3 max-w-lg mx-auto font-body text-xs">
+            <span className="text-text-soft">
+              In <strong className="text-primary">{fmtEur(inkomenLive)}</strong>
+            </span>
+            {uitgavenLive > 0 && (
+              <span className="text-text-soft">
+                Uit <strong className="text-primary">{fmtEur(uitgavenLive)}</strong>
+              </span>
+            )}
+            {uitgavenLive > 0 && (
+              <span className="text-text-soft">
+                Over{" "}
+                <strong className={overLive < 0 ? "text-accent" : "text-[#2D6A4F]"}>
+                  {overLive < 0 ? `-${fmtEur(Math.abs(overLive))}` : fmtEur(overLive)}
+                </strong>
+              </span>
+            )}
+          </div>
+        </div>
       )}
     </div>
   );

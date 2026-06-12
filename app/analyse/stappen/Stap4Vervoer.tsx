@@ -1,5 +1,5 @@
-import { QuizData, parseEur } from "@/lib/quiz-types";
-import { berekenTotaalInkomen, berekenVervoer, berekenVerzekeringen, getBenchmarks } from "@/lib/benchmarks";
+import { QuizData } from "@/lib/quiz-types";
+import { berekenTotaalInkomen, berekenVervoer, berekenVerzekeringen, getBenchmarks, aantalVolwassenenVan } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
 
@@ -10,7 +10,7 @@ interface Props {
 
 export default function Stap4Vervoer({ data, onChange }: Props) {
   const inkomen = berekenTotaalInkomen(data);
-  const aantalVolwassenen = parseEur(data.salaris2) > 0 ? 2 : 1;
+  const aantalVolwassenen = aantalVolwassenenVan(data);
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
@@ -52,14 +52,14 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
               id="brandstof"
               value={data.brandstof}
               onChange={(v) => onChange({ brandstof: v })}
-              hint="Gemiddeld €180/mnd"
+              hint="Gemiddeld €180/mnd. Meerdere auto's? Tel ze bij elkaar op."
             />
             <EuroInput
               label="Autoverzekering + wegenbelasting (samen)"
               id="autoVerzWB"
               value={data.autoVerzWB}
               onChange={(v) => onChange({ autoVerzWB: v })}
-              hint="Gemiddeld €170/mnd samen"
+              hint="Gemiddeld €170/mnd samen. Tel meerdere auto's bij elkaar op."
             />
           </div>
         )}
@@ -103,33 +103,37 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
         <p className="font-body font-medium text-text-soft text-sm mb-4">Verzekeringen</p>
 
         <div className="mb-4">
-          <div className="flex gap-2 mb-2">
-            <button
-              type="button"
-              onClick={() => onChange({ zorgToggle: "per_persoon" })}
-              className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
-                data.zorgToggle === "per_persoon"
-                  ? "bg-primary text-white"
-                  : "bg-[#E8E0D0] text-text-soft"
-              }`}
-            >
-              Per persoon
-            </button>
-            <button
-              type="button"
-              onClick={() => onChange({ zorgToggle: "totaal" })}
-              className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
-                data.zorgToggle === "totaal"
-                  ? "bg-primary text-white"
-                  : "bg-[#E8E0D0] text-text-soft"
-              }`}
-            >
-              Totaal huishouden
-            </button>
-          </div>
+          {aantalVolwassenen === 2 && (
+            <div className="flex gap-2 mb-2">
+              <button
+                type="button"
+                onClick={() => onChange({ zorgToggle: "per_persoon" })}
+                className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
+                  data.zorgToggle === "per_persoon"
+                    ? "bg-primary text-white"
+                    : "bg-[#E8E0D0] text-text-soft"
+                }`}
+              >
+                Per persoon
+              </button>
+              <button
+                type="button"
+                onClick={() => onChange({ zorgToggle: "totaal" })}
+                className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
+                  data.zorgToggle === "totaal"
+                    ? "bg-primary text-white"
+                    : "bg-[#E8E0D0] text-text-soft"
+                }`}
+              >
+                Totaal huishouden
+              </button>
+            </div>
+          )}
           <EuroInput
             label={
-              data.zorgToggle === "per_persoon"
+              aantalVolwassenen === 1
+                ? "Zorgverzekering per maand"
+                : data.zorgToggle === "per_persoon"
                 ? "Zorgverzekering per persoon"
                 : "Zorgverzekering totaal huishouden"
             }
@@ -137,9 +141,9 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
             value={data.zorgPerPersoon}
             onChange={(v) => onChange({ zorgPerPersoon: v })}
             hint={
-              data.zorgToggle === "per_persoon"
-                ? "De volledige premie per persoon (bruto). Gemiddeld €148/mnd in 2026. De zorgtoeslag heb je al als inkomen ingevuld."
-                : "De volledige premie voor je huishouden (bruto). De zorgtoeslag heb je al als inkomen ingevuld."
+              aantalVolwassenen === 1 || data.zorgToggle === "per_persoon"
+                ? "Het bedrag dat maandelijks aan je zorgverzekeraar wordt betaald, per persoon. Gemiddeld €148/mnd in 2026. De zorgtoeslag heb je al bij inkomen ingevuld, dus trek die hier niet af."
+                : "Het bedrag dat maandelijks aan de zorgverzekeraar wordt betaald, voor jullie samen. De zorgtoeslag heb je al bij inkomen ingevuld, dus trek die hier niet af."
             }
           />
         </div>
@@ -149,7 +153,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
           id="verzekeringOverig"
           value={data.verzekeringOverig}
           onChange={(v) => onChange({ verzekeringOverig: v })}
-          hint="Inboedel, opstal, rechtsbijstand, leven. Gemiddeld €120/mnd"
+          hint="Inboedel, opstal, rechtsbijstand, leven. Zzp'er? Tel je arbeidsongeschiktheidsverzekering hier mee. Gemiddeld €120/mnd"
         />
 
         {verzekeringen > 0 && (
