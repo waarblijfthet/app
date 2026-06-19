@@ -80,6 +80,307 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "waarom-hou-ik-nooit-geld-over",
+    korteTitel: "Nooit geld over ondanks goed inkomen",
+    titel: "Waarom hou ik nooit geld over, terwijl ik goed verdien?",
+    metaTitel: "Waarom hou ik nooit geld over ondanks een goed inkomen?",
+    metaDescription:
+      "Goed verdienen en toch niks overhouden? Dit zijn de vier manieren waarop je geld onzichtbaar verdwijnt, en waarom meer verdienen het zelden oplost.",
+    datum: "2026-06-18",
+    datumFormatted: "18 juni 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Je verdient prima en houdt toch niks over. Het ligt zelden aan je inkomen, en bijna altijd aan vier onzichtbare lekken. Waarom een hoger salaris het niet oplost, en wat wel werkt.",
+    preview: {
+      type: "pijn",
+      label: "Waar het onzichtbaar weglekt",
+      items: [
+        "Vaste lasten en abonnementen die stilletjes groeien",
+        "Uitgaven die je niet bijhoudt: pinnen voelt niet als geld",
+        "Geen buffer, dus elke tegenvaller uit je maandbudget",
+        "Levensstijlinflatie: meer verdienen, meer uitgeven",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Waarom hou ik nooit geld over terwijl ik genoeg verdien?",
+        antwoord:
+          "Meestal niet door je inkomen, maar door de structuur eromheen. Je geld verdwijnt onzichtbaar via sluipende vaste lasten, uitgaven die je niet bijhoudt, het ontbreken van een buffer en levensstijlinflatie. Samen slaan die een groot gat zonder dat er een grote uitgave aan te wijzen is.",
+      },
+      {
+        vraag: "Lost meer verdienen het probleem op?",
+        antwoord:
+          "Zelden. Door de belastingschijven en de afbouw van heffingskortingen levert een bruto stijging vaak verrassend weinig netto op. En zolang het lek in je structuur zit, loopt een hoger inkomen er gewoon doorheen. Een vast verdeelsysteem helpt meer dan een hoger salaris.",
+      },
+      {
+        vraag: "Wat is de eerste stap om grip te krijgen?",
+        antwoord:
+          "Inzicht, niet bezuinigen. Pak de afschriften van de afgelopen twee maanden en tel je vaste lasten, je dagelijkse uitgaven en wat er echt overblijft op. De verrassing zit bijna altijd in de dagelijkse uitgaven die niemand bijhoudt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+      {
+        label: "CBS: besparingen huishoudens",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2025/22/besparingen-huishoudens-namen-sterk-toe-in-2024",
+      },
+    ],
+  },
+  {
+    slug: "bruto-naar-netto-loonstrook-uitleg",
+    korteTitel: "Van bruto naar netto: je loonstrook uitgelegd",
+    titel: "Van bruto naar netto: waar gaat je salaris naartoe op je loonstrook?",
+    metaTitel: "Van bruto naar netto 2026: je loonstrook uitgelegd",
+    metaDescription:
+      "Waar gaat je brutoloon naartoe? Begrippen op je loonstrook, de belastingschijven van 2026 en wat je netto overhoudt bij €3.500 en €5.000 bruto.",
+    datum: "2026-06-18",
+    datumFormatted: "18 juni 2026",
+    leestijd: "6",
+    categorie: "Inkomen",
+    excerpt:
+      "Een mooi brutoloon en een tegenvallend bedrag op je rekening. Ik loop je loonstrook door met de cijfers van 2026: schijven, heffingskortingen en wat je echt netto overhoudt.",
+    preview: {
+      type: "verdeling",
+      label: "Van €5.000 bruto per maand",
+      posten: [
+        { naam: "Belasting en premies", pct: 26, kleur: "#B03A2E" },
+        { naam: "Netto op je rekening", pct: 74, kleur: "#2D6A4F" },
+      ],
+      uitkomst: "Netto ca. €3.700 (indicatie 2026)",
+    },
+    faq: [
+      {
+        vraag: "Wat zijn de belastingschijven in 2026?",
+        antwoord:
+          "Voor wie de AOW-leeftijd nog niet heeft, gelden in 2026 drie schijven in box 1: 35,75% over inkomen tot €38.883, 37,56% over het deel tot €78.426 en 49,50% over alles daarboven. In de eerste schijf zitten de premies volksverzekeringen verwerkt.",
+      },
+      {
+        vraag: "Wat is loonheffing op mijn loonstrook?",
+        antwoord:
+          "Loonheffing is loonbelasting en premies volksverzekeringen samen. Je werkgever houdt dit in op je brutoloon en draagt het namens jou af aan de Belastingdienst. Het verschil tussen je bruto- en nettoloon bestaat grotendeels uit deze loonheffing.",
+      },
+      {
+        vraag: "Hoeveel hou ik netto over van €5.000 bruto?",
+        antwoord:
+          "Als indicatie voor 2026 houd je van €5.000 bruto per maand netto ongeveer €3.550 tot €3.700 over, bij een voltijdbaan met loonheffingskorting. De exacte uitkomst hangt af van je pensioenpremie. Vul je eigen cijfers in bij een nettoloon-calculator voor een precies bedrag.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Belastingdienst: tarieven en heffingskortingen",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen",
+      },
+      {
+        label: "Nibud: uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
+    slug: "vaste-lasten-overzicht-maken",
+    korteTitel: "Een overzicht van je vaste lasten maken",
+    titel: "Een overzicht van je vaste lasten maken: het complete stappenplan",
+    metaTitel: "Vaste lasten overzicht maken: stappenplan en checklist 2026",
+    metaDescription:
+      "Maak in vier stappen een compleet overzicht van je vaste lasten. Inclusief de posten die bijna iedereen vergeet en wanneer je te veel vastligt.",
+    datum: "2026-06-18",
+    datumFormatted: "18 juni 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Je kunt pas sturen op je geld als je weet wat er al vastligt. In vier stappen zet je al je vaste lasten op een rij, inclusief de jaarposten die bijna iedereen vergeet.",
+    preview: {
+      type: "statistiek",
+      label: "Aandeel vaste lasten van het inkomen",
+      segmenten: [
+        { label: "Vaste lasten", pct: 55, kleur: "#FAF0EB", tekstKleur: "#92600A" },
+        { label: "De rest", pct: 45, kleur: "#E8F2EC", tekstKleur: "#2D6A4F" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat valt er allemaal onder vaste lasten?",
+        antwoord:
+          "Volgens het Nibud horen daarbij: woonlasten (huur of hypotheek), energie en water, gemeentelijke belastingen en waterschap, verzekeringen, telefoon, internet en televisie, vervoer, en kosten voor onderwijs of kinderopvang. Ook abonnementen en jaarlijkse premies tellen mee.",
+      },
+      {
+        vraag: "Welke vaste lasten vergeten mensen vaak?",
+        antwoord:
+          "Vooral de posten die niet maandelijks afschrijven: jaarpremies, de wegenbelasting per kwartaal, de gemeentelijke aanslag, onderhoudscontracten, contributies en cadeaus voor verjaardagen en feestdagen. Reken alles om naar een bedrag per maand zodat het vergelijkbaar wordt.",
+      },
+      {
+        vraag: "Hoeveel procent van mijn inkomen mag naar vaste lasten?",
+        antwoord:
+          "Als vuistregel is rond de 50% van je netto-inkomen aan vaste lasten gezond. In de praktijk zit een gemiddeld huishouden eerder rond de 55% of hoger. Zit je daar ruim boven, dan knelt je vaste basis en niet je dagelijkse uitgaven.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: huishoudelijke uitgaven",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
+      },
+      {
+        label: "Zorgwijzer: premies zorgverzekering 2026",
+        url: "https://www.zorgwijzer.nl/zorgverzekering-2026/zorgverzekering-2026-alle-premies-bekend-overzicht",
+      },
+    ],
+  },
+  {
+    slug: "geld-indelen-salaris-potjes-systeem",
+    korteTitel: "Je salaris slim indelen met potjes",
+    titel: "Je salaris slim indelen: het rekeningen- en potjessysteem",
+    metaTitel: "Geld indelen na je salaris: het potjessysteem uitgelegd",
+    metaDescription:
+      "Verdeel je salaris voordat je het uitgeeft. Hoeveel rekeningen je nodig hebt, hoe je sparen automatiseert en waarom jezelf eerst betalen werkt.",
+    datum: "2026-06-18",
+    datumFormatted: "18 juni 2026",
+    leestijd: "6",
+    categorie: "Sparen",
+    excerpt:
+      "Als alles op een rekening staat, voelt elke euro beschikbaar. Een potjessysteem draait dat om: je verdeelt je geld op de dag van je salaris, voordat je het uitgeeft.",
+    preview: {
+      type: "verdeling",
+      label: "Je salaris meteen verdelen",
+      posten: [
+        { naam: "Vaste lasten", pct: 50, kleur: "#1C3A2A" },
+        { naam: "Dagelijks en vrij", pct: 30, kleur: "#C4603A" },
+        { naam: "Sparen en doelen", pct: 20, kleur: "#2D6A4F" },
+      ],
+      uitkomst: "Wat overblijft is van jou, zonder schuldgevoel",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel bankrekeningen heb ik nodig?",
+        antwoord:
+          "Voor de meeste huishoudens werkt een opzet met drie of vier rekeningen het beste: een vaste-lastenrekening, een rekening voor dagelijkse uitgaven, een spaarrekening voor buffer en doelen, en eventueel een potje voor jaarlijkse en onregelmatige uitgaven. Losse potjes binnen een rekening werken net zo goed.",
+      },
+      {
+        vraag: "Wat betekent jezelf eerst betalen?",
+        antwoord:
+          "Niet sparen wat aan het einde van de maand overblijft, maar aan het begin een vast bedrag wegzetten en de rest verdelen. Zo wordt sparen geen restpost meer maar de eerste betaling die je doet. Het Nibud adviseert ongeveer 10% van je netto-inkomen te sparen.",
+      },
+      {
+        vraag: "Hoeveel buffer moet ik aanhouden?",
+        antwoord:
+          "Het Nibud houdt drie tot zes maanden vaste lasten aan als gezonde reserve. Bouw die buffer eerst op voordat je voor leuke doelen gaat sparen, zodat een tegenvaller je maandbudget niet meer omgooit.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: een financiele buffer opbouwen",
+        url: "https://www.nibud.nl/onderwerpen/sparen/een-financiele-buffer-opbouwen/",
+      },
+      {
+        label: "Nibud: sparen",
+        url: "https://www.nibud.nl/onderwerpen/sparen/",
+      },
+    ],
+  },
+  {
+    slug: "kosten-verdelen-samenwonen-ongelijk-inkomen",
+    korteTitel: "Kosten verdelen bij ongelijk inkomen",
+    titel: "Kosten eerlijk verdelen als je samenwoont met een ongelijk inkomen",
+    metaTitel: "Kosten verdelen bij samenwonen met ongelijk inkomen",
+    metaDescription:
+      "50/50 of naar rato? De drie manieren om samen de kosten te verdelen, met een rekenvoorbeeld voor een eerlijke verdeling bij verschillende inkomens.",
+    datum: "2026-06-18",
+    datumFormatted: "18 juni 2026",
+    leestijd: "5",
+    categorie: "Samenwonen",
+    excerpt:
+      "Zodra de inkomens uit elkaar lopen, gaat alles half om half betalen wringen. De drie manieren om de kosten te verdelen, en hoe je met de verhouding van jullie inkomens een eerlijke bijdrage uitrekent.",
+    preview: {
+      type: "vergelijking",
+      label: "Naar rato verdelen",
+      items: [
+        { naam: "Jij (57%)", bedrag: 686, kleur: "#1C3A2A" },
+        { naam: "Partner (43%)", bedrag: 514, kleur: "#C4603A" },
+      ],
+      noot: "Bij €2.000 en €1.500 netto, €1.200 gezamenlijke kosten",
+    },
+    faq: [
+      {
+        vraag: "Hoe verdeel je kosten eerlijk als je partner minder verdient?",
+        antwoord:
+          "Met de naar-rato-methode. Ieder betaalt een deel van de gezamenlijke kosten dat past bij zijn aandeel in het gezamenlijke inkomen. De formule: je eigen netto-inkomen gedeeld door het gezamenlijke netto-inkomen, maal de totale gezamenlijke kosten. Zo houdt iedereen verhoudingsgewijs evenveel over.",
+      },
+      {
+        vraag: "Is 50/50 verdelen eerlijk bij samenwonen?",
+        antwoord:
+          "Alleen als jullie ongeveer evenveel verdienen. Lopen de inkomens uiteen, dan legt de minstverdienende partner verhoudingsgewijs een veel groter deel van zijn inkomen in. Dan voelt gelijk niet meer als eerlijk en kun je beter naar rato verdelen of alles samen voeren met eigen zakgeld.",
+      },
+      {
+        vraag: "Wat is kosten naar rato verdelen?",
+        antwoord:
+          "Naar rato betekent verdelen in verhouding tot je inkomen. Verdien jij €2.000 en je partner €1.500, dan betaal jij afgerond 57% van de gezamenlijke kosten en je partner 43%. Bij €1.200 aan kosten is dat €686 om €514.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Rabobank: kosten verdelen bij samenwonen",
+        url: "https://www.rabobank.nl/particulieren/samenwonen/samenbetalen/kosten-verdelen",
+      },
+      {
+        label: "Nibud: geldzaken samen",
+        url: "https://www.nibud.nl/onderwerpen/rondkomen/geldzaken-samen/",
+      },
+    ],
+  },
+  {
+    slug: "vakantiegeld-netto-hoeveel-hou-je-over-2026",
+    korteTitel: "Vakantiegeld netto: hoeveel hou je over?",
+    titel: "Vakantiegeld 2026: hoeveel hou je er netto van over?",
+    metaTitel: "Vakantiegeld 2026 netto: hoeveel hou je over?",
+    metaDescription:
+      "Waarom valt je vakantiegeld netto tegen? Uitleg over het bijzonder tarief, netto-bedragen voor 2026 en hoe je voorkomt dat het ongemerkt verdwijnt.",
+    datum: "2026-06-18",
+    datumFormatted: "18 juni 2026",
+    leestijd: "5",
+    categorie: "Inkomen",
+    excerpt:
+      "Vakantiegeld voelt als een meevaller, maar het netto-bedrag valt bijna altijd tegen. Hoe het bijzonder tarief werkt, wat je overhoudt in 2026, en waar het daarna blijft.",
+    preview: {
+      type: "vergelijking",
+      label: "Vakantiegeld bij €5.000 bruto per maand",
+      items: [
+        { naam: "Bruto", bedrag: 4800, kleur: "#8A9E8E" },
+        { naam: "Netto", bedrag: 2450, kleur: "#2D6A4F" },
+      ],
+      noot: "8% van €60.000, bijzonder tarief ca. 50%",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel vakantiegeld krijg ik netto in 2026?",
+        antwoord:
+          "Dat hangt af van je inkomen. Bij €2.000 bruto per maand houd je van zo'n €1.920 bruto netto ongeveer €1.250 over. Bij €5.000 bruto per maand is het bruto vakantiegeld ongeveer €4.800 en blijft er netto ruwweg €2.400 tot €2.500 over, omdat het bijzonder tarief dan rond de 50% ligt.",
+      },
+      {
+        vraag: "Waarom betaal ik zo veel belasting over mijn vakantiegeld?",
+        antwoord:
+          "Vakantiegeld komt bovenop je gewone loon en wordt belast tegen het bijzonder tarief. De heffingskortingen die je belasting op je maandloon drukken, zijn daar al verrekend en komen niet nog een keer over je vakantiegeld. Bovendien valt dat extra inkomen vaak in een hogere tariefzone.",
+      },
+      {
+        vraag: "Wat is het bijzonder tarief in 2026?",
+        antwoord:
+          "Het bijzonder tarief is een apart percentage voor eenmalige beloningen zoals vakantiegeld, een bonus of een dertiende maand. Het hangt af van je jaarinkomen: rond €38.000 ligt het op ongeveer 40%, rond €46.000 loopt het op tot ruim 50%.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Belastingdienst: tarieven en heffingskortingen",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen",
+      },
+      {
+        label: "Nibud: uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
     slug: "ons-boodschappenbudget-mislukte-tot-we-dit-deden",
     korteTitel: "Boodschappenbudget: een echte case",
     titel: "Ons boodschappenbudget mislukte elke keer — tot we dit deden",

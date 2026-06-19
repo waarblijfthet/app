@@ -41,6 +41,12 @@ import GezamenlijkeRekeningVoorEnNadelen from "./content/gezamenlijke-rekening-v
 import TweedeInkomenLoonNietTweeverdieners from "./content/tweede-inkomen-loont-niet-tweeverdieners";
 import WatKostEenFinancieelAdviseur from "./content/wat-kost-een-financieel-adviseur";
 import WatDoetEenFinancieelAdviseur from "./content/wat-doet-een-financieel-adviseur";
+import WaaromHouIkNooitGeldOver from "./content/waarom-hou-ik-nooit-geld-over";
+import BrutoNaarNettoLoonstrookUitleg from "./content/bruto-naar-netto-loonstrook-uitleg";
+import VasteLastenOverzichtMaken from "./content/vaste-lasten-overzicht-maken";
+import GeldIndelenSalarisPotjesSysteem from "./content/geld-indelen-salaris-potjes-systeem";
+import KostenVerdelenSamenwonenOngelijkInkomen from "./content/kosten-verdelen-samenwonen-ongelijk-inkomen";
+import VakantiegeldNettoHoeveelHouJeOver2026 from "./content/vakantiegeld-netto-hoeveel-hou-je-over-2026";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -86,6 +92,12 @@ const contentMap: Record<string, () => JSX.Element> = {
   "tweede-inkomen-loont-niet-tweeverdieners": TweedeInkomenLoonNietTweeverdieners,
   "wat-kost-een-financieel-adviseur": WatKostEenFinancieelAdviseur,
   "wat-doet-een-financieel-adviseur": WatDoetEenFinancieelAdviseur,
+  "waarom-hou-ik-nooit-geld-over": WaaromHouIkNooitGeldOver,
+  "bruto-naar-netto-loonstrook-uitleg": BrutoNaarNettoLoonstrookUitleg,
+  "vaste-lasten-overzicht-maken": VasteLastenOverzichtMaken,
+  "geld-indelen-salaris-potjes-systeem": GeldIndelenSalarisPotjesSysteem,
+  "kosten-verdelen-samenwonen-ongelijk-inkomen": KostenVerdelenSamenwonenOngelijkInkomen,
+  "vakantiegeld-netto-hoeveel-hou-je-over-2026": VakantiegeldNettoHoeveelHouJeOver2026,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {
