@@ -87,10 +87,13 @@ const filters = ["Alles", "Besparen", "Inkomen", "Sparen", "Inzicht"];
 export function InzichtenGrid({ artikelen }: { artikelen: Artikel[] }) {
   const [actief, setActief] = useState("Alles");
 
-  const gefilterd =
+  const gefilterd = (
     actief === "Alles"
       ? artikelen
-      : artikelen.filter((a) => a.categorie === actief);
+      : artikelen.filter((a) => a.categorie === actief)
+  )
+    .slice()
+    .sort((a, b) => b.datum.localeCompare(a.datum));
 
   // Aantal per categorie voor de filterlabels
   const aantalPerCategorie: Record<string, number> = { Alles: artikelen.length };
