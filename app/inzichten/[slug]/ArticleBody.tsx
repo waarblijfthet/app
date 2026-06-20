@@ -47,6 +47,11 @@ import VasteLastenOverzichtMaken from "./content/vaste-lasten-overzicht-maken";
 import GeldIndelenSalarisPotjesSysteem from "./content/geld-indelen-salaris-potjes-systeem";
 import KostenVerdelenSamenwonenOngelijkInkomen from "./content/kosten-verdelen-samenwonen-ongelijk-inkomen";
 import VakantiegeldNettoHoeveelHouJeOver2026 from "./content/vakantiegeld-netto-hoeveel-hou-je-over-2026";
+import GoedSalarisTochGeldstress from "./content/goed-salaris-toch-geldstress";
+import GripOpJeGeldKrijgen from "./content/grip-op-je-geld-krijgen";
+import WaaromLuktSparenNiet from "./content/waarom-lukt-sparen-niet";
+import BudgetMakenDatJeVolhoudt from "./content/budget-maken-dat-je-volhoudt";
+import HoeveelGeldOverhoudenEindeMaand from "./content/hoeveel-geld-overhouden-einde-maand";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -98,6 +103,11 @@ const contentMap: Record<string, () => JSX.Element> = {
   "geld-indelen-salaris-potjes-systeem": GeldIndelenSalarisPotjesSysteem,
   "kosten-verdelen-samenwonen-ongelijk-inkomen": KostenVerdelenSamenwonenOngelijkInkomen,
   "vakantiegeld-netto-hoeveel-hou-je-over-2026": VakantiegeldNettoHoeveelHouJeOver2026,
+  "goed-salaris-toch-geldstress": GoedSalarisTochGeldstress,
+  "grip-op-je-geld-krijgen": GripOpJeGeldKrijgen,
+  "waarom-lukt-sparen-niet": WaaromLuktSparenNiet,
+  "budget-maken-dat-je-volhoudt": BudgetMakenDatJeVolhoudt,
+  "hoeveel-geld-overhouden-einde-maand": HoeveelGeldOverhoudenEindeMaand,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

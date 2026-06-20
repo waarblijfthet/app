@@ -80,6 +80,256 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "goed-salaris-toch-geldstress",
+    korteTitel: "Goed salaris, toch geldstress",
+    titel: "Goed salaris, toch geldstress: zo kwam er bij ons thuis weer rust",
+    metaTitel: "Goed salaris en toch geldstress? Zo krijg je er weer rust in",
+    metaDescription:
+      "Geldstress ondanks een goed inkomen? Een kwart van de hoge inkomens komt moeilijk rond. Zo kreeg ik er bij ons thuis weer rust in, in vier stappen.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Je verdient goed en hebt toch een knoop in je maag van geld. Je bent niet de enige: zelfs een kwart van de hoge inkomens komt moeilijk rond. Waarom het een structuurprobleem is, en de vier stappen waarmee er bij ons thuis weer rust kwam.",
+    preview: {
+      type: "statistiek",
+      label: "Hoog inkomen en toch moeite met rondkomen",
+      segmenten: [
+        { label: "Moeite met rondkomen", pct: 24, kleur: "#FAF0EB", tekstKleur: "#92600A" },
+        { label: "Komt rond", pct: 76, kleur: "#E8F2EC", tekstKleur: "#2D6A4F" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Kun je geldstress hebben met een goed inkomen?",
+        antwoord:
+          "Ja. Uit onderzoek van Deloitte en het Nibud (2025) blijkt dat zelfs een kwart van de mensen met een hoog inkomen moeite heeft om rond te komen. Geldstress hangt niet alleen samen met de hoogte van je inkomen, maar vooral met of je geld een duidelijke bestemming heeft.",
+      },
+      {
+        vraag: "Hoe kom ik van geldstress af?",
+        antwoord:
+          "Begin met inzicht: zet je inkomen, vaste lasten en dagelijkse uitgaven naast elkaar. Verdeel daarna je inkomen meteen na binnenkomst over aparte rekeningen, bouw een kleine buffer op voor tegenvallers, en praat erover met je partner. De vaagheid die de stress voedt verdwijnt zodra je het zwart op wit ziet.",
+      },
+      {
+        vraag: "Ligt geldstress aan mezelf?",
+        antwoord:
+          "Meestal niet. Geldstress met een goed inkomen is bijna altijd een structuurprobleem en geen karakterfout. Je geld verdwijnt omdat het geen richting heeft, niet omdat je iets verkeerd doet. Met een paar vaste afspraken buig je het om, zonder dat je meer hoeft te verdienen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Deloitte: 47% van Nederland is financieel kwetsbaar",
+        url: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
+      },
+      {
+        label: "Nibud: Geldzaken in de praktijk 2024",
+        url: "https://www.nibud.nl/onderzoeksrapporten/rapport-geldzaken-in-de-praktijk-2024/",
+      },
+    ],
+  },
+  {
+    slug: "grip-op-je-geld-krijgen",
+    korteTitel: "Grip op je geld krijgen",
+    titel: "Geen grip op je geld, terwijl je goed verdient? Zo kreeg ik er controle over",
+    metaTitel: "Grip op je geld krijgen: het stappenplan in 5 stappen (2026)",
+    metaDescription:
+      "Geen overzicht over je geld terwijl je goed verdient? In vijf stappen krijg je grip, ook zonder bankkoppeling of huishoudboekje. Zo pak je het aan.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Geen schuldenprobleem, maar een overzichtsprobleem: je verdient goed en weet toch niet waar het heen gaat. In vijf stappen krijg je grip, zonder bankkoppeling en zonder huishoudboekje dat je toch laat vallen.",
+    preview: {
+      type: "pijn",
+      label: "Signalen dat je geen grip hebt",
+      items: [
+        "Je weet niet wat er per maand binnenkomt en uitgaat",
+        "Je schrikt soms van je saldo zonder te weten waarom",
+        "Je houdt geen overzicht bij, of laat het steeds vallen",
+        "Je stuurt nergens op, het gebeurt je gewoon",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Hoe krijg ik grip op mijn geld?",
+        antwoord:
+          "In vijf stappen: breng je inkomsten in beeld, zet al je vaste lasten op een rij, meet je dagelijkse uitgaven, verdeel je inkomen meteen na binnenkomst over aparte rekeningen, en doe één keer per maand een korte check. Zo stuur je op de grote lijn zonder alles te registreren.",
+      },
+      {
+        vraag: "Kan dat zonder bankkoppeling of app?",
+        antwoord:
+          "Ja. Je hebt geen app of bankkoppeling nodig, alleen een eerlijk beginbeeld van wat er binnenkomt en uitgaat. Een app registreert wat er gebeurd is, maar sturen doe je met een paar duidelijke afspraken die je volhoudt.",
+      },
+      {
+        vraag: "Hoe lang duurt het voordat je grip hebt?",
+        antwoord:
+          "Het overzicht maken kost een paar uur als je je afschriften erbij pakt, of een paar minuten met de gratis analyse. Daarna is grip houden een kwestie van vijf minuten per maand om te checken of het nog klopt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+      {
+        label: "Wijzer in geldzaken: Nationale Monitor Geldzorgen",
+        url: "https://www.wijzeringeldzaken.nl/Nationale-Monitor-Geldzorgen/",
+      },
+    ],
+  },
+  {
+    slug: "waarom-lukt-sparen-niet",
+    korteTitel: "Waarom sparen niet lukt",
+    titel: "Sparen lukt nooit, zelfs met een goed salaris? Zo doorbrak ik dat patroon",
+    metaTitel: "Waarom lukt sparen niet, en hoe je het doorbreekt",
+    metaDescription:
+      "Elke maand niks over, ook met een goed inkomen? Sparen mislukt zelden door discipline. Zo draai je de volgorde om en lukt het wel.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "6",
+    categorie: "Sparen",
+    excerpt:
+      "Je neemt je voor te sparen en elke maand is het geld op voordat je eraan toekomt. Het ligt zelden aan je discipline. Zo doorbreek je het patroon door de volgorde om te draaien en de onregelmatige kosten af te vangen.",
+    preview: {
+      type: "statistiek",
+      label: "Hoeveel Nederlanders sparen",
+      segmenten: [
+        { label: "Spaart minder dan 10%", pct: 41, kleur: "#FAF0EB", tekstKleur: "#92600A" },
+        { label: "Spaart 10% of meer", pct: 59, kleur: "#E8F2EC", tekstKleur: "#2D6A4F" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Waarom lukt sparen niet ondanks een goed inkomen?",
+        antwoord:
+          "Meestal omdat je sparen als restpost behandelt: je spaart wat aan het einde van de maand overblijft, en dat is bijna niks. Daarnaast trekken vaste lasten en onregelmatige kosten zoals premies en reparaties je spaarplan stilletjes leeg. Het ligt zelden aan luxe of discipline.",
+      },
+      {
+        vraag: "Hoe begin ik met sparen als er nooit iets overblijft?",
+        antwoord:
+          "Draai de volgorde om: zet op de dag dat je salaris binnenkomt automatisch een vast bedrag op een aparte spaarrekening, en verdeel daarna pas de rest. Begin desnoods klein en laat het bedrag oplopen. Zet er een apart potje naast voor onregelmatige uitgaven, zodat die je spaargeld niet leegtrekken.",
+      },
+      {
+        vraag: "Hoeveel zou ik per maand moeten sparen?",
+        antwoord:
+          "Het Nibud adviseert om waar mogelijk ongeveer 10% van je netto-inkomen te sparen. Ongeveer 41% van de Nederlanders haalt dat niet (Nibud, 2024). Lukt 10% nog niet, begin dan lager en bouw het op.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS: vermogen van huishoudens 2024",
+        url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/vermogen-van-huishoudens/",
+      },
+      {
+        label: "Nibud: sparen",
+        url: "https://www.nibud.nl/onderwerpen/sparen/",
+      },
+    ],
+  },
+  {
+    slug: "budget-maken-dat-je-volhoudt",
+    korteTitel: "Een budget dat je volhoudt",
+    titel: "Waarom je budget altijd mislukt, en hoe je er een maakt die je wel volhoudt",
+    metaTitel: "Budget maken dat je volhoudt: zo lukt het wel",
+    metaDescription:
+      "Je budget houdt nooit lang stand? Dat ligt niet aan je discipline. De drie redenen waarom budgetten mislukken en hoe je er een maakt zonder dagelijks bijhouden.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "6",
+    categorie: "Besparen",
+    excerpt:
+      "De eerste week lukt het, daarna zakt het weg. De meeste budgetten mislukken niet door gebrek aan discipline, maar omdat ze dagelijks bijhouden vereisen en te strak zijn. Zo maak je er een die je wel volhoudt.",
+    preview: {
+      type: "pijn",
+      label: "Waarom budgetten sneuvelen",
+      items: [
+        "Het vereist elke uitgave bijhouden, dat houd je niet vol",
+        "Het is te strak, geen ruimte voor iets leuks of een tegenvaller",
+        "Het klopt niet met de werkelijkheid, jaarposten zijn vergeten",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Waarom mislukt mijn budget steeds?",
+        antwoord:
+          "Door drie dingen: het vereist dagelijks bijhouden, het is te strak zonder ruimte voor leuke dingen of tegenvallers, en het klopt niet met je werkelijke uitgaven omdat jaarposten zoals verzekeringen en de gemeentelijke aanslag ontbreken. Geen van die drie heeft met discipline te maken.",
+      },
+      {
+        vraag: "Hoe houd ik een budget vol zonder alles bij te houden?",
+        antwoord:
+          "Doe het werk vooraf in plaats van elke dag. Verdeel je inkomen op de dag dat het binnenkomt over aparte rekeningen voor vaste lasten, dagelijks geld, sparen en onregelmatige uitgaven. Het bedrag op je dagelijkse rekening is dan je budget, zonder dat je iets hoeft te turven.",
+      },
+      {
+        vraag: "Werkt de 50/30/20-regel?",
+        antwoord:
+          "Als startverhouding wel: ongeveer 50% naar vaste lasten, 30% vrij besteedbaar en 20% sparen. Maar klopt die verhouding niet met jouw vaste lasten, pas hem dan aan. Een budget moet bij jouw situatie passen, niet andersom.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: huishoudelijke uitgaven",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
+      },
+      {
+        label: "Nibud: een financiele buffer opbouwen",
+        url: "https://www.nibud.nl/onderwerpen/sparen/een-financiele-buffer-opbouwen/",
+      },
+    ],
+  },
+  {
+    slug: "hoeveel-geld-overhouden-einde-maand",
+    korteTitel: "Hoeveel hoor je over te houden?",
+    titel: "Hoeveel hoor je aan het einde van de maand over te houden in 2026?",
+    metaTitel: "Hoeveel geld overhouden per maand? Richtlijnen 2026",
+    metaDescription:
+      "Hoeveel hoor je eind van de maand over te houden? De richtlijnen voor 2026, waarom dat getal weinig over jou zegt, en wat je doet als er niks overblijft.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inkomen",
+    excerpt:
+      "Blijft er bijna niks over en vraag je je af of dat normaal is? De richtlijnen zeggen zeker 10% sparen, maar je vaste lasten bepalen alles. Wat normaal is in 2026, en wat je doet als het niet lukt.",
+    preview: {
+      type: "verdeling",
+      label: "Wat hoort er over te blijven?",
+      posten: [
+        { naam: "Vaste lasten", pct: 50, kleur: "#1C3A2A" },
+        { naam: "Vrij besteedbaar", pct: 30, kleur: "#C4603A" },
+        { naam: "Sparen", pct: 20, kleur: "#2D6A4F" },
+      ],
+      uitkomst: "Richtlijn: zeker 10% sparen (Nibud-norm)",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel hoor je over te houden aan het einde van de maand?",
+        antwoord:
+          "Als richtlijn zou je zeker 10% van je netto-inkomen moeten kunnen sparen (Nibud). Veel mensen gebruiken de 50/30/20 verdeling: ongeveer de helft naar vaste lasten, 30% vrij besteedbaar en 20% sparen. Dat laatste deel is wat er idealiter overblijft.",
+      },
+      {
+        vraag: "Is het normaal dat ik niks overhoud?",
+        antwoord:
+          "Het komt vaak voor, en het zegt zelden dat je slordig bent. Een gemiddeld huishouden is ruim 55% van het inkomen kwijt aan vaste lasten, en bij een hoge huur of hypotheek blijft er voor de rest simpelweg minder over. Het wijst meestal op een hoge vaste basis, niet op verkeerd gedrag.",
+      },
+      {
+        vraag: "Hoeveel spaargeld heeft de gemiddelde Nederlander?",
+        antwoord:
+          "De doorsnee Nederlander heeft ongeveer €21.500 op de spaarrekening (CBS, 2024). Het gemiddelde ligt rond €54.700, maar dat is vertekend door een kleine groep met veel spaargeld. Tegelijk heeft ongeveer een op de vijf huishoudens minder dan €1.000 achter de hand.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS: vermogen van huishoudens 2024",
+        url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/vermogen-van-huishoudens/",
+      },
+      {
+        label: "Nibud: stappenplan maandelijks sparen",
+        url: "https://www.nibud.nl/tools/stappenplan-maandelijks-sparen/",
+      },
+    ],
+  },
+  {
     slug: "waarom-hou-ik-nooit-geld-over",
     korteTitel: "Nooit geld over ondanks goed inkomen",
     titel: "Waarom hou ik nooit geld over, terwijl ik goed verdien?",
