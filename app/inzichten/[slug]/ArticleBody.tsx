@@ -62,6 +62,11 @@ import Bonus13eMaandNettoBerekenen from "./content/bonus-13e-maand-netto-bereken
 import SamenTeVeelVerdiendToeslagKwijt from "./content/samen-te-veel-verdiend-toeslag-kwijt";
 import CashStuffingBeginnen from "./content/cash-stuffing-beginnen";
 import Is3000NettoGenoegGezin from "./content/is-3000-netto-genoeg-gezin";
+import KlarnaNietKunnenBetalen from "./content/klarna-niet-kunnen-betalen";
+import OverzichtAchterafBetalen from "./content/overzicht-achteraf-betalen";
+import StoppenMetAchterafBetalen from "./content/stoppen-met-achteraf-betalen";
+import AchterafBetalenBkrRegistratie from "./content/achteraf-betalen-bkr-registratie";
+import WatKostAchterafBetalen from "./content/wat-kost-achteraf-betalen";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -128,6 +133,11 @@ const contentMap: Record<string, () => JSX.Element> = {
   "samen-te-veel-verdiend-toeslag-kwijt": SamenTeVeelVerdiendToeslagKwijt,
   "cash-stuffing-beginnen": CashStuffingBeginnen,
   "is-3000-netto-genoeg-gezin": Is3000NettoGenoegGezin,
+  "klarna-niet-kunnen-betalen": KlarnaNietKunnenBetalen,
+  "overzicht-achteraf-betalen": OverzichtAchterafBetalen,
+  "stoppen-met-achteraf-betalen": StoppenMetAchterafBetalen,
+  "achteraf-betalen-bkr-registratie": AchterafBetalenBkrRegistratie,
+  "wat-kost-achteraf-betalen": WatKostAchterafBetalen,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

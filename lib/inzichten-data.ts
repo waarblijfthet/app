@@ -80,6 +80,228 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "klarna-niet-kunnen-betalen",
+    korteTitel: "Klarna niet kunnen betalen?",
+    titel: "Klarna niet kunnen betalen? Dit gebeurt er stap voor stap",
+    metaTitel: "Klarna niet kunnen betalen: wat gebeurt er (en wat kost het)?",
+    metaDescription:
+      "Een Klarna-betaling die je niet rond krijgt? Dit gebeurt er stap voor stap, wat de kosten ongeveer zijn, en waarom een aanmaning niet meteen een vaststaande schuld is.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "De betaaltermijn loopt af en het geld is er niet. Wat er stap voor stap gebeurt, wat de kosten ongeveer zijn, en waarom je niet hoeft te schrikken van een aanmaning. Rustig, zonder paniek.",
+    preview: {
+      type: "pijn",
+      label: "Wat er gebeurt bij te laat betalen",
+      items: [
+        "Eerst een gratis betaalherinnering",
+        "Daarna een aanmaning met kosten (rond €13,50)",
+        "Verder uitblijven: kan oplopen tot 15%, minimaal €40",
+        "Pas daarna overdracht aan een incassopartij",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat gebeurt er als ik mijn Klarna niet op tijd betaal?",
+        antwoord:
+          "Je krijgt eerst een gratis herinnering, daarna een aanmaning met kosten (in 2025/2026 rond €13,50, lager bij kleine bestellingen). Blijft betaling uit, dan kan het oplopen tot ongeveer 15% van het bedrag met een minimum van €40, en wordt het overgedragen aan een incassopartij. Hoe eerder je betaalt, hoe lager de kosten.",
+      },
+      {
+        vraag: "Is een aanmaning van Klarna een vaststaande schuld?",
+        antwoord:
+          "Je moet betalen wat je verschuldigd bent, maar je hoeft niet te schrikken van dreigende taal. In 2025 oordeelden rechters dat de incassokosten deel zijn van Klarna's verdienmodel, en meerdere vorderingen werden afgewezen wegens een gebrekkig dossier. Maak bezwaar tegen onterechte kosten en laat je niet opjagen.",
+      },
+      {
+        vraag: "Wat doe ik als ik echt niet kan betalen?",
+        antwoord:
+          "Betaal wat je nu kunt zodat de kosten niet oplopen, en breng al je openstaande betalingen in beeld. Lukt het echt niet en stapelen de betalingen zich op, zoek dan op tijd hulp. Bij Geldfit kun je gratis en anoniem terecht.",
+      },
+    ],
+    externLinks: [
+      { label: "AFM: Marktupdate Buy Now Pay Later 2025", url: "https://www.afm.nl/~/profmedia/files/rapporten/2025/rapport-marktupdate--bnpl-2025-ned.pdf" },
+      { label: "NOS: rechter over incassokosten Klarna", url: "https://nos.nl/artikel/2565596-achterafbetaaldienst-klarna-verdient-aan-incassokosten-oordeelt-rechter" },
+    ],
+  },
+  {
+    slug: "overzicht-achteraf-betalen",
+    korteTitel: "Overzicht over je achteraf-betalingen",
+    titel: "Hoe je je openstaande Klarna's en achteraf-betalingen op een rij krijgt",
+    metaTitel: "Overzicht krijgen over je achteraf-betalingen (Klarna en meer)",
+    metaDescription:
+      "Het overzicht kwijt door achteraf betalen? In vier stappen zet je al je openstaande betalingen bij Klarna, Riverty, In3 en Billink op een rij.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Het grootste risico van achteraf betalen is niet één betaling, maar het verlies van overzicht. In vier stappen zet je alles op een rij: per aanbieder, met bedrag en datum.",
+    preview: {
+      type: "pijn",
+      label: "Het overzicht kwijt",
+      items: [
+        "Betalingen verspreid over Klarna, Riverty, In3 en Billink",
+        "Je kent het totaalbedrag niet meer",
+        "Afschrijfdata lopen door elkaar",
+        "Het voelt niet als uitgeven, dus je houdt het niet bij",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Hoe krijg ik overzicht over mijn achteraf-betalingen?",
+        antwoord:
+          "Open de apps en accounts van alle aanbieders waar je achteraf betaalt (Klarna, Riverty, In3, Billink), noteer per openstaande betaling het bedrag en de afschrijfdatum, tel het totaal op en zet de data in je agenda. Zo verrast geen enkele betaling je nog en loop je geen aanmaningskosten op.",
+      },
+      {
+        vraag: "Waarom raak ik het overzicht zo snel kwijt?",
+        antwoord:
+          "Achteraf betalen is ontworpen om drempelloos te zijn: er gaat niet meteen geld van je rekening, dus het voelt niet als uitgeven. Bij meerdere winkels en aanbieders lopen de betaaldata door elkaar. Het Nibud ziet dat vooral jongere gebruikers hierdoor hun financiële overzicht verliezen.",
+      },
+      {
+        vraag: "Hoe voorkom ik dat het opnieuw misgaat?",
+        antwoord:
+          "Een overzicht maken helpt maar één keer als je daarna weer op de oude voet verdergaat. Zorg dat je weet wat er maandelijks vrij is en geef je geld een bestemming, zodat je niet meer hoeft uit te stellen.",
+      },
+    ],
+    externLinks: [
+      { label: "Nibud: Betaalgedrag scholieren 2025", url: "https://www.nibud.nl/onderzoeksrapporten/rapport-betaalgedrag-scholieren-2025/" },
+      { label: "AFM: Marktupdate Buy Now Pay Later 2025", url: "https://www.afm.nl/~/profmedia/files/rapporten/2025/rapport-marktupdate--bnpl-2025-ned.pdf" },
+    ],
+  },
+  {
+    slug: "stoppen-met-achteraf-betalen",
+    korteTitel: "Stoppen met achteraf betalen",
+    titel: "Stoppen met achteraf betalen: zo kom je uit de uitstel-spiraal",
+    metaTitel: "Stoppen met achteraf betalen: zo doorbreek je het",
+    metaDescription:
+      "Wil je stoppen met achteraf betalen? Waarom het een uitstel-spiraal voedt, de stappen om ermee te stoppen zonder jezelf af te kraken, en hoe je het volhoudt.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Je wilde het niet meer doen, en toch klikte je weer op achteraf betalen. Het ligt niet aan je wilskracht, maar aan een systeem dat is ontworpen om makkelijk te zijn. Zo kom je eruit, stap voor stap.",
+    preview: {
+      type: "statistiek",
+      label: "Jongvolwassenen en achteraf betalen",
+      segmenten: [
+        { label: "Vindt het normaal", pct: 53, kleur: "#FAF0EB", tekstKleur: "#92600A" },
+        { label: "Niet", pct: 47, kleur: "#E8F2EC", tekstKleur: "#2D6A4F" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Hoe stop ik met achteraf betalen?",
+        antwoord:
+          "In deze volgorde: breng eerst je openstaande betalingen in beeld, maak ze af (te beginnen bij de dichtstbijzijnde datum), en zet daarna pas de optie uit of verwijder je account. Een dichte deur is makkelijker dan elke keer nee zeggen bij de kassa.",
+      },
+      {
+        vraag: "Waarom wordt achteraf betalen een spiraal?",
+        antwoord:
+          "Het schuift een uitgave naar de toekomst. Die komt volgende maand terug bovenop je gewone lasten, en is het dan weer krap, dan stel je de volgende aankoop opnieuw uit. Het is geen karakterfout, het is precies hoe het bedoeld is: drempelloos, zodat je vaker koopt.",
+      },
+      {
+        vraag: "Hoe houd ik het vol?",
+        antwoord:
+          "Met een kleine buffer en grip op je maand hoef je niet meer uit te stellen. Spreek een eenvoudige regel af: je betaalt meteen of je koopt het niet. Lukt aflossen niet of stapelen de schulden, zoek dan op tijd hulp, bijvoorbeeld gratis en anoniem bij Geldfit.",
+      },
+    ],
+    externLinks: [
+      { label: "Rijksoverheid: nieuwe regels voor Buy Now Pay Later", url: "https://www.rijksoverheid.nl/actueel/nieuws/2025/10/31/nieuwe-regels-voor-buy-now-pay-later" },
+      { label: "AFM: gedragscode achteraf betalen", url: "https://www.afm.nl/en/sector/actueel/2023/oktober/gedragscode-achteraf-betalen" },
+    ],
+  },
+  {
+    slug: "achteraf-betalen-bkr-registratie",
+    korteTitel: "Achteraf betalen en je BKR",
+    titel: "Komt achteraf betalen op je BKR? Het eerlijke antwoord",
+    metaTitel: "Komt achteraf betalen op je BKR? (en wat verandert in 2026)",
+    metaDescription:
+      "Komt achteraf betalen op je BKR-registratie? Op tijd betaald meestal niet, bij achterstand wel. En dit verandert er in 2026 met het toezicht op achteraf betalen.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Komt achteraf betalen op je BKR, bijvoorbeeld voor een latere hypotheek? Op tijd betaald meestal niet, bij een achterstand wel. Plus wat er in 2026 verandert aan het toezicht.",
+    preview: {
+      type: "pijn",
+      label: "Wanneer wel, wanneer niet",
+      items: [
+        "Op tijd betaald: doorgaans geen registratie",
+        "Lange achterstand naar incasso: wel risico",
+        "Vanaf eind 2026: verplichte kredietwaardigheidstoets",
+        "Pas op met stellige verhalen van BKR-checkers",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Komt achteraf betalen op je BKR?",
+        antwoord:
+          "Betaal je je achteraf-betalingen op tijd, dan worden ze doorgaans niet bij het BKR geregistreerd: het zijn kleine, kortlopende bedragen. Het risico ontstaat pas bij een langere achterstand die wordt overgedragen aan een incassobureau, dat kan wel tot een negatieve registratie leiden.",
+      },
+      {
+        vraag: "Wat verandert er in 2026 voor achteraf betalen?",
+        antwoord:
+          "Door nieuwe Europese regels komen aanbieders zoals Klarna naar verwachting vanaf eind 2026 onder toezicht van de AFM. Daarbij hoort een verplichte kredietwaardigheidstoets vooraf en een verbod op achteraf betalen onder de 18 jaar.",
+      },
+      {
+        vraag: "Heeft achteraf betalen invloed op mijn hypotheek?",
+        antwoord:
+          "Een nette, op tijd betaalde achteraf-betaling heeft doorgaans geen invloed. Een negatieve BKR-registratie door een achterstand kan dat wel hebben. De simpele regel blijft: op tijd betalen houdt je registratie schoon.",
+      },
+    ],
+    externLinks: [
+      { label: "Rijksoverheid: nieuwe regels voor Buy Now Pay Later", url: "https://www.rijksoverheid.nl/actueel/nieuws/2025/10/31/nieuwe-regels-voor-buy-now-pay-later" },
+      { label: "AFM: gedragscode achteraf betalen", url: "https://www.afm.nl/en/sector/actueel/2023/oktober/gedragscode-achteraf-betalen" },
+    ],
+  },
+  {
+    slug: "wat-kost-achteraf-betalen",
+    korteTitel: "Wat kost achteraf betalen echt?",
+    titel: "Wat kost achteraf betalen echt? Waarom gratis niet het hele verhaal is",
+    metaTitel: "Wat kost achteraf betalen echt? (Klarna en anderen)",
+    metaDescription:
+      "Achteraf betalen is gratis op tijd, maar wat kost het als je te laat bent? De kostenladder, waarom gratis misleidt, en het verschil tussen de aanbieders.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Besparen",
+    excerpt:
+      "Achteraf betalen is gratis zolang je op tijd betaalt. De kosten zitten in te laat betalen, en in iets wat je niet op een rekening terugziet: het verlies van overzicht. Dat tweede is vaak de duurdere kant.",
+    preview: {
+      type: "vergelijking",
+      label: "Wat achteraf betalen kost",
+      items: [
+        { naam: "Op tijd betaald", bedrag: 0, kleur: "#2D6A4F" },
+        { naam: "Te laat (kan oplopen tot)", bedrag: 40, kleur: "#B03A2E" },
+      ],
+      noot: "Gratis op tijd, kosten bij te laat (indicatief 2025/2026)",
+    },
+    faq: [
+      {
+        vraag: "Is achteraf betalen echt gratis?",
+        antwoord:
+          "Gratis zolang je op tijd betaalt, dat klopt. Maar bij te laat betalen lopen de kosten op: een aanmaning rond €13,50, en bij verder uitblijven tot ongeveer 15% van het bedrag met een minimum van €40. Veel pagina's die het gratis noemen, verdienen zelf aan je aankopen.",
+      },
+      {
+        vraag: "Waarom is gratis niet het hele verhaal?",
+        antwoord:
+          "Twee dingen blijven onderbelicht. In 2025 oordeelden rechters dat de incassokosten deel zijn van het verdienmodel van Klarna. En omdat het zo drempelloos is, koop je sneller en raak je het overzicht kwijt. Die onzichtbaarheid kost de meeste mensen meer dan welke aanmaning ook.",
+      },
+      {
+        vraag: "Verdienen alle aanbieders aan te laat betalen?",
+        antwoord:
+          "Nee. In rechtszaken in 2025 kwam naar voren dat het verdienmodel van Klarna anders is dan dat van bijvoorbeeld Riverty, In3 en Billink, die naar verluidt niet aan te laat betalen verdienen. Dat maakt achteraf betalen niet automatisch verstandig, maar de aanbieders zitten niet allemaal hetzelfde in elkaar.",
+      },
+    ],
+    externLinks: [
+      { label: "NOS: rechter over incassokosten Klarna", url: "https://nos.nl/artikel/2565596-achterafbetaaldienst-klarna-verdient-aan-incassokosten-oordeelt-rechter" },
+      { label: "AFM: Marktupdate Buy Now Pay Later 2025", url: "https://www.afm.nl/~/profmedia/files/rapporten/2025/rapport-marktupdate--bnpl-2025-ned.pdf" },
+    ],
+  },
+  {
     slug: "vrij-besteedbaar-inkomen-berekenen",
     korteTitel: "Wat blijft er over? Reken het uit",
     titel: "Wat blijft er over na je vaste lasten? Reken je vrij besteedbaar inkomen uit",
