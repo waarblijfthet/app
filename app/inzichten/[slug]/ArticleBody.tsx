@@ -52,6 +52,16 @@ import GripOpJeGeldKrijgen from "./content/grip-op-je-geld-krijgen";
 import WaaromLuktSparenNiet from "./content/waarom-lukt-sparen-niet";
 import BudgetMakenDatJeVolhoudt from "./content/budget-maken-dat-je-volhoudt";
 import HoeveelGeldOverhoudenEindeMaand from "./content/hoeveel-geld-overhouden-einde-maand";
+import VrijBesteedbaarInkomenBerekenen from "./content/vrij-besteedbaar-inkomen-berekenen";
+import NettoLoonsverhogingBerekenen from "./content/netto-loonsverhoging-berekenen";
+import Weken53SpaaruitdagingSchema2026 from "./content/53-weken-spaaruitdaging-schema-2026";
+import VergetenAftrekpostenBelastingaangifte from "./content/vergeten-aftrekposten-belastingaangifte";
+import MoneyDysmorphiaUitleg from "./content/money-dysmorphia-uitleg";
+import WaarBlijftMijnGeldEindeMaand from "./content/waar-blijft-mijn-geld-einde-maand";
+import Bonus13eMaandNettoBerekenen from "./content/bonus-13e-maand-netto-berekenen";
+import SamenTeVeelVerdiendToeslagKwijt from "./content/samen-te-veel-verdiend-toeslag-kwijt";
+import CashStuffingBeginnen from "./content/cash-stuffing-beginnen";
+import Is3000NettoGenoegGezin from "./content/is-3000-netto-genoeg-gezin";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -108,6 +118,16 @@ const contentMap: Record<string, () => JSX.Element> = {
   "waarom-lukt-sparen-niet": WaaromLuktSparenNiet,
   "budget-maken-dat-je-volhoudt": BudgetMakenDatJeVolhoudt,
   "hoeveel-geld-overhouden-einde-maand": HoeveelGeldOverhoudenEindeMaand,
+  "vrij-besteedbaar-inkomen-berekenen": VrijBesteedbaarInkomenBerekenen,
+  "netto-loonsverhoging-berekenen": NettoLoonsverhogingBerekenen,
+  "53-weken-spaaruitdaging-schema-2026": Weken53SpaaruitdagingSchema2026,
+  "vergeten-aftrekposten-belastingaangifte": VergetenAftrekpostenBelastingaangifte,
+  "money-dysmorphia-uitleg": MoneyDysmorphiaUitleg,
+  "waar-blijft-mijn-geld-einde-maand": WaarBlijftMijnGeldEindeMaand,
+  "bonus-13e-maand-netto-berekenen": Bonus13eMaandNettoBerekenen,
+  "samen-te-veel-verdiend-toeslag-kwijt": SamenTeVeelVerdiendToeslagKwijt,
+  "cash-stuffing-beginnen": CashStuffingBeginnen,
+  "is-3000-netto-genoeg-gezin": Is3000NettoGenoegGezin,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

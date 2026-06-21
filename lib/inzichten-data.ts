@@ -80,6 +80,454 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "vrij-besteedbaar-inkomen-berekenen",
+    korteTitel: "Wat blijft er over? Reken het uit",
+    titel: "Wat blijft er over na je vaste lasten? Reken je vrij besteedbaar inkomen uit",
+    metaTitel: "Vrij besteedbaar inkomen berekenen (rekenhulp 2026)",
+    metaDescription:
+      "Reken in een paar seconden uit wat er na je vaste lasten echt vrij overblijft. Met een simpele rekenhulp en uitleg wat een gezonde uitkomst is.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Je weet wat er binnenkomt, maar niet wat er echt vrij overblijft. Met deze rekenhulp zie je het in een paar seconden, plus wat een gezonde uitkomst is.",
+    preview: {
+      type: "verdeling",
+      label: "Waar je netto-inkomen heen gaat",
+      posten: [
+        { naam: "Vaste lasten", pct: 50, kleur: "#1C3A2A" },
+        { naam: "Dagelijkse uitgaven", pct: 30, kleur: "#C4603A" },
+        { naam: "Vrij besteedbaar", pct: 20, kleur: "#2D6A4F" },
+      ],
+      uitkomst: "Reken jouw eigen bedrag uit",
+    },
+    faq: [
+      {
+        vraag: "Hoe bereken je je vrij besteedbaar inkomen?",
+        antwoord:
+          "Neem je netto-inkomen per maand, haal daar je vaste lasten af en daarna je noodzakelijke dagelijkse uitgaven. Wat overblijft is je vrij besteedbaar inkomen: het bedrag voor sparen, leuke dingen en buffer. Reken jaarlijkse posten zoals verzekeringen om naar een maandbedrag.",
+      },
+      {
+        vraag: "Wat is een gezond vrij besteedbaar bedrag?",
+        antwoord:
+          "Als richtlijn zou je zeker 10% van je netto-inkomen moeten kunnen sparen, en de 50/30/20 verdeling mikt op 20% vrij voor sparen. Komt daar veel minder uit, dan ligt dat meestal aan hoge vaste lasten en niet aan slordigheid.",
+      },
+      {
+        vraag: "Is vrij besteedbaar hetzelfde als wat ik overhoud?",
+        antwoord:
+          "Niet helemaal. Vrij besteedbaar is wat er na vaste lasten en noodzakelijke uitgaven overblijft. In de praktijk gaat daar vaak nog een deel ongemerkt vanaf aan dingen die je niet bijhoudt. Daarom blijft er onder de streep vaak minder over dan de rekensom suggereert.",
+      },
+    ],
+    externLinks: [
+      { label: "Nibud: uitgaven van huishoudens", url: "https://www.nibud.nl/onderwerpen/uitgaven/" },
+      { label: "Nibud: sparen", url: "https://www.nibud.nl/onderwerpen/sparen/" },
+    ],
+  },
+  {
+    slug: "netto-loonsverhoging-berekenen",
+    korteTitel: "Wat houd je netto over van je opslag?",
+    titel: "Wat houd je netto over van je loonsverhoging in 2026?",
+    metaTitel: "Netto overhouden van loonsverhoging berekenen (2026)",
+    metaDescription:
+      "Van elke 100 euro opslag houd je netto vaak 50 tot 64 euro over. Zo werkt het in 2026, waarom het tegenvalt en waarom meer verdienen je krappe gevoel niet oplost.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inkomen",
+    excerpt:
+      "Je kreeg opslag en merkt er netto bijna niks van. Van elke 100 euro bruto houd je vaak 50 tot 64 euro over, in het middensegment soms minder. Zo zit dat, en waarom meer verdienen het krappe gevoel zelden oplost.",
+    preview: {
+      type: "vergelijking",
+      label: "Van een loonsverhoging blijft over",
+      items: [
+        { naam: "€100 bruto erbij", bedrag: 100, kleur: "#8A9E8E" },
+        { naam: "Netto erbij", bedrag: 55, kleur: "#2D6A4F" },
+      ],
+      noot: "Rond modaal houd je vaak ongeveer de helft over",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel houd je netto over van een loonsverhoging?",
+        antwoord:
+          "Van elke 100 euro bruto verhoging houd je in 2026 meestal tussen de 50 en 64 euro over, afhankelijk van je inkomen. In het middensegment (ongeveer 38.000 tot 78.000 euro) kan het lager uitvallen, doordat je naast belasting ook een deel van je heffingskortingen verliest.",
+      },
+      {
+        vraag: "Waarom merk ik zo weinig van mijn opslag?",
+        antwoord:
+          "Door het progressieve belastingstelsel en de afbouw van de algemene heffingskorting en arbeidskorting tussen ongeveer 38.000 en 78.000 euro. In dat segment houd je van elke extra euro soms maar de helft of minder over.",
+      },
+      {
+        vraag: "Lost meer verdienen mijn krappe gevoel op?",
+        antwoord:
+          "Zelden. Zolang het lek in je structuur zit, loopt een hoger inkomen er gewoon doorheen en beweegt je uitgavenpatroon mee omhoog. Daarom voelt een opslag na een paar maanden alweer als niks.",
+      },
+    ],
+    externLinks: [
+      { label: "Belastingdienst: tarieven en heffingskortingen", url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen" },
+      { label: "Nibud: uitgaven van huishoudens", url: "https://www.nibud.nl/onderwerpen/uitgaven/" },
+    ],
+  },
+  {
+    slug: "53-weken-spaaruitdaging-schema-2026",
+    korteTitel: "53-weken spaaruitdaging 2026",
+    titel: "De 53-weken spaaruitdaging 2026: het complete schema",
+    metaTitel: "53 weken spaaruitdaging schema 2026 (gratis overzicht)",
+    metaDescription:
+      "Het volledige 53-wekenschema voor 2026: elke week het weeknummer sparen, samen 1.431 euro. Inclusief de omgekeerde variant en hoe je het volhoudt.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "4",
+    categorie: "Sparen",
+    excerpt:
+      "Elke week het bedrag van dat weeknummer opzij: week 1 is 1 euro, tot en met week 53. In 2026 spaar je zo 1.431 euro. Het volledige schema, de omgekeerde variant en hoe je het volhoudt.",
+    preview: {
+      type: "vergelijking",
+      label: "Wat je bij elkaar spaart",
+      items: [
+        { naam: "Na 26 weken", bedrag: 351, kleur: "#8AB89A" },
+        { naam: "Eindtotaal 2026", bedrag: 1431, kleur: "#2D6A4F" },
+      ],
+      noot: "Elke week het weeknummer in euro's, 53 weken in 2026",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel spaar je met de 53-weken spaaruitdaging?",
+        antwoord:
+          "Je zet elke week het bedrag van het weeknummer opzij: week 1 is 1 euro, week 2 is 2 euro, tot en met week 53. In 2026, dat 53 weken telt, spaar je in totaal 1.431 euro.",
+      },
+      {
+        vraag: "Wat is de omgekeerde spaaruitdaging?",
+        antwoord:
+          "Bij de omgekeerde variant begin je in week 1 met het hoogste bedrag en eindig je met 1 euro. Je spaart precies hetzelfde totaal, maar de zware weken liggen aan het begin van het jaar in plaats van rond de feestdagen.",
+      },
+      {
+        vraag: "Hoe houd ik de spaaruitdaging vol?",
+        antwoord:
+          "Zet de overboeking automatisch klaar, gebruik een aparte spaarrekening en zorg dat er ook echt ruimte voor is. Begin je terwijl je elke maand al krap zit, dan stopt het vanzelf. Reken daarom eerst uit wat er bij jou vrij is.",
+      },
+    ],
+    externLinks: [
+      { label: "Nibud: sparen", url: "https://www.nibud.nl/onderwerpen/sparen/" },
+      { label: "Nibud: een financiele buffer opbouwen", url: "https://www.nibud.nl/onderwerpen/sparen/een-financiele-buffer-opbouwen/" },
+    ],
+  },
+  {
+    slug: "vergeten-aftrekposten-belastingaangifte",
+    korteTitel: "Vergeten aftrekposten aangifte",
+    titel: "Vergeten aftrekposten bij je belastingaangifte: de checklist",
+    metaTitel: "Vergeten aftrekposten belastingaangifte: checklist 2026",
+    metaDescription:
+      "Loop deze checklist na voordat je akkoord geeft op je aangifte. De aftrekposten die particulieren het vaakst vergeten, en wat er is afgeschaft.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Besparen",
+    excerpt:
+      "Veel mensen laten geld liggen bij de aangifte omdat ze niet weten welke kosten aftrekbaar zijn. De checklist van vaakst vergeten aftrekposten, plus wat is afgeschaft. Je mag tot vijf jaar terug corrigeren.",
+    preview: {
+      type: "pijn",
+      label: "Vaak vergeten aftrekposten",
+      items: [
+        "Hypotheekrente",
+        "Giften aan goede doelen (ANBI)",
+        "Specifieke zorgkosten",
+        "Lijfrente en jaarruimte",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Welke aftrekposten vergeten mensen het vaakst?",
+        antwoord:
+          "Vooral giften, specifieke zorgkosten, lijfrente of jaarruimte, betaalde partneralimentatie en de reisaftrek voor openbaar vervoer. Ook hypotheekrente wordt soms niet goed ingevuld. Loop ze een voor een na voordat je akkoord geeft.",
+      },
+      {
+        vraag: "Kan ik een oude aangifte nog corrigeren?",
+        antwoord:
+          "Ja, je mag tot vijf jaar terug een aangifte corrigeren als je een aftrekpost vergeten bent. Dat kan dus alsnog een teruggave opleveren over eerdere jaren.",
+      },
+      {
+        vraag: "Welke aftrekpost bestaat niet meer?",
+        antwoord:
+          "De aftrek van studiekosten is sinds 2022 afgeschaft, dus die kun je niet meer opvoeren. Let er ook op dat voor hogere inkomens de meeste aftrekposten nog maar ongeveer 37% opleveren in plaats van het toptarief.",
+      },
+    ],
+    externLinks: [
+      { label: "Belastingdienst: afbouw tarief aftrekposten", url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/aftrek-en-kortingen/content/afbouw-tarief-aftrekposten-bij-hoog-inkomen" },
+      { label: "Consumentenbond: aftrekposten", url: "https://www.consumentenbond.nl/belastingaangifte/zelf-aangifte-doen/aftrekposten" },
+    ],
+  },
+  {
+    slug: "money-dysmorphia-uitleg",
+    korteTitel: "Money dysmorphia uitgelegd",
+    titel: "Money dysmorphia: waarom genoeg nooit genoeg voelt",
+    metaTitel: "Money dysmorphia: waarom genoeg nooit genoeg voelt",
+    metaDescription:
+      "Money dysmorphia is een vertekend beeld van je eigen geld: je gevoel klopt niet met de cijfers. Waarom het juist goede verdieners raakt en hoe je er rust in krijgt.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Op papier zit je prima, en toch voel je je onzeker over geld. Money dysmorphia is een vertekend beeld van je eigen situatie. Waarom het juist goede verdieners raakt, en hoe je je gevoel naast de cijfers legt.",
+    preview: {
+      type: "pijn",
+      label: "Tekenen van money dysmorphia",
+      items: [
+        "Je voelt je arm terwijl je prima zit",
+        "Je durft bijna niks uit te geven",
+        "Je checkt je saldo steeds opnieuw",
+        "Geld geeft je nooit echt rust",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat is money dysmorphia?",
+        antwoord:
+          "Money dysmorphia is een vertekend beeld van je eigen financiele situatie: je gevoel klopt niet met de cijfers. Vaak voel je je armer of onveiliger dan je feitelijk bent, soms juist rijker. Het is geen officiele diagnose, maar veel mensen herkennen het.",
+      },
+      {
+        vraag: "Waarom hebben juist goede verdieners er last van?",
+        antwoord:
+          "De onzekerheid zit niet in het bedrag maar in het niet weten. Zonder helder beeld van wat er binnenkomt, vastligt en overblijft, vult je hoofd dat gat met een gevoel, en dat is bijna altijd somberder dan de cijfers. Sociale media versterken dat.",
+      },
+      {
+        vraag: "Hoe kom ik er rust in?",
+        antwoord:
+          "Leg je gevoel naast de feiten. Zodra je zwart op wit ziet wat er binnenkomt, vastligt en overblijft, heeft het sombere gevoel minder ruimte. Blijft de onrust groot en heeft die veel invloed op je leven, praat er dan over met iemand, bijvoorbeeld je huisarts.",
+      },
+    ],
+    externLinks: [
+      { label: "Nibud: Geldzaken in de praktijk 2024", url: "https://www.nibud.nl/onderzoeksrapporten/rapport-geldzaken-in-de-praktijk-2024/" },
+      { label: "Wijzer in geldzaken: Nationale Monitor Geldzorgen", url: "https://www.wijzeringeldzaken.nl/Nationale-Monitor-Geldzorgen/" },
+    ],
+  },
+  {
+    slug: "waar-blijft-mijn-geld-einde-maand",
+    korteTitel: "Waar blijft mijn geld?",
+    titel: "Waar blijft mijn geld aan het einde van de maand?",
+    metaTitel: "Waar blijft mijn geld aan het einde van de maand?",
+    metaDescription:
+      "Niks geks gedaan en toch is het bijna op? Je geld gaat bijna altijd naar vier plekken. Zo zie je in een paar minuten welke het bij jou is.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "4",
+    categorie: "Inzicht",
+    excerpt:
+      "Het is de 24e en je vraagt je af waar het gebleven is. Je geld gaat bijna altijd naar vier plekken. Hoe je in een paar minuten ziet welke het bij jou is, en wat de eerste stap is.",
+    preview: {
+      type: "pijn",
+      label: "De vier verdachten",
+      items: [
+        "Vaste lasten, hoger dan je denkt",
+        "Dagelijkse uitgaven die je niet bijhoudt",
+        "Onregelmatige kosten zonder eigen potje",
+        "Kleine gewoontes die optellen",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Waar gaat mijn geld naartoe aan het einde van de maand?",
+        antwoord:
+          "Meestal naar vier plekken: vaste lasten die hoger zijn dan je denkt (vaak richting 55% van je inkomen), dagelijkse uitgaven die je niet bijhoudt, onregelmatige kosten zonder eigen potje, en kleine gewoontes die optellen. Welke het bij jou is, zie je pas als je het zwart op wit zet.",
+      },
+      {
+        vraag: "Hoe kom ik erachter waar mijn geld blijft?",
+        antwoord:
+          "Pak de afschriften van de afgelopen twee maanden en tel drie dingen op: vaste lasten, dagelijkse uitgaven en wat er echt overblijft. Negen van de tien keer zit de verrassing in de dagelijkse uitgaven die niemand bijhoudt.",
+      },
+      {
+        vraag: "Ligt het aan mij dat ik niks overhoud?",
+        antwoord:
+          "Meestal niet. Het is bijna nooit een grote uitgave, maar een optelsom van kleine dingen en gegroeide vaste lasten. Dat is een structuurprobleem, en daar valt op te sturen.",
+      },
+    ],
+    externLinks: [
+      { label: "Nibud: uitgaven van huishoudens", url: "https://www.nibud.nl/onderwerpen/uitgaven/" },
+      { label: "CBS: besparingen huishoudens", url: "https://www.cbs.nl/nl-nl/nieuws/2025/22/besparingen-huishoudens-namen-sterk-toe-in-2024" },
+    ],
+  },
+  {
+    slug: "bonus-13e-maand-netto-berekenen",
+    korteTitel: "Bonus of 13e maand: netto",
+    titel: "Hoeveel houd je netto over van je bonus of dertiende maand?",
+    metaTitel: "Bonus en 13e maand netto: het bijzonder tarief 2026",
+    metaDescription:
+      "Waarom gaat er bijna de helft van je bonus af? Uitleg over het bijzonder tarief 2026, de percentages per inkomen en wat je het beste met het netto-bedrag doet.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inkomen",
+    excerpt:
+      "Je bonus of dertiende maand komt binnen en de helft lijkt verdwenen. Hoe het bijzonder tarief werkt in 2026, welk percentage bij jouw inkomen hoort, en wat je het beste met het netto-bedrag doet.",
+    preview: {
+      type: "vergelijking",
+      label: "Bonus van €2.000 bruto",
+      items: [
+        { naam: "Bruto", bedrag: 2000, kleur: "#8A9E8E" },
+        { naam: "Netto (rond €50k inkomen)", bedrag: 990, kleur: "#2D6A4F" },
+      ],
+      noot: "Bijzonder tarief loopt in het middensegment op tot ruim 50%",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel belasting betaal je over een bonus of 13e maand?",
+        antwoord:
+          "Die worden belast tegen het bijzonder tarief, dat afhangt van je jaarinkomen. In 2026 is dat ongeveer 40% rond een inkomen van 38.000 euro, oplopend tot ruim 50% tussen 45.000 en 78.000 euro. Het is geen extra belasting maar een voorheffing.",
+      },
+      {
+        vraag: "Waarom voelt het bijzonder tarief zo hoog?",
+        antwoord:
+          "Over je gewone maandloon krijg je heffingskortingen die je belasting drukken, maar die zijn daar al verrekend en komen niet nog een keer over je bonus. Bovendien loopt tussen ongeveer 45.000 en 78.000 euro de arbeidskorting af, waardoor het tarief daar piekt boven de 50%.",
+      },
+      {
+        vraag: "Wat kun je het beste met je bonus doen?",
+        antwoord:
+          "Geef het netto-bedrag vooraf een bestemming, anders verdampt het binnen een paar weken. Een deel naar je buffer, een deel naar een concreet doel, en een afgesproken deel om echt leuk uit te geven.",
+      },
+    ],
+    externLinks: [
+      { label: "Belastingdienst: tarieven en heffingskortingen", url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/voorlopige-aanslag/content/voorlopige-aanslag-tarieven-en-heffingskortingen" },
+      { label: "FNV: bijzonder tarief", url: "https://www.fnv.nl/werk-inkomen/salaris-loon/bijzonder-tarief" },
+    ],
+  },
+  {
+    slug: "samen-te-veel-verdiend-toeslag-kwijt",
+    korteTitel: "Samen te veel verdiend, toeslag kwijt",
+    titel: "Samen net te veel verdiend: zo raak je je toeslag kwijt",
+    metaTitel: "Samenwonen en toeslag kwijt: de inkomensgrenzen 2026",
+    metaDescription:
+      "Apart kreeg je toeslag, samen valt alles weg. De inkomensgrenzen voor zorgtoeslag en kindgebonden budget in 2026, en wat je eraan doet.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inkomen",
+    excerpt:
+      "Apart kreeg je allebei toeslag, samen valt alles weg terwijl je maandlasten juist omhoog gingen. De inkomensgrenzen voor 2026, waarom twee goede inkomens in de knel komen, en wat je eraan doet.",
+    preview: {
+      type: "pijn",
+      label: "Samen net te veel",
+      items: [
+        "Zorgtoeslag valt weg boven ongeveer €51.142 samen",
+        "Kindgebonden budget bouwt af vanaf ongeveer €39.141",
+        "Je maandlasten gingen juist omhoog",
+        "Begroten op een toeslag loopt mis",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Tot welk inkomen krijg je zorgtoeslag in 2026?",
+        antwoord:
+          "Voor een alleenstaande ligt de grens in 2026 op ongeveer 40.857 euro per jaar, voor toeslagpartners samen op ongeveer 51.142 euro. Boven die grens vervalt de zorgtoeslag. Het is een aflopende toeslag: hoe hoger het inkomen, hoe lager het bedrag.",
+      },
+      {
+        vraag: "Vanaf welk inkomen bouwt het kindgebonden budget af?",
+        antwoord:
+          "Voor paren begint de afbouw vanaf ongeveer 39.141 euro gezamenlijk inkomen, voor alleenstaande ouders vanaf ongeveer 29.736 euro. De afbouw is 7,6% van het inkomen boven die grens.",
+      },
+      {
+        vraag: "Wat doe ik als ik mijn toeslag kwijtraak door samenwonen?",
+        antwoord:
+          "Begroot nooit op een toeslag waarvan je niet zeker bent. Schat jullie gezamenlijke jaarinkomen eerlijk in om terugbetalen te voorkomen, en richt je huishouden zo in dat je niet afhankelijk bent van die toeslag, met een buffer en een duidelijke verdeling.",
+      },
+    ],
+    externLinks: [
+      { label: "Belastingdienst: maximaal inkomen zorgtoeslag", url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/zorgtoeslag/content/maximaal-inkomen-voor-zorgtoeslag" },
+      { label: "Consumentenbond: kindgebonden budget", url: "https://www.consumentenbond.nl/toeslagen/kindgebonden-budget" },
+    ],
+  },
+  {
+    slug: "cash-stuffing-beginnen",
+    korteTitel: "Cash stuffing: zo begin je",
+    titel: "Cash stuffing: zo begin je, met een gratis startschema",
+    metaTitel: "Cash stuffing beginnen: startschema en uitleg (2026)",
+    metaDescription:
+      "Cash stuffing maakt geld weer tastbaar. Wat het is, een startschema met de enveloppen om mee te beginnen, en hoe je het combineert met je vaste lasten.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Sparen",
+    excerpt:
+      "Met pinnen voelt geld uitgeven niet als uitgeven. Cash stuffing, de envelopjesmethode, maakt het weer tastbaar. Wat het is, een startschema met enveloppen, en hoe je de juiste bedragen kiest.",
+    preview: {
+      type: "verdeling",
+      label: "Een startset enveloppen",
+      posten: [
+        { naam: "Boodschappen", pct: 40, kleur: "#1C3A2A" },
+        { naam: "Vervoer", pct: 20, kleur: "#C4603A" },
+        { naam: "Uitgaan en kleding", pct: 25, kleur: "#8AB89A" },
+        { naam: "Onvoorzien", pct: 15, kleur: "#2D6A4F" },
+      ],
+      uitkomst: "Verdeel je variabele budget",
+    },
+    faq: [
+      {
+        vraag: "Wat is cash stuffing?",
+        antwoord:
+          "Cash stuffing is de envelopjesmethode in een modern jasje: je haalt je budget voor variabele uitgaven contant op en verdeelt het over enveloppen per categorie. Is een envelop leeg, dan is dat budget op tot de volgende maand. Het werkt omdat je het geld ziet slinken.",
+      },
+      {
+        vraag: "Voor welke uitgaven werkt cash stuffing?",
+        antwoord:
+          "Vooral voor variabele, dagelijkse uitgaven zoals boodschappen, uitgaan en kleding. Niet voor vaste lasten zoals huur, hypotheek en verzekeringen, die laat je gewoon van je rekening afschrijven. Zie het als aanvulling op je structuur, niet als vervanging.",
+      },
+      {
+        vraag: "Hoeveel geld stop ik in elke envelop?",
+        antwoord:
+          "Dat hangt af van wat er na je vaste lasten te verdelen is. Vul je de enveloppen te hoog, dan kom je tekort; te laag en je grijpt toch naar je pinpas. Reken daarom eerst uit hoeveel je vrij besteedbaar overhoudt.",
+      },
+    ],
+    externLinks: [
+      { label: "Nibud: uitgaven van huishoudens", url: "https://www.nibud.nl/onderwerpen/uitgaven/" },
+      { label: "Nibud: sparen", url: "https://www.nibud.nl/onderwerpen/sparen/" },
+    ],
+  },
+  {
+    slug: "is-3000-netto-genoeg-gezin",
+    korteTitel: "Is €3.000 netto genoeg voor een gezin?",
+    titel: "Is €3.000 netto genoeg om rond te komen met een gezin?",
+    metaTitel: "Is 3000 euro netto genoeg voor een gezin? (2026)",
+    metaDescription:
+      "Kan een gezin rondkomen van 3.000 euro netto? Het eerlijke antwoord, wat kinderen en vaste lasten opslokken, en waarom je woonlasten de doorslag geven.",
+    datum: "2026-06-19",
+    datumFormatted: "19 juni 2026",
+    leestijd: "5",
+    categorie: "Inkomen",
+    excerpt:
+      "3.000 euro netto klinkt als genoeg voor een gezin, en toch komt het net niet uit. Het eerlijke antwoord: het kan, maar het is krap, en je woonlasten geven de doorslag.",
+    preview: {
+      type: "verdeling",
+      label: "Waar €3.000 netto heen gaat",
+      posten: [
+        { naam: "Vaste lasten", pct: 55, kleur: "#1C3A2A" },
+        { naam: "Kinderen", pct: 25, kleur: "#C4603A" },
+        { naam: "Vrij over", pct: 20, kleur: "#2D6A4F" },
+      ],
+      uitkomst: "Je woonlasten geven de doorslag",
+    },
+    faq: [
+      {
+        vraag: "Is 3.000 euro netto genoeg voor een gezin?",
+        antwoord:
+          "Het kan genoeg zijn, maar het is krap, en of het lukt hangt vooral af van je woonlasten. Met een betaalbare hypotheek uit het verleden red je het prima; met een hoge huur of hypotheek in een dure regio wordt het elke maand passen en meten.",
+      },
+      {
+        vraag: "Wat kosten kinderen als deel van je inkomen?",
+        antwoord:
+          "Het Nibud rekent gemiddeld ongeveer 15% van het besteedbaar inkomen voor een kind, en ongeveer 25% voor twee kinderen samen. Een tweede kind kost dus niet nog eens 15%, maar tilt het totaal naar een kwart van je inkomen.",
+      },
+      {
+        vraag: "Ligt het aan ons als het krap is?",
+        antwoord:
+          "Meestal niet. Het is de optelsom van gestegen vaste lasten en de kosten van een gezin op een inkomen rond of net onder modaal. Dat verplaatst de vraag van wat doe ik fout naar waar kan ik bijsturen.",
+      },
+    ],
+    externLinks: [
+      { label: "Nibud: wat kost een kind", url: "https://www.nibud.nl/onderwerpen/kinderen-en-jongeren/wat-kost-een-kind/" },
+      { label: "Nibud: uitgaven van huishoudens", url: "https://www.nibud.nl/onderwerpen/uitgaven/" },
+    ],
+  },
+  {
     slug: "goed-salaris-toch-geldstress",
     korteTitel: "Goed salaris, toch geldstress",
     titel: "Goed salaris, toch geldstress: zo kwam er bij ons thuis weer rust",
