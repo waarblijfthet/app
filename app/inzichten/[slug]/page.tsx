@@ -337,9 +337,10 @@ export default function ArtikelPage({ params }: Props) {
 
           {/* Lees ook */}
           {(() => {
-            const gerelateerd = artikelen
-              .filter((a) => a.slug !== artikel.slug)
-              .slice(0, 2);
+            const rest = artikelen.filter((a) => a.slug !== artikel.slug);
+            const zelfdeCategorie = rest.filter((a) => a.categorie === artikel.categorie);
+            const overig = rest.filter((a) => a.categorie !== artikel.categorie);
+            const gerelateerd = [...zelfdeCategorie, ...overig].slice(0, 3);
             if (gerelateerd.length === 0) return null;
             return (
               <div
@@ -353,7 +354,7 @@ export default function ArtikelPage({ params }: Props) {
                   >
                     Lees ook
                   </h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {gerelateerd.map((a) => (
                       <Link
                         key={a.slug}

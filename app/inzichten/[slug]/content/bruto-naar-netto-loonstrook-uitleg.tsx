@@ -148,6 +148,8 @@ export default function BrutoNaarNettoLoonstrookUitleg() {
         .
       </p>
 
+      <p className="font-body text-text-soft" style={p}>Bij je aangifte laat je vaak geld liggen, zie <Link href="/inzichten/vergeten-aftrekposten-belastingaangifte" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">vergeten aftrekposten bij je belastingaangifte</Link>.</p>
+
       {/* Intern CTA */}
       <div
         style={{

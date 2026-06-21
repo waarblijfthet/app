@@ -97,6 +97,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>. Kom je er niet uit, dan kijken we via onze{" "}
         <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}met je mee.
       </p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link> en <Link href="/inzichten/budget-maken-dat-je-volhoudt" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">een budget dat je volhoudt</Link>.</p>
     </>
   );
 }

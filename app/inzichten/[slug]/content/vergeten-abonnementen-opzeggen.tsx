@@ -77,6 +77,7 @@ export default function VergetenAbonnementenOpzeggen() {
         weglekt?{" "}
         <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en vergelijk jezelf met vergelijkbare gezinnen.
       </p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/overzicht-achteraf-betalen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">je achteraf-betalingen op een rij krijgen</Link> en <Link href="/inzichten/wat-kost-achteraf-betalen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat achteraf betalen echt kost</Link>.</p>
     </>
   );
 }

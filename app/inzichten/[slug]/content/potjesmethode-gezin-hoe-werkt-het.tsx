@@ -159,6 +159,7 @@ export default function PotjesmethodeGezinHoeWerktHet() {
       <p className="font-body text-text-soft" style={p}>
         Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">de potjesmethode in de praktijk bij een echt gezin</a>.
       </p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/geld-indelen-salaris-potjes-systeem" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">je salaris slim indelen</Link> en <Link href="/inzichten/cash-stuffing-beginnen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">cash stuffing</Link>.</p>
     </>
   );
 }

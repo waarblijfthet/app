@@ -157,6 +157,8 @@ export default function VasteLastenOverzichtMaken() {
         .
       </p>
 
+      <p className="font-body text-text-soft" style={p}>Met dat overzicht in de hand lees je verder over <Link href="/inzichten/grip-op-je-geld-krijgen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe je grip op je geld krijgt</Link>.</p>
+
       {/* Intern CTA */}
       <div
         style={{

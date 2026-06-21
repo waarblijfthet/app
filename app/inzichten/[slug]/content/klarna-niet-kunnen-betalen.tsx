@@ -129,6 +129,8 @@ export default function KlarnaNietKunnenBetalen() {
         kun je gratis en anoniem terecht voor hulp en een eerste stap.
       </p>
 
+      <p className="font-body text-text-soft" style={p}>Twijfel je over de gevolgen op langere termijn, lees dan <Link href="/inzichten/achteraf-betalen-bkr-registratie" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">of achteraf betalen op je BKR komt</Link>.</p>
+
       {/* Intern CTA */}
       <div
         style={{

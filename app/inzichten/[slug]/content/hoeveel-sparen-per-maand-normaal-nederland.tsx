@@ -163,6 +163,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
           <strong>Uit de praktijk.</strong> Bijna iedereen die ik spreek denkt dat ánderen veel meer sparen. Dat valt enorm mee. Wat het verschil maakt is niet het percentage, maar dat je het bedrag automatisch laat afromen op de dag dat je salaris binnenkomt, vóór je het ziet en kunt uitgeven.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/waarom-lukt-sparen-niet" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">waarom sparen niet lukt</Link> en <Link href="/inzichten/53-weken-spaaruitdaging-schema-2026" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">de 53-weken spaaruitdaging</Link>.</p>
     </>
   );
 }

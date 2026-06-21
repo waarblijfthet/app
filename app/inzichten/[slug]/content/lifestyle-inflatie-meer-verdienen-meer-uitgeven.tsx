@@ -100,6 +100,7 @@ export default function LifestyleInflatieMeerVerdienenMeerUitgeven() {
         uit, dan kijken we via onze{" "}
         <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}met je mee.
       </p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/money-dysmorphia-uitleg" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">money dysmorphia</Link> en <Link href="/inzichten/waar-blijft-mijn-geld-einde-maand" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">waar je geld blijft</Link>.</p>
     </>
   );
 }

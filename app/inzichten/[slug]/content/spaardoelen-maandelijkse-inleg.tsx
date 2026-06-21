@@ -186,6 +186,7 @@ export default function SpaardoelenMaandelijkseInleg() {
       <p className="font-body text-text-soft" style={p}>
         Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin spaarde voor de feestmaanden</a>.
       </p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/53-weken-spaaruitdaging-schema-2026" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">de 53-weken spaaruitdaging</Link>.</p>
     </>
   );
 }

@@ -145,6 +145,7 @@ export default function SalarisverhoginBoven76000() {
         en ontdek waar jouw geld werkelijk naartoe gaat, los van wat de
         belasting inhoudt.
       </p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/netto-loonsverhoging-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat je netto overhoudt van een loonsverhoging</Link> en <Link href="/inzichten/bonus-13e-maand-netto-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoeveel je overhoudt van je bonus of dertiende maand</Link>.</p>
     </>
   );
 }

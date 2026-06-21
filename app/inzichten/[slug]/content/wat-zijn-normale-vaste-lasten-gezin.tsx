@@ -172,6 +172,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
           <strong>Uit de praktijk.</strong> Wat me opvalt bij de gezinnen die ik help: de grote vaste lasten kennen ze prima, maar de kleine onderschatten ze structureel, abonnementen, verzekerings-extra's, een doorlopende app hier en daar. Bij één gezin telde dat op tot €250 per maand dat niemand miste toen we het opschoonden.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vaste-lasten-overzicht-maken" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">een overzicht van je vaste lasten maken</Link> en <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link>.</p>
     </>
   );
 }

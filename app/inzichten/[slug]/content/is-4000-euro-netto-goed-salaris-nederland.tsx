@@ -168,6 +168,7 @@ export default function Is4000EuroNettoGoedSalaris() {
           <strong>Uit de praktijk.</strong> Een gezin dat ik hielp met €4.000 netto dacht oprecht dat ze 'gewoon slecht met geld omgingen'. Dat was niet zo, het zat in twee posten die ongemerkt waren meegegroeid. Top 25% verdienen en tóch krap is geen gevoel; als je de cijfers naast elkaar legt, klopt het gewoon.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/bruto-naar-netto-loonstrook-uitleg" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">van bruto naar netto</Link> en <Link href="/inzichten/netto-loonsverhoging-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat je netto overhoudt van een loonsverhoging</Link>.</p>
     </>
   );
 }

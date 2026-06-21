@@ -193,6 +193,7 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
        , samen, in 15 minuten. Of bespreek jullie situatie in een{" "}
         <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>.
       </p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/samen-te-veel-verdiend-toeslag-kwijt" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">samen net te veel verdiend en je toeslag kwijt</Link> en <Link href="/inzichten/kosten-verdelen-samenwonen-ongelijk-inkomen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">kosten eerlijk verdelen bij een ongelijk inkomen</Link>.</p>
     </>
   );
 }
