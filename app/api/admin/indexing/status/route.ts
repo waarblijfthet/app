@@ -42,7 +42,8 @@ export async function GET() {
   const { data, error } = await supabase
     .from("google_indexing")
     .select("*")
-    .order("updated_at", { ascending: false });
+    .order("updated_at", { ascending: false })
+    .limit(500);
 
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });

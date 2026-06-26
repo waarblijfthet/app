@@ -1,16 +1,26 @@
 "use client";
 
 import { useState } from "react";
+import dynamic from "next/dynamic";
 import { Lead, QuizResultaat, IntakeAanvraag } from "./page";
-import LeadsTabblad from "./components/LeadsTabblad";
-import QuizResultatenTabblad from "./components/QuizResultatenTabblad";
-import OverzichtTabblad from "./components/OverzichtTabblad";
-import AanvragenTabblad from "./components/AanvragenTabblad";
-import { BezoekersTabblad } from "./components/BezoekersTabblad";
 import FunnelTabblad from "./components/FunnelTabblad";
-import IndexingTabblad from "./components/IndexingTabblad";
-import OutreachTabblad from "./components/OutreachTabblad";
-import ProspectsTabblad from "./components/ProspectsTabblad";
+
+// Alleen de standaard-tab (Funnel) wordt direct geladen. De rest wordt lui
+// ingeladen zodra je de tab opent, zodat zware code (o.a. recharts in Overzicht)
+// niet in het eerste admin-bundel zit. Dat scheelt fors in laadtijd.
+const laden = () => <p className="text-sm text-[#4A5E4E] py-8">Laden…</p>;
+
+const LeadsTabblad = dynamic(() => import("./components/LeadsTabblad"), { loading: laden, ssr: false });
+const QuizResultatenTabblad = dynamic(() => import("./components/QuizResultatenTabblad"), { loading: laden, ssr: false });
+const OverzichtTabblad = dynamic(() => import("./components/OverzichtTabblad"), { loading: laden, ssr: false });
+const AanvragenTabblad = dynamic(() => import("./components/AanvragenTabblad"), { loading: laden, ssr: false });
+const BezoekersTabblad = dynamic(
+  () => import("./components/BezoekersTabblad").then((m) => m.BezoekersTabblad),
+  { loading: laden, ssr: false }
+);
+const IndexingTabblad = dynamic(() => import("./components/IndexingTabblad"), { loading: laden, ssr: false });
+const OutreachTabblad = dynamic(() => import("./components/OutreachTabblad"), { loading: laden, ssr: false });
+const ProspectsTabblad = dynamic(() => import("./components/ProspectsTabblad"), { loading: laden, ssr: false });
 
 interface Props {
   leads: Lead[];

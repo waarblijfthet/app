@@ -18,6 +18,11 @@ const statisch = [
   { loc: "/adviesgesprek", priority: "0.8" },
   { loc: "/over", priority: "0.6" },
   { loc: "/woordenlijst", priority: "0.6" },
+  { loc: "/samenwerken", priority: "0.6" },
+  { loc: "/samenwerken/relatietherapeuten", priority: "0.6" },
+  { loc: "/samenwerken/budgetcoaches", priority: "0.6" },
+  { loc: "/samenwerken/burnout-coaches", priority: "0.6" },
+  { loc: "/samenwerken/financieel-planners", priority: "0.6" },
 ];
 
 // Artikel-slugs uit de single source of truth

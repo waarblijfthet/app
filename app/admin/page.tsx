@@ -55,12 +55,25 @@ export interface QuizResultaat {
   verzekering_overig: number | null;
 }
 
+// Kolommen die de tabbladen daadwerkelijk gebruiken (zie interfaces hierboven).
+// Expliciet projecteren i.p.v. select("*") scheelt data over de lijn.
+const LEAD_KOLOMMEN = "id,email,naam,bron,created_at,toestemming_marketing,quiz_voltooid";
+const QUIZ_KOLOMMEN =
+  "id,lead_id,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
+const AANVRAAG_KOLOMMEN =
+  "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,naam,email,status";
+const MAX_RIJEN = 1000;
+
 export default async function AdminPage() {
   const supabase = await createClient();
 
+  // Middleware (matcher /admin/:path*) heeft de auth al gevalideerd met getUser().
+  // Hier lezen we de sessie lokaal uit de cookie (geen extra netwerk-rondje) puur
+  // voor het e-mailadres in de balk; de redirect blijft als vangnet.
   const {
-    data: { user },
-  } = await supabase.auth.getUser();
+    data: { session },
+  } = await supabase.auth.getSession();
+  const user = session?.user;
 
   if (!user) redirect("/admin/login");
 
@@ -68,16 +81,19 @@ export default async function AdminPage() {
     await Promise.all([
       supabase
         .from("leads")
-        .select("*")
-        .order("created_at", { ascending: false }),
+        .select(LEAD_KOLOMMEN)
+        .order("created_at", { ascending: false })
+        .limit(MAX_RIJEN),
       supabase
         .from("quiz_resultaten")
-        .select("*")
-        .order("created_at", { ascending: false }),
+        .select(QUIZ_KOLOMMEN)
+        .order("created_at", { ascending: false })
+        .limit(MAX_RIJEN),
       supabase
         .from("intake_aanvragen")
-        .select("*")
-        .order("created_at", { ascending: false }),
+        .select(AANVRAAG_KOLOMMEN)
+        .order("created_at", { ascending: false })
+        .limit(MAX_RIJEN),
     ]);
 
   return (
