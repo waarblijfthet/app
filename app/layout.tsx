@@ -58,6 +58,9 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://www.waarblijfthet.nl",
+    types: {
+      "application/rss+xml": "https://www.waarblijfthet.nl/feed.xml",
+    },
   },
 };
 

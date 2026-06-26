@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -28,6 +29,7 @@ const personSchema = {
     name: "Jarno Koopman",
     jobTitle: "Oprichter",
     url: "https://www.waarblijfthet.nl/over",
+    image: "https://www.waarblijfthet.nl/jarno.jpg",
     sameAs: [
       "https://www.linkedin.com/in/jarnokoopman/",
       "https://www.instagram.com/koopmanjarno/",
@@ -81,12 +83,13 @@ export default function OverPage() {
             <div className="card-base border border-[#E8E0D0]">
               <div className="flex items-start gap-5 mb-5">
                 <div className="w-16 h-16 rounded-full bg-[#1C3A2A] flex items-center justify-center shrink-0 overflow-hidden">
-                  <span
-                    className="text-[#F5F0E8] text-lg font-medium"
-                    style={{ fontFamily: "Fraunces, serif" }}
-                  >
-                    JK
-                  </span>
+                  <Image
+                    src="/jarno.jpg"
+                    alt="Jarno Koopman"
+                    width={64}
+                    height={64}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <p className="font-display font-light text-primary text-xl">

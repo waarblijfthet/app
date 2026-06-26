@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Header from "@/components/Header";
@@ -52,6 +53,7 @@ export default function ArtikelPage({ params }: Props) {
       name: "Jarno Koopman",
       jobTitle: "Oprichter",
       url: "https://www.waarblijfthet.nl/over",
+      image: "https://www.waarblijfthet.nl/jarno.jpg",
       sameAs: [
         "https://www.linkedin.com/in/jarnokoopman/",
         "https://www.instagram.com/koopmanjarno/",
@@ -178,10 +180,16 @@ export default function ArtikelPage({ params }: Props) {
                 style={{ marginTop: "0.5rem" }}
               >
                 <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 font-display font-medium text-white text-base"
+                  className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden"
                   style={{ backgroundColor: "#1C3A2A" }}
                 >
-                  J
+                  <Image
+                    src="/jarno.jpg"
+                    alt="Jarno Koopman"
+                    width={40}
+                    height={40}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <p className="font-body font-medium text-[#1C3A2A] text-sm leading-snug">
@@ -309,10 +317,16 @@ export default function ArtikelPage({ params }: Props) {
                 }}
               >
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 font-display font-medium text-white text-lg"
+                  className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden"
                   style={{ backgroundColor: "#1C3A2A" }}
                 >
-                  J
+                  <Image
+                    src="/jarno.jpg"
+                    alt="Jarno Koopman"
+                    width={48}
+                    height={48}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 <div>
                   <p className="font-body font-medium text-[#1C3A2A] text-sm mb-1">

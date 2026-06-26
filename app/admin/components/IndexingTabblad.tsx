@@ -56,6 +56,21 @@ interface InspectResponse {
   urlResults?: Record<string, string>;
   debug?: InspectDebug;
   error?: string;
+  done?: boolean;
+  remaining?: number;
+  runStartedAt?: string;
+}
+
+// Leest het antwoord eerst als tekst en probeert het dan pas als JSON te parsen.
+// Zo crasht de UI nooit op een platform-foutpagina ("An error occurred…") die
+// geen geldige JSON is; we tonen dan een nette melding met de HTTP-status.
+async function leesJson<T>(res: Response): Promise<{ data: T | null; raw: string }> {
+  const raw = await res.text();
+  try {
+    return { data: JSON.parse(raw) as T, raw };
+  } catch {
+    return { data: null, raw };
+  }
 }
 
 interface ActionResult {
@@ -178,22 +193,74 @@ export default function IndexingTabblad() {
   async function inspecteer(urls?: string[]) {
     setBezig(urls ? `inspect-${urls[0]}` : "inspect");
     setResultaat(null);
-    try {
+    setFoutUitgeklapt(false);
+    setDebugUitgeklapt(false);
+
+    // Eén losse stap-aanroep. Geeft de geparste response terug, of gooit een
+    // nette Error als de server geen geldige JSON teruggaf (bijv. een time-out).
+    async function stap(body: Record<string, unknown>): Promise<InspectResponse> {
       const res = await fetch("/api/admin/indexing/inspect", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(urls ? { urls } : {}),
+        body: JSON.stringify(body),
       });
-      const data = await res.json() as InspectResponse;
+      const { data, raw } = await leesJson<InspectResponse>(res);
+      if (!data) {
+        const kort = raw.replace(/\s+/g, " ").trim().slice(0, 140);
+        throw new Error(
+          `server gaf een ${res.status}-antwoord zonder geldige JSON${kort ? ` ("${kort}…")` : ""}`
+        );
+      }
       if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
-      const errCount = data.errors?.length ?? 0;
-      setFoutUitgeklapt(false);
-      setDebugUitgeklapt(false);
+      return data;
+    }
+
+    try {
+      // Eén URL: enkele aanroep, geen lus nodig.
+      if (urls) {
+        const data = await stap({ urls });
+        const errCount = data.errors?.length ?? 0;
+        setResultaat({
+          message: `${data.inspected ?? 0} gecheckt · ${data.indexed ?? 0} geïndexeerd · ${data.not_indexed ?? 0} niet geïndexeerd${errCount > 0 ? ` · ${errCount} fout(en)` : ""}`,
+          type: errCount > 0 ? "error" : "success",
+          errors: data.errors,
+          debug: data.debug,
+        });
+        await laadStatus();
+        return;
+      }
+
+      // Hele wachtrij: blijf stappen aanroepen tot de server done=true meldt.
+      const runStartedAt = new Date().toISOString();
+      let inspected = 0;
+      let indexed = 0;
+      let not_indexed = 0;
+      const errors: string[] = [];
+      let laatsteDebug: InspectDebug | undefined;
+
+      for (let i = 0; i < 50; i++) {
+        const data = await stap({ runStartedAt });
+        inspected += data.inspected ?? 0;
+        indexed += data.indexed ?? 0;
+        not_indexed += data.not_indexed ?? 0;
+        if (data.errors) errors.push(...data.errors);
+        laatsteDebug = data.debug;
+
+        // Tussenstand tonen zolang er nog werk in de wachtrij staat.
+        if (!data.done) {
+          setResultaat({
+            message: `Bezig… ${inspected} gecheckt · ${indexed} geïndexeerd · ${not_indexed} niet geïndexeerd · nog ${data.remaining ?? 0} te gaan`,
+            type: "info",
+          });
+        }
+        if (data.done) break;
+      }
+
       setResultaat({
-        message: `${data.inspected ?? 0} gecheckt · ${data.indexed ?? 0} geïndexeerd · ${data.not_indexed ?? 0} niet geïndexeerd${errCount > 0 ? ` · ${errCount} fout(en)` : ""}`,
-        type: errCount > 0 ? "error" : "success",
-        errors: data.errors,
-        debug: data.debug,
+        message: `${inspected} gecheckt · ${indexed} geïndexeerd · ${not_indexed} niet geïndexeerd${errors.length > 0 ? ` · ${errors.length} fout(en)` : ""}`,
+        type: errors.length > 0 ? "error" : "success",
+        errors,
+        debug: laatsteDebug,
       });
       await laadStatus();
     } catch (err) {

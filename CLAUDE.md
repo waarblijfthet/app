@@ -57,9 +57,17 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 
 ## SEO / AI-vindbaarheid
 - **sitemap.xml, sitemap-0.xml, robots.txt én llms.txt** worden gegenereerd door `scripts/generate-sitemap.mjs` — draait in `next build`. Leest artikel-slugs/titels uit `lib/inzichten-data.ts`. Bij nieuw artikel: niets handmatig, build regenereert alles.
-- Canonicals/og/host = **www**. ~39 artikelen (incl. 3 nieuwe alleenstaande sub-artikelen).
+- Canonicals/og/host = **www**. ~72 artikelen (sitemap ~79 URL's). Veel nieuwe artikelen toegevoegd in juni-2026 sessies: bruto/netto-uitleg, vaste-lasten, potjes-systeem, vakantiegeld, pakkende "goed-salaris-toch-geldstress"-reeks, longtail-batch (incl. interactieve calculator `vrij-besteedbaar-inkomen-berekenen`), en een Klarna/achteraf-betalen-reeks (5 artikelen, niet-veroordelend, met Geldfit-verwijzing).
+- **Interne linking gemaximaliseerd**: category-aware "Lees ook"-blok (3 cards, eerst zelfde categorie) in `app/inzichten/[slug]/page.tsx`, plus contextuele in-body links zodat geen enkele nieuwe hub 0 inbound links heeft.
+- **Indexering**: Google heeft geen snelle push voor artikelen (Indexing API alleen JobPosting/BroadcastEvent). De eigen "submit"-tool gebruikt **IndexNow** = alleen Bing/Yandex, NIET Google. GSC URL Inspection geeft alleen status. Handmatig in GSC indienen blijft de snelste route voor Google.
 - Schema: Article + FAQPage + Person (sameAs LinkedIn/Instagram van Jarno) + Organization + AboutPage + DefinedTermSet. Auteur-bio onderaan elk artikel.
 - Content-strategie (Google mei-2026 core update): **first-hand, non-commodity, voor/na-cases met echte bedragen, zichtbare auteur.**
+
+## Mail / DNS (waarblijfthet.nl)
+- **Website draait op Vercel, mail op een aparte host.** Apex `@ A` = `216.198.79.1` (Vercel), `www` CNAME → `*.vercel-dns-017.com`. De mailserver is `45.82.188.190` (daar wijzen `webmail`, de wildcard `*` en de SPF naartoe). Postbus: hallo@waarblijfthet.nl.
+- **Mail-ontvangst gerepareerd (24-jun-2026).** Probleem: MX stond op `10 waarblijfthet.nl`, en die naam resolvet via de apex naar de Vercel-IP (geen mailserver), dus inkomende mail verdween. Fix: `mail` A-record → `45.82.188.190` aangemaakt, oude `mail` CNAME verwijderd, MX gewijzigd naar `10 mail.waarblijfthet.nl`. Werkt nu, mail komt binnen. **Les: een MX mag nooit naar de Vercel-apex of naar een CNAME wijzen.**
+- **Resend is alleen voor versturen, niet ontvangen.** Resend host geen postbussen.
+- **Open punt uitgaande mail**: SPF (`v=spf1 +a +mx +ip4:45.82.188.190 -all`) bevat Resend nog niet. Ga je via Resend versturen, voeg dan hun include (meestal `include:_spf.resend.com`) + DKIM-records toe, anders faalt uitgaande mail op SPF/DMARC. Raakt ontvangst niet.
 
 ## Meting
 - **quiz_voortgang** (PII-vrije tabel) meet drop-off per stap + ingevulde antwoorden. SQL staat in `supabase/quiz_voortgang.sql` — **MOET nog eenmalig in Supabase SQL-editor gedraaid worden.**

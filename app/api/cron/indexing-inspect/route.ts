@@ -2,6 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { getGoogleAuthToken } from "@/lib/google-auth";
 import { createServiceClient } from "@/lib/supabase-service";
 
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
 interface InspectResult {
   inspectionResult?: {
     indexStatusResult?: {
@@ -13,7 +17,22 @@ interface InspectResult {
 }
 
 const SITE_URL = "sc-domain:waarblijfthet.nl";
-const BATCH_SIZE = 50;
+// We trekken een ruime batch uit de wachtrij, maar verwerken alleen wat binnen
+// het tijdsbudget past. De ordering (oudst-gecheckt eerst) zorgt dat opvolgende
+// dagelijkse runs vanzelf door de hele lijst roteren.
+const BATCH_SIZE = 30;
+const TIJDSBUDGET_MS = 45_000;
+const CALL_TIMEOUT_MS = 12_000;
+
+async function fetchMetTimeout(url: string, init: RequestInit, timeoutMs: number) {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 export async function GET(request: NextRequest) {
   // Vercel stuurt automatisch Authorization: Bearer <CRON_SECRET>
@@ -25,7 +44,6 @@ export async function GET(request: NextRequest) {
   const start = Date.now();
   const supabase = createServiceClient();
 
-  // Haal URLs op die gecheckt moeten worden
   const { data: urlRows } = await supabase
     .from("google_indexing")
     .select("url")
@@ -52,10 +70,16 @@ export async function GET(request: NextRequest) {
   let indexed = 0;
   let not_indexed = 0;
   let errors = 0;
+  let budgetOp = false;
 
   for (const url of urls) {
+    if (Date.now() - start > TIJDSBUDGET_MS) {
+      budgetOp = true;
+      break;
+    }
+
     try {
-      const res = await fetch(
+      const res = await fetchMetTimeout(
         "https://searchconsole.googleapis.com/v1/urlInspection/index:inspect",
         {
           method: "POST",
@@ -64,7 +88,8 @@ export async function GET(request: NextRequest) {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ inspectionUrl: url, siteUrl: SITE_URL }),
-        }
+        },
+        CALL_TIMEOUT_MS
       );
 
       if (!res.ok) {
@@ -80,7 +105,7 @@ export async function GET(request: NextRequest) {
         continue;
       }
 
-      const data = await res.json() as InspectResult;
+      const data = (await res.json()) as InspectResult;
       const result = data.inspectionResult?.indexStatusResult;
       const verdict = result?.verdict ?? null;
       const coverageState = result?.coverageState ?? null;
@@ -112,17 +137,19 @@ export async function GET(request: NextRequest) {
       inspected++;
     } catch (err) {
       errors++;
+      const melding =
+        err instanceof Error && err.name === "AbortError" ? "time-out na 12s" : String(err);
       await supabase
         .from("google_indexing")
         .update({
-          error_message: String(err).slice(0, 500),
+          error_message: melding.slice(0, 500),
           last_inspected_at: new Date().toISOString(),
         })
         .eq("url", url);
     }
   }
 
-  const result = { inspected, indexed, not_indexed, errors };
+  const result = { inspected, indexed, not_indexed, errors, budgetOp };
   await logRun(supabase, errors > 0 && inspected === 0 ? "error" : "ok", result, Date.now() - start);
 
   return NextResponse.json(result);
