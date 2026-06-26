@@ -19,6 +19,7 @@ const BezoekersTabblad = dynamic(
   { loading: laden, ssr: false }
 );
 const IndexingTabblad = dynamic(() => import("./components/IndexingTabblad"), { loading: laden, ssr: false });
+const ZoekwoordenTabblad = dynamic(() => import("./components/ZoekwoordenTabblad"), { loading: laden, ssr: false });
 const OutreachTabblad = dynamic(() => import("./components/OutreachTabblad"), { loading: laden, ssr: false });
 const ProspectsTabblad = dynamic(() => import("./components/ProspectsTabblad"), { loading: laden, ssr: false });
 
@@ -36,6 +37,7 @@ const TABS = [
   { id: "overzicht", label: "Overzicht" },
   { id: "aanvragen", label: "Aanvragen" },
   { id: "indexering", label: "🔍 Indexering" },
+  { id: "zoekwoorden", label: "🔑 Zoekwoorden" },
   { id: "outreach", label: "📧 Outreach" },
   { id: "prospects", label: "🔎 Prospects" },
 ] as const;
@@ -107,6 +109,7 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
       )}
       {actief === "aanvragen" && <AanvragenTabblad aanvragen={aanvragen} />}
       {actief === "indexering" && <IndexingTabblad />}
+      {actief === "zoekwoorden" && <ZoekwoordenTabblad />}
       {actief === "outreach" && <OutreachTabblad />}
       {actief === "prospects" && <ProspectsTabblad />}
     </div>
