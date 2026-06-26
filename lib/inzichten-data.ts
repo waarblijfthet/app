@@ -2163,19 +2163,19 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
-    korteTitel: "Boodschappen: norm vs. werkelijkheid",
+    korteTitel: "Boodschappen: norm versus praktijk",
     titel:
-      "Wat zijn normale boodschappenkosten per maand? Nibud vs. werkelijkheid",
+      "Boodschappen per maand: wat is normaal in 2026? Per persoon, stel en gezin",
     metaTitel:
-      "Normale boodschappenkosten: Nibud-norm vs. werkelijkheid",
+      "Normale boodschappenkosten per maand 2026 (per huishouden)",
     metaDescription:
-      "Nibud zegt €627 voor een gezin van 4. Maar in de praktijk geeft datzelfde gezin €700-900 uit. Wat verklaart dat verschil — en wat betekent het voor jou?",
-    datum: "2026-05-21",
-    datumFormatted: "21 mei 2026",
-    leestijd: "7",
+      "Wat is een normaal boodschappenbedrag per maand? De norm is een ondergrens, echte huishoudens geven meer uit. Bedragen per persoon, stel en gezin, plus wat je eraan doet.",
+    datum: "2026-06-26",
+    datumFormatted: "26 juni 2026",
+    leestijd: "9",
     categorie: "Besparen",
     excerpt:
-      "Het Nibud zegt €627 voor een gezin van vier. Maar in de praktijk geeft datzelfde gezin €700-900 uit — en bij pubers loopt het op naar €1.000 of meer. De kloof is groter dan je denkt, en er zijn drie oorzaken die vrijwel niemand benoemt.",
+      "De Nibud-norm zegt €627 voor een gezin van vier. Maar echte huishoudens geven fors meer uit, en bij pubers loopt het op naar €1.000 of meer. Wat normaal is per huishouden, en wat je eraan doet.",
     preview: {
       type: "vergelijking",
       label: "Nibud norm vs. werkelijkheid",
@@ -2187,43 +2187,43 @@ export const artikelen: Artikel[] = [
     },
     faq: [
       {
-        vraag: "Wat zijn normale boodschappenkosten voor een gezin van 4 in 2026?",
+        vraag: "Wat is een normaal boodschappenbedrag voor een gezin van vier?",
         antwoord:
-          "Nibud hanteert een minimum van €553-674 per maand voor voeding. Maar uit forum-polls en blogs blijkt dat de meeste gezinnen van vier €700-875 per maand uitgeven als je ook drogisterij, bakker en tussendoor meeneemt. Met pubers loopt dit snel op naar €900-1.100.",
+          "De Nibud-minimumnorm ligt rond €634 per maand voor voeding. In de praktijk geeft een gezin van vier eerder €700 tot €900 uit als je drogist, bakker en tussendoor meetelt. Met pubers loopt dit op naar €1.000 tot €1.400.",
       },
       {
-        vraag: "Waarom geef ik zoveel meer uit aan boodschappen dan het Nibud-advies?",
+        vraag: "Hoeveel geeft een alleenstaande uit aan boodschappen per maand?",
         antwoord:
-          "Omdat het Nibud-bedrag een minimum is voor voeding — geen drogisterij, geen bakker, geen schoollunches. Bovendien onderschat Nibud hoeveel kinderen boven de 10 jaar eten. In de praktijk geeft bijna elk gezin met oudere kinderen structureel meer uit dan de norm.",
+          "De norm voor één persoon ligt rond €272 per maand. Realistisch is €300 tot €400, doordat verpakkingen op meerdere personen zijn gemaakt en voor één koken relatief duurder uitvalt.",
       },
       {
-        vraag: "Hoeveel geven gezinnen met drie kinderen werkelijk uit aan boodschappen?",
+        vraag: "Wat is een normaal boodschappenbedrag voor twee personen?",
         antwoord:
-          "Uit ervaringen van bloggers en forums: gezinnen van vijf met kinderen van 8-14 jaar geven gemiddeld €900-1.400 per maand uit. Dat hangt sterk af van de winkelkeuze, of je actief plant en of je drogisterijproducten meetelt.",
+          "Rond €550 tot €700 per maand. ABN AMRO vond op basis van echte transacties van 150.000 huishoudens een doorsnee van €585 per maand, ruim boven de Nibud-minimumnorm van €495.",
+      },
+      {
+        vraag: "Waarom geef ik zoveel meer uit dan het Nibud-advies?",
+        antwoord:
+          "Omdat het Nibud-bedrag een minimum is voor voeding, zonder drogist, bakker en schoollunches. Daarnaast onderschat de norm hoeveel kinderen boven de 10 jaar eten. Bijna elk huishouden zit er structureel boven.",
       },
       {
         vraag: "Hoe bespaar ik op boodschappen zonder in te leveren op kwaliteit?",
         antwoord:
-          "Begin met weekmenu's maken — dat vermindert verspilling en impulsaankopen. Kies bewust je winkel per categorie: drogisterij goedkoper bij Aldi of over de grens bij DM. Stel een wekelijks budget in dat zichtbaar is. Een realistisch doel is 10-15% besparen op je huidige bedrag.",
-      },
-      {
-        vraag: "Telt de bakker en slager mee in het Nibud-bedrag voor boodschappen?",
-        antwoord:
-          "Nee. Het Nibud-bedrag betreft alleen voeding bereid thuis, gebaseerd op supermarktprijzen. Brood van de bakker, vlees van de slager en alle drogisterijproducten komen er bovenop. Voor een gemiddeld gezin is dat al snel €150-250 extra per maand.",
+          "Begin met een weekmenu, dat vermindert verspilling en impulsaankopen. Beperk losse winkelritjes, meet porties af en eet wat vaker vegetarisch. Een realistisch doel is 10 tot 15 procent besparen op je huidige bedrag.",
       },
     ],
     externLinks: [
       {
-        label: "Nibud huishoudelijke uitgaven 2026",
+        label: "ABN AMRO, Transactie Trends over boodschappen (2025)",
+        url: "https://www.abnamro.com/research/nl/onze-research/transactie-trends-bestaanszekerheid-toegenomen-ondanks-duurdere-boodschappen",
+      },
+      {
+        label: "CBS, bestedingen van huishoudens",
+        url: "https://www.cbs.nl/nl-nl/cijfers/detail/83676NED",
+      },
+      {
+        label: "Nibud, huishoudelijke uitgaven",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
-      },
-      {
-        label: "Forum poll boodschappen per maand (Zeg maar Yes)",
-        url: "https://www.zegmaaryes.nl/boodschappen-per-maand-gezin-t38420.html",
-      },
-      {
-        label: "Mamablogger boodschappenbudget 2025",
-        url: "https://mamablogger.nl/boodschappenbudget-en-weekbudget-voor-2025/",
       },
     ],
   },
