@@ -29,85 +29,119 @@ export default function QuizClient() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<QuizData>(DEFAULT_QUIZ_DATA);
 
-  const update = useCallback((changes: Partial<QuizData>) => {
-    setData((prev) => ({ ...prev, ...changes }));
-  }, []);
-
   const sessieIdRef = useRef<string>("");
+  const apparaatRef = useRef<string>("");
   const maxStapRef = useRef<number>(1);
+  const gestartRef = useRef<boolean>(false);
+  const dataRef = useRef<QuizData>(data);
 
   useEffect(() => {
+    dataRef.current = data;
+  });
+
+  const ensureSessie = useCallback(() => {
     if (!sessieIdRef.current) {
       sessieIdRef.current =
         typeof crypto !== "undefined" && crypto.randomUUID
           ? crypto.randomUUID()
           : Math.random().toString(36).slice(2);
     }
-    maxStapRef.current = Math.max(maxStapRef.current, step);
-    const voltooid = step === 6;
+    if (!apparaatRef.current && typeof window !== "undefined") {
+      apparaatRef.current = window.innerWidth < 1024 ? "mobiel" : "desktop";
+    }
+  }, []);
 
-    let inkomen = 0;
-    let over = 0;
-    let uitgaven = 0;
-    let verdict: string | null = null;
-    let grootste: string | null = null;
-    try {
-      inkomen = berekenTotaalInkomen(data);
-      if (voltooid) {
-        const aantalVolwassenen = aantalVolwassenenVan(data);
-        const benches = getBenchmarks({
-          woonsituatie: data.woonsituatie,
-          kinderen: data.kinderen,
-          inkomen,
-          auto: data.auto,
-          aantalVolwassenen,
-        });
-        over = berekenOver(data);
-        uitgaven = inkomen - over;
-        verdict = bepaalVerdict(data, benches);
-        grootste = vindGrootsteAfwijking(data, benches);
+  const logVoortgang = useCallback(
+    (stapArg: number, dataArg: QuizData, gestartArg: boolean) => {
+      ensureSessie();
+      maxStapRef.current = Math.max(maxStapRef.current, stapArg);
+      const voltooid = stapArg === 6;
+
+      let inkomen = 0;
+      let over = 0;
+      let uitgaven = 0;
+      let verdict: string | null = null;
+      let grootste: string | null = null;
+      try {
+        inkomen = berekenTotaalInkomen(dataArg);
+        if (voltooid) {
+          const aantalVolwassenen = aantalVolwassenenVan(dataArg);
+          const benches = getBenchmarks({
+            woonsituatie: dataArg.woonsituatie,
+            kinderen: dataArg.kinderen,
+            inkomen,
+            auto: dataArg.auto,
+            aantalVolwassenen,
+          });
+          over = berekenOver(dataArg);
+          uitgaven = inkomen - over;
+          verdict = bepaalVerdict(dataArg, benches);
+          grootste = vindGrootsteAfwijking(dataArg, benches);
+        }
+      } catch {
+        // rekenfout mag nooit de tool breken
       }
-    } catch {
-      // rekenfout mag nooit de tool breken
-    }
 
-    const {
-      email: _e,
-      naam: _n,
-      toestemmingOpslaan: _t,
-      toestemmingMarketing: _m,
-      ...antwoorden
-    } = data;
+      const {
+        email: _e,
+        naam: _n,
+        toestemmingOpslaan: _t,
+        toestemmingMarketing: _m,
+        ...antwoorden
+      } = dataArg;
 
-    try {
-      const supabase = createClient();
-      supabase
-        .from("quiz_voortgang")
-        .upsert(
-          {
-            sessie_id: sessieIdRef.current,
-            huidige_stap: step,
-            max_stap: maxStapRef.current,
-            voltooid,
-            woonsituatie: data.woonsituatie,
-            aantal_kinderen: data.kinderen,
-            auto_situatie: data.auto,
-            totaal_inkomen: inkomen || null,
-            totaal_uitgaven: voltooid ? uitgaven : null,
-            maandelijks_over: voltooid ? over : null,
-            verdict,
-            grootste_afwijking: grootste,
-            antwoorden,
-            updated_at: new Date().toISOString(),
-          },
-          { onConflict: "sessie_id" }
-        )
-        .then(() => {}, () => {});
-    } catch {
-      // stil falen
-    }
+      try {
+        const supabase = createClient();
+        supabase
+          .from("quiz_voortgang")
+          .upsert(
+            {
+              sessie_id: sessieIdRef.current,
+              huidige_stap: stapArg,
+              max_stap: maxStapRef.current,
+              voltooid,
+              apparaat: apparaatRef.current || null,
+              eerste_interactie: gestartArg,
+              woonsituatie: dataArg.woonsituatie,
+              aantal_kinderen: dataArg.kinderen,
+              auto_situatie: dataArg.auto,
+              totaal_inkomen: inkomen || null,
+              totaal_uitgaven: voltooid ? uitgaven : null,
+              maandelijks_over: voltooid ? over : null,
+              verdict,
+              grootste_afwijking: grootste,
+              antwoorden,
+              updated_at: new Date().toISOString(),
+            },
+            { onConflict: "sessie_id" }
+          )
+          .then(() => {}, () => {});
+      } catch {
+        // stil falen
+      }
+    },
+    [ensureSessie]
+  );
+
+  // Log bij elke stapwissel (en bij mount: pagina geladen = stap 1).
+  useEffect(() => {
+    logVoortgang(step, dataRef.current, gestartRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
+
+  const update = useCallback(
+    (changes: Partial<QuizData>) => {
+      setData((prev) => ({ ...prev, ...changes }));
+      // Eerste echte interactie apart loggen, zodat "geladen maar niet
+      // begonnen" te onderscheiden is van "begon in te vullen".
+      if (!gestartRef.current) {
+        gestartRef.current = true;
+        const merged = { ...dataRef.current, ...changes };
+        logVoortgang(1, merged, true);
+      }
+    },
+    [logVoortgang]
+  );
 
   const next = () => setStep((s) => Math.min(s + 1, TOTAL_STEPS));
   const prev = () => setStep((s) => Math.max(s - 1, 1));
@@ -137,13 +171,47 @@ export default function QuizClient() {
         <div className="text-center mb-8 max-w-lg mx-auto px-2">
           <div className="inline-flex items-center gap-2 bg-[#E8F2EC] text-[#2D6A4F] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
             <span>⏱</span>
-            <span>5 minuten · Anoniem · Geen producten</span>
+            <span>2 minuten · Anoniem · Geen producten</span>
           </div>
           <p className="text-[#4A5E4E] text-sm leading-relaxed">
-            Vul je situatie in en zie direct hoe je het doet ten opzichte
-            van vergelijkbare huishoudens. Na stap 2 zie je al de eerste vergelijking.
+            Vul een paar dingen in en zie meteen hoe je het doet ten opzichte
+            van vergelijkbare huishoudens. Na stap 2 zie je al je eerste
+            vergelijking. Dieper invullen kan, maar hoeft niet.
           </p>
-          <p className="text-[#8A9E8E] text-xs mt-3">
+
+          {/* Mini-voorbeeld van het resultaat, zodat je vooraf ziet wat je krijgt */}
+          <div className="mt-5 bg-card border border-[#E8E0D0] rounded-xl p-4 text-left">
+            <p className="text-[11px] uppercase tracking-wider text-[#8A9E8E] font-medium mb-2">
+              Voorbeeld van wat je ziet
+            </p>
+            <div className="flex items-center justify-between mb-1.5">
+              <span className="text-xs text-[#4A5E4E] font-medium">Boodschappen</span>
+              <span className="text-xs px-2 py-0.5 rounded-full bg-[#FDECEA] text-[#B03A2E] font-medium">
+                ⚠ Boven gemiddeld
+              </span>
+            </div>
+            <div className="space-y-1">
+              <div className="flex justify-between text-xs text-[#8A9E8E] mb-0.5">
+                <span>Jij</span>
+                <span className="font-medium">€640</span>
+              </div>
+              <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+                <div className="h-full rounded-full bg-accent" style={{ width: "100%" }} />
+              </div>
+              <div className="flex justify-between text-xs text-[#8A9E8E] mb-0.5">
+                <span>Gemiddeld</span>
+                <span>€585</span>
+              </div>
+              <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+                <div className="h-full rounded-full bg-[#B8C9BC]" style={{ width: "91%" }} />
+              </div>
+            </div>
+            <p className="text-[11px] text-[#8A9E8E] mt-2">
+              Zo zie je per post hoe jij het doet, en wat je per maand overhoudt.
+            </p>
+          </div>
+
+          <p className="text-[#8A9E8E] text-xs mt-4">
             Je antwoorden blijven anoniem. Pas als je aan het eind zelf je
             e-mail invult, worden ze aan jou gekoppeld.{" "}
             <Link href="/privacy" style={{ color: "#C4603A", textDecoration: "none" }}>
@@ -194,6 +262,13 @@ export default function QuizClient() {
               <p className="text-center text-xs text-text-muted mt-3">
                 Maak eerst een keuze bij alle vier de vragen hierboven.
               </p>
+            )}
+
+            {/* Mobiel, live vergelijking onder de vragen (desktop heeft het paneel rechts) */}
+            {showPanel && (
+              <div className="lg:hidden mt-8">
+                <VergelijkingsPaneel data={data} currentStep={step} embedded />
+              </div>
             )}
           </div>
 

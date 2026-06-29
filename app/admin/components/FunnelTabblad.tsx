@@ -12,7 +12,7 @@ interface Props {
 type FilterOptie = "week" | "maand" | "alles";
 
 type BezoekRij = { pagina: string; sessie_id: string; created_at: string };
-type VoortgangRij = { max_stap: number | null; voltooid: boolean | null; created_at: string; totaal_inkomen: number | null; maandelijks_over: number | null; verdict: string | null; aantal_kinderen: number | null; woonsituatie: string | null };
+type VoortgangRij = { max_stap: number | null; voltooid: boolean | null; created_at: string; totaal_inkomen: number | null; maandelijks_over: number | null; verdict: string | null; aantal_kinderen: number | null; woonsituatie: string | null; eerste_interactie: boolean | null; apparaat: string | null };
 
 const PAGINA_LABELS: Record<string, string> = {
   "/": "Homepage",
@@ -61,7 +61,7 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
           .limit(8000),
         supabase
           .from("quiz_voortgang")
-          .select("max_stap,voltooid,created_at,totaal_inkomen,maandelijks_over,verdict,aantal_kinderen,woonsituatie")
+          .select("max_stap,voltooid,created_at,totaal_inkomen,maandelijks_over,verdict,aantal_kinderen,woonsituatie,eerste_interactie,apparaat")
           .order("created_at", { ascending: false })
           .gte("created_at", sinds)
           .limit(8000),
@@ -135,7 +135,28 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
       (_, i) => voortgang.filter((v) => (v.max_stap ?? 1) >= i + 1).length
     );
     const voltooid = voortgang.filter((v) => v.voltooid).length;
-    return { labels, starts, bereikt, voltooid };
+    const gestart = voortgang.filter((v) => v.eerste_interactie === true).length;
+    return { labels, starts, bereikt, voltooid, gestart };
+  }, [voortgang]);
+
+  // Apparaat-verdeling: geladen vs begon in te vullen vs voltooid.
+  const apparaatSplit = useMemo(() => {
+    const tel = (filterFn: (v: VoortgangRij) => boolean) => {
+      let mobiel = 0;
+      let desktop = 0;
+      let onbekend = 0;
+      voortgang.filter(filterFn).forEach((v) => {
+        if (v.apparaat === "mobiel") mobiel++;
+        else if (v.apparaat === "desktop") desktop++;
+        else onbekend++;
+      });
+      return { mobiel, desktop, onbekend };
+    };
+    return {
+      geladen: tel(() => true),
+      gestart: tel((v) => v.eerste_interactie === true),
+      voltooid: tel((v) => v.voltooid === true),
+    };
   }, [voortgang]);
 
   const stappen = [
@@ -251,25 +272,78 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                     </div>
                   );
                 })}
-                <p className="text-xs text-[#8A9E8E] mt-3 font-body">
-                  Voltooid: <strong>{stapTrechter.voltooid}</strong> van{" "}
-                  {stapTrechter.starts} starts ({pct(stapTrechter.voltooid, stapTrechter.starts)}).
-                </p>
+                <div className="mt-3 pt-3 border-t border-[#EDE6D8] space-y-1">
+                  <p className="text-xs text-[#4A5E4E] font-body">
+                    Pagina geladen: <strong>{stapTrechter.starts}</strong> · Begon in te
+                    vullen: <strong>{stapTrechter.gestart}</strong>{" "}
+                    ({pct(stapTrechter.gestart, stapTrechter.starts)}) · Voltooid:{" "}
+                    <strong>{stapTrechter.voltooid}</strong>{" "}
+                    ({pct(stapTrechter.voltooid, stapTrechter.starts)}).
+                  </p>
+                  <p className="text-xs text-[#8A9E8E] font-body">
+                    Het verschil tussen geladen en begon in te vullen is de afhaak
+                    op het introscherm (vóór de eerste vraag). &ldquo;Begon in te
+                    vullen&rdquo; telt vanaf het moment dat de nieuwe meting live staat.
+                  </p>
+                </div>
               </div>
             )}
           </div>
 
-          {/* Laatste voltooide analyses */}
-          {voortgang.filter((v) => v.voltooid).length > 0 && (
+          {/* Apparaat-verdeling */}
+          {stapTrechter.starts > 0 && (
             <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
-              <p className="text-xs font-medium text-[#4A5E4E] mb-3 uppercase tracking-wider font-body">
-                Laatste voltooide analyses
+              <p className="text-xs font-medium text-[#4A5E4E] mb-1 uppercase tracking-wider font-body">
+                Apparaat
+              </p>
+              <p className="text-xs text-[#8A9E8E] mb-4 font-body">
+                Mobiel versus desktop per fase. Veel mobiel met een lage start = de
+                drempel zit waarschijnlijk op mobiel.
               </p>
               <div style={{ overflowX: "auto" }}>
                 <table className="w-full text-sm" style={{ minWidth: "440px" }}>
                   <thead>
                     <tr className="bg-[#1C3A2A]">
-                      {["Profiel", "Inkomen", "Houdt over", "Oordeel"].map((h) => (
+                      {["Fase", "Mobiel", "Desktop", "Onbekend"].map((h) => (
+                        <th key={h} className="text-left px-3 py-2 text-[#F5F0E8] font-medium text-xs font-body">
+                          {h}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { label: "Geladen", v: apparaatSplit.geladen },
+                      { label: "Begon in te vullen", v: apparaatSplit.gestart },
+                      { label: "Voltooid", v: apparaatSplit.voltooid },
+                    ].map((rij, i) => (
+                      <tr key={rij.label} className={i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"}>
+                        <td className="px-3 py-2 text-[#1C3A2A] text-xs font-body">{rij.label}</td>
+                        <td className="px-3 py-2 text-[#4A5E4E] text-xs font-body">{rij.v.mobiel}</td>
+                        <td className="px-3 py-2 text-[#4A5E4E] text-xs font-body">{rij.v.desktop}</td>
+                        <td className="px-3 py-2 text-[#8A9E8E] text-xs font-body">{rij.v.onbekend}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {/* Laatste voltooide analyses (anoniem, uit quiz_voortgang) */}
+          {voortgang.filter((v) => v.voltooid).length > 0 && (
+            <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
+              <p className="text-xs font-medium text-[#4A5E4E] mb-1 uppercase tracking-wider font-body">
+                Laatste voltooide analyses
+              </p>
+              <p className="text-xs text-[#8A9E8E] mb-3 font-body">
+                Anonieme afronding (geen e-mail vereist). Volledige resultaten met contactgegevens staan onder &ldquo;Analyse resultaten&rdquo;.
+              </p>
+              <div style={{ overflowX: "auto" }}>
+                <table className="w-full text-sm" style={{ minWidth: "520px" }}>
+                  <thead>
+                    <tr className="bg-[#1C3A2A]">
+                      {["Datum", "Profiel", "Inkomen", "Houdt over", "Oordeel"].map((h) => (
                         <th key={h} className="text-left px-3 py-2 text-[#F5F0E8] font-medium text-xs font-body">
                           {h}
                         </th>
@@ -282,6 +356,9 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                       .slice(0, 12)
                       .map((v, i) => (
                         <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"}>
+                          <td className="px-3 py-2 text-[#8A9E8E] text-xs font-body whitespace-nowrap">
+                            {new Date(v.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short" })}
+                          </td>
                           <td className="px-3 py-2 text-[#4A5E4E] text-xs font-body">
                             {v.woonsituatie ?? "—"}, {v.aantal_kinderen ?? 0} kind(eren)
                           </td>

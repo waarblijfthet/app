@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase-server";
+import { createServiceClient } from "@/lib/supabase-service";
 import AdminNav from "./components/AdminNav";
 import AdminClient from "./AdminClient";
 
@@ -36,6 +37,8 @@ export interface Lead {
 export interface QuizResultaat {
   id: string;
   lead_id: string | null;
+  token: string | null;
+  email: string | null;
   created_at: string;
   woonsituatie: string | null;
   aantal_kinderen: number;
@@ -56,20 +59,14 @@ export interface QuizResultaat {
 }
 
 // Kolommen die de tabbladen daadwerkelijk gebruiken (zie interfaces hierboven).
-// Expliciet projecteren i.p.v. select("*") scheelt data over de lijn.
 const LEAD_KOLOMMEN = "id,email,naam,bron,created_at,toestemming_marketing,quiz_voltooid";
-const QUIZ_KOLOMMEN =
-  "id,lead_id,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
-const AANVRAAG_KOLOMMEN =
-  "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,naam,email,status";
+const QUIZ_KOLOMMEN = "id,lead_id,token,email,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
+const AANVRAAG_KOLOMMEN = "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,naam,email,status";
 const MAX_RIJEN = 1000;
 
 export default async function AdminPage() {
   const supabase = await createClient();
 
-  // Middleware (matcher /admin/:path*) heeft de auth al gevalideerd met getUser().
-  // Hier lezen we de sessie lokaal uit de cookie (geen extra netwerk-rondje) puur
-  // voor het e-mailadres in de balk; de redirect blijft als vangnet.
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -77,19 +74,21 @@ export default async function AdminPage() {
 
   if (!user) redirect("/admin/login");
 
+  // Data-reads via service client zodat RLS geen admin-reads blokkeert.
+  const service = createServiceClient();
   const [{ data: leads }, { data: quizResultaten }, { data: aanvragen }] =
     await Promise.all([
-      supabase
+      service
         .from("leads")
         .select(LEAD_KOLOMMEN)
         .order("created_at", { ascending: false })
         .limit(MAX_RIJEN),
-      supabase
+      service
         .from("quiz_resultaten")
         .select(QUIZ_KOLOMMEN)
         .order("created_at", { ascending: false })
         .limit(MAX_RIJEN),
-      supabase
+      service
         .from("intake_aanvragen")
         .select(AANVRAAG_KOLOMMEN)
         .order("created_at", { ascending: false })
@@ -98,12 +97,12 @@ export default async function AdminPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <AdminNav email={user.email ?? ""} />
+      <AdminNav email={user!.email ?? ""} />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
         <AdminClient
-          leads={(leads as Lead[]) ?? []}
-          quizResultaten={(quizResultaten as QuizResultaat[]) ?? []}
-          aanvragen={(aanvragen as IntakeAanvraag[]) ?? []}
+          leads={(leads as unknown as Lead[]) ?? []}
+          quizResultaten={(quizResultaten as unknown as QuizResultaat[]) ?? []}
+          aanvragen={(aanvragen as unknown as IntakeAanvraag[]) ?? []}
         />
       </main>
     </div>

@@ -17,6 +17,7 @@ import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
 interface Props {
   data: QuizData;
   currentStep: number;
+  embedded?: boolean;
 }
 
 const STATUS_PILL: Record<VergelijkingStatus, { cls: string; label: string }> = {
@@ -84,7 +85,9 @@ function CompareBalk({
   );
 }
 
-export default function VergelijkingsPaneel({ data, currentStep }: Props) {
+export default function VergelijkingsPaneel({ data, currentStep, embedded }: Props) {
+  const stickyCls = embedded ? "" : "sticky top-24";
+  const scrollCls = embedded ? "" : "max-h-[calc(100vh-8rem)] overflow-y-auto";
   const inkomen = berekenTotaalInkomen(data);
   const aantalVolwassenen = aantalVolwassenenVan(data);
 
@@ -109,7 +112,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
     )
       return null;
     return (
-      <div className="card-base border border-[#E8E0D0] sticky top-24">
+      <div className={`card-base border border-[#E8E0D0] ${stickyCls}`}>
         <p className="section-eyebrow mb-4">Jouw vergelijking</p>
         <div className="bg-green-light rounded-xl p-4">
           <p className="font-body text-sm text-primary font-medium">
@@ -140,7 +143,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
     if (inkomen === 0) return null;
     const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
     return (
-      <div className="card-base border border-[#E8E0D0] sticky top-24">
+      <div className={`card-base border border-[#E8E0D0] ${stickyCls}`}>
         <p className="section-eyebrow mb-4">Jouw inkomen</p>
         <p className="font-display font-light text-primary text-4xl mb-1">
           {fmtEur(inkomen)}
@@ -181,7 +184,7 @@ export default function VergelijkingsPaneel({ data, currentStep }: Props) {
   const kinderen = berekenKinderen(data);
 
   return (
-    <div className="card-base border border-[#E8E0D0] sticky top-24 max-h-[calc(100vh-8rem)] overflow-y-auto">
+    <div className={`card-base border border-[#E8E0D0] ${stickyCls} ${scrollCls}`}>
       <p className="section-eyebrow mb-1">Live vergelijking</p>
 
       {inkomen > 0 && (

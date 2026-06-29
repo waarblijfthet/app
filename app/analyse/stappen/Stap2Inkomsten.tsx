@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
-import { berekenTotaalInkomen, getPercentiel, aantalVolwassenenVan } from "@/lib/benchmarks";
+import { aantalVolwassenenVan } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 
 interface Props {
@@ -58,6 +58,7 @@ function SalarisBlok({
   onChange: (u: Partial<QuizData>) => void;
   showBijtelling?: boolean;
 }) {
+  const [verfijnOpen, setVerfijnOpen] = useState(false);
   const s = parseEur(data[salarisKey]);
   const vakantieExtra = data[vakantieKey] ? Math.round(s * 0.08 / 12) : 0;
   const dertiendeExtra = data[dertiendeKey] ? Math.round(s / 12) : 0;
@@ -73,28 +74,49 @@ function SalarisBlok({
         placeholder="bijv. 2.800"
         hint={hint ?? "Netto bedrag per maand, na belasting"}
       />
+      {s === 0 && (
+        <p className="font-body text-xs text-text-muted mt-2">
+          Een ronde schatting is prima, je hoeft niets op te zoeken.
+        </p>
+      )}
       {s > 0 && (
         <div className="mt-3 space-y-2 pl-1">
-          <Toggle
-            checked={data[vakantieKey]}
-            onChange={(v) => onChange({ [vakantieKey]: v } as Partial<QuizData>)}
-            label="Inclusief vakantiegeld"
-            hint={
-              data[vakantieKey]
-                ? `Voegt ${fmtEur(vakantieExtra)}/mnd toe (8%÷12)`
-                : "Verdeelt het jaarlijkse vakantiegeld over 12 maanden"
-            }
-          />
-          <Toggle
-            checked={data[dertiendeKey]}
-            onChange={(v) => onChange({ [dertiendeKey]: v } as Partial<QuizData>)}
-            label="Inclusief 13e maand"
-            hint={
-              data[dertiendeKey]
-                ? `Voegt ${fmtEur(dertiendeExtra)}/mnd toe (÷12)`
-                : "Alleen aanvinken als je een 13e maand hebt"
-            }
-          />
+          <button
+            type="button"
+            onClick={() => setVerfijnOpen((o) => !o)}
+            className="flex items-center gap-2 text-xs font-body font-medium text-text-soft hover:text-primary transition-colors"
+          >
+            <span className={`transition-transform duration-200 ${verfijnOpen ? "rotate-90" : ""}`}>
+              ▶
+            </span>
+            {verfijnOpen
+              ? "Verberg vakantiegeld en 13e maand"
+              : "Vakantiegeld of 13e maand? Verfijn (optioneel)"}
+          </button>
+          {verfijnOpen && (
+            <div className="space-y-2 pt-1">
+              <Toggle
+                checked={data[vakantieKey]}
+                onChange={(v) => onChange({ [vakantieKey]: v } as Partial<QuizData>)}
+                label="Inclusief vakantiegeld"
+                hint={
+                  data[vakantieKey]
+                    ? `Voegt ${fmtEur(vakantieExtra)}/mnd toe (8%÷12)`
+                    : "Verdeelt het jaarlijkse vakantiegeld over 12 maanden"
+                }
+              />
+              <Toggle
+                checked={data[dertiendeKey]}
+                onChange={(v) => onChange({ [dertiendeKey]: v } as Partial<QuizData>)}
+                label="Inclusief 13e maand"
+                hint={
+                  data[dertiendeKey]
+                    ? `Voegt ${fmtEur(dertiendeExtra)}/mnd toe (÷12)`
+                    : "Alleen aanvinken als je een 13e maand hebt"
+                }
+              />
+            </div>
+          )}
           {showBijtelling && data.auto === "zakelijk" && data.zakelijkBijtellingSalaris && (
             <p className="font-body text-xs text-[#92600A] bg-[#FDF3E3] rounded-lg px-3 py-2">
               Je gaf aan dat de bijtelling nog niet in je salarisstrook zit.
@@ -117,8 +139,6 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
   const [overigOpen, setOverigOpen] = useState(false);
   const [toeslagenOpen, setToeslagenOpen] = useState(false);
   const alleen = aantalVolwassenenVan(data) === 1;
-  const totaalInkomen = berekenTotaalInkomen(data);
-  const percentiel = totaalInkomen > 0 ? getPercentiel(totaalInkomen, data.kinderen ?? 0) : null;
 
   return (
     <div>
@@ -267,21 +287,8 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         )}
       </div>
 
-      {/* Mobile: live feedback */}
-      {totaalInkomen > 0 && (
-        <div className="lg:hidden bg-[#F0EDE6] rounded-xl p-4">
-          <p className="font-display font-light text-primary text-2xl mb-1">
-            {fmtEur(totaalInkomen)}
-          </p>
-          <p className="text-text-muted font-body text-xs mb-2">totaal netto per maand</p>
-          {percentiel && (
-            <p className="text-text-soft font-body text-xs">
-              Je zit in de <strong>{percentiel}</strong> van Nederlandse
-              huishoudens.
-            </p>
-          )}
-        </div>
-      )}
+      {/* Mobiele live feedback komt nu uit het ingesloten vergelijkingspaneel
+          onder de vragen (QuizClient), zodat het niet dubbel staat. */}
     </div>
   );
 }

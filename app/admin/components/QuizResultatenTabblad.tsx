@@ -126,7 +126,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
           <table className="w-full text-sm font-body border-collapse min-w-[800px]">
             <thead>
               <tr className="bg-primary text-white">
-                {["Datum", "Situatie", "Inkomen", "Uitgaven", "Over", "Benchmark", "Verschil", "Verdict", "Afwijking"].map(
+                {["Datum", "Email", "Situatie", "Inkomen", "Uitgaven", "Over", "Benchmark", "Verschil", "Verdict", "Afwijking", ""].map(
                   (h) => (
                     <th key={h} className="text-left px-3 py-3 font-medium text-xs uppercase tracking-wide first:pl-5">
                       {h}
@@ -138,7 +138,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
             <tbody>
               {gefilterd.length === 0 ? (
                 <tr>
-                  <td colSpan={9} className="text-center py-10 text-text-muted bg-card">
+                  <td colSpan={11} className="text-center py-10 text-text-muted bg-card">
                     Geen resultaten gevonden
                   </td>
                 </tr>
@@ -157,6 +157,9 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                           day: "numeric",
                           month: "short",
                         })}
+                      </td>
+                      <td className="px-3 py-3 text-text-soft text-xs max-w-[140px] truncate" title={r.email ?? undefined}>
+                        {r.email ?? <span className="text-text-muted">—</span>}
                       </td>
                       <td className="px-3 py-3 text-text-soft text-xs max-w-[140px]">
                         {profielSamenvatting(r)}
@@ -194,12 +197,26 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                       <td className="px-3 py-3 text-text-soft text-xs">
                         {r.grootste_afwijking || "—"}
                       </td>
+                      <td className="px-3 py-3" onClick={(e) => e.stopPropagation()}>
+                        {r.token ? (
+                          <a
+                            href={`/resultaat/${r.token}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-xs text-primary underline hover:no-underline font-body whitespace-nowrap"
+                          >
+                            Bekijk →
+                          </a>
+                        ) : (
+                          <span className="text-text-muted text-xs">—</span>
+                        )}
+                      </td>
                     </tr>
 
                     {/* Uitklapbaar detailpaneel */}
                     {openRij === r.id && (
                       <tr key={`${r.id}-detail`} className={i % 2 === 0 ? "bg-card" : "bg-background"}>
-                        <td colSpan={9} className="px-5 py-4 border-b border-[#E8E0D0]">
+                        <td colSpan={11} className="px-5 py-4 border-b border-[#E8E0D0]">
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             {[
                               { label: "Huur/Hypotheek", val: r.wonen_huur_hypotheek },

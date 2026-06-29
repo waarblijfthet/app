@@ -67,30 +67,12 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - **Website draait op Vercel, mail op een aparte host.** Apex `@ A` = `216.198.79.1` (Vercel), `www` CNAME → `*.vercel-dns-017.com`. De mailserver is `45.82.188.190` (daar wijzen `webmail`, de wildcard `*` en de SPF naartoe). Postbus: hallo@waarblijfthet.nl.
 - **Mail-ontvangst gerepareerd (24-jun-2026).** Probleem: MX stond op `10 waarblijfthet.nl`, en die naam resolvet via de apex naar de Vercel-IP (geen mailserver), dus inkomende mail verdween. Fix: `mail` A-record → `45.82.188.190` aangemaakt, oude `mail` CNAME verwijderd, MX gewijzigd naar `10 mail.waarblijfthet.nl`. Werkt nu, mail komt binnen. **Les: een MX mag nooit naar de Vercel-apex of naar een CNAME wijzen.**
 - **Resend is alleen voor versturen, niet ontvangen.** Resend host geen postbussen.
-- **Open punt uitgaande mail**: SPF (`v=spf1 +a +mx +ip4:45.82.188.190 -all`) bevat Resend nog niet. Ga je via Resend versturen, voeg dan hun include (meestal `include:_spf.resend.com`) + DKIM-records toe, anders faalt uitgaande mail op SPF/DMARC. Raakt ontvangst niet.
+- **Resend SPF + DKIM nog in te stellen (29-jun-2026):** Eerste echte analyse is gedaan maar de Resend-mail is niet aangekomen. Fix: (1) SPF updaten naar `v=spf1 +a +mx +ip4:45.82.188.190 include:_spf.resend.com -all`. (2) In Resend dashboard → Domains → `waarblijfthet.nl` toevoegen → CNAME-records voor DKIM kopiëren naar DNS. Na verificatie in Resend werkt verzenden. Ontvangst via `mail.waarblijfthet.nl` staat los hiervan en blijft werken.
 
 ## Meting
 - **quiz_voortgang** (PII-vrije tabel) meet drop-off per stap + ingevulde antwoorden. SQL staat in `supabase/quiz_voortgang.sql` — **MOET nog eenmalig in Supabase SQL-editor gedraaid worden.**
 - Admin → tab **Funnel**: trechter + drop-off + "welke pagina's leiden naar de analyse".
 - Admin → tab **Indexing**: per-URL Google Search Console inspect + dagelijkse cron (09:00 CEST). Logt naar `cron_runs` tabel.
-
-## Open to-dos
-- [ ] **Git push** — hero-tekst, CTO-verwijdering, outreach UI/templates (10-jun sessie) nog niet gepusht. Doe: `git add -A && git commit -m "fix: hero aangescherpt, CTO weg, outreach categorieen + templates" && git push`
-- [ ] **`supabase/outreach_contacts.sql` draaien** in Supabase SQL-editor (tabel voor outreach mini-CRM).
-- [ ] **`supabase/cron_runs.sql` draaien** in Supabase SQL-editor (anders crasht de dagelijkse inspect-cron).
-- [ ] **`supabase/quiz_voortgang.sql` draaien** in Supabase SQL-editor.
-- [ ] **`supabase/prospect_zoeker.sql` draaien** in Supabase SQL-editor (tabellen `prospect_jobs` + `prospects` voor de prospect-zoeker).
-- [ ] **`RESEND_WEBHOOK_SECRET`** toevoegen aan Vercel environment variables (open/klik tracking werkt pas dan).
-- [ ] **`BRAVE_SEARCH_API_KEY`** toevoegen aan Vercel env (gratis sleutel via brave.com/search/api) zodat de zoekwoorden-modus van de prospect-zoeker betrouwbaar werkt. Zonder sleutel valt hij terug op DuckDuckGo, dat vanaf Vercel vaak geblokkeerd wordt.
-- [ ] **Foto van Jarno** toevoegen: vervang de JK-initialen `<div>` door `<img>` in `app/over/page.tsx` en `app/inzichten/[slug]/page.tsx` (auteur-bar).
-- [ ] KvK inschrijven + KOR aanmelden bij Belastingdienst.
-- [ ] SE Ranking-review (~20 juni 2026): export vergelijken met nulmeting 30 mei.
-- [ ] **`supabase/quiz_resultaten_kolommen.sql` draaien** in de Supabase SQL-editor: de productietabel `quiz_resultaten` mist kolommen die de code opslaat (gebleken: `abonnementen_totaal`; het script vult alle verwachte kolommen idempotent aan, incl. `aantal_volwassenen`, en vervangt quiz_resultaten_volwassenen.sql). `/api/quiz-lead` heeft een generieke fallback die ontbrekende kolommen weglaat zodat een lead nooit verloren gaat, maar zonder dit script worden die velden dus niet bewaard.
-- [ ] **Echte testimonial van een alleenstaande klant verzamelen** voor de homepage (grootste resterende conversieblokkade voor de alleenstaande/zzp-ICP's; niet verzinnen).
-- [ ] **Track record Jarno concretiseren** op homepage en /over: hoeveel huishoudens begeleid, sinds wanneer, relevante achtergrond (ICP "Mark" haakt hierop af; alleen echte cijfers gebruiken).
-- [ ] Outreach email-templates voor 3 doelgroepen inhoudelijk reviewen met Jarno (budgetcoaches, financieel-planners, burnout-coaches zijn technisch klaar maar nog niet door Jarno gelezen).
-- [ ] Fase 2 conversie: CTA op analyse-resultaat naar betaald pakket (nog niet gebouwd).
-- [ ] Optioneel: beeld/reels in artikelen; Meta Pixel als er ooit ads komen.
 
 ## Wat er in sessie 12-jun-2026 gedaan is (deel 3: formulieren-fix)
 - **Leadformulier quiz gaf "Er ging iets mis"**: oorzaak is de bekende RLS-klasse-fout. Stap6 schreef met de **browser-anon-client** rechtstreeks naar `leads` (upsert + select) en `quiz_resultaten`; zodra een e-mailadres al bestond werd de upsert een UPDATE en blokkeerde RLS. Zelfde patroon als eerder bij outreach/prospects.
@@ -101,7 +83,7 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
   - `app/resultaat/[token]/page.tsx` leest nu via de service client (token = toegangscontrole), zodat de gedeelde link nooit op RLS stukloopt.
 - **E-mail robuuster**: `send-resultaat` faalt niet meer stil met een "placeholder"-API-key maar geeft een duidelijke 500 als `RESEND_API_KEY` ontbreekt, en koppelt het e-mailadres aan `quiz_resultaten` (voor het bewaar-formulier op de resultaatpagina). Check of **`RESEND_API_KEY` en `RESEND_FROM`** in Vercel staan; zonder die env-vars komt er geen mail aan.
 - **Huisstijl-sweep mails/intake**: wij-vorm en em dashes uit `send-intake-bevestiging` (klantmail), en-dash-bereiken in intake-opties vervangen door "tot".
-- Browser-Supabase wordt nu alleen nog gebruikt voor: anonieme `quiz_voortgang`-meting (bewust, PII-vrij), admin-login en admin-reads (authenticated). Geen anon-writes meer naar tabellen met RLS-onzekerheid.
+- Browser-Supabase wordt nu alleen nog gebruikt voor: anonieme `quiz_voortgang`-meting (bewust, PII-vrij) en admin-login. Admin-reads zijn in sessie 29-jun alsnog ook naar `createServiceClient()` verplaatst. Geen anon-writes meer naar tabellen met RLS-onzekerheid.
 - Geverifieerd: tsc schoon, geen null bytes, geen nieuwe em dashes. **Nog niet gecommit/gepusht.**
 
 ## Wat er in sessie 12-jun-2026 gedaan is (deel 2: analyse-flow)
@@ -138,3 +120,22 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - **v2b zoekwoorden**: zoekwoorden-modus liep op DuckDuckGo-GET-scraping (faalt vanaf Vercel-IP). Vervangen door `lib/prospects/search.ts`: Brave Search API (env `BRAVE_SEARCH_API_KEY`) met DuckDuckGo-POST als fallback; meerdere zoekregels (doelgroep + stad) per keer. Brave-sleutel staat inmiddels in Vercel.
 - **RLS-writeblokkade opgelost**: admin prospect- én outreach-routes liepen op de anon-cookie-client (door Supabase als `anon` gezien → "new row violates row-level security policy"). Alle routes nu op `createServiceClient()` met `isAdminRequest()` als gate.
 - **v3 UX**: review-tabel (Prospects) acti
+
+## Wat er in sessie 29-jun-2026 gedaan is
+- **Eerste echte ingevulde analyse ontvangen.** Mail via Resend kwam niet aan (SPF/DKIM nog niet ingesteld, zie Mail/DNS-sectie).
+- **Admin-reads blokkeerden door RLS**: `admin/page.tsx` gebruikte `createClient()` (cookie-based) voor `leads`, `quiz_resultaten` en `intake_aanvragen`. Supabase zag dit bij reads als `anon`-context → lege arrays. Opgelost door `createServiceClient()` te gebruiken voor de drie data-queries (auth-check blijft op `createClient()`). Zelfde patroon als eerder bij outreach/prospects maar dan voor reads. Bestanden: `app/admin/page.tsx`.
+- **"Leads = 0" was hierdoor verklaard** — data stond gewoon in de database.
+- **6 vs 3 discrepantie is geen bug**: funnel telt `quiz_voortgang.voltooid=true` (anoniem, geen email vereist); "Analyse resultaten"-tab telt `quiz_resultaten` (alleen aangemaakt bij email-submit). Verschil = mensen die analyse voltooiden maar geen email achterliet. Label in funnel verduidelijkt met subtekst.
+- **Datum-kolom + "Bekijk →" doorklik** toegevoegd:
+  - `FunnelTabblad.tsx`: "Laatste voltooide analyses" heeft nu een datumkolom + subtekst die uitlegt dat dit anonieme afronding is.
+  - `QuizResultatenTabblad.tsx`: email-kolom toegevoegd, "Bekijk →"-link naar `/resultaat/[token]` (opent in nieuw tabblad). `token` en `email` toegevoegd aan `QuizResultaat` interface en `QUIZ_KOLOMMEN` string.
+- **Technische noot (belangrijk)**: de Edit/Write tools trunceren bestanden op het Windows NTFS-mount. Gebruik voor grote bestandswijzigingen altijd `python3` via bash om te schrijven. tsc schoon na Python-write.
+- Geverifieerd: tsc schoon. **Nog niet gecommit/gepusht.**
+
+## Wat er in sessie 29-jun-2026 gedaan is (deel 2: analyse-conversie)
+- **Diagnose funnel**: het lek zit niet binnen de analyse maar aan de voorkant. `quiz_voortgang` logt stap 1 al bij mount, dus "28" = pagina geladen, "9" = doorgeklikt naar stap 2. Wie eenmaal begint maakt het bijna altijd af (9→8→7→6→6). Advies + plan staat in `docs/analyse-conversie-advies.md`. n is klein, dus richtinggevend.
+- **P1 meting uitgebreid**: `quiz_voortgang` heeft nu `apparaat` (mobiel/desktop) en `eerste_interactie` (begon daadwerkelijk in te vullen). `QuizClient.tsx` herschreven: `logVoortgang()` losgetrokken, mount logt geladen, eerste `onChange` logt `eerste_interactie=true`. Funnel-tab (`FunnelTabblad.tsx`) toont nu "geladen vs begon in te vullen" + een apparaat-tabel per fase.
+- **P2 startdrempel verlaagd**: intro herschreven naar "2 minuten" + mini-voorbeeld van het resultaat; live vergelijking nu ook op mobiel via ingesloten `VergelijkingsPaneel` (nieuwe `embedded`-prop, geen sticky/scroll); dubbele mobiele blokken uit Stap1/Stap2 verwijderd; inkomensscherm rustiger (vakantiegeld/13e achter "Verfijn", geruststelling "een ronde schatting is prima").
+- **`supabase/quiz_voortgang_v2.sql` MOET nog eenmalig gedraaid worden** in de Supabase SQL-editor (voegt `apparaat` + `eerste_interactie` toe). Zonder die kolommen falen de upserts met die velden.
+- Variant B (expliciete keuze "snelle check" vs "volledige analyse") bewust nog NIET gebouwd; staat in het advies als losse A/B-test ná P2.
+- Geverifieerd: tsc schoon, geen null bytes, geen em dashes in copy. Grote bestanden via python3 geschreven (Edit-tool trunceerde op NTFS, zoals bekend). **Nog niet gecommit/gepusht.**

@@ -31,12 +31,6 @@ function OptionBtn({
 }
 
 export default function Stap1Profiel({ data, onChange }: Props) {
-  const allFilled =
-    data.volwassenen !== null &&
-    data.woonsituatie !== null &&
-    data.kinderen !== null &&
-    data.auto !== null;
-
   return (
     <div>
       <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-2">
@@ -179,29 +173,8 @@ export default function Stap1Profiel({ data, onChange }: Props) {
         )}
       </fieldset>
 
-      {/* Live bevestiging */}
-      {allFilled && (
-        <div className="bg-green-light rounded-xl p-4 lg:hidden">
-          <p className="font-body text-sm text-primary font-medium">
-            {(() => {
-              const k = data.kinderen ?? 0;
-              const kindTekst =
-                k === 0
-                  ? "zonder kinderen"
-                  : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
-              const volwTekst =
-                data.volwassenen === 1 ? "één volwassene" : "twee volwassenen";
-              return (
-                <>
-                  Je wordt vergeleken met een huishouden van {volwTekst}{" "}
-                  {kindTekst} in een{" "}
-                  {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
-                </>
-              );
-            })()}
-          </p>
-        </div>
-      )}
+      {/* Mobiele bevestiging komt nu uit het ingesloten vergelijkingspaneel
+          onder de vragen (QuizClient), zodat het niet dubbel staat. */}
     </div>
   );
 }
