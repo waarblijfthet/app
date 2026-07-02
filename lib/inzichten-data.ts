@@ -80,6 +80,128 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "wat-kost-een-financieel-coach",
+    korteTitel: "Wat kost een financieel coach?",
+    titel: "Wat kost een financieel coach? Tarieven in 2026",
+    metaTitel: "Wat kost een financieel coach? Tarieven 2026",
+    metaDescription:
+      "Een financieel coach kost gemiddeld €60 tot €150 per uur, een traject €250 tot €800. Bekijk alle tarieven, wanneer het zich terugverdient en de gratis alternatieven.",
+    datum: "2026-07-02",
+    datumFormatted: "2 juli 2026",
+    leestijd: "6",
+    categorie: "Financieel advies",
+    excerpt:
+      "Uurtarieven van €60 tot €150, trajecten tot €800. Maar de duurste coach is de 'gratis' adviseur met provisiebelang. Wat je echt betaalt, wanneer het loont en wanneer gratis hulp slimmer is.",
+    preview: {
+      type: "vergelijking",
+      label: "Kosten financiële hulp vergelijken",
+      items: [
+        { naam: "Coachingtraject (marktprijs)", bedrag: 800, kleur: "#B03A2E" },
+        { naam: "Eenmalig adviesgesprek", bedrag: 125, kleur: "#2D6A4F" },
+      ],
+      noot: "Traject €250 tot €800 vs. één gericht gesprek van €125",
+    },
+    faq: [
+      {
+        vraag: "Wat kost een financieel coach per uur?",
+        antwoord:
+          "Een financieel coach kost in Nederland gemiddeld €60 tot €150 per uur. Coaches in grote steden of met een specialisatie zitten aan de bovenkant. Veel coaches werken ook met vaste pakketten, van circa €250 voor enkele gesprekken tot €800 of meer voor een volledig traject.",
+      },
+      {
+        vraag: "Wat kost een budgetcoach per uur?",
+        antwoord:
+          "Een budgetcoach rekent doorgaans €60 tot €100 per uur, vaak inclusief btw. Een kennismakingsgesprek is meestal gratis. Bij geldproblemen of schulden is budgetcoaching via de gemeente kosteloos, en steeds meer werkgevers vergoeden een budgetcoach voor hun medewerkers.",
+      },
+      {
+        vraag: "Wordt een financieel coach vergoed?",
+        antwoord:
+          "Soms. Steeds meer werkgevers vergoeden een budgetcoach of geldcoach, vraag ernaar bij HR. Bij schulden of betalingsachterstanden is hulp via de gemeente gratis. Een financieel coach voor privézaken is voor particulieren niet aftrekbaar van de belasting.",
+      },
+      {
+        vraag: "Is er een gratis alternatief voor een financieel coach?",
+        antwoord:
+          "Ja. Bij geldproblemen helpen de gemeente en Geldfit kosteloos. Wil je vooral zelf inzicht, dan kun je gratis rekentools van het Nibud gebruiken of een gratis analyse doen die je uitgaven vergelijkt met vergelijkbare huishoudens. Verdien je goed maar houd je structureel weinig over, dan is er weinig gratis aanbod: die groep valt tussen schuldhulp en vermogensadvies in.",
+      },
+      {
+        vraag: "Wanneer verdient een financieel coach zich terug?",
+        antwoord:
+          "Zodra één structurele weglek wordt gevonden. Een dubbele verzekering van €40 per maand of €150 per maand te veel aan boodschappen verdient een gesprek van €125 binnen enkele maanden terug. Gemiddeld hielden de huishoudens die ik begeleidde €460 per maand meer over, al hangt de uitkomst af van je situatie.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud, inzicht in je uitgaven en rekentools",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+      {
+        label: "Geldfit, gratis hulp bij geldzorgen",
+        url: "https://geldfit.nl",
+      },
+    ],
+  },
+  {
+    slug: "verschil-budgetcoach-financieel-coach",
+    korteTitel: "Budgetcoach of financieel coach?",
+    titel: "Budgetcoach of financieel coach: het verschil en wat bij jou past",
+    metaTitel: "Verschil budgetcoach en financieel coach uitgelegd",
+    metaDescription:
+      "Een budgetcoach helpt bij geldproblemen en schulden, een financieel coach als je genoeg verdient maar weinig overhoudt. Zo kies je de juiste hulp, met kosten per optie.",
+    datum: "2026-07-02",
+    datumFormatted: "2 juli 2026",
+    leestijd: "6",
+    categorie: "Financieel advies",
+    excerpt:
+      "Budgetcoach, geldcoach, financieel coach, financieel adviseur: vier termen die door elkaar lopen. Toch bepaalt het verschil of hulp gratis kan zijn en of je aan het juiste adres bent.",
+    preview: {
+      type: "pijn",
+      label: "Welke hulp past bij welke situatie?",
+      items: [
+        "Schulden of achterstanden → budgetcoach, gratis via gemeente",
+        "Goed inkomen, toch niets over → financieel coach",
+        "Hypotheek of beleggen → Wft-adviseur",
+        "Eerst zelf inzicht → gratis analyse",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat is het verschil tussen een geldcoach en een financieel coach?",
+        antwoord:
+          "In de praktijk niets: geldcoach en financieel coach zijn twee namen voor dezelfde rol, iemand die je helpt met inzicht en grip op je dagelijkse geldzaken. Geen van beide titels is beschermd. Kijk daarom naar werkwijze en verdienmodel in plaats van naar de naam.",
+      },
+      {
+        vraag: "Wat doet een budgetcoach precies?",
+        antwoord:
+          "Een budgetcoach helpt bij geldproblemen: administratie ordenen, betalingsachterstanden aanpakken, een haalbaar budget maken en waar nodig doorverwijzen naar schuldhulpverlening. De focus ligt op rondkomen en het voorkomen of oplossen van schulden.",
+      },
+      {
+        vraag: "Is een budgetcoach gratis?",
+        antwoord:
+          "Vaak wel. Bij geldproblemen of schulden bieden gemeenten kosteloze budgetcoaching en schuldhulp, en steeds meer werkgevers vergoeden een budgetcoach. Huur je zelf een particuliere budgetcoach in, dan betaal je doorgaans €60 tot €100 per uur.",
+      },
+      {
+        vraag: "Wanneer heb ik een schuldhulpverlener nodig in plaats van een coach?",
+        antwoord:
+          "Zodra je rekeningen niet meer kunt betalen of achterstanden oplopen. Schuldhulpverlening via de gemeente is gratis en heeft wettelijke mogelijkheden die een coach niet heeft, zoals een schuldregeling. Wacht er niet mee: hoe eerder je aanklopt, hoe meer er mogelijk is.",
+      },
+      {
+        vraag: "Heb ik een coach of een financieel adviseur nodig?",
+        antwoord:
+          "Dat hangt van je vraag af. Voor producten zoals een hypotheek, pensioen of beleggingen heb je een financieel adviseur met Wft-vergunning nodig. Voor de vraag waarom er elke maand te weinig overblijft, is een financieel coach passender en aanzienlijk goedkoper.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Geldfit, check welke gratis hulp bij jou past",
+        url: "https://geldfit.nl",
+      },
+      {
+        label: "Nibud, hulp bij geldproblemen",
+        url: "https://www.nibud.nl/onderwerpen/geldproblemen/",
+      },
+    ],
+  },
+
+  {
     slug: "klarna-niet-kunnen-betalen",
     korteTitel: "Klarna niet kunnen betalen?",
     titel: "Klarna niet kunnen betalen? Dit gebeurt er stap voor stap",

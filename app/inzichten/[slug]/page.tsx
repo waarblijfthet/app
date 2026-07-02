@@ -51,7 +51,7 @@ export default function ArtikelPage({ params }: Props) {
     author: {
       "@type": "Person",
       name: "Jarno Koopman",
-      jobTitle: "Oprichter",
+      jobTitle: "Financieel coach en oprichter",
       url: "https://www.waarblijfthet.nl/over",
       image: "https://www.waarblijfthet.nl/jarno.jpg",
       sameAs: [
@@ -59,6 +59,7 @@ export default function ArtikelPage({ params }: Props) {
         "https://www.instagram.com/koopmanjarno/",
       ],
       knowsAbout: [
+        "Financiële coaching",
         "Persoonlijke financiën",
         "Huishoudbudget",
         "Grip op geld",
@@ -335,7 +336,15 @@ export default function ArtikelPage({ params }: Props) {
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">
                     Keihard werken en tóch niets overhouden. Dat gevoel ken ik.
                     Goed salaris, niks geks gedaan, en toch liepen de spaarpotten
-                    leeg. Nu kijk ik mee met mensen in dezelfde situatie.{" "}
+                    leeg. Nu kijk ik als{" "}
+                    <Link
+                      href="/financieel-coach"
+                      style={{ color: "#C4603A", textDecoration: "none" }}
+                      className="hover:underline"
+                    >
+                      financieel coach
+                    </Link>{" "}
+                    mee met mensen in dezelfde situatie.{" "}
                     <Link
                       href="/over"
                       style={{ color: "#C4603A", textDecoration: "none" }}

@@ -16,6 +16,7 @@ const statisch = [
   { loc: "/inzichten", priority: "0.8" },
   { loc: "/aanbod", priority: "0.8" },
   { loc: "/adviesgesprek", priority: "0.8" },
+  { loc: "/financieel-coach", priority: "0.9" },
   { loc: "/over", priority: "0.6" },
   { loc: "/woordenlijst", priority: "0.6" },
   { loc: "/samenwerken", priority: "0.6" },
@@ -100,6 +101,7 @@ const llms =
   `## Belangrijkste pagina's\n` +
   `- [Gratis analyse](${HOST}/analyse): vergelijk in 5 minuten je uitgaven met vergelijkbare gezinnen\n` +
   `- [Aanbod](${HOST}/aanbod): gratis analyse, eenmalig adviesgesprek en traject\n` +
+  `- [Financieel coach](${HOST}/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt\n` +
   `- [Inzichten](${HOST}/inzichten): artikelen over grip op je geld\n` +
   `- [Over ons](${HOST}/over): wie en waarom\n` +
   `- [Woordenlijst](${HOST}/woordenlijst): geldbegrippen in gewone taal\n\n` +

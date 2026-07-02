@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
 
 export const metadata: Metadata = {
-  title: "Financiële begeleiding voor gezinnen | Waar blijft het",
+  title: "Financiële coaching en adviesgesprek, tarieven",
   description:
     "Van gratis inzicht tot persoonlijk traject: kies wat bij jouw situatie past. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.",
   robots: { index: true, follow: true },

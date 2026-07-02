@@ -67,6 +67,8 @@ import OverzichtAchterafBetalen from "./content/overzicht-achteraf-betalen";
 import StoppenMetAchterafBetalen from "./content/stoppen-met-achteraf-betalen";
 import AchterafBetalenBkrRegistratie from "./content/achteraf-betalen-bkr-registratie";
 import WatKostAchterafBetalen from "./content/wat-kost-achteraf-betalen";
+import WatKostEenFinancieelCoach from "./content/wat-kost-een-financieel-coach";
+import VerschilBudgetcoachFinancieelCoach from "./content/verschil-budgetcoach-financieel-coach";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
@@ -138,6 +140,8 @@ const contentMap: Record<string, () => JSX.Element> = {
   "stoppen-met-achteraf-betalen": StoppenMetAchterafBetalen,
   "achteraf-betalen-bkr-registratie": AchterafBetalenBkrRegistratie,
   "wat-kost-achteraf-betalen": WatKostAchterafBetalen,
+  "wat-kost-een-financieel-coach": WatKostEenFinancieelCoach,
+  "verschil-budgetcoach-financieel-coach": VerschilBudgetcoachFinancieelCoach,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

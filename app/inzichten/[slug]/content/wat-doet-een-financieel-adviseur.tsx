@@ -153,7 +153,7 @@ export default function WatDoetEenFinancieelAdviseur() {
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Wft vs. coaching</p>
         <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
-          Een Wft-gecertificeerde adviseur is wettelijk aansprakelijk voor zijn advies en is geregistreerd bij de AFM. Een financieel coach of budgetadviseur heeft die vergunning niet, en hoeft die ook niet te hebben, zolang hij geen producten adviseert. Dat maakt coaching goedkoper, maar ook minder geschikt voor complexe productbeslissingen.
+          Een Wft-gecertificeerde adviseur is wettelijk aansprakelijk voor zijn advies en is geregistreerd bij de AFM. Een <Link href="/financieel-coach" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">financieel coach</Link> of budgetadviseur heeft die vergunning niet, en hoeft die ook niet te hebben, zolang hij geen producten adviseert. Dat maakt coaching goedkoper, maar ook minder geschikt voor complexe productbeslissingen.
         </p>
       </div>
 

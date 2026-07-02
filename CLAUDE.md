@@ -74,6 +74,19 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - Admin → tab **Funnel**: trechter + drop-off + "welke pagina's leiden naar de analyse".
 - Admin → tab **Indexing**: per-URL Google Search Console inspect + dagelijkse cron (09:00 CEST). Logt naar `cron_runs` tabel.
 
+## Wat er in sessie 2-jul-2026 gedaan is (cluster A: financieel coach)
+- **Groeiplan** in `docs/groeiplan-seo-juli-2026.md`: 27 keywords in 6 clusters, live SERP-gecheckt via Chrome (geen SE Ranking, connector niet geautoriseerd; volumes indicatief).
+- **Cluster A gebouwd (dienst-keywords, koopintentie)**:
+  - Nieuwe dienstpagina `app/financieel-coach/page.tsx`: target "financieel coach" + geldcoach/online/kosten. FAQPage- + Service- + BreadcrumbList-schema, tarieventabel (0/125/497), voor wie wel/niet, 8 FAQ's.
+  - Artikel `wat-kost-een-financieel-coach` (categorie Financieel advies): tarieventabel markt, terugverdienlogica, gratis alternatieven.
+  - Artikel `verschil-budgetcoach-financieel-coach`: verschiltabel, situatietabel, eerlijke doorverwijzing schuldhulp.
+  - Beide in `lib/inzichten-data.ts` (vooraan array) + `ArticleBody.tsx`.
+- **Interlinking**: auteur-bio onder elk artikel linkt nu "financieel coach" naar de dienstpagina (sitewide); Footer-link "Financieel coach"; links vanuit beide adviseur-artikelen; dienstpagina linkt naar beide nieuwe artikelen + analyse + adviesgesprek. Person-schema jobTitle nu "Financieel coach en oprichter", knowsAbout + "Financiële coaching".
+- **Title-fixes**: dubbele suffix "| Waar blijft het | Waar blijft het" opgelost op /aanbod en /inzichten (layout heeft al een template). /aanbod-title nu "Financiële coaching en adviesgesprek, tarieven" (weg van "voor gezinnen").
+- **Sitemap**: `/financieel-coach` (priority 0.9) in `generate-sitemap.mjs` + llms.txt-regel. Script gedraaid: 87 URL's, 74 artikelen.
+- Geverifieerd: tsc schoon, geen null bytes, geen em dashes in nieuwe copy. Via python3 geschreven (NTFS-truncatie Edit-tool).
+- **Na deploy: beide artikelen + /financieel-coach handmatig indienen in GSC.** Volgende stap uit het plan: cluster B ("waar blijft mijn geld") en Resend SPF/DKIM.
+
 ## Wat er in sessie 12-jun-2026 gedaan is (deel 3: formulieren-fix)
 - **Leadformulier quiz gaf "Er ging iets mis"**: oorzaak is de bekende RLS-klasse-fout. Stap6 schreef met de **browser-anon-client** rechtstreeks naar `leads` (upsert + select) en `quiz_resultaten`; zodra een e-mailadres al bestond werd de upsert een UPDATE en blokkeerde RLS. Zelfde patroon als eerder bij outreach/prospects.
 - **Oplossing: alle publieke schrijfacties naar server-routes met `createServiceClient()`**:

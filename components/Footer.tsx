@@ -42,6 +42,14 @@ export default function Footer() {
           </Link>
           <span className="text-white/20 mx-2">·</span>
           <Link
+            href="/financieel-coach"
+            className="text-white/50 hover:text-white/80 transition-colors no-underline"
+            style={{ textDecoration: "none" }}
+          >
+            Financieel coach
+          </Link>
+          <span className="text-white/20 mx-2">·</span>
+          <Link
             href="/adviesgesprek"
             className="text-white/50 hover:text-white/80 transition-colors no-underline"
             style={{ textDecoration: "none" }}
