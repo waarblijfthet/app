@@ -39,13 +39,22 @@ export async function POST(req: NextRequest) {
   const mapping = statusMap[type];
   if (!mapping) return NextResponse.json({ ok: true }); // event interesseert ons niet
 
+  // Een handmatig gemarkeerde reply ('gereageerd') is het eindstation en mag
+  // nooit door een open/klik-event worden overschreven. En een 'geopend'-event
+  // mag 'geklikt' niet degraderen.
+  const overschrijfbaar =
+    type === "email.opened"
+      ? ["verstuurd", "geopend"]
+      : ["verstuurd", "geopend", "geklikt", "bounced"];
+
   await supabase
     .from("outreach_contacts")
     .update({
       status: mapping.status,
       [mapping.veld]: data.created_at ?? new Date().toISOString(),
     })
-    .eq("resend_id", resendId);
+    .eq("resend_id", resendId)
+    .in("status", overschrijfbaar);
 
   return NextResponse.json({ ok: true });
 }

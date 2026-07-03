@@ -12,7 +12,23 @@ interface Contact {
   geopend_at: string | null;
   geklikt_at: string | null;
   bounced_at: string | null;
-  status: "nieuw" | "verstuurd" | "geopend" | "geklikt" | "bounced";
+  gereageerd_at: string | null;
+  laatste_followup_at: string | null;
+  followups: number;
+  ps_zin: string | null;
+  status: "nieuw" | "verstuurd" | "geopend" | "geklikt" | "bounced" | "gereageerd";
+}
+
+const MAX_FOLLOWUPS = 2;
+const FOLLOWUP_WACHTDAGEN = 3;
+
+// Komt een contact in aanmerking voor een follow-up?
+function followupGeschikt(c: Contact): boolean {
+  if (!["verstuurd", "geopend", "geklikt"].includes(c.status)) return false;
+  if ((c.followups ?? 0) >= MAX_FOLLOWUPS) return false;
+  const laatste = c.laatste_followup_at ?? c.verstuurd_at;
+  if (!laatste) return false;
+  return (Date.now() - new Date(laatste).getTime()) / 86400000 >= FOLLOWUP_WACHTDAGEN;
 }
 
 const DOELGROEPEN: { value: string; label: string }[] = [
@@ -39,6 +55,7 @@ const STATUS_LABEL: Record<Contact["status"], string> = {
   geopend:   "Geopend",
   geklikt:   "Geklikt",
   bounced:   "Bounced",
+  gereageerd: "Gereageerd",
 };
 
 const STATUS_STYLE: Record<Contact["status"], string> = {
@@ -47,6 +64,7 @@ const STATUS_STYLE: Record<Contact["status"], string> = {
   geopend:   "bg-green-100 text-green-700",
   geklikt:   "bg-[#FFF0EB] text-[#C4603A]",
   bounced:   "bg-red-100 text-red-700",
+  gereageerd: "bg-[#1C3A2A] text-white",
 };
 
 function datumTijd(iso: string | null): string {
@@ -70,6 +88,7 @@ export default function OutreachTabblad() {
   const [selectie, setSelectie] = useState<Set<string>>(new Set());
   const [naamEdits, setNaamEdits] = useState<Record<string, string>>({});
   const [emailEdits, setEmailEdits] = useState<Record<string, string>>({});
+  const [psEdits, setPsEdits] = useState<Record<string, string>>({});
 
   // Nieuw contact form
   const [naam, setNaam] = useState("");
@@ -168,7 +187,7 @@ export default function OutreachTabblad() {
     }
   }
 
-  async function werkBij(id: string, velden: { naam?: string; email?: string; doelgroep?: string }) {
+  async function werkBij(id: string, velden: { naam?: string; email?: string; doelgroep?: string; ps_zin?: string; gereageerd?: boolean }) {
     const res = await fetch("/api/admin/outreach", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -223,12 +242,44 @@ export default function OutreachTabblad() {
     }
   }
 
+  async function markeerGereageerd(c: Contact) {
+    if (!confirm(`${c.naam} heeft gereageerd? Dit stopt verdere follow-ups.`)) return;
+    await werkBij(c.id, { gereageerd: true });
+    setMelding(`${c.naam} gemarkeerd als gereageerd.`);
+    setTimeout(() => setMelding(null), 3000);
+  }
+
+  async function stuurFollowups(ids: string[]) {
+    if (ids.length === 0) { setFout("Geen contacten die nu een follow-up kunnen krijgen."); return; }
+    if (!confirm(`${ids.length} follow-up(s) versturen?`)) return;
+    setAllesVerzenden(true);
+    setFout(null);
+    try {
+      const res = await fetch("/api/admin/outreach/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids, type: "followup" }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setFout(data.error); return; }
+      const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
+      setMelding(`${geslaagd} van ${ids.length} follow-up(s) verstuurd.`);
+      setSelectie(new Set());
+      await laadContacten();
+    } finally {
+      setAllesVerzenden(false);
+      setTimeout(() => setMelding(null), 5000);
+    }
+  }
+
   const zichtbareContacten = filterDoelgroep === "alle"
     ? contacten
     : contacten.filter((c) => c.doelgroep === filterDoelgroep);
 
   const nieuweCount = zichtbareContacten.filter((c) => c.status === "nieuw").length;
   const geselecteerdeNieuw = zichtbareContacten.filter((c) => selectie.has(c.id) && c.status === "nieuw").length;
+  const followupKandidaten = zichtbareContacten.filter(followupGeschikt);
+  const geselecteerdeFollowups = followupKandidaten.filter((c) => selectie.has(c.id));
 
   return (
     <div className="space-y-6">
@@ -257,6 +308,21 @@ export default function OutreachTabblad() {
               className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
             >
               {allesVerzenden ? "Versturen..." : `Verstuur nieuwe (${nieuweCount})`}
+            </button>
+          )}
+          {followupKandidaten.length > 0 && (
+            <button
+              onClick={() =>
+                stuurFollowups(
+                  (geselecteerdeFollowups.length > 0 ? geselecteerdeFollowups : followupKandidaten).map((c) => c.id)
+                )
+              }
+              disabled={allesVerzenden}
+              className="text-sm px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
+            >
+              {geselecteerdeFollowups.length > 0
+                ? `Follow-up geselecteerde (${geselecteerdeFollowups.length})`
+                : `Verstuur follow-ups (${followupKandidaten.length})`}
             </button>
           )}
         </div>
@@ -362,7 +428,8 @@ export default function OutreachTabblad() {
                 <th className="text-left px-4 py-3">Status</th>
                 <th className="text-left px-4 py-3">Verstuurd</th>
                 <th className="text-left px-4 py-3">Geopend</th>
-                <th className="text-left px-4 py-3">Geklikt</th>
+                <th className="text-left px-4 py-3">Follow-up</th>
+                <th className="text-left px-4 py-3">Persoonlijke zin</th>
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
@@ -424,10 +491,27 @@ export default function OutreachTabblad() {
                     }
                   </td>
                   <td className="px-4 py-3">
-                    {c.geklikt_at
-                      ? <span className="text-[#C4603A] text-xs">{datumTijd(c.geklikt_at)}</span>
+                    {c.followups > 0
+                      ? <span className="text-text-soft text-xs">{c.followups}/{MAX_FOLLOWUPS} &middot; {datumTijd(c.laatste_followup_at)}</span>
                       : <span className="text-text-muted text-xs">&#8212;</span>
                     }
+                  </td>
+                  <td className="px-4 py-3 min-w-[220px]">
+                    {c.status === "nieuw" ? (
+                      <input
+                        type="text"
+                        value={psEdits[c.id] ?? c.ps_zin ?? ""}
+                        onChange={(e) => setPsEdits((m) => ({ ...m, [c.id]: e.target.value }))}
+                        onBlur={(e) => {
+                          const nieuw = e.target.value.trim();
+                          if (nieuw !== (c.ps_zin ?? "")) werkBij(c.id, { ps_zin: nieuw });
+                        }}
+                        placeholder="Optioneel: 1 zin, bijv. iets van hun site"
+                        className="w-full text-text-soft bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
+                      />
+                    ) : (
+                      <span className="text-text-muted text-xs">{c.ps_zin ?? ""}</span>
+                    )}
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex gap-2 justify-end">
@@ -438,6 +522,24 @@ export default function OutreachTabblad() {
                           className="text-xs bg-primary text-white px-3 py-1 rounded hover:bg-primary/90 disabled:opacity-50 whitespace-nowrap"
                         >
                           {verzenden[c.id] ? "..." : "Verstuur"}
+                        </button>
+                      )}
+                      {followupGeschikt(c) && (
+                        <button
+                          onClick={() => stuurFollowups([c.id])}
+                          disabled={allesVerzenden}
+                          className="text-xs border border-primary text-primary px-3 py-1 rounded hover:bg-primary hover:text-white transition-colors disabled:opacity-50 whitespace-nowrap"
+                        >
+                          Follow-up {(c.followups ?? 0) + 1}
+                        </button>
+                      )}
+                      {!["nieuw", "gereageerd"].includes(c.status) && (
+                        <button
+                          onClick={() => markeerGereageerd(c)}
+                          className="text-xs text-[#1C3A2A] underline decoration-dotted px-2 py-1 whitespace-nowrap"
+                          title="Markeer als gereageerd, stopt follow-ups"
+                        >
+                          Gereageerd
                         </button>
                       )}
                       <button

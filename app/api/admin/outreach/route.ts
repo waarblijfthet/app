@@ -45,20 +45,30 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(data, { status: 201 });
 }
 
-// PATCH /api/admin/outreach — naam, e-mail of categorie van een contact wijzigen
-// Body: { id: string, naam?: string, email?: string, doelgroep?: string }
+// PATCH /api/admin/outreach — naam, e-mail, categorie of persoonlijke zin wijzigen,
+// of een reply markeren.
+// Body: { id: string, naam?: string, email?: string, doelgroep?: string,
+//         ps_zin?: string, gereageerd?: boolean }
 export async function PATCH(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { id, naam, email, doelgroep } = await req.json();
+  const { id, naam, email, doelgroep, ps_zin, gereageerd } = await req.json();
   if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
 
-  const update: { naam?: string; email?: string; doelgroep?: string } = {};
+  const update: {
+    naam?: string; email?: string; doelgroep?: string;
+    ps_zin?: string | null; status?: string; gereageerd_at?: string;
+  } = {};
   if (typeof naam === "string" && naam.trim()) update.naam = naam.trim();
   if (typeof email === "string" && email.trim()) update.email = email.trim();
   if (typeof doelgroep === "string" && doelgroep.trim()) update.doelgroep = doelgroep.trim();
+  if (typeof ps_zin === "string") update.ps_zin = ps_zin.trim() || null;
+  if (gereageerd === true) {
+    update.status = "gereageerd";
+    update.gereageerd_at = new Date().toISOString();
+  }
   if (Object.keys(update).length === 0) {
     return NextResponse.json({ error: "niets om bij te werken" }, { status: 400 });
   }

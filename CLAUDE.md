@@ -87,6 +87,19 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - Geverifieerd: tsc schoon, geen null bytes, geen em dashes in nieuwe copy. Via python3 geschreven (NTFS-truncatie Edit-tool).
 - **Na deploy: beide artikelen + /financieel-coach handmatig indienen in GSC.** Volgende stap uit het plan: cluster B ("waar blijft mijn geld") en Resend SPF/DKIM.
 
+## Wat er in sessie 2-jul-2026 gedaan is (deel 2: outreach aangescherpt)
+- **Onderzoek**: cold-email benchmarks 2026 (gem. reply 3,4%, follow-ups = 42% van alle replies, opens onbetrouwbaar door Apple Mail ~49%). Conclusie: probleem was geen messaging of volume maar ontbrekende follow-ups en meting.
+- **Follow-up systeem gebouwd**:
+  - `supabase/outreach_followup.sql` **MOET nog eenmalig gedraaid worden**: kolommen `followups`, `laatste_followup_at`, `gereageerd_at`, `ps_zin` + status 'gereageerd' in constraint.
+  - `send/route.ts` herschreven: templates zijn nu kaal (geen tabel/kleuren, oogt persoonlijk), <80 woorden, mail 1 zonder links (alleen handtekening), plain-text-part meegestuurd. FU1 (na 3+ dagen, bevat de enige link naar /samenwerken/[doelgroep]), FU2 = breakup. `type: "followup"` in POST-body, max 2, server checkt wachttijd.
+  - Persoonlijke zin per contact (`ps_zin`): inline veld in admin (alleen bij status nieuw), wordt als eerste alinea na de aanhef ingevoegd.
+  - Webhook (`app/api/resend-webhook/route.ts`): status 'gereageerd' wordt nooit overschreven, 'geopend' degradeert 'geklikt' niet meer.
+  - PATCH outreach-route: `ps_zin` en `gereageerd: true` (zet status + gereageerd_at).
+  - UI (`OutreachTabblad.tsx`): bulk- en per-rij follow-up-knoppen, "Gereageerd"-markeerknop (stopt follow-ups), follow-up-kolom (n/2 + datum), Geklikt-kolom vervangen door Persoonlijke zin (klik zit al in status).
+- **Nog handmatig te doen door Jarno**: (1) SQL draaien, (2) in Resend-dashboard open+click tracking aanzetten op het domein, (3) webhook toevoegen `https://www.waarblijfthet.nl/api/resend-webhook?secret=...` met events opened/clicked/bounced/spam_complaint, (4) `RESEND_WEBHOOK_SECRET` in Vercel.
+- **Werkafspraak volume**: 10-20 outreach-mails per dag opbouwen, niet meer (jong domein, zelfde domein als leadmails). Replies zijn de metric, opens indicatief. LinkedIn bewust niet ingezet (PSOhub-scheiding). Cal.com uitgesteld (n=1 lead).
+- Geverifieerd: tsc schoon, geen em dashes.
+
 ## Wat er in sessie 12-jun-2026 gedaan is (deel 3: formulieren-fix)
 - **Leadformulier quiz gaf "Er ging iets mis"**: oorzaak is de bekende RLS-klasse-fout. Stap6 schreef met de **browser-anon-client** rechtstreeks naar `leads` (upsert + select) en `quiz_resultaten`; zodra een e-mailadres al bestond werd de upsert een UPDATE en blokkeerde RLS. Zelfde patroon als eerder bij outreach/prospects.
 - **Oplossing: alle publieke schrijfacties naar server-routes met `createServiceClient()`**:
