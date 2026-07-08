@@ -384,7 +384,7 @@ export default async function ResultaatPage({ params }: Props) {
 
               {/* Kaartje 3, Blog */}
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
-                <p className="text-3xl mb-3">🎥</p>
+                <p className="text-3xl mb-3">📄</p>
                 <h3
                   className="font-body font-medium text-base mb-2"
                   style={{ color: "#F5F0E8" }}
@@ -396,8 +396,8 @@ export default async function ResultaatPage({ params }: Props) {
                   style={{ color: "rgba(245,240,232,0.6)" }}
                 >
                   Ik kijk persoonlijk naar jouw cijfers en stuur je binnen 2
-                  werkdagen een video met je drie grootste lekken. Zonder
-                  gesprek. €49.
+                  werkdagen na betaling een persoonlijk geldrapport met je
+                  drie grootste lekken. Zonder gesprek. €49.
                 </p>
                 <Link
                   href="/geldscan"

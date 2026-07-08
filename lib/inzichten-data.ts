@@ -482,7 +482,7 @@ export const artikelen: Artikel[] = [
     slug: "netto-loonsverhoging-berekenen",
     cta: {
       kop: "Loonsverhoging gehad en toch niets extra over?",
-      tekst: "Dan lekt het ergens anders. Voor €49 kijk ik persoonlijk naar jouw cijfers en laat ik in een video van 10 minuten zien waar je verhoging blijft. Geen gesprek nodig, en vind ik geen drie verbeterpunten, dan krijg je je geld terug.",
+      tekst: "Dan lekt het ergens anders. Voor €49 kijk ik persoonlijk naar jouw cijfers en laat ik je in een persoonlijk geldrapport zien waar je verhoging blijft. Geen gesprek nodig, en vind ik geen drie verbeterpunten, dan krijg je je geld terug.",
       primairLabel: "Bekijk de geldscan (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Eerst gratis je uitgaven vergelijken",
@@ -2209,7 +2209,7 @@ export const artikelen: Artikel[] = [
     slug: "tweeverdieners-toch-krap",
     cta: {
       kop: "Twee inkomens en toch elke maand krap?",
-      tekst: "Dat ligt bijna nooit aan gedrag en bijna altijd aan structuur. Voor €49 kijk ik persoonlijk naar jullie cijfers en krijg je binnen twee werkdagen een video met jullie drie grootste lekken. Geen gesprek, geld terug als ik niets vind.",
+      tekst: "Dat ligt bijna nooit aan gedrag en bijna altijd aan structuur. Voor €49 kijk ik persoonlijk naar jullie cijfers en krijg je binnen twee werkdagen na betaling een persoonlijk geldrapport met jullie drie grootste lekken. Geen gesprek, geld terug als ik niets vind.",
       primairLabel: "Bekijk de geldscan (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Eerst gratis vergelijken met andere tweeverdieners",
@@ -2316,7 +2316,7 @@ export const artikelen: Artikel[] = [
       tekst: "De gratis analyse vergelijkt in 5 minuten ál je uitgaven, boodschappen voorop, met huishoudens zoals dat van jou. Anoniem, geen bankkoppeling, resultaat direct op je scherm.",
       primairLabel: "Vergelijk jouw boodschappen gratis",
       primairHref: "/analyse",
-      secundairLabel: "Liever dat ik persoonlijk meekijk? De geldscan, €49, video met je drie grootste lekken",
+      secundairLabel: "Liever dat ik persoonlijk meekijk? De geldscan, €49, een persoonlijk geldrapport met je drie grootste lekken",
       secundairHref: "/geldscan",
     },
     korteTitel: "Boodschappen: norm versus praktijk",

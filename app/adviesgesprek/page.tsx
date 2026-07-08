@@ -30,14 +30,14 @@ const faq = [
       "Nee. Het gesprek is eenmalig en op zichzelf compleet. Je gaat naar huis met concrete doelen waar je zelf mee verder kunt. Wil je later meer begeleiding, dan kan dat, maar het hoeft niet.",
   },
   {
-    vraag: "Krijgen jullie toegang tot mijn bankrekening?",
+    vraag: "Krijg jij toegang tot mijn bankrekening?",
     antwoord:
-      "Nee. Je deelt alleen wat je zelf wilt. De gratis analyse en eventueel een paar bankafschriften die je zelf aanlevert zijn genoeg. Wij koppelen niets aan je bank.",
+      "Nee. Je deelt alleen wat je zelf wilt. De gratis analyse en eventueel een paar bankafschriften die je zelf aanlevert zijn genoeg. Ik koppel niets aan je bank.",
   },
   {
     vraag: "Is dit financieel advies of schuldhulp?",
     antwoord:
-      "Nee. We geven geen financieel advies in de zin van de Wft, doen niet aan beleggen en zijn geen schuldhulp. Het is een eerlijke, praktische blik op je maandbudget en concrete doelen om meer over te houden.",
+      "Nee. Ik geef geen financieel advies in de zin van de Wft, doe niet aan beleggen en ben geen schuldhulp. Het is een eerlijke, praktische blik op je maandbudget en concrete doelen om meer over te houden.",
   },
 ];
 
@@ -54,18 +54,19 @@ const faqSchema = {
 const stappen = [
   {
     n: "1",
-    titel: "Vooraf: je vertrekpunt",
+    titel: "Vooraf: plannen en voorbereiden",
     items: [
-      "Je doet de gratis analyse (5 min), dat is de basis van ons gesprek.",
-      "Optioneel: leg een paar recente bankafschriften klaar.",
-      "Bedenk in één zin: wat is jullie grootste vraag of zorg?",
+      "Na je aanmelding neem ik binnen één werkdag contact op om het gesprek te plannen.",
+      "Na je aanvraag stuur ik je een betaalverzoek (€125).",
+      "Doe vooraf de gratis analyse (5 min), dat is de basis van ons gesprek. Optioneel: leg een paar recente bankafschriften klaar.",
+      "Bedenk in één zin: wat is je grootste vraag of zorg?",
     ],
   },
   {
     n: "2",
     titel: "Het gesprek: 45 minuten, eerlijk en gericht",
     items: [
-      "We kijken samen naar jullie cijfers en de twee grootste afwijkingen.",
+      "We kijken samen naar je cijfers en de twee grootste afwijkingen.",
       "Geen verkooppraat, geen oordeel. Gewoon een eerlijke blik van buitenaf.",
       "We bepalen samen 2 à 3 concrete doelen waar je meteen mee verder kunt.",
     ],
@@ -75,6 +76,7 @@ const stappen = [
     titel: "Erna: iets tastbaars",
     items: [
       "Je krijgt een korte schriftelijke samenvatting met je doelen, om terug te lezen.",
+      "Direct daarna verwijder ik alles wat je hebt aangeleverd, er blijft niets bewaard.",
       "Daarmee ga je zelf verder, in je eigen tempo.",
       "Wil je meer begeleiding? Dan kijken we naar een traject. Maar dat hoeft niet.",
     ],
@@ -99,7 +101,7 @@ export default function AdviesgesprekPage() {
               Zo werkt het adviesgesprek
             </h1>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed">
-              Eén gesprek van 45 minuten waarin we eerlijk naar jullie cijfers
+              Eén gesprek van 45 minuten waarin we eerlijk naar je cijfers
               kijken en 2 à 3 concrete doelen stellen. Geen traject, geen
               verplichting. Gewoon de por die je nodig hebt om van krap naar
               ruim te gaan.

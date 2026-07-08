@@ -82,7 +82,7 @@ export function IntakeForm({ pakket }: Props) {
     pakket === "intensief"
       ? "Persoonlijke begeleiding op maat (€497)"
       : pakket === "geldscan"
-      ? "Geldscan met persoonlijke video (€49)"
+      ? "Geldscan met persoonlijk geldrapport (€49)"
       : "Eenmalig adviesgesprek (€125)";
 
   const isValid =

@@ -72,7 +72,7 @@ const routes = [
       "Ik wil snappen waar mijn situatie afwijkt, zonder er met iemand over te praten",
     naam: "Geldscan",
     prijs: "€49",
-    regel: "Persoonlijke video met je drie grootste lekken, binnen 2 werkdagen",
+    regel: "Persoonlijk geschreven geldrapport met je drie grootste lekken, binnen 2 werkdagen na betaling",
     aanbevolen: false,
   },
   {
@@ -100,13 +100,13 @@ const details = [
     bg: "#F5F0E8",
     cardBg: "#FFFFFF",
     eyebrow: "Zonder gesprek · €49 eenmalig",
-    titel: "Geldscan: persoonlijk videoadvies",
+    titel: "Geldscan: jouw persoonlijke geldrapport",
     tekst:
-      "Je doet de gratis analyse, ik kijk er persoonlijk naar en je krijgt binnen twee werkdagen een video van 10 minuten met je drie grootste lekken en wat ik eraan zou doen. Geen gesprek, geen agenda, geen oordeel. Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug.",
+      "Je doet de gratis analyse, ik kijk er persoonlijk naar en je krijgt binnen twee werkdagen na betaling een persoonlijk geschreven rapport (PDF, 2 à 3 pagina's) met je drie grootste lekken en per lek wat ik zou doen. Geen gesprek, geen agenda, geen oordeel. Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug.",
     punten: [
-      "Persoonlijke video van ±10 minuten plus samenvatting op schrift",
-      "Binnen 2 werkdagen, terugkijken wanneer jij wilt",
-      "Bankafschriften optioneel, standaard binnen 30 dagen verwijderd",
+      "Persoonlijk geschreven rapport (PDF, 2 à 3 pagina's), met jouw eigen cijfers",
+      "Binnen 2 werkdagen na betaling, herleesbaar en deelbaar met je partner",
+      "Bankafschriften optioneel, direct na het versturen van het rapport verwijderd",
     ],
     primaireHref: "/aanbod/intake?pakket=geldscan",
     primaireLabel: "Vraag de geldscan aan",

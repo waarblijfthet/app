@@ -84,7 +84,7 @@ const stappen = [
     nrKleur: "text-text-soft",
     titel: "Jij kiest het vervolg, of niet",
     tekst:
-      "Zelf verder met je resultaat kan prima. Wil je meer? Kies de geldscan (€49): ik kijk persoonlijk naar je cijfers en stuur je een video met je drie grootste lekken, zonder gesprek. Of plan een adviesgesprek van 45 minuten (€125). Geen abonnement, alleen als jij dat wilt.",
+      "Zelf verder met je resultaat kan prima. Wil je meer? Kies de geldscan (€49): ik kijk persoonlijk naar je cijfers en stuur je een persoonlijk geldrapport met je drie grootste lekken, zonder gesprek. Of plan een adviesgesprek van 45 minuten (€125). Geen abonnement, alleen als jij dat wilt.",
   },
 ];
 
@@ -171,7 +171,7 @@ export default function HomePage() {
               >
                 Voor gezinnen, stellen én alleenstaanden. Na de gratis analyse
                 bepaal jij het vervolg: zelf verder met het resultaat,
-                persoonlijk videoadvies voor €49 of een gesprek van €125.{" "}
+                een persoonlijk geldrapport voor €49 of een gesprek van €125.{" "}
                 <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }}>
                   Bekijk het aanbod &rarr;
                 </Link>

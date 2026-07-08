@@ -103,7 +103,7 @@ const llms =
   `- [Gratis analyse](${HOST}/analyse): vergelijk in 5 minuten je uitgaven met vergelijkbare gezinnen\n` +
   `- [Aanbod](${HOST}/aanbod): gratis analyse, eenmalig adviesgesprek en traject\n` +
   `- [Financieel coach](${HOST}/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt\n` +
-  `- [Geldscan](${HOST}/geldscan): persoonlijk videoadvies over je maandbudget zonder gesprek, 49 euro\n` +
+  `- [Geldscan](${HOST}/geldscan): persoonlijk geldrapport over je maandbudget zonder gesprek, 49 euro\n` +
   `- [Inzichten](${HOST}/inzichten): artikelen over grip op je geld\n` +
   `- [Over ons](${HOST}/over): wie en waarom\n` +
   `- [Woordenlijst](${HOST}/woordenlijst): geldbegrippen in gewone taal\n\n` +
