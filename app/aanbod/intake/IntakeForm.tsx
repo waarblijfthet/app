@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 interface Props {
-  pakket: "intensief" | "gesprek";
+  pakket: "intensief" | "gesprek" | "geldscan";
 }
 
 const GEZINSSITUATIE_OPTIES = [
@@ -81,6 +81,8 @@ export function IntakeForm({ pakket }: Props) {
   const pakketLabel =
     pakket === "intensief"
       ? "Persoonlijke begeleiding op maat (€497)"
+      : pakket === "geldscan"
+      ? "Geldscan met persoonlijke video (€49)"
       : "Eenmalig adviesgesprek (€125)";
 
   const isValid =

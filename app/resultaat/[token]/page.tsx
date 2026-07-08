@@ -384,21 +384,23 @@ export default async function ResultaatPage({ params }: Props) {
 
               {/* Kaartje 3, Blog */}
               <div style={{ padding: "1.5rem 2rem 2rem" }}>
-                <p className="text-3xl mb-3">📖</p>
+                <p className="text-3xl mb-3">🎥</p>
                 <h3
                   className="font-body font-medium text-base mb-2"
                   style={{ color: "#F5F0E8" }}
                 >
-                  Meer leren
+                  Liever geen gesprek? De geldscan
                 </h3>
                 <p
                   className="font-body font-light text-sm leading-relaxed mb-5"
                   style={{ color: "rgba(245,240,232,0.6)" }}
                 >
-                  Lees hoe anderen hun financiën hebben omgebogen.
+                  Ik kijk persoonlijk naar jouw cijfers en stuur je binnen 2
+                  werkdagen een video met je drie grootste lekken. Zonder
+                  gesprek. €49.
                 </p>
                 <Link
-                  href="/inzichten"
+                  href="/geldscan"
                   className="block w-full text-center px-4 py-2.5 rounded-xl border font-body text-sm font-medium transition-all hover:bg-white/10"
                   style={{
                     borderColor: "rgba(245,240,232,0.3)",
@@ -406,7 +408,7 @@ export default async function ResultaatPage({ params }: Props) {
                     textDecoration: "none",
                   }}
                 >
-                  Naar de blog →
+                  Bekijk de geldscan →
                 </Link>
               </div>
             </div>

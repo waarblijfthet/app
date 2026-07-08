@@ -441,6 +441,39 @@ export default function AanbodPage() {
           </div>
         </section>
 
+        {/* Geldscan tussenoptie */}
+        <section style={{ backgroundColor: "#FDFAF4", padding: "0 1.5rem 3rem" }}>
+          <div
+            style={{
+              maxWidth: "860px",
+              margin: "0 auto",
+              backgroundColor: "#E8F2EC",
+              borderRadius: "16px",
+              padding: "1.5rem 2rem",
+            }}
+            className="flex flex-col sm:flex-row sm:items-center gap-4"
+          >
+            <div className="flex-1">
+              <p className="font-body font-medium text-[#1C3A2A] text-base mb-1">
+                Liever geen gesprek? Er is ook de geldscan (€49)
+              </p>
+              <p className="font-body font-light text-sm text-[#4A5E4E] leading-relaxed">
+                Ik bekijk persoonlijk jouw analyse en stuur je binnen twee
+                werkdagen een video van 10 minuten met je drie grootste lekken.
+                Geen gesprek, geen agenda. De €49 wordt verrekend als je later
+                toch een gesprek of traject wilt.
+              </p>
+            </div>
+            <Link
+              href="/geldscan"
+              className="btn-primary text-sm whitespace-nowrap"
+              style={{ alignSelf: "flex-start" }}
+            >
+              Bekijk de geldscan →
+            </Link>
+          </div>
+        </section>
+
         {/* Vergelijkingstabel */}
         <section style={{ backgroundColor: "#F5F0E8", padding: "3rem 1.5rem" }}>
           <div style={{ maxWidth: "860px", margin: "0 auto" }}>

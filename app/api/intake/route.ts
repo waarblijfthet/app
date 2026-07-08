@@ -5,7 +5,12 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
 
-    const pakket = body?.pakket === "intensief" ? "intensief" : "gesprek";
+    const pakket =
+      body?.pakket === "intensief"
+        ? "intensief"
+        : body?.pakket === "geldscan"
+        ? "geldscan"
+        : "gesprek";
     const naam = typeof body?.naam === "string" ? body.naam.trim().slice(0, 120) : "";
     const email = typeof body?.email === "string" ? body.email.trim().toLowerCase() : "";
     const gezinssituatie =

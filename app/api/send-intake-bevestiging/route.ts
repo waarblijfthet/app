@@ -14,18 +14,25 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    const isGeldscan = pakket === "geldscan";
     const pakketLabel =
-      pakket === "intensief"
+      isGeldscan
+        ? "Geldscan met persoonlijke video (€49)"
+        : pakket === "intensief"
         ? "Persoonlijke begeleiding op maat (€497)"
         : "Eenmalig adviesgesprek (€125)";
 
-    const isGesprek = pakket !== "intensief";
+    const isGesprek = pakket !== "intensief" && !isGeldscan;
     const intro = isGesprek
       ? "Ik neem binnen één werkdag persoonlijk contact op om je adviesgesprek (45 min, video) in te plannen."
+      : isGeldscan
+      ? "Je ontvangt binnen één werkdag een betaalverzoek per e-mail. Zodra dat voldaan is, krijg je binnen twee werkdagen je persoonlijke video."
       : "Ik neem binnen één werkdag persoonlijk contact op. Geen standaardmail, maar een bericht dat aansluit op wat je hebt ingevuld.";
     const stappenTitel = isGesprek ? "Zo bereid je je voor" : "Wat er nu gebeurt";
     const stappenHtml = isGesprek
       ? "1. We plannen samen je videogesprek van 45 minuten<br>2. Doe vooraf de gratis analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijken we eerlijk naar je cijfers en stellen we 2 à 3 concrete doelen<br>4. Achteraf krijg je een korte samenvatting om terug te lezen"
+      : isGeldscan
+      ? "1. Doe de gratis analyse als je dat nog niet deed, dat is de basis van je scan<br>2. Je krijgt een betaalverzoek per e-mail (€49)<br>3. Optioneel: stuur een paar recente bankafschriften mee per e-mail<br>4. Binnen twee werkdagen ontvang je jouw persoonlijke video met de drie grootste lekken"
       : "1. Ik lees je aanmelding door<br>2. Je krijgt binnen één werkdag een persoonlijk bericht<br>3. We plannen het intakegesprek (45 min, video)<br>4. Daarna stellen we samen je plan op maat op";
 
     // Bevestiging naar aanvrager

@@ -87,6 +87,13 @@ Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartne
 - Geverifieerd: tsc schoon, geen null bytes, geen em dashes in nieuwe copy. Via python3 geschreven (NTFS-truncatie Edit-tool).
 - **Na deploy: beide artikelen + /financieel-coach handmatig indienen in GSC.** Volgende stap uit het plan: cluster B ("waar blijft mijn geld") en Resend SPF/DKIM.
 
+## Wat er in sessie 8-jul-2026 gedaan is (conversie: geldscan + benchmark-mail)
+- **Growth plan** in `docs/growth-plan-conversie-juli-2026.md`. Kernkeuzes van Jarno: geen gratis 15-min gesprekken (tijd), geen ads, geen werkgeversspoor (nog geen KvK), wel anoniem-advies-producten.
+- **Geldscan gebouwd (€49, async)**: `app/geldscan/page.tsx` (FAQPage+Service schema). Klant doet analyse, Jarno stuurt binnen 2 werkdagen persoonlijke video (10 min) met 3 grootste lekken. €49 wordt verrekend bij gesprek/traject. Intake-flow uitgebreid met `pakket=geldscan` (page, IntakeForm, api/intake, bevestigingsmail met betaalverzoek-uitleg). Betaling handmatig via betaalverzoek, geen PSP.
+- **Benchmark-per-mail** op het boodschappen-artikel (grootste verkeersbron): `components/artikel/BenchmarkMail.tsx` + `app/api/boodschappen-benchmark/route.ts`. Bezoeker kiest huishoudtype + e-mail → krijgt direct één persoonlijke benchmark-mail met 3 hefbomen per situatie (Resend). Adres wordt niet in DB opgeslagen; er gaat een notificatiemail naar hallo@ (bewuste v1-keuze, geen migratie nodig). Expliciete belofte: geen nieuwsbrief.
+- **Geldscan-positionering**: kaartje op analyse-resultaatpagina (verving blog-kaartje), banner op /aanbod onder de prijskaarten, link onderaan /adviesgesprek, sitemap (88 URL's) + llms.txt.
+- Geverifieerd: tsc schoon, geen em dashes/null bytes. **Let op: RESEND_API_KEY vereist voor benchmark-mail (staat al in Vercel als SPF/DKIM-fix is afgerond).**
+
 ## Wat er in sessie 2-jul-2026 gedaan is (deel 2: outreach aangescherpt)
 - **Onderzoek**: cold-email benchmarks 2026 (gem. reply 3,4%, follow-ups = 42% van alle replies, opens onbetrouwbaar door Apple Mail ~49%). Conclusie: probleem was geen messaging of volume maar ontbrekende follow-ups en meting.
 - **Follow-up systeem gebouwd**:

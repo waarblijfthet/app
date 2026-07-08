@@ -203,6 +203,15 @@ export default function AdviesgesprekPage() {
                 Liever eerst de gratis analyse? →
               </Link>
             </p>
+            <p className="mt-2">
+              <Link
+                href="/geldscan"
+                className="font-body text-sm"
+                style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
+              >
+                Liever geen gesprek? Bekijk de geldscan (€49) →
+              </Link>
+            </p>
           </div>
         </section>
       </main>

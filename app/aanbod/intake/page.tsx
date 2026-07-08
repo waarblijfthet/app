@@ -14,6 +14,10 @@ export default function IntakePage({
   searchParams: { pakket?: string };
 }) {
   const pakket =
-    searchParams.pakket === "intensief" ? "intensief" : "gesprek";
+    searchParams.pakket === "intensief"
+      ? "intensief"
+      : searchParams.pakket === "geldscan"
+      ? "geldscan"
+      : "gesprek";
   return <IntakeForm pakket={pakket} />;
 }
