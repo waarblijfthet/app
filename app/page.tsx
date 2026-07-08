@@ -82,9 +82,9 @@ const stappen = [
     nr: "3",
     kleur: "bg-[#F0EDE6]",
     nrKleur: "text-text-soft",
-    titel: "Adviesgesprek · €125 eenmalig",
+    titel: "Jij kiest het vervolg, of niet",
     tekst:
-      "Wil je verder? Dan plan je een gesprek van 45 minuten. We kijken samen naar jouw cijfers en maken een concreet plan. Geen abonnement. Geen automatische incasso. Alleen als jij dat wilt.",
+      "Zelf verder met je resultaat kan prima. Wil je meer? Kies de geldscan (€49): ik kijk persoonlijk naar je cijfers en stuur je een video met je drie grootste lekken, zonder gesprek. Of plan een adviesgesprek van 45 minuten (€125). Geen abonnement, alleen als jij dat wilt.",
   },
 ];
 
@@ -169,8 +169,9 @@ export default function HomePage() {
                 className="font-body animate-hero-5"
                 style={{ fontSize: "0.85rem", color: "#8A9E8E" }}
               >
-                Voor gezinnen, stellen én alleenstaanden. Na de gratis analyse is er
-                één mogelijke vervolgstap: een adviesgesprek van €125.{" "}
+                Voor gezinnen, stellen én alleenstaanden. Na de gratis analyse
+                bepaal jij het vervolg: zelf verder met het resultaat,
+                persoonlijk videoadvies voor €49 of een gesprek van €125.{" "}
                 <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }}>
                   Bekijk het aanbod &rarr;
                 </Link>
@@ -360,7 +361,7 @@ export default function HomePage() {
                 </h3>
                 {[
                   ["Geen schuldhulp", "Dit is voor mensen die genoeg verdienen maar grip missen, niet voor mensen in financiële nood."],
-                  ["Geen abonnement", "Eenmalig adviesgesprek voor €125. Klaar. Geen maandelijkse kosten, geen doorlopend traject."],
+                  ["Geen abonnement", "Geldscan voor €49 of een gesprek voor €125, allebei eenmalig. Klaar. Geen maandelijkse kosten, geen doorlopend traject."],
                   ["Geen oordeel", "Je verdient goed. De structuur klopt gewoon niet. Ik kijk naar wat er weglekt, niet naar wat jij fout zou doen."],
                   ["Concrete uitkomst", "Na de gratis analyse weet je direct in welke categorie je valt en wat de grootste afwijking is."],
                   ["Ook met wisselend inkomen", "Zzp'er of wisselende maanden? Vul je gemiddelde maandinkomen in. Juist dan geeft zicht op je vaste structuur rust."],

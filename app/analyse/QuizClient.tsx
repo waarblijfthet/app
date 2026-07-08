@@ -218,6 +218,20 @@ export default function QuizClient() {
               Privacy &rarr;
             </Link>
           </p>
+
+          <div className="flex items-center gap-2.5 mt-3">
+            <img
+              src="/jarno.jpg"
+              alt="Jarno Koopman"
+              className="w-8 h-8 rounded-full object-cover flex-shrink-0"
+            />
+            <p className="text-[#8A9E8E] text-xs">
+              Gemaakt door Jarno Koopman, financieel coach.{" "}
+              <Link href="/over" style={{ color: "#C4603A", textDecoration: "none" }}>
+                Wie ik ben &rarr;
+              </Link>
+            </p>
+          </div>
         </div>
       )}
 

@@ -26,7 +26,7 @@ export default function Header() {
 
   const navLinks = [
     { href: "/inzichten", label: "Inzichten" },
-    { href: "/aanbod", label: "Aanbod" },
+    { href: "/aanbod", label: "Tarieven" },
     { href: "/over", label: "Over" },
     { href: "/samenwerken", label: "Samenwerken" },
     { href: "/analyse", label: "Analyse" },
