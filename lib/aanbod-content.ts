@@ -24,7 +24,7 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
       "Betaalverzoek binnen 1 werkdag (€49)",
       "Na betaling vul je de gratis analyse in (2 minuten)",
       "Optioneel: stuur ook een paar bankafschriften mee",
-      "Binnen 2 werkdagen daarna: je geldrapport, en ik verwijder alles wat je aanleverde",
+      "Binnen 2 werkdagen daarna ontvang je je geldrapport, waarna ik alle aangeleverde gegevens verwijder",
     ],
     watJeKrijgt: [
       "Een geldrapport dat ik zelf schrijf, geen sjabloon of algoritme",
@@ -41,7 +41,7 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
       "Je meldt je aan, ik neem binnen 1 werkdag contact op",
       "Doe vooraf de gratis analyse (5 minuten), je vertrekpunt",
       "Het gesprek zelf: 45 minuten, via video",
-      "Daarna verwijder ik alles wat je hebt aangeleverd",
+      "Daarna verwijder ik alle aangeleverde gegevens",
     ],
     watJeKrijgt: [
       "Een heldere blik op je cijfers en de grootste afwijkingen",

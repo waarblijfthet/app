@@ -76,7 +76,7 @@ const stappen = [
     titel: "Erna: iets tastbaars",
     items: [
       "Je krijgt een korte schriftelijke samenvatting met je doelen, om terug te lezen.",
-      "Direct daarna verwijder ik alles wat je hebt aangeleverd, er blijft niets bewaard.",
+      "Direct daarna verwijder ik alle aangeleverde gegevens, er blijft niets bewaard.",
       "Daarmee ga je zelf verder, in je eigen tempo.",
       "Wil je meer begeleiding? Dan bekijk ik met je of een traject bij je past. Maar dat hoeft niet.",
     ],
