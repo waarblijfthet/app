@@ -49,11 +49,11 @@ export default function BedanktPage() {
               marginBottom: "2.5rem",
             }}
           >
-            We hebben je aanmelding goed ontvangen en nemen binnen één werkdag
+            Ik heb je aanmelding goed ontvangen en neem binnen één werkdag
             persoonlijk contact op. Je ontvangt ook een bevestiging per email.
             <br />
             <br />
-            We kijken ernaar uit kennis te maken.
+            Ik kijk ernaar uit kennis te maken.
           </p>
 
           <hr style={{ borderColor: "#E8E0D4", marginBottom: "2.5rem" }} />

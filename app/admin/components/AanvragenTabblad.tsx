@@ -205,12 +205,25 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                     className="text-xs px-2 py-0.5 rounded-full"
                     style={{
                       backgroundColor:
-                        a.pakket === "intensief" ? "#F3E8FF" : "#E8F2EC",
-                      color: a.pakket === "intensief" ? "#6B21A8" : "#065F46",
+                        a.pakket === "intensief"
+                          ? "#F3E8FF"
+                          : a.pakket === "geldscan"
+                          ? "#FDE9DD"
+                          : "#E8F2EC",
+                      color:
+                        a.pakket === "intensief"
+                          ? "#6B21A8"
+                          : a.pakket === "geldscan"
+                          ? "#9A3B12"
+                          : "#065F46",
                       fontWeight: 500,
                     }}
                   >
-                    {a.pakket === "intensief" ? "Intensief" : "Adviesgesprek"}
+                    {a.pakket === "intensief"
+                      ? "Intensief"
+                      : a.pakket === "geldscan"
+                      ? "Geldscan"
+                      : "Adviesgesprek"}
                   </span>
                 </td>
                 <td className="py-3 pr-4" style={{ color: "#4A5E4E", whiteSpace: "nowrap", fontSize: "0.82rem" }}>

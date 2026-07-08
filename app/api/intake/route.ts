@@ -19,7 +19,8 @@ export async function POST(request: NextRequest) {
       typeof body?.inkomen_bracket === "string" ? body.inkomen_bracket.slice(0, 120) : null;
     const grootsteKnelpunt =
       typeof body?.grootste_knelpunt === "string" ? body.grootste_knelpunt.slice(0, 2000) : null;
-    const analyseGedaan = body?.analyse_gedaan === true;
+    const analyseGedaan =
+      typeof body?.analyse_gedaan === "boolean" ? body.analyse_gedaan : null;
     const startVoorkeur =
       typeof body?.start_voorkeur === "string" ? body.start_voorkeur.slice(0, 120) : null;
 

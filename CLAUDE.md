@@ -10,8 +10,26 @@ Nederlandse personal-finance site voor mensen die **goed verdienen maar tóch kr
 - **Geen em dashes en geen koppeltekens als scheidingsteken in copy.** Altijd vervangen door komma, punt of nieuwe zin. Dit geldt voor alle bestanden, inclusief hints, labels en meta-teksten.
 - **CTO nooit noemen** in copy (te elitair, mensen herkennen het niet). Artikel-bio en FAQ gebruiken: "Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte."
 
+## START HIER (voor een nieuwe sessie, bijgewerkt 8-jul-2026)
+
+Harde werkregels, altijd toepassen:
+1. Bestanden schrijven/wijzigen ALTIJD via python3 in bash (heredoc of read+replace). De Edit/Write-tools trunceren bestanden op dit NTFS-mount.
+2. Na elke codewijziging: `npx tsc --noEmit --incremental false` moet schoon zijn.
+3. Geen em dashes in copy, ik-vorm (nooit wij), prijzen zonder btw-vermelding (KOR), CTO nooit noemen.
+4. NOOIT klantcases, reviews of resultaten verzinnen. Testimonials zijn echte (geanonimiseerde) klanten; voorbeelden altijd expliciet als illustratie labelen. Dit is een vaste afspraak met Jarno.
+5. Nieuw artikel = entry in `lib/inzichten-data.ts` (vooraan array, optioneel `cta`-veld voor contextuele CTA) + content-component in `app/inzichten/[slug]/content/` + import/map in `ArticleBody.tsx`. Sitemap/llms.txt regenereert bij build. Na deploy handmatig indienen in GSC.
+
+Openstaande prioriteiten (in volgorde):
+1. **Rapport-template voor het geldrapport maken** (bestaat nog niet; nodig zodra de eerste geldscan binnenkomt: vaste secties in huisstijl, alleen analyse-deel persoonlijk invullen).
+2. **E-mailflow na de analyse** (dag 0 resultaat / dag 2 grootste afwijking / dag 5 uitnodiging geldscan+gesprek), zie docs/growth-plan-conversie-juli-2026.md.
+3. **SEO cluster B** uit docs/groeiplan-seo-juli-2026.md: merkterm-artikel "waar blijft mijn geld" versterken/uitbouwen; daarna cluster C (hoeveel spaargeld is normaal, gemiddelde vaste lasten) en D (rondkomen van X euro-serie).
+4. **Outreach draaien**: 10-20 mails per dag, follow-ups via de knoppen, replies zijn de metric. Check of `supabase/outreach_followup.sql` al gedraaid is en of de Resend-webhook + RESEND_WEBHOOK_SECRET staan.
+5. Alleenstaande-testimonial (wacht op echte klant, niet verzinnen).
+
+Meetpunten: geboekte gesprekken en geldscan-aanvragen (echte KPI), benchmark-mailaanvragen (notificaties op hallo@), GSC-posities cluster A (/financieel-coach e.o.), funnel-tab in /admin.
+
 ## Aanbod / funnel
-Gratis analyse (lead-instap, primaire CTA) → **Eenmalig adviesgesprek €125** (uitlegpagina: /adviesgesprek) → Traject €497.
+Gratis analyse (lead-instap, primaire CTA) → **Geldscan €49** (async, /geldscan: klant krijgt "jouw persoonlijke geldrapport", persoonlijk geschreven PDF van 2 à 3 pagina's met de 3 grootste lekken; geld-terug-garantie; €49 wordt verrekend bij vervolg) → **Eenmalig adviesgesprek €125** (/adviesgesprek) → Traject €497. /aanbod is situatie-gedreven (3 scenario-kaarten met anchors, geen SaaS-grid), nav-label heet "Tarieven".
 - **Btw: KOR (kleineondernemersregeling) → géén btw. Prijzen €125 / €497 ZONDER btw vermelden.** (Nog: KvK + KOR aanmelden.)
 
 ## Belangrijke beslissingen

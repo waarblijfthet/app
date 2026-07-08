@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
     description:
-      "45 minuten, eerlijk en gericht. Samen naar je cijfers kijken en 2 à 3 concrete doelen stellen. Geen traject, geen verplichting.",
+      "45 minuten, eerlijk en gericht. Ik kijk met je naar je cijfers en help je 2 à 3 concrete doelen te stellen. Geen traject, geen verplichting.",
     url: "https://www.waarblijfthet.nl/adviesgesprek",
     type: "website",
   },
@@ -58,7 +58,7 @@ const stappen = [
     items: [
       "Na je aanmelding neem ik binnen één werkdag contact op om het gesprek te plannen.",
       "Na je aanvraag stuur ik je een betaalverzoek (€125).",
-      "Doe vooraf de gratis analyse (5 min), dat is de basis van ons gesprek. Optioneel: leg een paar recente bankafschriften klaar.",
+      "Doe vooraf de gratis analyse (5 min), dat is de basis van het gesprek. Optioneel: leg een paar recente bankafschriften klaar.",
       "Bedenk in één zin: wat is je grootste vraag of zorg?",
     ],
   },
@@ -66,9 +66,9 @@ const stappen = [
     n: "2",
     titel: "Het gesprek: 45 minuten, eerlijk en gericht",
     items: [
-      "We kijken samen naar je cijfers en de twee grootste afwijkingen.",
+      "Ik kijk samen met jou naar je cijfers en de twee grootste afwijkingen.",
       "Geen verkooppraat, geen oordeel. Gewoon een eerlijke blik van buitenaf.",
-      "We bepalen samen 2 à 3 concrete doelen waar je meteen mee verder kunt.",
+      "Samen bepalen jij en ik 2 à 3 concrete doelen waar je meteen mee verder kunt.",
     ],
   },
   {
@@ -78,7 +78,7 @@ const stappen = [
       "Je krijgt een korte schriftelijke samenvatting met je doelen, om terug te lezen.",
       "Direct daarna verwijder ik alles wat je hebt aangeleverd, er blijft niets bewaard.",
       "Daarmee ga je zelf verder, in je eigen tempo.",
-      "Wil je meer begeleiding? Dan kijken we naar een traject. Maar dat hoeft niet.",
+      "Wil je meer begeleiding? Dan bekijk ik met je of een traject bij je past. Maar dat hoeft niet.",
     ],
   },
 ];
@@ -101,8 +101,8 @@ export default function AdviesgesprekPage() {
               Zo werkt het adviesgesprek
             </h1>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed">
-              Eén gesprek van 45 minuten waarin we eerlijk naar je cijfers
-              kijken en 2 à 3 concrete doelen stellen. Geen traject, geen
+              Eén gesprek van 45 minuten waarin ik eerlijk naar je cijfers
+              kijk en je 2 à 3 concrete doelen meekrijgt. Geen traject, geen
               verplichting. Gewoon de por die je nodig hebt om van krap naar
               ruim te gaan.
             </p>

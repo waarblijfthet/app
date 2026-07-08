@@ -8,11 +8,12 @@ interface Props {
   pakket: "intensief" | "gesprek" | "geldscan";
 }
 
-const GEZINSSITUATIE_OPTIES = [
+const SITUATIE_OPTIES = [
+  "Alleenstaand, geen kinderen",
+  "Alleenstaande ouder",
   "Stel zonder kinderen",
   "Gezin met jonge kinderen (0 tot 8)",
   "Gezin met oudere kinderen (8+)",
-  "Eénoudergezin",
 ];
 
 const INKOMEN_OPTIES = [
@@ -70,7 +71,7 @@ export function IntakeForm({ pakket }: Props) {
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
 
-  const [gezinssituatie, setGezinssituatie] = useState("");
+  const [situatie, setSituatie] = useState("");
   const [inkomen, setInkomen] = useState("");
   const [knelpunt, setKnelpunt] = useState("");
   const [analyse, setAnalyse] = useState("");
@@ -78,21 +79,48 @@ export function IntakeForm({ pakket }: Props) {
   const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
 
+  const isGeldscan = pakket === "geldscan";
+
   const pakketLabel =
     pakket === "intensief"
       ? "Persoonlijke begeleiding op maat (€497)"
-      : pakket === "geldscan"
+      : isGeldscan
       ? "Geldscan met persoonlijk geldrapport (€49)"
       : "Eenmalig adviesgesprek (€125)";
 
-  const isValid =
-    gezinssituatie &&
-    inkomen &&
-    knelpunt.trim().length > 0 &&
-    analyse &&
-    startVoorkeur &&
-    naam.trim().length > 0 &&
-    email.includes("@");
+  const subtitel = isGeldscan
+    ? "Drie korte vragen. Ik gebruik ze om je geldrapport direct persoonlijk te maken."
+    : "Vijf korte vragen. Ik neem binnen één werkdag persoonlijk contact op.";
+
+  const knelpuntLabelNr = isGeldscan ? "3" : "3";
+  const knelpuntLabel = isGeldscan
+    ? "Wat wil je dat ik in je geldrapport uitzoek?"
+    : "Wat is je grootste knelpunt?";
+  const knelpuntPlaceholder = isGeldscan
+    ? "Bijv. ik weet niet waar mijn geld naartoe gaat, of: ik wil weten of ik te veel uitgeef aan vaste lasten…"
+    : "Bijv. ik verdien goed maar aan het einde van de maand is het op…";
+
+  const footerTekst = isGeldscan
+    ? "Je gegevens gebruik ik alleen voor je geldrapport en het betaalverzoek. Geen spam, nooit gedeeld."
+    : "Je gegevens gebruik ik alleen om contact met je op te nemen. Geen spam, nooit gedeeld.";
+
+  const isValid = isGeldscan
+    ? Boolean(
+        situatie &&
+          inkomen &&
+          knelpunt.trim().length > 0 &&
+          naam.trim().length > 0 &&
+          email.includes("@")
+      )
+    : Boolean(
+        situatie &&
+          inkomen &&
+          knelpunt.trim().length > 0 &&
+          analyse &&
+          startVoorkeur &&
+          naam.trim().length > 0 &&
+          email.includes("@")
+      );
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -106,11 +134,15 @@ export function IntakeForm({ pakket }: Props) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           pakket,
-          gezinssituatie,
+          gezinssituatie: situatie,
           inkomen_bracket: inkomen,
           grootste_knelpunt: knelpunt.trim(),
-          analyse_gedaan: analyse.startsWith("Ja"),
-          start_voorkeur: startVoorkeur,
+          ...(isGeldscan
+            ? {}
+            : {
+                analyse_gedaan: analyse.startsWith("Ja"),
+                start_voorkeur: startVoorkeur,
+              }),
           naam: naam.trim(),
           email: email.trim().toLowerCase(),
         }),
@@ -196,7 +228,7 @@ export function IntakeForm({ pakket }: Props) {
             lineHeight: 1.25,
           }}
         >
-          Vertel ons iets over jullie situatie
+          Vertel me iets over je situatie
         </h1>
         <p
           className="font-body"
@@ -208,7 +240,7 @@ export function IntakeForm({ pakket }: Props) {
             marginBottom: "2.5rem",
           }}
         >
-          Vijf korte vragen. We nemen binnen één werkdag persoonlijk contact op.
+          {subtitel}
         </p>
 
         <form onSubmit={handleSubmit}>
@@ -224,15 +256,15 @@ export function IntakeForm({ pakket }: Props) {
                 display: "block",
               }}
             >
-              1. Wat is jullie gezinssituatie?
+              1. Wat is je situatie?
             </legend>
             <div className="flex flex-col gap-2">
-              {GEZINSSITUATIE_OPTIES.map((o) => (
+              {SITUATIE_OPTIES.map((o) => (
                 <RadioKaart
                   key={o}
                   optie={o}
-                  selected={gezinssituatie === o}
-                  onSelect={() => setGezinssituatie(o)}
+                  selected={situatie === o}
+                  onSelect={() => setSituatie(o)}
                 />
               ))}
             </div>
@@ -250,7 +282,7 @@ export function IntakeForm({ pakket }: Props) {
                 display: "block",
               }}
             >
-              2. Wat is het netto gezinsinkomen per maand?
+              2. Wat is je netto inkomen per maand?
             </legend>
             <div className="flex flex-col gap-2">
               {INKOMEN_OPTIES.map((o) => (
@@ -277,14 +309,14 @@ export function IntakeForm({ pakket }: Props) {
                 marginBottom: "0.75rem",
               }}
             >
-              3. Wat is jullie grootste knelpunt?
+              {knelpuntLabelNr}. {knelpuntLabel}
             </label>
             <div style={{ position: "relative" }}>
               <textarea
                 id="knelpunt"
                 value={knelpunt}
                 onChange={(e) => setKnelpunt(e.target.value.slice(0, 200))}
-                placeholder="Bijv. we verdienen goed maar aan het einde van de maand is het op…"
+                placeholder={knelpuntPlaceholder}
                 rows={4}
                 style={{
                   width: "100%",
@@ -318,57 +350,61 @@ export function IntakeForm({ pakket }: Props) {
             </div>
           </div>
 
-          {/* Vraag 4 */}
-          <fieldset style={{ border: "none", padding: 0, marginBottom: "2rem" }}>
-            <legend
-              className="font-body"
-              style={{
-                fontWeight: 600,
-                color: "#1C3A2A",
-                fontSize: "0.95rem",
-                marginBottom: "0.75rem",
-                display: "block",
-              }}
-            >
-              4. Heb je de gratis analyse al gedaan?
-            </legend>
-            <div className="flex flex-col gap-2">
-              {ANALYSE_OPTIES.map((o) => (
-                <RadioKaart
-                  key={o}
-                  optie={o}
-                  selected={analyse === o}
-                  onSelect={() => setAnalyse(o)}
-                />
-              ))}
-            </div>
-          </fieldset>
+          {!isGeldscan && (
+            <>
+              {/* Vraag 4 */}
+              <fieldset style={{ border: "none", padding: 0, marginBottom: "2rem" }}>
+                <legend
+                  className="font-body"
+                  style={{
+                    fontWeight: 600,
+                    color: "#1C3A2A",
+                    fontSize: "0.95rem",
+                    marginBottom: "0.75rem",
+                    display: "block",
+                  }}
+                >
+                  4. Heb je de gratis analyse al gedaan?
+                </legend>
+                <div className="flex flex-col gap-2">
+                  {ANALYSE_OPTIES.map((o) => (
+                    <RadioKaart
+                      key={o}
+                      optie={o}
+                      selected={analyse === o}
+                      onSelect={() => setAnalyse(o)}
+                    />
+                  ))}
+                </div>
+              </fieldset>
 
-          {/* Vraag 5 */}
-          <fieldset style={{ border: "none", padding: 0, marginBottom: "2rem" }}>
-            <legend
-              className="font-body"
-              style={{
-                fontWeight: 600,
-                color: "#1C3A2A",
-                fontSize: "0.95rem",
-                marginBottom: "0.75rem",
-                display: "block",
-              }}
-            >
-              5. Wanneer wil je starten?
-            </legend>
-            <div className="flex flex-col gap-2">
-              {START_OPTIES.map((o) => (
-                <RadioKaart
-                  key={o}
-                  optie={o}
-                  selected={startVoorkeur === o}
-                  onSelect={() => setStartVoorkeur(o)}
-                />
-              ))}
-            </div>
-          </fieldset>
+              {/* Vraag 5 */}
+              <fieldset style={{ border: "none", padding: 0, marginBottom: "2rem" }}>
+                <legend
+                  className="font-body"
+                  style={{
+                    fontWeight: 600,
+                    color: "#1C3A2A",
+                    fontSize: "0.95rem",
+                    marginBottom: "0.75rem",
+                    display: "block",
+                  }}
+                >
+                  5. Wanneer wil je starten?
+                </legend>
+                <div className="flex flex-col gap-2">
+                  {START_OPTIES.map((o) => (
+                    <RadioKaart
+                      key={o}
+                      optie={o}
+                      selected={startVoorkeur === o}
+                      onSelect={() => setStartVoorkeur(o)}
+                    />
+                  ))}
+                </div>
+              </fieldset>
+            </>
+          )}
 
           {/* Contactgegevens */}
           <div
@@ -518,7 +554,7 @@ export function IntakeForm({ pakket }: Props) {
               lineHeight: 1.6,
             }}
           >
-            Je gegevens worden alleen gebruikt om contact op te nemen. Geen spam, nooit gedeeld.
+            {footerTekst}
           </p>
         </form>
       </main>

@@ -30,10 +30,10 @@ export async function POST(request: NextRequest) {
       : "Ik neem binnen één werkdag persoonlijk contact op. Geen standaardmail, maar een bericht dat aansluit op wat je hebt ingevuld.";
     const stappenTitel = isGesprek ? "Zo bereid je je voor" : "Wat er nu gebeurt";
     const stappenHtml = isGesprek
-      ? "1. We plannen samen je videogesprek van 45 minuten en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de gratis analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijken we eerlijk naar je cijfers en stellen we 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alles wat je hebt aangeleverd"
+      ? "1. Ik plan je videogesprek van 45 minuten in en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de gratis analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijk ik eerlijk naar je cijfers en bepaal je samen met mij 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alles wat je hebt aangeleverd"
       : isGeldscan
       ? "1. Doe de gratis analyse als je dat nog niet deed, dat is de basis van je scan<br>2. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>3. Optioneel: beantwoord die mail met een paar recente bankafschriften als bijlage<br>4. Zodra het betaald is, ontvang je binnen twee werkdagen jouw persoonlijke geldrapport als PDF, en direct na het versturen verwijder ik je afschriften en gegevens. Vind ik geen drie serieuze verbeterpunten, dan krijg je je geld terug"
-      : "1. Ik lees je aanmelding door<br>2. Je krijgt binnen één werkdag een persoonlijk bericht<br>3. We plannen het intakegesprek (45 min, video)<br>4. Daarna stellen we samen je plan op maat op";
+      : "1. Ik lees je aanmelding door<br>2. Je krijgt binnen één werkdag een persoonlijk bericht<br>3. Ik plan het intakegesprek (45 min, video) met je in<br>4. Daarna stel ik samen met jou je plan op maat op";
 
     // Bevestiging naar aanvrager
     await resend.emails.send({
