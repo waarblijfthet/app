@@ -7,12 +7,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Geldscan: jouw persoonlijke geldrapport, €49",
   description:
-    "Persoonlijke geldscan: je doet de gratis analyse, ik schrijf een persoonlijk rapport met je drie grootste lekken en per lek wat ik zou doen. Geen gesprek nodig. €49.",
+    "Persoonlijke geldscan: je meldt je aan en betaalt, ik schrijf een persoonlijk rapport met je drie grootste lekken en per lek wat ik zou doen. Geen gesprek nodig. €49.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
     title: "Geldscan: jouw persoonlijke geldrapport, €49",
     description:
-      "Je doet de gratis analyse, ik schrijf jouw persoonlijke geldrapport met je drie grootste lekken. Geen gesprek, geen agenda. €49.",
+      "Je meldt je aan, ik schrijf jouw persoonlijke geldrapport met je drie grootste lekken. Geen gesprek, geen agenda. €49.",
     url: "https://www.waarblijfthet.nl/geldscan",
     type: "website",
   },
@@ -23,7 +23,7 @@ const faq = [
   {
     vraag: "Wat is de geldscan precies?",
     antwoord:
-      "Je doet de gratis analyse en meldt je aan, optioneel stuur je een paar recente bankafschriften mee. Binnen twee werkdagen na betaling krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF, 2 à 3 pagina's) met jouw drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner.",
+      "Je meldt je aan met je naam en e-mailadres. Na betaling vraag ik je de gratis analyse in te vullen (2 minuten), optioneel stuur je ook een paar recente bankafschriften mee. Binnen twee werkdagen daarna krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF) met jouw drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner.",
   },
   {
     vraag: "Moet ik hiervoor met iemand praten of bellen?",
@@ -43,12 +43,12 @@ const faq = [
   {
     vraag: "Is dit hetzelfde als het adviesgesprek?",
     antwoord:
-      "Nee. Het adviesgesprek (€125) is een gesprek van 45 minuten waarin we samen doelen stellen en jij vragen kunt stellen. De geldscan is eenrichtingsverkeer: ik kijk naar jouw cijfers en zet op papier wat ik zie. Minder diepgang, wel een persoonlijke en eerlijke blik, voor een lagere prijs en zonder gesprek.",
+      "Nee. Het adviesgesprek (€125) is een gesprek van 45 minuten waarin ik je help doelen te stellen en jij vragen kunt stellen. De geldscan is eenrichtingsverkeer: ik kijk naar jouw cijfers en zet op papier wat ik zie. Minder diepgang, wel een persoonlijke blik, voor een lagere prijs en zonder gesprek.",
   },
   {
     vraag: "Moet ik bankafschriften delen?",
     antwoord:
-      "Nee, dat is optioneel. De gratis analyse alleen is genoeg voor een goede scan. Wil je ze wel meesturen, dan beantwoord je simpelweg de mail met het betaalverzoek met de bijlagen erbij, dan kan ik preciezer zijn over waar het weglekt. Alles blijft vertrouwelijk: het rapport komt als PDF-bijlage per e-mail, alleen naar jou. Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. Je hoeft daar niet om te vragen.",
+      "Nee, dat is optioneel. Na betaling vraag ik je de gratis analyse in te vullen, dat is meestal genoeg voor een goede scan. Wil je dat ik preciezer kijk, stuur dan ook een paar recente bankafschriften mee als bijlage. Alles blijft vertrouwelijk: het rapport komt als PDF-bijlage per e-mail, alleen naar jou. Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. Je hoeft daar niet om te vragen.",
   },
   {
     vraag: "Is dit financieel advies in de zin van de Wft?",
@@ -73,7 +73,7 @@ const serviceSchema = {
   serviceType: "Persoonlijke geldscan",
   name: "Geldscan, Waar blijft het",
   description:
-    "Persoonlijk geschreven geldrapport over je maandbudget zonder gesprek: drie grootste lekken plus per lek wat ik zou doen, als PDF binnen twee werkdagen na betaling. €49 eenmalig.",
+    "Persoonlijk geschreven geldrapport over je maandbudget zonder gesprek: drie grootste lekken plus per lek wat ik zou doen, als PDF binnen twee werkdagen na aanlevering van je cijfers. €49 eenmalig.",
   url: "https://www.waarblijfthet.nl/geldscan",
   areaServed: { "@type": "Country", name: "Nederland" },
   provider: {
@@ -94,31 +94,46 @@ const serviceSchema = {
 const stappen = [
   {
     n: "1",
-    titel: "Doe de gratis analyse en meld je aan",
+    titel: "Meld je aan",
     tekst:
-      "De gratis analyse (5 minuten) is meteen je aanlevering, je hoeft niets extra's te maken. Aanmelden kan met alleen je naam en e-mailadres.",
+      "Alleen je naam en e-mailadres, geen lang formulier. Je hoeft nog niets uit te rekenen of aan te leveren.",
   },
   {
     n: "2",
-    titel: "Na je aanvraag: het betaalverzoek",
+    titel: "Het betaalverzoek",
     tekst:
-      "Na je aanvraag stuur ik je een betaalverzoek. Zodra dat betaald is, ontvang je binnen twee werkdagen je geldrapport. Optioneel: beantwoord de mail met het betaalverzoek met een paar recente bankafschriften als bijlage, dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen.",
+      "Na je aanvraag stuur ik je binnen één werkdag een betaalverzoek (€49), dat komt altijd van hallo@waarblijfthet.nl.",
   },
   {
     n: "3",
-    titel: "Binnen 2 werkdagen na betaling: jouw geldrapport",
+    titel: "Na betaling: vul de gratis analyse in",
     tekst:
-      "Je ontvangt jouw geldrapport als PDF per e-mail: een persoonlijk geschreven rapport van 2 à 3 pagina's met je drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner. Vragen achteraf stel je gewoon per reply.",
+      "Zodra het betaald is, vraag ik je de gratis analyse in te vullen (2 minuten), dat geeft me de cijfers om je rapport op te baseren. Optioneel stuur je ook een paar recente bankafschriften mee, dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen.",
   },
   {
     n: "4",
+    titel: "Binnen 2 werkdagen daarna: jouw geldrapport",
+    tekst:
+      "Je ontvangt jouw geldrapport als PDF per e-mail: persoonlijk geschreven, met je drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner. Vragen achteraf stel je gewoon per reply.",
+  },
+  {
+    n: "5",
     titel: "Direct daarna: alles verwijderd",
     tekst:
       "Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. En vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug.",
   },
 ];
 
-export default function GeldscanPage() {
+export default function GeldscanPage({
+  searchParams,
+}: {
+  searchParams?: { token?: string };
+}) {
+  const token = searchParams?.token;
+  const intakeHref = token
+    ? `/aanbod/intake?pakket=geldscan&token=${encodeURIComponent(token)}`
+    : "/aanbod/intake?pakket=geldscan";
+
   return (
     <>
       <script
@@ -141,8 +156,8 @@ export default function GeldscanPage() {
             </h1>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-4">
               Wel een eerlijke, persoonlijke blik op waar jouw geld blijft.
-              Geen gesprek, geen agenda. Jij stuurt je cijfers, ik stuur
-              binnen twee werkdagen na betaling jouw persoonlijke
+              Geen gesprek, geen agenda. Je meldt je aan, en zodra ik je
+              cijfers heb stuur ik binnen twee werkdagen jouw persoonlijke
               geldrapport: je drie grootste lekken en per lek wat ik eraan
               zou doen.
             </p>
@@ -151,7 +166,7 @@ export default function GeldscanPage() {
               gesprek wil. Dat begrijp ik beter dan je denkt.
             </p>
             <div className="flex flex-wrap items-center gap-4">
-              <Link href="/aanbod/intake?pakket=geldscan" className="btn-primary">
+              <Link href={intakeHref} className="btn-primary">
                 Vraag de geldscan aan (€49) →
               </Link>
               <Link
@@ -163,7 +178,7 @@ export default function GeldscanPage() {
               </Link>
             </div>
             <p className="font-body font-light text-text-muted text-xs mt-4">
-              Binnen 2 werkdagen na betaling · Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug · €49 wordt verrekend als je later een gesprek of traject wilt
+              Binnen 2 werkdagen na aanlevering van je cijfers · Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug · €49 wordt verrekend als je later een gesprek of traject wilt
             </p>
           </div>
         </section>
@@ -256,7 +271,7 @@ export default function GeldscanPage() {
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
-              Wat een eerlijke blik van buitenaf anderen opleverde
+              Wat een blik van buitenaf anderen opleverde
             </h2>
             <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-6">
               De geldscan is de lichtste vorm van mijn begeleiding: dezelfde
@@ -308,7 +323,7 @@ export default function GeldscanPage() {
             </h2>
             <p className="font-body font-light text-text-soft leading-relaxed mb-4">
               Voor mensen die goed verdienen maar structureel te weinig
-              overhouden, en die wel een eerlijk antwoord willen maar geen
+              overhouden, en die wel een duidelijk antwoord willen maar geen
               gesprek. Ook met wisselend zzp-inkomen: juist dan laat de scan
               zien welke vaste structuur eronder ligt. Omdat het ongemakkelijk voelt om over geld te praten,
               omdat je agenda vol zit, of omdat je eerst wilt weten of dit
@@ -354,11 +369,12 @@ export default function GeldscanPage() {
               Weten waar het bij jou weglekt?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              €49, binnen twee werkdagen na betaling jouw persoonlijke
-              geldrapport. Zonder gesprek, zonder oordeel.
+              €49. Je meldt je aan, en binnen twee werkdagen na aanlevering
+              van je cijfers ontvang je jouw persoonlijke geldrapport. Zonder
+              gesprek, zonder oordeel.
             </p>
             <Link
-              href="/aanbod/intake?pakket=geldscan"
+              href={intakeHref}
               className="btn-primary"
               style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
             >

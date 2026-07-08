@@ -144,36 +144,38 @@ export default function HomePage() {
                 waar het naartoe gaat, zodat je het kunt bijsturen.
               </p>
 
-              <div className="animate-hero-4 mb-5">
+              <div className="animate-hero-4 mb-4 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
                 <Link
-                  href="/analyse"
+                  href="/aanbod/intake?pakket=geldscan"
                   className="btn-primary"
                   style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
                 >
-                  Start de gratis analyse &rarr;
+                  Vind je geldlek (€49) &rarr;
                 </Link>
-                <p
-                  className="font-body"
-                  style={{
-                    fontSize: "0.8rem",
-                    color: "#8A9E8E",
-                    marginTop: "0.6rem",
-                    letterSpacing: "0.01em",
-                  }}
-                >
-                  Gratis &middot; 5 minuten &middot; Geen account of bankkoppeling &middot; Resultaat direct op je scherm
-                </p>
+                <Link href="/analyse" className="btn-outline">
+                  Eerst gratis zelf checken &rarr;
+                </Link>
               </div>
+              <p
+                className="font-body mb-5"
+                style={{
+                  fontSize: "0.8rem",
+                  color: "#8A9E8E",
+                  letterSpacing: "0.01em",
+                }}
+              >
+                Geldscan: geen algoritme, ik schrijf zelf je rapport &middot; Analyse: gratis, 5 minuten, geen account of bankkoppeling
+              </p>
 
               <p
                 className="font-body animate-hero-5"
                 style={{ fontSize: "0.85rem", color: "#8A9E8E" }}
               >
-                Voor gezinnen, stellen én alleenstaanden. Na de gratis analyse
-                bepaal jij het vervolg: zelf verder met het resultaat,
-                een persoonlijk geldrapport voor €49 of een gesprek van €125.{" "}
+                Voor gezinnen, stellen én alleenstaanden. Naast de geldscan en
+                de gratis analyse is er ook een adviesgesprek van 45 minuten
+                (€125).{" "}
                 <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }}>
-                  Bekijk het aanbod &rarr;
+                  Bekijk het hele aanbod &rarr;
                 </Link>
               </p>
             </div>

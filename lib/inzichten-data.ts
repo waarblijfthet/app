@@ -2209,7 +2209,7 @@ export const artikelen: Artikel[] = [
     slug: "tweeverdieners-toch-krap",
     cta: {
       kop: "Twee inkomens en toch elke maand krap?",
-      tekst: "Dat ligt bijna nooit aan gedrag en bijna altijd aan structuur. Voor €49 kijk ik persoonlijk naar jullie cijfers en krijg je binnen twee werkdagen na betaling een persoonlijk geldrapport met jullie drie grootste lekken. Geen gesprek, geld terug als ik niets vind.",
+      tekst: "Dat ligt bijna nooit aan gedrag en bijna altijd aan structuur. Voor €49 kijk ik persoonlijk naar je cijfers en krijg je binnen twee werkdagen na aanlevering een persoonlijk geldrapport met je drie grootste lekken. Geen gesprek, geld terug als ik niets vind.",
       primairLabel: "Bekijk de geldscan (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Eerst gratis vergelijken met andere tweeverdieners",

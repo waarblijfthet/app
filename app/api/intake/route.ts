@@ -23,12 +23,32 @@ export async function POST(request: NextRequest) {
       typeof body?.analyse_gedaan === "boolean" ? body.analyse_gedaan : null;
     const startVoorkeur =
       typeof body?.start_voorkeur === "string" ? body.start_voorkeur.slice(0, 120) : null;
+    let analyseToken =
+      typeof body?.analyse_token === "string" && body.analyse_token.trim().length > 0
+        ? body.analyse_token.trim().slice(0, 100)
+        : null;
 
     if (!naam || !email || !email.includes("@") || !email.includes(".") || email.length > 200) {
       return NextResponse.json({ error: "Naam of e-mailadres ontbreekt" }, { status: 400 });
     }
 
     const supabase = createServiceClient();
+
+    // Geen token meegekregen? Kijk of dit e-mailadres al eerder de gratis
+    // analyse deed, dan koppelen we die (meest recente) automatisch.
+    if (!analyseToken) {
+      const { data: match } = await supabase
+        .from("quiz_resultaten")
+        .select("token")
+        .eq("email", email)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (match?.token) {
+        analyseToken = match.token;
+      }
+    }
+
     const { error } = await supabase.from("intake_aanvragen").insert({
       pakket,
       gezinssituatie,
@@ -36,6 +56,7 @@ export async function POST(request: NextRequest) {
       grootste_knelpunt: grootsteKnelpunt,
       analyse_gedaan: analyseGedaan,
       start_voorkeur: startVoorkeur,
+      analyse_token: analyseToken,
       naam,
       email,
       status: "nieuw",

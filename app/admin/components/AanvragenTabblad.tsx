@@ -233,7 +233,16 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                   <KnelpuntCell tekst={a.grootste_knelpunt} />
                 </td>
                 <td className="py-3 pr-4" style={{ whiteSpace: "nowrap" }}>
-                  {a.analyse_gedaan === null ? (
+                  {a.analyse_token ? (
+                    <a
+                      href={`/resultaat/${a.analyse_token}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: "#C4603A", textDecoration: "none", fontWeight: 500 }}
+                    >
+                      Bekijk analyse →
+                    </a>
+                  ) : a.analyse_gedaan === null ? (
                     <span style={{ color: "#8A9E8E" }}>—</span>
                   ) : a.analyse_gedaan ? (
                     <span style={{ color: "#2D6A4F" }}>✓ Ja</span>

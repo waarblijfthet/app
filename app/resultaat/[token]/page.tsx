@@ -400,7 +400,7 @@ export default async function ResultaatPage({ params }: Props) {
                   drie grootste lekken. Zonder gesprek. €49.
                 </p>
                 <Link
-                  href="/geldscan"
+                  href={`/geldscan?token=${params.token}`}
                   className="block w-full text-center px-4 py-2.5 rounded-xl border font-body text-sm font-medium transition-all hover:bg-white/10"
                   style={{
                     borderColor: "rgba(245,240,232,0.3)",

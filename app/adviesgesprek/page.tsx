@@ -6,12 +6,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
   description:
-    "Een eenmalig financieel adviesgesprek van 45 minuten: eerlijk naar je cijfers kijken en 2 à 3 concrete doelen stellen. €125, geen traject, geen verplichting.",
+    "Een eenmalig financieel adviesgesprek van 45 minuten: naar je cijfers kijken en 2 à 3 concrete doelen stellen. €125, geen traject, geen verplichting.",
   alternates: { canonical: "https://www.waarblijfthet.nl/adviesgesprek" },
   openGraph: {
     title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
     description:
-      "45 minuten, eerlijk en gericht. Ik kijk met je naar je cijfers en help je 2 à 3 concrete doelen te stellen. Geen traject, geen verplichting.",
+      "Ik kijk met je naar je cijfers en help je 2 à 3 concrete doelen te stellen. Geen traject, geen verplichting.",
     url: "https://www.waarblijfthet.nl/adviesgesprek",
     type: "website",
   },
@@ -37,7 +37,7 @@ const faq = [
   {
     vraag: "Is dit financieel advies of schuldhulp?",
     antwoord:
-      "Nee. Ik geef geen financieel advies in de zin van de Wft, doe niet aan beleggen en ben geen schuldhulp. Het is een eerlijke, praktische blik op je maandbudget en concrete doelen om meer over te houden.",
+      "Nee. Ik geef geen financieel advies in de zin van de Wft, doe niet aan beleggen en ben geen schuldhulp. Het is een praktische blik op je maandbudget en concrete doelen om meer over te houden.",
   },
 ];
 
@@ -64,10 +64,10 @@ const stappen = [
   },
   {
     n: "2",
-    titel: "Het gesprek: 45 minuten, eerlijk en gericht",
+    titel: "Het gesprek: 45 minuten",
     items: [
       "Ik kijk samen met jou naar je cijfers en de twee grootste afwijkingen.",
-      "Geen verkooppraat, geen oordeel. Gewoon een eerlijke blik van buitenaf.",
+      "Geen verkooppraat, geen oordeel. Gewoon een blik van buitenaf.",
       "Samen bepalen jij en ik 2 à 3 concrete doelen waar je meteen mee verder kunt.",
     ],
   },
@@ -184,7 +184,7 @@ export default function AdviesgesprekPage() {
         <section className="bg-dark-block py-20">
           <div className="max-w-3xl mx-auto px-6 text-center">
             <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
-              Klaar voor een eerlijk gesprek?
+              Klaar om te beginnen?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
               Eenmalig €125. Daarna bepaal jij wat je doet.

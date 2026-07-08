@@ -3,9 +3,11 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { PAKKET_INFO } from "@/lib/aanbod-content";
 
 interface Props {
   pakket: "intensief" | "gesprek" | "geldscan";
+  token?: string;
 }
 
 const SITUATIE_OPTIES = [
@@ -66,7 +68,7 @@ function RadioKaart({
   );
 }
 
-export function IntakeForm({ pakket }: Props) {
+export function IntakeForm({ pakket, token }: Props) {
   const router = useRouter();
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
@@ -87,6 +89,7 @@ export function IntakeForm({ pakket }: Props) {
       : isGeldscan
       ? "Geldscan met persoonlijk geldrapport (€49)"
       : "Eenmalig adviesgesprek (€125)";
+  const info = PAKKET_INFO[pakket];
 
   const subtitel = isGeldscan
     ? "Drie korte vragen. Ik gebruik ze om je geldrapport direct persoonlijk te maken."
@@ -101,7 +104,7 @@ export function IntakeForm({ pakket }: Props) {
     : "Bijv. ik verdien goed maar aan het einde van de maand is het op…";
 
   const footerTekst = isGeldscan
-    ? "Je gegevens gebruik ik alleen voor je geldrapport en het betaalverzoek. Geen spam, nooit gedeeld."
+    ? "Na betaling vraag ik je de gratis analyse in te vullen, dat maakt je rapport preciezer. Je gegevens gebruik ik alleen daarvoor en voor het betaalverzoek. Geen spam, nooit gedeeld."
     : "Je gegevens gebruik ik alleen om contact met je op te nemen. Geen spam, nooit gedeeld.";
 
   const isValid = isGeldscan
@@ -138,7 +141,7 @@ export function IntakeForm({ pakket }: Props) {
           inkomen_bracket: inkomen,
           grootste_knelpunt: knelpunt.trim(),
           ...(isGeldscan
-            ? {}
+            ? { analyse_token: token ?? null }
             : {
                 analyse_gedaan: analyse.startsWith("Ja"),
                 start_voorkeur: startVoorkeur,
@@ -242,6 +245,59 @@ export function IntakeForm({ pakket }: Props) {
         >
           {subtitel}
         </p>
+
+        <div
+          className="font-body"
+          style={{
+            backgroundColor: "white",
+            border: "1px solid #E8E0D4",
+            borderRadius: "16px",
+            padding: "1.5rem",
+            marginBottom: "2rem",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "0.75rem",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#8A9E8E",
+              marginBottom: "1rem",
+            }}
+          >
+            Je vraagt dit aan: wat je krijgt
+          </p>
+          <ul style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+            {info.watJeKrijgt.map((t) => (
+              <li key={t} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
+                <span aria-hidden="true" style={{ color: "#2D6A4F", fontWeight: 600 }}>
+                  ✓
+                </span>
+                <span style={{ fontSize: "0.88rem", lineHeight: 1.6, color: "#4A5E4E" }}>
+                  {t}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {isGeldscan && token && (
+          <div
+            className="font-body"
+            style={{
+              backgroundColor: "#E8F2EC",
+              border: "1px solid #C8DDD0",
+              borderRadius: "12px",
+              padding: "0.875rem 1rem",
+              fontSize: "0.85rem",
+              color: "#1C3A2A",
+              marginBottom: "2rem",
+            }}
+          >
+            Je analyse is gekoppeld. Ik gebruik die cijfers als basis voor je geldrapport, je hoeft ze hieronder niet te herhalen.
+          </div>
+        )}
 
         <form onSubmit={handleSubmit}>
           {/* Vraag 1 */}

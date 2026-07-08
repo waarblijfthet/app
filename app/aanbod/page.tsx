@@ -4,6 +4,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
+import { PAKKET_INFO, type Pakket } from "@/lib/aanbod-content";
 
 export const metadata: Metadata = {
   title: "Financiële coaching en adviesgesprek, tarieven",
@@ -72,7 +73,7 @@ const routes = [
       "Ik wil snappen waar mijn situatie afwijkt, zonder er met iemand over te praten",
     naam: "Geldscan",
     prijs: "€49",
-    regel: "Persoonlijk geschreven geldrapport met je drie grootste lekken, binnen 2 werkdagen na betaling",
+    regel: "Persoonlijk geschreven geldrapport met je drie grootste lekken",
     aanbevolen: false,
   },
   {
@@ -81,7 +82,7 @@ const routes = [
       "Ik weet dat er iets moet veranderen en wil daar één goed gesprek over",
     naam: "Adviesgesprek",
     prijs: "€125",
-    regel: "45 minuten samen naar je cijfers, 2 à 3 concrete doelen",
+    regel: "2 à 3 concrete doelen waar je meteen mee verder kunt",
     aanbevolen: true,
   },
   {
@@ -89,25 +90,32 @@ const routes = [
     situatie: "Ik wil het echt anders gaan doen, met begeleiding tot het staat",
     naam: "Traject",
     prijs: "€497",
-    regel: "3 maanden begeleiding tot je systeem vanzelf loopt",
+    regel: "Een systeem dat vanzelf blijft lopen, na 3 maanden begeleiding",
     aanbevolen: false,
   },
 ];
 
-const details = [
+const details: {
+  id: string;
+  pakket: Pakket;
+  bg: string;
+  cardBg: string;
+  eyebrow: string;
+  titel: string;
+  intro: string;
+  primaireHref: string;
+  primaireLabel: string;
+  secundaireHref: string;
+  secundaireLabel: string;
+}[] = [
   {
     id: "geldscan",
+    pakket: "geldscan",
     bg: "#F5F0E8",
     cardBg: "#FFFFFF",
     eyebrow: "Zonder gesprek · €49 eenmalig",
     titel: "Geldscan: jouw persoonlijke geldrapport",
-    tekst:
-      "Je doet de gratis analyse, ik kijk er persoonlijk naar en je krijgt binnen twee werkdagen na betaling een persoonlijk geschreven rapport (PDF, 2 à 3 pagina's) met je drie grootste lekken en per lek wat ik zou doen. Geen gesprek, geen agenda, geen oordeel. Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug.",
-    punten: [
-      "Persoonlijk geschreven rapport (PDF, 2 à 3 pagina's), met jouw eigen cijfers",
-      "Binnen 2 werkdagen na betaling, herleesbaar en deelbaar met je partner",
-      "Bankafschriften optioneel, direct na het versturen van het rapport verwijderd",
-    ],
+    intro: "Geen gesprek, geen agenda: jij levert je cijfers aan, ik schrijf op wat ik zie.",
     primaireHref: "/aanbod/intake?pakket=geldscan",
     primaireLabel: "Vraag de geldscan aan",
     secundaireHref: "/geldscan",
@@ -115,18 +123,12 @@ const details = [
   },
   {
     id: "adviesgesprek",
+    pakket: "gesprek",
     bg: "#FFFFFF",
     cardBg: "#FDFAF4",
     eyebrow: "Meest gevraagd · €125 eenmalig",
     titel: "Eenmalig adviesgesprek",
-    tekst:
-      "In 45 minuten kijk ik samen met jou eerlijk naar jouw cijfers. Geen verkooppraat, geen traject. Één gericht gesprek waar je meteen mee verder kunt; één concrete beslissing verdient de €125 makkelijk terug.",
-    punten: [
-      "Videogesprek van 45 minuten, eerlijk en gericht",
-      "Samen 2 à 3 concrete doelen en actiepunten bepalen",
-      "Korte schriftelijke samenvatting achteraf om terug te lezen",
-      "Daarna zelf verder, of een traject als je dat wilt",
-    ],
+    intro: "Eén gesprek, geen verkooppraat, geen traject. Vaak verdient één concrete beslissing de €125 al terug.",
     primaireHref: "/aanbod/intake?pakket=gesprek",
     primaireLabel: "Ja, dit wil ik",
     secundaireHref: "/adviesgesprek",
@@ -134,18 +136,12 @@ const details = [
   },
   {
     id: "traject",
+    pakket: "intensief",
     bg: "#F5F0E8",
     cardBg: "#FFFFFF",
     eyebrow: "Beperkte beschikbaarheid · €497 eenmalig",
     titel: "Persoonlijk traject, 3 maanden",
-    tekst:
-      "Na 3 maanden heb je een systeem dat werkt zonder dat je er continu over na hoeft te denken. Niet alleen een plan, maar een gewoonte die blijft. Maximaal 3 trajecten tegelijk.",
-    punten: [
-      "Intakegesprek (45 min, video) en volledig financieel plan",
-      "Maandelijkse videocall (3x) om bij te sturen",
-      "WhatsApp bereikbaar voor vragen, 3 maanden lang",
-      "Tussenevaluatie na 6 weken en eindrapport met aanbevelingen",
-    ],
+    intro: "Niet alleen een plan, maar een gewoonte die blijft. Plek voor maximaal 3 trajecten tegelijk.",
     primaireHref: "/aanbod/intake?pakket=intensief",
     primaireLabel: "Ja, dit wil ik",
     secundaireHref: "/aanbod/intake?pakket=intensief",
@@ -288,24 +284,72 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* Detail-secties */}
-        {details.map((d) => (
-          <section
-            key={d.id}
-            id={d.id}
-            className="px-6 py-16"
-            style={{ backgroundColor: d.bg, scrollMarginTop: "90px" }}
-          >
-            <div className="mx-auto grid max-w-[900px] items-start gap-8 md:grid-cols-[1.15fr_1fr] md:gap-12">
-              <div>
+        {/* Detail-secties: proces (links) strikt gescheiden van inhoud (rechts) */}
+        {details.map((d) => {
+          const info = PAKKET_INFO[d.pakket];
+          return (
+            <section
+              key={d.id}
+              id={d.id}
+              className="px-6 py-16"
+              style={{ backgroundColor: d.bg, scrollMarginTop: "90px" }}
+            >
+              <div className="mx-auto max-w-[900px]">
                 <p className="section-eyebrow mb-2">{d.eyebrow}</p>
                 <h2 className="font-display mb-3 text-2xl font-light text-[#1C3A2A] sm:text-3xl">
                   {d.titel}
                 </h2>
-                <p className="font-body mb-6 font-light leading-relaxed text-[#4A5E4E]">
-                  {d.tekst}
+                <p className="font-body mb-8 max-w-[560px] font-light leading-relaxed text-[#4A5E4E]">
+                  {d.intro}
                 </p>
-                <div className="flex flex-wrap items-center gap-4">
+
+                <div className="grid items-start gap-6 md:grid-cols-2 md:gap-6">
+                  {/* Hoe het werkt: de volgorde der dingen */}
+                  <div
+                    className="rounded-2xl border border-[#E8E0D0] p-6"
+                    style={{ backgroundColor: "rgba(255,255,255,0.5)" }}
+                  >
+                    <p className="section-eyebrow mb-4">Hoe het werkt</p>
+                    <ol className="space-y-3">
+                      {info.hoeHetWerkt.map((t, i) => (
+                        <li key={t} className="flex items-start gap-2.5">
+                          <span
+                            aria-hidden="true"
+                            className="font-body flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-xs font-medium"
+                            style={{ backgroundColor: "#E8E0D0", color: "#4A5E4E", marginTop: "1px" }}
+                          >
+                            {i + 1}
+                          </span>
+                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5E4E]">
+                            {t}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </div>
+
+                  {/* Wat je krijgt: de inhoud van het pakket */}
+                  <div
+                    className="rounded-2xl border border-[#E8E0D0] p-6"
+                    style={{ backgroundColor: d.cardBg }}
+                  >
+                    <p className="section-eyebrow mb-4">Wat je krijgt</p>
+                    <ul className="space-y-3">
+                      {info.watJeKrijgt.map((t) => (
+                        <li key={t} className="flex items-start gap-2.5">
+                          <span aria-hidden="true" style={{ color: "#2D6A4F", fontWeight: 600 }}>
+                            ✓
+                          </span>
+                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5E4E]">
+                            {t}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="mt-8 flex flex-wrap items-center gap-4">
                   <Link href={d.primaireHref} className="btn-primary">
                     {d.primaireLabel} →
                   </Link>
@@ -318,27 +362,9 @@ export default function AanbodPage() {
                   </Link>
                 </div>
               </div>
-              <div
-                className="rounded-2xl border border-[#E8E0D0] p-6"
-                style={{ backgroundColor: d.cardBg }}
-              >
-                <p className="section-eyebrow mb-4">Wat je krijgt</p>
-                <ul className="space-y-3">
-                  {d.punten.map((t) => (
-                    <li key={t} className="flex items-start gap-2.5">
-                      <span aria-hidden="true" style={{ color: "#2D6A4F", fontWeight: 600 }}>
-                        ✓
-                      </span>
-                      <span className="font-body text-sm font-light leading-relaxed text-[#4A5E4E]">
-                        {t}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-          </section>
-        ))}
+            </section>
+          );
+        })}
 
         {/* Sociale proof */}
         <section style={{ backgroundColor: "#FDFAF4", padding: "3.5rem 1.5rem" }}>
@@ -424,7 +450,7 @@ export default function AanbodPage() {
                 marginBottom: "2rem",
               }}
             >
-              Begin met de gratis analyse. Die duurt vijf minuten en geeft je al een eerlijk beeld van jouw situatie. Daarna zie je vanzelf of je meer wil.
+              Begin met de gratis analyse. Die duurt vijf minuten en geeft je meteen een duidelijk beeld van jouw situatie. Daarna zie je vanzelf of je meer wilt.
             </p>
             <Link
               href="/analyse"

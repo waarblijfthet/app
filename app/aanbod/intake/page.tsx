@@ -11,7 +11,7 @@ export function generateMetadata(): Metadata {
 export default function IntakePage({
   searchParams,
 }: {
-  searchParams: { pakket?: string };
+  searchParams: { pakket?: string; token?: string };
 }) {
   const pakket =
     searchParams.pakket === "intensief"
@@ -19,5 +19,5 @@ export default function IntakePage({
       : searchParams.pakket === "geldscan"
       ? "geldscan"
       : "gesprek";
-  return <IntakeForm pakket={pakket} />;
+  return <IntakeForm pakket={pakket} token={searchParams.token} />;
 }
