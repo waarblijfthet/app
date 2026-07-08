@@ -60,8 +60,18 @@ export type ArticlePreviewData =
 
 // ── Artikel interface ────────────────────────────────────────────────────────
 
+export interface ArtikelCta {
+  kop: string;
+  tekst: string;
+  primairLabel: string;
+  primairHref: string;
+  secundairLabel: string;
+  secundairHref: string;
+}
+
 export interface Artikel {
   slug: string;
+  cta?: ArtikelCta;
   titel: string;
   korteTitel: string;
   metaTitel: string;
@@ -470,6 +480,14 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "netto-loonsverhoging-berekenen",
+    cta: {
+      kop: "Loonsverhoging gehad en toch niets extra over?",
+      tekst: "Dan lekt het ergens anders. Voor €49 kijk ik persoonlijk naar jouw cijfers en laat ik in een video van 10 minuten zien waar je verhoging blijft. Geen gesprek nodig, en vind ik geen drie verbeterpunten, dan krijg je je geld terug.",
+      primairLabel: "Bekijk de geldscan (€49)",
+      primairHref: "/geldscan",
+      secundairLabel: "Eerst gratis je uitgaven vergelijken",
+      secundairHref: "/analyse",
+    },
     korteTitel: "Wat houd je netto over van je opslag?",
     titel: "Wat houd je netto over van je loonsverhoging in 2026?",
     metaTitel: "Netto overhouden van loonsverhoging berekenen (2026)",
@@ -2189,6 +2207,14 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "tweeverdieners-toch-krap",
+    cta: {
+      kop: "Twee inkomens en toch elke maand krap?",
+      tekst: "Dat ligt bijna nooit aan gedrag en bijna altijd aan structuur. Voor €49 kijk ik persoonlijk naar jullie cijfers en krijg je binnen twee werkdagen een video met jullie drie grootste lekken. Geen gesprek, geld terug als ik niets vind.",
+      primairLabel: "Bekijk de geldscan (€49)",
+      primairHref: "/geldscan",
+      secundairLabel: "Eerst gratis vergelijken met andere tweeverdieners",
+      secundairHref: "/analyse",
+    },
     korteTitel: "Tweeverdieners en toch krap",
     titel:
       "Tweeverdieners en toch krap: hoe kan dat?",
@@ -2285,6 +2311,14 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
+    cta: {
+      kop: "Betaal jij te veel voor boodschappen vergeleken met anderen?",
+      tekst: "De gratis analyse vergelijkt in 5 minuten ál je uitgaven, boodschappen voorop, met huishoudens zoals dat van jou. Anoniem, geen bankkoppeling, resultaat direct op je scherm.",
+      primairLabel: "Vergelijk jouw boodschappen gratis",
+      primairHref: "/analyse",
+      secundairLabel: "Liever dat ik persoonlijk meekijk? De geldscan, €49, video met je drie grootste lekken",
+      secundairHref: "/geldscan",
+    },
     korteTitel: "Boodschappen: norm versus praktijk",
     titel:
       "Boodschappen per maand: wat is normaal in 2026? Per persoon, stel en gezin",
@@ -2351,6 +2385,14 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "is-4000-euro-netto-goed-salaris-nederland",
+    cta: {
+      kop: "Belangrijker dan of €4.000 goed is: wat hou jij ervan over?",
+      tekst: "Een goed salaris is niet hetzelfde als geld overhouden. Zie in 5 minuten hoeveel huishoudens met jouw inkomen overhouden, en waar jij afwijkt. Gratis en anoniem.",
+      primairLabel: "Zie wat jij zou moeten overhouden",
+      primairHref: "/analyse",
+      secundairLabel: "Direct weten waar het weglekt? De geldscan, €49",
+      secundairHref: "/geldscan",
+    },
     korteTitel: "Is €4.000 netto een goed salaris?",
     titel:
       "Is €4.000 netto per maand een goed salaris? Ja — maar dit is wat er werkelijk van overblijft",
@@ -3071,6 +3113,14 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "nibud-boodschappen-versus-werkelijkheid",
+    cta: {
+      kop: "Boven de Nibud-norm? Bijna iedereen.",
+      tekst: "De echte vraag is niet of je boven de norm zit, maar of je boven vergelijkbare huishoudens zit. De gratis analyse laat het in 5 minuten zien, anoniem en zonder bankkoppeling.",
+      primairLabel: "Vergelijk met huishoudens zoals dat van jou",
+      primairHref: "/analyse",
+      secundairLabel: "Liever dat ik persoonlijk meekijk? De geldscan, €49",
+      secundairHref: "/geldscan",
+    },
     korteTitel: "Nibud norm vs. wat gezinnen écht uitgeven",
     titel:
       "Het Nibud-boodschappenbudget 2026 — wat de norm zegt en wat gezinnen werkelijk uitgeven",
@@ -3141,6 +3191,14 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "kosten-levensonderhoud-alleenstaande-2026",
+    cta: {
+      kop: "Wat is voor jou als alleenstaande normaal?",
+      tekst: "Gemiddelden zeggen weinig over jouw huur, jouw inkomen en jouw stad. De gratis analyse vergelijkt jouw uitgaven in 5 minuten met alleenstaanden in jouw situatie, niet met een standaardgezin.",
+      primairLabel: "Vergelijk jouw kosten gratis",
+      primairHref: "/analyse",
+      secundairLabel: "Liever persoonlijk advies zonder gesprek? De geldscan, €49",
+      secundairHref: "/geldscan",
+    },
     korteTitel: "Kosten levensonderhoud alleenstaande 2026",
     titel:
       "Kosten levensonderhoud alleenstaande in 2026: wat je werkelijk nodig hebt om rond te komen",

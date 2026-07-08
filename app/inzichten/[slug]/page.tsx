@@ -223,16 +223,47 @@ export default function ArtikelPage({ params }: Props) {
                   marginBottom: "2.5rem",
                 }}
               >
-                <p
-                  className="font-body font-light text-text-soft"
-                  style={{ marginBottom: "1rem" }}
-                >
-                  Benieuwd hoe jouw situatie eruitziet? Doe de gratis analyse
-                  en zie direct waar jouw geld naartoe gaat.
-                </p>
-                <Link href="/analyse" className="btn-primary">
-                  Start de gratis analyse →
-                </Link>
+                {artikel.cta ? (
+                  <>
+                    <p
+                      className="font-body font-medium text-primary"
+                      style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}
+                    >
+                      {artikel.cta.kop}
+                    </p>
+                    <p
+                      className="font-body font-light text-text-soft"
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      {artikel.cta.tekst}
+                    </p>
+                    <Link href={artikel.cta.primairHref} className="btn-primary">
+                      {artikel.cta.primairLabel} →
+                    </Link>
+                    <p style={{ marginTop: "0.85rem", marginBottom: 0 }}>
+                      <Link
+                        href={artikel.cta.secundairHref}
+                        className="font-body text-sm hover:underline"
+                        style={{ color: "#C4603A", textDecoration: "none" }}
+                      >
+                        {artikel.cta.secundairLabel} →
+                      </Link>
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p
+                      className="font-body font-light text-text-soft"
+                      style={{ marginBottom: "1rem" }}
+                    >
+                      Benieuwd hoe jouw situatie eruitziet? Doe de gratis analyse
+                      en zie direct waar jouw geld naartoe gaat.
+                    </p>
+                    <Link href="/analyse" className="btn-primary">
+                      Start de gratis analyse →
+                    </Link>
+                  </>
+                )}
               </div>
 
               {/* FAQ sectie */}

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
@@ -32,7 +33,12 @@ const faq = [
   {
     vraag: "Wat kost de geldscan?",
     antwoord:
-      "€49, eenmalig. Je ontvangt na je aanmelding een betaalverzoek per e-mail. Geen abonnement, geen verplicht vervolg. Wil je daarna alsnog een gesprek of traject, dan trek ik de €49 af van de prijs daarvan.",
+      "€49, eenmalig, en je krijgt er gewoon een bon van. Na je aanmelding ontvang je een iDEAL-betaalverzoek, altijd verstuurd vanaf hallo@waarblijfthet.nl en op naam van Jarno Koopman. Ik vraag nooit om inlogcodes of andere gegevens. Betaal je liever niet via een link? Vraag dan om een factuur met IBAN en maak het zelf over. Vind ik geen drie serieuze verbeterpunten in jouw situatie, dan krijg je je €49 terug. En wil je daarna alsnog een gesprek of traject, dan trek ik de €49 af van de prijs daarvan.",
+  },
+  {
+    vraag: "Wat als er bij mij niets uit de scan komt?",
+    antwoord:
+      "Dan betaal je niets. Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug. Eerlijk gezegd verwacht ik dat zelden te hoeven doen: ook bij huishoudens die alles netjes op orde hebben, vind ik vrijwel altijd structurele lekken tussen vaste lasten, verzekeringen en dagelijkse patronen.",
   },
   {
     vraag: "Is dit hetzelfde als het adviesgesprek?",
@@ -42,7 +48,7 @@ const faq = [
   {
     vraag: "Moet ik bankafschriften delen?",
     antwoord:
-      "Nee, dat is optioneel. De gratis analyse alleen is genoeg voor een goede scan. Stuur je wel een paar recente afschriften mee, dan kan ik preciezer zijn over waar het weglekt. Alles blijft vertrouwelijk en wordt na de scan verwijderd als je daarom vraagt.",
+      "Nee, dat is optioneel. De gratis analyse alleen is genoeg voor een goede scan. Wil je ze wel meesturen, dan beantwoord je simpelweg de bevestigingsmail met de bijlagen erbij, dan kan ik preciezer zijn over waar het weglekt. Alles blijft vertrouwelijk: je video staat op een privelink die alleen jij krijgt, en je afschriften en analyse verwijder ik standaard binnen 30 dagen na de scan. Je hoeft daar niet om te vragen.",
   },
   {
     vraag: "Is dit financieel advies in de zin van de Wft?",
@@ -90,7 +96,7 @@ const stappen = [
     n: "1",
     titel: "Jij levert aan, wanneer het jou uitkomt",
     tekst:
-      "Je doet de gratis analyse (5 minuten) en meldt je aan voor de scan. Optioneel stuur je een paar recente bankafschriften mee. Geen afspraak, geen agenda.",
+      "De gratis analyse (5 minuten) is meteen je aanlevering, je hoeft niets extra's te maken. Wil je het scherpst mogelijke beeld, stuur dan een paar recente bankafschriften mee: dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen.",
   },
   {
     n: "2",
@@ -102,7 +108,7 @@ const stappen = [
     n: "3",
     titel: "Binnen 2 werkdagen: jouw video",
     tekst:
-      "Je krijgt een persoonlijke video van ongeveer 10 minuten plus een korte samenvatting op schrift. Terugkijken kan zo vaak je wilt. Vragen? Gewoon per e-mail.",
+      "Je krijgt een persoonlijke video van ongeveer 10 minuten plus een korte samenvatting op schrift. Geen lijstje met wat je fout doet, wel de drie plekken waar jij het meeste terughaalt. Terugkijken kan zo vaak je wilt, vragen kunnen per e-mail.",
   },
 ];
 
@@ -150,7 +156,7 @@ export default function GeldscanPage() {
               </Link>
             </div>
             <p className="font-body font-light text-text-muted text-xs mt-4">
-              Binnen 2 werkdagen · Geen abonnement · €49 wordt verrekend als je later een gesprek of traject wilt
+              Binnen 2 werkdagen · Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug · €49 wordt verrekend als je later een gesprek of traject wilt
             </p>
           </div>
         </section>
@@ -192,6 +198,101 @@ export default function GeldscanPage() {
           </div>
         </section>
 
+        {/* Voorbeeld van wat je krijgt */}
+        <section className="bg-background pt-14 pb-2">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
+              Wat zit er in zo&apos;n video? Zo ziet dat eruit
+            </h2>
+            <div className="card-base border border-[#E8E0D0]">
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
+                Een voorbeeld ter illustratie, opgebouwd uit de lekken die ik
+                in de praktijk het vaakst tegenkom bij tweeverdieners met
+                kinderen (samen rond €5.000 netto):
+              </p>
+              <ul className="space-y-2 mb-3">
+                {[
+                  "Dubbel verzekerd: aansprakelijkheid en reisverzekering zaten ook in het pakket van de bank, €31 per maand",
+                  "Boodschappen €180 boven vergelijkbare gezinnen, vooral door losse ritjes, met twee concrete aanpassingen",
+                  "Drie vergeten abonnementen en een stilzwijgend verlengd energiecontract, €54 per maand",
+                ].map((t) => (
+                  <li key={t} className="flex items-start gap-2">
+                    <span style={{ color: "#2D6A4F", fontWeight: 600 }}>✓</span>
+                    <span className="font-body font-light text-sm text-text-soft leading-relaxed">{t}</span>
+                  </li>
+                ))}
+              </ul>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                Samen ruim €260 per maand aan aanknopingspunten. Jouw lekken
+                zijn andere, maar dit is het soort antwoord dat je krijgt:
+                concreet, met bedragen, zonder oordeel. Ter referentie: bij de
+                huishoudens die ik tot nu toe begeleidde was het gemiddelde
+                resultaat €460 per maand meer over (eigen klantresultaten,
+                geen belofte).
+              </p>
+            </div>
+            <div className="flex items-center gap-3 mt-5">
+              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ backgroundColor: "#1C3A2A" }}>
+                <Image src="/jarno.jpg" alt="Jarno Koopman" width={40} height={40} className="w-full h-full object-cover" />
+              </div>
+              <p className="font-body font-light text-sm text-text-soft">
+                Elke scan doe ik zelf, er kijkt geen algoritme of team mee.{" "}
+                <Link href="/over" className="hover:underline" style={{ color: "#C4603A" }}>
+                  Wie ik ben →
+                </Link>
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Echte ervaringen uit de begeleiding */}
+        <section className="bg-card py-14">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
+              Wat een eerlijke blik van buitenaf anderen opleverde
+            </h2>
+            <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-6">
+              De geldscan is de lichtste vorm van mijn begeleiding: dezelfde
+              blik, zonder gesprek. Deze ervaringen komen van huishoudens die
+              ik persoonlijk begeleidde.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {[
+                {
+                  quote:
+                    "We werden elk jaar overvallen door de dure maanden. Eén keer alles uitgerekend en opgesplitst in maandpotjes: de kerstpot staat er nu gewoon.",
+                  naam: "Daan & Roos",
+                  situatie: "Twee kinderen, koopwoning",
+                },
+                {
+                  quote:
+                    "Onze boodschappen waren een zwart gat. Een weekbudget en een korte check-in na elke boodschappenronde hielden ons scherp, juist op de momenten dat het misging.",
+                  naam: "Bram & Eva",
+                  situatie: "Gezin van vier, twee inkomens",
+                },
+                {
+                  quote:
+                    "Er werd meegedacht over flexibeler werken in plaats van alleen bezuinigen. Twee dagen minder opvang scheelt fors, en thuis is het rustiger.",
+                  naam: "Karim & Noor",
+                  situatie: "Twee jonge kinderen",
+                },
+              ].map((t) => (
+                <div key={t.naam} className="card-base border border-[#E8E0D0]">
+                  <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
+                    &ldquo;{t.quote}&rdquo;
+                  </p>
+                  <p className="font-body font-medium text-primary text-sm">{t.naam}</p>
+                  <p className="font-body font-light text-text-muted text-xs">{t.situatie}</p>
+                </div>
+              ))}
+            </div>
+            <p className="font-body font-light text-text-muted text-xs mt-4">
+              Namen aangepast voor privacy. Echte ervaringen uit mijn
+              begeleiding; resultaten verschillen per situatie.
+            </p>
+          </div>
+        </section>
+
         {/* Voor wie */}
         <section className="bg-background py-14">
           <div className="max-w-3xl mx-auto px-6">
@@ -201,7 +302,8 @@ export default function GeldscanPage() {
             <p className="font-body font-light text-text-soft leading-relaxed mb-4">
               Voor mensen die goed verdienen maar structureel te weinig
               overhouden, en die wel een eerlijk antwoord willen maar geen
-              gesprek. Omdat het ongemakkelijk voelt om over geld te praten,
+              gesprek. Ook met wisselend zzp-inkomen: juist dan laat de scan
+              zien welke vaste structuur eronder ligt. Omdat het ongemakkelijk voelt om over geld te praten,
               omdat je agenda vol zit, of omdat je eerst wilt weten of dit
               iets voor je is voordat je €125 uitgeeft aan een{" "}
               <Link href="/adviesgesprek" className="hover:underline" style={{ color: "#C4603A" }}>

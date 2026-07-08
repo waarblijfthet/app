@@ -42,7 +42,7 @@ export default function BenchmarkMail() {
     <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
       <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
         <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>
-          Jouw benchmark en de drie grootste hefbomen, in je mail
+          De drie grootste hefbomen voor jouw situatie, in je mail
         </p>
         <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>
           Eén mail met de cijfers voor jouw situatie. Geen nieuwsbrief, geen vervolgmails.
@@ -99,7 +99,9 @@ export default function BenchmarkMail() {
               <p className="font-body text-xs mt-2" style={{ color: "#B03A2E" }}>{fout}</p>
             )}
             <p className="font-body text-xs mt-3" style={{ color: "#8A9E8E" }}>
-              Je e-mailadres wordt alleen hiervoor gebruikt en nooit gedeeld.
+              Je adres wordt nergens opgeslagen en nooit gedeeld: er gaat één
+              mail uit en dat is het.{" "}
+              <a href="/privacy" style={{ color: "#C4603A" }}>Privacy</a>
             </p>
           </form>
         )}
