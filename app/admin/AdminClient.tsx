@@ -8,7 +8,7 @@ import FunnelTabblad from "./components/FunnelTabblad";
 // Alleen de standaard-tab (Funnel) wordt direct geladen. De rest wordt lui
 // ingeladen zodra je de tab opent, zodat zware code (o.a. recharts in Overzicht)
 // niet in het eerste admin-bundel zit. Dat scheelt fors in laadtijd.
-const laden = () => <p className="text-sm text-[#4A5E4E] py-8">Laden…</p>;
+const laden = () => <p className="text-sm text-[#4A5A56] py-8">Laden…</p>;
 
 const LeadsTabblad = dynamic(() => import("./components/LeadsTabblad"), { loading: laden, ssr: false });
 const QuizResultatenTabblad = dynamic(() => import("./components/QuizResultatenTabblad"), { loading: laden, ssr: false });
@@ -50,7 +50,7 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
   return (
     <div>
       {/* Tabbladen */}
-      <div className="flex gap-6 border-b border-[#E8E0D0] mb-7 overflow-x-auto">
+      <div className="flex gap-6 border-b border-[#E6E9E7] mb-7 overflow-x-auto">
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -64,12 +64,12 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
           >
             {tab.label}
             {tab.id === "leads" && (
-              <span className="ml-2 bg-[#E8E0D0] text-text-soft text-xs px-1.5 py-0.5 rounded-full">
+              <span className="ml-2 bg-[#E6E9E7] text-text-soft text-xs px-1.5 py-0.5 rounded-full">
                 {leads.length}
               </span>
             )}
             {tab.id === "quiz" && (
-              <span className="ml-2 bg-[#E8E0D0] text-text-soft text-xs px-1.5 py-0.5 rounded-full">
+              <span className="ml-2 bg-[#E6E9E7] text-text-soft text-xs px-1.5 py-0.5 rounded-full">
                 {quizResultaten.length}
               </span>
             )}
@@ -80,7 +80,7 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
                   backgroundColor:
                     aanvragen.filter((a) => a.status === "nieuw").length > 0
                       ? "#FEE2E2"
-                      : "#E8E0D0",
+                      : "#E6E9E7",
                   color:
                     aanvragen.filter((a) => a.status === "nieuw").length > 0
                       ? "#991B1B"

@@ -87,7 +87,7 @@ export default function LeadsTabblad({ leads }: Props) {
       </div>
 
       {/* Tabel */}
-      <div className="rounded-xl overflow-hidden shadow-card border border-[#E8E0D0]">
+      <div className="rounded-xl overflow-hidden shadow-card border border-[#E6E9E7]">
         <table className="w-full text-sm font-body border-collapse">
           <thead>
             <tr className="bg-primary text-white">
@@ -117,7 +117,7 @@ export default function LeadsTabblad({ leads }: Props) {
               zichtbaar.map((lead, i) => (
                 <tr
                   key={lead.id}
-                  className={`border-b border-[#E8E0D0] last:border-0 ${
+                  className={`border-b border-[#E6E9E7] last:border-0 ${
                     i % 2 === 0 ? "bg-card" : "bg-background"
                   }`}
                 >
@@ -128,7 +128,7 @@ export default function LeadsTabblad({ leads }: Props) {
                     {lead.naam || <span className="text-text-muted">—</span>}
                   </td>
                   <td className="px-4 py-3">
-                    <span className="bg-[#F0EDE6] text-text-soft text-xs px-2 py-0.5 rounded-full">
+                    <span className="bg-[#F0F3F1] text-text-soft text-xs px-2 py-0.5 rounded-full">
                       {lead.bron}
                     </span>
                   </td>
@@ -166,7 +166,7 @@ export default function LeadsTabblad({ leads }: Props) {
           <button
             onClick={() => setPagina((p) => Math.max(1, p - 1))}
             disabled={pagina === 1}
-            className="px-3 py-1.5 rounded-lg border border-[#D6CEBC] text-sm font-body text-text-soft hover:border-primary disabled:opacity-40"
+            className="px-3 py-1.5 rounded-lg border border-[#D9DEDC] text-sm font-body text-text-soft hover:border-primary disabled:opacity-40"
           >
             ←
           </button>
@@ -191,7 +191,7 @@ export default function LeadsTabblad({ leads }: Props) {
                   className={`w-8 h-8 rounded-lg text-sm font-body font-medium transition-all ${
                     pagina === p
                       ? "bg-primary text-white"
-                      : "border border-[#D6CEBC] text-text-soft hover:border-primary"
+                      : "border border-[#D9DEDC] text-text-soft hover:border-primary"
                   }`}
                 >
                   {p}
@@ -201,7 +201,7 @@ export default function LeadsTabblad({ leads }: Props) {
           <button
             onClick={() => setPagina((p) => Math.min(aantalPaginas, p + 1))}
             disabled={pagina === aantalPaginas}
-            className="px-3 py-1.5 rounded-lg border border-[#D6CEBC] text-sm font-body text-text-soft hover:border-primary disabled:opacity-40"
+            className="px-3 py-1.5 rounded-lg border border-[#D9DEDC] text-sm font-body text-text-soft hover:border-primary disabled:opacity-40"
           >
             →
           </button>

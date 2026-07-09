@@ -1,22 +1,22 @@
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function GoedsalarisTochKrap() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Goed salaris en toch krap: het ligt zelden aan je inkomen, bijna altijd aan de structuur",
             "Drie oorzaken die samen een groot gat slaan: sluipende abonnementen, onderschatte boodschappen, en geen buffer",
             "Meer verdienen lost het niet op, een systeem wel",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -38,7 +38,7 @@ export default function GoedsalarisTochKrap() {
         Het antwoord is bijna nooit één grote oorzaak. Het is een combinatie
         van kleine dingen die samen een groot gat slaan.
       </p>
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: als je goed verdient maar toch krap zit, ligt het zelden aan
         je inkomen. Het komt door drie dingen die ongemerkt optellen, sluipende
         vaste lasten en abonnementen, onderschatte boodschappen, en het ontbreken
@@ -58,7 +58,7 @@ export default function GoedsalarisTochKrap() {
         Een gemiddeld Nederlands gezin betaalt inmiddels meer dan €200 per
         maand aan abonnementen. Tien jaar geleden was dat een fractie daarvan.
         De meesten schatten het op de helft. Zie ook wat{" "}
-        <Link href="/inzichten/wat-zijn-normale-vaste-lasten-gezin" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">normale vaste lasten voor een gezin</Link>{" "}zijn.
+        <Link href="/inzichten/wat-zijn-normale-vaste-lasten-gezin" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">normale vaste lasten voor een gezin</Link>{" "}zijn.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -73,7 +73,7 @@ export default function GoedsalarisTochKrap() {
         Voor een gezin met twee kinderen is €700 tot €900 per maand geen
         uitzondering, terwijl de Nibud-norm op €627 ligt. Wie dat aan zichzelf
         vraagt, noemt vaak €500. Meer hierover in ons artikel over{" "}
-        <Link href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">normale boodschappenkosten</Link>.
+        <Link href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">normale boodschappenkosten</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -98,7 +98,7 @@ export default function GoedsalarisTochKrap() {
         één ding anders: ze verdelen hun inkomen direct. Vaste lasten van een
         aparte rekening, spaardoelen in aparte potjes, een vast bedrag voor
         dagelijkse uitgaven. Hoe dat praktisch werkt, lees je in ons artikel over de{" "}
-        <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
+        <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -114,19 +114,19 @@ export default function GoedsalarisTochKrap() {
         <Link
           href="/inzichten/spaardoelen-maandelijkse-inleg"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           Lees ook ons artikel over spaardoelen en maandelijkse inleg
         </Link>
         .
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Kom je er samen niet helemaal uit? Kijk dan{" "}<Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe we je verder kunnen helpen</Link>{" "}— van de gratis analyse tot persoonlijke begeleiding.
+        Kom je er samen niet helemaal uit? Kijk dan{" "}<Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe we je verder kunnen helpen</Link>{" "}— van de gratis analyse tot persoonlijke begeleiding.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappen onder controle kreeg</a>.
+        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappen onder controle kreeg</a>.
       </p>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/waar-blijft-mijn-geld-einde-maand" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">waar je geld aan het einde van de maand blijft</Link> en <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/waar-blijft-mijn-geld-einde-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar je geld aan het einde van de maand blijft</Link> en <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link>.</p>
     </>
   );
 }

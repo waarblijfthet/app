@@ -104,7 +104,7 @@ export default function SamenwerkenPage() {
 
       <main className="pt-16">
         {/* Hero */}
-        <section className="bg-background pt-12 pb-10 md:pt-16 md:pb-12 border-b border-[#E8E0D0]">
+        <section className="bg-background pt-12 pb-10 md:pt-16 md:pb-12 border-b border-[#E6E9E7]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="max-w-2xl">
               <p className="section-eyebrow mb-3 md:mb-4">Voor professionals</p>
@@ -122,7 +122,7 @@ export default function SamenwerkenPage() {
                 <a
                   href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking"
                   className="btn-primary"
-                  style={{ backgroundColor: "#C4603A" }}
+                  style={{ backgroundColor: "#0B7A6E" }}
                 >
                   Neem contact op &rarr;
                 </a>
@@ -138,7 +138,7 @@ export default function SamenwerkenPage() {
         </section>
 
         {/* Credibility-balk */}
-        <section style={{ backgroundColor: "#1C3A2A", padding: "1rem 1.5rem" }}>
+        <section style={{ backgroundColor: "#16211F", padding: "1rem 1.5rem" }}>
           <div className="max-w-6xl mx-auto">
             <p className="font-body text-sm" style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.6 }}>
               <span style={{ color: "#8AB89A", fontWeight: 600 }}>Ik ben Jarno.</span>{" "}
@@ -165,18 +165,18 @@ export default function SamenwerkenPage() {
                 <Link
                   key={p.href}
                   href={p.href}
-                  className="block card-base border border-[#E8E0D0] hover:border-[#C4603A] transition-colors group"
+                  className="block card-base border border-[#E6E9E7] hover:border-[#0B7A6E] transition-colors group"
                   style={{ textDecoration: "none" }}
                 >
                   <div className="flex items-start gap-4">
                     <span
                       className="mt-0.5 shrink-0"
-                      style={{ color: "#C4603A", opacity: 0.8 }}
+                      style={{ color: "#0B7A6E", opacity: 0.8 }}
                     >
                       {p.icon}
                     </span>
                     <div>
-                      <p className="font-body text-xs font-medium mb-1" style={{ color: "#C4603A" }}>
+                      <p className="font-body text-xs font-medium mb-1" style={{ color: "#0B7A6E" }}>
                         {p.eyebrow}
                       </p>
                       <p className="font-body font-medium text-primary text-base mb-2 group-hover:underline">
@@ -194,7 +194,7 @@ export default function SamenwerkenPage() {
         </section>
 
         {/* Hoe werkt doorverwijzen */}
-        <section className="py-12 md:py-16 border-t border-[#E8E0D0]" style={{ backgroundColor: "#F5F0E8" }}>
+        <section className="py-12 md:py-16 border-t border-[#E6E9E7]" style={{ backgroundColor: "#F7F8F7" }}>
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-8 md:mb-10">
               <p className="section-eyebrow mb-3">Hoe werkt het</p>
@@ -213,7 +213,7 @@ export default function SamenwerkenPage() {
                 <div key={s.nr} className="flex flex-col">
                   <span
                     className="font-display font-light mb-3"
-                    style={{ fontSize: "2rem", color: "#C4603A", opacity: 0.4, lineHeight: 1 }}
+                    style={{ fontSize: "2rem", color: "#0B7A6E", opacity: 0.4, lineHeight: 1 }}
                   >
                     {s.nr}
                   </span>
@@ -230,7 +230,7 @@ export default function SamenwerkenPage() {
         </section>
 
         {/* Visueel voorbeeld */}
-        <section id="voorbeeld" className="py-12 md:py-16 border-t border-[#E8E0D0]" style={{ backgroundColor: "#FDFAF4" }}>
+        <section id="voorbeeld" className="py-12 md:py-16 border-t border-[#E6E9E7]" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-6xl mx-auto px-6">
             <div className="mb-8 md:mb-10">
               <p className="section-eyebrow mb-3">Zo werkt het in de praktijk</p>
@@ -248,7 +248,7 @@ export default function SamenwerkenPage() {
               <div
                 style={{
                   backgroundColor: "white",
-                  border: "1px solid #E8E0D4",
+                  border: "1px solid #E6E9E7",
                   borderRadius: "16px",
                   padding: "1.5rem",
                 }}
@@ -256,22 +256,22 @@ export default function SamenwerkenPage() {
                 <div className="flex items-center gap-2 mb-3">
                   <span
                     className="font-display font-light"
-                    style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}
+                    style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}
                   >
                     01
                   </span>
                   <p className="font-body font-semibold text-primary text-sm">De doorverwijzing</p>
                 </div>
-                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5E4E" }}>
+                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5A56" }}>
                   Relatiethereapeut Marian ziet Martijn & Lisa (38 en 35, Utrecht) al drie sessies.
                   Geld is een terugkerend thema maar niet haar specialisme. Ze zegt:
                 </p>
                 <blockquote
                   className="font-body text-sm leading-relaxed mt-3"
                   style={{
-                    color: "#1C3A2A",
+                    color: "#16211F",
                     fontStyle: "italic",
-                    borderLeft: "3px solid #C4603A",
+                    borderLeft: "3px solid #0B7A6E",
                     paddingLeft: "0.75rem",
                     marginLeft: 0,
                   }}
@@ -284,7 +284,7 @@ export default function SamenwerkenPage() {
               <div
                 style={{
                   backgroundColor: "white",
-                  border: "1px solid #E8E0D4",
+                  border: "1px solid #E6E9E7",
                   borderRadius: "16px",
                   padding: "1.5rem",
                 }}
@@ -292,7 +292,7 @@ export default function SamenwerkenPage() {
                 <div className="flex items-center gap-2 mb-3">
                   <span
                     className="font-display font-light"
-                    style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}
+                    style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}
                   >
                     02
                   </span>
@@ -308,9 +308,9 @@ export default function SamenwerkenPage() {
                     ["Vaste abonnementen", "€ 245 / mnd"],
                     ["Overig dagelijks", "€ 390 / mnd"],
                   ].map(([label, waarde]) => (
-                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0EAE0" }}>
-                      <span className="font-body text-xs" style={{ color: "#8A9E8E" }}>{label}</span>
-                      <span className="font-body text-sm font-medium" style={{ color: "#1C3A2A" }}>{waarde}</span>
+                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0F3F1" }}>
+                      <span className="font-body text-xs" style={{ color: "#8B958F" }}>{label}</span>
+                      <span className="font-body text-sm font-medium" style={{ color: "#16211F" }}>{waarde}</span>
                     </div>
                   ))}
                 </div>
@@ -321,7 +321,7 @@ export default function SamenwerkenPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
               <div
                 style={{
-                  backgroundColor: "#1C3A2A",
+                  backgroundColor: "#16211F",
                   border: "1px solid #2D6A4F",
                   borderRadius: "16px",
                   padding: "1.5rem",
@@ -371,7 +371,7 @@ export default function SamenwerkenPage() {
               <div
                 style={{
                   backgroundColor: "white",
-                  border: "1px solid #E8E0D4",
+                  border: "1px solid #E6E9E7",
                   borderRadius: "16px",
                   padding: "1.5rem",
                 }}
@@ -379,7 +379,7 @@ export default function SamenwerkenPage() {
                 <div className="flex items-center gap-2 mb-3">
                   <span
                     className="font-display font-light"
-                    style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}
+                    style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}
                   >
                     04
                   </span>
@@ -403,8 +403,8 @@ export default function SamenwerkenPage() {
                     <div key={item.actie} className="flex gap-3 items-start">
                       <span style={{ color: "#2D6A4F", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
                       <div>
-                        <p className="font-body text-xs font-semibold" style={{ color: "#1C3A2A" }}>{item.actie}</p>
-                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5E4E" }}>{item.resultaat}</p>
+                        <p className="font-body text-xs font-semibold" style={{ color: "#16211F" }}>{item.actie}</p>
+                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5A56" }}>{item.resultaat}</p>
                       </div>
                     </div>
                   ))}
@@ -415,13 +415,13 @@ export default function SamenwerkenPage() {
             {/* Wat de professional eraan had */}
             <div
               style={{
-                backgroundColor: "#F5F0E8",
+                backgroundColor: "#F7F8F7",
                 border: "1px solid #E0D8CC",
                 borderRadius: "16px",
                 padding: "1.5rem",
               }}
             >
-              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#C4603A" }}>
+              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#0B7A6E" }}>
                 Wat Marian er als relatiethereapeut aan had
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -450,7 +450,7 @@ export default function SamenwerkenPage() {
         </section>
 
         {/* Over Jarno */}
-        <section className="bg-card py-12 md:py-16 border-t border-[#E8E0D0]">
+        <section className="bg-card py-12 md:py-16 border-t border-[#E6E9E7]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 items-start">
               <div>
@@ -472,7 +472,7 @@ export default function SamenwerkenPage() {
                 <a
                   href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking"
                   className="font-body text-sm font-medium"
-                  style={{ color: "#C4603A", textDecoration: "none" }}
+                  style={{ color: "#0B7A6E", textDecoration: "none" }}
                 >
                   hallo@waarblijfthet.nl &rarr;
                 </a>
@@ -508,7 +508,7 @@ export default function SamenwerkenPage() {
                     <div key={item.kop} className="flex gap-3">
                       <div
                         className="mt-1.5 w-1 h-4 rounded-full shrink-0"
-                        style={{ backgroundColor: "#C4603A", opacity: 0.6 }}
+                        style={{ backgroundColor: "#0B7A6E", opacity: 0.6 }}
                       />
                       <div>
                         <p className="font-body font-semibold text-primary text-sm mb-0.5">{item.kop}</p>
@@ -539,7 +539,7 @@ export default function SamenwerkenPage() {
                 <a
                   href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking"
                   className="btn-primary md:w-auto"
-                  style={{ backgroundColor: "#C4603A" }}
+                  style={{ backgroundColor: "#0B7A6E" }}
                 >
                   Mail Jarno &rarr;
                 </a>

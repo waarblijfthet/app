@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -21,12 +21,12 @@ export default function NettoLoonsverhogingBerekenen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je kreeg een mooie loonsverhoging, maar op je rekening merk je er bijna niks van. Je
           verwachtte meer ruimte, en die kwam niet.
         </p>
@@ -35,9 +35,9 @@ export default function NettoLoonsverhogingBerekenen() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -46,8 +46,8 @@ export default function NettoLoonsverhogingBerekenen() {
             "Waarom er soms maar de helft van overblijft, of nog minder",
             "Waarom een hoger inkomen je krappe gevoel zelden oplost",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -56,7 +56,7 @@ export default function NettoLoonsverhogingBerekenen() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Van elke €100 bruto loonsverhoging houd je netto meestal tussen de €50 en €64 over,
         afhankelijk van je inkomen. In het middensegment kan dat zelfs lager uitvallen, doordat je
         boven op de belasting ook een deel van je heffingskortingen verliest. Dat je weinig voelt
@@ -77,7 +77,7 @@ export default function NettoLoonsverhogingBerekenen() {
           style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.92rem" }}
         >
           <thead>
-            <tr style={{ backgroundColor: "#1C3A2A", color: "#F5F0E8" }}>
+            <tr style={{ backgroundColor: "#16211F", color: "#F7F8F7" }}>
               <th style={{ textAlign: "left", padding: "0.5rem 0.75rem" }}>Jaarinkomen</th>
               <th style={{ textAlign: "right", padding: "0.5rem 0.75rem" }}>Van €100 bruto erbij houd je netto</th>
             </tr>
@@ -87,9 +87,9 @@ export default function NettoLoonsverhogingBerekenen() {
               <tr
                 key={i}
                 style={{
-                  backgroundColor: i % 2 === 0 ? "#FDFAF4" : "#FFFFFF",
-                  borderBottom: "1px solid #EFE8DC",
-                  color: "#2D4A35",
+                  backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#FFFFFF",
+                  borderBottom: "1px solid #F0F3F1",
+                  color: "#16211F",
                 }}
               >
                 <td style={{ padding: "0.45rem 0.75rem" }}>{z.zone}</td>
@@ -119,7 +119,7 @@ export default function NettoLoonsverhogingBerekenen() {
         over{" "}
         <Link
           href="/inzichten/salarisverhoging-boven-76000-weinig-netto"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           waarom een salarisverhoging zo weinig netto oplevert
@@ -137,7 +137,7 @@ export default function NettoLoonsverhogingBerekenen() {
         werkt, lees je in{" "}
         <Link
           href="/inzichten/waarom-hou-ik-nooit-geld-over"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           waarom je nooit geld overhoudt
@@ -145,7 +145,7 @@ export default function NettoLoonsverhogingBerekenen() {
         en{" "}
         <Link
           href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           levensstijlinflatie
@@ -156,7 +156,7 @@ export default function NettoLoonsverhogingBerekenen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

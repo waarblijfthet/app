@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je doet het in je eentje. De kinderen zijn bij jou, de kosten ook. En het voelt alsof er
           nooit genoeg is, ook niet als je best goed verdient.
         </p>
@@ -29,9 +29,9 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -40,8 +40,8 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
             "Welke regelingen er zijn en hoeveel die in de praktijk opleveren (ALO-kop, kindgebonden budget, kinderopvangtoeslag)",
             "Hoeveel netto inkomen je als alleenstaande ouder realistisch nodig hebt om er niet voortdurend tegenaan te lopen",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -159,12 +159,12 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
       {/* Uit de praktijk */}
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm font-medium mb-2" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm font-medium mb-2" style={{ color: "#16211F" }}>
           Uit de praktijk: Marieke, 38, verpleegkundige, Rotterdam
         </p>
-        <p className="font-body text-sm" style={{ color: "#2D4A35" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           Twee kinderen van 7 en 10. Huur €1.100, BSO na toeslag €120, boodschappen voor drie
           €550, energie €170, zorgverzekering €155. Dat is al €2.095 aan vaste lasten. Met
           kinderactiviteiten, telefoon en internet erbij: €2.450 totaal. Ze verdient €2.800 netto.
@@ -176,7 +176,7 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",
@@ -193,11 +193,11 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
       </div>
 
       {/* Terug naar overzicht */}
-      <p className="font-body text-sm" style={{ color: "#8A9E8E", marginTop: "1rem" }}>
+      <p className="font-body text-sm" style={{ color: "#8B958F", marginTop: "1rem" }}>
         Onderdeel van het overzicht{" "}
         <Link
           href="/inzichten/kosten-levensonderhoud-alleenstaande-2026"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           kosten levensonderhoud alleenstaande 2026

@@ -44,7 +44,7 @@ export default function EmailFormLanding({ variant }: Props) {
           href="/analyse"
           className="inline-block font-body text-white mb-6 transition-opacity hover:opacity-90"
           style={{
-            background: "#C4603A",
+            background: "#0B7A6E",
             padding: "1rem 2rem",
             fontSize: "1rem",
             fontWeight: 500,

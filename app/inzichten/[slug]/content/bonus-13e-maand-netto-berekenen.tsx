@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -23,12 +23,12 @@ export default function Bonus13eMaandNettoBerekenen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je krijgt een bonus of een dertiende maand, en als het op je rekening staat schrik je: er
           ging bijna de helft vanaf. Betaal je echt extra belasting op je bonus?
         </p>
@@ -37,9 +37,9 @@ export default function Bonus13eMaandNettoBerekenen() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -48,8 +48,8 @@ export default function Bonus13eMaandNettoBerekenen() {
             "Welk percentage ongeveer bij jouw jaarinkomen hoort in 2026",
             "Waarom het hoog voelt, en wat je het beste met het netto-bedrag doet",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -58,7 +58,7 @@ export default function Bonus13eMaandNettoBerekenen() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Een bonus of dertiende maand wordt belast tegen het bijzonder tarief, een percentage dat
         afhangt van je jaarinkomen. Het voelt als extra belasting, maar dat is het niet: het is een
         voorheffing, net als bij je vakantiegeld. Bij een middeninkomen kan het tarief oplopen tot
@@ -79,7 +79,7 @@ export default function Bonus13eMaandNettoBerekenen() {
           style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.92rem" }}
         >
           <thead>
-            <tr style={{ backgroundColor: "#1C3A2A", color: "#F5F0E8" }}>
+            <tr style={{ backgroundColor: "#16211F", color: "#F7F8F7" }}>
               <th style={{ textAlign: "left", padding: "0.5rem 0.75rem" }}>Jaarinkomen</th>
               <th style={{ textAlign: "right", padding: "0.5rem 0.75rem" }}>Bijzonder tarief</th>
             </tr>
@@ -89,9 +89,9 @@ export default function Bonus13eMaandNettoBerekenen() {
               <tr
                 key={i}
                 style={{
-                  backgroundColor: i % 2 === 0 ? "#FDFAF4" : "#FFFFFF",
-                  borderBottom: "1px solid #EFE8DC",
-                  color: "#2D4A35",
+                  backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#FFFFFF",
+                  borderBottom: "1px solid #F0F3F1",
+                  color: "#16211F",
                 }}
               >
                 <td style={{ padding: "0.45rem 0.75rem" }}>{r.zone}</td>
@@ -121,7 +121,7 @@ export default function Bonus13eMaandNettoBerekenen() {
         is geen straf op je bonus, het is hetzelfde mechanisme dat speelt bij je{" "}
         <Link
           href="/inzichten/vakantiegeld-netto-hoeveel-hou-je-over-2026"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           vakantiegeld
@@ -139,7 +139,7 @@ export default function Bonus13eMaandNettoBerekenen() {
         uit te geven. Hoe je geld een bestemming geeft, lees je bij{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je salaris slim indelen
@@ -150,7 +150,7 @@ export default function Bonus13eMaandNettoBerekenen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

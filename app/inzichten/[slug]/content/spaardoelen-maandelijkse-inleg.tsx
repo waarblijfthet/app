@@ -1,22 +1,22 @@
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function SpaardoelenMaandelijkseInleg() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Een spaardoel maakt sparen concreet: je weet wat je wil, wanneer je het nodig hebt, en wat je maandelijks opzij zet",
             "Drie categorieën die voor elk gezin relevant zijn: noodbuffer, grote terugkerende uitgaven en vakantie/feestdagen",
             "15.000 euro in drie jaar is 417 euro per maand, klinkt als veel, maar is gewoon eerlijk rekenen",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -133,7 +133,7 @@ export default function SpaardoelenMaandelijkseInleg() {
         <Link
           href="/analyse"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           gratis analyse
         </Link>{" "}
@@ -141,7 +141,7 @@ export default function SpaardoelenMaandelijkseInleg() {
         <Link
           href="/analyse"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           waar jouw ruimte zit
         </Link>{" "}
@@ -166,27 +166,27 @@ export default function SpaardoelenMaandelijkseInleg() {
         <Link
           href="/inzichten/goed-salaris-toch-krap"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           Lees ook: goed salaris, toch krap
         </Link>
         .
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Wil je een stok achter de deur? Onze{" "}<Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}houdt je zes weken lang scherp.
+        Wil je een stok achter de deur? Onze{" "}<Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}houdt je zes weken lang scherp.
       </p>
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           <strong>Uit de praktijk.</strong> Het gezin dat ik hielp met de feestmaanden zette pas écht door toen het doel concreet werd: een kerstpot van een vast bedrag, klaar in december. Een spaardoel zonder bedrag en zonder datum blijft een wens, met allebei wordt het ineens iets wat je gewoon doet.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>
-        Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin spaarde voor de feestmaanden</a>.
+        Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin spaarde voor de feestmaanden</a>.
       </p>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/53-weken-spaaruitdaging-schema-2026" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">de 53-weken spaaruitdaging</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/53-weken-spaaruitdaging-schema-2026" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">de 53-weken spaaruitdaging</Link>.</p>
     </>
   );
 }

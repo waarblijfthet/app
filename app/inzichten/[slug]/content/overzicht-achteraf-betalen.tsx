@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -23,12 +23,12 @@ export default function OverzichtAchterafBetalen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je hebt op een paar plekken achteraf betaald, en je weet niet meer precies hoeveel er nog
           openstaat en wanneer het afgeschreven wordt. Het verdwijnt uit beeld, en daar zit het
           gevaar.
@@ -38,9 +38,9 @@ export default function OverzichtAchterafBetalen() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -49,8 +49,8 @@ export default function OverzichtAchterafBetalen() {
             "Hoe je in vier stappen al je openstaande betalingen op een rij zet",
             "Hoe je voorkomt dat het volgende maand weer onoverzichtelijk wordt",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -59,7 +59,7 @@ export default function OverzichtAchterafBetalen() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Het grootste risico van achteraf betalen is niet één betaling, maar dat je het overzicht
         kwijtraakt. Je koopt op verschillende momenten bij verschillende winkels, en de betalingen
         komen verspreid terug. Voor je het weet staan er meerdere bedragen open zonder dat je het
@@ -85,8 +85,8 @@ export default function OverzichtAchterafBetalen() {
 
       <ul className="mb-5 space-y-1.5">
         {aanbieders.map((a, i) => (
-          <li key={i} className="flex gap-2 font-body" style={{ color: "#2D4A35" }}>
-            <span className="mt-1 shrink-0" style={{ color: "#C4603A" }}>
+          <li key={i} className="flex gap-2 font-body" style={{ color: "#16211F" }}>
+            <span className="mt-1 shrink-0" style={{ color: "#0B7A6E" }}>
               •
             </span>
             <span>{a}</span>
@@ -106,7 +106,7 @@ export default function OverzichtAchterafBetalen() {
         je geen aanmaningskosten oploopt. Loop ook even je{" "}
         <Link
           href="/inzichten/vergeten-abonnementen-opzeggen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           vergeten abonnementen
@@ -123,7 +123,7 @@ export default function OverzichtAchterafBetalen() {
         stellen. Reken dat uit met mijn{" "}
         <Link
           href="/inzichten/vrij-besteedbaar-inkomen-berekenen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           rekenhulp voor vrij besteedbaar inkomen
@@ -131,7 +131,7 @@ export default function OverzichtAchterafBetalen() {
         , en lees hoe je je geld een bestemming geeft bij{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je salaris slim indelen
@@ -139,7 +139,7 @@ export default function OverzichtAchterafBetalen() {
         . Wil je er helemaal mee stoppen, lees dan{" "}
         <Link
           href="/inzichten/stoppen-met-achteraf-betalen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           stoppen met achteraf betalen
@@ -150,7 +150,7 @@ export default function OverzichtAchterafBetalen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

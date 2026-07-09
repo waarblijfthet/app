@@ -42,7 +42,7 @@ export async function POST(request: NextRequest) {
       : `€${Math.round(Math.abs(verschil))} minder dan vergelijkbare huishoudens`;
 
   const verdictKleur =
-    verdict === "goed" ? "#E8F2EC" : verdict === "matig" ? "#FDF3E3" : "#FDECEA";
+    verdict === "goed" ? "#E7F1EE" : verdict === "matig" ? "#FDF3E3" : "#FDECEA";
   const verdictTekstKleur =
     verdict === "goed" ? "#2D6A4F" : verdict === "matig" ? "#92600A" : "#B03A2E";
   const verdictTitel =
@@ -71,8 +71,8 @@ export async function POST(request: NextRequest) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Jouw financiële analyse</title>
 </head>
-<body style="margin:0;padding:0;background-color:#F5F0E8;font-family:Arial,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F0E8;padding:40px 20px;">
+<body style="margin:0;padding:0;background-color:#F7F8F7;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8F7;padding:40px 20px;">
     <tr>
       <td align="center">
         <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
@@ -82,10 +82,10 @@ export async function POST(request: NextRequest) {
             <td style="padding-bottom:32px;">
               <table cellpadding="0" cellspacing="0">
                 <tr>
-                  <td style="background-color:#1C3A2A;border-radius:50%;width:36px;height:36px;text-align:center;vertical-align:middle;">
-                    <span style="color:#F5F0E8;font-size:14px;font-weight:500;">wb</span>
+                  <td style="background-color:#16211F;border-radius:50%;width:36px;height:36px;text-align:center;vertical-align:middle;">
+                    <span style="color:#F7F8F7;font-size:14px;font-weight:500;">wb</span>
                   </td>
-                  <td style="padding-left:10px;font-size:18px;font-weight:500;color:#1C3A2A;">Waar blijft het</td>
+                  <td style="padding-left:10px;font-size:18px;font-weight:500;color:#16211F;">Waar blijft het</td>
                 </tr>
               </table>
             </td>
@@ -93,18 +93,18 @@ export async function POST(request: NextRequest) {
 
           <!-- Hoofdkaart -->
           <tr>
-            <td style="background-color:#FDFAF4;border-radius:16px;padding:32px;">
-              <p style="margin:0 0 8px;font-size:13px;color:#8A9E8E;text-transform:uppercase;letter-spacing:0.1em;">Jouw analyse</p>
-              <h1 style="margin:0 0 8px;font-size:36px;color:#1C3A2A;font-weight:300;">
+            <td style="background-color:#FFFFFF;border-radius:16px;padding:32px;">
+              <p style="margin:0 0 8px;font-size:13px;color:#8B958F;text-transform:uppercase;letter-spacing:0.1em;">Jouw analyse</p>
+              <h1 style="margin:0 0 8px;font-size:36px;color:#16211F;font-weight:300;">
                 Je houdt €${Math.round(maandelijksOver)} over
               </h1>
-              <p style="margin:0 0 24px;font-size:15px;color:#4A5E4E;">${verschilTekst}</p>
+              <p style="margin:0 0 24px;font-size:15px;color:#4A5A56;">${verschilTekst}</p>
 
               <table cellpadding="0" cellspacing="0" style="background-color:${verdictKleur};border-radius:12px;padding:16px;width:100%;">
                 <tr>
                   <td>
                     <p style="margin:0 0 4px;font-size:15px;font-weight:500;color:${verdictTekstKleur};">${verdictTitel}</p>
-                    <p style="margin:0;font-size:13px;color:#4A5E4E;">${verdictTekst}</p>
+                    <p style="margin:0;font-size:13px;color:#4A5A56;">${verdictTekst}</p>
                   </td>
                 </tr>
               </table>
@@ -115,11 +115,11 @@ export async function POST(request: NextRequest) {
 
           <!-- CTA -->
           <tr>
-            <td style="background-color:#1C3A2A;border-radius:16px;padding:32px;text-align:center;">
+            <td style="background-color:#16211F;border-radius:16px;padding:32px;text-align:center;">
               <p style="margin:0 0 8px;font-size:13px;color:rgba(245,240,232,0.6);">Bekijk je volledige analyse</p>
-              <h2 style="margin:0 0 24px;font-size:22px;color:#F5F0E8;font-weight:400;">Alle details staan voor je klaar</h2>
+              <h2 style="margin:0 0 24px;font-size:22px;color:#F7F8F7;font-weight:400;">Alle details staan voor je klaar</h2>
               <a href="${resultaatUrl}"
-                 style="display:inline-block;background-color:#C4603A;color:#FDFAF4;text-decoration:none;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:500;">
+                 style="display:inline-block;background-color:#0B7A6E;color:#FFFFFF;text-decoration:none;padding:14px 28px;border-radius:10px;font-size:16px;font-weight:500;">
                 Bekijk mijn analyse →
               </a>
               <p style="margin:16px 0 0;font-size:12px;color:rgba(245,240,232,0.4);">
@@ -133,10 +133,10 @@ export async function POST(request: NextRequest) {
           <!-- Footer -->
           <tr>
             <td style="padding:16px 0;text-align:center;">
-              <p style="margin:0;font-size:12px;color:#8A9E8E;">
+              <p style="margin:0;font-size:12px;color:#8B958F;">
                 Waar blijft het · waarblijfthet.nl · hallo@waarblijfthet.nl
               </p>
-              <p style="margin:4px 0 0;font-size:11px;color:#8A9E8E;">
+              <p style="margin:4px 0 0;font-size:11px;color:#8B958F;">
                 Je ontvangt deze email omdat je de gratis analyse hebt ingevuld.
               </p>
             </td>

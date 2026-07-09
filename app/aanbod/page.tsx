@@ -9,7 +9,7 @@ import { PAKKET_INFO, type Pakket } from "@/lib/aanbod-content";
 export const metadata: Metadata = {
   title: "Financiële coaching en adviesgesprek, tarieven",
   description:
-    "Van gratis inzicht tot persoonlijk traject: kies wat bij jouw situatie past. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.",
+    "Van eerste inzicht tot persoonlijk traject: kies wat bij jouw situatie past. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -111,11 +111,11 @@ const details: {
   {
     id: "geldscan",
     pakket: "geldscan",
-    bg: "#F5F0E8",
+    bg: "#F7F8F7",
     cardBg: "#FFFFFF",
     eyebrow: "Zonder gesprek · €49 eenmalig",
     titel: "Geldscan: jouw persoonlijke geldrapport",
-    intro: "Geen gesprek, geen agenda: jij levert je cijfers aan, ik schrijf op wat ik zie.",
+    intro: "Jij levert je cijfers aan wanneer het uitkomt, ik schrijf op wat ik zie en wat ik zou doen. Zonder gesprek of agenda.",
     primaireHref: "/aanbod/intake?pakket=geldscan",
     primaireLabel: "Vraag de geldscan aan",
     secundaireHref: "/geldscan",
@@ -125,7 +125,7 @@ const details: {
     id: "adviesgesprek",
     pakket: "gesprek",
     bg: "#FFFFFF",
-    cardBg: "#FDFAF4",
+    cardBg: "#FFFFFF",
     eyebrow: "Meest gevraagd · €125 eenmalig",
     titel: "Eenmalig adviesgesprek",
     intro: "Eén gesprek, geen verkooppraat, geen traject. Vaak verdient één concrete beslissing de €125 al terug.",
@@ -137,7 +137,7 @@ const details: {
   {
     id: "traject",
     pakket: "intensief",
-    bg: "#F5F0E8",
+    bg: "#F7F8F7",
     cardBg: "#FFFFFF",
     eyebrow: "Beperkte beschikbaarheid · €497 eenmalig",
     titel: "Persoonlijk traject, 3 maanden",
@@ -164,34 +164,34 @@ export default function AanbodPage() {
 
       <main className="pt-16">
         {/* Hero met ingetogen Jarno-kaartje */}
-        <section className="px-6 pb-14 pt-20" style={{ backgroundColor: "#F5F0E8" }}>
+        <section className="px-6 pb-14 pt-20" style={{ backgroundColor: "#F7F8F7" }}>
           <div className="mx-auto max-w-[860px]">
             <p
               className="font-body mb-4 text-xs font-medium uppercase tracking-widest"
-              style={{ color: "#C4603A" }}
+              style={{ color: "#0B7A6E" }}
             >
               Aanbod
             </p>
             <h1
-              className="font-display font-light text-[#1C3A2A]"
+              className="font-display font-light text-[#16211F]"
               style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.2, marginBottom: "1.25rem" }}
             >
               Goed verdienen en toch te weinig overhouden. Dat lost zich niet vanzelf op.
             </h1>
             <p
               className="font-body max-w-[600px] font-light leading-relaxed"
-              style={{ fontSize: "1.05rem", color: "#4A5E4E" }}
+              style={{ fontSize: "1.05rem", color: "#4A5A56" }}
             >
               Ik help je begrijpen waar het naartoe gaat en hoe je dat structureel verandert. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.
             </p>
-            <p className="font-body mt-4 text-sm" style={{ color: "#8A9E8E" }}>
-              Al meer dan 50 gezinnen en individuen deden de gratis analyse.
+            <p className="font-body mt-4 text-sm" style={{ color: "#8B958F" }}>
+              Al meer dan 50 gezinnen en individuen deden de analyse.
             </p>
 
-            <div className="mt-10 flex items-start gap-4 rounded-2xl border border-[#E8E0D0] bg-white p-5 sm:items-center">
+            <div className="mt-10 flex items-start gap-4 rounded-2xl border border-[#E6E9E7] bg-white p-5 sm:items-center">
               <div
                 className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full"
-                style={{ backgroundColor: "#1C3A2A" }}
+                style={{ backgroundColor: "#16211F" }}
               >
                 <Image
                   src="/jarno.jpg"
@@ -201,13 +201,13 @@ export default function AanbodPage() {
                   className="h-full w-full object-cover"
                 />
               </div>
-              <p className="font-body text-sm font-light leading-relaxed text-[#4A5E4E]">
-                <span className="font-medium text-[#1C3A2A]">Ik ben Jarno.</span>{" "}
+              <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
+                <span className="font-medium text-[#16211F]">Ik ben Jarno.</span>{" "}
                 Ik herken dit patroon van binnenuit: goed verdienen en toch elke maand niet weten waar het naartoe gaat. Dit doe ik ernaast, voor iedereen die dat herkent. Geen gecertificeerd adviseur, geen productverkoop.{" "}
                 <Link
                   href="/over"
                   className="whitespace-nowrap hover:underline"
-                  style={{ color: "#C4603A", textDecoration: "none" }}
+                  style={{ color: "#0B7A6E", textDecoration: "none" }}
                 >
                   Meer over mij →
                 </Link>
@@ -217,19 +217,19 @@ export default function AanbodPage() {
         </section>
 
         {/* Keuzehulp: drie situaties */}
-        <section className="px-6 py-14" style={{ backgroundColor: "#FDFAF4" }}>
+        <section className="px-6 py-14" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="mx-auto max-w-[860px]">
-            <h2 className="font-display mb-2 text-2xl font-light text-[#1C3A2A] sm:text-3xl">
+            <h2 className="font-display mb-2 text-2xl font-light text-[#16211F] sm:text-3xl">
               Wat past bij jouw situatie?
             </h2>
-            <p className="font-body mb-10 max-w-[600px] text-sm font-light leading-relaxed text-[#4A5E4E]">
+            <p className="font-body mb-10 max-w-[600px] text-sm font-light leading-relaxed text-[#4A5A56]">
               Begin altijd met de{" "}
               <Link
                 href="/analyse"
                 className="hover:underline"
-                style={{ color: "#C4603A", textDecoration: "none" }}
+                style={{ color: "#0B7A6E", textDecoration: "none" }}
               >
-                gratis analyse
+                de analyse
               </Link>{" "}
               (5 minuten, anoniem). Daarna zijn er drie routes, kies wat jij herkent:
             </p>
@@ -239,33 +239,33 @@ export default function AanbodPage() {
                 <a
                   key={s.href}
                   href={s.href}
-                  className={`group relative flex flex-col rounded-2xl bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#C4603A] focus-visible:ring-offset-2 ${
+                  className={`group relative flex flex-col rounded-2xl bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B7A6E] focus-visible:ring-offset-2 ${
                     s.aanbevolen
-                      ? "border-2 border-[#C4603A]"
-                      : "border border-[#E8E0D0] hover:border-[#C9BFA8]"
+                      ? "border-2 border-[#0B7A6E]"
+                      : "border border-[#E6E9E7] hover:border-[#0B7A6E]"
                   }`}
                   style={{ textDecoration: "none" }}
                 >
                   {s.aanbevolen && (
-                    <span className="font-body absolute -top-3 left-5 rounded-full px-3 py-0.5 text-xs font-medium text-white" style={{ backgroundColor: "#C4603A" }}>
+                    <span className="font-body absolute -top-3 left-5 rounded-full px-3 py-0.5 text-xs font-medium text-white" style={{ backgroundColor: "#0B7A6E" }}>
                       Meest gevraagd
                     </span>
                   )}
-                  <p className="font-display mb-6 text-base font-light italic leading-relaxed text-[#1C3A2A]">
+                  <p className="font-display mb-6 text-base font-light italic leading-relaxed text-[#16211F]">
                     &ldquo;{s.situatie}&rdquo;
                   </p>
-                  <div className="mt-auto border-t border-[#F0EADC] pt-4">
+                  <div className="mt-auto border-t border-[#E6E9E7] pt-4">
                     <p className="section-eyebrow mb-1">{s.naam}</p>
-                    <p className="font-display mb-1 text-3xl font-light text-[#1C3A2A]">
+                    <p className="font-display mb-1 text-3xl font-light text-[#16211F]">
                       {s.prijs}
-                      <span className="font-body ml-2 text-xs font-light text-[#8A9E8E]">
+                      <span className="font-body ml-2 text-xs font-light text-[#8B958F]">
                         eenmalig
                       </span>
                     </p>
-                    <p className="font-body mb-4 text-xs font-light leading-relaxed text-[#8A9E8E]">
+                    <p className="font-body mb-4 text-xs font-light leading-relaxed text-[#8B958F]">
                       {s.regel}
                     </p>
-                    <span className="font-body inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: "#C4603A" }}>
+                    <span className="font-body inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: "#0B7A6E" }}>
                       Bekijk wat je krijgt
                       <span
                         aria-hidden="true"
@@ -278,7 +278,7 @@ export default function AanbodPage() {
                 </a>
               ))}
             </div>
-            <p className="font-body text-xs font-light text-[#8A9E8E]">
+            <p className="font-body text-xs font-light text-[#8B958F]">
               Alle prijzen eenmalig. De €49 van de geldscan wordt verrekend als je daarna een gesprek of traject wilt.
             </p>
           </div>
@@ -296,17 +296,17 @@ export default function AanbodPage() {
             >
               <div className="mx-auto max-w-[900px]">
                 <p className="section-eyebrow mb-2">{d.eyebrow}</p>
-                <h2 className="font-display mb-3 text-2xl font-light text-[#1C3A2A] sm:text-3xl">
+                <h2 className="font-display mb-3 text-2xl font-light text-[#16211F] sm:text-3xl">
                   {d.titel}
                 </h2>
-                <p className="font-body mb-8 max-w-[560px] font-light leading-relaxed text-[#4A5E4E]">
+                <p className="font-body mb-8 max-w-[560px] font-light leading-relaxed text-[#4A5A56]">
                   {d.intro}
                 </p>
 
                 <div className="grid items-start gap-6 md:grid-cols-2 md:gap-6">
                   {/* Hoe het werkt: de volgorde der dingen */}
                   <div
-                    className="rounded-2xl border border-[#E8E0D0] p-6"
+                    className="rounded-2xl border border-[#E6E9E7] p-6"
                     style={{ backgroundColor: "rgba(255,255,255,0.5)" }}
                   >
                     <p className="section-eyebrow mb-4">Hoe het werkt</p>
@@ -316,11 +316,11 @@ export default function AanbodPage() {
                           <span
                             aria-hidden="true"
                             className="font-body flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-xs font-medium"
-                            style={{ backgroundColor: "#E8E0D0", color: "#4A5E4E", marginTop: "1px" }}
+                            style={{ backgroundColor: "#E6E9E7", color: "#4A5A56", marginTop: "1px" }}
                           >
                             {i + 1}
                           </span>
-                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5E4E]">
+                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
                             {t}
                           </span>
                         </li>
@@ -330,17 +330,17 @@ export default function AanbodPage() {
 
                   {/* Wat je krijgt: de inhoud van het pakket */}
                   <div
-                    className="rounded-2xl border border-[#E8E0D0] p-6"
+                    className="rounded-2xl border border-[#E6E9E7] p-6"
                     style={{ backgroundColor: d.cardBg }}
                   >
                     <p className="section-eyebrow mb-4">Wat je krijgt</p>
                     <ul className="space-y-3">
                       {info.watJeKrijgt.map((t) => (
                         <li key={t} className="flex items-start gap-2.5">
-                          <span aria-hidden="true" style={{ color: "#2D6A4F", fontWeight: 600 }}>
+                          <span aria-hidden="true" style={{ color: "#0B7A6E", fontWeight: 600 }}>
                             ✓
                           </span>
-                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5E4E]">
+                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
                             {t}
                           </span>
                         </li>
@@ -356,7 +356,7 @@ export default function AanbodPage() {
                   <Link
                     href={d.secundaireHref}
                     className="font-body text-sm hover:underline"
-                    style={{ color: "#C4603A", textDecoration: "none" }}
+                    style={{ color: "#0B7A6E", textDecoration: "none" }}
                   >
                     {d.secundaireLabel} →
                   </Link>
@@ -367,14 +367,23 @@ export default function AanbodPage() {
         })}
 
         {/* Sociale proof */}
-        <section style={{ backgroundColor: "#FDFAF4", padding: "3.5rem 1.5rem" }}>
+        <section style={{ backgroundColor: "#FFFFFF", padding: "3.5rem 1.5rem" }}>
           <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
             <p
               className="font-body mb-6 text-center text-xs font-medium uppercase tracking-widest"
-              style={{ color: "#C4603A" }}
+              style={{ color: "#0B7A6E" }}
             >
               Wat het andere gezinnen opleverde
             </p>
+            <div className="mx-auto mb-8 max-w-[720px] rounded-2xl border border-[#E6E9E7] p-6" style={{ borderLeft: "3px solid #0B7A6E" }}>
+              <p className="section-eyebrow mb-2">Over de geldscan</p>
+              <p className="font-body mb-2 text-sm font-light leading-relaxed text-[#16211F]">
+                &ldquo;We vonden het best spannend dat een vreemde naar onze
+                financiën keek. Maar het was verhelderend: we zagen
+                afwijkingen die we zelf niet doorhadden.&rdquo;
+              </p>
+              <p className="font-body text-xs text-[#8B958F]">Sanne &amp; Joris, gezin met twee kinderen</p>
+            </div>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
               {[
                 {
@@ -398,20 +407,20 @@ export default function AanbodPage() {
               ].map((t) => (
                 <div
                   key={t.naam}
-                  className="rounded-2xl border border-[#E8E0D4] p-6"
+                  className="rounded-2xl border border-[#E6E9E7] p-6"
                   style={{ backgroundColor: "white" }}
                 >
-                  <p className="font-body mb-2 text-sm font-medium text-[#2D6A4F]">
+                  <p className="font-body mb-2 text-sm font-medium text-[#0B7A6E]">
                     {t.resultaat}
                   </p>
-                  <p className="font-body mb-3 text-sm font-light leading-relaxed text-[#1C3A2A]">
+                  <p className="font-body mb-3 text-sm font-light leading-relaxed text-[#16211F]">
                     &ldquo;{t.quote}&rdquo;
                   </p>
-                  <p className="font-body text-xs text-[#8A9E8E]">{t.naam}</p>
+                  <p className="font-body text-xs text-[#8B958F]">{t.naam}</p>
                 </div>
               ))}
             </div>
-            <p className="font-body mt-6 text-center text-xs" style={{ color: "#8A9E8E" }}>
+            <p className="font-body mt-6 text-center text-xs" style={{ color: "#8B958F" }}>
               Echte ervaringen van de eerste gezinnen die ik hielp. Namen aangepast voor hun privacy.
             </p>
           </div>
@@ -421,7 +430,7 @@ export default function AanbodPage() {
         <section style={{ backgroundColor: "white", padding: "4rem 1.5rem" }}>
           <div style={{ maxWidth: "720px", margin: "0 auto" }}>
             <h2
-              className="font-display font-light text-[#1C3A2A]"
+              className="font-display font-light text-[#16211F]"
               style={{ fontSize: "2rem", marginBottom: "2rem" }}
             >
               Veelgestelde vragen
@@ -432,7 +441,7 @@ export default function AanbodPage() {
 
         {/* Finale CTA */}
         <section
-          style={{ backgroundColor: "#1C3A2A", padding: "4rem 1.5rem", textAlign: "center" }}
+          style={{ backgroundColor: "#16211F", padding: "4rem 1.5rem", textAlign: "center" }}
         >
           <div style={{ maxWidth: "600px", margin: "0 auto" }}>
             <h2
@@ -444,25 +453,25 @@ export default function AanbodPage() {
             <p
               className="font-body"
               style={{
-                color: "rgba(245,240,232,0.65)",
+                color: "rgba(255,255,255,0.65)",
                 fontSize: "1rem",
                 lineHeight: 1.7,
                 marginBottom: "2rem",
               }}
             >
-              Begin met de gratis analyse. Die duurt vijf minuten en geeft je meteen een duidelijk beeld van jouw situatie. Daarna zie je vanzelf of je meer wilt.
+              Begin met de analyse. Die duurt vijf minuten en geeft je meteen een duidelijk beeld van jouw situatie. Daarna zie je vanzelf of je meer wilt.
             </p>
             <Link
               href="/analyse"
               className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
               style={{
-                backgroundColor: "#C4603A",
-                color: "#FDFAF4",
+                backgroundColor: "#0B7A6E",
+                color: "#FFFFFF",
                 borderRadius: "12px",
                 textDecoration: "none",
               }}
             >
-              Start de gratis analyse →
+              Start de analyse →
             </Link>
           </div>
         </section>

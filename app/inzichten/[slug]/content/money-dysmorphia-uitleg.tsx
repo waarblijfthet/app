@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function MoneyDysmorphiaUitleg() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Op papier zit je prima, en toch voel je je voortdurend onzeker over geld. Je durft niks
           uit te geven, of je controleert je saldo telkens opnieuw zonder dat het rust geeft.
         </p>
@@ -29,9 +29,9 @@ export default function MoneyDysmorphiaUitleg() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -40,8 +40,8 @@ export default function MoneyDysmorphiaUitleg() {
             "Waarom je gevoel over geld kan afwijken van de werkelijkheid",
             "Hoe je je gevoel naast de cijfers legt, zodat er rust kan komen",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -50,7 +50,7 @@ export default function MoneyDysmorphiaUitleg() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Money dysmorphia is een vertekend beeld van je eigen financiële situatie: je gevoel klopt
         niet met de cijfers. Vaak voel je je armer of onveiliger dan je feitelijk bent, soms juist
         rijker. Ik zie het juist vaak bij mensen die goed verdienen, en de eerste stap eruit is je gevoel naast de feiten leggen.
@@ -71,7 +71,7 @@ export default function MoneyDysmorphiaUitleg() {
         onder druk om mee te doen. Dat mechanisme beschrijf ik ook in mijn artikel over{" "}
         <Link
           href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           levensstijlinflatie
@@ -103,7 +103,7 @@ export default function MoneyDysmorphiaUitleg() {
         Begin met de cijfers: reken uit{" "}
         <Link
           href="/inzichten/vrij-besteedbaar-inkomen-berekenen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           wat je vrij besteedbaar overhoudt
@@ -111,7 +111,7 @@ export default function MoneyDysmorphiaUitleg() {
         , en lees hoe je van het knagende gevoel afkomt in{" "}
         <Link
           href="/inzichten/goed-salaris-toch-geldstress"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           goed salaris en toch geldstress
@@ -127,7 +127,7 @@ export default function MoneyDysmorphiaUitleg() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

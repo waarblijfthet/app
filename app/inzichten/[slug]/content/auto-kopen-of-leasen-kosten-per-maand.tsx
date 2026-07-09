@@ -1,22 +1,22 @@
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function AutoKopenOfLeasenKostenPerMaand() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Wat een auto écht kost per maand, inclusief afschrijving, de kostenpost zonder maandelijkse rekening",
             "Wanneer private lease voordeliger is dan kopen, en wanneer niet",
             "Waarom de tweede auto voor tweeverdieners vaak de grootste verborgen last is",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -29,7 +29,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
         kosten verspreid zitten over de tank, de verzekering, de wegenbelasting,
         het onderhoud en, vooral, de afschrijving die je niet ziet.
       </p>
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: een eigen auto kost volgens de ANWB al gauw €413 per maand
         voor een compacte auto, rond €550 voor een kleine middenklasser en zo&apos;n
         €647 voor het middensegment, álle kosten meegerekend. Private lease is
@@ -76,7 +76,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
         "hebben we twee auto&apos;s nodig?". Een tweede auto verdubbelt bijna de
         autolast, al snel €1.000+ per maand samen. Dat is precies zo&apos;n post
         die meegroeit met het inkomen zonder dat iemand het tegenhoudt; zie{" "}
-        <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap</Link>.
+        <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -91,7 +91,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
       <p className="font-body text-text-soft" style={p}>
         Wil je zien hoe jullie autokosten zich verhouden tot vergelijkbare
         gezinnen?{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}— vervoer is één van de categorieën die we vergelijken.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}— vervoer is één van de categorieën die we vergelijken.
       </p>
     </>
   );

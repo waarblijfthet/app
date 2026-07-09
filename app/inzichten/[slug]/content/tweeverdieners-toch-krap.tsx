@@ -1,22 +1,22 @@
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function TweeverdienersTochKrap() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Waarom twee salarissen niet automatisch ruimer voelen: de kosten groeien even hard mee",
             "De kinderopvangval: hoeveel een extra werkdag netto oplevert ná opvang en belasting valt soms mee",
             "Dat het tweede inkomen een bestemming nodig heeft vóórdat het binnenkomt, anders verdwijnt het",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -28,7 +28,7 @@ export default function TweeverdienersTochKrap() {
         Op papier zou het ruim moeten zitten. En toch is het aan het einde van de
         maand net zo krap als bij één inkomen, soms krapper.
       </p>
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: twee inkomens betekenen vaak ook dubbele vaste lasten. Een
         tweede auto, kinderopvang, een groter huis, meer uit eten omdat de tijd
         ontbreekt. Het tweede inkomen wordt zelden gespaard, het wordt
@@ -68,10 +68,10 @@ export default function TweeverdienersTochKrap() {
       <p className="font-body text-text-soft" style={p}>
         Als dit herkenbaar is: jullie doen niks fout. Dit is hetzelfde patroon
         dat speelt bij gezinnen die{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed verdienen en toch krap zitten</Link>.
+        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed verdienen en toch krap zitten</Link>.
         Het probleem is zelden het inkomen, het is dat de uitgaven ongemerkt
         meegroeien, iets wat ook wel{" "}
-        <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>{" "}
+        <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>{" "}
         heet.
       </p>
 
@@ -83,17 +83,17 @@ export default function TweeverdienersTochKrap() {
         tweede inkomen niet als &ldquo;extra ruimte&rdquo; die vanzelf opgaat,
         maar geef het een bestemming voordat het binnenkomt. Een vaste verdeling
         helpt daarbij, zie de{" "}
-        <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
+        <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je zien waar jullie twee inkomens nu naartoe gaan?{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
         en vergelijk jezelf met vergelijkbare gezinnen. Kom je er samen niet uit,
         dan kijken we via onze{" "}
-        <Link href="/aanbod" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}mee.
+        <Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}mee.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Uit de praktijk: lees <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin de BSO-kosten omdraaide</a>.
+        Uit de praktijk: lees <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin de BSO-kosten omdraaide</a>.
       </p>
     </>
   );

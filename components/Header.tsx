@@ -22,7 +22,7 @@ export default function Header() {
       ? null
       : isOpResultaat
       ? { label: "Doe analyse opnieuw", href: "/analyse" }
-      : { label: "Gratis analyse", href: "/analyse" };
+      : { label: "Zie waar je geld blijft", href: "/geldscan" };
 
   const navLinks = [
     { href: "/inzichten", label: "Inzichten" },
@@ -35,24 +35,24 @@ export default function Header() {
   const linkClass = (href: string) =>
     "text-sm font-medium transition-colors pb-0.5 " +
     (pathname.startsWith(href) && (href !== "/" || pathname === "/")
-      ? "text-[#1C3A2A] border-b border-[#1C3A2A]"
-      : "text-[#4A5E4E] hover:text-[#1C3A2A]");
+      ? "text-[#16211F] border-b border-[#16211F]"
+      : "text-[#4A5A56] hover:text-[#16211F]");
 
   const mobileLinkClass = (href: string) =>
     "text-sm font-medium py-1 transition-colors " +
     (pathname.startsWith(href) && (href !== "/" || pathname === "/")
-      ? "text-[#1C3A2A]"
-      : "text-[#4A5E4E]");
+      ? "text-[#16211F]"
+      : "text-[#4A5A56]");
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="flex items-center justify-between px-6 py-4 bg-[#F5F0E8]/92 backdrop-blur-md border-b border-[rgba(26,46,30,0.08)]">
+      <div className="flex items-center justify-between px-6 py-4 bg-[#F7F8F7]/92 backdrop-blur-md border-b border-[rgba(20, 42, 40,0.08)]">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Waar blijft het">
-          <div className="w-8 h-8 rounded-full bg-[#1C3A2A] flex items-center justify-center shrink-0" aria-hidden="true">
-            <span className="text-[#F5F0E8] text-xs font-medium" style={{ fontFamily: "Fraunces, serif" }}>wb</span>
+          <div className="w-8 h-8 rounded-full bg-[#16211F] flex items-center justify-center shrink-0" aria-hidden="true">
+            <span className="text-[#F7F8F7] text-xs font-medium" style={{ fontFamily: "Fraunces, serif" }}>wb</span>
           </div>
-          <span className="text-[#1C3A2A] text-base font-medium hidden sm:block" style={{ fontFamily: "Fraunces, serif" }}>
+          <span className="text-[#16211F] text-base font-medium hidden sm:block" style={{ fontFamily: "Fraunces, serif" }}>
             Waar blijft het
           </span>
         </Link>
@@ -69,7 +69,7 @@ export default function Header() {
           {ctaConfig && (
             <Link
               href={ctaConfig.href}
-              className="hidden md:inline-flex items-center gap-1.5 bg-[#C4603A] text-[#FDFAF4] px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity shrink-0"
+              className="hidden md:inline-flex items-center gap-1.5 bg-[#0B7A6E] text-[#FFFFFF] px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity shrink-0"
             >
               {ctaConfig.label}
               <span aria-hidden="true">&#x2192;</span>
@@ -83,16 +83,16 @@ export default function Header() {
             aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
             aria-expanded={mobileOpen}
           >
-            <span className={"block w-5 h-0.5 bg-[#1C3A2A] transition-all duration-200" + (mobileOpen ? " rotate-45 translate-y-2" : "")} />
-            <span className={"block w-5 h-0.5 bg-[#1C3A2A] transition-all duration-200" + (mobileOpen ? " opacity-0" : "")} />
-            <span className={"block w-5 h-0.5 bg-[#1C3A2A] transition-all duration-200" + (mobileOpen ? " -rotate-45 -translate-y-2" : "")} />
+            <span className={"block w-5 h-0.5 bg-[#16211F] transition-all duration-200" + (mobileOpen ? " rotate-45 translate-y-2" : "")} />
+            <span className={"block w-5 h-0.5 bg-[#16211F] transition-all duration-200" + (mobileOpen ? " opacity-0" : "")} />
+            <span className={"block w-5 h-0.5 bg-[#16211F] transition-all duration-200" + (mobileOpen ? " -rotate-45 -translate-y-2" : "")} />
           </button>
         </div>
       </div>
 
       {/* Mobile menu */}
       {mobileOpen && (
-        <nav className="md:hidden bg-[#F5F0E8] border-b border-[rgba(26,46,30,0.08)] px-6 py-4 flex flex-col gap-4" aria-label="Mobiele navigatie">
+        <nav className="md:hidden bg-[#F7F8F7] border-b border-[rgba(20, 42, 40,0.08)] px-6 py-4 flex flex-col gap-4" aria-label="Mobiele navigatie">
           {navLinks.map(({ href, label }) => (
             <Link key={href} href={href} onClick={() => setMobileOpen(false)} className={mobileLinkClass(href)}>
               {label}
@@ -102,7 +102,7 @@ export default function Header() {
             <Link
               href={ctaConfig.href}
               onClick={() => setMobileOpen(false)}
-              className="mt-2 inline-flex items-center justify-center gap-1.5 bg-[#C4603A] text-[#FDFAF4] px-5 py-2.5 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+              className="mt-2 inline-flex items-center justify-center gap-1.5 bg-[#0B7A6E] text-[#FFFFFF] px-5 py-2.5 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
             >
               {ctaConfig.label}
               <span aria-hidden="true">&#x2192;</span>

@@ -50,20 +50,20 @@ function RadioKaart({
     <label
       className={`flex items-center gap-3 p-4 rounded-xl border cursor-pointer transition-all ${
         selected
-          ? "bg-[#E8F2EC] border-[#1C3A2A] border-2"
-          : "bg-white border-[#E8E0D4] hover:border-[#1C3A2A]"
+          ? "bg-[#E7F1EE] border-[#16211F] border-2"
+          : "bg-white border-[#E6E9E7] hover:border-[#16211F]"
       }`}
       onClick={onSelect}
     >
       <input type="radio" className="sr-only" readOnly checked={selected} />
       <div
         className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 ${
-          selected ? "border-[#1C3A2A] bg-[#1C3A2A]" : "border-[#E8E0D4]"
+          selected ? "border-[#16211F] bg-[#16211F]" : "border-[#E6E9E7]"
         }`}
       >
         {selected && <div className="w-2 h-2 rounded-full bg-white" />}
       </div>
-      <span className="text-sm text-[#1C3A2A]">{optie}</span>
+      <span className="text-sm text-[#16211F]">{optie}</span>
     </label>
   );
 }
@@ -176,12 +176,12 @@ export function IntakeForm({ pakket, token }: Props) {
   }
 
   return (
-    <div style={{ backgroundColor: "#F5F0E8", minHeight: "100vh" }}>
+    <div style={{ backgroundColor: "#F7F8F7", minHeight: "100vh" }}>
       {/* Minimal header */}
       <header
         style={{
-          backgroundColor: "#F5F0E8",
-          borderBottom: "1px solid #E8E0D4",
+          backgroundColor: "#F7F8F7",
+          borderBottom: "1px solid #E6E9E7",
           padding: "0 1.5rem",
           height: "60px",
           display: "flex",
@@ -192,11 +192,11 @@ export function IntakeForm({ pakket, token }: Props) {
         <Link
           href="/aanbod"
           className="font-body"
-          style={{ color: "#4A5E4E", fontSize: "0.85rem", textDecoration: "none" }}
+          style={{ color: "#4A5A56", fontSize: "0.85rem", textDecoration: "none" }}
         >
           ← Terug naar het aanbod
         </Link>
-        <span className="font-display font-light" style={{ color: "#1C3A2A", fontSize: "1rem" }}>
+        <span className="font-display font-light" style={{ color: "#16211F", fontSize: "1rem" }}>
           Waar blijft het
         </span>
       </header>
@@ -208,8 +208,8 @@ export function IntakeForm({ pakket, token }: Props) {
             className="font-body"
             style={{
               display: "inline-block",
-              backgroundColor: "#E8F2EC",
-              color: "#1C3A2A",
+              backgroundColor: "#E7F1EE",
+              color: "#16211F",
               fontSize: "0.8rem",
               fontWeight: 500,
               padding: "0.4rem 1rem",
@@ -223,7 +223,7 @@ export function IntakeForm({ pakket, token }: Props) {
 
         {/* Title */}
         <h1
-          className="font-display font-light text-[#1C3A2A]"
+          className="font-display font-light text-[#16211F]"
           style={{
             fontSize: "clamp(1.6rem, 4vw, 2.2rem)",
             marginBottom: "0.75rem",
@@ -236,7 +236,7 @@ export function IntakeForm({ pakket, token }: Props) {
         <p
           className="font-body"
           style={{
-            color: "#4A5E4E",
+            color: "#4A5A56",
             fontSize: "0.95rem",
             lineHeight: 1.7,
             textAlign: "center",
@@ -250,7 +250,7 @@ export function IntakeForm({ pakket, token }: Props) {
           className="font-body"
           style={{
             backgroundColor: "white",
-            border: "1px solid #E8E0D4",
+            border: "1px solid #E6E9E7",
             borderRadius: "16px",
             padding: "1.5rem",
             marginBottom: "2rem",
@@ -262,7 +262,7 @@ export function IntakeForm({ pakket, token }: Props) {
               fontWeight: 600,
               letterSpacing: "0.08em",
               textTransform: "uppercase",
-              color: "#8A9E8E",
+              color: "#8B958F",
               marginBottom: "1rem",
             }}
           >
@@ -274,7 +274,7 @@ export function IntakeForm({ pakket, token }: Props) {
                 <span aria-hidden="true" style={{ color: "#2D6A4F", fontWeight: 600 }}>
                   ✓
                 </span>
-                <span style={{ fontSize: "0.88rem", lineHeight: 1.6, color: "#4A5E4E" }}>
+                <span style={{ fontSize: "0.88rem", lineHeight: 1.6, color: "#4A5A56" }}>
                   {t}
                 </span>
               </li>
@@ -286,12 +286,12 @@ export function IntakeForm({ pakket, token }: Props) {
           <div
             className="font-body"
             style={{
-              backgroundColor: "#E8F2EC",
+              backgroundColor: "#E7F1EE",
               border: "1px solid #C8DDD0",
               borderRadius: "12px",
               padding: "0.875rem 1rem",
               fontSize: "0.85rem",
-              color: "#1C3A2A",
+              color: "#16211F",
               marginBottom: "2rem",
             }}
           >
@@ -306,7 +306,7 @@ export function IntakeForm({ pakket, token }: Props) {
               className="font-body"
               style={{
                 fontWeight: 600,
-                color: "#1C3A2A",
+                color: "#16211F",
                 fontSize: "0.95rem",
                 marginBottom: "0.75rem",
                 display: "block",
@@ -332,7 +332,7 @@ export function IntakeForm({ pakket, token }: Props) {
               className="font-body"
               style={{
                 fontWeight: 600,
-                color: "#1C3A2A",
+                color: "#16211F",
                 fontSize: "0.95rem",
                 marginBottom: "0.75rem",
                 display: "block",
@@ -359,7 +359,7 @@ export function IntakeForm({ pakket, token }: Props) {
               className="font-body"
               style={{
                 fontWeight: 600,
-                color: "#1C3A2A",
+                color: "#16211F",
                 fontSize: "0.95rem",
                 display: "block",
                 marginBottom: "0.75rem",
@@ -378,18 +378,18 @@ export function IntakeForm({ pakket, token }: Props) {
                   width: "100%",
                   padding: "1rem",
                   borderRadius: "12px",
-                  border: "1px solid #E8E0D4",
+                  border: "1px solid #E6E9E7",
                   backgroundColor: "white",
                   fontSize: "0.9rem",
-                  color: "#1C3A2A",
+                  color: "#16211F",
                   lineHeight: 1.6,
                   resize: "vertical",
                   outline: "none",
                   fontFamily: "inherit",
                   boxSizing: "border-box",
                 }}
-                onFocus={(e) => (e.target.style.borderColor = "#1C3A2A")}
-                onBlur={(e) => (e.target.style.borderColor = "#E8E0D4")}
+                onFocus={(e) => (e.target.style.borderColor = "#16211F")}
+                onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
               />
               <span
                 className="font-body"
@@ -398,7 +398,7 @@ export function IntakeForm({ pakket, token }: Props) {
                   bottom: "0.75rem",
                   right: "1rem",
                   fontSize: "0.75rem",
-                  color: knelpunt.length >= 180 ? "#C4603A" : "#8A9E8E",
+                  color: knelpunt.length >= 180 ? "#0B7A6E" : "#8B958F",
                 }}
               >
                 {knelpunt.length}/200
@@ -414,7 +414,7 @@ export function IntakeForm({ pakket, token }: Props) {
                   className="font-body"
                   style={{
                     fontWeight: 600,
-                    color: "#1C3A2A",
+                    color: "#16211F",
                     fontSize: "0.95rem",
                     marginBottom: "0.75rem",
                     display: "block",
@@ -440,7 +440,7 @@ export function IntakeForm({ pakket, token }: Props) {
                   className="font-body"
                   style={{
                     fontWeight: 600,
-                    color: "#1C3A2A",
+                    color: "#16211F",
                     fontSize: "0.95rem",
                     marginBottom: "0.75rem",
                     display: "block",
@@ -469,14 +469,14 @@ export function IntakeForm({ pakket, token }: Props) {
               borderRadius: "16px",
               padding: "1.5rem",
               marginBottom: "2rem",
-              border: "1px solid #E8E0D4",
+              border: "1px solid #E6E9E7",
             }}
           >
             <p
               className="font-body"
               style={{
                 fontWeight: 600,
-                color: "#1C3A2A",
+                color: "#16211F",
                 fontSize: "0.95rem",
                 marginBottom: "1.25rem",
               }}
@@ -492,7 +492,7 @@ export function IntakeForm({ pakket, token }: Props) {
                   style={{
                     display: "block",
                     fontSize: "0.85rem",
-                    color: "#4A5E4E",
+                    color: "#4A5A56",
                     marginBottom: "0.4rem",
                     fontWeight: 500,
                   }}
@@ -510,15 +510,15 @@ export function IntakeForm({ pakket, token }: Props) {
                     width: "100%",
                     padding: "0.75rem 1rem",
                     borderRadius: "10px",
-                    border: "1px solid #E8E0D4",
+                    border: "1px solid #E6E9E7",
                     fontSize: "0.9rem",
-                    color: "#1C3A2A",
+                    color: "#16211F",
                     outline: "none",
                     fontFamily: "inherit",
                     boxSizing: "border-box",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#1C3A2A")}
-                  onBlur={(e) => (e.target.style.borderColor = "#E8E0D4")}
+                  onFocus={(e) => (e.target.style.borderColor = "#16211F")}
+                  onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
                 />
               </div>
 
@@ -529,7 +529,7 @@ export function IntakeForm({ pakket, token }: Props) {
                   style={{
                     display: "block",
                     fontSize: "0.85rem",
-                    color: "#4A5E4E",
+                    color: "#4A5A56",
                     marginBottom: "0.4rem",
                     fontWeight: 500,
                   }}
@@ -547,15 +547,15 @@ export function IntakeForm({ pakket, token }: Props) {
                     width: "100%",
                     padding: "0.75rem 1rem",
                     borderRadius: "10px",
-                    border: "1px solid #E8E0D4",
+                    border: "1px solid #E6E9E7",
                     fontSize: "0.9rem",
-                    color: "#1C3A2A",
+                    color: "#16211F",
                     outline: "none",
                     fontFamily: "inherit",
                     boxSizing: "border-box",
                   }}
-                  onFocus={(e) => (e.target.style.borderColor = "#1C3A2A")}
-                  onBlur={(e) => (e.target.style.borderColor = "#E8E0D4")}
+                  onFocus={(e) => (e.target.style.borderColor = "#16211F")}
+                  onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
                 />
               </div>
             </div>
@@ -587,8 +587,8 @@ export function IntakeForm({ pakket, token }: Props) {
               width: "100%",
               padding: "1rem",
               borderRadius: "12px",
-              backgroundColor: isValid && !bezig ? "#C4603A" : "#E8E0D4",
-              color: isValid && !bezig ? "white" : "#8A9E8E",
+              backgroundColor: isValid && !bezig ? "#0B7A6E" : "#E6E9E7",
+              color: isValid && !bezig ? "white" : "#8B958F",
               border: "none",
               fontSize: "1rem",
               fontWeight: 600,
@@ -605,7 +605,7 @@ export function IntakeForm({ pakket, token }: Props) {
             style={{
               textAlign: "center",
               fontSize: "0.78rem",
-              color: "#8A9E8E",
+              color: "#8B958F",
               marginTop: "1rem",
               lineHeight: 1.6,
             }}

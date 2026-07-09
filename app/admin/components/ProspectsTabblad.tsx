@@ -272,7 +272,7 @@ export default function ProspectsTabblad() {
               className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
                 bronType === optie.value
                   ? "bg-primary text-white border-primary"
-                  : "bg-white text-text-soft border-[#E8E0D4] hover:border-primary"
+                  : "bg-white text-text-soft border-[#E6E9E7] hover:border-primary"
               }`}
             >
               {optie.label}
@@ -294,7 +294,7 @@ export default function ProspectsTabblad() {
                 placeholder={"https://www.voorbeeldvereniging.nl/leden"}
                 required
                 rows={2}
-                className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             ) : (
               <textarea
@@ -303,7 +303,7 @@ export default function ProspectsTabblad() {
                 placeholder={"relatietherapeut Utrecht\nrelatietherapeut Amersfoort\nbudgetcoach Amsterdam"}
                 required
                 rows={3}
-                className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+                className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
               />
             )}
           </div>
@@ -312,7 +312,7 @@ export default function ProspectsTabblad() {
             <select
               value={doelgroep}
               onChange={(e) => setDoelgroep(e.target.value)}
-              className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white"
+              className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white"
             >
               <option value="auto">Automatisch herkennen</option>
               {DOELGROEPEN.map((d) => (
@@ -362,7 +362,7 @@ export default function ProspectsTabblad() {
               Stop
             </button>
           </div>
-          <div className="w-full bg-[#F0EAE0] rounded-full h-2">
+          <div className="w-full bg-[#F0F3F1] rounded-full h-2">
             <div
               className="bg-primary h-2 rounded-full transition-all"
               style={{
@@ -446,7 +446,7 @@ export default function ProspectsTabblad() {
           Nog niets te beoordelen. Start hierboven een zoekopdracht.
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-[#E8E0D0]">
+        <div className="overflow-x-auto rounded-lg border border-[#E6E9E7]">
           <table className="w-full text-sm table-fixed">
             <colgroup>
               <col className="w-9" />
@@ -457,7 +457,7 @@ export default function ProspectsTabblad() {
               <col className="w-40" />
               <col />
             </colgroup>
-            <thead className="bg-[#F5F0E8] text-text-muted text-xs uppercase tracking-wide">
+            <thead className="bg-[#F7F8F7] text-text-muted text-xs uppercase tracking-wide">
               <tr>
                 <th className="px-3 py-3">
                   <input
@@ -474,9 +474,9 @@ export default function ProspectsTabblad() {
                 <th className="text-left px-4 py-3">Context</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#F0EAE0]">
+            <tbody className="divide-y divide-[#F0F3F1]">
               {prospects.map((p) => (
-                <tr key={p.id} className="bg-white hover:bg-[#FDFAF4] transition-colors align-top">
+                <tr key={p.id} className="bg-white hover:bg-[#FFFFFF] transition-colors align-top">
                   <td className="px-3 py-3 text-center">
                     <input
                       type="checkbox"
@@ -512,7 +512,7 @@ export default function ProspectsTabblad() {
                         if (nieuw && nieuw !== p.naam) werkBij(p.id, { naam: nieuw });
                       }}
                       title="Klik om de naam te corrigeren"
-                      className="w-full font-medium text-primary bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                      className="w-full font-medium text-primary bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                     />
                     {p.praktijk && (
                       <p className="text-xs text-text-muted mt-0.5 truncate">{p.praktijk}</p>
@@ -525,7 +525,7 @@ export default function ProspectsTabblad() {
                         href={p.website}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-[#C4603A] hover:underline text-xs break-all"
+                        className="text-[#0B7A6E] hover:underline text-xs break-all"
                       >
                         {p.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
                       </a>
@@ -563,7 +563,7 @@ export default function ProspectsTabblad() {
           </summary>
           <div className="mt-3 space-y-1">
             {jobs.map((j) => (
-              <div key={j.id} className="flex items-center justify-between text-xs text-text-muted py-1.5 border-b border-[#F0EAE0]">
+              <div key={j.id} className="flex items-center justify-between text-xs text-text-muted py-1.5 border-b border-[#F0F3F1]">
                 <span className="truncate max-w-md">
                   {j.type === "url" ? "URL" : "Zoekwoorden"}: {j.invoer}
                 </span>

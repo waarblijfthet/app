@@ -103,7 +103,7 @@ export default function BurnoutCoachesPage() {
             </h2>
             <div className="space-y-5">
               {pijnpunten.map((p) => (
-                <div key={p.titel} className="card-base border border-[#E8E0D0]">
+                <div key={p.titel} className="card-base border border-[#E6E9E7]">
                   <h3 className="font-body font-medium text-primary text-base mb-2">{p.titel}</h3>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">{p.tekst}</p>
                 </div>
@@ -136,7 +136,7 @@ export default function BurnoutCoachesPage() {
                 ["Concreet", "Twee of drie duidelijke stappen, niet overweldigend."],
                 ["Complementair", "Ik doe het geld. Jij doet de mens. Geen overlap."],
               ].map(([t, d]) => (
-                <div key={t} className="text-center p-4 rounded-xl" style={{ backgroundColor: "#F5F0E8" }}>
+                <div key={t} className="text-center p-4 rounded-xl" style={{ backgroundColor: "#F7F8F7" }}>
                   <p className="font-body font-medium text-primary text-sm mb-1">{t}</p>
                   <p className="font-body font-light text-text-soft text-xs leading-relaxed">{d}</p>
                 </div>
@@ -157,7 +157,7 @@ export default function BurnoutCoachesPage() {
                 ["2", "Ze starten op hun eigen tempo", "De gratis analyse op de site duurt vijf minuten en is volledig op hun eigen moment te doen. Geen drempel."],
                 ["3", "Ik pak het financiële deel op", "Een adviesgesprek of traject, volledig gericht op het maandbudget. Jij blijft hun coach, ik ben de financiële schakel."],
               ].map(([n, t, d]) => (
-                <div key={n} className="card-base border border-[#E8E0D0] flex items-start gap-4">
+                <div key={n} className="card-base border border-[#E6E9E7] flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-green-light flex items-center justify-center shrink-0">
                     <span className="font-display font-medium text-primary">{n}</span>
                   </div>
@@ -172,7 +172,7 @@ export default function BurnoutCoachesPage() {
         </section>
 
         {/* Zo werkt het in de praktijk */}
-        <section className="py-12 md:py-16 border-t border-[#E8E0D0]" style={{ backgroundColor: "#FDFAF4" }}>
+        <section className="py-12 md:py-16 border-t border-[#E6E9E7]" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-3xl mx-auto px-6">
             <div className="mb-8">
               <p className="section-eyebrow mb-3">Zo werkt het in de praktijk</p>
@@ -185,22 +185,22 @@ export default function BurnoutCoachesPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>01</span>
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>01</span>
                   <p className="font-body font-semibold text-primary text-sm">De situatie</p>
                 </div>
-                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5E4E" }}>
+                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5A56" }}>
                   Michiel (46) is teammanager bij een zorginstelling in Rotterdam. Hij zit al vier maanden thuis met een burnout en ontvangt 70% van zijn salaris via de ziektewet: €2.890 netto per maand. De vaste lasten lopen gewoon door. Zijn burnout coach Sandra merkt dat Michiel steeds terugkomt op geldzorgen, ook als het gesprek ergens anders over gaat.
                 </p>
-                <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#1C3A2A", fontStyle: "italic", borderLeft: "3px solid #C4603A", paddingLeft: "0.75rem", marginLeft: 0 }}>
+                <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#16211F", fontStyle: "italic", borderLeft: "3px solid #0B7A6E", paddingLeft: "0.75rem", marginLeft: 0 }}>
                   &ldquo;Je hebt er nu even geen energie voor om dat zelf uit te zoeken. Er is iemand die dat voor je in kaart brengt, gewoon concreet en zonder gedoe. Misschien helpt dat de onrust een beetje weg te halen.&rdquo;
                 </blockquote>
               </div>
 
-              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>02</span>
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>02</span>
                   <p className="font-body font-semibold text-primary text-sm">Wat hij invult (5 minuten)</p>
                 </div>
                 <div className="space-y-2">
@@ -213,9 +213,9 @@ export default function BurnoutCoachesPage() {
                     ["Abonnementen", "€ 195 / mnd"],
                     ["Overig variabel", "€ 490 / mnd"],
                   ].map(([label, waarde]) => (
-                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0EAE0" }}>
-                      <span className="font-body text-xs" style={{ color: "#8A9E8E" }}>{label}</span>
-                      <span className="font-body text-sm font-medium" style={{ color: "#1C3A2A" }}>{waarde}</span>
+                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0F3F1" }}>
+                      <span className="font-body text-xs" style={{ color: "#8B958F" }}>{label}</span>
+                      <span className="font-body text-sm font-medium" style={{ color: "#16211F" }}>{waarde}</span>
                     </div>
                   ))}
                 </div>
@@ -223,7 +223,7 @@ export default function BurnoutCoachesPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div style={{ backgroundColor: "#1C3A2A", border: "1px solid #2D6A4F", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "#16211F", border: "1px solid #2D6A4F", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
                   <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#8AB89A", opacity: 0.7 }}>03</span>
                   <p className="font-body font-semibold text-sm" style={{ color: "white" }}>Wat de analyse toont</p>
@@ -244,9 +244,9 @@ export default function BurnoutCoachesPage() {
                 </div>
               </div>
 
-              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>04</span>
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>04</span>
                   <p className="font-body font-semibold text-primary text-sm">Wat het gesprek (45 min) oplevert</p>
                 </div>
                 <div className="space-y-3">
@@ -267,8 +267,8 @@ export default function BurnoutCoachesPage() {
                     <div key={item.actie} className="flex gap-3 items-start">
                       <span style={{ color: "#2D6A4F", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
                       <div>
-                        <p className="font-body text-xs font-semibold" style={{ color: "#1C3A2A" }}>{item.actie}</p>
-                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5E4E" }}>{item.resultaat}</p>
+                        <p className="font-body text-xs font-semibold" style={{ color: "#16211F" }}>{item.actie}</p>
+                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5A56" }}>{item.resultaat}</p>
                       </div>
                     </div>
                   ))}
@@ -276,8 +276,8 @@ export default function BurnoutCoachesPage() {
               </div>
             </div>
 
-            <div style={{ backgroundColor: "#F5F0E8", border: "1px solid #E0D8CC", borderRadius: "16px", padding: "1.5rem" }}>
-              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#C4603A" }}>
+            <div style={{ backgroundColor: "#F7F8F7", border: "1px solid #E0D8CC", borderRadius: "16px", padding: "1.5rem" }}>
+              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#0B7A6E" }}>
                 Wat Sandra als burnout coach eraan had
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -304,7 +304,7 @@ export default function BurnoutCoachesPage() {
             </h2>
             <div className="space-y-4">
               {faq.map((f) => (
-                <div key={f.vraag} className="card-base border border-[#E8E0D0]">
+                <div key={f.vraag} className="card-base border border-[#E6E9E7]">
                   <p className="font-body font-medium text-primary text-sm mb-2">{f.vraag}</p>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">{f.antwoord}</p>
                 </div>
@@ -326,7 +326,7 @@ export default function BurnoutCoachesPage() {
             <a
               href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20burnout%20coach"
               className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Mail Jarno →
             </a>

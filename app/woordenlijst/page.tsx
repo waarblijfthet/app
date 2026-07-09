@@ -144,7 +144,7 @@ export default function WoordenlijstPage() {
               <div
                 key={t.term}
                 id={t.term.toLowerCase().replace(/[^a-z0-9]+/g, "-")}
-                className="card-base border border-[#E8E0D0]"
+                className="card-base border border-[#E6E9E7]"
               >
                 <h2 className="font-display font-light text-primary text-xl mb-2">
                   {t.term}
@@ -156,7 +156,7 @@ export default function WoordenlijstPage() {
                   <Link
                     href={t.href}
                     className="inline-block mt-3 font-body text-sm"
-                    style={{ color: "#C4603A", textDecoration: "none" }}
+                    style={{ color: "#0B7A6E", textDecoration: "none" }}
                   >
                     {t.linkLabel} →
                   </Link>
@@ -178,7 +178,7 @@ export default function WoordenlijstPage() {
             <Link
               href="/analyse"
               className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Start de gratis analyse →
             </Link>

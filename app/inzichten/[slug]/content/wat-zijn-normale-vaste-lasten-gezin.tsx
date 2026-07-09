@@ -3,7 +3,7 @@ import { VasteLastenRadar } from "@/components/artikel/VasteLastenRadar";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -14,16 +14,16 @@ export default function WatZijnNormaleVasteLastenGezin() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Wat de werkelijke vaste lasten zijn voor een gezin van vier in 2026, inclusief de posten die mensen vergeten",
             "Dat jaarlijkse kosten teruggerekend naar een maandbedrag je totale vaste lasten hoger maken dan je dacht",
             "Drie categorieën waar vrijwel elk gezin bespaarruimte heeft: abonnementen, zorgverzekering, vervoer",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -41,7 +41,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
         exclusief{" "}
         <Link
           href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           boodschappen
@@ -157,7 +157,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
         Een goed systeem om je inkomen te verdelen helpt daartegen:{" "}
         <Link
           href="/inzichten/spaardoelen-maandelijkse-inleg"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           lees ook ons artikel over spaardoelen en maandelijkse inleg
@@ -166,13 +166,13 @@ export default function WatZijnNormaleVasteLastenGezin() {
       </p>
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           <strong>Uit de praktijk.</strong> Wat me opvalt bij de gezinnen die ik help: de grote vaste lasten kennen ze prima, maar de kleine onderschatten ze structureel, abonnementen, verzekerings-extra's, een doorlopende app hier en daar. Bij één gezin telde dat op tot €250 per maand dat niemand miste toen we het opschoonden.
         </p>
       </div>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vaste-lasten-overzicht-maken" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">een overzicht van je vaste lasten maken</Link> en <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vaste-lasten-overzicht-maken" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">een overzicht van je vaste lasten maken</Link> en <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link>.</p>
     </>
   );
 }

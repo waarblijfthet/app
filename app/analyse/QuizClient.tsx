@@ -169,52 +169,52 @@ export default function QuizClient() {
     <div className={"overflow-x-hidden" + (toonLiveBalk ? " pb-16 lg:pb-0" : "")}>
       {step === 1 && (
         <div className="text-center mb-8 max-w-lg mx-auto px-2">
-          <div className="inline-flex items-center gap-2 bg-[#E8F2EC] text-[#2D6A4F] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
+          <div className="inline-flex items-center gap-2 bg-[#E7F1EE] text-[#2D6A4F] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
             <span>⏱</span>
             <span>2 minuten · Anoniem · Geen producten</span>
           </div>
-          <p className="text-[#4A5E4E] text-sm leading-relaxed">
+          <p className="text-[#4A5A56] text-sm leading-relaxed">
             Vul een paar dingen in en zie meteen hoe je het doet ten opzichte
             van vergelijkbare huishoudens. Na stap 2 zie je al je eerste
             vergelijking. Dieper invullen kan, maar hoeft niet.
           </p>
 
           {/* Mini-voorbeeld van het resultaat, zodat je vooraf ziet wat je krijgt */}
-          <div className="mt-5 bg-card border border-[#E8E0D0] rounded-xl p-4 text-left">
-            <p className="text-[11px] uppercase tracking-wider text-[#8A9E8E] font-medium mb-2">
+          <div className="mt-5 bg-card border border-[#E6E9E7] rounded-xl p-4 text-left">
+            <p className="text-[11px] uppercase tracking-wider text-[#8B958F] font-medium mb-2">
               Voorbeeld van wat je ziet
             </p>
             <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs text-[#4A5E4E] font-medium">Boodschappen</span>
+              <span className="text-xs text-[#4A5A56] font-medium">Boodschappen</span>
               <span className="text-xs px-2 py-0.5 rounded-full bg-[#FDECEA] text-[#B03A2E] font-medium">
                 ⚠ Boven gemiddeld
               </span>
             </div>
             <div className="space-y-1">
-              <div className="flex justify-between text-xs text-[#8A9E8E] mb-0.5">
+              <div className="flex justify-between text-xs text-[#8B958F] mb-0.5">
                 <span>Jij</span>
                 <span className="font-medium">€640</span>
               </div>
-              <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+              <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
                 <div className="h-full rounded-full bg-accent" style={{ width: "100%" }} />
               </div>
-              <div className="flex justify-between text-xs text-[#8A9E8E] mb-0.5">
+              <div className="flex justify-between text-xs text-[#8B958F] mb-0.5">
                 <span>Gemiddeld</span>
                 <span>€585</span>
               </div>
-              <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+              <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
                 <div className="h-full rounded-full bg-[#B8C9BC]" style={{ width: "91%" }} />
               </div>
             </div>
-            <p className="text-[11px] text-[#8A9E8E] mt-2">
+            <p className="text-[11px] text-[#8B958F] mt-2">
               Zo zie je per post hoe jij het doet, en wat je per maand overhoudt.
             </p>
           </div>
 
-          <p className="text-[#8A9E8E] text-xs mt-4">
+          <p className="text-[#8B958F] text-xs mt-4">
             Je antwoorden blijven anoniem. Pas als je aan het eind zelf je
             e-mail invult, worden ze aan jou gekoppeld.{" "}
-            <Link href="/privacy" style={{ color: "#C4603A", textDecoration: "none" }}>
+            <Link href="/privacy" style={{ color: "#0B7A6E", textDecoration: "none" }}>
               Privacy &rarr;
             </Link>
           </p>
@@ -225,9 +225,9 @@ export default function QuizClient() {
               alt="Jarno Koopman"
               className="w-8 h-8 rounded-full object-cover flex-shrink-0"
             />
-            <p className="text-[#8A9E8E] text-xs">
+            <p className="text-[#8B958F] text-xs">
               Gemaakt door Jarno Koopman, financieel coach.{" "}
-              <Link href="/over" style={{ color: "#C4603A", textDecoration: "none" }}>
+              <Link href="/over" style={{ color: "#0B7A6E", textDecoration: "none" }}>
                 Wie ik ben &rarr;
               </Link>
             </p>
@@ -254,7 +254,7 @@ export default function QuizClient() {
                 <button
                   type="button"
                   onClick={prev}
-                  className="shrink-0 px-5 py-3.5 rounded-xl border-[1.5px] border-[#D6CEBC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
+                  className="shrink-0 px-5 py-3.5 rounded-xl border-[1.5px] border-[#D9DEDC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
                 >
                   ← Vorige
                 </button>
@@ -299,7 +299,7 @@ export default function QuizClient() {
 
       {toonLiveBalk && (
         <div
-          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[#E8E0D0] px-4 py-2.5"
+          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[#E6E9E7] px-4 py-2.5"
           style={{ backgroundColor: "rgba(253,250,244,0.96)", backdropFilter: "blur(6px)" }}
         >
           <div className="flex items-center justify-between gap-3 max-w-lg mx-auto font-body text-xs">

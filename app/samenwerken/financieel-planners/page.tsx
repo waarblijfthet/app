@@ -103,7 +103,7 @@ export default function FinancieelPlannersPage() {
             </h2>
             <div className="space-y-5">
               {pijnpunten.map((p) => (
-                <div key={p.titel} className="card-base border border-[#E8E0D0]">
+                <div key={p.titel} className="card-base border border-[#E6E9E7]">
                   <h3 className="font-body font-medium text-primary text-base mb-2">{p.titel}</h3>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">{p.tekst}</p>
                 </div>
@@ -128,7 +128,7 @@ export default function FinancieelPlannersPage() {
               Geen concurrentie, aanvulling. Jij werkt aan de lange termijn. Ik zorg dat
               de maand klopt. Samen is dat een stuk krachtiger dan apart.
             </p>
-            <div className="rounded-xl border p-6 mt-6" style={{ borderColor: "#E8E0D0", backgroundColor: "#F5F0E8" }}>
+            <div className="rounded-xl border p-6 mt-6" style={{ borderColor: "#E6E9E7", backgroundColor: "#F7F8F7" }}>
               <p className="font-body font-medium text-primary text-sm mb-2">Wat een cliënt meeneemt naar jou</p>
               <p className="font-body font-light text-text-soft text-sm leading-relaxed">
                 Na mijn analyse weet een cliënt: wat zijn vaste lasten zijn, hoeveel vrije
@@ -151,7 +151,7 @@ export default function FinancieelPlannersPage() {
                 ["2", "Ik leg de basis", "Een concreet beeld van de cashflow, de lekken, en de realistische maandruimte om te investeren."],
                 ["3", "Jij bouwt het plan", "Met een cliënt die weet waar hij staat, werkt jouw financieel plan een stuk beter. Optioneel: ik stem met jou af over het traject."],
               ].map(([n, t, d]) => (
-                <div key={n} className="card-base border border-[#E8E0D0] flex items-start gap-4">
+                <div key={n} className="card-base border border-[#E6E9E7] flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-green-light flex items-center justify-center shrink-0">
                     <span className="font-display font-medium text-primary">{n}</span>
                   </div>
@@ -166,7 +166,7 @@ export default function FinancieelPlannersPage() {
         </section>
 
         {/* Zo werkt het in de praktijk */}
-        <section className="py-12 md:py-16 border-t border-[#E8E0D0]" style={{ backgroundColor: "#FDFAF4" }}>
+        <section className="py-12 md:py-16 border-t border-[#E6E9E7]" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-3xl mx-auto px-6">
             <div className="mb-8">
               <p className="section-eyebrow mb-3">Zo werkt het in de praktijk</p>
@@ -179,22 +179,22 @@ export default function FinancieelPlannersPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>01</span>
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>01</span>
                   <p className="font-body font-semibold text-primary text-sm">De doorverwijzing</p>
                 </div>
-                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5E4E" }}>
+                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5A56" }}>
                   David (44) en Anne (41) wonen in Eindhoven. Hij is IT-directeur, zij consultant. Gecombineerd netto €7.800 per maand. Ze komen bij financieel planner Marc met een duidelijk doel: €800 per maand investeren voor hun pensioen. Maar als Marc vraagt naar hun vrije maandruimte, weten ze het niet.
                 </p>
-                <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#1C3A2A", fontStyle: "italic", borderLeft: "3px solid #C4603A", paddingLeft: "0.75rem", marginLeft: 0 }}>
+                <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#16211F", fontStyle: "italic", borderLeft: "3px solid #0B7A6E", paddingLeft: "0.75rem", marginLeft: 0 }}>
                   &ldquo;Voordat we een plan maken, moeten we eerst weten wat er echt vrij is. Ik ken iemand die dat in kaart brengt. Doe jullie eerst de analyse, dan bouwen we van daaruit verder.&rdquo;
                 </blockquote>
               </div>
 
-              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>02</span>
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>02</span>
                   <p className="font-body font-semibold text-primary text-sm">Wat ze invullen (5 minuten)</p>
                 </div>
                 <div className="space-y-2">
@@ -207,9 +207,9 @@ export default function FinancieelPlannersPage() {
                     ["Boodschappen", "€ 700 / mnd"],
                     ["Abonnementen + overig", "€ 890 / mnd"],
                   ].map(([label, waarde]) => (
-                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0EAE0" }}>
-                      <span className="font-body text-xs" style={{ color: "#8A9E8E" }}>{label}</span>
-                      <span className="font-body text-sm font-medium" style={{ color: "#1C3A2A" }}>{waarde}</span>
+                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0F3F1" }}>
+                      <span className="font-body text-xs" style={{ color: "#8B958F" }}>{label}</span>
+                      <span className="font-body text-sm font-medium" style={{ color: "#16211F" }}>{waarde}</span>
                     </div>
                   ))}
                 </div>
@@ -217,7 +217,7 @@ export default function FinancieelPlannersPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div style={{ backgroundColor: "#1C3A2A", border: "1px solid #2D6A4F", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "#16211F", border: "1px solid #2D6A4F", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
                   <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#8AB89A", opacity: 0.7 }}>03</span>
                   <p className="font-body font-semibold text-sm" style={{ color: "white" }}>Wat de analyse toont</p>
@@ -238,9 +238,9 @@ export default function FinancieelPlannersPage() {
                 </div>
               </div>
 
-              <div style={{ backgroundColor: "white", border: "1px solid #E8E0D4", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#C4603A", opacity: 0.5 }}>04</span>
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>04</span>
                   <p className="font-body font-semibold text-primary text-sm">Wat het gesprek (45 min) oplevert</p>
                 </div>
                 <div className="space-y-3">
@@ -261,8 +261,8 @@ export default function FinancieelPlannersPage() {
                     <div key={item.actie} className="flex gap-3 items-start">
                       <span style={{ color: "#2D6A4F", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
                       <div>
-                        <p className="font-body text-xs font-semibold" style={{ color: "#1C3A2A" }}>{item.actie}</p>
-                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5E4E" }}>{item.resultaat}</p>
+                        <p className="font-body text-xs font-semibold" style={{ color: "#16211F" }}>{item.actie}</p>
+                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5A56" }}>{item.resultaat}</p>
                       </div>
                     </div>
                   ))}
@@ -270,8 +270,8 @@ export default function FinancieelPlannersPage() {
               </div>
             </div>
 
-            <div style={{ backgroundColor: "#F5F0E8", border: "1px solid #E0D8CC", borderRadius: "16px", padding: "1.5rem" }}>
-              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#C4603A" }}>
+            <div style={{ backgroundColor: "#F7F8F7", border: "1px solid #E0D8CC", borderRadius: "16px", padding: "1.5rem" }}>
+              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#0B7A6E" }}>
                 Wat Marc als financieel planner eraan had
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -296,7 +296,7 @@ export default function FinancieelPlannersPage() {
             <h2 className="font-display font-light text-primary text-2xl mb-5">Veelgestelde vragen</h2>
             <div className="space-y-4">
               {faq.map((f) => (
-                <div key={f.vraag} className="card-base border border-[#E8E0D0]">
+                <div key={f.vraag} className="card-base border border-[#E6E9E7]">
                   <p className="font-body font-medium text-primary text-sm mb-2">{f.vraag}</p>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">{f.antwoord}</p>
                 </div>
@@ -312,7 +312,7 @@ export default function FinancieelPlannersPage() {
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
               Past dit als aanvulling op jouw praktijk? Stuur een korte mail en ik plan een gesprek van 20 minuten.
             </p>
-            <a href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20financieel%20planner" className="btn-primary" style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}>
+            <a href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20financieel%20planner" className="btn-primary" style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}>
               Mail Jarno →
             </a>
             <p className="mt-6">

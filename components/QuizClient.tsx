@@ -45,7 +45,7 @@ function Bar({
               {yoursPct.toFixed(0)}%
             </span>
           </div>
-          <div className="h-2.5 bg-[#E8E0D0] rounded-full overflow-hidden">
+          <div className="h-2.5 bg-[#E6E9E7] rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-500 ${isHigh ? "bg-accent" : "bg-primary"}`}
               style={{ width: `${yoursWidth}%` }}
@@ -57,7 +57,7 @@ function Bar({
             <span>Gemiddeld — {averageLabel}</span>
             <span className="font-medium text-text-muted">{averagePct.toFixed(0)}%</span>
           </div>
-          <div className="h-2.5 bg-[#E8E0D0] rounded-full overflow-hidden">
+          <div className="h-2.5 bg-[#E6E9E7] rounded-full overflow-hidden">
             <div
               className="h-full rounded-full bg-[#B8C9BC] transition-all duration-500"
               style={{ width: `${avgWidth}%` }}
@@ -239,7 +239,7 @@ export default function QuizClient() {
                 className={`px-6 py-2.5 rounded-xl font-body font-medium text-sm transition-all duration-150 ${
                   state.kinderen === opt.value
                     ? "bg-primary text-white shadow-card"
-                    : "bg-card border border-[#D6CEBC] text-text-soft hover:border-primary"
+                    : "bg-card border border-[#D9DEDC] text-text-soft hover:border-primary"
                 }`}
                 aria-pressed={state.kinderen === opt.value}
               >
@@ -285,7 +285,7 @@ export default function QuizClient() {
 
       {/* Right: Live comparison panel */}
       <div className="lg:sticky lg:top-24 lg:self-start">
-        <div className="card-base border border-[#E8E0D0]">
+        <div className="card-base border border-[#E6E9E7]">
           <p className="section-eyebrow mb-6">Jouw vergelijking</p>
 
           <Bar

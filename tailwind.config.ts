@@ -9,23 +9,23 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#F5F0E8",
-        card: "#FDFAF4",
-        primary: "#1C3A2A",
-        "text-soft": "#4A5E4E",
-        "text-muted": "#8A9E8E",
-        accent: "#C4603A",
-        "accent-bg": "#FAF0EB",
-        "green-light": "#E8F2EC",
-        "dark-block": "#1C3A2A",
+        background: "#F7F8F7",
+        card: "#FFFFFF",
+        primary: "#16211F",
+        "text-soft": "#4A5A56",
+        "text-muted": "#8B958F",
+        accent: "#0B7A6E",
+        "accent-bg": "#E4F1EE",
+        "green-light": "#E7F1EE",
+        "dark-block": "#16211F",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],
         body: ["var(--font-plus-jakarta)", "system-ui", "sans-serif"],
       },
       boxShadow: {
-        card: "0 2px 20px rgba(28, 58, 42, 0.08)",
-        "card-hover": "0 4px 32px rgba(28, 58, 42, 0.12)",
+        card: "0 2px 20px rgba(22, 33, 31, 0.08)",
+        "card-hover": "0 4px 32px rgba(22, 33, 31, 0.12)",
       },
       borderRadius: {
         DEFAULT: "12px",

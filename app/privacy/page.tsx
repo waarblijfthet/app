@@ -12,7 +12,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Header />
-      <main className="pt-16 min-h-screen" style={{ background: "#F5F0E8" }}>
+      <main className="pt-16 min-h-screen" style={{ background: "#F7F8F7" }}>
         <div
           style={{
             maxWidth: "720px",
@@ -121,7 +121,7 @@ export default function PrivacyPage() {
           </section>
 
           <p
-            className="font-body text-text-muted border-t border-[#E8E0D0] pt-8"
+            className="font-body text-text-muted border-t border-[#E6E9E7] pt-8"
             style={{ fontSize: "0.8rem" }}
           >
             Laatst bijgewerkt: mei 2026

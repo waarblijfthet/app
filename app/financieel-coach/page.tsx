@@ -194,7 +194,7 @@ export default function FinancieelCoachPage() {
               <Link
                 href="/adviesgesprek"
                 className="font-body text-sm hover:underline"
-                style={{ color: "#C4603A", textDecoration: "none" }}
+                style={{ color: "#0B7A6E", textDecoration: "none" }}
               >
                 Direct naar het adviesgesprek (€125) →
               </Link>
@@ -224,17 +224,17 @@ export default function FinancieelCoachPage() {
               vergelijk ze met huishoudens in jouw situatie en benoem de twee of
               drie plekken waar het bij jou structureel weglekt. Dat ligt
               zelden aan gek gedrag, bijna altijd aan structuur. Lees ook{" "}
-              <Link href="/inzichten/wat-doet-een-financieel-adviseur" className="hover:underline" style={{ color: "#C4603A" }}>
+              <Link href="/inzichten/wat-doet-een-financieel-adviseur" className="hover:underline" style={{ color: "#0B7A6E" }}>
                 wanneer je een financieel adviseur nodig hebt
               </Link>{" "}
               en{" "}
-              <Link href="/inzichten/verschil-budgetcoach-financieel-coach" className="hover:underline" style={{ color: "#C4603A" }}>
+              <Link href="/inzichten/verschil-budgetcoach-financieel-coach" className="hover:underline" style={{ color: "#0B7A6E" }}>
                 het verschil met een budgetcoach
               </Link>
               .
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-8">
-              <div className="card-base border border-[#E8E0D0]">
+              <div className="card-base border border-[#E6E9E7]">
                 <p className="font-body font-medium text-primary text-sm mb-2">Voor wie dit is</p>
                 <ul className="space-y-2">
                   {[
@@ -250,7 +250,7 @@ export default function FinancieelCoachPage() {
                   ))}
                 </ul>
               </div>
-              <div className="card-base border border-[#E8E0D0]">
+              <div className="card-base border border-[#E6E9E7]">
                 <p className="font-body font-medium text-primary text-sm mb-2">Voor wie dit niet is</p>
                 <ul className="space-y-2">
                   {[
@@ -277,7 +277,7 @@ export default function FinancieelCoachPage() {
             </h2>
             <div className="space-y-5">
               {stappen.map((s) => (
-                <div key={s.n} className="card-base border border-[#E8E0D0]">
+                <div key={s.n} className="card-base border border-[#E6E9E7]">
                   <div className="flex items-start gap-4">
                     <div className="w-12 h-12 rounded-xl bg-green-light flex items-center justify-center shrink-0">
                       <span className="font-display font-medium text-primary text-xl">{s.n}</span>
@@ -307,19 +307,19 @@ export default function FinancieelCoachPage() {
             <div className="overflow-x-auto">
               <table className="w-full font-body text-sm" style={{ borderCollapse: "collapse" }}>
                 <thead>
-                  <tr style={{ borderBottom: "2px solid #E8E0D0" }}>
+                  <tr style={{ borderBottom: "2px solid #E6E9E7" }}>
                     <th className="text-left py-3 pr-4 font-medium text-primary">Vorm</th>
                     <th className="text-left py-3 pr-4 font-medium text-primary">Prijs</th>
                     <th className="text-left py-3 font-medium text-primary">Wat je krijgt</th>
                   </tr>
                 </thead>
                 <tbody className="font-light text-text-soft">
-                  <tr style={{ borderBottom: "1px solid #E8E0D0" }}>
+                  <tr style={{ borderBottom: "1px solid #E6E9E7" }}>
                     <td className="py-3 pr-4">Gratis analyse</td>
                     <td className="py-3 pr-4">€0</td>
                     <td className="py-3">Direct inzicht in je grootste afwijkingen, op je scherm</td>
                   </tr>
-                  <tr style={{ borderBottom: "1px solid #E8E0D0" }}>
+                  <tr style={{ borderBottom: "1px solid #E6E9E7" }}>
                     <td className="py-3 pr-4">Eenmalig adviesgesprek</td>
                     <td className="py-3 pr-4">€125 eenmalig</td>
                     <td className="py-3">45 minuten video, 2 à 3 concrete doelen, schriftelijke samenvatting</td>
@@ -335,7 +335,7 @@ export default function FinancieelCoachPage() {
             <p className="font-body font-light text-text-soft leading-relaxed mt-6">
               Geen uurtarief, geen abonnement, geen verborgen vervolgstappen.
               Meer weten over tarieven in de markt? Lees{" "}
-              <Link href="/inzichten/wat-kost-een-financieel-coach" className="hover:underline" style={{ color: "#C4603A" }}>
+              <Link href="/inzichten/wat-kost-een-financieel-coach" className="hover:underline" style={{ color: "#0B7A6E" }}>
                 wat een financieel coach kost in 2026
               </Link>
               .
@@ -351,7 +351,7 @@ export default function FinancieelCoachPage() {
             </h2>
             <div className="space-y-4">
               {faq.map((f) => (
-                <div key={f.vraag} className="card-base border border-[#E8E0D0]">
+                <div key={f.vraag} className="card-base border border-[#E6E9E7]">
                   <p className="font-body font-medium text-primary text-sm mb-2">{f.vraag}</p>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">{f.antwoord}</p>
                 </div>
@@ -373,7 +373,7 @@ export default function FinancieelCoachPage() {
             <Link
               href="/analyse"
               className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Start de gratis analyse →
             </Link>

@@ -2,20 +2,20 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 function VoorNa({ rows }: { rows: [string, string, string][] }) {
   return (
-    <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E8E0D4" }}>
-      <div className="grid grid-cols-3" style={{ backgroundColor: "#1C3A2A" }}>
+    <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E6E9E7" }}>
+      <div className="grid grid-cols-3" style={{ backgroundColor: "#16211F" }}>
         {["", "Voor", "Na"].map((h, i) => (
-          <div key={i} className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F5F0E8" }}>{h}</div>
+          <div key={i} className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F7F8F7" }}>{h}</div>
         ))}
       </div>
       {rows.map((r, i) => (
-        <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FDFAF4" : "white" }}>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#1C3A2A", fontWeight: 500 }}>{r[0]}</div>
+        <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
+          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#2D6A4F", fontWeight: 600 }}>{r[2]}</div>
         </div>
@@ -40,35 +40,35 @@ function PensioenGapChecker() {
   const heeftResultaat = (p1 > 0 || p2 > 0) && gw > 0;
 
   const inputStyle = {
-    padding: "9px 13px", borderRadius: "10px", border: "1.5px solid #D6CEBC",
-    fontFamily: "inherit", fontSize: "0.875rem", color: "#1C3A2A",
+    padding: "9px 13px", borderRadius: "10px", border: "1.5px solid #D9DEDC",
+    fontFamily: "inherit", fontSize: "0.875rem", color: "#16211F",
     backgroundColor: "white", outline: "none", width: "100%",
   } as const;
 
   return (
-    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
-      <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
-        <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>Bereken je pensioengat</p>
-        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>
-          Cijfers vind je op <a href="https://www.mijnpensioenoverzicht.nl" target="_blank" rel="noopener noreferrer" style={{ color: "#C4603A", textDecoration: "none" }}>mijnpensioenoverzicht.nl</a> (5 min met DigiD)
+    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
+      <div className="px-5 py-4 border-b" style={{ borderColor: "#E6E9E7" }}>
+        <p className="font-body font-semibold text-sm" style={{ color: "#16211F" }}>Bereken je pensioengat</p>
+        <p className="font-body text-xs mt-0.5" style={{ color: "#8B958F" }}>
+          Cijfers vind je op <a href="https://www.mijnpensioenoverzicht.nl" target="_blank" rel="noopener noreferrer" style={{ color: "#0B7A6E", textDecoration: "none" }}>mijnpensioenoverzicht.nl</a> (5 min met DigiD)
         </p>
       </div>
       <div className="p-5 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               Verwacht pensioen partner 1/mnd
             </label>
             <input type="text" inputMode="numeric" placeholder="€ 820" value={pen1} onChange={e => setPen1(e.target.value)} style={inputStyle} />
           </div>
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               Verwacht pensioen partner 2/mnd
             </label>
             <input type="text" inputMode="numeric" placeholder="€ 610" value={pen2} onChange={e => setPen2(e.target.value)} style={inputStyle} />
           </div>
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               Gewenst netto inkomen/mnd
             </label>
             <input type="text" inputMode="numeric" placeholder="€ 3.500" value={gewenst} onChange={e => setGewenst(e.target.value)} style={inputStyle} />
@@ -77,19 +77,19 @@ function PensioenGapChecker() {
 
         {heeftResultaat && (
           <div className="rounded-xl border overflow-hidden" style={{ borderColor: gat > 0 ? "#FCA5A5" : "#A8C5B4" }}>
-            <div className="p-4" style={{ backgroundColor: gat > 0 ? "#FEF2F2" : "#E8F2EC" }}>
+            <div className="p-4" style={{ backgroundColor: gat > 0 ? "#FEF2F2" : "#E7F1EE" }}>
               <div className="space-y-1.5 text-sm font-body">
                 <div className="flex justify-between">
-                  <span style={{ color: "#4A5E4E" }}>AOW (stel, 2026)</span>
-                  <span style={{ color: "#1C3A2A" }}>€{aow.toLocaleString("nl-NL")}/mnd</span>
+                  <span style={{ color: "#4A5A56" }}>AOW (stel, 2026)</span>
+                  <span style={{ color: "#16211F" }}>€{aow.toLocaleString("nl-NL")}/mnd</span>
                 </div>
                 <div className="flex justify-between">
-                  <span style={{ color: "#4A5E4E" }}>Jullie pensioen samen</span>
-                  <span style={{ color: "#1C3A2A" }}>€{(p1+p2).toLocaleString("nl-NL")}/mnd</span>
+                  <span style={{ color: "#4A5A56" }}>Jullie pensioen samen</span>
+                  <span style={{ color: "#16211F" }}>€{(p1+p2).toLocaleString("nl-NL")}/mnd</span>
                 </div>
                 <div className="flex justify-between font-semibold border-t pt-1.5" style={{ borderColor: gat > 0 ? "#FCA5A5" : "#A8C5B4" }}>
-                  <span style={{ color: "#1C3A2A" }}>Verwacht totaal</span>
-                  <span style={{ color: "#1C3A2A" }}>€{totaalVerwacht.toLocaleString("nl-NL")}/mnd</span>
+                  <span style={{ color: "#16211F" }}>Verwacht totaal</span>
+                  <span style={{ color: "#16211F" }}>€{totaalVerwacht.toLocaleString("nl-NL")}/mnd</span>
                 </div>
               </div>
             </div>
@@ -98,10 +98,10 @@ function PensioenGapChecker() {
                 <p className="font-body font-bold text-base" style={{ color: "#B03A2E" }}>
                   Pensioengat: €{gat.toLocaleString("nl-NL")}/mnd
                 </p>
-                <p className="font-body text-sm mt-1" style={{ color: "#4A5E4E" }}>
+                <p className="font-body text-sm mt-1" style={{ color: "#4A5A56" }}>
                   Over 25 jaar pensioen: €{gat25Jaar.toLocaleString("nl-NL")} totaal te kort.
                 </p>
-                <p className="font-body text-xs mt-2" style={{ color: "#8A9E8E" }}>
+                <p className="font-body text-xs mt-2" style={{ color: "#8B958F" }}>
                   Dit is het moment om te kijken of je werkgever aanvullende opbouw biedt, of een lijfrentespaarrekening zin heeft.
                 </p>
               </div>
@@ -131,23 +131,23 @@ export default function PensioenAanvullenHoeveel() {
         </p>
       </div>
 
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "In welke vier situaties een pensioengat vrijwel zeker is (jobswitch, parttime, zzp, nooit gecheckt)",
             "Hoe Mieke & Bas een gat van €390.000 ontdekten, en voor €175/mnd oplosten",
             "Wat je zelf kunt doen: werkgeversregeling, lijfrentespaarrekening, vrij vermogen",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F", fontSize: "1.05rem" }}>
         De meeste mensen die goed verdienen denken: het pensioen regelt zich wel. Dat klopt, totdat je er écht naar kijkt. Dan blijkt er een gat van tienduizenden euro&apos;s te zijn ontstaan, gewoon omdat je een keer van baan wisselde, een paar jaar parttime werkte, of nooit checkte wat er daadwerkelijk opgebouwd werd.
       </p>
 
@@ -161,7 +161,7 @@ export default function PensioenAanvullenHoeveel() {
 
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Jobswitch-effect</p>
-        <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
+        <p className="font-body text-sm" style={{ color: "#0A6A5F" }}>
           Elke keer dat je van baan wisselt, stop je met opbouwen bij het oude fonds en begin je opnieuw bij een nieuwe. Dat is op zich geen probleem, het opgebouwde blijft staan. Maar de pensioengrondslag en het opbouwpercentage kunnen sterk verschillen tussen werkgevers. Drie jobswitches in tien jaar kan makkelijk €50.000 tot €100.000 opbouw schelen.
         </p>
       </div>
@@ -208,15 +208,15 @@ export default function PensioenAanvullenHoeveel() {
       <h2 className="font-display" style={h2}>Eerst inzicht in je maandbudget</h2>
       <p className="font-body text-text-soft" style={p}>
         Als je nu al het gevoel hebt dat de maand op is voor het salaris er weer is, is pensioen aanvullen pas stap twee. Stap één is begrijpen waar je geld nu naartoe gaat. Lees ook:{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap, hoe kan dat?</Link>{" "}
+        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap, hoe kan dat?</Link>{" "}
         en{" "}
-        <Link href="/inzichten/hoeveel-sparen-per-maand-normaal-nederland" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoeveel sparen per maand is normaal in Nederland?</Link>
+        <Link href="/inzichten/hoeveel-sparen-per-maand-normaal-nederland" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoeveel sparen per maand is normaal in Nederland?</Link>
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je weten hoe jouw situatie eruitziet?{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
        , dan zie je in 15 minuten of er een gat is en hoe groot. Als je het wil uitwerken met iemand die concreet meekijkt, biedt Jarno een{" "}
-        <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>{" "}
+        <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>{" "}
         aan, inclusief een eerlijk beeld van je pensioen.
       </p>
     </>

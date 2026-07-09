@@ -1,22 +1,22 @@
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function WaarBlijftHetBijSanneEnJoost() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Hoe €6.200 netto voor een gezin van vijf toch amper €150 per maand sparen oplevert",
             "Welke twee kostenposten het verschil verklaren en hoe groot de werkelijke marge is",
             "Dat structuur, niet meer verdienen, het verschil maakt tussen €150 en €600 per maand overhouden",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -81,7 +81,7 @@ export default function WaarBlijftHetBijSanneEnJoost() {
       <p className="font-body text-text-soft" style={p}>
         Geen van beide is een schandaal. Maar samen verklaren ze waarom een
         inkomen van €6.200 toch krap voelt. Dit is precies{" "}
-        <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>{" "}in actie: de uitgaven zijn meegegroeid met het inkomen, het sparen niet.
+        <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>{" "}in actie: de uitgaven zijn meegegroeid met het inkomen, het sparen niet.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -93,11 +93,11 @@ export default function WaarBlijftHetBijSanneEnJoost() {
         occasion, houdt al snel €600–700 per maand over in plaats van €150.
         Zonder dat het leven wezenlijk soberder voelt. Het verschil is niet meer
         verdienen, het is structuur, precies zoals bij{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
+        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Herken je iets van Sanne en Joost?{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en zie jullie eigen verdeling, en de twee grootste afwijkingen in jullie situatie.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en zie jullie eigen verdeling, en de twee grootste afwijkingen in jullie situatie.
       </p>
     </>
   );

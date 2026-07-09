@@ -35,7 +35,7 @@ export default function AdminNav({ email }: Props) {
         </span>
         <button
           onClick={uitloggen}
-          className="text-xs font-body font-medium px-3 py-1.5 rounded-lg bg-accent text-white hover:bg-[#b05530] transition-colors"
+          className="text-xs font-body font-medium px-3 py-1.5 rounded-lg bg-accent text-white hover:bg-[#0A6A5F] transition-colors"
         >
           Uitloggen
         </button>

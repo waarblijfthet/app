@@ -65,7 +65,7 @@ function AfwijkingRij({
   const verschil = jij - benchmark;
   const max = Math.max(jij, benchmark, 1);
   return (
-    <div className="py-4 border-b border-[#E8E0D0] last:border-0">
+    <div className="py-4 border-b border-[#E6E9E7] last:border-0">
       <div className="flex justify-between items-center mb-2">
         <span className="font-body font-medium text-sm text-text-soft">{label}</span>
         <span
@@ -80,13 +80,13 @@ function AfwijkingRij({
         <span>Gemiddeld: {fmtEur(benchmark)}</span>
       </div>
       <div className="space-y-1">
-        <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+        <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
           <div
             className={`h-full rounded-full ${verschil > 100 ? "bg-accent" : "bg-primary"}`}
             style={{ width: `${(jij / max) * 100}%` }}
           />
         </div>
-        <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+        <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
           <div
             className="h-full rounded-full bg-[#B8C9BC]"
             style={{ width: `${(benchmark / max) * 100}%` }}
@@ -249,7 +249,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
       </h2>
 
       {/* Het grote getal */}
-      <div className="card-base border border-[#E8E0D0] mb-6 text-center">
+      <div className="card-base border border-[#E6E9E7] mb-6 text-center">
         <p className="section-eyebrow mb-4">Dit houd je elke maand over</p>
         <p
           className={`font-display font-light text-6xl mb-2 ${
@@ -279,7 +279,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
       {/* Spaardoel vs werkelijkheid, alleen als ingevuld */}
       {spaardoelWaarde > 0 && (
-        <div className="card-base border border-[#E8E0D0] mb-6">
+        <div className="card-base border border-[#E6E9E7] mb-6">
           <div className="flex justify-between items-start gap-4">
             <div>
               <p className="section-eyebrow mb-1">Jouw spaardoel</p>
@@ -305,7 +305,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
       {/* Top-2 afwijkingen */}
       {allAfwijkingen.length > 0 && (
-        <div className="card-base border border-[#E8E0D0] mb-6">
+        <div className="card-base border border-[#E6E9E7] mb-6">
           <p className="section-eyebrow mb-4">Waar zit de afwijking?</p>
           {allAfwijkingen.map((a) => (
             <AfwijkingRij
@@ -332,8 +332,8 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
       {/* Dynamische CTA naar betaald aanbod */}
       <div
-        className="rounded-xl border border-[#E8E0D0] p-6 mb-8"
-        style={{ backgroundColor: "#FDFAF4" }}
+        className="rounded-xl border border-[#E6E9E7] p-6 mb-8"
+        style={{ backgroundColor: "#FFFFFF" }}
       >
         <p className="section-eyebrow mb-3">En nu?</p>
         <p className="font-display font-light text-primary text-xl sm:text-2xl mb-2 leading-snug">
@@ -352,7 +352,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
       {/* Lead capture */}
       {!sent ? (
-        <div className="card-base border border-[#E8E0D0]">
+        <div className="card-base border border-[#E6E9E7]">
           <p className="font-display font-light text-primary text-2xl mb-2">
             Ontvang je volledige analyse
           </p>
@@ -386,7 +386,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
                 checked={data.toestemmingOpslaan}
                 onChange={(e) => onChange({ toestemmingOpslaan: e.target.checked })}
                 required
-                className="mt-0.5 w-4 h-4 accent-[#1C3A2A] flex-shrink-0"
+                className="mt-0.5 w-4 h-4 accent-[#16211F] flex-shrink-0"
               />
               <span className="font-body text-sm text-text-soft">
                 Ik ga akkoord met het opslaan van mijn antwoorden voor analyse{" "}
@@ -400,7 +400,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
                 onChange={(e) =>
                   onChange({ toestemmingMarketing: e.target.checked })
                 }
-                className="mt-0.5 w-4 h-4 accent-[#1C3A2A] flex-shrink-0"
+                className="mt-0.5 w-4 h-4 accent-[#16211F] flex-shrink-0"
               />
               <span className="font-body text-sm text-text-soft">
                 Ik wil updates ontvangen van Waar blijft het

@@ -26,7 +26,7 @@ function Toggle({
           type="checkbox"
           checked={checked}
           onChange={(e) => onChange(e.target.checked)}
-          className="w-4 h-4 accent-[#1C3A2A] rounded cursor-pointer"
+          className="w-4 h-4 accent-[#16211F] rounded cursor-pointer"
         />
       </span>
       <span>
@@ -184,7 +184,7 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
                 className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
                   data.hypotheekRenteAftrekPer === per
                     ? "bg-primary text-white"
-                    : "bg-[#E8E0D0] text-text-soft"
+                    : "bg-[#E6E9E7] text-text-soft"
                 }`}
               >
                 Per {per}

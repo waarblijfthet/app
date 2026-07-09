@@ -6,7 +6,7 @@ export default function BedanktPage() {
   return (
     <>
       <Header />
-      <main className="pt-16" style={{ backgroundColor: "#F5F0E8", minHeight: "100vh" }}>
+      <main className="pt-16" style={{ backgroundColor: "#F7F8F7", minHeight: "100vh" }}>
         <div
           style={{
             maxWidth: "540px",
@@ -34,7 +34,7 @@ export default function BedanktPage() {
           </div>
 
           <h1
-            className="font-display font-light text-[#1C3A2A]"
+            className="font-display font-light text-[#16211F]"
             style={{ fontSize: "clamp(1.75rem, 4vw, 2.5rem)", marginBottom: "1.25rem" }}
           >
             Aanmelding ontvangen
@@ -43,7 +43,7 @@ export default function BedanktPage() {
           <p
             className="font-body"
             style={{
-              color: "#4A5E4E",
+              color: "#4A5A56",
               fontSize: "1rem",
               lineHeight: 1.8,
               marginBottom: "2.5rem",
@@ -56,10 +56,10 @@ export default function BedanktPage() {
             Ik kijk ernaar uit kennis te maken.
           </p>
 
-          <hr style={{ borderColor: "#E8E0D4", marginBottom: "2.5rem" }} />
+          <hr style={{ borderColor: "#E6E9E7", marginBottom: "2.5rem" }} />
 
           <p
-            className="font-body font-medium text-[#1C3A2A]"
+            className="font-body font-medium text-[#16211F]"
             style={{ fontSize: "0.9rem", marginBottom: "1.25rem" }}
           >
             Terwijl je wacht
@@ -79,7 +79,7 @@ export default function BedanktPage() {
                 href={link.href}
                 className="font-body font-medium transition-opacity hover:opacity-75"
                 style={{
-                  color: "#C4603A",
+                  color: "#0B7A6E",
                   textDecoration: "none",
                   fontSize: "0.95rem",
                 }}

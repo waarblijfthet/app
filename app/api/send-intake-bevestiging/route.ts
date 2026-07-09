@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
     const stappenHtml = isGesprek
       ? "1. Ik plan je videogesprek van 45 minuten in en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de gratis analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijk ik eerlijk naar je cijfers en bepaal je samen met mij 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alle aangeleverde gegevens"
       : isGeldscan
-      ? "1. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>2. Zodra dat betaald is, vraag ik je de gratis analyse in te vullen (2 minuten), dat geeft me de cijfers voor je rapport<br>3. Optioneel: stuur ook een paar recente bankafschriften mee als bijlage, dan kan ik preciezer zijn<br>4. Binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF, en direct na het versturen verwijder ik je afschriften en gegevens. Vind ik geen drie serieuze verbeterpunten, dan krijg je je geld terug"
+      ? "1. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>2. Zodra dat betaald is, vraag ik je de gratis analyse in te vullen (2 minuten), dat geeft me de cijfers voor je rapport<br>3. Optioneel: stuur ook een paar recente bankafschriften mee als bijlage, dan kan ik preciezer zijn<br>4. Binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF, en direct na het versturen verwijder ik je afschriften en gegevens"
       : "1. Ik lees je aanmelding door<br>2. Je krijgt binnen één werkdag een persoonlijk bericht<br>3. Ik plan het intakegesprek (45 min, video) met je in<br>4. Daarna stel ik samen met jou je plan op maat op";
 
     // Bevestiging naar aanvrager
@@ -43,28 +43,28 @@ export async function POST(request: NextRequest) {
       html: `<!DOCTYPE html>
 <html lang="nl">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"></head>
-<body style="margin:0;padding:0;background-color:#F5F0E8;font-family:Arial,sans-serif;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F5F0E8;padding:40px 20px;">
+<body style="margin:0;padding:0;background-color:#F7F8F7;font-family:Arial,sans-serif;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#F7F8F7;padding:40px 20px;">
     <tr><td align="center">
       <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;">
 
         <tr><td style="padding-bottom:24px;">
-          <span style="font-size:18px;font-weight:500;color:#1C3A2A;">Waar blijft het</span>
+          <span style="font-size:18px;font-weight:500;color:#16211F;">Waar blijft het</span>
         </td></tr>
 
-        <tr><td style="background-color:#FDFAF4;border-radius:16px;padding:32px;">
-          <p style="margin:0 0 6px;font-size:12px;color:#8A9E8E;text-transform:uppercase;letter-spacing:0.1em;">Aanmelding ontvangen</p>
-          <h1 style="margin:0 0 16px;font-size:26px;color:#1C3A2A;font-weight:500;">Hoi ${naam || "daar"},</h1>
-          <p style="margin:0 0 16px;font-size:15px;color:#4A5E4E;line-height:1.7;">
+        <tr><td style="background-color:#FFFFFF;border-radius:16px;padding:32px;">
+          <p style="margin:0 0 6px;font-size:12px;color:#8B958F;text-transform:uppercase;letter-spacing:0.1em;">Aanmelding ontvangen</p>
+          <h1 style="margin:0 0 16px;font-size:26px;color:#16211F;font-weight:500;">Hoi ${naam || "daar"},</h1>
+          <p style="margin:0 0 16px;font-size:15px;color:#4A5A56;line-height:1.7;">
             Je aanmelding voor <strong>${pakketLabel}</strong> is goed ontvangen.
           </p>
-          <p style="margin:0 0 24px;font-size:15px;color:#4A5E4E;line-height:1.7;">
+          <p style="margin:0 0 24px;font-size:15px;color:#4A5A56;line-height:1.7;">
             ${intro}
           </p>
           <table cellpadding="0" cellspacing="0" width="100%">
-            <tr><td style="background-color:#E8F2EC;border-radius:12px;padding:16px;">
-              <p style="margin:0 0 4px;font-size:14px;font-weight:500;color:#1C3A2A;">${stappenTitel}</p>
-              <p style="margin:0;font-size:13px;color:#4A5E4E;line-height:1.7;">
+            <tr><td style="background-color:#E7F1EE;border-radius:12px;padding:16px;">
+              <p style="margin:0 0 4px;font-size:14px;font-weight:500;color:#16211F;">${stappenTitel}</p>
+              <p style="margin:0;font-size:13px;color:#4A5A56;line-height:1.7;">
                 ${stappenHtml}
               </p>
             </td></tr>
@@ -73,17 +73,17 @@ export async function POST(request: NextRequest) {
 
         <tr><td style="height:16px;"></td></tr>
 
-        <tr><td style="background-color:#1C3A2A;border-radius:16px;padding:24px;text-align:center;">
+        <tr><td style="background-color:#16211F;border-radius:16px;padding:24px;text-align:center;">
           <p style="margin:0 0 8px;font-size:13px;color:rgba(245,240,232,0.6);">Terwijl je wacht</p>
           <a href="https://www.waarblijfthet.nl/analyse"
-             style="display:inline-block;background-color:#C4603A;color:#FDFAF4;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;">
+             style="display:inline-block;background-color:#0B7A6E;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;">
             Doe de gratis analyse →
           </a>
         </td></tr>
 
         <tr><td style="padding:16px 0;text-align:center;">
-          <p style="margin:0;font-size:12px;color:#8A9E8E;">Waar blijft het · waarblijfthet.nl</p>
-          <p style="margin:4px 0 0;font-size:11px;color:#8A9E8E;">Vragen? Mail naar hallo@waarblijfthet.nl</p>
+          <p style="margin:0;font-size:12px;color:#8B958F;">Waar blijft het · waarblijfthet.nl</p>
+          <p style="margin:4px 0 0;font-size:11px;color:#8B958F;">Vragen? Mail naar hallo@waarblijfthet.nl</p>
         </td></tr>
 
       </table>

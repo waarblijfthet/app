@@ -8,8 +8,8 @@ const potjes = [
     naam: 'Vaste lasten',
     percentage: 65,
     bedrag: Math.round(voorbeeldInkomen * 0.65),
-    kleur: '#1C3A2A',
-    lichtKleur: '#E8F2EC',
+    kleur: '#16211F',
+    lichtKleur: '#E7F1EE',
     beschrijving:
       'Hypotheek/huur, energie, verzekeringen, abonnementen. Automatisch van deze rekening.',
     rekening: 'Aparte betaalrekening',
@@ -18,8 +18,8 @@ const potjes = [
     naam: 'Dagelijks leven',
     percentage: 20,
     bedrag: Math.round(voorbeeldInkomen * 0.2),
-    kleur: '#C4603A',
-    lichtKleur: '#FAF0EB',
+    kleur: '#0B7A6E',
+    lichtKleur: '#E4F1EE',
     beschrijving:
       'Boodschappen, benzine, kleine aankopen. Contant of via pinpas van deze rekening.',
     rekening: 'Pinpas of cash envelop',
@@ -29,7 +29,7 @@ const potjes = [
     percentage: 10,
     bedrag: Math.round(voorbeeldInkomen * 0.1),
     kleur: '#2D6A4F',
-    lichtKleur: '#E8F2EC',
+    lichtKleur: '#E7F1EE',
     beschrijving:
       'Noodbuffer, vakantie, grote uitgaven. Direct op salarisdag apart zetten.',
     rekening: 'Spaarrekening',
@@ -38,8 +38,8 @@ const potjes = [
     naam: 'Vrij te besteden',
     percentage: 5,
     bedrag: Math.round(voorbeeldInkomen * 0.05),
-    kleur: '#8A9E8E',
-    lichtKleur: '#EDE6D8',
+    kleur: '#8B958F',
+    lichtKleur: '#F0F3F1',
     beschrijving:
       'Zonder schuldgevoel besteden aan wat jij wil. Dit is jouw geld.',
     rekening: 'Eigen rekening per persoon',
@@ -50,17 +50,17 @@ export function PotjesVisualisatie() {
   const [actief, setActief] = useState<number | null>(null)
 
   return (
-    <div className="my-8 rounded-2xl overflow-hidden border border-[#E8E0D4]">
-      <div className="bg-[#1C3A2A] px-5 py-4">
+    <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
+      <div className="bg-[#16211F] px-5 py-4">
         <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
           Voorbeeld bij €4.000 netto
         </p>
-        <p className="text-[#F5F0E8] text-sm font-medium">
+        <p className="text-[#F7F8F7] text-sm font-medium">
           Zo verdeel je je inkomen in potjes
         </p>
       </div>
 
-      <div className="p-5 bg-[#FDFAF4]">
+      <div className="p-5 bg-[#FFFFFF]">
         {/* Visuele verdeling */}
         <div className="flex h-10 rounded-xl overflow-hidden gap-0.5 mb-6">
           {potjes.map((p, i) => (
@@ -85,7 +85,7 @@ export function PotjesVisualisatie() {
               key={p.naam}
               onClick={() => setActief(actief === i ? null : i)}
               className={`text-left rounded-xl p-4 transition-all ${
-                actief === i ? 'border-2' : 'border border-[#E8E0D4]'
+                actief === i ? 'border-2' : 'border border-[#E6E9E7]'
               }`}
               style={{
                 backgroundColor: p.lichtKleur,
@@ -98,7 +98,7 @@ export function PotjesVisualisatie() {
                     className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: p.kleur }}
                   />
-                  <span className="text-xs font-medium text-[#1C3A2A]">
+                  <span className="text-xs font-medium text-[#16211F]">
                     {p.naam}
                   </span>
                 </div>
@@ -109,10 +109,10 @@ export function PotjesVisualisatie() {
                   {p.percentage}%
                 </span>
               </div>
-              <p className="text-xl font-semibold text-[#1C3A2A]">
+              <p className="text-xl font-semibold text-[#16211F]">
                 €{p.bedrag}
               </p>
-              <p className="text-xs text-[#8A9E8E] mt-1">{p.rekening}</p>
+              <p className="text-xs text-[#8B958F] mt-1">{p.rekening}</p>
             </button>
           ))}
         </div>
@@ -126,18 +126,18 @@ export function PotjesVisualisatie() {
               borderColor: potjes[actief].kleur + '40',
             }}
           >
-            <p className="text-sm font-medium text-[#1C3A2A] mb-1">
+            <p className="text-sm font-medium text-[#16211F] mb-1">
               {potjes[actief].naam}
             </p>
-            <p className="text-sm text-[#4A5E4E] leading-relaxed">
+            <p className="text-sm text-[#4A5A56] leading-relaxed">
               {potjes[actief].beschrijving}
             </p>
           </div>
         )}
       </div>
 
-      <div className="px-5 py-3 bg-[#F5F0E8] border-t border-[#E8E0D4]">
-        <p className="text-xs text-[#8A9E8E]">
+      <div className="px-5 py-3 bg-[#F7F8F7] border-t border-[#E6E9E7]">
+        <p className="text-xs text-[#8B958F]">
           Klik op een potje voor meer uitleg. Percentages zijn een startpunt —
           pas aan op jouw situatie.
         </p>

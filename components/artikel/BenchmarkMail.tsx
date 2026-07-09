@@ -39,18 +39,18 @@ export default function BenchmarkMail() {
   }
 
   return (
-    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
-      <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
-        <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>
+    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
+      <div className="px-5 py-4 border-b" style={{ borderColor: "#E6E9E7" }}>
+        <p className="font-body font-semibold text-sm" style={{ color: "#16211F" }}>
           De drie grootste hefbomen voor jouw situatie, in je mail
         </p>
-        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>
+        <p className="font-body text-xs mt-0.5" style={{ color: "#8B958F" }}>
           Eén mail met de cijfers voor jouw situatie. Geen nieuwsbrief, geen vervolgmails.
         </p>
       </div>
       <div className="p-5">
         {klaar ? (
-          <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+          <p className="font-body text-sm" style={{ color: "#16211F" }}>
             Verstuurd! Check je inbox (en eventueel je spamfolder). Benieuwd
             naar je volledige plaatje? De gratis analyse vergelijkt al je
             posten in 5 minuten.
@@ -65,9 +65,9 @@ export default function BenchmarkMail() {
                   onClick={() => setHuishouden(o.value)}
                   className="font-body text-xs rounded-full px-3 py-1.5 transition-all"
                   style={{
-                    border: `1.5px solid ${huishouden === o.value ? "#1C3A2A" : "#D6CEBC"}`,
-                    backgroundColor: huishouden === o.value ? "#E8F2EC" : "white",
-                    color: "#1C3A2A",
+                    border: `1.5px solid ${huishouden === o.value ? "#16211F" : "#D9DEDC"}`,
+                    backgroundColor: huishouden === o.value ? "#E7F1EE" : "white",
+                    color: "#16211F",
                     fontWeight: huishouden === o.value ? 600 : 400,
                     cursor: "pointer",
                   }}
@@ -84,13 +84,13 @@ export default function BenchmarkMail() {
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="jouw@email.nl"
                 className="flex-1 font-body text-sm border rounded-xl px-4 py-2.5 focus:outline-none"
-                style={{ borderColor: "#D6CEBC", backgroundColor: "white" }}
+                style={{ borderColor: "#D9DEDC", backgroundColor: "white" }}
               />
               <button
                 type="submit"
                 disabled={bezig}
                 className="font-body text-sm font-semibold rounded-xl px-5 py-2.5 disabled:opacity-50"
-                style={{ backgroundColor: "#1C3A2A", color: "#FDFAF4", cursor: "pointer" }}
+                style={{ backgroundColor: "#16211F", color: "#FFFFFF", cursor: "pointer" }}
               >
                 {bezig ? "Versturen..." : "Mail mijn benchmark"}
               </button>
@@ -98,10 +98,10 @@ export default function BenchmarkMail() {
             {fout && (
               <p className="font-body text-xs mt-2" style={{ color: "#B03A2E" }}>{fout}</p>
             )}
-            <p className="font-body text-xs mt-3" style={{ color: "#8A9E8E" }}>
+            <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
               Je adres wordt nergens opgeslagen en nooit gedeeld: er gaat één
               mail uit en dat is het.{" "}
-              <a href="/privacy" style={{ color: "#C4603A" }}>Privacy</a>
+              <a href="/privacy" style={{ color: "#0B7A6E" }}>Privacy</a>
             </p>
           </form>
         )}

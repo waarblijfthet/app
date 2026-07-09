@@ -80,9 +80,9 @@ export default function OverPage() {
         {/* Wie */}
         <section className="bg-background pb-10">
           <div className="max-w-3xl mx-auto px-6">
-            <div className="card-base border border-[#E8E0D0]">
+            <div className="card-base border border-[#E6E9E7]">
               <div className="flex items-start gap-5 mb-5">
-                <div className="w-16 h-16 rounded-full bg-[#1C3A2A] flex items-center justify-center shrink-0 overflow-hidden">
+                <div className="w-16 h-16 rounded-full bg-[#16211F] flex items-center justify-center shrink-0 overflow-hidden">
                   <Image
                     src="/jarno.jpg"
                     alt="Jarno Koopman"
@@ -179,7 +179,7 @@ export default function OverPage() {
                 <li>Meekijken en scherp houden als je dat wilt</li>
               </ul>
             </div>
-            <div className="card-base border border-[#E8E0D0]">
+            <div className="card-base border border-[#E6E9E7]">
               <p className="font-display font-light text-primary text-xl mb-4">
                 Wat ik niet doe
               </p>
@@ -238,7 +238,7 @@ export default function OverPage() {
             <Link
               href="/analyse"
               className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Start de gratis analyse →
             </Link>

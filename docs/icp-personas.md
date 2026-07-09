@@ -135,6 +135,12 @@ product, nieuwe positionering, nieuwe outreach-doelgroep).
 
 ## Wijzigingslog
 
+- 9-jul-2026: hero- en geldscan-CTA vervangen. "Vind je geldlek (€49)" is
+  geschrapt (Jarno vond "geldlek" een AI-woord). Nieuwe primaire CTA:
+  "Ja, help mij zien wat er anders kan" (uitkomst-gericht, mens i.p.v.
+  algoritme, geen zelfverwijt). Prijs staat in de microcopy, niet in de knop.
+  Header-CTA verwijst nu naar de geldscan, niet meer naar de analyse.
+  Let op: gebruik NIET meer "Vind je geldlek" bij toekomstige toetsen.
 - 8-jul-2026: document aangemaakt (bestond nog niet los). Sandra's profiel
   uitgebreid met de relatiedynamiek. Niels toegevoegd. Aanleiding: kritische
   herziening op verzoek van Jarno, gekoppeld aan de discussie over de

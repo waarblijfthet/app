@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
-const oranje = { color: "#C4603A", textDecoration: "none" } as const;
+const oranje = { color: "#0B7A6E", textDecoration: "none" } as const;
 
 const tarieven = [
   { vorm: "Los uurtarief financieel coach", prijs: "€60 tot €150 per uur", noot: "Grote steden en specialisten zitten aan de bovenkant" },
@@ -28,18 +28,18 @@ export default function WatKostEenFinancieelCoach() {
       <div style={{ overflowX: "auto", marginBottom: "1.5rem" }}>
         <table className="font-body" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
           <thead>
-            <tr style={{ borderBottom: "2px solid #E8E0D0", textAlign: "left" }}>
-              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}>Vorm</th>
-              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}>Prijs</th>
-              <th style={{ padding: "0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}>Goed om te weten</th>
+            <tr style={{ borderBottom: "2px solid #E6E9E7", textAlign: "left" }}>
+              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#16211F", fontWeight: 500 }}>Vorm</th>
+              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#16211F", fontWeight: 500 }}>Prijs</th>
+              <th style={{ padding: "0.6rem 0", color: "#16211F", fontWeight: 500 }}>Goed om te weten</th>
             </tr>
           </thead>
           <tbody>
             {tarieven.map((t) => (
-              <tr key={t.vorm} style={{ borderBottom: "1px solid #E8E0D0", verticalAlign: "top" }}>
+              <tr key={t.vorm} style={{ borderBottom: "1px solid #E6E9E7", verticalAlign: "top" }}>
                 <td style={{ padding: "0.6rem 0.75rem 0.6rem 0", fontWeight: 400 }}>{t.vorm}</td>
                 <td style={{ padding: "0.6rem 0.75rem 0.6rem 0", whiteSpace: "nowrap" }}>{t.prijs}</td>
-                <td style={{ padding: "0.6rem 0", color: "#4A5E4E" }}>{t.noot}</td>
+                <td style={{ padding: "0.6rem 0", color: "#4A5A56" }}>{t.noot}</td>
               </tr>
             ))}
           </tbody>

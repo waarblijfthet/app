@@ -5,10 +5,10 @@ import { useState } from "react";
 const euro = (n: number) => "€" + Math.round(n).toLocaleString("nl-NL");
 
 const POTJES = [
-  { key: "vast", naam: "Vaste lasten", kleur: "#1C3A2A" },
-  { key: "dagelijks", naam: "Dagelijkse uitgaven", kleur: "#C4603A" },
+  { key: "vast", naam: "Vaste lasten", kleur: "#16211F" },
+  { key: "dagelijks", naam: "Dagelijkse uitgaven", kleur: "#0B7A6E" },
   { key: "sparen", naam: "Sparen", kleur: "#2D6A4F" },
-  { key: "vrij", naam: "Vrij besteedbaar", kleur: "#8A9E8E" },
+  { key: "vrij", naam: "Vrij besteedbaar", kleur: "#8B958F" },
 ] as const;
 
 export default function PotjesCalculator() {
@@ -22,25 +22,25 @@ export default function PotjesCalculator() {
     setPct((prev) => ({ ...prev, [key]: val }));
 
   return (
-    <div className="rounded-2xl border border-[#E8E0D4] p-6 my-8" style={{ backgroundColor: "#FDFAF4" }}>
-      <p className="font-body font-medium uppercase tracking-widest text-xs mb-2" style={{ color: "#C4603A" }}>
+    <div className="rounded-2xl border border-[#E6E9E7] p-6 my-8" style={{ backgroundColor: "#FFFFFF" }}>
+      <p className="font-body font-medium uppercase tracking-widest text-xs mb-2" style={{ color: "#0B7A6E" }}>
         Reken even mee
       </p>
-      <p className="font-display font-light text-[#1C3A2A] text-xl mb-4">
+      <p className="font-display font-light text-[#16211F] text-xl mb-4">
         Jouw potjes in euro&apos;s
       </p>
 
       <label className="block mb-5">
-        <span className="font-body text-sm" style={{ color: "#4A5E4E" }}>Netto inkomen per maand</span>
+        <span className="font-body text-sm" style={{ color: "#4A5A56" }}>Netto inkomen per maand</span>
         <div className="flex items-center gap-3 mt-1">
           <input
             type="range" min={1500} max={8000} step={100}
             value={inkomen}
             onChange={(e) => setInkomen(Number(e.target.value))}
-            className="flex-1 accent-[#1C3A2A]"
+            className="flex-1 accent-[#16211F]"
             aria-label="Netto inkomen per maand"
           />
-          <span className="font-display font-light text-[#1C3A2A] text-lg tabular-nums w-24 text-right">{euro(inkomen)}</span>
+          <span className="font-display font-light text-[#16211F] text-lg tabular-nums w-24 text-right">{euro(inkomen)}</span>
         </div>
       </label>
 
@@ -48,7 +48,7 @@ export default function PotjesCalculator() {
         {POTJES.map((pot) => (
           <div key={pot.key}>
             <div className="flex justify-between items-center mb-1">
-              <span className="font-body text-sm" style={{ color: "#1C3A2A" }}>{pot.naam}</span>
+              <span className="font-body text-sm" style={{ color: "#16211F" }}>{pot.naam}</span>
               <span className="font-body text-sm tabular-nums" style={{ color: pot.kleur, fontWeight: 600 }}>
                 {pct[pot.key]}% · {euro((inkomen * pct[pot.key]) / 100)}
               </span>
@@ -65,7 +65,7 @@ export default function PotjesCalculator() {
         ))}
       </div>
 
-      <div className="mt-5 rounded-xl p-4" style={{ backgroundColor: totaal === 100 ? "#E8F2EC" : "#FAE5DE" }}>
+      <div className="mt-5 rounded-xl p-4" style={{ backgroundColor: totaal === 100 ? "#E7F1EE" : "#FAE5DE" }}>
         <p className="font-body text-sm" style={{ color: totaal === 100 ? "#2D6A4F" : "#B03A2E" }}>
           {totaal === 100
             ? "✓ Je verdeling telt op tot 100%."
@@ -80,9 +80,9 @@ export default function PotjesCalculator() {
         </p>
       )}
 
-      <p className="font-body text-xs mt-4" style={{ color: "#8A9E8E" }}>
+      <p className="font-body text-xs mt-4" style={{ color: "#8B958F" }}>
         Benieuwd hoe jouw échte verdeling eruitziet?{" "}
-        <a href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
+        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
       </p>
     </div>
   );

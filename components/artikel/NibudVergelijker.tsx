@@ -62,31 +62,31 @@ export function NibudVergelijker() {
   const maxBar = 1400;
 
   return (
-    <div className="my-8 rounded-2xl overflow-hidden border border-[#E8E0D4]">
-      <div className="bg-[#1C3A2A] px-5 py-4 flex items-start justify-between">
+    <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
+      <div className="bg-[#16211F] px-5 py-4 flex items-start justify-between">
         <div>
           <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
             Nibud Prijzengids 2025/2026 vs. werkelijkheid
           </p>
-          <p className="text-[#F5F0E8] text-sm font-medium">
+          <p className="text-[#F7F8F7] text-sm font-medium">
             Hoe groot is de kloof bij jouw gezin?
           </p>
         </div>
         <div className="text-right">
           <p className="text-[#8AB89A] text-xs">Kloof</p>
-          <p className="text-[#C4603A] text-xl font-semibold">+{kloofPct}%</p>
+          <p className="text-[#0B7A6E] text-xl font-semibold">+{kloofPct}%</p>
         </div>
       </div>
 
-      <div className="bg-[#F5F0E8] px-5 py-3 flex flex-wrap gap-2">
+      <div className="bg-[#F7F8F7] px-5 py-3 flex flex-wrap gap-2">
         {profielen.map((p, i) => (
           <button
             key={p.label}
             onClick={() => setActief(i)}
             className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
               actief === i
-                ? "bg-[#1C3A2A] text-[#F5F0E8] border-[#1C3A2A]"
-                : "bg-white text-[#4A5E4E] border-[#E8E0D4] hover:border-[#1C3A2A]"
+                ? "bg-[#16211F] text-[#F7F8F7] border-[#16211F]"
+                : "bg-white text-[#4A5A56] border-[#E6E9E7] hover:border-[#16211F]"
             }`}
           >
             {p.label}
@@ -94,21 +94,21 @@ export function NibudVergelijker() {
         ))}
       </div>
 
-      <div className="p-5 bg-[#FDFAF4]">
+      <div className="p-5 bg-[#FFFFFF]">
         <div className="grid grid-cols-2 gap-4 mb-5">
-          <div className="bg-[#EDE6D8] rounded-xl p-4">
-            <p className="text-xs text-[#8A9E8E] mb-1">Nibud minimum 2026</p>
-            <p className="text-2xl font-semibold text-[#4A5E4E]">€{d.nibud}</p>
-            <p className="text-xs text-[#8A9E8E] mt-2 leading-relaxed">
+          <div className="bg-[#F0F3F1] rounded-xl p-4">
+            <p className="text-xs text-[#8B958F] mb-1">Nibud minimum 2026</p>
+            <p className="text-2xl font-semibold text-[#4A5A56]">€{d.nibud}</p>
+            <p className="text-xs text-[#8B958F] mt-2 leading-relaxed">
               {d.nibudUitleg}
             </p>
           </div>
-          <div className="bg-[#FAF0EB] rounded-xl p-4 border border-[#F0D8C8]">
-            <p className="text-xs text-[#C4603A] mb-1">Werkelijk gemiddelde</p>
-            <p className="text-2xl font-semibold text-[#1C3A2A]">
+          <div className="bg-[#E4F1EE] rounded-xl p-4 border border-[#F0D8C8]">
+            <p className="text-xs text-[#0B7A6E] mb-1">Werkelijk gemiddelde</p>
+            <p className="text-2xl font-semibold text-[#16211F]">
               €{d.werkelijk}
             </p>
-            <p className="text-xs text-[#8A9E8E] mt-2 leading-relaxed">
+            <p className="text-xs text-[#8B958F] mt-2 leading-relaxed">
               {d.werkelijkUitleg}
             </p>
           </div>
@@ -117,10 +117,10 @@ export function NibudVergelijker() {
         <div className="space-y-2 mb-4">
           <div>
             <div className="flex justify-between text-xs mb-1">
-              <span className="text-[#4A5E4E]">Nibud norm</span>
-              <span className="font-medium text-[#4A5E4E]">€{d.nibud}</span>
+              <span className="text-[#4A5A56]">Nibud norm</span>
+              <span className="font-medium text-[#4A5A56]">€{d.nibud}</span>
             </div>
-            <div className="h-5 bg-[#EDE6D8] rounded-lg overflow-hidden">
+            <div className="h-5 bg-[#F0F3F1] rounded-lg overflow-hidden">
               <div
                 className="h-full bg-[#2D6A4F] rounded-lg flex items-center px-2 transition-all duration-500"
                 style={{ width: `${(d.nibud / maxBar) * 100}%` }}
@@ -131,12 +131,12 @@ export function NibudVergelijker() {
           </div>
           <div>
             <div className="flex justify-between text-xs mb-1">
-              <span className="text-[#4A5E4E]">Werkelijk gemiddelde</span>
-              <span className="font-medium text-[#C4603A]">€{d.werkelijk}</span>
+              <span className="text-[#4A5A56]">Werkelijk gemiddelde</span>
+              <span className="font-medium text-[#0B7A6E]">€{d.werkelijk}</span>
             </div>
-            <div className="h-5 bg-[#EDE6D8] rounded-lg overflow-hidden">
+            <div className="h-5 bg-[#F0F3F1] rounded-lg overflow-hidden">
               <div
-                className="h-full bg-[#C4603A] rounded-lg flex items-center px-2 transition-all duration-500"
+                className="h-full bg-[#0B7A6E] rounded-lg flex items-center px-2 transition-all duration-500"
                 style={{ width: `${(d.werkelijk / maxBar) * 100}%` }}
               >
                 <span className="text-white text-xs font-medium">
@@ -147,7 +147,7 @@ export function NibudVergelijker() {
           </div>
         </div>
 
-        <div className="bg-[#F5F0E8] rounded-xl p-3 text-xs text-[#8A9E8E]">
+        <div className="bg-[#F7F8F7] rounded-xl p-3 text-xs text-[#8B958F]">
           Bron: {d.bron}
         </div>
       </div>

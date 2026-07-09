@@ -35,19 +35,19 @@ export default function AbonnementenTeller() {
 
   return (
     <div
-      className="rounded-2xl border border-[#E8E0D4] p-6 my-8"
-      style={{ backgroundColor: "#FDFAF4" }}
+      className="rounded-2xl border border-[#E6E9E7] p-6 my-8"
+      style={{ backgroundColor: "#FFFFFF" }}
     >
       <p
         className="font-body font-medium uppercase tracking-widest text-xs mb-2"
-        style={{ color: "#C4603A" }}
+        style={{ color: "#0B7A6E" }}
       >
         Reken even mee
       </p>
-      <p className="font-display font-light text-[#1C3A2A] text-xl mb-1">
+      <p className="font-display font-light text-[#16211F] text-xl mb-1">
         Wat kosten jouw abonnementen samen?
       </p>
-      <p className="font-body text-sm mb-5" style={{ color: "#4A5E4E" }}>
+      <p className="font-body text-sm mb-5" style={{ color: "#4A5A56" }}>
         Vink aan wat je hebt. De bedragen zijn gemiddelden — pas ze in gedachten
         aan jouw situatie aan.
       </p>
@@ -61,16 +61,16 @@ export default function AbonnementenTeller() {
             aria-pressed={actief[i]}
             className="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition-colors"
             style={{
-              backgroundColor: actief[i] ? "#E8F2EC" : "white",
-              border: `1px solid ${actief[i] ? "#A8D5B5" : "#E8E0D4"}`,
+              backgroundColor: actief[i] ? "#E7F1EE" : "white",
+              border: `1px solid ${actief[i] ? "#A8D5B5" : "#E6E9E7"}`,
             }}
           >
             <span className="flex items-center gap-2.5">
               <span
                 className="inline-flex items-center justify-center w-5 h-5 rounded-md text-xs font-bold shrink-0"
                 style={{
-                  backgroundColor: actief[i] ? "#2D6A4F" : "#EDE6D8",
-                  color: actief[i] ? "white" : "#8A9E8E",
+                  backgroundColor: actief[i] ? "#2D6A4F" : "#F0F3F1",
+                  color: actief[i] ? "white" : "#8B958F",
                 }}
                 aria-hidden="true"
               >
@@ -78,14 +78,14 @@ export default function AbonnementenTeller() {
               </span>
               <span
                 className="font-body text-sm"
-                style={{ color: "#1C3A2A" }}
+                style={{ color: "#16211F" }}
               >
                 {a.naam}
               </span>
             </span>
             <span
               className="font-body text-sm tabular-nums shrink-0"
-              style={{ color: "#8A9E8E" }}
+              style={{ color: "#8B958F" }}
             >
               {euro(a.bedrag)}/mnd
             </span>
@@ -95,7 +95,7 @@ export default function AbonnementenTeller() {
 
       <div
         className="mt-6 rounded-xl p-5 text-center"
-        style={{ backgroundColor: "#1C3A2A" }}
+        style={{ backgroundColor: "#16211F" }}
       >
         <p
           className="font-body text-xs uppercase tracking-widest mb-2"
@@ -118,11 +118,11 @@ export default function AbonnementenTeller() {
         </p>
       </div>
 
-      <p className="font-body text-xs mt-3" style={{ color: "#8A9E8E" }}>
+      <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
         En dit is alleen wat je je nu herinnert. De{" "}
         <a
           href="/analyse"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           gratis analyse

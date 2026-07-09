@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function KlarnaNietKunnenBetalen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           De betaaltermijn van je Klarna loopt af en het geld is er niet. Je vraagt je af wat er nu
           gebeurt, en of het erger wordt als je het laat lopen.
         </p>
@@ -29,9 +29,9 @@ export default function KlarnaNietKunnenBetalen() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -40,8 +40,8 @@ export default function KlarnaNietKunnenBetalen() {
             "Wat de kosten ongeveer zijn, en waarom een aanmaning niet automatisch een vaststaande schuld is",
             "Wat je het beste meteen kunt doen, rustig en zonder paniek",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -50,7 +50,7 @@ export default function KlarnaNietKunnenBetalen() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kun je een Klarna-betaling niet betalen, dan gebeurt er niet meteen iets ergs. Je krijgt
         eerst een gratis herinnering, daarna een aanmaning met kosten, en pas bij langer uitblijven
         wordt het overgedragen aan een incassopartij. Hoe eerder je het oppakt, hoe lager de kosten.
@@ -100,7 +100,7 @@ export default function KlarnaNietKunnenBetalen() {
         op een rij zetten. Hoe je dat doet, lees je in{" "}
         <Link
           href="/inzichten/overzicht-achteraf-betalen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je openstaande achteraf-betalingen op een rij krijgen
@@ -108,7 +108,7 @@ export default function KlarnaNietKunnenBetalen() {
         . En wil je er helemaal mee stoppen, lees dan{" "}
         <Link
           href="/inzichten/stoppen-met-achteraf-betalen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           stoppen met achteraf betalen
@@ -121,7 +121,7 @@ export default function KlarnaNietKunnenBetalen() {
           href="https://geldfit.nl"
           target="_blank"
           rel="noopener noreferrer"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           Geldfit
@@ -129,12 +129,12 @@ export default function KlarnaNietKunnenBetalen() {
         kun je gratis en anoniem terecht voor hulp en een eerste stap.
       </p>
 
-      <p className="font-body text-text-soft" style={p}>Twijfel je over de gevolgen op langere termijn, lees dan <Link href="/inzichten/achteraf-betalen-bkr-registratie" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">of achteraf betalen op je BKR komt</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Twijfel je over de gevolgen op langere termijn, lees dan <Link href="/inzichten/achteraf-betalen-bkr-registratie" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">of achteraf betalen op je BKR komt</Link>.</p>
 
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

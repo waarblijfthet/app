@@ -70,14 +70,14 @@ export function BottomNav() {
         aria-label="Mobiele navigatie"
       >
         {/* Achtergrond */}
-        <div className="absolute inset-0 bg-[#F5F0E8]/95 backdrop-blur-lg border-t border-[#E8E0D4]" />
+        <div className="absolute inset-0 bg-[#F7F8F7]/95 backdrop-blur-lg border-t border-[#E6E9E7]" />
 
         <div className="relative flex items-stretch pb-2">
           {/* Inzichten */}
           <Link
             href="/inzichten"
             className="flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 transition-colors"
-            style={{ color: isInzichten ? "#1C3A2A" : "#8A9E8E" }}
+            style={{ color: isInzichten ? "#16211F" : "#8B958F" }}
             aria-current={isInzichten ? "page" : undefined}
           >
             <InzichtenIcon active={isInzichten} />
@@ -88,7 +88,7 @@ export function BottomNav() {
           <Link
             href="/aanbod"
             className="flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 transition-colors"
-            style={{ color: isAanbod ? "#1C3A2A" : "#8A9E8E" }}
+            style={{ color: isAanbod ? "#16211F" : "#8B958F" }}
             aria-current={isAanbod ? "page" : undefined}
           >
             <AanbodIcon active={isAanbod} />
@@ -99,12 +99,12 @@ export function BottomNav() {
           <Link
             href="/analyse"
             className="flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 transition-colors"
-            style={{ color: isAnalyse ? "#1C3A2A" : "#C4603A" }}
+            style={{ color: isAnalyse ? "#16211F" : "#0B7A6E" }}
             aria-current={isAnalyse ? "page" : undefined}
           >
             {!isAnalyse ? (
               <div
-                className="w-10 h-10 rounded-full bg-[#C4603A] flex items-center justify-center -mt-5 shadow-md"
+                className="w-10 h-10 rounded-full bg-[#0B7A6E] flex items-center justify-center -mt-5 shadow-md"
                 style={{ color: "white" }}
               >
                 <AnalyseIcon active={false} />
@@ -115,7 +115,7 @@ export function BottomNav() {
             <span
               className="text-[10px] font-medium"
               style={{
-                color: isAnalyse ? "#1C3A2A" : "#C4603A",
+                color: isAnalyse ? "#16211F" : "#0B7A6E",
                 marginTop: !isAnalyse ? "-2px" : "0",
               }}
             >

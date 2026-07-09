@@ -7,12 +7,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Geldscan: jouw persoonlijke geldrapport, €49",
   description:
-    "Persoonlijke geldscan: je meldt je aan en betaalt, ik schrijf een persoonlijk rapport met je drie grootste lekken en per lek wat ik zou doen. Geen gesprek nodig. €49.",
+    "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je een persoonlijk rapport met je drie grootste lekken en per lek precies wat ik zou doen. €49, geen gesprek nodig.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
     title: "Geldscan: jouw persoonlijke geldrapport, €49",
     description:
-      "Je meldt je aan, ik schrijf jouw persoonlijke geldrapport met je drie grootste lekken. Geen gesprek, geen agenda. €49.",
+      "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je persoonlijke geldrapport met je drie grootste lekken en wat ik zou doen. €49.",
     url: "https://www.waarblijfthet.nl/geldscan",
     type: "website",
   },
@@ -23,22 +23,22 @@ const faq = [
   {
     vraag: "Wat is de geldscan precies?",
     antwoord:
-      "Je meldt je aan met je naam en e-mailadres. Na betaling vraag ik je de gratis analyse in te vullen (2 minuten), optioneel stuur je ook een paar recente bankafschriften mee. Binnen twee werkdagen daarna krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF) met jouw drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner.",
+      "Je meldt je aan met je naam en e-mailadres. Na betaling vraag ik je de analyse in te vullen (2 minuten), optioneel stuur je ook een paar recente bankafschriften mee. Binnen twee werkdagen daarna krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF) met jouw drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner.",
   },
   {
     vraag: "Moet ik hiervoor met iemand praten of bellen?",
     antwoord:
-      "Nee, en dat is precies het punt. Geen gesprek, geen telefoontje, geen agenda-afstemming. Jij levert je cijfers aan wanneer het jou uitkomt, ik schrijf het rapport, jij leest het wanneer je wilt. Vragen achteraf kunnen gewoon per e-mail.",
+      "Nee. Jij levert je cijfers aan wanneer het jou uitkomt, ik schrijf het rapport, jij leest het rustig terug op je eigen moment. Zo hou je het in eigen hand. Heb je daarna een vraag, dan beantwoord ik die per mail.",
   },
   {
     vraag: "Wat kost de geldscan?",
     antwoord:
-      "€49, eenmalig. Na je aanvraag stuur ik je een betaalverzoek, dat komt altijd van hallo@waarblijfthet.nl. Vind ik geen drie serieuze verbeterpunten in jouw situatie, dan krijg je je €49 terug. En wil je daarna alsnog een gesprek of traject, dan trek ik de €49 af van de prijs daarvan.",
+      "€49, eenmalig. Na je aanvraag stuur ik je een betaalverzoek, dat komt altijd van hallo@waarblijfthet.nl. En wil je daarna alsnog een gesprek of traject, dan trek ik de €49 af van de prijs daarvan.",
   },
   {
     vraag: "Wat als er bij mij niets uit de scan komt?",
     antwoord:
-      "Dan betaal je niets. Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug. Eerlijk gezegd verwacht ik dat zelden te hoeven doen: ook bij huishoudens die alles netjes op orde hebben, vind ik vrijwel altijd structurele lekken tussen vaste lasten, verzekeringen en dagelijkse patronen.",
+      "Dat kan. Ik beloof niet dat er altijd geld te besparen valt. Vaker is de winst dat je zwart op wit ziet dat het klopt, of dat je precies weet waar het naartoe gaat, ook als er weinig aan te snijden is.",
   },
   {
     vraag: "Is dit hetzelfde als het adviesgesprek?",
@@ -48,7 +48,7 @@ const faq = [
   {
     vraag: "Moet ik bankafschriften delen?",
     antwoord:
-      "Nee, dat is optioneel. Na betaling vraag ik je de gratis analyse in te vullen, dat is meestal genoeg voor een goede scan. Wil je dat ik preciezer kijk, stuur dan ook een paar recente bankafschriften mee als bijlage. Alles blijft vertrouwelijk: het rapport komt als PDF-bijlage per e-mail, alleen naar jou. Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. Je hoeft daar niet om te vragen.",
+      "Nee, dat is optioneel. Na betaling vraag ik je de analyse in te vullen, dat is meestal genoeg voor een goede scan. Wil je dat ik preciezer kijk, stuur dan ook een paar recente bankafschriften mee als bijlage. Alles blijft vertrouwelijk: het rapport komt als PDF-bijlage per e-mail, alleen naar jou. Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. Je hoeft daar niet om te vragen.",
   },
   {
     vraag: "Is dit financieel advies in de zin van de Wft?",
@@ -102,13 +102,13 @@ const stappen = [
     n: "2",
     titel: "Het betaalverzoek",
     tekst:
-      "Na je aanvraag stuur ik je binnen één werkdag een betaalverzoek (€49), dat komt altijd van hallo@waarblijfthet.nl.",
+      "Na je aanvraag stuur ik je binnen één werkdag een betaalverzoek (€49), dat komt altijd van hallo@waarblijfthet.nl. Je weet dan al precies wat je krijgt: het rapport dat hieronder staat beschreven, door mij persoonlijk geschreven.",
   },
   {
     n: "3",
-    titel: "Na betaling: vul de gratis analyse in",
+    titel: "Na betaling: vul de analyse in",
     tekst:
-      "Zodra het betaald is, vraag ik je de gratis analyse in te vullen (2 minuten), dat geeft me de cijfers om je rapport op te baseren. Optioneel stuur je ook een paar recente bankafschriften mee, dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen.",
+      "Zodra het betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers om je rapport op te baseren. Optioneel stuur je ook een paar recente bankafschriften mee, dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen.",
   },
   {
     n: "4",
@@ -120,7 +120,7 @@ const stappen = [
     n: "5",
     titel: "Direct daarna: alles verwijderd",
     tekst:
-      "Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. En vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug.",
+      "Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard.",
   },
 ];
 
@@ -152,33 +152,28 @@ export default function GeldscanPage({
           <div className="max-w-3xl mx-auto px-6">
             <p className="section-eyebrow mb-4">Geldscan · persoonlijk geldrapport · €49</p>
             <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-6 max-w-2xl">
-              Persoonlijk advies over jouw geld, zonder dat je met iemand hoeft te praten
+              Zie zwart op wit waar jouw geld elke maand blijft
             </h1>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-4">
-              Wel een eerlijke, persoonlijke blik op waar jouw geld blijft.
-              Geen gesprek, geen agenda. Je meldt je aan, en zodra ik je
-              cijfers heb stuur ik binnen twee werkdagen jouw persoonlijke
-              geldrapport: je drie grootste lekken en per lek wat ik eraan
-              zou doen.
+              Je krijgt een persoonlijk rapport: de drie plekken waar bij jou het meeste weglekt, met jouw eigen cijfers en per plek precies wat ik zou doen. Ik schrijf het zelf, er kijkt geen algoritme mee.
             </p>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-8">
-              Voor iedereen die wil weten wat er speelt, maar (nog) geen
-              gesprek wil. Dat begrijp ik beter dan je denkt.
+              Je levert je cijfers aan wanneer het jou uitkomt, ik doe het werk, en binnen twee werkdagen lees je het rapport rustig terug. Een vraag achteraf beantwoord ik gewoon per mail.
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Link href={intakeHref} className="btn-primary">
-                Vraag de geldscan aan (€49) →
+                Ja, help mij zien wat er anders kan →
               </Link>
               <Link
                 href="/analyse"
                 className="font-body text-sm hover:underline"
-                style={{ color: "#C4603A", textDecoration: "none" }}
+                style={{ color: "#0B7A6E", textDecoration: "none" }}
               >
-                Eerst de gratis analyse doen →
+                Kijk eerst zelf →
               </Link>
             </div>
             <p className="font-body font-light text-text-muted text-xs mt-4">
-              Binnen 2 werkdagen na aanlevering van je cijfers · Vind ik geen drie serieuze verbeterpunten, dan krijg je je €49 terug · €49 wordt verrekend als je later een gesprek of traject wilt
+              Binnen 2 werkdagen na aanlevering van je cijfers · €49 wordt verrekend als je later een gesprek of traject wilt
             </p>
           </div>
         </section>
@@ -187,7 +182,7 @@ export default function GeldscanPage({
         <section className="bg-background pb-8">
           <div className="max-w-3xl mx-auto px-6 space-y-5">
             {stappen.map((s) => (
-              <div key={s.n} className="card-base border border-[#E8E0D0]">
+              <div key={s.n} className="card-base border border-[#E6E9E7]">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-green-light flex items-center justify-center shrink-0">
                     <span className="font-display font-medium text-primary text-xl">{s.n}</span>
@@ -207,9 +202,9 @@ export default function GeldscanPage({
           <div className="max-w-3xl mx-auto px-6">
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
               {[
-                ["Geen gesprek", "Jij hoeft niets uit te leggen of te verdedigen. Ik kijk, jij leest wanneer je wilt."],
+                ["Op je eigen moment", "Je hoeft niets te plannen of te bellen. Jij levert je cijfers aan wanneer het uitkomt, ik lever het rapport."],
                 ["Geen oordeel", "Ik benoem wat ik zie en wat werkt. Schaamte is nergens voor nodig, dit patroon zie ik overal."],
-                ["Geen verplichting", "Eén scan, klaar. Wil je daarna meer, dan verreken ik de €49."],
+                ["Eén keer, klaar", "Eén scan, geen abonnement. Wil je daarna meer, dan verreken ik de €49."],
               ].map(([t, d]) => (
                 <div key={t}>
                   <p className="font-body font-medium text-primary text-sm mb-1">{t}</p>
@@ -226,7 +221,7 @@ export default function GeldscanPage({
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
               Wat zit er in zo&apos;n rapport? Zo ziet dat eruit
             </h2>
-            <div className="card-base border border-[#E8E0D0]">
+            <div className="card-base border border-[#E6E9E7]">
               <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
                 Een voorbeeld ter illustratie, opgebouwd uit de lekken die ik
                 in de praktijk het vaakst tegenkom bij tweeverdieners met
@@ -239,7 +234,7 @@ export default function GeldscanPage({
                   "Drie vergeten abonnementen en een stilzwijgend verlengd energiecontract, €54 per maand",
                 ].map((t) => (
                   <li key={t} className="flex items-start gap-2">
-                    <span style={{ color: "#2D6A4F", fontWeight: 600 }}>✓</span>
+                    <span style={{ color: "#0B7A6E", fontWeight: 600 }}>✓</span>
                     <span className="font-body font-light text-sm text-text-soft leading-relaxed">{t}</span>
                   </li>
                 ))}
@@ -247,19 +242,19 @@ export default function GeldscanPage({
               <p className="font-body font-light text-sm text-text-soft leading-relaxed">
                 Samen ruim €260 per maand aan aanknopingspunten. Jouw lekken
                 zijn andere, maar dit is het soort antwoord dat je krijgt:
-                concreet, met bedragen, zonder oordeel. Ter referentie: bij de
+                concreet, met bedragen, zonder oordeel. Woon je alleen of zonder kinderen? Dan kijk ik naar jouw eigen posten, de lekken zitten dan vaak in verzekeringen, abonnementen en vaste contracten. Ter referentie: bij de
                 huishoudens die ik tot nu toe begeleidde was het gemiddelde
                 resultaat €460 per maand meer over (eigen klantresultaten,
                 geen belofte).
               </p>
             </div>
             <div className="flex items-center gap-3 mt-5">
-              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ backgroundColor: "#1C3A2A" }}>
+              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ backgroundColor: "#16211F" }}>
                 <Image src="/jarno.jpg" alt="Jarno Koopman" width={40} height={40} className="w-full h-full object-cover" />
               </div>
               <p className="font-body font-light text-sm text-text-soft">
                 Elk rapport schrijf ik zelf, er kijkt geen algoritme of team mee.{" "}
-                <Link href="/over" className="hover:underline" style={{ color: "#C4603A" }}>
+                <Link href="/over" className="hover:underline" style={{ color: "#0B7A6E" }}>
                   Wie ik ben →
                 </Link>
               </p>
@@ -271,12 +266,23 @@ export default function GeldscanPage({
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
-              Wat een blik van buitenaf anderen opleverde
+              Wat een blik van buitenaf oplevert
             </h2>
+            <div className="card-base border border-[#E6E9E7] mb-8" style={{ borderLeft: "3px solid #0B7A6E" }}>
+              <p className="section-eyebrow mb-3">De eerste die de geldscan deed</p>
+              <p className="font-body font-light text-primary text-base leading-relaxed mb-3">
+                &ldquo;We vonden het best spannend dat een vreemde naar onze
+                financiën zou kijken. Maar het advies was verhelderend: we
+                weten nu dat we sommige dingen goed doen, en we zagen afwijkingen
+                die we zelf niet doorhadden. We gaan eerst zelf aan de slag en
+                houden een gesprek open. En het verslag was snel af.&rdquo;
+              </p>
+              <p className="font-body font-medium text-primary text-sm">Sanne &amp; Joris</p>
+              <p className="font-body font-light text-text-muted text-xs">Gezin met twee kinderen</p>
+            </div>
             <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-6">
-              De geldscan is de lichtste vorm van mijn begeleiding: dezelfde
-              blik, zonder gesprek. Deze ervaringen komen van huishoudens die
-              ik persoonlijk begeleidde.
+              Uit mijn persoonlijke begeleiding, de zwaardere vorm, hoor ik
+              hetzelfde soort dingen terug:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {[
@@ -299,7 +305,7 @@ export default function GeldscanPage({
                   situatie: "Twee jonge kinderen",
                 },
               ].map((t) => (
-                <div key={t.naam} className="card-base border border-[#E8E0D0]">
+                <div key={t.naam} className="card-base border border-[#E6E9E7]">
                   <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
                     &ldquo;{t.quote}&rdquo;
                   </p>
@@ -309,8 +315,7 @@ export default function GeldscanPage({
               ))}
             </div>
             <p className="font-body font-light text-text-muted text-xs mt-4">
-              Namen aangepast voor privacy. Echte ervaringen uit mijn
-              begeleiding; resultaten verschillen per situatie.
+              Namen aangepast voor privacy. Echte ervaringen; resultaten verschillen per situatie.
             </p>
           </div>
         </section>
@@ -328,16 +333,16 @@ export default function GeldscanPage({
               zien welke vaste structuur eronder ligt. Omdat het ongemakkelijk voelt om over geld te praten,
               omdat je agenda vol zit, of omdat je eerst wilt weten of dit
               iets voor je is voordat je €125 uitgeeft aan een{" "}
-              <Link href="/adviesgesprek" className="hover:underline" style={{ color: "#C4603A" }}>
+              <Link href="/adviesgesprek" className="hover:underline" style={{ color: "#0B7A6E" }}>
                 adviesgesprek
               </Link>
               .
             </p>
             <p className="font-body font-light text-text-soft leading-relaxed">
-              Heb je schulden of betalingsachterstanden? Dan is gratis hulp
+              Heb je schulden of betalingsachterstanden? Dan is kosteloze hulp
               via je gemeente of Geldfit passender, en dat zeg ik liever
               eerlijk vooraf. Meer over hoe ik werk lees je op de pagina{" "}
-              <Link href="/financieel-coach" className="hover:underline" style={{ color: "#C4603A" }}>
+              <Link href="/financieel-coach" className="hover:underline" style={{ color: "#0B7A6E" }}>
                 financieel coach
               </Link>
               .
@@ -353,7 +358,7 @@ export default function GeldscanPage({
             </h2>
             <div className="space-y-4">
               {faq.map((f) => (
-                <div key={f.vraag} className="card-base border border-[#E8E0D0]">
+                <div key={f.vraag} className="card-base border border-[#E6E9E7]">
                   <p className="font-body font-medium text-primary text-sm mb-2">{f.vraag}</p>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">{f.antwoord}</p>
                 </div>
@@ -370,23 +375,22 @@ export default function GeldscanPage({
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
               €49. Je meldt je aan, en binnen twee werkdagen na aanlevering
-              van je cijfers ontvang je jouw persoonlijke geldrapport. Zonder
-              gesprek, zonder oordeel.
+              van je cijfers ontvang je jouw persoonlijke geldrapport. Zonder oordeel, op je eigen moment.
             </p>
             <Link
               href={intakeHref}
               className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Vraag de geldscan aan →
+              Ja, help mij zien wat er anders kan →
             </Link>
             <p className="mt-5">
               <Link
                 href="/analyse"
                 className="font-body text-sm"
-                style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
+                style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}
               >
-                Liever eerst de gratis analyse? →
+                Liever eerst zelf kijken? →
               </Link>
             </p>
           </div>

@@ -24,15 +24,15 @@ export default function BoodschappenSlider() {
 
   let oordeel: { kleur: string; bg: string; tekst: string };
   if (verschil > 100) oordeel = { kleur: "#B03A2E", bg: "#FAE5DE", tekst: `Dat is ${euro(verschil)} méér dan vergelijkbare gezinnen.` };
-  else if (verschil < -100) oordeel = { kleur: "#2D6A4F", bg: "#E8F2EC", tekst: `Dat is ${euro(-verschil)} mínder dan vergelijkbare gezinnen.` };
+  else if (verschil < -100) oordeel = { kleur: "#2D6A4F", bg: "#E7F1EE", tekst: `Dat is ${euro(-verschil)} mínder dan vergelijkbare gezinnen.` };
   else oordeel = { kleur: "#92600A", bg: "#FDF3E3", tekst: "Dat zit rond het gemiddelde van vergelijkbare gezinnen." };
 
   return (
-    <div className="rounded-2xl border border-[#E8E0D4] p-6 my-8" style={{ backgroundColor: "#FDFAF4" }}>
-      <p className="font-body font-medium uppercase tracking-widest text-xs mb-2" style={{ color: "#C4603A" }}>
+    <div className="rounded-2xl border border-[#E6E9E7] p-6 my-8" style={{ backgroundColor: "#FFFFFF" }}>
+      <p className="font-body font-medium uppercase tracking-widest text-xs mb-2" style={{ color: "#0B7A6E" }}>
         Reken even mee
       </p>
-      <p className="font-display font-light text-[#1C3A2A] text-xl mb-4">
+      <p className="font-display font-light text-[#16211F] text-xl mb-4">
         Hoeveel denk je dat je per maand aan boodschappen uitgeeft?
       </p>
 
@@ -45,9 +45,9 @@ export default function BoodschappenSlider() {
             aria-pressed={kinderen === k}
             className="px-3 py-1.5 rounded-full text-sm font-body transition-colors"
             style={{
-              backgroundColor: kinderen === k ? "#1C3A2A" : "white",
-              color: kinderen === k ? "white" : "#4A5E4E",
-              border: `1px solid ${kinderen === k ? "#1C3A2A" : "#E8E0D4"}`,
+              backgroundColor: kinderen === k ? "#16211F" : "white",
+              color: kinderen === k ? "white" : "#4A5A56",
+              border: `1px solid ${kinderen === k ? "#16211F" : "#E6E9E7"}`,
             }}
           >
             {LABELS[k]}
@@ -59,23 +59,23 @@ export default function BoodschappenSlider() {
         type="range" min={200} max={1500} step={10}
         value={schatting}
         onChange={(e) => setSchatting(Number(e.target.value))}
-        className="w-full accent-[#C4603A]"
+        className="w-full accent-[#0B7A6E]"
         aria-label="Jouw boodschappen per maand"
       />
 
       <div className="mt-5 space-y-3">
-        <Balk label="Jouw schatting" bedrag={schatting} max={max} kleur="#C4603A" />
-        <Balk label="Gemiddeld vergelijkbaar gezin" bedrag={bench} max={max} kleur="#8A9E8E" />
+        <Balk label="Jouw schatting" bedrag={schatting} max={max} kleur="#0B7A6E" />
+        <Balk label="Gemiddeld vergelijkbaar gezin" bedrag={bench} max={max} kleur="#8B958F" />
       </div>
 
       <div className="mt-5 rounded-xl p-4" style={{ backgroundColor: oordeel.bg }}>
         <p className="font-body text-sm" style={{ color: oordeel.kleur }}>{oordeel.tekst}</p>
       </div>
 
-      <p className="font-body text-xs mt-3" style={{ color: "#8A9E8E" }}>
+      <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
         Schattingen liggen meestal te laag. Wil je je échte bedrag weten en
         vergelijken op álle posten?{" "}
-        <a href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
+        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
       </p>
     </div>
   );
@@ -85,10 +85,10 @@ function Balk({ label, bedrag, max, kleur }: { label: string; bedrag: number; ma
   return (
     <div>
       <div className="flex justify-between text-sm font-body mb-1">
-        <span style={{ color: "#4A5E4E" }}>{label}</span>
+        <span style={{ color: "#4A5A56" }}>{label}</span>
         <span className="tabular-nums" style={{ color: kleur, fontWeight: 600 }}>{euro(bedrag)}</span>
       </div>
-      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: "#EDE6D8" }}>
+      <div className="h-2 rounded-full overflow-hidden" style={{ backgroundColor: "#F0F3F1" }}>
         <div className="h-full rounded-full" style={{ width: `${(bedrag / max) * 100}%`, backgroundColor: kleur }} />
       </div>
     </div>

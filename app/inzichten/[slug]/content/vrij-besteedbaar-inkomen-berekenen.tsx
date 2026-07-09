@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -40,20 +40,20 @@ function Calculator() {
     border: "1.5px solid #D8CFC0",
     fontSize: "1rem",
     backgroundColor: "#FFFFFF",
-    color: "#1C3A2A",
+    color: "#16211F",
   } as const;
   const label = {
     display: "block",
     fontSize: "0.85rem",
     fontWeight: 500,
-    color: "#2D4A35",
+    color: "#16211F",
     marginBottom: "0.35rem",
   } as const;
 
   return (
     <div
       className="rounded-2xl p-5 my-6"
-      style={{ backgroundColor: "#FDFAF4", border: "1.5px solid #E8E0D4" }}
+      style={{ backgroundColor: "#FFFFFF", border: "1.5px solid #E6E9E7" }}
     >
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-5">
         <div>
@@ -95,11 +95,11 @@ function Calculator() {
         <div
           className="rounded-xl p-4"
           style={{
-            backgroundColor: over >= 0 ? "#E8F2EC" : "#FAEBE7",
+            backgroundColor: over >= 0 ? "#E7F1EE" : "#FAEBE7",
             border: `1.5px solid ${over >= 0 ? "#A8C5B4" : "#E0B6AA"}`,
           }}
         >
-          <p className="font-body text-sm" style={{ color: "#4A5E4E", marginBottom: "0.25rem" }}>
+          <p className="font-body text-sm" style={{ color: "#4A5A56", marginBottom: "0.25rem" }}>
             Zo houd je per maand vrij over:
           </p>
           <p
@@ -108,12 +108,12 @@ function Calculator() {
           >
             {euro(over)}
             {i > 0 && (
-              <span className="font-body" style={{ fontSize: "0.95rem", color: "#8A9E8E" }}>
+              <span className="font-body" style={{ fontSize: "0.95rem", color: "#8B958F" }}>
                 {"  "}({pct}% van je inkomen)
               </span>
             )}
           </p>
-          <p className="font-body text-sm" style={{ color: "#4A5E4E", marginTop: "0.5rem" }}>
+          <p className="font-body text-sm" style={{ color: "#4A5A56", marginTop: "0.5rem" }}>
             {over < 0
               ? "Je geeft meer uit dan er binnenkomt. Dat verklaart het krappe gevoel, en het is om te buigen."
               : pct < 10
@@ -122,7 +122,7 @@ function Calculator() {
           </p>
         </div>
       ) : (
-        <p className="font-body text-sm" style={{ color: "#8A9E8E" }}>
+        <p className="font-body text-sm" style={{ color: "#8B958F" }}>
           Vul je netto-inkomen, je vaste lasten en je dagelijkse uitgaven in. Schattingen zijn goed genoeg.
         </p>
       )}
@@ -136,12 +136,12 @@ export default function VrijBesteedbaarInkomenBerekenen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je weet wat er binnenkomt, maar niet wat er aan het einde van de maand echt vrij overblijft.
           Met deze rekenhulp zie je het in een paar seconden.
         </p>
@@ -166,7 +166,7 @@ export default function VrijBesteedbaarInkomenBerekenen() {
         aanslag om naar een maandbedrag. Hoe je dat compleet maakt, lees je in mijn{" "}
         <Link
           href="/inzichten/vaste-lasten-overzicht-maken"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           overzicht van je vaste lasten maken
@@ -183,7 +183,7 @@ export default function VrijBesteedbaarInkomenBerekenen() {
         normaal is, lees je in{" "}
         <Link
           href="/inzichten/hoeveel-geld-overhouden-einde-maand"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           hoeveel je hoort over te houden
@@ -196,7 +196,7 @@ export default function VrijBesteedbaarInkomenBerekenen() {
         bijhoudt. Daarover lees je meer in{" "}
         <Link
           href="/inzichten/waarom-hou-ik-nooit-geld-over"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           waarom je nooit geld overhoudt
@@ -207,7 +207,7 @@ export default function VrijBesteedbaarInkomenBerekenen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

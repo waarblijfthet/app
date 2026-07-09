@@ -20,20 +20,20 @@ export function PrijsvergelijkingTabel() {
   const pct = Math.round((besparing / totaalNL) * 100);
 
   return (
-    <div className="my-8 rounded-2xl overflow-hidden border border-[#E8E0D4]">
+    <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
       {/* Header */}
-      <div className="bg-[#1C3A2A] px-5 py-4 flex items-center justify-between">
+      <div className="bg-[#16211F] px-5 py-4 flex items-center justify-between">
         <div>
           <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
             Prijsvergelijking 2025
           </p>
-          <p className="text-[#F5F0E8] text-sm font-medium">
+          <p className="text-[#F7F8F7] text-sm font-medium">
             Exact dezelfde producten, twee landen
           </p>
         </div>
         <div className="text-right">
           <p className="text-[#8AB89A] text-xs">Gemiddelde besparing</p>
-          <p className="text-[#C4603A] text-2xl font-semibold">{pct}%</p>
+          <p className="text-[#0B7A6E] text-2xl font-semibold">{pct}%</p>
         </div>
       </div>
 
@@ -41,20 +41,20 @@ export function PrijsvergelijkingTabel() {
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="bg-[#EDE6D8]">
-              <th className="text-left px-4 py-3 text-[#4A5E4E] font-medium">
+            <tr className="bg-[#F0F3F1]">
+              <th className="text-left px-4 py-3 text-[#4A5A56] font-medium">
                 Product
               </th>
-              <th className="text-right px-4 py-3 text-[#4A5E4E] font-medium">
+              <th className="text-right px-4 py-3 text-[#4A5A56] font-medium">
                 Nederland
               </th>
-              <th className="text-right px-4 py-3 text-[#4A5E4E] font-medium">
+              <th className="text-right px-4 py-3 text-[#4A5A56] font-medium">
                 Duitsland
               </th>
-              <th className="text-right px-4 py-3 text-[#4A5E4E] font-medium">
+              <th className="text-right px-4 py-3 text-[#4A5A56] font-medium">
                 Besparing
               </th>
-              <th className="text-right px-4 py-3 text-[#4A5E4E] font-medium hidden sm:table-cell">
+              <th className="text-right px-4 py-3 text-[#4A5A56] font-medium hidden sm:table-cell">
                 Winkel
               </th>
             </tr>
@@ -66,21 +66,21 @@ export function PrijsvergelijkingTabel() {
               return (
                 <tr
                   key={p.naam}
-                  className={i % 2 === 0 ? "bg-[#FDFAF4]" : "bg-[#F5F0E8]"}
+                  className={i % 2 === 0 ? "bg-[#FFFFFF]" : "bg-[#F7F8F7]"}
                 >
-                  <td className="px-4 py-3 text-[#1C3A2A]">{p.naam}</td>
-                  <td className="px-4 py-3 text-right text-[#4A5E4E]">
+                  <td className="px-4 py-3 text-[#16211F]">{p.naam}</td>
+                  <td className="px-4 py-3 text-right text-[#4A5A56]">
                     €{p.nl.toFixed(2)}
                   </td>
                   <td className="px-4 py-3 text-right text-[#2D6A4F] font-medium">
                     €{p.de.toFixed(2)}
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <span className="inline-block bg-[#E8F2EC] text-[#2D6A4F] text-xs font-medium px-2 py-0.5 rounded-full">
+                    <span className="inline-block bg-[#E7F1EE] text-[#2D6A4F] text-xs font-medium px-2 py-0.5 rounded-full">
                       -{bespaarPct}%
                     </span>
                   </td>
-                  <td className="px-4 py-3 text-right text-[#8A9E8E] text-xs hidden sm:table-cell">
+                  <td className="px-4 py-3 text-right text-[#8B958F] text-xs hidden sm:table-cell">
                     {p.winkel}
                   </td>
                 </tr>
@@ -88,18 +88,18 @@ export function PrijsvergelijkingTabel() {
             })}
           </tbody>
           <tfoot>
-            <tr className="bg-[#1C3A2A]">
-              <td className="px-4 py-3 text-[#F5F0E8] font-medium">
+            <tr className="bg-[#16211F]">
+              <td className="px-4 py-3 text-[#F7F8F7] font-medium">
                 Totaal mandje
               </td>
-              <td className="px-4 py-3 text-right text-[#F5F0E8] font-medium">
+              <td className="px-4 py-3 text-right text-[#F7F8F7] font-medium">
                 €{totaalNL.toFixed(2)}
               </td>
               <td className="px-4 py-3 text-right text-[#8AB89A] font-medium">
                 €{totaalDE.toFixed(2)}
               </td>
               <td className="px-4 py-3 text-right">
-                <span className="text-[#C4603A] font-semibold">
+                <span className="text-[#0B7A6E] font-semibold">
                   -€{besparing.toFixed(2)}
                 </span>
               </td>
@@ -109,8 +109,8 @@ export function PrijsvergelijkingTabel() {
         </table>
       </div>
 
-      <div className="px-5 py-3 bg-[#F5F0E8] border-t border-[#E8E0D4]">
-        <p className="text-xs text-[#8A9E8E]">
+      <div className="px-5 py-3 bg-[#F7F8F7] border-t border-[#E6E9E7]">
+        <p className="text-xs text-[#8B958F]">
           Prijzen verzameld op basis van Consumentenbond onderzoek 2025, Kassa
           prijsvergelijking en actuele aanbiedingen. Prijzen kunnen wekelijks
           variëren.

@@ -3,8 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { Caveat } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 
 const caveat = Caveat({
   subsets: ["latin"],
@@ -13,22 +11,23 @@ const caveat = Caveat({
   display: "swap",
 });
 
-/* ── Kleuren: warm papier + inkt ─────────────────────────── */
+/* ── Palet 2: Inkt en Teal (wit-first) ───────────────────── */
 const C = {
-  paper: "#EDE3CF",
-  paper2: "#F7F0E0",
-  card: "#FBF6EA",
-  ink: "#2B2620",
-  inkSoft: "#5A5045",
-  pencil: "#93897A",
-  green: "#1C3A2A",
-  terra: "#C4603A",
-  red: "#B0402A",
-  rule: "rgba(43,38,32,0.13)",
-  ruleSoft: "rgba(43,38,32,0.07)",
+  canvas: "#FAFAF8",
+  tint: "#F1F4F3",
+  card: "#FFFFFF",
+  ink: "#14201F",
+  inkSoft: "#4A564F",
+  pencil: "#8B958F",
+  primary: "#0E3A3F",
+  primaryStrong: "#0A2A2E",
+  teal: "#0B7A6E",
+  tealLight: "#5CC9B4",
+  red: "#C24632",
+  line: "#E5E8E6",
+  lineSoft: "#EEF1EF",
 };
 
-/* ── Hooks ───────────────────────────────────────────────── */
 function useReducedMotion() {
   const [reduce, setReduce] = useState(false);
   useEffect(() => {
@@ -63,9 +62,8 @@ function useInView<T extends Element>(ref: React.RefObject<T | null>) {
   return seen;
 }
 
-/* ── Handgetekende inkt-onderstreping ────────────────────── */
 function InkUnderline({
-  color = C.terra,
+  color = C.teal,
   width = 3,
   delay = 0,
   className = "",
@@ -103,7 +101,6 @@ function InkUnderline({
   );
 }
 
-/* ── Optellende teller (als een rekenmachine) ────────────── */
 function CountUp({
   to,
   prefix = "",
@@ -145,49 +142,36 @@ function CountUp({
   );
 }
 
-/* ── Grootboek-regel met stippellijn ─────────────────────── */
-function LedgerRow({
-  label,
-  amount,
-  strong = false,
-}: {
-  label: string;
-  amount: string;
-  strong?: boolean;
-}) {
+function LedgerRow({ label, amount }: { label: string; amount: string }) {
   return (
     <div className="flex items-baseline gap-3">
-      <span
-        style={{
-          color: strong ? C.ink : C.inkSoft,
-          fontWeight: strong ? 500 : 400,
-          fontSize: strong ? "1rem" : "0.95rem",
-        }}
-      >
-        {label}
-      </span>
+      <span style={{ color: C.inkSoft, fontSize: "0.95rem" }}>{label}</span>
       <span
         aria-hidden="true"
         className="flex-1"
-        style={{
-          borderBottom: `1px dotted ${C.rule}`,
-          transform: "translateY(-4px)",
-        }}
+        style={{ borderBottom: `1px dotted ${C.line}`, transform: "translateY(-4px)" }}
       />
-      <span
-        className="tabular-nums"
-        style={{
-          color: strong ? C.ink : C.inkSoft,
-          fontWeight: strong ? 500 : 400,
-          fontSize: strong ? "1rem" : "0.95rem",
-          letterSpacing: "0.01em",
-        }}
-      >
+      <span className="tabular-nums" style={{ color: C.inkSoft, fontSize: "0.95rem", letterSpacing: "0.01em" }}>
         {amount}
       </span>
     </div>
   );
 }
+
+const eyebrow = {
+  fontSize: "0.72rem",
+  letterSpacing: "0.22em",
+  textTransform: "uppercase" as const,
+  color: C.pencil,
+  fontWeight: 500,
+};
+const h2Style = {
+  fontWeight: 300,
+  letterSpacing: "-0.02em",
+  lineHeight: 1.08,
+  color: C.ink,
+  fontSize: "clamp(2rem, 5vw, 3.4rem)",
+};
 
 const testimonials = [
   {
@@ -269,21 +253,19 @@ const anders: [string, string][] = [
   ["Ook met wisselend inkomen", "Zzp'er of wisselende maanden? Vul je gemiddelde maandinkomen in. Juist dan geeft zicht op je vaste structuur rust."],
 ];
 
-/* ── Knoppen ─────────────────────────────────────────────── */
 function BtnPrimary({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center gap-2 transition-all duration-200"
+      className="inline-flex items-center justify-center gap-2 transition-all duration-200 hover:brightness-95"
       style={{
-        backgroundColor: C.terra,
-        color: C.paper2,
-        fontFamily: "var(--font-plus-jakarta), system-ui, sans-serif",
+        backgroundColor: C.teal,
+        color: "#FFFFFF",
         fontWeight: 500,
         fontSize: "0.95rem",
         padding: "0.85rem 1.4rem",
-        borderRadius: "3px",
-        boxShadow: "0 2px 0 rgba(122,53,29,0.55), 0 10px 22px -12px rgba(43,38,32,0.6)",
+        borderRadius: "4px",
+        boxShadow: "0 2px 0 rgba(9,58,52,0.5), 0 10px 22px -12px rgba(20,32,31,0.5)",
       }}
     >
       {children}
@@ -295,15 +277,14 @@ function BtnOutline({ href, children }: { href: string; children: React.ReactNod
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center gap-2 transition-colors duration-200 hover:bg-[#2B2620] hover:text-[#F7F0E0]"
+      className="inline-flex items-center justify-center gap-2 transition-colors duration-200 hover:bg-[#14201F] hover:text-white"
       style={{
         color: C.ink,
         border: `1.5px solid ${C.ink}`,
-        fontFamily: "var(--font-plus-jakarta), system-ui, sans-serif",
         fontWeight: 500,
         fontSize: "0.95rem",
         padding: "0.8rem 1.35rem",
-        borderRadius: "3px",
+        borderRadius: "4px",
         backgroundColor: "transparent",
       }}
     >
@@ -312,75 +293,98 @@ function BtnOutline({ href, children }: { href: string; children: React.ReactNod
   );
 }
 
+function ConceptHeader() {
+  const nav = [
+    { href: "/inzichten", label: "Inzichten" },
+    { href: "/aanbod", label: "Tarieven" },
+    { href: "/over", label: "Over" },
+    { href: "/analyse", label: "Analyse" },
+  ];
+  return (
+    <header
+      className="sticky top-0 z-40"
+      style={{ backgroundColor: "rgba(250,250,248,0.88)", backdropFilter: "blur(8px)", borderBottom: `1px solid ${C.line}` }}
+    >
+      <div className="max-w-6xl mx-auto px-6 flex items-center justify-between" style={{ height: "60px" }}>
+        <Link href="/concept" className="flex items-center gap-2.5" style={{ textDecoration: "none" }}>
+          <span className="flex items-center justify-center font-display" style={{ width: "30px", height: "30px", borderRadius: "50%", backgroundColor: C.primary, color: "#fff", fontSize: "0.75rem", fontWeight: 400 }} aria-hidden="true">
+            wb
+          </span>
+          <span className="font-display" style={{ fontSize: "1.05rem", fontWeight: 400, color: C.ink }}>Waar blijft het</span>
+        </Link>
+        <nav className="hidden md:flex items-center gap-8">
+          {nav.map((n) => (
+            <Link key={n.href} href={n.href} style={{ fontSize: "0.88rem", fontWeight: 500, color: C.inkSoft, textDecoration: "none" }}>
+              {n.label}
+            </Link>
+          ))}
+        </nav>
+        <Link
+          href="/analyse"
+          className="inline-flex items-center gap-1.5"
+          style={{ backgroundColor: C.teal, color: "#fff", fontSize: "0.85rem", fontWeight: 500, padding: "0.45rem 1rem", borderRadius: "999px", textDecoration: "none" }}
+        >
+          Gratis analyse &rarr;
+        </Link>
+      </div>
+    </header>
+  );
+}
+
+function ConceptFooter() {
+  return (
+    <footer style={{ backgroundColor: C.tint, borderTop: `1px solid ${C.line}` }}>
+      <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <div>
+          <p className="font-display" style={{ fontSize: "1.05rem", color: C.ink }}>Waar blijft het</p>
+          <p style={{ fontSize: "0.8rem", color: C.pencil, marginTop: "2px" }}>
+            Financiële coaching voor wie goed verdient maar krap zit.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-6">
+          {[
+            { href: "/inzichten", label: "Inzichten" },
+            { href: "/aanbod", label: "Tarieven" },
+            { href: "/over", label: "Over" },
+            { href: "/privacy", label: "Privacy" },
+          ].map((l) => (
+            <Link key={l.href} href={l.href} style={{ fontSize: "0.85rem", color: C.inkSoft, textDecoration: "none" }}>
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      </div>
+    </footer>
+  );
+}
+
 const grain =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\")";
 
 export default function ConceptPage() {
   return (
-    <div className={caveat.variable} style={{ backgroundColor: C.paper, color: C.ink }}>
-      {/* papierkorrel over de hele pagina */}
-      <div
-        aria-hidden="true"
-        style={{
-          position: "fixed",
-          inset: 0,
-          pointerEvents: "none",
-          zIndex: 1,
-          backgroundImage: grain,
-          opacity: 0.05,
-          mixBlendMode: "multiply",
-        }}
-      />
+    <div className={caveat.variable} style={{ backgroundColor: C.canvas, color: C.ink, fontFamily: "var(--font-plus-jakarta), system-ui, sans-serif" }}>
+      <ConceptHeader />
 
-      <Header />
-
-      <main style={{ position: "relative", zIndex: 2, fontFamily: "var(--font-plus-jakarta), system-ui, sans-serif" }}>
+      <main>
         {/* ── HERO ───────────────────────────────────────────── */}
-        <section className="pt-24 pb-16 md:pt-28 md:pb-24">
+        <section className="pt-16 pb-16 md:pt-20 md:pb-24">
           <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
-            {/* links */}
             <div>
-              <p
-                className="mb-6"
-                style={{
-                  fontSize: "0.72rem",
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                  color: C.pencil,
-                  fontWeight: 500,
-                }}
-              >
-                Financiële coaching · Nederland
-              </p>
+              <p className="mb-6" style={eyebrow}>Financiële coaching · Nederland</p>
 
-              <h1
-                className="font-display"
-                style={{ fontWeight: 300, lineHeight: 1.02, letterSpacing: "-0.02em", color: C.ink }}
-              >
-                <span className="block" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)" }}>
-                  Goed salaris.
-                </span>
-                <span
-                  className="block italic relative"
-                  style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)", color: C.terra, width: "fit-content" }}
-                >
+              <h1 className="font-display" style={{ fontWeight: 300, lineHeight: 1.02, letterSpacing: "-0.02em", color: C.ink }}>
+                <span className="block" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)" }}>Goed salaris.</span>
+                <span className="block italic relative" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)", color: C.teal, width: "fit-content" }}>
                   Toch altijd krap.
-                  <InkUnderline
-                    color={C.terra}
-                    delay={0.5}
-                    className="absolute -bottom-2 left-0"
-                  />
+                  <InkUnderline color={C.teal} delay={0.5} className="absolute -bottom-2 left-0" />
                 </span>
               </h1>
 
-              <p
-                className="mt-8 mb-9 max-w-md"
-                style={{ fontSize: "1.08rem", lineHeight: 1.65, color: C.inkSoft, fontWeight: 300 }}
-              >
-                Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde van elke
-                maand is het gewoon weg. Je weet niet precies waarheen. Dat ligt niet aan
-                jou, het is een structuurprobleem. Ik laat zien waar het naartoe gaat,
-                zodat je het kunt bijsturen.
+              <p className="mt-8 mb-9 max-w-md" style={{ fontSize: "1.08rem", lineHeight: 1.65, color: C.inkSoft, fontWeight: 300 }}>
+                Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde van elke maand is het
+                gewoon weg. Je weet niet precies waarheen. Dat ligt niet aan jou, het is een
+                structuurprobleem. Ik laat zien waar het naartoe gaat, zodat je het kunt bijsturen.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-5">
@@ -389,25 +393,16 @@ export default function ConceptPage() {
               </div>
 
               <p style={{ fontSize: "0.82rem", color: C.pencil, lineHeight: 1.6 }}>
-                Geldscan: geen algoritme, ik schrijf zelf je rapport · Analyse: gratis, 5
-                minuten, geen account of bankkoppeling
+                Geldscan: geen algoritme, ik schrijf zelf je rapport · Analyse: gratis, 5 minuten, geen
+                account of bankkoppeling
               </p>
             </div>
 
-            {/* rechts: het kasboek */}
+            {/* kasboek-kaart */}
             <div className="relative">
-              {/* handgeschreven notitie in de kantlijn */}
               <div
                 className="absolute z-20 hidden sm:block"
-                style={{
-                  right: "-6px",
-                  top: "58%",
-                  fontFamily: "var(--font-caveat), cursive",
-                  fontSize: "1.5rem",
-                  color: C.red,
-                  transform: "rotate(-6deg)",
-                  lineHeight: 1,
-                }}
+                style={{ right: "-6px", top: "58%", fontFamily: "var(--font-caveat), cursive", fontSize: "1.5rem", color: C.red, transform: "rotate(-6deg)", lineHeight: 1 }}
                 aria-hidden="true"
               >
                 hier lekt het
@@ -417,50 +412,22 @@ export default function ConceptPage() {
               <div
                 style={{
                   backgroundColor: C.card,
-                  border: `1px solid ${C.rule}`,
-                  borderRadius: "4px",
+                  border: `1px solid ${C.line}`,
+                  borderRadius: "6px",
                   padding: "1.75rem 1.75rem 2rem",
-                  transform: "rotate(-0.5deg)",
-                  boxShadow:
-                    "inset 0 1px 0 rgba(255,255,255,0.7), 0 22px 48px -26px rgba(43,38,32,0.55)",
+                  boxShadow: "0 22px 48px -30px rgba(20,32,31,0.4)",
                   position: "relative",
                   overflow: "hidden",
                 }}
               >
-                {/* rode kantlijn zoals in een grootboek */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    left: "1rem",
-                    top: 0,
-                    bottom: 0,
-                    width: "1px",
-                    backgroundColor: "rgba(176,64,42,0.35)",
-                  }}
-                />
-                {/* koffiekring voor tactiel gevoel */}
-                <div
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    right: "-28px",
-                    top: "-28px",
-                    width: "92px",
-                    height: "92px",
-                    borderRadius: "50%",
-                    border: "6px solid rgba(122,53,29,0.06)",
-                  }}
-                />
+                <div aria-hidden="true" style={{ position: "absolute", left: "1rem", top: 0, bottom: 0, width: "1px", backgroundColor: "rgba(194,70,50,0.3)" }} />
 
                 <div style={{ paddingLeft: "0.75rem" }}>
                   <div className="flex items-baseline justify-between mb-1">
                     <span style={{ fontWeight: 500, fontSize: "1.05rem", color: C.ink }}>Netto inkomen</span>
-                    <span className="tabular-nums font-display" style={{ fontSize: "1.35rem", fontWeight: 300, color: C.green }}>
-                      € 5.400
-                    </span>
+                    <span className="tabular-nums font-display" style={{ fontSize: "1.35rem", fontWeight: 300, color: C.primary }}>€ 5.400</span>
                   </div>
-                  <div style={{ height: "1px", backgroundColor: C.rule, margin: "0.85rem 0 1.1rem" }} />
+                  <div style={{ height: "1px", backgroundColor: C.line, margin: "0.85rem 0 1.1rem" }} />
 
                   <div className="space-y-4">
                     <LedgerRow label="Wonen" amount="€ 1.740" />
@@ -470,32 +437,18 @@ export default function ConceptPage() {
                     <LedgerRow label="Abonnementen" amount="€ 118" />
                   </div>
 
-                  <div
-                    style={{
-                      height: "3px",
-                      borderTop: `1px solid ${C.ink}`,
-                      borderBottom: `1px solid ${C.ink}`,
-                      margin: "1.4rem 0 1.2rem",
-                    }}
-                    aria-hidden="true"
-                  />
+                  <div style={{ height: "3px", borderTop: `1px solid ${C.ink}`, borderBottom: `1px solid ${C.ink}`, margin: "1.4rem 0 1.2rem" }} aria-hidden="true" />
 
                   <div className="flex items-baseline justify-between relative">
                     <span style={{ fontWeight: 500, fontSize: "1.1rem", color: C.red }}>Onverklaard</span>
                     <span className="tabular-nums font-display" style={{ fontSize: "1.7rem", fontWeight: 300, color: C.red }}>
                       <CountUp to={412} prefix="€ " />
                     </span>
-                    <InkUnderline
-                      color={C.red}
-                      width={2.5}
-                      delay={1.1}
-                      className="absolute -bottom-3 right-0"
-                    />
+                    <InkUnderline color={C.red} width={2.5} delay={1.1} className="absolute -bottom-3 right-0" />
                   </div>
 
-                  {/* druppel */}
                   <svg width="16" height="26" viewBox="0 0 16 26" className="mt-5 ml-auto block" aria-hidden="true">
-                    <line x1="8" y1="0" x2="8" y2="15" stroke="rgba(176,64,42,0.45)" strokeWidth="1.5" strokeDasharray="2 3" />
+                    <line x1="8" y1="0" x2="8" y2="15" stroke="rgba(194,70,50,0.45)" strokeWidth="1.5" strokeDasharray="2 3" />
                     <path d="M8 15 C 4 20, 4 24, 8 24 C 12 24, 12 20, 8 15 Z" fill={C.red} />
                   </svg>
                 </div>
@@ -509,46 +462,28 @@ export default function ConceptPage() {
         </section>
 
         {/* ── PIJN ───────────────────────────────────────────── */}
-        <section
-          className="py-16 md:py-24"
-          style={{ borderTop: `1px solid ${C.rule}`, backgroundColor: C.paper2 }}
-        >
+        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}`, backgroundColor: C.tint }}>
           <div className="max-w-5xl mx-auto px-6">
-            <p className="mb-4" style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", color: C.pencil, fontWeight: 500 }}>
-              Dit klinkt waarschijnlijk bekend
-            </p>
-            <h2 className="font-display mb-12 md:mb-16" style={{ fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.08, color: C.ink, fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>
-              Je doet het goed, en toch klopt het niet.
-            </h2>
+            <p className="mb-4" style={eyebrow}>Dit klinkt waarschijnlijk bekend</p>
+            <h2 className="font-display mb-12 md:mb-16" style={h2Style}>Je doet het goed, en toch klopt het niet.</h2>
 
             <div>
               {pijn.map((p, i) => (
                 <div
                   key={p.nr}
                   className="grid grid-cols-[3rem_1fr] md:grid-cols-[7rem_1fr] gap-5 md:gap-12 items-start py-8"
-                  style={{ borderTop: i === 0 ? "none" : `1px solid ${C.rule}` }}
+                  style={{ borderTop: i === 0 ? "none" : `1px solid ${C.line}` }}
                 >
-                  <span className="font-display" style={{ fontSize: "clamp(2rem,5vw,3.2rem)", fontWeight: 300, color: C.terra, lineHeight: 0.9 }} aria-hidden="true">
+                  <span className="font-display" style={{ fontSize: "clamp(2rem,5vw,3.2rem)", fontWeight: 300, color: C.teal, lineHeight: 0.9 }} aria-hidden="true">
                     {p.nr}
                   </span>
                   <div className="relative">
-                    <h3 style={{ fontWeight: 500, fontSize: "1.15rem", color: C.ink, marginBottom: "0.6rem", lineHeight: 1.3 }}>
-                      {p.titel}
-                    </h3>
-                    <p style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65, maxWidth: "44rem" }}>
-                      {p.tekst}
-                    </p>
+                    <h3 style={{ fontWeight: 500, fontSize: "1.15rem", color: C.ink, marginBottom: "0.6rem", lineHeight: 1.3 }}>{p.titel}</h3>
+                    <p style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65, maxWidth: "44rem" }}>{p.tekst}</p>
                     {p.note && (
                       <span
                         className="hidden lg:block absolute"
-                        style={{
-                          right: "-2.5rem",
-                          top: "-1.6rem",
-                          fontFamily: "var(--font-caveat), cursive",
-                          fontSize: "1.35rem",
-                          color: C.red,
-                          transform: "rotate(-7deg)",
-                        }}
+                        style={{ right: "-2.5rem", top: "-1.6rem", fontFamily: "var(--font-caveat), cursive", fontSize: "1.35rem", color: C.red, transform: "rotate(-7deg)" }}
                         aria-hidden="true"
                       >
                         {p.note}
@@ -562,14 +497,10 @@ export default function ConceptPage() {
         </section>
 
         {/* ── TESTIMONIALS ───────────────────────────────────── */}
-        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.rule}` }}>
+        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}` }}>
           <div className="max-w-6xl mx-auto px-6">
-            <p className="mb-4" style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", color: C.pencil, fontWeight: 500 }}>
-              Echte verhalen
-            </p>
-            <h2 className="font-display mb-12" style={{ fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.08, color: C.ink, fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>
-              Wat het anderen opleverde
-            </h2>
+            <p className="mb-4" style={eyebrow}>Echte verhalen</p>
+            <h2 className="font-display mb-12" style={h2Style}>Wat het anderen opleverde</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-7">
               {testimonials.map((t) => (
@@ -578,43 +509,23 @@ export default function ConceptPage() {
                   className="flex flex-col"
                   style={{
                     backgroundColor: C.card,
-                    border: `1px solid ${C.rule}`,
-                    borderRadius: "3px",
+                    border: `1px solid ${C.line}`,
+                    borderRadius: "4px",
                     padding: "1.6rem 1.5rem",
                     transform: `rotate(${t.tilt})`,
-                    boxShadow: "0 14px 30px -20px rgba(43,38,32,0.5)",
+                    boxShadow: "0 14px 30px -22px rgba(20,32,31,0.4)",
                     position: "relative",
                   }}
                 >
-                  {/* plakband bovenaan */}
                   <span
                     aria-hidden="true"
-                    style={{
-                      position: "absolute",
-                      top: "-11px",
-                      left: "50%",
-                      transform: "translateX(-50%) rotate(-2deg)",
-                      width: "68px",
-                      height: "22px",
-                      backgroundColor: "rgba(196,96,58,0.18)",
-                      border: "1px solid rgba(196,96,58,0.25)",
-                    }}
+                    style={{ position: "absolute", top: "-11px", left: "50%", transform: "translateX(-50%) rotate(-2deg)", width: "68px", height: "22px", backgroundColor: "rgba(11,122,110,0.14)", border: "1px solid rgba(11,122,110,0.25)" }}
                   />
-                  <p style={{ fontWeight: 300, fontSize: "0.95rem", color: C.ink, lineHeight: 1.6, flex: 1 }}>
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <div style={{ borderTop: `1px solid ${C.rule}`, marginTop: "1.1rem", paddingTop: "1rem" }}>
+                  <p style={{ fontWeight: 300, fontSize: "0.95rem", color: C.ink, lineHeight: 1.6, flex: 1 }}>&ldquo;{t.quote}&rdquo;</p>
+                  <div style={{ borderTop: `1px solid ${C.line}`, marginTop: "1.1rem", paddingTop: "1rem" }}>
                     <p style={{ fontWeight: 500, fontSize: "0.9rem", color: C.ink }}>{t.naam}</p>
                     <p style={{ fontSize: "0.78rem", color: C.pencil, marginBottom: "0.7rem" }}>{t.detail}</p>
-                    <span
-                      style={{
-                        fontFamily: "var(--font-caveat), cursive",
-                        fontSize: "1.2rem",
-                        color: C.green,
-                      }}
-                    >
-                      {t.resultaat}
-                    </span>
+                    <span style={{ fontFamily: "var(--font-caveat), cursive", fontSize: "1.2rem", color: C.teal }}>{t.resultaat}</span>
                   </div>
                 </div>
               ))}
@@ -628,18 +539,12 @@ export default function ConceptPage() {
         </section>
 
         {/* ── JARNO ──────────────────────────────────────────── */}
-        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.rule}`, backgroundColor: C.paper2 }}>
+        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}`, backgroundColor: C.tint }}>
           <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
             <div>
-              <p className="mb-6" style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", color: C.pencil, fontWeight: 500 }}>
-                Wie staat hier achter?
-              </p>
+              <p className="mb-6" style={eyebrow}>Wie staat hier achter?</p>
               <div className="flex items-center gap-4 mb-8">
-                <div
-                  className="flex items-center justify-center shrink-0 font-display"
-                  style={{ width: "60px", height: "60px", borderRadius: "50%", backgroundColor: C.green, color: C.paper2, fontSize: "1.5rem", fontWeight: 300 }}
-                  aria-hidden="true"
-                >
+                <div className="flex items-center justify-center shrink-0 font-display" style={{ width: "60px", height: "60px", borderRadius: "50%", backgroundColor: C.primary, color: "#fff", fontSize: "1.5rem", fontWeight: 300 }} aria-hidden="true">
                   J
                 </div>
                 <div>
@@ -649,8 +554,8 @@ export default function ConceptPage() {
               </div>
 
               <blockquote className="font-display italic mb-7" style={{ fontWeight: 300, fontSize: "clamp(1.3rem, 3vw, 1.7rem)", lineHeight: 1.35, color: C.ink }}>
-                &ldquo;We verdienden samen goed, maar elke maand hetzelfde gevoel. Totdat we begrepen
-                waar het naartoe ging. Dat veranderde alles.&rdquo;
+                &ldquo;We verdienden samen goed, maar elke maand hetzelfde gevoel. Totdat we begrepen waar
+                het naartoe ging. Dat veranderde alles.&rdquo;
               </blockquote>
 
               <p style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65, marginBottom: "1rem" }}>
@@ -665,29 +570,18 @@ export default function ConceptPage() {
                 betaalt alleen voor wat je nodig hebt.
               </p>
               <div className="mt-7 flex flex-wrap gap-6">
-                <Link href="/over" style={{ color: C.terra, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>
-                  Meer over Jarno &rarr;
-                </Link>
-                <a href="https://www.linkedin.com/in/jarnokoopman/" target="_blank" rel="noopener noreferrer" style={{ color: C.terra, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>
-                  LinkedIn &rarr;
-                </a>
+                <Link href="/over" style={{ color: C.teal, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>Meer over Jarno &rarr;</Link>
+                <a href="https://www.linkedin.com/in/jarnokoopman/" target="_blank" rel="noopener noreferrer" style={{ color: C.teal, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>LinkedIn &rarr;</a>
               </div>
             </div>
 
-            {/* checklist als grootboek-regels */}
             <div>
-              <h3 className="font-display mb-6" style={{ fontWeight: 300, fontSize: "1.7rem", color: C.ink, letterSpacing: "-0.01em" }}>
-                Wat maakt dit anders?
-              </h3>
+              <h3 className="font-display mb-6" style={{ fontWeight: 300, fontSize: "1.7rem", color: C.ink, letterSpacing: "-0.01em" }}>Wat maakt dit anders?</h3>
               <div>
                 {anders.map(([t, d], i) => (
-                  <div
-                    key={t}
-                    className="flex gap-4 py-4"
-                    style={{ borderTop: i === 0 ? "none" : `1px solid ${C.rule}` }}
-                  >
+                  <div key={t} className="flex gap-4 py-4" style={{ borderTop: i === 0 ? "none" : `1px solid ${C.line}` }}>
                     <svg width="22" height="22" viewBox="0 0 22 22" className="shrink-0 mt-0.5" aria-hidden="true">
-                      <path d="M4 12 L9 17 L18 5" stroke={C.terra} strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M4 12 L9 17 L18 5" stroke={C.teal} strokeWidth="2.4" fill="none" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
                     <div>
                       <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.2rem" }}>{t}</p>
@@ -701,26 +595,19 @@ export default function ConceptPage() {
         </section>
 
         {/* ── HOE HET WERKT ──────────────────────────────────── */}
-        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.rule}` }}>
+        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}` }}>
           <div className="max-w-6xl mx-auto px-6">
-            <p className="mb-4" style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", color: C.pencil, fontWeight: 500 }}>
-              Hoe het werkt
-            </p>
-            <h2 className="font-display mb-12" style={{ fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.08, color: C.ink, fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>
-              Drie stappen. Geen verplichtingen.
-            </h2>
+            <p className="mb-4" style={eyebrow}>Hoe het werkt</p>
+            <h2 className="font-display mb-12" style={h2Style}>Drie stappen. Geen verplichtingen.</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
               {stappen.map((s) => (
                 <div key={s.nr}>
                   <div className="flex items-center gap-3 mb-4">
-                    <span
-                      className="font-display flex items-center justify-center"
-                      style={{ width: "44px", height: "44px", borderRadius: "50%", border: `1.5px solid ${C.terra}`, color: C.terra, fontSize: "1.3rem", fontWeight: 300 }}
-                    >
+                    <span className="font-display flex items-center justify-center" style={{ width: "44px", height: "44px", borderRadius: "50%", border: `1.5px solid ${C.teal}`, color: C.teal, fontSize: "1.3rem", fontWeight: 300 }}>
                       {s.nr}
                     </span>
-                    <span style={{ flex: 1, height: "1px", backgroundColor: C.rule }} aria-hidden="true" />
+                    <span style={{ flex: 1, height: "1px", backgroundColor: C.line }} aria-hidden="true" />
                   </div>
                   <h3 style={{ fontWeight: 500, fontSize: "1.05rem", color: C.ink, marginBottom: "0.5rem" }}>{s.titel}</h3>
                   <p style={{ fontWeight: 300, fontSize: "0.95rem", color: C.inkSoft, lineHeight: 1.65 }}>{s.tekst}</p>
@@ -733,23 +620,17 @@ export default function ConceptPage() {
               <p className="mt-4" style={{ fontSize: "0.82rem", color: C.pencil, lineHeight: 1.6, maxWidth: "42rem" }}>
                 Stap 1 is altijd gratis. Geen verplichting tot stap 2 of 3. Je gegevens worden alleen
                 bewaard als je daar zelf toestemming voor geeft en worden nooit gedeeld of verkocht.{" "}
-                <Link href="/privacy" style={{ color: C.terra, textDecoration: "none" }}>
-                  Lees hoe ik met je gegevens omga &rarr;
-                </Link>
+                <Link href="/privacy" style={{ color: C.teal, textDecoration: "none" }}>Lees hoe ik met je gegevens omga &rarr;</Link>
               </p>
             </div>
           </div>
         </section>
 
         {/* ── STATISTIEKEN ───────────────────────────────────── */}
-        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.rule}`, backgroundColor: C.paper2 }}>
+        <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}`, backgroundColor: C.tint }}>
           <div className="max-w-6xl mx-auto px-6">
-            <p className="mb-4" style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", color: C.pencil, fontWeight: 500 }}>
-              Het probleem is groter dan je denkt
-            </p>
-            <h2 className="font-display mb-12" style={{ fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.08, color: C.ink, fontSize: "clamp(2rem, 5vw, 3.4rem)" }}>
-              Jij bent niet de enige
-            </h2>
+            <p className="mb-4" style={eyebrow}>Het probleem is groter dan je denkt</p>
+            <h2 className="font-display mb-12" style={h2Style}>Jij bent niet de enige</h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3">
               {[
@@ -775,20 +656,15 @@ export default function ConceptPage() {
                 <div
                   key={i}
                   className="py-6 md:py-2 md:px-9"
-                  style={{
-                    borderTop: i === 0 ? "none" : `1px solid ${C.rule}`,
-                    borderLeft: i > 0 ? `1px solid ${C.rule}` : "none",
-                  }}
+                  style={{ borderTop: i === 0 ? "none" : `1px solid ${C.line}`, borderLeft: i > 0 ? `1px solid ${C.line}` : "none" }}
                 >
-                  <p className="font-display tabular-nums" style={{ fontSize: "clamp(2.6rem, 8vw, 3.6rem)", fontWeight: 300, color: C.green, lineHeight: 1, marginBottom: "0.75rem" }}>
+                  <p className="font-display tabular-nums" style={{ fontSize: "clamp(2.6rem, 8vw, 3.6rem)", fontWeight: 300, color: C.primary, lineHeight: 1, marginBottom: "0.75rem" }}>
                     {s.node}
                   </p>
                   <p style={{ fontWeight: 300, fontSize: "0.95rem", color: C.inkSoft, lineHeight: 1.6, marginBottom: "0.5rem" }}>{s.tekst}</p>
                   <p style={{ fontSize: "0.72rem", color: C.pencil, fontStyle: "italic" }}>
                     {s.href ? (
-                      <a href={s.href} target="_blank" rel="noopener noreferrer" style={{ color: C.pencil }}>
-                        Bron: {s.bron}
-                      </a>
+                      <a href={s.href} target="_blank" rel="noopener noreferrer" style={{ color: C.pencil }}>Bron: {s.bron}</a>
                     ) : (
                       <span>Bron: {s.bron}</span>
                     )}
@@ -800,11 +676,9 @@ export default function ConceptPage() {
         </section>
 
         {/* ── VOOR WIE ────────────────────────────────────────── */}
-        <section className="py-16 md:py-20" style={{ borderTop: `1px solid ${C.rule}` }}>
+        <section className="py-16 md:py-20" style={{ borderTop: `1px solid ${C.line}` }}>
           <div className="max-w-6xl mx-auto px-6">
-            <p className="mb-4" style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", color: C.pencil, fontWeight: 500 }}>
-              Voor wie is dit?
-            </p>
+            <p className="mb-4" style={eyebrow}>Voor wie is dit?</p>
             <h2 className="font-display mb-5" style={{ fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1, color: C.ink, fontSize: "clamp(1.8rem, 4.5vw, 3rem)" }}>
               Gezinnen, alleenstaanden, zzp&apos;ers en 50-plussers
             </h2>
@@ -823,8 +697,8 @@ export default function ConceptPage() {
                 <Link
                   key={d.href}
                   href={d.href}
-                  className="transition-colors"
-                  style={{ fontWeight: 500, fontSize: "0.9rem", padding: "0.5rem 1rem", borderRadius: "999px", border: `1px solid ${C.rule}`, color: C.ink, textDecoration: "none" }}
+                  className="transition-colors hover:border-[#0B7A6E]"
+                  style={{ fontWeight: 500, fontSize: "0.9rem", padding: "0.5rem 1rem", borderRadius: "999px", border: `1px solid ${C.line}`, color: C.ink, textDecoration: "none" }}
                 >
                   {d.titel} &rarr;
                 </Link>
@@ -833,39 +707,35 @@ export default function ConceptPage() {
           </div>
         </section>
 
-        {/* ── FINALE CTA: kasboek-kaft ───────────────────────── */}
-        <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: C.green }}>
-          <div
-            aria-hidden="true"
-            style={{ position: "absolute", inset: 0, backgroundImage: grain, opacity: 0.08, mixBlendMode: "overlay" }}
-          />
-          {/* dubbele lijn-omkadering als een boekkaft */}
-          <div
-            aria-hidden="true"
-            className="absolute inset-6 md:inset-10"
-            style={{ border: "1px solid rgba(247,240,224,0.18)" }}
-          />
+        {/* ── FINALE CTA ─────────────────────────────────────── */}
+        <section className="py-20 md:py-28 relative overflow-hidden" style={{ backgroundColor: C.primary }}>
+          <div aria-hidden="true" style={{ position: "absolute", inset: 0, backgroundImage: grain, opacity: 0.06, mixBlendMode: "overlay" }} />
+          <div aria-hidden="true" className="absolute inset-6 md:inset-10" style={{ border: "1px solid rgba(255,255,255,0.16)" }} />
           <div className="max-w-2xl mx-auto px-8 text-center relative z-10">
-            <p className="mb-6" style={{ fontSize: "0.72rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "rgba(247,240,224,0.55)", fontWeight: 500 }}>
-              Klaar voor antwoord?
-            </p>
-            <h2 className="font-display mb-6" style={{ fontWeight: 300, lineHeight: 1.08, color: C.paper2, fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>
+            <p className="mb-6" style={{ ...eyebrow, color: "rgba(255,255,255,0.55)" }}>Klaar voor antwoord?</p>
+            <h2 className="font-display mb-6" style={{ fontWeight: 300, lineHeight: 1.08, color: "#FFFFFF", fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>
               Vijf minuten.
               <br />
-              <span className="italic" style={{ color: C.terra }}>Gewoon antwoord.</span>
+              <span className="italic" style={{ color: C.tealLight }}>Gewoon antwoord.</span>
             </h2>
-            <p className="mb-9 mx-auto" style={{ fontWeight: 300, fontSize: "1.05rem", color: "rgba(247,240,224,0.7)", lineHeight: 1.6, maxWidth: "24rem" }}>
+            <p className="mb-9 mx-auto" style={{ fontWeight: 300, fontSize: "1.05rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.6, maxWidth: "24rem" }}>
               Start de gratis analyse en zie direct hoe je het doet, en wat er anders kan.
             </p>
-            <BtnPrimary href="/analyse">Start de gratis analyse &rarr;</BtnPrimary>
-            <p className="mt-6" style={{ fontSize: "0.75rem", color: "rgba(247,240,224,0.4)" }}>
+            <Link
+              href="/analyse"
+              className="inline-flex items-center justify-center gap-2 transition-all duration-200 hover:brightness-95"
+              style={{ backgroundColor: "#FFFFFF", color: C.primary, fontWeight: 500, fontSize: "0.95rem", padding: "0.85rem 1.5rem", borderRadius: "4px" }}
+            >
+              Start de gratis analyse &rarr;
+            </Link>
+            <p className="mt-6" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.45)" }}>
               Voor huishoudens in heel Nederland · Geen account of bankkoppeling · Je gegevens worden nooit gedeeld of verkocht
             </p>
           </div>
         </section>
       </main>
 
-      <Footer />
+      <ConceptFooter />
     </div>
   );
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Jullie verdienen niet evenveel, maar betalen alles half om half. De een houdt ruim over,
           de ander komt elke maand net niet rond. En niemand zegt er iets van.
         </p>
@@ -29,9 +29,9 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -40,8 +40,8 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
             "Hoe je met de verhouding van jullie inkomens een eerlijke bijdrage uitrekent",
             "Waarom een eerlijke verdeling vooral rust in de relatie brengt",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -98,7 +98,7 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
         rekeningen. De voor- en nadelen daarvan zet ik op een rij in mijn artikel over de{" "}
         <Link
           href="/inzichten/gezamenlijke-rekening-voor-en-nadelen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           gezamenlijke rekening
@@ -117,7 +117,7 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
         lees je in mijn stuk over{" "}
         <Link
           href="/inzichten/geld-stress-relatie-nederland"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           geldstress in de relatie
@@ -130,7 +130,7 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
         organiseert, lees je in mijn artikel over{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je salaris slim indelen
@@ -141,7 +141,7 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

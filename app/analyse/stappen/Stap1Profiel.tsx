@@ -21,7 +21,7 @@ function OptionBtn({
       className={`flex-1 min-w-[120px] px-4 py-4 rounded-xl border-[1.5px] font-body font-medium text-sm transition-all duration-150 text-left ${
         selected
           ? "bg-green-light border-primary text-primary shadow-card"
-          : "bg-card border-[#D6CEBC] text-text-soft hover:border-primary/60"
+          : "bg-card border-[#D9DEDC] text-text-soft hover:border-primary/60"
       }`}
       aria-pressed={selected}
     >
@@ -148,7 +148,7 @@ export default function Stap1Profiel({ data, onChange }: Props) {
         </p>
 
         {data.auto === "zakelijk" && (
-          <div className="mt-4 bg-[#F0EDE6] rounded-xl p-4">
+          <div className="mt-4 bg-[#F0F3F1] rounded-xl p-4">
             <p className="font-body text-sm text-text-soft mb-1">
               Staat de bijtelling op je salarisstrook?
             </p>

@@ -45,33 +45,33 @@ export function VasteLastenRadar() {
   const maxBar = Math.max(...profiel.posten.map((p) => p.max))
 
   return (
-    <div className="my-8 rounded-2xl overflow-hidden border border-[#E8E0D4]">
-      <div className="bg-[#1C3A2A] px-5 py-4 flex items-start justify-between">
+    <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
+      <div className="bg-[#16211F] px-5 py-4 flex items-start justify-between">
         <div>
           <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
             FinBuddy / Nibud 2026
           </p>
-          <p className="text-[#F5F0E8] text-sm font-medium">
+          <p className="text-[#F7F8F7] text-sm font-medium">
             Wat zijn normale vaste lasten?
           </p>
         </div>
         <div className="text-right">
           <p className="text-[#8AB89A] text-xs">Gemiddeld totaal</p>
-          <p className="text-[#F5F0E8] text-xl font-semibold">
+          <p className="text-[#F7F8F7] text-xl font-semibold">
             €{totaalGem.toLocaleString('nl-NL')}/mnd
           </p>
         </div>
       </div>
 
-      <div className="bg-[#F5F0E8] px-5 py-3 flex flex-wrap gap-2">
+      <div className="bg-[#F7F8F7] px-5 py-3 flex flex-wrap gap-2">
         {profielen.map((p, i) => (
           <button
             key={p.label}
             onClick={() => setActief(i)}
             className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
               actief === i
-                ? 'bg-[#1C3A2A] text-[#F5F0E8] border-[#1C3A2A]'
-                : 'bg-white text-[#4A5E4E] border-[#E8E0D4] hover:border-[#1C3A2A]'
+                ? 'bg-[#16211F] text-[#F7F8F7] border-[#16211F]'
+                : 'bg-white text-[#4A5A56] border-[#E6E9E7] hover:border-[#16211F]'
             }`}
           >
             {p.label}
@@ -79,20 +79,20 @@ export function VasteLastenRadar() {
         ))}
       </div>
 
-      <div className="p-5 bg-[#FDFAF4] space-y-4">
+      <div className="p-5 bg-[#FFFFFF] space-y-4">
         {profiel.posten.map((post) => (
           <div key={post.naam}>
             <div className="flex justify-between text-xs mb-1.5">
-              <span className="text-[#4A5E4E] font-medium">{post.naam}</span>
+              <span className="text-[#4A5A56] font-medium">{post.naam}</span>
               <div className="flex gap-3">
-                <span className="text-[#8A9E8E]">min €{post.min}</span>
-                <span className="text-[#1C3A2A] font-semibold">gem €{post.gem}</span>
-                <span className="text-[#8A9E8E]">max €{post.max}</span>
+                <span className="text-[#8B958F]">min €{post.min}</span>
+                <span className="text-[#16211F] font-semibold">gem €{post.gem}</span>
+                <span className="text-[#8B958F]">max €{post.max}</span>
               </div>
             </div>
-            <div className="relative h-4 bg-[#EDE6D8] rounded-full overflow-hidden">
+            <div className="relative h-4 bg-[#F0F3F1] rounded-full overflow-hidden">
               <div
-                className="absolute h-full bg-[#E8F2EC] rounded-full"
+                className="absolute h-full bg-[#E7F1EE] rounded-full"
                 style={{ width: `${(post.max / maxBar) * 100}%` }}
               />
               <div
@@ -100,37 +100,37 @@ export function VasteLastenRadar() {
                 style={{ width: `${(post.gem / maxBar) * 100}%` }}
               />
               <div
-                className="absolute h-full bg-[#1C3A2A] rounded-full"
+                className="absolute h-full bg-[#16211F] rounded-full"
                 style={{ width: `${(post.min / maxBar) * 100}%` }}
               />
             </div>
           </div>
         ))}
 
-        <div className="mt-5 pt-4 border-t border-[#E8E0D4] grid grid-cols-3 gap-3 text-center">
+        <div className="mt-5 pt-4 border-t border-[#E6E9E7] grid grid-cols-3 gap-3 text-center">
           <div>
-            <p className="text-xs text-[#8A9E8E] mb-1">Minimum</p>
-            <p className="text-lg font-semibold text-[#4A5E4E]">
+            <p className="text-xs text-[#8B958F] mb-1">Minimum</p>
+            <p className="text-lg font-semibold text-[#4A5A56]">
               €{profiel.posten.reduce((s, p) => s + p.min, 0).toLocaleString('nl-NL')}
             </p>
           </div>
-          <div className="bg-[#E8F2EC] rounded-xl py-2">
+          <div className="bg-[#E7F1EE] rounded-xl py-2">
             <p className="text-xs text-[#2D6A4F] mb-1">Gemiddeld</p>
-            <p className="text-lg font-semibold text-[#1C3A2A]">
+            <p className="text-lg font-semibold text-[#16211F]">
               €{totaalGem.toLocaleString('nl-NL')}
             </p>
           </div>
           <div>
-            <p className="text-xs text-[#8A9E8E] mb-1">Maximum</p>
-            <p className="text-lg font-semibold text-[#C4603A]">
+            <p className="text-xs text-[#8B958F] mb-1">Maximum</p>
+            <p className="text-lg font-semibold text-[#0B7A6E]">
               €{totaalMax.toLocaleString('nl-NL')}
             </p>
           </div>
         </div>
       </div>
 
-      <div className="px-5 py-3 bg-[#F5F0E8] border-t border-[#E8E0D4]">
-        <p className="text-xs text-[#8A9E8E]">
+      <div className="px-5 py-3 bg-[#F7F8F7] border-t border-[#E6E9E7]">
+        <p className="text-xs text-[#8B958F]">
           Bron: FinBuddy vaste lasten overzicht 2026, Nibud 2026, eigen
           berekeningen. Excl. boodschappen en vrije tijd.
         </p>

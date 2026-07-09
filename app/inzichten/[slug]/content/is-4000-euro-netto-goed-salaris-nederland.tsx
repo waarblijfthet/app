@@ -3,7 +3,7 @@ import { WerkelijkeVerdeling } from "@/components/artikel/WerkelijkeVerdeling";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,16 +15,16 @@ export default function Is4000EuroNettoGoedSalaris() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Dat €4.000 netto je in de top 25% plaatst, en waarom dat toch krap kan voelen",
             "Hoe een doorsnee gezin met dit inkomen er na alle vaste lasten werkelijk voor staat",
             "Drie mechanismen die samen verklaren waarom een goed salaris toch krap aanvoelt",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -107,7 +107,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         <Link
           href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           boodschappenkloof
         </Link>
@@ -142,7 +142,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         <Link
           href="/inzichten/spaardoelen-maandelijkse-inleg"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           spaardoelen en maandelijkse inleg
         </Link>{" "}
@@ -154,7 +154,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         <Link
           href="/analyse"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           gratis analyse
         </Link>{" "}
@@ -162,13 +162,13 @@ export default function Is4000EuroNettoGoedSalaris() {
       </p>
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           <strong>Uit de praktijk.</strong> Een gezin dat ik hielp met €4.000 netto dacht oprecht dat ze 'gewoon slecht met geld omgingen'. Dat was niet zo, het zat in twee posten die ongemerkt waren meegegroeid. Top 25% verdienen en tóch krap is geen gevoel; als je de cijfers naast elkaar legt, klopt het gewoon.
         </p>
       </div>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/bruto-naar-netto-loonstrook-uitleg" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">van bruto naar netto</Link> en <Link href="/inzichten/netto-loonsverhoging-berekenen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat je netto overhoudt van een loonsverhoging</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/bruto-naar-netto-loonstrook-uitleg" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">van bruto naar netto</Link> en <Link href="/inzichten/netto-loonsverhoging-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je netto overhoudt van een loonsverhoging</Link>.</p>
     </>
   );
 }

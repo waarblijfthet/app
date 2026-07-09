@@ -3,7 +3,7 @@ import { GeldRelatieStats } from "@/components/artikel/GeldRelatieStats";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -14,16 +14,16 @@ export default function GeldStressRelatieNederland() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Waarom geld het meest vermeden gespreksonderwerp in relaties is, en wat er gebeurt als je het uitstelt",
             "Hoe je het gesprek start zonder dat het een ruzie wordt: begin met feiten, niet met verwijten",
             "Dat een persoonlijk budget per persoon meer rust geeft dan alles samen beheren zonder grens",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -75,7 +75,7 @@ export default function GeldStressRelatieNederland() {
         Herkenbaar?{" "}
         <Link
           href="/inzichten/goed-salaris-toch-krap"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           Lees ook waarom een goed salaris toch krap kan voelen
@@ -133,7 +133,7 @@ export default function GeldStressRelatieNederland() {
         een discussie is. De{" "}
         <Link
           href="/inzichten/potjesmethode-gezin-hoe-werkt-het"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           potjesmethode
@@ -159,14 +159,14 @@ export default function GeldStressRelatieNederland() {
         Wil je dat niet alleen doen? Een eenmalig{" "}
         <Link
           href="/adviesgesprek"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           adviesgesprek van 45 minuten
         </Link>{" "}
         helpt al om samen naar de cijfers te kijken, objectief en zonder oordeel.
       </p>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">goed salaris en toch geldstress</Link> en <Link href="/inzichten/kosten-verdelen-samenwonen-ongelijk-inkomen" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">kosten eerlijk verdelen bij een ongelijk inkomen</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris en toch geldstress</Link> en <Link href="/inzichten/kosten-verdelen-samenwonen-ongelijk-inkomen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">kosten eerlijk verdelen bij een ongelijk inkomen</Link>.</p>
     </>
   );
 }

@@ -23,7 +23,7 @@ function fmtEur(n: number) {
 
 function StatKaart({ label, waarde }: { label: string; waarde: string }) {
   return (
-    <div className="bg-card rounded-xl shadow-card border border-[#E8E0D0] p-5">
+    <div className="bg-card rounded-xl shadow-card border border-[#E6E9E7] p-5">
       <p className="font-display font-light text-primary text-4xl mb-1">{waarde}</p>
       <p className="text-text-muted font-body text-xs">{label}</p>
     </div>
@@ -79,8 +79,8 @@ export default function OverzichtTabblad({ leads, resultaten }: Props) {
   const inkomens = resultaten.map((r) => r.totaal_inkomen_berekend).filter((v): v is number => v != null);
   const overs = resultaten.map((r) => r.maandelijks_over_berekend).filter((v): v is number => v != null);
   const barData = [
-    { name: "Gem. inkomen", waarde: Math.round(avg(inkomens)), fill: "#1C3A2A" },
-    { name: "Gem. over", waarde: Math.round(avg(overs)), fill: "#C4603A" },
+    { name: "Gem. inkomen", waarde: Math.round(avg(inkomens)), fill: "#16211F" },
+    { name: "Gem. over", waarde: Math.round(avg(overs)), fill: "#0B7A6E" },
   ];
 
   return (
@@ -96,18 +96,18 @@ export default function OverzichtTabblad({ leads, resultaten }: Props) {
       {/* Grafieken */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Lijn: aanmeldingen per week */}
-        <div className="lg:col-span-2 bg-card rounded-xl shadow-card border border-[#E8E0D0] p-5">
+        <div className="lg:col-span-2 bg-card rounded-xl shadow-card border border-[#E6E9E7] p-5">
           <p className="font-body font-medium text-text-soft text-sm mb-4">Aanmeldingen per week</p>
           {weekData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
               <LineChart data={weekData} margin={{ top: 4, right: 8, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#E8E0D0" />
-                <XAxis dataKey="week" tick={{ fontSize: 11, fill: "#8A9E8E" }} />
-                <YAxis tick={{ fontSize: 11, fill: "#8A9E8E" }} allowDecimals={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#E6E9E7" />
+                <XAxis dataKey="week" tick={{ fontSize: 11, fill: "#8B958F" }} />
+                <YAxis tick={{ fontSize: 11, fill: "#8B958F" }} allowDecimals={false} />
                 <Tooltip
-                  contentStyle={{ background: "#FDFAF4", border: "1px solid #E8E0D0", borderRadius: 8, fontSize: 12 }}
+                  contentStyle={{ background: "#FFFFFF", border: "1px solid #E6E9E7", borderRadius: 8, fontSize: 12 }}
                 />
-                <Line type="monotone" dataKey="count" stroke="#1C3A2A" strokeWidth={2} dot={{ fill: "#1C3A2A", r: 3 }} name="Aanmeldingen" />
+                <Line type="monotone" dataKey="count" stroke="#16211F" strokeWidth={2} dot={{ fill: "#16211F", r: 3 }} name="Aanmeldingen" />
               </LineChart>
             </ResponsiveContainer>
           ) : (
@@ -118,7 +118,7 @@ export default function OverzichtTabblad({ leads, resultaten }: Props) {
         </div>
 
         {/* Taart: verdicts */}
-        <div className="bg-card rounded-xl shadow-card border border-[#E8E0D0] p-5">
+        <div className="bg-card rounded-xl shadow-card border border-[#E6E9E7] p-5">
           <p className="font-body font-medium text-text-soft text-sm mb-4">Verdeling verdicts</p>
           {verdictData.length > 0 ? (
             <ResponsiveContainer width="100%" height={200}>
@@ -129,7 +129,7 @@ export default function OverzichtTabblad({ leads, resultaten }: Props) {
                   ))}
                 </Pie>
                 <Tooltip
-                  contentStyle={{ background: "#FDFAF4", border: "1px solid #E8E0D0", borderRadius: 8, fontSize: 12 }}
+                  contentStyle={{ background: "#FFFFFF", border: "1px solid #E6E9E7", borderRadius: 8, fontSize: 12 }}
                 />
                 <Legend iconSize={10} wrapperStyle={{ fontSize: 12 }} />
               </PieChart>
@@ -143,17 +143,17 @@ export default function OverzichtTabblad({ leads, resultaten }: Props) {
       </div>
 
       {/* Staaf: inkomen vs over */}
-      <div className="bg-card rounded-xl shadow-card border border-[#E8E0D0] p-5 max-w-sm">
+      <div className="bg-card rounded-xl shadow-card border border-[#E6E9E7] p-5 max-w-sm">
         <p className="font-body font-medium text-text-soft text-sm mb-4">Gemiddeld inkomen vs over</p>
         {inkomens.length > 0 ? (
           <ResponsiveContainer width="100%" height={180}>
             <BarChart data={barData} margin={{ top: 4, right: 8, left: -10, bottom: 0 }}>
-              <CartesianGrid strokeDasharray="3 3" stroke="#E8E0D0" vertical={false} />
-              <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#8A9E8E" }} />
-              <YAxis tick={{ fontSize: 11, fill: "#8A9E8E" }} tickFormatter={(v) => `€${(v / 1000).toFixed(0)}k`} />
+              <CartesianGrid strokeDasharray="3 3" stroke="#E6E9E7" vertical={false} />
+              <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#8B958F" }} />
+              <YAxis tick={{ fontSize: 11, fill: "#8B958F" }} tickFormatter={(v) => `€${(v / 1000).toFixed(0)}k`} />
               <Tooltip
                 formatter={(v) => fmtEur(Number(v ?? 0))}
-                contentStyle={{ background: "#FDFAF4", border: "1px solid #E8E0D0", borderRadius: 8, fontSize: 12 }}
+                contentStyle={{ background: "#FFFFFF", border: "1px solid #E6E9E7", borderRadius: 8, fontSize: 12 }}
               />
               <Bar dataKey="waarde" radius={[6, 6, 0, 0]}>
                 {barData.map((entry, i) => (

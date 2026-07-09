@@ -8,8 +8,8 @@ const lekpunten = [
     hoeVeel: "3-4x per week even snel wat halen",
     uitleg:
       "Wie dagelijks boodschappen doet, koopt zonder lijst en betaalt impulsen. Eén vaste boodschappendag scheelt gemiddeld €180 per maand bij een gezin van vier.",
-    kleur: "#C4603A",
-    lichtKleur: "#FAF0EB",
+    kleur: "#0B7A6E",
+    lichtKleur: "#E4F1EE",
   },
   {
     naam: "Voedselverspilling",
@@ -27,7 +27,7 @@ const lekpunten = [
     uitleg:
       "Niet alles is hetzelfde als huismerk. Maar pasta, rijst, melk, eieren, bloem — daar merk je het verschil niet. Gemiddelde besparing bij 50% overstap: €90 per maand.",
     kleur: "#2D6A4F",
-    lichtKleur: "#E8F2EC",
+    lichtKleur: "#E7F1EE",
   },
   {
     naam: "Drogisterij in de supermarkt",
@@ -44,8 +44,8 @@ const lekpunten = [
     hoeVeel: "Maaltijdboxen, pizza's, kant-en-klare sauzen",
     uitleg:
       "Gemaksvoeding kost twee tot drie keer zoveel als zelf koken. Voor een gezin van vier dat twee keer per week kant-en-klaar eet: €120 per maand extra.",
-    kleur: "#8A9E8E",
-    lichtKleur: "#EDE6D8",
+    kleur: "#8B958F",
+    lichtKleur: "#F0F3F1",
   },
 ];
 
@@ -54,23 +54,23 @@ export function BoodschappenLekkage() {
   const totaal = lekpunten.reduce((s, l) => s + l.gemiddeldExtra, 0);
 
   return (
-    <div className="my-8 rounded-2xl overflow-hidden border border-[#E8E0D4]">
-      <div className="bg-[#1C3A2A] px-5 py-4 flex items-start justify-between">
+    <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
+      <div className="bg-[#16211F] px-5 py-4 flex items-start justify-between">
         <div>
           <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
             Consumentenbond / Nibud / Wageningen 2026
           </p>
-          <p className="text-[#F5F0E8] text-sm font-medium">
+          <p className="text-[#F7F8F7] text-sm font-medium">
             Waar lekt het meeste geld weg bij boodschappen?
           </p>
         </div>
         <div className="text-right">
           <p className="text-[#8AB89A] text-xs">Totaal per maand</p>
-          <p className="text-[#C4603A] text-xl font-semibold">+€{totaal}</p>
+          <p className="text-[#0B7A6E] text-xl font-semibold">+€{totaal}</p>
         </div>
       </div>
 
-      <div className="p-5 bg-[#FDFAF4] space-y-3">
+      <div className="p-5 bg-[#FFFFFF] space-y-3">
         {lekpunten.map((lek, i) => (
           <button
             key={lek.naam}
@@ -79,7 +79,7 @@ export function BoodschappenLekkage() {
           >
             <div
               className={`rounded-xl p-4 transition-all ${
-                actief === i ? "border-2" : "border border-[#E8E0D4]"
+                actief === i ? "border-2" : "border border-[#E6E9E7]"
               }`}
               style={{
                 backgroundColor: lek.lichtKleur,
@@ -87,7 +87,7 @@ export function BoodschappenLekkage() {
               }}
             >
               <div className="flex items-center justify-between mb-1">
-                <p className="text-sm font-medium text-[#1C3A2A]">{lek.naam}</p>
+                <p className="text-sm font-medium text-[#16211F]">{lek.naam}</p>
                 <span
                   className="text-sm font-semibold px-2 py-0.5 rounded-full text-white"
                   style={{ backgroundColor: lek.kleur }}
@@ -95,10 +95,10 @@ export function BoodschappenLekkage() {
                   +€{lek.gemiddeldExtra}/mnd
                 </span>
               </div>
-              <p className="text-xs text-[#8A9E8E]">{lek.hoeVeel}</p>
+              <p className="text-xs text-[#8B958F]">{lek.hoeVeel}</p>
 
               {actief === i && (
-                <p className="text-sm text-[#4A5E4E] mt-3 pt-3 border-t border-[#E8E0D4] leading-relaxed">
+                <p className="text-sm text-[#4A5A56] mt-3 pt-3 border-t border-[#E6E9E7] leading-relaxed">
                   {lek.uitleg}
                 </p>
               )}
@@ -107,12 +107,12 @@ export function BoodschappenLekkage() {
         ))}
       </div>
 
-      <div className="px-5 py-3 bg-[#F5F0E8] border-t border-[#E8E0D4] flex items-center justify-between">
-        <p className="text-xs text-[#8A9E8E]">
+      <div className="px-5 py-3 bg-[#F7F8F7] border-t border-[#E6E9E7] flex items-center justify-between">
+        <p className="text-xs text-[#8B958F]">
           Klik op een punt voor uitleg. Niet alle lekken zijn even makkelijk te
           dichten.
         </p>
-        <p className="text-xs font-medium text-[#C4603A]">
+        <p className="text-xs font-medium text-[#0B7A6E]">
           Totaal lek: €{totaal}/mnd
         </p>
       </div>

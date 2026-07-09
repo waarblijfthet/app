@@ -177,12 +177,12 @@ export default function ArtikelPage({ params }: Props) {
 
               {/* Author bar */}
               <div
-                className="flex items-center gap-3 py-4 border-t border-b border-[#E8E0D0]"
+                className="flex items-center gap-3 py-4 border-t border-b border-[#E6E9E7]"
                 style={{ marginTop: "0.5rem" }}
               >
                 <div
                   className="w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden"
-                  style={{ backgroundColor: "#1C3A2A" }}
+                  style={{ backgroundColor: "#16211F" }}
                 >
                   <Image
                     src="/jarno.jpg"
@@ -193,10 +193,10 @@ export default function ArtikelPage({ params }: Props) {
                   />
                 </div>
                 <div>
-                  <p className="font-body font-medium text-[#1C3A2A] text-sm leading-snug">
+                  <p className="font-body font-medium text-[#16211F] text-sm leading-snug">
                     Jarno Koopman
                   </p>
-                  <p className="font-body text-[#8A9E8E] text-xs">
+                  <p className="font-body text-[#8B958F] text-xs">
                     Oprichter Waar blijft het · {artikel.datumFormatted}
                   </p>
                 </div>
@@ -216,7 +216,7 @@ export default function ArtikelPage({ params }: Props) {
               {/* Internal CTA block */}
               <div
                 style={{
-                  backgroundColor: "#E8F2EC",
+                  backgroundColor: "#E7F1EE",
                   borderRadius: "16px",
                   padding: "1.5rem",
                   marginTop: "2.5rem",
@@ -244,7 +244,7 @@ export default function ArtikelPage({ params }: Props) {
                       <Link
                         href={artikel.cta.secundairHref}
                         className="font-body text-sm hover:underline"
-                        style={{ color: "#C4603A", textDecoration: "none" }}
+                        style={{ color: "#0B7A6E", textDecoration: "none" }}
                       >
                         {artikel.cta.secundairLabel} →
                       </Link>
@@ -308,7 +308,7 @@ export default function ArtikelPage({ params }: Props) {
                   style={{
                     marginTop: "2.5rem",
                     paddingTop: "1.5rem",
-                    borderTop: "1px solid #E8E0D0",
+                    borderTop: "1px solid #E6E9E7",
                   }}
                 >
                   <p
@@ -326,7 +326,7 @@ export default function ArtikelPage({ params }: Props) {
                           rel="noopener noreferrer"
                           className="font-body hover:underline"
                           style={{
-                            color: "#C4603A",
+                            color: "#0B7A6E",
                             fontSize: "0.9rem",
                             textDecoration: "none",
                           }}
@@ -345,12 +345,12 @@ export default function ArtikelPage({ params }: Props) {
                 style={{
                   marginTop: "2.5rem",
                   paddingTop: "1.5rem",
-                  borderTop: "1px solid #E8E0D0",
+                  borderTop: "1px solid #E6E9E7",
                 }}
               >
                 <div
                   className="w-12 h-12 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden"
-                  style={{ backgroundColor: "#1C3A2A" }}
+                  style={{ backgroundColor: "#16211F" }}
                 >
                   <Image
                     src="/jarno.jpg"
@@ -361,7 +361,7 @@ export default function ArtikelPage({ params }: Props) {
                   />
                 </div>
                 <div>
-                  <p className="font-body font-medium text-[#1C3A2A] text-sm mb-1">
+                  <p className="font-body font-medium text-[#16211F] text-sm mb-1">
                     Geschreven door Jarno Koopman
                   </p>
                   <p className="font-body font-light text-text-soft text-sm leading-relaxed">
@@ -370,7 +370,7 @@ export default function ArtikelPage({ params }: Props) {
                     leeg. Nu kijk ik als{" "}
                     <Link
                       href="/financieel-coach"
-                      style={{ color: "#C4603A", textDecoration: "none" }}
+                      style={{ color: "#0B7A6E", textDecoration: "none" }}
                       className="hover:underline"
                     >
                       financieel coach
@@ -378,7 +378,7 @@ export default function ArtikelPage({ params }: Props) {
                     mee met mensen in dezelfde situatie.{" "}
                     <Link
                       href="/over"
-                      style={{ color: "#C4603A", textDecoration: "none" }}
+                      style={{ color: "#0B7A6E", textDecoration: "none" }}
                       className="hover:underline"
                     >
                       Meer over mij →
@@ -399,11 +399,11 @@ export default function ArtikelPage({ params }: Props) {
             return (
               <div
                 className="py-12"
-                style={{ backgroundColor: "#F5F0E8", borderTop: "1px solid #E8E0D0" }}
+                style={{ backgroundColor: "#F7F8F7", borderTop: "1px solid #E6E9E7" }}
               >
                 <div className="max-w-[720px] mx-auto px-6">
                   <h2
-                    className="font-display font-light text-[#1C3A2A] mb-6"
+                    className="font-display font-light text-[#16211F] mb-6"
                     style={{ fontSize: "1.4rem" }}
                   >
                     Lees ook
@@ -413,18 +413,18 @@ export default function ArtikelPage({ params }: Props) {
                       <Link
                         key={a.slug}
                         href={`/inzichten/${a.slug}`}
-                        className="group block bg-[#FDFAF4] rounded-xl p-5 border border-[#E8E0D4] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
+                        className="group block bg-[#FFFFFF] rounded-xl p-5 border border-[#E6E9E7] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
                       >
                         <span
                           className="text-[10px] font-medium uppercase tracking-wider px-2 py-1 rounded-full mb-3 inline-block"
                           style={{
                             backgroundColor:
                               a.categorie === "Besparen"
-                                ? "#E8F2EC"
+                                ? "#E7F1EE"
                                 : a.categorie === "Inkomen"
-                                ? "#FAF0EB"
+                                ? "#E4F1EE"
                                 : a.categorie === "Sparen"
-                                ? "#EDE6D8"
+                                ? "#F0F3F1"
                                 : "#E8F2FA",
                             color:
                               a.categorie === "Besparen"
@@ -432,16 +432,16 @@ export default function ArtikelPage({ params }: Props) {
                                 : a.categorie === "Inkomen"
                                 ? "#92600A"
                                 : a.categorie === "Sparen"
-                                ? "#4A5E4E"
+                                ? "#4A5A56"
                                 : "#1B5E8A",
                           }}
                         >
                           {a.categorie}
                         </span>
-                        <p className="font-display font-light text-[#1C3A2A] text-base leading-snug group-hover:text-[#C4603A] transition-colors">
+                        <p className="font-display font-light text-[#16211F] text-base leading-snug group-hover:text-[#0B7A6E] transition-colors">
                           {a.titel}
                         </p>
-                        <p className="font-body text-[#8A9E8E] text-xs mt-2">
+                        <p className="font-body text-[#8B958F] text-xs mt-2">
                           {a.leestijd} min leestijd
                         </p>
                       </Link>

@@ -158,7 +158,7 @@ export function BezoekersTabblad() {
   if (laden) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="w-6 h-6 border-2 border-[#1C3A2A] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#16211F] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -169,17 +169,17 @@ export function BezoekersTabblad() {
       <div
         className={`flex items-center justify-between px-4 py-3 rounded-xl mb-4 border ${
           eigenaarGezet
-            ? "bg-[#E8F2EC] border-[#C0DDB0]"
-            : "bg-[#FAF0EB] border-[#F0D8C8]"
+            ? "bg-[#E7F1EE] border-[#C0DDB0]"
+            : "bg-[#E4F1EE] border-[#F0D8C8]"
         }`}
       >
         <div className="flex items-center gap-2">
           <div
             className={`w-2 h-2 rounded-full ${
-              eigenaarGezet ? "bg-[#2D6A4F]" : "bg-[#C4603A]"
+              eigenaarGezet ? "bg-[#2D6A4F]" : "bg-[#0B7A6E]"
             }`}
           />
-          <p className="text-sm text-[#1C3A2A] font-body">
+          <p className="text-sm text-[#16211F] font-body">
             {eigenaarGezet
               ? "Jouw bezoeken worden niet meegeteld"
               : "Jouw bezoeken tellen nu mee in de statistieken"}
@@ -190,7 +190,7 @@ export function BezoekersTabblad() {
           className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all font-body ${
             eigenaarGezet
               ? "border-[#2D6A4F] text-[#2D6A4F] hover:bg-[#2D6A4F] hover:text-white"
-              : "bg-[#C4603A] text-white border-[#C4603A] hover:opacity-90"
+              : "bg-[#0B7A6E] text-white border-[#0B7A6E] hover:opacity-90"
           }`}
         >
           {eigenaarGezet
@@ -211,15 +211,15 @@ export function BezoekersTabblad() {
               }}
               className={`text-xs px-3 py-1.5 rounded-full border transition-all capitalize font-body ${
                 filter === f
-                  ? "bg-[#1C3A2A] text-[#F5F0E8] border-[#1C3A2A]"
-                  : "bg-white text-[#4A5E4E] border-[#E8E0D4] hover:border-[#1C3A2A]"
+                  ? "bg-[#16211F] text-[#F7F8F7] border-[#16211F]"
+                  : "bg-white text-[#4A5A56] border-[#E6E9E7] hover:border-[#16211F]"
               }`}
             >
               {f}
             </button>
           ))}
         </div>
-        <div className="flex items-center gap-2 text-xs text-[#8A9E8E] font-body">
+        <div className="flex items-center gap-2 text-xs text-[#8B958F] font-body">
           <div className="w-2 h-2 rounded-full bg-[#2D6A4F] animate-pulse" />
           Ververst elke 30 sec
         </div>
@@ -227,37 +227,37 @@ export function BezoekersTabblad() {
 
       {/* Statistieken */}
       <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="bg-white rounded-xl p-4 border border-[#E8E0D4] text-center">
+        <div className="bg-white rounded-xl p-4 border border-[#E6E9E7] text-center">
           <p
-            className="text-2xl font-semibold text-[#1C3A2A]"
+            className="text-2xl font-semibold text-[#16211F]"
             style={{ fontFamily: "Fraunces, serif" }}
           >
             {totaalBezoeken}
           </p>
-          <p className="text-xs text-[#8A9E8E] mt-1 font-body">Paginabezoeken</p>
+          <p className="text-xs text-[#8B958F] mt-1 font-body">Paginabezoeken</p>
         </div>
-        <div className="bg-white rounded-xl p-4 border border-[#E8E0D4] text-center">
+        <div className="bg-white rounded-xl p-4 border border-[#E6E9E7] text-center">
           <p
-            className="text-2xl font-semibold text-[#1C3A2A]"
+            className="text-2xl font-semibold text-[#16211F]"
             style={{ fontFamily: "Fraunces, serif" }}
           >
             {uniekeSessionen}
           </p>
-          <p className="text-xs text-[#8A9E8E] mt-1 font-body">Unieke sessies</p>
+          <p className="text-xs text-[#8B958F] mt-1 font-body">Unieke sessies</p>
         </div>
-        <div className="bg-white rounded-xl p-4 border border-[#E8E0D4] text-center">
+        <div className="bg-white rounded-xl p-4 border border-[#E6E9E7] text-center">
           <p
-            className="text-2xl font-semibold text-[#C4603A]"
+            className="text-2xl font-semibold text-[#0B7A6E]"
             style={{ fontFamily: "Fraunces, serif" }}
           >
             {mobieleP}%
           </p>
-          <p className="text-xs text-[#8A9E8E] mt-1 font-body">Mobiel</p>
+          <p className="text-xs text-[#8B958F] mt-1 font-body">Mobiel</p>
         </div>
       </div>
 
       {/* Sub-tabs */}
-      <div className="flex border-b border-[#E8E0D4] mb-4">
+      <div className="flex border-b border-[#E6E9E7] mb-4">
         {(
           [
             ["live", "Live feed"],
@@ -269,8 +269,8 @@ export function BezoekersTabblad() {
             onClick={() => setView(key)}
             className={`px-4 py-2.5 text-sm font-medium transition-colors font-body ${
               view === key
-                ? "text-[#1C3A2A] border-b-2 border-[#1C3A2A]"
-                : "text-[#8A9E8E] hover:text-[#4A5E4E]"
+                ? "text-[#16211F] border-b-2 border-[#16211F]"
+                : "text-[#8B958F] hover:text-[#4A5A56]"
             }`}
           >
             {label}
@@ -280,29 +280,29 @@ export function BezoekersTabblad() {
 
       {/* Live feed */}
       {view === "live" && (
-        <div className="bg-white rounded-xl border border-[#E8E0D4] overflow-hidden">
+        <div className="bg-white rounded-xl border border-[#E6E9E7] overflow-hidden">
           {bezoeken.length === 0 ? (
-            <div className="text-center py-12 text-[#8A9E8E] text-sm font-body">
+            <div className="text-center py-12 text-[#8B958F] text-sm font-body">
               Nog geen bezoeken in deze periode
             </div>
           ) : (
             <div style={{ overflowX: "auto" }}>
               <table className="w-full text-sm" style={{ minWidth: "620px" }}>
                 <thead>
-                  <tr className="bg-[#1C3A2A]">
-                    <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body">
+                  <tr className="bg-[#16211F]">
+                    <th className="text-left px-4 py-3 text-[#F7F8F7] font-medium text-xs font-body">
                       Pagina
                     </th>
-                    <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body">
+                    <th className="text-left px-4 py-3 text-[#F7F8F7] font-medium text-xs font-body">
                       Apparaat
                     </th>
-                    <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body hidden sm:table-cell">
+                    <th className="text-left px-4 py-3 text-[#F7F8F7] font-medium text-xs font-body hidden sm:table-cell">
                       Locatie
                     </th>
-                    <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body">
+                    <th className="text-left px-4 py-3 text-[#F7F8F7] font-medium text-xs font-body">
                       Tijdstip
                     </th>
-                    <th className="text-left px-4 py-3 text-[#F5F0E8] font-medium text-xs font-body hidden sm:table-cell">
+                    <th className="text-left px-4 py-3 text-[#F7F8F7] font-medium text-xs font-body hidden sm:table-cell">
                       Bron
                     </th>
                   </tr>
@@ -311,9 +311,9 @@ export function BezoekersTabblad() {
                   {bezoeken.slice(0, 50).map((b, i) => (
                     <tr
                       key={b.id}
-                      className={i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"}
+                      className={i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"}
                     >
-                      <td className="px-4 py-2.5 text-[#1C3A2A] font-medium text-xs font-body">
+                      <td className="px-4 py-2.5 text-[#16211F] font-medium text-xs font-body">
                         {paginaLabel(b.pagina)}
                       </td>
                       <td className="px-4 py-2.5">
@@ -321,21 +321,21 @@ export function BezoekersTabblad() {
                           className={`text-xs px-2 py-0.5 rounded-full font-medium font-body ${
                             b.apparaat === "mobiel"
                               ? "bg-[#FEF3C7] text-[#92400E]"
-                              : "bg-[#E8F2EC] text-[#2D6A4F]"
+                              : "bg-[#E7F1EE] text-[#2D6A4F]"
                           }`}
                         >
                           {b.apparaat === "mobiel" ? "📱 Mobiel" : "💻 Desktop"}
                         </span>
                       </td>
-                      <td className="px-4 py-2.5 text-[#8A9E8E] text-xs font-body hidden sm:table-cell">
+                      <td className="px-4 py-2.5 text-[#8B958F] text-xs font-body hidden sm:table-cell">
                         {b.stad
                           ? `${b.stad}${b.regio ? `, ${b.regio}` : ""}`
                           : b.land || "Onbekend"}
                       </td>
-                      <td className="px-4 py-2.5 text-[#8A9E8E] text-xs font-body">
+                      <td className="px-4 py-2.5 text-[#8B958F] text-xs font-body">
                         {formatTijd(b.created_at)}
                       </td>
-                      <td className="px-4 py-2.5 text-[#8A9E8E] text-xs font-body hidden sm:table-cell">
+                      <td className="px-4 py-2.5 text-[#8B958F] text-xs font-body hidden sm:table-cell">
                         {bronLabel(b.referrer)}
                       </td>
                     </tr>
@@ -351,7 +351,7 @@ export function BezoekersTabblad() {
       {view === "paginas" && (
         <div className="space-y-3">
           {stats.length === 0 ? (
-            <div className="text-center py-12 text-[#8A9E8E] text-sm bg-white rounded-xl border border-[#E8E0D4] font-body">
+            <div className="text-center py-12 text-[#8B958F] text-sm bg-white rounded-xl border border-[#E6E9E7] font-body">
               Nog geen bezoeken in deze periode
             </div>
           ) : (
@@ -359,20 +359,20 @@ export function BezoekersTabblad() {
               {stats.map((s) => (
                 <div
                   key={s.pagina}
-                  className="bg-white rounded-xl p-4 border border-[#E8E0D4]"
+                  className="bg-white rounded-xl p-4 border border-[#E6E9E7]"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <p className="font-medium text-[#1C3A2A] text-sm font-body">
+                    <p className="font-medium text-[#16211F] text-sm font-body">
                       {paginaLabel(s.pagina)}
                     </p>
                     <span
-                      className="text-lg font-semibold text-[#1C3A2A]"
+                      className="text-lg font-semibold text-[#16211F]"
                       style={{ fontFamily: "Fraunces, serif" }}
                     >
                       {s.totaal}
                     </span>
                   </div>
-                  <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden mb-2">
+                  <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden mb-2">
                     <div
                       className="h-full bg-[#2D6A4F] rounded-full transition-all"
                       style={{
@@ -383,7 +383,7 @@ export function BezoekersTabblad() {
                       }}
                     />
                   </div>
-                  <div className="flex items-center justify-between text-xs text-[#8A9E8E] font-body">
+                  <div className="flex items-center justify-between text-xs text-[#8B958F] font-body">
                     <div className="flex gap-3">
                       <span>📱 {s.mobiel} mobiel</span>
                       <span>💻 {s.desktop} desktop</span>
@@ -395,10 +395,10 @@ export function BezoekersTabblad() {
 
               {/* Top steden */}
               <div className="mt-6">
-                <p className="text-xs font-medium text-[#4A5E4E] mb-3 uppercase tracking-wider font-body">
+                <p className="text-xs font-medium text-[#4A5A56] mb-3 uppercase tracking-wider font-body">
                   Top steden
                 </p>
-                <div className="bg-white rounded-xl border border-[#E8E0D4] overflow-hidden">
+                <div className="bg-white rounded-xl border border-[#E6E9E7] overflow-hidden">
                   {(() => {
                     const stedenMap = new Map<string, number>();
                     bezoeken.forEach((b) => {
@@ -415,23 +415,23 @@ export function BezoekersTabblad() {
                       <div className="p-4 space-y-2">
                         {steden.map(([stad, aantal]) => (
                           <div key={stad} className="flex items-center gap-3">
-                            <span className="text-xs text-[#4A5E4E] w-28 flex-shrink-0 font-body">
+                            <span className="text-xs text-[#4A5A56] w-28 flex-shrink-0 font-body">
                               {stad}
                             </span>
-                            <div className="flex-1 h-4 bg-[#EDE6D8] rounded-full overflow-hidden">
+                            <div className="flex-1 h-4 bg-[#F0F3F1] rounded-full overflow-hidden">
                               <div
-                                className="h-full bg-[#1C3A2A] rounded-full transition-all"
+                                className="h-full bg-[#16211F] rounded-full transition-all"
                                 style={{ width: `${(aantal / max) * 100}%` }}
                               />
                             </div>
-                            <span className="text-xs font-medium text-[#1C3A2A] w-6 text-right font-body">
+                            <span className="text-xs font-medium text-[#16211F] w-6 text-right font-body">
                               {aantal}
                             </span>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-[#8A9E8E] p-4 font-body">
+                      <p className="text-xs text-[#8B958F] p-4 font-body">
                         Nog geen locatiedata beschikbaar
                       </p>
                     );

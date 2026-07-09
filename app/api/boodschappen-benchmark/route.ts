@@ -89,7 +89,7 @@ export async function POST(request: NextRequest) {
       `Wat vergelijkbare huishoudens echt uitgeven: <strong>${b.realistisch}</strong> per maand (inclusief drogist, bakker en tussendoor).</p>` +
       `<p style="margin:0 0 18px 0;">Zit je daarboven? Dan ben je geen uitzondering, en het betekent niet dat je iets fout doet. De drie hefbomen die in jouw situatie het meeste opleveren:</p>` +
       hefbomenHtml +
-      `<p style="margin:18px 0 18px 0;">Wil je weten hoe je op álle posten vergelijkt met huishoudens zoals dat van jou? Doe de gratis analyse (5 minuten, anoniem, resultaat direct op je scherm): <a href="https://www.waarblijfthet.nl/analyse" style="color:#C4603A;">waarblijfthet.nl/analyse</a></p>` +
+      `<p style="margin:18px 0 18px 0;">Wil je weten hoe je op álle posten vergelijkt met huishoudens zoals dat van jou? Doe de gratis analyse (5 minuten, anoniem, resultaat direct op je scherm): <a href="https://www.waarblijfthet.nl/analyse" style="color:#0B7A6E;">waarblijfthet.nl/analyse</a></p>` +
       `<p style="margin:24px 0 0 0;">Jarno Koopman<br>Financieel coach, Waar blijft het<br><a href="https://www.waarblijfthet.nl" style="color:#1A1A1A;">waarblijfthet.nl</a></p>` +
       `<p style="margin:24px 0 0 0;font-size:12px;color:#999;">Je krijgt deze ene mail omdat je hem zelf aanvroeg. Er volgt geen nieuwsbrief.</p>` +
       "</div>";

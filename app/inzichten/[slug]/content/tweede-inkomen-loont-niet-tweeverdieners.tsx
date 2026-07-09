@@ -2,20 +2,20 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 function VoorNa({ rows }: { rows: [string, string, string][] }) {
   return (
-    <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E8E0D4" }}>
-      <div className="grid grid-cols-3" style={{ backgroundColor: "#1C3A2A" }}>
+    <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E6E9E7" }}>
+      <div className="grid grid-cols-3" style={{ backgroundColor: "#16211F" }}>
         {["", "Voor", "Na"].map((h, i) => (
-          <div key={i} className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F5F0E8" }}>{h}</div>
+          <div key={i} className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F7F8F7" }}>{h}</div>
         ))}
       </div>
       {rows.map((r, i) => (
-        <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FDFAF4" : "white" }}>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#1C3A2A", fontWeight: 500 }}>{r[0]}</div>
+        <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
+          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#2D6A4F", fontWeight: 600 }}>{r[2]}</div>
         </div>
@@ -42,24 +42,24 @@ function NettoRekentool() {
 
   const inputStyle = {
     width: "100%", padding: "10px 14px", borderRadius: "10px",
-    border: "1.5px solid #D6CEBC", fontFamily: "inherit", fontSize: "0.875rem",
-    color: "#1C3A2A", backgroundColor: "white", outline: "none",
+    border: "1.5px solid #D9DEDC", fontFamily: "inherit", fontSize: "0.875rem",
+    color: "#16211F", backgroundColor: "white", outline: "none",
   } as const;
 
   return (
-    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
-      <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
-        <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>
+    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
+      <div className="px-5 py-4 border-b" style={{ borderColor: "#E6E9E7" }}>
+        <p className="font-body font-semibold text-sm" style={{ color: "#16211F" }}>
           Bereken je eigen netto-opbrengst
         </p>
-        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>
+        <p className="font-body text-xs mt-0.5" style={{ color: "#8B958F" }}>
           Vul je situatie in en zie wat er per maand overblijft
         </p>
       </div>
       <div className="p-5 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               Bruto inkomen / maand
             </label>
             <input
@@ -69,7 +69,7 @@ function NettoRekentool() {
             />
           </div>
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               Marginaal belastingtarief
             </label>
             <select
@@ -81,7 +81,7 @@ function NettoRekentool() {
             </select>
           </div>
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               BSO-kosten / maand (na toeslag)
             </label>
             <input
@@ -91,7 +91,7 @@ function NettoRekentool() {
             />
           </div>
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               Reiskosten / maand
             </label>
             <input
@@ -101,7 +101,7 @@ function NettoRekentool() {
             />
           </div>
           <div>
-            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5E4E" }}>
+            <label className="font-body text-xs font-medium mb-1.5 block" style={{ color: "#4A5A56" }}>
               Extra gemaksuitgaven (schatting)
             </label>
             <input
@@ -113,15 +113,15 @@ function NettoRekentool() {
         </div>
 
         {heeftResultaat && (
-          <div className="rounded-xl border p-4 mt-2" style={{ backgroundColor: over >= 0 ? "#E8F2EC" : "#FEF2F2", borderColor: over >= 0 ? "#A8C5B4" : "#FCA5A5" }}>
+          <div className="rounded-xl border p-4 mt-2" style={{ backgroundColor: over >= 0 ? "#E7F1EE" : "#FEF2F2", borderColor: over >= 0 ? "#A8C5B4" : "#FCA5A5" }}>
             <div className="grid grid-cols-2 gap-y-2 text-sm font-body">
-              <span style={{ color: "#4A5E4E" }}>Netto na belasting</span>
-              <span className="font-semibold text-right" style={{ color: "#1C3A2A" }}>€{netto.toLocaleString("nl-NL")}</span>
-              <span style={{ color: "#4A5E4E" }}>Totale kosten</span>
+              <span style={{ color: "#4A5A56" }}>Netto na belasting</span>
+              <span className="font-semibold text-right" style={{ color: "#16211F" }}>€{netto.toLocaleString("nl-NL")}</span>
+              <span style={{ color: "#4A5A56" }}>Totale kosten</span>
               <span className="font-semibold text-right" style={{ color: "#B03A2E" }}>− €{totaalKosten.toLocaleString("nl-NL")}</span>
               <div className="col-span-2 border-t mt-1 pt-2" style={{ borderColor: over >= 0 ? "#A8C5B4" : "#FCA5A5" }}>
                 <div className="flex justify-between">
-                  <span className="font-semibold" style={{ color: over >= 0 ? "#1C3A2A" : "#B03A2E" }}>Netto over</span>
+                  <span className="font-semibold" style={{ color: over >= 0 ? "#16211F" : "#B03A2E" }}>Netto over</span>
                   <span className="font-bold text-base" style={{ color: over >= 0 ? "#2D6A4F" : "#B03A2E" }}>
                     {over >= 0 ? "+" : ""}€{over.toLocaleString("nl-NL")}
                   </span>
@@ -134,7 +134,7 @@ function NettoRekentool() {
               </p>
             )}
             {over >= 0 && over < 300 && (
-              <p className="font-body text-xs mt-2" style={{ color: "#4A5E4E" }}>
+              <p className="font-body text-xs mt-2" style={{ color: "#4A5A56" }}>
                 Je houdt weinig over. Bereken of een dag minder werken de BSO-kosten genoeg verlaagt.
               </p>
             )}
@@ -154,23 +154,23 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
         </p>
       </div>
 
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Waarom een goed salaris na aftrek van BSO, belasting en reiskosten soms niets oplevert",
             "Hoe de rekensom er voor jouw situatie uitziet, vul je eigen getallen in",
             "Wanneer minder dagen werken netto méér oplevert",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F", fontSize: "1.05rem" }}>
         Je werkt vier dagen, verdient een fatsoenlijk salaris, en toch loopt het geld aan het einde van de maand gewoon op. Hoe? Omdat een groot deel van je tweede inkomen direct opgaat aan de kosten die dat inkomen met zich meebrengt, <strong>zonder dat je het in de gaten hebt.</strong>
       </p>
 
@@ -195,10 +195,10 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
         Marieke (36) en Rick (38), twee kinderen (4 en 7 jaar). Rick verdient €4.800 bruto, Marieke €2.100 bruto (4 dagen). Ze dachten dat Marieke&apos;s inkomen circa €1.400 netto per maand opleverde. Ze hadden het nooit exact nageteld.
       </p>
 
-      <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E8E0D4" }}>
-        <div className="grid grid-cols-2" style={{ backgroundColor: "#1C3A2A" }}>
-          <div className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F5F0E8" }}>Post</div>
-          <div className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F5F0E8" }}>Per maand</div>
+      <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E6E9E7" }}>
+        <div className="grid grid-cols-2" style={{ backgroundColor: "#16211F" }}>
+          <div className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F7F8F7" }}>Post</div>
+          <div className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F7F8F7" }}>Per maand</div>
         </div>
         {[
           ["Marieke bruto inkomen", "€2.100"],
@@ -209,9 +209,9 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
           ["Werkkleding, kapper, etc.", "- €75"],
           ["Netto wat overblijft", "- €350"],
         ].map(([label, bedrag], i) => (
-          <div key={i} className="grid grid-cols-2" style={{ backgroundColor: i % 2 ? "#FDFAF4" : "white" }}>
-            <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#1C3A2A", fontWeight: i === 6 ? 600 : 400 }}>{label}</div>
-            <div className="px-4 py-2.5 font-body text-sm" style={{ color: i === 6 ? "#B03A2E" : "#1C3A2A", fontWeight: i === 6 ? 600 : 400 }}>{bedrag}</div>
+          <div key={i} className="grid grid-cols-2" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
+            <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: i === 6 ? 600 : 400 }}>{label}</div>
+            <div className="px-4 py-2.5 font-body text-sm" style={{ color: i === 6 ? "#B03A2E" : "#16211F", fontWeight: i === 6 ? 600 : 400 }}>{bedrag}</div>
           </div>
         ))}
       </div>
@@ -233,7 +233,7 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
 
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>De BSO-kosten zijn tijdelijk</p>
-        <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
+        <p className="font-body text-sm" style={{ color: "#0A6A5F" }}>
           Als de kinderen naar groep 5 gaan, vervallen de BSO-kosten. De rekensom kantelt dan volledig ten gunste van werken. De vraag is alleen of je werkpatroon <em>nu</em> klopt bij je leven en je financiën.
         </p>
       </div>
@@ -247,15 +247,15 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Lees ook:{" "}
-        <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap, hoe kan dat?</Link>{" "}
+        <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap, hoe kan dat?</Link>{" "}
         en{" "}
-        <Link href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">de BSO slokte ons tweede inkomen op, zo draaiden we het om</Link>.
+        <Link href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">de BSO slokte ons tweede inkomen op, zo draaiden we het om</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je jouw eigen rekensom zien?{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
        , dan zie je in 15 minuten hoeveel het tweede inkomen jou netto oplevert. Of bespreek het concreet in een{" "}
-        <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>.
+        <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>.
       </p>
     </>
   );

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -25,12 +25,12 @@ export default function CashStuffingBeginnen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Met pinnen en tikken voelt geld uitgeven niet als geld uitgeven. Aan het einde van de
           maand weet je niet waar het heen ging. Contant maakt het weer tastbaar.
         </p>
@@ -39,9 +39,9 @@ export default function CashStuffingBeginnen() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -50,8 +50,8 @@ export default function CashStuffingBeginnen() {
             "Een startschema met de enveloppen om mee te beginnen",
             "Hoe je het combineert met je vaste lasten en sparen",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -60,7 +60,7 @@ export default function CashStuffingBeginnen() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Cash stuffing is de envelopjesmethode in een modern jasje: je haalt je budget voor variabele
         uitgaven contant op en verdeelt het over enveloppen per categorie. Is een envelop leeg, dan
         is dat budget op tot de volgende maand. Het werkt omdat je het geld ziet slinken, iets wat
@@ -91,7 +91,7 @@ export default function CashStuffingBeginnen() {
           style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.92rem" }}
         >
           <thead>
-            <tr style={{ backgroundColor: "#1C3A2A", color: "#F5F0E8" }}>
+            <tr style={{ backgroundColor: "#16211F", color: "#F7F8F7" }}>
               <th style={{ textAlign: "left", padding: "0.5rem 0.75rem" }}>Envelop</th>
               <th style={{ textAlign: "left", padding: "0.5rem 0.75rem" }}>Waarvoor</th>
             </tr>
@@ -101,9 +101,9 @@ export default function CashStuffingBeginnen() {
               <tr
                 key={i}
                 style={{
-                  backgroundColor: i % 2 === 0 ? "#FDFAF4" : "#FFFFFF",
-                  borderBottom: "1px solid #EFE8DC",
-                  color: "#2D4A35",
+                  backgroundColor: i % 2 === 0 ? "#FFFFFF" : "#FFFFFF",
+                  borderBottom: "1px solid #F0F3F1",
+                  color: "#16211F",
                 }}
               >
                 <td style={{ padding: "0.45rem 0.75rem", fontWeight: 500 }}>{e.naam}</td>
@@ -123,7 +123,7 @@ export default function CashStuffingBeginnen() {
         lasten te verdelen is. Reken dat uit met mijn{" "}
         <Link
           href="/inzichten/vrij-besteedbaar-inkomen-berekenen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           rekenhulp voor vrij besteedbaar inkomen
@@ -131,7 +131,7 @@ export default function CashStuffingBeginnen() {
         , en bekijk hoe enveloppen passen in een groter systeem bij{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je salaris slim indelen
@@ -146,7 +146,7 @@ export default function CashStuffingBeginnen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

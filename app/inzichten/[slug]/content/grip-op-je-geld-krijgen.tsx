@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function GripOpJeGeldKrijgen() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je hebt geen schuldenprobleem. Je hebt een overzichtsprobleem. Je verdient goed, maar je
           weet niet precies waar het heen gaat, en daardoor stuur je nergens op.
         </p>
@@ -29,9 +29,9 @@ export default function GripOpJeGeldKrijgen() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -40,8 +40,8 @@ export default function GripOpJeGeldKrijgen() {
             "Waarom grip vooral over overzicht gaat, niet over zuiniger leven",
             "Hoe je dat overzicht houdt zonder elke dag iets bij te hoeven werken",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -50,7 +50,7 @@ export default function GripOpJeGeldKrijgen() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Grip op je geld krijg je in vijf stappen: breng je inkomsten in beeld, zet al je vaste
         lasten op een rij, meet je dagelijkse uitgaven, verdeel je inkomen meteen na binnenkomst, en
         controleer maandelijks kort of het nog klopt. Je hebt er geen app of bankkoppeling voor
@@ -80,7 +80,7 @@ export default function GripOpJeGeldKrijgen() {
         stappenplan staat in mijn artikel over een{" "}
         <Link
           href="/inzichten/vaste-lasten-overzicht-maken"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           overzicht van je vaste lasten maken
@@ -106,7 +106,7 @@ export default function GripOpJeGeldKrijgen() {
         potjes. Wat overblijft, mag je vrij besteden. Hoe je dat opzet, lees je bij{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je salaris slim indelen
@@ -114,7 +114,7 @@ export default function GripOpJeGeldKrijgen() {
         en in de uitleg van de{" "}
         <Link
           href="/inzichten/50-30-20-regel-hoger-inkomen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           50/30/20-regel
@@ -141,7 +141,7 @@ export default function GripOpJeGeldKrijgen() {
         om meer data, het draait om een paar duidelijke afspraken die je volhoudt. Zie ook waarom je{" "}
         <Link
           href="/inzichten/waarom-hou-ik-nooit-geld-over"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           nooit geld overhoudt
@@ -152,7 +152,7 @@ export default function GripOpJeGeldKrijgen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

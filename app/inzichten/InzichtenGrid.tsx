@@ -6,14 +6,14 @@ import type { Artikel } from "@/lib/inzichten-data";
 import { ArticlePreview } from "@/components/artikel/ArticlePreview";
 
 const categorieKleuren: Record<string, { bg: string; tekst: string }> = {
-  Besparen: { bg: "#E8F2EC", tekst: "#2D6A4F" },
-  Inkomen: { bg: "#FAF0EB", tekst: "#92600A" },
-  Sparen: { bg: "#EDE6D8", tekst: "#4A5E4E" },
+  Besparen: { bg: "#E7F1EE", tekst: "#2D6A4F" },
+  Inkomen: { bg: "#E4F1EE", tekst: "#92600A" },
+  Sparen: { bg: "#F0F3F1", tekst: "#4A5A56" },
   Inzicht: { bg: "#E8F2FA", tekst: "#1B5E8A" },
 };
 
 function getCategorieKleur(cat: string) {
-  return categorieKleuren[cat] ?? { bg: "#EDE6D8", tekst: "#4A5E4E" };
+  return categorieKleuren[cat] ?? { bg: "#F0F3F1", tekst: "#4A5A56" };
 }
 
 function ArtikelKaart({
@@ -29,10 +29,10 @@ function ArtikelKaart({
 
   return (
     <Link href={`/inzichten/${artikel.slug}`} className="group block h-full">
-      <article className="bg-[#FDFAF4] rounded-2xl overflow-hidden border border-[#E8E0D4] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full min-h-[120px]">
+      <article className="bg-[#FFFFFF] rounded-2xl overflow-hidden border border-[#E6E9E7] hover:shadow-md hover:-translate-y-0.5 transition-all duration-200 flex flex-col h-full min-h-[120px]">
         {/* Preview */}
         <div
-          className={`${previewH} bg-[#F5F0E8] border-b border-[#E8E0D4] relative overflow-hidden flex-shrink-0`}
+          className={`${previewH} bg-[#F7F8F7] border-b border-[#E6E9E7] relative overflow-hidden flex-shrink-0`}
         >
           <ArticlePreview preview={artikel.preview} />
           {/* Categorie badge */}
@@ -49,7 +49,7 @@ function ArtikelKaart({
         {/* Content */}
         <div className="p-5 flex flex-col flex-1">
           {/* Meta */}
-          <div className="flex items-center gap-2 text-[11px] text-[#8A9E8E] mb-3">
+          <div className="flex items-center gap-2 text-[11px] text-[#8B958F] mb-3">
             <span>{artikel.datumFormatted}</span>
             <span>·</span>
             <span>{artikel.leestijd} min</span>
@@ -57,7 +57,7 @@ function ArtikelKaart({
 
           {/* Titel */}
           <h2
-            className={`font-display font-light text-[#1C3A2A] leading-snug mb-2 flex-1 group-hover:text-[#C4603A] transition-colors ${
+            className={`font-display font-light text-[#16211F] leading-snug mb-2 flex-1 group-hover:text-[#0B7A6E] transition-colors ${
               featured ? "text-xl md:text-2xl" : "text-lg"
             }`}
           >
@@ -65,13 +65,13 @@ function ArtikelKaart({
           </h2>
 
           {/* Excerpt */}
-          <p className="text-sm text-[#4A5E4E] leading-relaxed mb-4 line-clamp-3">
+          <p className="text-sm text-[#4A5A56] leading-relaxed mb-4 line-clamp-3">
             {artikel.excerpt}
           </p>
 
           {/* Lees verder */}
           <div className="mt-auto">
-            <span className="text-sm font-medium text-[#C4603A] flex items-center gap-1.5">
+            <span className="text-sm font-medium text-[#0B7A6E] flex items-center gap-1.5">
               Lees verder
               <span aria-hidden="true">&#8594;</span>
             </span>
@@ -117,7 +117,7 @@ export function InzichtenGrid({ artikelen }: { artikelen: Artikel[] }) {
         {/* Scroll-hint: fade rechts, alleen mobiel */}
         <div
           className="absolute right-0 top-0 bottom-0 w-10 z-10 pointer-events-none md:hidden"
-          style={{ background: "linear-gradient(to left, #FDFAF4, transparent)" }}
+          style={{ background: "linear-gradient(to left, #FFFFFF, transparent)" }}
         />
         <div className="overflow-x-auto scrollbar-hide px-6 md:px-0">
           <div className="flex gap-2 flex-nowrap md:flex-wrap min-w-max md:min-w-0 pb-px">
@@ -129,14 +129,14 @@ export function InzichtenGrid({ artikelen }: { artikelen: Artikel[] }) {
                 style={
                   actief === f
                     ? {
-                        backgroundColor: "#1C3A2A",
-                        color: "#F5F0E8",
-                        borderColor: "#1C3A2A",
+                        backgroundColor: "#16211F",
+                        color: "#F7F8F7",
+                        borderColor: "#16211F",
                       }
                     : {
                         backgroundColor: "transparent",
-                        color: "#8A9E8E",
-                        borderColor: "#E8E0D4",
+                        color: "#8B958F",
+                        borderColor: "#E6E9E7",
                       }
                 }
               >
@@ -154,7 +154,7 @@ export function InzichtenGrid({ artikelen }: { artikelen: Artikel[] }) {
       </div>
 
       {gefilterd.length === 0 && (
-        <p className="text-[#8A9E8E] text-sm">
+        <p className="text-[#8B958F] text-sm">
           Geen artikelen in deze categorie.
         </p>
       )}

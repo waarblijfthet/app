@@ -111,7 +111,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
             </p>
           </div>
         ) : (
-          <div className="space-y-3 pl-3 border-l-2 border-[#E8E0D0]">
+          <div className="space-y-3 pl-3 border-l-2 border-[#E6E9E7]">
             <EuroInput
               label="Streaming (Netflix, Disney+, etc.)"
               id="streaming"
@@ -213,7 +213,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
                 data.jaarlijkseKostenPer === per
                   ? "bg-primary text-white"
-                  : "bg-[#E8E0D0] text-text-soft"
+                  : "bg-[#E6E9E7] text-text-soft"
               }`}
             >
               Per {per}

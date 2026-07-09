@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function WaaromLuktSparenNiet() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je neemt je elke maand voor om te sparen. En elke maand is het geld op voordat je eraan
           toekomt. Niet door gekke aankopen, het verdampt gewoon.
         </p>
@@ -29,9 +29,9 @@ export default function WaaromLuktSparenNiet() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -40,8 +40,8 @@ export default function WaaromLuktSparenNiet() {
             "Hoe je het patroon doorbreekt door de volgorde om te draaien",
             "Hoeveel sparen normaal is, zodat je een reëel doel hebt",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -50,7 +50,7 @@ export default function WaaromLuktSparenNiet() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Sparen lukt meestal niet omdat je het als restpost behandelt: je spaart wat er aan het einde
         van de maand overblijft, en dat is bijna niks. Draai de volgorde om en zet een vast bedrag
         opzij op de dag dat je salaris binnenkomt, dan lukt het wel. Het ligt zelden aan je
@@ -87,7 +87,7 @@ export default function WaaromLuktSparenNiet() {
         eerste betaling die je doet, niet de laatste. Hoe je dat praktisch inricht, lees je bij{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je salaris slim indelen
@@ -114,7 +114,7 @@ export default function WaaromLuktSparenNiet() {
         hoeveel je per maand opzij zou kunnen zetten, lees je in{" "}
         <Link
           href="/inzichten/hoeveel-sparen-per-maand-normaal-nederland"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           hoeveel sparen per maand normaal is
@@ -122,7 +122,7 @@ export default function WaaromLuktSparenNiet() {
         en{" "}
         <Link
           href="/inzichten/spaardoelen-maandelijkse-inleg"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           spaardoelen en maandelijkse inleg
@@ -130,7 +130,7 @@ export default function WaaromLuktSparenNiet() {
         . Speelt levensstijlinflatie mee, dan helpt ook mijn artikel over{" "}
         <Link
           href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           meer verdienen en meer uitgeven
@@ -141,7 +141,7 @@ export default function WaaromLuktSparenNiet() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

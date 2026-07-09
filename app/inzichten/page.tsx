@@ -25,7 +25,7 @@ export default function InzichtenPage() {
 
       <main className="pt-16">
         {/* ── Hero ── */}
-        <section className="bg-background pt-12 pb-10 md:pt-16 md:pb-12 border-b border-[#E8E0D0]">
+        <section className="bg-background pt-12 pb-10 md:pt-16 md:pb-12 border-b border-[#E6E9E7]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="max-w-2xl">
               <p className="section-eyebrow mb-3 md:mb-4">Inzichten</p>
@@ -43,14 +43,14 @@ export default function InzichtenPage() {
         </section>
 
         {/* ── Artikelgrid ── */}
-        <section className="py-10 md:py-14" style={{ backgroundColor: "#FDFAF4" }}>
+        <section className="py-10 md:py-14" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="max-w-6xl mx-auto px-6 pb-8 md:pb-16">
             <InzichtenGrid artikelen={artikelen} />
           </div>
         </section>
 
         {/* ── Tussentekst voor CTA ── */}
-        <section className="bg-background py-12 md:py-16 border-t border-[#E8E0D0]">
+        <section className="bg-background py-12 md:py-16 border-t border-[#E6E9E7]">
           <div className="max-w-6xl mx-auto px-6">
             <div className="max-w-xl">
               <p className="section-eyebrow mb-3">Van lezen naar inzicht</p>
@@ -65,11 +65,11 @@ export default function InzichtenPage() {
               <Link
                 href="/analyse"
                 className="btn-primary"
-                style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+                style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
               >
                 Start de gratis analyse &rarr;
               </Link>
-              <p className="font-body text-xs mt-3" style={{ color: "#8A9E8E" }}>
+              <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
                 Gratis &middot; 5 minuten &middot; Geen account nodig
               </p>
             </div>
@@ -92,7 +92,7 @@ export default function InzichtenPage() {
                 <Link
                   href="/analyse"
                   className="btn-primary md:w-auto"
-                  style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+                  style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
                 >
                   Start de analyse &rarr;
                 </Link>

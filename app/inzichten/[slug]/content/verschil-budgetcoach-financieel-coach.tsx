@@ -1,8 +1,8 @@
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
-const oranje = { color: "#C4603A", textDecoration: "none" } as const;
+const oranje = { color: "#0B7A6E", textDecoration: "none" } as const;
 
 const verschillen = [
   { kenmerk: "Voor wie", budget: "Geldproblemen, achterstanden, schulden", coach: "Genoeg inkomen, toch weinig over" },
@@ -37,18 +37,18 @@ export default function VerschilBudgetcoachFinancieelCoach() {
       <div style={{ overflowX: "auto", marginBottom: "1.5rem" }}>
         <table className="font-body" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
           <thead>
-            <tr style={{ borderBottom: "2px solid #E8E0D0", textAlign: "left" }}>
-              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}> </th>
-              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}>Budgetcoach</th>
-              <th style={{ padding: "0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}>Financieel coach</th>
+            <tr style={{ borderBottom: "2px solid #E6E9E7", textAlign: "left" }}>
+              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#16211F", fontWeight: 500 }}> </th>
+              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#16211F", fontWeight: 500 }}>Budgetcoach</th>
+              <th style={{ padding: "0.6rem 0", color: "#16211F", fontWeight: 500 }}>Financieel coach</th>
             </tr>
           </thead>
           <tbody>
             {verschillen.map((v) => (
-              <tr key={v.kenmerk} style={{ borderBottom: "1px solid #E8E0D0", verticalAlign: "top" }}>
+              <tr key={v.kenmerk} style={{ borderBottom: "1px solid #E6E9E7", verticalAlign: "top" }}>
                 <td style={{ padding: "0.6rem 0.75rem 0.6rem 0", fontWeight: 400, whiteSpace: "nowrap" }}>{v.kenmerk}</td>
-                <td style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#4A5E4E" }}>{v.budget}</td>
-                <td style={{ padding: "0.6rem 0", color: "#4A5E4E" }}>{v.coach}</td>
+                <td style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#4A5A56" }}>{v.budget}</td>
+                <td style={{ padding: "0.6rem 0", color: "#4A5A56" }}>{v.coach}</td>
               </tr>
             ))}
           </tbody>
@@ -110,15 +110,15 @@ export default function VerschilBudgetcoachFinancieelCoach() {
       <div style={{ overflowX: "auto", marginBottom: "1.5rem" }}>
         <table className="font-body" style={{ width: "100%", borderCollapse: "collapse", fontSize: "0.95rem" }}>
           <thead>
-            <tr style={{ borderBottom: "2px solid #E8E0D0", textAlign: "left" }}>
-              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}>Jouw situatie</th>
-              <th style={{ padding: "0.6rem 0", color: "#1C3A2A", fontWeight: 500 }}>Passende hulp</th>
+            <tr style={{ borderBottom: "2px solid #E6E9E7", textAlign: "left" }}>
+              <th style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#16211F", fontWeight: 500 }}>Jouw situatie</th>
+              <th style={{ padding: "0.6rem 0", color: "#16211F", fontWeight: 500 }}>Passende hulp</th>
             </tr>
           </thead>
           <tbody>
             {situaties.map((s) => (
-              <tr key={s.situatie} style={{ borderBottom: "1px solid #E8E0D0", verticalAlign: "top" }}>
-                <td style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#4A5E4E" }}>{s.situatie}</td>
+              <tr key={s.situatie} style={{ borderBottom: "1px solid #E6E9E7", verticalAlign: "top" }}>
+                <td style={{ padding: "0.6rem 0.75rem 0.6rem 0", color: "#4A5A56" }}>{s.situatie}</td>
                 <td style={{ padding: "0.6rem 0", fontWeight: 400 }}>{s.hulp}</td>
               </tr>
             ))}

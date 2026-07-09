@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 
-const h2 = { fontSize: "1.6rem", color: "#1C3A2A", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
+const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 function KostenVergelijker() {
@@ -16,21 +16,21 @@ function KostenVergelijker() {
   const heeftResultaat = urenNum > 0 && tariefNum > 0;
 
   const inputStyle = {
-    padding: "9px 13px", borderRadius: "10px", border: "1.5px solid #D6CEBC",
-    fontFamily: "inherit", fontSize: "0.875rem", color: "#1C3A2A",
+    padding: "9px 13px", borderRadius: "10px", border: "1.5px solid #D9DEDC",
+    fontFamily: "inherit", fontSize: "0.875rem", color: "#16211F",
     backgroundColor: "white", outline: "none", width: "100%",
   } as const;
 
   return (
-    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
-      <div className="px-5 py-4 border-b" style={{ borderColor: "#E8E0D4" }}>
-        <p className="font-body font-semibold text-sm" style={{ color: "#1C3A2A" }}>Wat betaal je bij een traditionele adviseur?</p>
-        <p className="font-body text-xs mt-0.5" style={{ color: "#8A9E8E" }}>Vergelijk het met een eenmalig gesprek van €125</p>
+    <div className="rounded-xl border my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
+      <div className="px-5 py-4 border-b" style={{ borderColor: "#E6E9E7" }}>
+        <p className="font-body font-semibold text-sm" style={{ color: "#16211F" }}>Wat betaal je bij een traditionele adviseur?</p>
+        <p className="font-body text-xs mt-0.5" style={{ color: "#8B958F" }}>Vergelijk het met een eenmalig gesprek van €125</p>
       </div>
       <div className="p-5 space-y-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="font-body text-xs font-medium block mb-1.5" style={{ color: "#4A5E4E" }}>Aantal uur advies</label>
+            <label className="font-body text-xs font-medium block mb-1.5" style={{ color: "#4A5A56" }}>Aantal uur advies</label>
             <input
               type="text" inputMode="numeric" value={uren}
               onChange={e => setUren(e.target.value)}
@@ -39,7 +39,7 @@ function KostenVergelijker() {
             />
           </div>
           <div>
-            <label className="font-body text-xs font-medium block mb-1.5" style={{ color: "#4A5E4E" }}>Uurtarief adviseur (€)</label>
+            <label className="font-body text-xs font-medium block mb-1.5" style={{ color: "#4A5A56" }}>Uurtarief adviseur (€)</label>
             <select
               value={tarief} onChange={e => setTarief(e.target.value)}
               style={inputStyle}
@@ -53,24 +53,24 @@ function KostenVergelijker() {
         </div>
 
         {heeftResultaat && (
-          <div className="rounded-xl p-4 mt-2 space-y-3" style={{ backgroundColor: "#F5F0E8", border: "1px solid #E8E0D4" }}>
+          <div className="rounded-xl p-4 mt-2 space-y-3" style={{ backgroundColor: "#F7F8F7", border: "1px solid #E6E9E7" }}>
             <div className="flex justify-between items-center">
-              <span className="font-body text-sm" style={{ color: "#4A5E4E" }}>Traditionele adviseur ({urenNum}u × €{tariefNum})</span>
+              <span className="font-body text-sm" style={{ color: "#4A5A56" }}>Traditionele adviseur ({urenNum}u × €{tariefNum})</span>
               <span className="font-body text-sm font-semibold" style={{ color: "#B03A2E" }}>€{traditioneel.toLocaleString("nl-NL")}</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="font-body text-sm" style={{ color: "#4A5E4E" }}>Eenmalig adviesgesprek Waar blijft het</span>
+              <span className="font-body text-sm" style={{ color: "#4A5A56" }}>Eenmalig adviesgesprek Waar blijft het</span>
               <span className="font-body text-sm font-semibold" style={{ color: "#2D6A4F" }}>€125</span>
             </div>
-            <div className="border-t pt-3" style={{ borderColor: "#D6CEBC" }}>
+            <div className="border-t pt-3" style={{ borderColor: "#D9DEDC" }}>
               <div className="flex justify-between items-center">
-                <span className="font-body text-sm font-semibold" style={{ color: "#1C3A2A" }}>Verschil</span>
-                <span className="font-body text-base font-bold" style={{ color: besparing > 0 ? "#2D6A4F" : "#1C3A2A" }}>
+                <span className="font-body text-sm font-semibold" style={{ color: "#16211F" }}>Verschil</span>
+                <span className="font-body text-base font-bold" style={{ color: besparing > 0 ? "#2D6A4F" : "#16211F" }}>
                   {besparing > 0 ? `€${besparing.toLocaleString("nl-NL")} goedkoper` : "vergelijkbaar"}
                 </span>
               </div>
               {besparing > 0 && (
-                <p className="font-body text-xs mt-1" style={{ color: "#8A9E8E" }}>
+                <p className="font-body text-xs mt-1" style={{ color: "#8B958F" }}>
                   Dat is {Math.round(besparing / 125 * 10) / 10}× de prijs van één gesprek bij Waar blijft het.
                 </p>
               )}
@@ -84,15 +84,15 @@ function KostenVergelijker() {
 
 function VoorNa({ rows }: { rows: [string, string, string][] }) {
   return (
-    <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E8E0D4" }}>
-      <div className="grid grid-cols-3" style={{ backgroundColor: "#1C3A2A" }}>
+    <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E6E9E7" }}>
+      <div className="grid grid-cols-3" style={{ backgroundColor: "#16211F" }}>
         {["", "Traditioneel", "Waar blijft het"].map((h, i) => (
-          <div key={i} className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F5F0E8" }}>{h}</div>
+          <div key={i} className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F7F8F7" }}>{h}</div>
         ))}
       </div>
       {rows.map((r, i) => (
-        <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FDFAF4" : "white" }}>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#1C3A2A", fontWeight: 500 }}>{r[0]}</div>
+        <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
+          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#2D6A4F", fontWeight: 600 }}>{r[2]}</div>
         </div>
@@ -106,16 +106,16 @@ export default function WatKostEenFinancieelAdviseur() {
     <div className="font-body text-text-soft" style={{ lineHeight: 1.75 }}>
 
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Wat een traditionele financieel adviseur kost, en waarom dat voor de meeste gezinnen te duur is",
             "Wanneer je een dure adviseur echt nodig hebt, en wanneer niet",
             "Hoe Lisanne en Thijs voor €125 meer inzicht kregen dan na drie jaar bij hun bank",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -123,7 +123,7 @@ export default function WatKostEenFinancieelAdviseur() {
       </div>
 
       {/* Hook */}
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A", fontSize: "1.05rem" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F", fontSize: "1.05rem" }}>
         Lisanne zocht op "financieel adviseur" en klikte op het eerste resultaat. Onderaan de pagina stond een tarief: €220 per uur, minimaal twee uur voor een intakegesprek. Ze sloot het tabblad.
       </p>
       <p style={p}>
@@ -140,7 +140,7 @@ export default function WatKostEenFinancieelAdviseur() {
           "Een financieel plan op maat, inclusief pensioen, vermogen en risico (2–5 uur)",
           "Jaarlijkse herziening, opnieuw betaald",
         ].map((item, i) => (
-          <li key={i} className="font-body text-sm" style={{ color: "#4A5E4E", listStyleType: "disc" }}>{item}</li>
+          <li key={i} className="font-body text-sm" style={{ color: "#4A5A56", listStyleType: "disc" }}>{item}</li>
         ))}
       </ul>
       <p style={p}>
@@ -149,7 +149,7 @@ export default function WatKostEenFinancieelAdviseur() {
 
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Verborgen kosten</p>
-        <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
+        <p className="font-body text-sm" style={{ color: "#0A6A5F" }}>
           Niet alle adviseurs werken op uurbasis. Sommige rekenen een percentage van je vermogen (0,5–1,5% per jaar) of krijgen provisie van producten die ze adviseren. Bij €200.000 vermogen is 1% per jaar €2.000, elk jaar opnieuw. Vraag altijd expliciet hoe een adviseur wordt betaald voordat je een gesprek inplant.
         </p>
       </div>
@@ -202,7 +202,7 @@ export default function WatKostEenFinancieelAdviseur() {
 
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Gratis advies bestaat niet echt</p>
-        <p className="font-body text-sm" style={{ color: "#5C3D1E" }}>
+        <p className="font-body text-sm" style={{ color: "#0A6A5F" }}>
           "Gratis financieel advies" via de bank of een verzekeraar is niet gratis, de adviseur verdient provisie op de producten die je afsluit. Dat is op zich niet fout, maar je belangen hoeven dan niet parallel te lopen. Een onafhankelijk adviseur die je vooraf een uurtarief noemt is transparanter.
         </p>
       </div>
@@ -213,21 +213,21 @@ export default function WatKostEenFinancieelAdviseur() {
       </p>
       <p style={p}>
         Maandbudget inzichtelijk maken, uitgavenpatroon begrijpen, grip op vaste lasten, concrete doelen stellen → geen Wft-adviseur nodig. Een eenmalig{" "}
-        <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">financieel adviesgesprek van €125</Link>{" "}
+        <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">financieel adviesgesprek van €125</Link>{" "}
         is voldoende voor de meeste gezinnen.
       </p>
       <p style={p}>
         Ben je er niet zeker van wat je nodig hebt? Begin dan met de{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>{" "}
        , die geeft je direct inzicht in je situatie, zonder kosten en zonder verplichting. Op basis daarvan weet je of een eenmalig gesprek voldoende is of dat je meer nodig hebt.
       </p>
 
       <p style={p}>
         Wil je weten of een eenmalig gesprek voor jouw situatie genoeg is?{" "}
-        <Link href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
        , dan zie je in 5 minuten wat de grootste afwijking in jullie budget is. Of bespreek het direct in een{" "}
-        <Link href="/adviesgesprek" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">eenmalig financieel adviesgesprek van €125</Link>. Benieuwd wat coaching in de markt kost? Lees{" "}
-        <Link href="/inzichten/wat-kost-een-financieel-coach" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">wat kost een financieel coach</Link>.
+        <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig financieel adviesgesprek van €125</Link>. Benieuwd wat coaching in de markt kost? Lees{" "}
+        <Link href="/inzichten/wat-kost-een-financieel-coach" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat kost een financieel coach</Link>.
       </p>
     </div>
   );

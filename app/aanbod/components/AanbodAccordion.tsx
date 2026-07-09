@@ -43,7 +43,7 @@ export function AanbodAccordion() {
       {vragen.map((v, i) => (
         <div
           key={i}
-          style={{ borderBottom: "1px solid #E8E0D4" }}
+          style={{ borderBottom: "1px solid #E6E9E7" }}
         >
           <button
             onClick={() => setOpen(open === i ? null : i)}
@@ -52,7 +52,7 @@ export function AanbodAccordion() {
           >
             <span
               className="font-body"
-              style={{ fontWeight: 500, color: "#1C3A2A", fontSize: "1rem" }}
+              style={{ fontWeight: 500, color: "#16211F", fontSize: "1rem" }}
             >
               {v.vraag}
             </span>
@@ -60,7 +60,7 @@ export function AanbodAccordion() {
               className="flex-shrink-0 transition-transform duration-200"
               style={{
                 transform: open === i ? "rotate(180deg)" : "rotate(0deg)",
-                color: "#8A9E8E",
+                color: "#8B958F",
               }}
             >
               <svg
@@ -82,7 +82,7 @@ export function AanbodAccordion() {
             <p
               className="font-body pb-5"
               style={{
-                color: "#4A5E4E",
+                color: "#4A5A56",
                 fontSize: "0.9rem",
                 lineHeight: 1.8,
               }}

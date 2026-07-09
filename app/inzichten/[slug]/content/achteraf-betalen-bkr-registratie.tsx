@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function AchterafBetalenBkrRegistratie() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je gebruikt weleens achteraf betalen en vraagt je af of dat je BKR-registratie raakt,
           bijvoorbeeld als je later een hypotheek wilt. Online lees je daar tegenstrijdige dingen
           over.
@@ -30,9 +30,9 @@ export default function AchterafBetalenBkrRegistratie() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -41,8 +41,8 @@ export default function AchterafBetalenBkrRegistratie() {
             "Wanneer er wél een negatieve registratie kan ontstaan",
             "Wat er in 2026 verandert met het toezicht op achteraf betalen",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -51,7 +51,7 @@ export default function AchterafBetalenBkrRegistratie() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: betaal je je achteraf-betalingen gewoon op tijd, dan leidt dat doorgaans niet
         tot een BKR-registratie. Het risico ontstaat pas bij een langere achterstand die wordt
         overgedragen aan een incassopartij. En let op: vanaf eind 2026 verandert het toezicht, en
@@ -79,7 +79,7 @@ export default function AchterafBetalenBkrRegistratie() {
         achterstand, lees je in{" "}
         <Link
           href="/inzichten/klarna-niet-kunnen-betalen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           Klarna niet kunnen betalen
@@ -109,7 +109,7 @@ export default function AchterafBetalenBkrRegistratie() {
         in orde. Begin met je openstaande betalingen in beeld brengen in{" "}
         <Link
           href="/inzichten/overzicht-achteraf-betalen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je openstaande achteraf-betalingen op een rij krijgen
@@ -117,7 +117,7 @@ export default function AchterafBetalenBkrRegistratie() {
         , en reken uit{" "}
         <Link
           href="/inzichten/vrij-besteedbaar-inkomen-berekenen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           wat je vrij besteedbaar overhoudt
@@ -128,7 +128,7 @@ export default function AchterafBetalenBkrRegistratie() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

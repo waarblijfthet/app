@@ -3,7 +3,7 @@ import { AlleenstaandeUitgaven } from "@/components/artikel/AlleenstaandeUitgave
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -17,7 +17,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       <div style={{ marginBottom: "2rem" }}>
         <p
           className="font-display"
-          style={{ fontSize: "1.3rem", color: "#1C3A2A", fontWeight: 300, marginBottom: "1rem" }}
+          style={{ fontSize: "1.3rem", color: "#16211F", fontWeight: 300, marginBottom: "1rem" }}
         >
           Welke situatie past bij jou?
         </p>
@@ -25,22 +25,22 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
           {/* Card 1 — Goed salaris, toch krap (actief = dit artikel) */}
           <div
             className="rounded-xl p-4"
-            style={{ border: "2px solid #1C3A2A", backgroundColor: "#F5F0E8" }}
+            style={{ border: "2px solid #16211F", backgroundColor: "#F7F8F7" }}
           >
             <p
               className="font-body font-semibold text-sm"
-              style={{ color: "#1C3A2A", marginBottom: "0.4rem" }}
+              style={{ color: "#16211F", marginBottom: "0.4rem" }}
             >
               Goed salaris, toch krap
             </p>
             <p
               className="font-body text-sm"
-              style={{ color: "#4A5E4E", fontWeight: 300, marginBottom: "0.75rem" }}
+              style={{ color: "#4A5A56", fontWeight: 300, marginBottom: "0.75rem" }}
             >
               Je verdient goed, geen kinderen, geen gekke uitgaven. En toch begrijp je niet waar
               het geld blijft.
             </p>
-            <p className="font-body text-xs" style={{ color: "#8A9E8E" }}>
+            <p className="font-body text-xs" style={{ color: "#8B958F" }}>
               Je bent hier op de juiste plek. Lees verder.
             </p>
           </div>
@@ -49,22 +49,22 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
           <Link
             href="/inzichten/kosten-levensonderhoud-alleenstaande-ouder-2026"
             className="rounded-xl p-4 block"
-            style={{ border: "1px solid #E8E0D4", backgroundColor: "#FDFAF4", textDecoration: "none" }}
+            style={{ border: "1px solid #E6E9E7", backgroundColor: "#FFFFFF", textDecoration: "none" }}
           >
             <p
               className="font-body font-semibold text-sm"
-              style={{ color: "#1C3A2A", marginBottom: "0.4rem" }}
+              style={{ color: "#16211F", marginBottom: "0.4rem" }}
             >
               Alleenstaande ouder
             </p>
             <p
               className="font-body text-sm"
-              style={{ color: "#4A5E4E", fontWeight: 300, marginBottom: "0.75rem" }}
+              style={{ color: "#4A5A56", fontWeight: 300, marginBottom: "0.75rem" }}
             >
               De kinderen zijn bij jou, de kosten ook. En je doet het op één inkomen, zonder
               achtervang.
             </p>
-            <span className="font-body text-xs font-medium" style={{ color: "#C4603A" }}>
+            <span className="font-body text-xs font-medium" style={{ color: "#0B7A6E" }}>
               Lees het specifieke overzicht →
             </span>
           </Link>
@@ -73,22 +73,22 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
           <Link
             href="/inzichten/kosten-levensonderhoud-zzp-alleenstaande-2026"
             className="rounded-xl p-4 block"
-            style={{ border: "1px solid #E8E0D4", backgroundColor: "#FDFAF4", textDecoration: "none" }}
+            style={{ border: "1px solid #E6E9E7", backgroundColor: "#FFFFFF", textDecoration: "none" }}
           >
             <p
               className="font-body font-semibold text-sm"
-              style={{ color: "#1C3A2A", marginBottom: "0.4rem" }}
+              style={{ color: "#16211F", marginBottom: "0.4rem" }}
             >
               ZZP&apos;er en alleen
             </p>
             <p
               className="font-body text-sm"
-              style={{ color: "#4A5E4E", fontWeight: 300, marginBottom: "0.75rem" }}
+              style={{ color: "#4A5A56", fontWeight: 300, marginBottom: "0.75rem" }}
             >
               Je inkomen wisselt per maand. En er is geen partner die de buffer aanvult als het
               tegenzit.
             </p>
-            <span className="font-body text-xs font-medium" style={{ color: "#C4603A" }}>
+            <span className="font-body text-xs font-medium" style={{ color: "#0B7A6E" }}>
               Lees het specifieke overzicht →
             </span>
           </Link>
@@ -97,22 +97,22 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
           <Link
             href="/inzichten/kosten-levensonderhoud-alleenstaande-50-plus-2026"
             className="rounded-xl p-4 block"
-            style={{ border: "1px solid #E8E0D4", backgroundColor: "#FDFAF4", textDecoration: "none" }}
+            style={{ border: "1px solid #E6E9E7", backgroundColor: "#FFFFFF", textDecoration: "none" }}
           >
             <p
               className="font-body font-semibold text-sm"
-              style={{ color: "#1C3A2A", marginBottom: "0.4rem" }}
+              style={{ color: "#16211F", marginBottom: "0.4rem" }}
             >
               50-plusser, alleen
             </p>
             <p
               className="font-body text-sm"
-              style={{ color: "#4A5E4E", fontWeight: 300, marginBottom: "0.75rem" }}
+              style={{ color: "#4A5A56", fontWeight: 300, marginBottom: "0.75rem" }}
             >
               Pensioen nadert. Op één inkomen, zonder iemand om mee te rekenen. Hoe zit dat
               plaatje?
             </p>
-            <span className="font-body text-xs font-medium" style={{ color: "#C4603A" }}>
+            <span className="font-body text-xs font-medium" style={{ color: "#0B7A6E" }}>
               Lees het specifieke overzicht →
             </span>
           </Link>
@@ -122,9 +122,9 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -133,8 +133,8 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
             "Waarom huur de grootste variabele is en hoe groot het verschil tussen Randstad en de rest van Nederland is",
             "Waarom je als alleenstaande met een goed salaris toch krap kunt zitten, en waarom dat geen gedragsprobleem is",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -174,7 +174,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         aankopen, berekende HetGeldCollege op basis van{" "}
         <Link
           href="/inzichten/nibud-boodschappen-versus-werkelijkheid"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           Nibud-data
@@ -243,7 +243,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         tussen je inkomen en de kosten in jouw omgeving. Meer over{" "}
         <Link
           href="/inzichten/wat-zijn-normale-vaste-lasten-gezin"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           wat normale vaste lasten zijn
@@ -282,12 +282,12 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       {/* Uit de praktijk */}
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm font-medium mb-2" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm font-medium mb-2" style={{ color: "#16211F" }}>
           Uit de praktijk: Sophie, 32, IT-consultant, Amsterdam
         </p>
-        <p className="font-body text-sm" style={{ color: "#2D4A35" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           €3.400 netto per maand, goed salaris. En toch kon ze aan het einde van de maand niet
           uitleggen waar het gebleven was. Huur €1.350, parkeervergunning €60, zorgverzekering
           €155 na toeslag, energie €190. Dat is al €1.755 aan vaste lasten, zonder eten en zonder
@@ -300,7 +300,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",
@@ -328,50 +328,50 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         <Link
           href="/inzichten/kosten-levensonderhoud-alleenstaande-ouder-2026"
           className="rounded-xl p-4 block"
-          style={{ border: "1px solid #E8E0D4", backgroundColor: "#FDFAF4", textDecoration: "none" }}
+          style={{ border: "1px solid #E6E9E7", backgroundColor: "#FFFFFF", textDecoration: "none" }}
         >
-          <p className="font-body font-semibold text-sm mb-2" style={{ color: "#1C3A2A" }}>
+          <p className="font-body font-semibold text-sm mb-2" style={{ color: "#16211F" }}>
             Alleenstaande ouder
           </p>
           <p
             className="font-body text-sm"
-            style={{ color: "#4A5E4E", fontWeight: 300, marginBottom: "0.75rem" }}
+            style={{ color: "#4A5A56", fontWeight: 300, marginBottom: "0.75rem" }}
           >
             Kinderkosten, regelingen en wat je er netto van overhoudt.
           </p>
-          <span style={{ color: "#C4603A", fontSize: "0.8rem" }}>Lees verder →</span>
+          <span style={{ color: "#0B7A6E", fontSize: "0.8rem" }}>Lees verder →</span>
         </Link>
         <Link
           href="/inzichten/kosten-levensonderhoud-zzp-alleenstaande-2026"
           className="rounded-xl p-4 block"
-          style={{ border: "1px solid #E8E0D4", backgroundColor: "#FDFAF4", textDecoration: "none" }}
+          style={{ border: "1px solid #E6E9E7", backgroundColor: "#FFFFFF", textDecoration: "none" }}
         >
-          <p className="font-body font-semibold text-sm mb-2" style={{ color: "#1C3A2A" }}>
+          <p className="font-body font-semibold text-sm mb-2" style={{ color: "#16211F" }}>
             ZZP&apos;er en alleen
           </p>
           <p
             className="font-body text-sm"
-            style={{ color: "#4A5E4E", fontWeight: 300, marginBottom: "0.75rem" }}
+            style={{ color: "#4A5A56", fontWeight: 300, marginBottom: "0.75rem" }}
           >
             Variabel inkomen, buffer en pensioen op eigen kracht.
           </p>
-          <span style={{ color: "#C4603A", fontSize: "0.8rem" }}>Lees verder →</span>
+          <span style={{ color: "#0B7A6E", fontSize: "0.8rem" }}>Lees verder →</span>
         </Link>
         <Link
           href="/inzichten/kosten-levensonderhoud-alleenstaande-50-plus-2026"
           className="rounded-xl p-4 block"
-          style={{ border: "1px solid #E8E0D4", backgroundColor: "#FDFAF4", textDecoration: "none" }}
+          style={{ border: "1px solid #E6E9E7", backgroundColor: "#FFFFFF", textDecoration: "none" }}
         >
-          <p className="font-body font-semibold text-sm mb-2" style={{ color: "#1C3A2A" }}>
+          <p className="font-body font-semibold text-sm mb-2" style={{ color: "#16211F" }}>
             50-plusser, alleen
           </p>
           <p
             className="font-body text-sm"
-            style={{ color: "#4A5E4E", fontWeight: 300, marginBottom: "0.75rem" }}
+            style={{ color: "#4A5A56", fontWeight: 300, marginBottom: "0.75rem" }}
           >
             Pensioen nadert en de vraag: heb je genoeg?
           </p>
-          <span style={{ color: "#C4603A", fontSize: "0.8rem" }}>Lees verder →</span>
+          <span style={{ color: "#0B7A6E", fontSize: "0.8rem" }}>Lees verder →</span>
         </Link>
       </div>
     </>

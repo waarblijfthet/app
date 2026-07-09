@@ -177,8 +177,8 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
             onClick={() => setFilter(f)}
             className={`text-xs px-3 py-1.5 rounded-full border transition-all capitalize font-body ${
               filter === f
-                ? "bg-[#1C3A2A] text-[#F5F0E8] border-[#1C3A2A]"
-                : "bg-white text-[#4A5E4E] border-[#E8E0D4] hover:border-[#1C3A2A]"
+                ? "bg-[#16211F] text-[#F7F8F7] border-[#16211F]"
+                : "bg-white text-[#4A5A56] border-[#E6E9E7] hover:border-[#16211F]"
             }`}
           >
             {f === "week" ? "7 dagen" : f === "maand" ? "30 dagen" : "Alles"}
@@ -188,42 +188,42 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
 
       {laden ? (
         <div className="flex items-center justify-center py-20">
-          <div className="w-6 h-6 border-2 border-[#1C3A2A] border-t-transparent rounded-full animate-spin" />
+          <div className="w-6 h-6 border-2 border-[#16211F] border-t-transparent rounded-full animate-spin" />
         </div>
       ) : (
         <>
           {/* Funnel */}
-          <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
-            <p className="text-xs font-medium text-[#4A5E4E] mb-4 uppercase tracking-wider font-body">
+          <div className="bg-white rounded-xl border border-[#E6E9E7] p-5 mb-6">
+            <p className="text-xs font-medium text-[#4A5A56] mb-4 uppercase tracking-wider font-body">
               Conversie-funnel
             </p>
             <div className="space-y-3">
               {stappen.map((s, i) => (
                 <div key={s.label}>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-sm text-[#1C3A2A] font-body">{s.label}</span>
+                    <span className="text-sm text-[#16211F] font-body">{s.label}</span>
                     <span className="text-sm font-body">
-                      <strong className="text-[#1C3A2A]">{s.waarde}</strong>
+                      <strong className="text-[#16211F]">{s.waarde}</strong>
                       {i > 0 && (
-                        <span className="text-[#8A9E8E] ml-2">
+                        <span className="text-[#8B958F] ml-2">
                           {pct(s.waarde, s.vorige)} van vorige stap
                         </span>
                       )}
                     </span>
                   </div>
-                  <div className="h-3 bg-[#EDE6D8] rounded-full overflow-hidden">
+                  <div className="h-3 bg-[#F0F3F1] rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all"
                       style={{
                         width: `${Math.min(100, (s.waarde / maxWaarde) * 100)}%`,
-                        backgroundColor: i === 0 ? "#1C3A2A" : i === stappen.length - 1 ? "#2D6A4F" : "#C4603A",
+                        backgroundColor: i === 0 ? "#16211F" : i === stappen.length - 1 ? "#2D6A4F" : "#0B7A6E",
                       }}
                     />
                   </div>
                 </div>
               ))}
             </div>
-            <p className="text-xs text-[#8A9E8E] mt-4 font-body">
+            <p className="text-xs text-[#8B958F] mt-4 font-body">
               Eindconversie bezoeker → betaalde aanvraag:{" "}
               <strong>{pct(aantalAanvragen, bezoekers)}</strong>. &ldquo;Analyse
               voltooid&rdquo; en verder zijn periodetotalen; de stap-percentages
@@ -232,16 +232,16 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
           </div>
 
           {/* Stap-voor-stap drop-off binnen de analyse */}
-          <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
-            <p className="text-xs font-medium text-[#4A5E4E] mb-1 uppercase tracking-wider font-body">
+          <div className="bg-white rounded-xl border border-[#E6E9E7] p-5 mb-6">
+            <p className="text-xs font-medium text-[#4A5A56] mb-1 uppercase tracking-wider font-body">
               Drop-off binnen de analyse (per stap)
             </p>
-            <p className="text-xs text-[#8A9E8E] mb-4 font-body">
+            <p className="text-xs text-[#8B958F] mb-4 font-body">
               Hoeveel mensen elke stap bereikten. Waar de balk terugloopt, haken
               mensen af.
             </p>
             {stapTrechter.starts === 0 ? (
-              <p className="text-sm text-[#8A9E8E] py-6 text-center font-body">
+              <p className="text-sm text-[#8B958F] py-6 text-center font-body">
                 Nog geen voortgangsdata. (Verschijnt zodra de tabel
                 quiz_voortgang bestaat en iemand de analyse start.)
               </p>
@@ -254,16 +254,16 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                   const drop = vorige - aantal;
                   return (
                     <div key={label} className="flex items-center gap-3">
-                      <span className="text-xs text-[#1C3A2A] font-body w-24 flex-shrink-0">
+                      <span className="text-xs text-[#16211F] font-body w-24 flex-shrink-0">
                         {label}
                       </span>
-                      <div className="flex-1 h-4 bg-[#EDE6D8] rounded-full overflow-hidden">
+                      <div className="flex-1 h-4 bg-[#F0F3F1] rounded-full overflow-hidden">
                         <div
-                          className="h-full bg-[#1C3A2A] rounded-full"
+                          className="h-full bg-[#16211F] rounded-full"
                           style={{ width: `${Math.round((aantal / start) * 100)}%` }}
                         />
                       </div>
-                      <span className="text-xs font-body text-[#4A5E4E] w-28 text-right flex-shrink-0">
+                      <span className="text-xs font-body text-[#4A5A56] w-28 text-right flex-shrink-0">
                         {aantal}
                         {i > 0 && drop > 0 && (
                           <span className="text-[#B03A2E]"> (−{drop})</span>
@@ -272,15 +272,15 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                     </div>
                   );
                 })}
-                <div className="mt-3 pt-3 border-t border-[#EDE6D8] space-y-1">
-                  <p className="text-xs text-[#4A5E4E] font-body">
+                <div className="mt-3 pt-3 border-t border-[#F0F3F1] space-y-1">
+                  <p className="text-xs text-[#4A5A56] font-body">
                     Pagina geladen: <strong>{stapTrechter.starts}</strong> · Begon in te
                     vullen: <strong>{stapTrechter.gestart}</strong>{" "}
                     ({pct(stapTrechter.gestart, stapTrechter.starts)}) · Voltooid:{" "}
                     <strong>{stapTrechter.voltooid}</strong>{" "}
                     ({pct(stapTrechter.voltooid, stapTrechter.starts)}).
                   </p>
-                  <p className="text-xs text-[#8A9E8E] font-body">
+                  <p className="text-xs text-[#8B958F] font-body">
                     Het verschil tussen geladen en begon in te vullen is de afhaak
                     op het introscherm (vóór de eerste vraag). &ldquo;Begon in te
                     vullen&rdquo; telt vanaf het moment dat de nieuwe meting live staat.
@@ -292,20 +292,20 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
 
           {/* Apparaat-verdeling */}
           {stapTrechter.starts > 0 && (
-            <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
-              <p className="text-xs font-medium text-[#4A5E4E] mb-1 uppercase tracking-wider font-body">
+            <div className="bg-white rounded-xl border border-[#E6E9E7] p-5 mb-6">
+              <p className="text-xs font-medium text-[#4A5A56] mb-1 uppercase tracking-wider font-body">
                 Apparaat
               </p>
-              <p className="text-xs text-[#8A9E8E] mb-4 font-body">
+              <p className="text-xs text-[#8B958F] mb-4 font-body">
                 Mobiel versus desktop per fase. Veel mobiel met een lage start = de
                 drempel zit waarschijnlijk op mobiel.
               </p>
               <div style={{ overflowX: "auto" }}>
                 <table className="w-full text-sm" style={{ minWidth: "440px" }}>
                   <thead>
-                    <tr className="bg-[#1C3A2A]">
+                    <tr className="bg-[#16211F]">
                       {["Fase", "Mobiel", "Desktop", "Onbekend"].map((h) => (
-                        <th key={h} className="text-left px-3 py-2 text-[#F5F0E8] font-medium text-xs font-body">
+                        <th key={h} className="text-left px-3 py-2 text-[#F7F8F7] font-medium text-xs font-body">
                           {h}
                         </th>
                       ))}
@@ -317,11 +317,11 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                       { label: "Begon in te vullen", v: apparaatSplit.gestart },
                       { label: "Voltooid", v: apparaatSplit.voltooid },
                     ].map((rij, i) => (
-                      <tr key={rij.label} className={i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"}>
-                        <td className="px-3 py-2 text-[#1C3A2A] text-xs font-body">{rij.label}</td>
-                        <td className="px-3 py-2 text-[#4A5E4E] text-xs font-body">{rij.v.mobiel}</td>
-                        <td className="px-3 py-2 text-[#4A5E4E] text-xs font-body">{rij.v.desktop}</td>
-                        <td className="px-3 py-2 text-[#8A9E8E] text-xs font-body">{rij.v.onbekend}</td>
+                      <tr key={rij.label} className={i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"}>
+                        <td className="px-3 py-2 text-[#16211F] text-xs font-body">{rij.label}</td>
+                        <td className="px-3 py-2 text-[#4A5A56] text-xs font-body">{rij.v.mobiel}</td>
+                        <td className="px-3 py-2 text-[#4A5A56] text-xs font-body">{rij.v.desktop}</td>
+                        <td className="px-3 py-2 text-[#8B958F] text-xs font-body">{rij.v.onbekend}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -332,19 +332,19 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
 
           {/* Laatste voltooide analyses (anoniem, uit quiz_voortgang) */}
           {voortgang.filter((v) => v.voltooid).length > 0 && (
-            <div className="bg-white rounded-xl border border-[#E8E0D4] p-5 mb-6">
-              <p className="text-xs font-medium text-[#4A5E4E] mb-1 uppercase tracking-wider font-body">
+            <div className="bg-white rounded-xl border border-[#E6E9E7] p-5 mb-6">
+              <p className="text-xs font-medium text-[#4A5A56] mb-1 uppercase tracking-wider font-body">
                 Laatste voltooide analyses
               </p>
-              <p className="text-xs text-[#8A9E8E] mb-3 font-body">
+              <p className="text-xs text-[#8B958F] mb-3 font-body">
                 Anonieme afronding (geen e-mail vereist). Volledige resultaten met contactgegevens staan onder &ldquo;Analyse resultaten&rdquo;.
               </p>
               <div style={{ overflowX: "auto" }}>
                 <table className="w-full text-sm" style={{ minWidth: "520px" }}>
                   <thead>
-                    <tr className="bg-[#1C3A2A]">
+                    <tr className="bg-[#16211F]">
                       {["Datum", "Profiel", "Inkomen", "Houdt over", "Oordeel"].map((h) => (
-                        <th key={h} className="text-left px-3 py-2 text-[#F5F0E8] font-medium text-xs font-body">
+                        <th key={h} className="text-left px-3 py-2 text-[#F7F8F7] font-medium text-xs font-body">
                           {h}
                         </th>
                       ))}
@@ -355,14 +355,14 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                       .filter((v) => v.voltooid)
                       .slice(0, 12)
                       .map((v, i) => (
-                        <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"}>
-                          <td className="px-3 py-2 text-[#8A9E8E] text-xs font-body whitespace-nowrap">
+                        <tr key={i} className={i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"}>
+                          <td className="px-3 py-2 text-[#8B958F] text-xs font-body whitespace-nowrap">
                             {new Date(v.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short" })}
                           </td>
-                          <td className="px-3 py-2 text-[#4A5E4E] text-xs font-body">
+                          <td className="px-3 py-2 text-[#4A5A56] text-xs font-body">
                             {v.woonsituatie ?? "—"}, {v.aantal_kinderen ?? 0} kind(eren)
                           </td>
-                          <td className="px-3 py-2 text-[#1C3A2A] text-xs font-body">
+                          <td className="px-3 py-2 text-[#16211F] text-xs font-body">
                             {v.totaal_inkomen ? "€" + v.totaal_inkomen.toLocaleString("nl-NL") : "—"}
                           </td>
                           <td className="px-3 py-2 text-xs font-body" style={{ color: (v.maandelijks_over ?? 0) < 0 ? "#B03A2E" : "#2D6A4F" }}>
@@ -370,7 +370,7 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                           </td>
                           <td className="px-3 py-2 text-xs font-body">
                             <span className="px-2 py-0.5 rounded-full" style={{
-                              backgroundColor: v.verdict === "goed" ? "#E8F2EC" : v.verdict === "matig" ? "#FDF3E3" : "#FDECEA",
+                              backgroundColor: v.verdict === "goed" ? "#E7F1EE" : v.verdict === "matig" ? "#FDF3E3" : "#FDECEA",
                               color: v.verdict === "goed" ? "#2D6A4F" : v.verdict === "matig" ? "#92600A" : "#B03A2E",
                             }}>
                               {v.verdict ?? "—"}
@@ -385,32 +385,32 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
           )}
 
           {/* Pagina's naar analyse */}
-          <div className="bg-white rounded-xl border border-[#E8E0D4] p-5">
-            <p className="text-xs font-medium text-[#4A5E4E] mb-1 uppercase tracking-wider font-body">
+          <div className="bg-white rounded-xl border border-[#E6E9E7] p-5">
+            <p className="text-xs font-medium text-[#4A5A56] mb-1 uppercase tracking-wider font-body">
               Welke pagina&apos;s leiden naar de analyse?
             </p>
-            <p className="text-xs text-[#8A9E8E] mb-4 font-body">
+            <p className="text-xs text-[#8B958F] mb-4 font-body">
               Sessies die deze pagina én de analyse bezochten. Hoge ratio = sterke
               doorstroom naar de tool.
             </p>
             {paginaNaarAnalyse.length === 0 ? (
-              <p className="text-sm text-[#8A9E8E] py-6 text-center font-body">
+              <p className="text-sm text-[#8B958F] py-6 text-center font-body">
                 Nog te weinig data in deze periode.
               </p>
             ) : (
               <div className="space-y-2.5">
                 {paginaNaarAnalyse.map((r) => (
                   <div key={r.pagina} className="flex items-center gap-3">
-                    <span className="text-xs text-[#1C3A2A] font-body w-44 flex-shrink-0 truncate" title={r.pagina}>
+                    <span className="text-xs text-[#16211F] font-body w-44 flex-shrink-0 truncate" title={r.pagina}>
                       {paginaLabel(r.pagina)}
                     </span>
-                    <div className="flex-1 h-4 bg-[#EDE6D8] rounded-full overflow-hidden">
+                    <div className="flex-1 h-4 bg-[#F0F3F1] rounded-full overflow-hidden">
                       <div
                         className="h-full bg-[#2D6A4F] rounded-full"
                         style={{ width: `${Math.round(r.ratio * 100)}%` }}
                       />
                     </div>
-                    <span className="text-xs font-body text-[#4A5E4E] w-32 text-right flex-shrink-0">
+                    <span className="text-xs font-body text-[#4A5A56] w-32 text-right flex-shrink-0">
                       {r.naarAnalyse}/{r.sessies} → {Math.round(r.ratio * 100)}%
                     </span>
                   </div>

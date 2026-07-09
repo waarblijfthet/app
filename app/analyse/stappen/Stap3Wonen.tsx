@@ -116,7 +116,7 @@ export default function Stap3Wonen({ data, onChange }: Props) {
                     className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
                       data.gemeenteBelastingenPer === per
                         ? "bg-primary text-white"
-                        : "bg-[#E8E0D0] text-text-soft"
+                        : "bg-[#E6E9E7] text-text-soft"
                     }`}
                   >
                     Per {per}

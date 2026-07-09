@@ -29,8 +29,8 @@
   }
 
   body {
-    background-color: #F5F0E8;
-    color: #1C3A2A;
+    background-color: #F7F8F7;
+    color: #16211F;
     font-family: "Plus Jakarta Sans", system-ui, sans-serif;
     font-weight: 400;
     -webkit-font-smoothing: antialiased;
@@ -47,7 +47,7 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-accent text-white font-body font-medium px-6 py-3.5 rounded-xl transition-all duration-200 hover:bg-[#b05530] hover:shadow-card-hover flex items-center justify-center gap-2 w-full sm:w-auto sm:inline-flex;
+    @apply bg-accent text-white font-body font-medium px-6 py-3.5 rounded-xl transition-all duration-200 hover:bg-[#0A6A5F] hover:shadow-card-hover flex items-center justify-center gap-2 w-full sm:w-auto sm:inline-flex;
   }
 
   .btn-outline {
@@ -55,7 +55,7 @@
   }
 
   .input-base {
-    @apply w-full bg-white border border-[#D6CEBC] rounded-xl px-4 py-3 text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors;
+    @apply w-full bg-white border border-[#D9DEDC] rounded-xl px-4 py-3 text-primary font-body text-sm placeholder:text-text-muted focus:outline-none focus:border-primary transition-colors;
   }
 
   .section-eyebrow {

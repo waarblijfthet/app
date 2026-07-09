@@ -42,7 +42,7 @@ export default function LoginForm() {
       </div>
 
       {/* Kaart */}
-      <div className="bg-card rounded-xl shadow-card border border-[#E8E0D0] p-8">
+      <div className="bg-card rounded-xl shadow-card border border-[#E6E9E7] p-8">
         <h1 className="font-display font-light text-primary text-2xl mb-1">
           Beheerders login
         </h1>

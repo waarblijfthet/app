@@ -3,7 +3,7 @@ import { BoodschappenLekkage } from "@/components/artikel/BoodschappenLekkage";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -14,16 +14,16 @@ export default function HoeBespaarJeOpBoodschappen() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Waar het geld bij boodschappen ongemerkt weglekt, en het is zelden in het groot",
             "Welke twee gedragsveranderingen het meeste opleveren voor de minste moeite",
             "Dat dagelijks even snel iets halen een gezin gemiddeld €180 per maand extra kost",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -124,7 +124,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         de supermarkt maar bij een drogisterij of{" "}
         <Link
           href="/inzichten/vergelijken-boodschappen-nederland-duitsland"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           over de grens in Duitsland
@@ -147,7 +147,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         alleen, maar{" "}
         <Link
           href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           wat normaal is voor jouw gezin
@@ -158,7 +158,7 @@ export default function HoeBespaarJeOpBoodschappen() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",
@@ -175,14 +175,14 @@ export default function HoeBespaarJeOpBoodschappen() {
       </div>
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           <strong>Uit de praktijk.</strong> Bij een gezin dat we begeleidden waren de boodschappen het grootste lek: veel impulsaankopen, geen plan. Een weekbudget plus een korte check-in ná elke keer boodschappen hield ze scherp, juist op de momenten dat het misging.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>
-        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
+        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
       </p>
     </>
   );

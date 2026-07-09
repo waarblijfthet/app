@@ -303,7 +303,7 @@ export default function IndexingTabblad() {
           )}
         </div>
       ) : !laden ? (
-        <div className="text-sm px-4 py-2.5 rounded-lg border border-[#E8E0D0] bg-[#F5F0E8] text-[#8A9E8E]">
+        <div className="text-sm px-4 py-2.5 rounded-lg border border-[#E6E9E7] bg-[#F7F8F7] text-[#8B958F]">
           🕐 Nog geen automatische run gedraaid. Eerste run is morgen om 09:00.
         </div>
       ) : null}
@@ -322,7 +322,7 @@ export default function IndexingTabblad() {
               {p.label}: <strong>{p.waarde}</strong>
             </span>
           ))}
-          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-[#E8E0D0] text-[#4A5E4E]">
+          <span className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-[#E6E9E7] text-[#4A5A56]">
             Totaal: <strong className="ml-1">{summary.total}</strong>
           </span>
         </div>
@@ -334,7 +334,7 @@ export default function IndexingTabblad() {
           type="button"
           onClick={syncUrls}
           disabled={!!bezig}
-          className="px-4 py-2 rounded-lg text-sm font-medium bg-[#1C3A2A] text-white hover:bg-[#2D6A4F] disabled:opacity-50 transition-colors"
+          className="px-4 py-2 rounded-lg text-sm font-medium bg-[#16211F] text-white hover:bg-[#2D6A4F] disabled:opacity-50 transition-colors"
         >
           {bezig === "sync" ? "Bezig…" : "🔄 Sync URLs"}
         </button>
@@ -342,7 +342,7 @@ export default function IndexingTabblad() {
           type="button"
           onClick={() => void indienen()}
           disabled={!!bezig}
-          className="px-4 py-2 rounded-lg text-sm font-medium bg-[#C4603A] text-white hover:bg-[#b05530] disabled:opacity-50 transition-colors"
+          className="px-4 py-2 rounded-lg text-sm font-medium bg-[#0B7A6E] text-white hover:bg-[#0A6A5F] disabled:opacity-50 transition-colors"
         >
           {bezig === "submit" ? "Bezig…" : "📤 Indienen bij Google (max 200/dag)"}
         </button>
@@ -350,7 +350,7 @@ export default function IndexingTabblad() {
           type="button"
           onClick={() => void inspecteer()}
           disabled={!!bezig}
-          className="px-4 py-2 rounded-lg text-sm font-medium border border-[#1C3A2A] text-[#1C3A2A] hover:bg-[#E8F0EB] disabled:opacity-50 transition-colors"
+          className="px-4 py-2 rounded-lg text-sm font-medium border border-[#16211F] text-[#16211F] hover:bg-[#E8F0EB] disabled:opacity-50 transition-colors"
         >
           {bezig === "inspect" ? "Bezig…" : "🔍 Status ophalen"}
         </button>
@@ -358,7 +358,7 @@ export default function IndexingTabblad() {
           type="button"
           onClick={() => void laadStatus()}
           disabled={!!bezig || laden}
-          className="px-4 py-2 rounded-lg text-sm font-medium border border-[#D6CEBC] text-[#4A5E4E] hover:bg-[#F5F0E8] disabled:opacity-50 transition-colors"
+          className="px-4 py-2 rounded-lg text-sm font-medium border border-[#D9DEDC] text-[#4A5A56] hover:bg-[#F7F8F7] disabled:opacity-50 transition-colors"
         >
           ↻ Vernieuwen
         </button>
@@ -409,21 +409,21 @@ export default function IndexingTabblad() {
 
       {/* URL-tabel */}
       {laden ? (
-        <p className="text-sm text-[#4A5E4E]">Laden…</p>
+        <p className="text-sm text-[#4A5A56]">Laden…</p>
       ) : rows.length === 0 ? (
-        <div className="text-center py-12 text-[#4A5E4E] text-sm">
+        <div className="text-center py-12 text-[#4A5A56] text-sm">
           <p>Geen URLs gevonden. Klik op <strong>Sync URLs</strong> om te beginnen.</p>
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-[#E8E0D0]">
+        <div className="overflow-x-auto rounded-xl border border-[#E6E9E7]">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-[#F5F0E8] border-b border-[#E8E0D0]">
-                <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">URL / Fout</th>
-                <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">Status</th>
-                <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">Verdict</th>
-                <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">Laatste crawl</th>
-                <th className="text-left px-4 py-3 font-medium text-[#1C3A2A]">Ingediend</th>
+              <tr className="bg-[#F7F8F7] border-b border-[#E6E9E7]">
+                <th className="text-left px-4 py-3 font-medium text-[#16211F]">URL / Fout</th>
+                <th className="text-left px-4 py-3 font-medium text-[#16211F]">Status</th>
+                <th className="text-left px-4 py-3 font-medium text-[#16211F]">Verdict</th>
+                <th className="text-left px-4 py-3 font-medium text-[#16211F]">Laatste crawl</th>
+                <th className="text-left px-4 py-3 font-medium text-[#16211F]">Ingediend</th>
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
@@ -434,10 +434,10 @@ export default function IndexingTabblad() {
                 return (
                   <tr
                     key={row.id}
-                    className={`border-b border-[#E8E0D0] ${i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"} hover:bg-[#F5F0E8] transition-colors`}
+                    className={`border-b border-[#E6E9E7] ${i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"} hover:bg-[#F7F8F7] transition-colors`}
                   >
                     <td className="px-4 py-3 max-w-xs">
-                      <div className="font-mono text-xs text-[#1C3A2A] truncate" title={row.url}>
+                      <div className="font-mono text-xs text-[#16211F] truncate" title={row.url}>
                         {urlKort(row.url)}
                       </div>
                       {row.error_message && (
@@ -456,16 +456,16 @@ export default function IndexingTabblad() {
                         {badge.label}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-[#4A5E4E]">{row.verdict ?? "—"}</td>
-                    <td className="px-4 py-3 text-[#4A5E4E]">{datumKort(row.last_crawled_at)}</td>
-                    <td className="px-4 py-3 text-[#4A5E4E]">{datumKort(row.last_submitted_at)}</td>
+                    <td className="px-4 py-3 text-[#4A5A56]">{row.verdict ?? "—"}</td>
+                    <td className="px-4 py-3 text-[#4A5A56]">{datumKort(row.last_crawled_at)}</td>
+                    <td className="px-4 py-3 text-[#4A5A56]">{datumKort(row.last_submitted_at)}</td>
                     <td className="px-4 py-3">
                       <div className="flex gap-2 flex-wrap">
                         <button
                           type="button"
                           onClick={() => void inspecteer([row.url])}
                           disabled={!!bezig}
-                          className="text-xs px-2.5 py-1 rounded border border-[#1C3A2A] text-[#1C3A2A] hover:bg-[#E8F0EB] disabled:opacity-40 transition-colors whitespace-nowrap"
+                          className="text-xs px-2.5 py-1 rounded border border-[#16211F] text-[#16211F] hover:bg-[#E8F0EB] disabled:opacity-40 transition-colors whitespace-nowrap"
                         >
                           {bezigMetDezeUrl ? "…" : "🔍"}
                         </button>
@@ -474,7 +474,7 @@ export default function IndexingTabblad() {
                             type="button"
                             onClick={() => void indienen([row.url])}
                             disabled={!!bezig}
-                            className="text-xs px-2.5 py-1 rounded border border-[#C4603A] text-[#C4603A] hover:bg-[#FDF0EC] disabled:opacity-40 transition-colors whitespace-nowrap"
+                            className="text-xs px-2.5 py-1 rounded border border-[#0B7A6E] text-[#0B7A6E] hover:bg-[#FDF0EC] disabled:opacity-40 transition-colors whitespace-nowrap"
                           >
                             {row.status === "pending" ? "Indienen" : "Opnieuw"}
                           </button>

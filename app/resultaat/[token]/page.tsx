@@ -25,7 +25,7 @@ const VERDICT_CONFIG: Record<
   { bg: string; border: string; textColor: string; titel: string; tekst: string }
 > = {
   goed: {
-    bg: "#E8F2EC",
+    bg: "#E7F1EE",
     border: "#A8D5B5",
     textColor: "#2D6A4F",
     titel: "Je doet het goed",
@@ -63,14 +63,14 @@ function AfwijkingKaart({
   const isHoog = verschil > 0;
 
   return (
-    <div className="bg-card rounded-2xl border border-[#E8E0D0] p-5">
+    <div className="bg-card rounded-2xl border border-[#E6E9E7] p-5">
       <p className="font-body font-medium text-text-soft text-sm mb-3">{label}</p>
       <div className="flex gap-6 text-sm font-body mb-3">
         <div>
           <p className="text-text-muted text-xs mb-0.5">Jij</p>
           <p
             className="font-medium"
-            style={{ color: isHoog ? "#B03A2E" : "#1C3A2A" }}
+            style={{ color: isHoog ? "#B03A2E" : "#16211F" }}
           >
             {fmtEur(jij)}/mnd
           </p>
@@ -89,12 +89,12 @@ function AfwijkingKaart({
               {fmtEur(jij)}
             </span>
           </div>
-          <div className="h-2 bg-[#EDE6D8] rounded-full overflow-hidden">
+          <div className="h-2 bg-[#F0F3F1] rounded-full overflow-hidden">
             <div
               className="h-full rounded-full transition-all"
               style={{
                 width: `${(jij / max) * 100}%`,
-                background: isHoog ? "#C4603A" : "#1C3A2A",
+                background: isHoog ? "#0B7A6E" : "#16211F",
               }}
             />
           </div>
@@ -104,7 +104,7 @@ function AfwijkingKaart({
             <span>Gemiddeld</span>
             <span>{fmtEur(bench)}</span>
           </div>
-          <div className="h-2 bg-[#EDE6D8] rounded-full overflow-hidden">
+          <div className="h-2 bg-[#F0F3F1] rounded-full overflow-hidden">
             <div
               className="h-full rounded-full bg-[#B8C9BC] transition-all"
               style={{ width: `${(bench / max) * 100}%` }}
@@ -116,7 +116,7 @@ function AfwijkingKaart({
       <span
         className="inline-block text-xs font-body font-medium px-3 py-1 rounded-full"
         style={{
-          background: isHoog ? "#FDECEA" : "#E8F2EC",
+          background: isHoog ? "#FDECEA" : "#E7F1EE",
           color: isHoog ? "#B03A2E" : "#2D6A4F",
         }}
       >
@@ -142,7 +142,7 @@ export default async function ResultaatPage({ params }: Props) {
         <Header />
         <main
           className="pt-16 min-h-screen flex items-center justify-center"
-          style={{ background: "#F5F0E8" }}
+          style={{ background: "#F7F8F7" }}
         >
           <div className="text-center max-w-md px-6 py-20">
             <p className="text-6xl mb-6">🔍</p>
@@ -197,14 +197,14 @@ export default async function ResultaatPage({ params }: Props) {
   return (
     <>
       <Header />
-      <main className="pt-16 min-h-screen" style={{ background: "#F5F0E8" }}>
+      <main className="pt-16 min-h-screen" style={{ background: "#F7F8F7" }}>
         <div
           style={{ maxWidth: "860px", margin: "0 auto", padding: "3rem 1.5rem 5rem" }}
         >
           {/* ── SECTIE 1: Het grote getal ── */}
           <div
             style={{
-              background: "#FDFAF4",
+              background: "#FFFFFF",
               borderRadius: "20px",
               padding: "2.5rem",
               marginBottom: "2rem",
@@ -218,7 +218,7 @@ export default async function ResultaatPage({ params }: Props) {
                   style={{
                     textTransform: "uppercase",
                     letterSpacing: "0.1em",
-                    color: "#8A9E8E",
+                    color: "#8B958F",
                   }}
                 >
                   Dit houd je elke maand over
@@ -228,7 +228,7 @@ export default async function ResultaatPage({ params }: Props) {
                   style={{
                     fontSize: "clamp(3rem, 8vw, 5rem)",
                     lineHeight: 1,
-                    color: over < 0 ? "#B03A2E" : "#1C3A2A",
+                    color: over < 0 ? "#B03A2E" : "#16211F",
                   }}
                 >
                   {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
@@ -243,7 +243,7 @@ export default async function ResultaatPage({ params }: Props) {
                 <span
                   className="inline-block text-sm font-body font-medium px-4 py-1.5 rounded-full"
                   style={{
-                    background: verschil >= 0 ? "#E8F2EC" : "#FDECEA",
+                    background: verschil >= 0 ? "#E7F1EE" : "#FDECEA",
                     color: verschil >= 0 ? "#2D6A4F" : "#B03A2E",
                   }}
                 >
@@ -299,7 +299,7 @@ export default async function ResultaatPage({ params }: Props) {
           {/* ── SECTIE 3: Wat nu? ── */}
           <div
             className="rounded-2xl overflow-hidden"
-            style={{ background: "#1C3A2A", marginBottom: "2rem" }}
+            style={{ background: "#16211F", marginBottom: "2rem" }}
           >
             <div style={{ padding: "2rem 2rem 0.5rem" }}>
               <p
@@ -314,7 +314,7 @@ export default async function ResultaatPage({ params }: Props) {
               </p>
               <h2
                 className="font-display font-light text-3xl mb-6"
-                style={{ color: "#F5F0E8" }}
+                style={{ color: "#F7F8F7" }}
               >
                 Drie manieren om verder te gaan
               </h2>
@@ -334,7 +334,7 @@ export default async function ResultaatPage({ params }: Props) {
                 <p className="text-3xl mb-3">📊</p>
                 <h3
                   className="font-body font-medium text-base mb-2"
-                  style={{ color: "#F5F0E8" }}
+                  style={{ color: "#F7F8F7" }}
                 >
                   Deel deze analyse
                 </h3>
@@ -358,7 +358,7 @@ export default async function ResultaatPage({ params }: Props) {
                 <p className="text-3xl mb-3">💬</p>
                 <h3
                   className="font-body font-medium text-base mb-2"
-                  style={{ color: "#F5F0E8" }}
+                  style={{ color: "#F7F8F7" }}
                 >
                   Een eerlijk adviesgesprek
                 </h3>
@@ -373,8 +373,8 @@ export default async function ResultaatPage({ params }: Props) {
                   href="/aanbod"
                   className="block w-full text-center px-4 py-2.5 rounded-xl font-body text-sm font-medium transition-opacity hover:opacity-90"
                   style={{
-                    background: "#C4603A",
-                    color: "#FDFAF4",
+                    background: "#0B7A6E",
+                    color: "#FFFFFF",
                     textDecoration: "none",
                   }}
                 >
@@ -387,7 +387,7 @@ export default async function ResultaatPage({ params }: Props) {
                 <p className="text-3xl mb-3">📄</p>
                 <h3
                   className="font-body font-medium text-base mb-2"
-                  style={{ color: "#F5F0E8" }}
+                  style={{ color: "#F7F8F7" }}
                 >
                   Liever geen gesprek? De geldscan
                 </h3>
@@ -419,8 +419,8 @@ export default async function ResultaatPage({ params }: Props) {
               of andere persoonsverwijzing tonen. ── */}
           {!r.email && (
             <div
-              className="rounded-2xl border border-[#E8E0D0] p-6"
-              style={{ background: "#F5F0E8" }}
+              className="rounded-2xl border border-[#E6E9E7] p-6"
+              style={{ background: "#F7F8F7" }}
             >
               <p className="font-body font-medium text-text-soft text-sm mb-1">
                 Analyse bewaren?

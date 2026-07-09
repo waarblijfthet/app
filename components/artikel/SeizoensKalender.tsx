@@ -20,7 +20,7 @@ const MAANDEN: Maand[] = [
 ];
 
 const KLEUR: Record<string, { bg: string; tekst: string }> = {
-  Laag: { bg: "#E8F2EC", tekst: "#2D6A4F" },
+  Laag: { bg: "#E7F1EE", tekst: "#2D6A4F" },
   Midden: { bg: "#FDF3E3", tekst: "#92600A" },
   Hoog: { bg: "#FAE5DE", tekst: "#B03A2E" },
 };
@@ -30,14 +30,14 @@ export default function SeizoensKalender() {
   const [open, setOpen] = useState<number>(huidige);
 
   return (
-    <div className="rounded-2xl border border-[#E8E0D4] p-6 my-8" style={{ backgroundColor: "#FDFAF4" }}>
-      <p className="font-body font-medium uppercase tracking-widest text-xs mb-2" style={{ color: "#C4603A" }}>
+    <div className="rounded-2xl border border-[#E6E9E7] p-6 my-8" style={{ backgroundColor: "#FFFFFF" }}>
+      <p className="font-body font-medium uppercase tracking-widest text-xs mb-2" style={{ color: "#0B7A6E" }}>
         Het hele jaar
       </p>
-      <p className="font-display font-light text-[#1C3A2A] text-xl mb-1">
+      <p className="font-display font-light text-[#16211F] text-xl mb-1">
         De seizoens-kostenkalender
       </p>
-      <p className="font-body text-sm mb-5" style={{ color: "#4A5E4E" }}>
+      <p className="font-body text-sm mb-5" style={{ color: "#4A5A56" }}>
         Klik op een maand om te zien welke stille kosten eraan komen.
       </p>
 
@@ -53,11 +53,11 @@ export default function SeizoensKalender() {
               aria-pressed={actief}
               className="rounded-lg px-2 py-3 text-center transition-all"
               style={{
-                backgroundColor: actief ? "#1C3A2A" : k.bg,
-                border: `1px solid ${actief ? "#1C3A2A" : "transparent"}`,
+                backgroundColor: actief ? "#16211F" : k.bg,
+                border: `1px solid ${actief ? "#16211F" : "transparent"}`,
               }}
             >
-              <span className="font-body text-sm font-medium block" style={{ color: actief ? "white" : "#1C3A2A" }}>
+              <span className="font-body text-sm font-medium block" style={{ color: actief ? "white" : "#16211F" }}>
                 {m.maand.slice(0, 3)}
               </span>
               <span className="font-body text-[10px]" style={{ color: actief ? "rgba(245,240,232,0.7)" : k.tekst }}>
@@ -68,9 +68,9 @@ export default function SeizoensKalender() {
         })}
       </div>
 
-      <div className="mt-5 rounded-xl p-5" style={{ backgroundColor: "white", border: "1px solid #E8E0D4" }}>
-        <p className="font-display font-light text-[#1C3A2A] text-lg mb-1">{MAANDEN[open].maand}</p>
-        <p className="font-body text-sm mb-3" style={{ color: "#4A5E4E" }}>
+      <div className="mt-5 rounded-xl p-5" style={{ backgroundColor: "white", border: "1px solid #E6E9E7" }}>
+        <p className="font-display font-light text-[#16211F] text-lg mb-1">{MAANDEN[open].maand}</p>
+        <p className="font-body text-sm mb-3" style={{ color: "#4A5A56" }}>
           <strong>Komt eraan:</strong> {MAANDEN[open].kosten}
         </p>
         <p className="font-body text-sm" style={{ color: "#2D6A4F" }}>
@@ -78,9 +78,9 @@ export default function SeizoensKalender() {
         </p>
       </div>
 
-      <p className="font-body text-xs mt-3" style={{ color: "#8A9E8E" }}>
+      <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
         Wil je deze pieken op tijd in beeld?{" "}
-        <a href="/analyse" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
+        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
       </p>
     </div>
   );

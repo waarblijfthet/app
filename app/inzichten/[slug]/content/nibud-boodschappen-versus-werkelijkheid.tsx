@@ -3,7 +3,7 @@ import { NibudVergelijker } from "@/components/artikel/NibudVergelijker";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -14,16 +14,16 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Wat de Nibud-norm voor boodschappen werkelijk meet, een minimum voor voeding, geen gemiddelde",
             "Wat échte gezinnen in Nederland uitgeven en waarom bijna niemand de Nibud-norm haalt",
             "Dat boven de norm zitten in de meeste gevallen niet betekent dat je te veel uitgeeft",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -130,7 +130,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         geïnvesteerde minuut. Meer over die aanpak lees je in ons artikel over{" "}
         <Link
           href="/inzichten/hoe-bespaar-je-op-boodschappen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           hoe je op boodschappen bespaart
@@ -141,7 +141,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",
@@ -158,14 +158,14 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
       </div>
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           <strong>Uit de praktijk.</strong> De Nibud-norm is een ondergrens, geen gemiddelde, dat zie ik telkens terug. Bijna geen enkel gezin dat ik spreek haalt 'm, en dat hoeft ook niet. Het gaat er niet om dat je 'de norm' redt, maar dat je weet waar je zelf zit en of dat een bewuste keuze is.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>
-        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappenbudget wél liet werken</a>.
+        Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappenbudget wél liet werken</a>.
       </p>
     </>
   );

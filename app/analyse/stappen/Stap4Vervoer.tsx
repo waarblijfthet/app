@@ -76,7 +76,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
 
         {data.auto === "zakelijk" && (
           <div>
-            <div className="bg-[#F0EDE6] rounded-xl p-4 mb-4">
+            <div className="bg-[#F0F3F1] rounded-xl p-4 mb-4">
               <p className="font-body text-sm text-text-soft">
                 De kosten van je zakelijke auto zitten in je arbeidsvoorwaarden.
                 Vul alleen een eigen bijdrage in als je die betaalt.
@@ -111,7 +111,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
                 className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
                   data.zorgToggle === "per_persoon"
                     ? "bg-primary text-white"
-                    : "bg-[#E8E0D0] text-text-soft"
+                    : "bg-[#E6E9E7] text-text-soft"
                 }`}
               >
                 Per persoon
@@ -122,7 +122,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
                 className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
                   data.zorgToggle === "totaal"
                     ? "bg-primary text-white"
-                    : "bg-[#E8E0D0] text-text-soft"
+                    : "bg-[#E6E9E7] text-text-soft"
                 }`}
               >
                 Totaal huishouden
@@ -167,7 +167,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
       {(vervoer > 0 || verzekeringen > 0) && (
         <div className="lg:hidden space-y-3">
           {vervoer > 0 && (
-            <div className="bg-[#F0EDE6] rounded-xl p-3">
+            <div className="bg-[#F0F3F1] rounded-xl p-3">
               <p className="text-xs font-body text-text-soft">
                 <strong>Vervoer:</strong> jij €{vervoer} vs gemiddeld €
                 {benches.vervoer}
@@ -175,7 +175,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
             </div>
           )}
           {verzekeringen > 0 && (
-            <div className="bg-[#F0EDE6] rounded-xl p-3">
+            <div className="bg-[#F0F3F1] rounded-xl p-3">
               <p className="text-xs font-body text-text-soft">
                 <strong>Verzekeringen:</strong> jij €{verzekeringen} vs gemiddeld €
                 {benches.verzekeringen}

@@ -22,8 +22,8 @@ const STATUS_CONFIG: Record<
 function StatusPill({ status }: { status: string }) {
   const cfg = STATUS_CONFIG[status as Status] ?? {
     label: status,
-    bg: "#E8E0D0",
-    color: "#4A5E4E",
+    bg: "#E6E9E7",
+    color: "#4A5A56",
   };
   return (
     <span
@@ -37,7 +37,7 @@ function StatusPill({ status }: { status: string }) {
 
 function KnelpuntCell({ tekst }: { tekst: string | null }) {
   const [tooltip, setTooltip] = useState(false);
-  if (!tekst) return <span className="text-[#8A9E8E]">—</span>;
+  if (!tekst) return <span className="text-[#8B958F]">—</span>;
   const kort = tekst.length > 60 ? tekst.slice(0, 60) + "…" : tekst;
   return (
     <span
@@ -48,7 +48,7 @@ function KnelpuntCell({ tekst }: { tekst: string | null }) {
       {kort}
       {tooltip && tekst.length > 60 && (
         <span
-          className="font-body absolute z-50 left-0 top-6 bg-[#1C3A2A] text-white text-xs rounded-lg px-3 py-2 shadow-lg"
+          className="font-body absolute z-50 left-0 top-6 bg-[#16211F] text-white text-xs rounded-lg px-3 py-2 shadow-lg"
           style={{ maxWidth: "320px", minWidth: "200px", lineHeight: 1.6, whiteSpace: "normal" }}
         >
           {tekst}
@@ -71,8 +71,8 @@ function StatusSelect({
     <select
       value={huidig}
       onChange={(e) => onChange(e.target.value as Status)}
-      className="font-body text-xs rounded-lg border border-[#E8E0D4] bg-white px-2 py-1 cursor-pointer"
-      style={{ color: "#1C3A2A" }}
+      className="font-body text-xs rounded-lg border border-[#E6E9E7] bg-white px-2 py-1 cursor-pointer"
+      style={{ color: "#16211F" }}
     >
       {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
         <option key={key} value={key}>
@@ -119,7 +119,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
   if (aanvragen.length === 0) {
     return (
       <div className="py-16 text-center">
-        <p className="font-body text-[#8A9E8E] text-sm">
+        <p className="font-body text-[#8B958F] text-sm">
           Nog geen aanvragen ontvangen.
         </p>
       </div>
@@ -129,10 +129,10 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
-        <h2 className="font-body font-semibold text-[#1C3A2A] text-base">
+        <h2 className="font-body font-semibold text-[#16211F] text-base">
           Intake aanvragen
         </h2>
-        <span className="font-body text-sm text-[#8A9E8E]">
+        <span className="font-body text-sm text-[#8B958F]">
           {aanvragen.length} totaal ·{" "}
           {aanvragen.filter((a) => a.status === "nieuw").length} nieuw
         </span>
@@ -150,7 +150,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
           style={{ borderCollapse: "collapse", minWidth: "900px" }}
         >
           <thead>
-            <tr style={{ borderBottom: "2px solid #E8E0D0" }}>
+            <tr style={{ borderBottom: "2px solid #E6E9E7" }}>
               {[
                 "Datum",
                 "Naam",
@@ -165,7 +165,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                 <th
                   key={h}
                   className="text-left pb-3 pr-4"
-                  style={{ color: "#8A9E8E", fontWeight: 500, fontSize: "0.78rem", whiteSpace: "nowrap" }}
+                  style={{ color: "#8B958F", fontWeight: 500, fontSize: "0.78rem", whiteSpace: "nowrap" }}
                 >
                   {h}
                 </th>
@@ -182,17 +182,17 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                   transition: "opacity 0.15s",
                 }}
               >
-                <td className="py-3 pr-4" style={{ whiteSpace: "nowrap", color: "#4A5E4E", fontSize: "0.82rem" }}>
+                <td className="py-3 pr-4" style={{ whiteSpace: "nowrap", color: "#4A5A56", fontSize: "0.82rem" }}>
                   {formatDatum(a.created_at)}
                 </td>
-                <td className="py-3 pr-4" style={{ color: "#1C3A2A", fontWeight: 500, whiteSpace: "nowrap" }}>
+                <td className="py-3 pr-4" style={{ color: "#16211F", fontWeight: 500, whiteSpace: "nowrap" }}>
                   {a.naam ?? "—"}
                 </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5E4E", whiteSpace: "nowrap" }}>
+                <td className="py-3 pr-4" style={{ color: "#4A5A56", whiteSpace: "nowrap" }}>
                   {a.email ? (
                     <a
                       href={`mailto:${a.email}`}
-                      style={{ color: "#C4603A", textDecoration: "none" }}
+                      style={{ color: "#0B7A6E", textDecoration: "none" }}
                     >
                       {a.email}
                     </a>
@@ -209,7 +209,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                           ? "#F3E8FF"
                           : a.pakket === "geldscan"
                           ? "#FDE9DD"
-                          : "#E8F2EC",
+                          : "#E7F1EE",
                       color:
                         a.pakket === "intensief"
                           ? "#6B21A8"
@@ -226,10 +226,10 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                       : "Adviesgesprek"}
                   </span>
                 </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5E4E", whiteSpace: "nowrap", fontSize: "0.82rem" }}>
+                <td className="py-3 pr-4" style={{ color: "#4A5A56", whiteSpace: "nowrap", fontSize: "0.82rem" }}>
                   {a.inkomen_bracket ?? "—"}
                 </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5E4E", fontSize: "0.82rem", maxWidth: "200px" }}>
+                <td className="py-3 pr-4" style={{ color: "#4A5A56", fontSize: "0.82rem", maxWidth: "200px" }}>
                   <KnelpuntCell tekst={a.grootste_knelpunt} />
                 </td>
                 <td className="py-3 pr-4" style={{ whiteSpace: "nowrap" }}>
@@ -238,19 +238,19 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                       href={`/resultaat/${a.analyse_token}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      style={{ color: "#C4603A", textDecoration: "none", fontWeight: 500 }}
+                      style={{ color: "#0B7A6E", textDecoration: "none", fontWeight: 500 }}
                     >
                       Bekijk analyse →
                     </a>
                   ) : a.analyse_gedaan === null ? (
-                    <span style={{ color: "#8A9E8E" }}>—</span>
+                    <span style={{ color: "#8B958F" }}>—</span>
                   ) : a.analyse_gedaan ? (
                     <span style={{ color: "#2D6A4F" }}>✓ Ja</span>
                   ) : (
-                    <span style={{ color: "#8A9E8E" }}>Nee</span>
+                    <span style={{ color: "#8B958F" }}>Nee</span>
                   )}
                 </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5E4E", fontSize: "0.82rem", whiteSpace: "nowrap" }}>
+                <td className="py-3 pr-4" style={{ color: "#4A5A56", fontSize: "0.82rem", whiteSpace: "nowrap" }}>
                   {a.start_voorkeur ?? "—"}
                 </td>
                 <td className="py-3 pr-4">

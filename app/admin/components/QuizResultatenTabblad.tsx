@@ -71,7 +71,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
         className={`text-xs font-body font-medium px-3 py-1.5 rounded-lg transition-all ${
           active
             ? "bg-primary text-white"
-            : "bg-card border border-[#D6CEBC] text-text-soft hover:border-primary"
+            : "bg-card border border-[#D9DEDC] text-text-soft hover:border-primary"
         }`}
       >
         {children}
@@ -121,7 +121,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
       </div>
 
       {/* Tabel */}
-      <div className="rounded-xl overflow-hidden shadow-card border border-[#E8E0D0]">
+      <div className="rounded-xl overflow-hidden shadow-card border border-[#E6E9E7]">
         <div className="overflow-x-auto">
           <table className="w-full text-sm font-body border-collapse min-w-[800px]">
             <thead>
@@ -148,7 +148,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                     <tr
                       key={r.id}
                       onClick={() => setOpenRij(openRij === r.id ? null : r.id)}
-                      className={`border-b border-[#E8E0D0] cursor-pointer hover:shadow-card transition-shadow ${
+                      className={`border-b border-[#E6E9E7] cursor-pointer hover:shadow-card transition-shadow ${
                         i % 2 === 0 ? "bg-card" : "bg-background"
                       }`}
                     >
@@ -216,7 +216,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                     {/* Uitklapbaar detailpaneel */}
                     {openRij === r.id && (
                       <tr key={`${r.id}-detail`} className={i % 2 === 0 ? "bg-card" : "bg-background"}>
-                        <td colSpan={11} className="px-5 py-4 border-b border-[#E8E0D0]">
+                        <td colSpan={11} className="px-5 py-4 border-b border-[#E6E9E7]">
                           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             {[
                               { label: "Huur/Hypotheek", val: r.wonen_huur_hypotheek },
@@ -226,7 +226,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                               { label: "Zorgverzekering", val: r.verzekering_zorg_per_persoon },
                               { label: "Overige verzekeringen", val: r.verzekering_overig },
                             ].map(({ label, val }) => (
-                              <div key={label} className="bg-[#F0EDE6] rounded-lg p-3">
+                              <div key={label} className="bg-[#F0F3F1] rounded-lg p-3">
                                 <p className="text-xs text-text-muted font-body mb-0.5">{label}</p>
                                 <p className="text-sm font-medium text-primary font-body">{fmtEur(val)}</p>
                               </div>

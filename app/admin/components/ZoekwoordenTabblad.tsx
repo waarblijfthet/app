@@ -127,8 +127,8 @@ export default function ZoekwoordenTabblad() {
   const pill = (actief: boolean) =>
     `text-sm px-3 py-1.5 rounded-lg font-medium transition-colors ${
       actief
-        ? "bg-[#1C3A2A] text-white"
-        : "border border-[#D6CEBC] text-[#4A5E4E] hover:bg-[#F5F0E8]"
+        ? "bg-[#16211F] text-white"
+        : "border border-[#D9DEDC] text-[#4A5A56] hover:bg-[#F7F8F7]"
     }`;
   const sortPijl = (k: SortKey) => (sortKey === k ? (sortDir === "desc" ? " ↓" : " ↑") : "");
 
@@ -157,7 +157,7 @@ export default function ZoekwoordenTabblad() {
             type="button"
             onClick={() => void laad(true)}
             disabled={bezig}
-            className="text-sm px-3 py-1.5 rounded-lg font-medium border border-[#D6CEBC] text-[#4A5E4E] hover:bg-[#F5F0E8] disabled:opacity-50"
+            className="text-sm px-3 py-1.5 rounded-lg font-medium border border-[#D9DEDC] text-[#4A5A56] hover:bg-[#F7F8F7] disabled:opacity-50"
           >
             {bezig ? "Bezig…" : "↻ Vernieuwen"}
           </button>
@@ -165,21 +165,21 @@ export default function ZoekwoordenTabblad() {
       </div>
 
       {/* Drill-down teruglink + datumrange */}
-      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[#4A5E4E]">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-[#4A5A56]">
         {mode === "page-queries" && page && (
           <button
             type="button"
             onClick={() => kiesMode("site-pages")}
-            className="text-[#C4603A] hover:underline"
+            className="text-[#0B7A6E] hover:underline"
           >
             ← Terug naar pagina&apos;s
           </button>
         )}
         {mode === "page-queries" && page && (
-          <span className="font-mono text-xs text-[#1C3A2A]">{urlKort(page)}</span>
+          <span className="font-mono text-xs text-[#16211F]">{urlKort(page)}</span>
         )}
         {range && (
-          <span className="text-[#8A9E8E]">
+          <span className="text-[#8B958F]">
             {datumKort(range.startDate)} tot {datumKort(range.endDate)}
             {cached && " · uit cache"}
           </span>
@@ -195,9 +195,9 @@ export default function ZoekwoordenTabblad() {
             { label: "CTR", waarde: pct(totals.ctr) },
             { label: "Gem. positie", waarde: pos(totals.position) },
           ].map((kaart) => (
-            <div key={kaart.label} className="rounded-xl bg-[#F5F0E8] border border-[#E8E0D0] px-4 py-3">
-              <div className="text-xs text-[#8A9E8E]">{kaart.label}</div>
-              <div className="text-2xl font-display font-light text-[#1C3A2A]">{kaart.waarde}</div>
+            <div key={kaart.label} className="rounded-xl bg-[#F7F8F7] border border-[#E6E9E7] px-4 py-3">
+              <div className="text-xs text-[#8B958F]">{kaart.label}</div>
+              <div className="text-2xl font-display font-light text-[#16211F]">{kaart.waarde}</div>
             </div>
           ))}
         </div>
@@ -212,18 +212,18 @@ export default function ZoekwoordenTabblad() {
 
       {/* Tabel */}
       {bezig && rows.length === 0 ? (
-        <p className="text-sm text-[#4A5E4E]">Laden…</p>
+        <p className="text-sm text-[#4A5A56]">Laden…</p>
       ) : !bezig && rows.length === 0 && !fout ? (
-        <div className="text-center py-12 text-[#4A5E4E] text-sm">
+        <div className="text-center py-12 text-[#4A5A56] text-sm">
           Nog geen zoekwoorddata voor deze selectie. Dit verschijnt zodra Google vertoningen registreert.
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-[#E8E0D0]">
+        <div className="overflow-x-auto rounded-xl border border-[#E6E9E7]">
           <table className="w-full text-sm">
             <thead>
-              <tr className="bg-[#F5F0E8] border-b border-[#E8E0D0]">
+              <tr className="bg-[#F7F8F7] border-b border-[#E6E9E7]">
                 <th
-                  className="text-left px-4 py-3 font-medium text-[#1C3A2A] cursor-pointer select-none"
+                  className="text-left px-4 py-3 font-medium text-[#16211F] cursor-pointer select-none"
                   onClick={() => sorteer("key")}
                 >
                   {eersteKolom}{sortPijl("key")}
@@ -236,7 +236,7 @@ export default function ZoekwoordenTabblad() {
                 ] as [SortKey, string][]).map(([k, label]) => (
                   <th
                     key={k}
-                    className="text-right px-4 py-3 font-medium text-[#1C3A2A] cursor-pointer select-none whitespace-nowrap"
+                    className="text-right px-4 py-3 font-medium text-[#16211F] cursor-pointer select-none whitespace-nowrap"
                     onClick={() => sorteer(k)}
                   >
                     {label}{sortPijl(k)}
@@ -248,28 +248,28 @@ export default function ZoekwoordenTabblad() {
               {gesorteerd.map((r, i) => (
                 <tr
                   key={r.key + i}
-                  className={`border-b border-[#E8E0D0] ${i % 2 === 0 ? "bg-white" : "bg-[#FDFAF4]"} hover:bg-[#F5F0E8] transition-colors`}
+                  className={`border-b border-[#E6E9E7] ${i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"} hover:bg-[#F7F8F7] transition-colors`}
                 >
                   <td className="px-4 py-3 max-w-md">
                     {mode === "site-pages" ? (
                       <button
                         type="button"
                         onClick={() => openPagina(r.key)}
-                        className="font-mono text-xs text-[#C4603A] hover:underline text-left truncate block max-w-full"
+                        className="font-mono text-xs text-[#0B7A6E] hover:underline text-left truncate block max-w-full"
                         title={r.key}
                       >
                         {urlKort(r.key)}
                       </button>
                     ) : (
-                      <span className="text-[#1C3A2A] truncate block" title={r.key}>
+                      <span className="text-[#16211F] truncate block" title={r.key}>
                         {r.key}
                       </span>
                     )}
                   </td>
-                  <td className="px-4 py-3 text-right text-[#1C3A2A]">{getal(r.clicks)}</td>
-                  <td className="px-4 py-3 text-right text-[#4A5E4E]">{getal(r.impressions)}</td>
-                  <td className="px-4 py-3 text-right text-[#4A5E4E]">{pct(r.ctr)}</td>
-                  <td className="px-4 py-3 text-right text-[#4A5E4E]">{pos(r.position)}</td>
+                  <td className="px-4 py-3 text-right text-[#16211F]">{getal(r.clicks)}</td>
+                  <td className="px-4 py-3 text-right text-[#4A5A56]">{getal(r.impressions)}</td>
+                  <td className="px-4 py-3 text-right text-[#4A5A56]">{pct(r.ctr)}</td>
+                  <td className="px-4 py-3 text-right text-[#4A5A56]">{pos(r.position)}</td>
                 </tr>
               ))}
             </tbody>
@@ -277,7 +277,7 @@ export default function ZoekwoordenTabblad() {
         </div>
       )}
 
-      <p className="text-xs text-[#8A9E8E]">
+      <p className="text-xs text-[#8B958F]">
         Data loopt 2 tot 3 dagen achter. Google verbergt zeldzame zoekwoorden, dus de som van
         losse zoekwoorden kan iets lager liggen dan het werkelijke totaal.
       </p>

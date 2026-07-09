@@ -61,7 +61,7 @@ function CompareBalk({
             <span>Jij</span>
             <span className="font-medium">{fmtEur(jij)}</span>
           </div>
-          <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+          <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
             <div
               className={`h-full rounded-full transition-all duration-300 ${barColor}`}
               style={{ width: `${(jij / max) * 100}%` }}
@@ -73,7 +73,7 @@ function CompareBalk({
             <span>Gemiddeld</span>
             <span>{fmtEur(benchmark)}</span>
           </div>
-          <div className="h-1.5 bg-[#EDE6D8] rounded-full overflow-hidden">
+          <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
             <div
               className="h-full rounded-full bg-[#B8C9BC] transition-all duration-300"
               style={{ width: `${(benchmark / max) * 100}%` }}
@@ -112,7 +112,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
     )
       return null;
     return (
-      <div className={`card-base border border-[#E8E0D0] ${stickyCls}`}>
+      <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
         <p className="section-eyebrow mb-4">Jouw vergelijking</p>
         <div className="bg-green-light rounded-xl p-4">
           <p className="font-body text-sm text-primary font-medium">
@@ -143,20 +143,20 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
     if (inkomen === 0) return null;
     const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
     return (
-      <div className={`card-base border border-[#E8E0D0] ${stickyCls}`}>
+      <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
         <p className="section-eyebrow mb-4">Jouw inkomen</p>
         <p className="font-display font-light text-primary text-4xl mb-1">
           {fmtEur(inkomen)}
         </p>
         <p className="text-text-muted font-body text-xs mb-4">per maand netto</p>
-        <div className="bg-[#F0EDE6] rounded-xl p-3 mb-4">
+        <div className="bg-[#F0F3F1] rounded-xl p-3 mb-4">
           <p className="font-body text-xs text-text-soft">
             Je zit in de{" "}
             <strong className="text-primary">{percentiel}</strong> van Nederlandse
             huishoudens.
           </p>
         </div>
-        <div className="h-3 bg-[#EDE6D8] rounded-full overflow-hidden">
+        <div className="h-3 bg-[#F0F3F1] rounded-full overflow-hidden">
           <div
             className="h-full bg-primary rounded-full"
             style={{
@@ -184,11 +184,11 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
   const kinderen = berekenKinderen(data);
 
   return (
-    <div className={`card-base border border-[#E8E0D0] ${stickyCls} ${scrollCls}`}>
+    <div className={`card-base border border-[#E6E9E7] ${stickyCls} ${scrollCls}`}>
       <p className="section-eyebrow mb-1">Live vergelijking</p>
 
       {inkomen > 0 && (
-        <div className="mb-4 pb-4 border-b border-[#E8E0D0]">
+        <div className="mb-4 pb-4 border-b border-[#E6E9E7]">
           <div className="flex justify-between items-baseline">
             <span className="text-text-muted font-body text-xs">Inkomen</span>
             <span className="font-display font-light text-primary text-xl">
@@ -236,7 +236,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
       </div>
 
       {inkomen > 0 && (over !== 0 || berekenWonen(data) > 0) && (
-        <div className="mt-4 pt-4 border-t border-[#E8E0D0]">
+        <div className="mt-4 pt-4 border-t border-[#E6E9E7]">
           <div className="flex justify-between items-baseline mb-1">
             <span className="font-body text-xs text-text-soft font-medium">
               Resterend

@@ -33,7 +33,7 @@ export default function ProgressBar({
             <div
               key={i}
               className="h-1.5 flex-1 rounded-full transition-colors duration-300"
-              style={{ backgroundColor: i < currentStep ? "#1C3A2A" : "#E8E0D0" }}
+              style={{ backgroundColor: i < currentStep ? "#16211F" : "#E6E9E7" }}
             />
           ))}
         </div>
@@ -63,8 +63,8 @@ export default function ProgressBar({
                 <span
                   className="flex items-center justify-center w-7 h-7 rounded-full text-xs font-body font-medium flex-shrink-0 transition-colors"
                   style={{
-                    backgroundColor: voltooid ? "#1C3A2A" : huidig ? "#C4603A" : "#E8E0D0",
-                    color: voltooid || huidig ? "#FFFFFF" : "#8A9E8E",
+                    backgroundColor: voltooid ? "#16211F" : huidig ? "#0B7A6E" : "#E6E9E7",
+                    color: voltooid || huidig ? "#FFFFFF" : "#8B958F",
                   }}
                 >
                   {voltooid ? "✓" : stap}
@@ -72,7 +72,7 @@ export default function ProgressBar({
                 <span
                   className="font-body text-xs whitespace-nowrap transition-colors"
                   style={{
-                    color: huidig ? "#1C3A2A" : voltooid ? "#4A5E4E" : "#8A9E8E",
+                    color: huidig ? "#16211F" : voltooid ? "#4A5A56" : "#8B958F",
                     fontWeight: huidig ? 600 : 400,
                   }}
                 >
@@ -82,7 +82,7 @@ export default function ProgressBar({
               {i < totalSteps - 1 && (
                 <div
                   className="h-px flex-1 mx-2 transition-colors duration-300"
-                  style={{ backgroundColor: stap < currentStep ? "#1C3A2A" : "#E8E0D0" }}
+                  style={{ backgroundColor: stap < currentStep ? "#16211F" : "#E6E9E7" }}
                 />
               )}
             </div>

@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -15,12 +15,12 @@ export default function GoedSalarisTochGeldstress() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je verdient goed, je doet niks geks, en toch krijg je een knoop in je maag als je naar je
           rekening kijkt. En je durft er met bijna niemand over te praten, want hoe leg je dat uit
           als je genoeg verdient?
@@ -30,9 +30,9 @@ export default function GoedSalarisTochGeldstress() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:
         </p>
         <ul className="space-y-1.5">
@@ -41,8 +41,8 @@ export default function GoedSalarisTochGeldstress() {
             "Waar de stress vandaan komt: het is een structuurprobleem, geen karakterfout",
             "De vier stappen waarmee er bij ons thuis weer rust kwam",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -57,7 +57,7 @@ export default function GoedSalarisTochGeldstress() {
         niet, en ik weet niet waar het zit. Ik ken dat gevoel uit eigen ervaring, en ik zie het bij
         veel mensen die ik help.
       </p>
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: geldstress met een goed inkomen is bijna nooit een karakterfout en bijna altijd
         een structuurprobleem. Je geld heeft geen duidelijke bestemming, dus het verdwijnt, en de
         stress komt voort uit het niet weten waar het naartoe gaat. Met een paar vaste afspraken los
@@ -93,7 +93,7 @@ export default function GoedSalarisTochGeldstress() {
         De diepere oorzaken werk ik uit in mijn artikelen over{" "}
         <Link
           href="/inzichten/goed-salaris-toch-krap"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           goed salaris en toch krap
@@ -101,7 +101,7 @@ export default function GoedSalarisTochGeldstress() {
         en{" "}
         <Link
           href="/inzichten/waarom-hou-ik-nooit-geld-over"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           waarom je nooit geld overhoudt
@@ -123,7 +123,7 @@ export default function GoedSalarisTochGeldstress() {
         een{" "}
         <Link
           href="/inzichten/vaste-lasten-overzicht-maken"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           overzicht van je vaste lasten maken
@@ -136,7 +136,7 @@ export default function GoedSalarisTochGeldstress() {
         voordat het op kon. Hoe dat werkt, lees je bij{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           je salaris slim indelen
@@ -154,7 +154,7 @@ export default function GoedSalarisTochGeldstress() {
         lees je in mijn stuk over{" "}
         <Link
           href="/inzichten/geld-stress-relatie-nederland"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           geldstress in de relatie
@@ -169,7 +169,7 @@ export default function GoedSalarisTochGeldstress() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

@@ -113,7 +113,7 @@ export default function AdviesgesprekPage() {
         <section className="bg-background pb-8">
           <div className="max-w-3xl mx-auto px-6 space-y-5">
             {stappen.map((s) => (
-              <div key={s.n} className="card-base border border-[#E8E0D0]">
+              <div key={s.n} className="card-base border border-[#E6E9E7]">
                 <div className="flex items-start gap-4">
                   <div className="w-12 h-12 rounded-xl bg-green-light flex items-center justify-center shrink-0">
                     <span className="font-display font-medium text-primary text-xl">
@@ -167,7 +167,7 @@ export default function AdviesgesprekPage() {
             </h2>
             <div className="space-y-4">
               {faq.map((f) => (
-                <div key={f.vraag} className="card-base border border-[#E8E0D0]">
+                <div key={f.vraag} className="card-base border border-[#E6E9E7]">
                   <p className="font-body font-medium text-primary text-sm mb-2">
                     {f.vraag}
                   </p>
@@ -192,7 +192,7 @@ export default function AdviesgesprekPage() {
             <Link
               href="/aanbod/intake?pakket=gesprek"
               className="btn-primary"
-              style={{ backgroundColor: "#C4603A", borderColor: "#C4603A" }}
+              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Plan je adviesgesprek →
             </Link>

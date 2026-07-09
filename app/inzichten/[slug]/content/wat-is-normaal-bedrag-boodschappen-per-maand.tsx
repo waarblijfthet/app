@@ -5,7 +5,7 @@ import BenchmarkMail from "@/components/artikel/BenchmarkMail";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -13,7 +13,7 @@ const h2 = {
 
 const h3 = {
   fontSize: "1.15rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "0",
   marginBottom: "0.5rem",
   fontWeight: 500,
@@ -25,16 +25,16 @@ export default function WatIsNormaalBedragBoodschappen() {
   return (
     <>
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>Na dit artikel weet je:</p>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
             "Wat een normaal boodschappenbedrag is per persoon, per stel en per gezin",
             "Waarom de Nibud-norm een ondergrens is en geen gemiddelde, en wat echte huishoudens uitgeven",
             "Wat drie echte huishoudens uitgeven, waar het misgaat en wat ik ze zou aanraden",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>✓</span>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
               <span>{item}</span>
             </li>
           ))}
@@ -67,10 +67,10 @@ export default function WatIsNormaalBedragBoodschappen() {
       <div className="overflow-x-auto my-6">
         <table className="w-full text-sm" style={{ borderCollapse: "collapse" }}>
           <thead>
-            <tr style={{ backgroundColor: "#F5F0E8", borderBottom: "1.5px solid #E8E0D4" }}>
-              <th className="text-left px-3 py-2 font-body font-semibold" style={{ color: "#1C3A2A" }}>Huishouden</th>
-              <th className="text-right px-3 py-2 font-body font-semibold" style={{ color: "#1C3A2A" }}>Norm (Nibud-minimum)</th>
-              <th className="text-right px-3 py-2 font-body font-semibold" style={{ color: "#1C3A2A" }}>Realistisch per maand</th>
+            <tr style={{ backgroundColor: "#F7F8F7", borderBottom: "1.5px solid #E6E9E7" }}>
+              <th className="text-left px-3 py-2 font-body font-semibold" style={{ color: "#16211F" }}>Huishouden</th>
+              <th className="text-right px-3 py-2 font-body font-semibold" style={{ color: "#16211F" }}>Norm (Nibud-minimum)</th>
+              <th className="text-right px-3 py-2 font-body font-semibold" style={{ color: "#16211F" }}>Realistisch per maand</th>
             </tr>
           </thead>
           <tbody className="font-body text-text-soft">
@@ -81,10 +81,10 @@ export default function WatIsNormaalBedragBoodschappen() {
               ["Gezin met pubers", "€822", "€1.000 tot €1.400"],
               ["Groot of samengesteld gezin", "hoger", "€1.500 tot €2.000"],
             ].map((rij, i) => (
-              <tr key={i} style={{ borderBottom: "1px solid #Ede6d8" }}>
+              <tr key={i} style={{ borderBottom: "1px solid #F0F3F1" }}>
                 <td className="px-3 py-2">{rij[0]}</td>
                 <td className="px-3 py-2 text-right">{rij[1]}</td>
-                <td className="px-3 py-2 text-right" style={{ color: "#1C3A2A", fontWeight: 500 }}>{rij[2]}</td>
+                <td className="px-3 py-2 text-right" style={{ color: "#16211F", fontWeight: 500 }}>{rij[2]}</td>
               </tr>
             ))}
           </tbody>
@@ -165,7 +165,7 @@ export default function WatIsNormaalBedragBoodschappen() {
       </p>
 
       {/* Case 1 */}
-      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
+      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
         <h3 className="font-display" style={h3}>Samengesteld gezin van zes, rond de €2.000 per maand</h3>
         <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
           Twee ouders, drie pubers en een kleuter. Het grootste deel gaat naar
@@ -173,7 +173,7 @@ export default function WatIsNormaalBedragBoodschappen() {
           de aanbiedingen, maar het loopt vaak mis: niet iedereen lust alles, en
           er wordt te veel gemaakt. Wat overblijft, gaat de prullenbak in.
         </p>
-        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#1C3A2A", fontWeight: 500 }}>Wat ik zou doen</p>
+        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#16211F", fontWeight: 500 }}>Wat ik zou doen</p>
         <ul className="space-y-1.5 font-body text-sm text-text-soft" style={{ marginBottom: 0, paddingLeft: "1.1rem", listStyle: "disc" }}>
           <li>Bouw het weekmenu rond vier hoofdgerechten die iederéén eet, en varieer alleen de groente of saus eromheen. Dan hoef je nooit dubbel te koken.</li>
           <li>Kook op afgemeten porties, en reken een puber als een volwassene. Plan één vaste restjesdag per week, zo wordt teveel opgegeten in plaats van weggegooid.</li>
@@ -183,7 +183,7 @@ export default function WatIsNormaalBedragBoodschappen() {
       </div>
 
       {/* Case 2 */}
-      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
+      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
         <h3 className="font-display" style={h3}>Mats en Elsa, tweeverdieners, bijna €1.000 per maand</h3>
         <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
           Geen gezin, wel een hoge rekening. Ze kopen veel vers gemaakte
@@ -198,7 +198,7 @@ export default function WatIsNormaalBedragBoodschappen() {
           Dat is €90 verschil op één gerecht. Reken dat door over alle
           gemaksmaaltijden en je zit zo €150 tot €200 per maand hoger dan nodig.
         </p>
-        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#1C3A2A", fontWeight: 500 }}>Wat ik zou doen</p>
+        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#16211F", fontWeight: 500 }}>Wat ik zou doen</p>
         <ul className="space-y-1.5 font-body text-sm text-text-soft" style={{ marginBottom: 0, paddingLeft: "1.1rem", listStyle: "disc" }}>
           <li>Zweer niet alles af, dat houd je toch niet vol. Vervang de twee duurste gemaksgewoontes per week door een zelfgemaakte versie, juist de simpele zoals een bowl of een pasta.</li>
           <li>Maak die in het weekend in één keer voor twee of drie dagen. Je houdt het gemak waar het je echt tijd bespaart, en betaalt alleen voor wat je niet zelf wilt doen.</li>
@@ -206,7 +206,7 @@ export default function WatIsNormaalBedragBoodschappen() {
       </div>
 
       {/* Case 3 */}
-      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FDFAF4", borderColor: "#E8E0D4" }}>
+      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
         <h3 className="font-display" style={h3}>Jurgen en Rachel, drie kinderen van 12 en ouder, €1.300 en willen naar €1.000</h3>
         <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
           Ze hebben het niet breed en doen al veel goed: Too Good To Go, de
@@ -216,7 +216,7 @@ export default function WatIsNormaalBedragBoodschappen() {
           winkel gegaan, en de porties zijn te groot, met veel vlees en weinig
           groente.
         </p>
-        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#1C3A2A", fontWeight: 500 }}>Wat ik zou doen</p>
+        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#16211F", fontWeight: 500 }}>Wat ik zou doen</p>
         <ul className="space-y-1.5 font-body text-sm text-text-soft" style={{ marginBottom: 0, paddingLeft: "1.1rem", listStyle: "disc" }}>
           <li>Snijd de losse tussenritjes weg: één hoofdmoment per week, hooguit één korte verse aanvulling. Elke losse rit kost €10 tot €20 aan dingen die niet op het lijstje stonden.</li>
           <li>Meet vlees af op 100 tot 125 gram per persoon en vul aan met groente, peulvruchten of aardappel. Minder vlees en meer groente is goedkoper en gezonder tegelijk.</li>
@@ -250,7 +250,7 @@ export default function WatIsNormaalBedragBoodschappen() {
         <Link
           href="/inzichten/vergelijken-boodschappen-nederland-duitsland"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           Boodschappen goedkoper in Duitsland
         </Link>{" "}
@@ -268,7 +268,7 @@ export default function WatIsNormaalBedragBoodschappen() {
         <Link
           href="/analyse"
           className="hover:underline"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
           gratis analyse
         </Link>{" "}
@@ -277,9 +277,9 @@ export default function WatIsNormaalBedragBoodschappen() {
       </p>
       <div
         className="rounded-xl border p-4 my-6"
-        style={{ backgroundColor: "#F5F0E8", borderColor: "#E8E0D4" }}
+        style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
-        <p className="font-body text-sm" style={{ color: "#1C3A2A" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F" }}>
           <strong>Uit de praktijk.</strong> In de gesprekken die ik voer schatten
           huishoudens hun boodschappen bijna altijd €100 tot €200 te laag in, niet
           omdat ze liegen, maar omdat de tussendoor-momenten, de drogist en de
@@ -289,7 +289,7 @@ export default function WatIsNormaalBedragBoodschappen() {
       </div>
       <p className="font-body text-text-soft" style={p}>
         Uit de praktijk: lees{" "}
-        <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#C4603A", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
+        <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
       </p>
     </>
   );

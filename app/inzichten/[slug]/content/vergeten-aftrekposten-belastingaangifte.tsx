@@ -2,7 +2,7 @@ import Link from "next/link";
 
 const h2 = {
   fontSize: "1.6rem",
-  color: "#1C3A2A",
+  color: "#16211F",
   marginTop: "2.5rem",
   marginBottom: "1rem",
   fontWeight: 300,
@@ -53,12 +53,12 @@ export default function VergetenAftrekpostenBelastingaangifte() {
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
-        style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+        style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
       >
-        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
           Herken je dit?
         </p>
-        <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Je doet je aangifte zo snel mogelijk en klikt op akkoord, met het knagende gevoel dat je
           ergens geld laat liggen. Vaak klopt dat gevoel.
         </p>
@@ -67,9 +67,9 @@ export default function VergetenAftrekpostenBelastingaangifte() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E8F2EC", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
       >
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#1C3A2A" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           In dit artikel:
         </p>
         <ul className="space-y-1.5">
@@ -78,8 +78,8 @@ export default function VergetenAftrekpostenBelastingaangifte() {
             "Wat er de laatste jaren is afgeschaft, zodat je niet op verouderde tips rekent",
             "Waarom een eenmalige teruggave fijn is, maar structurele grip meer oplevert",
           ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#2D4A35" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#C4603A" }}>
+            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
+              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>
                 ✓
               </span>
               <span>{item}</span>
@@ -88,7 +88,7 @@ export default function VergetenAftrekpostenBelastingaangifte() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#1C3A2A" }}>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Veel mensen laten geld liggen bij de aangifte, simpelweg omdat ze niet weten welke kosten
         aftrekbaar zijn. Het goede nieuws: je mag tot vijf jaar terug een aangifte corrigeren. Loop
         deze checklist een voor een na voordat je akkoord geeft.
@@ -103,12 +103,12 @@ export default function VergetenAftrekpostenBelastingaangifte() {
           <div
             key={i}
             className="rounded-xl p-4"
-            style={{ backgroundColor: "#FDFAF4", border: "1px solid #E8E0D4" }}
+            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
           >
-            <p className="font-body font-medium text-sm mb-1" style={{ color: "#1C3A2A" }}>
-              <span style={{ color: "#C4603A" }}>✓</span> {item.titel}
+            <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
+              <span style={{ color: "#0B7A6E" }}>✓</span> {item.titel}
             </p>
-            <p className="font-body text-sm" style={{ color: "#4A5E4E", fontWeight: 300 }}>
+            <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
               {item.uitleg}
             </p>
           </div>
@@ -134,7 +134,7 @@ export default function VergetenAftrekpostenBelastingaangifte() {
         sparen gaat. Reken eerst uit{" "}
         <Link
           href="/inzichten/vrij-besteedbaar-inkomen-berekenen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           wat je vrij besteedbaar overhoudt
@@ -142,7 +142,7 @@ export default function VergetenAftrekpostenBelastingaangifte() {
         , en loop je vaste lasten na op{" "}
         <Link
           href="/inzichten/vergeten-abonnementen-opzeggen"
-          style={{ color: "#C4603A", textDecoration: "none" }}
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
           vergeten abonnementen
@@ -153,7 +153,7 @@ export default function VergetenAftrekpostenBelastingaangifte() {
       {/* Intern CTA */}
       <div
         style={{
-          backgroundColor: "#E8F2EC",
+          backgroundColor: "#E7F1EE",
           borderRadius: "16px",
           padding: "1.5rem",
           marginTop: "2rem",

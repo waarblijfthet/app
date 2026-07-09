@@ -22,7 +22,7 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
     hoeHetWerkt: [
       "Je meldt je aan met je naam en e-mailadres",
       "Betaalverzoek binnen 1 werkdag (€49)",
-      "Na betaling vul je de gratis analyse in (2 minuten)",
+      "Na betaling vul je de analyse in (2 minuten)",
       "Optioneel: stuur ook een paar bankafschriften mee",
       "Binnen 2 werkdagen daarna ontvang je je geldrapport, waarna ik alle aangeleverde gegevens verwijder",
     ],
@@ -31,7 +31,6 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
       "Je drie grootste lekken, en per lek wat ik zou doen",
       "Gebaseerd op jouw eigen cijfers, in gewone taal",
       "Herleesbaar en deelbaar met je partner",
-      "Geld terug als ik geen 3 serieuze verbeterpunten vind",
     ],
   },
   gesprek: {
@@ -39,7 +38,7 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
     prijs: "€125",
     hoeHetWerkt: [
       "Je meldt je aan, ik neem binnen 1 werkdag contact op",
-      "Doe vooraf de gratis analyse (5 minuten), je vertrekpunt",
+      "Doe vooraf de analyse (5 minuten), je vertrekpunt",
       "Het gesprek zelf: 45 minuten, via video",
       "Daarna verwijder ik alle aangeleverde gegevens",
     ],

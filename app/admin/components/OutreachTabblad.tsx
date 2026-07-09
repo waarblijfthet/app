@@ -62,9 +62,9 @@ const STATUS_STYLE: Record<Contact["status"], string> = {
   nieuw:     "bg-gray-100 text-gray-600",
   verstuurd: "bg-blue-100 text-blue-700",
   geopend:   "bg-green-100 text-green-700",
-  geklikt:   "bg-[#FFF0EB] text-[#C4603A]",
+  geklikt:   "bg-[#FFF0EB] text-[#0B7A6E]",
   bounced:   "bg-red-100 text-red-700",
-  gereageerd: "bg-[#1C3A2A] text-white",
+  gereageerd: "bg-[#16211F] text-white",
 };
 
 function datumTijd(iso: string | null): string {
@@ -338,7 +338,7 @@ export default function OutreachTabblad() {
             className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
               filterDoelgroep === d.value
                 ? "bg-primary text-white border-primary"
-                : "bg-white text-text-soft border-[#E8E0D4] hover:border-primary"
+                : "bg-white text-text-soft border-[#E6E9E7] hover:border-primary"
             }`}
           >
             {d.label}
@@ -359,7 +359,7 @@ export default function OutreachTabblad() {
             onChange={(e) => setNaam(e.target.value)}
             placeholder="Sofie de Visser"
             required
-            className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
         </div>
         <div className="flex-1">
@@ -370,7 +370,7 @@ export default function OutreachTabblad() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="sofie@praktijk.nl"
             required
-            className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+            className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
         </div>
         <div className="w-full sm:w-48">
@@ -378,7 +378,7 @@ export default function OutreachTabblad() {
           <select
             value={doelgroep}
             onChange={(e) => setDoelgroep(e.target.value)}
-            className="w-full border border-[#E8E0D0] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white"
+            className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white"
           >
             {DOELGROEPEN.map((d) => (
               <option key={d.value} value={d.value}>{d.label}</option>
@@ -411,9 +411,9 @@ export default function OutreachTabblad() {
       ) : zichtbareContacten.length === 0 ? (
         <p className="text-text-muted text-sm">Geen contacten gevonden.</p>
       ) : (
-        <div className="overflow-x-auto rounded-lg border border-[#E8E0D0]">
+        <div className="overflow-x-auto rounded-lg border border-[#E6E9E7]">
           <table className="w-full text-sm">
-            <thead className="bg-[#F5F0E8] text-text-muted text-xs uppercase tracking-wide">
+            <thead className="bg-[#F7F8F7] text-text-muted text-xs uppercase tracking-wide">
               <tr>
                 <th className="px-3 py-3">
                   <input
@@ -433,9 +433,9 @@ export default function OutreachTabblad() {
                 <th className="px-4 py-3"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-[#F0EAE0]">
+            <tbody className="divide-y divide-[#F0F3F1]">
               {zichtbareContacten.map((c) => (
-                <tr key={c.id} className="bg-white hover:bg-[#FDFAF4] transition-colors align-top">
+                <tr key={c.id} className="bg-white hover:bg-[#FFFFFF] transition-colors align-top">
                   <td className="px-3 py-3 text-center">
                     <input
                       type="checkbox"
@@ -452,7 +452,7 @@ export default function OutreachTabblad() {
                         const nieuw = e.target.value.trim();
                         if (nieuw && nieuw !== c.naam) werkBij(c.id, { naam: nieuw });
                       }}
-                      className="w-full font-medium text-primary bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                      className="w-full font-medium text-primary bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                     />
                   </td>
                   <td className="px-4 py-3">
@@ -464,7 +464,7 @@ export default function OutreachTabblad() {
                         const nieuw = e.target.value.trim();
                         if (nieuw && nieuw !== c.email) werkBij(c.id, { email: nieuw });
                       }}
-                      className="w-full text-text-muted bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                      className="w-full text-text-muted bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                     />
                   </td>
                   <td className="px-4 py-3">
@@ -507,7 +507,7 @@ export default function OutreachTabblad() {
                           if (nieuw !== (c.ps_zin ?? "")) werkBij(c.id, { ps_zin: nieuw });
                         }}
                         placeholder="Optioneel: 1 zin, bijv. iets van hun site"
-                        className="w-full text-text-soft bg-[#FDFAF4] border border-[#E8E0D0] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
+                        className="w-full text-text-soft bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
                       />
                     ) : (
                       <span className="text-text-muted text-xs">{c.ps_zin ?? ""}</span>
@@ -536,7 +536,7 @@ export default function OutreachTabblad() {
                       {!["nieuw", "gereageerd"].includes(c.status) && (
                         <button
                           onClick={() => markeerGereageerd(c)}
-                          className="text-xs text-[#1C3A2A] underline decoration-dotted px-2 py-1 whitespace-nowrap"
+                          className="text-xs text-[#16211F] underline decoration-dotted px-2 py-1 whitespace-nowrap"
                           title="Markeer als gereageerd, stopt follow-ups"
                         >
                           Gereageerd
