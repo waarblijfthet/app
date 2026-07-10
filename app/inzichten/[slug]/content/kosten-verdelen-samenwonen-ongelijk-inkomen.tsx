@@ -149,10 +149,10 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je de verdeling op echte bedragen baseren in plaats van op gevoel? De gratis analyse laat zien wat er bij jullie samen overblijft, zodat je samen een eerlijke afspraak kunt maken.
+          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
         </p>
-        <Link href="/analyse" className="btn-primary">
-          Start de gratis analyse →
+        <Link href="/geldscan" className="btn-primary">
+          Laat mij je cijfers nakijken (€49) &rarr;
         </Link>
       </div>
     </>

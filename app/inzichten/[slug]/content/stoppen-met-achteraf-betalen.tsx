@@ -145,11 +145,10 @@ export default function StoppenMetAchterafBetalen() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Stoppen lukt het makkelijkst als je weet waar je geld nu naartoe gaat. De gratis analyse
-          laat dat zien, zodat je niet meer op de volgende maand hoeft te leunen.
+          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
         </p>
-        <Link href="/analyse" className="btn-primary">
-          Start de gratis analyse →
+        <Link href="/geldscan" className="btn-primary">
+          Laat mij je cijfers nakijken (€49) &rarr;
         </Link>
       </div>
     </>

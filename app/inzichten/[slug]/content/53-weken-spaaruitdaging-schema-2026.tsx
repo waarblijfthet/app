@@ -156,11 +156,10 @@ export default function Weken53SpaaruitdagingSchema2026() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je deze uitdaging dit keer wél volhouden? Doe eerst de gratis analyse, dan weet je
-          hoeveel je elke week realistisch opzij kunt zetten zonder dat het knelt.
+          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
         </p>
-        <Link href="/analyse" className="btn-primary">
-          Start de gratis analyse →
+        <Link href="/geldscan" className="btn-primary">
+          Laat mij je cijfers nakijken (€49) &rarr;
         </Link>
       </div>
     </>

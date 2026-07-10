@@ -170,12 +170,10 @@ export default function VasteLastenOverzichtMaken() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Geen zin om zelf alle afschriften door te spitten? In de gratis analyse vul je je vaste
-          lasten stap voor stap in en zie je direct hoe je ervoor staat ten opzichte van wat
-          normaal is.
+          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
         </p>
-        <Link href="/analyse" className="btn-primary">
-          Start de gratis analyse →
+        <Link href="/geldscan" className="btn-primary">
+          Laat mij je cijfers nakijken (€49) &rarr;
         </Link>
       </div>
     </>

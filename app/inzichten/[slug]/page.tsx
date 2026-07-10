@@ -256,11 +256,19 @@ export default function ArtikelPage({ params }: Props) {
                       className="font-body font-light text-text-soft"
                       style={{ marginBottom: "1rem" }}
                     >
-                      Benieuwd hoe jouw situatie eruitziet? Doe de gratis analyse
-                      en zie direct waar jouw geld naartoe gaat.
+                      Benieuwd waar het bij jou weglekt? Bij de geldscan kijk ik
+                      persoonlijk naar jouw cijfers en schrijf ik je een rapport
+                      met je drie grootste lekken.
                     </p>
-                    <Link href="/analyse" className="btn-primary">
-                      Start de gratis analyse →
+                    <Link href="/geldscan" className="btn-primary">
+                      Laat mij je cijfers nakijken (€49) →
+                    </Link>
+                    <Link
+                      href="/analyse"
+                      className="font-body text-sm inline-block mt-3 sm:mt-0 sm:ml-4"
+                      style={{ color: "#0B7A6E", textDecoration: "none" }}
+                    >
+                      Liever eerst zelf kijken? →
                     </Link>
                   </>
                 )}

@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { BoodschappenKloof } from "@/components/artikel/BoodschappenKloof";
 import BoodschappenSlider from "@/components/artikel/BoodschappenSlider";
-import BenchmarkMail from "@/components/artikel/BenchmarkMail";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -25,7 +24,7 @@ export default function WatIsNormaalBedragBoodschappen() {
   return (
     <>
       {/* Kort antwoord: het getal meteen, boven de vouw */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
+      <div className="rounded-xl p-5 mb-4" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Kort antwoord: een normaal boodschappenbedrag ligt hoger dan de meeste mensen denken.
         </p>
@@ -47,6 +46,13 @@ export default function WatIsNormaalBedragBoodschappen() {
           Boven de norm zitten is dus normaal, geen teken dat je iets fout doet.
         </p>
       </div>
+
+      <p className="font-body text-sm mb-8" style={{ color: "#4A5A56" }}>
+        Wil je weten waar het bij jóú weglekt, niet alleen bij boodschappen?{" "}
+        <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", fontWeight: 500, textDecoration: "none" }}>
+          Laat mij je cijfers nakijken met de geldscan (€49) &rarr;
+        </Link>
+      </p>
 
       <p className="font-body text-text-soft" style={p}>
         Neem een gezin van vijf met drie opgroeiende kinderen: gewoon eten, niks
@@ -260,23 +266,6 @@ export default function WatIsNormaalBedragBoodschappen() {
         </p>
       </div>
 
-      {/* Persoonlijke benchmark per mail, pas nadat de lezer waarde kreeg */}
-      <BenchmarkMail />
-
-      <p className="font-body text-text-soft" style={p}>
-        Wil je weten hoe jouw boodschappenuitgaven zich verhouden tot
-        vergelijkbare huishoudens, met dezelfde samenstelling en hetzelfde
-        inkomensniveau? Doe de{" "}
-        <Link
-          href="/analyse"
-          className="hover:underline"
-          style={{ color: "#0B7A6E", textDecoration: "none" }}
-        >
-          analyse
-        </Link>{" "}
-        en zie het direct op je scherm. Wil je het daarna samen doorlopen, dan
-        kan dat in een eenmalig adviesgesprek.
-      </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd hoe anderen het aanpakten? Lees{" "}
         <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.

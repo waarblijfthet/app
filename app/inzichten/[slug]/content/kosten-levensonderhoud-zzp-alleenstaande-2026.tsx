@@ -183,11 +183,10 @@ export default function KostenLevensonderhoudZZPAlleenstaande2026() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Benieuwd wat jouw financiële positie als ZZP&apos;er er echt uitziet? De gratis analyse
-          geeft inzicht, ook voor mensen met wisselend inkomen.
+          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
         </p>
-        <Link href="/analyse" className="btn-primary">
-          Start de gratis analyse →
+        <Link href="/geldscan" className="btn-primary">
+          Laat mij je cijfers nakijken (€49) &rarr;
         </Link>
       </div>
 

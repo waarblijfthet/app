@@ -150,10 +150,10 @@ export default function BudgetMakenDatJeVolhoudt() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Een budget begint met weten waar je geld nu heen gaat. De gratis analyse laat dat in een paar minuten zien en geeft je een realistische verdeling, die je daarna alleen nog hoeft in te stellen.
+          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
         </p>
-        <Link href="/analyse" className="btn-primary">
-          Start de gratis analyse →
+        <Link href="/geldscan" className="btn-primary">
+          Laat mij je cijfers nakijken (€49) &rarr;
         </Link>
       </div>
     </>

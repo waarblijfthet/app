@@ -149,11 +149,10 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je weten hoe jullie boodschappenkosten zich verhouden tot
-          vergelijkbare gezinnen, niet de Nibud-norm maar echte mensen?
+          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
         </p>
-        <Link href="/analyse" className="btn-primary">
-          Start de gratis analyse →
+        <Link href="/geldscan" className="btn-primary">
+          Laat mij je cijfers nakijken (€49) &rarr;
         </Link>
       </div>
       <div
