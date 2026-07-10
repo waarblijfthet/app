@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
 import { PAKKET_INFO, type Pakket } from "@/lib/aanbod-content";
+import { TrackClick } from "@/components/TrackClick";
 
 export const metadata: Metadata = {
   title: "Financiële coaching en adviesgesprek, tarieven",
@@ -69,6 +70,7 @@ const faqSchema = {
 const routes = [
   {
     href: "#geldscan",
+    pakket: "geldscan",
     situatie:
       "Ik wil snappen waar mijn situatie afwijkt, zonder er met iemand over te praten",
     naam: "Geldscan",
@@ -78,6 +80,7 @@ const routes = [
   },
   {
     href: "#adviesgesprek",
+    pakket: "gesprek",
     situatie:
       "Ik weet dat er iets moet veranderen en wil daar één goed gesprek over",
     naam: "Adviesgesprek",
@@ -87,6 +90,7 @@ const routes = [
   },
   {
     href: "#traject",
+    pakket: "intensief",
     situatie: "Ik wil het echt anders gaan doen, met begeleiding tot het staat",
     naam: "Traject",
     prijs: "€497",
@@ -236,8 +240,8 @@ export default function AanbodPage() {
 
             <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
               {routes.map((s) => (
+                <TrackClick key={s.href} gebeurtenis="aanbod_kaart_klik" pakket={s.pakket}>
                 <a
-                  key={s.href}
                   href={s.href}
                   className={`group relative flex flex-col rounded-2xl bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B7A6E] focus-visible:ring-offset-2 ${
                     s.aanbevolen
@@ -276,6 +280,7 @@ export default function AanbodPage() {
                     </span>
                   </div>
                 </a>
+                </TrackClick>
               ))}
             </div>
             <p className="font-body text-xs font-light text-[#8B958F]">
@@ -350,9 +355,11 @@ export default function AanbodPage() {
                 </div>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <Link href={d.primaireHref} className="btn-primary">
-                    {d.primaireLabel} →
-                  </Link>
+                  <TrackClick gebeurtenis="aanbod_cta_klik" pakket={d.pakket}>
+                    <Link href={d.primaireHref} className="btn-primary">
+                      {d.primaireLabel} →
+                    </Link>
+                  </TrackClick>
                   <Link
                     href={d.secundaireHref}
                     className="font-body text-sm hover:underline"
@@ -461,18 +468,20 @@ export default function AanbodPage() {
             >
               Begin dan met de geldscan (€49). Ik kijk persoonlijk naar je cijfers en zet op papier waar het bij jou weglekt, met je drie grootste lekken. Liever eerst zelf een indruk? Doe de analyse.
             </p>
-            <Link
-              href="/aanbod/intake?pakket=geldscan"
-              className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
-              style={{
-                backgroundColor: "#0B7A6E",
-                color: "#FFFFFF",
-                borderRadius: "12px",
-                textDecoration: "none",
-              }}
-            >
-              Laat mij je cijfers nakijken (€49) →
-            </Link>
+            <TrackClick gebeurtenis="aanbod_cta_klik" pakket="geldscan">
+              <Link
+                href="/aanbod/intake?pakket=geldscan"
+                className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
+                style={{
+                  backgroundColor: "#0B7A6E",
+                  color: "#FFFFFF",
+                  borderRadius: "12px",
+                  textDecoration: "none",
+                }}
+              >
+                Laat mij je cijfers nakijken (€49) →
+              </Link>
+            </TrackClick>
             <p style={{ marginTop: "1rem" }}>
               <Link href="/analyse" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
                 Liever eerst zelf kijken? →

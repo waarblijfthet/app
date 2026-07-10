@@ -55,6 +55,11 @@ export function PageTracker() {
     // Sla eigen bezoeken niet op als cookie gezet is
     if (isEigenaar()) return;
 
+    // Sla lokaal opgeslagen kopieën van de site over. Opent iemand een
+    // opgeslagen pagina lokaal, dan is pathname een bestandspad (schijfletter
+    // of .html-bestand). Die horen niet in de statistieken.
+    if (/\/[A-Za-z]:\//.test(pathname) || /\.html?$/i.test(pathname)) return;
+
     // Sla resultaat-pagina's op zonder het echte token
     const pagina = pathname.startsWith("/resultaat/")
       ? "/resultaat/[token]"

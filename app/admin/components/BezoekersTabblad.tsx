@@ -313,8 +313,10 @@ export function BezoekersTabblad() {
                       key={b.id}
                       className={i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"}
                     >
-                      <td className="px-4 py-2.5 text-[#16211F] font-medium text-xs font-body">
-                        {paginaLabel(b.pagina)}
+                      <td className="px-4 py-2.5 text-[#16211F] font-medium text-xs font-body max-w-[240px]">
+                        <span className="block truncate" title={b.pagina}>
+                          {paginaLabel(b.pagina)}
+                        </span>
                       </td>
                       <td className="px-4 py-2.5">
                         <span

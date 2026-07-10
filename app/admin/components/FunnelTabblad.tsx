@@ -12,6 +12,14 @@ interface Props {
 type FilterOptie = "week" | "maand" | "alles";
 
 type BezoekRij = { pagina: string; sessie_id: string; created_at: string };
+type GebeurtenisRij = {
+  gebeurtenis: string;
+  pakket: string | null;
+  sessie_id: string;
+  apparaat: string | null;
+  meta: { velden?: number; totaal?: number } | null;
+  created_at: string;
+};
 type VoortgangRij = { max_stap: number | null; voltooid: boolean | null; created_at: string; totaal_inkomen: number | null; maandelijks_over: number | null; verdict: string | null; aantal_kinderen: number | null; woonsituatie: string | null; eerste_interactie: boolean | null; apparaat: string | null };
 
 const PAGINA_LABELS: Record<string, string> = {
@@ -22,6 +30,15 @@ const PAGINA_LABELS: Record<string, string> = {
   "/over": "Over ons",
   "/woordenlijst": "Woordenlijst",
 };
+
+const PAKKET_LABELS: Record<string, string> = {
+  geldscan: "Geldscan (€49)",
+  gesprek: "Adviesgesprek (€125)",
+  intensief: "Traject (€497)",
+};
+function pakketLabel(pakket: string) {
+  return PAKKET_LABELS[pakket] || pakket;
+}
 
 function paginaLabel(pagina: string) {
   if (PAGINA_LABELS[pagina]) return PAGINA_LABELS[pagina];
@@ -43,6 +60,7 @@ function pct(deel: number, totaal: number): string {
 export default function FunnelTabblad({ leads, aanvragen }: Props) {
   const [bezoeken, setBezoeken] = useState<BezoekRij[]>([]);
   const [voortgang, setVoortgang] = useState<VoortgangRij[]>([]);
+  const [gebeurtenissen, setGebeurtenissen] = useState<GebeurtenisRij[]>([]);
   const [laden, setLaden] = useState(true);
   const [filter, setFilter] = useState<FilterOptie>("maand");
 
@@ -52,7 +70,7 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
       setLaden(true);
       const supabase = createClient();
       const sinds = new Date(vanafMs(filter)).toISOString();
-      const [bezoekRes, voortgangRes] = await Promise.all([
+      const [bezoekRes, voortgangRes, gebeurtenisRes] = await Promise.all([
         supabase
           .from("paginabezoeken")
           .select("pagina,sessie_id,created_at")
@@ -65,10 +83,17 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
           .order("created_at", { ascending: false })
           .gte("created_at", sinds)
           .limit(8000),
+        supabase
+          .from("paginagebeurtenissen")
+          .select("gebeurtenis,pakket,sessie_id,apparaat,meta,created_at")
+          .gte("created_at", sinds)
+          .order("created_at", { ascending: false })
+          .limit(8000),
       ]);
       if (actief) {
         setBezoeken((bezoekRes.data as BezoekRij[]) ?? []);
         setVoortgang((voortgangRes.data as VoortgangRij[]) ?? []);
+        setGebeurtenissen((gebeurtenisRes.data as GebeurtenisRij[]) ?? []);
         setLaden(false);
       }
     }
@@ -159,6 +184,54 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
     };
   }, [voortgang]);
 
+  // Actie op de aanbodpagina (kliks + formulier), sessie-gebaseerd.
+  const aanbodActie = useMemo(() => {
+    const sessiesMet = (naam: string) => {
+      const set = new Set<string>();
+      gebeurtenissen.forEach((g) => {
+        if (g.gebeurtenis === naam) set.add(g.sessie_id);
+      });
+      return set;
+    };
+    const aanbodSessies = new Set<string>();
+    bezoeken.forEach((b) => {
+      if (b.pagina === "/aanbod") aanbodSessies.add(b.sessie_id);
+    });
+    const kaart = sessiesMet("aanbod_kaart_klik");
+    const cta = sessiesMet("aanbod_cta_klik");
+    const gestart = sessiesMet("intake_gestart");
+    const verzonden = sessiesMet("intake_verzonden");
+
+    const perPakketMap = new Map<string, { kaart: number; cta: number }>();
+    gebeurtenissen.forEach((g) => {
+      if (g.gebeurtenis !== "aanbod_kaart_klik" && g.gebeurtenis !== "aanbod_cta_klik") return;
+      const key = g.pakket || "onbekend";
+      const rec = perPakketMap.get(key) || { kaart: 0, cta: 0 };
+      if (g.gebeurtenis === "aanbod_kaart_klik") rec.kaart++;
+      else rec.cta++;
+      perPakketMap.set(key, rec);
+    });
+
+    const verlaten = gebeurtenissen.filter((g) => g.gebeurtenis === "intake_verlaten");
+    const verlatenGem = verlaten.length
+      ? verlaten.reduce((a, g) => a + (g.meta?.velden ?? 0), 0) / verlaten.length
+      : 0;
+
+    return {
+      stappen: [
+        { label: "Aanbodpagina bezocht", waarde: aanbodSessies.size },
+        { label: "Optie aangeklikt", waarde: kaart.size },
+        { label: "Doorgeklikt naar formulier", waarde: cta.size },
+        { label: "Formulier gestart", waarde: gestart.size },
+        { label: "Formulier verzonden", waarde: verzonden.size },
+      ],
+      perPakket: Array.from(perPakketMap.entries()).sort((a, b) => b[1].cta - a[1].cta || b[1].kaart - a[1].kaart),
+      verlatenAantal: verlaten.length,
+      verlatenGem,
+      heeftData: gebeurtenissen.length > 0,
+    };
+  }, [gebeurtenissen, bezoeken]);
+
   const stappen = [
     { label: "Bezoekers (unieke sessies)", waarde: bezoekers, vorige: 0 },
     { label: "Analyse gestart", waarde: analyseGestart, vorige: bezoekers },
@@ -229,6 +302,97 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
               voltooid&rdquo; en verder zijn periodetotalen; de stap-percentages
               zijn indicatief (niet sessie-gekoppeld).
             </p>
+          </div>
+
+          {/* Actie op de aanbodpagina */}
+          <div className="bg-white rounded-xl border border-[#E6E9E7] p-5 mb-6">
+            <p className="text-xs font-medium text-[#4A5A56] mb-1 uppercase tracking-wider font-body">
+              Actie op de aanbodpagina
+            </p>
+            <p className="text-xs text-[#8B958F] mb-4 font-body">
+              Sessies die op /aanbod een optie aanklikten, doorklikten naar het
+              formulier en het verzonden. Zo zie je of er echt actie is, niet
+              alleen bezoek.
+            </p>
+            {!aanbodActie.heeftData ? (
+              <p className="text-sm text-[#8B958F] py-6 text-center font-body">
+                Nog geen actiedata. (Verschijnt zodra de tabel
+                paginagebeurtenissen bestaat en iemand op /aanbod klikt.)
+              </p>
+            ) : (
+              <>
+                <div className="space-y-2.5">
+                  {aanbodActie.stappen.map((stap, i) => {
+                    const start = aanbodActie.stappen[0].waarde || 1;
+                    const vorige = i > 0 ? aanbodActie.stappen[i - 1].waarde : stap.waarde;
+                    const drop = vorige - stap.waarde;
+                    return (
+                      <div key={stap.label} className="flex items-center gap-3">
+                        <span className="text-xs text-[#16211F] font-body w-40 flex-shrink-0">
+                          {stap.label}
+                        </span>
+                        <div className="flex-1 h-4 bg-[#F0F3F1] rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-[#0B7A6E] rounded-full"
+                            style={{ width: `${Math.round((stap.waarde / start) * 100)}%` }}
+                          />
+                        </div>
+                        <span className="text-xs font-body text-[#4A5A56] w-28 text-right flex-shrink-0">
+                          {stap.waarde}
+                          {i > 0 && (
+                            <span className="text-[#8B958F]"> ({pct(stap.waarde, vorige)})</span>
+                          )}
+                          {i > 0 && drop > 0 && (
+                            <span className="text-[#B03A2E]"> −{drop}</span>
+                          )}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
+
+                {aanbodActie.perPakket.length > 0 && (
+                  <div className="mt-5 pt-4 border-t border-[#F0F3F1]">
+                    <p className="text-xs font-medium text-[#4A5A56] mb-3 font-body">
+                      Per pakket (aantal kliks)
+                    </p>
+                    <div style={{ overflowX: "auto" }}>
+                      <table className="w-full text-sm" style={{ minWidth: "360px" }}>
+                        <thead>
+                          <tr className="bg-[#16211F]">
+                            {["Pakket", "Kaart geklikt", "Naar formulier"].map((h) => (
+                              <th key={h} className="text-left px-3 py-2 text-[#F7F8F7] font-medium text-xs font-body">
+                                {h}
+                              </th>
+                            ))}
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {aanbodActie.perPakket.map(([p, v], i) => (
+                            <tr key={p} className={i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"}>
+                              <td className="px-3 py-2 text-[#16211F] text-xs font-body">
+                                {pakketLabel(p)}
+                              </td>
+                              <td className="px-3 py-2 text-[#4A5A56] text-xs font-body">{v.kaart}</td>
+                              <td className="px-3 py-2 text-[#4A5A56] text-xs font-body">{v.cta}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+
+                {aanbodActie.verlatenAantal > 0 && (
+                  <p className="text-xs text-[#8B958F] mt-4 font-body">
+                    {aanbodActie.verlatenAantal}× halverwege het formulier
+                    weggegaan, gemiddeld {aanbodActie.verlatenGem.toFixed(1)} van
+                    de velden ingevuld. Hoog = de vragen of de lengte houden
+                    mensen tegen.
+                  </p>
+                )}
+              </>
+            )}
           </div>
 
           {/* Stap-voor-stap drop-off binnen de analyse */}

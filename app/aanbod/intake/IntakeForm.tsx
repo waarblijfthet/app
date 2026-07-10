@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { PAKKET_INFO } from "@/lib/aanbod-content";
+import { logGebeurtenis } from "@/lib/track";
 
 interface Props {
   pakket: "intensief" | "gesprek" | "geldscan";
@@ -82,6 +83,48 @@ export function IntakeForm({ pakket, token }: Props) {
   const [email, setEmail] = useState("");
 
   const isGeldscan = pakket === "geldscan";
+
+  // --- Actie-meting (PII-vrij): gestart, hoe ver, verzonden ---
+  const gestartRef = useRef(false);
+  const verzondenRef = useRef(false);
+  const veldenTotaal = isGeldscan ? 5 : 7;
+
+  function ingevuldeVelden(): number {
+    let n = 0;
+    if (situatie) n++;
+    if (inkomen) n++;
+    if (knelpunt.trim()) n++;
+    if (naam.trim()) n++;
+    if (email.includes("@")) n++;
+    if (!isGeldscan) {
+      if (analyse) n++;
+      if (startVoorkeur) n++;
+    }
+    return n;
+  }
+
+  // Log 'gestart' zodra het eerste veld is ingevuld.
+  useEffect(() => {
+    if (!gestartRef.current && ingevuldeVelden() > 0) {
+      gestartRef.current = true;
+      logGebeurtenis("intake_gestart", { pakket });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [situatie, inkomen, knelpunt, naam, email, analyse, startVoorkeur]);
+
+  // Verlaat iemand de pagina halverwege, log hoe ver hij kwam.
+  useEffect(() => {
+    function verlaten() {
+      if (!gestartRef.current || verzondenRef.current) return;
+      logGebeurtenis("intake_verlaten", {
+        pakket,
+        meta: { velden: ingevuldeVelden(), totaal: veldenTotaal },
+      });
+    }
+    window.addEventListener("pagehide", verlaten);
+    return () => window.removeEventListener("pagehide", verlaten);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [situatie, inkomen, knelpunt, naam, email, analyse, startVoorkeur]);
 
   const pakketLabel =
     pakket === "intensief"
@@ -167,6 +210,11 @@ export function IntakeForm({ pakket, token }: Props) {
         console.error("Email kon niet worden verstuurd");
       }
 
+      verzondenRef.current = true;
+      logGebeurtenis("intake_verzonden", {
+        pakket,
+        meta: { velden: veldenTotaal, totaal: veldenTotaal },
+      });
       router.push("/aanbod/intake/bedankt");
     } catch (err) {
       console.error(err);
