@@ -232,7 +232,7 @@ export default function OverPage() {
               Herken je dit verhaal?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Doe de gratis analyse en zie in vijf minuten hoe jullie het doen
+              Doe de analyse en zie in vijf minuten hoe jullie het doen
               ten opzichte van vergelijkbare gezinnen.
             </p>
             <Link
@@ -240,7 +240,7 @@ export default function OverPage() {
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Start de gratis analyse →
+              Start de analyse →
             </Link>
           </div>
         </section>

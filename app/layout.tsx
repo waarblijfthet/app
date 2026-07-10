@@ -27,7 +27,7 @@ export const metadata: Metadata = {
     template: "%s | Waar blijft het",
   },
   description:
-    "Je verdient goed maar houdt weinig over. Ik laat zien waar het naartoe gaat, vergeleken met gezinnen in jouw situatie. Gratis analyse, geen bankadvies.",
+    "Je verdient goed maar houdt weinig over. Ik laat zien waar het naartoe gaat, vergeleken met gezinnen in jouw situatie. Analyse, geen bankadvies.",
   openGraph: {
     type: "website",
     locale: "nl_NL",
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     siteName: "Waar blijft het",
     title: "Waar blijft het, Goed salaris, toch altijd krap?",
     description:
-      "Je verdient goed maar houdt weinig over. Ik laat zien waar het naartoe gaat, vergeleken met gezinnen in jouw situatie. Gratis analyse, geen bankadvies.",
+      "Je verdient goed maar houdt weinig over. Ik laat zien waar het naartoe gaat, vergeleken met gezinnen in jouw situatie. Analyse, geen bankadvies.",
     images: [
       {
         url: "/og-image.png",

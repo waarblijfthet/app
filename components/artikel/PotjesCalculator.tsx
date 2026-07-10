@@ -82,7 +82,7 @@ export default function PotjesCalculator() {
 
       <p className="font-body text-xs mt-4" style={{ color: "#8B958F" }}>
         Benieuwd hoe jouw échte verdeling eruitziet?{" "}
-        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
+        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</a>.
       </p>
     </div>
   );

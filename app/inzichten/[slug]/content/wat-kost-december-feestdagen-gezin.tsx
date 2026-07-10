@@ -88,7 +88,7 @@ export default function WatKostDecemberFeestdagenGezin() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd of jullie ruimte hebben voor zo&apos;n feestpotje?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en zie waar jullie geld nu naartoe gaat.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}en zie waar jullie geld nu naartoe gaat.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin een kerst- en verjaardagspot bouwde</a>.

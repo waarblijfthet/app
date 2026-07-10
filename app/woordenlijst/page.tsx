@@ -172,7 +172,7 @@ export default function WoordenlijstPage() {
               Begrippen helder? Tijd voor jouw cijfers.
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Doe de gratis analyse en zie waar jullie geld naartoe gaat,
+              Doe de analyse en zie waar jullie geld naartoe gaat,
               vergeleken met vergelijkbare gezinnen.
             </p>
             <Link
@@ -180,7 +180,7 @@ export default function WoordenlijstPage() {
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Start de gratis analyse →
+              Start de analyse →
             </Link>
           </div>
         </section>

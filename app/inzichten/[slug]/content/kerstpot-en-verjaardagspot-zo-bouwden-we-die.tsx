@@ -83,7 +83,7 @@ export default function KerstpotVerjaardagspotZoBouwdenWeDie() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd of er bij jullie ruimte is voor zulke potjes?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         <strong>Meer praktijkverhalen:</strong>{" "}

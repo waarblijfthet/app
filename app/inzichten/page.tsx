@@ -58,7 +58,7 @@ export default function InzichtenPage() {
                 Benieuwd hoe het er bij jullie specifiek uitziet?
               </h2>
               <p className="font-body font-light text-text-soft text-sm md:text-base leading-relaxed mb-6">
-                Artikelen geven algemene inzichten. De gratis analyse laat zien wat er
+                Artikelen geven algemene inzichten. De analyse laat zien wat er
                 bij jullie thuis speelt: in welke categorie jullie vallen, waar jullie
                 afwijken en wat je concreet kunt veranderen.
               </p>
@@ -67,10 +67,10 @@ export default function InzichtenPage() {
                 className="btn-primary"
                 style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
               >
-                Start de gratis analyse &rarr;
+                Start de analyse &rarr;
               </Link>
               <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
-                Gratis &middot; 5 minuten &middot; Geen account nodig
+                5 minuten &middot; Geen account &middot; Geen bankkoppeling
               </p>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function InzichtenPage() {
                   Meer lezen over jullie situatie?
                 </p>
                 <p className="font-body text-white/50 text-sm leading-relaxed">
-                  Bekijk ook het aanbod of lees hoe de gratis analyse werkt.
+                  Bekijk ook het aanbod of lees hoe de analyse werkt.
                 </p>
               </div>
               <div className="flex flex-col sm:flex-row gap-3 shrink-0">

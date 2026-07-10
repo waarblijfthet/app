@@ -81,13 +81,13 @@ const stappen = [
     nr: "01",
     titel: "Jij noemt het",
     tekst:
-      'Je signaleert dat geld een rol speelt en noemt Waar blijft het: "Er is een gratis analyse die snel inzicht geeft." Meer hoef je niet te doen.',
+      'Je signaleert dat geld een rol speelt en noemt Waar blijft het: "Er is een analyse die snel inzicht geeft." Meer hoef je niet te doen.',
   },
   {
     nr: "02",
     titel: "Jouw cliënt start",
     tekst:
-      "Ze doen de gratis analyse in 5 minuten, anoniem. Geen account, geen verplichtingen. Ze zien direct wat er speelt.",
+      "Ze doen de analyse in 5 minuten, anoniem. Geen account, geen verplichtingen. Ze zien direct wat er speelt.",
   },
   {
     nr: "03",
@@ -276,7 +276,7 @@ export default function SamenwerkenPage() {
                     marginLeft: 0,
                   }}
                 >
-                  &ldquo;Er is een gratis analyse van 5 minuten die jullie snel inzicht geeft in waar het
+                  &ldquo;Er is een analyse van 5 minuten die jullie snel inzicht geeft in waar het
                   naartoe gaat. Dat heb ik zelf bekeken en het is concreet en zonder verplichtingen.&rdquo;
                 </blockquote>
               </div>
@@ -497,12 +497,12 @@ export default function SamenwerkenPage() {
                     {
                       kop: "Privacy-bewust",
                       tekst:
-                        "De gratis analyse is anoniem. Er wordt geen financiële data opgeslagen die terugleidt naar jouw cliënt.",
+                        "De analyse is anoniem. Er wordt geen financiële data opgeslagen die terugleidt naar jouw cliënt.",
                     },
                     {
                       kop: "Laagdrempelig instappen",
                       tekst:
-                        "Jouw cliënt kan starten met een gratis analyse, helemaal vrijblijvend. Geen gedwongen vervolgstap.",
+                        "Jouw cliënt kan starten met een analyse, helemaal vrijblijvend. Geen gedwongen vervolgstap.",
                     },
                   ].map((item) => (
                     <div key={item.kop} className="flex gap-3">

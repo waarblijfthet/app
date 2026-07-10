@@ -75,7 +75,7 @@ export default function AchterafBetalenBkrRegistratie() {
         Het risico zit in de achterstand. Betaal je langere tijd niet en wordt de vordering
         overgedragen aan een incassobureau, dan kan dat uiteindelijk wel tot een negatieve
         registratie leiden, met gevolgen voor bijvoorbeeld een latere hypotheekaanvraag. Niet de
-        achteraf-betaling zelf is dan het probleem, maar het uitblijven van betaling. Reden te meer om een betaling die je niet rond krijgt op tijd op te pakken. Lukt dat niet, zoek dan op tijd hulp, bijvoorbeeld gratis en anoniem bij Geldfit. Wat er precies gebeurt bij een
+        achteraf-betaling zelf is dan het probleem, maar het uitblijven van betaling. Reden te meer om een betaling die je niet rond krijgt op tijd op te pakken. Lukt dat niet, zoek dan op tijd hulp, bijvoorbeeld anoniem bij Geldfit. Wat er precies gebeurt bij een
         achterstand, lees je in{" "}
         <Link
           href="/inzichten/klarna-niet-kunnen-betalen"

@@ -95,7 +95,7 @@ export default function LifestyleInflatieMeerVerdienenMeerUitgeven() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je eerst zien waar jouw extra inkomen nu naartoe gaat?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
         en vergelijk jezelf met gezinnen in dezelfde situatie. Kom je er niet
         uit, dan kijken we via onze{" "}
         <Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}met je mee.

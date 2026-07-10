@@ -95,7 +95,7 @@ export default function OnsBoodschappenbudgetMislukte() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd waar het bij jullie zit?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}— boodschappen is een van de categorieën die we vergelijken.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}— boodschappen is een van de categorieën die we vergelijken.
       </p>
       <p className="font-body text-text-soft" style={p}>
         <strong>Meer praktijkverhalen:</strong> <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">December: zo bouwden we een kerst- en verjaardagspot</a> &middot; <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">De BSO slokte ons tweede inkomen op</a>.

@@ -150,7 +150,7 @@ export default async function ResultaatPage({ params }: Props) {
               Deze analyse is niet gevonden.
             </h1>
             <p className="text-text-soft font-body font-light text-base mb-8">
-              De link is mogelijk verlopen of onjuist. Doe de gratis analyse
+              De link is mogelijk verlopen of onjuist. Doe de analyse
               opnieuw, het kost maar 5 minuten.
             </p>
             <Link href="/analyse" className="btn-primary">

@@ -151,7 +151,7 @@ export default function HoeveeSpaarenPerMaandNormaal() {
           className="hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
-          gratis analyse
+          analyse
         </Link>{" "}
         en zie direct waar jullie geld naartoe gaat en waar de ruimte zit.
       </p>

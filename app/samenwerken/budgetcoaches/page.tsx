@@ -27,7 +27,7 @@ const faq = [
   {
     vraag: "Hoe verwijs ik iemand door?",
     antwoord:
-      "Je noemt Waar blijft het als de cliënt buiten jouw scope valt: te weinig schulden voor schuldhulp, maar wel grip nodig op het maandbudget. Ze starten zelf via de gratis analyse op de site.",
+      "Je noemt Waar blijft het als de cliënt buiten jouw scope valt: te weinig schulden voor schuldhulp, maar wel grip nodig op het maandbudget. Ze starten zelf via de analyse op de site.",
   },
   {
     vraag: "Kunnen we samen optrekken in een traject?",
@@ -149,7 +149,7 @@ export default function BudgetcoachesPage() {
             <div className="space-y-4">
               {[
                 ["1", "Verwijs door of vertel erover", "Als iemand buiten jouw scope valt (te weinig schulden, maar wel budgetvraag), noem dan Waar blijft het."],
-                ["2", "Ze starten zelf", "Via de gratis analyse op de site. Vrijblijvend, vijf minuten. Dat geeft al inzicht."],
+                ["2", "Ze starten zelf", "Via de analyse op de site. Vrijblijvend, vijf minuten. Dat geeft al inzicht."],
                 ["3", "Optioneel: samen optrekken", "Heeft iemand zowel jouw begeleiding nodig als financieel inzicht? Dan overleg ik met jou hoe we dat complementair oppakken."],
               ].map(([n, t, d]) => (
                 <div key={n} className="card-base border border-[#E6E9E7] flex items-start gap-4">
@@ -189,7 +189,7 @@ export default function BudgetcoachesPage() {
                   Sylvia (42) is HR-manager in Utrecht en alleenstaande moeder van twee kinderen. Netto €3.600 per maand. Ze klopt aan bij budgetcoach Roos, maar heeft geen schulden. Roos kan haar niet in een regulier traject plaatsen en verwijst door.
                 </p>
                 <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#16211F", fontStyle: "italic", borderLeft: "3px solid #0B7A6E", paddingLeft: "0.75rem", marginLeft: 0 }}>
-                  &ldquo;Je past niet in ons schuldhulptraject, maar je hebt wel grip nodig. Er is iemand die precies dit doet voor jouw type situatie. Start eerst de gratis analyse, dan weet je in vijf minuten waar het knelt.&rdquo;
+                  &ldquo;Je past niet in ons schuldhulptraject, maar je hebt wel grip nodig. Er is iemand die precies dit doet voor jouw type situatie. Start eerst de analyse, dan weet je in vijf minuten waar het knelt.&rdquo;
                 </blockquote>
               </div>
 

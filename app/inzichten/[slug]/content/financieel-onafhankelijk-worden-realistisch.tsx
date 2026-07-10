@@ -211,7 +211,7 @@ export default function FinancieelOnafhankelijkWordenRealistisch() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je weten hoeveel ruimte je nu hebt?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
        , in 15 minuten zie je je vrije cashflow en of er meer mogelijk is dan je denkt. Als je dit wil uitwerken met iemand die concreet meekijkt, biedt Jarno een{" "}
         <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>{" "}
         aan.

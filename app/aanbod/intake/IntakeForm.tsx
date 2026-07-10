@@ -104,7 +104,7 @@ export function IntakeForm({ pakket, token }: Props) {
     : "Bijv. ik verdien goed maar aan het einde van de maand is het op…";
 
   const footerTekst = isGeldscan
-    ? "Na betaling vraag ik je de gratis analyse in te vullen, dat maakt je rapport preciezer. Je gegevens gebruik ik alleen daarvoor en voor het betaalverzoek. Geen spam, nooit gedeeld."
+    ? "Na betaling vraag ik je de analyse in te vullen, dat maakt je rapport preciezer. Je gegevens gebruik ik alleen daarvoor en voor het betaalverzoek. Geen spam, nooit gedeeld."
     : "Je gegevens gebruik ik alleen om contact met je op te nemen. Geen spam, nooit gedeeld.";
 
   const isValid = isGeldscan
@@ -420,7 +420,7 @@ export function IntakeForm({ pakket, token }: Props) {
                     display: "block",
                   }}
                 >
-                  4. Heb je de gratis analyse al gedaan?
+                  4. Heb je de analyse al gedaan?
                 </legend>
                 <div className="flex flex-col gap-2">
                   {ANALYSE_OPTIES.map((o) => (

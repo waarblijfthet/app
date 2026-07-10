@@ -91,7 +91,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
       <p className="font-body text-text-soft" style={p}>
         Wil je zien hoe jullie autokosten zich verhouden tot vergelijkbare
         gezinnen?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}— vervoer is één van de categorieën die we vergelijken.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}— vervoer is één van de categorieën die we vergelijken.
       </p>
     </>
   );

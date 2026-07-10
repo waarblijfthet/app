@@ -70,7 +70,7 @@ export default function WatKostEenZomervakantieGezin() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd of er ruimte is voor een vakantiepotje?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>.
       </p>
     </>
   );

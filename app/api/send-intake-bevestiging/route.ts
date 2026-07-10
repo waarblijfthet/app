@@ -26,13 +26,13 @@ export async function POST(request: NextRequest) {
     const intro = isGesprek
       ? "Ik neem binnen één werkdag persoonlijk contact op om je adviesgesprek (45 min, video) in te plannen. Je krijgt dan ook het betaalverzoek (€125)."
       : isGeldscan
-      ? "Na je aanvraag stuur ik je een betaalverzoek. Zodra dat betaald is, vraag ik je de gratis analyse in te vullen, en binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF per e-mail."
+      ? "Na je aanvraag stuur ik je een betaalverzoek. Zodra dat betaald is, vraag ik je de analyse in te vullen, en binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF per e-mail."
       : "Ik neem binnen één werkdag persoonlijk contact op. Geen standaardmail, maar een bericht dat aansluit op wat je hebt ingevuld.";
     const stappenTitel = isGesprek ? "Zo bereid je je voor" : "Wat er nu gebeurt";
     const stappenHtml = isGesprek
-      ? "1. Ik plan je videogesprek van 45 minuten in en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de gratis analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijk ik eerlijk naar je cijfers en bepaal je samen met mij 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alle aangeleverde gegevens"
+      ? "1. Ik plan je videogesprek van 45 minuten in en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijk ik eerlijk naar je cijfers en bepaal je samen met mij 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alle aangeleverde gegevens"
       : isGeldscan
-      ? "1. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>2. Zodra dat betaald is, vraag ik je de gratis analyse in te vullen (2 minuten), dat geeft me de cijfers voor je rapport<br>3. Optioneel: stuur ook een paar recente bankafschriften mee als bijlage, dan kan ik preciezer zijn<br>4. Binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF, en direct na het versturen verwijder ik je afschriften en gegevens"
+      ? "1. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>2. Zodra dat betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers voor je rapport<br>3. Optioneel: stuur ook een paar recente bankafschriften mee als bijlage, dan kan ik preciezer zijn<br>4. Binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF, en direct na het versturen verwijder ik je afschriften en gegevens"
       : "1. Ik lees je aanmelding door<br>2. Je krijgt binnen één werkdag een persoonlijk bericht<br>3. Ik plan het intakegesprek (45 min, video) met je in<br>4. Daarna stel ik samen met jou je plan op maat op";
 
     // Bevestiging naar aanvrager
@@ -77,7 +77,7 @@ export async function POST(request: NextRequest) {
           <p style="margin:0 0 8px;font-size:13px;color:rgba(245,240,232,0.6);">Terwijl je wacht</p>
           <a href="https://www.waarblijfthet.nl/analyse"
              style="display:inline-block;background-color:#0B7A6E;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;">
-            Doe de gratis analyse →
+            Doe de analyse →
           </a>
         </td></tr>
 

@@ -104,7 +104,7 @@ export default function WatKostEenFinancieelCoach() {
 
       <h2 style={h2}>Gratis alternatieven, en voor wie die bedoeld zijn</h2>
       <p style={p}>
-        Eerlijk is eerlijk: er bestaat goede gratis hulp. Heb je schulden of
+        Eerlijk is eerlijk: er bestaat goede kosteloze hulp. Heb je schulden of
         betalingsachterstanden, dan kun je kosteloos terecht bij de
         schuldhulpverlening van je gemeente of via Geldfit. Sommige werkgevers
         vergoeden een budgetcoach of bieden er zelf één aan, vraag ernaar bij

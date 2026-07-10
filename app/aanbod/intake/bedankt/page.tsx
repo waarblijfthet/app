@@ -67,7 +67,7 @@ export default function BedanktPage() {
 
           <div className="flex flex-col gap-3">
             {[
-              { label: "Doe de gratis analyse", href: "/analyse" },
+              { label: "Doe de analyse", href: "/analyse" },
               {
                 label: "Lees over de potjesmethode",
                 href: "/inzichten/potjesmethode-gezin-hoe-werkt-het",

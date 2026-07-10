@@ -17,7 +17,7 @@ const situaties = [
   { situatie: "Rondkomen lukt niet van een laag inkomen", hulp: "Budgetcoach, vaak gratis via gemeente of werkgever" },
   { situatie: "Goed inkomen, toch elke maand bijna niets over", hulp: "Financieel coach" },
   { situatie: "Hypotheek, pensioen of beleggen", hulp: "Financieel adviseur met Wft-vergunning" },
-  { situatie: "Eerst zelf inzicht willen", hulp: "Gratis analyse of huishoudboekje" },
+  { situatie: "Eerst zelf inzicht willen", hulp: "Analyse of huishoudboekje" },
 ];
 
 export default function VerschilBudgetcoachFinancieelCoach() {
@@ -127,14 +127,14 @@ export default function VerschilBudgetcoachFinancieelCoach() {
       </div>
       <p style={p}>
         Twijfel je in welke groep je valt? Eén signaal is doorslaggevend: heb
-        je betalingsachterstanden, dan hoor je bij de gratis hulp van je
+        je betalingsachterstanden, dan hoor je bij de kosteloze hulp van je
         gemeente, punt. Betaal je alles netjes op tijd maar snap je niet
         waarom er niets overblijft, dan zit je in de groep waarvoor ik werk.
         Op de pagina{" "}
         <Link href="/financieel-coach" style={oranje} className="hover:underline">
           financieel coach
         </Link>{" "}
-        lees je hoe dat eruitziet: gratis analyse eerst, daarna eventueel een{" "}
+        lees je hoe dat eruitziet: analyse eerst, daarna eventueel een{" "}
         <Link href="/adviesgesprek" style={oranje} className="hover:underline">
           eenmalig gesprek van €125
         </Link>

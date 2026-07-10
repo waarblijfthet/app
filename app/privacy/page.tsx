@@ -37,7 +37,7 @@ export default function PrivacyPage() {
             </h2>
             <p className="font-body font-light text-text-soft text-base leading-relaxed">
               We verzamelen je emailadres als je je aanmeldt voor de wachtlijst
-              of de gratis analyse invult. Als je toestemming geeft, bewaren we
+              of de analyse invult. Als je toestemming geeft, bewaren we
               ook de antwoorden die je invult in de analyse, volledig anoniem
               en alleen gebruikt om onze benchmarks te verbeteren. We slaan geen
               wachtwoorden, betaalgegevens of persoonsgegevens anders dan je

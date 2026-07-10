@@ -121,7 +121,7 @@ export default function GoedsalarisTochKrap() {
         .
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Kom je er samen niet helemaal uit? Kijk dan{" "}<Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe we je verder kunnen helpen</Link>{" "}— van de gratis analyse tot persoonlijke begeleiding.
+        Kom je er samen niet helemaal uit? Kijk dan{" "}<Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe we je verder kunnen helpen</Link>{" "}— van de analyse tot persoonlijke begeleiding.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Uit de praktijk: lees <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappen onder controle kreeg</a>.

@@ -193,7 +193,7 @@ export default function StudieschuldAflossenOfSparen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je weten wat voor jouw situatie het slimst is?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
         voor een eerlijk beeld van je cashflow en ruimte. Of boek een{" "}
         <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>{" "}
        , Jarno rekent dan concreet door wat voor jou de slimste keuze is.

@@ -253,7 +253,7 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je jouw eigen rekensom zien?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
        , dan zie je in 15 minuten hoeveel het tweede inkomen jou netto oplevert. Of bespreek het concreet in een{" "}
         <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>.
       </p>

@@ -214,7 +214,7 @@ export default function PensioenAanvullenHoeveel() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je weten hoe jouw situatie eruitziet?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
        , dan zie je in 15 minuten of er een gat is en hoe groot. Als je het wil uitwerken met iemand die concreet meekijkt, biedt Jarno een{" "}
         <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>{" "}
         aan, inclusief een eerlijk beeld van je pensioen.

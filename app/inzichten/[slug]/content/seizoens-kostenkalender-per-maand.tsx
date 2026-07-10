@@ -57,7 +57,7 @@ export default function SeizoensKostenkalenderPerMaand() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je zien of er in jullie maandbudget ruimte is voor zulke potjes?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>.
       </p>
       <div
         className="rounded-xl border p-4 my-6"

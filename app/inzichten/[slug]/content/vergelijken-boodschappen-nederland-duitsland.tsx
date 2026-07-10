@@ -168,7 +168,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
           className="hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
-          gratis analyse
+          analyse
         </Link>{" "}
         en zie in vijf minuten hoe jullie boodschappenuitgaven zich verhouden
         tot vergelijkbare gezinnen, en waar jullie de meeste ruimte hebben.

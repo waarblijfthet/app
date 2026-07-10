@@ -101,7 +101,7 @@ export const artikelen: Artikel[] = [
     leestijd: "6",
     categorie: "Financieel advies",
     excerpt:
-      "Uurtarieven van €60 tot €150, trajecten tot €800. Maar de duurste coach is de 'gratis' adviseur met provisiebelang. Wat je echt betaalt, wanneer het loont en wanneer gratis hulp slimmer is.",
+      "Uurtarieven van €60 tot €150, trajecten tot €800. Maar de duurste coach is de 'gratis' adviseur met provisiebelang. Wat je echt betaalt, wanneer het loont en wanneer kosteloze hulp slimmer is.",
     preview: {
       type: "vergelijking",
       label: "Kosten financiële hulp vergelijken",
@@ -130,7 +130,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Is er een gratis alternatief voor een financieel coach?",
         antwoord:
-          "Ja. Bij geldproblemen helpen de gemeente en Geldfit kosteloos. Wil je vooral zelf inzicht, dan kun je gratis rekentools van het Nibud gebruiken of een gratis analyse doen die je uitgaven vergelijkt met vergelijkbare huishoudens. Verdien je goed maar houd je structureel weinig over, dan is er weinig gratis aanbod: die groep valt tussen schuldhulp en vermogensadvies in.",
+          "Ja. Bij geldproblemen helpen de gemeente en Geldfit kosteloos. Wil je vooral zelf inzicht, dan kun je gratis rekentools van het Nibud gebruiken of een analyse doen die je uitgaven vergelijkt met vergelijkbare huishoudens. Verdien je goed maar houd je structureel weinig over, dan is er weinig gratis aanbod: die groep valt tussen schuldhulp en vermogensadvies in.",
       },
       {
         vraag: "Wanneer verdient een financieel coach zich terug?",
@@ -144,7 +144,7 @@ export const artikelen: Artikel[] = [
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
       {
-        label: "Geldfit, gratis hulp bij geldzorgen",
+        label: "Geldfit, kosteloze hulp bij geldzorgen",
         url: "https://geldfit.nl",
       },
     ],
@@ -169,7 +169,7 @@ export const artikelen: Artikel[] = [
         "Schulden of achterstanden → budgetcoach, gratis via gemeente",
         "Goed inkomen, toch niets over → financieel coach",
         "Hypotheek of beleggen → Wft-adviseur",
-        "Eerst zelf inzicht → gratis analyse",
+        "Eerst zelf inzicht → analyse",
       ],
     },
     faq: [
@@ -201,7 +201,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Geldfit, check welke gratis hulp bij jou past",
+        label: "Geldfit, check welke kosteloze hulp bij jou past",
         url: "https://geldfit.nl",
       },
       {
@@ -248,7 +248,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wat doe ik als ik echt niet kan betalen?",
         antwoord:
-          "Betaal wat je nu kunt zodat de kosten niet oplopen, en breng al je openstaande betalingen in beeld. Lukt het echt niet en stapelen de betalingen zich op, zoek dan op tijd hulp. Bij Geldfit kun je gratis en anoniem terecht.",
+          "Betaal wat je nu kunt zodat de kosten niet oplopen, en breng al je openstaande betalingen in beeld. Lukt het echt niet en stapelen de betalingen zich op, zoek dan op tijd hulp. Bij Geldfit kun je anoniem terecht.",
       },
     ],
     externLinks: [
@@ -336,7 +336,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoe houd ik het vol?",
         antwoord:
-          "Met een kleine buffer en grip op je maand hoef je niet meer uit te stellen. Spreek een eenvoudige regel af: je betaalt meteen of je koopt het niet. Lukt aflossen niet of stapelen de schulden, zoek dan op tijd hulp, bijvoorbeeld gratis en anoniem bij Geldfit.",
+          "Met een kleine buffer en grip op je maand hoef je niet meer uit te stellen. Spreek een eenvoudige regel af: je betaalt meteen of je koopt het niet. Lukt aflossen niet of stapelen de schulden, zoek dan op tijd hulp, bijvoorbeeld anoniem bij Geldfit.",
       },
     ],
     externLinks: [
@@ -975,7 +975,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoe lang duurt het voordat je grip hebt?",
         antwoord:
-          "Het overzicht maken kost een paar uur als je je afschriften erbij pakt, of een paar minuten met de gratis analyse. Daarna is grip houden een kwestie van vijf minuten per maand om te checken of het nog klopt.",
+          "Het overzicht maken kost een paar uur als je je afschriften erbij pakt, of een paar minuten met de analyse. Daarna is grip houden een kwestie van vijf minuten per maand om te checken of het nog klopt.",
       },
     ],
     externLinks: [
@@ -3703,7 +3703,7 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Heb ik een financieel adviseur nodig als ik gewoon meer wil overhouden?",
-        antwoord: "Nee. Als je vraag is 'waarom is ons geld op?' of 'hoe houden we meer over', heb je geen Wft-gecertificeerde adviseur nodig. Een eenmalig adviesgesprek of de gratis analyse is voldoende om inzicht te krijgen in je maandbudget en concrete doelen te stellen.",
+        antwoord: "Nee. Als je vraag is 'waarom is ons geld op?' of 'hoe houden we meer over', heb je geen Wft-gecertificeerde adviseur nodig. Een eenmalig adviesgesprek of de analyse is voldoende om inzicht te krijgen in je maandbudget en concrete doelen te stellen.",
       },
     ],
     externLinks: [

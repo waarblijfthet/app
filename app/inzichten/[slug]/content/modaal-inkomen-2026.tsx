@@ -77,7 +77,7 @@ export default function ModaalInkomen2026() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd hoeveel jullie met jullie inkomen zouden moeten overhouden?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en vergelijk jezelf met vergelijkbare gezinnen.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}en vergelijk jezelf met vergelijkbare gezinnen.
       </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/hoeveel-geld-overhouden-einde-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoeveel je hoort over te houden</Link> en <Link href="/inzichten/bruto-naar-netto-loonstrook-uitleg" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">van bruto naar netto</Link>.</p>
     </>

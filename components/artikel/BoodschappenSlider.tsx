@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 // Gemiddelde boodschappen vergelijkbaar gezin, per aantal kinderen
-// (gelijk aan de benchmark in de gratis analyse)
+// (gelijk aan de benchmark in de analyse)
 const BENCH: Record<number, number> = { 0: 485, 1: 620, 2: 755, 3: 890 };
 const LABELS: Record<number, string> = {
   0: "Geen kinderen",
@@ -75,7 +75,7 @@ export default function BoodschappenSlider() {
       <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
         Schattingen liggen meestal te laag. Wil je je échte bedrag weten en
         vergelijken op álle posten?{" "}
-        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
+        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</a>.
       </p>
     </div>
   );

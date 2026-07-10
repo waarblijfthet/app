@@ -87,7 +87,7 @@ export default function TweeverdienersTochKrap() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je zien waar jullie twee inkomens nu naartoe gaan?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
         en vergelijk jezelf met vergelijkbare gezinnen. Kom je er samen niet uit,
         dan kijken we via onze{" "}
         <Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}mee.

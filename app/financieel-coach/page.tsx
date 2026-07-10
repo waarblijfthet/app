@@ -6,12 +6,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Financieel coach nodig? Online, eenmalig €125, geen traject",
   description:
-    "Financieel coach voor wie goed verdient en toch weinig overhoudt. Online in heel Nederland. Gratis analyse vooraf, eenmalig adviesgesprek van €125, geen abonnement.",
+    "Financieel coach voor wie goed verdient en toch weinig overhoudt. Online in heel Nederland. Analyse vooraf, eenmalig adviesgesprek van €125, geen abonnement.",
   alternates: { canonical: "https://www.waarblijfthet.nl/financieel-coach" },
   openGraph: {
     title: "Financieel coach nodig? Online, eenmalig €125, geen traject",
     description:
-      "Financieel coach voor wie goed verdient en toch weinig overhoudt. Online in heel Nederland. Gratis analyse vooraf, eenmalig gesprek van €125.",
+      "Financieel coach voor wie goed verdient en toch weinig overhoudt. Online in heel Nederland. Analyse vooraf, eenmalig gesprek van €125.",
     url: "https://www.waarblijfthet.nl/financieel-coach",
     type: "website",
   },
@@ -27,12 +27,12 @@ const faq = [
   {
     vraag: "Wat kost een financieel coach?",
     antwoord:
-      "In Nederland kost een financieel coach gemiddeld €60 tot €150 per uur, en een compleet traject al snel €250 tot €800. Bij mij werkt het anders: de analyse is gratis, een eenmalig adviesgesprek van 45 minuten kost €125 en een persoonlijk traject van 3 maanden €497. Geen uurtje-factuurtje en geen abonnement.",
+      "In Nederland kost een financieel coach gemiddeld €60 tot €150 per uur, en een compleet traject al snel €250 tot €800. Bij mij werkt het anders: de analyse kost je niets, een eenmalig adviesgesprek van 45 minuten kost €125 en een persoonlijk traject van 3 maanden €497. Geen uurtje-factuurtje en geen abonnement.",
   },
   {
     vraag: "Wat is het verschil tussen een budgetcoach en een financieel coach?",
     antwoord:
-      "Een budgetcoach helpt vooral mensen met geldproblemen of schulden: administratie op orde, betalingsachterstanden, rondkomen van een krap budget. Een financieel coach richt zich op mensen die genoeg verdienen maar toch weinig overhouden en meer grip willen. Heb je schulden, dan is een budgetcoach of gratis hulp via je gemeente passender.",
+      "Een budgetcoach helpt vooral mensen met geldproblemen of schulden: administratie op orde, betalingsachterstanden, rondkomen van een krap budget. Een financieel coach richt zich op mensen die genoeg verdienen maar toch weinig overhouden en meer grip willen. Heb je schulden, dan is een budgetcoach of kosteloze hulp via je gemeente passender.",
   },
   {
     vraag: "Wat is het verschil tussen een geldcoach en een financieel coach?",
@@ -47,7 +47,7 @@ const faq = [
   {
     vraag: "Werkt financiële coaching ook online?",
     antwoord:
-      "Ja. Ik werk volledig online via videogesprekken, voor heel Nederland. Je hoeft dus niet in de buurt te wonen. De gratis analyse doe je zelf op je scherm, het adviesgesprek plannen we op een moment dat jou uitkomt.",
+      "Ja. Ik werk volledig online via videogesprekken, voor heel Nederland. Je hoeft dus niet in de buurt te wonen. De analyse doe je zelf op je scherm, het adviesgesprek plannen we op een moment dat jou uitkomt.",
   },
   {
     vraag: "Ik heb schulden of betalingsachterstanden. Ben ik hier aan het juiste adres?",
@@ -77,7 +77,7 @@ const serviceSchema = {
   serviceType: "Financiële coaching",
   name: "Financieel coach, Waar blijft het",
   description:
-    "Financiële coaching voor huishoudens die goed verdienen maar structureel weinig overhouden. Gratis analyse, eenmalig adviesgesprek van €125 en optioneel een traject van 3 maanden. Online, heel Nederland.",
+    "Financiële coaching voor huishoudens die goed verdienen maar structureel weinig overhouden. Analyse, eenmalig adviesgesprek van €125 en optioneel een traject van 3 maanden. Online, heel Nederland.",
   url: "https://www.waarblijfthet.nl/financieel-coach",
   areaServed: { "@type": "Country", name: "Nederland" },
   availableChannel: {
@@ -99,7 +99,7 @@ const serviceSchema = {
   offers: [
     {
       "@type": "Offer",
-      name: "Gratis analyse",
+      name: "Analyse",
       price: "0",
       priceCurrency: "EUR",
       url: "https://www.waarblijfthet.nl/analyse",
@@ -133,7 +133,7 @@ const breadcrumbSchema = {
 const stappen = [
   {
     n: "1",
-    titel: "Gratis analyse, 5 minuten",
+    titel: "Analyse, 5 minuten",
     tekst:
       "Je vult vijf korte stappen in: woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven. Schattingen zijn goed genoeg, geen bankkoppeling. Je ziet direct waar jouw uitgaven afwijken van vergelijkbare huishoudens.",
   },
@@ -184,12 +184,11 @@ export default function FinancieelCoachPage() {
             </p>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-8">
               Ik ben Jarno Koopman. Ik verkoop geen financiële producten en
-              krijg geen provisie. Je betaalt alleen voor het gesprek, en de
-              eerste stap is altijd gratis.
+              krijg geen provisie. Je betaalt alleen voor wat je nodig hebt.
             </p>
             <div className="flex flex-wrap items-center gap-4">
-              <Link href="/analyse" className="btn-primary">
-                Start de gratis analyse →
+              <Link href="/geldscan" className="btn-primary">
+                Laat mij je cijfers nakijken (€49) →
               </Link>
               <Link
                 href="/adviesgesprek"
@@ -315,7 +314,7 @@ export default function FinancieelCoachPage() {
                 </thead>
                 <tbody className="font-light text-text-soft">
                   <tr style={{ borderBottom: "1px solid #E6E9E7" }}>
-                    <td className="py-3 pr-4">Gratis analyse</td>
+                    <td className="py-3 pr-4">Analyse</td>
                     <td className="py-3 pr-4">€0</td>
                     <td className="py-3">Direct inzicht in je grootste afwijkingen, op je scherm</td>
                   </tr>
@@ -367,7 +366,7 @@ export default function FinancieelCoachPage() {
               Eerst zien waar jouw geld blijft?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Begin met de gratis analyse. Vijf minuten, resultaat direct op je
+              Begin met de analyse. Vijf minuten, resultaat direct op je
               scherm. Daarna bepaal jij of je een gesprek wilt.
             </p>
             <Link
@@ -375,7 +374,7 @@ export default function FinancieelCoachPage() {
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Start de gratis analyse →
+              Start de analyse →
             </Link>
             <p className="mt-5">
               <Link

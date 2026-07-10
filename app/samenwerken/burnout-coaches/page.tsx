@@ -32,7 +32,7 @@ const faq = [
   {
     vraag: "Hoe verwijs ik iemand door?",
     antwoord:
-      "Je noemt Waar blijft het als financiële stress een rol speelt. Ze starten zelf met de gratis analyse, geen verplichtingen, geen intensieve onboarding. Dat past bij de behoefte van mensen in herstel.",
+      "Je noemt Waar blijft het als financiële stress een rol speelt. Ze starten zelf met de analyse, geen verplichtingen, geen intensieve onboarding. Dat past bij de behoefte van mensen in herstel.",
   },
   {
     vraag: "Is er een vergoeding voor doorverwijzingen?",
@@ -127,12 +127,12 @@ export default function BurnoutCoachesPage() {
             </p>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
               Voor iemand in herstel is een laagdrempelige eerste stap belangrijk. Daarom
-              begint alles met een gratis analyse van vijf minuten, geen verplichtingen,
+              begint alles met een analyse van vijf minuten, geen verplichtingen,
               geen intensieve onboarding. Rustig tempo, duidelijk inzicht.
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
               {[
-                ["Laagdrempelig", "Gratis analyse van 5 minuten. Geen verplichtingen."],
+                ["Laagdrempelig", "Analyse van 5 minuten. Geen verplichtingen."],
                 ["Concreet", "Twee of drie duidelijke stappen, niet overweldigend."],
                 ["Complementair", "Ik doe het geld. Jij doet de mens. Geen overlap."],
               ].map(([t, d]) => (
@@ -154,7 +154,7 @@ export default function BurnoutCoachesPage() {
             <div className="space-y-4">
               {[
                 ["1", "Noem het als geld een rol speelt", "Zodra financiële stress ter sprake komt, kun je Waar blijft het noemen. Geen grote introductie nodig."],
-                ["2", "Ze starten op hun eigen tempo", "De gratis analyse op de site duurt vijf minuten en is volledig op hun eigen moment te doen. Geen drempel."],
+                ["2", "Ze starten op hun eigen tempo", "De analyse op de site duurt vijf minuten en is volledig op hun eigen moment te doen. Geen drempel."],
                 ["3", "Ik pak het financiële deel op", "Een adviesgesprek of traject, volledig gericht op het maandbudget. Jij blijft hun coach, ik ben de financiële schakel."],
               ].map(([n, t, d]) => (
                 <div key={n} className="card-base border border-[#E6E9E7] flex items-start gap-4">

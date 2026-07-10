@@ -189,7 +189,7 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je samen jullie financiële basis doorlichten?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
        , samen, in 15 minuten. Of bespreek jullie situatie in een{" "}
         <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig adviesgesprek van €125</Link>.
       </p>

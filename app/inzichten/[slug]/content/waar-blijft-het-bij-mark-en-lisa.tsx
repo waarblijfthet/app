@@ -77,7 +77,7 @@ export default function WaarBlijftHetBijMarkEnLisa() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Herken je Mark en Lisa?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en zie jullie eigen verdeling.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}en zie jullie eigen verdeling.
       </p>
     </>
   );

@@ -156,7 +156,7 @@ export default function Is4000EuroNettoGoedSalaris() {
           className="hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
-          gratis analyse
+          analyse
         </Link>{" "}
         en zie direct waar het verschil zit.
       </p>

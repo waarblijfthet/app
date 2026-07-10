@@ -131,7 +131,7 @@ export default function StoppenMetAchterafBetalen() {
         >
           Geldfit
         </a>{" "}
-        kun je gratis en anoniem terecht. Dat is geen zwaktebod, dat is verstandig.
+        kun je anoniem terecht. Dat is geen zwaktebod, dat is verstandig.
       </p>
 
       {/* Intern CTA */}

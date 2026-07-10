@@ -65,7 +65,7 @@ export default function ZonnepanelenTerugverdientijd() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Twijfel je of je de ruimte hebt voor zo&apos;n investering?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe eerst de gratis analyse</Link>{" "}en zie hoe jullie ervoor staan.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe eerst de analyse</Link>{" "}en zie hoe jullie ervoor staan.
       </p>
     </>
   );

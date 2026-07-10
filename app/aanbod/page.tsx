@@ -459,10 +459,10 @@ export default function AanbodPage() {
                 marginBottom: "2rem",
               }}
             >
-              Begin met de analyse. Die duurt vijf minuten en geeft je meteen een duidelijk beeld van jouw situatie. Daarna zie je vanzelf of je meer wilt.
+              Begin dan met de geldscan (€49). Ik kijk persoonlijk naar je cijfers en zet op papier waar het bij jou weglekt, met je drie grootste lekken. Liever eerst zelf een indruk? Doe de analyse.
             </p>
             <Link
-              href="/analyse"
+              href="/aanbod/intake?pakket=geldscan"
               className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: "#0B7A6E",
@@ -471,8 +471,13 @@ export default function AanbodPage() {
                 textDecoration: "none",
               }}
             >
-              Start de analyse →
+              Laat mij je cijfers nakijken (€49) →
             </Link>
+            <p style={{ marginTop: "1rem" }}>
+              <Link href="/analyse" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
+                Liever eerst zelf kijken? →
+              </Link>
+            </p>
           </div>
         </section>
       </main>

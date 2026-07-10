@@ -70,7 +70,7 @@ export default function GeldmythesDieJeArmHouden() {
       <p className="font-body text-text-soft" style={p}>
         De rode draad: het ligt zelden aan wat je verdient of aan je karakter, en
         bijna altijd aan structuur. Wil je weten waar het bij jullie zit?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>.
       </p>
     </>
   );

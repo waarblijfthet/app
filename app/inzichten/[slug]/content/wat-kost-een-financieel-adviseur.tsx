@@ -218,13 +218,13 @@ export default function WatKostEenFinancieelAdviseur() {
       </p>
       <p style={p}>
         Ben je er niet zeker van wat je nodig hebt? Begin dan met de{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">analyse</Link>{" "}
        , die geeft je direct inzicht in je situatie, zonder kosten en zonder verplichting. Op basis daarvan weet je of een eenmalig gesprek voldoende is of dat je meer nodig hebt.
       </p>
 
       <p style={p}>
         Wil je weten of een eenmalig gesprek voor jouw situatie genoeg is?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
        , dan zie je in 5 minuten wat de grootste afwijking in jullie budget is. Of bespreek het direct in een{" "}
         <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig financieel adviesgesprek van €125</Link>. Benieuwd wat coaching in de markt kost? Lees{" "}
         <Link href="/inzichten/wat-kost-een-financieel-coach" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat kost een financieel coach</Link>.

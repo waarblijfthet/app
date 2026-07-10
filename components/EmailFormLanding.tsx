@@ -52,7 +52,7 @@ export default function EmailFormLanding({ variant }: Props) {
             textDecoration: "none",
           }}
         >
-          Start de gratis analyse →
+          Start de analyse →
         </Link>
 
         {/* Secundaire e-mailaanmelding */}

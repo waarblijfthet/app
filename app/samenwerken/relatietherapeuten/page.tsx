@@ -27,7 +27,7 @@ const faq = [
   {
     vraag: "Hoe werkt het verwijzen concreet?",
     antwoord:
-      "Je stuurt het koppel door met een korte toelichting. Ze starten zelf met de gratis analyse op de site. Ik neem het financiële deel over, jouw therapiegesprekken kunnen zich daarna richten op de relatie zelf.",
+      "Je stuurt het koppel door met een korte toelichting. Ze starten zelf met de analyse op de site. Ik neem het financiële deel over, jouw therapiegesprekken kunnen zich daarna richten op de relatie zelf.",
   },
   {
     vraag: "Is er een financiële vergoeding voor de verwijzing?",
@@ -133,7 +133,7 @@ export default function RelatietherapeutenPage() {
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
               {[
-                ["Gratis analyse", "Ze starten laagdrempelig. Geen verplichting voor hen of jou."],
+                ["Analyse", "Ze starten laagdrempelig. Geen verplichting voor hen of jou."],
                 ["Eenmalig gesprek", "€125 voor 45 minuten, concreet en behapbaar."],
                 ["Geen schuldhulp", "Voor stellen die genoeg verdienen maar grip missen."],
               ].map(([t, d]) => (
@@ -155,7 +155,7 @@ export default function RelatietherapeutenPage() {
             <div className="space-y-4">
               {[
                 ["1", "Vertel je cliënten over mij", "Je noemt Waar blijft het als het financiële stuk ter sprake komt. Meer hoeft het niet te zijn."],
-                ["2", "Ze doen de gratis analyse", "Op waarblijfthet.nl. Vijf minuten. Ze zien direct wat er speelt, dat is vaak al een eye-opener."],
+                ["2", "Ze doen de analyse", "Op waarblijfthet.nl. Vijf minuten. Ze zien direct wat er speelt, dat is vaak al een eye-opener."],
                 ["3", "Ik neem het over", "Eventueel volgt een adviesgesprek of traject. Jij blijft gewoon hun therapeut, ik ben complementair, niet concurrerend."],
               ].map(([n, t, d]) => (
                 <div key={n} className="card-base border border-[#E6E9E7] flex items-start gap-4">
@@ -195,7 +195,7 @@ export default function RelatietherapeutenPage() {
                   Emma (34) en Tom (37) wonen in Amsterdam. Gecombineerd netto inkomen €6.400. Geen kinderen. Ze zijn al vier sessies bij relatietherapeut Inge vanwege oplopende spanningen. Steeds vaker over geld: wie geeft te veel uit, wie spaart te weinig. Inge signaleert dat het financiële stuk haar werk blokkeert.
                 </p>
                 <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#16211F", fontStyle: "italic", borderLeft: "3px solid #0B7A6E", paddingLeft: "0.75rem", marginLeft: 0 }}>
-                  &ldquo;Er is een gratis analyse van vijf minuten die jullie inzicht geeft in waar het naartoe gaat. Ik stel voor dat jullie dat samen invullen, voor onze volgende sessie.&rdquo;
+                  &ldquo;Er is een analyse van vijf minuten die jullie inzicht geeft in waar het naartoe gaat. Ik stel voor dat jullie dat samen invullen, voor onze volgende sessie.&rdquo;
                 </blockquote>
               </div>
 

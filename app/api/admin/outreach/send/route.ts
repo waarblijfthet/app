@@ -133,7 +133,7 @@ function followupMail(naam: string, doelgroep: Doelgroep, nummer: number, eerste
     alineas: [
       `Beste ${naam},`,
       "Laatste mail van mijn kant, daarna laat ik je met rust.",
-      "Mocht je ooit iemand tegenkomen die goed verdient maar elke maand vastloopt op geld: via waarblijfthet.nl kunnen ze gratis en anoniem een korte analyse doen. Doorsturen is genoeg, er zit geen verplichting aan.",
+      "Mocht je ooit iemand tegenkomen die goed verdient maar elke maand vastloopt op geld: via waarblijfthet.nl kunnen ze anoniem een korte analyse doen. Doorsturen is genoeg, er zit geen verplichting aan.",
       "Dank voor je tijd, en veel succes met je praktijk.",
     ],
   };

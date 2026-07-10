@@ -126,7 +126,7 @@ export default function KlarnaNietKunnenBetalen() {
         >
           Geldfit
         </a>{" "}
-        kun je gratis en anoniem terecht voor hulp en een eerste stap.
+        kun je anoniem terecht voor hulp en een eerste stap.
       </p>
 
       <p className="font-body text-text-soft" style={p}>Twijfel je over de gevolgen op langere termijn, lees dan <Link href="/inzichten/achteraf-betalen-bkr-registratie" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">of achteraf betalen op je BKR komt</Link>.</p>

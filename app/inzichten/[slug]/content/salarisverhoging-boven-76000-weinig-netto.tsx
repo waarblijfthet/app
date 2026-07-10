@@ -140,7 +140,7 @@ export default function SalarisverhoginBoven76000() {
           className="hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
-          gratis analyse
+          analyse
         </Link>{" "}
         en ontdek waar jouw geld werkelijk naartoe gaat, los van wat de
         belasting inhoudt.

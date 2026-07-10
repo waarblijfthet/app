@@ -97,7 +97,7 @@ export default function WaarBlijftHetBijSanneEnJoost() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Herken je iets van Sanne en Joost?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}en zie jullie eigen verdeling, en de twee grootste afwijkingen in jullie situatie.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}en zie jullie eigen verdeling, en de twee grootste afwijkingen in jullie situatie.
       </p>
     </>
   );

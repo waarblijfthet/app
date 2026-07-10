@@ -82,7 +82,7 @@ export default function BsoKostenTweedeInkomen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd waar jullie geld naartoe gaat?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         <strong>Meer praktijkverhalen:</strong> <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Ons boodschappenbudget mislukte, tot we dit deden</a> &middot; <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">December: zo bouwden we een kerst- en verjaardagspot</a>.

@@ -63,7 +63,7 @@ export default function WatKostEenKindPerMaand() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd hoe jullie ervoor staan met de kinderen erbij?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>.
       </p>
       <div
         className="rounded-xl border p-4 my-6"

@@ -125,7 +125,7 @@ export default function AbonnementenTeller() {
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
-          gratis analyse
+          analyse
         </a>{" "}
         vindt vaak nog meer.
       </p>

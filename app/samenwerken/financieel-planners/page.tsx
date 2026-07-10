@@ -27,7 +27,7 @@ const faq = [
   {
     vraag: "Hoe verwijs ik iemand door?",
     antwoord:
-      "Je noemt Waar blijft het als een cliënt wil beginnen met investeren of sparen, maar zijn maandelijkse cashflow niet op orde heeft. Ze starten met de gratis analyse, dat geeft direct inzicht in wat er maandelijks beschikbaar is.",
+      "Je noemt Waar blijft het als een cliënt wil beginnen met investeren of sparen, maar zijn maandelijkse cashflow niet op orde heeft. Ze starten met de analyse, dat geeft direct inzicht in wat er maandelijks beschikbaar is.",
   },
   {
     vraag: "Kunnen we samen optrekken in een traject?",
@@ -147,7 +147,7 @@ export default function FinancieelPlannersPage() {
             </h2>
             <div className="space-y-4">
               {[
-                ["1", "Stuur ze eerst naar mij", "Als een cliënt geen helder beeld heeft van zijn maandelijkse vrije ruimte, laat ze eerst de gratis analyse doen."],
+                ["1", "Stuur ze eerst naar mij", "Als een cliënt geen helder beeld heeft van zijn maandelijkse vrije ruimte, laat ze eerst de analyse doen."],
                 ["2", "Ik leg de basis", "Een concreet beeld van de cashflow, de lekken, en de realistische maandruimte om te investeren."],
                 ["3", "Jij bouwt het plan", "Met een cliënt die weet waar hij staat, werkt jouw financieel plan een stuk beter. Optioneel: ik stem met jou af over het traject."],
               ].map(([n, t, d]) => (

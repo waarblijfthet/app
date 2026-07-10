@@ -135,7 +135,7 @@ export default function SpaardoelenMaandelijkseInleg() {
           className="hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
-          gratis analyse
+          analyse
         </Link>{" "}
         zie je direct{" "}
         <Link

@@ -196,7 +196,7 @@ export default function WatDoetEenFinancieelAdviseur() {
       </p>
       <p style={p}>
         Niet zeker wat jij nodig hebt?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</Link>{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
        , die geeft in 5 minuten inzicht in je situatie en laat zien waar de grootste afwijking zit. Of bespreek het direct in een{" "}
         <Link href="/adviesgesprek" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">eenmalig financieel adviesgesprek van €125</Link>.
       </p>

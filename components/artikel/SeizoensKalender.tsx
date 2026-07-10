@@ -80,7 +80,7 @@ export default function SeizoensKalender() {
 
       <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
         Wil je deze pieken op tijd in beeld?{" "}
-        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de gratis analyse</a>.
+        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</a>.
       </p>
     </div>
   );

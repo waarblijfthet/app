@@ -443,16 +443,19 @@ export default function HomeConcept() {
         <div className="max-w-2xl mx-auto px-8 text-center relative z-10">
           <p className="mb-6" style={{ ...eyebrow, color: "rgba(255,255,255,0.55)" }}>Klaar voor antwoord?</p>
           <h2 className="font-display mb-6" style={{ fontWeight: 300, lineHeight: 1.08, color: "#FFFFFF", fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>
-            Vijf minuten.
+            Weten waar het
             <br />
-            <span className="italic" style={{ color: C.tealLight }}>Gewoon antwoord.</span>
+            <span className="italic" style={{ color: C.tealLight }}>bij jou weglekt?</span>
           </h2>
-          <p className="mb-9 mx-auto" style={{ fontWeight: 300, fontSize: "1.05rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.6, maxWidth: "24rem" }}>
-            Start de analyse en zie direct hoe je het doet, en wat er anders kan.
+          <p className="mb-9 mx-auto" style={{ fontWeight: 300, fontSize: "1.05rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.6, maxWidth: "26rem" }}>
+            Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
           </p>
-          <BtnPrimary href="/analyse">Start de analyse &rarr;</BtnPrimary>
-          <p className="mt-6" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.45)" }}>
-            Voor huishoudens in heel Nederland · Geen account of bankkoppeling · Je gegevens worden nooit gedeeld of verkocht
+          <BtnPrimary href="/aanbod/intake?pakket=geldscan">Ja, help mij zien wat er anders kan &rarr;</BtnPrimary>
+          <p className="mt-5">
+            <Link href="/analyse" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>Liever eerst zelf kijken? &rarr;</Link>
+          </p>
+          <p className="mt-5" style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.45)" }}>
+            €49, eenmalig · Voor huishoudens in heel Nederland · Je gegevens worden nooit gedeeld of verkocht
           </p>
         </div>
       </section>

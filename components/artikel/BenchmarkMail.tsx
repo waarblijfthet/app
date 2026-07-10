@@ -52,7 +52,7 @@ export default function BenchmarkMail() {
         {klaar ? (
           <p className="font-body text-sm" style={{ color: "#16211F" }}>
             Verstuurd! Check je inbox (en eventueel je spamfolder). Benieuwd
-            naar je volledige plaatje? De gratis analyse vergelijkt al je
+            naar je volledige plaatje? De analyse vergelijkt al je
             posten in 5 minuten.
           </p>
         ) : (

@@ -137,7 +137,7 @@ export async function POST(request: NextRequest) {
                 Waar blijft het · waarblijfthet.nl · hallo@waarblijfthet.nl
               </p>
               <p style="margin:4px 0 0;font-size:11px;color:#8B958F;">
-                Je ontvangt deze email omdat je de gratis analyse hebt ingevuld.
+                Je ontvangt deze email omdat je de analyse hebt ingevuld.
               </p>
             </td>
           </tr>

@@ -21,10 +21,10 @@ const vragen = [
   {
     vraag: "Moet ik mijn bankafschriften opsturen?",
     antwoord:
-      "Nee, dat hoeft niet. Voor het gratis analyse-rapport heb ik helemaal geen documenten nodig. Bij het adviesgesprek kun je optioneel een paar recente afschriften meenemen zodat het gesprek concreter wordt. Je deelt alleen wat je zelf wilt delen, en ik gebruik het uitsluitend voor het gesprek.",
+      "Nee, dat hoeft niet. Voor het analyse-rapport heb ik helemaal geen documenten nodig. Bij het adviesgesprek kun je optioneel een paar recente afschriften meenemen zodat het gesprek concreter wordt. Je deelt alleen wat je zelf wilt delen, en ik gebruik het uitsluitend voor het gesprek.",
   },
   {
-    vraag: "Wat als ik begin met de gratis analyse maar meer wil?",
+    vraag: "Wat als ik begin met de analyse maar meer wil?",
     antwoord:
       "Dan neem je gewoon contact op via hallo@waarblijfthet.nl. Ik kijk samen met je wat het beste bij jouw situatie past.",
   },

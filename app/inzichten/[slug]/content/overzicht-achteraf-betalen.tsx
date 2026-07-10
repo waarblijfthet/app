@@ -99,7 +99,7 @@ export default function OverzichtAchterafBetalen() {
         afgeschreven. Zet ze onder elkaar, op papier of in een notitie.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Stap drie: tel het totaal op. Dit is vaak het oncomfortabele moment, want het bedrag valt meestal hoger uit dan je dacht. Maar dat getal is precies wat je nodig hebt. Schrik je ervan, dan is dat geen falen maar het begin van grip, en kom je er niet uit dan kun je gratis en anoniem terecht bij Geldfit.
+        Stap drie: tel het totaal op. Dit is vaak het oncomfortabele moment, want het bedrag valt meestal hoger uit dan je dacht. Maar dat getal is precies wat je nodig hebt. Schrik je ervan, dan is dat geen falen maar het begin van grip, en kom je er niet uit dan kun je anoniem terecht bij Geldfit.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Stap vier: zet de afschrijfdata in je agenda, zodat geen enkele betaling je nog verrast en

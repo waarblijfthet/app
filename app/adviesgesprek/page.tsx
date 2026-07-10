@@ -32,7 +32,7 @@ const faq = [
   {
     vraag: "Krijg jij toegang tot mijn bankrekening?",
     antwoord:
-      "Nee. Je deelt alleen wat je zelf wilt. De gratis analyse en eventueel een paar bankafschriften die je zelf aanlevert zijn genoeg. Ik koppel niets aan je bank.",
+      "Nee. Je deelt alleen wat je zelf wilt. De analyse en eventueel een paar bankafschriften die je zelf aanlevert zijn genoeg. Ik koppel niets aan je bank.",
   },
   {
     vraag: "Is dit financieel advies of schuldhulp?",
@@ -58,7 +58,7 @@ const stappen = [
     items: [
       "Na je aanmelding neem ik binnen één werkdag contact op om het gesprek te plannen.",
       "Na je aanvraag stuur ik je een betaalverzoek (€125).",
-      "Doe vooraf de gratis analyse (5 min), dat is de basis van het gesprek. Optioneel: leg een paar recente bankafschriften klaar.",
+      "Doe vooraf de analyse (5 min), dat is de basis van het gesprek. Optioneel: leg een paar recente bankafschriften klaar.",
       "Bedenk in één zin: wat is je grootste vraag of zorg?",
     ],
   },
@@ -202,7 +202,7 @@ export default function AdviesgesprekPage() {
                 className="font-body text-sm"
                 style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
               >
-                Liever eerst de gratis analyse? →
+                Liever eerst de analyse? →
               </Link>
             </p>
             <p className="mt-2">
