@@ -23,8 +23,8 @@ export default function BoodschappenSlider() {
   const max = Math.max(schatting, bench, 1);
 
   let oordeel: { kleur: string; bg: string; tekst: string };
-  if (verschil > 100) oordeel = { kleur: "#B03A2E", bg: "#FAE5DE", tekst: `Dat is ${euro(verschil)} méér dan vergelijkbare gezinnen.` };
-  else if (verschil < -100) oordeel = { kleur: "#2D6A4F", bg: "#E7F1EE", tekst: `Dat is ${euro(-verschil)} mínder dan vergelijkbare gezinnen.` };
+  if (verschil > 100) oordeel = { kleur: "#B03A2E", bg: "#E7F1EE", tekst: `Dat is ${euro(verschil)} méér dan vergelijkbare gezinnen.` };
+  else if (verschil < -100) oordeel = { kleur: "#0B7A6E", bg: "#E7F1EE", tekst: `Dat is ${euro(-verschil)} mínder dan vergelijkbare gezinnen.` };
   else oordeel = { kleur: "#92600A", bg: "#FDF3E3", tekst: "Dat zit rond het gemiddelde van vergelijkbare gezinnen." };
 
   return (

@@ -70,7 +70,7 @@ export default function OverzichtTabblad({ leads, resultaten }: Props) {
 
   // Verdicts taart
   const verdictData = useMemo(() => [
-    { name: "Goed", value: resultaten.filter((r) => r.verdict === "goed").length, color: "#2D6A4F" },
+    { name: "Goed", value: resultaten.filter((r) => r.verdict === "goed").length, color: "#0B7A6E" },
     { name: "Matig", value: resultaten.filter((r) => r.verdict === "matig").length, color: "#92600A" },
     { name: "Zorgelijk", value: resultaten.filter((r) => r.verdict === "zorgelijk").length, color: "#B03A2E" },
   ].filter((d) => d.value > 0), [resultaten]);

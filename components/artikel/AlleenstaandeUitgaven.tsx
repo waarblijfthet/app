@@ -10,10 +10,10 @@ const steden = [
 
 const basisPosten = [
   { naam: "Huur (inclusief servicekosten)", min: 850, gem: 1050, max: 1400, kleur: "#16211F" },
-  { naam: "Energie (gas + stroom + water)", min: 130, gem: 180, max: 280, kleur: "#2D6A4F" },
-  { naam: "Zorgverzekering (na zorgtoeslag)", min: 80, gem: 130, max: 185, kleur: "#8AB89A" },
+  { naam: "Energie (gas + stroom + water)", min: 130, gem: 180, max: 280, kleur: "#0B7A6E" },
+  { naam: "Zorgverzekering (na zorgtoeslag)", min: 80, gem: 130, max: 185, kleur: "#86BCAF" },
   { naam: "Internet + telefoon", min: 50, gem: 85, max: 130, kleur: "#0B7A6E" },
-  { naam: "Boodschappen (incl. drogisterij)", min: 250, gem: 340, max: 450, kleur: "#E8A882" },
+  { naam: "Boodschappen (incl. drogisterij)", min: 250, gem: 340, max: 450, kleur: "#A6D8CD" },
   { naam: "Vervoer (OV of auto)", min: 80, gem: 220, max: 480, kleur: "#4A5A56" },
   { naam: "Overige verzekeringen", min: 40, gem: 80, max: 140, kleur: "#8B958F" },
   { naam: "Abonnementen", min: 50, gem: 120, max: 220, kleur: "#BEB5A8" },
@@ -32,7 +32,7 @@ export function AlleenstaandeUitgaven() {
     <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
       <div className="bg-[#16211F] px-5 py-4 flex items-start justify-between">
         <div>
-          <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
+          <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">
             Nibud / FinBuddy / CBS 2026
           </p>
           <p className="text-[#F7F8F7] text-sm font-medium">
@@ -40,7 +40,7 @@ export function AlleenstaandeUitgaven() {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-[#8AB89A] text-xs">Gemiddeld totaal</p>
+          <p className="text-[#86BCAF] text-xs">Gemiddeld totaal</p>
           <p className="text-[#F7F8F7] text-xl font-semibold">
             €{totaalGem.toLocaleString("nl-NL")}/mnd
           </p>
@@ -108,7 +108,7 @@ export function AlleenstaandeUitgaven() {
             </p>
           </div>
           <div className="bg-[#E7F1EE] rounded-xl py-2 text-center">
-            <p className="text-xs text-[#2D6A4F] mb-1">Gemiddeld</p>
+            <p className="text-xs text-[#0B7A6E] mb-1">Gemiddeld</p>
             <p className="text-lg font-semibold text-[#16211F]">
               €{totaalGem.toLocaleString("nl-NL")}
             </p>

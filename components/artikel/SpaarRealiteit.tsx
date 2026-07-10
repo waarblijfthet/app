@@ -27,14 +27,14 @@ const categorieen = [
     label: 'Spaart 10%+ (Nibud-norm)',
     pct: 18,
     kleur: '#E7F1EE',
-    tekstKleur: '#2D6A4F',
+    tekstKleur: '#0B7A6E',
     beschrijving: 'De minderheid. Haalt de officiële Nibud-norm. Bijna altijd met een actief systeem: automatische overschrijving op salarisdag, aparte spaarrekeningen per doel.',
   },
 ]
 
 const bufferDoelen = [
-  { doel: 'Begin (€1.000)', maanden: [20, 13, 8, 5], kleur: '#8AB89A' },
-  { doel: 'Noodbuffer 3 mnd (€9.300)', maanden: [186, 120, 77, 47], kleur: '#2D6A4F' },
+  { doel: 'Begin (€1.000)', maanden: [20, 13, 8, 5], kleur: '#86BCAF' },
+  { doel: 'Noodbuffer 3 mnd (€9.300)', maanden: [186, 120, 77, 47], kleur: '#0B7A6E' },
   { doel: 'Vakantie €3.000', maanden: [60, 39, 25, 15], kleur: '#0B7A6E' },
 ]
 
@@ -46,7 +46,7 @@ export function SpaarRealiteit() {
   return (
     <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
       <div className="bg-[#16211F] px-5 py-4">
-        <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">Spaargedrag Nederlanders</p>
+        <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">Spaargedrag Nederlanders</p>
         <p className="text-[#F7F8F7] text-sm font-medium">Hoe de werkelijkheid eruitziet</p>
       </div>
 
@@ -113,7 +113,7 @@ export function SpaarRealiteit() {
                             className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium ${
                               m > 100 ? 'bg-[#FDECEA] text-[#B03A2E]' :
                               m > 30 ? 'bg-[#E4F1EE] text-[#92600A]' :
-                              'bg-[#E7F1EE] text-[#2D6A4F]'
+                              'bg-[#E7F1EE] text-[#0B7A6E]'
                             }`}
                           >
                             {m} mnd

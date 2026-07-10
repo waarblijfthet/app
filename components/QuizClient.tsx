@@ -59,7 +59,7 @@ function Bar({
           </div>
           <div className="h-2.5 bg-[#E6E9E7] rounded-full overflow-hidden">
             <div
-              className="h-full rounded-full bg-[#B8C9BC] transition-all duration-500"
+              className="h-full rounded-full bg-[#B2CCC6] transition-all duration-500"
               style={{ width: `${avgWidth}%` }}
             />
           </div>

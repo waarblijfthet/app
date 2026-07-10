@@ -83,7 +83,7 @@ export default function EmailFormLanding({ variant }: Props) {
         </form>
 
         {status === "success" && (
-          <p className="text-[#2D6A4F] font-body text-sm mt-2">
+          <p className="text-[#0B7A6E] font-body text-sm mt-2">
             Je staat op de lijst! We sturen je een berichtje als we live gaan.
           </p>
         )}

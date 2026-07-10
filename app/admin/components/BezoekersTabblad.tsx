@@ -169,14 +169,14 @@ export function BezoekersTabblad() {
       <div
         className={`flex items-center justify-between px-4 py-3 rounded-xl mb-4 border ${
           eigenaarGezet
-            ? "bg-[#E7F1EE] border-[#C0DDB0]"
-            : "bg-[#E4F1EE] border-[#F0D8C8]"
+            ? "bg-[#E7F1EE] border-[#B9DDD3]"
+            : "bg-[#E4F1EE] border-[#E4F1EE]"
         }`}
       >
         <div className="flex items-center gap-2">
           <div
             className={`w-2 h-2 rounded-full ${
-              eigenaarGezet ? "bg-[#2D6A4F]" : "bg-[#0B7A6E]"
+              eigenaarGezet ? "bg-[#0B7A6E]" : "bg-[#0B7A6E]"
             }`}
           />
           <p className="text-sm text-[#16211F] font-body">
@@ -189,7 +189,7 @@ export function BezoekersTabblad() {
           onClick={eigenaarGezet ? verwijderEigenaarCookie : setEigenaarCookie}
           className={`text-xs px-3 py-1.5 rounded-full border font-medium transition-all font-body ${
             eigenaarGezet
-              ? "border-[#2D6A4F] text-[#2D6A4F] hover:bg-[#2D6A4F] hover:text-white"
+              ? "border-[#0B7A6E] text-[#0B7A6E] hover:bg-[#0B7A6E] hover:text-white"
               : "bg-[#0B7A6E] text-white border-[#0B7A6E] hover:opacity-90"
           }`}
         >
@@ -220,7 +220,7 @@ export function BezoekersTabblad() {
           ))}
         </div>
         <div className="flex items-center gap-2 text-xs text-[#8B958F] font-body">
-          <div className="w-2 h-2 rounded-full bg-[#2D6A4F] animate-pulse" />
+          <div className="w-2 h-2 rounded-full bg-[#0B7A6E] animate-pulse" />
           Ververst elke 30 sec
         </div>
       </div>
@@ -321,7 +321,7 @@ export function BezoekersTabblad() {
                           className={`text-xs px-2 py-0.5 rounded-full font-medium font-body ${
                             b.apparaat === "mobiel"
                               ? "bg-[#FEF3C7] text-[#92400E]"
-                              : "bg-[#E7F1EE] text-[#2D6A4F]"
+                              : "bg-[#E7F1EE] text-[#0B7A6E]"
                           }`}
                         >
                           {b.apparaat === "mobiel" ? "📱 Mobiel" : "💻 Desktop"}
@@ -374,7 +374,7 @@ export function BezoekersTabblad() {
                   </div>
                   <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden mb-2">
                     <div
-                      className="h-full bg-[#2D6A4F] rounded-full transition-all"
+                      className="h-full bg-[#0B7A6E] rounded-full transition-all"
                       style={{
                         width: `${Math.min(
                           100,

@@ -50,7 +50,7 @@ export default function HeroCards() {
                 <span>Jij</span>
                 <span className="text-accent font-medium">3%</span>
               </div>
-              <Bar pct={3} color="linear-gradient(90deg, #0B7A6E, #e07050)" />
+              <Bar pct={3} color="linear-gradient(90deg, #0B7A6E, #0B7A6E)" />
             </div>
             <div>
               <div className="flex justify-between text-xs font-body mb-1" style={{ color: "#8B958F" }}>
@@ -95,14 +95,14 @@ export default function HeroCards() {
                 <span className="text-text-soft">Abonnementen</span>
                 <span className="text-accent font-medium">€340 / 68%</span>
               </div>
-              <Bar pct={68} color="linear-gradient(90deg, #0B7A6E, #e07050)" />
+              <Bar pct={68} color="linear-gradient(90deg, #0B7A6E, #0B7A6E)" />
             </div>
             <div>
               <div className="flex justify-between text-xs font-body mb-1">
                 <span className="text-text-soft">Boodschappen</span>
                 <span className="text-accent font-medium">€180 te veel</span>
               </div>
-              <Bar pct={82} color="linear-gradient(90deg, #0B7A6E, #e07050)" />
+              <Bar pct={82} color="linear-gradient(90deg, #0B7A6E, #0B7A6E)" />
             </div>
           </div>
           <span className="inline-block bg-[#FDE8E0] text-accent text-xs font-body font-medium px-3 py-1 rounded-full">

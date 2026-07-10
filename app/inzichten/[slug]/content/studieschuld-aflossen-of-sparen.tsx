@@ -17,7 +17,7 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
         <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#2D6A4F", fontWeight: 600 }}>{r[2]}</div>
+          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#0B7A6E", fontWeight: 600 }}>{r[2]}</div>
         </div>
       ))}
     </div>
@@ -88,14 +88,14 @@ function RenteVergelijkerFixed() {
                 <span className="font-semibold" style={{ color: "#16211F" }}>
                   {sparenWint ? "Sparen levert meer op" : "Aflossen levert meer op"}
                 </span>
-                <span className="font-bold" style={{ color: sparenWint ? "#2D6A4F" : "#B03A2E" }}>
+                <span className="font-bold" style={{ color: sparenWint ? "#0B7A6E" : "#B03A2E" }}>
                   +€{fmt(Math.abs(verschilJaar))}/jaar
                 </span>
               </div>
             </div>
             <div className="rounded-lg p-3" style={{ backgroundColor: sparenWint ? "#E7F1EE" : "#FEF2F2" }}>
               <p className="font-body text-sm font-semibold" style={{ color: "#16211F" }}>
-                Spaarbuffer na 12 maanden: <span style={{ color: "#2D6A4F" }}>€{bufferNaJaar.toLocaleString("nl-NL")}</span>
+                Spaarbuffer na 12 maanden: <span style={{ color: "#0B7A6E" }}>€{bufferNaJaar.toLocaleString("nl-NL")}</span>
               </p>
               <p className="font-body text-xs mt-1" style={{ color: "#5C6B5F" }}>
                 {sparenWint
@@ -113,7 +113,7 @@ function RenteVergelijkerFixed() {
 export default function StudieschuldAflossenOfSparen() {
   return (
     <>
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[

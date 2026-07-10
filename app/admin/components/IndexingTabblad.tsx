@@ -334,7 +334,7 @@ export default function IndexingTabblad() {
           type="button"
           onClick={syncUrls}
           disabled={!!bezig}
-          className="px-4 py-2 rounded-lg text-sm font-medium bg-[#16211F] text-white hover:bg-[#2D6A4F] disabled:opacity-50 transition-colors"
+          className="px-4 py-2 rounded-lg text-sm font-medium bg-[#16211F] text-white hover:bg-[#0B7A6E] disabled:opacity-50 transition-colors"
         >
           {bezig === "sync" ? "Bezig…" : "🔄 Sync URLs"}
         </button>
@@ -350,7 +350,7 @@ export default function IndexingTabblad() {
           type="button"
           onClick={() => void inspecteer()}
           disabled={!!bezig}
-          className="px-4 py-2 rounded-lg text-sm font-medium border border-[#16211F] text-[#16211F] hover:bg-[#E8F0EB] disabled:opacity-50 transition-colors"
+          className="px-4 py-2 rounded-lg text-sm font-medium border border-[#16211F] text-[#16211F] hover:bg-[#E7F1EE] disabled:opacity-50 transition-colors"
         >
           {bezig === "inspect" ? "Bezig…" : "🔍 Status ophalen"}
         </button>
@@ -465,7 +465,7 @@ export default function IndexingTabblad() {
                           type="button"
                           onClick={() => void inspecteer([row.url])}
                           disabled={!!bezig}
-                          className="text-xs px-2.5 py-1 rounded border border-[#16211F] text-[#16211F] hover:bg-[#E8F0EB] disabled:opacity-40 transition-colors whitespace-nowrap"
+                          className="text-xs px-2.5 py-1 rounded border border-[#16211F] text-[#16211F] hover:bg-[#E7F1EE] disabled:opacity-40 transition-colors whitespace-nowrap"
                         >
                           {bezigMetDezeUrl ? "…" : "🔍"}
                         </button>

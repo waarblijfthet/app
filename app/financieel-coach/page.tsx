@@ -244,7 +244,7 @@ export default function FinancieelCoachPage() {
                     "Je wilt een eerlijke blik van buitenaf, geen oordeel",
                   ].map((t) => (
                     <li key={t} className="flex items-start gap-2">
-                      <span style={{ color: "#2D6A4F", fontWeight: 600 }}>✓</span>
+                      <span style={{ color: "#0B7A6E", fontWeight: 600 }}>✓</span>
                       <span className="font-body font-light text-sm text-text-soft leading-relaxed">{t}</span>
                     </li>
                   ))}

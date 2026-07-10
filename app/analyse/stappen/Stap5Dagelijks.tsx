@@ -232,7 +232,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           }
         />
         {jaarlijksWaarde > 0 && (
-          <p className="font-body text-xs text-[#2D6A4F] mt-1.5 font-medium">
+          <p className="font-body text-xs text-[#0B7A6E] mt-1.5 font-medium">
             = {fmtEur(jaarlijksWaarde)}/mnd, wordt meegenomen in je totaal
           </p>
         )}

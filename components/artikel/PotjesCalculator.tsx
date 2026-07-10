@@ -7,7 +7,7 @@ const euro = (n: number) => "€" + Math.round(n).toLocaleString("nl-NL");
 const POTJES = [
   { key: "vast", naam: "Vaste lasten", kleur: "#16211F" },
   { key: "dagelijks", naam: "Dagelijkse uitgaven", kleur: "#0B7A6E" },
-  { key: "sparen", naam: "Sparen", kleur: "#2D6A4F" },
+  { key: "sparen", naam: "Sparen", kleur: "#0B7A6E" },
   { key: "vrij", naam: "Vrij besteedbaar", kleur: "#8B958F" },
 ] as const;
 
@@ -65,8 +65,8 @@ export default function PotjesCalculator() {
         ))}
       </div>
 
-      <div className="mt-5 rounded-xl p-4" style={{ backgroundColor: totaal === 100 ? "#E7F1EE" : "#FAE5DE" }}>
-        <p className="font-body text-sm" style={{ color: totaal === 100 ? "#2D6A4F" : "#B03A2E" }}>
+      <div className="mt-5 rounded-xl p-4" style={{ backgroundColor: totaal === 100 ? "#E7F1EE" : "#E7F1EE" }}>
+        <p className="font-body text-sm" style={{ color: totaal === 100 ? "#0B7A6E" : "#B03A2E" }}>
           {totaal === 100
             ? "✓ Je verdeling telt op tot 100%."
             : `Je verdeling telt nu op tot ${totaal}% — pas de potjes aan tot je op 100% zit.`}

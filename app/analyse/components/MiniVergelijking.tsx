@@ -7,7 +7,7 @@ interface MiniVergelijkingProps {
 }
 
 const STYLES: Record<VergelijkingStatus, string> = {
-  goed: "bg-green-light text-[#2D6A4F]",
+  goed: "bg-green-light text-[#0B7A6E]",
   matig: "bg-[#FDF3E3] text-[#92600A]",
   zorgelijk: "bg-[#FDECEA] text-[#B03A2E]",
 };

@@ -32,10 +32,10 @@ const VERDICT_CONFIG: Record<
 > = {
   goed: {
     bg: "bg-green-light",
-    border: "border-[#A8D5B5]",
+    border: "border-[#A6D8CD]",
     title: "Je doet het goed.",
     text: "Er is ruimte, de vraag is of dat geld doelbewust wordt ingezet.",
-    textColor: "text-[#2D6A4F]",
+    textColor: "text-[#0B7A6E]",
   },
   matig: {
     bg: "bg-[#FDF3E3]",
@@ -69,7 +69,7 @@ function AfwijkingRij({
       <div className="flex justify-between items-center mb-2">
         <span className="font-body font-medium text-sm text-text-soft">{label}</span>
         <span
-          className={`text-sm font-body font-medium ${verschil > 0 ? "text-accent" : "text-[#2D6A4F]"}`}
+          className={`text-sm font-body font-medium ${verschil > 0 ? "text-accent" : "text-[#0B7A6E]"}`}
         >
           {verschil > 0 ? "+" : ""}
           {fmtEur(verschil)}
@@ -88,7 +88,7 @@ function AfwijkingRij({
         </div>
         <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
           <div
-            className="h-full rounded-full bg-[#B8C9BC]"
+            className="h-full rounded-full bg-[#B2CCC6]"
             style={{ width: `${(benchmark / max) * 100}%` }}
           />
         </div>
@@ -267,7 +267,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           <span
             className={`inline-block text-sm font-body font-medium px-3 py-1 rounded-full ${
               overDiff > 0
-                ? "bg-green-light text-[#2D6A4F]"
+                ? "bg-green-light text-[#0B7A6E]"
                 : "bg-[#FDECEA] text-[#B03A2E]"
             }`}
           >
@@ -294,7 +294,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             </div>
             <span
               className={`text-xl font-body font-semibold shrink-0 ${
-                over >= spaardoelWaarde ? "text-[#2D6A4F]" : "text-accent"
+                over >= spaardoelWaarde ? "text-[#0B7A6E]" : "text-accent"
               }`}
             >
               {over >= spaardoelWaarde ? "✓" : "!"}
@@ -419,7 +419,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           </form>
         </div>
       ) : (
-        <div className="card-base border border-[#A8D5B5] bg-green-light text-center">
+        <div className="card-base border border-[#A6D8CD] bg-green-light text-center">
           <p className="font-display font-light text-primary text-2xl mb-2">Gelukt!</p>
           <p className="text-text-soft font-body text-sm">
             Je analyse is onderweg naar{" "}

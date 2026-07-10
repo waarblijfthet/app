@@ -141,14 +141,14 @@ export default function LeadsTabblad({ leads }: Props) {
                   </td>
                   <td className="px-4 py-3 text-center">
                     {lead.quiz_voltooid ? (
-                      <span className="text-[#2D6A4F]">✓</span>
+                      <span className="text-[#0B7A6E]">✓</span>
                     ) : (
                       <span className="text-text-muted">—</span>
                     )}
                   </td>
                   <td className="px-4 py-3 text-center">
                     {lead.toestemming_marketing ? (
-                      <span className="text-[#2D6A4F]">✓</span>
+                      <span className="text-[#0B7A6E]">✓</span>
                     ) : (
                       <span className="text-text-muted">—</span>
                     )}

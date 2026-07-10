@@ -17,7 +17,7 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
         <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#2D6A4F", fontWeight: 600 }}>{r[2]}</div>
+          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#0B7A6E", fontWeight: 600 }}>{r[2]}</div>
         </div>
       ))}
     </div>
@@ -38,8 +38,8 @@ function VrijheidsCalculator() {
   let niveau = 0;
   let niveauLabel = "Nog geen buffer";
   let niveauKleur = "#B03A2E";
-  if (s >= fireDoelJaar) { niveau = 4; niveauLabel = "Niveau 4, Volledig onafhankelijk"; niveauKleur = "#2D6A4F"; }
-  else if (s >= niveau3Doel) { niveau = 3; niveauLabel = "Niveau 3, Vrijheid (meer keuze in werk)"; niveauKleur = "#2D6A4F"; }
+  if (s >= fireDoelJaar) { niveau = 4; niveauLabel = "Niveau 4, Volledig onafhankelijk"; niveauKleur = "#0B7A6E"; }
+  else if (s >= niveau3Doel) { niveau = 3; niveauLabel = "Niveau 3, Vrijheid (meer keuze in werk)"; niveauKleur = "#0B7A6E"; }
   else if (s >= buffer * 2) { niveau = 2; niveauLabel = "Niveau 2, Veiligheid (maanden overbruggen)"; niveauKleur = "#0B7A6E"; }
   else if (s >= buffer) { niveau = 1; niveauLabel = "Niveau 1, Stabiliteit (6-maands buffer)"; niveauKleur = "#0B7A6E"; }
 
@@ -76,7 +76,7 @@ function VrijheidsCalculator() {
         {heeftResultaat && (
           <div className="space-y-2">
             {s > 0 && (
-              <div className="rounded-xl p-3" style={{ backgroundColor: niveauKleur === "#2D6A4F" ? "#E7F1EE" : "#FEF9EC", border: `1.5px solid ${niveauKleur}33` }}>
+              <div className="rounded-xl p-3" style={{ backgroundColor: niveauKleur === "#0B7A6E" ? "#E7F1EE" : "#FEF9EC", border: `1.5px solid ${niveauKleur}33` }}>
                 <p className="font-body font-semibold text-sm" style={{ color: niveauKleur }}>
                   Jij zit nu op: {niveauLabel}
                 </p>
@@ -92,11 +92,11 @@ function VrijheidsCalculator() {
                 <div key={lvl} className="grid grid-cols-[1fr_auto] items-center gap-2 px-4 py-3 font-body text-sm"
                   style={{ backgroundColor: s >= bedrag ? "#E7F1EE" : i % 2 ? "#FFFFFF" : "white" }}>
                   <div>
-                    <p className="font-semibold" style={{ color: s >= bedrag ? "#2D6A4F" : "#16211F" }}>{label}</p>
+                    <p className="font-semibold" style={{ color: s >= bedrag ? "#0B7A6E" : "#16211F" }}>{label}</p>
                     <p className="text-xs" style={{ color: "#8B958F" }}>{uitleg}</p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="font-semibold" style={{ color: s >= bedrag ? "#2D6A4F" : "#16211F" }}>
+                    <p className="font-semibold" style={{ color: s >= bedrag ? "#0B7A6E" : "#16211F" }}>
                       €{bedrag.toLocaleString("nl-NL")}
                     </p>
                     {s < bedrag && (
@@ -104,7 +104,7 @@ function VrijheidsCalculator() {
                         nog €{(bedrag - s).toLocaleString("nl-NL")}
                       </p>
                     )}
-                    {s >= bedrag && <p className="text-xs" style={{ color: "#2D6A4F" }}>✓ bereikt</p>}
+                    {s >= bedrag && <p className="text-xs" style={{ color: "#0B7A6E" }}>✓ bereikt</p>}
                   </div>
                 </div>
               ))}
@@ -119,7 +119,7 @@ function VrijheidsCalculator() {
 export default function FinancieelOnafhankelijkWordenRealistisch() {
   return (
     <>
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[

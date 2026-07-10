@@ -62,14 +62,14 @@ export default function AbonnementenTeller() {
             className="w-full flex items-center justify-between gap-3 rounded-lg px-3 py-2.5 text-left transition-colors"
             style={{
               backgroundColor: actief[i] ? "#E7F1EE" : "white",
-              border: `1px solid ${actief[i] ? "#A8D5B5" : "#E6E9E7"}`,
+              border: `1px solid ${actief[i] ? "#A6D8CD" : "#E6E9E7"}`,
             }}
           >
             <span className="flex items-center gap-2.5">
               <span
                 className="inline-flex items-center justify-center w-5 h-5 rounded-md text-xs font-bold shrink-0"
                 style={{
-                  backgroundColor: actief[i] ? "#2D6A4F" : "#F0F3F1",
+                  backgroundColor: actief[i] ? "#0B7A6E" : "#F0F3F1",
                   color: actief[i] ? "white" : "#8B958F",
                 }}
                 aria-hidden="true"

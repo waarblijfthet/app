@@ -27,7 +27,7 @@ const stats = [
     label: 'van Nederlanders praat openlijk over geldzorgen',
     bron: 'Deloitte 2024',
     kleur: '#E7F1EE',
-    tekstKleur: '#2D6A4F',
+    tekstKleur: '#0B7A6E',
   },
 ]
 
@@ -44,7 +44,7 @@ export function GeldRelatieStats() {
     <div className="my-8 space-y-4">
       <div className="rounded-2xl overflow-hidden border border-[#E6E9E7]">
         <div className="bg-[#16211F] px-5 py-4">
-          <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
+          <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">
             Onderzoek 2024–2025
           </p>
           <p className="text-[#F7F8F7] text-sm font-medium">

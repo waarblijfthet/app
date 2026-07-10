@@ -425,15 +425,15 @@ export default function ArtikelPage({ params }: Props) {
                                 ? "#E4F1EE"
                                 : a.categorie === "Sparen"
                                 ? "#F0F3F1"
-                                : "#E8F2FA",
+                                : "#E7F1EE",
                             color:
                               a.categorie === "Besparen"
-                                ? "#2D6A4F"
+                                ? "#0B7A6E"
                                 : a.categorie === "Inkomen"
                                 ? "#92600A"
                                 : a.categorie === "Sparen"
                                 ? "#4A5A56"
-                                : "#1B5E8A",
+                                : "#0A6A5F",
                           }}
                         >
                           {a.categorie}

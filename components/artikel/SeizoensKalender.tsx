@@ -20,9 +20,9 @@ const MAANDEN: Maand[] = [
 ];
 
 const KLEUR: Record<string, { bg: string; tekst: string }> = {
-  Laag: { bg: "#E7F1EE", tekst: "#2D6A4F" },
+  Laag: { bg: "#E7F1EE", tekst: "#0B7A6E" },
   Midden: { bg: "#FDF3E3", tekst: "#92600A" },
-  Hoog: { bg: "#FAE5DE", tekst: "#B03A2E" },
+  Hoog: { bg: "#E7F1EE", tekst: "#B03A2E" },
 };
 
 export default function SeizoensKalender() {
@@ -73,7 +73,7 @@ export default function SeizoensKalender() {
         <p className="font-body text-sm mb-3" style={{ color: "#4A5A56" }}>
           <strong>Komt eraan:</strong> {MAANDEN[open].kosten}
         </p>
-        <p className="font-body text-sm" style={{ color: "#2D6A4F" }}>
+        <p className="font-body text-sm" style={{ color: "#0B7A6E" }}>
           💡 {MAANDEN[open].tip}
         </p>
       </div>

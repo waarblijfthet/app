@@ -17,7 +17,7 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
         <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#2D6A4F", fontWeight: 600 }}>{r[2]}</div>
+          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#0B7A6E", fontWeight: 600 }}>{r[2]}</div>
         </div>
       ))}
     </div>
@@ -76,7 +76,7 @@ function PensioenGapChecker() {
         </div>
 
         {heeftResultaat && (
-          <div className="rounded-xl border overflow-hidden" style={{ borderColor: gat > 0 ? "#FCA5A5" : "#A8C5B4" }}>
+          <div className="rounded-xl border overflow-hidden" style={{ borderColor: gat > 0 ? "#FCA5A5" : "#9CCFC4" }}>
             <div className="p-4" style={{ backgroundColor: gat > 0 ? "#FEF2F2" : "#E7F1EE" }}>
               <div className="space-y-1.5 text-sm font-body">
                 <div className="flex justify-between">
@@ -87,7 +87,7 @@ function PensioenGapChecker() {
                   <span style={{ color: "#4A5A56" }}>Jullie pensioen samen</span>
                   <span style={{ color: "#16211F" }}>€{(p1+p2).toLocaleString("nl-NL")}/mnd</span>
                 </div>
-                <div className="flex justify-between font-semibold border-t pt-1.5" style={{ borderColor: gat > 0 ? "#FCA5A5" : "#A8C5B4" }}>
+                <div className="flex justify-between font-semibold border-t pt-1.5" style={{ borderColor: gat > 0 ? "#FCA5A5" : "#9CCFC4" }}>
                   <span style={{ color: "#16211F" }}>Verwacht totaal</span>
                   <span style={{ color: "#16211F" }}>€{totaalVerwacht.toLocaleString("nl-NL")}/mnd</span>
                 </div>
@@ -106,8 +106,8 @@ function PensioenGapChecker() {
                 </p>
               </div>
             ) : (
-              <div className="p-4 border-t" style={{ borderColor: "#A8C5B4", backgroundColor: "white" }}>
-                <p className="font-body font-bold text-base" style={{ color: "#2D6A4F" }}>
+              <div className="p-4 border-t" style={{ borderColor: "#9CCFC4", backgroundColor: "white" }}>
+                <p className="font-body font-bold text-base" style={{ color: "#0B7A6E" }}>
                   Jullie verwacht pensioen dekt jullie doel.
                 </p>
                 <p className="font-body text-xs mt-1" style={{ color: "#5C6B5F" }}>
@@ -131,7 +131,7 @@ export default function PensioenAanvullenHoeveel() {
         </p>
       </div>
 
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[

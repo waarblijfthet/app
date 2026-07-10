@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
   const verdictKleur =
     verdict === "goed" ? "#E7F1EE" : verdict === "matig" ? "#FDF3E3" : "#FDECEA";
   const verdictTekstKleur =
-    verdict === "goed" ? "#2D6A4F" : verdict === "matig" ? "#92600A" : "#B03A2E";
+    verdict === "goed" ? "#0B7A6E" : verdict === "matig" ? "#92600A" : "#B03A2E";
   const verdictTitel =
     verdict === "goed"
       ? "Je doet het goed"

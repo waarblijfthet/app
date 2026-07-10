@@ -214,7 +214,7 @@ export function IntakeForm({ pakket, token }: Props) {
               fontWeight: 500,
               padding: "0.4rem 1rem",
               borderRadius: "999px",
-              border: "1px solid #C8DDD0",
+              border: "1px solid #CFE6E0",
             }}
           >
             {pakketLabel}
@@ -271,7 +271,7 @@ export function IntakeForm({ pakket, token }: Props) {
           <ul style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
             {info.watJeKrijgt.map((t) => (
               <li key={t} style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem" }}>
-                <span aria-hidden="true" style={{ color: "#2D6A4F", fontWeight: 600 }}>
+                <span aria-hidden="true" style={{ color: "#0B7A6E", fontWeight: 600 }}>
                   ✓
                 </span>
                 <span style={{ fontSize: "0.88rem", lineHeight: 1.6, color: "#4A5A56" }}>
@@ -287,7 +287,7 @@ export function IntakeForm({ pakket, token }: Props) {
             className="font-body"
             style={{
               backgroundColor: "#E7F1EE",
-              border: "1px solid #C8DDD0",
+              border: "1px solid #CFE6E0",
               borderRadius: "12px",
               padding: "0.875rem 1rem",
               fontSize: "0.85rem",

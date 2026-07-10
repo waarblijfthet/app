@@ -149,7 +149,7 @@ export default function Stap3Wonen({ data, onChange }: Props) {
           <p
             className={`font-body font-medium text-sm ${
               status === "goed"
-                ? "text-[#2D6A4F]"
+                ? "text-[#0B7A6E]"
                 : status === "matig"
                 ? "text-[#92600A]"
                 : "text-[#B03A2E]"

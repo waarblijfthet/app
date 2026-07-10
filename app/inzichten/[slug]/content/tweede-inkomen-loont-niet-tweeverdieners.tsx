@@ -17,7 +17,7 @@ function VoorNa({ rows }: { rows: [string, string, string][] }) {
         <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
           <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#2D6A4F", fontWeight: 600 }}>{r[2]}</div>
+          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#0B7A6E", fontWeight: 600 }}>{r[2]}</div>
         </div>
       ))}
     </div>
@@ -113,16 +113,16 @@ function NettoRekentool() {
         </div>
 
         {heeftResultaat && (
-          <div className="rounded-xl border p-4 mt-2" style={{ backgroundColor: over >= 0 ? "#E7F1EE" : "#FEF2F2", borderColor: over >= 0 ? "#A8C5B4" : "#FCA5A5" }}>
+          <div className="rounded-xl border p-4 mt-2" style={{ backgroundColor: over >= 0 ? "#E7F1EE" : "#FEF2F2", borderColor: over >= 0 ? "#9CCFC4" : "#FCA5A5" }}>
             <div className="grid grid-cols-2 gap-y-2 text-sm font-body">
               <span style={{ color: "#4A5A56" }}>Netto na belasting</span>
               <span className="font-semibold text-right" style={{ color: "#16211F" }}>€{netto.toLocaleString("nl-NL")}</span>
               <span style={{ color: "#4A5A56" }}>Totale kosten</span>
               <span className="font-semibold text-right" style={{ color: "#B03A2E" }}>− €{totaalKosten.toLocaleString("nl-NL")}</span>
-              <div className="col-span-2 border-t mt-1 pt-2" style={{ borderColor: over >= 0 ? "#A8C5B4" : "#FCA5A5" }}>
+              <div className="col-span-2 border-t mt-1 pt-2" style={{ borderColor: over >= 0 ? "#9CCFC4" : "#FCA5A5" }}>
                 <div className="flex justify-between">
                   <span className="font-semibold" style={{ color: over >= 0 ? "#16211F" : "#B03A2E" }}>Netto over</span>
-                  <span className="font-bold text-base" style={{ color: over >= 0 ? "#2D6A4F" : "#B03A2E" }}>
+                  <span className="font-bold text-base" style={{ color: over >= 0 ? "#0B7A6E" : "#B03A2E" }}>
                     {over >= 0 ? "+" : ""}€{over.toLocaleString("nl-NL")}
                   </span>
                 </div>
@@ -154,7 +154,7 @@ export default function TweedeInkomenLoonNietTweeverdieners() {
         </p>
       </div>
 
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[

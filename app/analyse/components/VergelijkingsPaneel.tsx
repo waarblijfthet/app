@@ -21,7 +21,7 @@ interface Props {
 }
 
 const STATUS_PILL: Record<VergelijkingStatus, { cls: string; label: string }> = {
-  goed: { cls: "bg-green-light text-[#2D6A4F]", label: "✓ Onder gemiddeld" },
+  goed: { cls: "bg-green-light text-[#0B7A6E]", label: "✓ Onder gemiddeld" },
   matig: { cls: "bg-[#FDF3E3] text-[#92600A]", label: "~ Rond gemiddeld" },
   zorgelijk: { cls: "bg-[#FDECEA] text-[#B03A2E]", label: "⚠ Boven gemiddeld" },
 };
@@ -75,7 +75,7 @@ function CompareBalk({
           </div>
           <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
             <div
-              className="h-full rounded-full bg-[#B8C9BC] transition-all duration-300"
+              className="h-full rounded-full bg-[#B2CCC6] transition-all duration-300"
               style={{ width: `${(benchmark / max) * 100}%` }}
             />
           </div>
@@ -256,7 +256,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
               {overDiff !== 0 && (
                 <span
                   className={`ml-1 font-medium ${
-                    overDiff > 0 ? "text-[#2D6A4F]" : "text-accent"
+                    overDiff > 0 ? "text-[#0B7A6E]" : "text-accent"
                   }`}
                 >
                   ({overDiff > 0 ? "+" : ""}

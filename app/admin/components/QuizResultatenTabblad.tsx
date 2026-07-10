@@ -32,7 +32,7 @@ function profielSamenvatting(r: QuizResultaat) {
 }
 
 const VERDICT_PILL: Record<string, { cls: string; label: string }> = {
-  goed: { cls: "bg-green-light text-[#2D6A4F]", label: "🟢 Goed" },
+  goed: { cls: "bg-green-light text-[#0B7A6E]", label: "🟢 Goed" },
   matig: { cls: "bg-[#FDF3E3] text-[#92600A]", label: "🟡 Matig" },
   zorgelijk: { cls: "bg-[#FDECEA] text-[#B03A2E]", label: "🔴 Zorgelijk" },
 };
@@ -179,7 +179,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                         {fmtEur(r.benchmark_over_verwacht)}
                       </td>
                       <td className={`px-3 py-3 font-medium ${
-                        (r.verschil_met_benchmark ?? 0) >= 0 ? "text-[#2D6A4F]" : "text-[#B03A2E]"
+                        (r.verschil_met_benchmark ?? 0) >= 0 ? "text-[#0B7A6E]" : "text-[#B03A2E]"
                       }`}>
                         {r.verschil_met_benchmark != null
                           ? `${r.verschil_met_benchmark >= 0 ? "+" : ""}${fmtEur(r.verschil_met_benchmark)}`

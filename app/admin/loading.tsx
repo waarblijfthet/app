@@ -12,12 +12,12 @@ export default function AdminLoading() {
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-24 rounded-xl bg-[#F0EBE0] animate-pulse" />
+            <div key={i} className="h-24 rounded-xl bg-[#F0F3F1] animate-pulse" />
           ))}
         </div>
         <div className="space-y-3">
           {Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-10 rounded-lg bg-[#F0EBE0] animate-pulse" />
+            <div key={i} className="h-10 rounded-lg bg-[#F0F3F1] animate-pulse" />
           ))}
         </div>
       </main>

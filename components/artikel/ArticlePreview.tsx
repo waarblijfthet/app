@@ -144,7 +144,7 @@ export function ArticlePreview({ preview, className = "" }: Props) {
               className="bg-[#E7F1EE] h-full flex items-center justify-center"
               style={{ width: `${(preview.netto / totaal) * 100}%` }}
             >
-              <span className="text-[9px] text-[#2D6A4F] font-medium px-1">
+              <span className="text-[9px] text-[#0B7A6E] font-medium px-1">
                 Netto
               </span>
             </div>
@@ -192,7 +192,7 @@ export function ArticlePreview({ preview, className = "" }: Props) {
   // ── Doelen ──────────────────────────────────────────────────────────────────
   if (preview.type === "doelen") {
     const minMaanden = Math.min(...preview.stappen.map((s) => s.maanden));
-    const barKleuren = ["#B03A2E", "#0B7A6E", "#2D6A4F"];
+    const barKleuren = ["#B03A2E", "#0B7A6E", "#0B7A6E"];
     return (
       <div className={base}>
         <p className="text-[10px] font-medium uppercase tracking-wider text-[#8B958F] mb-3">
@@ -209,7 +209,7 @@ export function ArticlePreview({ preview, className = "" }: Props) {
                   className="h-full rounded-lg"
                   style={{
                     width: `${Math.round((minMaanden / s.maanden) * 100)}%`,
-                    backgroundColor: barKleuren[i] ?? "#8AB89A",
+                    backgroundColor: barKleuren[i] ?? "#86BCAF",
                   }}
                 />
               </div>
@@ -227,7 +227,7 @@ export function ArticlePreview({ preview, className = "" }: Props) {
   return (
     <div className={`${base} items-center justify-center`}>
       <div className="w-8 h-8 rounded-full bg-[#E7F1EE] flex items-center justify-center">
-        <span className="text-[#2D6A4F] text-lg">→</span>
+        <span className="text-[#0B7A6E] text-lg">→</span>
       </div>
     </div>
   );

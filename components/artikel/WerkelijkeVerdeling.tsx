@@ -22,10 +22,10 @@ const gezinnen: Gezin[] = [
     inkomen: 4000,
     posten: [
       { naam: 'Huur + energie + internet', bedrag: 1350, kleur: '#16211F' },
-      { naam: 'Boodschappen', bedrag: 650, kleur: '#2D6A4F' },
-      { naam: 'Auto + verzekeringen', bedrag: 450, kleur: '#8AB89A' },
+      { naam: 'Boodschappen', bedrag: 650, kleur: '#0B7A6E' },
+      { naam: 'Auto + verzekeringen', bedrag: 450, kleur: '#86BCAF' },
       { naam: 'Abonnementen', bedrag: 180, kleur: '#0B7A6E' },
-      { naam: 'Vrije tijd', bedrag: 300, kleur: '#E8A882' },
+      { naam: 'Vrije tijd', bedrag: 300, kleur: '#A6D8CD' },
       { naam: 'Over', bedrag: 1070, kleur: '#E7F1EE', over: true },
     ],
     commentaar: 'Zonder kinderen en met huur is er nog relatief veel ruimte. Maar ook hier verdwijnt het geld snel als er geen systeem is.'
@@ -35,10 +35,10 @@ const gezinnen: Gezin[] = [
     inkomen: 4000,
     posten: [
       { naam: 'Hypotheek + energie + internet', bedrag: 1550, kleur: '#16211F' },
-      { naam: 'Boodschappen', bedrag: 875, kleur: '#2D6A4F' },
-      { naam: 'Auto + verzekeringen', bedrag: 580, kleur: '#8AB89A' },
+      { naam: 'Boodschappen', bedrag: 875, kleur: '#0B7A6E' },
+      { naam: 'Auto + verzekeringen', bedrag: 580, kleur: '#86BCAF' },
       { naam: 'Kinderkosten', bedrag: 280, kleur: '#0B7A6E' },
-      { naam: 'Abonnementen', bedrag: 210, kleur: '#E8A882' },
+      { naam: 'Abonnementen', bedrag: 210, kleur: '#A6D8CD' },
       { naam: 'Over', bedrag: 505, kleur: '#E7F1EE', over: true },
     ],
     commentaar: 'De meest herkenbare situatie voor de waarblijfthet-doelgroep. €505 over — op papier genoeg. Maar één tegenvaller en de maand is krap.'
@@ -48,10 +48,10 @@ const gezinnen: Gezin[] = [
     inkomen: 4000,
     posten: [
       { naam: 'Hypotheek + energie + internet', bedrag: 1550, kleur: '#16211F' },
-      { naam: 'Boodschappen', bedrag: 1200, kleur: '#2D6A4F' },
-      { naam: 'Auto + verzekeringen', bedrag: 580, kleur: '#8AB89A' },
+      { naam: 'Boodschappen', bedrag: 1200, kleur: '#0B7A6E' },
+      { naam: 'Auto + verzekeringen', bedrag: 580, kleur: '#86BCAF' },
       { naam: 'Kinderkosten (sport, school)', bedrag: 380, kleur: '#0B7A6E' },
-      { naam: 'Abonnementen', bedrag: 210, kleur: '#E8A882' },
+      { naam: 'Abonnementen', bedrag: 210, kleur: '#A6D8CD' },
       { naam: 'Over', bedrag: 80, kleur: '#FDECEA', over: true, zorgelijk: true },
     ],
     commentaar: 'Met drie oudere kinderen is het rekensommetje snel gemaakt: bijna niks over. Dit is de situatie van veel gezinnen die zichzelf afvragen waarom €4.000 netto zo weinig voelt.'
@@ -66,7 +66,7 @@ export function WerkelijkeVerdeling() {
   return (
     <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
       <div className="bg-[#16211F] px-5 py-4">
-        <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">Werkelijke verdeling</p>
+        <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">Werkelijke verdeling</p>
         <p className="text-[#F7F8F7] text-sm font-medium">Wat blijft er echt over van €4.000 netto?</p>
       </div>
 
@@ -111,7 +111,7 @@ export function WerkelijkeVerdeling() {
           ))}
         </div>
 
-        <div className={`rounded-xl p-4 border ${over?.zorgelijk ? 'bg-[#FDECEA] border-[#F0B8B8]' : 'bg-[#E7F1EE] border-[#C0DDB0]'}`}>
+        <div className={`rounded-xl p-4 border ${over?.zorgelijk ? 'bg-[#FDECEA] border-[#F0B8B8]' : 'bg-[#E7F1EE] border-[#B9DDD3]'}`}>
           <div className="flex items-baseline gap-2 mb-1">
             <span className={`text-2xl font-semibold ${over?.zorgelijk ? 'text-[#B03A2E]' : 'text-[#16211F]'}`}>
               €{over?.bedrag} over

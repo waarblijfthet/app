@@ -22,7 +22,7 @@ export default function BedanktPage() {
               height="64"
               viewBox="0 0 24 24"
               fill="none"
-              stroke="#2D6A4F"
+              stroke="#0B7A6E"
               strokeWidth="1.5"
               strokeLinecap="round"
               strokeLinejoin="round"

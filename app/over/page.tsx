@@ -168,7 +168,7 @@ export default function OverPage() {
         {/* Wat ik wel en niet doe */}
         <section className="bg-background py-14">
           <div className="max-w-3xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="card-base border border-[#A8D5B5] bg-green-light">
+            <div className="card-base border border-[#A6D8CD] bg-green-light">
               <p className="font-display font-light text-primary text-xl mb-4">
                 Wat ik wél doe
               </p>

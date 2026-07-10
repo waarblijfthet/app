@@ -48,7 +48,7 @@ export function VasteLastenRadar() {
     <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
       <div className="bg-[#16211F] px-5 py-4 flex items-start justify-between">
         <div>
-          <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
+          <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">
             FinBuddy / Nibud 2026
           </p>
           <p className="text-[#F7F8F7] text-sm font-medium">
@@ -56,7 +56,7 @@ export function VasteLastenRadar() {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-[#8AB89A] text-xs">Gemiddeld totaal</p>
+          <p className="text-[#86BCAF] text-xs">Gemiddeld totaal</p>
           <p className="text-[#F7F8F7] text-xl font-semibold">
             €{totaalGem.toLocaleString('nl-NL')}/mnd
           </p>
@@ -96,7 +96,7 @@ export function VasteLastenRadar() {
                 style={{ width: `${(post.max / maxBar) * 100}%` }}
               />
               <div
-                className="absolute h-full bg-[#2D6A4F] rounded-full"
+                className="absolute h-full bg-[#0B7A6E] rounded-full"
                 style={{ width: `${(post.gem / maxBar) * 100}%` }}
               />
               <div
@@ -115,7 +115,7 @@ export function VasteLastenRadar() {
             </p>
           </div>
           <div className="bg-[#E7F1EE] rounded-xl py-2">
-            <p className="text-xs text-[#2D6A4F] mb-1">Gemiddeld</p>
+            <p className="text-xs text-[#0B7A6E] mb-1">Gemiddeld</p>
             <p className="text-lg font-semibold text-[#16211F]">
               €{totaalGem.toLocaleString('nl-NL')}
             </p>

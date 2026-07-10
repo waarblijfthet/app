@@ -169,7 +169,7 @@ export default function QuizClient() {
     <div className={"overflow-x-hidden" + (toonLiveBalk ? " pb-16 lg:pb-0" : "")}>
       {step === 1 && (
         <div className="text-center mb-8 max-w-lg mx-auto px-2">
-          <div className="inline-flex items-center gap-2 bg-[#E7F1EE] text-[#2D6A4F] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
+          <div className="inline-flex items-center gap-2 bg-[#E7F1EE] text-[#0B7A6E] text-xs font-medium px-3 py-1.5 rounded-full mb-4">
             <span>⏱</span>
             <span>2 minuten · Anoniem · Geen producten</span>
           </div>
@@ -203,7 +203,7 @@ export default function QuizClient() {
                 <span>€585</span>
               </div>
               <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
-                <div className="h-full rounded-full bg-[#B8C9BC]" style={{ width: "91%" }} />
+                <div className="h-full rounded-full bg-[#B2CCC6]" style={{ width: "91%" }} />
               </div>
             </div>
             <p className="text-[11px] text-[#8B958F] mt-2">
@@ -314,7 +314,7 @@ export default function QuizClient() {
             {uitgavenLive > 0 && (
               <span className="text-text-soft">
                 Over{" "}
-                <strong className={overLive < 0 ? "text-accent" : "text-[#2D6A4F]"}>
+                <strong className={overLive < 0 ? "text-accent" : "text-[#0B7A6E]"}>
                   {overLive < 0 ? `-${fmtEur(Math.abs(overLive))}` : fmtEur(overLive)}
                 </strong>
               </span>

@@ -126,6 +126,30 @@ gratis tools juist omdat hij ze al kent.
 Nog niet eerder getoetst. Eerste score volgt bij de volgende ICP-ronde
 (voorstel: begin met de hero-CTA-tekst en de geldscan-vs-analyse-keuze).
 
+## 7. Petra, de zoeker (nieuw, 9-jul-2026, artikel-ICP)
+
+Komt via Google op een artikel, niet via de merknaam. Typische zoekopdracht:
+"wat is een normaal bedrag aan boodschappen per maand". Ze wil geen coaching,
+ze wil één ding weten: zit ik hoog of is dit normaal? Vaak op mobiel, tussen
+de bedrijven door, en ze beslist binnen enkele seconden of de pagina haar
+antwoord geeft. Licht schuldgevoel ("geef ik te veel uit?") dat omslaat in
+opluchting als blijkt dat boven de norm zitten normaal is.
+
+Gedrag: scant, leest niet lineair. Springt naar het getal, het lijstje of de
+tabel. Haakt af bij een lap tekst zonder antwoord, bij een e-mailmuur vroeg in
+het artikel, of bij verkooptaal. Wantrouwt "gratis" en pusherige CTA's.
+
+Wat ze nodig heeft, in deze volgorde: (1) het antwoord in 5 seconden, met haar
+huishoudtype erbij, (2) geruststelling zonder oordeel, (3) uitleg waaróm het
+hoger ligt dan de Nibud-norm, (4) pas als ze waarde heeft gekregen een lichte
+vervolgstap (benchmark per mail of de analyse). Zij is de brug van SEO-verkeer
+naar de funnel; als het artikel haar vertrouwen wint, is ze bereid haar
+e-mailadres te geven voor een persoonlijke benchmark.
+
+Toetsing: gebruik Petra bij elke structuur- of copyronde op artikelen. Kernvraag:
+krijgt een scannende mobiele bezoeker binnen 5 seconden het antwoord, en wordt
+de belofte bovenin waargemaakt?
+
 ## Gebruik bij een nieuwe ICP-toets
 
 Loop bij elke toets alle 6 langs, niet alleen de 3 makkelijkste. Noteer

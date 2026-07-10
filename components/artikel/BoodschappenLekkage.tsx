@@ -26,7 +26,7 @@ const lekpunten = [
     hoeVeel: "A-merken zijn gemiddeld 57% duurder (Consumentenbond)",
     uitleg:
       "Niet alles is hetzelfde als huismerk. Maar pasta, rijst, melk, eieren, bloem — daar merk je het verschil niet. Gemiddelde besparing bij 50% overstap: €90 per maand.",
-    kleur: "#2D6A4F",
+    kleur: "#0B7A6E",
     lichtKleur: "#E7F1EE",
   },
   {
@@ -35,8 +35,8 @@ const lekpunten = [
     hoeVeel: "Tandpasta, shampoo, wasmiddel 30-50% duurder dan DM",
     uitleg:
       "Drogisterijproducten in de supermarkt kosten structureel meer dan bij discounters of over de grens. Wie deze categorie scheidt, bespaart gemiddeld €85 per maand.",
-    kleur: "#1B5E8A",
-    lichtKleur: "#E8F2FA",
+    kleur: "#0A6A5F",
+    lichtKleur: "#E7F1EE",
   },
   {
     naam: "Kant-en-klaar en gemak",
@@ -57,7 +57,7 @@ export function BoodschappenLekkage() {
     <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
       <div className="bg-[#16211F] px-5 py-4 flex items-start justify-between">
         <div>
-          <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
+          <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">
             Consumentenbond / Nibud / Wageningen 2026
           </p>
           <p className="text-[#F7F8F7] text-sm font-medium">
@@ -65,7 +65,7 @@ export function BoodschappenLekkage() {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-[#8AB89A] text-xs">Totaal per maand</p>
+          <p className="text-[#86BCAF] text-xs">Totaal per maand</p>
           <p className="text-[#0B7A6E] text-xl font-semibold">+€{totaal}</p>
         </div>
       </div>

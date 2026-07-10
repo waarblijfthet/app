@@ -42,7 +42,7 @@ export default function EmailReminderForm({
 
   if (status === "success") {
     return (
-      <p className="text-[#2D6A4F] font-body text-sm text-center bg-green-light rounded-xl py-3 px-4">
+      <p className="text-[#0B7A6E] font-body text-sm text-center bg-green-light rounded-xl py-3 px-4">
         ✓ De analyse is onderweg naar <strong>{email}</strong>. Check ook je spamfolder.
       </p>
     );

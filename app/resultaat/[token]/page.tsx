@@ -26,8 +26,8 @@ const VERDICT_CONFIG: Record<
 > = {
   goed: {
     bg: "#E7F1EE",
-    border: "#A8D5B5",
-    textColor: "#2D6A4F",
+    border: "#A6D8CD",
+    textColor: "#0B7A6E",
     titel: "Je doet het goed",
     tekst: "Er is ruimte. De vraag is of dat geld doelbewust wordt ingezet.",
   },
@@ -85,7 +85,7 @@ function AfwijkingKaart({
         <div>
           <div className="flex justify-between text-xs text-text-muted font-body mb-0.5">
             <span>Jij</span>
-            <span className="font-medium" style={{ color: isHoog ? "#B03A2E" : "#2D6A4F" }}>
+            <span className="font-medium" style={{ color: isHoog ? "#B03A2E" : "#0B7A6E" }}>
               {fmtEur(jij)}
             </span>
           </div>
@@ -106,7 +106,7 @@ function AfwijkingKaart({
           </div>
           <div className="h-2 bg-[#F0F3F1] rounded-full overflow-hidden">
             <div
-              className="h-full rounded-full bg-[#B8C9BC] transition-all"
+              className="h-full rounded-full bg-[#B2CCC6] transition-all"
               style={{ width: `${(bench / max) * 100}%` }}
             />
           </div>
@@ -117,7 +117,7 @@ function AfwijkingKaart({
         className="inline-block text-xs font-body font-medium px-3 py-1 rounded-full"
         style={{
           background: isHoog ? "#FDECEA" : "#E7F1EE",
-          color: isHoog ? "#B03A2E" : "#2D6A4F",
+          color: isHoog ? "#B03A2E" : "#0B7A6E",
         }}
       >
         {isHoog ? "+" : ""}
@@ -244,7 +244,7 @@ export default async function ResultaatPage({ params }: Props) {
                   className="inline-block text-sm font-body font-medium px-4 py-1.5 rounded-full"
                   style={{
                     background: verschil >= 0 ? "#E7F1EE" : "#FDECEA",
-                    color: verschil >= 0 ? "#2D6A4F" : "#B03A2E",
+                    color: verschil >= 0 ? "#0B7A6E" : "#B03A2E",
                   }}
                 >
                   {verschil >= 0 ? "+" : ""}

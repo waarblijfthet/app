@@ -24,7 +24,7 @@ export function PrijsvergelijkingTabel() {
       {/* Header */}
       <div className="bg-[#16211F] px-5 py-4 flex items-center justify-between">
         <div>
-          <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
+          <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">
             Prijsvergelijking 2025
           </p>
           <p className="text-[#F7F8F7] text-sm font-medium">
@@ -32,7 +32,7 @@ export function PrijsvergelijkingTabel() {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-[#8AB89A] text-xs">Gemiddelde besparing</p>
+          <p className="text-[#86BCAF] text-xs">Gemiddelde besparing</p>
           <p className="text-[#0B7A6E] text-2xl font-semibold">{pct}%</p>
         </div>
       </div>
@@ -72,11 +72,11 @@ export function PrijsvergelijkingTabel() {
                   <td className="px-4 py-3 text-right text-[#4A5A56]">
                     €{p.nl.toFixed(2)}
                   </td>
-                  <td className="px-4 py-3 text-right text-[#2D6A4F] font-medium">
+                  <td className="px-4 py-3 text-right text-[#0B7A6E] font-medium">
                     €{p.de.toFixed(2)}
                   </td>
                   <td className="px-4 py-3 text-right">
-                    <span className="inline-block bg-[#E7F1EE] text-[#2D6A4F] text-xs font-medium px-2 py-0.5 rounded-full">
+                    <span className="inline-block bg-[#E7F1EE] text-[#0B7A6E] text-xs font-medium px-2 py-0.5 rounded-full">
                       -{bespaarPct}%
                     </span>
                   </td>
@@ -95,7 +95,7 @@ export function PrijsvergelijkingTabel() {
               <td className="px-4 py-3 text-right text-[#F7F8F7] font-medium">
                 €{totaalNL.toFixed(2)}
               </td>
-              <td className="px-4 py-3 text-right text-[#8AB89A] font-medium">
+              <td className="px-4 py-3 text-right text-[#86BCAF] font-medium">
                 €{totaalDE.toFixed(2)}
               </td>
               <td className="px-4 py-3 text-right">

@@ -29,9 +29,9 @@ function naarHtml(alineas: string[]): string {
     .join("\n");
   const sig =
     '<p style="margin:24px 0 0 0;">Jarno Koopman<br>Financieel coach, Waar blijft het<br>' +
-    '<a href="https://www.waarblijfthet.nl" style="color:#1A1A1A;">waarblijfthet.nl</a></p>';
+    '<a href="https://www.waarblijfthet.nl" style="color:#16211F;">waarblijfthet.nl</a></p>';
   return (
-    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#1A1A1A;max-width:560px;">' +
+    '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#16211F;max-width:560px;">' +
     blokken +
     sig +
     "</div>"

@@ -127,7 +127,7 @@ function SalarisBlok({
         </div>
       )}
       {effectief > s && (
-        <p className="text-xs font-body text-[#2D6A4F] mt-2 font-medium">
+        <p className="text-xs font-body text-[#0B7A6E] mt-2 font-medium">
           Effectief maandbedrag: {fmtEur(effectief)}
         </p>
       )}

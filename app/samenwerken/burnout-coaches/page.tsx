@@ -223,20 +223,20 @@ export default function BurnoutCoachesPage() {
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div style={{ backgroundColor: "#16211F", border: "1px solid #2D6A4F", borderRadius: "16px", padding: "1.5rem" }}>
+              <div style={{ backgroundColor: "#16211F", border: "1px solid #0B7A6E", borderRadius: "16px", padding: "1.5rem" }}>
                 <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#8AB89A", opacity: 0.7 }}>03</span>
+                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#86BCAF", opacity: 0.7 }}>03</span>
                   <p className="font-body font-semibold text-sm" style={{ color: "white" }}>Wat de analyse toont</p>
                 </div>
                 <div className="space-y-3">
                   <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
-                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>Afwijking 1: Abonnementen die hij nauwelijks gebruikt</p>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#86BCAF" }}>Afwijking 1: Abonnementen die hij nauwelijks gebruikt</p>
                     <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
                       €195 aan maandelijkse abonnementen: sportschool (€49, al maanden niet geweest), streamingdiensten (3 stuks, €68), krant en nieuwsbrieven (€38), en twee andere diensten die hij vergeten was. Samen <strong style={{ color: "white" }}>€155 per maand te besparen</strong>.
                     </p>
                   </div>
                   <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
-                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>Afwijking 2: Leaseauto relatief hoog</p>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#86BCAF" }}>Afwijking 2: Leaseauto relatief hoog</p>
                     <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
                       €380 per maand voor een auto die hij bijna niet gebruikt. Contract loopt nog 8 maanden. Na afloop vrijkomt er structureel ruimte. In de tussentijd: eigen risico al vol, €150 verwacht voordeel de rest van het jaar.
                     </p>
@@ -265,7 +265,7 @@ export default function BurnoutCoachesPage() {
                     },
                   ].map((item) => (
                     <div key={item.actie} className="flex gap-3 items-start">
-                      <span style={{ color: "#2D6A4F", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
+                      <span style={{ color: "#0B7A6E", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
                       <div>
                         <p className="font-body text-xs font-semibold" style={{ color: "#16211F" }}>{item.actie}</p>
                         <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5A56" }}>{item.resultaat}</p>
@@ -276,7 +276,7 @@ export default function BurnoutCoachesPage() {
               </div>
             </div>
 
-            <div style={{ backgroundColor: "#F7F8F7", border: "1px solid #E0D8CC", borderRadius: "16px", padding: "1.5rem" }}>
+            <div style={{ backgroundColor: "#F7F8F7", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
               <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#0B7A6E" }}>
                 Wat Sandra als burnout coach eraan had
               </p>

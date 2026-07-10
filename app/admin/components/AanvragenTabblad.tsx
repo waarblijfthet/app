@@ -15,8 +15,8 @@ const STATUS_CONFIG: Record<
 > = {
   nieuw: { label: "Nieuw", bg: "#FEF3C7", color: "#92400E" },
   contact_opgenomen: { label: "Contact opgenomen", bg: "#DBEAFE", color: "#1E40AF" },
-  betaald: { label: "Betaald", bg: "#D1FAE5", color: "#065F46" },
-  gestart: { label: "Gestart", bg: "#D1FAE5", color: "#065F46" },
+  betaald: { label: "Betaald", bg: "#DAF2EC", color: "#0A6A5F" },
+  gestart: { label: "Gestart", bg: "#DAF2EC", color: "#0A6A5F" },
 };
 
 function StatusPill({ status }: { status: string }) {
@@ -215,7 +215,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                           ? "#6B21A8"
                           : a.pakket === "geldscan"
                           ? "#9A3B12"
-                          : "#065F46",
+                          : "#0A6A5F",
                       fontWeight: 500,
                     }}
                   >
@@ -245,7 +245,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
                   ) : a.analyse_gedaan === null ? (
                     <span style={{ color: "#8B958F" }}>—</span>
                   ) : a.analyse_gedaan ? (
-                    <span style={{ color: "#2D6A4F" }}>✓ Ja</span>
+                    <span style={{ color: "#0B7A6E" }}>✓ Ja</span>
                   ) : (
                     <span style={{ color: "#8B958F" }}>Nee</span>
                   )}

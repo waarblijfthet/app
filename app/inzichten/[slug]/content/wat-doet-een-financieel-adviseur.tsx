@@ -77,7 +77,7 @@ function AdviseurCheck() {
         {klaar && score !== null && (
           <div className="rounded-xl p-4 mt-2" style={{
             backgroundColor: score >= 3 ? "#E7F1EE" : "#E7F1EE",
-            border: `1.5px solid ${score >= 3 ? "#A8C5B4" : "#A8C5B4"}`,
+            border: `1.5px solid ${score >= 3 ? "#9CCFC4" : "#9CCFC4"}`,
           }}>
             {score >= 3 ? (
               <>
@@ -109,7 +109,7 @@ export default function WatDoetEenFinancieelAdviseur() {
     <div className="font-body text-text-soft" style={{ lineHeight: 1.75 }}>
 
       {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[

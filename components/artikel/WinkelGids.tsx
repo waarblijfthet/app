@@ -3,7 +3,7 @@ const winkels = [
     naam: "DM",
     type: "Drogisterij",
     kleur: "#E7F1EE",
-    tekstKleur: "#2D6A4F",
+    tekstKleur: "#0B7A6E",
     beschrijving:
       "De absolute must voor verzorgingsproducten. Tandpasta, shampoo, wasmiddel, babyspullen — hier is het verschil met Nederland het grootst. Tot 50% goedkoper dan Kruidvat.",
     bestVoor: ["Drogisterij", "Babyspullen", "Wasmiddel", "Huismerk producten"],
@@ -23,7 +23,7 @@ const winkels = [
     naam: "Aldi & Lidl",
     type: "Discounter",
     kleur: "#E7F1EE",
-    tekstKleur: "#2D6A4F",
+    tekstKleur: "#0B7A6E",
     beschrijving:
       "De goedkoopste huismerken van Duitsland. Frisdrank, pasta, sauzen, diepvries — structureel lager dan in Nederland. Dezelfde ketens als hier, maar goedkoper.",
     bestVoor: ["Frisdrank", "Huismerk", "Diepvries", "Snacks"],

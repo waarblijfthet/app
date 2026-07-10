@@ -30,7 +30,7 @@ export default function AchterafBetalenBkrRegistratie() {
       {/* ScanBox */}
       <div
         className="rounded-xl p-5 mb-8"
-        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}
       >
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
           Na dit artikel weet je:

@@ -28,7 +28,7 @@ const potjes = [
     naam: 'Sparen & buffer',
     percentage: 10,
     bedrag: Math.round(voorbeeldInkomen * 0.1),
-    kleur: '#2D6A4F',
+    kleur: '#0B7A6E',
     lichtKleur: '#E7F1EE',
     beschrijving:
       'Noodbuffer, vakantie, grote uitgaven. Direct op salarisdag apart zetten.',
@@ -52,7 +52,7 @@ export function PotjesVisualisatie() {
   return (
     <div className="my-8 rounded-2xl overflow-hidden border border-[#E6E9E7]">
       <div className="bg-[#16211F] px-5 py-4">
-        <p className="text-[#8AB89A] text-xs font-medium uppercase tracking-wider mb-0.5">
+        <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">
           Voorbeeld bij €4.000 netto
         </p>
         <p className="text-[#F7F8F7] text-sm font-medium">

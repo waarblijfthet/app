@@ -96,7 +96,7 @@ function Calculator() {
           className="rounded-xl p-4"
           style={{
             backgroundColor: over >= 0 ? "#E7F1EE" : "#FAEBE7",
-            border: `1.5px solid ${over >= 0 ? "#A8C5B4" : "#E0B6AA"}`,
+            border: `1.5px solid ${over >= 0 ? "#9CCFC4" : "#E0B6AA"}`,
           }}
         >
           <p className="font-body text-sm" style={{ color: "#4A5A56", marginBottom: "0.25rem" }}>
@@ -104,7 +104,7 @@ function Calculator() {
           </p>
           <p
             className="font-display"
-            style={{ fontSize: "2rem", fontWeight: 400, color: over >= 0 ? "#2D6A4F" : "#B03A2E" }}
+            style={{ fontSize: "2rem", fontWeight: 400, color: over >= 0 ? "#0B7A6E" : "#B03A2E" }}
           >
             {euro(over)}
             {i > 0 && (

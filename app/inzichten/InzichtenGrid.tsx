@@ -6,10 +6,10 @@ import type { Artikel } from "@/lib/inzichten-data";
 import { ArticlePreview } from "@/components/artikel/ArticlePreview";
 
 const categorieKleuren: Record<string, { bg: string; tekst: string }> = {
-  Besparen: { bg: "#E7F1EE", tekst: "#2D6A4F" },
+  Besparen: { bg: "#E7F1EE", tekst: "#0B7A6E" },
   Inkomen: { bg: "#E4F1EE", tekst: "#92600A" },
   Sparen: { bg: "#F0F3F1", tekst: "#4A5A56" },
-  Inzicht: { bg: "#E8F2FA", tekst: "#1B5E8A" },
+  Inzicht: { bg: "#E7F1EE", tekst: "#0A6A5F" },
 };
 
 function getCategorieKleur(cat: string) {

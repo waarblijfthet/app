@@ -27,7 +27,7 @@ export default function KopieerKnop({ url }: { url: string }) {
     <button
       onClick={kopieer}
       className="w-full px-4 py-2.5 rounded-xl border border-white/30 font-body text-sm font-medium transition-all hover:bg-white/10"
-      style={{ color: gekopieerd ? "#A8D5B5" : "rgba(245,240,232,0.8)" }}
+      style={{ color: gekopieerd ? "#A6D8CD" : "rgba(245,240,232,0.8)" }}
     >
       {gekopieerd ? "✓ Link gekopieerd!" : "Kopieer link"}
     </button>

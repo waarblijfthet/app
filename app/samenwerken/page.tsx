@@ -141,10 +141,10 @@ export default function SamenwerkenPage() {
         <section style={{ backgroundColor: "#16211F", padding: "1rem 1.5rem" }}>
           <div className="max-w-6xl mx-auto">
             <p className="font-body text-sm" style={{ color: "rgba(245,240,232,0.75)", lineHeight: 1.6 }}>
-              <span style={{ color: "#8AB89A", fontWeight: 600 }}>Ik ben Jarno.</span>{" "}
+              <span style={{ color: "#86BCAF", fontWeight: 600 }}>Ik ben Jarno.</span>{" "}
               Ik herken de cliënten die jij regelmatig ziet: goed inkomen, weinig grip, en dat financiële deel blokkeert jouw werk.
               Dat stuk pak ik aan, zodat jij je kunt richten op wat jij het beste doet.{" "}
-              <Link href="/over" style={{ color: "#8AB89A", textDecoration: "underline" }}>
+              <Link href="/over" style={{ color: "#86BCAF", textDecoration: "underline" }}>
                 Meer over mij &rarr;
               </Link>
             </p>
@@ -322,7 +322,7 @@ export default function SamenwerkenPage() {
               <div
                 style={{
                   backgroundColor: "#16211F",
-                  border: "1px solid #2D6A4F",
+                  border: "1px solid #0B7A6E",
                   borderRadius: "16px",
                   padding: "1.5rem",
                 }}
@@ -330,7 +330,7 @@ export default function SamenwerkenPage() {
                 <div className="flex items-center gap-2 mb-3">
                   <span
                     className="font-display font-light"
-                    style={{ fontSize: "1.25rem", color: "#8AB89A", opacity: 0.7 }}
+                    style={{ fontSize: "1.25rem", color: "#86BCAF", opacity: 0.7 }}
                   >
                     03
                   </span>
@@ -344,7 +344,7 @@ export default function SamenwerkenPage() {
                       padding: "0.875rem",
                     }}
                   >
-                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#86BCAF" }}>
                       Afwijking 1: Vervoer
                     </p>
                     <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
@@ -358,7 +358,7 @@ export default function SamenwerkenPage() {
                       padding: "0.875rem",
                     }}
                   >
-                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#8AB89A" }}>
+                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#86BCAF" }}>
                       Afwijking 2: Abonnementen
                     </p>
                     <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
@@ -401,7 +401,7 @@ export default function SamenwerkenPage() {
                     },
                   ].map((item) => (
                     <div key={item.actie} className="flex gap-3 items-start">
-                      <span style={{ color: "#2D6A4F", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
+                      <span style={{ color: "#0B7A6E", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
                       <div>
                         <p className="font-body text-xs font-semibold" style={{ color: "#16211F" }}>{item.actie}</p>
                         <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5A56" }}>{item.resultaat}</p>
@@ -416,7 +416,7 @@ export default function SamenwerkenPage() {
             <div
               style={{
                 backgroundColor: "#F7F8F7",
-                border: "1px solid #E0D8CC",
+                border: "1px solid #E6E9E7",
                 borderRadius: "16px",
                 padding: "1.5rem",
               }}

@@ -24,43 +24,40 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function WatIsNormaalBedragBoodschappen() {
   return (
     <>
-      {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #A8C5B4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
-        <ul className="space-y-1.5">
+      {/* Kort antwoord: het getal meteen, boven de vouw */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
+        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
+          Kort antwoord: een normaal boodschappenbedrag ligt hoger dan de meeste mensen denken.
+        </p>
+        <ul className="space-y-1.5 mb-3">
           {[
-            "Wat een normaal boodschappenbedrag is per persoon, per stel en per gezin",
-            "Waarom de Nibud-norm een ondergrens is en geen gemiddelde, en wat echte huishoudens uitgeven",
-            "Wat drie echte huishoudens uitgeven, waar het misgaat en wat ik ze zou aanraden",
-          ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
-              <span>{item}</span>
+            ["Alleen", "€300 tot €400 per maand"],
+            ["Samen, geen kinderen", "€550 tot €700"],
+            ["Gezin met jonge kinderen", "€700 tot €900"],
+            ["Gezin met pubers", "€1.000 tot €1.400"],
+          ].map(([wie, bedrag], i) => (
+            <li key={i} className="flex justify-between gap-3 font-body text-sm" style={{ color: "#16211F" }}>
+              <span>{wie}</span>
+              <span className="font-medium text-right">{bedrag}</span>
             </li>
           ))}
         </ul>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", margin: 0 }}>
+          De Nibud-norm ligt daar flink onder, want dat is een minimum en geen gemiddelde.
+          Boven de norm zitten is dus normaal, geen teken dat je iets fout doet.
+        </p>
       </div>
 
       <p className="font-body text-text-soft" style={p}>
-        Een gezin van vijf, kinderen van 12, 10 en 8 jaar. Elke week naar de
-        supermarkt, af en toe naar de bakker en de slager. Geen avontuurlijke
-        keukens, geen biologisch vlees, geen dure kaasjes. Gewoon normaal eten.
-        En toch €1.400 per maand aan boodschappen.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Klinkt als veel. Maar is het dat? De Nibud-norm zegt voor dit gezin
-        ongeveer €700. De praktijk ligt op het dubbele. Niet door verspilling of
-        luxe, maar doordat drie opgroeiende kinderen eten, en eten kost geld.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Dit speelt niet alleen bij grote gezinnen. Of je nu alleen woont, samen
-        bent, of een vol huis hebt: het bedrag dat je echt uitgeeft ligt bijna
-        altijd boven de norm. Hieronder zie je wat normaal is per huishouden,
-        waar dat verschil vandaan komt, en wat drie echte huishoudens doen om het
-        bedrag omlaag te krijgen.
+        Neem een gezin van vijf met drie opgroeiende kinderen: gewoon eten, niks
+        bijzonders, en toch €1.400 per maand. De Nibud-norm zegt voor dit gezin
+        ongeveer €700, de praktijk ligt op het dubbele. Niet door verspilling,
+        maar doordat opgroeiende kinderen nu eenmaal veel eten. Hieronder per
+        huishouden wat normaal is, waarom het hoger ligt dan de norm, en wat drie
+        echte huishoudens doen om het omlaag te krijgen.
       </p>
 
-      {/* Tabel norm vs realiteit */}
+      {/* Antwoord in detail: tabel */}
       <h2 className="font-display" style={h2}>
         Wat is een normaal boodschappenbedrag per huishouden?
       </h2>
@@ -90,7 +87,7 @@ export default function WatIsNormaalBedragBoodschappen() {
           </tbody>
         </table>
       </div>
-      <p className="font-body text-text-soft text-sm" style={{ ...p, color: "#8A7B63" }}>
+      <p className="font-body text-sm" style={{ ...p, color: "#8B958F" }}>
         Norm: Nibud-minimumbegroting voor voeding, juli 2025. Realistisch: een
         breder mandje inclusief drogist, bakker en tussendoor, gebaseerd op
         transactiedata van ABN AMRO en op wat ik in de praktijk zie. Indicatief,
@@ -98,44 +95,34 @@ export default function WatIsNormaalBedragBoodschappen() {
         regio.
       </p>
 
+      {/* Visual: de kloof tussen norm en realiteit */}
       <BoodschappenKloof />
 
-      <BoodschappenSlider />
-
-      <BenchmarkMail />
-
+      {/* Waarom: norm-uitleg en echte cijfers samengevoegd */}
       <h2 className="font-display" style={h2}>
-        Waarom klopt de Nibud-norm niet met je kassabon?
+        Waarom ligt het bijna altijd boven de norm?
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Het Nibud-bedrag is een minimum voor voeding, letterlijk berekend op
-        basis van calorieën en voedingsstoffen. Het is niet wat een gemiddeld
-        huishouden uitgeeft. Het is wat je minimaal nodig hebt om gezond te eten.
+        calorieën en voedingsstoffen. Het is niet wat een gemiddeld huishouden
+        uitgeeft, maar wat je minimaal nodig hebt om gezond te eten. Wat er niet
+        in zit: brood van de bakker, vlees van de slager, drogisterijproducten,
+        schoollunches, tussendoortjes voor sport, koekjes voor een verjaardag.
+        Die kosten zijn reëel en onvermijdelijk, maar staan niet in de basistabel.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Dat is een wezenlijk verschil, en het verklaart meteen waarom bijna
-        iedereen boven de norm uitkomt. Wat er niet in zit: brood van de bakker,
-        vlees van de slager, drogisterijproducten, schoollunches, tussendoortjes
-        voor sport, koekjes voor een verjaardag. Die kosten zijn reëel en
-        onvermijdelijk, maar ze staan niet in de basistabel.
-      </p>
-
-      <h2 className="font-display" style={h2}>
-        Wat geven mensen écht uit?
-      </h2>
-      <p className="font-body text-text-soft" style={p}>
-        Hier heb ik harde cijfers voor. ABN AMRO analyseerde de betalingen van
-        150.000 huishoudens. Het doorsnee huishouden gaf €585 per maand uit aan
-        boodschappen, met een spreiding van €300 tot €785. Dat is geen enquête
-        waarin mensen hun bedrag te laag inschatten, maar echte transacties. En
-        het ligt ruim boven de Nibud-minimumnorm. Het CBS komt, omgerekend naar
-        het prijspeil van 2025, zelfs op ongeveer €640.
+        Echte cijfers bevestigen dat. ABN AMRO analyseerde de betalingen van
+        150.000 huishoudens: het doorsnee huishouden gaf €585 per maand uit aan
+        boodschappen, met een spreiding van €300 tot €785. Dat zijn geen
+        inschattingen uit een enquête, maar echte transacties. Het CBS komt,
+        omgerekend naar het prijspeil van 2025, zelfs op ongeveer €640. Allebei
+        ruim boven de Nibud-minimumnorm.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        De conclusie is simpel. De norm vertelt je wat een zuinig, gezond
-        minimumpakket kost. De realiteit is een breder, duurder mandje. Boven de
-        norm zitten is dus geen teken dat je iets fout doet, het is wat boodschappen
-        in de praktijk kosten.
+        De conclusie is simpel: de norm vertelt je wat een zuinig, gezond
+        minimumpakket kost, de realiteit is een breder en duurder mandje. Boven
+        de norm zitten is dus geen teken dat je iets fout doet, het is wat
+        boodschappen in de praktijk kosten.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -144,8 +131,8 @@ export default function WatIsNormaalBedragBoodschappen() {
       <p className="font-body text-text-soft" style={p}>
         Dit is het punt dat bijna niemand je vertelt. Een kind van 12 eet in de
         praktijk bijna evenveel als een volwassene. Een gezin met drie kinderen
-        van 8, 10 en 12 jaar heeft geen kinderkosten meer in de oude zin, het zijn
-        drie bijna-volwassenen qua eetgedrag.
+        van 8, 10 en 12 jaar heeft geen kinderkosten meer in de oude zin, het
+        zijn drie bijna-volwassenen qua eetgedrag.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Tel daarbij op: eigen schoollunch meenemen, eten na het sporten, grotere
@@ -153,6 +140,9 @@ export default function WatIsNormaalBedragBoodschappen() {
         oudere kinderen makkelijk op €1.200 tot €1.400 per maand uitkomt, zonder
         dat er iets geks aan de hand is.
       </p>
+
+      {/* Interactief: waar zit jij? */}
+      <BoodschappenSlider />
 
       {/* Drie echte huishoudens */}
       <h2 className="font-display" style={h2}>
@@ -186,17 +176,12 @@ export default function WatIsNormaalBedragBoodschappen() {
       <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
         <h3 className="font-display" style={h3}>Mats en Elsa, tweeverdieners, bijna €1.000 per maand</h3>
         <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
-          Geen gezin, wel een hoge rekening. Ze kopen veel vers gemaakte
+          Geen gezin, wel een hoge rekening. Ze kopen veel verse
           gemaksmaaltijden, van die gezonde bakjes uit de supermarkt. Voelt niet
-          als luxe, maar tikt hard aan. Neem een kant-en-klare pokebowl. In de
-          supermarkt kost die al snel €7 tot €8. Zelf maken, met rijst, een stuk
-          zalm, edamame en wat groente, kost ongeveer €3 tot €4 per portie.
-        </p>
-        <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
-          Eten ze met zijn tweeën drie keer per week zo&apos;n maaltijd, dan is
-          dat kant-en-klaar ongeveer €190 per maand, en zelfgemaakt ongeveer €100.
-          Dat is €90 verschil op één gerecht. Reken dat door over alle
-          gemaksmaaltijden en je zit zo €150 tot €200 per maand hoger dan nodig.
+          als luxe, maar tikt hard aan: een kant-en-klare pokebowl kost al snel
+          €7 tot €8, terwijl je &apos;m zelf maakt voor €3 tot €4. Over alle
+          gemaksmaaltijden samen zit je zo €150 tot €200 per maand hoger dan
+          nodig.
         </p>
         <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#16211F", fontWeight: 500 }}>Wat ik zou doen</p>
         <ul className="space-y-1.5 font-body text-sm text-text-soft" style={{ marginBottom: 0, paddingLeft: "1.1rem", listStyle: "disc" }}>
@@ -261,20 +246,7 @@ export default function WatIsNormaalBedragBoodschappen() {
         Voor een huishouden dat €1.000 uitgeeft is dat €100 tot €150 per maand,
         oftewel €1.200 tot €1.800 per jaar, zonder dat je kwaliteit inlevert.
       </p>
-      <p className="font-body text-text-soft" style={p}>
-        Wil je weten hoe je boodschappenuitgaven zich verhouden tot vergelijkbare
-        huishoudens, met dezelfde samenstelling en hetzelfde inkomensniveau? Doe
-        de{" "}
-        <Link
-          href="/analyse"
-          className="hover:underline"
-          style={{ color: "#0B7A6E", textDecoration: "none" }}
-        >
-          gratis analyse
-        </Link>{" "}
-        en zie het direct op je scherm. Wil je het daarna samen doorlopen, dan
-        kan dat in een eenmalig adviesgesprek.
-      </p>
+
       <div
         className="rounded-xl border p-4 my-6"
         style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
@@ -287,8 +259,26 @@ export default function WatIsNormaalBedragBoodschappen() {
           optellen, zien ze het echte bedrag.
         </p>
       </div>
+
+      {/* Persoonlijke benchmark per mail, pas nadat de lezer waarde kreeg */}
+      <BenchmarkMail />
+
       <p className="font-body text-text-soft" style={p}>
-        Uit de praktijk: lees{" "}
+        Wil je weten hoe jouw boodschappenuitgaven zich verhouden tot
+        vergelijkbare huishoudens, met dezelfde samenstelling en hetzelfde
+        inkomensniveau? Doe de{" "}
+        <Link
+          href="/analyse"
+          className="hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          analyse
+        </Link>{" "}
+        en zie het direct op je scherm. Wil je het daarna samen doorlopen, dan
+        kan dat in een eenmalig adviesgesprek.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Benieuwd hoe anderen het aanpakten? Lees{" "}
         <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
       </p>
     </>

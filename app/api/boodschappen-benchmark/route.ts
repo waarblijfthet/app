@@ -82,7 +82,7 @@ export async function POST(request: NextRequest) {
       .join("");
 
     const html =
-      '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#1A1A1A;max-width:560px;">' +
+      '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#16211F;max-width:560px;">' +
       `<p style="margin:0 0 18px 0;">Hoi,</p>` +
       `<p style="margin:0 0 18px 0;">Hier is je boodschappen-benchmark voor een ${b.label}:</p>` +
       `<p style="margin:0 0 18px 0;">Nibud-minimum: <strong>${b.norm}</strong> per maand.<br>` +
@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
       `<p style="margin:0 0 18px 0;">Zit je daarboven? Dan ben je geen uitzondering, en het betekent niet dat je iets fout doet. De drie hefbomen die in jouw situatie het meeste opleveren:</p>` +
       hefbomenHtml +
       `<p style="margin:18px 0 18px 0;">Wil je weten hoe je op álle posten vergelijkt met huishoudens zoals dat van jou? Doe de gratis analyse (5 minuten, anoniem, resultaat direct op je scherm): <a href="https://www.waarblijfthet.nl/analyse" style="color:#0B7A6E;">waarblijfthet.nl/analyse</a></p>` +
-      `<p style="margin:24px 0 0 0;">Jarno Koopman<br>Financieel coach, Waar blijft het<br><a href="https://www.waarblijfthet.nl" style="color:#1A1A1A;">waarblijfthet.nl</a></p>` +
+      `<p style="margin:24px 0 0 0;">Jarno Koopman<br>Financieel coach, Waar blijft het<br><a href="https://www.waarblijfthet.nl" style="color:#16211F;">waarblijfthet.nl</a></p>` +
       `<p style="margin:24px 0 0 0;font-size:12px;color:#999;">Je krijgt deze ene mail omdat je hem zelf aanvroeg. Er volgt geen nieuwsbrief.</p>` +
       "</div>";
 
