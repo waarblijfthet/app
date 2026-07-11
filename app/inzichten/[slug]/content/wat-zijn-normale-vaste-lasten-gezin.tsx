@@ -160,7 +160,7 @@ export default function WatZijnNormaleVasteLastenGezin() {
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
-          lees ook ons artikel over spaardoelen en maandelijkse inleg
+          lees ook het artikel over spaardoelen en maandelijkse inleg
         </Link>
         .
       </p>
@@ -169,9 +169,13 @@ export default function WatZijnNormaleVasteLastenGezin() {
         style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
         <p className="font-body text-sm" style={{ color: "#16211F" }}>
-          <strong>Uit de praktijk.</strong> Wat me opvalt bij de gezinnen die ik help: de grote vaste lasten kennen ze prima, maar de kleine onderschatten ze structureel, abonnementen, verzekerings-extra's, een doorlopende app hier en daar. Bij één gezin telde dat op tot €250 per maand dat niemand miste toen we het opschoonden.
+          <strong>Uit de praktijk.</strong> Wat me opvalt bij de gezinnen die ik help: de grote vaste lasten kennen ze prima, maar de kleine onderschatten ze structureel, abonnementen, verzekerings-extra's, een doorlopende app hier en daar. Bij één gezin telde dat op tot €250 per maand dat niemand miste toen ik het opschoonde.
         </p>
       </div>
+      <p className="font-body text-text-soft" style={p}>
+        Benieuwd of jouw vaste lasten hoog of normaal zijn? Doe de{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>{" "}en vergelijk je uitgaven met vergelijkbare gezinnen.
+      </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vaste-lasten-overzicht-maken" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">een overzicht van je vaste lasten maken</Link> en <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link>.</p>
     </>
   );

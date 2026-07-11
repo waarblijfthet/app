@@ -153,11 +153,14 @@ export default function VakantiegeldNettoHoeveelHouJeOver2026() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
+          Benieuwd hoe jouw uitgaven zich verhouden tot vergelijkbare huishoudens? Doe de gratis analyse en zie het meteen. Wil je daarna dat ik persoonlijk naar je cijfers kijk en je drie grootste lekken op een rij zet, dan kan dat met de geldscan (€49).
         </p>
-        <Link href="/geldscan" className="btn-primary">
-          Laat mij je cijfers nakijken (€49) &rarr;
+        <Link href="/analyse" className="btn-primary">
+          Doe de gratis analyse &rarr;
         </Link>
+        <p className="font-body text-sm" style={{ marginTop: "0.75rem", marginBottom: 0 }}>
+          <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Of laat mij je cijfers persoonlijk nakijken (€49)</Link>
+        </p>
       </div>
     </>
   );

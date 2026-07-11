@@ -90,6 +90,264 @@ export interface Artikel {
 
 export const artikelen: Artikel[] = [
   {
+    slug: "alleen-wonen-goed-salaris-toch-krap",
+    korteTitel: "Alleen wonen, goed salaris, toch krap",
+    titel: "Alleen wonen met een goed salaris en toch elke maand krap",
+    metaTitel: "Alleen wonen, goed salaris en toch krap? Zo zit dat",
+    metaDescription:
+      "Je woont alleen, verdient goed en houdt toch niks over. Waarom alleen wonen per persoon duurder is, welke stille posten meespelen, en wat wel helpt.",
+    datum: "2026-07-11",
+    datumFormatted: "11 juli 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Geen scheiding, geen kinderen, geen schulden, en toch is het elke maand op. Waarom een leven alleen per persoon duurder uitpakt dan samenwonen, en waarom dat bij een goed salaris juist ongezien weglekt.",
+    preview: {
+      type: "pijn",
+      label: "Waarom het alleen sneller weglekt",
+      items: [
+        "Alle vaste lasten op een inkomen, niets te delen",
+        "Vaker uit eten en gemak, zonder huisgenoot",
+        "Abonnementen die je volledig zelf betaalt",
+        "Geen partner om je uitgaven aan te toetsen",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Is alleen wonen echt duurder dan samenwonen?",
+        antwoord:
+          "Per persoon wel. Huur of hypotheek, energie, internet en veel dagelijkse kosten zijn nauwelijks lager voor een dan voor twee, maar je draagt ze in je eentje. Een alleenstaande met een goed salaris houdt daardoor vaak minder over dan een tweeverdiener met eenzelfde bedrag per persoon.",
+      },
+      {
+        vraag: "Waarom hou ik niks over terwijl ik alleen ben en goed verdien?",
+        antwoord:
+          "Omdat je alle lasten alleen draagt en je uitgaven ongemerkt meegroeien met je inkomen. Zonder huisgenoot schuift er bovendien geld naar gemak en naar buiten de deur. Dat voelt niet als een misstap, maar telt stil op tot een fors bedrag per maand.",
+      },
+      {
+        vraag: "Ligt het aan mij dat het niet lukt?",
+        antwoord:
+          "Bijna nooit. Het is een structuurprobleem, geen kwestie van discipline. Wie alleen woont mist de spiegel van een partner en heeft vaak geen systeem dat het inkomen vooraf verdeelt. Meer verdienen lost dat niet op, een vaste verdeling wel.",
+      },
+      {
+        vraag: "Wat kan ik als eerste doen?",
+        antwoord:
+          "Pak de afschriften van de laatste twee maanden en tel je vaste lasten, je dagelijkse uitgaven en wat overblijft op. Vaak zie je dan meteen waar de ruimte zit, zonder zuiniger te hoeven leven. De gratis analyse vergelijkt je uitgaven met vergelijkbare huishoudens.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud, uitgaven van een alleenstaande",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
+    slug: "praten-over-geld-met-je-partner",
+    korteTitel: "Praten over geld zonder ruzie",
+    titel: "Praten over geld met je partner zonder ruzie",
+    metaTitel: "Praten over geld met je partner zonder ruzie",
+    metaDescription:
+      "Waarom een geldgesprek zo vaak ruzie wordt, hoe je het opent zonder verwijt en op het juiste moment, en wat je doet als jullie er samen niet uitkomen.",
+    datum: "2026-07-11",
+    datumFormatted: "11 juli 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Jullie voelen het allebei, maar niemand begint erover, en als het er dan van komt wordt het een verwijt. Zo voer je het geldgesprek zonder dat het uitloopt op ruzie: rustig moment, gedeeld doel, en cijfers in plaats van gevoel.",
+    preview: {
+      type: "pijn",
+      label: "Waarom het gesprek vastloopt",
+      items: [
+        "Het begint als een verwijt in plaats van een doel",
+        "Het gebeurt op het verkeerde moment",
+        "Gevoel leidt tot welles-nietes",
+        "Niemand durft te beginnen, uit gene",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Hoe begin ik een gesprek over geld met mijn partner?",
+        antwoord:
+          "Kies een rustig moment, niet als er net een rekening binnenkomt, en zeg vooraf waar het over gaat. Open niet met wat er misgaat, maar met waar jullie samen naartoe willen: een buffer, een verbouwing, meer rust. Vanuit dat doel wordt het een gezamenlijke zoektocht in plaats van een verwijt.",
+      },
+      {
+        vraag: "Waarom wordt praten over geld zo vaak ruzie?",
+        antwoord:
+          "Omdat het zelden echt over geld gaat, maar over zekerheid, controle en hoe je allebei bent opgegroeid met geld. De een wil sparen, de ander nu genieten, en allebei is legitiem. Zodra het voelt als een oordeel over wie de verkeerde keuzes maakt, slaat het dicht.",
+      },
+      {
+        vraag: "Wat als we het samen niet eens worden?",
+        antwoord:
+          "Dan helpt een neutrale derde die zonder oordeel naar de cijfers kijkt. De gratis analyse is zo een gedeeld vertrekpunt dat jullie allebei kunnen bekijken. Zit de spanning dieper dan het geld zelf, dan is een relatietherapeut de juiste plek.",
+      },
+      {
+        vraag: "Moeten we alles samen doen of gescheiden houden?",
+        antwoord:
+          "Er is geen enkel juist model. Sommige stellen kiezen een gezamenlijke rekening voor de vaste lasten en houden daarnaast een eigen bedrag, anderen doen alles samen. Belangrijker dan de vorm is dat jullie allebei het overzicht hebben en het gevoel houden dat het eerlijk is.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud, samen je geldzaken regelen",
+        url: "https://www.nibud.nl/onderwerpen/inkomsten/samenwonen/",
+      },
+    ],
+  },
+  {
+    slug: "waarom-lijkt-iedereen-rijker",
+    korteTitel: "Waarom lijkt iedereen rijker?",
+    titel: "Waarom lijkt iedereen rijker dan jij? Over geld vergelijken",
+    metaTitel: "Waarom lijkt iedereen rijker dan jij?",
+    metaDescription:
+      "Iedereen lijkt meer geld te hebben, terwijl jij prima verdient. Waarom dat gevoel bijna nooit klopt, waarom het goedverdieners raakt, en wat wel helpt.",
+    datum: "2026-07-11",
+    datumFormatted: "11 juli 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Verre reizen, nieuwe autos, verbouwde keukens: het lijkt alsof iedereen het beter voor elkaar heeft dan jij. Waarom je jouw binnenkant vergelijkt met andermans etalage, waarom het juist goedverdieners raakt, en hoe je eigen cijfers de vergelijking ontkrachten.",
+    preview: {
+      type: "statistiek",
+      label: "Voelen zich financieel achter",
+      segmenten: [
+        { label: "Voelt zich achter", pct: 48, kleur: "#E4F1EE", tekstKleur: "#92600A" },
+        { label: "Niet", pct: 52, kleur: "#E7F1EE", tekstKleur: "#0B7A6E" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Waarom lijkt iedereen meer geld te hebben dan ik?",
+        antwoord:
+          "Omdat je jouw complete situatie kent, inclusief de tegenvallers, terwijl je van anderen alleen het eindresultaat ziet: de vakantiefoto, de nieuwe auto, nooit de rekening eronder. Je vergelijkt je eigen ruwe werkelijkheid met andermans zorgvuldig gekozen etalage, en die vergelijking kun je niet winnen.",
+      },
+      {
+        vraag: "Is dat gevoel terecht?",
+        antwoord:
+          "Meestal niet. Een deel van wat je op social media ziet is geleend of ver boven de eigen stand. Bovendien plaatst niemand een foto van zijn creditcardschuld. Het beeld dat overblijft is een stroom hoogtepunten die samen een werkelijkheid schetsen die voor niemand echt bestaat.",
+      },
+      {
+        vraag: "Waarom raakt dit juist mensen die goed verdienen?",
+        antwoord:
+          "Omdat de groep waarmee je jezelf vergelijkt meestijgt met je inkomen: je collega, de buurt, je tijdlijn. De lat schuift mee omhoog, waardoor meer verdienen het gevoel van achterlopen niet wegneemt en soms zelfs versterkt. Daarom neemt geldstress vaak toe met het inkomen.",
+      },
+      {
+        vraag: "Wat helpt tegen dat vergelijken?",
+        antwoord:
+          "Je eigen cijfers als ijkpunt nemen in plaats van de tijdlijn van een ander. Zodra je zwart op wit ziet waar jouw geld heen gaat en wat je echt overhoudt, verliest de vergelijking haar greep. De gratis analyse vergelijkt je met vergelijkbare huishoudens, niet met een etalage.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud, omgaan met geld en vergelijken",
+        url: "https://www.nibud.nl/onderwerpen/rondkomen/",
+      },
+    ],
+  },
+  {
+    slug: "moet-je-een-huishoudboekje-bijhouden",
+    korteTitel: "Huishoudboekje: wel of niet?",
+    titel: "Moet je een huishoudboekje bijhouden? Waarom structuur beter werkt",
+    metaTitel: "Moet je een huishoudboekje bijhouden? Eerlijk antwoord",
+    metaDescription:
+      "Nee, je hoeft geen huishoudboekje bij te houden. Waarom het bij de meesten niet beklijft, wat het wel en niet oplost, en welk alternatief beter werkt.",
+    datum: "2026-07-11",
+    datumFormatted: "11 juli 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Overal krijg je hetzelfde advies: houd een huishoudboekje bij. Maar elke uitgave noteren vecht tegen je eigen gedrag en houdt bijna niemand vol. Waarom dat zo is, en waarom je geld vooraf verdelen beter werkt dan achteraf registreren.",
+    preview: {
+      type: "verdeling",
+      label: "Verdelen in plaats van bijhouden",
+      posten: [
+        { naam: "Vaste lasten", pct: 50, kleur: "#16211F" },
+        { naam: "Dagelijkse uitgaven", pct: 30, kleur: "#0A6A5F" },
+        { naam: "Sparen en doelen", pct: 20, kleur: "#0B7A6E" },
+      ],
+      uitkomst: "Zo hoef je niets bij te houden",
+    },
+    faq: [
+      {
+        vraag: "Moet je een huishoudboekje bijhouden om grip te krijgen?",
+        antwoord:
+          "Nee. Een huishoudboekje kan eenmalig nuttig zijn om te zien waar je geld heen gaat, maar het blijvend bijhouden verandert je gedrag niet en houdt bijna niemand vol. Je geld vooraf verdelen in een simpel systeem werkt beter, want dan hoef je niets meer te registreren.",
+      },
+      {
+        vraag: "Waarom houd ik een huishoudboekje nooit vol?",
+        antwoord:
+          "Omdat het volledig op discipline leunt: elke dag elke uitgave noteren, ook als je moe bent. Mis je een paar dagen, dan klopt het overzicht niet meer en haak je af. Dat is geen gebrek aan doorzettingsvermogen, het is een methode die tegen normaal gedrag in werkt.",
+      },
+      {
+        vraag: "Wat werkt beter dan een huishoudboekje?",
+        antwoord:
+          "Structuur in plaats van registratie. Zodra je salaris binnenkomt gaat een vast deel naar je vaste lasten, een deel naar sparen en een deel naar dagelijkse uitgaven, elk op een eigen plek. Wat op je uitgavenrekening staat mag op. De verdeling doet dan het werk.",
+      },
+      {
+        vraag: "Wanneer is een huishoudboekje wel zinvol?",
+        antwoord:
+          "Tijdelijk, als je een paar weken wilt ontdekken waar je geld precies blijft. Zie het als een momentopname, niet als een gewoonte voor altijd. Daarna zet je de structuur op en kun je het boekje weer loslaten.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud, inzicht in je uitgaven en rekentools",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+    ],
+  },
+  {
+    slug: "piekeren-over-geld",
+    korteTitel: "Piekeren over geld",
+    titel: "Piekeren over geld terwijl het eigenlijk goed gaat",
+    metaTitel: "Piekeren over geld terwijl het goed gaat: wat helpt",
+    metaDescription:
+      "Wakker liggen van geld terwijl het op papier prima gaat? Waarom dat door onzekerheid komt en niet door een tekort, en een eerste stap om het uit je hoofd te krijgen.",
+    datum: "2026-07-11",
+    datumFormatted: "11 juli 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Je rekeningen kun je gewoon betalen, en toch lig je er soms wakker van. Waarom piekeren over geld zelden door een tekort komt en bijna altijd door onzekerheid en gebrek aan overzicht, en hoe overzicht die onrust wegneemt.",
+    preview: {
+      type: "pijn",
+      label: "Hoe geldpiekeren voelt",
+      items: [
+        "Onrust op de achtergrond, ook als het goed gaat",
+        "Wakker liggen of erover malen op verkeerde momenten",
+        "Een vaag gevoel dat het niet klopt, zonder cijfers",
+        "Piekeren dat in kringetjes draait en niets oplost",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Waarom pieker ik over geld terwijl het goed gaat?",
+        antwoord:
+          "Onrust ontstaat niet door hoeveel je hebt, maar door hoeveel je overziet. Als je niet precies weet wat er binnenkomt, uitgaat en overblijft, vult je hoofd dat gat met een vaag gevoel dat het misschien niet klopt. Dat gevoel staat los van je werkelijke situatie.",
+      },
+      {
+        vraag: "Helpt piekeren ergens tegen?",
+        antwoord:
+          "Nee. Piekeren voelt alsof je met het probleem bezig bent, maar het verandert niets en draait in kringetjes, vaak op momenten dat je er niets aan kunt doen. Overzicht doorbreekt dat: je hoofd krijgt iets concreets om op te rusten en stopt met invullen.",
+      },
+      {
+        vraag: "Wat kan ik doen om er vanaf te komen?",
+        antwoord:
+          "Zet het uit je hoofd en op papier. Pak de afschriften van de laatste twee maanden en zet je vaste lasten, dagelijkse uitgaven en wat overblijft op een rij. Alleen al het opschrijven haalt de zorg uit de vage sfeer en maakt er iets van dat je kunt bekijken.",
+      },
+      {
+        vraag: "Wanneer is het meer dan geld alleen?",
+        antwoord:
+          "Als de onrust dieper zit dan de cijfers en je slaap of je rust blijft raken. Praat er dan over met iemand die je vertrouwt of met je huisarts. Overzicht in je geld kan helpen, maar het is geen vervanging voor die steun als je hoofd om meer vraagt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud, financiele weerbaarheid",
+        url: "https://www.nibud.nl/onderwerpen/rondkomen/",
+      },
+    ],
+  },
+  {
     slug: "wat-kost-een-financieel-coach",
     korteTitel: "Wat kost een financieel coach?",
     titel: "Wat kost een financieel coach? Tarieven in 2026",
@@ -2528,10 +2786,10 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "goed-salaris-toch-krap",
-    korteTitel: "Goed salaris, toch krap — waarom?",
+    korteTitel: "Goed salaris en toch krap",
     titel:
-      "Goed salaris, toch krap aan het einde van de maand — hoe kan dat?",
-    metaTitel: "Goed salaris, toch krap — hoe kan dat?",
+      "Goed salaris en toch krap? Dat ligt niet aan jou",
+    metaTitel: "Goed salaris en toch krap? Zo kan dat",
     metaDescription:
       "Goed verdienen maar toch weinig over? Je bent niet de enige. Ontdek waarom het geld verdwijnt en wat je er zonder grote offers aan kunt doen.",
     datum: "2026-05-19",

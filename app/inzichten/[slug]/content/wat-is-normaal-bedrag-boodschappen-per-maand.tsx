@@ -48,10 +48,9 @@ export default function WatIsNormaalBedragBoodschappen() {
       </div>
 
       <p className="font-body text-sm mb-8" style={{ color: "#4A5A56" }}>
-        Wil je weten waar het bij jóú weglekt, niet alleen bij boodschappen?{" "}
-        <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", fontWeight: 500, textDecoration: "none" }}>
-          Laat mij je cijfers nakijken met de geldscan (€49) &rarr;
-        </Link>
+        Benieuwd hoe jouw boodschappen en andere uitgaven zich verhouden tot vergelijkbare huishoudens?{" "}
+        <Link href="/analyse" className="hover:underline" style={{ color: "#0B7A6E", fontWeight: 500, textDecoration: "none" }}>Doe de gratis analyse</Link>. Wil je dat ik er persoonlijk naar kijk, dan kan dat met de{" "}
+        <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", fontWeight: 500, textDecoration: "none" }}>geldscan (€49)</Link>.
       </p>
 
       <p className="font-body text-text-soft" style={p}>

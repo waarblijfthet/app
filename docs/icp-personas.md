@@ -150,6 +150,65 @@ Toetsing: gebruik Petra bij elke structuur- of copyronde op artikelen. Kernvraag
 krijgt een scannende mobiele bezoeker binnen 5 seconden het antwoord, en wordt
 de belofte bovenin waargemaakt?
 
+## Competitieve aanscherping (11-jul-2026)
+
+Aanleiding: teardown van twee NL-concurrenten die live in de SERP opdoken bij
+het keyword-onderzoek (zie docs/concurrentie-en-content-onderzoek-juli-2026.md).
+
+**Kernbevinding: onze positionering is niet uniek in NL.**
+
+- **Budgetbuddy.nl (Carolien Vos)** bezet vrijwel exact ons vierkant. Hero:
+  "Je verdient goed. Maar doe je het eigenlijk wel goed?" en "Een goed inkomen,
+  maar houd je ook genoeg over?". Ik-vorm, persoonlijk merk met gezicht,
+  expliciet "ik geloof niet in schuldgevoel, ingewikkelde spreadsheets of
+  eindeloos besparen", en de rich-life-boodschap ("geld draait om de vrijheid
+  om keuzes te maken die passen bij het leven dat jij wilt leiden"). Groeimotor:
+  wekelijkse Geld & Geluk-podcast, AD-column, online training "Rust op je
+  Rekening", 6-maanden-traject "Money Masterplan". Vijf jaar bezig,
+  vastgoedinvesteerder. **Maar haar ICP is nadrukkelijk ondernemers en
+  professionals**: haar taal draait om omzet, belasting reserveren en de
+  onderneming. Dat is haar wig, en tegelijk haar blinde vlek.
+- **Goedegeldgewoonten.nl** is splinternieuw en breed/generiek: "financiele
+  rust zonder perfect geldsysteem", gedrag en gewoonten boven cijfers, geen
+  scherpe ICP ("de meeste mensen weten best wat verstandig is"). Producten:
+  online trainingen en een B2B werkvloer-programma. Geen persoonlijk
+  diagnostisch product, geen gezicht op de voorgrond.
+
+**Implicatie voor onze ICP.** We kunnen ons niet meer onderscheiden op "rust",
+"rich life" of "geen eindeloos besparen": dat is in NL inmiddels table stakes,
+Carolien claimt het al. Het onderscheid moet zitten in segment en product:
+
+1. **Segment: loondienst, niet de ondernemer.** Carolien is sterk bij
+   ondernemers/zzp (omzet, belastingreservering). Onze scherpste, minst
+   betwiste ruimte is de goedverdiener in loondienst: het tweeverdieners-gezin
+   (Sandra) en de alleenstaande/DINK (Niels). Daar spreekt haar
+   ondernemerstaal niet.
+2. **Niels promoveert tot co-primair naast Sandra.** De alleenstaande/DINK-
+   goedverdiener in loondienst is internationaal een kernsegment (HENRY) en in
+   NL vrijwel onbediend, ook door Carolien en GGG. Dit is onze zuiverste wig.
+3. **Ellen (zzp) blijft, maar met waarschuwing.** Zzp is Carolien's thuisbasis.
+   Niet frontaal daar concurreren op coaching/traject; als we zzp bedienen, dan
+   via de laagdrempelige gratis analyse + het goedkope persoonlijke geldrapport
+   als instap, niet met een concurrerend traject.
+4. **Product als differentiatie.** Carolien en GGG verkopen vooraf een cursus of
+   traject. Ons onderscheid is de gratis analyse + het laagdrempelige
+   persoonlijke geldrapport (49 euro) als instap, en brutaal-concrete "waar
+   blijft het bij jou"-inhoud met echte bedragen. Diagnose eerst, geen cursus
+   vooraf.
+5. **Toon als differentiatie.** Carolien en GGG duwen richting vermogen
+   opbouwen, beleggen en vastgoed. Wij blijven bij eerlijk inzicht en bijsturen,
+   nadrukkelijk geen beleggingsadvies. Dat niet-verkoperige, niet-op-vermogen-
+   gerichte karakter is juist geruststellend voor wie apps en gladde coaches
+   wantrouwt (precies Niels).
+
+**Samengevat: de aangescherpte kern-ICP** is de goedverdiener in loondienst die
+alles op tijd betaalt, niks geks doet en toch structureel niets overhoudt, geen
+zuinigheid wil, geen ondernemer is, en een mens zoekt die eerlijk meekijkt in
+plaats van een cursus of een beleggingsverhaal. Twee dragende profielen: Sandra
+(gezin) en Niels (alleenstaande/DINK). Expliciet niet onze doelgroep: schuldhulp,
+minima, en de hardcore besparer (dat laatste is precies wie het
+boodschappen-artikel nu binnenhaalt).
+
 ## Gebruik bij een nieuwe ICP-toets
 
 Loop bij elke toets alle 6 langs, niet alleen de 3 makkelijkste. Noteer
@@ -159,6 +218,11 @@ product, nieuwe positionering, nieuwe outreach-doelgroep).
 
 ## Wijzigingslog
 
+- 11-jul-2026: competitieve aanscherping toegevoegd na teardown van
+  budgetbuddy.nl (Carolien Vos) en goedegeldgewoonten.nl. Kern-ICP verschoven
+  naar loondienst-goedverdiener; Niels gepromoveerd tot co-primair naast Sandra;
+  differentiatie verlegd van positionering (rust/rich life) naar segment, product
+  en toon.
 - 9-jul-2026: hero- en geldscan-CTA vervangen. "Vind je geldlek (€49)" is
   geschrapt (Jarno vond "geldlek" een AI-woord). Nieuwe primaire CTA:
   "Ja, help mij zien wat er anders kan" (uitkomst-gericht, mens i.p.v.

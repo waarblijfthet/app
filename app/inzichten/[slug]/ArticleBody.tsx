@@ -1,4 +1,9 @@
 import GoedsalarisTochKrap from "./content/goed-salaris-toch-krap";
+import AlleenWonenGoedSalarisTochKrap from "./content/alleen-wonen-goed-salaris-toch-krap";
+import PratenOverGeldMetJePartner from "./content/praten-over-geld-met-je-partner";
+import WaaromLijktIedereenRijker from "./content/waarom-lijkt-iedereen-rijker";
+import MoetJeEenHuishoudboekjeBijhouden from "./content/moet-je-een-huishoudboekje-bijhouden";
+import PiekerenOverGeld from "./content/piekeren-over-geld";
 import BoodschappenDuitslandVoordeel from "./content/boodschappen-duitsland-voordeel";
 import SpaardoelenMaandelijkseInleg from "./content/spaardoelen-maandelijkse-inleg";
 import SalarisverhoginBoven76000 from "./content/salarisverhoging-boven-76000-weinig-netto";
@@ -71,6 +76,11 @@ import WatKostEenFinancieelCoach from "./content/wat-kost-een-financieel-coach";
 import VerschilBudgetcoachFinancieelCoach from "./content/verschil-budgetcoach-financieel-coach";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "alleen-wonen-goed-salaris-toch-krap": AlleenWonenGoedSalarisTochKrap,
+  "praten-over-geld-met-je-partner": PratenOverGeldMetJePartner,
+  "waarom-lijkt-iedereen-rijker": WaaromLijktIedereenRijker,
+  "moet-je-een-huishoudboekje-bijhouden": MoetJeEenHuishoudboekjeBijhouden,
+  "piekeren-over-geld": PiekerenOverGeld,
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
   "boodschappen-duitsland-voordeel": BoodschappenDuitslandVoordeel,
   "spaardoelen-maandelijkse-inleg": SpaardoelenMaandelijkseInleg,
