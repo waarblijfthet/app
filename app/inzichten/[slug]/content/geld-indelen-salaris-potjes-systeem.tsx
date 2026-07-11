@@ -56,6 +56,10 @@ export default function GeldIndelenSalarisPotjesSysteem() {
         beschikbaar. Een potjessysteem draait dat om: je verdeelt je geld vóórdat je het uitgeeft.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: verdeel je salaris meteen bij binnenkomst over een paar rekeningen, in plaats van alles op een rekening te laten staan. Met drie tot vier potjes voor vaste lasten, dagelijks leven en sparen betaal je jezelf eerst en hoef je niets bij te houden.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Jezelf eerst betalen
       </h2>

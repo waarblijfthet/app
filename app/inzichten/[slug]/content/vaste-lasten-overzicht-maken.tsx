@@ -57,6 +57,10 @@ export default function VasteLastenOverzichtMaken() {
         allemaal op een rij.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: een compleet overzicht van je vaste lasten maak je in vier stappen. De winst zit in de posten die bijna iedereen vergeet, en in zien waar je onnodig lang vastligt. Hieronder stap voor stap.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat valt er allemaal onder vaste lasten?
       </h2>

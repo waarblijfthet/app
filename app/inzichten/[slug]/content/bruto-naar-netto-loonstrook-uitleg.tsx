@@ -57,6 +57,10 @@ export default function BrutoNaarNettoLoonstrookUitleg() {
         2026.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: van je brutoloon gaat een flink deel naar belasting en premies. In 2026 gelden drie schijven in box 1, en wat je netto overhoudt hangt af van je inkomen en heffingskortingen. Hieronder leg ik de begrippen op je loonstrook stap voor stap uit.
+      </p>
+
       <h2 className="font-display" style={h2}>
         De begrippen op je loonstrook
       </h2>

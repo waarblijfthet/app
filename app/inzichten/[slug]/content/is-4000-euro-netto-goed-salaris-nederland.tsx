@@ -48,6 +48,10 @@ export default function Is4000EuroNettoGoedSalaris() {
 
       <WerkelijkeVerdeling />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: 4.000 euro netto valt in de top 25 procent van Nederland. Toch houdt een gezin met koopwoning en twee kinderen daar vaak minder dan 500 euro van over. Dat ligt niet aan je inkomen, maar aan de vaste lasten die zijn meegegroeid.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat is €4.000 netto waard in 2026?
       </h2>

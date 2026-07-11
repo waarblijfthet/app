@@ -61,6 +61,10 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
         budgetadvies. Dit overzicht is specifiek voor jou.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: als alleenstaande ouder heb je in een middelgrote stad al snel 2.600 tot 3.000 euro netto per maand nodig voor een kind, inclusief een kleine buffer. Toeslagen en de ALO-kop maken een groot verschil. Hieronder de kosten en regelingen op een rij.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat kosten kinderen extra als je alleen bent?
       </h2>

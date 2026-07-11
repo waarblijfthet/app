@@ -51,6 +51,10 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
 
       <PrijsvergelijkingTabel />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: een boodschappenmandje is in Duitsland gemiddeld zo’n 15 procent goedkoper, en op drogisterij en A-merken loopt dat op tot de helft. Hieronder een exacte prijsvergelijking per winkel, zodat je niet hoeft te gokken.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Niet alles is goedkoper, dit moet je weten
       </h2>

@@ -45,6 +45,10 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
 
       <NibudVergelijker />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: het Nibud houdt 627 euro aan voor een gezin van vier, maar dat is een minimum dat bijna niemand haalt. In de praktijk ligt het vaak flink hoger, en dat komt niet door verspilling. Hieronder het eerlijke verhaal achter de norm.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat meet het Nibud eigenlijk?
       </h2>

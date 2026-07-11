@@ -61,6 +61,10 @@ export default function KostenLevensonderhoudAlleenstaande50Plus2026() {
         plaatje staat of valt met wat jij zelf hebt opgebouwd.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: als alleenstaande 50-plusser bouw je pensioen op op een inkomen. De AOW voor alleenstaanden is in 2026 ongeveer 1.400 euro netto per maand, structureel minder dan wat twee partners samen krijgen. Hieronder wat je nu nog kunt bijsturen.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat verandert er aan kosten boven de 50?
       </h2>

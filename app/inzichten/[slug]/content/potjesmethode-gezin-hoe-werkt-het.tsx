@@ -46,6 +46,10 @@ export default function PotjesmethodeGezinHoeWerktHet() {
 
       <PotjesVisualisatie />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: de potjesmethode werkt, maar niet zoals de meeste uitleg het brengt. Je verdeelt je inkomen meteen bij binnenkomst over aparte rekeningen of doelen. Hieronder hoe je dat praktisch inricht voor een gezin, zonder gedoe en zonder spreadsheets.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Waarom werkt de potjesmethode terwijl budgetteren dat niet doet?
       </h2>

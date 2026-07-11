@@ -39,6 +39,10 @@ export default function SpaardoelenMaandelijkseInleg() {
         huishoudens het niet, blijkt uit onderzoek van Deloitte uit 2024.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: sparen lukt pas als je weet waarvoor je spaart. Een concreet doel plus een vast, haalbaar maandbedrag werkt beter dan een vaag voornemen. Begin met wat kan, ook al is het 5 procent, en automatiseer het.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat is een spaardoel precies?
       </h2>

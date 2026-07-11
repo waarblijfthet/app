@@ -39,6 +39,10 @@ export default function WaarBlijftHetBijFatima() {
         betekenen.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: Fatima woont alleen, verdient prima, en toch is het elke maand op. Dit voorbeeld laat post voor post zien waar haar geld heen gaat, en dat het aan de structuur ligt en niet aan haar inkomen.
+      </p>
+
       <h2 className="font-display" style={h2}>Het profiel</h2>
       <p className="font-body text-text-soft" style={p}>
         Netto inkomen: €2.900 per maand plus toeslagen. Gezin: één volwassene,

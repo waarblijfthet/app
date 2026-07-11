@@ -42,6 +42,10 @@ export default function WaarBlijftHetBijSanneEnJoost() {
         spaarrekening.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: Sanne en Joost verdienen 6.200 euro netto en houden toch bijna niets over. Dit voorbeeld laat zien dat het probleem zit in posten die meegroeiden met het inkomen, en dat meer verdienen het zelden oplost.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Het profiel
       </h2>

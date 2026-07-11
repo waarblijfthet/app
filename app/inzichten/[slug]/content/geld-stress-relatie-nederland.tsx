@@ -51,6 +51,10 @@ export default function GeldStressRelatieNederland() {
 
       <GeldRelatieStats />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: de helft van de Nederlandse stellen heeft ooit ruzie over geld gehad, maar de meeste praten er nauwelijks over. Het gaat zelden echt over geld en meestal over zekerheid en verwachtingen. Het gesprek helpt pas als het zonder verwijt begint.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Waarom praten stellen zo moeilijk over geld?
       </h2>

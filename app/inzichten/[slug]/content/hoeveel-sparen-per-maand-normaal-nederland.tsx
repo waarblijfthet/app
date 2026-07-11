@@ -49,6 +49,10 @@ export default function HoeveeSpaarenPerMaandNormaal() {
 
       <SpaarRealiteit />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: het Nibud adviseert 10 procent, maar de gemiddelde Nederlander spaart zo’n 6,5 procent en ruim een kwart spaart niets. Je bent dus niet raar als sparen nu niet lukt. Begin met een haalbaar bedrag en automatiseer het.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat de cijfers werkelijk zeggen
       </h2>

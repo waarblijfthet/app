@@ -56,6 +56,10 @@ export default function WatZijnNormaleVasteLastenGezin() {
 
       <VasteLastenRadar />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: voor een gezin liggen de vaste lasten in 2026 gemiddeld tussen 2.600 en 3.200 euro per maand, exclusief boodschappen. Wat normaal is hangt sterk af van je woonsituatie. De meeste bespaarruimte zit in de posten die stil zijn opgelopen.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat telt mee als vaste last, en wat niet?
       </h2>

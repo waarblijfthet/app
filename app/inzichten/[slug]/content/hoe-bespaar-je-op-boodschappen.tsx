@@ -51,6 +51,10 @@ export default function HoeBespaarJeOpBoodschappen() {
 
       <BoodschappenLekkage />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: je bespaart niet op boodschappen met bezuinigingstips, maar door te snappen waar het ongemerkt weglekt. Met een vaste boodschappendag en een weekmenu besparen gezinnen al snel 100 tot 200 euro per maand, zonder soberder te eten.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Waarom weten mensen niet wat ze uitgeven aan boodschappen?
       </h2>

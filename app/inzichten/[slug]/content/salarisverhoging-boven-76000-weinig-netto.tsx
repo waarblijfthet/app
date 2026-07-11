@@ -34,6 +34,10 @@ export default function SalarisverhoginBoven76000() {
         circa 76.000 euro bruto per jaar komt.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: boven 78.426 euro gaat 49,5 procent van elke extra euro naar de belasting, maar al vanaf ongeveer 43.000 euro drukt de afbouw van heffingskortingen je nettovoordeel. Daardoor voelt een opslag vaak kleiner dan je verwacht.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Hoe werken de belastingschijven in 2026?
       </h2>

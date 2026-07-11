@@ -29,6 +29,10 @@ export default function GeldmythesDieJeArmHouden() {
         werkelijk klopt.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: een paar hardnekkige overtuigingen over geld houden je onbedoeld krap, zoals het idee dat sparen vanzelf lukt als je meer verdient. Hieronder de vijf mythes die ik het vaakst tegenkom, en wat er echt klopt.
+      </p>
+
       <h2 className="font-display" style={h2}>Mythe 1: &ldquo;Sparen lukt vanzelf als ik meer verdien&rdquo;</h2>
       <p className="font-body text-text-soft" style={p}>
         Klinkt logisch, maar de praktijk laat het tegenovergestelde zien. Naarmate

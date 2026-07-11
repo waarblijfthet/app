@@ -58,6 +58,10 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
         beste hangt af van jullie situatie.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: bij ongelijke inkomens is verdelen naar rato meestal het eerlijkst. Ieder betaalt een deel van de gezamenlijke kosten dat past bij zijn aandeel in het totale inkomen. Hieronder de drie methodes met een rekenvoorbeeld.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Manier 1: ieder de helft
       </h2>

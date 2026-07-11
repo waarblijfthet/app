@@ -38,6 +38,10 @@ export default function WaarBlijftHetBijMarkEnLisa() {
         En toch is het elke maand passen en meten.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: Mark en Lisa hebben met 4.000 euro netto en twee jonge kinderen een top-25-procent-inkomen, en toch is het elke maand passen en meten. Op papier houden ze zo’n 505 euro over, maar boodschappen en abonnementen die oplopen eten dat op.
+      </p>
+
       <h2 className="font-display" style={h2}>Het profiel</h2>
       <p className="font-body text-text-soft" style={p}>
         Netto inkomen: €4.000 per maand (1,5 inkomen). Gezin: twee volwassenen,

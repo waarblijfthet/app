@@ -57,6 +57,10 @@ export default function VakantiegeldNettoHoeveelHouJeOver2026() {
         de cijfers van 2026.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: je vakantiegeld valt netto tegen door het bijzonder tarief, waardoor er meer belasting af lijkt te gaan dan je gewend bent. Over het hele jaar klopt het meestal wel, maar het voelt als minder. Hieronder de nettobedragen voor 2026 en hoe je voorkomt dat het ongemerkt verdwijnt.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Hoe wordt vakantiegeld opgebouwd?
       </h2>

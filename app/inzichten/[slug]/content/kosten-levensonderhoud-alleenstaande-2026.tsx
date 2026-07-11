@@ -158,6 +158,10 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
 
       <AlleenstaandeUitgaven />
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: als alleenstaande liggen de vaste lasten in 2026 gemiddeld tussen de 2.000 en 2.400 euro per maand, afhankelijk van woonsituatie en regio. Je draagt alles op een inkomen, en juist daar zit vaak de meeste ruimte.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat zijn de grootste kostenposten voor een alleenstaande?
       </h2>

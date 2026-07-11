@@ -41,6 +41,10 @@ export default function BoodschappenDuitslandVoordeel() {
         het je kost om bij die kassa te komen.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: boodschappen in Duitsland zijn gemiddeld zo’n 15 procent goedkoper, en bij A-merken en drogisterij loopt dat op tot 25 tot 50 procent. Of het echt loont hangt af van je reistijd en benzine, dus die reken ik hieronder eerlijk mee.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Waar zit het prijsverschil precies?
       </h2>

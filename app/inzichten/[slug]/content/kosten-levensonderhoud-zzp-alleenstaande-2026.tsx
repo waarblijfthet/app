@@ -60,6 +60,10 @@ export default function KostenLevensonderhoudZZPAlleenstaande2026() {
         dan de meeste financiële modellen voor werknemers voorschrijven.
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: als zzp-alleenstaande combineer je een wisselend inkomen met alle vaste lasten op een naam. Reserveer minimaal zes maanden aan vaste lasten plus je reserveringen voor belasting, AOV en pensioen. Hieronder wat je nodig hebt en hoe groot je buffer moet zijn.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Wat zijn de extra kosten ten opzichte van een werknemer?
       </h2>

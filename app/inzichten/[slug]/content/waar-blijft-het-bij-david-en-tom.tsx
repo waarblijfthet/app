@@ -38,6 +38,10 @@ export default function WaarBlijftHetBijDavidEnTom() {
         dat?
       </p>
 
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kort gezegd: David en Tom verdienen samen 5.500 euro netto, hebben geen kinderen en geen auto, en houden toch weinig over. Dit voorbeeldstel laat zien dat lifestyle-inflatie ook zonder grote kostenposten alle ruimte opeet, en dat structuur meer oplevert dan meer verdienen.
+      </p>
+
       <h2 className="font-display" style={h2}>Het profiel</h2>
       <p className="font-body text-text-soft" style={p}>
         Netto inkomen: €5.500 per maand. Huishouden: twee volwassenen, geen
