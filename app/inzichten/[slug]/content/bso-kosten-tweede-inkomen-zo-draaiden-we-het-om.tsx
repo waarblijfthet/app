@@ -69,7 +69,7 @@ export default function BsoKostenTweedeInkomen() {
         ["Dagen BSO", "3", "1"],
         ["Eigen bijdrage opvang", "± €520/mnd", "± €175/mnd"],
         ["Rust thuis", "Gejaagd", "Merkbaar meer"],
-        ["Netto effect per maand", "—", "+ ± €345"],
+        ["Netto effect per maand", "n.v.t.", "+ ± €345"],
       ]} />
       <p className="font-body text-text-soft" style={p}>
         Belangrijk: dit is geen pleidooi om minder te werken, voor sommige gezinnen zijn die dagen onmisbaar. Het punt is dat ze het nooit hadden <em>doorgerekend</em>. Toen ze dat deden, bleek de "vanzelfsprekende" derde dag hen meer te kosten dan op te leveren. De maximale vergoede opvanguurprijs is in 2026 €9,98; hoeveel je zelf betaalt hangt sterk af van je inkomen.

@@ -136,8 +136,8 @@ export default function WatKostEenFinancieelAdviseur() {
       </p>
       <ul className="space-y-2 mb-5" style={{ paddingLeft: "1.25rem" }}>
         {[
-          "Een inventarisatie van je situatie (1–2 uur, dus €150–€600 alleen al voor het intakegesprek)",
-          "Een financieel plan op maat, inclusief pensioen, vermogen en risico (2–5 uur)",
+          "Een inventarisatie van je situatie (1 tot 2 uur, dus €150 tot €600 alleen al voor het intakegesprek)",
+          "Een financieel plan op maat, inclusief pensioen, vermogen en risico (2 tot 5 uur)",
           "Jaarlijkse herziening, opnieuw betaald",
         ].map((item, i) => (
           <li key={i} className="font-body text-sm" style={{ color: "#4A5A56", listStyleType: "disc" }}>{item}</li>
@@ -150,7 +150,7 @@ export default function WatKostEenFinancieelAdviseur() {
       <div className="rounded-xl p-5 my-6" style={{ backgroundColor: "#FEF9EC", border: "1.5px solid #E8C870" }}>
         <p className="font-body font-semibold text-xs uppercase tracking-wide mb-2" style={{ color: "#92600A" }}>Verborgen kosten</p>
         <p className="font-body text-sm" style={{ color: "#0A6A5F" }}>
-          Niet alle adviseurs werken op uurbasis. Sommige rekenen een percentage van je vermogen (0,5–1,5% per jaar) of krijgen provisie van producten die ze adviseren. Bij €200.000 vermogen is 1% per jaar €2.000, elk jaar opnieuw. Vraag altijd expliciet hoe een adviseur wordt betaald voordat je een gesprek inplant.
+          Niet alle adviseurs werken op uurbasis. Sommige rekenen een percentage van je vermogen (0,5 tot 1,5% per jaar) of krijgen provisie van producten die ze adviseren. Bij €200.000 vermogen is 1% per jaar €2.000, elk jaar opnieuw. Vraag altijd expliciet hoe een adviseur wordt betaald voordat je een gesprek inplant.
         </p>
       </div>
 
@@ -209,7 +209,7 @@ export default function WatKostEenFinancieelAdviseur() {
 
       <h2 className="font-display" style={h2}>Voor wie is welk type advies?</h2>
       <p style={p}>
-        Hypotheek, vermogensbeheer, pensioenoverdracht, beleggingsverzekering → gecertificeerde Wft-adviseur nodig. Reken op €150–€300/uur, minimaal twee uur.
+        Hypotheek, vermogensbeheer, pensioenoverdracht, beleggingsverzekering → gecertificeerde Wft-adviseur nodig. Reken op €150 tot €300 per uur, minimaal twee uur.
       </p>
       <p style={p}>
         Maandbudget inzichtelijk maken, uitgavenpatroon begrijpen, grip op vaste lasten, concrete doelen stellen → geen Wft-adviseur nodig. Een eenmalig{" "}

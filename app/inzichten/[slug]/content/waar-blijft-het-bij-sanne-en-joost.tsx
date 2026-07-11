@@ -73,7 +73,7 @@ export default function WaarBlijftHetBijSanneEnJoost() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Twee afwijkingen springen eruit. De boodschappen liggen structureel
-        €400–500 boven wat je zou verwachten, deels onvermijdelijk (pubers eten
+        €400 tot €500 boven wat je zou verwachten, deels onvermijdelijk (pubers eten
         nu eenmaal veel), deels door dagelijks los winkelen zonder weekmenu. En
         de tweede auto via private lease is een vaste last die er ooit
         &ldquo;even bij&rdquo; kwam en nooit meer ter discussie stond.
@@ -90,7 +90,7 @@ export default function WaarBlijftHetBijSanneEnJoost() {
       <p className="font-body text-text-soft" style={p}>
         Een gezin met hetzelfde inkomen dat de boodschappen terugbrengt naar
         €850 en de tweede auto inruilt voor af en toe huren of een goedkopere
-        occasion, houdt al snel €600–700 per maand over in plaats van €150.
+        occasion, houdt al snel €600 tot €700 per maand over in plaats van €150.
         Zonder dat het leven wezenlijk soberder voelt. Het verschil is niet meer
         verdienen, het is structuur, precies zoals bij{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.

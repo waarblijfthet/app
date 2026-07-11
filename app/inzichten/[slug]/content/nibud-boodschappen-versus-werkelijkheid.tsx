@@ -127,7 +127,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
         drastisch te bezuinigen, maar door te begrijpen waar het geld naartoe
         gaat. Voedselverspilling, tussendoor-aankopen, drogisterij in de
         supermarkt: dat zijn de drie categorieën met de meeste winst per
-        geïnvesteerde minuut. Meer over die aanpak lees je in ons artikel over{" "}
+        geïnvesteerde minuut. Meer over die aanpak lees je in het artikel over{" "}
         <Link
           href="/inzichten/hoe-bespaar-je-op-boodschappen"
           style={{ color: "#0B7A6E", textDecoration: "none" }}

@@ -62,7 +62,7 @@ export default function HogereHypotheekWatKostHetPerMaand() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je zien hoeveel ruimte jullie woonlasten nu laten?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}— wonen is de eerste categorie die we vergelijken.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>. Wonen is de eerste categorie die ik vergelijk.
       </p>
     </>
   );

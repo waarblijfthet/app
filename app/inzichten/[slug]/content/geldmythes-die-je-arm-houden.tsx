@@ -25,7 +25,7 @@ export default function GeldmythesDieJeArmHouden() {
 
       <p className="font-body text-text-soft" style={p}>
         Rond geld leven hardnekkige aannames die logisch klinken, maar je juist
-        krap houden. Dit zijn er vijf die we het vaakst tegenkomen, en wat er
+        krap houden. Dit zijn er vijf die ik het vaakst tegenkom, en wat er
         werkelijk klopt.
       </p>
 

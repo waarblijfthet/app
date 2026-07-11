@@ -52,7 +52,7 @@ export default function ModaalInkomen2026() {
         pensioenpremie, of je alleenverdiener bent of niet, en eventuele
         toeslagen. Voor je huishoudboekje telt alleen het nettobedrag, en dat
         ligt voor een modaal inkomen ergens rond de €2.700 à €3.100 per maand.
-        Meer over dit verschil in onze{" "}
+        Meer over dit verschil in mijn{" "}
         <Link href="/woordenlijst" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">woordenlijst</Link>.
       </p>
 
@@ -61,7 +61,7 @@ export default function ModaalInkomen2026() {
         Je hoort vaak &ldquo;twee keer modaal&rdquo; (rond €96.000 bruto samen)
         of &ldquo;anderhalf keer modaal&rdquo;. Veel tweeverdieners zitten daar
         samen ruim boven, en tóch voelt het krap. Dat is geen toeval, het is
-        precies het patroon dat we beschrijven bij{" "}
+        precies het patroon dat ik beschrijf bij{" "}
         <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap</Link>.
       </p>
 

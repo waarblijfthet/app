@@ -60,7 +60,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Verse producten zoals groente en fruit zijn in Duitsland niet altijd
-        goedkoper. Soms zelfs duurder. Ook typisch Nederlandse producten —
+        goedkoper. Soms zelfs duurder. Ook typisch Nederlandse producten,
         stroopwafels, hagelslag, pindakaas huismerk, zijn in Nederland vaak
         goedkoper omdat Nederlandse fabrikanten juist voor die producten scherp
         zitten.
@@ -71,7 +71,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
         honderden euro&apos;s per jaar kost.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Een gezin dat maandelijks €60 uitgeeft aan drogisterijproducten —
+        Een gezin dat maandelijks €60 uitgeeft aan drogisterijproducten,
         wasmiddel, tandpasta, shampoo, babyspullen, schoonmaakmiddelen, betaalt
         op jaarbasis €720. Koop je die producten consequent in Duitsland, dan
         betaal je volgens de Consumentenbond gemiddeld de helft. Dat is €360
@@ -111,7 +111,7 @@ export default function VergelijkenBoodschappenNederlandDuitsland() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Nog een praktisch punt: neem contant geld mee. Niet alle kleine winkels
-        accepteren Nederlandse betaalpassen. En vergeet het statiegeld niet —
+        accepteren Nederlandse betaalpassen. En vergeet het statiegeld niet:
         lever het in bij Kaufland, want hun automaten accepteren alle soorten
         verpakkingen.
       </p>

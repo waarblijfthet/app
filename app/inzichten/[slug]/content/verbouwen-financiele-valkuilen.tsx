@@ -41,7 +41,7 @@ export default function VerbouwenFinancieleValkuilen() {
         Meerwerk, tegenvallers achter de muur, en &ldquo;nu we toch bezig
         zijn&rdquo;-keuzes: een verbouwing eindigt zelden op het beginbedrag. Een
         realistische marge van 10 tot 20% bovenop de offerte is geen luxe maar een
-        noodzaak. Wie zonder marge begint, financiert de uitloop uit de buffer —
+        noodzaak. Wie zonder marge begint, financiert de uitloop uit de buffer,
         of erger, uit een lening.
       </p>
 
@@ -50,7 +50,7 @@ export default function VerbouwenFinancieleValkuilen() {
         Een verbouwing meenemen in de hypotheek maakt het maandelijks behapbaar,
         maar het is geen gratis geld: het verhoogt je woonlast voor jaren. Reken
         het door zoals bij elke{" "}
-        <Link href="/inzichten/hogere-hypotheek-wat-kost-het-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hogere hypotheek</Link>{" "}— elke €100.000 extra is grofweg €475 per maand.
+        <Link href="/inzichten/hogere-hypotheek-wat-kost-het-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hogere hypotheek</Link>. Elke €100.000 extra is grofweg €475 per maand.
       </p>
 
       <h2 className="font-display" style={h2}>Valkuil 3: de lifestyle-sprong erna</h2>

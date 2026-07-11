@@ -182,7 +182,7 @@ export default function PensioenAanvullenHoeveel() {
         ["Verwacht pensioen Bas", "€820/mnd", "€2.100/mnd"],
         ["Verwacht pensioen Mieke", "€610/mnd", "€2.000/mnd"],
         ["Totaal incl. AOW", "€3.140/mnd", "€4.100/mnd"],
-        ["Netto extra inleg", "—", "€175/mnd"],
+        ["Netto extra inleg", "n.v.t.", "€175/mnd"],
       ]} />
       <p className="font-body text-text-soft" style={p}>
         Bas ontdekte dat zijn werkgever een netto pensioenregeling aanbood waarvoor hij zich nooit had aangemeld. Nul euro kosten, €4.200 extra opbouw per jaar. Mieke begon via haar werkgever een aanvullende lijfrente te storten van €250 bruto per maand, na belastingvoordeel kostte het haar €175 netto.

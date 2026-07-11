@@ -71,7 +71,7 @@ export default function WaarBlijftHetBijMarkEnLisa() {
       <p className="font-body text-text-soft" style={p}>
         Een gezin met hetzelfde inkomen dat de boodschappen terugbrengt naar €700
         met weekmenu&apos;s en de abonnementen opschoont, houdt zonder offers al
-        snel €300–400 per maand meer over. Het verschil is structuur, niet
+        snel €300 tot €400 per maand meer over. Het verschil is structuur, niet
         inkomen, zie{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>

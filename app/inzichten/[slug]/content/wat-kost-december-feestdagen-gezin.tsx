@@ -51,7 +51,7 @@ export default function WatKostDecemberFeestdagenGezin() {
         Kerst: cadeaus én een dure boodschappenweek
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Met kerst geven mensen vaak iets duurdere cadeaus dan met Sinterklaas —
+        Met kerst geven mensen vaak iets duurdere cadeaus dan met Sinterklaas,
         gemiddeld al snel een paar honderd euro aan cadeaus samen. Daar bovenop
         komt het gourmet- of dinerweekend: de boodschappen rond kerst lopen
         gemiddeld zo&apos;n €100 hoger op dan een normale week. En dan is er nog
@@ -65,12 +65,12 @@ export default function WatKostDecemberFeestdagenGezin() {
         Het probleem is niet één post, maar de timing: alles valt in dezelfde
         maand, bovenop je gewone vaste lasten en boodschappen. Wie geen apart
         potje heeft, betaalt het uit het lopende inkomen, precies het patroon
-        dat we beschrijven bij{" "}
+        dat ik beschrijf bij{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Daar bovenop komt de sociale druk. De buren hebben de mooiste
-        kerstverlichting. Op school doet de hele klas mee met de surprise —
+        kerstverlichting. Op school doet de hele klas mee met de surprise,
         en niemand wil zijn kind als enige zonder cadeau sturen. De kinderen
         willen hetzelfde speelgoed als de vriendjes. Dat voelt niet als een
         vrije keuze, dat is gewoon hoe december werkt. En dat maakt

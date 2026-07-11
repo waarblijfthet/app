@@ -74,7 +74,7 @@ export default function LifestyleInflatieMeerVerdienenMeerUitgeven() {
       <p className="font-body text-text-soft" style={p}>
         Naast lifestyle-inflatie speelt er nog iets. Bij hogere inkomens loopt
         een groter deel van elke euro extra weg via belasting en de afbouw van
-        heffingskortingen. Hoe dat precies werkt, lees je in ons artikel over{" "}
+        heffingskortingen. Hoe dat precies werkt, lees je in het artikel over{" "}
         <Link href="/inzichten/salarisverhoging-boven-76000-weinig-netto" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waarom een salarisverhoging boven €76.000 weinig oplevert</Link>.
       </p>
 
@@ -90,14 +90,14 @@ export default function LifestyleInflatieMeerVerdienenMeerUitgeven() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Een vaste verdeling helpt daarbij. Hoe je dat praktisch inricht, staat in
-        ons artikel over de{" "}
+        het artikel over de{" "}
         <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je eerst zien waar jouw extra inkomen nu naartoe gaat?{" "}
         <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}
         en vergelijk jezelf met gezinnen in dezelfde situatie. Kom je er niet
-        uit, dan kijken we via onze{" "}
+        uit, dan kijk ik via mijn{" "}
         <Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}met je mee.
       </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/money-dysmorphia-uitleg" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">money dysmorphia</Link> en <Link href="/inzichten/waar-blijft-mijn-geld-einde-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar je geld blijft</Link>.</p>

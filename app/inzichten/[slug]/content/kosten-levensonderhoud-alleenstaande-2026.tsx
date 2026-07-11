@@ -13,7 +13,7 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function KostenLevensonderhoudAlleenstaande2026() {
   return (
     <>
-      {/* Herken je dit? — persona-selector */}
+      {/* Herken je dit? persona-selector */}
       <div style={{ marginBottom: "2rem" }}>
         <p
           className="font-display"
@@ -22,7 +22,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
           Welke situatie past bij jou?
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" style={{ marginBottom: "0.5rem" }}>
-          {/* Card 1 — Goed salaris, toch krap (actief = dit artikel) */}
+          {/* Card 1: Goed salaris, toch krap (actief = dit artikel) */}
           <div
             className="rounded-xl p-4"
             style={{ border: "2px solid #16211F", backgroundColor: "#F7F8F7" }}
@@ -45,7 +45,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
             </p>
           </div>
 
-          {/* Card 2 — Alleenstaande ouder */}
+          {/* Card 2: Alleenstaande ouder */}
           <Link
             href="/inzichten/kosten-levensonderhoud-alleenstaande-ouder-2026"
             className="rounded-xl p-4 block"
@@ -69,7 +69,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
             </span>
           </Link>
 
-          {/* Card 3 — ZZP */}
+          {/* Card 3: ZZP */}
           <Link
             href="/inzichten/kosten-levensonderhoud-zzp-alleenstaande-2026"
             className="rounded-xl p-4 block"
@@ -93,7 +93,7 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
             </span>
           </Link>
 
-          {/* Card 4 — 50+ */}
+          {/* Card 4: 50+ */}
           <Link
             href="/inzichten/kosten-levensonderhoud-alleenstaande-50-plus-2026"
             className="rounded-xl p-4 block"

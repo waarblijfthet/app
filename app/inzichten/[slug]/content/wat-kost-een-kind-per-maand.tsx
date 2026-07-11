@@ -70,7 +70,7 @@ export default function WatKostEenKindPerMaand() {
         style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
         <p className="font-body text-sm" style={{ color: "#16211F" }}>
-          <strong>Uit de praktijk.</strong> Een gezin met hoge opvangkosten dacht met ons mee over flexibeler werken in plaats van alleen bezuinigen. Twee dagen minder BSO gaf een flinke besparing én meer rust thuis.
+          <strong>Uit de praktijk.</strong> Een gezin met hoge opvangkosten dacht met mij mee over flexibeler werken in plaats van alleen bezuinigen. Twee dagen minder BSO gaf een flinke besparing én meer rust thuis.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>

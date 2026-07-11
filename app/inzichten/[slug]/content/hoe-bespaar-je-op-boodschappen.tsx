@@ -180,7 +180,7 @@ export default function HoeBespaarJeOpBoodschappen() {
         style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
         <p className="font-body text-sm" style={{ color: "#16211F" }}>
-          <strong>Uit de praktijk.</strong> Bij een gezin dat we begeleidden waren de boodschappen het grootste lek: veel impulsaankopen, geen plan. Een weekbudget plus een korte check-in ná elke keer boodschappen hield ze scherp, juist op de momenten dat het misging.
+          <strong>Uit de praktijk.</strong> Bij een gezin dat ik begeleidde waren de boodschappen het grootste lek: veel impulsaankopen, geen plan. Een weekbudget plus een korte check-in ná elke keer boodschappen hield ze scherp, juist op de momenten dat het misging.
         </p>
       </div>
       <p className="font-body text-text-soft" style={p}>

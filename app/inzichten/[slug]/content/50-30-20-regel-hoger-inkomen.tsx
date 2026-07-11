@@ -60,7 +60,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Tegelijk is 20 procent sparen bij een hoger inkomen aan de lage kant. Als
-        je vaste lasten relatief laag blijven, kun je makkelijk meer opzijzetten —
+        je vaste lasten relatief laag blijven, kun je makkelijk meer opzijzetten,
         en dat is precies wat het verschil maakt tussen krap en ruim. Dit is de
         kern van{" "}
         <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>: de uitgaven groeien mee, het sparen niet.
@@ -78,7 +78,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wat een realistisch spaarpercentage is en hoeveel Nederlanders werkelijk
-        sparen, lees je in ons artikel over{" "}
+        sparen, lees je in het artikel over{" "}
         <Link href="/inzichten/hoeveel-sparen-per-maand-normaal-nederland" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoeveel sparen normaal is</Link>.
       </p>
 
@@ -94,7 +94,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
       <p className="font-body text-text-soft" style={p}>
         Benieuwd hoe jouw huidige verdeling eruitziet ten opzichte van
         vergelijkbare gezinnen?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>. Kom je er niet uit, dan kijken we via onze{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>. Kom je er niet uit, dan kijk ik via mijn{" "}
         <Link href="/aanbod" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">begeleiding</Link>{" "}met je mee.
       </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link> en <Link href="/inzichten/budget-maken-dat-je-volhoudt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">een budget dat je volhoudt</Link>.</p>

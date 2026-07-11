@@ -65,7 +65,7 @@ export default function WaarBlijftHetBijDavidEnTom() {
       <h2 className="font-display" style={h2}>Wat een vergelijkbaar stel wél overhoudt</h2>
       <p className="font-body text-text-soft" style={p}>
         Een stel met hetzelfde inkomen dat bewust een spaardoel vooraf afroomt en
-        het &ldquo;uit eten&rdquo;-budget begrenst, zet moeiteloos €800–1.000 per
+        het &ldquo;uit eten&rdquo;-budget begrenst, zet moeiteloos €800 tot €1.000 per
         maand opzij, zonder soberder te leven, alleen bewuster. De truc is geld
         eerst bestemming geven, dan pas uitgeven. Zie de{" "}
         <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.

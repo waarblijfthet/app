@@ -60,7 +60,7 @@ export default function VergetenAbonnementenOpzeggen() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Abonnementen zijn precies zo&apos;n stille kostenpost als de sluipende
-        vaste lasten die we beschrijven in{" "}
+        vaste lasten die ik beschrijf in{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>. Los lijkt elk bedrag klein; samen slaan ze een gat.
       </p>
 

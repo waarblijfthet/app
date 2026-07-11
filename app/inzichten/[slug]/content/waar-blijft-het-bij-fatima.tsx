@@ -72,7 +72,7 @@ export default function WaarBlijftHetBijFatima() {
         gemeentelijke regelingen zijn. Zit je écht klem of dreigen er schulden,
         dan ben je bij een gecertificeerde budgetcoach of bij{" "}
         <a href="https://geldfit.nl" target="_blank" rel="noopener noreferrer" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Geldfit</a>{" "}
-        beter op je plek, en dat zeggen we dan ook gewoon. Meer daarover op onze{" "}
+        beter op je plek, en dat zeg ik dan ook gewoon. Meer daarover op mijn{" "}
         <Link href="/over" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">over-pagina</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>

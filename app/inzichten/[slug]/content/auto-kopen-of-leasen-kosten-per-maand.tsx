@@ -46,7 +46,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
         (brandstof, banden, reparaties). De afschrijving, het waardeverlies van
         de auto, is meestal de grootste én de meest onderschatte post, omdat er
         geen maandelijkse rekening voor binnenkomt. De ANWB rekent voor een
-        gemiddelde middenklasser zo&apos;n €550–650 per maand all-in.
+        gemiddelde middenklasser zo&apos;n €550 tot €650 per maand all-in.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -91,7 +91,7 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
       <p className="font-body text-text-soft" style={p}>
         Wil je zien hoe jullie autokosten zich verhouden tot vergelijkbare
         gezinnen?{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}— vervoer is één van de categorieën die we vergelijken.
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>. Vervoer is één van de categorieën die ik vergelijk.
       </p>
     </>
   );

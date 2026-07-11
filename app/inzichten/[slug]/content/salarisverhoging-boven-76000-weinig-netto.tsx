@@ -12,7 +12,7 @@ export default function SalarisverhoginBoven76000() {
         <ul className="space-y-1.5">
           {[
             "Boven €76.000 houd je van elke €100 salarisverhoging maximaal €50 over, door het toptarief van 49,5%",
-            "De afbouw van heffingskortingen maakt het effectieve tarief tussen €43K en €76K soms 55–60% per extra euro",
+            "De afbouw van heffingskortingen maakt het effectieve tarief tussen €43K en €76K soms 55 tot 60% per extra euro",
             "Dat je bijna niks voelt van een opslag is geen gevoel, het klopt gewoon, en hier is waarom",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
@@ -68,7 +68,7 @@ export default function SalarisverhoginBoven76000() {
         De arbeidskorting bouwt af tussen inkomen van circa 43.000 en 124.000
         euro. In dat traject verlies je bovenop de belasting ook nog eens
         korting, wat je effectieve marginale tarief flink verhoogt. Het
-        gecombineerde marginale tarief, belasting plus afbouw arbeidskorting —
+        gecombineerde marginale tarief, belasting plus afbouw arbeidskorting,
         kan in het traject tussen 43.000 en 76.000 euro oplopen tot 55 tot 60
         procent van elke extra verdiende euro.
       </p>

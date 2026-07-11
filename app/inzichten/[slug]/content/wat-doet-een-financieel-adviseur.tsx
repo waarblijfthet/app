@@ -188,7 +188,7 @@ export default function WatDoetEenFinancieelAdviseur() {
         Bij een gecertificeerde adviseur: alles rondom hypotheek, beleggingen, pensioenplanning, overlijdensrisico, of vermogensoverdracht.
       </p>
       <p style={p}>
-        Bij een financieel coach of budgetadviseur: hoe ons budget eruitziet, waarom we nooit iets overhouden, hoe we een potjessysteem opzetten, wat normaal is voor onze inkomensgroep, en hoe we concrete doelen stellen voor sparen of schulden aflossen.
+        Bij een financieel coach of budgetadviseur: hoe je budget eruitziet, waarom je nooit iets overhoudt, hoe je een potjessysteem opzet, wat normaal is voor jouw inkomensgroep, en hoe je concrete doelen stelt voor sparen of schulden aflossen.
       </p>
       <p style={p}>
         Je kunt ook beide combineren: eerst grip op het maandbudget via een{" "}
