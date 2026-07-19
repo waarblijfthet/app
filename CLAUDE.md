@@ -35,8 +35,7 @@ Wat er staat en werkt:
 1. SQL draaien in Supabase (aangeleverd 19-jul): `outreach_plaats.sql` + de outreach_followup-kolommen.
 2. `git push` (commits 477e446 e.v. staan klaar).
 3. Beslissen vóór/na deploy: 25 oude contacten van 11-jun hebben status verstuurd en 0 follow-ups; de cron stuurt die anders automatisch mail 2. Opschonen of tijdelijk env `OUTREACH_AUTO_FOLLOWUP=uit`.
-4. `TELEFOON` invullen in `lib/outreach/mails.ts` (06 in handtekening verhoogt vertrouwen, persona-getoetst).
-5. Checken of Resend-webhook + `RESEND_WEBHOOK_SECRET` in Vercel staan (open/klik-tracking) en of `supabase/intake_analyse_link.sql` ooit gedraaid is.
+4. Checken of Resend-webhook + `RESEND_WEBHOOK_SECRET` in Vercel staan (open/klik-tracking) en of `supabase/intake_analyse_link.sql` ooit gedraaid is.
 
 **Openstaande prioriteiten daarna (in volgorde):**
 1. Outreach draaien: prospect-zoeker vullen (30 goedgekeurde contacten/week, start relatietherapeuten + burn-out-coaches), 10 mails/dag met verplichte ps-zin, replies bijhouden.
@@ -69,6 +68,7 @@ Strategie, templates en onderbouwing: `docs/outreach-strategie-jul-2026.md`. Per
 Kern (v5, 4 persona-rondes, antwoordkans 5,5-7/10):
 - Mail 1 is zelf de doorverwijzing ("mag ik mensen naar jou sturen?"), micro-vraag, geen link, geen vraag om hun klanten. Bij bekende plaats automatisch een regio-zin. Mail 2 (dag 3-4): geven + vakvraag; hier valt het antwoord. Mail 3 (dag 8-9): breakup, cadeau (A4) of open kaart over het eigen belang.
 - Lessen: nooit hun vak/klant claimen, nooit "eerlijk" zeggen, klein maken is geloofwaardig, micro-vragen winnen, resterend plafond is verifieerbaarheid (zodra er een samenwerkende collega is: als referentie noemen).
+- Vaste keuzes (19-jul): eerste contact altijd per mail, geen bel-uitnodigingen in de copy (beschikbaarheid Jarno; geen telefoonnummer in de handtekening, prive, evt. later apart zakelijk nummer). Onderwerpregel begint met de voornaam (`voornaamVan()` pakt het eerste woord van het naam-veld; let dus op bedrijfsnamen in dat veld).
 - Techniek: teksten in `lib/outreach/mails.ts` (gedeeld door admin-route en cron). Verzenden via admin-tab Outreach (`app/api/admin/outreach/send/route.ts`). Automatische follow-ups: `app/api/cron/outreach-followups/route.ts`, dagelijks 07:15 UTC (vercel.json), FU1 na 3+ dagen, FU2 na 5+ dagen na FU1, max 20/run, kill switch env `OUTREACH_AUTO_FOLLOWUP=uit`, logt naar cron_runs.
 - 4 doelgroepen: relatietherapeuten, budgetcoaches, financieel-planners, burnout-coaches (planners/burn-out afgeleid van de geteste structuur, nog niet zelf getoetst).
 - Volume: 10-15 per dag maximaal (jong domein, zelfde domein als leadmails). Replies zijn de metric. LinkedIn bewust niet (PSOhub-scheiding).

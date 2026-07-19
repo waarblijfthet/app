@@ -22,11 +22,11 @@ De echte conversie gebeurt daarna in de replies (zie het playbook in sectie 5). 
 
 ## 3. Templates (v5, definitief na 4 persona-rondes)
 
-De volledige, actuele copy staat in `app/api/admin/outreach/send/route.ts`; dat is de bron. Hieronder de structuur en de twee volledig geteste sequences. Regels: kaal en plat, ik-vorm, geen em dashes, en **nooit het woord "eerlijk"** (eerlijkheid toon je, die claim je niet; beide persona's vielen erover). De ps_zin is verplicht en moet een inhoudelijk detail bevatten uit hun site of werk, geen compliment ("mooi hoe je schrijft over X" triggert het spamsjabloon-gevoel; "je punt om de beslagvrije voet-berekening klaar te hebben liggen is er zo een die mensen nooit zelf bedenken" werkt wel). Bij relatietherapeuten en burn-out-coaches staat de ps_zin ná de openingsscène, bij budgetcoaches en planners vooraan.
+De volledige, actuele copy staat in `app/api/admin/outreach/send/route.ts`; dat is de bron. Hieronder de structuur en de twee volledig geteste sequences. Regels: kaal en plat, ik-vorm, geen em dashes, en **nooit het woord "eerlijk"** (eerlijkheid toon je, die claim je niet; beide persona's vielen erover). Eerste contact loopt altijd per mail, nooit een bel-uitnodiging in de copy (beschikbaarheid Jarno); geen telefoonnummer in de handtekening (prive; komt eventueel terug met een apart zakelijk nummer). Onderwerpregels beginnen met de voornaam (keuze Jarno 19-jul; kanttekening uit de persona-toets: Marjolein las een voornaam in de onderwerpregel als mailmerge-signaal, dus als de reply-rate tegenvalt is dit de eerste variabele om te A/B-testen). De ps_zin is verplicht en moet een inhoudelijk detail bevatten uit hun site of werk, geen compliment ("mooi hoe je schrijft over X" triggert het spamsjabloon-gevoel; "je punt om de beslagvrije voet-berekening klaar te hebben liggen is er zo een die mensen nooit zelf bedenken" werkt wel). Bij relatietherapeuten en burn-out-coaches staat de ps_zin ná de openingsscène, bij budgetcoaches en planners vooraan.
 
 ### Relatietherapeuten (getest, cumulatieve antwoordkans 5,5/10, plafond voor koud)
 
-**Mail 1. Onderwerp: "mag ik stellen naar jouw praktijk verwijzen?"**
+**Mail 1. Onderwerp: "[Voornaam], mag ik stellen naar jouw praktijk verwijzen?"**
 
 > Beste [naam],
 >
@@ -36,17 +36,17 @@ De volledige, actuele copy staat in `app/api/admin/outreach/send/route.ts`; dat 
 >
 > Wie ik ben: financieel coach, begonnen omdat ik zelf goed verdien en jarenlang niet begreep waarom het nooit klopte. Jij zou een van de eerste relatietherapeuten zijn met wie ik zoiets afspreek; het gaat om enkele stellen per jaar, geen stroom.
 >
-> Ik verwijs niet blind, dus ik wil weten naar wie. Stel me daarom gerust per mail de vragen die je zou stellen aan iedereen die naar je verwijst. Bellen kan ook, maar jij bepaalt het tempo.
+> Ik verwijs niet blind, dus ik wil weten naar wie. Stel me daarom gerust per mail de vragen die je zou stellen aan iedereen die naar je verwijst; jij bepaalt het tempo.
 >
 > PS: liever niet? Eén woordje is genoeg, dan mail ik je niet meer.
 
-**Mail 2 (Re:).** De drie patronen (overzicht ontbreekt bij allebei; vaste lasten meegegroeid; geen vrij bedrag per persoon, dus elke uitgave een potentieel verwijt), plus het omgekeerde aanbod ("loop jij in een casus vast op het feitelijke geldoverzicht, bel me kosteloos") en de kale vakvraag: "Wat doe jij eigenlijk nu als een stel op het geld blijft vastlopen?" Dit is de mail waarop het antwoord komt (6/10).
+**Mail 2 (Re:).** De drie patronen (overzicht ontbreekt bij allebei; vaste lasten meegegroeid; geen vrij bedrag per persoon, dus elke uitgave een potentieel verwijt), plus het omgekeerde aanbod ("loop jij in een casus vast op het feitelijke geldoverzicht, leg hem me per mail voor") en de kale vakvraag: "Wat doe jij eigenlijk nu als een stel op het geld blijft vastlopen?" Dit is de mail waarop het antwoord komt (6/10).
 
 **Mail 3 (Re:).** Breakup + cadeau: "Van de drie patronen heb ik een A4 gemaakt dat je aan een stel kunt meegeven, desgewenst zonder mijn naam erop. Wil je het hebben? Eén woordje is genoeg." Plus: de vraag blijft staan, vragen stellen per mail mag altijd eerst. **Voorwaarde: het A4 moet bestaan vóór de eerste FU2 verstuurd wordt.**
 
 ### Budgetcoaches (getest, cumulatieve antwoordkans 7/10, "een van de weinige koude mails die ik zou beantwoorden")
 
-**Mail 1. Onderwerp: "budgetcoach gezocht voor doorverwijzingen"**
+**Mail 1. Onderwerp: "[Voornaam], ik zoek een budgetcoach om naar door te verwijzen"**
 
 > Beste [naam],
 >
@@ -70,7 +70,7 @@ Zelfde structuur toegepast: planners krijgen de budgetcoach-vorm (doorverwijzing
 
 ## 4. Top 5 actiepunten
 
-1. **Templates staan in de CRM (gedaan, 18-jul; verplaatst naar `lib/outreach/mails.ts`, 19-jul).** De v5-copy is persona-getoetst in 4 rondes. De A4's bestaan inmiddels (`outreach-materiaal/`, 4 varianten: stellen/herstel, met naam/anoniem). Nog twee dingen voor de eerste verzending: (a) vul `TELEFOON` in `lib/outreach/mails.ts` met je 06, (b) zodra de eerste samenwerkende collega er is: noem die als referentie in mail 1, dat was het enige resterende plafond-punt van beide persona's. Nieuw sinds 19-jul: bij een bekende vestigingsplaats krijgt mail 1 automatisch een regio-zin ("ik zoek bewust iemand in de regio X"); onbekende plaats = geen zin, nooit gokken. Follow-ups (mail 2 en 3) gaan automatisch via de dagelijkse cron `/api/cron/outreach-followups` (dag 3-4 en dag 8-9, max 20 per dag, uit te zetten met env `OUTREACH_AUTO_FOLLOWUP=uit`); handmatig versturen blijft werken.
+1. **Templates staan in de CRM (gedaan, 18-jul; verplaatst naar `lib/outreach/mails.ts`, 19-jul).** De v5-copy is persona-getoetst in 4 rondes. De A4's bestaan inmiddels (`outreach-materiaal/`, 4 varianten: stellen/herstel, met naam/anoniem). Nog voor de eerste verzending: zodra de eerste samenwerkende collega er is, die als referentie in mail 1 noemen; dat was het belangrijkste resterende plafond-punt van beide persona's. Telefoonnummer in de handtekening is bewust weggelaten (prive nummer; komt eventueel terug zodra er een apart zakelijk nummer is, de persona's zagen een nummer wel als vertrouwenssignaal). Nieuw sinds 19-jul: bij een bekende vestigingsplaats krijgt mail 1 automatisch een regio-zin ("ik zoek bewust iemand in de regio X"); onbekende plaats = geen zin, nooit gokken. Follow-ups (mail 2 en 3) gaan automatisch via de dagelijkse cron `/api/cron/outreach-followups` (dag 3-4 en dag 8-9, max 20 per dag, uit te zetten met env `OUTREACH_AUTO_FOLLOWUP=uit`); handmatig versturen blijft werken.
 2. **Lijst vullen: 30 goedgekeurde contacten per week.** Prospect-zoeker draaien per doelgroep (admin, tab Prospects), te beginnen met relatietherapeuten en burn-out-coaches: die zitten het dichtst op het emotionele moment waarop de doelgroep in beweging komt. Bronnen: ledenlijsten van beroepsverenigingen (NVRG, EFT-register, NOBCO/beroepsregisters voor coaches) als URL invoeren, en zoekwoorden per stad ("relatietherapeut Utrecht"). Eerst controleren of `supabase/prospect_zoeker.sql` en `supabase/outreach_followup.sql` gedraaid zijn.
 3. **Dagelijkse cadans van 20 minuten.** 10 nieuwe mails per dag (niet meer, jong domein), plus follow-ups via de bestaande knoppen op dag 3-4 en 8-10. De ps_zin is verplicht en is het meeste werk: één oprechte zin over hún site of aanpak ("mooi hoe je op je site schrijft over X"). Zonder die zin is mail 1 een template en werkt het principe niet.
 4. **Reply-playbook hanteren.** Elke reactie krijgt een vast vervolg: (a) "ja, herken ik" → bedanken, kort doorvragen op hun praktijk, en de deelmail-inhoud sturen als die nog niet verstuurd was; bij een tweede warme reply een kort kennismakingsbelletje van 15 minuten voorstellen óf de wederkerige verwijsafspraak concreet maken. (b) "wie ben jij?" → drie zinnen plus de samenwerken-pagina, dit is het enige moment voor die link. (c) "ik verwijs al naar iemand" → vragen wat diegene goed doet, en positioneren als aanvulling voor de klant zonder schulden. (d) "nee" → vriendelijk afsluiten en op Gereageerd zetten. Elke warme reply eindigt in één concrete micro-afspraak, nooit in "laten we contact houden".
