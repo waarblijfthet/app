@@ -9,6 +9,7 @@ import {
   extractEmails,
   extractLinks,
   extractNaam,
+  extractPlaats,
   extractTitle,
   naarTekst,
 } from "./extract";
@@ -29,6 +30,7 @@ const OVERSLAAN_DOMEINEN = [
   "wikipedia.org", "whatsapp.com", "tiktok.com", "pinterest.com",
   "apple.com", "play.google", "vimeo.com", "calendly.com", "spotify.com",
   "duckduckgo.com", "bing.com", "trustpilot.com", "klantenvertellen.nl",
+  "wa.me", "api.whatsapp.com", "linktr.ee", "t.me",
 ];
 
 const CONTACT_HINTS = /contact|over[\s-]?(ons|mij)?$|over-|team|wie[\s-]?(ben|zijn)|praktijk|about/i;
@@ -374,6 +376,12 @@ function bouwProspects(
   const alleTekst = paginas.map((p) => naarTekst(p.html)).join("\n").slice(0, 40_000);
   const { doelgroep, score } = classificeer(alleTekst, vasteDoelgroep);
 
+  let plaats: string | null = null;
+  for (const p of paginas) {
+    plaats = extractPlaats(p.html);
+    if (plaats) break;
+  }
+
   const prospects: GevondenProspect[] = [];
   for (const [email, bron] of Array.from(emailBron.entries())) {
     prospects.push({
@@ -385,6 +393,7 @@ function bouwProspects(
       doelgroep,
       doelgroepScore: score,
       context: contextRondEmail(bron.html, email),
+      plaats,
     });
   }
   return prospects;
@@ -532,6 +541,7 @@ export async function bouwWachtrijVanUrl(
       doelgroep,
       doelgroepScore: score,
       context: contextRondEmail(pagina.html, email),
+      plaats: null,
     });
   }
 

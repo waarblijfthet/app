@@ -13,6 +13,7 @@ interface Prospect {
   doelgroep: string;
   doelgroep_score: number;
   context: string | null;
+  plaats: string | null;
   status: "gevonden" | "goedgekeurd" | "afgewezen";
   created_at: string;
 }
@@ -78,6 +79,7 @@ export default function ProspectsTabblad() {
   const [reviewBezig, setReviewBezig] = useState(false);
   // Lokale, nog niet opgeslagen naamcorrecties (id -> naam)
   const [naamEdits, setNaamEdits] = useState<Record<string, string>>({});
+  const [plaatsEdits, setPlaatsEdits] = useState<Record<string, string>>({});
 
   const laad = useCallback(async () => {
     try {
@@ -218,7 +220,7 @@ export default function ProspectsTabblad() {
     await review([p.id], "goedkeuren");
   }
 
-  async function werkBij(id: string, velden: { naam?: string; doelgroep?: string }) {
+  async function werkBij(id: string, velden: { naam?: string; doelgroep?: string; plaats?: string }) {
     const res = await fetch("/api/admin/prospects/review", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -450,11 +452,13 @@ export default function ProspectsTabblad() {
           <table className="w-full text-sm table-fixed">
             <colgroup>
               <col className="w-9" />
-              <col className="w-44" />
+              <col className="w-40" />
+              <col className="w-48" />
               <col className="w-52" />
-              <col className="w-56" />
-              <col className="w-40" />
-              <col className="w-40" />
+              <col className="w-36" />
+              <col className="w-36" />
+              <col className="w-28" />
+              <col className="w-20" />
               <col />
             </colgroup>
             <thead className="bg-[#F7F8F7] text-text-muted text-xs uppercase tracking-wide">
@@ -471,6 +475,8 @@ export default function ProspectsTabblad() {
                 <th className="text-left px-4 py-3">E-mail</th>
                 <th className="text-left px-4 py-3">Website</th>
                 <th className="text-left px-4 py-3">Categorie</th>
+                <th className="text-left px-4 py-3">Plaats</th>
+                <th className="text-left px-4 py-3">Gevonden</th>
                 <th className="text-left px-4 py-3">Context</th>
               </tr>
             </thead>
@@ -544,6 +550,23 @@ export default function ProspectsTabblad() {
                     {p.doelgroep_score === 0 && (
                       <p className="text-[10px] text-amber-600 mt-1">Niet herkend, controleer</p>
                     )}
+                  </td>
+                  <td className="px-4 py-3">
+                    <input
+                      type="text"
+                      value={plaatsEdits[p.id] ?? p.plaats ?? ""}
+                      onChange={(e) => setPlaatsEdits((m) => ({ ...m, [p.id]: e.target.value }))}
+                      onBlur={(e) => {
+                        const nieuw = e.target.value.trim();
+                        if (nieuw !== (p.plaats ?? "")) werkBij(p.id, { plaats: nieuw });
+                      }}
+                      placeholder="&#8212;"
+                      title="Vestigingsplaats; komt in de mail als regio-zin"
+                      className="w-full text-text-soft bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
+                    />
+                  </td>
+                  <td className="px-4 py-3 text-xs text-text-muted whitespace-nowrap">
+                    {new Date(p.created_at).toLocaleDateString("nl-NL", { day: "2-digit", month: "2-digit" })}
                   </td>
                   <td className="px-4 py-3 text-xs text-text-muted">
                     <span className="line-clamp-2">{p.context ?? ""}</span>

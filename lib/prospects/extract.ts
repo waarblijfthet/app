@@ -73,7 +73,7 @@ export function extractEmails(html: string): string[] {
   const gevonden: string[] = [];
   const zien = new Set<string>();
   const voegToe = (raw: string) => {
-    const email = raw.toLowerCase().replace(/^mailto:/, "").split("?")[0].trim().replace(/\.+$/, "");
+    const email = raw.toLowerCase().replace(/^mailto:/, "").replace(/%20/g, "").split("?")[0].trim().replace(/\.+$/, "");
     if (!email || zien.has(email) || isJunkEmail(email)) return;
     if (!/^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,12}$/.test(email)) return;
     zien.add(email);
@@ -213,4 +213,66 @@ export function extractNaam(html: string, titel: string | null): { naam: string 
 
   if (titel && lijktPersoonsnaam(titel)) return { naam: titel, praktijk: null };
   return { naam: null, praktijk: praktijk ?? titel };
+}
+
+// ── Plaats-extractie ─────────────────────────────────────────────────────────
+
+const PLAATS_STOPWOORDEN = [
+  "nederland", "online", "contact", "praktijk", "route", "adres", "home",
+  "welkom", "postbus", "hier", "overleg",
+];
+
+function plausibelePlaats(s: string): string | null {
+  const schoon = s.trim().replace(/[.,;:]+$/, "");
+  if (schoon.length < 3 || schoon.length > 30) return null;
+  if (/\d/.test(schoon)) return null;
+  if (PLAATS_STOPWOORDEN.includes(schoon.toLowerCase())) return null;
+  if (!/^[A-ZÀ-Ž]/.test(schoon)) return null;
+  if (schoon.split(/[\s-]+/).length > 3) return null;
+  return schoon;
+}
+
+/**
+ * Vestigingsplaats van een praktijk. Geeft alleen een waarde bij hoge
+ * zekerheid (JSON-LD adres of postcode gevolgd door plaatsnaam), anders null.
+ * Een verkeerde plaats in een mail is erger dan geen plaats.
+ */
+export function extractPlaats(html: string): string | null {
+  // 1. JSON-LD PostalAddress.addressLocality (meest betrouwbaar)
+  for (const m of Array.from(html.matchAll(/<script[^>]+type=["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script>/gi))) {
+    try {
+      const stapel: unknown[] = [JSON.parse(m[1])];
+      while (stapel.length) {
+        const item = stapel.pop();
+        if (Array.isArray(item)) { stapel.push(...item); continue; }
+        if (!item || typeof item !== "object") continue;
+        const obj = item as Record<string, unknown>;
+        if (typeof obj.addressLocality === "string") {
+          const plaats = plausibelePlaats(decodeEntities(obj.addressLocality));
+          if (plaats) return plaats;
+        }
+        for (const sleutel of ["address", "@graph", "location", "areaServed"]) {
+          if (obj[sleutel]) stapel.push(obj[sleutel]);
+        }
+      }
+    } catch {
+      // kapot JSON-LD overslaan
+    }
+  }
+
+  const tekst = naarTekst(html);
+
+  // 2. Nederlandse postcode gevolgd door de plaatsnaam ("8032 LC Zwolle")
+  for (const m of Array.from(tekst.matchAll(/\b\d{4}\s?[A-Z]{2}\b[,\s]+([A-ZÀ-Ž][a-zà-žëïö]+(?:[ -](?:aan|de|den|het|op|bij|[A-ZÀ-Ž][a-zà-žëïö]+)){0,2})/g))) {
+    const plaats = plausibelePlaats(m[1]);
+    if (plaats) return plaats;
+  }
+
+  // 3. "praktijk in X" / "gevestigd in X" / "kantoor in X"
+  const m3 = tekst.match(/(?:praktijk|gevestigd|kantoor)\s+(?:is\s+gevestigd\s+)?in\s+(?:hartje\s+)?([A-ZÀ-Ž][a-zà-žëïö]+(?:[ -][A-ZÀ-Ž][a-zà-žëïö]+){0,2})/);
+  if (m3) {
+    const plaats = plausibelePlaats(m3[1]);
+    if (plaats) return plaats;
+  }
+  return null;
 }

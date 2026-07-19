@@ -34,6 +34,8 @@ export interface GevondenProspect {
   doelgroep: Doelgroep;
   doelgroepScore: number;
   context: string | null;
+  /** Vestigingsplaats, alleen gevuld bij hoge zekerheid (JSON-LD adres of postcode+plaats) */
+  plaats: string | null;
 }
 
 export interface ProspectJob {

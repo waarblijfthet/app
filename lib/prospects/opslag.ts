@@ -35,6 +35,7 @@ export async function slaProspectsOp(
       doelgroep: p.doelgroep,
       doelgroep_score: p.doelgroepScore,
       context: p.context,
+      plaats: p.plaats,
     });
     if (!error) opgeslagen += 1;
   }

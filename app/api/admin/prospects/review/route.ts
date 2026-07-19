@@ -44,6 +44,7 @@ export async function POST(req: NextRequest) {
       doelgroep: DOELGROEPEN.includes(p.doelgroep as Doelgroep)
         ? p.doelgroep
         : "relatietherapeuten",
+      plaats: p.plaats ?? null,
     });
     if (error && error.code !== "23505") {
       resultaten.push({ id: p.id, naam: p.naam, ok: false, fout: error.message });
@@ -64,10 +65,10 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { id, naam, doelgroep } = await req.json();
+  const { id, naam, doelgroep, plaats } = await req.json();
   if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
 
-  const update: { naam?: string; doelgroep?: string } = {};
+  const update: { naam?: string; doelgroep?: string; plaats?: string | null } = {};
   if (typeof naam === "string" && naam.trim()) update.naam = naam.trim();
   if (typeof doelgroep === "string") {
     if (!DOELGROEPEN.includes(doelgroep as Doelgroep)) {
@@ -75,6 +76,7 @@ export async function PATCH(req: NextRequest) {
     }
     update.doelgroep = doelgroep;
   }
+  if (typeof plaats === "string") update.plaats = plaats.trim() || null;
   if (Object.keys(update).length === 0) {
     return NextResponse.json({ error: "niets om bij te werken" }, { status: 400 });
   }

@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { naam, email, doelgroep } = await req.json();
+  const { naam, email, doelgroep, plaats } = await req.json();
 
   if (!naam || !email) {
     return NextResponse.json({ error: "naam en email zijn verplicht" }, { status: 400 });
@@ -31,7 +31,12 @@ export async function POST(req: NextRequest) {
 
   const { data, error } = await supabase
     .from("outreach_contacts")
-    .insert({ naam, email, doelgroep: doelgroep ?? "relatietherapeuten" })
+    .insert({
+      naam,
+      email,
+      doelgroep: doelgroep ?? "relatietherapeuten",
+      plaats: typeof plaats === "string" && plaats.trim() ? plaats.trim() : null,
+    })
     .select()
     .single();
 
@@ -54,17 +59,18 @@ export async function PATCH(req: NextRequest) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { id, naam, email, doelgroep, ps_zin, gereageerd } = await req.json();
+  const { id, naam, email, doelgroep, ps_zin, plaats, gereageerd } = await req.json();
   if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
 
   const update: {
     naam?: string; email?: string; doelgroep?: string;
-    ps_zin?: string | null; status?: string; gereageerd_at?: string;
+    ps_zin?: string | null; plaats?: string | null; status?: string; gereageerd_at?: string;
   } = {};
   if (typeof naam === "string" && naam.trim()) update.naam = naam.trim();
   if (typeof email === "string" && email.trim()) update.email = email.trim();
   if (typeof doelgroep === "string" && doelgroep.trim()) update.doelgroep = doelgroep.trim();
   if (typeof ps_zin === "string") update.ps_zin = ps_zin.trim() || null;
+  if (typeof plaats === "string") update.plaats = plaats.trim() || null;
   if (gereageerd === true) {
     update.status = "gereageerd";
     update.gereageerd_at = new Date().toISOString();

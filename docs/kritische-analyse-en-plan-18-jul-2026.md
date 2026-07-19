@@ -2,7 +2,7 @@
 
 Aanleiding: GSC laat na 3 maanden een stijgende lijn zien (impressies richting 400 tot 750 per dag, clicks 4 tot 11 per dag), maar al het verkeer komt binnen op boodschappen- en salaris-artikelen en niemand klikt door naar het aanbod. Jarno's vraag: ben ik te ongeduldig, of missen we de doelgroep? Wees kritisch, ook op aanbod en messaging.
 
-Onderbouwing: twee onderzoeksrondes op 18 juli (zoekintentie-onderzoek via Google NL autocomplete, SERP-checks en forums; concurrentie-onderzoek over 10+ NL aanbieders), de GSC-cijfers, en een code-check van wat er van de eerdere plannen daadwerkelijk gebouwd is. SE Ranking connector was ook deze sessie niet geautoriseerd, dus volumes blijven kwalitatief. Autoriseer die connector, dan kan de volgende ronde met echte cijfers.
+Onderbouwing: twee onderzoeksrondes op 18 juli (zoekintentie-onderzoek via Google NL autocomplete, SERP-checks en forums; concurrentie-onderzoek over 10+ NL aanbieders), de GSC-cijfers, en een code-check van wat er van de eerdere plannen daadwerkelijk gebouwd is. Zoekvolumes zijn kwalitatief onderbouwd (autocomplete en SERP-signalen); er is bewust geen betaalde keyword-tool.
 
 ## 1. Het eerlijke antwoord: het is allebei, maar niet fifty-fifty
 
@@ -36,7 +36,7 @@ Conclusie kanalenmix: SEO is voor deze site het geloofwaardigheids- en vangnetka
 Volgorde van meest naar minst renderend per uur werk:
 
 1. **BenchmarkMail plaatsen.** Het blok bestaat, het werkt, het staat nergens. Mount het in het boodschappen-artikel (36 clicks, 3.015 impressies) en maak varianten voor de nummers 2 en 3 (is-4000-netto en netto-loonsverhoging: een bruto-netto-overzichtskaart per mail, zelfde patroon). Dit is de enige manier om Petra-verkeer iets waard te maken: het antwoord geven, en dan één lichte vervolgstap per e-mail.
-2. **Verifieer de mailketen end-to-end.** Doe een echte testanalyse met een extern adres en controleer of de resultaatmail aankomt (SPF/DKIM-status Resend). Zolang dit niet zeker werkt, lekt elke lead weg. Check ook of de open SQL-scripts (outreach_followup, prospect_zoeker, quiz_voortgang_v2, intake_analyse_link) gedraaid zijn.
+2. **Open SQL-scripts controleren.** De mailketen is inmiddels end-to-end getest en werkt (bevestigd 18-jul). Check wel of de open SQL-scripts (outreach_followup, prospect_zoeker, quiz_voortgang_v2, intake_analyse_link) gedraaid zijn.
 3. **E-mailflow na de analyse bouwen** (dag 0 resultaat, dag 2 grootste afwijking, dag 5 geldscan/gesprek-uitnodiging). Stond al op prioriteit 2, wordt nu de motor achter punt 1: elke benchmark-mail en elk analyse-resultaat voedt dezelfde flow.
 4. **GSC-check op cluster A.** /financieel-coach en de twee kosten-artikelen staan niet in de top-pagina's. Controleer indexering, dien opnieuw in, en check de posities. Dit zijn de enige pagina's die direct gesprekken kunnen opleveren.
 
@@ -49,7 +49,7 @@ Volgorde van meest naar minst renderend per uur werk:
 
 ### Fase 2, doorlopend: de kanalen waar deze markt echt op draait
 
-9. **Outreach op volume houden**: 10 tot 20 mails per dag, follow-ups via de knoppen, replies als metric. Dit spiegelt exact hoe budgetcoach.nl groot werd (verwijzers). De relatietherapeuten en burn-out-coaches zitten letterlijk naast het activatiemoment van de doelgroep.
+9. **Outreach is het focuskanaal.** Volledige strategie, templates en top 5 actiepunten staan in `docs/outreach-strategie-jul-2026.md` (18-jul). Dit spiegelt exact hoe budgetcoach.nl groot werd (verwijzers). De relatietherapeuten en burn-out-coaches zitten letterlijk naast het activatiemoment van de doelgroep.
 10. **PR-experiment op het Nibud-momentum.** Het Nibud-rapport 2026 (geldzorgen bij hogere inkomens en huizenbezitters) is landelijk nieuws geweest en is exact de doelgroep. Pitch als reactie-expert bij AD/Telegraaf-geldredacties en 2 à 3 NL geldpodcasts: "de goedverdiener die niets overhoudt is geen budgetprobleem maar een structuurprobleem, ik zie het dagelijks". Eén plaatsing doet meer dan tien artikelen en bouwt de merkzoekvraag die de site daarna vangt. Kosten: alleen tijd.
 11. **Beslispunt voor Jarno (bewust geen advies, wel het eerlijke beeld): de gratis kennismaking van 15 minuten.** E1 uit het growth plan, nooit uitgevoerd. De hele markt heeft het gratis eerste gesprek als norm gezet; de geldscan van 49 euro vervult die rol deels asynchroon. Optie: de kennismaking alleen aanbieden op de resultaatpagina van de analyse (de warmste plek), zodat de tijdsinvestering beperkt blijft tot de meest kansrijke leads. Als de geldscan-aanvragen de komende 6 weken op gang komen, is dit niet nodig; zo niet, dan is dit de eerstvolgende knop om aan te draaien.
 12. **Werkgeversspoor: geparkeerd tot de KvK-inschrijving er is**, maar de KvK zelf blokkeert inmiddels drie dingen (werkgevers, KOR-aanmelding, vermelding op gidsen als financieelfittewerknemers.nl). Dat maakt de KvK-inschrijving zelf een actiepunt met deadline, geen achtergrondtaak.
