@@ -20,6 +20,18 @@ interface Contact {
   status: "nieuw" | "verstuurd" | "geopend" | "geklikt" | "bounced" | "gereageerd";
 }
 
+interface PreviewItem {
+  id: string;
+  naam: string;
+  email: string;
+  doelgroep: string;
+  plaats: string | null;
+  mailNummer: number;
+  subject: string;
+  text: string;
+  heeftPsZin: boolean;
+}
+
 const MAX_FOLLOWUPS = 2;
 const FOLLOWUP_WACHTDAGEN = 3;
 
@@ -88,8 +100,10 @@ function datumTijd(iso: string | null): string {
 export default function OutreachTabblad() {
   const [contacten, setContacten] = useState<Contact[]>([]);
   const [laden, setLaden] = useState(true);
-  const [verzenden, setVerzenden] = useState<Record<string, boolean>>({});
-  const [allesVerzenden, setAllesVerzenden] = useState(false);
+  const [preview, setPreview] = useState<{ type: "eerste" | "followup"; items: PreviewItem[]; overgeslagen: { naam: string; reden: string }[] } | null>(null);
+  const [previewLaden, setPreviewLaden] = useState(false);
+  const [previewGeselecteerd, setPreviewGeselecteerd] = useState(0);
+  const [previewVerzenden, setPreviewVerzenden] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
   const [melding, setMelding] = useState<string | null>(null);
   const [filterDoelgroep, setFilterDoelgroep] = useState<string>("alle");
@@ -154,52 +168,65 @@ export default function OutreachTabblad() {
     await laadContacten();
   }
 
-  async function stuurEnkele(id: string) {
-    setVerzenden((v) => ({ ...v, [id]: true }));
+  // Preview-flow: eerst zien wie wat krijgt, dan pas versturen.
+  async function openPreview(ids: string[], type: "eerste" | "followup") {
+    if (ids.length === 0) {
+      setFout(type === "followup"
+        ? "Geen contacten die nu een follow-up kunnen krijgen."
+        : "Geen nieuwe contacten om te versturen.");
+      return;
+    }
+    setPreviewLaden(true);
     setFout(null);
     try {
-      const res = await fetch("/api/admin/outreach/send", {
+      const res = await fetch("/api/admin/outreach/preview", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id }),
+        body: JSON.stringify(type === "followup" ? { ids, type: "followup" } : { ids }),
       });
       const data = await res.json();
       if (!res.ok) { setFout(data.error); return; }
-      const r = data.resultaten?.[0];
-      if (r?.ok) {
-        setMelding(`Mail verstuurd naar ${r.naam}.`);
-      } else {
-        setFout(`Versturen mislukt: ${r?.fout}`);
+      if (!data.items || data.items.length === 0) {
+        setFout("Niets om te versturen." + (data.overgeslagen?.length ? ` Overgeslagen: ${data.overgeslagen.map((o: { naam: string; reden: string }) => `${o.naam} (${o.reden})`).join(", ")}` : ""));
+        return;
       }
-      await laadContacten();
+      setPreview({ type, items: data.items, overgeslagen: data.overgeslagen ?? [] });
+      setPreviewGeselecteerd(0);
+    } catch {
+      setFout("Kon de preview niet laden.");
     } finally {
-      setVerzenden((v) => ({ ...v, [id]: false }));
-      setTimeout(() => setMelding(null), 4000);
+      setPreviewLaden(false);
     }
   }
 
-  async function stuurAlle() {
-    const gefilterd = zichtbareContacten.filter((c) => c.status === "nieuw");
-    if (gefilterd.length === 0) { setFout("Geen nieuwe contacten om te versturen."); return; }
-    const label = filterDoelgroep === "alle" ? "alle categorieën" : DOELGROEP_LABEL[filterDoelgroep];
-    if (!confirm(`${gefilterd.length} e-mail(s) versturen naar ${label}?`)) return;
-    setAllesVerzenden(true);
+  async function doeVerzenden(ids: string[], isFollowup: boolean) {
+    setPreviewVerzenden(true);
     setFout(null);
     try {
       const res = await fetch("/api/admin/outreach/send", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids: gefilterd.map((c) => c.id) }),
+        body: JSON.stringify(isFollowup ? { ids, type: "followup" } : { ids }),
       });
       const data = await res.json();
       if (!res.ok) { setFout(data.error); return; }
       const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
-      setMelding(`${geslaagd} van ${gefilterd.length} verstuurd.`);
+      setMelding(`${geslaagd} van ${ids.length} verstuurd.`);
+      setSelectie(new Set());
+      setPreview(null);
       await laadContacten();
     } finally {
-      setAllesVerzenden(false);
+      setPreviewVerzenden(false);
       setTimeout(() => setMelding(null), 5000);
     }
+  }
+
+  function stuurEnkele(id: string) {
+    openPreview([id], "eerste");
+  }
+
+  function stuurAlle() {
+    openPreview(zichtbareContacten.filter((c) => c.status === "nieuw").map((c) => c.id), "eerste");
   }
 
   async function werkBij(id: string, velden: { naam?: string; email?: string; doelgroep?: string; ps_zin?: string; plaats?: string; gereageerd?: boolean }) {
@@ -231,30 +258,11 @@ export default function OutreachTabblad() {
     );
   }
 
-  async function stuurGeselecteerde() {
-    const ids = zichtbareContacten
-      .filter((c) => selectie.has(c.id) && c.status === "nieuw")
-      .map((c) => c.id);
-    if (ids.length === 0) { setFout("Geen geselecteerde nieuwe contacten om te versturen."); return; }
-    if (!confirm(`${ids.length} e-mail(s) versturen?`)) return;
-    setAllesVerzenden(true);
-    setFout(null);
-    try {
-      const res = await fetch("/api/admin/outreach/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setFout(data.error); return; }
-      const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
-      setMelding(`${geslaagd} van ${ids.length} verstuurd.`);
-      setSelectie(new Set());
-      await laadContacten();
-    } finally {
-      setAllesVerzenden(false);
-      setTimeout(() => setMelding(null), 5000);
-    }
+  function stuurGeselecteerde() {
+    openPreview(
+      zichtbareContacten.filter((c) => selectie.has(c.id) && c.status === "nieuw").map((c) => c.id),
+      "eerste"
+    );
   }
 
   async function markeerGereageerd(c: Contact) {
@@ -264,27 +272,8 @@ export default function OutreachTabblad() {
     setTimeout(() => setMelding(null), 3000);
   }
 
-  async function stuurFollowups(ids: string[]) {
-    if (ids.length === 0) { setFout("Geen contacten die nu een follow-up kunnen krijgen."); return; }
-    if (!confirm(`${ids.length} follow-up(s) versturen?`)) return;
-    setAllesVerzenden(true);
-    setFout(null);
-    try {
-      const res = await fetch("/api/admin/outreach/send", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids, type: "followup" }),
-      });
-      const data = await res.json();
-      if (!res.ok) { setFout(data.error); return; }
-      const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
-      setMelding(`${geslaagd} van ${ids.length} follow-up(s) verstuurd.`);
-      setSelectie(new Set());
-      await laadContacten();
-    } finally {
-      setAllesVerzenden(false);
-      setTimeout(() => setMelding(null), 5000);
-    }
+  function stuurFollowups(ids: string[]) {
+    openPreview(ids, "followup");
   }
 
   const plaatsen = Array.from(
@@ -330,19 +319,19 @@ export default function OutreachTabblad() {
           {geselecteerdeNieuw > 0 && (
             <button
               onClick={stuurGeselecteerde}
-              disabled={allesVerzenden}
+              disabled={previewLaden}
               className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
             >
-              {allesVerzenden ? "Versturen..." : `Verstuur geselecteerde (${geselecteerdeNieuw})`}
+              {previewLaden ? "Laden..." : `Verstuur geselecteerde (${geselecteerdeNieuw})`}
             </button>
           )}
           {nieuweCount > 0 && geselecteerdeNieuw === 0 && (
             <button
               onClick={stuurAlle}
-              disabled={allesVerzenden}
+              disabled={previewLaden}
               className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
             >
-              {allesVerzenden ? "Versturen..." : `Verstuur nieuwe (${nieuweCount})`}
+              {previewLaden ? "Laden..." : `Verstuur nieuwe (${nieuweCount})`}
             </button>
           )}
           {followupKandidaten.length > 0 && (
@@ -352,7 +341,7 @@ export default function OutreachTabblad() {
                   (geselecteerdeFollowups.length > 0 ? geselecteerdeFollowups : followupKandidaten).map((c) => c.id)
                 )
               }
-              disabled={allesVerzenden}
+              disabled={previewLaden}
               className="text-sm px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
             >
               {geselecteerdeFollowups.length > 0
@@ -479,7 +468,7 @@ export default function OutreachTabblad() {
         <p className="text-text-muted text-sm">Geen contacten gevonden.</p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-[#E6E9E7]">
-          <table className="w-full text-sm">
+          <table className="w-full min-w-[1250px] text-sm">
             <thead className="bg-[#F7F8F7] text-text-muted text-xs uppercase tracking-wide">
               <tr>
                 <th className="px-3 py-3">
@@ -519,7 +508,7 @@ export default function OutreachTabblad() {
                         const nieuw = e.target.value.trim();
                         if (nieuw && nieuw !== c.naam) werkBij(c.id, { naam: nieuw });
                       }}
-                      className="w-full font-medium text-primary bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                      className="w-full min-w-[150px] font-medium text-primary bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                     />
                   </td>
                   <td className="px-4 py-3">
@@ -531,7 +520,7 @@ export default function OutreachTabblad() {
                         const nieuw = e.target.value.trim();
                         if (nieuw && nieuw !== c.email) werkBij(c.id, { email: nieuw });
                       }}
-                      className="w-full text-text-muted bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
+                      className="w-full min-w-[190px] text-text-muted bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
                     />
                   </td>
                   <td className="px-4 py-3">
@@ -555,7 +544,7 @@ export default function OutreachTabblad() {
                         if (nieuw !== (c.plaats ?? "")) werkBij(c.id, { plaats: nieuw });
                       }}
                       placeholder="&#8212;"
-                      className="w-24 text-text-soft bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
+                      className="w-28 min-w-[7rem] text-text-soft bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
                     />
                   </td>
                   <td className="px-4 py-3">
@@ -599,21 +588,21 @@ export default function OutreachTabblad() {
                       <span className="text-text-muted text-xs">{c.ps_zin ?? ""}</span>
                     )}
                   </td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 whitespace-nowrap">
                     <div className="flex gap-2 justify-end">
                       {c.status === "nieuw" && (
                         <button
                           onClick={() => stuurEnkele(c.id)}
-                          disabled={verzenden[c.id]}
+                          disabled={previewLaden}
                           className="text-xs bg-primary text-white px-3 py-1 rounded hover:bg-primary/90 disabled:opacity-50 whitespace-nowrap"
                         >
-                          {verzenden[c.id] ? "..." : "Verstuur"}
+                          Verstuur
                         </button>
                       )}
                       {followupGeschikt(c) && (
                         <button
                           onClick={() => stuurFollowups([c.id])}
-                          disabled={allesVerzenden}
+                          disabled={previewLaden}
                           className="text-xs border border-primary text-primary px-3 py-1 rounded hover:bg-primary hover:text-white transition-colors disabled:opacity-50 whitespace-nowrap"
                         >
                           Follow-up {(c.followups ?? 0) + 1}
@@ -640,6 +629,105 @@ export default function OutreachTabblad() {
               ))}
             </tbody>
           </table>
+        </div>
+      )}
+
+      {/* Verzend-preview: wie krijgt wat, inclusief volledige mailtekst */}
+      {preview && (
+        <div
+          className="fixed inset-0 z-50 bg-black/40 flex items-center justify-center p-4"
+          onClick={() => { if (!previewVerzenden) setPreview(null); }}
+        >
+          <div
+            className="bg-white rounded-xl shadow-xl w-full max-w-4xl max-h-[85vh] flex flex-col"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="px-6 py-4 border-b border-[#F0F3F1] flex items-center justify-between">
+              <div>
+                <h3 className="font-display text-lg font-semibold text-primary">
+                  {preview.type === "followup" ? "Follow-ups versturen" : "Eerste mails versturen"}
+                </h3>
+                <p className="text-xs text-text-muted mt-0.5">
+                  {preview.items.length} ontvanger{preview.items.length === 1 ? "" : "s"} &middot; klik een naam om de mail te lezen
+                </p>
+              </div>
+              <button
+                onClick={() => setPreview(null)}
+                className="text-text-muted hover:text-primary text-2xl leading-none px-2"
+                aria-label="Sluiten"
+              >
+                &times;
+              </button>
+            </div>
+            <div className="flex flex-1 min-h-0">
+              <div className="w-72 shrink-0 border-r border-[#F0F3F1] overflow-y-auto">
+                {preview.items.map((item, i) => (
+                  <button
+                    key={item.id}
+                    onClick={() => setPreviewGeselecteerd(i)}
+                    className={`w-full text-left px-4 py-2.5 border-b border-[#F7F8F7] transition-colors ${
+                      i === previewGeselecteerd ? "bg-[#F5F0E8]" : "hover:bg-[#FAFAF8]"
+                    }`}
+                  >
+                    <p className="text-sm font-medium text-primary truncate">{item.naam}</p>
+                    <p className="text-xs text-text-muted truncate">{item.email}</p>
+                    <p className="text-[11px] text-text-muted mt-0.5">
+                      Mail {item.mailNummer}
+                      {item.plaats ? ` \u00b7 ${item.plaats}` : ""}
+                      {` \u00b7 ${DOELGROEP_LABEL[item.doelgroep] ?? item.doelgroep}`}
+                    </p>
+                    {item.mailNummer === 1 && !item.heeftPsZin && (
+                      <p className="text-[11px] text-amber-600 mt-0.5">zonder persoonlijke zin</p>
+                    )}
+                  </button>
+                ))}
+              </div>
+              <div className="flex-1 overflow-y-auto p-6">
+                {preview.items[previewGeselecteerd] && (
+                  <>
+                    <p className="text-xs text-text-muted uppercase tracking-wide mb-1">Onderwerp</p>
+                    <p className="text-sm font-medium text-primary mb-4">
+                      {preview.items[previewGeselecteerd].subject}
+                    </p>
+                    <p className="text-xs text-text-muted uppercase tracking-wide mb-1">Bericht</p>
+                    <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-[#16211F] bg-[#FAFAF8] border border-[#F0F3F1] rounded-lg p-4">
+                      {preview.items[previewGeselecteerd].text}
+                    </pre>
+                  </>
+                )}
+              </div>
+            </div>
+            <div className="px-6 py-4 border-t border-[#F0F3F1] flex items-center justify-between gap-4">
+              <div className="text-xs text-text-muted">
+                {preview.type === "eerste" && preview.items.some((i) => !i.heeftPsZin) && (
+                  <span className="text-amber-600">
+                    Let op: {preview.items.filter((i) => !i.heeftPsZin).length} zonder persoonlijke zin.{" "}
+                  </span>
+                )}
+                {preview.overgeslagen.length > 0 && (
+                  <span>Overgeslagen: {preview.overgeslagen.map((o) => `${o.naam} (${o.reden})`).join(", ")}</span>
+                )}
+              </div>
+              <div className="flex gap-2 shrink-0">
+                <button
+                  onClick={() => setPreview(null)}
+                  disabled={previewVerzenden}
+                  className="text-sm px-4 py-2 rounded-md border border-[#E6E9E7] text-text-soft hover:border-primary disabled:opacity-50"
+                >
+                  Annuleer
+                </button>
+                <button
+                  onClick={() => doeVerzenden(preview.items.map((i) => i.id), preview.type === "followup")}
+                  disabled={previewVerzenden}
+                  className="btn-primary text-sm px-5 py-2 disabled:opacity-50"
+                >
+                  {previewVerzenden
+                    ? "Versturen..."
+                    : `Verstuur ${preview.items.length} mail${preview.items.length === 1 ? "" : "s"}`}
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       )}
     </div>

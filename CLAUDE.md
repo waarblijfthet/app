@@ -1,250 +1,126 @@
-# Waar blijft het — projectcontext (lees dit eerst)
+# Waar blijft het, projectcontext (lees dit eerst)
 
-Compacte overdracht zodat een nieuwe sessie meteen op de hoogte is. Lees dit aan het begin van elke sessie.
+Compacte overdracht zodat een nieuwe sessie meteen op de hoogte is. Volledig opgeschoond op 19-jul-2026; de oude, uitgebreide sessielogboeken staan in `docs/archief-claude-md-tm-19-jul-2026.md`.
 
 ## Wat het is
-Nederlandse personal-finance site voor mensen die **goed verdienen maar tóch krap zitten**. Géén schuldhulp, géén beleggingsadvies, eerlijk inzicht + lichte coaching.
+Nederlandse personal-finance site voor mensen die **goed verdienen maar toch krap zitten**. Geen schuldhulp, geen beleggingsadvies; eerlijk inzicht + lichte coaching.
 - Stack: Next.js 14 (App Router), Supabase, Resend, recharts, Tailwind. Repo: github.com/waarblijfthet/app. Live: https://www.waarblijfthet.nl
 - Toon: nuchter, eerlijk, geen jargon. Fonts: Fraunces (kop) + Plus Jakarta Sans (body). Kleuren: #1C3A2A (groen), #C4603A (terracotta), #F5F0E8/#FDFAF4 (creme).
-- **Jarno is de enige persoon achter het project.** Altijd "ik/mij/mijn" in copy, nooit "wij/we/ons". Uitzondering: als hij over zijn gezin spreekt ("wij thuis") is dat logisch.
-- **Geen em dashes en geen koppeltekens als scheidingsteken in copy.** Altijd vervangen door komma, punt of nieuwe zin. Dit geldt voor alle bestanden, inclusief hints, labels en meta-teksten.
-- **CTO nooit noemen** in copy (te elitair, mensen herkennen het niet). Artikel-bio en FAQ gebruiken: "Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte."
+- **Jarno is de enige persoon achter het project.** Altijd ik/mij/mijn in copy, nooit wij/we/ons (uitzondering: zijn eigen gezinsverhalen en letterlijke testimonial-quotes).
 
-## START HIER (voor een nieuwe sessie, bijgewerkt 8-jul-2026)
+## Harde werkregels (altijd toepassen)
+1. Bestanden schrijven/wijzigen ALTIJD via python3 in bash (heredoc of read+replace). De Edit/Write-tools trunceren bestanden stilzwijgend op dit NTFS-mount, ook bij kleine wijzigingen.
+2. Na elke codewijziging: `npx tsc --noEmit --incremental false` moet schoon zijn. Check ook op null bytes.
+3. Geen em dashes en geen koppeltekens als scheidingsteken in copy (vervang door komma, punt of nieuwe zin). Geldt voor alles, ook hints/labels/mails.
+4. NOOIT klantcases, reviews, resultaten of referenties verzinnen. Testimonials zijn echte (geanonimiseerde) klanten; voorbeelden expliciet als illustratie labelen.
+5. NOOIT beloftes zoals geld-terug of garanties, nergens. Kopen = kopen.
+6. Prijzen zonder btw-vermelding (KOR). CTO nooit noemen in copy. Bio-zin: "Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte."
+7. In outreach-copy nooit het woord "eerlijk" (eerlijkheid toon je), nooit hun vak of klant claimen, en nooit verifieerbaarheid verzinnen. Zie sectie Outreach.
+8. Nieuw artikel = entry vooraan in `lib/inzichten-data.ts` (optioneel `cta`-veld) + content-component in `app/inzichten/[slug]/content/` + import/map in `ArticleBody.tsx`. Sitemap/llms.txt regenereert bij build. Na deploy handmatig indienen in GSC.
+9. Git: aan het eind van elke sessie met wijzigingen committen. Pushen kan alleen Jarno (sandbox heeft geen credentials). Als commit klaagt over `HEAD.lock`: dat bestand handmatig verwijderen.
 
-Harde werkregels, altijd toepassen:
-1. Bestanden schrijven/wijzigen ALTIJD via python3 in bash (heredoc of read+replace). De Edit/Write-tools trunceren bestanden op dit NTFS-mount.
-2. Na elke codewijziging: `npx tsc --noEmit --incremental false` moet schoon zijn.
-3. Geen em dashes in copy, ik-vorm (nooit wij), prijzen zonder btw-vermelding (KOR), CTO nooit noemen.
-4. NOOIT klantcases, reviews of resultaten verzinnen. Testimonials zijn echte (geanonimiseerde) klanten; voorbeelden altijd expliciet als illustratie labelen. Dit is een vaste afspraak met Jarno.
-5. Nieuw artikel = entry in `lib/inzichten-data.ts` (vooraan array, optioneel `cta`-veld voor contextuele CTA) + content-component in `app/inzichten/[slug]/content/` + import/map in `ArticleBody.tsx`. Sitemap/llms.txt regenereert bij build. Na deploy handmatig indienen in GSC.
-6. NOOIT beloftes zoals geld-terug, niet-tevreden-geld-terug, terugbetaling, "geen X dan gratis/geld terug" of soortgelijke garanties schrijven, nergens (pagina's, CTA's, microcopy, mails). Kopen = kopen. Vaste afspraak met Jarno (9-jul-2026).
+## Huidige status (19-jul-2026)
 
-Openstaande prioriteiten (in volgorde):
-1. **Rapport-template voor het geldrapport maken** (bestaat nog niet; nodig zodra de eerste geldscan binnenkomt: vaste secties in huisstijl, alleen analyse-deel persoonlijk invullen).
-2. **E-mailflow na de analyse** (dag 0 resultaat / dag 2 grootste afwijking / dag 5 uitnodiging geldscan+gesprek), zie docs/growth-plan-conversie-juli-2026.md.
-3. **SEO cluster B** uit docs/groeiplan-seo-juli-2026.md: merkterm-artikel "waar blijft mijn geld" versterken/uitbouwen; daarna cluster C (hoeveel spaargeld is normaal, gemiddelde vaste lasten) en D (rondkomen van X euro-serie).
-4. **Outreach draaien is nu focuskanaal nr. 1 (18-jul)**: strategie en templates in `docs/outreach-strategie-jul-2026.md`. Check of `supabase/outreach_followup.sql` al gedraaid is en of de Resend-webhook + RESEND_WEBHOOK_SECRET staan. De mailketen zelf (SPF/DKIM) is getest en werkt.
-5. Alleenstaande-testimonial (wacht op echte klant, niet verzinnen).
+**Focuskanaal nr. 1 is outreach naar verwijzers.** SEO is het vangnet/geloofwaardigheidskanaal, geen groeikanaal (onderbouwing: `docs/kritische-analyse-en-plan-18-jul-2026.md`). SE Ranking is definitief van tafel (Jarno betaalt er niet voor); volumes blijven kwalitatief, nooit meer adviseren die connector te autoriseren.
 
-Meetpunten: geboekte gesprekken en geldscan-aanvragen (echte KPI), benchmark-mailaanvragen (notificaties op hallo@), GSC-posities cluster A (/financieel-coach e.o.), funnel-tab in /admin.
+Wat er staat en werkt:
+- Site met ~79 artikelen, GSC groeit (400-750 impressies/dag), verkeer komt vooral binnen op boodschappen/salaris-artikelen (informationeel, converteert niet direct).
+- Mailketen (Resend, SPF/DKIM) is end-to-end getest en werkt.
+- Outreach mini-CRM + prospect-zoeker in /admin, beide live getest en werkend.
+- Persona-getoetste outreach-mailsequences v5 in `lib/outreach/mails.ts` (zie Outreach).
+- Automatische follow-up-cron gebouwd (nog niet gedeployed op moment van schrijven).
+- A4-meegeefmateriaal in `outreach-materiaal/` (4 pdf-varianten).
+
+**Direct openstaand (checklist voor Jarno):**
+1. SQL draaien in Supabase (aangeleverd 19-jul): `outreach_plaats.sql` + de outreach_followup-kolommen.
+2. `git push` (commits 477e446 e.v. staan klaar).
+3. Beslissen vóór/na deploy: 25 oude contacten van 11-jun hebben status verstuurd en 0 follow-ups; de cron stuurt die anders automatisch mail 2. Opschonen of tijdelijk env `OUTREACH_AUTO_FOLLOWUP=uit`.
+4. `TELEFOON` invullen in `lib/outreach/mails.ts` (06 in handtekening verhoogt vertrouwen, persona-getoetst).
+5. Checken of Resend-webhook + `RESEND_WEBHOOK_SECRET` in Vercel staan (open/klik-tracking) en of `supabase/intake_analyse_link.sql` ooit gedraaid is.
+
+**Openstaande prioriteiten daarna (in volgorde):**
+1. Outreach draaien: prospect-zoeker vullen (30 goedgekeurde contacten/week, start relatietherapeuten + burn-out-coaches), 10 mails/dag met verplichte ps-zin, replies bijhouden.
+2. Conversielaag op bestaand verkeer: `components/artikel/BenchmarkMail.tsx` wordt nog nergens geïmporteerd; mounten in het boodschappen-artikel + varianten voor de top-3. Daarna e-mailflow na de analyse (dag 0/2/5).
+3. Rapport-template voor het geldrapport (bestaat nog niet; nodig bij de volgende geldscan-klant).
+4. Content: "waarom kan ik niet sparen (terwijl ik goed verdien)" versterken, cluster C (hoeveel spaargeld is normaal, uitgaven per huishoudtype) met mail-blok vanaf dag 1, rondkomen-serie starten bij 3000/4000 euro.
+5. PR-haakje: Nibud-rapport 2026 over geldzorgen bij hogere inkomens (pitch geldredacties/podcasts).
+6. KvK-inschrijving heeft een deadline nodig: blokkeert werkgeversspoor, KOR-aanmelding en gidsvermeldingen.
+7. Alleenstaande-testimonial (wachten op echte klant, niet verzinnen).
+
+Meetpunten: geboekte gesprekken en geldscan-aanvragen (echte KPI), outreach-replies, lijstgroei per week (zodra mail-blok live is), GSC-posities, funnel-tab in /admin.
 
 ## Aanbod / funnel
-Gratis analyse (lead-instap, primaire CTA) → **Geldscan €49** (async, /geldscan: klant krijgt "jouw persoonlijke geldrapport", persoonlijk geschreven PDF van 2 à 3 pagina's met de 3 grootste lekken; €49 wordt verrekend bij vervolg) → **Eenmalig adviesgesprek €125** (/adviesgesprek) → Traject €497. /aanbod is situatie-gedreven (3 scenario-kaarten met anchors, geen SaaS-grid), nav-label heet "Tarieven".
-- **Btw: KOR (kleineondernemersregeling) → géén btw. Prijzen €125 / €497 ZONDER btw vermelden.** (Nog: KvK + KOR aanmelden.)
+Gratis analyse (lead-instap) → **Geldscan 49 euro** (async, /geldscan: "jouw persoonlijke geldrapport", persoonlijk geschreven PDF met de 3 grootste lekken; verrekend bij vervolg) → **Eenmalig adviesgesprek 125 euro** (/adviesgesprek) → Traject 497 euro. /aanbod is situatie-gedreven, nav-label "Tarieven".
+- Geldscan-volgorde: aanmelden → betaalverzoek → na betaling analyse invullen (optioneel afschriften) → rapport binnen 2 werkdagen → gegevens direct verwijderd. Betaling handmatig via betaalverzoek, geen PSP.
+- Hero: dubbele CTA, primair "Ja, help mij zien wat er anders kan" (geldscan), secundair gratis analyse. Prijs in microcopy, niet in de knop.
+- Btw: KOR, dus geen btw vermelden. (KvK + KOR-aanmelding staan nog open.)
+- Gedeelde bron voor pakket-inhoud: `lib/aanbod-content.ts` (`hoeHetWerkt` strikt gescheiden van `watJeKrijgt`), gebruikt door /aanbod en IntakeForm.
+- Analyse-token stroomt door de keten (resultaat → geldscan → intake, `analyse_token` op intake_aanvragen); admin toont "Bekijk analyse"-link.
 
-## Belangrijke beslissingen
-- Testimonials = **echte** (geanonimiseerde) gezinnen: Daan & Roos (potjes), Bram & Eva (boodschappen), Karim & Noor (BSO). Namen aangepast.
-- **Eerste echte geldscan-klant (9-jul-2026)**: gezin met 2 kinderen, telefonisch nagevraagd, gaf toestemming om (geanonimiseerd) geciteerd te worden. Pseudoniem **Sanne & Joris**. Quote staat op /geldscan (bovenaan ervaringen-blok, gelabeld "De eerste die de geldscan deed") en verkort op /aanbod. Dit is de eerste proof over de geldscan zelf i.p.v. over de zwaardere begeleiding.
-- Primaire CTA overal = gratis analyse (warmmaker); gesprek is de vervolgstap (op analyse-resultaat + /adviesgesprek).
-- Hero-paragraph (homepage): "Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde van elke maand is het gewoon weg. Je weet niet precies waarheen. Dat ligt niet aan jou, het is een structuurprobleem. Ik laat zien waar het naartoe gaat, zodat je het kunt bijsturen."
+## Vaste afspraken en beslissingen
+- Testimonials: echte geanonimiseerde klanten. Daan & Roos, Bram & Eva, Karim & Noor (begeleiding); Sanne & Joris (eerste geldscan-klant, 9-jul, met toestemming, staat op /geldscan en /aanbod).
+- Kern-ICP (aangescherpt 11-jul na concurrentie-teardown): de goedverdiener in loondienst. Twee dragende profielen: Sandra (tweeverdiener-gezin) en Niels (alleenstaand/DINK). Ellen (zzp) alleen via analyse+geldscan bedienen (zzp-coaching is het terrein van Budgetbuddy/Carolien Vos). Petra is de artikel-ICP (validatie-zoeker). Volledige set: `docs/icp-personas.md`, bij elke ICP-toets alle profielen langslopen.
+- Differentiatie: segment (loondienst), product (49-euro-instap, uniek in NL: niemand heeft een betaald instapproduct onder 272 euro), toon (nuchter, geen vermogen/mindset-taal). Niet op "rust/rich life" (bezet).
+- 460-euro-claim altijd met eerlijke bron ("eigen klantresultaten, geen belofte").
 
-## Content-architectuur: alleenstaanden (pillar + sub-artikelen)
-Hub-and-spoke structuur rond het alleenstaande-segment:
-- **Pillar page**: `kosten-levensonderhoud-alleenstaande-2026` — persona-selector bovenaan, single premium uitleg, links naar sub-artikelen onderaan.
-- **Sub-artikel 1**: `kosten-levensonderhoud-alleenstaande-ouder-2026` — ALO-kop, kindgebonden budget, inkomendrempel boven €29.736 verduidelijkt.
-- **Sub-artikel 2**: `kosten-levensonderhoud-zzp-alleenstaande-2026` — AOV, pensioenreservering, voorlopige aanslag, buffer €23.000.
-- **Sub-artikel 3**: `kosten-levensonderhoud-alleenstaande-50-plus-2026` — AOW €1.400, Nibud minimum, pensioengat, lijfrente.
-- Alle vier ICP-gevalideerd (10-jun-2026). Content-bestanden in `app/inzichten/[slug]/content/`.
+## Outreach (focuskanaal)
+Strategie, templates en onderbouwing: `docs/outreach-strategie-jul-2026.md`. Persona-skill voor toetsing: `docs/skill-verwijzer-personas.md` (Marjolein relatietherapeut, Richard budgetcoach; uitbreiden met planner/burn-out-profielen bij volgende toets).
 
-## Outreach mini-CRM
-Beheer via admin-tab "Outreach". Systeem: Supabase-tabel `outreach_contacts` + Resend voor verzending.
-- **4 doelgroepen** met eigen email-template en subject:
-  - `relatietherapeuten`: "wat als geld de belangrijkste oorzaak blijkt?"
-  - `budgetcoaches`: "als iemand goed verdient maar jouw aanpak niet past"
-  - `financieel-planners`: "als er te weinig overblijft om jouw advies uit te voeren"
-  - `burnout-coaches`: "wat als geld het herstel in de weg zit?"
-- UI: categoriedropdown bij toevoegen, filterpills per doelgroep, categorie-kolom in tabel.
-- **Inline bewerken + multiselect (11-jun v3)**: naam en e-mail zijn inline-invoervelden (opslaan bij blur), categorie is een inline dropdown, alle drie via `PATCH /api/admin/outreach`. Checkbox per rij + "selecteer alles" en een knop "Verstuur geselecteerde (n)"; zonder selectie blijft "Verstuur nieuwe" zichtbaar. Versturen raakt alleen status `nieuw`.
-- Relevante bestanden: `app/api/admin/outreach/send/route.ts` (templates), `app/api/admin/outreach/route.ts` (GET/POST/PATCH/DELETE), `app/admin/components/OutreachTabblad.tsx` (UI).
-- Resend-webhook voor open/klik tracking: `app/api/webhooks/resend/route.ts`. Vereist `RESEND_WEBHOOK_SECRET` in Vercel env (nog in te stellen).
-- **`supabase/outreach_contacts.sql` MOET nog eenmalig gedraaid worden** in Supabase SQL-editor voor de tabel bestaat. (RLS-policy aangescherpt naar `to authenticated` op 11-jun, draai opnieuw als de oude policy al bestond.)
+Kern (v5, 4 persona-rondes, antwoordkans 5,5-7/10):
+- Mail 1 is zelf de doorverwijzing ("mag ik mensen naar jou sturen?"), micro-vraag, geen link, geen vraag om hun klanten. Bij bekende plaats automatisch een regio-zin. Mail 2 (dag 3-4): geven + vakvraag; hier valt het antwoord. Mail 3 (dag 8-9): breakup, cadeau (A4) of open kaart over het eigen belang.
+- Lessen: nooit hun vak/klant claimen, nooit "eerlijk" zeggen, klein maken is geloofwaardig, micro-vragen winnen, resterend plafond is verifieerbaarheid (zodra er een samenwerkende collega is: als referentie noemen).
+- Techniek: teksten in `lib/outreach/mails.ts` (gedeeld door admin-route en cron). Verzenden via admin-tab Outreach (`app/api/admin/outreach/send/route.ts`). Automatische follow-ups: `app/api/cron/outreach-followups/route.ts`, dagelijks 07:15 UTC (vercel.json), FU1 na 3+ dagen, FU2 na 5+ dagen na FU1, max 20/run, kill switch env `OUTREACH_AUTO_FOLLOWUP=uit`, logt naar cron_runs.
+- 4 doelgroepen: relatietherapeuten, budgetcoaches, financieel-planners, burnout-coaches (planners/burn-out afgeleid van de geteste structuur, nog niet zelf getoetst).
+- Volume: 10-15 per dag maximaal (jong domein, zelfde domein als leadmails). Replies zijn de metric. LinkedIn bewust niet (PSOhub-scheiding).
+- Meegeefmateriaal: `outreach-materiaal/drie-patronen-{stellen,herstel}-{met-naam,anoniem}.pdf` (FU2 belooft het A4).
+- Admin-UX: kolommen Plaats (inline), Mails (M1/M2/M3 + geopend), Toegevoegd; filter per doelgroep en plaats; sortering nieuwste/plaats/status; ps_zin inline (verplicht gebruiken, met inhoudelijk detail, geen compliment). Elke verzending (los of bulk) opent eerst een preview-modal (route `/api/admin/outreach/preview`): wie krijgt welke mail, volledige tekst, waarschuwing bij ontbrekende ps-zin, overgeslagen contacten met reden.
 
-## Prospect-zoeker (admin-tab "Prospects")
-Verzamelt zelfstandig namen + e-mailadressen van potentiële samenwerkingspartners en zet ze na goedkeuring in de outreach mini-CRM. Toegevoegd 11-jun-2026.
-- **Twee bronnen**: (1) URL van een overzichtspagina (ledenlijst/verwijsgids), of (2) zoekwoorden (doelgroep + stad, één zoekopdracht per regel, max 10). URL werkt het betrouwbaarst.
-- **Zoekwoorden-modus** (`lib/prospects/search.ts`): zoekt via de **Brave Search API** als `BRAVE_SEARCH_API_KEY` in Vercel staat (betrouwbaar vanaf datacenter-IP, gratis tot ~2000/mnd), met **DuckDuckGo HTML-POST** als gratis fallback (vaak geblokkeerd vanaf Vercel-IP's, daarom alleen best-effort). Resultaten worden per domein ontdubbeld tot één homepage en daarna door dezelfde site-crawler gehaald als de URL-modus. Foutmelding legt uit of de sleutel ontbreekt.
-- **Werking**: job-gebaseerd. POST `/api/admin/prospects` maakt een job + wachtrij van sites. De UI roept daarna in een lus POST `/api/admin/prospects/step` aan (max 3 sites per call, tijdsbudget 20s, `maxDuration=60`) tot de wachtrij leeg is. Zo blijven we binnen Vercel-limieten zonder externe queue.
-- **Per site**: homepage + max 3 contact-achtige pagina's, respecteert robots.txt, beleefde user-agent `WaarBlijftHetBot`. Extractie van e-mail (mailto eerst, ook ontsluierd `info [at] domein [dot] nl`), naam (JSON-LD Person → `<h1>` → meta author → "ik ben ..."-patroon → titel), en doelgroep via trefwoord-classificatie (of handmatig vastgezet).
-- **Overzichtspagina volgt individuele profielen (belangrijk, 11-jun v2)**: bij een ledenlijst/verwijsgids opent de zoeker élk profiel apart i.p.v. alleen de overzichtspagina. Drie sporen in `bouwWachtrijVanUrl`: (1) same-host profiel-cluster op de pagina zelf (grootste groep URL's met gelijke pad-diepte ≥2), (2) externe praktijksites, (3) **sitemap-fallback** als de lijst JavaScript-gerenderd is (zoals eft.nl): leest `sitemap.xml`/`sitemap_index.xml` en pakt het profiel-cluster daaruit. Per profiel: staat er geen e-mail op, dan volgt hij de eigen-website-link één hop (`vindEigenWebsite`). Het e-maildomein van de directory zelf (`negeerDomein`, bijv. `info@eft.nl`) wordt altijd genegeerd. `MAX_SITES=60` per batch.
-- **Review-wachtrij**: gevonden adressen staan in tabel `prospects` (status `gevonden`). Admin keurt goed (→ `outreach_contacts`, status `nieuw`) of wijst af. Ontdubbelt tegen bestaande outreach-contacten en eerdere prospects.
-- **Review-tabel UX (11-jun v3)**: actie-knoppen (Goedkeuren/Afwijzen) staan vóóraan, `table-fixed` zodat horizontaal scrollen weg is (context-kolom truncate op 2 regels). Naam is een controlled inline-invoerveld; per-rij Goedkeuren slaat een gecorrigeerde naam eerst op (`keurRijGoed`) zodat de correctie niet verloren gaat. Categorie inline dropdown. Multiselect + bulk-goedkeuren/afwijzen via `POST /api/admin/prospects/review`.
-- **SSRF-bescherming**: crawler weigert localhost, 127/10/192.168/172.16-31/169.254-ranges; redirects worden handmatig gevolgd en per hop opnieuw gecheckt.
-- **Bestanden**: `lib/prospects/` (types, extract, classify, crawler, opslag), `app/api/admin/prospects/{route,step/route,review/route}.ts`, `app/admin/components/ProspectsTabblad.tsx`, tab toegevoegd in `app/admin/AdminClient.tsx`.
-- **`supabase/prospect_zoeker.sql` MOET nog eenmalig gedraaid worden** in de Supabase SQL-editor (tabellen `prospect_jobs` + `prospects`).
-- Alle admin outreach-routes hebben nu een `isAdminRequest()`-guard (stond er nog niet op).
-- **DB-toegang via `createServiceClient()` (service-role), niet de anon-cookie-client.** De RLS-policies staan op `to authenticated`, maar de SSR-cookie-client wordt door Supabase als `anon` gezien bij schrijven, dus die liep tegen "new row violates row-level security policy" aan. Oplossing: alle admin prospect- én outreach-routes gebruiken nu `createServiceClient()` (bypasst RLS), met `isAdminRequest()` als poortwachter. Vereist `SUPABASE_SERVICE_ROLE_KEY` in Vercel (stond er al voor de indexing-routes).
+## Prospect-zoeker (admin-tab Prospects)
+Verzamelt namen + e-mailadressen van potentiele verwijzers en zet ze na review in de CRM. Live getest 19-jul (zoekwoorden "relatietherapeut zwolle"): werkt, 9+ adressen.
+- Twee bronnen: overzichtspagina-URL (ledenlijst/verwijsgids; volgt individuele profielen, sitemap-fallback voor JS-lijsten, eigen-website-hop) of zoekwoorden (Brave Search API, `BRAVE_SEARCH_API_KEY` staat in Vercel; DuckDuckGo-fallback).
+- Job-gebaseerd: POST `/api/admin/prospects` maakt job + wachtrij; UI draait step-lus (max 3 sites/call, 20s budget). Respecteert robots.txt, SSRF-bescherming, beleefde user-agent WaarBlijftHetBot.
+- Extractie: e-mail (mailto eerst, ontsluierd, %20-prefix gestript), naam (JSON-LD Person → h1 → meta author → "ik ben"-patroon → titel; bedrijfsnaam belandt soms in naam-veld, inline corrigeren), plaats (`extractPlaats`: JSON-LD addressLocality → postcode+plaats → "gevestigd in"; alleen bij zekerheid), doelgroep-classificatie.
+- Review-wachtrij: goedkeuren → outreach_contacts (met plaats), afwijzen. Ontdubbelt tegen bestaande contacten.
+- Bestanden: `lib/prospects/`, `app/api/admin/prospects/{route,step,review}`, `app/admin/components/ProspectsTabblad.tsx`.
+- Alle admin-routes: `isAdminRequest()`-guard + `createServiceClient()` (zie Technische lessen).
 
 ## SEO / AI-vindbaarheid
-- **sitemap.xml, sitemap-0.xml, robots.txt én llms.txt** worden gegenereerd door `scripts/generate-sitemap.mjs` — draait in `next build`. Leest artikel-slugs/titels uit `lib/inzichten-data.ts`. Bij nieuw artikel: niets handmatig, build regenereert alles.
-- Canonicals/og/host = **www**. ~72 artikelen (sitemap ~79 URL's). Veel nieuwe artikelen toegevoegd in juni-2026 sessies: bruto/netto-uitleg, vaste-lasten, potjes-systeem, vakantiegeld, pakkende "goed-salaris-toch-geldstress"-reeks, longtail-batch (incl. interactieve calculator `vrij-besteedbaar-inkomen-berekenen`), en een Klarna/achteraf-betalen-reeks (5 artikelen, niet-veroordelend, met Geldfit-verwijzing).
-- **Interne linking gemaximaliseerd**: category-aware "Lees ook"-blok (3 cards, eerst zelfde categorie) in `app/inzichten/[slug]/page.tsx`, plus contextuele in-body links zodat geen enkele nieuwe hub 0 inbound links heeft.
-- **Indexering**: Google heeft geen snelle push voor artikelen (Indexing API alleen JobPosting/BroadcastEvent). De eigen "submit"-tool gebruikt **IndexNow** = alleen Bing/Yandex, NIET Google. GSC URL Inspection geeft alleen status. Handmatig in GSC indienen blijft de snelste route voor Google.
-- Schema: Article + FAQPage + Person (sameAs LinkedIn/Instagram van Jarno) + Organization + AboutPage + DefinedTermSet. Auteur-bio onderaan elk artikel.
-- Content-strategie (Google mei-2026 core update): **first-hand, non-commodity, voor/na-cases met echte bedragen, zichtbare auteur.**
+- sitemap.xml, robots.txt en llms.txt worden gegenereerd door `scripts/generate-sitemap.mjs` (draait in `next build`), leest slugs uit `lib/inzichten-data.ts`. Canonicals/og/host = www.
+- Indexering: handmatig indienen in GSC blijft de snelste route voor Google (eigen submit-tool is IndexNow = alleen Bing/Yandex). Admin-tab Indexing: per-URL GSC-inspect + dagelijkse cron 07:00 UTC.
+- Schema: Article + FAQPage + Person + Organization + AboutPage. Auteur-bio onder elk artikel linkt naar /financieel-coach.
+- Contentstandaard per artikel: ScanBox, antwoord-eerst-blok, zelfstandige H2-blokken, FAQ met schema, interne links, CTA met juiste funnel-temperatuur. Audit van bestaande artikelen: `docs/artikel-audit-juli-2026.md`.
+- Kanaal-realisme: dienst-keywords ("financieel coach") zijn vervuild met vacatures/opleidingen/gemeente-circuit; niet verder investeren in cluster A. Beste kansen: merkterm-cluster ("waar blijft mijn geld"), "waarom kan ik niet sparen", benchmark-model (boodschappen-artikel kopieren), rondkomen vanaf 3000/4000. De doelgroep zoekt vooral herkenning op fora (ouders.nl-thread "Modaal gezin; waar blijft mijn geld").
 
 ## Mail / DNS (waarblijfthet.nl)
-- **Website draait op Vercel, mail op een aparte host.** Apex `@ A` = `216.198.79.1` (Vercel), `www` CNAME → `*.vercel-dns-017.com`. De mailserver is `45.82.188.190` (daar wijzen `webmail`, de wildcard `*` en de SPF naartoe). Postbus: hallo@waarblijfthet.nl.
-- **Mail-ontvangst gerepareerd (24-jun-2026).** Probleem: MX stond op `10 waarblijfthet.nl`, en die naam resolvet via de apex naar de Vercel-IP (geen mailserver), dus inkomende mail verdween. Fix: `mail` A-record → `45.82.188.190` aangemaakt, oude `mail` CNAME verwijderd, MX gewijzigd naar `10 mail.waarblijfthet.nl`. Werkt nu, mail komt binnen. **Les: een MX mag nooit naar de Vercel-apex of naar een CNAME wijzen.**
-- **Resend is alleen voor versturen, niet ontvangen.** Resend host geen postbussen.
-- **Resend SPF + DKIM nog in te stellen (29-jun-2026):** Eerste echte analyse is gedaan maar de Resend-mail is niet aangekomen. Fix: (1) SPF updaten naar `v=spf1 +a +mx +ip4:45.82.188.190 include:_spf.resend.com -all`. (2) In Resend dashboard → Domains → `waarblijfthet.nl` toevoegen → CNAME-records voor DKIM kopiëren naar DNS. Na verificatie in Resend werkt verzenden. Ontvangst via `mail.waarblijfthet.nl` staat los hiervan en blijft werken.
+- Website op Vercel, mail op aparte host (45.82.188.190). MX = `10 mail.waarblijfthet.nl` (nooit naar de Vercel-apex of een CNAME wijzen). Postbus: hallo@waarblijfthet.nl.
+- Resend = alleen versturen. SPF + DKIM zijn ingesteld en de keten is getest: werkt (bevestigd 18-jul).
+- Outreach-afzender: "Jarno Koopman <hallo@waarblijfthet.nl>", kale persoonlijke mails, plain-text-part mee, mail 1 en 2 zonder links.
 
-## Meting
-- **quiz_voortgang** (PII-vrije tabel) meet drop-off per stap + ingevulde antwoorden. SQL staat in `supabase/quiz_voortgang.sql` — **MOET nog eenmalig in Supabase SQL-editor gedraaid worden.**
-- Admin → tab **Funnel**: trechter + drop-off + "welke pagina's leiden naar de analyse".
-- Admin → tab **Indexing**: per-URL Google Search Console inspect + dagelijkse cron (09:00 CEST). Logt naar `cron_runs` tabel.
+## Meting / admin
+- /admin tabs: Funnel (trechter + drop-off + apparaat), Bezoekers, Leads, Analyse resultaten, Overzicht, Aanvragen, Indexering, Zoekwoorden, Outreach, Prospects.
+- quiz_voortgang meet drop-off per stap (PII-vrij) incl. apparaat en eerste_interactie; funnel-cijfers 19-jul: 292 bezoekers/30d, 15 gestart, 8 voltooid, 2 leads, 0 betaald.
+- Analyse-flow: "Hoe woon je"-vraag stuurt benchmarks; mobiele live-balk; schaamte-softening. Bekende beperking: gedeelde resultaatpagina leidt volwassenen af uit salaris_2.
+- Benchmark-per-mail component bestaat (`components/artikel/BenchmarkMail.tsx` + api) maar is NOG NERGENS GEMOUNT; notificatie gaat naar hallo@, adres wordt niet opgeslagen.
 
-## Wat er in sessie 2-jul-2026 gedaan is (cluster A: financieel coach)
-- **Groeiplan** in `docs/groeiplan-seo-juli-2026.md`: 27 keywords in 6 clusters, live SERP-gecheckt via Chrome (geen SE Ranking, connector niet geautoriseerd; volumes indicatief).
-- **Cluster A gebouwd (dienst-keywords, koopintentie)**:
-  - Nieuwe dienstpagina `app/financieel-coach/page.tsx`: target "financieel coach" + geldcoach/online/kosten. FAQPage- + Service- + BreadcrumbList-schema, tarieventabel (0/125/497), voor wie wel/niet, 8 FAQ's.
-  - Artikel `wat-kost-een-financieel-coach` (categorie Financieel advies): tarieventabel markt, terugverdienlogica, gratis alternatieven.
-  - Artikel `verschil-budgetcoach-financieel-coach`: verschiltabel, situatietabel, eerlijke doorverwijzing schuldhulp.
-  - Beide in `lib/inzichten-data.ts` (vooraan array) + `ArticleBody.tsx`.
-- **Interlinking**: auteur-bio onder elk artikel linkt nu "financieel coach" naar de dienstpagina (sitewide); Footer-link "Financieel coach"; links vanuit beide adviseur-artikelen; dienstpagina linkt naar beide nieuwe artikelen + analyse + adviesgesprek. Person-schema jobTitle nu "Financieel coach en oprichter", knowsAbout + "Financiële coaching".
-- **Title-fixes**: dubbele suffix "| Waar blijft het | Waar blijft het" opgelost op /aanbod en /inzichten (layout heeft al een template). /aanbod-title nu "Financiële coaching en adviesgesprek, tarieven" (weg van "voor gezinnen").
-- **Sitemap**: `/financieel-coach` (priority 0.9) in `generate-sitemap.mjs` + llms.txt-regel. Script gedraaid: 87 URL's, 74 artikelen.
-- Geverifieerd: tsc schoon, geen null bytes, geen em dashes in nieuwe copy. Via python3 geschreven (NTFS-truncatie Edit-tool).
-- **Na deploy: beide artikelen + /financieel-coach handmatig indienen in GSC.** Volgende stap uit het plan: cluster B ("waar blijft mijn geld") en Resend SPF/DKIM.
+## Technische lessen (niet opnieuw leren)
+1. **NTFS-mount trunceert bij Edit/Write-tools.** Altijd python3, ook voor kleine wijzigingen. Controleer met wc -l + tsc.
+2. **Supabase RLS: alle server-writes en admin-reads via `createServiceClient()`** (service role, bypasst RLS) met `isAdminRequest()` als poortwachter. De SSR-cookie-client wordt bij schrijven als anon gezien ("new row violates row-level security policy"). Publieke formulieren altijd via server-routes, nooit browser-anon-client.
+3. **MX mag nooit naar de Vercel-apex wijzen** (mail verdween daardoor tot 24-jun).
+4. **Git op dit mount**: tmp-objects kunnen niet altijd verwijderd worden (warnings zijn onschuldig); een achtergebleven `HEAD.lock` blokkeert commits en moet handmatig weg. Push alleen door Jarno.
+5. **Vercel-limieten**: lange klussen als job + step-lus (max ~20s per call, `maxDuration=60`), geen externe queue nodig.
+6. **Persona-toetsing werkt**: elke ronde verse agents (anders keuren ze hun eigen advies goed), hardheidseis "zou kunnen telt als nee", en de replytekst uitschrijven als bewijs.
 
-## Wat er in sessie 8-jul-2026 gedaan is (conversie: geldscan + benchmark-mail)
-- **UPDATE 8-jul (v2): deliverable heet nu "geldrapport"** ("jouw persoonlijke geldrapport", ICP-panel unaniem, verving "lekkenrapport") en de betaalcopy is overal versimpeld naar "Na je aanvraag stuur ik je een betaalverzoek. Zodra dat betaald is, ontvang je binnen twee werkdagen je geldrapport." (iDEAL/tenaamstelling/inlogcodes/bon/IBAN-details weg; alleen in de geldscan-FAQ blijft de zin dat het betaalverzoek altijd van hallo@waarblijfthet.nl komt).
-- **UPDATE 8-jul (later die dag): geldscan omgezet van video naar rapport-format.** Deliverable is nu "jouw persoonlijke lekkenrapport": persoonlijk geschreven PDF van 2 à 3 pagina's met de drie grootste lekken, eigen cijfers en per lek wat ik zou doen. Geen video/privelink meer; rapport komt als PDF-bijlage per mail. Privacy aangescherpt: afschriften en analyse-gegevens worden direct na het versturen van het rapport verwijderd (was: standaard 30 dagen). Superhelder 4-stappenproces op /geldscan (analyse + aanmelden, betaalverzoek binnen 1 werkdag, rapport binnen 2 werkdagen na betaling, direct verwijderen) en adviesgesprek-stappen aangescherpt (betaalverzoek-uitleg + direct verwijderen na de samenvatting). Gewijzigd: geldscan/aanbod/adviesgesprek/resultaat-pagina's, send-intake-bevestiging, IntakeForm, inzichten-data cta's, homepage, generate-sitemap.mjs/llms.txt.
-- **Growth plan** in `docs/growth-plan-conversie-juli-2026.md`. Kernkeuzes van Jarno: geen gratis 15-min gesprekken (tijd), geen ads, geen werkgeversspoor (nog geen KvK), wel anoniem-advies-producten.
-- **Geldscan gebouwd (€49, async)**: `app/geldscan/page.tsx` (FAQPage+Service schema). Klant doet analyse, Jarno stuurt binnen 2 werkdagen persoonlijke video (10 min) met 3 grootste lekken. €49 wordt verrekend bij gesprek/traject. Intake-flow uitgebreid met `pakket=geldscan` (page, IntakeForm, api/intake, bevestigingsmail met betaalverzoek-uitleg). Betaling handmatig via betaalverzoek, geen PSP.
-- **Benchmark-per-mail** op het boodschappen-artikel (grootste verkeersbron): `components/artikel/BenchmarkMail.tsx` + `app/api/boodschappen-benchmark/route.ts`. Bezoeker kiest huishoudtype + e-mail → krijgt direct één persoonlijke benchmark-mail met 3 hefbomen per situatie (Resend). Adres wordt niet in DB opgeslagen; er gaat een notificatiemail naar hallo@ (bewuste v1-keuze, geen migratie nodig). Expliciete belofte: geen nieuwsbrief.
-- **Geldscan-positionering**: kaartje op analyse-resultaatpagina (verving blog-kaartje), banner op /aanbod onder de prijskaarten, link onderaan /adviesgesprek, sitemap (88 URL's) + llms.txt.
-- Geverifieerd: tsc schoon, geen em dashes/null bytes. **Let op: RESEND_API_KEY vereist voor benchmark-mail (staat al in Vercel als SPF/DKIM-fix is afgerond).**
-- **ICP-loop op geldscan/mailblok (2 rondes, 5 persona,s)**: alle scores naar 7-9. Fixes: iDEAL-betaalvertrouwen (afzender/tenaamstelling/nooit-inlogcodes/bon/factuur-IBAN-optie), privacy omgedraaid (privelink, standaard verwijderen 30 dagen, aanleveren = reply op bevestigingsmail), illustratief voorbeeldblok (eerlijk gelabeld, GEEN verzonnen klantcase) + echte 460-referentie, foto+naam-blok, zzp-zin, mailblok-kop naar hefbomen + adres-wordt-niet-opgeslagen.
+## Documentindex (docs/)
+- `kritische-analyse-en-plan-18-jul-2026.md`: actuele kanalenanalyse + plan (conversie, content, PR, verwachtingen).
+- `outreach-strategie-jul-2026.md`: outreach-strategie, v5-templates, persona-testverslag, actiepunten.
+- `skill-verwijzer-personas.md`: inleef-skill Marjolein/Richard voor outreach-toetsing.
+- `icp-personas.md`: de 7 ICP-profielen + competitieve aanscherping.
+- `groeiplan-seo-juli-2026.md` en `growth-plan-conversie-juli-2026.md`: eerdere plannen (deels uitgevoerd; kanaal-conclusies achterhaald door 18-jul-analyse, conversie-ideeen zoals budgetsjabloon/e-mailcursus nog bruikbaar).
+- `artikel-audit-juli-2026.md`: kwaliteitsaudit van alle artikelen.
+- `analyse-conversie-advies.md`, `concurrentie-en-content-onderzoek-juli-2026.md`, `cluster1-geldpsychologie-concepten-juli-2026.md`: onderzoek/achtergrond.
+- `archief-claude-md-tm-19-jul-2026.md`: de volledige oude sessielogboeken (raadplegen bij "waarom is dit ooit zo besloten").
 
-## Wat er in sessie 8-jul-2026 gedaan is (deel 2: aanmeldflow + hero-CTA)
-- **Aanmeldflow (IntakeForm) op ik-vorm gezet**: was blijven hangen op jullie/we/onze (gemist bij de eerdere jullie-naar-je-sweep). Gefixt in `IntakeForm.tsx`, `bedankt/page.tsx`, `send-intake-bevestiging/route.ts`, `/adviesgesprek`, FAQ op `/geldscan`. Testimonial-quotes (Daan & Roos, Bram & Eva, Karim & Noor) blijven bewust "we/ons", dat zijn hun eigen woorden.
-- **Vragenlijst per pakket**: geldscan (async, geen gesprek) heeft nu 3 vragen i.p.v. 5, "wanneer starten" en "analyse gedaan" zijn geschrapt (niet relevant zonder gesprek). Situatie-opties uitgebreid met "Alleenstaand, geen kinderen" en "Alleenstaande ouder" (was puur gezinsgericht). Admin-badge toonde geldscan-aanmeldingen ten onrechte als "Adviesgesprek", gefixt in `AanvragenTabblad.tsx`.
-- **Hero-discussie (analyse vs. geldscan als primaire CTA)**: Jarno's instinct was geldscan primair te maken (zijn doelgroep wil een mens, geen tool). Onderzoek wees uit dat de eerdere ICP-conclusie "analyse als primaire CTA" (12-jun) dateert van vóór het bestaan van de geldscan en alleen tegen het dure/telefonische gesprek getest is, dus niet direct herbruikbaar is. Belangrijker: de geldscan-pagina belooft dat de analyse "de aanlevering" is, maar de intake (aanmeldformulier) was daar nooit technisch aan gekoppeld, geen gedeeld token, geen matching in admin. Rechtstreeks naar geldscan sturen zonder dat te repareren zou tot rapporten op te weinig data leiden.
-- **Gekozen oplossing**: dubbele CTA in de hero i.p.v. één primaire knop. `app/page.tsx`: "Laat mij meekijken (€49) →" (geldscan, solide knop) naast "Eerst gratis zelf checken →" (analyse, `btn-outline`), micro-copy legt het verschil uit.
-- **Analyse-geldscan datagat gedicht**: analyse-token stroomt nu door de hele keten. `/resultaat/[token]` linkt naar `/geldscan?token=...`, geldscan-pagina geeft token door aan beide intake-CTA's, `IntakeForm` toont een groen "je analyse is gekoppeld"-bannertje bij een token of anders een niet-blokkerende suggestie om de analyse alsnog te doen, en stuurt `analyse_token` mee naar `/api/intake`. Die route doet bij het ontbreken van een token een best-effort match op e-mailadres tegen `quiz_resultaten` (meest recente). Admin (`AanvragenTabblad.tsx`) toont bij een gekoppelde analyse een directe "Bekijk analyse →"-link naar `/resultaat/[token]`.
-- **`supabase/intake_analyse_link.sql` MOET nog eenmalig gedraaid worden** in de Supabase SQL-editor (voegt kolom `analyse_token` toe aan `intake_aanvragen` + index).
-- **Waarschuwing voor mezelf**: tijdens dit werk heb ik per ongeluk de Edit-tool gebruikt op `app/admin/page.tsx` en `app/api/intake/route.ts`, en die werden inderdaad stilzwijgend getrunceerd (het bekende NTFS-probleem). Direct opgemerkt via `wc -l` + tsc en hersteld via python3. Les: ook bij kleine, gerichte wijzigingen in bestaande bestanden altijd python3 gebruiken, nooit de Edit-tool, ook al lijkt een enkele stringvervanging onschuldig.
-- Geverifieerd: tsc schoon, geen em dashes/wij-vorm in nieuwe copy (behalve testimonial-quotes). Nog niet gecommit/gepusht.
-- **UPDATE 8-jul (later die dag): knoptekst en ICP-set aangescherpt.** Jarno vond "Laat mij meekijken (€49)" te zacht/mechaniek-gericht, wilde iets dat pijn of uitkomst benoemt. Getoetst tegen 6 kandidaten langs de ICP-personas (zie hieronder): "Vind je geldlek (€49) →" gekozen, sluit aan bij bestaande sitetaal ("grootste lekken", "waar het weglekt") en houdt de prijs zichtbaar in de knop. **ICP-set voor het eerst vastgelegd als los document: `docs/icp-personas.md`** (bestond alleen fragmentarisch in CLAUDE.md-sessies). Sandra's profiel uitgebreid met relatiedynamiek (koppelt aan de relatietherapeut-outreach). Zesde persona toegevoegd: Niels, alleenstaand zonder kinderen, in loondienst, goed salaris, geen aanwijsbare aanleiding, dat was het profiel dat ontbrak en dat Jarno zelf als doelgroep noemde. Gebruik dit document bij toekomstige ICP-toetsen in plaats van scores uit losse sessies te reconstrueren.
-
-## Wat er in sessie 8-jul-2026 gedaan is (deel 3: geldscan-volgorde omgedraaid)
-- **Inzicht van Jarno**: de gratis analyse wordt in de praktijk meer een hulpmiddel om na betaling gegevens op te halen dan een stap die vooraf moet. Prima om zo aan te bieden, maar het mag geen drempel zijn die mensen laat afhaken voordat ze betalen.
-- **Geldscan-funnel omgedraaid naar: aanmelden → betaalverzoek → ná betaling pas de analyse invullen (optioneel bankafschriften) → rapport → verwijderd.** Alle "binnen 2 werkdagen na betaling"-claims die de analyse als voorwaarde vooraf suggereerden zijn herschreven naar "na aanlevering van je cijfers" of expliciet "na betaling vraag ik je de analyse in te vullen, binnen 2 werkdagen daarna het rapport". Aangepast: `app/geldscan/page.tsx` (hero, meta/OG, stappen-array nu 5 stappen, FAQ), `app/api/send-intake-bevestiging/route.ts` (geldscan intro + stappenHtml), `app/aanbod/page.tsx` (prijskaart + scenario-tekst), `lib/inzichten-data.ts` (CTA-blurb tweeverdieners-artikel, ook jullie→je gefixt).
-- **IntakeForm.tsx: blokkade-bannertje verwijderd.** Eerder (dezelfde sessie) had ik een oranje "nog geen analyse gedaan? doe 'm eerst" banner toegevoegd in het aanmeldformulier zelf, dat was precies de drempel die Jarno niet wil. Weggehaald; de groene "je analyse is gekoppeld"-bevestiging (voor wie 'm al deed, via het token) blijft staan, dat is geen drempel. Footer-disclaimer legt nu uit dat de analyse na betaling gevraagd wordt.
-- **Resultaatpagina bewust ongewijzigd gelaten**: het geldscan-kaartje daar zegt nog "binnen 2 werkdagen na betaling", en dat klopt voor die specifieke bezoeker (die heeft de analyse al gedaan, dus betaling is voor hen echt de laatste stap). Geen inconsistentie, andere context.
-- Geverifieerd: tsc schoon, geen nieuwe em dashes/wij-vorm. Bestaande "jullie" in artikel-body's (tweeverdieners-topics, FAQ-vragen vanuit lezersperspectief, "bij ons thuis" als Jarno's eigen verhaal) bewust ongemoeid gelaten, dat is contextueel correct en buiten scope. Nog niet gecommit/gepusht.
-
-## Wat er in sessie 8-jul-2026 gedaan is (deel 4: aanbod-pagina proces/uitkomst gesplitst)
-- **Aanleiding**: Jarno's eigen screenshot van de "Wat je krijgt"-kaart liet zien dat de lijst timing/proces bevatte ("binnen 2 werkdagen na betaling") i.p.v. alleen de inhoud van het pakket, het linkerblok was een dichtgeslibde alinea, en "eerlijk en gericht"-achtige taal kwam zo vaak terug dat het achterdochtig aandoet. Ook viel op: snel doorklikken naar het aanmeldformulier zonder te weten wat je precies aanvraagt.
-- **Nieuwe gedeelde bron**: `lib/aanbod-content.ts` met `PAKKET_INFO` per pakket (geldscan/gesprek/intensief), met twee strikt gescheiden categorieën: `hoeHetWerkt` (de volgorde der dingen) en `watJeKrijgt` (de inhoud van het pakket, nooit tijdsclaims of proces erin). Gebruikt door zowel `/aanbod` als het aanmeldformulier, zodat de twee nooit uit elkaar kunnen lopen.
-- **`/aanbod` detail-secties herbouwd**: i.p.v. alinea-plus-één-kaart nu twee kaarten naast elkaar: links "Hoe het werkt" (genummerde stappen), rechts "Wat je krijgt" (groene vinkjes), met een korte intro-zin erboven per pakket voor de positionering/waarom-het-de-moeite-waard-is (anders verloren gegaan bij het opsplitsen). CTA-knoppen verplaatst naar onder beide kolommen, niet meer alleen onder het proces-blok.
-- **Aanmeldformulier (`IntakeForm.tsx`)**: toont nu bovenaan, vóór de vragen, een "Wat je krijgt"-kaart uit dezelfde `PAKKET_INFO`, voor alle drie pakketten. Adresseert direct dat iemand kan doorklikken zonder te beseffen wat hij aanvraagt.
-- **Geen paginanummers meer** ("2 à 3 pagina's") nergens, ook niet op de losse `/geldscan`-pagina waar dat nog stond.
-- **"Eerlijk"/"gericht"-sanering**: adviesgesprek-pagina ging van 7 naar 1 vermelding van "eerlijk" (de hero-zin blijft, de rest verwijderd of vervangen door concrete taal), geldscan-pagina van 5 naar 2 (hero + één functioneel gebruik bij de schuldhulp-doorverwijzing). "Gericht" volledig weg.
-- **ICP-toets in rondes** (alle 6 uit `docs/icp-personas.md`, inclusief Niels): Niels wilde expliciet "geen sjabloon of algoritme" terug in de geldscan-lijst (toegevoegd), Ellen wilde de verplichte analysestap en de optionele bankafschriften niet in één zin gemengd zien (gesplitst in twee losse punten), Sandra miste "deelbaar met je partner" bij het adviesgesprek net als bij de geldscan (toegevoegd), Mark wilde het traject als een concrete pakketlijst (calls/WhatsApp/eindrapport) i.p.v. vage uitkomsttaal (aangehouden, want dat past bij hoe coachingpakketten normaal worden gepresenteerd). Bij eigen review viel op dat de positionering/waarom-zinnen (bijv. "één beslissing verdient de €125 terug") verloren gingen bij het opknippen in twee lijsten, opgelost met de losse intro-zin per pakket.
-- **`we`-vorm gevonden en gefixt** in `lib/aanbod-content.ts` (traject-stap "sturen we samen bij") tijdens de eindcontrole, tegen de ik-vorm-regel.
-- Geverifieerd: tsc schoon, geen paginanummers, geen wij-vorm (behalve testimonial-quotes), "eerlijk"/"gericht" fors teruggebracht. Nog niet gecommit/gepusht.
-
-## Wat er in sessie 2-jul-2026 gedaan is (deel 2: outreach aangescherpt)
-- **Onderzoek**: cold-email benchmarks 2026 (gem. reply 3,4%, follow-ups = 42% van alle replies, opens onbetrouwbaar door Apple Mail ~49%). Conclusie: probleem was geen messaging of volume maar ontbrekende follow-ups en meting.
-- **Follow-up systeem gebouwd**:
-  - `supabase/outreach_followup.sql` **MOET nog eenmalig gedraaid worden**: kolommen `followups`, `laatste_followup_at`, `gereageerd_at`, `ps_zin` + status 'gereageerd' in constraint.
-  - `send/route.ts` herschreven: templates zijn nu kaal (geen tabel/kleuren, oogt persoonlijk), <80 woorden, mail 1 zonder links (alleen handtekening), plain-text-part meegestuurd. FU1 (na 3+ dagen, bevat de enige link naar /samenwerken/[doelgroep]), FU2 = breakup. `type: "followup"` in POST-body, max 2, server checkt wachttijd.
-  - Persoonlijke zin per contact (`ps_zin`): inline veld in admin (alleen bij status nieuw), wordt als eerste alinea na de aanhef ingevoegd.
-  - Webhook (`app/api/resend-webhook/route.ts`): status 'gereageerd' wordt nooit overschreven, 'geopend' degradeert 'geklikt' niet meer.
-  - PATCH outreach-route: `ps_zin` en `gereageerd: true` (zet status + gereageerd_at).
-  - UI (`OutreachTabblad.tsx`): bulk- en per-rij follow-up-knoppen, "Gereageerd"-markeerknop (stopt follow-ups), follow-up-kolom (n/2 + datum), Geklikt-kolom vervangen door Persoonlijke zin (klik zit al in status).
-- **Nog handmatig te doen door Jarno**: (1) SQL draaien, (2) in Resend-dashboard open+click tracking aanzetten op het domein, (3) webhook toevoegen `https://www.waarblijfthet.nl/api/resend-webhook?secret=...` met events opened/clicked/bounced/spam_complaint, (4) `RESEND_WEBHOOK_SECRET` in Vercel.
-- **Werkafspraak volume**: 10-20 outreach-mails per dag opbouwen, niet meer (jong domein, zelfde domein als leadmails). Replies zijn de metric, opens indicatief. LinkedIn bewust niet ingezet (PSOhub-scheiding). Cal.com uitgesteld (n=1 lead).
-- Geverifieerd: tsc schoon, geen em dashes.
-
-## Wat er in sessie 12-jun-2026 gedaan is (deel 3: formulieren-fix)
-- **Leadformulier quiz gaf "Er ging iets mis"**: oorzaak is de bekende RLS-klasse-fout. Stap6 schreef met de **browser-anon-client** rechtstreeks naar `leads` (upsert + select) en `quiz_resultaten`; zodra een e-mailadres al bestond werd de upsert een UPDATE en blokkeerde RLS. Zelfde patroon als eerder bij outreach/prospects.
-- **Oplossing: alle publieke schrijfacties naar server-routes met `createServiceClient()`**:
-  - Nieuw `POST /api/quiz-lead` (whitelist van kolommen, e-mailvalidatie, fallback als kolom `aantal_volwassenen` nog ontbreekt) → `Stap6Resultaat.tsx` gebruikt nu fetch i.p.v. browser-Supabase.
-  - Nieuw `POST /api/intake` → `app/aanbod/intake/IntakeForm.tsx` (adviesgesprek/traject-aanvraag) gebruikt nu fetch.
-  - Nieuw `PATCH /api/admin/aanvragen` (isAdminRequest-guard) → admin-statusupdate van intake-aanvragen, met zichtbare foutmelding i.p.v. stil falen.
-  - `app/resultaat/[token]/page.tsx` leest nu via de service client (token = toegangscontrole), zodat de gedeelde link nooit op RLS stukloopt.
-- **E-mail robuuster**: `send-resultaat` faalt niet meer stil met een "placeholder"-API-key maar geeft een duidelijke 500 als `RESEND_API_KEY` ontbreekt, en koppelt het e-mailadres aan `quiz_resultaten` (voor het bewaar-formulier op de resultaatpagina). Check of **`RESEND_API_KEY` en `RESEND_FROM`** in Vercel staan; zonder die env-vars komt er geen mail aan.
-- **Huisstijl-sweep mails/intake**: wij-vorm en em dashes uit `send-intake-bevestiging` (klantmail), en-dash-bereiken in intake-opties vervangen door "tot".
-- Browser-Supabase wordt nu alleen nog gebruikt voor: anonieme `quiz_voortgang`-meting (bewust, PII-vrij) en admin-login. Admin-reads zijn in sessie 29-jun alsnog ook naar `createServiceClient()` verplaatst. Geen anon-writes meer naar tabellen met RLS-onzekerheid.
-- Geverifieerd: tsc schoon, geen null bytes, geen nieuwe em dashes. **Nog niet gecommit/gepusht.**
-
-## Wat er in sessie 12-jun-2026 gedaan is (deel 2: analyse-flow)
-- **ICP-loop op de hele analyse-flow** (5 persona's, mobiel + desktop, + aparte UX-expert-review; 3 rondes). Eindscores: Sandra 4→8, Thomas 5,5→8, Ellen 4,5→8, Mark 7→8, Lisa 5,5→9.
-- **Nieuwe vraag in stap 1: "Hoe woon je?" (alleen / samen met partner)**, veld `volwassenen: 1|2|null` in `lib/quiz-types.ts`. Stuurt: boodschappen-benchmark (alleenstaand = tabel minus €185, `lib/benchmarks.ts`), verzekering-benchmark, labels in stap 2 ("Jouw netto inkomen" i.p.v. "Salaris persoon 1"; partner-veld verdwijnt bij alleen en wordt gewist), zorgtoggle (verborgen bij alleen) en alle bevestigingsteksten ("huishouden van één volwassene met 2 kinderen"). Helper `aantalVolwassenenVan(data)` vervangt overal de oude afleiding uit salaris2.
-- **Mobiele vaste live-balk** (In / Uit / Over) onderaan tijdens stap 2-5 in `QuizClient.tsx`, zodat realtime vergelijken ook op mobiel voelbaar is.
-- **Dode bijtelling-toggle in stap 2 verwijderd** (deed niets) → eerlijke waarschuwingstekst bij zakelijk + bijtelling-niet-verrekend.
-- **Copy-fixes**: alle jullie/wij/gezinnen-resten weg in analyse-flow, resultaatpagina (`app/resultaat/[token]/page.tsx`) én e-mail (`app/api/send-resultaat/route.ts`, ook em dash eruit). Zorgverzekering-hint zonder "bruto"-verwarring; hypotheekrenteaftrek-hint herschreven; zzp-hint bij inkomen (gemiddelde 6-12 mnd, na belastingreservering); AOV expliciet bij overige verzekeringen; boodschappen-hint dynamisch uit benchmark; meerdere-auto's-hint in stap 1; partner-doet-niet-mee-hint bij salaris 2; spaardoel-hint noemt pensioen (50-plus/zzp).
-- **Schaamte-softening (Lisa)**: mobiel "Grootste afwijking"-blok nu oranje, "Hier valt het meeste op", alleen bij >€50 afwijking, met "Geen oordeel, wel een aanknopingspunt"; verdict zorgelijk: "Het ligt niet aan jou, en het is om te buigen"; vrije-bestedingen-tip niet meer verwijtend.
-- **Privacy op het invulmoment (Ellen)**: intro zegt "Je antwoorden blijven anoniem. Pas als je aan het eind zelf je e-mail invult, worden ze aan jou gekoppeld" + privacylink; leadform zegt dat het resultaat ook zonder e-mail zichtbaar blijft en dat er geen mails volgen zonder vinkje.
-- **Bekende beperking**: `quiz_resultaten` slaat `volwassenen` nog niet op; de gedeelde resultaatpagina leidt het af uit salaris_2 (eenverdiener-stel krijgt daar de alleenstaande-benchmark). Zie to-do.
-- Geverifieerd: tsc schoon, geen null bytes, geen em dashes in copy. **Nog niet gecommit/gepusht.**
-
-## Wat er in sessie 12-jun-2026 gedaan is
-- **ICP-persona-loop op de homepage** (5 persona's: tweeverdiener, alleenstaande ouder, zzp'er, alleenstaande 50+, burn-out-herstel; 3 rondes met scores). Convergente klachten verwerkt in `app/page.tsx`, `components/HeroCards.tsx`, `components/Header.tsx`:
-  - **Jullie/gezinnen-taal vervangen** door je/huishoudens op homepage én in de hele analyse-flow (`app/analyse/*`), incl. metadata en schema. Alleenstaanden voelden zich buitengesloten terwijl dat juist een contentsegment is.
-  - **Nieuwe sectie "Voor wie is dit?"** met chips naar de 4 alleenstaande-artikelen (interne links, SEO).
-  - **CTA-twijfels weggenomen**: stap 1 noemt nu de vijf invulstappen + "schattingen zijn goed genoeg, geen bankkoppeling"; stap 2 zegt "resultaat direct op je scherm, e-mail niet verplicht, niemand belt je na"; hero-subline "Geen account of bankkoppeling · Resultaat direct op je scherm". Header-CTA "Start analyse" → "Gratis analyse". Verdict ICP's over de knop: analyse als primaire CTA is goed, mits inhoud/privacy/prijs vooraf duidelijk zijn; niemand wilde primair direct naar het aanbod.
-  - **Prijs eerder zichtbaar**: hero noemt nu de enige vervolgstap (€125 eenmalig) + link naar aanbod.
-  - **€460-claim eerlijk geherformuleerd** ("bij de huishoudens die ik tot nu toe begeleid heb. Geen belofte..."), bron "Intern gemiddelde" → "Eigen klantresultaten". HeroCards: "Na onze aanpak" → "Na het bijsturen", "per maand meer in dit voorbeeld", em dash uit disclaimer.
-  - **Privacy op het beslismoment**: link naar /privacy bij de stappen-CTA, "nooit gedeeld of verkocht" in finale CTA.
-  - **Jarno-blok**: wij-vorm eruit, gevalideerde bio-zin erin, "geen producten, geen provisie", LinkedIn-link toegevoegd.
-  - **Wat maakt dit anders**: 5e item "Ook met wisselend inkomen" (zzp).
-- Eindscores klikbereidheid: Sandra 2→8, Thomas 3→8, Ellen 3→8, Lisa 3→7, Mark 6→7,5. Resterende blokkades vereisen echte data van Jarno (zie nieuwe to-dos: alleenstaande-testimonial, track record).
-- Geverifieerd: `npx tsc --noEmit --incremental false` schoon, geen null bytes, geen em dashes in copy. Wijzigingen via Python-replace (niet de Edit-tool), conform werkwijze-notitie. **Nog niet gecommit/gepusht.**
-
-## Wat er in sessie 11-jun-2026 gedaan is
-- **Prospect-zoeker gebouwd** (nieuwe admin-tab "Prospects"): zelfstandig namen + e-mailadressen verzamelen op basis van een overzichts-URL of zoekwoorden, met review-wachtrij naar de outreach mini-CRM. Zie de sectie "Prospect-zoeker" hierboven voor de volledige werking en bestanden.
-- **Architectuur**: job + client-driven step-lus (max 3 sites/call, 20s budget, `maxDuration=60`) zodat alles binnen Vercel-limieten draait zonder externe queue of cron.
-- **Code-review door subagent** verwerkt: RLS dichtgetrokken naar `to authenticated` (anon key is publiek), genegeerde update-error + oneindige lus opgelost, concurrency-guard (optimistic lock op `updated_at`), SSRF-bescherming tegen interne adressen, robots.txt-parser per user-agent-blok.
-- **`isAdminRequest()`-guard** toegevoegd aan de bestaande outreach-routes (`route.ts` en `send/route.ts`), die hadden nog geen serverside auth-check.
-- Geverifieerd met `npx tsc --noEmit` (schoon) + unit-tests van extractie, classificatie, SSRF-guard en robots-parser. Geen em dashes/koppeltekens in copy; ik-vorm aangehouden.
-- **v2 (zelfde sessie, na feedback Jarno)**: overzichtspagina pakte eerst alleen de pagina zelf (bij eft.nl dus `info@eft.nl`). Crawler herbouwd zodat hij individuele profielen volgt + sitemap-fallback voor JS-lijsten + doorklikken naar eigen website (zie sectie "Prospect-zoeker"). Getest met eft.nl-fixtures (profiel mét mail → eigen adres i.p.v. directory-adres; profiel zonder mail → hop naar praktijksite; JS-lijst → sitemap-cluster).
-- **v2b zoekwoorden**: zoekwoorden-modus liep op DuckDuckGo-GET-scraping (faalt vanaf Vercel-IP). Vervangen door `lib/prospects/search.ts`: Brave Search API (env `BRAVE_SEARCH_API_KEY`) met DuckDuckGo-POST als fallback; meerdere zoekregels (doelgroep + stad) per keer. Brave-sleutel staat inmiddels in Vercel.
-- **RLS-writeblokkade opgelost**: admin prospect- én outreach-routes liepen op de anon-cookie-client (door Supabase als `anon` gezien → "new row violates row-level security policy"). Alle routes nu op `createServiceClient()` met `isAdminRequest()` als gate.
-- **v3 UX**: review-tabel (Prospects) acti
-
-## Wat er in sessie 29-jun-2026 gedaan is
-- **Eerste echte ingevulde analyse ontvangen.** Mail via Resend kwam niet aan (SPF/DKIM nog niet ingesteld, zie Mail/DNS-sectie).
-- **Admin-reads blokkeerden door RLS**: `admin/page.tsx` gebruikte `createClient()` (cookie-based) voor `leads`, `quiz_resultaten` en `intake_aanvragen`. Supabase zag dit bij reads als `anon`-context → lege arrays. Opgelost door `createServiceClient()` te gebruiken voor de drie data-queries (auth-check blijft op `createClient()`). Zelfde patroon als eerder bij outreach/prospects maar dan voor reads. Bestanden: `app/admin/page.tsx`.
-- **"Leads = 0" was hierdoor verklaard** — data stond gewoon in de database.
-- **6 vs 3 discrepantie is geen bug**: funnel telt `quiz_voortgang.voltooid=true` (anoniem, geen email vereist); "Analyse resultaten"-tab telt `quiz_resultaten` (alleen aangemaakt bij email-submit). Verschil = mensen die analyse voltooiden maar geen email achterliet. Label in funnel verduidelijkt met subtekst.
-- **Datum-kolom + "Bekijk →" doorklik** toegevoegd:
-  - `FunnelTabblad.tsx`: "Laatste voltooide analyses" heeft nu een datumkolom + subtekst die uitlegt dat dit anonieme afronding is.
-  - `QuizResultatenTabblad.tsx`: email-kolom toegevoegd, "Bekijk →"-link naar `/resultaat/[token]` (opent in nieuw tabblad). `token` en `email` toegevoegd aan `QuizResultaat` interface en `QUIZ_KOLOMMEN` string.
-- **Technische noot (belangrijk)**: de Edit/Write tools trunceren bestanden op het Windows NTFS-mount. Gebruik voor grote bestandswijzigingen altijd `python3` via bash om te schrijven. tsc schoon na Python-write.
-- Geverifieerd: tsc schoon. **Nog niet gecommit/gepusht.**
-
-## Wat er in sessie 29-jun-2026 gedaan is (deel 2: analyse-conversie)
-- **Diagnose funnel**: het lek zit niet binnen de analyse maar aan de voorkant. `quiz_voortgang` logt stap 1 al bij mount, dus "28" = pagina geladen, "9" = doorgeklikt naar stap 2. Wie eenmaal begint maakt het bijna altijd af (9→8→7→6→6). Advies + plan staat in `docs/analyse-conversie-advies.md`. n is klein, dus richtinggevend.
-- **P1 meting uitgebreid**: `quiz_voortgang` heeft nu `apparaat` (mobiel/desktop) en `eerste_interactie` (begon daadwerkelijk in te vullen). `QuizClient.tsx` herschreven: `logVoortgang()` losgetrokken, mount logt geladen, eerste `onChange` logt `eerste_interactie=true`. Funnel-tab (`FunnelTabblad.tsx`) toont nu "geladen vs begon in te vullen" + een apparaat-tabel per fase.
-- **P2 startdrempel verlaagd**: intro herschreven naar "2 minuten" + mini-voorbeeld van het resultaat; live vergelijking nu ook op mobiel via ingesloten `VergelijkingsPaneel` (nieuwe `embedded`-prop, geen sticky/scroll); dubbele mobiele blokken uit Stap1/Stap2 verwijderd; inkomensscherm rustiger (vakantiegeld/13e achter "Verfijn", geruststelling "een ronde schatting is prima").
-- **`supabase/quiz_voortgang_v2.sql` MOET nog eenmalig gedraaid worden** in de Supabase SQL-editor (voegt `apparaat` + `eerste_interactie` toe). Zonder die kolommen falen de upserts met die velden.
-- Variant B (expliciete keuze "snelle check" vs "volledige analyse") bewust nog NIET gebouwd; staat in het advies als losse A/B-test ná P2.
-- Geverifieerd: tsc schoon, geen null bytes, geen em dashes in copy. Grote bestanden via python3 geschreven (Edit-tool trunceerde op NTFS, zoals bekend). **Nog niet gecommit/gepusht.**
-
-## Wat er in sessie 18-jul-2026 gedaan is (kritische analyse conversie + kanalenmix)
-- **Aanleiding**: GSC groeit (400-750 impressies/dag) maar alles komt binnen op boodschappen/salaris en niemand klikt door naar het aanbod. Jarno vroeg een zeer kritische analyse: ongeduld of structureel probleem?
-- **Volledige analyse en plan in `docs/kritische-analyse-en-plan-18-jul-2026.md`.** Kern: (1) deels ongeduld, ~76 clicks op de top 5 in 3 maanden kan statistisch nul conversies opleveren; (2) maar de doelgroep googlet zijn probleem nauwelijks ("ik verdien goed maar" heeft nul autocomplete; zoektaal is "waarom kan ik niet sparen", "waar blijft mijn geld", "rondkomen van 4000 euro"); de doelgroep zit op fora (ouders.nl-thread van 23 pagina's, letterlijk "Modaal gezin; waar blijft mijn geld"); (3) de conversielaag van de eerdere plannen is blijven liggen.
-- **Harde vondst uit de code-check: `components/artikel/BenchmarkMail.tsx` wordt nergens geïmporteerd.** Het benchmark-mailblok van 8-jul is dus nooit in het boodschappen-artikel geplaatst. Eerst te fixen, samen met: mailketen end-to-end testen (SPF/DKIM), e-mailflow dag 0/2/5, GSC-check cluster A.
-- **Concurrentie-onderzoek (10+ aanbieders)**: de branche draait op verwijzers, werkgevers (budgetcoach.nl 300+ orgs, Prikkl) en media/personal brand (Carolien Vos: AD-column+podcast; Hanneke van Onna: LINDA/boek). SEO-winnaars zijn exact-match domeinen. Dienst-keywords blijken vervuild (vacatures, opleidingen, gemeente-circuit): niet verder investeren in cluster A na de GSC-check. De €49-geldscan is uniek: niemand in NL heeft een betaald instapproduct onder €272.
-- **Kanalenconclusie**: SEO = vangnet/geloofwaardigheidskanaal, geen groeikanaal. Groeikanalen: verwijzers-outreach (loopt), PR op het Nibud-rapport 2026 over geldzorgen bij hogere inkomens (actueel haakje, pitch bij geldredacties/podcasts), later werkgevers. KvK-inschrijving blokkeert inmiddels 3 dingen (werkgeversspoor, KOR, gidsvermeldingen) en verdient een deadline.
-- **Contentprioriteiten aangescherpt**: "waarom kan ik niet sparen (terwijl ik goed verdien)" versterken (best gevalideerde probleem-query; budgetbuddy en hannekevanonna publiceerden er recent ook op), cluster C afmaken (spaargeld per leeftijd, uitgaven per huishoudtype) mét mail-blok vanaf dag één, rondkomen-serie starten bij 3000/4000 (niet 1800/2000, verkeerde publiek), herkenning-sectie in top-artikelen.
-- **SE Ranking is definitief van tafel (18-jul): Jarno betaalt er niet voor, de skills zijn verwijderd. Nooit meer adviseren om die connector te autoriseren; volumes blijven kwalitatief (autocomplete/SERP-signalen).** Geen sitecode gewijzigd in deel 1 van deze sessie, alleen docs + CLAUDE.md.
-
-## Wat er in sessie 18-jul-2026 gedaan is (deel 3: persona-skill + mailsequence getoetst en herschreven)
-- **Persona-skill gemaakt: `docs/skill-verwijzer-personas.md`** (Marjolein, relatietherapeut, en Richard, budgetcoach): diepe inleefprofielen met inbox-realiteit, wantrouwen-radar, beoordelingsprotocol en hardheidseisen ("zou kunnen telt als nee"). Herbruikbaar bij elke toekomstige outreach-toets; uitbreiden met planner- en burn-out-profielen bij de volgende ronde.
-- **Mailsequences in 4 rondes door persona-agents gejureerd en herschreven** (elke ronde verse agents tegen zelf-goedkeuring). Antwoordkans relatietherapeut 2 → 5,5 (plafond koud), budgetcoach 2 → 7 ("een van de weinige koude mails die ik zou beantwoorden"). Kernlessen in sectie 7 van `docs/outreach-strategie-jul-2026.md`: nooit hun vak/klant claimen, mail 1 is zelf de doorverwijzing, micro-vragen, nooit het woord "eerlijk", antwoord valt op mail 2.
-- **Definitieve v5-templates in `app/api/admin/outreach/send/route.ts`** (alle 4 doelgroepen; planners/burn-out afgeleid, nog niet getoetst). tsc schoon, geen em dashes. Via python3 geschreven.
-- **Voor de eerste verzending nog nodig**: (1) `TELEFOON`-constante in send/route.ts vullen met Jarno's 06, (2) A4 met de drie patronen maken (FU2 relatietherapeuten/burn-out belooft die), (3) zodra er één samenwerkende collega is: als referentie in mail 1 noemen. NOOIT verifieerbaarheid verzinnen (geen nep-collega's, geen nep-voorbeelden); dat was expliciet het advies van beide persona's én de vaste afspraak.
-
-## Wat er in sessie 19-jul-2026 gedaan is (outreach: plaats, UX, auto-follow-ups, A4, livetest)
-- **Prospect-zoeker live getest via de browser (zoekwoorden "relatietherapeut zwolle"): werkt.** Brave vond 17 sites, de step-lus draaide netjes en vond 9+ adressen met naam/context. Gevonden kwaliteitsbugs meteen gefixt in code: `%20`-prefix in mailto-adressen wordt gestript, wa.me/api.whatsapp.com/linktr.ee/t.me toegevoegd aan de negeer-domeinen. Bekende beperking blijft: bedrijfsnaam belandt soms in het naam-veld (inline te corrigeren in de review).
-- **Plaats-veld toegevoegd, overal met terugval-logica.** `lib/prospects/extract.ts` heeft `extractPlaats()` (JSON-LD addressLocality → postcode+plaats-regex → "gevestigd in X"; alleen bij hoge zekerheid, anders null). Stroomt door: crawler → prospects-tabel → goedkeuren → outreach_contacts → mail. In mail 1 komt bij bekende plaats een regio-zin ("ik zoek bewust iemand in de regio X"); bij onbekende plaats valt de zin weg. **`supabase/outreach_plaats.sql` MOET nog eenmalig gedraaid worden** (kolom `plaats` op beide tabellen).
-- **Mailteksten verplaatst naar `lib/outreach/mails.ts`** (gedeeld door admin-route en cron). `TELEFOON`-constante staat daar nu ook.
-- **Automatische follow-ups gebouwd**: `app/api/cron/outreach-followups/route.ts`, dagelijks 07:15 UTC via vercel.json. FU1 na 3+ dagen, FU2 na 5+ dagen na FU1 (dag 8-9), max 20 per run, alleen status verstuurd/geopend/geklikt, logt naar `cron_runs`. Kill switch: env `OUTREACH_AUTO_FOLLOWUP=uit`. Handmatige knoppen blijven werken.
-- **Admin-UX**: Outreach-tab heeft nu kolommen Plaats (inline), Mails (M1/M2/M3 met datum + geopend), Toegevoegd; filter per plaats; sortering nieuwste/plaats/status; plaats-veld in het toevoegformulier; uitleg dat follow-ups vanzelf gaan. Prospects-tab: kolommen Plaats (inline, gaat mee bij goedkeuren) en Gevonden (datum).
-- **A4's gemaakt in `outreach-materiaal/`** (reportlab, huisstijl-kleuren): drie-patronen-stellen en drie-patronen-herstel, elk met-naam en anoniem. Daarmee is de FU2-belofte gedekt voor relatietherapeuten én burn-out-coaches.
-- Geverifieerd: tsc schoon, geen em dashes in mailcopy, geen null bytes. Alles via python3 geschreven.
+## Beknopte historie
+- Jun 2026: site + analyse-flow + admin gebouwd; ICP-rondes op homepage en analyse-flow; outreach-CRM + prospect-zoeker; RLS- en formulier-fixes; alleenstaanden-contentpillar.
+- Begin jul 2026: cluster A (/financieel-coach + kosten-artikelen); geldscan (49 euro) gebouwd en omgebouwd naar rapport-format met aanmelden-eerst-volgorde; ICP-set vastgelegd; /aanbod herbouwd; follow-up-systeem.
+- 18-19 jul 2026: kritische kanalenanalyse (SEO = vangnet, outreach = focus); outreach-strategie herschreven en in 4 persona-rondes getoetst (v5); plaats-veld + regio-zin; auto-follow-up-cron; admin-UX; A4-materiaal; prospect-zoeker livetest + bugfixes.
