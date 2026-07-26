@@ -13,15 +13,18 @@ Nederlandse personal-finance site voor mensen die **goed verdienen maar toch kra
 2. Na elke codewijziging: `npx tsc --noEmit --incremental false` moet schoon zijn. Check ook op null bytes.
 3. Geen em dashes en geen koppeltekens als scheidingsteken in copy (vervang door komma, punt of nieuwe zin). Geldt voor alles, ook hints/labels/mails.
 4. NOOIT klantcases, reviews, resultaten of referenties verzinnen. Testimonials zijn echte (geanonimiseerde) klanten; voorbeelden expliciet als illustratie labelen.
+4b. NOOIT een marktclaim of uniciteitsclaim opschrijven zonder gecontroleerde bron met datum ("uniek in NL", "niemand doet dit", "de enige die"). De 272-euro-claim stond negen dagen in CLAUDE.md en in de copy en was onjuist. Deze markt bestaat uit honderden eenpitters zonder gepubliceerde prijzen: niet gevonden is niet hetzelfde als niet aanwezig.
 5. NOOIT beloftes zoals geld-terug of garanties, nergens. Kopen = kopen.
 6. Prijzen zonder btw-vermelding (KOR). CTO nooit noemen in copy. Bio-zin: "Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte."
 7. In outreach-copy nooit het woord "eerlijk" (eerlijkheid toon je), nooit hun vak of klant claimen, en nooit verifieerbaarheid verzinnen. Zie sectie Outreach.
 8. Nieuw artikel = entry vooraan in `lib/inzichten-data.ts` (optioneel `cta`-veld) + content-component in `app/inzichten/[slug]/content/` + import/map in `ArticleBody.tsx`. Sitemap/llms.txt regenereert bij build. Na deploy handmatig indienen in GSC.
 9. Git: aan het eind van elke sessie met wijzigingen committen. Pushen kan alleen Jarno (sandbox heeft geen credentials). Als commit klaagt over `HEAD.lock`: dat bestand handmatig verwijderen.
 
-## Huidige status (19-jul-2026)
+## Huidige status (26-jul-2026)
 
-**Focuskanaal nr. 1 is outreach naar verwijzers.** SEO is het vangnet/geloofwaardigheidskanaal, geen groeikanaal (onderbouwing: `docs/kritische-analyse-en-plan-18-jul-2026.md`). SE Ranking is definitief van tafel (Jarno betaalt er niet voor); volumes blijven kwalitatief, nooit meer adviseren die connector te autoriseren.
+**De inzet voor de 90 dagen tot 25-okt-2026: twaalf geldscans leveren en er vijf publiceerbare klantverhalen uit oogsten**, gratis of tegen kostprijs, in ruil voor hun ervaring. Volledige onderbouwing, weekplanning en kill criteria: `docs/groeibeslissing-aug-2026.md` (26-jul). De bindende beperking is vertrouwen: er is geen mens die voor Jarno instaat en er is in vier maanden één geldscan geleverd, terwijl elk gekozen kanaal (verwijzers, media, site) precies dat bewijs vraagt.
+
+Outreach naar verwijzers blijft het juiste kanaal maar is te vroeg: het plafond is verifieerbaarheid, niet de copy. Volume gaat tijdelijk van 10 per dag naar 10 per week; vol volume pas als er referenties in mail 1 staan. SEO is het vangnet/geloofwaardigheidskanaal, geen groeikanaal (`docs/kritische-analyse-en-plan-18-jul-2026.md`), en 79 artikelen is voor een vangnet meer dan genoeg: **nul nieuwe artikelen tot 25-okt**. SE Ranking is definitief van tafel (Jarno betaalt er niet voor); volumes blijven kwalitatief, nooit meer adviseren die connector te autoriseren.
 
 Wat er staat en werkt:
 - Site met ~79 artikelen, GSC groeit (400-750 impressies/dag), verkeer komt vooral binnen op boodschappen/salaris-artikelen (informationeel, converteert niet direct).
@@ -37,16 +40,19 @@ Wat er staat en werkt:
 3. Beslissen vóór/na deploy: 25 oude contacten van 11-jun hebben status verstuurd en 0 follow-ups; de cron stuurt die anders automatisch mail 2. Opschonen of tijdelijk env `OUTREACH_AUTO_FOLLOWUP=uit`.
 4. Checken of Resend-webhook + `RESEND_WEBHOOK_SECRET` in Vercel staan (open/klik-tracking) en of `supabase/intake_analyse_link.sql` ooit gedraaid is.
 
-**Openstaande prioriteiten daarna (in volgorde):**
-1. Outreach draaien: prospect-zoeker vullen (30 goedgekeurde contacten/week, start relatietherapeuten + burn-out-coaches), 10 mails/dag met verplichte ps-zin, replies bijhouden.
-2. Conversielaag op bestaand verkeer: `components/artikel/BenchmarkMail.tsx` wordt nog nergens geïmporteerd; mounten in het boodschappen-artikel + varianten voor de top-3. Daarna e-mailflow na de analyse (dag 0/2/5).
-3. Rapport-template voor het geldrapport (bestaat nog niet; nodig bij de volgende geldscan-klant).
-4. Content: "waarom kan ik niet sparen (terwijl ik goed verdien)" versterken, cluster C (hoeveel spaargeld is normaal, uitgaven per huishoudtype) met mail-blok vanaf dag 1, rondkomen-serie starten bij 3000/4000 euro.
-5. PR-haakje: Nibud-rapport 2026 over geldzorgen bij hogere inkomens (pitch geldredacties/podcasts).
-6. KvK-inschrijving heeft een deadline nodig: blokkeert werkgeversspoor, KOR-aanmelding en gidsvermeldingen.
-7. Alleenstaande-testimonial (wachten op echte klant, niet verzinnen).
+**Openstaande prioriteiten daarna (in volgorde, per `docs/groeibeslissing-aug-2026.md`):**
+1. Halve dag conversiefixes uit `docs/contentaudit-top10-jul-2026.md`: dubbele CTA uit 5 artikelen, geldscan op de resultaatstap, opslagfix in `BenchmarkMail` vóór mounten, 3 metaTitels, em dashes uit H1/metaDescription. Plus de niet-gelabelde klantvoorbeelden repareren (werkregel 4; nu urgent omdat er journalisten en verwijzers gaan meelezen).
+2. Twaalf scans recruteren en leveren: 20 een-op-een-berichten aan mensen die Jarno persoonlijk kent, plus het gratis aanbod op is-4000, alleenstaande, netto-loonsverhoging en de resultaatstap. Reken op een kwart uitval tussen aanmelding en levering.
+3. Voorbeeldrapport publiceren (geanonimiseerd, met toestemming). Enige nieuwe pagina die dit kwartaal mag; sterkste vertrouwenssignaal dat er is en geen concurrent doet het.
+4. Vijf klantverhalen publiceren, met de vermelding dat de eerste twaalf scans gratis waren.
+5. Outreach mail 1 herschrijven met de eerste referentie erin (week 9), daarna weer op volume.
+6. Rapport-template voor het geldrapport (bestaat nog niet).
+7. KvK-inschrijving + KOR: doen om administratieve redenen, niet om een kanaal te openen (zie werkgeversspoor onder Vaste afspraken).
+8. Alleenstaande-testimonial (wachten op echte klant, niet verzinnen).
 
-Meetpunten: geboekte gesprekken en geldscan-aanvragen (echte KPI), outreach-replies, lijstgroei per week (zodra mail-blok live is), GSC-posities, funnel-tab in /admin.
+Bewust uitgesteld tot na 25-okt: nieuwe content (cluster C, rondkomen-serie, "waarom kan ik niet sparen"), e-mailflow na de analyse, verdere bouw aan admin/prospect-zoeker, persona-toetsingsrondes, mediapitches, werkgeversspoor.
+
+Meetpunten in deze fase: geleverde scans per week, schriftelijke ja's voor publicatie, en daarna nog steeds geboekte gesprekken en geldscan-aanvragen. Peilingen met kill criteria: 16-aug, 20-sep, 25-okt (getallen in het beslisdocument). Nul betalende klanten uit de site is in deze periode géén signaal; de rekensom voorspelt dat.
 
 ## Aanbod / funnel
 Gratis analyse (lead-instap) → **Geldscan 49 euro** (async, /geldscan: "jouw persoonlijke geldrapport", persoonlijk geschreven PDF met de 3 grootste lekken; verrekend bij vervolg) → **Eenmalig adviesgesprek 125 euro** (/adviesgesprek) → Traject 497 euro. /aanbod is situatie-gedreven, nav-label "Tarieven".
@@ -59,7 +65,9 @@ Gratis analyse (lead-instap) → **Geldscan 49 euro** (async, /geldscan: "jouw p
 ## Vaste afspraken en beslissingen
 - Testimonials: echte geanonimiseerde klanten. Daan & Roos, Bram & Eva, Karim & Noor (begeleiding); Sanne & Joris (eerste geldscan-klant, 9-jul, met toestemming, staat op /geldscan en /aanbod).
 - Kern-ICP (aangescherpt 11-jul na concurrentie-teardown): de goedverdiener in loondienst. Twee dragende profielen: Sandra (tweeverdiener-gezin) en Niels (alleenstaand/DINK). Ellen (zzp) alleen via analyse+geldscan bedienen (zzp-coaching is het terrein van Budgetbuddy/Carolien Vos). Petra is de artikel-ICP (validatie-zoeker). Volledige set: `docs/icp-personas.md`, bij elke ICP-toets alle profielen langslopen.
-- Differentiatie: segment (loondienst), product (49-euro-instap, uniek in NL: niemand heeft een betaald instapproduct onder 272 euro), toon (nuchter, geen vermogen/mindset-taal). Niet op "rust/rich life" (bezet).
+- Differentiatie (herzien 26-jul-2026, de oude formulering was aantoonbaar onjuist): **niet op segment, prijs of toon; die zijn alle drie bezet.** De claim "49-euro-instap, uniek in NL, niemand onder 272 euro" is onjuist en niet te repareren: Mijn Budgetcoach doet een betaald kennismakingsgesprek van 49 euro, Goede Geldgewoonten heeft 8 producten van 9,95 tot 89,95, Budgetcoach Sophie een scan van 40 euro, Budgetbuddy 47 en 97 euro (alle geverifieerd op de eigen pagina's, 26-jul-2026). Goede Geldgewoonten heeft bovendien `/geen-geld-over/`, `/goed-verdienen-niks-overhouden/` en `/waar-blijft-mijn-geld/` live met letterlijk onze positionering. Wél onderscheidend, omdat het werk vraagt in plaats van woorden: **zichtbaar geleverd werk.** Een compleet voorbeeldrapport openbaar, tarieven openbaar, geen cursus of abonnement, en het rapport met de hand geschreven. Loondienst-goedverdiener blijft de focus; dat is een keuze, geen claim. Uitgeschreven copy voor /aanbod staat in `docs/groeibeslissing-aug-2026.md` sectie 3.1.
+- Werkgeversspoor: **gesloten, en niet door de KvK.** Het enige argument vóór (47 procent van coachees vond zijn coach via het werk, NOBCO 2025) is een mislezing: het antwoord is "aangeboden via mijn werk", basis ongeveer 16 respondenten, in een markt waar de werkgever inkoopt en betaalt. Het preventiebudget van verzuimverzekeraars mag alleen op voorstel van de bedrijfsarts (De Goudse polisvoorwaarden v2607 art. 2.5.2) en gebruik drukt de premie op (art. 2.5.3). Kiwa is per 1-aug-2025 gestopt met NEN-8048-certificering en er is geen opvolger gevonden, terwijl NVVBS die certificering nog als toegangseis stelt. Heropenen mag pas als alle vier waar zijn: KvK gedaan, 20 geleverde scans met 3 klanten die met naam referent willen zijn, één werkgever of arbodienst die zelf aanklopt, en een aanbod in groepsvorm (Wft en AVG).
+- Geen geld-terug-garantie (vaste afspraak), maar wel de rule-compatible alternatieven: voorbeeldrapport openbaar, eerst leveren en daarna factureren, en klantverhalen. Zie beslisdocument sectie 3.1.
 - 460-euro-claim altijd met eerlijke bron ("eigen klantresultaten, geen belofte").
 
 ## Outreach (focuskanaal)
@@ -71,7 +79,9 @@ Kern (v5, 4 persona-rondes, antwoordkans 5,5-7/10):
 - Vaste keuzes (19-jul): eerste contact altijd per mail, geen bel-uitnodigingen in de copy (beschikbaarheid Jarno; geen telefoonnummer in de handtekening, prive, evt. later apart zakelijk nummer). Onderwerpregel begint met de voornaam (`voornaamVan()` pakt het eerste woord van het naam-veld; let dus op bedrijfsnamen in dat veld).
 - Techniek: teksten in `lib/outreach/mails.ts` (gedeeld door admin-route en cron). Verzenden via admin-tab Outreach (`app/api/admin/outreach/send/route.ts`). Automatische follow-ups: `app/api/cron/outreach-followups/route.ts`, dagelijks 07:15 UTC (vercel.json), FU1 na 3+ dagen, FU2 na 5+ dagen na FU1, max 20/run, kill switch env `OUTREACH_AUTO_FOLLOWUP=uit`, logt naar cron_runs.
 - 4 doelgroepen: relatietherapeuten, budgetcoaches, financieel-planners, burnout-coaches (planners/burn-out afgeleid van de geteste structuur, nog niet zelf getoetst).
-- Volume: 10-15 per dag maximaal (jong domein, zelfde domein als leadmails). Replies zijn de metric. LinkedIn bewust niet (PSOhub-scheiding).
+- **Belangrijk (vastgesteld 26-jul-2026): de v5-copy is nog nooit verstuurd.** De 25 contacten met status verstuurd kregen op 11-jun de oude templates; v5 is van 18 en 19 juli. De 0 replies zeggen dus niets over de huidige mail. Verwachting bij 25 mails was 0,8 tot 1,3 replies (vuistregel 3 tot 5 procent), dus 0 is een normale uitkomst. Nooit meer concluderen dat outreach niet werkt op basis van die 25.
+- Volume: tijdelijk 10 per week in plaats van 10 per dag, tot er een referentie in mail 1 staat (besluit 26-jul; reden: 10 per dag betekent 200 professionals per maand die de beste mail krijgen op het moment dat hij het minst waar te maken is, en dezelfde persoon kun je niet twee keer koud benaderen). Maximaal 10 tot 15 per dag zodra het wel kan (jong domein, zelfde domein als leadmails). Replies zijn de metric.
+- LinkedIn: publiek bewust niet (PSOhub-scheiding). Kanttekening 26-jul: die keuze kost naar schatting vijftig tot ruim tweehonderd keer het huidige ICP-bereik en is daarmee de duurste post in het plan. Te controleren: staat er een nevenwerkzaamhedenbeding in de arbeidsovereenkomst? De tussenroute die niets publiek maakt en wel gebruikt moet worden: een-op-een-berichten aan mensen die Jarno persoonlijk kent.
 - Meegeefmateriaal: `outreach-materiaal/drie-patronen-{stellen,herstel}-{met-naam,anoniem}.pdf` (FU2 belooft het A4).
 - Admin-UX: kolommen Plaats (inline), Mails (M1/M2/M3 + geopend), Toegevoegd; filter per doelgroep en plaats; sortering nieuwste/plaats/status; ps_zin inline (verplicht gebruiken, met inhoudelijk detail, geen compliment). Elke verzending (los of bulk) opent eerst een preview-modal (route `/api/admin/outreach/preview`): wie krijgt welke mail, volledige tekst, waarschuwing bij ontbrekende ps-zin, overgeslagen contacten met reden.
 
@@ -90,6 +100,14 @@ Verzamelt namen + e-mailadressen van potentiele verwijzers en zet ze na review i
 - Schema: Article + FAQPage + Person + Organization + AboutPage. Auteur-bio onder elk artikel linkt naar /financieel-coach.
 - Contentstandaard per artikel: ScanBox, antwoord-eerst-blok, zelfstandige H2-blokken, FAQ met schema, interne links, CTA met juiste funnel-temperatuur. Audit van bestaande artikelen: `docs/artikel-audit-juli-2026.md`.
 - Kanaal-realisme: dienst-keywords ("financieel coach") zijn vervuild met vacatures/opleidingen/gemeente-circuit; niet verder investeren in cluster A. Beste kansen: merkterm-cluster ("waar blijft mijn geld"), "waarom kan ik niet sparen", benchmark-model (boodschappen-artikel kopieren), rondkomen vanaf 3000/4000. De doelgroep zoekt vooral herkenning op fora (ouders.nl-thread "Modaal gezin; waar blijft mijn geld").
+
+## PR en cijfers over de doelgroep (gecorrigeerd 26-jul-2026)
+
+- Nibud, Geldzaken in de praktijk 2026 (23-jun-2026): 38 procent komt moeilijk rond (2024: 32), zorgen 33 procent (was 27), lage inkomens 62 procent, jongvolwassenen 54 procent. **De uitsplitsing gaat niet over hogere inkomens.** Nooit claimen dat Nibud over goedverdieners publiceerde.
+- Er is wél een NL-cijfer over hoge inkomens: Nationale Monitor Geldzorgen (Kenniscentrum Psychologie en Economisch Gedrag, Universiteit Leiden, met Wijzer in geldzaken), meting maart 2025: 11 procent van de hoge inkomensgroep maakt zich zorgen over de huishoudelijke uitgaven, tegen 18 procent midden en 30 procent laag. Restcategorie in een monitor, geen segmentstudie. **De pitch is dus niet "niemand meet dit" maar "het is gemeten en nooit uitgelicht".**
+- Deloitte (met Nibud, Tilburg University, Universiteit Leiden) weegt zijn steekproef van 5.001 ook op inkomen en heeft de uitsplitsing dus wel, maar publiceert alleen de kwetsbare kant. Bruikbaar cadeau voor een journalist: laat die de uitsplitsing naar hoog inkomen opvragen.
+- Werkgeverscijfers: 62 procent en 13.000 euro komen uit Nibud 2017 (n=1.040) en zijn nooit geactualiseerd. Het "vervolg 2019" is niet van Nibud maar SAMR voor Wijzer in geldzaken en gaat over werknemers. Nieuwer werkgeversonderzoek bestaat wel: Deloitte met SchuldenlabNL en VNO-NCW, juni 2022, 80 procent van de werkgevers.
+- AI-vindbaarheid is geen kanaal, maar de vaak geciteerde Statcounter-vergelijking bestaat niet: Statcounter normaliseert elke categorie op 100 procent. AI-verwijzingen zijn 0,1 tot 0,5 procent van alle sitebezoeken (Similarweb en Ahrefs 2026). Pew (juli 2025, data maart 2025, n=900, VS, alleen Google): met AI-samenvatting klikt 8 procent door tegen 15 procent zonder.
 
 ## Mail / DNS (waarblijfthet.nl)
 - Website op Vercel, mail op aparte host (45.82.188.190). MX = `10 mail.waarblijfthet.nl` (nooit naar de Vercel-apex of een CNAME wijzen). Postbus: hallo@waarblijfthet.nl.
@@ -111,7 +129,9 @@ Verzamelt namen + e-mailadressen van potentiele verwijzers en zet ze na review i
 6. **Persona-toetsing werkt**: elke ronde verse agents (anders keuren ze hun eigen advies goed), hardheidseis "zou kunnen telt als nee", en de replytekst uitschrijven als bewijs.
 
 ## Documentindex (docs/)
-- `kritische-analyse-en-plan-18-jul-2026.md`: actuele kanalenanalyse + plan (conversie, content, PR, verwachtingen).
+- `groeibeslissing-aug-2026.md` (26-jul): **het leidende beslisdocument.** Bindende beperking, rekensommen in hele klanten, fundamentcorrecties, weekplanning tot 25-okt, kill criteria met datums, en in sectie 8a een lijst van elf aangeleverde onderzoekscijfers die niet klopten (NOBCO, First Page Sage, Sumo, Klaviyo, Statcounter en meer). Raadplegen vóór elke groei- of kanaaldiscussie.
+- `contentaudit-top10-jul-2026.md` (25-jul): gemeten conversiediagnose per pagina (y-posities op 390px), dubbele CTA's, ontbrekende geldscan op de resultaatstap, kapotte opslag in BenchmarkMail.
+- `kritische-analyse-en-plan-18-jul-2026.md`: kanalenanalyse + plan (conversie, content, PR, verwachtingen). Let op: de conclusie "niemand heeft een betaald instapproduct onder 272 euro" in sectie 2 van dat document is achterhaald, zie het beslisdocument.
 - `outreach-strategie-jul-2026.md`: outreach-strategie, v5-templates, persona-testverslag, actiepunten.
 - `skill-verwijzer-personas.md`: inleef-skill Marjolein/Richard voor outreach-toetsing.
 - `icp-personas.md`: de 7 ICP-profielen + competitieve aanscherping.
@@ -124,3 +144,5 @@ Verzamelt namen + e-mailadressen van potentiele verwijzers en zet ze na review i
 - Jun 2026: site + analyse-flow + admin gebouwd; ICP-rondes op homepage en analyse-flow; outreach-CRM + prospect-zoeker; RLS- en formulier-fixes; alleenstaanden-contentpillar.
 - Begin jul 2026: cluster A (/financieel-coach + kosten-artikelen); geldscan (49 euro) gebouwd en omgebouwd naar rapport-format met aanmelden-eerst-volgorde; ICP-set vastgelegd; /aanbod herbouwd; follow-up-systeem.
 - 18-19 jul 2026: kritische kanalenanalyse (SEO = vangnet, outreach = focus); outreach-strategie herschreven en in 4 persona-rondes getoetst (v5); plaats-veld + regio-zin; auto-follow-up-cron; admin-UX; A4-materiaal; prospect-zoeker livetest + bugfixes.
+- 25 jul 2026: contentaudit van de top 10, gemeten in plaats van geschat (y-posities op 390px). Diagnose: antwoord niet boven de vouw, 5 dubbele CTA's, geldscan nul keer op de resultaatstap, BenchmarkMail slaat het adres niet op.
+- 26 jul 2026: groeibeslissing. Vier onderzoekssporen geverifieerd, elf van de vijftien kerncijfers bleken onjuist opgeschreven. De 49-euro-uniciteitsclaim geschrapt, differentiatie verlegd naar zichtbaar geleverd werk, werkgeversspoor gesloten met vier heropeningsvoorwaarden, ICP-set voor deze fase terug naar Sandra en Niels, nul nieuwe artikelen tot 25-okt. Inzet: twaalf geldscans leveren en vijf klantverhalen oogsten. Vastgesteld dat de v5-outreachcopy nog nooit verstuurd is.
