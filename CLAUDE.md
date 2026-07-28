@@ -143,6 +143,7 @@ Drie bevindingen die nu al bruikbaar zijn, ook als het onderzoek niet wordt afge
 Let op: dit onderzoek mag de lopende inzet niet doorkruisen (twaalf geldscans en vijf klantverhalen voor 25-okt, nul nieuwe artikelen). Het is denkwerk, geen nieuw product. Spoor 5 (de Wft-grens) is inmiddels uitgezocht (redenering op een geverifieerde regel, niet onafhankelijk juridisch getoetst) en wijst op een beperking, geen vrijbrief.
 
 ## Documentindex (docs/)
+- `boekhouder-seo-onderzoek-28-jul-2026.md` (28-jul): live SERP-checks tonen dat "boekhouder" volledig bezet is door zzp-intentie, geen contentkans voor Sandra/Niels. Plus 3 positioneringszinnen (nuchtere hoek, niet boekhouder/niet therapeut), niet formeel persona-getoetst.
 - `geldgesprek-beslisdocument-27-jul-2026.md` (27-jul): afgerond beslisdocument geldgesprek-onderzoek. Voorwaardenscore, Wft-redenering (second opinion valt af), 3 productvormen, geen bouwstap voor 25-okt.
 - `geldgesprek-onderzoek-werkbestand-27-jul-2026.md` (27-jul): half afgerond onderzoek naar het betaalde geldgesprek als zelfstandig product. Spoor 1, 2 en 2b klaar met bronnen, spoor 3 tot en met 8 open, opdracht staat onderaan het bestand.
 - `groeibeslissing-aug-2026.md` (26-jul): **het leidende beslisdocument.** Bindende beperking, rekensommen in hele klanten, fundamentcorrecties, weekplanning tot 25-okt, kill criteria met datums, en in sectie 8a een lijst van elf aangeleverde onderzoekscijfers die niet klopten (NOBCO, First Page Sage, Sumo, Klaviyo, Statcounter en meer). Raadplegen vóór elke groei- of kanaaldiscussie.

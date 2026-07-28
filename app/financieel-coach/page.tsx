@@ -40,6 +40,11 @@ const faq = [
       "In de praktijk zijn dat twee namen voor hetzelfde: iemand die je helpt met inzicht en grip op je dagelijkse geldzaken. Beide termen zijn niet beschermd. Let daarom vooral op werkwijze en verdienmodel: een goede coach is transparant over tarieven en verkoopt geen financiële producten.",
   },
   {
+    vraag: "Kan mijn boekhouder dit ook, of heb ik daarvoor een financieel coach nodig?",
+    antwoord:
+      "Een boekhouder verwerkt je cijfers achteraf: aangiftes, jaarstukken, administratie. Ik kijk vooruit naar je maandelijkse geldstroom, waar het naartoe gaat en wat je kunt bijsturen. Ik doe geen administratie en geen belastingaangifte, en ik ben ook geen therapeut: speelt geld bij jullie vooral als relatie-onderwerp, dan verwijs ik liever door. Wat ik wel doe: meekijken naar de cijfers die verder niemand voor je bekijkt.",
+  },
+  {
     vraag: "Is een financieel coach hetzelfde als een financieel adviseur?",
     antwoord:
       "Nee. Een financieel adviseur met Wft-vergunning adviseert over producten zoals hypotheken, beleggingen en pensioenverzekeringen. Een financieel coach doet dat niet en hoeft die vergunning ook niet te hebben. Voor de vraag 'waarom houd ik niets over' heb je geen Wft-adviseur nodig, voor een hypotheek wel.",
