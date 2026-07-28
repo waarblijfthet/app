@@ -42,12 +42,14 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ ok: true, overgeslagen: true });
   }
 
-  // Kandidaten: eerste mail gehad, nog geen reactie of bounce, minder dan 2 follow-ups.
+  // Kandidaten: eerste mail gehad, nog geen reactie of bounce, minder dan 2 follow-ups,
+  // en niet handmatig gestopt (los van status, zie outreach_crm.sql).
   const { data: kandidaten, error } = await supabase
     .from("outreach_contacts")
     .select("*")
     .in("status", ["verstuurd", "geopend", "geklikt"])
     .lt("followups", MAX_FOLLOWUPS)
+    .eq("gestopt", false)
     .limit(200);
   if (error) {
     await supabase.from("cron_runs").insert({

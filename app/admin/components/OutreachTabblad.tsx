@@ -18,6 +18,9 @@ interface Contact {
   followups: number;
   ps_zin: string | null;
   status: "nieuw" | "verstuurd" | "geopend" | "geklikt" | "bounced" | "gereageerd";
+  reactie: "positief" | "neutraal" | "negatief" | null;
+  gestopt: boolean;
+  gestopt_at: string | null;
 }
 
 interface PreviewItem {
@@ -37,6 +40,7 @@ const FOLLOWUP_WACHTDAGEN = 3;
 
 // Komt een contact in aanmerking voor een follow-up?
 function followupGeschikt(c: Contact): boolean {
+  if (c.gestopt) return false;
   if (!["verstuurd", "geopend", "geklikt"].includes(c.status)) return false;
   if ((c.followups ?? 0) >= MAX_FOLLOWUPS) return false;
   const laatste = c.laatste_followup_at ?? c.verstuurd_at;
@@ -49,6 +53,7 @@ const DOELGROEPEN: { value: string; label: string }[] = [
   { value: "budgetcoaches",      label: "Budgetcoach" },
   { value: "financieel-planners", label: "Financieel planner" },
   { value: "burnout-coaches",    label: "Burnout-coach" },
+  { value: "boekhouders",        label: "Boekhouder" },
 ];
 
 const DOELGROEP_LABEL: Record<string, string> = Object.fromEntries(
@@ -60,6 +65,7 @@ const DOELGROEP_STYLE: Record<string, string> = {
   "budgetcoaches":       "bg-blue-50 text-blue-700",
   "financieel-planners": "bg-amber-50 text-amber-700",
   "burnout-coaches":     "bg-orange-50 text-orange-700",
+  "boekhouders":         "bg-teal-50 text-teal-700",
 };
 
 const STATUS_LABEL: Record<Contact["status"], string> = {
@@ -82,6 +88,18 @@ const STATUS_STYLE: Record<Contact["status"], string> = {
 
 const STATUS_VOLGORDE: Record<Contact["status"], number> = {
   nieuw: 0, verstuurd: 1, geopend: 2, geklikt: 3, gereageerd: 4, bounced: 5,
+};
+
+const REACTIE_LABEL: Record<"positief" | "neutraal" | "negatief", string> = {
+  positief: "Positief",
+  neutraal: "Neutraal",
+  negatief: "Negatief",
+};
+
+const REACTIE_STYLE: Record<"positief" | "neutraal" | "negatief", string> = {
+  positief: "bg-green-100 text-green-700",
+  neutraal: "bg-gray-100 text-gray-600",
+  negatief: "bg-red-100 text-red-700",
 };
 
 function datumKort(iso: string | null): string {
@@ -108,6 +126,7 @@ export default function OutreachTabblad() {
   const [melding, setMelding] = useState<string | null>(null);
   const [filterDoelgroep, setFilterDoelgroep] = useState<string>("alle");
   const [filterPlaats, setFilterPlaats] = useState<string>("alle");
+  const [filterReactie, setFilterReactie] = useState<string>("alle");
   const [sortering, setSortering] = useState<"nieuwste" | "plaats" | "status">("nieuwste");
 
   // Selectie + inline bewerken
@@ -164,7 +183,19 @@ export default function OutreachTabblad() {
 
   async function verwijder(id: string, naam: string) {
     if (!confirm(`${naam} verwijderen?`)) return;
-    await fetch(`/api/admin/outreach?id=${id}`, { method: "DELETE" });
+    try {
+      const res = await fetch(`/api/admin/outreach?id=${id}`, { method: "DELETE" });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setFout(data.error ?? `Verwijderen van ${naam} is mislukt.`);
+        return;
+      }
+      setMelding(`${naam} verwijderd.`);
+      setTimeout(() => setMelding(null), 3000);
+    } catch {
+      setFout(`Verwijderen van ${naam} is mislukt (netwerkfout).`);
+      return;
+    }
     await laadContacten();
   }
 
@@ -229,7 +260,7 @@ export default function OutreachTabblad() {
     openPreview(zichtbareContacten.filter((c) => c.status === "nieuw").map((c) => c.id), "eerste");
   }
 
-  async function werkBij(id: string, velden: { naam?: string; email?: string; doelgroep?: string; ps_zin?: string; plaats?: string; gereageerd?: boolean }) {
+  async function werkBij(id: string, velden: { naam?: string; email?: string; doelgroep?: string; ps_zin?: string; plaats?: string; gereageerd?: boolean; reactie?: "positief" | "neutraal" | "negatief"; gestopt?: boolean }) {
     const res = await fetch("/api/admin/outreach", {
       method: "PATCH",
       headers: { "Content-Type": "application/json" },
@@ -265,10 +296,17 @@ export default function OutreachTabblad() {
     );
   }
 
-  async function markeerGereageerd(c: Contact) {
-    if (!confirm(`${c.naam} heeft gereageerd? Dit stopt verdere follow-ups.`)) return;
-    await werkBij(c.id, { gereageerd: true });
-    setMelding(`${c.naam} gemarkeerd als gereageerd.`);
+  async function markeerReactie(c: Contact, reactie: "positief" | "neutraal" | "negatief") {
+    await werkBij(c.id, { gereageerd: true, reactie });
+    setMelding(`${c.naam} gemarkeerd als ${REACTIE_LABEL[reactie].toLowerCase()}.`);
+    setTimeout(() => setMelding(null), 3000);
+  }
+
+  async function wisselGestopt(c: Contact) {
+    const nieuw = !c.gestopt;
+    if (nieuw && !confirm(`Automatische mails aan ${c.naam} stoppen?`)) return;
+    await werkBij(c.id, { gestopt: nieuw });
+    setMelding(nieuw ? `Mails aan ${c.naam} gestopt.` : `Mails aan ${c.naam} hervat.`);
     setTimeout(() => setMelding(null), 3000);
   }
 
@@ -285,6 +323,9 @@ export default function OutreachTabblad() {
     : contacten.filter((c) => c.doelgroep === filterDoelgroep);
   if (filterPlaats !== "alle") {
     zichtbareContacten = zichtbareContacten.filter((c) => (c.plaats ?? "").trim() === filterPlaats);
+  }
+  if (filterReactie !== "alle") {
+    zichtbareContacten = zichtbareContacten.filter((c) => (c.reactie ?? "geen") === filterReactie);
   }
   zichtbareContacten = [...zichtbareContacten].sort((a, b) => {
     const nieuwsteEerst = +new Date(b.created_at) - +new Date(a.created_at);
@@ -380,6 +421,17 @@ export default function OutreachTabblad() {
             ))}
           </select>
         )}
+        <select
+          value={filterReactie}
+          onChange={(e) => setFilterReactie(e.target.value)}
+          className="text-xs px-2 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft"
+        >
+          <option value="alle">Alle reacties</option>
+          <option value="positief">Positief</option>
+          <option value="neutraal">Neutraal</option>
+          <option value="negatief">Negatief</option>
+          <option value="geen">Nog geen reactie</option>
+        </select>
         <span className="text-xs text-text-muted ml-2">Sorteer:</span>
         <select
           value={sortering}
@@ -483,6 +535,7 @@ export default function OutreachTabblad() {
                 <th className="text-left px-4 py-3">Categorie</th>
                 <th className="text-left px-4 py-3">Plaats</th>
                 <th className="text-left px-4 py-3">Status</th>
+                <th className="text-left px-4 py-3">Reactie</th>
                 <th className="text-left px-4 py-3">Mails</th>
                 <th className="text-left px-4 py-3">Toegevoegd</th>
                 <th className="text-left px-4 py-3">Persoonlijke zin</th>
@@ -551,6 +604,18 @@ export default function OutreachTabblad() {
                     <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full ${STATUS_STYLE[c.status]}`}>
                       {STATUS_LABEL[c.status]}
                     </span>
+                    {c.gestopt && (
+                      <span className="block mt-1 text-[10px] font-medium text-red-500">mails gestopt</span>
+                    )}
+                  </td>
+                  <td className="px-4 py-3">
+                    {c.reactie ? (
+                      <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full ${REACTIE_STYLE[c.reactie]}`}>
+                        {REACTIE_LABEL[c.reactie]}
+                      </span>
+                    ) : (
+                      <span className="text-text-muted text-xs">&#8212;</span>
+                    )}
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <div className="flex flex-col gap-0.5 text-xs">
@@ -609,12 +674,41 @@ export default function OutreachTabblad() {
                         </button>
                       )}
                       {!["nieuw", "gereageerd"].includes(c.status) && (
+                        <div className="flex gap-1">
+                          <button
+                            onClick={() => markeerReactie(c, "positief")}
+                            className="text-xs text-green-700 underline decoration-dotted px-1 py-1 whitespace-nowrap"
+                            title="Reactie was positief, stopt follow-ups"
+                          >
+                            Positief
+                          </button>
+                          <button
+                            onClick={() => markeerReactie(c, "negatief")}
+                            className="text-xs text-red-500 underline decoration-dotted px-1 py-1 whitespace-nowrap"
+                            title="Reactie was negatief, stopt follow-ups"
+                          >
+                            Negatief
+                          </button>
+                          <button
+                            onClick={() => markeerReactie(c, "neutraal")}
+                            className="text-xs text-text-muted underline decoration-dotted px-1 py-1 whitespace-nowrap"
+                            title="Reactie was neutraal, stopt follow-ups"
+                          >
+                            Neutraal
+                          </button>
+                        </div>
+                      )}
+                      {["verstuurd", "geopend", "geklikt"].includes(c.status) && (
                         <button
-                          onClick={() => markeerGereageerd(c)}
-                          className="text-xs text-[#16211F] underline decoration-dotted px-2 py-1 whitespace-nowrap"
-                          title="Markeer als gereageerd, stopt follow-ups"
+                          onClick={() => wisselGestopt(c)}
+                          className={`text-xs px-2 py-1 rounded whitespace-nowrap ${
+                            c.gestopt
+                              ? "border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
+                              : "text-amber-600 underline decoration-dotted"
+                          }`}
+                          title={c.gestopt ? "Automatische mails weer aanzetten" : "Automatische mails stoppen"}
                         >
-                          Gereageerd
+                          {c.gestopt ? "Hervat mails" : "Stop mails"}
                         </button>
                       )}
                       <button

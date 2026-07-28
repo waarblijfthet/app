@@ -14,7 +14,8 @@ export type Doelgroep =
   | "relatietherapeuten"
   | "budgetcoaches"
   | "financieel-planners"
-  | "burnout-coaches";
+  | "burnout-coaches"
+  | "boekhouders";
 
 export interface Mail {
   subject: string;
@@ -58,6 +59,8 @@ function regioZin(doelgroep: Doelgroep, plaats?: string | null): string | null {
       return `Ik zoek bewust iemand in de regio ${p}; doorverwijzen werkt het best dichtbij.`;
     case "burnout-coaches":
       return `Ik zoek bewust iemand in de regio ${p}: een cliënt stuur ik liever naar iemand in de buurt dan naar een landelijke lijst.`;
+    case "boekhouders":
+      return `Ik zoek bewust iemand in de regio ${p}; een warme overdracht werkt het best dichtbij.`;
   }
 }
 
@@ -132,6 +135,19 @@ export function eersteMail(
           afsluiter,
         ],
       };
+    case "boekhouders":
+      return {
+        subject: `${voornaam}, mag ik cliënten van je overnemen die verder gaan dan de cijfers?`,
+        alineas: [
+          groet,
+          "Soms stelt een klant aan het eind van een aangifte of jaarrekening een heel andere vraag: kunnen we dit huis nog betalen, waarom houden we bij dit inkomen niets over, moeten we minder gaan werken. Geen boekhoudvraag, en ik neem aan dat je hem meestal netjes terugbrengt naar de cijfers waar het gesprek over ging.",
+          ...ps,
+          "Wie ik ben: financieel coach, begonnen omdat ik zelf goed verdien en jarenlang niet begreep waarom het nooit klopte. Ik geef geen belastingadvies en doe geen administratie, dus we zitten elkaar niet in de weg: ik kijk naar waar het geld blijft, niet naar de aangifte.",
+          ...regioAlinea,
+          "Ik verwijs niet blind, dus ik wil weten naar wie ik zulke klanten zou sturen, en andersom. Stel me daarom gerust de vragen die je zou stellen aan iemand die zoiets voorstelt; jij bepaalt het tempo.",
+          afsluiter,
+        ],
+      };
   }
 }
 
@@ -158,6 +174,10 @@ const FU1: Record<Doelgroep, string[]> = {
     "Loop jij in een traject ooit vast op het feitelijke geldoverzicht, leg hem me dan gerust per mail voor. Kosteloos, en er staat niets tegenover.",
     "Wat doe jij eigenlijk nu als geldstress het herstel van een cliënt blokkeert?",
   ],
+  "boekhouders": [
+    "Ik hoorde nog niet van je; dit is geen herinnering, eerder iets wat je misschien herkent. De vraag die het vaakst achter \"kunnen we dit betalen\" schuilgaat bij goedverdieners: er is geen overzicht, de vaste lasten zijn stilletjes meegegroeid met het inkomen, en niemand heeft dat ooit hardgemaakt met cijfers.",
+    "Krijg jij dat weleens: een klant die eigenlijk een geldgesprek wil in plaats van een aangifte?",
+  ],
 };
 
 // ── FU2: breakup. Cadeau of open kaart, geen huiswerk. Enige link-context. ──
@@ -178,6 +198,10 @@ const FU2: Record<Doelgroep, string[]> = {
   "burnout-coaches": [
     "Van de drie patronen uit mijn vorige mail heb ik een A4 gemaakt dat je aan een cliënt kunt meegeven, desgewenst zonder mijn naam erop. Wil je het hebben? Eén woordje is genoeg, dan stuur ik het je.",
     "En mijn vraag blijft staan: mag ik jouw praktijk noemen als ik merk dat de vermoeidheid dieper zit dan het geld? Vragen stellen per mail mag altijd eerst.",
+  ],
+  "boekhouders": [
+    "Laatste keer dat ik het aanbod noem: als een klant bij jou met zo'n bredere geldvraag komt, mag je gerust mijn naam noemen, of me mailen en ik neem het over. Geen tegenprestatie, geen leadconstructie.",
+    "En andersom, open kaart: zoek jij weleens een boekhouder voor een klant van mij die een aangifte nodig heeft, hoor ik dat ook graag. Alleen als het jou uitkomt.",
   ],
 };
 

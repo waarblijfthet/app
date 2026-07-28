@@ -51,20 +51,22 @@ export async function POST(req: NextRequest) {
 }
 
 // PATCH /api/admin/outreach — naam, e-mail, categorie of persoonlijke zin wijzigen,
-// of een reply markeren.
+// een reply markeren (met reactie-classificatie), of automatische mails stoppen/hervatten.
 // Body: { id: string, naam?: string, email?: string, doelgroep?: string,
-//         ps_zin?: string, gereageerd?: boolean }
+//         ps_zin?: string, gereageerd?: boolean, reactie?: 'positief'|'neutraal'|'negatief',
+//         gestopt?: boolean }
 export async function PATCH(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { id, naam, email, doelgroep, ps_zin, plaats, gereageerd } = await req.json();
+  const { id, naam, email, doelgroep, ps_zin, plaats, gereageerd, reactie, gestopt } = await req.json();
   if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
 
   const update: {
     naam?: string; email?: string; doelgroep?: string;
     ps_zin?: string | null; plaats?: string | null; status?: string; gereageerd_at?: string;
+    reactie?: string | null; gestopt?: boolean; gestopt_at?: string | null;
   } = {};
   if (typeof naam === "string" && naam.trim()) update.naam = naam.trim();
   if (typeof email === "string" && email.trim()) update.email = email.trim();
@@ -74,6 +76,15 @@ export async function PATCH(req: NextRequest) {
   if (gereageerd === true) {
     update.status = "gereageerd";
     update.gereageerd_at = new Date().toISOString();
+  }
+  if (typeof reactie === "string" && ["positief", "neutraal", "negatief"].includes(reactie)) {
+    update.reactie = reactie;
+  } else if (reactie === null) {
+    update.reactie = null;
+  }
+  if (typeof gestopt === "boolean") {
+    update.gestopt = gestopt;
+    update.gestopt_at = gestopt ? new Date().toISOString() : null;
   }
   if (Object.keys(update).length === 0) {
     return NextResponse.json({ error: "niets om bij te werken" }, { status: 400 });
