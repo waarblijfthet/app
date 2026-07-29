@@ -139,35 +139,6 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
     .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff))
     .slice(0, 2);
 
-  // Dynamische CTA-tekst op basis van de grootste afwijking
-  const ctaKop =
-    verdict === "goed" && grootsteAfwijking === "geen"
-      ? "Haal meer uit de ruimte die je hebt"
-      : grootsteAfwijking === "Boodschappen"
-      ? `Je boodschappen liggen ${fmtEur(parseEur(data.boodschappen) - benches.boodschappen)}/mnd boven gemiddeld`
-      : grootsteAfwijking === "Abonnementen"
-      ? `Je abonnementen zijn ${fmtEur(abonnementenTotaalWaarde - benches.abonnementen)}/mnd hoger dan gemiddeld`
-      : grootsteAfwijking === "Wonen"
-      ? "Je woonlasten drukken zwaarder dan gemiddeld"
-      : grootsteAfwijking === "Vervoer"
-      ? "Je vervoerskosten liggen boven het gemiddelde"
-      : verdict === "goed"
-      ? "Haal meer uit de ruimte die je hebt"
-      : "Dit patroon kun je ombuigen";
-
-  const ctaTekst =
-    grootsteAfwijking === "Boodschappen"
-      ? "In een gesprek zoeken we uit waar dat zit: welke gewoontes, welke winkels, welke momenten. En hoe je dat ombuigt zonder alles op de schop te gooien."
-      : grootsteAfwijking === "Abonnementen"
-      ? "Daar zit vaak onbewust verlies dat makkelijk terug te winnen is. In een gesprek lopen we ze samen door."
-      : grootsteAfwijking === "Wonen"
-      ? "In een gesprek kijken we of en hoe dat te verlichten is, en wat dat in de rest van het budget betekent."
-      : grootsteAfwijking === "Vervoer"
-      ? "In een gesprek kijken we of er slim iets te veranderen is aan je vervoerssituatie."
-      : verdict === "goed"
-      ? "Je doet het goed. In een gesprek kijken we hoe je de ruimte die er is doelgericht inzet: sparen, aflossen of meer van het leven genieten."
-      : "Je ziet nu wáár het zit. In een gesprek kijken we samen naar je cijfers en stellen we 2 à 3 concrete doelen.";
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
     if (!data.email || !data.toestemmingOpslaan) return;
@@ -330,24 +301,43 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </p>
       </div>
 
-      {/* Dynamische CTA naar betaald aanbod */}
+      {/* Hoofdaanbod: het geldrapport */}
       <div
         className="rounded-xl border border-[#E6E9E7] p-6 mb-8"
         style={{ backgroundColor: "#FFFFFF" }}
       >
         <p className="section-eyebrow mb-3">En nu?</p>
         <p className="font-display font-light text-primary text-xl sm:text-2xl mb-2 leading-snug">
-          {ctaKop}
+          Je weet nu waar je afwijkt
         </p>
         <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
-          {ctaTekst}{" "}
-          <span className="font-medium text-primary">
-            Eenmalig adviesgesprek van 45 minuten, €125. Geen traject.
-          </span>
+          Je weet nog niet waarom, want daar heeft dit niet naar gekeken. Dat
+          is wat ik in een geldrapport voor je uitzoek.
         </p>
-        <Link href="/adviesgesprek" className="btn-primary">
-          Bekijk hoe dat werkt &rarr;
+        <Link href="/geldscan" className="btn-primary">
+          Vraag het geldrapport aan &rarr;
         </Link>
+        <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
+          Twijfel je of dat bij je past? Dan kun je me eerst{" "}
+          <a
+            href="mailto:hallo@waarblijfthet.nl?subject=Kennismaken%20(15%20minuten)"
+            className="hover:underline"
+            style={{ color: "#8B958F" }}
+          >
+            een kwartier spreken
+          </a>
+          . Ik kijk in dat kwartier niet naar je cijfers, ik leg alleen uit
+          hoe het werkt.
+        </p>
+        <p className="mt-4">
+          <Link
+            href="/adviesgesprek"
+            className="font-body text-sm hover:underline"
+            style={{ color: "#0B7A6E", textDecoration: "none" }}
+          >
+            Liever eerst een gesprek van 45 minuten, €125? &rarr;
+          </Link>
+        </p>
       </div>
 
       {/* Lead capture */}

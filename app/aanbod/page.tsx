@@ -4,13 +4,13 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
-import { PAKKET_INFO, type Pakket } from "@/lib/aanbod-content";
+import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { TrackClick } from "@/components/TrackClick";
 
 export const metadata: Metadata = {
-  title: "Financiële coaching en adviesgesprek, tarieven",
+  title: "Tarieven: geldrapport, gesprek en traject",
   description:
-    "Van eerste inzicht tot persoonlijk traject: kies wat bij jouw situatie past. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.",
+    "Ik schrijf een persoonlijk geldrapport over jouw cijfers, met de drie plekken waar het weglekt. 49 euro, eenmalig. Twee complete voorbeeldrapporten staan op de site, dus je weet wat je koopt voordat je betaalt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -28,128 +28,73 @@ const serviceSchema = {
   areaServed: "NL",
 };
 
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: [
-    {
-      "@type": "Question",
-      name: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Ik richt me op gezinnen en individuen die goed verdienen maar te weinig overhouden. Die willen begrijpen waarom, en hoe dat anders kan.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Ja, dat is precies de situatie waar ik voor ben. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij mensen met een goed inkomen, en het is volledig op te lossen met de juiste structuur.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Geef je advies over beleggen, hypotheken of pensioen?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Nee. Ik begeleid je bij het dagelijks beheer van je inkomen: waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs ik je door naar een gecertificeerd adviseur.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Ben je gecertificeerd financieel adviseur?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Nee. Ik ben geen gecertificeerd financieel adviseur en val niet onder de AFM-vergunningplicht. Ik adviseer niet over financiële producten. Wat ik doe is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer.",
-      },
-    },
-  ],
-};
-
-const routes = [
+const faq = [
   {
-    href: "#geldscan",
-    pakket: "geldscan",
-    situatie:
-      "Ik wil snappen waar mijn situatie afwijkt, zonder er met iemand over te praten",
-    naam: "Geldscan",
-    prijs: "€49",
-    regel: "Persoonlijk geschreven geldrapport met je drie grootste lekken",
-    aanbevolen: false,
+    vraag: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
+    antwoord:
+      "Nee. Schuldhulp en de meeste budgetcoaches werken met mensen die betalingsproblemen of schulden hebben. Ik werk met huishoudens die alles op tijd betalen, niets geks doen en toch structureel niets overhouden. Betaal je alles netjes op tijd maar snap je niet waarom er niets overblijft, dan zit je in de groep waarvoor ik werk.",
   },
   {
-    href: "#adviesgesprek",
-    pakket: "gesprek",
-    situatie:
-      "Ik weet dat er iets moet veranderen en wil daar één goed gesprek over",
-    naam: "Adviesgesprek",
-    prijs: "€125",
-    regel: "2 à 3 concrete doelen waar je meteen mee verder kunt",
-    aanbevolen: true,
+    vraag: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
+    antwoord:
+      "Ja, dat is de situatie waar ik voor ben. Geen crisis en ook geen rust. Wat ik doe is uitzoeken waar het naartoe gaat en dat opschrijven met de reden erbij. Of het daarna verandert, hangt af van wat je met dat rapport doet, en dat kan ik niet voor je beloven.",
   },
   {
-    href: "#traject",
-    pakket: "intensief",
-    situatie: "Ik wil het echt anders gaan doen, met begeleiding tot het staat",
-    naam: "Traject",
-    prijs: "€497",
-    regel: "Een systeem dat vanzelf blijft lopen, na 3 maanden begeleiding",
-    aanbevolen: false,
+    vraag: "Wat kost het, en waarom kost een kwartier bellen dan niets?",
+    antwoord:
+      "Het geldrapport kost 49 euro, eenmalig. Een kwartier kennismaken kost niets. Dat verschil zit niet in mijn goedheid maar in wat er gebeurt: in dat kwartier leg ik uit hoe ik werk en kijk ik niet naar jouw cijfers. Zodra het over jouw eigen bedragen gaat, is het werk, en werk breng ik in rekening. Dat is ook precies de grens die de wet trekt.",
+  },
+  {
+    vraag: "Mag ik zien wat ik koop voordat ik betaal?",
+    antwoord:
+      "Ja, en dat vind ik ook niet meer dan normaal. Op de voorbeeldpagina staan twee complete rapporten in de vorm waarin ik ze schrijf. Die twee huishoudens heb ik zelf bedacht, inclusief de bedragen, omdat ik geen klantcijfers publiceer zonder toestemming. Dat staat er ook boven en onder.",
+  },
+  {
+    vraag: "Geef je advies over beleggen, hypotheken of pensioen?",
+    antwoord:
+      "Nee. Ik kijk naar wat er maandelijks binnenkomt en waar het heen gaat. Over financiële producten geef ik geen advies en ik noem ook geen aanbieders. Wil je dat wel, dan heb je iemand met een vergunning nodig.",
+  },
+  {
+    vraag: "Ben je gecertificeerd financieel adviseur?",
+    antwoord:
+      "Nee. Ik ben geen gecertificeerd financieel adviseur en ik val niet onder de AFM-vergunningplicht, omdat ik niet over financiële producten adviseer. Wat ik doe is rekenen en opschrijven: waar gaat het heen, waar lekt het weg en wat zou ik eraan doen. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dat is de reden dat ik dit doe.",
+  },
+  {
+    vraag: "Wat gebeurt er met mijn gegevens?",
+    antwoord:
+      "Je vult de analyse in en stuurt optioneel een paar recente bankafschriften mee. Het rapport komt als PDF per e-mail, alleen naar jou. Direct na het versturen verwijder ik je afschriften en je analysegegevens. Je hoeft daar niet om te vragen en er blijft niets bewaard.",
+  },
+  {
+    vraag: "Wat als er bij mij niets uit komt?",
+    antwoord:
+      "Dat kan gebeuren en dan zeg ik dat. Ik beloof niet dat er geld te vinden is. Vaker is de uitkomst dat je zwart op wit ziet dat het klopt, of dat het bedrag dat ontbreekt veel kleiner is dan het voelde. In de twee voorbeeldrapporten op deze site is dat 64 euro per maand bij het ene huishouden en 118 bij het andere.",
   },
 ];
 
-const details: {
-  id: string;
-  pakket: Pakket;
-  bg: string;
-  cardBg: string;
-  eyebrow: string;
-  titel: string;
-  intro: string;
-  primaireHref: string;
-  primaireLabel: string;
-  secundaireHref: string;
-  secundaireLabel: string;
-}[] = [
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((f) => ({
+    "@type": "Question",
+    name: f.vraag,
+    acceptedAnswer: { "@type": "Answer", text: f.antwoord },
+  })),
+};
+
+const details = [
   {
     id: "geldscan",
-    pakket: "geldscan",
+    pakket: "geldscan" as const,
     bg: "#F7F8F7",
     cardBg: "#FFFFFF",
     eyebrow: "Zonder gesprek · €49 eenmalig",
     titel: "Geldscan: jouw persoonlijke geldrapport",
-    intro: "Jij levert je cijfers aan wanneer het uitkomt, ik schrijf op wat ik zie en wat ik zou doen. Zonder gesprek of agenda.",
+    intro:
+      "Jij levert je cijfers aan wanneer het uitkomt, ik schrijf op wat ik zie en wat ik zou doen. Zonder gesprek of agenda.",
     primaireHref: "/aanbod/intake?pakket=geldscan",
     primaireLabel: "Vraag de geldscan aan",
     secundaireHref: "/geldscan",
     secundaireLabel: "Alles over de geldscan",
-  },
-  {
-    id: "adviesgesprek",
-    pakket: "gesprek",
-    bg: "#FFFFFF",
-    cardBg: "#FFFFFF",
-    eyebrow: "Meest gevraagd · €125 eenmalig",
-    titel: "Eenmalig adviesgesprek",
-    intro: "Eén gesprek, geen verkooppraat, geen traject. Vaak verdient één concrete beslissing de €125 al terug.",
-    primaireHref: "/aanbod/intake?pakket=gesprek",
-    primaireLabel: "Ja, dit wil ik",
-    secundaireHref: "/adviesgesprek",
-    secundaireLabel: "Wat kun je verwachten?",
-  },
-  {
-    id: "traject",
-    pakket: "intensief",
-    bg: "#F7F8F7",
-    cardBg: "#FFFFFF",
-    eyebrow: "Beperkte beschikbaarheid · €497 eenmalig",
-    titel: "Persoonlijk traject, 3 maanden",
-    intro: "Niet alleen een plan, maar een gewoonte die blijft. Plek voor maximaal 3 trajecten tegelijk.",
-    primaireHref: "/aanbod/intake?pakket=intensief",
-    primaireLabel: "Ja, dit wil ik",
-    secundaireHref: "/aanbod/intake?pakket=intensief",
-    secundaireLabel: "Vraag beschikbaarheid op",
   },
 ];
 
@@ -174,7 +119,7 @@ export default function AanbodPage() {
               className="font-body mb-4 text-xs font-medium uppercase tracking-widest"
               style={{ color: "#0B7A6E" }}
             >
-              Aanbod
+              Tarieven
             </p>
             <h1
               className="font-display font-light text-[#16211F]"
@@ -186,10 +131,12 @@ export default function AanbodPage() {
               className="font-body max-w-[600px] font-light leading-relaxed"
               style={{ fontSize: "1.05rem", color: "#4A5A56" }}
             >
-              Ik help je begrijpen waar het naartoe gaat en hoe je dat structureel verandert. Geen abonnementen, geen verrassingen. Je betaalt voor wat je nodig hebt.
+              Ik kijk naar de cijfers van huishoudens die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Geen cursus, geen abonnement, geen beleggingsverhaal. Mijn tarieven staan hieronder en twee complete voorbeeldrapporten staan op deze site, dus je weet wat je koopt voordat je betaalt.
             </p>
             <p className="font-body mt-4 text-sm" style={{ color: "#8B958F" }}>
-              Al meer dan 50 gezinnen en individuen deden de analyse.
+              <Link href="/voorbeeldrapport" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                Bekijk een compleet voorbeeldrapport →
+              </Link>
             </p>
 
             <div className="mt-10 flex items-start gap-4 rounded-2xl border border-[#E6E9E7] bg-white p-5 sm:items-center">
@@ -207,7 +154,7 @@ export default function AanbodPage() {
               </div>
               <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
                 <span className="font-medium text-[#16211F]">Ik ben Jarno.</span>{" "}
-                Ik herken dit patroon van binnenuit: goed verdienen en toch elke maand niet weten waar het naartoe gaat. Dit doe ik ernaast, voor iedereen die dat herkent. Geen gecertificeerd adviseur, geen productverkoop.{" "}
+                Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dit doe ik naast mijn baan, voor mensen die dat patroon herkennen. Ik ben geen gecertificeerd adviseur en ik verkoop geen financiële producten.{" "}
                 <Link
                   href="/over"
                   className="whitespace-nowrap hover:underline"
@@ -220,76 +167,176 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* Keuzehulp: drie situaties */}
+        {/* Ik doe één ding */}
         <section className="px-6 py-14" style={{ backgroundColor: "#FFFFFF" }}>
           <div className="mx-auto max-w-[860px]">
-            <h2 className="font-display mb-2 text-2xl font-light text-[#16211F] sm:text-3xl">
-              Wat past bij jouw situatie?
+            <h2 className="font-display mb-5 text-2xl font-light text-[#16211F] sm:text-3xl">
+              Ik doe één ding
             </h2>
-            <p className="font-body mb-10 max-w-[600px] text-sm font-light leading-relaxed text-[#4A5A56]">
-              Begin altijd met de{" "}
-              <Link
-                href="/analyse"
-                className="hover:underline"
-                style={{ color: "#0B7A6E", textDecoration: "none" }}
-              >
-                de analyse
-              </Link>{" "}
-              (5 minuten, anoniem). Daarna zijn er drie routes, kies wat jij herkent:
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Ik kijk naar de cijfers van huishoudens in loondienst die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Je krijgt een rapport dat ik met de hand schrijf, over jouw bedragen, met de drie plekken waar het weglekt en per plek wat ik zou doen. Geen sjabloon, geen algoritme, geen traject dat je vooraf moet kopen.
             </p>
-
-            <div className="mb-5 grid grid-cols-1 gap-4 sm:grid-cols-3 sm:gap-5">
-              {routes.map((s) => (
-                <TrackClick key={s.href} gebeurtenis="aanbod_kaart_klik" pakket={s.pakket}>
-                <a
-                  href={s.href}
-                  className={`group relative flex flex-col rounded-2xl bg-white p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0B7A6E] focus-visible:ring-offset-2 ${
-                    s.aanbevolen
-                      ? "border-2 border-[#0B7A6E]"
-                      : "border border-[#E6E9E7] hover:border-[#0B7A6E]"
-                  }`}
-                  style={{ textDecoration: "none" }}
-                >
-                  {s.aanbevolen && (
-                    <span className="font-body absolute -top-3 left-5 rounded-full px-3 py-0.5 text-xs font-medium text-white" style={{ backgroundColor: "#0B7A6E" }}>
-                      Meest gevraagd
-                    </span>
-                  )}
-                  <p className="font-display mb-6 text-base font-light italic leading-relaxed text-[#16211F]">
-                    &ldquo;{s.situatie}&rdquo;
-                  </p>
-                  <div className="mt-auto border-t border-[#E6E9E7] pt-4">
-                    <p className="section-eyebrow mb-1">{s.naam}</p>
-                    <p className="font-display mb-1 text-3xl font-light text-[#16211F]">
-                      {s.prijs}
-                      <span className="font-body ml-2 text-xs font-light text-[#8B958F]">
-                        eenmalig
-                      </span>
-                    </p>
-                    <p className="font-body mb-4 text-xs font-light leading-relaxed text-[#8B958F]">
-                      {s.regel}
-                    </p>
-                    <span className="font-body inline-flex items-center gap-1.5 text-sm font-medium" style={{ color: "#0B7A6E" }}>
-                      Bekijk wat je krijgt
-                      <span
-                        aria-hidden="true"
-                        className="transition-transform duration-200 group-hover:translate-y-0.5"
-                      >
-                        ↓
-                      </span>
-                    </span>
-                  </div>
-                </a>
-                </TrackClick>
-              ))}
-            </div>
-            <p className="font-body text-xs font-light text-[#8B958F]">
-              Alle prijzen eenmalig. De €49 van de geldscan wordt verrekend als je daarna een gesprek of traject wilt.
+            <p className="font-body max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Twee complete voorbeelden van zo&apos;n rapport staan op deze site. Die twee huishoudens heb ik zelf bedacht, inclusief de bedragen, omdat ik geen cijfers van een klant publiceer zonder toestemming. Dat is minder sterk dan een echt rapport en daarom zeg ik het er zelf bij. Zodra een klant toestemming geeft, komt er een geanonimiseerd rapport van een echt huishouden bij te staan.
             </p>
           </div>
         </section>
 
-        {/* Detail-secties: proces (links) strikt gescheiden van inhoud (rechts) */}
+        {/* Vergelijken of verklaren: twee routes */}
+        <section className="px-6 py-14" style={{ backgroundColor: "#F7F8F7" }}>
+          <div className="mx-auto max-w-[860px]">
+            <h2 className="font-display mb-2 text-2xl font-light text-[#16211F] sm:text-3xl">
+              Vergelijken of verklaren
+            </h2>
+            <p className="font-body mb-10 max-w-[600px] text-sm font-light leading-relaxed text-[#4A5A56]">
+              Er zijn twee dingen die je hier kunt doen en ze beantwoorden een andere vraag. Het eerste is gratis en doet een machine. Het tweede kost geld omdat ik het zelf schrijf.
+            </p>
+
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
+              {/* Analyse */}
+              <div className="flex flex-col rounded-2xl border border-[#E6E9E7] bg-white p-6">
+                <p className="section-eyebrow mb-3">Gratis · anoniem · 5 minuten</p>
+                <h3 className="font-display mb-3 text-xl font-light text-[#16211F]">
+                  De analyse: waar wijk je af?
+                </h3>
+                <p className="font-body mb-4 flex-1 text-sm font-light leading-relaxed text-[#4A5A56]">
+                  Je vult je inkomen, je woonlasten, je vervoer en je dagelijkse uitgaven in en je ziet direct hoe je verdeling zich verhoudt tot huishoudens met een vergelijkbaar inkomen en een vergelijkbare samenstelling. Geen account, geen e-mailadres nodig, en je resultaat blijft ook zonder e-mailadres zichtbaar.
+                </p>
+                <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
+                  Wat het je geeft: een getal en de grootste afwijking. Wat het je niet geeft: de reden.
+                </p>
+                <Link
+                  href="/analyse"
+                  className="font-body inline-flex items-center gap-1.5 text-sm font-medium"
+                  style={{ color: "#0B7A6E", textDecoration: "none" }}
+                >
+                  Doe de analyse →
+                </Link>
+              </div>
+
+              {/* Geldrapport */}
+              <div className="flex flex-col rounded-2xl border-2 p-6 bg-white" style={{ borderColor: "#0B7A6E" }}>
+                <p className="section-eyebrow mb-3">49 euro eenmalig · geen gesprek nodig</p>
+                <h3 className="font-display mb-3 text-xl font-light text-[#16211F]">
+                  Het geldrapport: waarom is het bij jou zo?
+                </h3>
+                <p className="font-body mb-4 flex-1 text-sm font-light leading-relaxed text-[#4A5A56]">
+                  Ik kijk met de hand naar jouw cijfers en schrijf je een rapport: de drie plekken waar het weglekt, per plek wat het je per jaar kost, per plek wat ik zou doen en per plek wat het niet oplost. Plus de posten die ik géén lek vind, want die zijn er ook. In gewone taal, herleesbaar, en te delen met je partner.
+                </p>
+                <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
+                  Dat is wat de machine niet kan: een reden opschrijven.
+                </p>
+                <TrackClick gebeurtenis="aanbod_kaart_klik" pakket="geldscan">
+                  <Link href="/aanbod/intake?pakket=geldscan" className="btn-primary justify-center">
+                    Vraag het geldrapport aan →
+                  </Link>
+                </TrackClick>
+                <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
+                  49 euro, eenmalig. Kies je daarna een gesprek of traject, dan gaat de 49 euro daarvan af.{" "}
+                  <Link href="/voorbeeldrapport" className="hover:underline" style={{ color: "#0B7A6E" }}>
+                    Zie eerst een compleet voorbeeld →
+                  </Link>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Het gratis kwartier */}
+        <section className="px-6 py-14" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="mx-auto max-w-[860px]">
+            <p className="section-eyebrow mb-3">Vrijblijvend · 15 minuten · geen kosten</p>
+            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
+              Liever eerst weten met wie je te maken hebt
+            </h2>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Je koopt hier iets van iemand die je niet kent, en dat is een rare transactie. Daarom kun je me eerst een kwartier spreken. Video of telefoon, wat jij wilt, en ik doe ze buiten kantoortijden omdat ik dit naast mijn baan doe.
+            </p>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              In dat kwartier kijk ik niet naar jouw cijfers. Ik leg uit wat ik doe, wat er in een geldrapport staat, wat er met je gegevens gebeurt en voor wie dit niet werkt. Jij stelt de vragen die je op de site niet beantwoord krijgt. Zodra het over jouw bedragen gaat, is het werk, en dat is de geldscan.
+            </p>
+            <p className="font-body mb-6 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Ik verkoop je in dat kwartier niets. Aan het eind zeg ik wat volgens mij de logische volgende stap is, en verder hoor ik het wel. Ik doe er maximaal drie per week, dus het kan zijn dat het een week later is.
+            </p>
+            <a
+              href="mailto:hallo@waarblijfthet.nl?subject=Kennismaken%20(15%20minuten)"
+              className="font-body inline-flex items-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
+              style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
+            >
+              Vraag een kwartier aan →
+            </a>
+            <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
+              Mail met als onderwerp Kennismaken. Zet erin wanneer het je schikt, dan stel ik een moment voor.
+            </p>
+          </div>
+        </section>
+
+        {/* De twaalf gratis plekken */}
+        <section className="px-6 py-14" style={{ backgroundColor: "#F7F8F7" }}>
+          <div className="mx-auto max-w-[860px]">
+            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
+              De eerste twaalf doe ik gratis, en dit is waarom
+            </h2>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Ik heb dit werk tot nu toe voor weinig mensen gedaan en ik heb dus bijna geen ervaringen om te laten zien. Daarom schrijf ik twaalf geldrapporten zonder ervoor te rekenen. Wat ik ervoor terugvraag: dat je me achteraf vertelt wat je er wel en niet uit haalde, en dat ik dat geanonimiseerd mag opschrijven op deze site. Zeg je dat laatste liever niet, dan is de betaalde route er ook en dan hoor ik je niets uitleggen.
+            </p>
+            <p className="font-body mb-6 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Voorwaarden, en die zijn er om te voorkomen dat ik iemand help die beter bij een ander terechtkomt: je bent in loondienst, je verdient bovenmodaal, je betaalt al je rekeningen op tijd, en je bent bereid je cijfers in te vullen. Heb je betalingsachterstanden of schulden, dan hoor je bij de kosteloze hulp van je gemeente en dan is dit niet de juiste plek. Dat is geen formaliteit, dat is echt een ander vak.
+            </p>
+            <a
+              href="mailto:hallo@waarblijfthet.nl?subject=Gratis%20plek%20geldrapport"
+              className="font-body inline-flex items-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
+              style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
+            >
+              Vraag een gratis plek aan →
+            </a>
+          </div>
+        </section>
+
+        {/* Adviesgesprek en traject, op aanvraag */}
+        <section className="px-6 py-14" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="mx-auto max-w-[860px]">
+            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
+              En als een rapport niet genoeg is
+            </h2>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Soms is een rapport niet waar iemand naar zoekt. Dan is er een eenmalig gesprek van 45 minuten via video, 125 euro, waarin ik met je meedenk en jij kunt doorvragen. Je krijgt daarna een schriftelijke samenvatting, ook om met je partner te lezen. En er is een traject van drie maanden, 497 euro, waarin ik een plan met je opstel en blijf meekijken tot het staat. Daar neem ik maximaal drie mensen tegelijk voor aan, omdat ik dit naast mijn baan doe.
+            </p>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Beide zet ik niet als knop op deze pagina, omdat ik ze bijna nooit als eerste stap zou aanraden. Begin met het rapport of met een kwartier, en als een gesprek of een traject beter past, dan zeg ik dat.
+            </p>
+            <a
+              href="mailto:hallo@waarblijfthet.nl"
+              className="font-body inline-flex items-center gap-1.5 text-sm font-medium"
+              style={{ color: "#0B7A6E", textDecoration: "none" }}
+            >
+              Mail me waar je aan denkt →
+            </a>
+          </div>
+        </section>
+
+        {/* Wanneer je hier niets aan hebt */}
+        <section className="px-6 py-14" style={{ backgroundColor: "#F7F8F7" }}>
+          <div className="mx-auto max-w-[860px]">
+            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
+              Wanneer je hier niets aan hebt
+            </h2>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Als je betalingsachterstanden of schulden hebt, dan hoor je bij de schuldhulp van je gemeente en die is kosteloos. Dat is beter werk dan wat ik doe en het is een ander vak.
+            </p>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Als je een advies wil over een hypotheek, een verzekering, je pensioen of beleggen, dan moet je bij iemand met een vergunning zijn. Die heb ik niet en die wil ik ook niet, want dan word ik iemand die producten verkoopt.
+            </p>
+            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              Als je op zoek bent naar een manier om zo zuinig mogelijk te leven, dan heb ik niets voor je. Ik reken uit waar het geld heen gaat en ik zet erbij welke posten ik géén lek vind. Vaak is dat de helft van het overzicht.
+            </p>
+            <p className="font-body max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+              En als je hoopt dat er altijd geld te vinden is: dat beloof ik niet. Soms is de uitkomst dat het klopt, en dat je alleen niet wist waarom.
+            </p>
+          </div>
+        </section>
+
+        {/* Detail-sectie: geldrapport, proces (links) strikt gescheiden van inhoud (rechts) */}
         {details.map((d) => {
           const info = PAKKET_INFO[d.pakket];
           return (
@@ -455,7 +502,7 @@ export default function AanbodPage() {
               className="font-display font-light"
               style={{ fontSize: "2rem", color: "white", marginBottom: "1rem" }}
             >
-              Niet zeker welke past bij jou?
+              Zie eerst wat je koopt
             </h2>
             <p
               className="font-body"
@@ -466,26 +513,29 @@ export default function AanbodPage() {
                 marginBottom: "2rem",
               }}
             >
-              Begin dan met de geldscan (€49). Ik kijk persoonlijk naar je cijfers en zet op papier waar het bij jou weglekt, met je drie grootste lekken. Liever eerst zelf een indruk? Doe de analyse.
+              Op de voorbeeldpagina staan twee complete rapporten, met de bedragen erbij en met de posten die ik géén lek vind. Verzonnen huishoudens, echte werkwijze. Als je daarna wil dat ik naar jouw cijfers kijk, dan weet je precies wat er terugkomt.
             </p>
-            <TrackClick gebeurtenis="aanbod_cta_klik" pakket="geldscan">
-              <Link
-                href="/aanbod/intake?pakket=geldscan"
-                className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
-                style={{
-                  backgroundColor: "#0B7A6E",
-                  color: "#FFFFFF",
-                  borderRadius: "12px",
-                  textDecoration: "none",
-                }}
-              >
-                Laat mij je cijfers nakijken (€49) →
-              </Link>
-            </TrackClick>
+            <Link
+              href="/voorbeeldrapport"
+              className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
+              style={{
+                backgroundColor: "#0B7A6E",
+                color: "#FFFFFF",
+                borderRadius: "12px",
+                textDecoration: "none",
+              }}
+            >
+              Bekijk een voorbeeldrapport →
+            </Link>
             <p style={{ marginTop: "1rem" }}>
-              <Link href="/analyse" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
-                Liever eerst zelf kijken? →
-              </Link>
+              <TrackClick gebeurtenis="aanbod_cta_klik" pakket="geldscan">
+                <Link href="/aanbod/intake?pakket=geldscan" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
+                  Of vraag het geldrapport meteen aan, 49 euro →
+                </Link>
+              </TrackClick>
+            </p>
+            <p style={{ marginTop: "0.75rem", color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>
+              Eenmalig · voor huishoudens in heel Nederland · je gegevens worden nooit gedeeld of verkocht
             </p>
           </div>
         </section>

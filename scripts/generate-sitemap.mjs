@@ -25,6 +25,7 @@ const statisch = [
   { loc: "/samenwerken/budgetcoaches", priority: "0.6" },
   { loc: "/samenwerken/burnout-coaches", priority: "0.6" },
   { loc: "/samenwerken/financieel-planners", priority: "0.6" },
+  { loc: "/voorbeeldrapport", priority: "0.9" },
 ];
 
 // Artikel-slugs uit de single source of truth
@@ -97,15 +98,16 @@ const artikelLijst = uniekeSlugs
 
 const llms =
   `# Waar blijft het\n\n` +
-  `> Gratis financiele analyse en eerlijk inzicht voor Nederlandse gezinnen die goed verdienen maar toch weinig overhouden. Geen schuldhulp, geen beleggingsadvies - alleen grip op het maandbudget.\n\n` +
+  `> Gratis financiele analyse en inzicht voor Nederlandse gezinnen die goed verdienen maar toch weinig overhouden. Geen schuldhulp, geen beleggingsadvies, alleen grip op het maandbudget.\n\n` +
   `Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; daarnaast is er een eenmalig adviesgesprek en persoonlijke begeleiding. Auteur en oprichter: Jarno Koopman.\n\n` +
   `## Belangrijkste pagina's\n` +
   `- [Gratis analyse](${HOST}/analyse): vergelijk in 5 minuten je uitgaven met vergelijkbare gezinnen\n` +
   `- [Aanbod](${HOST}/aanbod): gratis analyse, eenmalig adviesgesprek en traject\n` +
   `- [Financieel coach](${HOST}/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt\n` +
   `- [Geldscan](${HOST}/geldscan): persoonlijk geldrapport over je maandbudget zonder gesprek, 49 euro\n` +
+  `- [Voorbeeldrapport](${HOST}/voorbeeldrapport): twee complete voorbeelden van een geldrapport, fictieve huishoudens\n` +
   `- [Inzichten](${HOST}/inzichten): artikelen over grip op je geld\n` +
-  `- [Over ons](${HOST}/over): wie en waarom\n` +
+  `- [Over mij](${HOST}/over): wie en waarom\n` +
   `- [Woordenlijst](${HOST}/woordenlijst): geldbegrippen in gewone taal\n\n` +
   `## Artikelen\n${artikelLijst}\n`;
 

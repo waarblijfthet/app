@@ -6,32 +6,42 @@ const vragen = [
   {
     vraag: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
     antwoord:
-      "Nee. Budgetcoaches en schuldhulp zijn er voor mensen met betalingsproblemen of schulden. Ik richt me op gezinnen en individuen die goed verdienen maar te weinig overhouden. Die willen begrijpen waarom, en hoe dat anders kan.",
+      "Nee. Schuldhulp en de meeste budgetcoaches werken met mensen die betalingsproblemen of schulden hebben. Ik werk met huishoudens die alles op tijd betalen, niets geks doen en toch structureel niets overhouden. Betaal je alles netjes op tijd maar snap je niet waarom er niets overblijft, dan zit je in de groep waarvoor ik werk.",
   },
   {
     vraag: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
     antwoord:
-      "Ja, dat is precies de situatie waar ik voor ben. Geen crisis, maar ook geen rust. Dat is het meest voorkomende financiële patroon bij mensen met een goed inkomen, en het is volledig op te lossen met de juiste structuur.",
+      "Ja, dat is de situatie waar ik voor ben. Geen crisis en ook geen rust. Wat ik doe is uitzoeken waar het naartoe gaat en dat opschrijven met de reden erbij. Of het daarna verandert, hangt af van wat je met dat rapport doet, en dat kan ik niet voor je beloven.",
+  },
+  {
+    vraag: "Wat kost het, en waarom kost een kwartier bellen dan niets?",
+    antwoord:
+      "Het geldrapport kost 49 euro, eenmalig. Een kwartier kennismaken kost niets. Dat verschil zit niet in mijn goedheid maar in wat er gebeurt: in dat kwartier leg ik uit hoe ik werk en kijk ik niet naar jouw cijfers. Zodra het over jouw eigen bedragen gaat, is het werk, en werk breng ik in rekening. Dat is ook precies de grens die de wet trekt.",
+  },
+  {
+    vraag: "Mag ik zien wat ik koop voordat ik betaal?",
+    antwoord:
+      "Ja, en dat vind ik ook niet meer dan normaal. Op de voorbeeldpagina staan twee complete rapporten in de vorm waarin ik ze schrijf. Die twee huishoudens heb ik zelf bedacht, inclusief de bedragen, omdat ik geen klantcijfers publiceer zonder toestemming. Dat staat er ook boven en onder.",
   },
   {
     vraag: "Geef je advies over beleggen, hypotheken of pensioen?",
     antwoord:
-      "Nee. Ik begeleid je bij het dagelijks beheer van je inkomen: waar het naartoe gaat, hoe je structuur aanbrengt en hoe je structureel meer overhoudt. Voor specifieke financiële producten verwijs ik je door naar een gecertificeerd adviseur.",
-  },
-  {
-    vraag: "Moet ik mijn bankafschriften opsturen?",
-    antwoord:
-      "Nee, dat hoeft niet. Voor het analyse-rapport heb ik helemaal geen documenten nodig. Bij het adviesgesprek kun je optioneel een paar recente afschriften meenemen zodat het gesprek concreter wordt. Je deelt alleen wat je zelf wilt delen, en ik gebruik het uitsluitend voor het gesprek.",
-  },
-  {
-    vraag: "Wat als ik begin met de analyse maar meer wil?",
-    antwoord:
-      "Dan neem je gewoon contact op via hallo@waarblijfthet.nl. Ik kijk samen met je wat het beste bij jouw situatie past.",
+      "Nee. Ik kijk naar wat er maandelijks binnenkomt en waar het heen gaat. Over financiële producten geef ik geen advies en ik noem ook geen aanbieders. Wil je dat wel, dan heb je iemand met een vergunning nodig.",
   },
   {
     vraag: "Ben je gecertificeerd financieel adviseur?",
     antwoord:
-      "Nee. Ik ben geen gecertificeerd financieel adviseur en val niet onder de AFM-vergunningplicht. Ik adviseer niet over financiële producten. Wat ik doe is gedragscoaching en structuurbegeleiding rondom dagelijks geldbeheer. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dat inzicht is de basis van hoe ik met je meedenk.",
+      "Nee. Ik ben geen gecertificeerd financieel adviseur en ik val niet onder de AFM-vergunningplicht, omdat ik niet over financiële producten adviseer. Wat ik doe is rekenen en opschrijven: waar gaat het heen, waar lekt het weg en wat zou ik eraan doen. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dat is de reden dat ik dit doe.",
+  },
+  {
+    vraag: "Wat gebeurt er met mijn gegevens?",
+    antwoord:
+      "Je vult de analyse in en stuurt optioneel een paar recente bankafschriften mee. Het rapport komt als PDF per e-mail, alleen naar jou. Direct na het versturen verwijder ik je afschriften en je analysegegevens. Je hoeft daar niet om te vragen en er blijft niets bewaard.",
+  },
+  {
+    vraag: "Wat als er bij mij niets uit komt?",
+    antwoord:
+      "Dat kan gebeuren en dan zeg ik dat. Ik beloof niet dat er geld te vinden is. Vaker is de uitkomst dat je zwart op wit ziet dat het klopt, of dat het bedrag dat ontbreekt veel kleiner is dan het voelde. In de twee voorbeeldrapporten op deze site is dat 64 euro per maand bij het ene huishouden en 118 bij het andere.",
   },
 ];
 

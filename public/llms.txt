@@ -1,6 +1,6 @@
 # Waar blijft het
 
-> Gratis financiele analyse en eerlijk inzicht voor Nederlandse gezinnen die goed verdienen maar toch weinig overhouden. Geen schuldhulp, geen beleggingsadvies - alleen grip op het maandbudget.
+> Gratis financiele analyse en inzicht voor Nederlandse gezinnen die goed verdienen maar toch weinig overhouden. Geen schuldhulp, geen beleggingsadvies, alleen grip op het maandbudget.
 
 Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; daarnaast is er een eenmalig adviesgesprek en persoonlijke begeleiding. Auteur en oprichter: Jarno Koopman.
 
@@ -9,8 +9,9 @@ Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvr
 - [Aanbod](https://www.waarblijfthet.nl/aanbod): gratis analyse, eenmalig adviesgesprek en traject
 - [Financieel coach](https://www.waarblijfthet.nl/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt
 - [Geldscan](https://www.waarblijfthet.nl/geldscan): persoonlijk geldrapport over je maandbudget zonder gesprek, 49 euro
+- [Voorbeeldrapport](https://www.waarblijfthet.nl/voorbeeldrapport): twee complete voorbeelden van een geldrapport, fictieve huishoudens
 - [Inzichten](https://www.waarblijfthet.nl/inzichten): artikelen over grip op je geld
-- [Over ons](https://www.waarblijfthet.nl/over): wie en waarom
+- [Over mij](https://www.waarblijfthet.nl/over): wie en waarom
 - [Woordenlijst](https://www.waarblijfthet.nl/woordenlijst): geldbegrippen in gewone taal
 
 ## Artikelen

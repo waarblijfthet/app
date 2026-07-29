@@ -26,6 +26,11 @@ const faq = [
       "Je meldt je aan met je naam en e-mailadres. Na betaling vraag ik je de analyse in te vullen (2 minuten), optioneel stuur je ook een paar recente bankafschriften mee. Binnen twee werkdagen daarna krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF) met jouw drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner.",
   },
   {
+    vraag: "Kan ik je eerst spreken?",
+    antwoord:
+      "Ja, een kwartier, kosteloos, via video of telefoon. Ik doe die gesprekken buiten kantoortijden en maximaal drie per week. In dat kwartier kijk ik niet naar jouw cijfers: ik leg uit wat ik doe, wat er in een geldrapport staat en wat er met je gegevens gebeurt. Zodra het over jouw eigen bedragen gaat, is het werk, en daar is de geldscan voor. Mail naar hallo@waarblijfthet.nl met als onderwerp Kennismaken.",
+  },
+  {
     vraag: "Moet ik hiervoor met iemand praten of bellen?",
     antwoord:
       "Nee. Jij levert je cijfers aan wanneer het jou uitkomt, ik schrijf het rapport, jij leest het rustig terug op je eigen moment. Zo hou je het in eigen hand. Heb je daarna een vraag, dan beantwoord ik die per mail.",
@@ -171,7 +176,25 @@ export default function GeldscanPage({
               >
                 Kijk eerst zelf →
               </Link>
+              <Link
+                href="/voorbeeldrapport"
+                className="font-body text-sm hover:underline"
+                style={{ color: "#0B7A6E", textDecoration: "none" }}
+              >
+                Zie eerst een compleet voorbeeld →
+              </Link>
             </div>
+            <p className="font-body font-light text-text-muted text-xs mt-4">
+              Nog niet zeker? Je kunt me eerst{" "}
+              <a
+                href="mailto:hallo@waarblijfthet.nl?subject=Kennismaken%20(15%20minuten)"
+                className="hover:underline"
+                style={{ color: "#8B958F" }}
+              >
+                een kwartier spreken
+              </a>
+              , zonder kosten en zonder dat je iets aanlevert.
+            </p>
             <p className="font-body font-light text-text-muted text-xs mt-4">
               Binnen 2 werkdagen na aanlevering van je cijfers · €49 wordt verrekend als je later een gesprek of traject wilt
             </p>

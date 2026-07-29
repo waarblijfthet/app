@@ -347,7 +347,7 @@ export default async function ResultaatPage({ params }: Props) {
                 <KopieerKnop url={resultaatUrl} />
               </div>
 
-              {/* Kaartje 2, Betaald (hoofdoptie) */}
+              {/* Kaartje 2, Betaald (hoofdoptie): het geldrapport */}
               <div
                 style={{
                   padding: "1.5rem 2rem 2rem",
@@ -355,41 +355,12 @@ export default async function ResultaatPage({ params }: Props) {
                   borderRight: "1px solid rgba(245,240,232,0.1)",
                 }}
               >
-                <p className="text-3xl mb-3">💬</p>
-                <h3
-                  className="font-body font-medium text-base mb-2"
-                  style={{ color: "#F7F8F7" }}
-                >
-                  Een eerlijk adviesgesprek
-                </h3>
-                <p
-                  className="font-body font-light text-sm leading-relaxed mb-5"
-                  style={{ color: "rgba(245,240,232,0.6)" }}
-                >
-                  In 45 minuten samen eerlijk naar je cijfers kijken en 2 à 3
-                  concrete doelen stellen. Eenmalig €125, geen traject.
-                </p>
-                <a
-                  href="/aanbod"
-                  className="block w-full text-center px-4 py-2.5 rounded-xl font-body text-sm font-medium transition-opacity hover:opacity-90"
-                  style={{
-                    background: "#0B7A6E",
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                  }}
-                >
-                  Bekijk het adviesgesprek →
-                </a>
-              </div>
-
-              {/* Kaartje 3, Blog */}
-              <div style={{ padding: "1.5rem 2rem 2rem" }}>
                 <p className="text-3xl mb-3">📄</p>
                 <h3
                   className="font-body font-medium text-base mb-2"
                   style={{ color: "#F7F8F7" }}
                 >
-                  Liever geen gesprek? De geldscan
+                  Het geldrapport
                 </h3>
                 <p
                   className="font-body font-light text-sm leading-relaxed mb-5"
@@ -401,6 +372,35 @@ export default async function ResultaatPage({ params }: Props) {
                 </p>
                 <Link
                   href={`/geldscan?token=${params.token}`}
+                  className="block w-full text-center px-4 py-2.5 rounded-xl font-body text-sm font-medium transition-opacity hover:opacity-90"
+                  style={{
+                    background: "#0B7A6E",
+                    color: "#FFFFFF",
+                    textDecoration: "none",
+                  }}
+                >
+                  Bekijk het geldrapport →
+                </Link>
+              </div>
+
+              {/* Kaartje 3, Adviesgesprek */}
+              <div style={{ padding: "1.5rem 2rem 2rem" }}>
+                <p className="text-3xl mb-3">💬</p>
+                <h3
+                  className="font-body font-medium text-base mb-2"
+                  style={{ color: "#F7F8F7" }}
+                >
+                  Een adviesgesprek
+                </h3>
+                <p
+                  className="font-body font-light text-sm leading-relaxed mb-5"
+                  style={{ color: "rgba(245,240,232,0.6)" }}
+                >
+                  In 45 minuten samen naar je cijfers kijken en 2 tot 3
+                  concrete doelen stellen. Eenmalig €125, geen traject.
+                </p>
+                <a
+                  href="/aanbod"
                   className="block w-full text-center px-4 py-2.5 rounded-xl border font-body text-sm font-medium transition-all hover:bg-white/10"
                   style={{
                     borderColor: "rgba(245,240,232,0.3)",
@@ -408,8 +408,8 @@ export default async function ResultaatPage({ params }: Props) {
                     textDecoration: "none",
                   }}
                 >
-                  Bekijk de geldscan →
-                </Link>
+                  Bekijk het adviesgesprek →
+                </a>
               </div>
             </div>
           </div>
