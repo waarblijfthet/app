@@ -271,25 +271,25 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* De twaalf gratis plekken */}
+        {/* Voor wie het geldrapport werkt */}
         <section className="px-6 py-14" style={{ backgroundColor: "#F7F8F7" }}>
           <div className="mx-auto max-w-[860px]">
             <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
-              De eerste twaalf doe ik gratis, en dit is waarom
+              Voor wie het geldrapport werkt
             </h2>
             <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Ik heb dit werk tot nu toe voor weinig mensen gedaan en ik heb dus bijna geen ervaringen om te laten zien. Daarom schrijf ik twaalf geldrapporten zonder ervoor te rekenen. Wat ik ervoor terugvraag: dat je me achteraf vertelt wat je er wel en niet uit haalde, en dat ik dat geanonimiseerd mag opschrijven op deze site. Zeg je dat laatste liever niet, dan is de betaalde route er ook en dan hoor ik je niets uitleggen.
+              Het geldrapport werkt het best voor huishoudens in loondienst met een bovenmodaal inkomen, die alle rekeningen op tijd betalen en toch weinig overhouden. Ik vraag je om je cijfers volledig in te vullen, dat is nodig om precies te zien waar het weglekt.
             </p>
             <p className="font-body mb-6 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Voorwaarden, en die zijn er om te voorkomen dat ik iemand help die beter bij een ander terechtkomt: je bent in loondienst, je verdient bovenmodaal, je betaalt al je rekeningen op tijd, en je bent bereid je cijfers in te vullen. Heb je betalingsachterstanden of schulden, dan hoor je bij de kosteloze hulp van je gemeente en dan is dit niet de juiste plek. Dat is geen formaliteit, dat is echt een ander vak.
+              Heb je betalingsachterstanden of schulden, dan hoor je bij de kosteloze hulp van je gemeente en dan is dit niet de juiste plek. Dat is geen formaliteit, dat is een ander vak.
             </p>
-            <a
-              href="mailto:hallo@waarblijfthet.nl?subject=Gratis%20plek%20geldrapport"
+            <Link
+              href="/aanbod/intake?pakket=geldscan"
               className="font-body inline-flex items-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
               style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
             >
-              Vraag een gratis plek aan →
-            </a>
+              Vraag het geldrapport aan →
+            </Link>
           </div>
         </section>
 
