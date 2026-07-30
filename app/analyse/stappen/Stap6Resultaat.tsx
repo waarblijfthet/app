@@ -48,7 +48,7 @@ const VERDICT_CONFIG: Record<
     bg: "bg-[#FDECEA]",
     border: "border-[#F0A09A]",
     title: "Je houdt structureel minder over.",
-    text: "Dit is precies het patroon waarvoor deze analyse bestaat. Het ligt niet aan jou, en het is om te buigen.",
+    text: "Dit is het patroon waarvoor deze analyse bestaat. Of dat komt doordat je leven duur is of doordat er ongemerkt iets weglekt, kan ik hier niet uit zien. Dat is precies het verschil dat een geldrapport uitzoekt.",
     textColor: "text-[#B03A2E]",
   },
 };
@@ -115,6 +115,8 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
   const over = berekenOver(data);
   const overDiff = over - benches.vrij_besteedbaar;
+  // Positief tekort betekent: er blijft minder over dan de vuistregel verwacht.
+  const tekort = -overDiff;
   const verdict = bepaalVerdict(data, benches);
   const grootsteAfwijking = vindGrootsteAfwijking(data, benches);
   const verdictCfg = VERDICT_CONFIG[verdict];
@@ -219,33 +221,53 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         Jouw financiële plaatje
       </h2>
 
-      {/* Het grote getal */}
-      <div className="card-base border border-[#E6E9E7] mb-6 text-center">
-        <p className="section-eyebrow mb-4">Dit houd je elke maand over</p>
+      {/* Het grote getal: wat ik zou verwachten tegenover wat er overblijft */}
+      <div className="card-base border border-[#E6E9E7] mb-6">
+        <p className="section-eyebrow mb-4 text-center">
+          {tekort > 50 ? "Het gat" : "Jouw ruimte"}
+        </p>
         <p
-          className={`font-display font-light text-6xl mb-2 ${
-            over < 0 ? "text-accent" : "text-primary"
+          className={`font-display font-light text-6xl mb-3 text-center ${
+            tekort > 50 || over < 0 ? "text-accent" : "text-primary"
           }`}
         >
-          {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
+          {tekort > 50
+            ? fmtEur(tekort)
+            : over < 0
+            ? `-${fmtEur(Math.abs(over))}`
+            : fmtEur(over)}
         </p>
-        <p className="text-text-muted font-body text-sm mb-2">
-          Vergelijkbare huishoudens houden gemiddeld{" "}
-          <strong className="text-text-soft">{fmtEur(benches.vrij_besteedbaar)}</strong>{" "}
-          over
+        <p className="text-text-soft font-body font-light text-sm text-center mb-6 leading-relaxed">
+          {tekort > 50
+            ? "per maand minder over dan ik bij jouw situatie zou verwachten. Dat is het bedrag om te onderzoeken, en het is meestal kleiner dan het gevoel dat eraan voorafgaat."
+            : tekort < -50
+            ? "per maand over, meer dan ik bij jouw situatie zou verwachten. Op dit niveau gaat er waarschijnlijk niets mis."
+            : "per maand over, en dat is ongeveer wat ik bij jouw situatie zou verwachten."}
         </p>
-        {overDiff !== 0 && (
-          <span
-            className={`inline-block text-sm font-body font-medium px-3 py-1 rounded-full ${
-              overDiff > 0
-                ? "bg-green-light text-[#0B7A6E]"
-                : "bg-[#FDECEA] text-[#B03A2E]"
-            }`}
-          >
-            {overDiff > 0 ? "+" : ""}
-            {fmtEur(overDiff)} dan gemiddeld
-          </span>
-        )}
+        <div className="grid grid-cols-2 gap-4 border-t border-[#E6E9E7] pt-5">
+          <div>
+            <p className="section-eyebrow mb-1">Zou ik verwachten</p>
+            <p className="font-body font-medium text-primary text-lg">
+              {fmtEur(benches.vrij_besteedbaar)}
+            </p>
+          </div>
+          <div>
+            <p className="section-eyebrow mb-1">Blijft er over</p>
+            <p
+              className={`font-body font-medium text-lg ${
+                over < 0 ? "text-accent" : "text-primary"
+              }`}
+            >
+              {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
+            </p>
+          </div>
+        </div>
+        <p className="font-body font-light text-text-muted text-xs mt-5 leading-relaxed">
+          Die verwachting is een vuistregel op basis van vijf dingen: je inkomen, of je huurt of koopt, het
+          aantal volwassenen, het aantal kinderen en je autosituatie. Geen norm en geen oordeel. De
+          vergelijking weet niets over de leeftijd van je kinderen, je regio, alimentatie of hoeveel je op je
+          huis hebt afgelost, en die kunnen flink meewegen.
+        </p>
       </div>
 
       {/* Spaardoel vs werkelijkheid, alleen als ingevuld */}

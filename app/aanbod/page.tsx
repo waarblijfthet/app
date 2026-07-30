@@ -10,7 +10,7 @@ import { TrackClick } from "@/components/TrackClick";
 export const metadata: Metadata = {
   title: "Tarieven: geldrapport, gesprek en traject",
   description:
-    "Ik schrijf een persoonlijk geldrapport over jouw cijfers, met de drie plekken waar het weglekt. 49 euro, eenmalig. Twee complete voorbeeldrapporten staan op de site, dus je weet wat je koopt voordat je betaalt.",
+    "Ik schrijf een persoonlijk geldrapport over jouw cijfers, met de drie dingen die het meest opvallen en wat juist niet. 49 euro, eenmalig. Twee complete voorbeeldrapporten staan op de site, dus je weet wat je koopt voordat je betaalt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -57,12 +57,12 @@ const faq = [
   {
     vraag: "Ben je gecertificeerd financieel adviseur?",
     antwoord:
-      "Nee. Ik ben geen gecertificeerd financieel adviseur en ik val niet onder de AFM-vergunningplicht, omdat ik niet over financiële producten adviseer. Wat ik doe is rekenen en opschrijven: waar gaat het heen, waar lekt het weg en wat zou ik eraan doen. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dat is de reden dat ik dit doe.",
+      "Nee. Ik ben geen gecertificeerd financieel adviseur en ik val niet onder de AFM-vergunningplicht, omdat ik niet over financiële producten adviseer. Wat ik doe is rekenen en opschrijven: waar gaat het heen, wat valt er uit de toon en wat zou ik eraan doen. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dat is de reden dat ik dit doe.",
   },
   {
     vraag: "Wat gebeurt er met mijn gegevens?",
     antwoord:
-      "Je vult de analyse in en stuurt optioneel een paar recente bankafschriften mee. Het rapport komt als PDF per e-mail, alleen naar jou. Direct na het versturen verwijder ik je afschriften en je analysegegevens. Je hoeft daar niet om te vragen en er blijft niets bewaard.",
+      "Je vult de analyse in en stuurt optioneel een paar recente bankafschriften mee. Daarin mag je alles wegstrepen wat er voor mij niet toe doet: rekeningnummers, namen van andere mensen en betalingen die over iemand anders gaan. Ik heb de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind. Ik ben de enige die ze inziet. Het rapport komt als PDF per e-mail, alleen naar jou. Direct na het versturen verwijder ik je afschriften en je analysegegevens. Je hoeft daar niet om te vragen en er blijft niets bewaard.",
   },
   {
     vraag: "Wat als er bij mij niets uit komt?",
@@ -174,7 +174,7 @@ export default function AanbodPage() {
               Ik doe één ding
             </h2>
             <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Ik kijk naar de cijfers van huishoudens in loondienst die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Je krijgt een rapport dat ik met de hand schrijf, over jouw bedragen, met de drie plekken waar het weglekt en per plek wat ik zou doen. Geen sjabloon, geen algoritme, geen traject dat je vooraf moet kopen.
+              Ik kijk naar de cijfers van huishoudens in loondienst die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Je krijgt een rapport dat ik met de hand schrijf, over jouw bedragen, met de drie dingen die het meest opvallen en per stuk wat ik zou doen. Geen sjabloon, geen algoritme, geen traject dat je vooraf moet kopen.
             </p>
             <p className="font-body max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
               Twee complete voorbeelden van zo&apos;n rapport staan op deze site. Die twee huishoudens heb ik zelf bedacht, inclusief de bedragen, omdat ik geen cijfers van een klant publiceer zonder toestemming. Dat is minder sterk dan een echt rapport en daarom zeg ik het er zelf bij. Zodra een klant toestemming geeft, komt er een geanonimiseerd rapport van een echt huishouden bij te staan.
@@ -221,7 +221,7 @@ export default function AanbodPage() {
                   Het geldrapport: waarom is het bij jou zo?
                 </h3>
                 <p className="font-body mb-4 flex-1 text-sm font-light leading-relaxed text-[#4A5A56]">
-                  Ik kijk met de hand naar jouw cijfers en schrijf je een rapport: de drie plekken waar het weglekt, per plek wat het je per jaar kost, per plek wat ik zou doen en per plek wat het niet oplost. Plus de posten die ik géén lek vind, want die zijn er ook. In gewone taal, herleesbaar, en te delen met je partner.
+                  Ik kijk met de hand naar jouw cijfers en schrijf je een rapport: de drie dingen die het meest opvallen, per stuk wat het je per jaar kost, wat ik zou doen en wat het niet oplost. Plus de posten die ik géén probleem vind, want die zijn er ook. Valt er niets te repareren, dan is dat de uitkomst en schrijf ik dat op. In gewone taal, herleesbaar, en te delen met je partner.
                 </p>
                 <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
                   Dat is wat de machine niet kan: een reden opschrijven.

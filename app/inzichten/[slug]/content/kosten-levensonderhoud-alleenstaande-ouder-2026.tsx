@@ -188,7 +188,7 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Benieuwd hoe jouw uitgaven zich verhouden tot vergelijkbare huishoudens? Doe de gratis analyse en zie het meteen. Wil je daarna dat ik persoonlijk naar je cijfers kijk en je drie grootste lekken op een rij zet, dan kan dat met de geldscan (€49).
+          Benieuwd hoe jouw uitgaven zich verhouden tot vergelijkbare huishoudens? Doe de gratis analyse en zie het meteen. Wil je daarna dat ik persoonlijk naar je cijfers kijk en opschrijf wat er opvalt en wat juist niet, dan kan dat met de geldscan (€49).
         </p>
         <Link href="/analyse" className="btn-primary">
           Doe de gratis analyse &rarr;

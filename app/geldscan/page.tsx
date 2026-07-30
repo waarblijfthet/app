@@ -7,12 +7,12 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Geldscan: jouw persoonlijke geldrapport, €49",
   description:
-    "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je een persoonlijk rapport met je drie grootste lekken en per lek precies wat ik zou doen. €49, geen gesprek nodig.",
+    "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je een persoonlijk rapport met de drie dingen die het meest opvallen en per stuk wat ik zou doen. Valt er niets te repareren, dan staat dat er ook. €49, geen gesprek nodig.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
     title: "Geldscan: jouw persoonlijke geldrapport, €49",
     description:
-      "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je persoonlijke geldrapport met je drie grootste lekken en wat ik zou doen. €49.",
+      "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je persoonlijke geldrapport met wat opvalt, wat niet opvalt en wat ik zou doen. €49.",
     url: "https://www.waarblijfthet.nl/geldscan",
     type: "website",
   },
@@ -23,7 +23,7 @@ const faq = [
   {
     vraag: "Wat is de geldscan precies?",
     antwoord:
-      "Je meldt je aan met je naam en e-mailadres. Na betaling vraag ik je de analyse in te vullen (2 minuten), optioneel stuur je ook een paar recente bankafschriften mee. Binnen twee werkdagen daarna krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF) met jouw drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner.",
+      "Je meldt je aan met je naam en e-mailadres. Na betaling vraag ik je de analyse in te vullen (2 minuten), optioneel stuur je ook een paar recente bankafschriften mee. Binnen twee werkdagen daarna krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF) met de drie dingen die in jouw cijfers het meest opvallen, met jouw eigen bedragen en per stuk wat ik zou doen. Ook wat er juist niet uit de toon valt, want dat is de helft van het antwoord. In gewone taal, herleesbaar en deelbaar met je partner.",
   },
   {
     vraag: "Kan ik je eerst spreken?",
@@ -53,7 +53,7 @@ const faq = [
   {
     vraag: "Moet ik bankafschriften delen?",
     antwoord:
-      "Nee, dat is optioneel. Na betaling vraag ik je de analyse in te vullen, dat is meestal genoeg voor een goede scan. Wil je dat ik preciezer kijk, stuur dan ook een paar recente bankafschriften mee als bijlage. Alles blijft vertrouwelijk: het rapport komt als PDF-bijlage per e-mail, alleen naar jou. Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. Je hoeft daar niet om te vragen.",
+      "Nee, dat is optioneel. Na betaling vraag ik je de analyse in te vullen, dat is meestal genoeg voor een goede scan. Wil je dat ik preciezer kijk, stuur dan ook een paar recente bankafschriften mee als bijlage. Je mag daarin alles wegstrepen wat er voor mij niet toe doet: rekeningnummers, namen van andere mensen en betalingen die over iemand anders gaan. Ik heb alleen de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind. Ik ben de enige die ze inziet, er kijkt geen team of algoritme mee. Alles blijft vertrouwelijk: het rapport komt als PDF-bijlage per e-mail, alleen naar jou. Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. Je hoeft daar niet om te vragen.",
   },
   {
     vraag: "Is dit financieel advies in de zin van de Wft?",
@@ -78,7 +78,7 @@ const serviceSchema = {
   serviceType: "Persoonlijke geldscan",
   name: "Geldscan, Waar blijft het",
   description:
-    "Persoonlijk geschreven geldrapport over je maandbudget zonder gesprek: drie grootste lekken plus per lek wat ik zou doen, als PDF binnen twee werkdagen na aanlevering van je cijfers. €49 eenmalig.",
+    "Persoonlijk geschreven geldrapport over je maandbudget zonder gesprek: de drie posten die het meest opvallen, wat juist niet uit de toon valt, en per punt wat ik zou doen. Als PDF binnen twee werkdagen na aanlevering van je cijfers. €49 eenmalig.",
   url: "https://www.waarblijfthet.nl/geldscan",
   areaServed: { "@type": "Country", name: "Nederland" },
   provider: {
@@ -113,13 +113,13 @@ const stappen = [
     n: "3",
     titel: "Na betaling: vul de analyse in",
     tekst:
-      "Zodra het betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers om je rapport op te baseren. Optioneel stuur je ook een paar recente bankafschriften mee, dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen.",
+      "Zodra het betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers om je rapport op te baseren. Optioneel stuur je ook een paar recente bankafschriften mee, dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen. Streep daarin weg wat je niet wilt delen: rekeningnummers, namen van anderen, betalingen die over iemand anders gaan. Ik heb de bedragen en de soort uitgave nodig, verder niets. Ik ben de enige die ze inziet.",
   },
   {
     n: "4",
     titel: "Binnen 2 werkdagen daarna: jouw geldrapport",
     tekst:
-      "Je ontvangt jouw geldrapport als PDF per e-mail: persoonlijk geschreven, met je drie grootste lekken, met jouw eigen cijfers en per lek wat ik zou doen. In gewone taal, herleesbaar en deelbaar met je partner. Vragen achteraf stel je gewoon per reply.",
+      "Je ontvangt jouw geldrapport als PDF per e-mail: persoonlijk geschreven, met de drie dingen die het meest opvallen, met jouw eigen bedragen en per stuk wat ik zou doen. Er staat ook in wat ik juist niet als probleem reken, en als er niets te repareren valt, lees je dat. In gewone taal, herleesbaar en deelbaar met je partner. Vragen achteraf stel je gewoon per reply.",
   },
   {
     n: "5",
@@ -160,7 +160,7 @@ export default function GeldscanPage({
               Zie zwart op wit waar jouw geld elke maand blijft
             </h1>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-4">
-              Je krijgt een persoonlijk rapport: de drie plekken waar bij jou het meeste weglekt, met jouw eigen cijfers en per plek precies wat ik zou doen. Ik schrijf het zelf, er kijkt geen algoritme mee.
+              Je krijgt een persoonlijk rapport: de drie dingen die in jouw cijfers het meest opvallen, met jouw eigen bedragen en per stuk precies wat ik zou doen. En wat ik juist niet als probleem reken, ook als dat de duurste post is. Ik schrijf het zelf, er kijkt geen algoritme mee.
             </p>
             <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-8">
               Je levert je cijfers aan wanneer het jou uitkomt, ik doe het werk, en binnen twee werkdagen lees je het rapport rustig terug. Een vraag achteraf beantwoord ik gewoon per mail.
@@ -289,6 +289,32 @@ export default function GeldscanPage({
           </div>
         </section>
 
+        {/* Waarmee ik vergelijk */}
+        <section className="bg-background pt-12 pb-2">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
+              Waarmee ik jouw cijfers vergelijk, en waarmee niet
+            </h2>
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
+              De vergelijking kijkt naar vijf dingen: je netto huishoudinkomen, of je huurt of koopt, het
+              aantal volwassenen, het aantal kinderen en je autosituatie. Dat is genoeg om te zien of een
+              post uit de toon valt. Het is niet genoeg om te weten waarom.
+            </p>
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
+              Waar de vergelijking niets van weet: de leeftijd van je kinderen, de regio waarin je woont,
+              hoeveel dagen de kinderen bij je zijn, alimentatie, hoeveel je op je huis hebt afgelost en of
+              je auto zakelijk of privé is. Een gezin met drie tieners is financieel iets anders dan een
+              gezin met een peuter, en een alleenstaande ouder met twee kinderen die er bijna altijd zijn is
+              iets anders dan een weekendregeling. Die dingen komen uit wat jij erbij schrijft, en daar vraag
+              ik naar.
+            </p>
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+              Daarom is de vergelijking het begin van het rapport en niet het rapport. Ik gebruik hem om te
+              bepalen welke vragen ik moet stellen, en het antwoord schrijf ik zelf.
+            </p>
+          </div>
+        </section>
+
         {/* Echte ervaringen uit de begeleiding */}
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
@@ -398,7 +424,7 @@ export default function GeldscanPage({
         <section className="bg-dark-block py-20">
           <div className="max-w-3xl mx-auto px-6 text-center">
             <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
-              Weten waar het bij jou weglekt?
+              Weten of het bij jou klopt?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
               €49. Je meldt je aan, en binnen twee werkdagen na aanlevering

@@ -221,36 +221,65 @@ export default async function ResultaatPage({ params }: Props) {
                     color: "#8B958F",
                   }}
                 >
-                  Dit houd je elke maand over
+                  {verschil < -50 ? "Het gat" : "Jouw ruimte"}
                 </p>
                 <p
-                  className="font-display font-light mb-2"
+                  className="font-display font-light mb-3"
                   style={{
                     fontSize: "clamp(3rem, 8vw, 5rem)",
                     lineHeight: 1,
-                    color: over < 0 ? "#B03A2E" : "#16211F",
+                    color: verschil < -50 || over < 0 ? "#B03A2E" : "#16211F",
                   }}
                 >
-                  {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
+                  {verschil < -50
+                    ? fmtEur(Math.abs(verschil))
+                    : over < 0
+                    ? `-${fmtEur(Math.abs(over))}`
+                    : fmtEur(over)}
                 </p>
-                <p className="text-text-soft font-body text-sm mb-4">
-                  Vergelijkbare huishoudens houden gemiddeld{" "}
-                  <strong className="text-text-soft">{fmtEur(benchmarkOver)}</strong>{" "}
-                  over
+                <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
+                  {verschil < -50
+                    ? "per maand minder over dan ik bij deze situatie zou verwachten. Dat is het bedrag om te onderzoeken."
+                    : verschil > 50
+                    ? "per maand over, meer dan ik bij deze situatie zou verwachten. Op dit niveau gaat er waarschijnlijk niets mis."
+                    : "per maand over, en dat is ongeveer wat ik bij deze situatie zou verwachten."}
                 </p>
 
-                {/* Verschilpill */}
-                <span
-                  className="inline-block text-sm font-body font-medium px-4 py-1.5 rounded-full"
-                  style={{
-                    background: verschil >= 0 ? "#E7F1EE" : "#FDECEA",
-                    color: verschil >= 0 ? "#0B7A6E" : "#B03A2E",
-                  }}
+                <div
+                  className="grid grid-cols-2 gap-4 pt-4"
+                  style={{ borderTop: "1px solid #E6E9E7" }}
                 >
-                  {verschil >= 0 ? "+" : ""}
-                  {fmtEur(verschil)}{" "}
-                  {verschil >= 0 ? "meer" : "minder"} dan gemiddeld
-                </span>
+                  <div>
+                    <p
+                      className="font-body text-xs font-medium mb-1"
+                      style={{ textTransform: "uppercase", letterSpacing: "0.1em", color: "#8B958F" }}
+                    >
+                      Zou ik verwachten
+                    </p>
+                    <p className="font-body font-medium text-primary text-lg">
+                      {fmtEur(benchmarkOver)}
+                    </p>
+                  </div>
+                  <div>
+                    <p
+                      className="font-body text-xs font-medium mb-1"
+                      style={{ textTransform: "uppercase", letterSpacing: "0.1em", color: "#8B958F" }}
+                    >
+                      Blijft er over
+                    </p>
+                    <p
+                      className="font-body font-medium text-lg"
+                      style={{ color: over < 0 ? "#B03A2E" : "#16211F" }}
+                    >
+                      {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
+                    </p>
+                  </div>
+                </div>
+                <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
+                  Die verwachting is een vuistregel op basis van inkomen, woonsituatie, aantal volwassenen,
+                  aantal kinderen en autosituatie. Niet op basis van de leeftijd van de kinderen, de regio,
+                  alimentatie of aflossing, en die kunnen flink meewegen.
+                </p>
               </div>
 
               {/* Rechts, verdict */}
@@ -367,8 +396,9 @@ export default async function ResultaatPage({ params }: Props) {
                   style={{ color: "rgba(245,240,232,0.6)" }}
                 >
                   Ik kijk persoonlijk naar jouw cijfers en stuur je binnen 2
-                  werkdagen na betaling een persoonlijk geldrapport met je
-                  drie grootste lekken. Zonder gesprek. €49.
+                  werkdagen na betaling een persoonlijk geldrapport: wat er
+                  opvalt, wat juist niet, en wat ik zou doen. Zonder gesprek.
+                  €49.
                 </p>
                 <Link
                   href={`/geldscan?token=${params.token}`}

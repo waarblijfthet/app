@@ -2467,7 +2467,7 @@ export const artikelen: Artikel[] = [
     slug: "tweeverdieners-toch-krap",
     cta: {
       kop: "Twee inkomens en toch elke maand krap?",
-      tekst: "Dat ligt bijna nooit aan gedrag en bijna altijd aan structuur. Voor €49 kijk ik persoonlijk naar je cijfers en krijg je binnen twee werkdagen na aanlevering een persoonlijk geldrapport met je drie grootste lekken. Geen gesprek nodig.",
+      tekst: "Dat hoeft niet aan jouw gedrag te liggen, maar dat weet je pas als iemand het naast vergelijkbare huishoudens legt. Voor €49 kijk ik persoonlijk naar je cijfers en krijg je binnen twee werkdagen na aanlevering een persoonlijk geldrapport met de drie dingen die het meest opvallen, en met wat er juist niet uit de toon valt. Geen gesprek nodig.",
       primairLabel: "Bekijk de geldscan (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Eerst gratis vergelijken met andere tweeverdieners",
@@ -2571,7 +2571,7 @@ export const artikelen: Artikel[] = [
     slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
     cta: {
       kop: "Boodschappen zijn vaak maar één plek waar het weglekt.",
-      tekst: "Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken, boodschappen en de rest van je maandbudget. In gewone taal, geen gesprek nodig.",
+      tekst: "Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, boodschappen en de rest van je maandbudget. In gewone taal, geen gesprek nodig.",
       primairLabel: "Laat mij je cijfers nakijken (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf een indruk? Doe de analyse",
@@ -2645,7 +2645,7 @@ export const artikelen: Artikel[] = [
     slug: "is-4000-euro-netto-goed-salaris-nederland",
     cta: {
       kop: "Belangrijker dan of €4.000 goed is: wat hou jij ervan over?",
-      tekst: "Een goed salaris is niet hetzelfde als geld overhouden. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier waar het bij jou weglekt, met je drie grootste lekken.",
+      tekst: "Een goed salaris is niet hetzelfde als geld overhouden. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt, met de drie dingen die het meest opvallen.",
       primairLabel: "Laat mij je cijfers nakijken (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
@@ -3373,7 +3373,7 @@ export const artikelen: Artikel[] = [
     slug: "nibud-boodschappen-versus-werkelijkheid",
     cta: {
       kop: "Boven de Nibud-norm? Bijna iedereen.",
-      tekst: "De echte vraag is niet of je boven de norm zit, maar waar het bij jou structureel weglekt. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken.",
+      tekst: "De echte vraag is niet of je boven de norm zit, maar of het bij jou klopt. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
       primairLabel: "Laat mij je cijfers nakijken (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf vergelijken? Doe de analyse",
@@ -3451,7 +3451,7 @@ export const artikelen: Artikel[] = [
     slug: "kosten-levensonderhoud-alleenstaande-2026",
     cta: {
       kop: "Wat is voor jou als alleenstaande normaal?",
-      tekst: "Gemiddelden zeggen weinig over jouw huur, jouw inkomen en jouw stad. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier waar het bij jou weglekt.",
+      tekst: "Gemiddelden zeggen weinig over jouw huur, jouw inkomen en jouw stad. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt en wat er opvalt.",
       primairLabel: "Laat mij je cijfers nakijken (€49)",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf kijken? Doe de analyse",

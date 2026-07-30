@@ -28,9 +28,10 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
     ],
     watJeKrijgt: [
       "Een rapport dat ik zelf schrijf, geen sjabloon en geen algoritme",
-      "De drie plekken waar het weglekt, met per plek wat het je per jaar kost",
-      "Per plek wat ik zou doen, en wat het niet oplost",
-      "De posten die ik géén lek vind, want die zijn er ook",
+      "De drie dingen die het meest opvallen, met per stuk wat het je per jaar kost",
+      "Per stuk wat ik zou doen, en wat het niet oplost",
+      "De posten die ik géén probleem vind, want die zijn er ook",
+      "En als er niets te repareren valt, staat dat er ook",
       "In gewone taal, herleesbaar en te delen met je partner",
     ],
   },

@@ -94,9 +94,21 @@ function CountUp({ to, prefix = "", suffix = "", duration = 1100 }: { to: number
   const ref = useRef<HTMLSpanElement | null>(null);
   const seen = useInView(ref);
   const reduce = useReducedMotion();
-  const [val, setVal] = useState(0);
+  // Staat het getal bij het laden al in beeld, dan meteen de eindwaarde tonen.
+  // Anders las de bezoeker "€ 0" in de hero, precies het tegenovergestelde van
+  // de boodschap. Alleen animeren wat bij het laden buiten beeld stond.
+  const [val, setVal] = useState(to);
+  const [animeer, setAnimeer] = useState<boolean | null>(null);
   useEffect(() => {
-    if (!seen) return;
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const zichtbaarBijLaden = r.top < window.innerHeight && r.bottom > 0;
+    setAnimeer(!zichtbaarBijLaden);
+    setVal(zichtbaarBijLaden ? to : 0);
+  }, [to]);
+  useEffect(() => {
+    if (animeer !== true || !seen) return;
     if (reduce) {
       setVal(to);
       return;
@@ -111,7 +123,7 @@ function CountUp({ to, prefix = "", suffix = "", duration = 1100 }: { to: number
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [seen, reduce, to, duration]);
+  }, [animeer, seen, reduce, to, duration]);
   return (
     <span ref={ref}>
       {prefix}
@@ -165,21 +177,21 @@ const testimonials = [
 ];
 
 const pijn = [
-  { nr: "01", titel: "Er blijft nooit iets over, terwijl je het je niet kunt verklaren", tekst: "Je hebt een goed inkomen. Geen grote schulden, geen gekke gewoontes. Maar elke maand is het weg voor je goed en wel beseft hebt wat er is uitgegeven. Je weet dat het ergens naartoe gaat, maar niet waar precies.", note: "hier zit de knoop" },
-  { nr: "02", titel: "Je hebt het al geprobeerd. En het werkt gewoon niet.", tekst: "Apps geprobeerd. Spreadsheets gemaakt. Goede voornemens in januari. Het helpt een paar weken, daarna glijd je terug in hetzelfde patroon. Niet omdat je het niet wilt, maar omdat je de juiste structuur mist.", note: null },
-  { nr: "03", titel: "Je praat er niet over, want je verdient toch genoeg?", tekst: "Schuldhulp is voor anderen. Beleggingsadvies is voor later. Maar structureel krap terwijl je goed verdient: daar is eigenlijk geen plek voor. Dus houd je het bij jezelf, terwijl het elke maand knaagt.", note: null },
+  { nr: "01", titel: "Je praat er niet over, want je verdient toch genoeg?", tekst: "Schuldhulp is voor anderen. Beleggingsadvies is voor later. Maar structureel krap terwijl je goed verdient: daar is eigenlijk geen plek voor. Zeg je het toch, dan is de eerste vraag waar je het dan aan uitgeeft. Dus houd je het bij jezelf, terwijl het elke maand knaagt.", note: "hier zit de knoop" },
+  { nr: "02", titel: "Er blijft nooit iets over, en je kunt niet zeggen waarom", tekst: "Je hebt een goed inkomen en je betaalt alles op tijd. Of je makkelijk geld uitgeeft weet je zelf niet precies, want los voelt niets buitensporig. Wat je wel weet: elke maand is het weg voordat je hebt gezien waaraan.", note: null },
+  { nr: "03", titel: "En je weet niet of jouw bedragen normaal zijn", tekst: "Misschien heb je apps en spreadsheets geprobeerd, misschien ben je er nooit echt aan begonnen. In beide gevallen loop je tegen hetzelfde aan: je bankapp vertelt dat je 820 euro aan boodschappen uitgaf, maar niet of dat veel is voor een huishouden als het jouwe. Niemand om je heen noemt zijn bedragen.", note: null },
 ];
 
 const stappen = [
   { nr: "1", titel: "De analyse, 5 minuten", tekst: "Vijf korte stappen: woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven. Schattingen zijn goed genoeg, je hoeft niets op te zoeken en geen bank te koppelen. Geen account, geen creditcard." },
   { nr: "2", titel: "Direct inzicht, concreet en eerlijk", tekst: "Het resultaat staat direct op je scherm: in welke categorie je valt en de twee of drie plekken waar het bij jou structureel fout gaat, uitgelegd in gewone taal. Een e-mailadres is niet verplicht en niemand belt of mailt je na, tenzij je daar zelf om vraagt." },
-  { nr: "3", titel: "Jij kiest het vervolg, of niet", tekst: "Zelf verder met je resultaat kan prima. Wil je weten wat ik zie? Kies het geldrapport (€49): ik kijk persoonlijk naar jouw cijfers en schrijf je de drie plekken waar het weglekt, met per plek wat ik zou doen. Geen gesprek nodig." },
+  { nr: "3", titel: "Jij kiest het vervolg, of niet", tekst: "Zelf verder met je resultaat kan prima. Wil je weten wat ik zie? Kies het geldrapport (€49): ik kijk persoonlijk naar jouw cijfers en schrijf je de drie dingen die het meest opvallen, met per stuk wat ik zou doen. Valt er niets te repareren, dan staat dat er ook. Geen gesprek nodig." },
 ];
 
 const anders: [string, string][] = [
   ["Geen schuldhulp", "Dit is voor mensen die genoeg verdienen maar grip missen, niet voor mensen in financiële nood."],
   ["Geen abonnement", "Geldscan voor €49 of een gesprek voor €125, allebei eenmalig. Klaar. Geen maandelijkse kosten."],
-  ["Geen oordeel", "Je verdient goed. De structuur klopt gewoon niet. Ik kijk naar wat er weglekt, niet naar wat jij fout zou doen."],
+  ["Geen oordeel", "Ik kijk naar wat de cijfers zeggen, niet naar wat jij fout zou doen. Blijkt er niets mis te zijn, dan schrijf ik dat op."],
   ["Concrete uitkomst", "Na de analyse weet je direct in welke categorie je valt en wat de grootste afwijking is."],
   ["Ook met wisselend inkomen", "Zzp'er of wisselende maanden? Vul je gemiddelde maandinkomen in. Juist dan geeft zicht op je vaste structuur rust."],
 ];
@@ -365,7 +377,8 @@ export default function HomeConcept() {
               Ik help mensen die goed verdienen maar structureel krap zitten. Gezinnen, stellen en
               alleenstaanden. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte,
               dus ik weet hoe dat voelt. Waar ik naar kijk komt niet uit dat gevoel: ik leg jouw posten naast
-              die van huishoudens in dezelfde situatie en zoek de plekken waar jij eruit springt. Geen
+              die van huishoudens met een vergelijkbaar inkomen, dezelfde woonsituatie en hetzelfde
+              aantal kinderen, en kijk waar jij eruit springt. Geen
               schuldhulpverlening, geen beleggingsadvies.
             </p>
             <p style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65 }}>
@@ -460,12 +473,15 @@ export default function HomeConcept() {
         <div className="max-w-6xl mx-auto px-6">
           <p className="mb-4" style={eyebrow}>Voor wie is dit?</p>
           <h2 className="font-display mb-5" style={{ fontWeight: 300, letterSpacing: "-0.02em", lineHeight: 1.1, color: C.ink, fontSize: "clamp(1.8rem, 4.5vw, 3rem)" }}>
-            Gezinnen, alleenstaanden, zzp&apos;ers en 50-plussers
+            Gezinnen, alleenstaanden, alleenstaande ouders, zzp&apos;ers en 50-plussers
           </h2>
           <p style={{ fontWeight: 300, fontSize: "0.98rem", color: C.inkSoft, lineHeight: 1.65, maxWidth: "40rem", marginBottom: "1.75rem" }}>
-            Het patroon is overal hetzelfde: goed inkomen, toch krap. De cijfers verschillen per situatie.
-            Daarom kijkt de analyse naar jouw woonsituatie, kinderen en inkomen, niet naar een standaardgezin.
-            Lees wat het leven kost in jouw situatie:
+            Het patroon is overal hetzelfde: goed inkomen, toch krap. De cijfers verschillen sterk per
+            situatie. Woon je alleen, dan is er niemand die zegt dat het een dure maand was, en weet je
+            dus ook niet of 400 euro boodschappen veel is. Draag je het alleen met kinderen, dan heb je
+            een gezinsleven op één inkomen en geen tweede volwassene om een kapotte cv-ketel mee op te
+            vangen. Daarom kijkt de analyse naar jouw woonsituatie, kinderen en inkomen, niet naar een
+            standaardgezin. Lees wat het leven kost in jouw situatie:
           </p>
           <div className="flex flex-wrap gap-3">
             {[
@@ -487,12 +503,12 @@ export default function HomeConcept() {
         <div className="max-w-2xl mx-auto px-8 text-center relative z-10">
           <p className="mb-6" style={{ ...eyebrow, color: "rgba(255,255,255,0.55)" }}>Klaar voor antwoord?</p>
           <h2 className="font-display mb-6" style={{ fontWeight: 300, lineHeight: 1.08, color: "#FFFFFF", fontSize: "clamp(2rem, 6vw, 3.6rem)" }}>
-            Weten waar het
+            Weten of het
             <br />
-            <span className="italic" style={{ color: C.tealLight }}>bij jou weglekt?</span>
+            <span className="italic" style={{ color: C.tealLight }}>bij jou klopt?</span>
           </h2>
           <p className="mb-9 mx-auto" style={{ fontWeight: 300, fontSize: "1.05rem", color: "rgba(255,255,255,0.72)", lineHeight: 1.6, maxWidth: "26rem" }}>
-            Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
+            Ik kijk persoonlijk naar jouw cijfers en schrijf op wat er opvalt, wat er niet opvalt, en wat ik zou doen. Als er niets misgaat, lees je dat. In gewone taal, geen gesprek nodig.
           </p>
           <BtnPrimary href="/aanbod/intake?pakket=geldscan">Ja, help mij zien wat er anders kan &rarr;</BtnPrimary>
           <p className="mt-5">

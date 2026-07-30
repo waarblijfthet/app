@@ -160,7 +160,7 @@ export default function GripOpJeGeldKrijgen() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je weten waar het bij jou weglekt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met je drie grootste lekken. In gewone taal, geen gesprek nodig.
+          Wil je weten of het bij jou klopt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, en met wat er juist niet uit de toon valt. In gewone taal, geen gesprek nodig.
         </p>
         <Link href="/geldscan" className="btn-primary">
           Laat mij je cijfers nakijken (€49) &rarr;
