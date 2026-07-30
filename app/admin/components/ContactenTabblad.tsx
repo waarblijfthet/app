@@ -169,6 +169,7 @@ export default function ContactenTabblad() {
       key: "contact",
       header: "Contact",
       sorteerWaarde: (c) => c.naam,
+      filterWaarde: (c) => `${c.naam} ${c.praktijk ?? ""} ${c.email ?? ""}`,
       render: (c) => (
         <div>
           <p className="font-medium text-primary">{c.naam}</p>
@@ -180,24 +181,28 @@ export default function ContactenTabblad() {
       key: "soort",
       header: "Soort",
       sorteerWaarde: (c) => SOORT_LABEL[c.soort] ?? c.soort,
+      filterWaarde: (c) => SOORT_LABEL[c.soort] ?? c.soort,
       render: (c) => <Badge kleurOverride={SOORT_KLEUR[c.soort]}>{SOORT_LABEL[c.soort] ?? c.soort}</Badge>,
     },
     {
       key: "fase",
       header: "Fase",
       sorteerWaarde: (c) => c.fase,
+      filterWaarde: (c) => c.fase,
       render: (c) => <Badge>{c.fase}</Badge>,
     },
     {
       key: "plaats",
       header: "Plaats",
       sorteerWaarde: (c) => c.plaats ?? "\uffff",
-      render: (c) => <span className="text-text-soft text-sm">{c.plaats ?? "\u2014"}</span>,
+      filterWaarde: (c) => c.plaats ?? "",
+      render: (c) => <span className="text-text-soft text-sm">{c.plaats ?? "geen"}</span>,
     },
     {
       key: "volgende_actie",
       header: "Volgende actie",
       sorteerWaarde: (c) => c.volgende_actie_op ?? "\uffff",
+      filterWaarde: (c) => c.volgende_actie ?? "",
       render: (c) => {
         if (!c.volgende_actie && !c.volgende_actie_op) {
           return <span className="text-text-muted text-sm">Geen</span>;
@@ -217,6 +222,7 @@ export default function ContactenTabblad() {
       key: "laatste_contact",
       header: "Laatste contact",
       sorteerWaarde: (c) => c.laatste_contact_at ?? "",
+      filterWaarde: (c) => relatieveTijd(c.laatste_contact_at),
       render: (c) => <span className="text-text-muted text-xs">{relatieveTijd(c.laatste_contact_at)}</span>,
     },
   ];

@@ -343,6 +343,7 @@ export default function OutreachTabblad() {
       key: "contact",
       header: "Contact",
       sorteerWaarde: (c) => c.naam,
+      filterWaarde: (c) => `${c.naam} ${c.email}`,
       render: (c) => (
         <div>
           <p className="font-medium text-primary">{c.naam}</p>
@@ -354,6 +355,7 @@ export default function OutreachTabblad() {
       key: "doelgroep",
       header: "Doelgroep",
       sorteerWaarde: (c) => DOELGROEP_LABEL[c.doelgroep] ?? c.doelgroep,
+      filterWaarde: (c) => DOELGROEP_LABEL[c.doelgroep] ?? c.doelgroep,
       render: (c) => (
         <Badge kleurOverride={DOELGROEP_KLEUR[c.doelgroep]}>
           {DOELGROEP_LABEL[c.doelgroep] ?? c.doelgroep}
@@ -364,17 +366,20 @@ export default function OutreachTabblad() {
       key: "plaats",
       header: "Plaats",
       sorteerWaarde: (c) => c.plaats ?? "￿",
+      filterWaarde: (c) => c.plaats ?? "",
       render: (c) => <span className="text-text-soft text-sm">{c.plaats ?? "geen"}</span>,
     },
     {
       key: "voortgang",
       header: "Voortgang",
+      filterWaarde: (c) => voortgangStaat(mailsPerContact[c.id]),
       render: (c) => <Voortgang mails={mailsPerContact[c.id]} />,
     },
     {
       key: "status",
       header: "Status",
       sorteerWaarde: (c) => statusWeergave(c).label,
+      filterWaarde: (c) => statusWeergave(c).label,
       render: (c) => {
         const sw = statusWeergave(c);
         return (

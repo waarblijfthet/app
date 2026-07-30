@@ -51,3 +51,30 @@ export async function PATCH(req: NextRequest) {
   }
   return NextResponse.json({ success: true });
 }
+
+// DELETE /api/admin/aanvragen?id=..., een intake-aanvraag definitief verwijderen.
+//
+// Hard verwijderen, want dit is de enige plek waar testaanmeldingen en dubbele
+// aanvragen opgeruimd moeten kunnen worden. Er hangt geen contactrij aan vast:
+// contacten worden los aangemaakt via /api/admin/contacten/doorzetten en houden
+// hun eigen rij. Een gekoppelde analyse in quiz_resultaten blijft ook staan,
+// die hoort bij het e-mailadres en niet bij de aanvraag.
+export async function DELETE(req: NextRequest) {
+  if (!(await isAdminRequest())) {
+    return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
+  }
+
+  const id = req.nextUrl.searchParams.get("id");
+  if (!id) {
+    return NextResponse.json({ error: "id is verplicht" }, { status: 400 });
+  }
+
+  const supabase = createServiceClient();
+  const { error } = await supabase.from("intake_aanvragen").delete().eq("id", id);
+
+  if (error) {
+    console.error("admin/aanvragen: verwijderen mislukt", error);
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+  return NextResponse.json({ success: true });
+}

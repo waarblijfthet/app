@@ -14,7 +14,7 @@ import { Lead, QuizResultaat, IntakeAanvraag } from "./page";
 const LEAD_KOLOMMEN =
   "id,email,naam,bron,created_at,toestemming_marketing,quiz_voltooid";
 const QUIZ_KOLOMMEN =
-  "id,lead_id,token,email,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
+  "id,lead_id,token,email,created_at,woonsituatie,aantal_volwassenen,aantal_kinderen,auto_situatie,salaris_1,salaris_2,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,wonen_totaal,vervoer_totaal,verzekering_zorg_per_persoon,verzekering_overig,verzekering_totaal,abonnementen_totaal,kinderen_totaal,boodschappen";
 const AANVRAAG_KOLOMMEN =
   "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,analyse_token,naam,email,status";
 const MAX_RIJEN = 1000;

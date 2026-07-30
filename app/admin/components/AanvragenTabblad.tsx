@@ -126,6 +126,33 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     }
   }
 
+  // Verwijderen vraagt om een bevestiging in twee stappen: de eerste klik zet de
+  // rij in "zeker weten?", de tweede verwijdert echt. Geen confirm(), want dat
+  // blokkeert en op mobiel is het lelijk.
+  const [verwijderId, setVerwijderId] = useState<string | null>(null);
+  const [verwijderBezig, setVerwijderBezig] = useState<string | null>(null);
+
+  async function verwijderen(id: string) {
+    setVerwijderBezig(id);
+    setFout(null);
+    try {
+      const res = await fetch(`/api/admin/aanvragen?id=${encodeURIComponent(id)}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        const data = await res.json().catch(() => null);
+        setFout(data?.error ?? "Verwijderen is mislukt.");
+        return;
+      }
+      setAanvragen((prev) => prev.filter((a) => a.id !== id));
+      setVerwijderId(null);
+    } catch {
+      setFout("Verwijderen is mislukt (netwerkfout).");
+    } finally {
+      setVerwijderBezig(null);
+    }
+  }
+
   async function updateStatus(id: string, status: Status) {
     setBezig(id);
     setFout(null);
@@ -147,18 +174,21 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     {
       key: "datum",
       header: "Datum",
+      filterWaarde: (a) => formatDatum(a.created_at),
       render: (a) => <span className="text-text-soft whitespace-nowrap">{formatDatum(a.created_at)}</span>,
       sorteerWaarde: (a) => a.created_at,
     },
     {
       key: "naam",
       header: "Naam",
+      filterWaarde: (a) => a.naam ?? "",
       render: (a) => <span className="text-primary font-medium whitespace-nowrap">{a.naam ?? "geen"}</span>,
       sorteerWaarde: (a) => a.naam ?? "",
     },
     {
       key: "email",
       header: "Email",
+      filterWaarde: (a) => a.email ?? "",
       render: (a) =>
         a.email ? (
           <a href={`mailto:${a.email}`} className="text-accent whitespace-nowrap">
@@ -171,17 +201,20 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     {
       key: "pakket",
       header: "Pakket",
+      filterWaarde: (a) => PAKKET_LABEL[a.pakket] ?? "Adviesgesprek",
       render: (a) => <Badge variant="actie">{PAKKET_LABEL[a.pakket] ?? "Adviesgesprek"}</Badge>,
       sorteerWaarde: (a) => a.pakket,
     },
     {
       key: "inkomen",
       header: "Inkomen",
+      filterWaarde: (a) => a.inkomen_bracket ?? "",
       render: (a) => <span className="text-text-soft whitespace-nowrap">{a.inkomen_bracket ?? "geen"}</span>,
     },
     {
       key: "knelpunt",
       header: "Knelpunt",
+      filterWaarde: (a) => a.grootste_knelpunt ?? "",
       render: (a) => <KnelpuntCell tekst={a.grootste_knelpunt} />,
       className: "max-w-[220px]",
     },
@@ -215,6 +248,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     {
       key: "status",
       header: "Status",
+      filterWaarde: (a) => STATUS_CONFIG[a.status as Status]?.label ?? a.status,
       render: (a) => (
         <div className="flex items-center gap-2 flex-wrap" style={{ opacity: bezig === a.id ? 0.6 : 1 }}>
           <StatusPill status={a.status} />
@@ -242,6 +276,39 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
             {doorzettenBezigId === a.id ? "Doorzetten..." : "Doorzetten naar contacten"}
           </button>
         ),
+    },
+    {
+      key: "verwijderen",
+      header: "",
+      render: (a) => (
+        <div className="flex justify-end" onClick={(e) => e.stopPropagation()}>
+          {verwijderId === a.id ? (
+            <span className="flex items-center gap-2 whitespace-nowrap">
+              <button
+                onClick={() => verwijderen(a.id)}
+                disabled={verwijderBezig === a.id}
+                className="text-xs bg-danger text-white px-3 py-1 rounded hover:opacity-90 disabled:opacity-50"
+              >
+                {verwijderBezig === a.id ? "Bezig..." : "Ja, verwijder"}
+              </button>
+              <button
+                onClick={() => setVerwijderId(null)}
+                className="text-xs text-text-muted hover:underline"
+              >
+                Annuleer
+              </button>
+            </span>
+          ) : (
+            <button
+              onClick={() => setVerwijderId(a.id)}
+              className="text-xs text-text-muted hover:text-danger whitespace-nowrap"
+              aria-label={`Aanvraag van ${a.naam ?? "onbekend"} verwijderen`}
+            >
+              Verwijder
+            </button>
+          )}
+        </div>
+      ),
     },
   ];
 
@@ -291,8 +358,29 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
               <Badge variant="actie">{PAKKET_LABEL[a.pakket] ?? "Adviesgesprek"}</Badge>
               <span className="font-body text-text-muted text-xs">{formatDatum(a.created_at)}</span>
             </div>
-            <div className="mt-2">
+            <div className="mt-2 flex items-center justify-between gap-2">
               <StatusSelect huidig={a.status} onChange={(s) => updateStatus(a.id, s)} />
+              {verwijderId === a.id ? (
+                <span className="flex items-center gap-2 whitespace-nowrap">
+                  <button
+                    onClick={() => verwijderen(a.id)}
+                    disabled={verwijderBezig === a.id}
+                    className="text-xs bg-danger text-white px-3 py-1 rounded disabled:opacity-50"
+                  >
+                    {verwijderBezig === a.id ? "Bezig..." : "Ja, verwijder"}
+                  </button>
+                  <button onClick={() => setVerwijderId(null)} className="text-xs text-text-muted">
+                    Annuleer
+                  </button>
+                </span>
+              ) : (
+                <button
+                  onClick={() => setVerwijderId(a.id)}
+                  className="text-xs text-text-muted hover:text-danger"
+                >
+                  Verwijder
+                </button>
+              )}
             </div>
             <div className="mt-2">
               {gekoppeld[a.id] ? (

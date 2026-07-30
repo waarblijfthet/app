@@ -8,6 +8,12 @@ export interface DataTabelKolom<T> {
   header: string;
   render: (rij: T) => React.ReactNode;
   sorteerWaarde?: (rij: T) => string | number;
+  /**
+   * Platte tekst waarop deze kolom gefilterd wordt. Zodra minstens één kolom dit
+   * heeft, verschijnt er een filterrij onder de kop. Filtert binnen de rijen die
+   * al geladen zijn, dus het is een zoekhulp en geen extra serverquery.
+   */
+  filterWaarde?: (rij: T) => string;
   className?: string;
 }
 
@@ -45,12 +51,49 @@ export default function DataTabel<T>({
 }: Props<T>) {
   const [sortKey, setSortKey] = useState<string | null>(null);
   const [sortRichting, setSortRichting] = useState<"asc" | "desc">("asc");
+  const [filters, setFilters] = useState<Record<string, string>>({});
+
+  const filterKolommen = useMemo(
+    () => kolommen.filter((k) => k.filterWaarde),
+    [kolommen]
+  );
+  const heeftFilters = filterKolommen.length > 0;
+  const actieveFilters = Object.entries(filters).filter(([, v]) => v.trim() !== "");
+
+  const gefilterd = useMemo(() => {
+    if (actieveFilters.length === 0) return data;
+    return data.filter((rij) =>
+      actieveFilters.every(([key, zoek]) => {
+        const kolom = kolommen.find((k) => k.key === key);
+        if (!kolom?.filterWaarde) return true;
+        return kolom
+          .filterWaarde(rij)
+          .toLowerCase()
+          .includes(zoek.trim().toLowerCase());
+      })
+    );
+  }, [data, actieveFilters, kolommen]);
+
+  /** Bestaande waarden per kolom, zodat het invoerveld ook als keuzelijst werkt. */
+  const keuzes = useMemo(() => {
+    const m: Record<string, string[]> = {};
+    for (const k of filterKolommen) {
+      const set = new Set<string>();
+      for (const rij of data) {
+        const v = k.filterWaarde!(rij).trim();
+        if (v) set.add(v);
+      }
+      if (set.size <= 40) m[k.key] = Array.from(set).sort((a, b) => a.localeCompare(b, "nl"));
+    }
+    return m;
+  }, [data, filterKolommen]);
 
   const gesorteerd = useMemo(() => {
-    if (!sortKey) return data;
+    const basis = gefilterd;
+    if (!sortKey) return basis;
     const kolom = kolommen.find((k) => k.key === sortKey);
-    if (!kolom?.sorteerWaarde) return data;
-    const kopie = [...data];
+    if (!kolom?.sorteerWaarde) return basis;
+    const kopie = [...basis];
     kopie.sort((a, b) => {
       const av = kolom.sorteerWaarde!(a);
       const bv = kolom.sorteerWaarde!(b);
@@ -59,7 +102,7 @@ export default function DataTabel<T>({
       return 0;
     });
     return kopie;
-  }, [data, sortKey, sortRichting, kolommen]);
+  }, [gefilterd, sortKey, sortRichting, kolommen]);
 
   function toggleSort(kolom: DataTabelKolom<T>) {
     if (!kolom.sorteerWaarde) return;
@@ -101,18 +144,37 @@ export default function DataTabel<T>({
     );
   }
 
-  if (gesorteerd.length === 0) {
+  if (gesorteerd.length === 0 && actieveFilters.length === 0) {
     return <LegeStaat titel={legeStaatTitel} uitleg={legeStaatUitleg} />;
   }
 
   return (
     <>
+      {heeftFilters && actieveFilters.length > 0 && (
+        <div className="flex items-center gap-3 mb-2 text-xs font-body text-text-soft">
+          <span>
+            {gesorteerd.length} van {data.length} rijen
+          </span>
+          <button
+            type="button"
+            onClick={() => setFilters({})}
+            className="text-accent hover:underline"
+          >
+            Filters wissen
+          </button>
+        </div>
+      )}
+
       {/* Mobiel: kaartlijst */}
       {mobieleKaart && (
         <div className="flex flex-col gap-3 sm:hidden">
-          {gesorteerd.map((rij) => (
-            <div key={rijSleutel(rij)}>{mobieleKaart(rij)}</div>
-          ))}
+          {gesorteerd.length === 0 ? (
+            <p className="font-body text-sm text-text-soft">
+              Geen rijen die aan het filter voldoen.
+            </p>
+          ) : (
+            gesorteerd.map((rij) => <div key={rijSleutel(rij)}>{mobieleKaart(rij)}</div>)
+          )}
         </div>
       )}
 
@@ -148,8 +210,54 @@ export default function DataTabel<T>({
                 </th>
               ))}
             </tr>
+            {heeftFilters && (
+              <tr className="bg-background border-b border-[#E6E9E7]">
+                {selecteerbaar && <th className="sticky left-0 bg-background px-4 py-2 w-10 z-10" />}
+                {kolommen.map((k, i) => (
+                  <th
+                    key={k.key}
+                    className={`px-2 py-2 ${
+                      i === 0 && !selecteerbaar ? "sticky left-0 bg-background z-10 pl-4" : ""
+                    }`}
+                  >
+                    {k.filterWaarde ? (
+                      <>
+                        <input
+                          type="text"
+                          value={filters[k.key] ?? ""}
+                          onChange={(e) =>
+                            setFilters((f) => ({ ...f, [k.key]: e.target.value }))
+                          }
+                          list={keuzes[k.key] ? `filter-${k.key}` : undefined}
+                          placeholder="filter"
+                          aria-label={`Filter op ${k.header || k.key}`}
+                          className="w-full min-w-[5rem] rounded-md border border-[#E6E9E7] bg-card px-2 py-1 text-xs font-body font-normal normal-case tracking-normal text-primary placeholder:text-text-muted focus:border-primary focus:outline-none"
+                        />
+                        {keuzes[k.key] && (
+                          <datalist id={`filter-${k.key}`}>
+                            {keuzes[k.key].map((v) => (
+                              <option key={v} value={v} />
+                            ))}
+                          </datalist>
+                        )}
+                      </>
+                    ) : null}
+                  </th>
+                ))}
+              </tr>
+            )}
           </thead>
           <tbody>
+            {gesorteerd.length === 0 && (
+              <tr>
+                <td
+                  colSpan={kolommen.length + (selecteerbaar ? 1 : 0)}
+                  className="px-4 py-6 text-center text-sm font-body text-text-soft"
+                >
+                  Geen rijen die aan het filter voldoen.
+                </td>
+              </tr>
+            )}
             {gesorteerd.map((rij, i) => {
               const id = rijSleutel(rij);
               return (

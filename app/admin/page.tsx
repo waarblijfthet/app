@@ -43,8 +43,11 @@ export interface QuizResultaat {
   email: string | null;
   created_at: string;
   woonsituatie: string | null;
+  aantal_volwassenen: number | null;
   aantal_kinderen: number;
   auto_situatie: string | null;
+  salaris_1: number | null;
+  salaris_2: number | null;
   totaal_inkomen_berekend: number | null;
   totaal_uitgaven_berekend: number | null;
   maandelijks_over_berekend: number | null;
@@ -55,9 +58,14 @@ export interface QuizResultaat {
   wonen_huur_hypotheek: number | null;
   wonen_energie: number | null;
   wonen_internet_tv: number | null;
+  wonen_totaal: number | null;
+  vervoer_totaal: number | null;
   boodschappen: number | null;
   verzekering_zorg_per_persoon: number | null;
   verzekering_overig: number | null;
+  verzekering_totaal: number | null;
+  abonnementen_totaal: number | null;
+  kinderen_totaal: number | null;
 }
 
 export default function AdminPage() {
