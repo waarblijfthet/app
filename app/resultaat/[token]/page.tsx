@@ -276,8 +276,8 @@ export default async function ResultaatPage({ params }: Props) {
                   </div>
                 </div>
                 <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
-                  Die verwachting is een vuistregel op basis van inkomen, woonsituatie, aantal volwassenen,
-                  aantal kinderen en autosituatie. Niet op basis van de leeftijd van de kinderen, de regio,
+                  Die verwachting is mijn eigen vuistregel op basis van inkomen, aantal volwassenen, aantal
+                  kinderen en autosituatie. Niet op basis van de leeftijd van de kinderen, de regio,
                   alimentatie of aflossing, en die kunnen flink meewegen.
                 </p>
               </div>

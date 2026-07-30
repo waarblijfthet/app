@@ -10,6 +10,7 @@ export interface QuizData {
   kinderen: KinderenAantal | null;
   auto: AutoSituatie | null;
   zakelijkBijtellingSalaris: boolean; // bijtelling NOG NIET in salaris verrekend
+  tweedeAuto: boolean; // tweede privéauto naast de gekozen autosituatie
 
   // Stap 2, Inkomsten
   salaris1: string;
@@ -73,6 +74,7 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   kinderen: null,
   auto: null,
   zakelijkBijtellingSalaris: false,
+  tweedeAuto: false,
   salaris1: "",
   salaris1InclVakantiegeld: false,
   salaris1InclDertiende: false,

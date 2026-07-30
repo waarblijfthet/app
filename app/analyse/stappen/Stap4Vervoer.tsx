@@ -16,6 +16,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
     kinderen: data.kinderen,
     inkomen,
     auto: data.auto,
+    tweedeAuto: data.tweedeAuto,
     aantalVolwassenen,
   });
 

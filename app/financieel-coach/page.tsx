@@ -225,8 +225,8 @@ export default function FinancieelCoachPage() {
             </p>
             <p className="font-body font-light text-text-soft leading-relaxed mb-4">
               Mijn aanpak is nuchter. Ik kijk met je mee naar je echte cijfers,
-              vergelijk ze met huishoudens met een vergelijkbaar inkomen,
-              woonsituatie en gezinsgrootte, en benoem de twee of drie posten
+              vergelijk ze met de huishoudens die ik zelf heb
+              doorgerekend, en benoem de twee of drie posten
               die eruit springen. Ook als de uitkomst is dat er niets te
               repareren valt. Lees ook{" "}
               <Link href="/inzichten/wat-doet-een-financieel-adviseur" className="hover:underline" style={{ color: "#0B7A6E" }}>

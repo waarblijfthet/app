@@ -296,9 +296,19 @@ export default function GeldscanPage({
               Waarmee ik jouw cijfers vergelijk, en waarmee niet
             </h2>
             <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-              De vergelijking kijkt naar vijf dingen: je netto huishoudinkomen, of je huurt of koopt, het
-              aantal volwassenen, het aantal kinderen en je autosituatie. Dat is genoeg om te zien of een
-              post uit de toon valt. Het is niet genoeg om te weten waarom.
+              De vergelijking kijkt naar vier dingen: je netto huishoudinkomen, het aantal volwassenen, het
+              aantal kinderen en je autosituatie, inclusief een eventuele tweede auto. Dat is genoeg om te
+              zien of een post uit de toon valt. Het is niet genoeg om te weten waarom.
+            </p>
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
+              De bedragen waarmee ik vergelijk komen niet uit openbare gemiddelden maar uit de huishoudens
+              die ik zelf heb doorgerekend. Dat zijn er nu vijf en die staan compleet op de pagina{" "}
+              <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
+                Rapporten
+              </Link>
+              , dus je kunt narekenen waar mijn cijfers vandaan komen. Bij elke geleverde scan stel ik ze bij.
+              Nibud-referentiebudgetten gebruik ik bewust niet: dat zijn grotendeels minimumbudgetten en die
+              meten iets anders dan wat een huishouden met een goed inkomen werkelijk uitgeeft.
             </p>
             <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
               Waar de vergelijking niets van weet: de leeftijd van je kinderen, de regio waarin je woont,

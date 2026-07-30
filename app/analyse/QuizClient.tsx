@@ -71,6 +71,7 @@ export default function QuizClient() {
             kinderen: dataArg.kinderen,
             inkomen,
             auto: dataArg.auto,
+            tweedeAuto: dataArg.tweedeAuto,
             aantalVolwassenen,
           });
           over = berekenOver(dataArg);

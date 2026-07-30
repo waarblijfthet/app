@@ -26,6 +26,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
     kinderen: data.kinderen,
     inkomen,
     auto: data.auto,
+    tweedeAuto: data.tweedeAuto,
     aantalVolwassenen,
   });
 

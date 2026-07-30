@@ -394,8 +394,8 @@ export default function HomeConcept() {
               Ik help mensen die goed verdienen maar structureel krap zitten. Gezinnen, stellen en
               alleenstaanden. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte,
               dus ik weet hoe dat voelt. Waar ik naar kijk komt niet uit dat gevoel: ik leg jouw posten naast
-              die van huishoudens met een vergelijkbaar inkomen, dezelfde woonsituatie en hetzelfde
-              aantal kinderen, en kijk waar jij eruit springt. Geen
+              die van de huishoudens die ik zelf heb doorgerekend, met een vergelijkbaar inkomen en dezelfde
+              gezinsgrootte, en kijk waar jij eruit springt. Geen
               schuldhulpverlening, geen beleggingsadvies.
             </p>
             <p style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65 }}>

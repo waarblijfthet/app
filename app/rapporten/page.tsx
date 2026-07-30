@@ -184,6 +184,50 @@ export default function RapportenPage() {
           </div>
         </section>
 
+        {/* Methode: waar mijn vergelijkingscijfers vandaan komen */}
+        <section className="bg-card py-12">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
+              Deze vijf zijn ook mijn maatstaf
+            </h2>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
+              De gratis analyse op deze site vergelijkt jouw bedragen met iets. Dat iets zijn geen openbare
+              gemiddelden, maar de huishoudens die ik zelf heb doorgerekend. Dat zijn er nu vijf, en die staan
+              hierboven van begin tot eind, dus je kunt narekenen waar mijn cijfers vandaan komen.
+            </p>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
+              Nibud-referentiebudgetten gebruik ik daar bewust niet voor. Dat zijn grotendeels
+              minimumbudgetten: ze beschrijven wat een huishouden nodig heeft om rond te komen, niet wat een
+              huishouden met een goed inkomen werkelijk uitgeeft. Vergelijk je iemand met 6.000 euro netto met
+              een minimumbudget, dan valt elke post uit de toon en is de uitkomst waardeloos.
+            </p>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
+              Toen ik mijn eigen vergelijking naast deze vijf legde, klopte hij op drie punten niet. Mijn
+              boodschappenbedrag lag bij alle vijf 175 tot 260 euro te laag. Mijn kinderkosten vergeleken de
+              opvang, school en sport van jouw kinderen met de totale kosten van een kind inclusief eten en
+              woonruimte, waardoor elke ouder ver onder het gemiddelde leek te zitten. En mijn woonlast was een
+              vast percentage van het inkomen, terwijl één inkomen aantoonbaar een groter deel aan wonen
+              betaalt: een huur van 1.285 euro op 3.650 netto is 35 procent en niet 30. Dat is alle drie
+              aangepast. De gemiddelde afwijking van mijn vergelijking ging daarmee van 218 naar 54 euro per
+              post.
+            </p>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
+              Wat dat niet is: een wetenschappelijke norm. Vijf huishoudens zijn vijf huishoudens. Bij sommige
+              bedragen heb ik er twee gezien, bij één maar één, en dat staat er in de code letterlijk bij. Ik
+              stel ze bij na elke scan die ik lever, en de dag dat een getal iets anders zegt dan mijn eigen
+              klanten, verandert het getal en niet de klant.
+            </p>
+            <p className="font-body font-light text-text-muted text-sm leading-relaxed">
+              Eén getal komt hier niet uit: hoeveel er bij jou zou moeten overblijven. Dat kan ook niet, want
+              deze vijf leverden wat er werkelijk overbleef en niet wat er zou moeten overblijven. Dat is mijn
+              eigen vuistregel en zo staat het ook in de analyse. Wel heb ik gecontroleerd of hij de goede kant
+              op wijst: bij alle vijf kwam mijn vuistregel uit op dezelfde conclusie als het rapport dat ik met
+              de hand schreef, en bij drie van de vijf lag de omvang van het gat binnen wat de klant zelf vooraf
+              schatte.
+            </p>
+          </div>
+        </section>
+
         {/* CTA, eenmalig en onderaan */}
         <section className="bg-card py-14">
           <div className="max-w-2xl mx-auto px-6 text-center">

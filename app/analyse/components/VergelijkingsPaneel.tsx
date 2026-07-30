@@ -96,6 +96,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
     kinderen: data.kinderen,
     inkomen,
     auto: data.auto,
+    tweedeAuto: data.tweedeAuto,
     aantalVolwassenen,
   });
 

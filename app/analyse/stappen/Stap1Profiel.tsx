@@ -142,10 +142,27 @@ export default function Stap1Profiel({ data, onChange }: Props) {
           ))}
         </div>
         <p className="font-body text-xs text-text-muted mt-2">
-          Meer dan één auto? Kies de situatie van de privéauto en tel de kosten
-          van de tweede auto er straks bij op. Een zakelijke auto ernaast telt
+          Kies de situatie van de privéauto. Een zakelijke auto ernaast telt
           alleen mee als je er een eigen bijdrage voor betaalt.
         </p>
+
+        {(data.auto === "eigen" || data.auto === "lease_privé") && (
+          <label
+            className="font-body flex items-start gap-2.5 mt-3 cursor-pointer"
+            style={{ fontSize: "0.88rem", color: "#4A5A56", lineHeight: 1.5 }}
+          >
+            <input
+              type="checkbox"
+              checked={data.tweedeAuto}
+              onChange={(e) => onChange({ tweedeAuto: e.target.checked })}
+              style={{ marginTop: "0.2rem", accentColor: "#0B7A6E", width: "1rem", height: "1rem", flexShrink: 0 }}
+            />
+            <span>
+              Er staat een tweede auto op de oprit. Tel de kosten van beide auto{"'"}s straks bij elkaar op,
+              dan vergelijk ik je ook met huishoudens met twee auto{"'"}s.
+            </span>
+          </label>
+        )}
 
         {data.auto === "zakelijk" && (
           <div className="mt-4 bg-[#F0F3F1] rounded-xl p-4">

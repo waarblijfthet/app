@@ -110,6 +110,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
     kinderen: data.kinderen,
     inkomen,
     auto: data.auto,
+    tweedeAuto: data.tweedeAuto,
     aantalVolwassenen,
   });
 
@@ -263,10 +264,10 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           </div>
         </div>
         <p className="font-body font-light text-text-muted text-xs mt-5 leading-relaxed">
-          Die verwachting is een vuistregel op basis van vijf dingen: je inkomen, of je huurt of koopt, het
-          aantal volwassenen, het aantal kinderen en je autosituatie. Geen norm en geen oordeel. De
-          vergelijking weet niets over de leeftijd van je kinderen, je regio, alimentatie of hoeveel je op je
-          huis hebt afgelost, en die kunnen flink meewegen.
+          Die verwachting is mijn eigen vuistregel op basis van vier dingen: je inkomen, het aantal
+          volwassenen, het aantal kinderen en je autosituatie. Geen norm en geen oordeel. De vergelijking weet
+          niets over de leeftijd van je kinderen, je regio, alimentatie of hoeveel je op je huis hebt
+          afgelost, en die kunnen flink meewegen.
         </p>
       </div>
 

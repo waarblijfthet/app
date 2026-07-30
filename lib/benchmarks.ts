@@ -5,27 +5,93 @@ export function aantalVolwassenenVan(data: QuizData): number {
 }
 
 // ─── Benchmark lookup tables ─────────────────────────────────────────────────
+//
+// HERKOMST (30-jul-2026). Alle getallen hieronder komen uit de vijf huishoudens
+// die ik zelf heb doorgerekend in juni en juli 2026, niet uit openbare
+// gemiddelden. Die vijf staan compleet op /rapporten, dus wie wil kan narekenen
+// waar deze cijfers vandaan komen. Bewuste keuze: Nibud-referentiebudgetten zijn
+// grotendeels minimumbudgetten en meten dus iets anders dan wat een huishouden
+// met een bovenmodaal inkomen werkelijk uitgeeft.
+//
+// Bij elk getal staat n. Bij n = 1 of 2 is het een richting, geen norm. Regel:
+// een getal alleen bijstellen als de vijf allemaal dezelfde kant op wijzen, en
+// bij elke nieuwe geleverde scan opnieuw toetsen.
+//
+// Wat deze herijking repareerde, en dat was meer dan een kalibratie:
+//   1. Boodschappen stond 175 tot 260 euro te laag bij alle vijf.
+//   2. Kinderkosten vergeleek appels met peren. De oude tabel nam 15 tot 29
+//      procent van het inkomen, de Nibud-achtige totale kosten van een kind
+//      inclusief eten en woonruimte, terwijl berekenKinderen alleen opvang,
+//      school en sport optelt. Daardoor kreeg elke ouder te horen dat zijn
+//      kinderen een fractie van het gemiddelde kostten. Nu een bedrag per kind
+//      over dezelfde smalle definitie.
+//   3. Wonen vergeleek een totaal inclusief energie, internet en lokale lasten
+//      met een percentage van het inkomen. Dat liep bij de alleenstaande 532
+//      euro uit de bocht, want een huur van 1.285 op 3.650 netto is 35 procent
+//      en niet 30. Nu een woonlast naar huishoudgrootte plus de losse posten.
+//   4. Vervoer kende geen tweede auto, waardoor het gezin met twee auto's 345
+//      euro boven zijn eigen benchmark leek te zitten.
 
-const BOODSCHAPPEN_BENCH: Record<KinderenAantal, number> = {
-  0: 485,
-  1: 620,
-  2: 755,
-  3: 890,
+/** Boodschappen: basisbedrag per huishouden, plus een bedrag per kind. */
+const BOODSCHAPPEN_BASIS_TWEE_VOLW = 700; // n=2 (690 en 720)
+const BOODSCHAPPEN_BASIS_EEN_VOLW = 475; // n=1 (475)
+const BOODSCHAPPEN_PER_KIND = 150; // n=2, afgeleid uit 1.150 bij drie kinderen en 790 bij twee
+
+/** Abonnementen: streaming, mobiel en de rest samen. */
+const ABONNEMENTEN = 150; // n=5 (119, 132, 155, 165, 175)
+
+/** Vrije tijd als aandeel van het inkomen. Minst betrouwbare post. */
+const VRIJETIJD_PCT = 0.1; // n=5, maar de spreiding was 7,5 tot 15 procent
+
+/**
+ * Kinderkosten per kind, over dezelfde smalle definitie als berekenKinderen:
+ * eigen bijdrage opvang, school en activiteiten, sport en hobby. Dus zonder
+ * eten, kleding en woonruimte.
+ */
+const KINDEREN_PER_KIND = 190; // n=2 (540 bij drie kinderen, 410 bij twee)
+
+/**
+ * Woonlast, dus alleen huur of hypotheek, als aandeel van het netto inkomen.
+ * Eén volwassene betaalt structureel een groter deel: dezelfde woning wordt niet
+ * de helft goedkoper omdat je alleen woont.
+ */
+const WOONLAST_PCT_EEN_VOLW = 0.33; // n=2 (29,6 en 35,2 procent)
+const WOONLAST_PCT_TWEE_VOLW = 0.25; // n=3 (23,6, 24,4 en 24,6 procent)
+
+/** Losse woonposten, opgeteld bij de woonlast omdat de gebruiker die ook optelt. */
+const ENERGIE = 200; // n=5 (145, 165, 220, 230, 245)
+const INTERNET = 62; // n=5 (52, 58, 64, 65, 72)
+const LOKALE_LASTEN = 95; // n=5, gemeentelijke lasten en waterschap per maand
+
+/** Vervoer per autosituatie. Kloppend bij vier van de vijf, ongewijzigd gelaten. */
+const VERVOER_BENCH: Record<string, number> = {
+  geen: 80,
+  eigen: 350,
+  "lease_privé": 450,
+  zakelijk: 0,
 };
+const TWEEDE_AUTO = 300; // n=1, conservatief onder de 345 die ik in dat gezin zag
 
+/** Verzekeringen. Klopte al: van min 4 tot plus 28 over vijf huishoudens. */
+const ZORG_PER_VOLWASSENE = 148; // n=5
+const VERZEKERING_OVERIG = 120; // n=5
+
+/**
+ * Vrij besteedbaar: wat ik bij een huishouden zou verwachten dat er overblijft.
+ * DIT IS HET ENIGE NORMATIEVE GETAL en het is niet uit de vijf af te leiden, want
+ * zij leverden wat er werkelijk overbleef, niet wat er zou moeten overblijven.
+ * Het is mijn eigen vuistregel en zo staat het ook op de site.
+ * Wel gecontroleerd: bij alle vijf wees het gat dezelfde kant op als mijn eigen
+ * geschreven conclusie, en bij drie van de vijf lag de omvang binnen wat de klant
+ * zelf vooraf schatte. Kanttekening: als ik bij het schrijven van die rapporten
+ * naar de analyse heb gekeken, is die overeenkomst niet onafhankelijk.
+ */
 const VRIJ_PCT: Array<{ min: number; pct: number }> = [
   { min: 7000, pct: 0.18 },
   { min: 5000, pct: 0.15 },
   { min: 3500, pct: 0.12 },
   { min: 0, pct: 0.08 },
 ];
-
-const KIND_PCT: Record<KinderenAantal, number> = {
-  0: 0,
-  1: 0.15,
-  2: 0.25,
-  3: 0.29,
-};
 
 // ─── Main benchmark function ──────────────────────────────────────────────────
 
@@ -48,37 +114,39 @@ export function getBenchmarks(profiel: {
   inkomen: number;
   auto: QuizData["auto"];
   aantalVolwassenen: number;
+  /** Optioneel: een tweede privéauto naast de gekozen autosituatie. */
+  tweedeAuto?: boolean;
 }): Benchmarks {
-  const { woonsituatie, inkomen, auto, aantalVolwassenen } = profiel;
+  const { inkomen, auto, aantalVolwassenen, tweedeAuto } = profiel;
   const kinderen: KinderenAantal = profiel.kinderen ?? 0;
+  const alleen = aantalVolwassenen === 1;
 
-  const wonenPct = woonsituatie === "koop" ? 0.28 : 0.3;
-  const wonen = Math.round(inkomen * wonenPct);
+  // Wonen: woonlast naar huishoudgrootte, plus de losse posten die de gebruiker
+  // in stap 3 ook invult. Niet naar huur of koop, want dat verschil zat niet in
+  // de vijf; de huishoudgrootte wel.
+  const woonlast = Math.round(
+    inkomen * (alleen ? WOONLAST_PCT_EEN_VOLW : WOONLAST_PCT_TWEE_VOLW)
+  );
+  const wonen = woonlast + ENERGIE + INTERNET + LOKALE_LASTEN;
 
-  const vervoerBench: Record<string, number> = {
-    geen: 80,
-    eigen: 350,
-    "lease_privé": 450,
-    zakelijk: 0,
-  };
-  const vervoer = auto ? vervoerBench[auto] ?? 0 : 0;
+  const vervoerBasis = auto ? VERVOER_BENCH[auto] ?? 0 : 0;
+  const vervoer = vervoerBasis + (tweedeAuto ? TWEEDE_AUTO : 0);
 
   const vrijPctEntry = VRIJ_PCT.find((e) => inkomen >= e.min)!;
   const vrij_besteedbaar = Math.round(inkomen * vrijPctEntry.pct);
 
   return {
     wonen,
-    energie: 216,
-    internet: 55,
+    energie: ENERGIE,
+    internet: INTERNET,
     vervoer,
-    verzekeringen: 148 * aantalVolwassenen + 120,
+    verzekeringen: ZORG_PER_VOLWASSENE * aantalVolwassenen + VERZEKERING_OVERIG,
     boodschappen:
-      aantalVolwassenen === 1
-        ? Math.max(BOODSCHAPPEN_BENCH[kinderen] - 185, 0)
-        : BOODSCHAPPEN_BENCH[kinderen],
-    abonnementen: 180,
-    kinderen: Math.round(inkomen * KIND_PCT[kinderen]),
-    vrijetijd: Math.round(inkomen * 0.05),
+      (alleen ? BOODSCHAPPEN_BASIS_EEN_VOLW : BOODSCHAPPEN_BASIS_TWEE_VOLW) +
+      kinderen * BOODSCHAPPEN_PER_KIND,
+    abonnementen: ABONNEMENTEN,
+    kinderen: kinderen * KINDEREN_PER_KIND,
+    vrijetijd: Math.round(inkomen * VRIJETIJD_PCT),
     vrij_besteedbaar,
   };
 }
