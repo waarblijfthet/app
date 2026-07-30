@@ -77,6 +77,8 @@ export function IntakeForm({ pakket, token }: Props) {
   const [situatie, setSituatie] = useState("");
   const [inkomen, setInkomen] = useState("");
   const [knelpunt, setKnelpunt] = useState("");
+  const [situatieDetails, setSituatieDetails] = useState("");
+  const [inkomenWisselt, setInkomenWisselt] = useState(false);
   const [analyse, setAnalyse] = useState("");
   const [startVoorkeur, setStartVoorkeur] = useState("");
   const [naam, setNaam] = useState("");
@@ -135,7 +137,7 @@ export function IntakeForm({ pakket, token }: Props) {
   const info = PAKKET_INFO[pakket];
 
   const subtitel = isGeldscan
-    ? "Drie korte vragen. Ik gebruik ze om je geldrapport direct persoonlijk te maken."
+    ? "Vier korte vragen, de laatste is optioneel. Ik gebruik ze om je geldrapport direct persoonlijk te maken."
     : "Vijf korte vragen. Ik neem binnen één werkdag persoonlijk contact op.";
 
   const knelpuntLabelNr = isGeldscan ? "3" : "3";
@@ -183,6 +185,8 @@ export function IntakeForm({ pakket, token }: Props) {
           gezinssituatie: situatie,
           inkomen_bracket: inkomen,
           grootste_knelpunt: knelpunt.trim(),
+          situatie_details: situatieDetails.trim() || null,
+          inkomen_wisselt: inkomenWisselt,
           ...(isGeldscan
             ? { analyse_token: token ?? null }
             : {
@@ -202,7 +206,13 @@ export function IntakeForm({ pakket, token }: Props) {
       const res = await fetch("/api/send-intake-bevestiging", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ naam: naam.trim(), email: email.trim().toLowerCase(), pakket }),
+        body: JSON.stringify({
+          naam: naam.trim(),
+          email: email.trim().toLowerCase(),
+          pakket,
+          situatie_details: situatieDetails.trim() || null,
+          inkomen_wisselt: inkomenWisselt,
+        }),
       });
 
       if (!res.ok) {
@@ -453,6 +463,80 @@ export function IntakeForm({ pakket, token }: Props) {
               </span>
             </div>
           </div>
+
+          {isGeldscan && (
+            <div style={{ marginBottom: "2rem" }}>
+              <label
+                htmlFor="situatie-details"
+                className="font-body"
+                style={{ fontWeight: 600, color: "#16211F", fontSize: "0.95rem", display: "block", marginBottom: "0.4rem" }}
+              >
+                4. Wat moet ik van jouw situatie weten? (optioneel)
+              </label>
+              <p
+                className="font-body"
+                style={{ fontSize: "0.82rem", color: "#8B958F", lineHeight: 1.6, marginBottom: "0.75rem" }}
+              >
+                De vergelijking kijkt naar je inkomen, woonsituatie, aantal volwassenen, aantal kinderen en
+                auto. Alles daarbuiten weet ik niet, en juist daar zit vaak het verschil. Denk aan: de
+                leeftijd van je kinderen, hoeveel dagen ze bij je zijn, alimentatie, vier of meer kinderen,
+                een zakelijke auto, of dat je inkomen per maand verschilt. Schrijf op wat volgens jou
+                meeweegt, dan reken ik daarmee in plaats van met een standaardhuishouden.
+              </p>
+              <div style={{ position: "relative" }}>
+                <textarea
+                  id="situatie-details"
+                  value={situatieDetails}
+                  onChange={(e) => setSituatieDetails(e.target.value.slice(0, 600))}
+                  placeholder="Bijv. kinderen van 13 en 16, de oudste eet als een volwassene. Co-ouderschap, ze zijn 60 procent van de tijd bij mij. Ik krijg geen alimentatie."
+                  rows={4}
+                  style={{
+                    width: "100%",
+                    padding: "1rem",
+                    borderRadius: "12px",
+                    border: "1px solid #E6E9E7",
+                    backgroundColor: "white",
+                    fontSize: "0.9rem",
+                    color: "#16211F",
+                    lineHeight: 1.6,
+                    resize: "vertical",
+                    outline: "none",
+                    fontFamily: "inherit",
+                    boxSizing: "border-box",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "#16211F")}
+                  onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
+                />
+                <span
+                  className="font-body"
+                  style={{
+                    position: "absolute",
+                    bottom: "0.75rem",
+                    right: "1rem",
+                    fontSize: "0.75rem",
+                    color: situatieDetails.length >= 550 ? "#0B7A6E" : "#8B958F",
+                  }}
+                >
+                  {situatieDetails.length}/600
+                </span>
+              </div>
+              <label
+                className="font-body"
+                style={{ display: "flex", alignItems: "flex-start", gap: "0.6rem", marginTop: "1rem", fontSize: "0.88rem", color: "#4A5A56", cursor: "pointer", lineHeight: 1.5 }}
+              >
+                <input
+                  type="checkbox"
+                  checked={inkomenWisselt}
+                  onChange={(e) => setInkomenWisselt(e.target.checked)}
+                  style={{ marginTop: "0.2rem", accentColor: "#0B7A6E", width: "1rem", height: "1rem", flexShrink: 0 }}
+                />
+                <span>
+                  Mijn inkomen verschilt sterk per maand. Dan reken ik niet met een gemiddelde alsof het elke
+                  maand binnenkomt, en vraag ik je apart naar je belastingpot en buffer.
+                </span>
+              </label>
+            </div>
+          )}
 
           {!isGeldscan && (
             <>

@@ -5,7 +5,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
-    const { naam, email, pakket } = await request.json();
+    const { naam, email, pakket, situatie_details, inkomen_wisselt } = await request.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json(
@@ -98,7 +98,13 @@ export async function POST(request: NextRequest) {
       from: process.env.RESEND_FROM ?? "onboarding@resend.dev",
       to: "jarnomilankoopman@gmail.com",
       subject: `Nieuwe intake aanvraag: ${pakketLabel}`,
-      html: `<p>Nieuwe aanmelding ontvangen voor <strong>${pakketLabel}</strong> van <strong>${naam}</strong> (${email}).</p><p>Bekijk de details in het <a href="https://www.waarblijfthet.nl/admin">admin panel</a>.</p>`,
+      html: `<p>Nieuwe aanmelding ontvangen voor <strong>${pakketLabel}</strong> van <strong>${naam}</strong> (${email}).</p>${
+        inkomen_wisselt ? "<p><strong>Let op: inkomen verschilt sterk per maand.</strong> Niet met een gemiddelde rekenen, en vraag naar de belastingpot en buffer.</p>" : ""
+      }${
+        situatie_details
+          ? `<p><strong>Wat ik van de situatie moet weten:</strong><br>${String(situatie_details).replace(/</g, "&lt;")}</p>`
+          : "<p>Geen aanvullende situatiegegevens ingevuld.</p>"
+      }<p>Bekijk de details in het <a href="https://www.waarblijfthet.nl/admin">admin panel</a>.</p>`,
     });
 
     return NextResponse.json({ success: true });

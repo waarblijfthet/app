@@ -308,10 +308,20 @@ export default function GeldscanPage({
               iets anders dan een weekendregeling. Die dingen komen uit wat jij erbij schrijft, en daar vraag
               ik naar.
             </p>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
               Daarom is de vergelijking het begin van het rapport en niet het rapport. Ik gebruik hem om te
               bepalen welke vragen ik moet stellen, en het antwoord schrijf ik zelf.
             </p>
+            <div className="card-base border border-[#E6E9E7]" style={{ borderLeft: "3px solid #0B7A6E" }}>
+              <p className="font-body font-medium text-primary text-sm mb-2">Dus vraag ik het je</p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                Bij de aanmelding staat een veld waarin je kunt opschrijven wat de vergelijking niet weet.
+                Kinderen van 13 en 16 die eten als volwassenen, co-ouderschap met 60 procent van de tijd bij
+                jou, geen alimentatie, vier kinderen in plaats van drie, een auto die van de zaak is, of een
+                inkomen dat per maand verschilt. Dat leest niemand anders dan ik, en het gaat vóór de
+                vergelijking. Wat jij daar opschrijft weegt zwaarder dan wat het gemiddelde zegt.
+              </p>
+            </div>
           </div>
         </section>
 

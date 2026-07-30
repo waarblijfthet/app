@@ -91,7 +91,7 @@ export default function LeadsTabblad({ leads, contactPerLeadId }: Props) {
     {
       key: "naam",
       header: "Naam",
-      render: (l) => l.naam || <span className="text-text-muted">, </span>,
+      render: (l) => l.naam || <span className="text-text-muted">geen</span>,
       sorteerWaarde: (l) => l.naam ?? "",
     },
     {
@@ -113,7 +113,7 @@ export default function LeadsTabblad({ leads, contactPerLeadId }: Props) {
         l.quiz_voltooid ? (
           <span className="text-success">✓</span>
         ) : (
-          <span className="text-text-muted">, </span>
+          <span className="text-text-muted">geen</span>
         ),
     },
     {
@@ -123,7 +123,7 @@ export default function LeadsTabblad({ leads, contactPerLeadId }: Props) {
         l.toestemming_marketing ? (
           <span className="text-success">✓</span>
         ) : (
-          <span className="text-text-muted">, </span>
+          <span className="text-text-muted">geen</span>
         ),
     },
     {

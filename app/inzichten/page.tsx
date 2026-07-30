@@ -35,7 +35,7 @@ export default function InzichtenPage() {
               <p className="font-body font-light text-text-soft text-base md:text-lg leading-relaxed">
                 Geen spaartrucjes die je al kent. Geen generiek bankadvies. Artikelen
                 die laten zien hoe het er in Nederlandse gezinnen écht uitziet, wat
-                er structureel fout gaat en hoe je dat kunt veranderen.
+                het bij jou anders uitpakt en wat je daaraan kunt doen.
               </p>
             </div>
 

@@ -364,7 +364,7 @@ export default function OutreachTabblad() {
       key: "plaats",
       header: "Plaats",
       sorteerWaarde: (c) => c.plaats ?? "￿",
-      render: (c) => <span className="text-text-soft text-sm">{c.plaats ?? ", "}</span>,
+      render: (c) => <span className="text-text-soft text-sm">{c.plaats ?? "geen"}</span>,
     },
     {
       key: "voortgang",

@@ -184,7 +184,7 @@ const pijn = [
 
 const stappen = [
   { nr: "1", titel: "De analyse, 5 minuten", tekst: "Vijf korte stappen: woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven. Schattingen zijn goed genoeg, je hoeft niets op te zoeken en geen bank te koppelen. Geen account, geen creditcard." },
-  { nr: "2", titel: "Direct inzicht, concreet en eerlijk", tekst: "Het resultaat staat direct op je scherm: in welke categorie je valt en de twee of drie plekken waar het bij jou structureel fout gaat, uitgelegd in gewone taal. Een e-mailadres is niet verplicht en niemand belt of mailt je na, tenzij je daar zelf om vraagt." },
+  { nr: "2", titel: "Direct inzicht, concreet en eerlijk", tekst: "Het resultaat staat direct op je scherm: hoeveel ruimte er bij jouw situatie te verwachten is, hoeveel er werkelijk overblijft en welke twee of drie posten eruit springen. Uitgelegd in gewone taal. Een e-mailadres is niet verplicht en niemand belt of mailt je na, tenzij je daar zelf om vraagt." },
   { nr: "3", titel: "Jij kiest het vervolg, of niet", tekst: "Zelf verder met je resultaat kan prima. Wil je weten wat ik zie? Kies het geldrapport (€49): ik kijk persoonlijk naar jouw cijfers en schrijf je de drie dingen die het meest opvallen, met per stuk wat ik zou doen. Valt er niets te repareren, dan staat dat er ook. Geen gesprek nodig." },
 ];
 
@@ -193,7 +193,7 @@ const anders: [string, string][] = [
   ["Geen abonnement", "Geldscan voor €49 of een gesprek voor €125, allebei eenmalig. Klaar. Geen maandelijkse kosten."],
   ["Geen oordeel", "Ik kijk naar wat de cijfers zeggen, niet naar wat jij fout zou doen. Blijkt er niets mis te zijn, dan schrijf ik dat op."],
   ["Concrete uitkomst", "Na de analyse weet je direct in welke categorie je valt en wat de grootste afwijking is."],
-  ["Ook met wisselend inkomen", "Zzp'er of wisselende maanden? Vul je gemiddelde maandinkomen in. Juist dan geeft zicht op je vaste structuur rust."],
+  ["Ook met wisselend inkomen", "Zzp'er of wisselende maanden? Vul je gemiddelde maandinkomen in voor de gratis analyse. Die rekent met dat gemiddelde en weet niets van je belastingpot of je magere maanden, dus zeg dat erbij als je een rapport aanvraagt."],
 ];
 
 const grain = "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E\")";

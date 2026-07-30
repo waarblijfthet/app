@@ -23,6 +23,11 @@ export async function POST(request: NextRequest) {
       typeof body?.analyse_gedaan === "boolean" ? body.analyse_gedaan : null;
     const startVoorkeur =
       typeof body?.start_voorkeur === "string" ? body.start_voorkeur.slice(0, 120) : null;
+    const situatieDetails =
+      typeof body?.situatie_details === "string" && body.situatie_details.trim().length > 0
+        ? body.situatie_details.trim().slice(0, 600)
+        : null;
+    const inkomenWisselt = body?.inkomen_wisselt === true;
     let analyseToken =
       typeof body?.analyse_token === "string" && body.analyse_token.trim().length > 0
         ? body.analyse_token.trim().slice(0, 100)
@@ -54,6 +59,8 @@ export async function POST(request: NextRequest) {
       gezinssituatie,
       inkomen_bracket: inkomenBracket,
       grootste_knelpunt: grootsteKnelpunt,
+      situatie_details: situatieDetails,
+      inkomen_wisselt: inkomenWisselt,
       analyse_gedaan: analyseGedaan,
       start_voorkeur: startVoorkeur,
       analyse_token: analyseToken,

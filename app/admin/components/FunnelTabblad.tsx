@@ -53,7 +53,7 @@ function vanafMs(filter: FilterOptie): number {
 }
 
 function pct(deel: number, totaal: number): string {
-  if (totaal <= 0) return ", ";
+  if (totaal <= 0) return "0%";
   return Math.round((deel / totaal) * 100) + "%";
 }
 
@@ -524,20 +524,20 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
                             {new Date(v.created_at).toLocaleDateString("nl-NL", { day: "numeric", month: "short" })}
                           </td>
                           <td className="px-3 py-2 text-[#4A5A56] text-xs font-body">
-                            {v.woonsituatie ?? ", "}, {v.aantal_kinderen ?? 0} kind(eren)
+                            {v.woonsituatie ?? "geen"}, {v.aantal_kinderen ?? 0} kind(eren)
                           </td>
                           <td className="px-3 py-2 text-[#16211F] text-xs font-body">
-                            {v.totaal_inkomen ? "€" + v.totaal_inkomen.toLocaleString("nl-NL") : ", "}
+                            {v.totaal_inkomen ? "€" + v.totaal_inkomen.toLocaleString("nl-NL") : "geen"}
                           </td>
                           <td className="px-3 py-2 text-xs font-body" style={{ color: (v.maandelijks_over ?? 0) < 0 ? "#B03A2E" : "#0B7A6E" }}>
-                            {v.maandelijks_over != null ? "€" + v.maandelijks_over.toLocaleString("nl-NL") : ", "}
+                            {v.maandelijks_over != null ? "€" + v.maandelijks_over.toLocaleString("nl-NL") : "geen"}
                           </td>
                           <td className="px-3 py-2 text-xs font-body">
                             <span className="px-2 py-0.5 rounded-full" style={{
                               backgroundColor: v.verdict === "goed" ? "#E7F1EE" : v.verdict === "matig" ? "#FDF3E3" : "#FDECEA",
                               color: v.verdict === "goed" ? "#0B7A6E" : v.verdict === "matig" ? "#92600A" : "#B03A2E",
                             }}>
-                              {v.verdict ?? ", "}
+                              {v.verdict ?? "geen"}
                             </span>
                           </td>
                         </tr>
