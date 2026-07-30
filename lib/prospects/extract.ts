@@ -24,6 +24,25 @@ const BEDRIJFSWOORDEN = [
 
 const TUSSENVOEGSELS = ["van", "de", "der", "den", "ten", "ter", "te", "het", "in", "op", "'t"];
 
+// Generieke navigatie-/praktijkwoorden die de crawler soms als naam
+// binnenhaalt via een titel-, hostnaam- of e-mailprefix-noodgreep (nu
+// verwijderd, zie crawler.ts). lijktPersoonsnaam wijst deze expliciet af,
+// ook als de tekst verder op een naam lijkt (bijvoorbeeld een los woord
+// met een hoofdletter). Uitbreidbaar; hier ook "aanbod" en "diensten"
+// toegevoegd, dezelfde categorie als "werkwijze" en "tarieven".
+const NAAM_BLACKLIST = [
+  "info", "contact", "welkom", "home", "over", "over mij", "over ons",
+  "aanmelden", "praktijk", "administratie", "secretariaat", "receptie",
+  "mail", "email", "hallo", "team", "afspraak", "agenda", "privacy",
+  "disclaimer", "nieuws", "blog", "tarieven", "werkwijze", "aanbod",
+  "diensten",
+];
+
+/** Staat deze naam op de blacklist van generieke navigatiewoorden? */
+export function isGeblokkeerdeNaam(s: string): boolean {
+  return NAAM_BLACKLIST.includes(s.trim().toLowerCase());
+}
+
 export function decodeEntities(s: string): string {
   return s
     .replace(/&amp;/g, "&")
@@ -142,16 +161,26 @@ function isBedrijfsnaam(s: string): boolean {
   return BEDRIJFSWOORDEN.some((w) => lower.includes(w));
 }
 
-/** Lijkt deze string op een Nederlandse persoonsnaam? */
+/** Eén woord dat op een voornaam lijkt: hoofdletter, geen bedrijfswoord, niet geblokkeerd. */
+const PERSOONSNAAM_WOORD = /^[A-ZÀ-Ž][a-zà-žëïöü]+([-'][A-ZÀ-Ž][a-zà-žëïöü]+)?\.?$/;
+
+/**
+ * Lijkt deze string op een Nederlandse persoonsnaam? Staat ook een enkele
+ * voornaam toe (bijvoorbeeld gevonden via "ik ben Marjolein"), zolang die
+ * niet op de blacklist staat en geen bedrijfswoord is; twee tot vier woorden
+ * blijft de volledige naam-vorm.
+ */
 export function lijktPersoonsnaam(s: string): boolean {
   const schoon = s.trim();
-  if (schoon.length < 4 || schoon.length > 40) return false;
+  if (schoon.length < 2 || schoon.length > 40) return false;
+  if (isGeblokkeerdeNaam(schoon)) return false;
   if (isBedrijfsnaam(schoon)) return false;
   const woorden = schoon.split(/\s+/);
-  if (woorden.length < 2 || woorden.length > 4) return false;
+  if (woorden.length > 4) return false;
+  if (woorden.length === 1) return PERSOONSNAAM_WOORD.test(woorden[0]);
   return woorden.every((w, i) => {
     if (TUSSENVOEGSELS.includes(w.toLowerCase())) return i > 0;
-    return /^[A-ZÀ-Ž][a-zà-žëïöü]+([-'][A-ZÀ-Ž][a-zà-žëïöü]+)?\.?$/.test(w);
+    return PERSOONSNAAM_WOORD.test(w);
   });
 }
 

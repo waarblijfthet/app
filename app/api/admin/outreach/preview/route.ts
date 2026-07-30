@@ -7,6 +7,7 @@ import {
   MAX_FOLLOWUPS,
   eersteMail,
   followupMail,
+  naamIsBetrouwbaar,
   naarText,
 } from "@/lib/outreach/mails";
 
@@ -47,6 +48,9 @@ export async function POST(req: NextRequest) {
     subject: string;
     text: string;
     heeftPsZin: boolean;
+    // Waarschuwt in de preview-modal als de naam niet betrouwbaar is: de mail
+    // wordt dan naamloos verstuurd ("Goedendag,"), zie lib/outreach/mails.ts.
+    naamBetrouwbaar: boolean;
   }
   const items: PreviewItem[] = [];
   const overgeslagen: { naam: string; reden: string }[] = [];
@@ -72,6 +76,7 @@ export async function POST(req: NextRequest) {
         doelgroep, plaats: contact.plaats ?? null,
         mailNummer: alGedaan + 2, subject: mail.subject, text: naarText(mail.alineas),
         heeftPsZin: true,
+        naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });
     } else {
       const mail = eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
@@ -80,6 +85,7 @@ export async function POST(req: NextRequest) {
         doelgroep, plaats: contact.plaats ?? null,
         mailNummer: 1, subject: mail.subject, text: naarText(mail.alineas),
         heeftPsZin: Boolean(contact.ps_zin && String(contact.ps_zin).trim()),
+        naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });
     }
   }

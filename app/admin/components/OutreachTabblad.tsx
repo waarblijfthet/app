@@ -27,6 +27,7 @@ interface PreviewItem {
   subject: string;
   text: string;
   heeftPsZin: boolean;
+  naamBetrouwbaar: boolean;
 }
 
 interface WeekBudget {
@@ -652,6 +653,9 @@ export default function OutreachTabblad() {
                     {item.mailNummer === 1 && !item.heeftPsZin && (
                       <p className="text-[11px] text-amber-600 mt-0.5">zonder persoonlijke zin</p>
                     )}
+                    {!item.naamBetrouwbaar && (
+                      <p className="text-[11px] text-amber-600 mt-0.5">onbetrouwbare naam, gaat naamloos</p>
+                    )}
                   </button>
                 ))}
               </div>
@@ -672,6 +676,9 @@ export default function OutreachTabblad() {
               <div className="text-xs text-text-muted">
                 {preview.type === "eerste" && preview.items.some((i) => !i.heeftPsZin) && (
                   <span className="text-amber-600">Let op: {preview.items.filter((i) => !i.heeftPsZin).length} zonder persoonlijke zin. </span>
+                )}
+                {preview.items.some((i) => !i.naamBetrouwbaar) && (
+                  <span className="text-amber-600">Let op: {preview.items.filter((i) => !i.naamBetrouwbaar).length} met een onbetrouwbare naam (mail wordt naamloos verstuurd, "Goedendag,"). </span>
                 )}
                 {preview.type === "eerste" && budget && preview.items.length > budget.resterend && (
                   <span className="text-amber-600">

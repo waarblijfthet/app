@@ -45,44 +45,82 @@ const TREFWOORDEN: Record<Doelgroep, { woord: string; gewicht: number }[]> = {
     { woord: "verzuim", gewicht: 1 },
     { woord: "herstelcoach", gewicht: 2 },
   ],
+  boekhouders: [
+    { woord: "boekhouder", gewicht: 3 },
+    { woord: "boekhouding", gewicht: 3 },
+    { woord: "administratiekantoor", gewicht: 3 },
+    { woord: "accountant", gewicht: 2 },
+    { woord: "jaarrekening", gewicht: 2 },
+    { woord: "salarisadministratie", gewicht: 2 },
+    { woord: "aangifte", gewicht: 1 },
+    { woord: "btw-aangifte", gewicht: 2 },
+    { woord: "zzp-administratie", gewicht: 2 },
+  ],
 };
+
+// Regex-cache per trefwoord: woordgrens op basis van een lookaround in
+// plaats van \b, want \b beschouwt ë/ï/ö niet als letter en zou de grens
+// midden in een woord als "financiële" leggen.
+const LETTER = "a-zA-ZÀ-ÿ0-9";
+const woordPatroonCache = new Map<string, RegExp>();
+function woordPatroon(woord: string): RegExp {
+  let patroon = woordPatroonCache.get(woord);
+  if (!patroon) {
+    const escaped = woord.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    patroon = new RegExp(`(?<![${LETTER}])${escaped}(?![${LETTER}])`, "gi");
+    woordPatroonCache.set(woord, patroon);
+  }
+  patroon.lastIndex = 0;
+  return patroon;
+}
+
+/** Telt hoe vaak een trefwoord als los woord voorkomt (max 10, tegen uitschieters). */
+function telWoord(lower: string, woord: string): number {
+  const patroon = woordPatroon(woord);
+  let teller = 0;
+  while (teller < 10 && patroon.exec(lower)) teller += 1;
+  return teller;
+}
 
 /**
  * Bepaalt de meest waarschijnlijke doelgroep voor een paginatekst.
  * Geeft ook een score terug zodat de admin lage scores kan herkennen.
+ * Zonder vaste doelgroep levert een score van 0 of een gelijkspel tussen
+ * twee doelgroepen geen keuze op (doelgroep: null): een gok die er als een
+ * keuze uitziet is erger dan een leeg veld dat om een keuze vraagt.
  */
 export function classificeer(
   tekst: string,
   vasteDoelgroep?: Doelgroep | null
-): { doelgroep: Doelgroep; score: number } {
+): { doelgroep: Doelgroep | null; score: number } {
   const lower = tekst.toLowerCase();
   const scores = new Map<Doelgroep, number>();
 
   for (const doelgroep of DOELGROEPEN) {
     let score = 0;
     for (const { woord, gewicht } of TREFWOORDEN[doelgroep]) {
-      let idx = lower.indexOf(woord);
-      let teller = 0;
-      while (idx !== -1 && teller < 10) {
-        teller += 1;
-        idx = lower.indexOf(woord, idx + woord.length);
-      }
-      score += teller * gewicht;
+      score += telWoord(lower, woord) * gewicht;
     }
     scores.set(doelgroep, score);
-  }
-
-  let beste: Doelgroep = "relatietherapeuten";
-  let hoogste = -1;
-  for (const [doelgroep, score] of Array.from(scores.entries())) {
-    if (score > hoogste) {
-      hoogste = score;
-      beste = doelgroep;
-    }
   }
 
   if (vasteDoelgroep) {
     return { doelgroep: vasteDoelgroep, score: scores.get(vasteDoelgroep) ?? 0 };
   }
-  return { doelgroep: beste, score: hoogste };
+
+  let hoogste = -1;
+  let winnaars: Doelgroep[] = [];
+  for (const [doelgroep, score] of Array.from(scores.entries())) {
+    if (score > hoogste) {
+      hoogste = score;
+      winnaars = [doelgroep];
+    } else if (score === hoogste) {
+      winnaars.push(doelgroep);
+    }
+  }
+
+  if (hoogste <= 0 || winnaars.length > 1) {
+    return { doelgroep: null, score: hoogste };
+  }
+  return { doelgroep: winnaars[0], score: hoogste };
 }

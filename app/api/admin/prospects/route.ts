@@ -43,10 +43,21 @@ export async function GET(req: NextRequest) {
       { status: 500 }
     );
   }
-  const { data: prospects } = await supabase
-    .from("prospects").select("*").eq("status", "gevonden")
-    .order("created_at", { ascending: false }).limit(200);
-  return NextResponse.json({ jobs: jobs ?? [], prospects: prospects ?? [] });
+  // Beperkte kolomselectie in plaats van select("*"): de lijst gebruikt geen
+  // job_id en bron_url, en context wordt server-side afgekapt op 300 tekens
+  // (CLAUDE.md-opdracht "prospect-zoeker verbeterronde", deel 1.6). Limiet
+  // van 200 naar 500 zodat het nieuwe zoekveld (deel 2) over de hele
+  // voorraad gaat, niet alleen de eerste 200.
+  const { data: ruw } = await supabase
+    .from("prospects")
+    .select("id, naam, praktijk, email, website, doelgroep, doelgroep_score, context, plaats, status, created_at")
+    .eq("status", "gevonden")
+    .order("created_at", { ascending: false }).limit(500);
+  const prospects = (ruw ?? []).map((p) => ({
+    ...p,
+    context: p.context && p.context.length > 300 ? p.context.slice(0, 300) + "…" : p.context,
+  }));
+  return NextResponse.json({ jobs: jobs ?? [], prospects });
 }
 
 // POST /api/admin/prospects — nieuwe zoekopdracht starten

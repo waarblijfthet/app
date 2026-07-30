@@ -9,6 +9,17 @@
 // telefoonnummer in de handtekening (prive; komt evt. terug met een apart nummer).
 // LET OP: de A4 met de drie patronen (FU2 relatietherapeuten/burnout) moet
 // bestaan voordat die follow-up verstuurd wordt.
+//
+// Naamgebruik (30-jul-2026, "prospect-zoeker verbeterronde" deel 6): de
+// prospect-zoeker levert soms geen betrouwbare naam op ("Info", "Welkom").
+// naamIsBetrouwbaar() hergebruikt de bestaande naam-validatie uit de
+// prospect-zoeker (lijktPersoonsnaam + de naam-blacklist) zodat er niet twee
+// losse implementaties van "is dit een naam" ontstaan. Is de naam niet
+// betrouwbaar, dan gebruiken eersteMail en followupMail een naamloze
+// aanhef en, voor mail 1, een naamloze onderwerpregel; de inhoud van de
+// mails zelf verandert niet.
+
+import { isGeblokkeerdeNaam, lijktPersoonsnaam } from "@/lib/prospects/extract";
 
 export type Doelgroep =
   | "relatietherapeuten"
@@ -69,14 +80,40 @@ export function voornaamVan(naam: string): string {
   return naam.trim().split(/\s+/)[0] || naam.trim();
 }
 
+/**
+ * Is deze naam betrouwbaar genoeg om in een aanhef of onderwerp te
+ * gebruiken? Hergebruikt de validatie uit de prospect-zoeker in plaats van
+ * een tweede implementatie te bouwen: niet leeg, geen navigatiewoord uit de
+ * naam-blacklist (info, contact, welkom, ...), en ziet er verder uit als
+ * een naam.
+ */
+export function naamIsBetrouwbaar(naam: string | null | undefined): boolean {
+  const schoon = (naam ?? "").trim();
+  if (!schoon) return false;
+  if (isGeblokkeerdeNaam(schoon)) return false;
+  return lijktPersoonsnaam(schoon);
+}
+
+// Naamloze onderwerpregels voor mail 1, gebruikt zodra de naam niet
+// betrouwbaar is. Letterlijk uit de opdracht, met "cliënten" met ë (net als
+// verder in dit bestand) in plaats van de tikfoutvariant zonder accent.
+const NAAMLOOS_ONDERWERP: Record<Doelgroep, string> = {
+  "relatietherapeuten": "Mag ik stellen naar jouw praktijk verwijzen?",
+  "budgetcoaches": "Ik zoek een budgetcoach om naar door te verwijzen",
+  "financieel-planners": "Ik zoek een financieel planner om naar door te verwijzen",
+  "burnout-coaches": "Mag ik cliënten naar jouw praktijk verwijzen?",
+  "boekhouders": "Mag ik cliënten van je overnemen die verder gaan dan de cijfers?",
+};
+
 export function eersteMail(
   naam: string,
   doelgroep: Doelgroep,
   psZin?: string | null,
   plaats?: string | null
 ): Mail {
+  const betrouwbaar = naamIsBetrouwbaar(naam);
   const voornaam = voornaamVan(naam);
-  const groet = `Beste ${voornaam},`;
+  const groet = betrouwbaar ? `Beste ${voornaam},` : "Goedendag,";
   const ps = psZin && psZin.trim() ? [psZin.trim()] : [];
   const regio = regioZin(doelgroep, plaats);
   const regioAlinea = regio ? [regio] : [];
@@ -85,7 +122,7 @@ export function eersteMail(
   switch (doelgroep) {
     case "relatietherapeuten":
       return {
-        subject: `${voornaam}, mag ik stellen naar jouw praktijk verwijzen?`,
+        subject: betrouwbaar ? `${voornaam}, mag ik stellen naar jouw praktijk verwijzen?` : NAAMLOOS_ONDERWERP[doelgroep],
         alineas: [
           groet,
           "Soms zit er een stel tegenover me waar het gesprek na een half uur niet meer over cijfers gaat, maar over wie bepaalt, wie zwijgt, wat geld vroeger thuis betekende. Dat is jouw vak, niet het mijne, en ik ga niet doen alsof.",
@@ -98,7 +135,7 @@ export function eersteMail(
       };
     case "budgetcoaches":
       return {
-        subject: `${voornaam}, ik zoek een budgetcoach om naar door te verwijzen`,
+        subject: betrouwbaar ? `${voornaam}, ik zoek een budgetcoach om naar door te verwijzen` : NAAMLOOS_ONDERWERP[doelgroep],
         alineas: [
           groet,
           ...ps,
@@ -111,7 +148,7 @@ export function eersteMail(
       };
     case "financieel-planners":
       return {
-        subject: `${voornaam}, ik zoek een financieel planner om naar door te verwijzen`,
+        subject: betrouwbaar ? `${voornaam}, ik zoek een financieel planner om naar door te verwijzen` : NAAMLOOS_ONDERWERP[doelgroep],
         alineas: [
           groet,
           ...ps,
@@ -124,7 +161,7 @@ export function eersteMail(
       };
     case "burnout-coaches":
       return {
-        subject: `${voornaam}, mag ik cliënten naar jouw praktijk verwijzen?`,
+        subject: betrouwbaar ? `${voornaam}, mag ik cliënten naar jouw praktijk verwijzen?` : NAAMLOOS_ONDERWERP[doelgroep],
         alineas: [
           groet,
           "Soms zit er iemand tegenover me bij wie het geld wel op orde komt, maar de vermoeidheid dieper blijkt te zitten dan de cijfers. Dat is jouw vak, niet het mijne, en ik ga niet doen alsof.",
@@ -137,7 +174,7 @@ export function eersteMail(
       };
     case "boekhouders":
       return {
-        subject: `${voornaam}, mag ik cliënten van je overnemen die verder gaan dan de cijfers?`,
+        subject: betrouwbaar ? `${voornaam}, mag ik cliënten van je overnemen die verder gaan dan de cijfers?` : NAAMLOOS_ONDERWERP[doelgroep],
         alineas: [
           groet,
           "Soms stelt een klant aan het eind van een aangifte of jaarrekening een heel andere vraag: kunnen we dit huis nog betalen, waarom houden we bij dit inkomen niets over, moeten we minder gaan werken. Geen boekhoudvraag, en ik neem aan dat je hem meestal netjes terugbrengt naar de cijfers waar het gesprek over ging.",
@@ -211,17 +248,21 @@ export function followupMail(
   nummer: number,
   eersteSubject: string
 ): Mail {
-  const voornaam = voornaamVan(naam);
+  // Let op: eersteSubject komt uit de database en is voor bestaande
+  // contacten (van vóór deze wijziging) al met voornaam opgeslagen; die
+  // laten we ongewijzigd staan (Re: volgt automatisch mee). Alleen de
+  // aanhef hier krijgt de voorwaardelijke logica.
+  const groet = naamIsBetrouwbaar(naam) ? `Beste ${voornaamVan(naam)},` : "Goedendag,";
   if (nummer === 1) {
     return {
       subject: `Re: ${eersteSubject}`,
-      alineas: [`Beste ${voornaam},`, ...FU1[doelgroep]],
+      alineas: [groet, ...FU1[doelgroep]],
     };
   }
   return {
     subject: `Re: ${eersteSubject}`,
     alineas: [
-      `Beste ${voornaam},`,
+      groet,
       "Laatste mail van mijn kant, daarna laat ik je met rust.",
       ...FU2[doelgroep],
       "Dank voor je tijd, en veel succes met je praktijk.",

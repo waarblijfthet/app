@@ -364,8 +364,7 @@ function bouwProspects(
   paginas: { html: string; url: string }[],
   emailBron: Map<string, { url: string; html: string }>,
   website: string | null,
-  vasteDoelgroep: Doelgroep | null,
-  fallbackHost: string
+  vasteDoelgroep: Doelgroep | null
 ): GevondenProspect[] {
   const titel = extractTitle(paginas[0]?.html ?? "");
   let naamInfo = extractNaam(paginas[0]?.html ?? "", titel);
@@ -385,7 +384,9 @@ function bouwProspects(
   const prospects: GevondenProspect[] = [];
   for (const [email, bron] of Array.from(emailBron.entries())) {
     prospects.push({
-      naam: naamInfo.naam ?? naamInfo.praktijk ?? titel ?? fallbackHost,
+      // Geen hostnaam/titel meer als noodgreep (CLAUDE.md-opdracht deel 5):
+      // een lege naam is beter dan een verkeerde. De reviewlijst markeert dit.
+      naam: naamInfo.naam ?? "",
       praktijk: naamInfo.praktijk ?? (naamInfo.naam ? titel : null),
       email,
       website,
@@ -432,7 +433,7 @@ export async function verzamelSiteProspects(
 
   if (emailBron.size > 0) {
     // E-mail stond op de detailpagina; website = eigen site als die er is
-    return bouwProspects(paginas, emailBron, eigenWebsite ?? paginas[0].url, vasteDoelgroep, startHost);
+    return bouwProspects(paginas, emailBron, eigenWebsite ?? paginas[0].url, vasteDoelgroep);
   }
 
   // Geen e-mail op de detailpagina: volg de eigen website één hop
@@ -453,7 +454,7 @@ export async function verzamelSiteProspects(
       if (siteEmails.size > 0) {
         // Naam komt het best van de detailpagina, e-mail/website van de eigen site
         const naamPagina = [{ html: paginas[0].html, url: paginas[0].url }, ...sitePaginas];
-        return bouwProspects(naamPagina, siteEmails, sitePaginas[0].url, vasteDoelgroep, siteHost);
+        return bouwProspects(naamPagina, siteEmails, sitePaginas[0].url, vasteDoelgroep);
       }
     }
   }
@@ -524,16 +525,26 @@ export async function bouwWachtrijVanUrl(
     negeerDomein: eigenHost,
   }));
 
-  // Losse e-mails op de overzichtspagina zelf, maar nooit het directory-adres
+  // Losse e-mails op de overzichtspagina zelf, maar nooit het directory-adres.
+  // Classificatie hier is per definitie onbetrouwbaar: er is geen los profiel
+  // om per adres te classificeren, alleen de tekst van de hele overzichtspagina,
+  // en die ene uitkomst zou anders aan elk gevonden adres worden gehangen
+  // (CLAUDE.md-opdracht deel 4.3). Bij een handmatig vastgezette doelgroep
+  // (vasteDoelgroep) is dat een expliciete keuze van Jarno en die respecteren
+  // we; bij automatisch zoeken markeren we deze adressen als niet herkend,
+  // zodat ze in de reviewlijst opvallen in plaats van een gok mee te krijgen.
   const directeProspects: GevondenProspect[] = [];
   const tekst = naarTekst(pagina.html);
-  const { doelgroep, score } = classificeer(tekst, vasteDoelgroep);
+  const { score: lijstScore } = classificeer(tekst, vasteDoelgroep);
+  const doelgroep = vasteDoelgroep ?? null;
+  const score = vasteDoelgroep ? lijstScore : 0;
   for (const email of extractEmails(pagina.html).slice(0, 25)) {
     if (isDirectoryEmail(email, eigenHost)) continue;
     const emailDomein = email.split("@")[1];
-    const naamDeel = email.split("@")[0].replace(/[._-]/g, " ");
     directeProspects.push({
-      naam: naamDeel.replace(/\b\w/g, (c) => c.toUpperCase()),
+      // Geen e-mailprefix meer als naam-noodgreep (CLAUDE.md-opdracht deel 5):
+      // een lege naam is beter dan "Info" of "Contact".
+      naam: "",
       praktijk: null,
       email,
       website: MAILPROVIDERS.includes(emailDomein) ? null : "https://" + emailDomein,

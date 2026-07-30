@@ -5,15 +5,24 @@ import { Doelgroep, DOELGROEPEN } from "@/lib/prospects/types";
 
 export const dynamic = "force-dynamic";
 
+interface RijOverride {
+  naam?: string;
+  doelgroep?: string;
+  plaats?: string;
+}
+
 // POST /api/admin/prospects/review
-// Body: { ids: string[], actie: "goedkeuren" | "afwijzen" }
-// Goedkeuren zet het contact in outreach_contacts (status nieuw).
+// Body: { ids: string[], actie: "goedkeuren" | "afwijzen", overrides?: Record<id, { naam?, doelgroep?, plaats? }> }
+// Goedkeuren zet het contact in outreach_contacts (status nieuw). overrides
+// laat de admin-UI een gecorrigeerde naam/doelgroep/plaats meesturen in
+// dezelfde request in plaats van eerst een losse PATCH te doen (CLAUDE.md-
+// opdracht "prospect-zoeker verbeterronde", deel 1.5).
 export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { ids, actie } = await req.json();
+  const { ids, actie, overrides } = await req.json();
 
   if (!Array.isArray(ids) || ids.length === 0) {
     return NextResponse.json({ error: "ids ontbreken" }, { status: 400 });
@@ -21,15 +30,18 @@ export async function POST(req: NextRequest) {
   if (actie !== "goedkeuren" && actie !== "afwijzen") {
     return NextResponse.json({ error: "actie moet 'goedkeuren' of 'afwijzen' zijn" }, { status: 400 });
   }
+  const overrideMap: Record<string, RijOverride> =
+    overrides && typeof overrides === "object" ? overrides : {};
 
   if (actie === "afwijzen") {
-    const { error } = await supabase
+    const { data: afgewezen, error } = await supabase
       .from("prospects")
       .update({ status: "afgewezen" })
       .in("id", ids)
-      .eq("status", "gevonden");
+      .eq("status", "gevonden")
+      .select("id");
     if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-    return NextResponse.json({ ok: true, afgewezen: ids.length });
+    return NextResponse.json({ ok: true, ids: (afgewezen ?? []).map((r) => r.id) });
   }
 
   const { data: prospects, error: fetchError } = await supabase
@@ -45,20 +57,33 @@ export async function POST(req: NextRequest) {
 
   const resultaten: { id: string; naam: string; ok: boolean; fout?: string }[] = [];
   for (const p of prospects ?? []) {
+    const override = overrideMap[p.id] ?? {};
+    const naam = (typeof override.naam === "string" ? override.naam : p.naam)?.trim() ?? "";
+    const doelgroep = typeof override.doelgroep === "string" ? override.doelgroep : p.doelgroep;
+    const plaats = typeof override.plaats === "string" ? override.plaats.trim() || null : p.plaats ?? null;
+
     if (blocklistMap.has(p.email)) {
       resultaten.push({
-        id: p.id, naam: p.naam, ok: false,
+        id: p.id, naam, ok: false,
         fout: `Staat op de blocklist (${blocklistMap.get(p.email)})`,
       });
       continue;
     }
+    // Een onbekende of lege doelgroep is een fout die ik moet zien, niet iets
+    // dat stil wordt goedgemaakt met een gok naar relatietherapeuten (deel 3.3).
+    if (!doelgroep || !DOELGROEPEN.includes(doelgroep as Doelgroep)) {
+      resultaten.push({ id: p.id, naam, ok: false, fout: "doelgroep niet gekozen" });
+      continue;
+    }
+    if (!naam) {
+      resultaten.push({ id: p.id, naam, ok: false, fout: "naam ontbreekt" });
+      continue;
+    }
     const { error } = await supabase.from("outreach_contacts").insert({
-      naam: p.naam,
+      naam,
       email: p.email,
-      doelgroep: DOELGROEPEN.includes(p.doelgroep as Doelgroep)
-        ? p.doelgroep
-        : "relatietherapeuten",
-      plaats: p.plaats ?? null,
+      doelgroep,
+      plaats,
       praktijk: p.praktijk ?? null,
       website: p.website ?? null,
       bron_url: p.bron_url ?? null,
@@ -66,12 +91,12 @@ export async function POST(req: NextRequest) {
       doelgroep_score: p.doelgroep_score ?? 0,
     });
     if (error && error.code !== "23505") {
-      resultaten.push({ id: p.id, naam: p.naam, ok: false, fout: error.message });
+      resultaten.push({ id: p.id, naam, ok: false, fout: error.message });
       continue;
     }
     // 23505 = stond al in outreach; prospect alsnog als goedgekeurd markeren
     await supabase.from("prospects").update({ status: "goedgekeurd" }).eq("id", p.id);
-    resultaten.push({ id: p.id, naam: p.naam, ok: true });
+    resultaten.push({ id: p.id, naam, ok: true });
   }
 
   return NextResponse.json({ resultaten });

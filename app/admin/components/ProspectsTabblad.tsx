@@ -1,16 +1,15 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { DOELGROEPEN, DOELGROEP_LABEL, DOELGROEP_KLEUR } from "@/lib/outreach/labels";
 
 interface Prospect {
   id: string;
-  job_id: string | null;
   naam: string;
   praktijk: string | null;
   email: string;
   website: string | null;
-  bron_url: string | null;
-  doelgroep: string;
+  doelgroep: string | null;
   doelgroep_score: number;
   context: string | null;
   plaats: string | null;
@@ -30,23 +29,11 @@ interface Job {
   created_at: string;
 }
 
-const DOELGROEPEN: { value: string; label: string }[] = [
-  { value: "relatietherapeuten", label: "Relatietherapie" },
-  { value: "budgetcoaches",      label: "Budgetcoach" },
-  { value: "financieel-planners", label: "Financieel planner" },
-  { value: "burnout-coaches",    label: "Burnout-coach" },
-];
-
-const DOELGROEP_LABEL: Record<string, string> = Object.fromEntries(
-  DOELGROEPEN.map((d) => [d.value, d.label])
-);
-
-const DOELGROEP_STYLE: Record<string, string> = {
-  "relatietherapeuten":  "bg-purple-50 text-purple-700",
-  "budgetcoaches":       "bg-blue-50 text-blue-700",
-  "financieel-planners": "bg-amber-50 text-amber-700",
-  "burnout-coaches":     "bg-orange-50 text-orange-700",
-};
+interface RijOverride {
+  naam?: string;
+  doelgroep?: string;
+  plaats?: string;
+}
 
 const JOB_STATUS_LABEL: Record<Job["status"], string> = {
   wachtrij: "In wachtrij",
@@ -76,10 +63,18 @@ export default function ProspectsTabblad() {
 
   // Review-selectie
   const [selectie, setSelectie] = useState<Set<string>>(new Set());
-  const [reviewBezig, setReviewBezig] = useState(false);
+  // Ids die op dit moment een goedkeuren/afwijzen-request onderweg hebben.
+  // Per rij, in plaats van één globale "reviewBezig", zodat de rest van de
+  // tabel bruikbaar blijft (CLAUDE.md-opdracht "prospect-zoeker
+  // verbeterronde", deel 1.4).
+  const [bezigIds, setBezigIds] = useState<Set<string>>(new Set());
+  // Foutmelding per rij, na een mislukte optimistische actie (deel 1.2).
+  const [rowFouten, setRowFouten] = useState<Record<string, string>>({});
   // Lokale, nog niet opgeslagen naamcorrecties (id -> naam)
   const [naamEdits, setNaamEdits] = useState<Record<string, string>>({});
   const [plaatsEdits, setPlaatsEdits] = useState<Record<string, string>>({});
+  // Zoekveld boven de lijst (deel 2): filtert client-side over alle kolommen.
+  const [zoekterm, setZoekterm] = useState("");
 
   const laad = useCallback(async () => {
     try {
@@ -186,38 +181,101 @@ export default function ProspectsTabblad() {
     await laad();
   }
 
-  async function review(ids: string[], actie: "goedkeuren" | "afwijzen") {
+  // Optimistisch: de rij(en) verdwijnen onmiddellijk, het verzoek gaat pas
+  // daarna. Mislukt een rij, dan komt hij terug met een foutmelding erbij.
+  // Geen await laad() meer na elke actie (deel 1.2 en 1.3): de review-route
+  // geeft de verwerkte ids terug en daarmee werken we alleen de lokale
+  // state bij.
+  async function review(
+    ids: string[],
+    actie: "goedkeuren" | "afwijzen",
+    overrides?: Record<string, RijOverride>
+  ) {
     if (ids.length === 0) return;
-    setReviewBezig(true);
+    const idSet = new Set(ids);
+    const verwijderdeRijen = prospects.filter((p) => idSet.has(p.id));
+    if (verwijderdeRijen.length === 0) return;
+
+    setProspects((lijst) => lijst.filter((p) => !idSet.has(p.id)));
+    setSelectie((s) => {
+      const nieuw = new Set(s);
+      ids.forEach((id) => nieuw.delete(id));
+      return nieuw;
+    });
+    setRowFouten((f) => {
+      const nieuw = { ...f };
+      ids.forEach((id) => delete nieuw[id]);
+      return nieuw;
+    });
+    setBezigIds((s) => new Set([...Array.from(s), ...ids]));
     setFout(null);
+
     try {
       const res = await fetch("/api/admin/prospects/review", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ids, actie }),
+        body: JSON.stringify({ ids, actie, overrides }),
       });
       const data = await res.json();
-      if (!res.ok) { setFout(data.error); return; }
-      if (actie === "goedkeuren") {
-        const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
-        toonMelding(`${geslaagd} contact(en) toegevoegd aan Outreach.`);
-      } else {
-        toonMelding(`${ids.length} prospect(s) afgewezen.`);
+      if (!res.ok) {
+        // Hele actie mislukt (bijvoorbeeld verbinding of serverfout): alles terug.
+        setProspects((lijst) => [...verwijderdeRijen, ...lijst]);
+        setFout(data.error ?? "Actie mislukt.");
+        return;
       }
-      setSelectie(new Set());
-      await laad();
+
+      if (actie === "afwijzen") {
+        const geslaagd = new Set<string>(data.ids ?? []);
+        const mislukt = verwijderdeRijen.filter((p) => !geslaagd.has(p.id));
+        if (mislukt.length > 0) {
+          setProspects((lijst) => [...mislukt, ...lijst]);
+          setRowFouten((f) => {
+            const nieuw = { ...f };
+            mislukt.forEach((p) => { nieuw[p.id] = "Kon niet worden afgewezen."; });
+            return nieuw;
+          });
+        }
+        toonMelding(`${geslaagd.size} prospect(s) afgewezen.`);
+      } else {
+        const resultaten: { id: string; naam: string; ok: boolean; fout?: string }[] =
+          data.resultaten ?? [];
+        const geslaagd = resultaten.filter((r) => r.ok).length;
+        const mislukteResultaten = resultaten.filter((r) => !r.ok);
+        if (mislukteResultaten.length > 0) {
+          const teruggezet = verwijderdeRijen.filter((p) =>
+            mislukteResultaten.some((r) => r.id === p.id)
+          );
+          setProspects((lijst) => [...teruggezet, ...lijst]);
+          setRowFouten((f) => {
+            const nieuw = { ...f };
+            mislukteResultaten.forEach((r) => { nieuw[r.id] = r.fout ?? "Onbekende fout"; });
+            return nieuw;
+          });
+        }
+        toonMelding(`${geslaagd} contact(en) toegevoegd aan Outreach.`);
+      }
+    } catch {
+      setProspects((lijst) => [...verwijderdeRijen, ...lijst]);
+      setFout("Verbinding onderbroken tijdens het opslaan.");
     } finally {
-      setReviewBezig(false);
+      setBezigIds((s) => {
+        const nieuw = new Set(s);
+        ids.forEach((id) => nieuw.delete(id));
+        return nieuw;
+      });
     }
   }
 
-  // Keurt één rij goed; slaat eerst een eventueel gecorrigeerde naam op.
+  // Keurt één rij goed; stuurt een eventueel gecorrigeerde naam mee in
+  // dezelfde request, in plaats van eerst een losse PATCH en dan pas de
+  // POST (deel 1.5: dat was twee sequentiële requests voor één actie).
   async function keurRijGoed(p: Prospect) {
-    const bewerkt = (naamEdits[p.id] ?? p.naam).trim();
-    if (bewerkt && bewerkt !== p.naam) {
-      await werkBij(p.id, { naam: bewerkt });
-    }
-    await review([p.id], "goedkeuren");
+    const bewerkteNaam = (naamEdits[p.id] ?? p.naam).trim();
+    const overrides =
+      bewerkteNaam && bewerkteNaam !== p.naam
+        ? { [p.id]: { naam: bewerkteNaam } }
+        : undefined;
+    await review([p.id], "goedkeuren", overrides);
   }
 
   async function werkBij(id: string, velden: { naam?: string; doelgroep?: string; plaats?: string }) {
@@ -242,9 +300,24 @@ export default function ProspectsTabblad() {
 
   function selecteerAlles() {
     setSelectie((s) =>
-      s.size === prospects.length ? new Set() : new Set(prospects.map((p) => p.id))
+      s.size === gefilterd.length ? new Set() : new Set(gefilterd.map((p) => p.id))
     );
   }
+
+  // Client-side zoeken over alle kolommen; geen serververzoek (deel 2).
+  // GET haalt inmiddels tot 500 rijen op, dus zoeken gaat over de hele
+  // voorraad die in de admin-sessie geladen is.
+  const gefilterd = useMemo(() => {
+    const term = zoekterm.trim().toLowerCase();
+    if (!term) return prospects;
+    return prospects.filter((p) => {
+      const doelgroepLabel = p.doelgroep ? (DOELGROEP_LABEL[p.doelgroep] ?? p.doelgroep) : "";
+      const velden = [
+        p.naam, p.praktijk, p.email, p.website, doelgroepLabel, p.plaats, p.context,
+      ];
+      return velden.some((v) => (v ?? "").toLowerCase().includes(term));
+    });
+  }, [prospects, zoekterm]);
 
   const openJobs = jobs.filter(
     (j) => (j.status === "wachtrij" || j.status === "bezig") && j.id !== actieveJob?.id
@@ -417,28 +490,35 @@ export default function ProspectsTabblad() {
       )}
 
       {/* Review-wachtrij */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <h3 className="font-display text-lg font-semibold text-primary">
-          Te beoordelen ({prospects.length})
+          Te beoordelen ({zoekterm.trim() ? `${gefilterd.length} van ${prospects.length}` : prospects.length})
         </h3>
-        {selectie.size > 0 && (
-          <div className="flex gap-2">
-            <button
-              onClick={() => review(Array.from(selectie), "goedkeuren")}
-              disabled={reviewBezig}
-              className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
-            >
-              {reviewBezig ? "Bezig..." : `Keur ${selectie.size} goed`}
-            </button>
-            <button
-              onClick={() => review(Array.from(selectie), "afwijzen")}
-              disabled={reviewBezig}
-              className="text-sm px-4 py-2 border border-red-200 text-red-500 rounded-md hover:bg-red-50 disabled:opacity-50"
-            >
-              Wijs af
-            </button>
-          </div>
-        )}
+        <div className="flex items-center gap-2">
+          <input
+            type="text"
+            value={zoekterm}
+            onChange={(e) => setZoekterm(e.target.value)}
+            placeholder="Zoeken op naam, praktijk, e-mail, website, doelgroep, plaats of context…"
+            className="w-full sm:w-80 border border-[#E6E9E7] rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
+          />
+          {selectie.size > 0 && (
+            <div className="flex gap-2 shrink-0">
+              <button
+                onClick={() => review(Array.from(selectie), "goedkeuren")}
+                className="btn-primary text-sm px-4 py-2"
+              >
+                Keur {selectie.size} goed
+              </button>
+              <button
+                onClick={() => review(Array.from(selectie), "afwijzen")}
+                className="text-sm px-4 py-2 border border-red-200 text-red-500 rounded-md hover:bg-red-50"
+              >
+                Wijs af
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       {laden ? (
@@ -447,15 +527,18 @@ export default function ProspectsTabblad() {
         <p className="text-text-muted text-sm">
           Nog niets te beoordelen. Start hierboven een zoekopdracht.
         </p>
+      ) : gefilterd.length === 0 ? (
+        <p className="text-text-muted text-sm">Niets gevonden voor "{zoekterm}".</p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-[#E6E9E7]">
           <table className="w-full text-sm table-fixed">
             <colgroup>
               <col className="w-9" />
+              <col className="w-24" />
+              <col className="w-24" />
               <col className="w-40" />
               <col className="w-48" />
-              <col className="w-52" />
-              <col className="w-36" />
+              <col className="w-44" />
               <col className="w-36" />
               <col className="w-28" />
               <col className="w-20" />
@@ -466,11 +549,12 @@ export default function ProspectsTabblad() {
                 <th className="px-3 py-3">
                   <input
                     type="checkbox"
-                    checked={selectie.size === prospects.length && prospects.length > 0}
+                    checked={selectie.size === gefilterd.length && gefilterd.length > 0}
                     onChange={selecteerAlles}
                   />
                 </th>
-                <th className="text-left px-3 py-3">Actie</th>
+                <th className="text-left px-3 py-3">Goedkeuren</th>
+                <th className="text-left px-3 py-3">Afwijzen</th>
                 <th className="text-left px-4 py-3">Naam</th>
                 <th className="text-left px-4 py-3">E-mail</th>
                 <th className="text-left px-4 py-3">Website</th>
@@ -481,98 +565,114 @@ export default function ProspectsTabblad() {
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F0F3F1]">
-              {prospects.map((p) => (
-                <tr key={p.id} className="bg-white hover:bg-[#FFFFFF] transition-colors align-top">
-                  <td className="px-3 py-3 text-center">
-                    <input
-                      type="checkbox"
-                      checked={selectie.has(p.id)}
-                      onChange={() => wisselSelectie(p.id)}
-                    />
-                  </td>
-                  <td className="px-3 py-3">
-                    <div className="flex flex-col gap-1">
+              {gefilterd.map((p) => {
+                const bezig = bezigIds.has(p.id);
+                const naamWeergave = naamEdits[p.id] ?? p.naam;
+                const naamOntbreekt = !naamWeergave.trim();
+                const doelgroepOntbreekt = !p.doelgroep;
+                return (
+                  <tr key={p.id} className="bg-white hover:bg-[#FFFFFF] transition-colors align-top">
+                    <td className="px-3 py-3 text-center">
+                      <input
+                        type="checkbox"
+                        checked={selectie.has(p.id)}
+                        onChange={() => wisselSelectie(p.id)}
+                      />
+                    </td>
+                    <td className="px-3 py-3">
                       <button
                         onClick={() => keurRijGoed(p)}
-                        disabled={reviewBezig}
+                        disabled={bezig || doelgroepOntbreekt}
+                        title={doelgroepOntbreekt ? "Kies eerst een doelgroep" : undefined}
                         className="text-xs bg-primary text-white px-3 py-1.5 rounded hover:bg-primary/90 disabled:opacity-50 whitespace-nowrap"
                       >
-                        Goedkeuren
+                        {bezig ? "Bezig…" : "Goedkeuren"}
                       </button>
+                      {rowFouten[p.id] && (
+                        <p className="text-[10px] text-red-600 mt-1 max-w-[140px]">{rowFouten[p.id]}</p>
+                      )}
+                    </td>
+                    <td className="px-3 py-3">
                       <button
                         onClick={() => review([p.id], "afwijzen")}
-                        disabled={reviewBezig}
-                        className="text-xs text-red-400 hover:text-red-600"
+                        disabled={bezig}
+                        className="text-xs px-3 py-1.5 rounded border border-red-200 text-red-500 hover:bg-red-50 disabled:opacity-50 whitespace-nowrap"
                       >
-                        Afwijzen
+                        {bezig ? "Bezig…" : "Afwijzen"}
                       </button>
-                    </div>
-                  </td>
-                  <td className="px-4 py-3">
-                    <input
-                      type="text"
-                      value={naamEdits[p.id] ?? p.naam}
-                      onChange={(e) => setNaamEdits((m) => ({ ...m, [p.id]: e.target.value }))}
-                      onBlur={(e) => {
-                        const nieuw = e.target.value.trim();
-                        if (nieuw && nieuw !== p.naam) werkBij(p.id, { naam: nieuw });
-                      }}
-                      title="Klik om de naam te corrigeren"
-                      className="w-full font-medium text-primary bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"
-                    />
-                    {p.praktijk && (
-                      <p className="text-xs text-text-muted mt-0.5 truncate">{p.praktijk}</p>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-text-muted break-all">{p.email}</td>
-                  <td className="px-4 py-3">
-                    {p.website && (
-                      <a
-                        href={p.website}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-[#0B7A6E] hover:underline text-xs break-all"
+                    </td>
+                    <td className="px-4 py-3">
+                      <input
+                        type="text"
+                        value={naamWeergave}
+                        onChange={(e) => setNaamEdits((m) => ({ ...m, [p.id]: e.target.value }))}
+                        onBlur={(e) => {
+                          const nieuw = e.target.value.trim();
+                          if (nieuw && nieuw !== p.naam) werkBij(p.id, { naam: nieuw });
+                        }}
+                        placeholder="Naam ontbreekt"
+                        title="Klik om de naam te corrigeren"
+                        className={`w-full font-medium bg-[#FFFFFF] border rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm ${
+                          naamOntbreekt ? "border-amber-300 text-amber-700 placeholder:text-amber-500" : "border-[#E6E9E7] text-primary"
+                        }`}
+                      />
+                      {p.praktijk && (
+                        <p className="text-xs text-text-muted mt-0.5 truncate">{p.praktijk}</p>
+                      )}
+                    </td>
+                    <td className="px-4 py-3 text-text-muted break-all">{p.email}</td>
+                    <td className="px-4 py-3">
+                      {p.website && (
+                        <a
+                          href={p.website}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-[#0B7A6E] hover:underline text-xs break-all"
+                        >
+                          {p.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
+                        </a>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      <select
+                        value={p.doelgroep ?? ""}
+                        onChange={(e) => werkBij(p.id, { doelgroep: e.target.value })}
+                        className={`text-xs font-medium px-2 py-1 rounded-full border-0 cursor-pointer ${
+                          p.doelgroep ? (DOELGROEP_KLEUR[p.doelgroep] ?? "bg-gray-100 text-gray-600") : "bg-amber-50 text-amber-700"
+                        }`}
                       >
-                        {p.website.replace(/^https?:\/\/(www\.)?/, "").replace(/\/$/, "")}
-                      </a>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    <select
-                      value={p.doelgroep}
-                      onChange={(e) => werkBij(p.id, { doelgroep: e.target.value })}
-                      className={`text-xs font-medium px-2 py-1 rounded-full border-0 cursor-pointer ${DOELGROEP_STYLE[p.doelgroep] ?? "bg-gray-100 text-gray-600"}`}
-                    >
-                      {DOELGROEPEN.map((d) => (
-                        <option key={d.value} value={d.value}>{d.label}</option>
-                      ))}
-                    </select>
-                    {p.doelgroep_score === 0 && (
-                      <p className="text-[10px] text-amber-600 mt-1">Niet herkend, controleer</p>
-                    )}
-                  </td>
-                  <td className="px-4 py-3">
-                    <input
-                      type="text"
-                      value={plaatsEdits[p.id] ?? p.plaats ?? ""}
-                      onChange={(e) => setPlaatsEdits((m) => ({ ...m, [p.id]: e.target.value }))}
-                      onBlur={(e) => {
-                        const nieuw = e.target.value.trim();
-                        if (nieuw !== (p.plaats ?? "")) werkBij(p.id, { plaats: nieuw });
-                      }}
-                      placeholder="&#8212;"
-                      title="Vestigingsplaats; komt in de mail als regio-zin"
-                      className="w-full text-text-soft bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
-                    />
-                  </td>
-                  <td className="px-4 py-3 text-xs text-text-muted whitespace-nowrap">
-                    {new Date(p.created_at).toLocaleDateString("nl-NL", { day: "2-digit", month: "2-digit" })}
-                  </td>
-                  <td className="px-4 py-3 text-xs text-text-muted">
-                    <span className="line-clamp-2">{p.context ?? ""}</span>
-                  </td>
-                </tr>
-              ))}
+                        {!p.doelgroep && <option value="">Niet herkend, kies zelf</option>}
+                        {DOELGROEPEN.map((d) => (
+                          <option key={d.value} value={d.value}>{d.label}</option>
+                        ))}
+                      </select>
+                      {doelgroepOntbreekt && (
+                        <p className="text-[10px] text-amber-600 mt-1">Niet herkend, kies zelf</p>
+                      )}
+                    </td>
+                    <td className="px-4 py-3">
+                      <input
+                        type="text"
+                        value={plaatsEdits[p.id] ?? p.plaats ?? ""}
+                        onChange={(e) => setPlaatsEdits((m) => ({ ...m, [p.id]: e.target.value }))}
+                        onBlur={(e) => {
+                          const nieuw = e.target.value.trim();
+                          if (nieuw !== (p.plaats ?? "")) werkBij(p.id, { plaats: nieuw });
+                        }}
+                        placeholder="&#8212;"
+                        title="Vestigingsplaats; komt in de mail als regio-zin"
+                        className="w-full text-text-soft bg-[#FFFFFF] border border-[#E6E9E7] rounded px-2 py-1 focus:bg-white focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 text-xs"
+                      />
+                    </td>
+                    <td className="px-4 py-3 text-xs text-text-muted whitespace-nowrap">
+                      {new Date(p.created_at).toLocaleDateString("nl-NL", { day: "2-digit", month: "2-digit" })}
+                    </td>
+                    <td className="px-4 py-3 text-xs text-text-muted">
+                      <span className="line-clamp-2">{p.context ?? ""}</span>
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>
