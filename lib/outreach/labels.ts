@@ -1,7 +1,13 @@
-// Gedeelde labels en kleuren voor de outreach-CRM: doelgroep, reactie en de
-// samengestelde statusweergave. Eerst alleen in OutreachTabblad.tsx, nu
-// gedeeld met OutreachDetailpaneel.tsx zodat kleur en label op een plek
-// staan (zie docs/admin-redesign-30-jul-2026.md sectie 3, "eenmaal bouwen").
+// Gedeelde labels, kleuren en werklijst-logica voor de outreach-CRM:
+// doelgroep, reactie, de samengestelde statusweergave en de indeling in de
+// vier werklijst-stapels (fase 2b, sectie 5a). Eerst alleen in
+// OutreachTabblad.tsx, nu gedeeld met OutreachDetailpaneel.tsx en
+// OutreachWerklijst.tsx zodat kleur, label en "is dit rijp voor een
+// follow-up" op een plek staan (zie docs/admin-redesign-30-jul-2026.md
+// sectie 3, "eenmaal bouwen").
+
+import { FOLLOWUP_WACHTDAGEN, MAX_FOLLOWUPS } from "@/lib/outreach/mails";
+import { OutreachContact } from "@/lib/outreach/types";
 
 export interface DoelgroepOptie {
   value: string;
@@ -76,4 +82,62 @@ export function statusWeergave(c: OutreachStatusVelden): StatusWeergave {
     return { label: "Verstuurd", variant: "actie" };
   }
   return { label: "Nieuw", variant: "neutraal" };
+}
+
+
+// ── Follow-up-geschiktheid en werklijst-stapels (fase 2b) ──────────────────
+// Zelfde regel als de send-route en de cron; hier alleen om knoppen te
+// tonen/verbergen en de werklijst in te delen, de server controleert dit
+// bij het versturen opnieuw.
+export function followupGeschikt(c: OutreachContact): boolean {
+  if (c.gestopt || c.archived_at) return false;
+  if (!["verstuurd", "geopend", "geklikt"].includes(c.status)) return false;
+  if ((c.followups ?? 0) >= MAX_FOLLOWUPS) return false;
+  const laatste = c.laatste_followup_at ?? c.verstuurd_at;
+  if (!laatste) return false;
+  return (Date.now() - new Date(laatste).getTime()) / 86400000 >= FOLLOWUP_WACHTDAGEN;
+}
+
+// Datum waarop een contact rijp wordt voor de volgende follow-up (null als
+// er nog geen eerste mail is verstuurd, dan is er niets om op te wachten).
+export function rijpeDatum(c: OutreachContact): Date | null {
+  const basis = (c.followups ?? 0) === 0 ? c.verstuurd_at : c.laatste_followup_at;
+  if (!basis) return null;
+  const d = new Date(basis);
+  d.setDate(d.getDate() + FOLLOWUP_WACHTDAGEN);
+  return d;
+}
+
+export interface WerklijstStapels {
+  gereageerd: OutreachContact[];
+  followupRijp: OutreachContact[];
+  klaarOmTeVersturen: OutreachContact[];
+  wachten: OutreachContact[];
+}
+
+/**
+ * Verdeelt actieve (niet gearchiveerd, niet gestopt, niet bounced) contacten
+ * in de vier werklijst-stapels uit sectie 5a, in de volgorde waarin ze
+ * afgehandeld worden. "Gereageerd" is expliciet de handmatig gezette status
+ * (er is geen mailintegratie): status 'gereageerd' zonder reactie-classificatie
+ * is nog niet afgehandeld, zodra er een classificatie staat verdwijnt het
+ * contact uit deze stapel (blijft wel zichtbaar in Alle contacten).
+ */
+export function verdeelInStapels(contacten: OutreachContact[]): WerklijstStapels {
+  const actief = contacten.filter((c) => !c.archived_at && !c.gestopt && c.status !== "bounced");
+
+  const gereageerd = actief.filter((c) => c.status === "gereageerd" && !c.reactie);
+  const followupRijp = actief.filter(followupGeschikt);
+  const klaarOmTeVersturen = actief.filter((c) => c.status === "nieuw");
+
+  const uitgesloten = new Set([
+    ...gereageerd.map((c) => c.id),
+    ...followupRijp.map((c) => c.id),
+    ...klaarOmTeVersturen.map((c) => c.id),
+  ]);
+  const wachten = actief.filter(
+    (c) => !uitgesloten.has(c.id) && ["verstuurd", "geopend", "geklikt"].includes(c.status)
+  );
+
+  return { gereageerd, followupRijp, klaarOmTeVersturen, wachten };
 }

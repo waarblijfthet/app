@@ -160,25 +160,36 @@ export async function POST(req: NextRequest) {
 }
 
 // PATCH /api/admin/outreach — naam, e-mail, categorie of persoonlijke zin wijzigen,
-// een reply markeren (met reactie-classificatie), of automatische mails stoppen/hervatten.
-// Body: { id: string, naam?: string, email?: string, doelgroep?: string,
-//         ps_zin?: string, gereageerd?: boolean, reactie?: 'positief'|'neutraal'|'negatief',
-//         gestopt?: boolean }
+// een reply markeren (met reactie-classificatie), automatische mails stoppen/hervatten,
+// of archiveren. Werkt op een enkel contact (id) of in bulk (ids), zie sectie 5b/5d.
+// Body: { id?: string, ids?: string[], naam?: string, email?: string, doelgroep?: string,
+//         ps_zin?: string, plaats?: string, gereageerd?: boolean,
+//         reactie?: 'positief'|'neutraal'|'negatief'|null, gestopt?: boolean,
+//         archiveren?: boolean }
+// naam/email worden genegeerd zodra er meer dan 1 id is (bulk mag nooit alle
+// geselecteerde contacten dezelfde naam of hetzelfde e-mailadres geven).
 export async function PATCH(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { id, naam, email, doelgroep, ps_zin, plaats, gereageerd, reactie, gestopt } = await req.json();
-  if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
+  const body = await req.json();
+  const { id, ids: idsBody, naam, email, doelgroep, ps_zin, plaats, gereageerd, reactie, gestopt, archiveren } = body;
+
+  const ids: string[] = Array.isArray(idsBody) && idsBody.length > 0 ? idsBody : (id ? [id] : []);
+  if (ids.length === 0) return NextResponse.json({ error: "id(s) ontbreken" }, { status: 400 });
+  const isBulk = ids.length > 1;
 
   const update: {
     naam?: string; email?: string; doelgroep?: string;
     ps_zin?: string | null; plaats?: string | null; status?: string; gereageerd_at?: string;
     reactie?: string | null; gestopt?: boolean; gestopt_at?: string | null;
+    archived_at?: string | null;
   } = {};
-  if (typeof naam === "string" && naam.trim()) update.naam = naam.trim();
-  if (typeof email === "string" && email.trim()) update.email = email.trim();
+  if (!isBulk) {
+    if (typeof naam === "string" && naam.trim()) update.naam = naam.trim();
+    if (typeof email === "string" && email.trim()) update.email = email.trim();
+  }
   if (typeof doelgroep === "string" && doelgroep.trim()) update.doelgroep = doelgroep.trim();
   if (typeof ps_zin === "string") update.ps_zin = ps_zin.trim() || null;
   if (typeof plaats === "string") update.plaats = plaats.trim() || null;
@@ -195,41 +206,82 @@ export async function PATCH(req: NextRequest) {
     update.gestopt = gestopt;
     update.gestopt_at = gestopt ? new Date().toISOString() : null;
   }
+  if (typeof archiveren === "boolean") {
+    update.archived_at = archiveren ? new Date().toISOString() : null;
+  }
   if (Object.keys(update).length === 0) {
     return NextResponse.json({ error: "niets om bij te werken" }, { status: 400 });
+  }
+
+  if (!isBulk) {
+    const { data, error } = await supabase
+      .from("outreach_contacts")
+      .update(update)
+      .eq("id", ids[0])
+      .select()
+      .single();
+
+    if (error) {
+      if (error.code === "23505") {
+        return NextResponse.json({ error: "Dit e-mailadres staat er al in" }, { status: 409 });
+      }
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+    return NextResponse.json(data);
   }
 
   const { data, error } = await supabase
     .from("outreach_contacts")
     .update(update)
-    .eq("id", id)
-    .select()
-    .single();
+    .in("id", ids)
+    .select();
 
-  if (error) {
-    if (error.code === "23505") {
-      return NextResponse.json({ error: "Dit e-mailadres staat er al in" }, { status: 409 });
-    }
-    return NextResponse.json({ error: error.message }, { status: 500 });
-  }
-  return NextResponse.json(data);
+  if (error) return NextResponse.json({ error: error.message }, { status: 500 });
+  return NextResponse.json({ ok: true, bijgewerkt: data?.length ?? ids.length });
 }
 
-// DELETE /api/admin/outreach?id=xxx — contact verwijderen
+// DELETE /api/admin/outreach — contact(en) verwijderen (hard delete)
+// Query: ?id=xxx (enkel, bestaand gedrag) of body { ids: string[], blocklist?: boolean }.
+// blocklist is standaard aan: het/de e-mailadres(sen) gaat/gaan naar email_blocklist
+// voordat de rij(en) verdwijnen, zodat de prospect-zoeker dezelfde persoon niet
+// later opnieuw aandraagt (zie docs/admin-redesign-30-jul-2026.md sectie 4).
 export async function DELETE(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const id = req.nextUrl.searchParams.get("id");
 
-  if (!id) return NextResponse.json({ error: "id ontbreekt" }, { status: 400 });
+  let ids: string[] = [];
+  let blocklist = true;
+  const queryId = req.nextUrl.searchParams.get("id");
+  if (queryId) {
+    ids = [queryId];
+  } else {
+    const body = await req.json().catch(() => ({} as Record<string, unknown>));
+    if (Array.isArray(body.ids)) ids = body.ids as string[];
+    if (typeof body.blocklist === "boolean") blocklist = body.blocklist;
+  }
+  if (ids.length === 0) return NextResponse.json({ error: "id(s) ontbreken" }, { status: 400 });
+
+  if (blocklist) {
+    const { data: contacten } = await supabase
+      .from("outreach_contacts")
+      .select("email")
+      .in("id", ids);
+    const emails = (contacten ?? []).map((c) => c.email as string);
+    if (emails.length > 0) {
+      await supabase.from("email_blocklist").upsert(
+        emails.map((email) => ({ email, reden: "handmatig", notitie: "Verwijderd uit outreach" })),
+        { onConflict: "email", ignoreDuplicates: true }
+      );
+    }
+  }
 
   const { error } = await supabase
     .from("outreach_contacts")
     .delete()
-    .eq("id", id);
+    .in("id", ids);
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, verwijderd: ids.length });
 }

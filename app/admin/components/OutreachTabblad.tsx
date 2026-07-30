@@ -3,14 +3,18 @@
 import { useEffect, useState, useCallback, useRef } from "react";
 import DataTabel, { DataTabelKolom } from "@/app/admin/ui/DataTabel";
 import Badge from "@/app/admin/ui/Badge";
+import SelectieBalk from "@/app/admin/ui/SelectieBalk";
 import OutreachDetailpaneel from "./OutreachDetailpaneel";
+import OutreachWerklijst from "./OutreachWerklijst";
+import OutreachPsZinModus from "./OutreachPsZinModus";
+import OutreachBulkModal, { BulkModalType } from "./OutreachBulkModal";
 import {
   DOELGROEPEN,
   DOELGROEP_LABEL,
   DOELGROEP_KLEUR,
   statusWeergave,
+  followupGeschikt,
 } from "@/lib/outreach/labels";
-import { FOLLOWUP_WACHTDAGEN, MAX_FOLLOWUPS } from "@/lib/outreach/mails";
 import { OutreachContact, OutreachMail } from "@/lib/outreach/types";
 
 interface PreviewItem {
@@ -24,6 +28,14 @@ interface PreviewItem {
   text: string;
   heeftPsZin: boolean;
 }
+
+interface WeekBudget {
+  verstuurd: number;
+  budget: number;
+  resterend: number;
+}
+
+type Weergave = "werklijst" | "tabel" | "pszin";
 
 const PAGINAGROOTTE = 50;
 
@@ -44,18 +56,6 @@ const VOORTGANG_OPTIES = [
   { value: "wacht-m3", label: "Wacht op mail 3" },
   { value: "compleet", label: "Alle mails verstuurd" },
 ];
-
-// Komt een contact in aanmerking voor een follow-up? Zelfde regel als de
-// send-route en de cron (client-side alleen om de knop te tonen/verbergen,
-// de server controleert dit opnieuw).
-function followupGeschikt(c: OutreachContact): boolean {
-  if (c.gestopt || c.archived_at) return false;
-  if (!["verstuurd", "geopend", "geklikt"].includes(c.status)) return false;
-  if ((c.followups ?? 0) >= MAX_FOLLOWUPS) return false;
-  const laatste = c.laatste_followup_at ?? c.verstuurd_at;
-  if (!laatste) return false;
-  return (Date.now() - new Date(laatste).getTime()) / 86400000 >= FOLLOWUP_WACHTDAGEN;
-}
 
 function datumKort(iso: string | null): string {
   if (!iso) return "";
@@ -105,6 +105,9 @@ function Voortgang({ mails }: { mails: OutreachMail[] | undefined }) {
 }
 
 export default function OutreachTabblad() {
+  const [weergave, setWeergave] = useState<Weergave>("werklijst");
+  const [werklijstVersie, setWerklijstVersie] = useState(0);
+
   const [contacten, setContacten] = useState<OutreachContact[]>([]);
   const [mailsPerContact, setMailsPerContact] = useState<Record<string, OutreachMail[]>>({});
   const [totaal, setTotaal] = useState(0);
@@ -146,6 +149,15 @@ export default function OutreachTabblad() {
   const [previewGeselecteerd, setPreviewGeselecteerd] = useState(0);
   const [previewVerzenden, setPreviewVerzenden] = useState(false);
 
+  // Weekbudget: los van de geselecteerde weergave, want de preview-modal
+  // (gedeeld door werklijst en tabel) moet altijd kunnen waarschuwen.
+  const [budget, setBudget] = useState<WeekBudget | null>(null);
+
+  // Bulkacties: doelgroep/plaats-wijzigen en verwijderen hebben invoer nodig,
+  // vandaar het gedeelde modal. Stop mails en archiveren gaan direct.
+  const [bulkModal, setBulkModal] = useState<{ type: BulkModalType; ids: string[] } | null>(null);
+  const [bulkBezig, setBulkBezig] = useState(false);
+
   // Nieuw contact form
   const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
@@ -176,7 +188,24 @@ export default function OutreachTabblad() {
     }
   }, [pagina, filterContact, filterPlaats, filterDoelgroep, filterStatus]);
 
-  useEffect(() => { laadContacten(); }, [laadContacten]);
+  useEffect(() => { if (weergave === "tabel") laadContacten(); }, [weergave, laadContacten]);
+
+  const laadBudget = useCallback(async () => {
+    try {
+      const res = await fetch("/api/admin/outreach/weekbudget");
+      const data = await res.json();
+      if (res.ok) setBudget(data);
+    } catch {
+      // Stil falen: het weekbudget is een richtgetal, geen blokkade.
+    }
+  }, []);
+
+  useEffect(() => { laadBudget(); }, [laadBudget]);
+
+  function toonMelding(tekst: string) {
+    setMelding(tekst);
+    setTimeout(() => setMelding(null), 4000);
+  }
 
   async function voegToe(e: React.FormEvent) {
     e.preventDefault();
@@ -192,27 +221,10 @@ export default function OutreachTabblad() {
       if (!res.ok) { setFout(data.error); return; }
       setNaam(""); setEmail(""); setNieuwePlaats("");
       await laadContacten();
-      setMelding(`${naam} toegevoegd als ${DOELGROEP_LABEL[doelgroep]}.`);
-      setTimeout(() => setMelding(null), 3000);
+      toonMelding(`${naam} toegevoegd als ${DOELGROEP_LABEL[doelgroep]}.`);
     } finally {
       setToevoegen(false);
     }
-  }
-
-  async function verwijder(id: string, contactNaam: string) {
-    if (!confirm(`${contactNaam} verwijderen?`)) return;
-    try {
-      const res = await fetch(`/api/admin/outreach?id=${id}`, { method: "DELETE" });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) { setFout(data.error ?? `Verwijderen van ${contactNaam} is mislukt.`); return; }
-      if (detailId === id) setDetailId(null);
-      setMelding(`${contactNaam} verwijderd.`);
-      setTimeout(() => setMelding(null), 3000);
-    } catch {
-      setFout(`Verwijderen van ${contactNaam} is mislukt (netwerkfout).`);
-      return;
-    }
-    await laadContacten();
   }
 
   async function openPreview(ids: string[], type: "eerste" | "followup") {
@@ -255,18 +267,66 @@ export default function OutreachTabblad() {
       const data = await res.json();
       if (!res.ok) { setFout(data.error); return; }
       const geslaagd = data.resultaten?.filter((r: { ok: boolean }) => r.ok).length ?? 0;
-      setMelding(`${geslaagd} van ${ids.length} verstuurd.`);
+      toonMelding(`${geslaagd} van ${ids.length} verstuurd.`);
       setSelectie(new Set());
       setPreview(null);
-      await laadContacten();
+      setWerklijstVersie((v) => v + 1);
+      await Promise.all([laadContacten(), laadBudget()]);
     } finally {
       setPreviewVerzenden(false);
-      setTimeout(() => setMelding(null), 5000);
     }
   }
 
   function stuurFollowups(ids: string[]) {
     openPreview(ids, "followup");
+  }
+
+  // ── Bulkacties: doelgroep, plaats, stop mails, archiveren, verwijderen ────
+  async function bulkPatch(ids: string[], velden: Record<string, unknown>, meldingTekst: string) {
+    setBulkBezig(true);
+    setFout(null);
+    try {
+      const res = await fetch("/api/admin/outreach", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids, ...velden }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setFout(data.error ?? "Bijwerken is mislukt."); return; }
+      setSelectie(new Set());
+      setBulkModal(null);
+      toonMelding(meldingTekst);
+      setWerklijstVersie((v) => v + 1);
+      await laadContacten();
+    } catch {
+      setFout("Bijwerken is mislukt (netwerkfout).");
+    } finally {
+      setBulkBezig(false);
+    }
+  }
+
+  async function bulkVerwijderen(ids: string[], blocklist: boolean) {
+    setBulkBezig(true);
+    setFout(null);
+    try {
+      const res = await fetch("/api/admin/outreach", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids, blocklist }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) { setFout(data.error ?? "Verwijderen is mislukt."); return; }
+      setSelectie(new Set());
+      if (detailId && ids.includes(detailId)) setDetailId(null);
+      setBulkModal(null);
+      toonMelding(`${ids.length} contact${ids.length === 1 ? "" : "en"} verwijderd.`);
+      setWerklijstVersie((v) => v + 1);
+      await laadContacten();
+    } catch {
+      setFout("Verwijderen is mislukt (netwerkfout).");
+    } finally {
+      setBulkBezig(false);
+    }
   }
 
   // Client-side voortgangsfilter, alleen binnen de geladen pagina (zie
@@ -276,9 +336,6 @@ export default function OutreachTabblad() {
     : contacten.filter((c) => voortgangStaat(mailsPerContact[c.id]) === filterVoortgang);
 
   const nieuweCount = zichtbareContacten.filter((c) => c.status === "nieuw").length;
-  const geselecteerdeNieuw = zichtbareContacten.filter((c) => selectie.has(c.id) && c.status === "nieuw").length;
-  const followupKandidaten = zichtbareContacten.filter(followupGeschikt);
-  const geselecteerdeFollowups = followupKandidaten.filter((c) => selectie.has(c.id));
 
   const kolommen: DataTabelKolom<OutreachContact>[] = [
     {
@@ -353,7 +410,7 @@ export default function OutreachTabblad() {
             </button>
           )}
           <button
-            onClick={() => verwijder(c.id, c.naam)}
+            onClick={() => setBulkModal({ type: "verwijderen", ids: [c.id] })}
             className="text-xs text-red-400 hover:text-red-600 px-2 py-1"
           >
             Verwijder
@@ -363,173 +420,196 @@ export default function OutreachTabblad() {
     },
   ];
 
+  const selectieArray = Array.from(selectie);
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between flex-wrap gap-3">
         <div>
           <h2 className="font-display text-xl font-semibold text-primary">Outreach</h2>
-          <p className="text-text-muted text-sm mt-0.5">
-            {totaal} contacten &middot; {nieuweCount} op deze pagina nog niet verstuurd
-          </p>
           <p className="text-text-muted text-xs mt-1">
             Mail 2 en 3 gaan vanzelf (dag 3-4 en dag 8-9, elke ochtend via de cron). Handmatig kan altijd eerder.
           </p>
         </div>
-      </div>
-
-      {/* Tijdelijke werkbalk: fase 2a bouwt de tabel en het detailpaneel, de
-          werklijst en de selectiebalk uit sectie 5a/5b komen in fase 2b.
-          Tot die tijd staan de bestaande verzendacties hier. */}
-      <div className="card-base p-4 space-y-3">
-        <p className="text-[11px] text-text-muted uppercase tracking-wide">Werkbalk, tijdelijk tot fase 2b</p>
-        <div className="flex flex-wrap gap-2">
-          {geselecteerdeNieuw > 0 && (
+        <div className="flex gap-1 bg-[#F0F3F1] rounded-lg p-1">
+          {([
+            { key: "werklijst", label: "Werklijst" },
+            { key: "tabel", label: "Alle contacten" },
+          ] as { key: Weergave; label: string }[]).map((o) => (
             <button
-              onClick={() => openPreview(zichtbareContacten.filter((c) => selectie.has(c.id) && c.status === "nieuw").map((c) => c.id), "eerste")}
-              disabled={previewLaden}
-              className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
+              key={o.key}
+              onClick={() => setWeergave(o.key)}
+              className={`text-sm px-3 py-1.5 rounded-md transition-colors ${
+                weergave === o.key || (weergave === "pszin" && o.key === "werklijst")
+                  ? "bg-white text-primary shadow-sm"
+                  : "text-text-soft hover:text-primary"
+              }`}
             >
-              {previewLaden ? "Laden..." : `Verstuur geselecteerde (${geselecteerdeNieuw})`}
+              {o.label}
             </button>
-          )}
-          {nieuweCount > 0 && geselecteerdeNieuw === 0 && (
-            <button
-              onClick={() => openPreview(zichtbareContacten.filter((c) => c.status === "nieuw").map((c) => c.id), "eerste")}
-              disabled={previewLaden}
-              className="btn-primary text-sm px-4 py-2 disabled:opacity-50"
-            >
-              {previewLaden ? "Laden..." : `Verstuur nieuwe op deze pagina (${nieuweCount})`}
-            </button>
-          )}
-          {followupKandidaten.length > 0 && (
-            <button
-              onClick={() => stuurFollowups((geselecteerdeFollowups.length > 0 ? geselecteerdeFollowups : followupKandidaten).map((c) => c.id))}
-              disabled={previewLaden}
-              className="text-sm px-4 py-2 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
-            >
-              {geselecteerdeFollowups.length > 0 ? `Follow-up geselecteerde (${geselecteerdeFollowups.length})` : `Verstuur follow-ups (${followupKandidaten.length})`}
-            </button>
-          )}
+          ))}
         </div>
       </div>
-
-      {/* Per-kolom filters */}
-      <div className="flex flex-wrap gap-2 items-center">
-        <input
-          type="text"
-          value={filterContactInvoer}
-          onChange={(e) => setFilterContactInvoer(e.target.value)}
-          placeholder="Zoek naam of e-mail"
-          className="text-xs px-3 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft w-48"
-        />
-        {[{ value: "alle", label: "Alle doelgroepen" }, ...DOELGROEPEN].map((d) => (
-          <button
-            key={d.value}
-            onClick={() => { setFilterDoelgroep(d.value); setPagina(0); }}
-            className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
-              filterDoelgroep === d.value ? "bg-primary text-white border-primary" : "bg-white text-text-soft border-[#E6E9E7] hover:border-primary"
-            }`}
-          >
-            {d.label}
-          </button>
-        ))}
-        <input
-          type="text"
-          value={filterPlaatsInvoer}
-          onChange={(e) => setFilterPlaatsInvoer(e.target.value)}
-          placeholder="Plaats"
-          className="text-xs px-3 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft w-32"
-        />
-        <select
-          value={filterVoortgang}
-          onChange={(e) => setFilterVoortgang(e.target.value)}
-          className="text-xs px-2 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft"
-        >
-          {VOORTGANG_OPTIES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-        <select
-          value={filterStatus}
-          onChange={(e) => { setFilterStatus(e.target.value); setPagina(0); }}
-          className="text-xs px-2 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft"
-        >
-          {STATUSWEERGAVE_OPTIES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
-        </select>
-      </div>
-      <p className="text-[11px] text-text-muted -mt-4">
-        Naam/e-mail, plaats, doelgroep en status filteren over alle contacten. Voortgang filtert alleen binnen de geladen pagina.
-      </p>
-
-      {/* Nieuw contact toevoegen */}
-      <form onSubmit={voegToe} className="card-base p-4 flex flex-col sm:flex-row gap-3 items-end">
-        <div className="flex-1">
-          <label className="block text-xs text-text-muted mb-1">Naam</label>
-          <input type="text" value={naam} onChange={(e) => setNaam(e.target.value)} placeholder="Sofie de Visser" required
-            className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-        </div>
-        <div className="flex-1">
-          <label className="block text-xs text-text-muted mb-1">E-mailadres</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="sofie@praktijk.nl" required
-            className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-        </div>
-        <div className="w-full sm:w-36">
-          <label className="block text-xs text-text-muted mb-1">Plaats (optioneel)</label>
-          <input type="text" value={nieuwePlaats} onChange={(e) => setNieuwePlaats(e.target.value)} placeholder="Zwolle"
-            className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
-        </div>
-        <div className="w-full sm:w-48">
-          <label className="block text-xs text-text-muted mb-1">Categorie</label>
-          <select value={doelgroep} onChange={(e) => setDoelgroep(e.target.value)}
-            className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white">
-            {DOELGROEPEN.map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
-          </select>
-        </div>
-        <button type="submit" disabled={toevoegen} className="btn-primary text-sm px-4 py-2 whitespace-nowrap disabled:opacity-50">
-          {toevoegen ? "Toevoegen..." : "+ Toevoegen"}
-        </button>
-      </form>
 
       {fout && <div className="bg-danger-bg text-danger text-sm rounded-md px-4 py-3">{fout}</div>}
       {melding && <div className="bg-success-bg text-success text-sm rounded-md px-4 py-3">{melding}</div>}
 
-      <DataTabel
-        data={zichtbareContacten}
-        kolommen={kolommen}
-        rijSleutel={(c) => c.id}
-        selecteerbaar
-        geselecteerd={selectie}
-        onSelectieChange={setSelectie}
-        laden={laden}
-        legeStaatTitel="Geen contacten gevonden"
-        legeStaatUitleg="Pas de filters aan of voeg een nieuw contact toe."
-        onRijKlik={(c) => setDetailId(c.id)}
-      />
+      {weergave === "werklijst" && (
+        <OutreachWerklijst
+          onOpenContact={(id) => setDetailId(id)}
+          onVersturenPreview={openPreview}
+          onPsZinModus={() => setWeergave("pszin")}
+          verversTeller={werklijstVersie}
+        />
+      )}
 
-      {/* Paginering */}
-      <div className="flex items-center justify-between text-sm text-text-muted">
-        <button
-          onClick={() => setPagina((p) => Math.max(0, p - 1))}
-          disabled={pagina === 0}
-          className="px-3 py-1.5 rounded-md border border-[#E6E9E7] disabled:opacity-40"
-        >
-          Vorige
-        </button>
-        <span>
-          {totaal === 0 ? "0 van 0" : `${pagina * PAGINAGROOTTE + 1} tot ${Math.min(totaal, (pagina + 1) * PAGINAGROOTTE)} van ${totaal}`}
-        </span>
-        <button
-          onClick={() => setPagina((p) => ((p + 1) * PAGINAGROOTTE < totaal ? p + 1 : p))}
-          disabled={(pagina + 1) * PAGINAGROOTTE >= totaal}
-          className="px-3 py-1.5 rounded-md border border-[#E6E9E7] disabled:opacity-40"
-        >
-          Volgende
-        </button>
-      </div>
+      {weergave === "pszin" && (
+        <OutreachPsZinModus onSluiten={() => setWeergave("werklijst")} />
+      )}
+
+      {weergave === "tabel" && (
+        <>
+          {/* Per-kolom filters */}
+          <div className="flex flex-wrap gap-2 items-center">
+            <input
+              type="text"
+              value={filterContactInvoer}
+              onChange={(e) => setFilterContactInvoer(e.target.value)}
+              placeholder="Zoek naam of e-mail"
+              className="text-xs px-3 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft w-48"
+            />
+            {[{ value: "alle", label: "Alle doelgroepen" }, ...DOELGROEPEN].map((d) => (
+              <button
+                key={d.value}
+                onClick={() => { setFilterDoelgroep(d.value); setPagina(0); }}
+                className={`text-xs px-3 py-1.5 rounded-full border transition-all ${
+                  filterDoelgroep === d.value ? "bg-primary text-white border-primary" : "bg-white text-text-soft border-[#E6E9E7] hover:border-primary"
+                }`}
+              >
+                {d.label}
+              </button>
+            ))}
+            <input
+              type="text"
+              value={filterPlaatsInvoer}
+              onChange={(e) => setFilterPlaatsInvoer(e.target.value)}
+              placeholder="Plaats"
+              className="text-xs px-3 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft w-32"
+            />
+            <select
+              value={filterVoortgang}
+              onChange={(e) => setFilterVoortgang(e.target.value)}
+              className="text-xs px-2 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft"
+            >
+              {VOORTGANG_OPTIES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+            <select
+              value={filterStatus}
+              onChange={(e) => { setFilterStatus(e.target.value); setPagina(0); }}
+              className="text-xs px-2 py-1.5 rounded-full border border-[#E6E9E7] bg-white text-text-soft"
+            >
+              {STATUSWEERGAVE_OPTIES.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
+            </select>
+          </div>
+          <p className="text-[11px] text-text-muted -mt-4">
+            {totaal} contacten &middot; {nieuweCount} op deze pagina nog niet verstuurd. Naam/e-mail, plaats, doelgroep
+            en status filteren over alle contacten. Voortgang filtert alleen binnen de geladen pagina.
+          </p>
+
+          {/* Nieuw contact toevoegen */}
+          <form onSubmit={voegToe} className="card-base p-4 flex flex-col sm:flex-row gap-3 items-end">
+            <div className="flex-1">
+              <label className="block text-xs text-text-muted mb-1">Naam</label>
+              <input type="text" value={naam} onChange={(e) => setNaam(e.target.value)} placeholder="Sofie de Visser" required
+                className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            </div>
+            <div className="flex-1">
+              <label className="block text-xs text-text-muted mb-1">E-mailadres</label>
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="sofie@praktijk.nl" required
+                className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            </div>
+            <div className="w-full sm:w-36">
+              <label className="block text-xs text-text-muted mb-1">Plaats (optioneel)</label>
+              <input type="text" value={nieuwePlaats} onChange={(e) => setNieuwePlaats(e.target.value)} placeholder="Zwolle"
+                className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30" />
+            </div>
+            <div className="w-full sm:w-48">
+              <label className="block text-xs text-text-muted mb-1">Categorie</label>
+              <select value={doelgroep} onChange={(e) => setDoelgroep(e.target.value)}
+                className="w-full border border-[#E6E9E7] rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 bg-white">
+                {DOELGROEPEN.map((d) => <option key={d.value} value={d.value}>{d.label}</option>)}
+              </select>
+            </div>
+            <button type="submit" disabled={toevoegen} className="btn-primary text-sm px-4 py-2 whitespace-nowrap disabled:opacity-50">
+              {toevoegen ? "Toevoegen..." : "+ Toevoegen"}
+            </button>
+          </form>
+
+          <DataTabel
+            data={zichtbareContacten}
+            kolommen={kolommen}
+            rijSleutel={(c) => c.id}
+            selecteerbaar
+            geselecteerd={selectie}
+            onSelectieChange={setSelectie}
+            laden={laden}
+            legeStaatTitel="Geen contacten gevonden"
+            legeStaatUitleg="Pas de filters aan of voeg een nieuw contact toe."
+            onRijKlik={(c) => setDetailId(c.id)}
+          />
+
+          {/* Paginering */}
+          <div className="flex items-center justify-between text-sm text-text-muted">
+            <button
+              onClick={() => setPagina((p) => Math.max(0, p - 1))}
+              disabled={pagina === 0}
+              className="px-3 py-1.5 rounded-md border border-[#E6E9E7] disabled:opacity-40"
+            >
+              Vorige
+            </button>
+            <span>
+              {totaal === 0 ? "0 van 0" : `${pagina * PAGINAGROOTTE + 1} tot ${Math.min(totaal, (pagina + 1) * PAGINAGROOTTE)} van ${totaal}`}
+            </span>
+            <button
+              onClick={() => setPagina((p) => ((p + 1) * PAGINAGROOTTE < totaal ? p + 1 : p))}
+              disabled={(pagina + 1) * PAGINAGROOTTE >= totaal}
+              className="px-3 py-1.5 rounded-md border border-[#E6E9E7] disabled:opacity-40"
+            >
+              Volgende
+            </button>
+          </div>
+
+          <SelectieBalk
+            aantal={selectie.size}
+            onWissen={() => setSelectie(new Set())}
+            acties={[
+              { label: "Mail 1 versturen", onClick: () => openPreview(selectieArray, "eerste") },
+              { label: "Follow-up versturen", onClick: () => stuurFollowups(selectieArray) },
+              { label: "Doelgroep wijzigen", onClick: () => setBulkModal({ type: "doelgroep", ids: selectieArray }) },
+              { label: "Plaats wijzigen", onClick: () => setBulkModal({ type: "plaats", ids: selectieArray }) },
+              { label: "Stop mails", onClick: () => bulkPatch(selectieArray, { gestopt: true }, `${selectieArray.length} contact${selectieArray.length === 1 ? "" : "en"} gestopt.`) },
+              { label: "Archiveren", onClick: () => bulkPatch(selectieArray, { archiveren: true }, `${selectieArray.length} contact${selectieArray.length === 1 ? "" : "en"} gearchiveerd.`) },
+              { label: "Verwijderen", onClick: () => setBulkModal({ type: "verwijderen", ids: selectieArray }), variant: "gevaarlijk" },
+            ]}
+          />
+        </>
+      )}
 
       <OutreachDetailpaneel
         contactId={detailId}
         onClose={() => setDetailId(null)}
-        onWijziging={laadContacten}
+        onWijziging={() => { laadContacten(); setWerklijstVersie((v) => v + 1); }}
         onFollowupVersturen={(id) => stuurFollowups([id])}
+      />
+
+      <OutreachBulkModal
+        type={bulkModal?.type ?? null}
+        aantal={bulkModal?.ids.length ?? 0}
+        bezig={bulkBezig}
+        onSluiten={() => setBulkModal(null)}
+        onDoelgroep={(doelgroepWaarde) => bulkModal && bulkPatch(bulkModal.ids, { doelgroep: doelgroepWaarde }, `Doelgroep gewijzigd voor ${bulkModal.ids.length} contact${bulkModal.ids.length === 1 ? "" : "en"}.`)}
+        onPlaats={(plaatsWaarde) => bulkModal && bulkPatch(bulkModal.ids, { plaats: plaatsWaarde }, `Plaats gewijzigd voor ${bulkModal.ids.length} contact${bulkModal.ids.length === 1 ? "" : "en"}.`)}
+        onVerwijderen={(blocklist) => bulkModal && bulkVerwijderen(bulkModal.ids, blocklist)}
       />
 
       {/* Verzend-preview: wie krijgt wat, inclusief volledige mailtekst */}
@@ -592,6 +672,11 @@ export default function OutreachTabblad() {
               <div className="text-xs text-text-muted">
                 {preview.type === "eerste" && preview.items.some((i) => !i.heeftPsZin) && (
                   <span className="text-amber-600">Let op: {preview.items.filter((i) => !i.heeftPsZin).length} zonder persoonlijke zin. </span>
+                )}
+                {preview.type === "eerste" && budget && preview.items.length > budget.resterend && (
+                  <span className="text-amber-600">
+                    Let op: dit is meer dan het weekbudget (nog {budget.resterend} van {budget.budget} deze week, {budget.verstuurd} al verstuurd). Je kunt dit overrulen.{" "}
+                  </span>
                 )}
                 {preview.overgeslagen.length > 0 && (
                   <span>Overgeslagen: {preview.overgeslagen.map((o) => `${o.naam} (${o.reden})`).join(", ")}</span>

@@ -8,8 +8,9 @@ import {
   REACTIE_LABEL,
   REACTIE_VARIANT,
   Reactie,
+  rijpeDatum,
 } from "@/lib/outreach/labels";
-import { FOLLOWUP_WACHTDAGEN, MAX_FOLLOWUPS } from "@/lib/outreach/mails";
+import { MAX_FOLLOWUPS } from "@/lib/outreach/mails";
 import { OutreachContact, OutreachMail, ContactNotitie } from "@/lib/outreach/types";
 
 interface Props {
@@ -38,12 +39,7 @@ function datumKort(iso: string | null): string {
   return new Date(iso).toLocaleDateString("nl-NL", { day: "2-digit", month: "2-digit", year: "numeric" });
 }
 
-function rijpOp(basis: string | null): string | null {
-  if (!basis) return null;
-  const d = new Date(basis);
-  d.setDate(d.getDate() + FOLLOWUP_WACHTDAGEN);
-  return datumKort(d.toISOString());
-}
+
 
 /**
  * Detail- en bewerkpaneel voor een outreach-contact, op de gedeelde
@@ -296,8 +292,8 @@ export default function OutreachDetailpaneel({ contactId, onClose, onWijziging, 
                   );
                 }
                 if (nummer === volgendeMailNummer) {
-                  const basis = nummer === 2 ? c.verstuurd_at : c.laatste_followup_at;
-                  const rijp = rijpOp(basis);
+                  const rijpDatum = rijpeDatum(c);
+                  const rijp = rijpDatum ? datumKort(rijpDatum.toISOString()) : null;
                   return (
                     <div key={nummer} className="text-sm text-text-muted">
                       Mail {nummer}{"  "}

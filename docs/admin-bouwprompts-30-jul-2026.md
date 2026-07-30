@@ -332,37 +332,126 @@ Lever aan het eind:
 - git commit, niet pushen
 ```
 
-## Prompt voor fase 3 en 4: contacten-CRM
+## Fase 3 en 4 zijn herverdeeld
+
+Oorspronkelijk was fase 3 het datamodel plus de doorzet-route en fase 4 de UI. Dat is een slechte knip: je kunt een doorzet-route niet controleren zonder een plek waar het contact zichtbaar wordt. Nieuwe verdeling: fase 3 is het datamodel plus de werkende contactenlijst, fase 4 is het doorzetten vanuit de drie bestaande lijsten.
+
+## Prompt voor fase 3: contacten-CRM
 
 ```
-Lees eerst CLAUDE.md en daarna docs/admin-redesign-30-jul-2026.md
-sectie 4 en 7. Fase 0 tot en met 2 zijn gebouwd.
+Lees eerst CLAUDE.md en daarna docs/admin-redesign-30-jul-2026.md sectie 4
+en 7. Fase 0, 1, 2a en 2b zijn gebouwd en de bijbehorende SQL is gedraaid.
+Gebruik de primitives uit app/admin/ui/ en herschrijf niets van de vorige
+fasen.
 
-Bouw de contacten-CRM.
+Dit is fase 3 van twee delen. In deze sessie bouw je het datamodel en een
+werkende contactenlijst die ik met de hand kan vullen. Het automatisch
+doorzetten vanuit outreach, aanvragen en leads is fase 4; dat bouw je nu
+niet.
 
 1. SQL voor de tabel contacten volgens sectie 4, letterlijk die kolommen,
-   niets extra. Als los bestand in supabase/, niet zelf draaien. De fasen
-   per soort staan in code, niet als database-check.
-2. /admin/contacten: lijst met filterchips Alles, Verwijzers, Klanten,
-   Leads en Actie nodig, met de kolommen uit sectie 7. Op DataTabel.
-3. Detailpaneel op Zijpaneel: gegevens, herkomst met links naar de
-   outreach-rij, de analyse via analyse_token en de intake-aanvraag,
-   volgende actie, notitietijdlijn met nieuw notitieveld.
-4. POST /api/admin/contacten/doorzetten met de drie ingangen uit sectie 7.
-   Bestaat het e-mailadres al, dan verrijken in plaats van dupliceren, met
-   een melding welke rij is bijgewerkt. Schrijf een systeemnotitie met de
-   mailhistorie mee.
-5. Knop "doorzetten naar contacten" toevoegen op drie plekken: het
-   outreach-detailpaneel, de aanvragenlijst en de leadslijst.
-6. Eenmalige knop die alle intake_aanvragen met status betaald of gestart
-   als contact met soort klant aanmaakt. Idempotent, dus twee keer klikken
-   mag geen dubbele rijen geven.
+   niets extra. Los bestand in supabase/, niet zelf draaien. De fasen per
+   soort (verwijzer, klant, lead) staan in code, niet als database-check,
+   want die lijsten gaan nog schuiven.
+   Zet in hetzelfde bestand de foreign key van contact_notities.contact_id
+   naar contacten(id), die in fase 2a bewust nog niet is aangemaakt.
+2. /admin/contacten: lijst op DataTabel, met filterchips Alles,
+   Verwijzers, Klanten, Leads en Actie nodig. Die laatste chip toont alles
+   waar volgende_actie_op vandaag of eerder is. Kolommen volgens sectie 7.
+   Een verlopen volgende actie is rood.
+3. Detailpaneel op Zijpaneel: gegevens met expliciete opslaan- en
+   annuleerknop, herkomst, volgende actie, notitietijdlijn met een nieuw
+   notitieveld. Notities lopen via contact_notities uit fase 2a, nu op
+   contact_id in plaats van outreach_contact_id.
+   Het blok herkomst toont links naar de gekoppelde outreach-rij, de
+   analyse via analyse_token en de intake-aanvraag, voor zover die velden
+   gevuld zijn. In deze fase vul ik die zelf; in fase 4 gaat dat
+   automatisch.
+4. Contact met de hand toevoegen, met alle velden uit de tabel. Dubbel
+   e-mailadres geeft een leesbare melding met een link naar de bestaande
+   rij, geen databasefout.
+5. Eenmalige migratieknop die alle intake_aanvragen met status betaald of
+   gestart aanmaakt als contact met soort klant, met intake_id en
+   analyse_token mee. Idempotent: twee keer klikken mag geen dubbele rijen
+   geven. Zet erbij hoeveel rijen er zijn aangemaakt en hoeveel er
+   overgeslagen zijn omdat ze al bestonden.
 
-Randvoorwaarden: zelfde als de vorige fasen. Geen extra kolommen bedenken,
-geen deals, geen taken-module, geen pipeline-bord. Dit moet klein blijven.
+Randvoorwaarden:
+- Bestandswijzigingen via python3, npx tsc --noEmit --incremental false
+  schoon, controle op null bytes.
+- Alle nieuwe routes beginnen met isAdminRequest() en schrijven via
+  createServiceClient().
+- Verzin geen extra kolommen. Geen deals, geen taken-module, geen
+  pipeline-bord, geen statusvelden die niet in sectie 4 staan. Dit moet
+  klein blijven; een kolom die verkeerd blijkt sleep ik jaren mee.
+- Wijzig niets in outreach, aanvragen of leads. Dat is fase 4.
+- Geen nieuwe npm-pakketten zonder te vragen.
+- Geen em dashes, geen koppeltekens als scheidingsteken in zichtbare tekst.
+- Er staat een niet-gecommitte wijziging in app/aanbod/page.tsx die niet
+  bij deze opdracht hoort. Laat die staan en neem hem niet mee in je commit.
 
-Plan eerst, dan bouwen. Lever bestandslijst, SQL in draaivolgorde,
-testlijst en een commit.
+Laat me eerst je plan zien met de bestandslijst.
+
+Lever aan het eind:
+- lijst gewijzigde en nieuwe bestanden met regelaantallen
+- de SQL in draaivolgorde
+- een testlijst met in ieder geval: contact toevoegen met een bestaand
+  e-mailadres, de migratieknop twee keer indrukken, en een verlopen
+  volgende actie die onder Actie nodig verschijnt
+- git commit, niet pushen
+```
+
+## Prompt voor fase 4: doorzetten in een klik
+
+```
+Lees eerst CLAUDE.md en daarna docs/admin-redesign-30-jul-2026.md sectie 7,
+onderdeel "Doorzetten, in een klik". Fase 0 tot en met 3 zijn gebouwd en de
+SQL is gedraaid. De tabel contacten en /admin/contacten bestaan al.
+
+Bouw het doorzetten vanuit de drie bestaande lijsten naar contacten.
+
+1. Een serverroute POST /api/admin/contacten/doorzetten met drie ingangen:
+   - vanuit outreach: soort verwijzer, fase gereageerd, bron outreach,
+     kopieert naam, e-mail, praktijk, website, plaats en doelgroep, zet
+     outreach_contact_id en contact_id wederzijds, en zet standaard een
+     volgende actie op vier werkdagen vooruit
+   - vanuit aanvragen: soort klant, fase afgeleid van de aanvraagstatus,
+     intake_id en analyse_token mee
+   - vanuit leads: soort lead, lead_id mee
+   Alle drie schrijven een systeemnotitie in contact_notities. Bij een
+   verwijzer bevat die notitie de mailhistorie uit outreach_mails, zodat ik
+   in het contact kan zien wat er eerder is verstuurd en geopend.
+2. Bestaat het e-mailadres al in contacten, dan verrijk je de bestaande rij
+   in plaats van een nieuwe aan te maken. Lege velden vullen, gevulde velden
+   niet overschrijven. De respons vertelt welke rij is bijgewerkt en met
+   welke velden, en de UI toont dat met een link naar die rij.
+3. Knop "doorzetten naar contacten" op drie plekken: het
+   outreach-detailpaneel uit fase 2a, de aanvragenlijst en de leadslijst.
+   Staat er al een contact aan gekoppeld, dan verandert de knop in een link
+   naar dat contact. Geen tweede keer doorzetten.
+
+Randvoorwaarden:
+- Bestandswijzigingen via python3, npx tsc --noEmit --incremental false
+  schoon, controle op null bytes.
+- Een route, drie ingangen. Bouw geen drie losse routes.
+- De route is idempotent: twee keer doorzetten van dezelfde bron levert een
+  bijgewerkte rij op, nooit een duplicaat.
+- isAdminRequest() en createServiceClient() in alle nieuwe code.
+- Wijzig het datamodel niet. Als je een kolom mist, stop en zeg welke en
+  waarom.
+- Geen nieuwe npm-pakketten zonder te vragen.
+- Geen em dashes, geen koppeltekens als scheidingsteken in zichtbare tekst.
+- Er staat een niet-gecommitte wijziging in app/aanbod/page.tsx die niet
+  bij deze opdracht hoort. Laat die staan en neem hem niet mee in je commit.
+
+Laat me eerst je plan zien met de bestandslijst.
+
+Lever aan het eind:
+- lijst gewijzigde en nieuwe bestanden met regelaantallen
+- een testlijst met in ieder geval: hetzelfde e-mailadres doorzetten vanuit
+  outreach en daarna vanuit leads (moet een rij verrijken, geen tweede rij
+  maken), en een contact dat al gekoppeld is (knop moet een link zijn)
+- git commit, niet pushen
 ```
 
 ## Prompt voor fase 5: Vandaag-dashboard

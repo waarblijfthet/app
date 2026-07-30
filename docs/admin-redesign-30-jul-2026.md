@@ -438,8 +438,8 @@ Schattingen in dagdelen van vier uur, inclusief typecheck en handmatig testen. Z
 | 1 | `layout.tsx` met zijmenu, route-segmenten, mobiele onderbalk, vijf primitives in `app/admin/ui/` | 2 |
 | 2a | Outreach: tabel met zeven kolommen, detailpaneel, outreach_mails en contact_notities, webhook | 1,5 |
 | 2b | Outreach: werklijst, weekbudget, ps-zin-modus, bulkacties | 1,5 |
-| 3 | SQL voor `contacten`, `contact_notities`, `outreach_mails`, `email_blocklist`, plus de doorzet-route | 1 |
-| 4 | Contacten-sectie: lijst, paneel, notities | 2 |
+| 3 | SQL voor `contacten`, contactenlijst, detailpaneel, notities, eenmalige migratie | 2 |
+| 4 | Doorzetten in een klik vanuit outreach, aanvragen en leads | 1 |
 | 5 | Vandaag-dashboard, alle zes blokken, met één API-route die alles in één keer ophaalt | 1,5 |
 | 6 | Bestaande tabs omzetten naar de nieuwe primitives, Cijfers samenstellen, oude Funnel opheffen | 1,5 |
 | 7 | Mobiel nalopen op 390px, kaartweergaven, veiligheidscontrole en opruimen | 1 |
