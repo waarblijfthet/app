@@ -25,6 +25,12 @@ export interface OutreachContact {
   gestopt_at: string | null;
   gestopt_reden: string | null;
   archived_at: string | null;
+  /**
+   * Alleen aanwezig in de respons van GET /api/admin/outreach/[id] (geen
+   * databasekolom, afgeleid van contacten.outreach_contact_id): het
+   * gekoppelde contact, als dit outreach-contact al is doorgezet.
+   */
+  contact_id?: string | null;
 }
 
 export interface OutreachMail {

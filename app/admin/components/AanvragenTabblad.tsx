@@ -7,6 +7,8 @@ import Badge from "../ui/Badge";
 
 interface Props {
   aanvragen: IntakeAanvraag[];
+  /** id van het gekoppelde contact per aanvraag-id, zie getContactKoppelingen in app/admin/data.ts */
+  contactPerIntakeId: Record<string, string>;
 }
 
 type Status = "nieuw" | "contact_opgenomen" | "betaald" | "gestart";
@@ -83,10 +85,31 @@ const PAKKET_LABEL: Record<string, string> = {
   geldscan: "Geldscan",
 };
 
-export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
+export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerIntakeId }: Props) {
   const [aanvragen, setAanvragen] = useState<IntakeAanvraag[]>(initAanvragen);
   const [bezig, setBezig] = useState<string | null>(null);
   const [fout, setFout] = useState<string | null>(null);
+  const [gekoppeld, setGekoppeld] = useState<Record<string, string>>(contactPerIntakeId);
+  const [doorzettenBezigId, setDoorzettenBezigId] = useState<string | null>(null);
+
+  async function doorzetten(intakeId: string) {
+    setDoorzettenBezigId(intakeId);
+    setFout(null);
+    try {
+      const res = await fetch("/api/admin/contacten/doorzetten", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bron: "aanvraag", intake_id: intakeId }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setFout(data.error ?? "Doorzetten is mislukt."); return; }
+      setGekoppeld((prev) => ({ ...prev, [intakeId]: data.contact.id }));
+    } catch {
+      setFout("Doorzetten is mislukt (netwerkfout).");
+    } finally {
+      setDoorzettenBezigId(null);
+    }
+  }
 
   async function updateStatus(id: string, status: Status) {
     setBezig(id);
@@ -184,6 +207,27 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
         </div>
       ),
     },
+    {
+      key: "contact",
+      header: "",
+      render: (a) =>
+        gekoppeld[a.id] ? (
+          <a
+            href={`/admin/contacten?open=${gekoppeld[a.id]}`}
+            className="text-xs text-accent whitespace-nowrap"
+          >
+            Bekijk contact →
+          </a>
+        ) : (
+          <button
+            onClick={() => doorzetten(a.id)}
+            disabled={doorzettenBezigId === a.id}
+            className="text-xs border border-primary text-primary px-3 py-1 rounded hover:bg-primary hover:text-white transition-colors disabled:opacity-50 whitespace-nowrap"
+          >
+            {doorzettenBezigId === a.id ? "Doorzetten..." : "Doorzetten naar contacten"}
+          </button>
+        ),
+    },
   ];
 
   return (
@@ -220,6 +264,21 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
             </div>
             <div className="mt-2">
               <StatusSelect huidig={a.status} onChange={(s) => updateStatus(a.id, s)} />
+            </div>
+            <div className="mt-2">
+              {gekoppeld[a.id] ? (
+                <a href={`/admin/contacten?open=${gekoppeld[a.id]}`} className="text-xs text-accent">
+                  Bekijk contact →
+                </a>
+              ) : (
+                <button
+                  onClick={() => doorzetten(a.id)}
+                  disabled={doorzettenBezigId === a.id}
+                  className="text-xs border border-primary text-primary px-3 py-1 rounded disabled:opacity-50"
+                >
+                  {doorzettenBezigId === a.id ? "Doorzetten..." : "Doorzetten naar contacten"}
+                </button>
+              )}
             </div>
           </div>
         )}

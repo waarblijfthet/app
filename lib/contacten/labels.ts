@@ -70,3 +70,32 @@ export function isVerlopen(contact: Pick<Contact, "volgende_actie_op" | "archive
   const vandaag = new Date().toISOString().slice(0, 10);
   return contact.volgende_actie_op <= vandaag;
 }
+
+/**
+ * Rangorde van soort, laag naar hoog. Gebruikt bij het doorzetten naar
+ * contacten (sectie 7, "Doorzetten in een klik"): een bestaand contact mag
+ * alleen omhoog schuiven (lead wordt verwijzer wordt klant), nooit terug.
+ * Dat is de enige manier om "gevulde velden niet overschrijven" te
+ * verzoenen met "blijft één persoon met één tijdlijn".
+ */
+export const SOORT_PRIORITEIT: Record<string, number> = {
+  overig: 0,
+  lead: 1,
+  verwijzer: 2,
+  klant: 3,
+};
+
+/**
+ * Telt `aantal` werkdagen op bij vandaag (weekenden overgeslagen), voor de
+ * standaard volgende actie na het doorzetten vanuit outreach.
+ */
+export function volgendeWerkdag(aantal: number): Date {
+  const datum = new Date();
+  let over = aantal;
+  while (over > 0) {
+    datum.setDate(datum.getDate() + 1);
+    const dag = datum.getDay(); // 0 = zondag, 6 = zaterdag
+    if (dag !== 0 && dag !== 6) over -= 1;
+  }
+  return datum;
+}

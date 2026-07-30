@@ -60,6 +60,16 @@ export default function ContactenTabblad() {
 
   const [detailId, setDetailId] = useState<string | null>(null);
 
+  // Vanuit outreach, aanvragen of leads komt "doorzetten naar contacten"
+  // hier terecht als /admin/contacten?open=<id>, om het detailpaneel direct
+  // te openen (sectie 7). window.location.search in plaats van
+  // useSearchParams, zodat deze client-only pagina niet de hele route
+  // dwingt tot een Suspense-boundary voor één eenmalige leesactie.
+  useEffect(() => {
+    const open = new URLSearchParams(window.location.search).get("open");
+    if (open) setDetailId(open);
+  }, []);
+
   const [toonToevoegen, setToonToevoegen] = useState(false);
   const [nieuw, setNieuw] = useState({
     naam: "", email: "", telefoon: "", praktijk: "", website: "", plaats: "",

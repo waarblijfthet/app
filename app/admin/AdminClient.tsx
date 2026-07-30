@@ -102,12 +102,12 @@ export default function AdminClient({ leads, quizResultaten, aanvragen }: Props)
         />
       )}
       {actief === "bezoekers" && <BezoekersTabblad />}
-      {actief === "leads" && <LeadsTabblad leads={leads} />}
+      {actief === "leads" && <LeadsTabblad leads={leads} contactPerLeadId={{}} />}
       {actief === "quiz" && <QuizResultatenTabblad resultaten={quizResultaten} />}
       {actief === "overzicht" && (
         <OverzichtTabblad leads={leads} resultaten={quizResultaten} />
       )}
-      {actief === "aanvragen" && <AanvragenTabblad aanvragen={aanvragen} />}
+      {actief === "aanvragen" && <AanvragenTabblad aanvragen={aanvragen} contactPerIntakeId={{}} />}
       {actief === "indexering" && <IndexingTabblad />}
       {actief === "zoekwoorden" && <ZoekwoordenTabblad />}
       {actief === "outreach" && <OutreachTabblad />}

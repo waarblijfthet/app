@@ -68,6 +68,8 @@ export default function OutreachDetailpaneel({ contactId, onClose, onWijziging, 
   const [notitieTekst, setNotitieTekst] = useState("");
   const [notitieVersturen, setNotitieVersturen] = useState(false);
 
+  const [doorzetten, setDoorzetten] = useState(false);
+
   function zetBewerkstateTerug(contact: OutreachContact) {
     setNaam(contact.naam);
     setEmail(contact.email);
@@ -165,6 +167,26 @@ export default function OutreachDetailpaneel({ contactId, onClose, onWijziging, 
       setFout("Notitie toevoegen is mislukt (netwerkfout).");
     } finally {
       setNotitieVersturen(false);
+    }
+  }
+
+  async function doorzettenNaarContacten() {
+    if (!detail) return;
+    setDoorzetten(true);
+    setFout(null);
+    try {
+      const res = await fetch("/api/admin/contacten/doorzetten", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bron: "outreach", outreach_contact_id: detail.contact.id }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setFout(data.error ?? "Doorzetten is mislukt."); return; }
+      setDetail({ ...detail, contact: { ...detail.contact, contact_id: data.contact.id } });
+    } catch {
+      setFout("Doorzetten is mislukt (netwerkfout).");
+    } finally {
+      setDoorzetten(false);
     }
   }
 
@@ -343,6 +365,24 @@ export default function OutreachDetailpaneel({ contactId, onClose, onWijziging, 
                   className="text-xs px-3 py-1.5 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition-colors"
                 >
                   {c.gestopt ? "Hervat mails" : "Stop mails"}
+                </button>
+              )}
+            </div>
+            <div className="flex justify-end pt-2">
+              {c.contact_id ? (
+                <a
+                  href={`/admin/contacten?open=${c.contact_id}`}
+                  className="text-sm px-3 py-1.5 rounded-md border border-[#E6E9E7] text-text-soft hover:border-primary hover:text-primary transition-colors"
+                >
+                  Bekijk contact →
+                </a>
+              ) : (
+                <button
+                  onClick={doorzettenNaarContacten}
+                  disabled={doorzetten}
+                  className="text-sm px-3 py-1.5 rounded-md border border-primary text-primary hover:bg-primary hover:text-white transition-colors disabled:opacity-50"
+                >
+                  {doorzetten ? "Doorzetten..." : "Doorzetten naar contacten"}
                 </button>
               )}
             </div>

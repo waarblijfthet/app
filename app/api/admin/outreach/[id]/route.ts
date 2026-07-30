@@ -14,7 +14,7 @@ export async function GET(
   const supabase = createServiceClient();
   const { id } = params;
 
-  const [{ data: contact, error: contactError }, { data: mails }, { data: notities }] =
+  const [{ data: contact, error: contactError }, { data: mails }, { data: notities }, { data: gekoppeld }] =
     await Promise.all([
       supabase.from("outreach_contacts").select("*").eq("id", id).single(),
       supabase
@@ -27,6 +27,10 @@ export async function GET(
         .select("*")
         .eq("outreach_contact_id", id)
         .order("created_at", { ascending: false }),
+      // Is dit outreach-contact al doorgezet naar contacten? Zie
+      // docs/admin-redesign-30-jul-2026.md sectie 7 ("Doorzetten in een
+      // klik"): de knop moet dan een link worden, niet nogmaals doorzetten.
+      supabase.from("contacten").select("id").eq("outreach_contact_id", id).maybeSingle(),
     ]);
 
   if (contactError || !contact) {
@@ -34,7 +38,7 @@ export async function GET(
   }
 
   return NextResponse.json({
-    contact,
+    contact: { ...contact, contact_id: gekoppeld?.id ?? null },
     mails: mails ?? [],
     notities: notities ?? [],
   });

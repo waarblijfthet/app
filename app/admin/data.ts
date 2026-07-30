@@ -50,6 +50,31 @@ export async function getAanvragen(): Promise<IntakeAanvraag[]> {
 }
 
 /**
+ * Welke aanvragen/leads al zijn doorgezet naar contacten (sectie 7,
+ * "Doorzetten in een klik"). Alleen id's, voor de knop-versus-link-keuze in
+ * AanvragenTabblad/LeadsTabblad: staat er al een contact aan gekoppeld, dan
+ * wordt de knop een link en mag er niet nogmaals doorgezet worden.
+ */
+export async function getContactKoppelingen(): Promise<{
+  perIntakeId: Record<string, string>;
+  perLeadId: Record<string, string>;
+}> {
+  const service = createServiceClient();
+  const { data } = await service
+    .from("contacten")
+    .select("id, intake_id, lead_id")
+    .or("intake_id.not.is.null,lead_id.not.is.null");
+
+  const perIntakeId: Record<string, string> = {};
+  const perLeadId: Record<string, string> = {};
+  for (const rij of data ?? []) {
+    if (rij.intake_id) perIntakeId[rij.intake_id as string] = rij.id as string;
+    if (rij.lead_id) perLeadId[rij.lead_id as string] = rij.id as string;
+  }
+  return { perIntakeId, perLeadId };
+}
+
+/**
  * Lichte tellingen voor de badges in het zijmenu. Gebruikt count-only
  * queries (head: true) zodat de layout niet de volledige datasets ophaalt
  * die de routes zelf al apart laden.

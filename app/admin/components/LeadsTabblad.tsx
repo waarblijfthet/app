@@ -7,6 +7,8 @@ import Badge from "../ui/Badge";
 
 interface Props {
   leads: Lead[];
+  /** id van het gekoppelde contact per lead-id, zie getContactKoppelingen in app/admin/data.ts */
+  contactPerLeadId: Record<string, string>;
 }
 
 function exporteerCSV(leads: Lead[]) {
@@ -44,8 +46,30 @@ function formatDatum(iso: string) {
   });
 }
 
-export default function LeadsTabblad({ leads }: Props) {
+export default function LeadsTabblad({ leads, contactPerLeadId }: Props) {
   const [zoek, setZoek] = useState("");
+  const [gekoppeld, setGekoppeld] = useState<Record<string, string>>(contactPerLeadId);
+  const [doorzettenBezigId, setDoorzettenBezigId] = useState<string | null>(null);
+  const [fout, setFout] = useState<string | null>(null);
+
+  async function doorzetten(leadId: string) {
+    setDoorzettenBezigId(leadId);
+    setFout(null);
+    try {
+      const res = await fetch("/api/admin/contacten/doorzetten", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ bron: "lead", lead_id: leadId }),
+      });
+      const data = await res.json();
+      if (!res.ok) { setFout(data.error ?? "Doorzetten is mislukt."); return; }
+      setGekoppeld((prev) => ({ ...prev, [leadId]: data.contact.id }));
+    } catch {
+      setFout("Doorzetten is mislukt (netwerkfout).");
+    } finally {
+      setDoorzettenBezigId(null);
+    }
+  }
 
   const gefilterd = useMemo(
     () =>
@@ -102,6 +126,24 @@ export default function LeadsTabblad({ leads }: Props) {
           <span className="text-text-muted">—</span>
         ),
     },
+    {
+      key: "contact",
+      header: "",
+      render: (l) =>
+        gekoppeld[l.id] ? (
+          <a href={`/admin/contacten?open=${gekoppeld[l.id]}`} className="text-xs text-accent whitespace-nowrap">
+            Bekijk contact →
+          </a>
+        ) : (
+          <button
+            onClick={() => doorzetten(l.id)}
+            disabled={doorzettenBezigId === l.id}
+            className="text-xs border border-primary text-primary px-3 py-1 rounded hover:bg-primary hover:text-white transition-colors disabled:opacity-50 whitespace-nowrap"
+          >
+            {doorzettenBezigId === l.id ? "Doorzetten..." : "Doorzetten naar contacten"}
+          </button>
+        ),
+    },
   ];
 
   return (
@@ -129,6 +171,8 @@ export default function LeadsTabblad({ leads }: Props) {
         </button>
       </div>
 
+      {fout && <p className="font-body text-sm mb-3 text-danger">{fout}</p>}
+
       <DataTabel
         data={gefilterd}
         kolommen={kolommen}
@@ -145,6 +189,21 @@ export default function LeadsTabblad({ leads }: Props) {
               </span>
               {l.quiz_voltooid && <Badge variant="goed">Quiz voltooid</Badge>}
               {l.toestemming_marketing && <Badge variant="actie">Marketing ok</Badge>}
+            </div>
+            <div className="mt-2">
+              {gekoppeld[l.id] ? (
+                <a href={`/admin/contacten?open=${gekoppeld[l.id]}`} className="text-xs text-accent">
+                  Bekijk contact →
+                </a>
+              ) : (
+                <button
+                  onClick={() => doorzetten(l.id)}
+                  disabled={doorzettenBezigId === l.id}
+                  className="text-xs border border-primary text-primary px-3 py-1 rounded disabled:opacity-50"
+                >
+                  {doorzettenBezigId === l.id ? "Doorzetten..." : "Doorzetten naar contacten"}
+                </button>
+              )}
             </div>
           </div>
         )}
