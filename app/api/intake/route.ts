@@ -49,7 +49,7 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    const { error } = await supabase.from("intake_aanvragen").insert({
+    const payload: Record<string, unknown> = {
       pakket,
       gezinssituatie,
       inkomen_bracket: inkomenBracket,
@@ -60,7 +60,30 @@ export async function POST(request: NextRequest) {
       naam,
       email,
       status: "nieuw",
-    });
+    };
+
+    // Velden waarzonder een aanvraag waardeloos is. Ontbreekt zo'n kolom, dan
+    // moet de aanvraag wel falen; de rest mag weggelaten worden.
+    const KERNVELDEN = new Set(["naam", "email", "pakket", "status"]);
+
+    let { error } = await supabase.from("intake_aanvragen").insert(payload);
+
+    // Schema-drift fallback, zelfde aanpak als in app/api/quiz-lead/route.ts.
+    // Een migratie die nog niet gedraaid is mag geen aanmelding kosten: zonder
+    // deze lus lag /geldscan van 8-jul tot 30-jul stil op een ontbrekende
+    // analyse_token-kolom (zie CLAUDE.md, technische les 6).
+    let pogingen = 0;
+    const maxPogingen = Object.keys(payload).length;
+    while (error && error.code === "PGRST204" && pogingen < maxPogingen) {
+      const kolom = error.message?.match(/the '([^']+)' column/)?.[1];
+      if (!kolom || !(kolom in payload) || KERNVELDEN.has(kolom)) break;
+      console.warn(
+        `intake: kolom ${kolom} ontbreekt in intake_aanvragen, opgeslagen zonder. Draai de bijbehorende SQL in supabase/.`
+      );
+      delete payload[kolom];
+      pogingen += 1;
+      ({ error } = await supabase.from("intake_aanvragen").insert(payload));
+    }
 
     if (error) {
       console.error("intake: opslaan mislukt", error);

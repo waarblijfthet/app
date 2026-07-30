@@ -38,7 +38,8 @@ Wat er staat en werkt:
 1. SQL draaien in Supabase: `outreach_plaats.sql` + de outreach_followup-kolommen (19-jul) + `outreach_crm.sql` (28-jul, reactie-classificatie en gestopt-vlag). Erbij, in deze volgorde: `outreach_mails.sql` en daarna `contact_notities.sql` (30-jul, fase 2a admin-redesign).
 2. `git push` (commits 477e446 e.v. staan klaar).
 3. Beslissen vóór/na deploy: 25 oude contacten van 11-jun hebben status verstuurd en 0 follow-ups; de cron stuurt die anders automatisch mail 2. Opschonen of tijdelijk env `OUTREACH_AUTO_FOLLOWUP=uit`.
-4. Checken of Resend-webhook + `RESEND_WEBHOOK_SECRET` in Vercel staan (open/klik-tracking) en of `supabase/intake_analyse_link.sql` ooit gedraaid is.
+4. Checken of Resend-webhook + `RESEND_WEBHOOK_SECRET` in Vercel staan (open/klik-tracking).
+4b. **AFGEHANDELD 30-jul, met gevolgen: `supabase/intake_analyse_link.sql` was nooit gedraaid.** Commit 7760b50 (8-jul) zette `analyse_token` onvoorwaardelijk in de insert naar `intake_aanvragen` en leverde het SQL-bestand mee; de SQL bleef liggen. Zonder die kolom weigert PostgREST de hele insert, dus /geldscan en /adviesgesprek gaven bezoekers een 500 met "Opslaan mislukt". Laatste aanvraag in de database: 8-jul, de dag van die commit. Het formulier heeft dus ruim drie weken niets opgeslagen. Te verifieren in de Vercel-logs op de regel "intake: opslaan mislukt". Gevolg voor `docs/groeibeslissing-aug-2026.md`: de conclusie dat nul betalende klanten geen signaal is, blijft mogelijk staan, maar is genomen op een meting die niet kon werken.
 5. Beslissing die nog bij Jarno ligt (28-jul, §3.14 van `docs/introductiegesprek-voorbeeldrapporten-aanbodcopy-28-jul-2026.md`): eerst het geldrapport leveren en pas daarna factureren, in plaats van de huidige volgorde aanmelden, betaalverzoek, dan pas de analyse invullen. Rule-compatible (geen garantie) en financieel risico is klein bij 49 euro, maar het is een proceswijziging en dus een keuze voor Jarno, niet een copywijziging. De twee regels die dan veranderen staan uitgeschreven in die sectie.
 
 **Openstaande prioriteiten daarna (in volgorde, per `docs/groeibeslissing-aug-2026.md`):**
@@ -128,7 +129,8 @@ Verzamelt namen + e-mailadressen van potentiele verwijzers en zet ze na review i
 3. **MX mag nooit naar de Vercel-apex wijzen** (mail verdween daardoor tot 24-jun).
 4. **Git op dit mount**: tmp-objects kunnen niet altijd verwijderd worden (warnings zijn onschuldig); een achtergebleven `HEAD.lock` blokkeert commits en moet handmatig weg. Push alleen door Jarno.
 5. **Vercel-limieten**: lange klussen als job + step-lus (max ~20s per call, `maxDuration=60`), geen externe queue nodig.
-6. **Persona-toetsing werkt**: elke ronde verse agents (anders keuren ze hun eigen advies goed), hardheidseis "zou kunnen telt als nee", en de replytekst uitschrijven als bewijs.
+6. **Een SQL-bestand aanmaken is niet hetzelfde als het draaien.** Code die een nieuwe kolom gebruikt en de bijbehorende migratie in `supabase/` zetten gebeurt in een commit; het draaien in Supabase is handwerk en wordt vergeten. Zo lag /geldscan drie weken stil (zie checklistpunt 4b). Vaste controle bij elke sessie waarin een SQL-bestand is toegevoegd: de diagnosequery uit de sessie van 30-jul draaien die per bestand in `supabase/` teruggeeft of het is toegepast, en publieke formulieren daarna zelf een keer doorlopen. Een migratie die de code hard nodig heeft, hoort in dezelfde deploy te zitten als die code.
+7. **Persona-toetsing werkt**: elke ronde verse agents (anders keuren ze hun eigen advies goed), hardheidseis "zou kunnen telt als nee", en de replytekst uitschrijven als bewijs.
 
 ## Afgerond onderzoek: het geldgesprek als product (27-jul-2026)
 

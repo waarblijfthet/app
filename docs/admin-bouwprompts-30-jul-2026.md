@@ -458,30 +458,98 @@ Lever aan het eind:
 
 ```
 Lees eerst CLAUDE.md en daarna docs/admin-redesign-30-jul-2026.md sectie 6.
-Fase 0 tot en met 4 zijn gebouwd.
+Fase 0 tot en met 4 zijn gebouwd en alle SQL is gedraaid. De contacten-CRM,
+de outreach-werklijst met weekbudget, outreach_mails en contact_notities
+bestaan al.
 
-Bouw /admin/vandaag met de zes blokken uit sectie 6, in die volgorde. Eén
-API-route GET /api/admin/vandaag die alles in één keer ophaalt en
-server-side aggregeert, dus geen client-side aggregatie zoals de oude
-FunnelTabblad die deed.
+Bouw /admin/vandaag. Die route bestaat sinds fase 1 als lege pagina met
+alleen een kop; die vul je nu.
 
-Harde eisen aan de cijfers:
-- Elk getal in blok 1 is een link naar een voorgefilterde weergave.
-- Regels in blok 1 zonder werk worden weggelaten, niet op nul gezet.
-- Blok 4 toont geen percentage onder tien verstuurde mails per doelgroep,
-  daar staat "te weinig data".
-- Blok 5 heeft het woord indicatief in het label. De trechter is niet
-  sessie-gekoppeld en mag niet suggereren dat hij dat is.
-- Geen limit() die stil afkapt. Gebruik count-queries of aggregatie, geen
-  duizenden rijen ophalen om ze in JavaScript te tellen.
-- Geen doelen, streefcijfers of voortgangsbalken naar een target. Die zijn
-  er bewust niet.
+Een serverroute GET /api/admin/vandaag haalt alles in een keer op en
+aggregeert server-side. De oude FunnelTabblad deed 589 regels aggregatie in
+de browser met drie queries van limit(8000); dat patroon komt niet terug.
+FunnelTabblad zelf laat je staan, die wordt in fase 6 opgeheven.
 
-Lever bij elk blok de SQL of Supabase-query op waarmee ik het getal
-handmatig kan natellen. Dat is onderdeel van de oplevering, geen extraatje:
-een dashboard dat verkeerd telt is erger dan geen dashboard.
+De zes blokken, in deze volgorde:
 
-Plan eerst. Randvoorwaarden zoals de vorige fasen. Commit aan het eind.
+Blok 1, Te doen. Zes regels, elk een link naar een voorgefilterde weergave
+via de querystring. Regels zonder werk laat je weg; je zet ze niet op nul.
+  - contacten gemarkeerd als gereageerd, nog niet afgehandeld
+  - follow-ups rijp
+  - mails te versturen binnen het weekbudget
+  - aanvragen zonder rapport, met de ouderdom van de oudste erbij
+  - prospects te reviewen
+  - contacten met een volgende actie die vandaag of eerder rijp is
+Belangrijk: de eerste regel gaat over de handmatig gezette status. Er is
+geen mailintegratie, dus schrijf niet "replies onbehandeld" maar
+"gemarkeerd als gereageerd". Sectie 9 is een latere stap.
+
+Blok 2, Het weekbudget. Een regel: verstuurd deze week tegenover het
+maximum uit OUTREACH_WEEKBUDGET, en hoeveel er nog kan. Hergebruik de
+bestaande berekening uit fase 2b, bouw geen tweede.
+
+Blok 3, Deze week tegenover vorige week. Zes getallen in een tabel, geen
+grafiek: mails verstuurd, geopend, replies, analyses voltooid,
+scan-aanmeldingen, scans geleverd.
+
+Blok 4, Replies per doelgroep. Per doelgroep verstuurd, geopend en
+gereageerd. Het percentage toon je pas vanaf tien verstuurde mails binnen
+die doelgroep; daaronder staat er "te weinig data". Nooit een percentage op
+een basis van drie.
+
+Blok 5, Trechter, klein. Een regel over 30 dagen: bezoekers, gestart,
+voltooid, leads, aanmeldingen, betaald. Het woord indicatief staat in het
+label, want de trechter is niet sessie-gekoppeld en mag niet suggereren dat
+hij dat wel is.
+
+Blok 6, Laatste activiteit. Tien regels uit de gecombineerde tijdlijn: mail
+verstuurd, mail geopend, contact gemarkeerd als gereageerd, lead
+aangemeld, analyse voltooid, aanvraag binnen, notitie toegevoegd.
+
+Harde eisen:
+- De getallen in blok 1 en 2 moeten exact overeenkomen met wat de
+  outreach-werklijst uit fase 2b laat zien. Trek de bestaande logica uit die
+  werklijst in een gedeelde functie en gebruik die op beide plekken. Twee
+  eigen implementaties gaan uit elkaar lopen en dan vertrouw ik geen van
+  beide.
+- Geen limit() die stil kan afkappen. Gebruik count-queries of aggregatie;
+  haal geen duizenden rijen op om ze in JavaScript te tellen.
+- Geen doelen, geen streefcijfers, geen voortgangsbalken naar een target.
+  Die zijn er bewust niet; de basis verschuift nog. Toon werkvoorraad en
+  wat er feitelijk gebeurd is.
+- De badge-tellingen in het zijmenu uit fase 1 blijven werken. Laat ze bij
+  voorkeur uit dezelfde route komen, zodat menu en dashboard niet
+  verschillende aantallen tonen.
+- Elk getal in blok 1 is klikbaar en landt op de juiste voorgefilterde
+  weergave. Een getal zonder doorklik hoort er niet.
+
+Lever bij elk blok de SQL of Supabase-query waarmee ik het getal handmatig
+kan natellen. Dat is onderdeel van de oplevering, geen extraatje: een
+dashboard dat verkeerd telt is erger dan geen dashboard, en in dit project
+zijn eerder elf van vijftien aangeleverde cijfers onjuist gebleken.
+
+Randvoorwaarden:
+- Bestandswijzigingen via python3 in bash, nooit Edit of Write.
+- npx tsc --noEmit --incremental false schoon, controle op null bytes.
+- isAdminRequest() en createServiceClient() in de nieuwe route.
+- Wijzig geen bestaande tab en geen bestaande route, behalve het uittrekken
+  van de gedeelde werkvoorraad-functie uit de outreach-werklijst.
+- Geen nieuwe npm-pakketten zonder te vragen. Geen recharts op deze pagina;
+  blok 3 en 4 zijn tabellen.
+- Geen em dashes, geen koppeltekens als scheidingsteken in zichtbare tekst.
+- Er staat een niet-gecommitte wijziging in app/aanbod/page.tsx die niet
+  bij deze opdracht hoort. Laat die staan en neem hem niet mee in je commit.
+
+Laat me eerst je plan zien met de bestandslijst en per blok welke tabellen
+je gaat bevragen.
+
+Lever aan het eind:
+- lijst gewijzigde en nieuwe bestanden met regelaantallen
+- per blok de controlequery
+- een testlijst met in ieder geval: een dag waarop er niets te doen is (blok
+  1 moet dan leeg of afwezig zijn, geen rij met nul), en een doelgroep met
+  minder dan tien verstuurde mails (moet "te weinig data" tonen)
+- git commit, niet pushen
 ```
 
 ## Prompt voor fase 6 en 7: omzetten en mobiel
