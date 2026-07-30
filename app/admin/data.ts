@@ -1,20 +1,23 @@
 import { createServiceClient } from "@/lib/supabase-service";
-import {
-  Lead,
-  QuizResultaat,
-  IntakeAanvraag,
-  LEAD_KOLOMMEN,
-  QUIZ_KOLOMMEN,
-  AANVRAAG_KOLOMMEN,
-  MAX_RIJEN,
-} from "./page";
+import { Lead, QuizResultaat, IntakeAanvraag } from "./page";
 
 /**
  * Server-side ophaalfuncties voor de admin-routes. Vervangt de gezamenlijke
  * Promise.all die eerder in app/admin/page.tsx stond: elke route haalt nu
  * alleen op wat hij nodig heeft, via de service client (bypasst RLS, zie
  * CLAUDE.md "Technische lessen" punt 2).
+ *
+ * De kolomconstanten stonden eerst in page.tsx, maar Next.js staat op een
+ * page.tsx alleen een beperkte set exports toe. Runtime-constanten horen
+ * daar niet bij (de build brak hierop), dus die staan nu hier.
  */
+const LEAD_KOLOMMEN =
+  "id,email,naam,bron,created_at,toestemming_marketing,quiz_voltooid";
+const QUIZ_KOLOMMEN =
+  "id,lead_id,token,email,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
+const AANVRAAG_KOLOMMEN =
+  "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,analyse_token,naam,email,status";
+const MAX_RIJEN = 1000;
 
 export async function getLeads(): Promise<Lead[]> {
   const service = createServiceClient();

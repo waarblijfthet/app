@@ -3,9 +3,12 @@ import { redirect } from "next/navigation";
 /**
  * /admin heeft geen eigen inhoud meer sinds de zijmenu-shell (30-jul-2026).
  * Dit bestand blijft bestaan omdat de tabblad-componenten hun gedeelde
- * interfaces en kolomconstanten hiervandaan importeren ("from ../page").
- * De data-fetching zelf staat in app/admin/data.ts, dat deze types hergebruikt.
- * Zie docs/admin-redesign-30-jul-2026.md sectie 3, punt 3 voor de afweging.
+ * interfaces hiervandaan importeren ("from ../page"). Next.js staat op een
+ * page.tsx alleen een beperkte set exports toe (default, metadata, e.d.);
+ * runtime-constanten zoals de kolomselecties horen daar niet bij en zijn
+ * daarom naar app/admin/data.ts verhuisd (build brak hierop, "LEAD_KOLOMMEN
+ * is not a valid Page export field"). Interfaces zijn geen runtime-export
+ * (ze compileren weg) en mogen wel blijven staan.
  */
 
 export interface IntakeAanvraag {
@@ -56,15 +59,6 @@ export interface QuizResultaat {
   verzekering_zorg_per_persoon: number | null;
   verzekering_overig: number | null;
 }
-
-// Kolommen die de tabbladen daadwerkelijk gebruiken (zie interfaces hierboven).
-export const LEAD_KOLOMMEN =
-  "id,email,naam,bron,created_at,toestemming_marketing,quiz_voltooid";
-export const QUIZ_KOLOMMEN =
-  "id,lead_id,token,email,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
-export const AANVRAAG_KOLOMMEN =
-  "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,analyse_token,naam,email,status";
-export const MAX_RIJEN = 1000;
 
 export default function AdminPage() {
   redirect("/admin/vandaag");
