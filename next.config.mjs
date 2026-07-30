@@ -2,6 +2,7 @@
 const nextConfig = {
   async redirects() {
     return [
+      { source: "/voorbeeldrapport", destination: "/rapporten", permanent: true },
       { source: "/blog", destination: "/inzichten", permanent: true },
       { source: "/blog/:slug", destination: "/inzichten/:slug", permanent: true },
       { source: "/inzichten/boodschappen-duitsland-voordeel", destination: "/inzichten/vergelijken-boodschappen-nederland-duitsland", permanent: true },

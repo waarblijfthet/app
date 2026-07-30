@@ -62,7 +62,7 @@ const faq = [
   {
     vraag: "Wat levert een financieel coach op?",
     antwoord:
-      "Bij de huishoudens die ik tot nu toe begeleid heb, was het gemiddelde resultaat €460 per maand meer overhouden, zonder meer te verdienen. Dat is geen belofte, jouw uitkomst hangt af van je situatie. Eén gevonden structurele weglek verdient de €125 van een gesprek meestal al in de eerste maand terug.",
+      "Dat verschilt sterk. Op deze site staan vijf echte rapporten met de evaluatie van de klant erbij: bij één huishouden bleef na drie maanden ongeveer €850 per maand staan, bij een ander groeide de buffer met €500 per maand, en bij twee van de vijf was de uitkomst dat er niets te repareren viel. Ik publiceer geen gemiddelde over vijf huishoudens, want dat is geen cijfer maar een indruk.",
   },
 ];
 

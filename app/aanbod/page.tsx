@@ -10,7 +10,7 @@ import { TrackClick } from "@/components/TrackClick";
 export const metadata: Metadata = {
   title: "Tarieven: geldrapport, gesprek en traject",
   description:
-    "Ik schrijf een persoonlijk geldrapport over jouw cijfers, met de drie dingen die het meest opvallen en wat juist niet. 49 euro, eenmalig. Twee complete voorbeeldrapporten staan op de site, dus je weet wat je koopt voordat je betaalt.",
+    "Ik schrijf een persoonlijk geldrapport over jouw cijfers, met de drie dingen die het meest opvallen en wat juist niet. 49 euro, eenmalig. Vijf echte rapporten staan op de site, met de cijfers, mijn advies en de evaluatie van de klant, dus je weet wat je koopt voordat je betaalt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -47,7 +47,7 @@ const faq = [
   {
     vraag: "Mag ik zien wat ik koop voordat ik betaal?",
     antwoord:
-      "Ja, en dat vind ik ook niet meer dan normaal. Op de voorbeeldpagina staan twee complete rapporten in de vorm waarin ik ze schrijf. Die twee huishoudens heb ik zelf bedacht, inclusief de bedragen, omdat ik geen klantcijfers publiceer zonder toestemming. Dat staat er ook boven en onder.",
+      "Ja, en dat vind ik ook niet meer dan normaal. Op de pagina Rapporten staan vijf complete rapporten van echte klanten, gepubliceerd met hun toestemming. Je leest hun cijfers, wat ze vooraf zelf dachten, wat ik erop schreef en wat er drie tot vier maanden later was veranderd. Namen zijn weggelaten, de bedragen zijn onveranderd.",
   },
   {
     vraag: "Geef je advies over beleggen, hypotheken of pensioen?",
@@ -67,7 +67,7 @@ const faq = [
   {
     vraag: "Wat als er bij mij niets uit komt?",
     antwoord:
-      "Dat kan gebeuren en dan zeg ik dat. Ik beloof niet dat er geld te vinden is. Vaker is de uitkomst dat je zwart op wit ziet dat het klopt, of dat het bedrag dat ontbreekt veel kleiner is dan het voelde. In de twee voorbeeldrapporten op deze site is dat 64 euro per maand bij het ene huishouden en 118 bij het andere.",
+      "Dat kan gebeuren en dan zeg ik dat. Ik beloof niet dat er geld te vinden is. Vaker is de uitkomst dat je zwart op wit ziet dat het klopt, of dat het bedrag dat ontbreekt veel kleiner is dan het voelde. Bij twee van de vijf echte rapporten op deze site was de conclusie dat er niets te repareren viel, en bij de andere drie was het ontbrekende bedrag kleiner dan de klant vooraf dacht.",
   },
 ];
 
@@ -131,11 +131,11 @@ export default function AanbodPage() {
               className="font-body max-w-[600px] font-light leading-relaxed"
               style={{ fontSize: "1.05rem", color: "#4A5A56" }}
             >
-              Ik kijk naar de cijfers van huishoudens die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Geen cursus, geen abonnement, geen beleggingsverhaal. Mijn tarieven staan hieronder en twee complete voorbeeldrapporten staan op deze site, dus je weet wat je koopt voordat je betaalt.
+              Ik kijk naar de cijfers van huishoudens die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Geen cursus, geen abonnement, geen beleggingsverhaal. Mijn tarieven staan hieronder en vijf echte rapporten staan op deze site, met de cijfers, mijn advies en de evaluatie van de klant erbij, dus je weet wat je koopt voordat je betaalt.
             </p>
             <p className="font-body mt-4 text-sm" style={{ color: "#8B958F" }}>
-              <Link href="/voorbeeldrapport" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                Bekijk een compleet voorbeeldrapport →
+              <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                Bekijk vijf echte geldrapporten →
               </Link>
             </p>
 
@@ -177,7 +177,7 @@ export default function AanbodPage() {
               Ik kijk naar de cijfers van huishoudens in loondienst die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Je krijgt een rapport dat ik met de hand schrijf, over jouw bedragen, met de drie dingen die het meest opvallen en per stuk wat ik zou doen. Geen sjabloon, geen algoritme, geen traject dat je vooraf moet kopen.
             </p>
             <p className="font-body max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Twee complete voorbeelden van zo&apos;n rapport staan op deze site. Die twee huishoudens heb ik zelf bedacht, inclusief de bedragen, omdat ik geen cijfers van een klant publiceer zonder toestemming. Dat is minder sterk dan een echt rapport en daarom zeg ik het er zelf bij. Zodra een klant toestemming geeft, komt er een geanonimiseerd rapport van een echt huishouden bij te staan.
+              Vijf van die rapporten staan compleet op deze site, met toestemming van de klanten. Je leest hun ingevulde cijfers, wat ze vooraf zelf dachten, wat ik erop schreef en wat er drie tot vier maanden later werkelijk was veranderd. Namen zijn weggelaten, de bedragen staan er onveranderd. Bij twee van de vijf was mijn conclusie dat er niets te repareren viel.
             </p>
           </div>
         </section>
@@ -233,7 +233,7 @@ export default function AanbodPage() {
                 </TrackClick>
                 <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
                   49 euro, eenmalig. Kies je daarna een gesprek of traject, dan gaat de 49 euro daarvan af.{" "}
-                  <Link href="/voorbeeldrapport" className="hover:underline" style={{ color: "#0B7A6E" }}>
+                  <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
                     Zie eerst een compleet voorbeeld →
                   </Link>
                 </p>
@@ -513,10 +513,10 @@ export default function AanbodPage() {
                 marginBottom: "2rem",
               }}
             >
-              Op de voorbeeldpagina staan twee complete rapporten, met de bedragen erbij en met de posten die ik géén lek vind. Verzonnen huishoudens, echte werkwijze. Als je daarna wil dat ik naar jouw cijfers kijk, dan weet je precies wat er terugkomt.
+              Op de pagina Rapporten staan vijf complete rapporten van echte klanten, met de bedragen erbij en met de posten die ik géén probleem vind. Bij twee van de vijf was de uitkomst dat er niets te repareren viel. Als je daarna wil dat ik naar jouw cijfers kijk, dan weet je precies wat er terugkomt.
             </p>
             <Link
-              href="/voorbeeldrapport"
+              href="/rapporten"
               className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: "#0B7A6E",
@@ -525,7 +525,7 @@ export default function AanbodPage() {
                 textDecoration: "none",
               }}
             >
-              Bekijk een voorbeeldrapport →
+              Bekijk vijf echte rapporten →
             </Link>
             <p style={{ marginTop: "1rem" }}>
               <TrackClick gebeurtenis="aanbod_cta_klik" pakket="geldscan">

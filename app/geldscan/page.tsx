@@ -177,7 +177,7 @@ export default function GeldscanPage({
                 Kijk eerst zelf →
               </Link>
               <Link
-                href="/voorbeeldrapport"
+                href="/rapporten"
                 className="font-body text-sm hover:underline"
                 style={{ color: "#0B7A6E", textDecoration: "none" }}
               >
@@ -245,34 +245,34 @@ export default function GeldscanPage({
               Zo ziet zo&apos;n rapport eruit
             </h2>
             <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
-              Twee stukken uit een van de volledige voorbeeldrapporten op deze site. Sandra en Tom, twee
-              inkomens, samen 6.100 euro netto, twee kinderen, koopwoning. Dit huishouden bestaat niet: ik heb
-              het zelf bedacht inclusief de bedragen, want ik publiceer geen cijfers van een klant zonder
-              toestemming. Woon je alleen of zonder kinderen? Het tweede voorbeeldrapport is van een
-              alleenstaande.
+              Stukken uit een echt rapport, gepubliceerd met toestemming. Alleenstaande ouder, twee kinderen
+              van 7 en 11 die 80 procent van de tijd bij haar wonen, koopwoning, één inkomen van €4.850 netto.
+              Namen zijn weggelaten, de bedragen staan er onveranderd.
             </p>
             <div className="card-base border border-[#E6E9E7]" style={{ borderLeft: "3px solid #0B7A6E" }}>
-              <p className="font-body font-medium text-primary text-sm mb-2">Wat ik zie, in één alinea</p>
+              <p className="font-body font-medium text-primary text-sm mb-2">Wat zij zelf dacht</p>
               <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
-                Er is niets geks aan de hand en jullie geven ook niet te veel uit aan één post. Wat er mis
-                is, is de volgorde. Jullie zetten eerst geld weg voor later en betalen daarna de kosten die
-                zeker komen, en die kosten zijn samen groter dan wat er na de maandlasten overblijft. Daardoor
-                is de spaarrekening in de praktijk de rekening waarvan de vakantie, december en de dakgoot
-                betaald worden. Het gat is 64 euro per maand. Dat is een kleiner probleem dan het voelt, en
-                het is een ander probleem dan jullie dachten.
+                &ldquo;Ik vermoed dat mijn vaste basis duur is voor één inkomen. Daarnaast geef ik mogelijk nog
+                uit alsof er soms twee inkomens zijn.&rdquo; Zij miste naar eigen schatting 400 tot 500 euro per
+                maand.
               </p>
-              <p className="font-body font-medium text-primary text-sm mb-2">Wat ik niet als lek reken</p>
+              <p className="font-body font-medium text-primary text-sm mb-2">Wat ik schreef</p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
+                Je gevoel van krapte is deels logisch. Je draagt met één inkomen een koopwoning, auto en twee
+                kinderen. De oplossing is niet om je leven te behandelen alsof je te veel uitgeeft. Wel is de
+                structuur nog onvoldoende aangepast aan het feit dat je sinds de scheiding alleen de financiële
+                achtervang bent. Laat huis, auto en de sporten van de kinderen ongemoeid.
+              </p>
+              <p className="font-body font-medium text-primary text-sm mb-2">Haar evaluatie, na drie maanden</p>
               <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                De hypotheek van 1.750 euro. Dat is de prijs van het huis waarin jullie wonen en daar is niets
-                aan te repareren zonder verhuizen. De opvang van 420 euro is de prijs van twee banen en de
-                best renderende post in jullie hele overzicht. Aan de zorgverzekering, het huisdier en de
-                sportschool kan ik knabbelen zonder dat jullie er iets van merken behalve dat het minder leuk
-                wordt. Daar vroegen jullie mij niet voor.
+                &ldquo;Mijn financiële situatie voelt vooral voorspelbaarder. Mijn echte buffer groeit met €500
+                per maand. Dat is minder dan de €750 die ik vroeger probeerde te sparen, maar het geld blijft nu
+                daadwerkelijk staan. Ik heb geen grote bezuinigingen gedaan.&rdquo;
               </p>
             </div>
             <p className="mt-5 mb-1">
-              <Link href="/voorbeeldrapport" className="font-body font-medium text-sm hover:underline" style={{ color: "#0B7A6E" }}>
-                Lees beide voorbeeldrapporten van begin tot eind &rarr;
+              <Link href="/rapporten" className="font-body font-medium text-sm hover:underline" style={{ color: "#0B7A6E" }}>
+                Bekijk alle vijf de rapporten van begin tot eind &rarr;
               </Link>
             </p>
             <div className="flex items-center gap-3 mt-5">

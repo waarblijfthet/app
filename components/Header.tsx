@@ -25,6 +25,7 @@ export default function Header() {
       : { label: "Zie waar je geld blijft", href: "/geldscan" };
 
   const navLinks = [
+    { href: "/rapporten", label: "Rapporten" },
     { href: "/inzichten", label: "Inzichten" },
     { href: "/aanbod", label: "Tarieven" },
     { href: "/over", label: "Over" },

@@ -228,7 +228,7 @@ export default function HomeConcept() {
               account of bankkoppeling.
             </p>
             <p className="mt-4">
-              <Link href="/voorbeeldrapport" style={{ color: C.teal, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>Zie eerst een compleet voorbeeldrapport &rarr;</Link>
+              <Link href="/rapporten" style={{ color: C.teal, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>Zie eerst vijf echte rapporten &rarr;</Link>
             </p>
           </div>
 
@@ -299,35 +299,52 @@ export default function HomeConcept() {
       <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}` }}>
         <div className="max-w-4xl mx-auto px-6">
           <p className="mb-4" style={eyebrow}>Wat je krijgt</p>
-          <h2 className="font-display mb-6" style={h2Style}>Dit is een stuk uit zo&apos;n rapport.</h2>
-          <p className="mb-9" style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65, maxWidth: "42rem" }}>
-            Sandra en Tom, twee inkomens, samen 6.100 euro netto, twee kinderen, koopwoning. Ze zetten elke
-            maand 250 euro weg en aan het einde van het jaar stond er niets meer op de spaarrekening dan aan
-            het begin. Dit huishouden bestaat niet: ik heb het zelf bedacht inclusief de bedragen, want ik
-            publiceer geen cijfers van een klant zonder toestemming. Het tweede voorbeeldrapport op die
-            pagina is van een alleenstaande.
+          <h2 className="font-display mb-6" style={h2Style}>Vijf echte rapporten, van begin tot eind.</h2>
+          <p className="mb-8" style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65, maxWidth: "42rem" }}>
+            Vijf huishoudens leverden hun cijfers aan, ik schreef het rapport en drie tot vier maanden later
+            schreven zij op wat er veranderde. Vier van de vijf hadden het bij zichzelf mis. Bij twee van de
+            vijf was mijn conclusie dat er niets te repareren viel. Hieronder een stuk uit het rapport van een
+            stel zonder kinderen, dat dacht dat ze te makkelijk geld uitgaven.
           </p>
+          <div className="flex gap-2 overflow-x-auto pb-2 mb-9 -mx-6 px-6 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible">
+            {[
+              { chip: "Alleenstaand", slug: "alleenstaand-huurwoning" },
+              { chip: "Alleenstaande ouder", slug: "alleenstaande-ouder-twee-kinderen" },
+              { chip: "Stel zonder kinderen", slug: "stel-zonder-kinderen" },
+              { chip: "Gezin met kinderen", slug: "tweeverdieners-drie-kinderen" },
+              { chip: "Zzp of wisselend inkomen", slug: "zzp-wisselend-inkomen" },
+            ].map((d) => (
+              <Link
+                key={d.slug}
+                href={`/rapporten/${d.slug}`}
+                className="transition-colors hover:border-[#0B7A6E] shrink-0 whitespace-nowrap"
+                style={{ fontWeight: 500, fontSize: "0.9rem", padding: "0.5rem 1rem", borderRadius: "999px", border: `1px solid ${C.line}`, color: C.ink, textDecoration: "none", backgroundColor: C.card }}
+              >
+                {d.chip} &rarr;
+              </Link>
+            ))}
+          </div>
           <div style={{ backgroundColor: C.card, border: `1px solid ${C.line}`, borderLeft: `3px solid ${C.teal}`, borderRadius: "4px", padding: "1.75rem" }}>
-            <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.6rem" }}>Wat ik zie, in één alinea</p>
+            <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.6rem" }}>Wat zij zelf dachten</p>
             <p style={{ fontWeight: 300, fontSize: "0.98rem", color: C.inkSoft, lineHeight: 1.7, marginBottom: "1.5rem" }}>
-              Er is niets geks aan de hand en jullie geven ook niet te veel uit aan één post. Wat er mis is,
-              is de volgorde. Jullie zetten eerst geld weg voor later en betalen daarna de kosten die zeker
-              komen, en die kosten zijn samen groter dan wat er na de maandlasten overblijft. Daardoor is de
-              spaarrekening in de praktijk de rekening waarvan de vakantie, december en de dakgoot betaald
-              worden. Het gat is 64 euro per maand. Dat is een kleiner probleem dan het voelt, en het is een
-              ander probleem dan jullie dachten.
+              &ldquo;We denken dat we te makkelijk geld uitgeven, maar niet dat één categorie extreem is.&rdquo;
+              Zij misten naar eigen schatting 700 tot 900 euro per maand.
             </p>
-            <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.6rem" }}>Wat ik niet als lek reken</p>
+            <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.6rem" }}>Wat eruit kwam</p>
+            <p style={{ fontWeight: 300, fontSize: "0.98rem", color: C.inkSoft, lineHeight: 1.7, marginBottom: "1.5rem" }}>
+              Er is geen lek. Hun uitgaven passen niet bij het spaardoel dat ze tegelijkertijd nastreefden.
+              Reizen, horeca en vrije tijd zijn bewuste keuzes die mogen blijven, maar die concurreren met
+              40.000 euro eigen geld binnen drie jaar. Dat vraagt 1.110 euro per maand.
+            </p>
+            <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.6rem" }}>Hun evaluatie, na drie maanden</p>
             <p style={{ fontWeight: 300, fontSize: "0.98rem", color: C.inkSoft, lineHeight: 1.7 }}>
-              De hypotheek van 1.750 euro. Dat is de prijs van het huis waarin jullie wonen en daar is niets
-              aan te repareren zonder verhuizen. De opvang van 420 euro is de prijs van twee banen en de best
-              renderende post in jullie hele overzicht. Aan de zorgverzekering, het huisdier en de sportschool
-              kan ik knabbelen zonder dat jullie er iets van merken behalve dat het minder leuk wordt. Daar
-              vroegen jullie mij niet voor.
+              &ldquo;De belangrijkste verandering was dat we zijn gestopt met zoeken naar iets dat financieel mis
+              zou zijn. We zetten nu automatisch 1.100 euro per maand apart voor het woondoel.&rdquo; Een
+              vervolggesprek was niet nodig.
             </p>
           </div>
           <div className="mt-7">
-            <BtnOutline href="/voorbeeldrapport">Lees beide rapporten van begin tot eind &rarr;</BtnOutline>
+            <BtnOutline href="/rapporten">Bekijk alle vijf de rapporten &rarr;</BtnOutline>
           </div>
         </div>
       </section>

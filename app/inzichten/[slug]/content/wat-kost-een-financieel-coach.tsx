@@ -79,10 +79,11 @@ export default function WatKostEenFinancieelCoach() {
 
       <h2 style={h2}>Wanneer verdient een financieel coach zich terug?</h2>
       <p style={p}>
-        De rekensom is simpeler dan hij lijkt. Bij de huishoudens die ik
-        begeleid heb, was het gemiddelde resultaat €460 per maand meer
-        overhouden, zonder meer te verdienen. Geen belofte, jouw situatie
-        bepaalt de uitkomst. Maar zelfs de kleinste structurele vondst, een
+        De rekensom is simpeler dan hij lijkt. Dat verschilt per huishouden. Op deze
+        site staan vijf echte rapporten met de evaluatie van de klant erbij, en
+        bij twee van de vijf was de uitkomst dat er niets te repareren viel. Een
+        gemiddelde over vijf huishoudens publiceer ik niet, want dat is geen
+        cijfer maar een indruk. Maar zelfs de kleinste structurele vondst, een
         dubbele verzekering van €40 per maand of €150 te veel aan
         boodschappen, verdient een gesprek van €125 binnen een paar maanden
         terug. Het omslagpunt ligt laag: één gevonden weglek is genoeg.

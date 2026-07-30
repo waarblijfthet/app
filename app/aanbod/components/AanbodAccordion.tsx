@@ -21,7 +21,7 @@ const vragen = [
   {
     vraag: "Mag ik zien wat ik koop voordat ik betaal?",
     antwoord:
-      "Ja, en dat vind ik ook niet meer dan normaal. Op de voorbeeldpagina staan twee complete rapporten in de vorm waarin ik ze schrijf. Die twee huishoudens heb ik zelf bedacht, inclusief de bedragen, omdat ik geen klantcijfers publiceer zonder toestemming. Dat staat er ook boven en onder.",
+      "Ja, en dat vind ik ook niet meer dan normaal. Op de pagina Rapporten staan vijf complete rapporten van echte klanten, gepubliceerd met hun toestemming. Je leest hun cijfers, wat ze vooraf zelf dachten, wat ik erop schreef en wat er drie tot vier maanden later was veranderd. Namen zijn weggelaten, de bedragen zijn onveranderd.",
   },
   {
     vraag: "Geef je advies over beleggen, hypotheken of pensioen?",
@@ -41,7 +41,7 @@ const vragen = [
   {
     vraag: "Wat als er bij mij niets uit komt?",
     antwoord:
-      "Dat kan gebeuren en dan zeg ik dat. Ik beloof niet dat er geld te vinden is. Vaker is de uitkomst dat je zwart op wit ziet dat het klopt, of dat het bedrag dat ontbreekt veel kleiner is dan het voelde. In de twee voorbeeldrapporten op deze site is dat 64 euro per maand bij het ene huishouden en 118 bij het andere.",
+      "Dat kan gebeuren en dan zeg ik dat. Ik beloof niet dat er geld te vinden is. Vaker is de uitkomst dat je zwart op wit ziet dat het klopt, of dat het bedrag dat ontbreekt veel kleiner is dan het voelde. Bij twee van de vijf echte rapporten op deze site was de conclusie dat er niets te repareren viel, en bij de andere drie was het ontbrekende bedrag kleiner dan de klant vooraf dacht.",
   },
 ];
 

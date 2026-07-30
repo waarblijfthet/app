@@ -393,7 +393,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wanneer verdient een financieel coach zich terug?",
         antwoord:
-          "Zodra één structurele weglek wordt gevonden. Een dubbele verzekering van €40 per maand of €150 per maand te veel aan boodschappen verdient een gesprek van €125 binnen enkele maanden terug. Gemiddeld hielden de huishoudens die ik begeleidde €460 per maand meer over, al hangt de uitkomst af van je situatie.",
+          "Zodra één structurele weglek wordt gevonden. Een dubbele verzekering van €40 per maand of €150 per maand te veel aan boodschappen verdient een gesprek van €125 binnen enkele maanden terug. Op deze site staan vijf echte rapporten met de evaluatie van de klant erbij; bij twee van de vijf was de uitkomst dat er niets te repareren viel.",
       },
     ],
     externLinks: [

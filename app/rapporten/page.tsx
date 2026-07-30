@@ -1,0 +1,211 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import { RAPPORTEN, AANTAL_ZONDER_VERVOLG } from "@/lib/rapporten-data";
+
+export const metadata: Metadata = {
+  title: "Vijf echte geldrapporten, van begin tot eind",
+  description:
+    "Vijf huishoudens leverden hun cijfers aan, ik schreef het rapport en drie tot vier maanden later vertelden ze wat er veranderde. Bij twee van de vijf was de uitkomst dat er niets misging.",
+  alternates: { canonical: "https://www.waarblijfthet.nl/rapporten" },
+  openGraph: {
+    title: "Vijf echte geldrapporten, van begin tot eind",
+    description:
+      "Wat vijf huishoudens zelf dachten, wat ik vond en wat er daarna veranderde. Met hun eigen cijfers.",
+    url: "https://www.waarblijfthet.nl/rapporten",
+    type: "website",
+  },
+  robots: { index: true, follow: true },
+};
+
+export default function RapportenPage() {
+  return (
+    <>
+      <Header />
+      <main className="pt-24">
+        {/* Hero */}
+        <section className="bg-background pt-10 pb-8">
+          <div className="max-w-3xl mx-auto px-6">
+            <p className="section-eyebrow mb-4">Echte rapporten, met toestemming gepubliceerd</p>
+            <h1 className="font-display font-light text-primary text-3xl sm:text-5xl mb-6 leading-tight">
+              Wat ze zelf dachten, en wat er werkelijk uit kwam
+            </h1>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
+              Vijf huishoudens leverden hun cijfers aan. Ik schreef het rapport, zij gingen ermee aan de slag,
+              en drie tot vier maanden later hebben ze opgeschreven wat er veranderde. Je leest hieronder hun
+              ingevulde vragenlijst, mijn advies en hun eigen evaluatie.
+            </p>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
+              Vier van de vijf hadden het bij zichzelf mis. Bij twee van de vijf was mijn conclusie dat er niets
+              te repareren viel, en bij {AANTAL_ZONDER_VERVOLG} van de vijf was een vervolggesprek niet nodig.
+              Dat staat er ook.
+            </p>
+            <p className="font-body font-light text-text-muted text-sm leading-relaxed">
+              Namen zijn weggelaten en herkenbare details zijn aangepast. Alle bedragen staan er precies zoals
+              zij ze aanleverden, want een geldrapport is een optelsom: verander je er één, dan klopt de rest
+              niet meer.
+            </p>
+          </div>
+        </section>
+
+        {/* Situatiekiezer */}
+        <section className="bg-background pt-2 pb-8">
+          <div className="max-w-3xl mx-auto px-6">
+            <p className="font-body font-medium text-primary text-sm mb-3">Kies de situatie die op jou lijkt</p>
+            <div className="flex gap-2 overflow-x-auto pb-2 -mx-6 px-6 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible">
+              {RAPPORTEN.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/rapporten/${r.slug}`}
+                  className="font-body text-sm font-medium whitespace-nowrap transition-colors hover:border-[#0B7A6E] shrink-0"
+                  style={{
+                    padding: "0.5rem 1rem",
+                    borderRadius: "999px",
+                    border: "1px solid #E6E9E7",
+                    color: "#16211F",
+                    textDecoration: "none",
+                    backgroundColor: "#FFFFFF",
+                  }}
+                >
+                  {r.chip} &rarr;
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* De vijf kaarten */}
+        <section className="bg-card py-12">
+          <div className="max-w-3xl mx-auto px-6 space-y-6">
+            {RAPPORTEN.map((r) => (
+              <article
+                key={r.slug}
+                className="card-base border border-[#E6E9E7]"
+                style={{ borderLeft: "3px solid #0B7A6E" }}
+              >
+                <p className="section-eyebrow mb-2">{r.chip}</p>
+                <h2 className="font-display font-light text-primary text-xl sm:text-2xl mb-1">{r.situatie}</h2>
+                <p className="font-body font-light text-text-muted text-sm mb-5 leading-relaxed">{r.profiel}</p>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+                  <div>
+                    <p className="section-eyebrow mb-2">Wat ze zelf dachten</p>
+                    <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-2">
+                      &ldquo;{r.vermoeden}&rdquo;
+                    </p>
+                    <p className="font-body font-light text-text-muted text-xs leading-relaxed">
+                      {r.vermoedenBedrag}
+                    </p>
+                  </div>
+                  <div
+                    className="sm:pl-6"
+                    style={{ borderTop: "1px solid #E6E9E7", paddingTop: "1.25rem" }}
+                  >
+                    <p className="section-eyebrow mb-2">Wat eruit kwam</p>
+                    <p className="font-body font-medium text-primary text-sm mb-2 leading-snug">
+                      {r.uitkomstKop}
+                    </p>
+                    <p className="font-body font-light text-text-soft text-sm leading-relaxed">{r.uitkomst}</p>
+                  </div>
+                </div>
+
+                <div
+                  className="mt-5 pt-4 flex flex-wrap items-center gap-x-5 gap-y-2"
+                  style={{ borderTop: "1px solid #E6E9E7" }}
+                >
+                  <span className="font-body text-xs text-text-muted">
+                    Evaluatie {r.doorlooptijd}
+                  </span>
+                  <span className="font-body text-xs text-text-muted">
+                    Vervolggesprek: {r.vervolggesprek ? "ja" : "nee"}
+                  </span>
+                  <Link
+                    href={`/rapporten/${r.slug}`}
+                    className="font-body text-sm font-medium hover:underline ml-auto"
+                    style={{ color: "#0B7A6E" }}
+                  >
+                    Lees het hele rapport &rarr;
+                  </Link>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+
+        {/* Overzichtstabel */}
+        <section className="bg-background py-12">
+          <div className="max-w-4xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
+              Vijf keer dezelfde methode, vijf verschillende antwoorden
+            </h2>
+            <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-6">
+              Dit is waarom ik geen sjabloon gebruik. Twee keer was de uitkomst dat er niets te repareren viel,
+              twee keer zat het in de jaaruitgaven die niemand had gereserveerd, en één keer was het inkomen zelf
+              het probleem, niet de uitgaven.
+            </p>
+            <div className="overflow-x-auto -mx-6 px-6 sm:mx-0 sm:px-0">
+              <table className="w-full font-body text-sm" style={{ minWidth: "44rem", borderCollapse: "collapse" }}>
+                <thead>
+                  <tr style={{ borderBottom: "1px solid #16211F" }}>
+                    {["Situatie", "Eigen vermoeden", "Wat eruit kwam", "Vervolg"].map((h) => (
+                      <th
+                        key={h}
+                        className="font-body font-medium text-primary text-xs uppercase"
+                        style={{ textAlign: "left", padding: "0.6rem 0.75rem 0.6rem 0", letterSpacing: "0.08em" }}
+                      >
+                        {h}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {RAPPORTEN.map((r) => (
+                    <tr key={r.slug} style={{ borderBottom: "1px solid #E6E9E7" }}>
+                      <td className="text-primary font-medium" style={{ padding: "0.85rem 0.75rem 0.85rem 0", verticalAlign: "top" }}>
+                        <Link href={`/rapporten/${r.slug}`} className="hover:underline">
+                          {r.chip}
+                        </Link>
+                      </td>
+                      <td className="text-text-soft font-light" style={{ padding: "0.85rem 0.75rem 0.85rem 0", verticalAlign: "top" }}>
+                        {r.vermoedenBedrag}
+                      </td>
+                      <td className="text-text-soft font-light" style={{ padding: "0.85rem 0.75rem 0.85rem 0", verticalAlign: "top" }}>
+                        {r.uitkomstKop}
+                      </td>
+                      <td className="text-text-soft font-light" style={{ padding: "0.85rem 0 0.85rem 0", verticalAlign: "top" }}>
+                        {r.vervolggesprek ? "gesprek" : "geen"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* CTA, eenmalig en onderaan */}
+        <section className="bg-card py-14">
+          <div className="max-w-2xl mx-auto px-6 text-center">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
+              Wil je weten of het bij jou klopt?
+            </h2>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-7">
+              Je levert je cijfers aan, ik schrijf je zo'n rapport over jouw situatie. Binnen twee werkdagen,
+              zonder gesprek, 49 euro eenmalig. Als er bij jou niets te repareren valt, lees je dat.
+            </p>
+            <Link href="/aanbod/intake?pakket=geldscan" className="btn-primary">
+              Vraag het geldrapport aan &rarr;
+            </Link>
+            <p className="font-body font-light text-text-muted text-sm mt-5">
+              <Link href="/analyse" className="hover:underline">
+                Liever eerst zelf je cijfers vergelijken? De analyse is gratis &rarr;
+              </Link>
+            </p>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </>
+  );
+}

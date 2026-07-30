@@ -25,7 +25,12 @@ const statisch = [
   { loc: "/samenwerken/budgetcoaches", priority: "0.6" },
   { loc: "/samenwerken/burnout-coaches", priority: "0.6" },
   { loc: "/samenwerken/financieel-planners", priority: "0.6" },
-  { loc: "/voorbeeldrapport", priority: "0.9" },
+  { loc: "/rapporten", priority: "0.9" },
+  { loc: "/rapporten/tweeverdieners-drie-kinderen", priority: "0.8" },
+  { loc: "/rapporten/alleenstaande-ouder-twee-kinderen", priority: "0.8" },
+  { loc: "/rapporten/alleenstaand-huurwoning", priority: "0.8" },
+  { loc: "/rapporten/stel-zonder-kinderen", priority: "0.8" },
+  { loc: "/rapporten/zzp-wisselend-inkomen", priority: "0.8" },
 ];
 
 // Artikel-slugs uit de single source of truth
@@ -105,7 +110,7 @@ const llms =
   `- [Aanbod](${HOST}/aanbod): gratis analyse, eenmalig adviesgesprek en traject\n` +
   `- [Financieel coach](${HOST}/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt\n` +
   `- [Geldscan](${HOST}/geldscan): persoonlijk geldrapport over je maandbudget zonder gesprek, 49 euro\n` +
-  `- [Voorbeeldrapport](${HOST}/voorbeeldrapport): twee complete voorbeelden van een geldrapport, fictieve huishoudens\n` +
+  `- [Rapporten](${HOST}/rapporten): vijf echte, geanonimiseerde geldrapporten met de ingevulde cijfers, mijn advies en de evaluatie van de klant na drie tot vier maanden. Bij twee van de vijf was de uitkomst dat er niets te repareren viel.\n` +
   `- [Inzichten](${HOST}/inzichten): artikelen over grip op je geld\n` +
   `- [Over mij](${HOST}/over): wie en waarom\n` +
   `- [Woordenlijst](${HOST}/woordenlijst): geldbegrippen in gewone taal\n\n` +
