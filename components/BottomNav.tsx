@@ -95,7 +95,7 @@ export function BottomNav() {
             <span className="text-[10px] font-medium">Aanbod</span>
           </Link>
 
-          {/* Analyse — altijd prominent, accent kleur als niet actief */}
+          {/* Analyse, altijd prominent, accent kleur als niet actief */}
           <Link
             href="/analyse"
             className="flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 transition-colors"

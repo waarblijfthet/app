@@ -45,7 +45,7 @@ export default function OverzichtTabblad({ leads, resultaten }: Props) {
         afwijkingen[r.grootste_afwijking] = (afwijkingen[r.grootste_afwijking] || 0) + 1;
       }
     });
-    const meestVoorkomend = Object.entries(afwijkingen).sort((a, b) => b[1] - a[1])[0]?.[0] ?? "—";
+    const meestVoorkomend = Object.entries(afwijkingen).sort((a, b) => b[1] - a[1])[0]?.[0] ?? ", ";
 
     return { quizIngevuld, quizPct, gemOver, meestVoorkomend };
   }, [leads, resultaten]);

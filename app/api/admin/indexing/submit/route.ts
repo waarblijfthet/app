@@ -59,7 +59,7 @@ export async function POST(request: NextRequest) {
 
   const errors: string[] = [];
 
-  // IndexNow — batch submit (max 10.000 per call, wij doen alles in één keer)
+  // IndexNow, batch submit (max 10.000 per call, wij doen alles in één keer)
   try {
     const res = await fetch("https://api.indexnow.org/indexnow", {
       method: "POST",
@@ -73,7 +73,7 @@ export async function POST(request: NextRequest) {
     });
 
     if (res.ok || res.status === 202) {
-      // Alles succesvol ingediend — update Supabase
+      // Alles succesvol ingediend, update Supabase
       const nu = new Date().toISOString();
       for (const url of urls) {
         const { data: bestaand } = await supabase

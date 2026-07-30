@@ -4,14 +4,14 @@ export type KinderenAantal = 0 | 1 | 2 | 3;
 export type ZorgToggle = "per_persoon" | "totaal";
 
 export interface QuizData {
-  // Stap 1 — Profiel
+  // Stap 1, Profiel
   volwassenen: 1 | 2 | null;
   woonsituatie: Woonsituatie | null;
   kinderen: KinderenAantal | null;
   auto: AutoSituatie | null;
   zakelijkBijtellingSalaris: boolean; // bijtelling NOG NIET in salaris verrekend
 
-  // Stap 2 — Inkomsten
+  // Stap 2, Inkomsten
   salaris1: string;
   salaris1InclVakantiegeld: boolean;
   salaris1InclDertiende: boolean;
@@ -27,7 +27,7 @@ export interface QuizData {
   hypotheekRenteAftrek: string; // teruggave = inkomen (alleen koop)
   hypotheekRenteAftrekPer: "maand" | "jaar";
 
-  // Stap 3 — Wonen
+  // Stap 3, Wonen
   huurHypotheek: string;
   energie: string;
   internet: string;
@@ -35,7 +35,7 @@ export interface QuizData {
   gemeenteBelastingen: string;
   gemeenteBelastingenPer: "maand" | "jaar";
 
-  // Stap 4 — Vervoer & Verzekeringen
+  // Stap 4, Vervoer & Verzekeringen
   ovAbonnement: string;
   brandstof: string;
   autoVerzWB: string;
@@ -45,7 +45,7 @@ export interface QuizData {
   zorgToggle: ZorgToggle;
   verzekeringOverig: string;
 
-  // Stap 5 — Dagelijks
+  // Stap 5, Dagelijks
   boodschappen: string;
   abonnementenTotaal: string;
   streamingBedrag: string;
@@ -60,7 +60,7 @@ export interface QuizData {
   jaarlijkseKostenPer: "maand" | "jaar";
   spaardoel: string;
 
-  // Stap 6 — Lead
+  // Stap 6, Lead
   naam: string;
   email: string;
   toestemmingOpslaan: boolean;

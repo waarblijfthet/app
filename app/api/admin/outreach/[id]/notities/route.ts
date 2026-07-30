@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
-// POST /api/admin/outreach/[id]/notities — handmatige notitie toevoegen
+// POST /api/admin/outreach/[id]/notities, handmatige notitie toevoegen
 // Body: { tekst: string }
 // Systeemnotities (mail verstuurd) worden elders geschreven (send-route en
 // de follow-up-cron), niet via deze route.

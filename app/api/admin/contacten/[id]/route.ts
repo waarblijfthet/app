@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
-// GET /api/admin/contacten/[id] — contact en notitietijdlijn voor het
+// GET /api/admin/contacten/[id], contact en notitietijdlijn voor het
 // detailpaneel (sectie 7).
 export async function GET(
   _req: NextRequest,

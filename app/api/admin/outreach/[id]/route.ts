@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
-// GET /api/admin/outreach/[id] — contact, mailhistorie en notities voor het
+// GET /api/admin/outreach/[id], contact, mailhistorie en notities voor het
 // detailpaneel (zie docs/admin-redesign-30-jul-2026.md sectie 5c).
 export async function GET(
   _req: NextRequest,

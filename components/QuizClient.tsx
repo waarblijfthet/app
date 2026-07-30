@@ -40,7 +40,7 @@ function Bar({
       <div className="space-y-1.5">
         <div>
           <div className="flex justify-between text-xs font-body text-text-muted mb-1">
-            <span>Jullie — {yoursLabel}</span>
+            <span>Jullie, {yoursLabel}</span>
             <span className={`font-medium ${isHigh ? "text-accent" : "text-primary"}`}>
               {yoursPct.toFixed(0)}%
             </span>
@@ -54,7 +54,7 @@ function Bar({
         </div>
         <div>
           <div className="flex justify-between text-xs font-body text-text-muted mb-1">
-            <span>Gemiddeld — {averageLabel}</span>
+            <span>Gemiddeld, {averageLabel}</span>
             <span className="font-medium text-text-muted">{averagePct.toFixed(0)}%</span>
           </div>
           <div className="h-2.5 bg-[#E6E9E7] rounded-full overflow-hidden">

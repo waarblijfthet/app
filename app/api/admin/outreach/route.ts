@@ -8,7 +8,7 @@ const STATUSWEERGAVEN = [
 ] as const;
 type Statusweergave = (typeof STATUSWEERGAVEN)[number];
 
-// GET /api/admin/outreach — contacten ophalen
+// GET /api/admin/outreach, contacten ophalen
 // Zonder queryparameters: ongewijzigd gedrag, alle rijen, plat array (bestaande UI leunt hierop).
 // Met queryparameters: per-kolom filters (naam, email, plaats, psZin, doelgroep,
 // reactie, statusweergave), limiet, offset (standaard 50 rijen). Retourneert dan
@@ -114,7 +114,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ data, mails: mailsPerContact, total: count ?? data?.length ?? 0 });
 }
 
-// POST /api/admin/outreach — contact toevoegen
+// POST /api/admin/outreach, contact toevoegen
 export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
@@ -159,7 +159,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(data, { status: 201 });
 }
 
-// PATCH /api/admin/outreach — naam, e-mail, categorie of persoonlijke zin wijzigen,
+// PATCH /api/admin/outreach: naam, e-mail, categorie of persoonlijke zin wijzigen,
 // een reply markeren (met reactie-classificatie), automatische mails stoppen/hervatten,
 // of archiveren. Werkt op een enkel contact (id) of in bulk (ids), zie sectie 5b/5d.
 // Body: { id?: string, ids?: string[], naam?: string, email?: string, doelgroep?: string,
@@ -240,7 +240,7 @@ export async function PATCH(req: NextRequest) {
   return NextResponse.json({ ok: true, bijgewerkt: data?.length ?? ids.length });
 }
 
-// DELETE /api/admin/outreach — contact(en) verwijderen (hard delete)
+// DELETE /api/admin/outreach, contact(en) verwijderen (hard delete)
 // Query: ?id=xxx (enkel, bestaand gedrag) of body { ids: string[], blocklist?: boolean }.
 // blocklist is standaard aan: het/de e-mailadres(sen) gaat/gaan naar email_blocklist
 // voordat de rij(en) verdwijnen, zodat de prospect-zoeker dezelfde persoon niet

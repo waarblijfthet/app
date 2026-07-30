@@ -28,7 +28,7 @@ function StatusPill({ status }: { status: string }) {
 
 function KnelpuntCell({ tekst }: { tekst: string | null }) {
   const [tooltip, setTooltip] = useState(false);
-  if (!tekst) return <span className="text-text-muted">—</span>;
+  if (!tekst) return <span className="text-text-muted">, </span>;
   const kort = tekst.length > 60 ? tekst.slice(0, 60) + "…" : tekst;
   return (
     <span
@@ -153,7 +153,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     {
       key: "naam",
       header: "Naam",
-      render: (a) => <span className="text-primary font-medium whitespace-nowrap">{a.naam ?? "—"}</span>,
+      render: (a) => <span className="text-primary font-medium whitespace-nowrap">{a.naam ?? ", "}</span>,
       sorteerWaarde: (a) => a.naam ?? "",
     },
     {
@@ -165,7 +165,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
             {a.email}
           </a>
         ) : (
-          "—"
+          ", "
         ),
     },
     {
@@ -177,7 +177,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     {
       key: "inkomen",
       header: "Inkomen",
-      render: (a) => <span className="text-text-soft whitespace-nowrap">{a.inkomen_bracket ?? "—"}</span>,
+      render: (a) => <span className="text-text-soft whitespace-nowrap">{a.inkomen_bracket ?? ", "}</span>,
     },
     {
       key: "knelpunt",
@@ -200,7 +200,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
             Bekijk analyse →
           </a>
         ) : a.analyse_gedaan === null ? (
-          <span className="text-text-muted">—</span>
+          <span className="text-text-muted">, </span>
         ) : a.analyse_gedaan ? (
           <span className="text-success">✓ Ja</span>
         ) : (
@@ -210,7 +210,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     {
       key: "start",
       header: "Start",
-      render: (a) => <span className="text-text-soft whitespace-nowrap">{a.start_voorkeur ?? "—"}</span>,
+      render: (a) => <span className="text-text-soft whitespace-nowrap">{a.start_voorkeur ?? ", "}</span>,
     },
     {
       key: "status",
@@ -279,7 +279,7 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
         mobieleKaart={(a) => (
           <div className="rounded-xl border border-[#E6E9E7] bg-card p-4">
             <div className="flex items-center justify-between">
-              <p className="font-body font-medium text-primary text-sm">{a.naam ?? "—"}</p>
+              <p className="font-body font-medium text-primary text-sm">{a.naam ?? ", "}</p>
               <StatusPill status={a.status} />
             </div>
             {a.email && (

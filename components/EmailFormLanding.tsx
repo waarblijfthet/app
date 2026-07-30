@@ -39,7 +39,7 @@ export default function EmailFormLanding({ variant }: Props) {
   if (variant === "hero") {
     return (
       <div>
-        {/* Primaire CTA — quiz */}
+        {/* Primaire CTA, quiz */}
         <Link
           href="/analyse"
           className="inline-block font-body text-white mb-6 transition-opacity hover:opacity-90"
@@ -101,7 +101,7 @@ export default function EmailFormLanding({ variant }: Props) {
     );
   }
 
-  // CTA variant — donkere achtergrond
+  // CTA variant, donkere achtergrond
   return (
     <div>
       <form

@@ -79,7 +79,7 @@ export function PageTracker() {
           land: locatie.land,
         });
       } catch {
-        // Stil falen — tracking mag nooit de site breken
+        // Stil falen, tracking mag nooit de site breken
       }
     }
 

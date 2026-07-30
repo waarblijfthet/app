@@ -86,7 +86,7 @@ const robots =
   `\n\n# Host\nHost: ${HOST}\n\n` +
   `# Sitemaps\nSitemap: ${HOST}/sitemap.xml\n`;
 
-// llms.txt — vat de site samen voor LLM's / AI-zoekmachines
+// llms.txt: vat de site samen voor LLM's / AI-zoekmachines
 const titelMap = new Map(
   [...data.matchAll(/slug:\s*"([^"]+)"[\s\S]*?\n\s*titel:\s*\n?\s*"([^"]+)"/g)].map(
     (m) => [m[1], m[2]]

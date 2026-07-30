@@ -138,7 +138,7 @@ export function PotjesVisualisatie() {
 
       <div className="px-5 py-3 bg-[#F7F8F7] border-t border-[#E6E9E7]">
         <p className="text-xs text-[#8B958F]">
-          Klik op een potje voor meer uitleg. Percentages zijn een startpunt —
+          Klik op een potje voor meer uitleg. Percentages zijn een startpunt, 
           pas aan op jouw situatie.
         </p>
       </div>

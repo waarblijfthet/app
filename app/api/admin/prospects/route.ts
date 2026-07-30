@@ -15,8 +15,8 @@ function ongeldigeDoelgroep(d: string): boolean {
   return d !== "auto" && !DOELGROEPEN.includes(d as Doelgroep);
 }
 
-// GET /api/admin/prospects — jobs + te reviewen prospects
-// GET /api/admin/prospects?jobId=xxx — één job met bijbehorende prospects
+// GET /api/admin/prospects, jobs + te reviewen prospects
+// GET /api/admin/prospects?jobId=xxx, één job met bijbehorende prospects
 export async function GET(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
@@ -60,7 +60,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json({ jobs: jobs ?? [], prospects });
 }
 
-// POST /api/admin/prospects — nieuwe zoekopdracht starten
+// POST /api/admin/prospects, nieuwe zoekopdracht starten
 // Body: { type: "url" | "zoekwoorden", invoer: string, doelgroep: string }
 export async function POST(req: NextRequest) {
   if (!(await isAdminRequest())) {
@@ -168,7 +168,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({ job: { ...job, gevonden: direct }, jsGerenderd }, { status: 201 });
 }
 
-// DELETE /api/admin/prospects?id=xxx — job en niet-goedgekeurde prospects opruimen
+// DELETE /api/admin/prospects?id=xxx, job en niet-goedgekeurde prospects opruimen
 export async function DELETE(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });

@@ -7,7 +7,7 @@ import { DOELGROEPEN, DOELGROEP_LABEL } from "@/lib/outreach/labels";
 import { OutreachContact } from "@/lib/outreach/types";
 
 /**
- * GET /api/admin/vandaag — alle zes blokken van het Vandaag-dashboard in één
+ * GET /api/admin/vandaag, alle zes blokken van het Vandaag-dashboard in één
  * keer, server-side geaggregeerd. Zie docs/admin-redesign-30-jul-2026.md
  * sectie 6.
  *

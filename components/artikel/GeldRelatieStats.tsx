@@ -10,7 +10,7 @@ const stats = [
   },
   {
     getal: '23%',
-    label: 'wil vaker over geld praten met de partner — maar doet het niet',
+    label: 'wil vaker over geld praten met de partner, maar doet het niet',
     bron: 'bunq onderzoek 2025',
     kleur: '#E4F1EE',
     tekstKleur: '#92600A',
@@ -45,7 +45,7 @@ export function GeldRelatieStats() {
       <div className="rounded-2xl overflow-hidden border border-[#E6E9E7]">
         <div className="bg-[#16211F] px-5 py-4">
           <p className="text-[#86BCAF] text-xs font-medium uppercase tracking-wider mb-0.5">
-            Onderzoek 2024–2025
+            Onderzoek 2024 tot 2025
           </p>
           <p className="text-[#F7F8F7] text-sm font-medium">
             Geld en relaties in Nederland

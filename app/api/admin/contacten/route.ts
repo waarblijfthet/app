@@ -4,7 +4,7 @@ import { isAdminRequest } from "@/lib/admin-auth";
 
 const SOORTEN = ["verwijzer", "klant", "lead", "overig"];
 
-// GET /api/admin/contacten — lijst voor de contactenpagina.
+// GET /api/admin/contacten, lijst voor de contactenpagina.
 // Query: soort ('verwijzer'|'klant'|'lead'|'overig'), actie ('1', vandaag of
 // eerder en niet gearchiveerd), zoekterm (naam/email/praktijk/plaats).
 // Geen paginering: dit blijft een handvol rijen (sectie 7).
@@ -41,7 +41,7 @@ export async function GET(req: NextRequest) {
   return NextResponse.json(data);
 }
 
-// POST /api/admin/contacten — contact met de hand toevoegen.
+// POST /api/admin/contacten, contact met de hand toevoegen.
 // Dubbel e-mailadres geeft een leesbare 409 met het id van de bestaande rij,
 // geen databasefout (opdracht 4).
 export async function POST(req: NextRequest) {
@@ -104,7 +104,7 @@ export async function POST(req: NextRequest) {
   return NextResponse.json(data, { status: 201 });
 }
 
-// PATCH /api/admin/contacten — gegevens, soort/fase, volgende actie bijwerken.
+// PATCH /api/admin/contacten: gegevens, soort/fase, volgende actie bijwerken.
 // Body: { id, naam?, email?, telefoon?, praktijk?, website?, plaats?, soort?,
 //         fase?, doelgroep?, volgende_actie?, volgende_actie_op?,
 //         laatste_contact_at? }

@@ -1,7 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 
 /**
- * Supabase client met service role key — bypassed RLS.
+ * Supabase client met service role key, bypassed RLS.
  * Alleen gebruiken in server-side API routes, nooit client-side.
  */
 export function createServiceClient() {

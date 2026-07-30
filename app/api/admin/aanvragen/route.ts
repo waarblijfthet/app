@@ -4,7 +4,7 @@ import { isAdminRequest } from "@/lib/admin-auth";
 
 const GELDIGE_STATUSSEN = ["nieuw", "contact_opgenomen", "betaald", "gestart"];
 
-// PATCH /api/admin/aanvragen — status van een intake-aanvraag bijwerken
+// PATCH /api/admin/aanvragen, status van een intake-aanvraag bijwerken
 //
 // Zodra een aanvraag met pakket = 'geldscan' voor het eerst naar status
 // 'gestart' gaat, stempelen we rapport_verzonden_at (zie

@@ -54,7 +54,7 @@ const PAKKET_LABEL: Record<string, string> = {
 };
 
 /**
- * POST /api/admin/contacten/doorzetten — één route, drie ingangen.
+ * POST /api/admin/contacten/doorzetten, één route, drie ingangen.
  * Body: { bron: "outreach", outreach_contact_id } | { bron: "aanvraag", intake_id }
  *     | { bron: "lead", lead_id }
  *

@@ -8,7 +8,7 @@ interface Props {
 }
 
 function fmtEur(n: number | null) {
-  if (n == null) return "—";
+  if (n == null) return ", ";
   return `€${Math.round(n).toLocaleString("nl-NL")}`;
 }
 
@@ -159,7 +159,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                         })}
                       </td>
                       <td className="px-3 py-3 text-text-soft text-xs max-w-[140px] truncate" title={r.email ?? undefined}>
-                        {r.email ?? <span className="text-text-muted">—</span>}
+                        {r.email ?? <span className="text-text-muted">, </span>}
                       </td>
                       <td className="px-3 py-3 text-text-soft text-xs max-w-[140px]">
                         {profielSamenvatting(r)}
@@ -183,7 +183,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                       }`}>
                         {r.verschil_met_benchmark != null
                           ? `${r.verschil_met_benchmark >= 0 ? "+" : ""}${fmtEur(r.verschil_met_benchmark)}`
-                          : "—"}
+                          : ", "}
                       </td>
                       <td className="px-3 py-3">
                         {r.verdict && VERDICT_PILL[r.verdict] ? (
@@ -191,11 +191,11 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                             {VERDICT_PILL[r.verdict].label}
                           </span>
                         ) : (
-                          <span className="text-text-muted">—</span>
+                          <span className="text-text-muted">, </span>
                         )}
                       </td>
                       <td className="px-3 py-3 text-text-soft text-xs">
-                        {r.grootste_afwijking || "—"}
+                        {r.grootste_afwijking || ", "}
                       </td>
                       <td className="px-3 py-3" onClick={(e) => e.stopPropagation()}>
                         {r.token ? (
@@ -208,7 +208,7 @@ export default function QuizResultatenTabblad({ resultaten }: Props) {
                             Bekijk →
                           </a>
                         ) : (
-                          <span className="text-text-muted text-xs">—</span>
+                          <span className="text-text-muted text-xs">, </span>
                         )}
                       </td>
                     </tr>

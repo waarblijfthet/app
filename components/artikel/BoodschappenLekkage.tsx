@@ -25,7 +25,7 @@ const lekpunten = [
     gemiddeldExtra: 90,
     hoeVeel: "A-merken zijn gemiddeld 57% duurder (Consumentenbond)",
     uitleg:
-      "Niet alles is hetzelfde als huismerk. Maar pasta, rijst, melk, eieren, bloem — daar merk je het verschil niet. Gemiddelde besparing bij 50% overstap: €90 per maand.",
+      "Niet alles is hetzelfde als huismerk. Maar pasta, rijst, melk, eieren, bloem, daar merk je het verschil niet. Gemiddelde besparing bij 50% overstap: €90 per maand.",
     kleur: "#0B7A6E",
     lichtKleur: "#E7F1EE",
   },

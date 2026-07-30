@@ -89,7 +89,7 @@ const STATUS_BADGE: Record<string, { label: string; kleur: string }> = {
 };
 
 function datumKort(iso: string | null): string {
-  if (!iso) return "—";
+  if (!iso) return ", ";
   return new Date(iso).toLocaleDateString("nl-NL", {
     day: "numeric", month: "short", year: "numeric",
   });
@@ -392,9 +392,9 @@ export default function IndexingTabblad() {
           </div>
           {debugUitgeklapt && resultaat.debug && (
             <div className="border-t border-current/20 px-4 py-3 space-y-1 font-mono text-xs">
-              <div><strong>siteUrl:</strong> {resultaat.debug.siteUrl ?? "—"}</div>
-              <div><strong>tokenAccount:</strong> {resultaat.debug.tokenAccount ?? "—"}</div>
-              <div><strong>urlsChecked:</strong> {resultaat.debug.urlsChecked ?? "—"}</div>
+              <div><strong>siteUrl:</strong> {resultaat.debug.siteUrl ?? ", "}</div>
+              <div><strong>tokenAccount:</strong> {resultaat.debug.tokenAccount ?? ", "}</div>
+              <div><strong>urlsChecked:</strong> {resultaat.debug.urlsChecked ?? ", "}</div>
             </div>
           )}
           {foutUitgeklapt && resultaat.errors && resultaat.errors.length > 0 && (
@@ -456,7 +456,7 @@ export default function IndexingTabblad() {
                         {badge.label}
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-[#4A5A56]">{row.verdict ?? "—"}</td>
+                    <td className="px-4 py-3 text-[#4A5A56]">{row.verdict ?? ", "}</td>
                     <td className="px-4 py-3 text-[#4A5A56]">{datumKort(row.last_crawled_at)}</td>
                     <td className="px-4 py-3 text-[#4A5A56]">{datumKort(row.last_submitted_at)}</td>
                     <td className="px-4 py-3">

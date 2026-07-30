@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
-// POST /api/admin/contacten/migreren — eenmalige migratie: elke
+// POST /api/admin/contacten/migreren, eenmalige migratie: elke
 // intake_aanvraag met status betaald of gestart wordt een contact met
 // soort klant, intake_id en analyse_token mee (opdracht 5).
 //

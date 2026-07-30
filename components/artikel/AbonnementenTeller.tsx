@@ -48,7 +48,7 @@ export default function AbonnementenTeller() {
         Wat kosten jouw abonnementen samen?
       </p>
       <p className="font-body text-sm mb-5" style={{ color: "#4A5A56" }}>
-        Vink aan wat je hebt. De bedragen zijn gemiddelden — pas ze in gedachten
+        Vink aan wat je hebt. De bedragen zijn gemiddelden, pas ze in gedachten
         aan jouw situatie aan.
       </p>
 

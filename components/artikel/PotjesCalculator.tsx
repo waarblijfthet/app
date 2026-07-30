@@ -69,14 +69,14 @@ export default function PotjesCalculator() {
         <p className="font-body text-sm" style={{ color: totaal === 100 ? "#0B7A6E" : "#B03A2E" }}>
           {totaal === 100
             ? "✓ Je verdeling telt op tot 100%."
-            : `Je verdeling telt nu op tot ${totaal}% — pas de potjes aan tot je op 100% zit.`}
+            : `Je verdeling telt nu op tot ${totaal}%, pas de potjes aan tot je op 100% zit.`}
         </p>
       </div>
 
       {vasteWaarschuwing && (
         <p className="font-body text-sm mt-3" style={{ color: "#B03A2E" }}>
           Let op: meer dan 70% naar vaste lasten is een signaal dat het systeem
-          knelt — dan is er weinig ruimte om te sparen of op te vangen.
+          knelt, dan is er weinig ruimte om te sparen of op te vangen.
         </p>
       )}
 

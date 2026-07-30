@@ -41,7 +41,7 @@ const gezinnen: Gezin[] = [
       { naam: 'Abonnementen', bedrag: 210, kleur: '#A6D8CD' },
       { naam: 'Over', bedrag: 505, kleur: '#E7F1EE', over: true },
     ],
-    commentaar: 'De meest herkenbare situatie voor de waarblijfthet-doelgroep. €505 over — op papier genoeg. Maar één tegenvaller en de maand is krap.'
+    commentaar: 'De meest herkenbare situatie voor de waarblijfthet-doelgroep. €505 over, op papier genoeg. Maar één tegenvaller en de maand is krap.'
   },
   {
     label: 'Gezin 3 kinderen (pubers), koopwoning',
@@ -123,7 +123,7 @@ export function WerkelijkeVerdeling() {
       </div>
 
       <div className="px-5 py-3 bg-[#F7F8F7] border-t border-[#E6E9E7]">
-        <p className="text-xs text-[#8B958F]">Bedragen gebaseerd op werkelijke gemiddelden (forums, blogs, CBS 2024). Geen fictieve getallen — dit is wat vergelijkbare gezinnen rapporteren.</p>
+        <p className="text-xs text-[#8B958F]">Bedragen gebaseerd op werkelijke gemiddelden (forums, blogs, CBS 2024). Geen fictieve getallen, dit is wat vergelijkbare gezinnen rapporteren.</p>
       </div>
     </div>
   )

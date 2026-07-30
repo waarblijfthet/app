@@ -136,7 +136,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud, uitgaven van een alleenstaande",
+        label: "Nibud: uitgaven van een alleenstaande",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -188,7 +188,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud, samen je geldzaken regelen",
+        label: "Nibud: samen je geldzaken regelen",
         url: "https://www.nibud.nl/onderwerpen/inkomsten/samenwonen/",
       },
     ],
@@ -238,7 +238,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud, omgaan met geld en vergelijken",
+        label: "Nibud: omgaan met geld en vergelijken",
         url: "https://www.nibud.nl/onderwerpen/rondkomen/",
       },
     ],
@@ -290,7 +290,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud, inzicht in je uitgaven en rekentools",
+        label: "Nibud: inzicht in je uitgaven en rekentools",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -342,7 +342,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud, financiele weerbaarheid",
+        label: "Nibud: financiele weerbaarheid",
         url: "https://www.nibud.nl/onderwerpen/rondkomen/",
       },
     ],
@@ -398,7 +398,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud, inzicht in je uitgaven en rekentools",
+        label: "Nibud: inzicht in je uitgaven en rekentools",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
       {
@@ -463,7 +463,7 @@ export const artikelen: Artikel[] = [
         url: "https://geldfit.nl",
       },
       {
-        label: "Nibud, hulp bij geldproblemen",
+        label: "Nibud: hulp bij geldproblemen",
         url: "https://www.nibud.nl/onderwerpen/geldproblemen/",
       },
     ],
@@ -1701,9 +1701,9 @@ export const artikelen: Artikel[] = [
   {
     slug: "ons-boodschappenbudget-mislukte-tot-we-dit-deden",
     korteTitel: "Boodschappenbudget: een echte case",
-    titel: "Ons boodschappenbudget mislukte elke keer — tot we dit deden",
-    metaTitel: "Ons boodschappenbudget mislukte elke keer — tot we dit deden",
-    metaDescription: "Een gezin ging van €950 naar €720 aan boodschappen per maand — zonder honger of soberheid. De vier dingen die we veranderden, en het voor/na-resultaat.",
+    titel: "Ons boodschappenbudget mislukte elke keer, tot we dit deden",
+    metaTitel: "Ons boodschappenbudget mislukte elke keer, tot we dit deden",
+    metaDescription: "Een gezin ging van €950 naar €720 aan boodschappen per maand, zonder honger of soberheid. De vier dingen die we veranderden, en het voor/na-resultaat.",
     datum: "2026-05-31",
     datumFormatted: "31 mei 2026",
     leestijd: "6",
@@ -1711,7 +1711,7 @@ export const artikelen: Artikel[] = [
     excerpt: "Bram en Eva gaven ruim €950 per maand uit aan boodschappen zonder te weten waar het heen ging. Drie maanden later: €720, zonder in te leveren. Een echte case met de exacte aanpak en bedragen.",
     preview: {
       type: "vergelijking",
-      label: "Boodschappen per maand — echte case",
+      label: "Boodschappen per maand, echte case",
       items: [
         { naam: "Voor", bedrag: 950, kleur: "#B03A2E" },
         { naam: "Na", bedrag: 720, kleur: "#0B7A6E" },
@@ -1725,7 +1725,7 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Hoeveel kun je besparen op boodschappen?",
-        antwoord: "In deze case zo'n €230 per maand (bijna €2.760 per jaar), van €950 naar €720 — zonder minder of slechter te eten. Het verschil zat in een plan en een zichtbare grens, niet in zuiniger zijn.",
+        antwoord: "In deze case zo'n €230 per maand (bijna €2.760 per jaar), van €950 naar €720, zonder minder of slechter te eten. Het verschil zat in een plan en een zichtbare grens, niet in zuiniger zijn.",
       },
       {
         vraag: "Moet je dan alles merkloos kopen?",
@@ -1734,14 +1734,14 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
   },  {
     slug: "kerstpot-en-verjaardagspot-zo-bouwden-we-die",
     korteTitel: "Kerst- en verjaardagspot: een echte case",
-    titel: "December overviel ons elk jaar — zo bouwden we een kerst- en verjaardagspot",
+    titel: "December overviel ons elk jaar, zo bouwden we een kerst- en verjaardagspot",
     metaTitel: "Kerst- en verjaardagspot opbouwen: zo werkt het",
     metaDescription: "Een december-klap van €500+, elk jaar. Door pieken te vertalen naar €150 per maand in drie potjes staat de kerstpot nu altijd klaar. De aanpak.",
     datum: "2026-05-31",
@@ -1766,29 +1766,29 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Vastelastenbond — wat geven we uit aan Sinterklaas",
+        label: "Vastelastenbond: wat geven we uit aan Sinterklaas",
         url: "https://www.vastelastenbond.nl/blog/wat-geven-we-uit-aan-sinterklaas/",
       },
     ],
   },  {
     slug: "bso-kosten-tweede-inkomen-zo-draaiden-we-het-om",
     korteTitel: "BSO & tweede inkomen: een echte case",
-    titel: "De BSO slokte ons tweede inkomen op — zo draaiden we het om",
-    metaTitel: "De BSO slokte ons tweede inkomen op — zo draaiden we het om",
+    titel: "De BSO slokte ons tweede inkomen op, zo draaiden we het om",
+    metaTitel: "De BSO slokte ons tweede inkomen op, zo draaiden we het om",
     metaDescription: "Van het tweede inkomen bleef netto weinig over door de BSO. Na het eerlijk doorrekenen: van 3 naar 1 dag opvang en ~€345 minder per maand.",
     datum: "2026-05-31",
     datumFormatted: "31 mei 2026",
     leestijd: "6",
     categorie: "Inzicht",
-    excerpt: "Karim en Noor hielden netto bijna niets over van het tweede inkomen — de BSO slokte het op. Door uit te rekenen wat de extra werkdag écht opleverde, gingen ze van 3 naar 1 dag opvang: ~€345 per maand minder, én meer rust.",
+    excerpt: "Karim en Noor hielden netto bijna niets over van het tweede inkomen, de BSO slokte het op. Door uit te rekenen wat de extra werkdag écht opleverde, gingen ze van 3 naar 1 dag opvang: ~€345 per maand minder, én meer rust.",
     preview: {
       type: "vergelijking",
-      label: "Eigen bijdrage opvang — echte case",
+      label: "Eigen bijdrage opvang, echte case",
       items: [
         { naam: "3 dagen BSO", bedrag: 520, kleur: "#B03A2E" },
         { naam: "1 dag BSO", bedrag: 175, kleur: "#0B7A6E" },
       ],
-      noot: "Verschilt per inkomen — reken na op toeslagen.nl",
+      noot: "Verschilt per inkomen, reken na op toeslagen.nl",
     },
     faq: [
       {
@@ -1797,16 +1797,16 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Wat is de maximale vergoede opvanguurprijs in 2026?",
-        antwoord: "Voor de kinderopvangtoeslag is het maximale vergoede uurtarief voor BSO in 2026 €9,98 per uur. Hoeveel je zelf betaalt hangt sterk af van je inkomen — bovenmodale gezinnen krijgen minder toeslag.",
+        antwoord: "Voor de kinderopvangtoeslag is het maximale vergoede uurtarief voor BSO in 2026 €9,98 per uur. Hoeveel je zelf betaalt hangt sterk af van je inkomen, bovenmodale gezinnen krijgen minder toeslag.",
       },
     ],
     externLinks: [
       {
-        label: "Belastingdienst — maximaal uurtarief kinderopvangtoeslag",
+        label: "Belastingdienst: maximaal uurtarief kinderopvangtoeslag",
         url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/toeslagen/kinderopvangtoeslag/hoeveel-kinderopvangtoeslag-kan-ik-krijgen/maximaal-uurtarief-voor-de-kinderopvang",
       },
       {
-        label: "Nationale Onderwijsgids — wat kost de BSO in 2026",
+        label: "Nationale Onderwijsgids: wat kost de BSO in 2026",
         url: "https://www.nationaleonderwijsgids.nl/kinderopvang/wat-kost-de-buitenschoolse-opvang-in-2026/",
       },
     ],
@@ -1816,12 +1816,12 @@ export const artikelen: Artikel[] = [
     korteTitel: "Modaal inkomen 2026",
     titel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
     metaTitel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
-    metaDescription: "Het modaal inkomen is in 2026 circa €48.000 bruto — netto zo'n €2.700 tot €3.100 per maand. Wat modaal betekent en waarom het toch krap kan voelen.",
+    metaDescription: "Het modaal inkomen is in 2026 circa €48.000 bruto, netto zo'n €2.700 tot €3.100 per maand. Wat modaal betekent en waarom het toch krap kan voelen.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inkomen",
-    excerpt: "Modaal is geen gemiddelde en geen minimum, maar het meest voorkomende inkomen. In 2026 is dat ongeveer €48.000 bruto per jaar — netto €2.700 tot €3.100 per maand. En toch voelt het vaak krap.",
+    excerpt: "Modaal is geen gemiddelde en geen minimum, maar het meest voorkomende inkomen. In 2026 is dat ongeveer €48.000 bruto per jaar, netto €2.700 tot €3.100 per maand. En toch voelt het vaak krap.",
     preview: {
       type: "vergelijking",
       label: "Modaal inkomen 2026",
@@ -1857,12 +1857,12 @@ export const artikelen: Artikel[] = [
     korteTitel: "Wat kost een kind per maand?",
     titel: "Wat kost een kind per maand?",
     metaTitel: "Wat kost een kind per maand?",
-    metaDescription: "Het Nibud rekent dat één kind gemiddeld 15% van het besteedbaar inkomen kost — voor een modaal gezin €887 tot €1.000 per maand. Waar het geld heen gaat.",
+    metaDescription: "Het Nibud rekent dat één kind gemiddeld 15% van het besteedbaar inkomen kost, voor een modaal gezin €887 tot €1.000 per maand. Waar het geld heen gaat.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
-    excerpt: "Een kind krijgen verandert je financiën meer dan je vooraf inschat. Niet de luiers, maar wat er daarna elke maand bijkomt. Het Nibud rekent 15% van je inkomen voor één kind — voor een modaal gezin €887 tot €1.000 per maand.",
+    excerpt: "Een kind krijgen verandert je financiën meer dan je vooraf inschat. Niet de luiers, maar wat er daarna elke maand bijkomt. Het Nibud rekent 15% van je inkomen voor één kind, voor een modaal gezin €887 tot €1.000 per maand.",
     preview: {
       type: "pijn",
       label: "Aandeel van je inkomen (Nibud)",
@@ -1880,7 +1880,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — wat kost een kind",
+        label: "Nibud: wat kost een kind",
         url: "https://www.nibud.nl/onderwerpen/kinderen-en-jongeren/wat-kost-een-kind/",
       },
     ],
@@ -1889,12 +1889,12 @@ export const artikelen: Artikel[] = [
     korteTitel: "Wat kosten schoolgaande kinderen?",
     titel: "Schoolkosten per jaar: wat kost de middelbare school echt?",
     metaTitel: "Schoolkosten per jaar: wat kost de middelbare school echt?",
-    metaDescription: "Onderwijs is gratis, maar schoolkosten lopen op tot €400–600 per kind. Wat je betaalt, wat vrijwillig is en hoe je de augustuspiek opvangt.",
+    metaDescription: "Onderwijs is gratis, maar schoolkosten lopen op naar €400 tot €600 per kind. Wat je betaalt, wat vrijwillig is en hoe je de augustuspiek opvangt.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
-    excerpt: "Onderwijs is gratis, hoor je vaak — maar augustus is een van de duurste maanden. De vrijwillige ouderbijdrage is gemiddeld €188-200, maar met schoolspullen en een fiets lopen de werkelijke kosten op tot €400-600 per kind per jaar.",
+    excerpt: "Onderwijs is gratis, hoor je vaak, maar augustus is een van de duurste maanden. De vrijwillige ouderbijdrage is gemiddeld €188-200, maar met schoolspullen en een fiets lopen de werkelijke kosten op tot €400-600 per kind per jaar.",
     preview: {
       type: "vergelijking",
       label: "Middelbare school, per jaar",
@@ -1916,11 +1916,11 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Rijksoverheid — kosten voor kind in voortgezet onderwijs",
+        label: "Rijksoverheid: kosten voor kind in voortgezet onderwijs",
         url: "https://www.rijksoverheid.nl/onderwerpen/voortgezet-onderwijs/vraag-en-antwoord/kosten-voor-kind-in-voortgezet-onderwijs",
       },
       {
-        label: "Ouders & Onderwijs — vrijwillige ouderbijdrage",
+        label: "Ouders & Onderwijs: vrijwillige ouderbijdrage",
         url: "https://oudersenonderwijs.nl/speerpunten/ouderbijdrage/",
       },
     ],
@@ -1934,7 +1934,7 @@ export const artikelen: Artikel[] = [
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
-    excerpt: "Een groter huis of overbieden: de hypotheek net wat hoger lijkt op papier klein verschil. Maandelijks voelt het anders — elke €100.000 extra is grofweg €475 per maand, 30 jaar lang. Een rekenvoorbeeld (geen advies).",
+    excerpt: "Een groter huis of overbieden: de hypotheek net wat hoger lijkt op papier klein verschil. Maandelijks voelt het anders, elke €100.000 extra is grofweg €475 per maand, 30 jaar lang. Een rekenvoorbeeld (geen advies).",
     preview: {
       type: "pijn",
       label: "Per €100.000 extra",
@@ -1952,7 +1952,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven en woonlasten",
+        label: "Nibud: uitgaven en woonlasten",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -1966,7 +1966,7 @@ export const artikelen: Artikel[] = [
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
-    excerpt: "Een verbouwing is zelden alleen een verbouwing — het valt bijna altijd duurder uit dan begroot en trekt daarna je maandlasten op. De drie valkuilen die vrijwel iedereen overkomen, en hoe je ze voor bent.",
+    excerpt: "Een verbouwing is zelden alleen een verbouwing, het valt bijna altijd duurder uit dan begroot en trekt daarna je maandlasten op. De drie valkuilen die vrijwel iedereen overkomen, en hoe je ze voor bent.",
     preview: {
       type: "pijn",
       label: "De drie valkuilen",
@@ -1984,7 +1984,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -2017,7 +2017,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -2026,7 +2026,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Casestudy: Fatima (alleenstaand)",
     titel: "Waar blijft het bij Fatima: €2.900 netto, één inkomen voor drie",
     metaTitel: "Casestudy Fatima: €2.900 netto, één inkomen voor drie",
-    metaDescription: "Een fictieve alleenstaande ouder met €2.900 netto en twee kinderen. Hier ligt het niet aan de uitgaven — het is een lasten-probleem. Een eerlijk verhaal.",
+    metaDescription: "Een fictieve alleenstaande ouder met €2.900 netto en twee kinderen. Hier ligt het niet aan de uitgaven, het is een lasten-probleem. Een eerlijk verhaal.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
@@ -2040,7 +2040,7 @@ export const artikelen: Artikel[] = [
     faq: [
       {
         vraag: "Waarom houdt een alleenstaande ouder met €2.900 netto niets over?",
-        antwoord: "Omdat één inkomen alle vaste lasten draagt — vooral een vrije sector-huur die ruim 40% opslokt. Er is geen luxe of verspilling; het is een lasten-probleem, geen gedragsprobleem.",
+        antwoord: "Omdat één inkomen alle vaste lasten draagt, vooral een vrije sector-huur die ruim 40% opslokt. Er is geen luxe of verspilling; het is een lasten-probleem, geen gedragsprobleem.",
       },
       {
         vraag: "Wat helpt bij dit profiel?",
@@ -2049,7 +2049,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — rondkomen",
+        label: "Nibud: rondkomen",
         url: "https://www.nibud.nl/onderwerpen/rondkomen/",
       },
       {
@@ -2076,16 +2076,16 @@ export const artikelen: Artikel[] = [
     faq: [
       {
         vraag: "Hoe kan een stel zonder kinderen of auto toch krap zitten?",
-        antwoord: "Juist omdat de vaste lasten laag zijn, voelt alles 'kan wel': vaak uit eten en bezorgen (€600+), veertien abonnementen, stedentrips. De levensstijl groeit tot de beschikbare ruimte — lifestyle-inflatie.",
+        antwoord: "Juist omdat de vaste lasten laag zijn, voelt alles 'kan wel': vaak uit eten en bezorgen (€600+), veertien abonnementen, stedentrips. De levensstijl groeit tot de beschikbare ruimte, lifestyle-inflatie.",
       },
       {
         vraag: "Wat zouden ze anders kunnen doen?",
-        antwoord: "Geld eerst een bestemming geven en dan pas uitgeven. Met een spaardoel dat vooraf wordt afgeroomd en een begrensd 'uit eten'-budget is €800–1.000 per maand sparen haalbaar, zonder soberder te leven.",
+        antwoord: "Geld eerst een bestemming geven en dan pas uitgeven. Met een spaardoel dat vooraf wordt afgeroomd en een begrensd 'uit eten'-budget is €800 tot 1.000 per maand sparen haalbaar, zonder soberder te leven.",
       },
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -2094,12 +2094,12 @@ export const artikelen: Artikel[] = [
     korteTitel: "Seizoens-kostenkalender",
     titel: "De seizoens-kostenkalender: welke kosten komen er per maand aan?",
     metaTitel: "Seizoenskosten per maand: wat komt er wanneer aan?",
-    metaDescription: "Het jaar zit vol verborgen kostenpieken — van de zomervakantie tot december. Bekijk per maand wat eraan komt en hoe je het uitsmeert met een potje.",
+    metaDescription: "Het jaar zit vol verborgen kostenpieken, van de zomervakantie tot december. Bekijk per maand wat eraan komt en hoe je het uitsmeert met een potje.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
-    excerpt: "De 'gemiddelde maand' bestaat niet. Elk seizoen heeft zijn eigen kostenpiek. Bekijk met onze interactieve kalender wat er per maand aankomt — en hoe je die pieken uitsmeert over het jaar.",
+    excerpt: "De 'gemiddelde maand' bestaat niet. Elk seizoen heeft zijn eigen kostenpiek. Bekijk met onze interactieve kalender wat er per maand aankomt, en hoe je die pieken uitsmeert over het jaar.",
     preview: {
       type: "pijn",
       label: "De pieken",
@@ -2117,7 +2117,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -2126,7 +2126,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Wat kost een zomervakantie?",
     titel: "Wat kost een zomervakantie voor een gezin?",
     metaTitel: "Wat kost een zomervakantie voor een gezin?",
-    metaDescription: "Gemiddeld €600–700 per persoon — voor een gezin van vier al snel €2.400. Waar de vakantiekosten zitten en hoe je de naschok voorkomt.",
+    metaDescription: "Gemiddeld €600 tot 700 per persoon, voor een gezin van vier al snel €2.400. Waar de vakantiekosten zitten en hoe je de naschok voorkomt.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
@@ -2148,7 +2148,7 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Hoe voorkom ik een financiële kater na de vakantie?",
-        antwoord: "Bepaal vooraf een totaalbudget voor de hele reis en zet dat het hele jaar maandelijks opzij. €200 per maand is €2.400 in de zomer — dan betaal je met geld dat er al is.",
+        antwoord: "Bepaal vooraf een totaalbudget voor de hele reis en zet dat het hele jaar maandelijks opzij. €200 per maand is €2.400 in de zomer, dan betaal je met geld dat er al is.",
       },
       {
         vraag: "Is vakantiegeld een bonus?",
@@ -2157,7 +2157,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "CBS — vakanties van Nederlanders, kerncijfers",
+        label: "CBS: vakanties van Nederlanders, kerncijfers",
         url: "https://www.cbs.nl/nl-nl/cijfers/detail/85302NED",
       },
     ],
@@ -2193,7 +2193,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Milieu Centraal — kosten en opbrengst zonnepanelen",
+        label: "Milieu Centraal: kosten en opbrengst zonnepanelen",
         url: "https://www.milieucentraal.nl/energie-besparen/zonnepanelen/kosten-en-opbrengst-zonnepanelen/",
       },
     ],
@@ -2202,12 +2202,12 @@ export const artikelen: Artikel[] = [
     korteTitel: "5 geldmythes die je arm houden",
     titel: "5 hardnekkige geldmythes die je arm houden",
     metaTitel: "5 hardnekkige geldmythes die je arm houden",
-    metaDescription: "Vijf aannames over geld die logisch klinken maar je krap houden — van 'sparen lukt vanzelf bij meer inkomen' tot 'wie krap zit gaat slecht met geld om'.",
+    metaDescription: "Vijf aannames over geld die logisch klinken maar je krap houden, van 'sparen lukt vanzelf bij meer inkomen' tot 'wie krap zit gaat slecht met geld om'.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
     categorie: "Inzicht",
-    excerpt: "Rond geld leven hardnekkige aannames die logisch klinken, maar je juist krap houden. Vijf van de meest voorkomende mythes ontkracht — en wat er werkelijk klopt.",
+    excerpt: "Rond geld leven hardnekkige aannames die logisch klinken, maar je juist krap houden. Vijf van de meest voorkomende mythes ontkracht, en wat er werkelijk klopt.",
     preview: {
       type: "pijn",
       label: "Ontkracht",
@@ -2225,7 +2225,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Deloitte — 47% van Nederland is financieel kwetsbaar",
+        label: "Deloitte: 47% van Nederland is financieel kwetsbaar",
         url: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
       },
     ],
@@ -2236,13 +2236,13 @@ export const artikelen: Artikel[] = [
     titel: "Vergeten abonnementen opsporen: gemiddeld €200+ per maand",
     metaTitel: "Vergeten abonnementen opsporen: gemiddeld €200+ per maand",
     metaDescription:
-      "Abonnementen zijn het sluipende lek bij uitstek. Tel met onze gratis tool je maand- en jaarbedrag op — en lees hoe je in 20 minuten opschoont.",
+      "Abonnementen zijn het sluipende lek bij uitstek. Tel met onze gratis tool je maand- en jaarbedrag op, en lees hoe je in 20 minuten opschoont.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Besparen",
     excerpt:
-      "Klein per stuk, automatisch afgeschreven, en juist daarom onzichtbaar. Een gemiddeld gezin betaalt €200+ per maand aan abonnementen — en schat dat op de helft. Reken met onze tool je eigen totaal uit.",
+      "Klein per stuk, automatisch afgeschreven, en juist daarom onzichtbaar. Een gemiddeld gezin betaalt €200+ per maand aan abonnementen, en schat dat op de helft. Reken met onze tool je eigen totaal uit.",
     preview: {
       type: "pijn",
       label: "Het sluipende lek",
@@ -2257,17 +2257,17 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoe spoor ik vergeten abonnementen op?",
         antwoord:
-          "Pak één bankafschrift en zet alle terugkerende afschrijvingen op een rij. Vraag je per abonnement af of je het de afgelopen maand echt hebt gebruikt. Alles waar je over twijfelt zeg je op — terugkomen kan altijd. Breng dubbele diensten terug naar één.",
+          "Pak één bankafschrift en zet alle terugkerende afschrijvingen op een rij. Vraag je per abonnement af of je het de afgelopen maand echt hebt gebruikt. Alles waar je over twijfelt zeg je op, terugkomen kan altijd. Breng dubbele diensten terug naar één.",
       },
       {
         vraag: "Hoeveel kun je besparen door abonnementen op te schonen?",
         antwoord:
-          "Wie eerlijk opschoont vindt vaak €30 tot €80 per maand aan abonnementen die niets meer toevoegen — €360 tot bijna €1.000 per jaar, zonder iets in te leveren wat je echt mist.",
+          "Wie eerlijk opschoont vindt vaak €30 tot €80 per maand aan abonnementen die niets meer toevoegen, dus €360 tot bijna €1.000 per jaar, zonder iets in te leveren wat je echt mist.",
       },
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -2278,13 +2278,13 @@ export const artikelen: Artikel[] = [
     titel: "Wat kost december? Sinterklaas en kerst voor een gezin",
     metaTitel: "Wat kost december? Sinterklaas en kerst voor een gezin",
     metaDescription:
-      "Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar het naartoe gaat — en hoe je de decemberklap voorkomt met een feestpotje.",
+      "Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar het naartoe gaat, en hoe je de decemberklap voorkomt met een feestpotje.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
     excerpt:
-      "Sinterklaas, kerst, oud en nieuw — allemaal in vier weken. Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar dat heen gaat, en hoe je het uitsmeert over het jaar.",
+      "Sinterklaas, kerst, oud en nieuw, allemaal in vier weken. Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar dat heen gaat, en hoe je het uitsmeert over het jaar.",
     preview: {
       type: "pijn",
       label: "December opgeteld",
@@ -2304,16 +2304,16 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoe voorkom ik de financiële decemberklap?",
         antwoord:
-          "Smeer de feestdagen uit over het hele jaar. Zet maandelijks een vast bedrag opzij in een apart potje — €40 per maand is bijna €500 in december. Dan betaal je de feestdagen niet uit één maandinkomen.",
+          "Smeer de feestdagen uit over het hele jaar. Zet maandelijks een vast bedrag opzij in een apart potje, €40 per maand is bijna €500 in december. Dan betaal je de feestdagen niet uit één maandinkomen.",
       },
     ],
     externLinks: [
       {
-        label: "Vastelastenbond — wat geven we uit aan Sinterklaas",
+        label: "Vastelastenbond: wat geven we uit aan Sinterklaas",
         url: "https://www.vastelastenbond.nl/blog/wat-geven-we-uit-aan-sinterklaas/",
       },
       {
-        label: "Vastelastenbond — kerst, wat kost dat?",
+        label: "Vastelastenbond: kerst, wat kost dat?",
         url: "https://www.vastelastenbond.nl/blog/kerst-wat-kost-dat-wat-geven-we-uit-met-kerst/",
       },
     ],
@@ -2321,16 +2321,16 @@ export const artikelen: Artikel[] = [
   {
     slug: "auto-kopen-of-leasen-kosten-per-maand",
     korteTitel: "Auto kopen of leasen?",
-    titel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
-    metaTitel: "Auto kopen of leasen — en wat kost een auto echt per maand?",
+    titel: "Auto kopen of leasen, en wat kost een auto echt per maand?",
+    metaTitel: "Auto kopen of leasen, en wat kost een auto echt per maand?",
     metaDescription:
-      "Volgens de ANWB kost een eigen auto €413–€647 per maand all-in. Private lease of kopen — de eerlijke vergelijking inclusief de verborgen afschrijving.",
+      "Volgens de ANWB kost een eigen auto €413 tot €647 per maand all-in. Private lease of kopen, de eerlijke vergelijking inclusief de verborgen afschrijving.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
     categorie: "Inzicht",
     excerpt:
-      "De auto is vaak de tweede vaste last na het huis — en de slechtst ingeschatte. Wat kost een auto echt per maand, en is kopen of private leasen voordeliger? Een eerlijke vergelijking.",
+      "De auto is vaak de tweede vaste last na het huis, en de slechtst ingeschatte. Wat kost een auto echt per maand, en is kopen of private leasen voordeliger? Een eerlijke vergelijking.",
     preview: {
       type: "vergelijking",
       label: "Autokosten per maand (ANWB, all-in)",
@@ -2344,26 +2344,26 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wat kost een auto gemiddeld per maand in Nederland?",
         antwoord:
-          "Volgens de ANWB rekent een compacte auto op zo'n €413 per maand, een kleine middenklasser rond €550 en het middensegment zo'n €647 — all-in, inclusief de afschrijving die je niet als rekening ziet. De afschrijving is meestal de grootste én meest onderschatte post.",
+          "Volgens de ANWB rekent een compacte auto op zo'n €413 per maand, een kleine middenklasser rond €550 en het middensegment zo'n €647, all-in, inclusief de afschrijving die je niet als rekening ziet. De afschrijving is meestal de grootste én meest onderschatte post.",
       },
       {
         vraag: "Private lease of kopen: wat is goedkoper?",
         antwoord:
-          "Het hangt af van je situatie. Private lease geeft voorspelbaarheid (één vast bedrag, geen onverwachte reparaties) maar je zit vast aan een contract en bouwt geen eigen vermogen op. Zelf kopen is vaak goedkoper over de hele rit, zeker bij een betrouwbare occasion die je lang rijdt — maar dan draag je zelf het risico.",
+          "Het hangt af van je situatie. Private lease geeft voorspelbaarheid (één vast bedrag, geen onverwachte reparaties) maar je zit vast aan een contract en bouwt geen eigen vermogen op. Zelf kopen is vaak goedkoper over de hele rit, zeker bij een betrouwbare occasion die je lang rijdt, maar dan draag je zelf het risico.",
       },
       {
         vraag: "Heb ik als gezin echt twee auto's nodig?",
         antwoord:
-          "Vaak is dat de belangrijkste vraag. Een tweede auto verdubbelt bijna de autolast — al snel €1.000+ per maand samen. Het is een post die meegroeit met het inkomen zonder dat iemand hem tegenhoudt.",
+          "Vaak is dat de belangrijkste vraag. Een tweede auto verdubbelt bijna de autolast, al snel €1.000+ per maand samen. Het is een post die meegroeit met het inkomen zonder dat iemand hem tegenhoudt.",
       },
     ],
     externLinks: [
       {
-        label: "ANWB — wat kost een auto per maand",
+        label: "ANWB: wat kost een auto per maand",
         url: "https://www.anwb.nl/auto/autokosten/autokosten-per-maand",
       },
       {
-        label: "Nibud — autokosten per maand",
+        label: "Nibud: autokosten per maand",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/autokosten/",
       },
     ],
@@ -2380,7 +2380,7 @@ export const artikelen: Artikel[] = [
     leestijd: "6",
     categorie: "Inzicht",
     excerpt:
-      "Sanne en Joost verdienen samen €6.200 netto en houden toch bijna niks over. Een fictieve casestudy, samengesteld uit openbare gemiddelden, die laat zien waar het geld heen gaat — en wat een vergelijkbaar gezin wél overhoudt.",
+      "Sanne en Joost verdienen samen €6.200 netto en houden toch bijna niks over. Een fictieve casestudy, samengesteld uit openbare gemiddelden, die laat zien waar het geld heen gaat, en wat een vergelijkbaar gezin wél overhoudt.",
     preview: {
       type: "vergelijking",
       label: "Zelfde inkomen, andere uitkomst",
@@ -2399,7 +2399,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wat zijn de grootste afwijkingen in dit voorbeeld?",
         antwoord:
-          "Twee springen eruit: boodschappen die €400–500 boven verwachting liggen (deels pubers, deels los winkelen zonder weekmenu), en een tweede auto via private lease die er ooit bij kwam en nooit meer ter discussie stond.",
+          "Twee springen eruit: boodschappen die €400 tot 500 boven verwachting liggen (deels pubers, deels los winkelen zonder weekmenu), en een tweede auto via private lease die er ooit bij kwam en nooit meer ter discussie stond.",
       },
       {
         vraag: "Is dit een echt gezin?",
@@ -2409,7 +2409,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -2422,13 +2422,13 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Werkt de 50/30/20-regel nog bij een hoger inkomen?",
     metaDescription:
-      "De 50/30/20-regel is een prima startpunt, maar bij een hoger inkomen klopt de verdeling niet meer. Waarom — en welke verdeling dan wel werkt.",
+      "De 50/30/20-regel is een prima startpunt, maar bij een hoger inkomen klopt de verdeling niet meer. Waarom, en welke verdeling dan wel werkt.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
     categorie: "Sparen",
     excerpt:
-      "50% vaste lasten, 30% vrij, 20% sparen — het bekendste budgetadvies dat er is. Maar wie goed verdient en de regel letterlijk volgt, legitimeert vooral zijn eigen lifestyle-inflatie. Zo pak je het slimmer aan.",
+      "50% vaste lasten, 30% vrij, 20% sparen, het bekendste budgetadvies dat er is. Maar wie goed verdient en de regel letterlijk volgt, legitimeert vooral zijn eigen lifestyle-inflatie. Zo pak je het slimmer aan.",
     preview: {
       type: "verdeling",
       label: "De klassieke 50/30/20-regel",
@@ -2453,12 +2453,12 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Welke verdeling is beter als je goed verdient?",
         antwoord:
-          "Draai de logica om: bepaal eerst hoeveel je opzij wilt zetten en leef van de rest. Houd je vaste lasten bewust onder de 50% en laat het verschil naar sparen vloeien — denk eerder aan 50/20/30 met sparen richting 30%, of meer naarmate je inkomen stijgt.",
+          "Draai de logica om: bepaal eerst hoeveel je opzij wilt zetten en leef van de rest. Houd je vaste lasten bewust onder de 50% en laat het verschil naar sparen vloeien. Denk eerder aan 50/20/30 met sparen richting 30%, of meer naarmate je inkomen stijgt.",
       },
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven en de 50%-norm voor vaste lasten",
+        label: "Nibud: uitgaven en de 50%-norm voor vaste lasten",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
@@ -2479,13 +2479,13 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Tweeverdieners en toch krap: hoe kan dat?",
     metaDescription:
-      "Twee inkomens en toch elke maand krap? Je bent niet de enige. Waarom twee salarissen vaak dubbele vaste lasten betekenen — en wat eraan helpt.",
+      "Twee inkomens en toch elke maand krap? Je bent niet de enige. Waarom twee salarissen vaak dubbele vaste lasten betekenen, en wat eraan helpt.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
     excerpt:
-      "Twee salarissen die binnenkomen, en toch net zo krap als bij één inkomen. Hoe kan dat? Het tweede inkomen wordt zelden gespaard — het wordt meebesteed. Wat er speelt en wat helpt.",
+      "Twee salarissen die binnenkomen, en toch net zo krap als bij één inkomen. Hoe kan dat? Het tweede inkomen wordt zelden gespaard, het wordt meebesteed. Wat er speelt en wat helpt.",
     preview: {
       type: "pijn",
       label: "Herken jij dit?",
@@ -2514,7 +2514,7 @@ export const artikelen: Artikel[] = [
         url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
       },
       {
-        label: "CBS — inkomen van tweeverdieners",
+        label: "CBS: inkomen van tweeverdieners",
         url: "https://www.cbs.nl/nl-nl/longread/statistische-trends/2023/inkomen-van-tweeverdieners-hoeveel-beide-partners-willen-bijdragen",
       },
     ],
@@ -2525,9 +2525,9 @@ export const artikelen: Artikel[] = [
     titel:
       "Lifestyle-inflatie: waarom meer verdienen niet meer overhouden betekent",
     metaTitel:
-      "Lifestyle-inflatie — meer verdienen en toch krap",
+      "Lifestyle-inflatie, meer verdienen en toch krap",
     metaDescription:
-      "Je verdient meer dan vroeger, maar houdt niks extra over? Dat heet lifestyle-inflatie. Zo groeien je uitgaven ongemerkt mee — en zo houd je het tegen.",
+      "Je verdient meer dan vroeger, maar houdt niks extra over? Dat heet lifestyle-inflatie. Zo groeien je uitgaven ongemerkt mee, en zo houd je het tegen.",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
@@ -2543,7 +2543,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wat is lifestyle-inflatie?",
         antwoord:
-          "Lifestyle-inflatie is het verschijnsel dat je uitgaven meegroeien met je inkomen. Als je meer gaat verdienen, ga je bijna ongemerkt duurder leven — een duurdere auto, vaker uit eten, een groter huis. Het gevolg is dat een hoger inkomen niet leidt tot meer overhouden.",
+          "Lifestyle-inflatie is het verschijnsel dat je uitgaven meegroeien met je inkomen. Als je meer gaat verdienen, ga je bijna ongemerkt duurder leven: een duurdere auto, vaker uit eten, een groter huis. Het gevolg is dat een hoger inkomen niet leidt tot meer overhouden.",
       },
       {
         vraag: "Waarom houd ik niks over terwijl ik meer ben gaan verdienen?",
@@ -2558,7 +2558,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "CBS — cao-lonen eerste kwartaal 2026 (+4,5%)",
+        label: "CBS: cao-lonen eerste kwartaal 2026 (+4,5%)",
         url: "https://www.cbs.nl/nl-nl/nieuws/2026/14/cao-lonen-in-eerste-kwartaal-4-5-procent-hoger",
       },
       {
@@ -2632,11 +2632,11 @@ export const artikelen: Artikel[] = [
         url: "https://www.abnamro.com/research/nl/onze-research/transactie-trends-bestaanszekerheid-toegenomen-ondanks-duurdere-boodschappen",
       },
       {
-        label: "CBS, bestedingen van huishoudens",
+        label: "CBS: bestedingen van huishoudens",
         url: "https://www.cbs.nl/nl-nl/cijfers/detail/83676NED",
       },
       {
-        label: "Nibud, huishoudelijke uitgaven",
+        label: "Nibud: huishoudelijke uitgaven",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
       },
     ],
@@ -2653,7 +2653,7 @@ export const artikelen: Artikel[] = [
     },
     korteTitel: "Is €4.000 netto een goed salaris?",
     titel:
-      "Is €4.000 netto per maand een goed salaris? Ja — maar dit is wat er werkelijk van overblijft",
+      "Is €4.000 netto per maand een goed salaris? Ja, maar dit is wat er werkelijk van overblijft",
     metaTitel:
       "Is €4.000 netto een goed salaris in Nederland?",
     metaDescription:
@@ -2663,7 +2663,7 @@ export const artikelen: Artikel[] = [
     leestijd: "6",
     categorie: "Inkomen",
     excerpt:
-      "€4.000 netto is top 25% van Nederland. En toch houdt een gezin met koopwoning en twee kinderen er gemiddeld €505 van over. Dat voelt niet als top 25 procent. Hoe dat kan — en wat je eraan doet.",
+      "€4.000 netto is top 25% van Nederland. En toch houdt een gezin met koopwoning en twee kinderen er gemiddeld €505 van over. Dat voelt niet als top 25 procent. Hoe dat kan, en wat je eraan doet.",
     preview: {
       type: "verdeling",
       label: "Van €4.000 netto blijft over",
@@ -2694,7 +2694,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel moet je overhouden van €4.000 netto?",
         antwoord:
-          "Het Nibud adviseert minimaal 10% te sparen — dus €400 per maand. Dat is voor een gezin met kinderen en een koopwoning al uitdagend. Een realistischer doel voor veel gezinnen is beginnen met €150-200 per maand automatisch apart zetten.",
+          "Het Nibud adviseert minimaal 10% te sparen, dus €400 per maand. Dat is voor een gezin met kinderen en een koopwoning al uitdagend. Een realistischer doel voor veel gezinnen is beginnen met €150-200 per maand automatisch apart zetten.",
       },
       {
         vraag: "Verdient Jan Modaal €4.000 netto in 2026?",
@@ -2721,17 +2721,17 @@ export const artikelen: Artikel[] = [
     slug: "hoeveel-sparen-per-maand-normaal-nederland",
     korteTitel: "Hoeveel sparen is normaal?",
     titel:
-      "Hoeveel sparen per maand is normaal? Het eerlijke antwoord — inclusief de mensen die helemaal niks sparen",
+      "Hoeveel sparen per maand is normaal? Het eerlijke antwoord, inclusief de mensen die helemaal niks sparen",
     metaTitel:
       "Hoeveel sparen per maand is normaal in Nederland?",
     metaDescription:
-      "Nibud adviseert 10%, maar de gemiddelde Nederlander spaart 6,5% — en een kwart spaart niks. Wat is realistisch als je nu niks overhoudt?",
+      "Nibud adviseert 10%, maar de gemiddelde Nederlander spaart 6,5%, en een kwart spaart niks. Wat is realistisch als je nu niks overhoudt?",
     datum: "2026-05-21",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
     categorie: "Sparen",
     excerpt:
-      "Nibud adviseert 10%. Maar meer dan een kwart van de Nederlandse huishoudens spaart helemaal niets — en van de rest haalt de meerderheid die 10% niet. Dit is wat normaal is, en wat een realistisch beginpunt is als je nu niks overhoudt.",
+      "Nibud adviseert 10%. Maar meer dan een kwart van de Nederlandse huishoudens spaart helemaal niets, en van de rest haalt de meerderheid die 10% niet. Dit is wat normaal is, en wat een realistisch beginpunt is als je nu niks overhoudt.",
     preview: {
       type: "statistiek",
       label: "Nederlanders die sparen",
@@ -2746,22 +2746,22 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel procent van de Nederlanders spaart helemaal niets?",
         antwoord:
-          "Meer dan een kwart van de Nederlandse huishoudens spaart structureel niets, blijkt uit CBS-data en onderzoek van FinBuddy. Dat is niet uitzonderlijk — het is de werkelijkheid voor veel gezinnen met hoge vaste lasten en weinig overschot.",
+          "Meer dan een kwart van de Nederlandse huishoudens spaart structureel niets, blijkt uit CBS-data en onderzoek van FinBuddy. Dat is niet uitzonderlijk, het is de werkelijkheid voor veel gezinnen met hoge vaste lasten en weinig overschot.",
       },
       {
         vraag: "Hoeveel sparen Nederlanders gemiddeld per maand?",
         antwoord:
-          "Structurele spaarders sparen gemiddeld €240 per maand. De Nibud-norm van 10% zou voor een modaal netto inkomen van €3.100 neerkomen op €310. De meeste mensen halen die norm niet — het werkelijke gemiddelde ligt op 6,5% van het netto inkomen.",
+          "Structurele spaarders sparen gemiddeld €240 per maand. De Nibud-norm van 10% zou voor een modaal netto inkomen van €3.100 neerkomen op €310. De meeste mensen halen die norm niet. Het werkelijke gemiddelde ligt op 6,5% van het netto inkomen.",
       },
       {
         vraag: "Hoe begin ik met sparen als ik nu niets overhou?",
         antwoord:
-          "Stel een automatische overschrijving in op de dag dat je salaris binnenkomt — ook al is het maar €50. Spaar eerst, geef daarna uit. Dat ene principe maakt meer verschil dan elk ander financieel advies. Verhoog het bedrag elke drie maanden met €25.",
+          "Stel een automatische overschrijving in op de dag dat je salaris binnenkomt, ook al is het maar €50. Spaar eerst, geef daarna uit. Dat ene principe maakt meer verschil dan elk ander financieel advies. Verhoog het bedrag elke drie maanden met €25.",
       },
       {
         vraag: "Hoeveel spaargeld is normaal voor mijn leeftijd?",
         antwoord:
-          "Het CBS-mediaan: dertigers hebben gemiddeld €23.000 spaargeld, veertigers €34.000. Maar het gemiddelde wordt sterk omhoog getrokken door een kleine groep. De helft van de dertigers heeft minder dan €10.000. Vergelijk jezelf niet met gemiddelden — vergelijk jezelf met wie je gisteren was.",
+          "Het CBS-mediaan: dertigers hebben gemiddeld €23.000 spaargeld, veertigers €34.000. Maar het gemiddelde wordt sterk omhoog getrokken door een kleine groep. De helft van de dertigers heeft minder dan €10.000. Vergelijk jezelf niet met gemiddelden, vergelijk jezelf met wie je gisteren was.",
       },
       {
         vraag: "Is het Nibud-advies van 10% realistisch voor een gezin met kinderen?",
@@ -2827,15 +2827,15 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — uitgaven van huishoudens",
+        label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
       {
-        label: "CBS — cao-lonen eerste kwartaal 2026 (+4,5%)",
+        label: "CBS: cao-lonen eerste kwartaal 2026 (+4,5%)",
         url: "https://www.cbs.nl/nl-nl/nieuws/2026/14/cao-lonen-in-eerste-kwartaal-4-5-procent-hoger",
       },
       {
-        label: "Deloitte — 47% van Nederland is financieel kwetsbaar (2024)",
+        label: "Deloitte: 47% van Nederland is financieel kwetsbaar (2024)",
         url: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
       },
     ],
@@ -2844,7 +2844,7 @@ export const artikelen: Artikel[] = [
     slug: "vergelijken-boodschappen-nederland-duitsland",
     korteTitel: "Boodschappen: Nederland vs. Duitsland",
     titel:
-      "Boodschappen vergelijken Nederland vs Duitsland — wat koop je waar?",
+      "Boodschappen vergelijken Nederland vs Duitsland, wat koop je waar?",
     metaTitel:
       "Boodschappen Nederland vs Duitsland: wat is goedkoper?",
     metaDescription:
@@ -2888,7 +2888,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Waar moet ik op letten bij boodschappen in Duitsland?",
         antwoord:
-          "Let op statiegeld — lever in bij Kaufland want hun automaten accepteren alles. Neem contant geld mee als backup. Supermarkten zijn gesloten op zondag. Download de DM-app en Rossmann-app voor actuele coupons. Tank bij terugkomst in Duitsland als de prijs lager is.",
+          "Let op statiegeld, lever in bij Kaufland want hun automaten accepteren alles. Neem contant geld mee als backup. Supermarkten zijn gesloten op zondag. Download de DM-app en Rossmann-app voor actuele coupons. Tank bij terugkomst in Duitsland als de prijs lager is.",
       },
     ],
     externLinks: [
@@ -2905,7 +2905,7 @@ export const artikelen: Artikel[] = [
   {
     slug: "boodschappen-duitsland-voordeel",
     korteTitel: "Boodschappen in Duitsland: het voordeel",
-    titel: "Boodschappen doen in Duitsland — levert het echt wat op?",
+    titel: "Boodschappen doen in Duitsland, levert het echt wat op?",
     metaTitel:
       "Boodschappen in Duitsland: echt voordeel of niet?",
     metaDescription:
@@ -2939,7 +2939,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Loont een rit naar Duitsland als je verder weg woont?",
         antwoord:
-          "Dat hangt af van je reisafstand en wat je koopt. Reken je reistijd mee — gemiddeld is dat circa tien euro per uur — dan is het voordeel bij een lange rit beperkt. Het loont het meeste voor wie in de grensregio woont of een grote bulk-inkoop doet van drogisterijproducten en A-merken.",
+          "Dat hangt af van je reisafstand en wat je koopt. Reken je reistijd mee (gemiddeld is dat circa tien euro per uur), dan is het voordeel bij een lange rit beperkt. Het loont het meeste voor wie in de grensregio woont of een grote bulk-inkoop doet van drogisterijproducten en A-merken.",
       },
       {
         vraag: "Wat zijn de beste producten om in Duitsland te kopen?",
@@ -2949,12 +2949,12 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Waar moet ik op letten bij boodschappen doen in Duitsland?",
         antwoord:
-          "Let op het statiegeldsysteem — op veel flessen en kratten betaal je een hoger statiegeld dat je alleen terugkrijgt met het juiste bonnetje. Ook zijn supermarkten in Duitsland gesloten op zondag. Plan je rit op een doordeweekse dag of zaterdag.",
+          "Let op het statiegeldsysteem, op veel flessen en kratten betaal je een hoger statiegeld dat je alleen terugkrijgt met het juiste bonnetje. Ook zijn supermarkten in Duitsland gesloten op zondag. Plan je rit op een doordeweekse dag of zaterdag.",
       },
     ],
     externLinks: [
       {
-        label: "Consumentenbond, boodschappen over de grens",
+        label: "Consumentenbond: boodschappen over de grens",
         url: "https://www.consumentenbond.nl/nieuws/2025/boodschappen-over-de-grens-12-20-goedkoper",
       },
       {
@@ -2967,7 +2967,7 @@ export const artikelen: Artikel[] = [
     slug: "spaardoelen-maandelijkse-inleg",
     korteTitel: "Spaardoelen: zo werkt het",
     titel:
-      "Werken met spaardoelen en maandelijkse inleg — hoe werkt het en wat heb je eraan?",
+      "Werken met spaardoelen en maandelijkse inleg, hoe werkt het en wat heb je eraan?",
     metaTitel: "Spaardoelen en maandelijkse inleg: hoe pak je dat aan?",
     metaDescription:
       "Sparen lukt pas als je weet waarvoor je spaart. Hoe stel je spaardoelen in die werken, en wat is een realistisch maandbedrag? Een praktische uitleg.",
@@ -2990,12 +2990,12 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel moet je maandelijks sparen?",
         antwoord:
-          "Er is geen universeel antwoord, maar financieel adviseurs adviseren minimaal 10 tot 20 procent van je netto inkomen te sparen. Begin met wat haalbaar is — ook 50 euro per maand is een begin. Automatiseer de inleg zodat je er niet over hoeft na te denken.",
+          "Er is geen universeel antwoord, maar financieel adviseurs adviseren minimaal 10 tot 20 procent van je netto inkomen te sparen. Begin met wat haalbaar is, ook 50 euro per maand is een begin. Automatiseer de inleg zodat je er niet over hoeft na te denken.",
       },
       {
         vraag: "Wat is een goede noodbuffer?",
         antwoord:
-          "Drie tot zes maanden netto gezinsinkomen is de standaard aanbeveling. Bij een gezinsinkomen van 4.500 euro netto betekent dat 13.500 tot 27.000 euro. Begin met een minimale buffer van 2.000 euro — dat dekt de meeste onverwachte kosten al op.",
+          "Drie tot zes maanden netto gezinsinkomen is de standaard aanbeveling. Bij een gezinsinkomen van 4.500 euro netto betekent dat 13.500 tot 27.000 euro. Begin met een minimale buffer van 2.000 euro, dat dekt de meeste onverwachte kosten al op.",
       },
       {
         vraag: "Hoe stel ik spaardoelen in?",
@@ -3005,7 +3005,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wat als ik te weinig geld overhoud om te sparen?",
         antwoord:
-          "Begin met een analyse van je vaste lasten. Bijna altijd zitten er uitgaven in die je niet meer bewust hebt goedgekeurd — abonnementen, verzekeringen, telefoonkosten. Zelfs 50 euro per maand vrijmaken is een begin. Het patroon opbouwen is belangrijker dan het bedrag.",
+          "Begin met een analyse van je vaste lasten. Bijna altijd zitten er uitgaven in die je niet meer bewust hebt goedgekeurd: abonnementen, verzekeringen, telefoonkosten. Zelfs 50 euro per maand vrijmaken is een begin. Het patroon opbouwen is belangrijker dan het bedrag.",
       },
       {
         vraag: "Werkt sparen per spaardoel beter dan alles op één rekening?",
@@ -3050,7 +3050,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel belasting betaal je boven €76.000 in Nederland?",
         antwoord:
-          "Boven de tweede schijfgrens van €78.426 (2026) betaal je 49,50% belasting over elke extra euro. Maar al in het traject daarvoor, vanaf circa €43.000, bouwt de arbeidskorting af — waardoor het effectieve marginale tarief al oploopt tot 55 tot 60 procent.",
+          "Boven de tweede schijfgrens van €78.426 (2026) betaal je 49,50% belasting over elke extra euro. Maar al in het traject daarvoor, vanaf circa €43.000, bouwt de arbeidskorting af, waardoor het effectieve marginale tarief al oploopt tot 55 tot 60 procent.",
       },
       {
         vraag: "Waarom voelt een salarisverhoging boven €70.000 zo weinig?",
@@ -3098,7 +3098,7 @@ export const artikelen: Artikel[] = [
     leestijd: "7",
     categorie: "Inzicht",
     excerpt:
-      "De vaste lasten voor een gezin in 2026 liggen gemiddeld tussen €2.600 en €3.200 per maand — exclusief boodschappen. Voor veel gezinnen is dat al meer dan twee derde van het netto inkomen. Wat is normaal, en waar zit de bespaarruimte?",
+      "De vaste lasten voor een gezin in 2026 liggen gemiddeld tussen €2.600 en €3.200 per maand, exclusief boodschappen. Voor veel gezinnen is dat al meer dan twee derde van het netto inkomen. Wat is normaal, en waar zit de bespaarruimte?",
     preview: {
       type: "vergelijking",
       label: "Vaste lasten 2026",
@@ -3117,12 +3117,12 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel procent van je inkomen mag naar vaste lasten?",
         antwoord:
-          "De vuistregel is maximaal 50 procent van het netto inkomen. Bij €4.000 netto is dat €2.000. In de praktijk zit een groot deel van de gezinnen in Nederland boven die grens — niet door verkeerde keuzes, maar door geleidelijk oplopende kosten.",
+          "De vuistregel is maximaal 50 procent van het netto inkomen. Bij €4.000 netto is dat €2.000. In de praktijk zit een groot deel van de gezinnen in Nederland boven die grens, niet door verkeerde keuzes, maar door geleidelijk oplopende kosten.",
       },
       {
         vraag: "Wat zijn de grootste vaste lasten voor een gezin?",
         antwoord:
-          "Woonkosten (huur of hypotheek, energie, water) vormen verreweg de grootste post — gemiddeld €1.200 tot €1.800 per maand. Daarna volgen zorgverzekeringen (€316 voor twee volwassenen), vervoer (€280-€480) en abonnementen (€150-€200).",
+          "Woonkosten (huur of hypotheek, energie, water) vormen verreweg de grootste post, gemiddeld €1.200 tot €1.800 per maand. Daarna volgen zorgverzekeringen (€316 voor twee volwassenen), vervoer (€280-€480) en abonnementen (€150-€200).",
       },
       {
         vraag: "Waar zit de meeste bespaarruimte in vaste lasten?",
@@ -3154,17 +3154,17 @@ export const artikelen: Artikel[] = [
     slug: "potjesmethode-gezin-hoe-werkt-het",
     korteTitel: "De potjesmethode: zo werkt het",
     titel:
-      "De potjesmethode voor gezinnen — hoe werkt het, en waarom werkt het eigenlijk?",
+      "De potjesmethode voor gezinnen: hoe werkt het, en waarom werkt het eigenlijk?",
     metaTitel:
       "De potjesmethode voor gezinnen: zo werkt het echt",
     metaDescription:
-      "De potjesmethode werkt — maar niet zo zoals de meeste uitleggen. Hoe je het praktisch inricht voor een gezin, zonder gedoe en zonder spreadsheets.",
+      "De potjesmethode werkt, maar niet zo zoals de meeste uitleggen. Hoe je het praktisch inricht voor een gezin, zonder gedoe en zonder spreadsheets.",
     datum: "2026-05-23",
     datumFormatted: "23 mei 2026",
     leestijd: "8",
     categorie: "Sparen",
     excerpt:
-      "De potjesmethode werkt — maar de meeste uitleggen zijn te ingewikkeld voor een normaal gezin. Vier potjes, één salarisdag, geen spreadsheet. Zo richt je het praktisch in.",
+      "De potjesmethode werkt, maar de meeste uitleggen zijn te ingewikkeld voor een normaal gezin. Vier potjes, één salarisdag, geen spreadsheet. Zo richt je het praktisch in.",
     preview: {
       type: "verdeling",
       label: "Inkomensverdeling potjes",
@@ -3180,7 +3180,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wat is de potjesmethode precies?",
         antwoord:
-          "De potjesmethode houdt in dat je je inkomen direct bij binnenkomst verdeelt over aparte rekeningen of doelen — vaste lasten, dagelijks leven, sparen, vrij besteedbaar. Doordat geld fysiek gescheiden is, hoef je niet bij te houden wat je uitgeeft: de grens is zichtbaar.",
+          "De potjesmethode houdt in dat je je inkomen direct bij binnenkomst verdeelt over aparte rekeningen of doelen: vaste lasten, dagelijks leven, sparen, vrij besteedbaar. Doordat geld fysiek gescheiden is, hoef je niet bij te houden wat je uitgeeft: de grens is zichtbaar.",
       },
       {
         vraag: "Hoeveel potjes heb je nodig?",
@@ -3195,7 +3195,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel procent gaat naar elk potje?",
         antwoord:
-          "Een werkbaar startpunt: 65% vaste lasten, 20% dagelijks leven, 10% sparen, 5% vrij. Pas dit aan op jouw situatie. Als vaste lasten meer dan 70% van je inkomen zijn, is dat een signaal dat de lasten te hoog zijn — niet dat het systeem niet werkt.",
+          "Een werkbaar startpunt: 65% vaste lasten, 20% dagelijks leven, 10% sparen, 5% vrij. Pas dit aan op jouw situatie. Als vaste lasten meer dan 70% van je inkomen zijn, is dat een signaal dat de lasten te hoog zijn, niet dat het systeem niet werkt.",
       },
       {
         vraag: "Wat doe je als er geen geld overblijft voor sparen?",
@@ -3222,17 +3222,17 @@ export const artikelen: Artikel[] = [
     slug: "geld-stress-relatie-nederland",
     korteTitel: "Geld en relatiestress",
     titel:
-      "Wat geldstress doet met je relatie — en hoe je eindelijk het gesprek aangaat",
+      "Wat geldstress doet met je relatie, en hoe je eindelijk het gesprek aangaat",
     metaTitel:
       "Geld en relatiestress: wat het doet en hoe je erover praat",
     metaDescription:
-      "De helft van de Nederlandse stellen heeft ooit ruzie gemaakt over geld. Maar de meeste praten er nauwelijks over. Waarom — en wat je eraan kunt doen.",
+      "De helft van de Nederlandse stellen heeft ooit ruzie gemaakt over geld. Maar de meeste praten er nauwelijks over. Waarom, en wat je eraan kunt doen.",
     datum: "2026-05-23",
     datumFormatted: "23 mei 2026",
     leestijd: "7",
     categorie: "Inzicht",
     excerpt:
-      "De helft van de Nederlandse stellen heeft er ooit ruzie over gemaakt. Maar slechts drie procent praat er openlijk over. Waarom geld zo moeilijk bespreekbaar is — en hoe je het gesprek wél aangaat.",
+      "De helft van de Nederlandse stellen heeft er ooit ruzie over gemaakt. Maar slechts drie procent praat er openlijk over. Waarom geld zo moeilijk bespreekbaar is, en hoe je het gesprek wél aangaat.",
     preview: {
       type: "statistiek",
       label: "Geld & relaties NL",
@@ -3261,12 +3261,12 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Is ruzie over geld normaal in een relatie?",
         antwoord:
-          "Ja. Uit onderzoek van bunq onder meer dan 4.000 Europeanen blijkt dat de helft van de Nederlandse stellen ooit ruzie heeft gemaakt over geld. Het is het meest voorkomende conflictonderwerp in relaties. Normaal — maar niet onvermijdelijk.",
+          "Ja. Uit onderzoek van bunq onder meer dan 4.000 Europeanen blijkt dat de helft van de Nederlandse stellen ooit ruzie heeft gemaakt over geld. Het is het meest voorkomende conflictonderwerp in relaties. Normaal, maar niet onvermijdelijk.",
       },
       {
         vraag: "Hoe praat je over geld met je partner zonder ruzie?",
         antwoord:
-          "Begin met feiten, niet met oordelen. Kijk samen naar bankafschriften als neutrale basis. Bespreek eerst doelen — wat willen jullie samen bereiken? — voordat je het hebt over uitgaven. Geef ieder een persoonlijk budget om de irritatie over individuele aankopen te verminderen.",
+          "Begin met feiten, niet met oordelen. Kijk samen naar bankafschriften als neutrale basis. Bespreek eerst doelen (wat willen jullie samen bereiken?) voordat je het hebt over uitgaven. Geef ieder een persoonlijk budget om de irritatie over individuele aankopen te verminderen.",
       },
       {
         vraag: "Wat zijn tekenen dat geldstress jullie relatie beïnvloedt?",
@@ -3276,7 +3276,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Is het normaal om financiële geheimen te hebben voor je partner?",
         antwoord:
-          "Uit onderzoek blijkt dat 23 procent van de Nederlanders weleens schulden, uitgaven of inkomsten heeft achtergehouden voor de partner. Het is veel voorkomend — maar het ondermijnt vertrouwen en maakt financiële samenwerking moeilijker.",
+          "Uit onderzoek blijkt dat 23 procent van de Nederlanders weleens schulden, uitgaven of inkomsten heeft achtergehouden voor de partner. Het is veel voorkomend, maar het ondermijnt vertrouwen en maakt financiële samenwerking moeilijker.",
       },
       {
         vraag: "Wanneer is professionele hulp zinvol bij geldstress in een relatie?",
@@ -3307,13 +3307,13 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Hoe bespaar je op boodschappen in 2026? Eerlijk antwoord",
     metaDescription:
-      "Niet met bezuinigingstips, maar door te begrijpen waarom je meer uitgeeft dan je denkt. De vijf plekken waar het geld weglekt — en wat je eraan doet.",
+      "Niet met bezuinigingstips, maar door te begrijpen waarom je meer uitgeeft dan je denkt. De vijf plekken waar het geld weglekt, en wat je eraan doet.",
     datum: "2026-05-28",
     datumFormatted: "28 mei 2026",
     leestijd: "8",
     categorie: "Besparen",
     excerpt:
-      "Een gemiddeld gezin van vier geeft structureel €200-400 meer uit aan boodschappen dan ze zelf denken. Niet door luxe — maar door vijf gedragspatronen die onzichtbaar optellen. Dit zijn de lekken, en zo dicht je ze.",
+      "Een gemiddeld gezin van vier geeft structureel €200-400 meer uit aan boodschappen dan ze zelf denken. Niet door luxe, maar door vijf gedragspatronen die onzichtbaar optellen. Dit zijn de lekken, en zo dicht je ze.",
     preview: {
       type: "statistiek",
       label: "Waar lekt het geld?",
@@ -3327,12 +3327,12 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel kun je besparen op boodschappen per maand?",
         antwoord:
-          "Dat hangt af van je huidige gedrag. Gezinnen die overstappen op één vaste boodschappendag en weekmenu's gaan maken, besparen gemiddeld €100-200 per maand. Wie daarnaast drogisterijproducten apart inkoopt, kan oplopen tot €300 per maand besparing — zonder kwaliteit in te leveren.",
+          "Dat hangt af van je huidige gedrag. Gezinnen die overstappen op één vaste boodschappendag en weekmenu's gaan maken, besparen gemiddeld €100-200 per maand. Wie daarnaast drogisterijproducten apart inkoopt, kan oplopen tot €300 per maand besparing, zonder kwaliteit in te leveren.",
       },
       {
         vraag: "Wat is de goedkoopste supermarkt in Nederland in 2026?",
         antwoord:
-          "Volgens dagelijkse metingen van Voordly en onderzoek van de Consumentenbond zijn Aldi en Dirk structureel het goedkoopst voor basisproducten. Voor A-merken loont het om aanbiedingen te vergelijken. Maar de winkelkeuze heeft minder impact dan je boodschappengedrag — hoe je winkelt telt meer dan waar.",
+          "Volgens dagelijkse metingen van Voordly en onderzoek van de Consumentenbond zijn Aldi en Dirk structureel het goedkoopst voor basisproducten. Voor A-merken loont het om aanbiedingen te vergelijken. Maar de winkelkeuze heeft minder impact dan je boodschappengedrag, hoe je winkelt telt meer dan waar.",
       },
       {
         vraag: "Hoe maak ik een boodschappenbudget voor een gezin?",
@@ -3381,17 +3381,17 @@ export const artikelen: Artikel[] = [
     },
     korteTitel: "Nibud norm vs. wat gezinnen écht uitgeven",
     titel:
-      "Het Nibud-boodschappenbudget 2026 — wat de norm zegt en wat gezinnen werkelijk uitgeven",
+      "Het Nibud-boodschappenbudget 2026, wat de norm zegt en wat gezinnen werkelijk uitgeven",
     metaTitel:
       "Nibud boodschappenbudget 2026: norm versus werkelijkheid",
     metaDescription:
-      "Nibud zegt €627 voor een gezin van vier. Maar wat geven gezinnen werkelijk uit? Het eerlijke verhaal achter de normen — en waarom ze bijna niemand halen.",
+      "Nibud zegt €627 voor een gezin van vier. Maar wat geven gezinnen werkelijk uit? Het eerlijke verhaal achter de normen, en waarom ze bijna niemand halen.",
     datum: "2026-05-28",
     datumFormatted: "28 mei 2026",
     leestijd: "7",
     categorie: "Inzicht",
     excerpt:
-      "Het Nibud-minimum voor een gezin van vier is €627 per maand. De werkelijkheid is €875 — en bij pubers loopt het op naar €1.200. Wat meet de Nibud-norm eigenlijk, en waarom halen bijna geen gezinnen hem?",
+      "Het Nibud-minimum voor een gezin van vier is €627 per maand. De werkelijkheid is €875, en bij pubers loopt het op naar €1.200. Wat meet de Nibud-norm eigenlijk, en waarom halen bijna geen gezinnen hem?",
     preview: {
       type: "vergelijking",
       label: "Nibud vs. werkelijkheid (gezin 2 kinderen)",
@@ -3425,7 +3425,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoe gebruik ik het Nibud-budget als referentie?",
         antwoord:
-          "Gebruik het als minimumgrens, niet als doel. Als je er ruim boven zit, is dat niet per definitie slecht — het hangt af van de samenstelling van je huishouden en wat je meeneemt in de berekening. Vergelijk jezelf bij voorkeur met vergelijkbare huishoudens in vergelijkbare omstandigheden.",
+          "Gebruik het als minimumgrens, niet als doel. Als je er ruim boven zit, is dat niet per definitie slecht, het hangt af van de samenstelling van je huishouden en wat je meeneemt in de berekening. Vergelijk jezelf bij voorkeur met vergelijkbare huishoudens in vergelijkbare omstandigheden.",
       },
     ],
     externLinks: [
@@ -3488,7 +3488,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel netto inkomen heb je nodig als alleenstaande om rond te komen?",
         antwoord:
-          "Minimaal €2.400-€2.600 netto per maand om alle kosten te dekken en 10% te sparen, zoals Nibud adviseert. In de Randstad is dat €2.800-€3.000. Het CBS-mediaan inkomen voor alleenstaanden lag in 2024 rond de €2.200 — veel alleenstaanden zitten dus structureel dicht bij hun grens.",
+          "Minimaal €2.400-€2.600 netto per maand om alle kosten te dekken en 10% te sparen, zoals Nibud adviseert. In de Randstad is dat €2.800-€3.000. Het CBS-mediaan inkomen voor alleenstaanden lag in 2024 rond de €2.200, veel alleenstaanden zitten dus structureel dicht bij hun grens.",
       },
       {
         vraag: "Wat zijn de grootste kosten voor een alleenstaande?",
@@ -3703,7 +3703,7 @@ export const artikelen: Artikel[] = [
   {
     slug: "pensioen-aanvullen-hoeveel-heb-je-nodig",
     korteTitel: "Pensioen aanvullen: hoeveel heb je nodig?",
-    titel: "Pensioen aanvullen: hoeveel heb je nodig — en wanneer is het te laat?",
+    titel: "Pensioen aanvullen: hoeveel heb je nodig, en wanneer is het te laat?",
     metaTitel: "Pensioen aanvullen: hoeveel heb je nodig?",
     metaDescription: "Weet je hoeveel pensioen je straks hebt? Wanneer aanvullen loont, hoeveel je mist bij een jobswitch, en hoe één gezin €280 per maand bespaarde.",
     datum: "2026-06-06",
@@ -3713,7 +3713,7 @@ export const artikelen: Artikel[] = [
     excerpt: "Mieke en Bas verdienen samen €6.200 netto en hadden nooit naar hun pensioen gekeken. Blijkt: een gat van €390.000. Hoe dat ontstond en hoe ze het voor €175 per maand netto aanpakten.",
     preview: {
       type: "vergelijking",
-      label: "Verwacht pensioen — echte case",
+      label: "Verwacht pensioen, echte case",
       items: [
         { naam: "Voor", bedrag: 1430, kleur: "#B03A2E" },
         { naam: "Na aanvullen", bedrag: 4100, kleur: "#0B7A6E" },
@@ -3731,7 +3731,7 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Is pensioen aanvullen hetzelfde als beleggen?",
-        antwoord: "Niet per se. Een lijfrentespaarrekening bij een bank is gewoon sparen — geen beleggingsrisico. Een lijfrentebeleggingsrekening wél. Je kiest zelf welke variant je wil.",
+        antwoord: "Niet per se. Een lijfrentespaarrekening bij een bank is gewoon sparen, geen beleggingsrisico. Een lijfrentebeleggingsrekening wél. Je kiest zelf welke variant je wil.",
       },
       {
         vraag: "Wat is de jaarruimte voor pensioenopbouw?",
@@ -3740,11 +3740,11 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Mijn Pensioenoverzicht — check je opbouw",
+        label: "Mijn Pensioenoverzicht: check je opbouw",
         url: "https://www.mijnpensioenoverzicht.nl",
       },
       {
-        label: "Belastingdienst — jaarruimte berekenen",
+        label: "Belastingdienst: jaarruimte berekenen",
         url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/lijfrente/premies_voor_lijfrenten/jaarruimte/",
       },
     ],
@@ -3754,12 +3754,12 @@ export const artikelen: Artikel[] = [
     korteTitel: "Financieel onafhankelijk: hoe realistisch?",
     titel: "Financieel onafhankelijk worden: wat het echt betekent (en wat niet)",
     metaTitel: "Financieel onafhankelijk worden: hoe realistisch is het?",
-    metaDescription: "Financieel onafhankelijk worden hoeft geen FIRE te zijn. Wat het realistisch betekent voor gezinnen met een goed inkomen — met een voor/na-verhaal.",
+    metaDescription: "Financieel onafhankelijk worden hoeft geen FIRE te zijn. Wat het realistisch betekent voor gezinnen met een goed inkomen, met een voor/na-verhaal.",
     datum: "2026-06-06",
     datumFormatted: "6 juni 2026",
     leestijd: "7",
     categorie: "Vermogen",
-    excerpt: "Thomas en Inge (€7.500 netto) dachten over 10 jaar te kunnen stoppen. De berekening: €1.740.000 nodig. Hoe ze hun doel herdefinieerden naar niveau 3-vrijheid — en waarom dat veel haalbaarder is.",
+    excerpt: "Thomas en Inge (€7.500 netto) dachten over 10 jaar te kunnen stoppen. De berekening: €1.740.000 nodig. Hoe ze hun doel herdefinieerden naar niveau 3-vrijheid, en waarom dat veel haalbaarder is.",
     preview: {
       type: "pijn",
       label: "FIRE vs. niveau 3-vrijheid",
@@ -3768,7 +3768,7 @@ export const artikelen: Artikel[] = [
     faq: [
       {
         vraag: "Hoeveel geld heb ik nodig om financieel onafhankelijk te zijn?",
-        antwoord: "Voor volledige onafhankelijkheid (FIRE): 25 keer je jaarlijkse uitgaven. Voor niveau 3-vrijheid — meer keuze, minder stress — is een vrij vermogen van 5 tot 10 keer je jaarsalaris al een enorme stap.",
+        antwoord: "Voor volledige onafhankelijkheid (FIRE): 25 keer je jaarlijkse uitgaven. Voor niveau 3-vrijheid (meer keuze, minder stress) is een vrij vermogen van 5 tot 10 keer je jaarsalaris al een enorme stap.",
       },
       {
         vraag: "Is beleggen noodzakelijk voor financiële onafhankelijkheid?",
@@ -3785,7 +3785,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Nibud — hoeveel heb je nodig na pensionering",
+        label: "Nibud: hoeveel heb je nodig na pensionering",
         url: "https://www.nibud.nl/onderwerpen/later/",
       },
     ],
@@ -3795,12 +3795,12 @@ export const artikelen: Artikel[] = [
     korteTitel: "Studieschuld aflossen of sparen?",
     titel: "Studieschuld aflossen of sparen: wat is slimmer in 2026?",
     metaTitel: "Studieschuld aflossen of sparen: wat is slimmer?",
-    metaDescription: "Studieschuld aflossen of sparen: eerlijk antwoord met rekensom — inclusief een voor/na-case van €280 per maand teruggewonnen.",
+    metaDescription: "Studieschuld aflossen of sparen: eerlijk antwoord met rekensom, inclusief een voor/na-case van €280 per maand teruggewonnen.",
     datum: "2026-06-06",
     datumFormatted: "6 juni 2026",
     leestijd: "6",
     categorie: "Sparen",
-    excerpt: "Lotte loste elke maand €280 extra af op haar studieschuld — en had daardoor geen buffer. Na de rekensom: rente studieschuld 2,56% vs. spaarrente 2,9%. Ze stopte met overaflossen en won €280 per maand terug.",
+    excerpt: "Lotte loste elke maand €280 extra af op haar studieschuld, en had daardoor geen buffer. Na de rekensom: rente studieschuld 2,56% vs. spaarrente 2,9%. Ze stopte met overaflossen en won €280 per maand terug.",
     preview: {
       type: "pijn",
       label: "De rekensom voor Lotte & Pieter",
@@ -3826,11 +3826,11 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "DUO — terugbetalen studieschuld",
+        label: "DUO: terugbetalen studieschuld",
         url: "https://duo.nl/particulier/terugbetalen/",
       },
       {
-        label: "Belastingdienst — rekenhulp jaarruimte",
+        label: "Belastingdienst: rekenhulp jaarruimte",
         url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/vermogen_en_aanmerkelijk_belang/lijfrente/premies_voor_lijfrenten/jaarruimte/",
       },
     ],
@@ -3848,13 +3848,13 @@ export const artikelen: Artikel[] = [
     excerpt: "Nadia (€2.400) en Joris (€3.100) hadden wekelijks ruzie over wie wat betaalde. Na overstap naar een hybride rekening-systeem naar inkomen: discussies vrijwel nul, en voor het eerst spaardoelen samen.",
     preview: {
       type: "pijn",
-      label: "Nadia & Joris — hybride systeem",
+      label: "Nadia & Joris, hybride systeem",
       items: ["Joris draagt 56% bij (€1.176/mnd)", "Nadia draagt 44% bij (€924/mnd)", "Gezamenlijke pot: €2.100/mnd vaste lasten"],
     },
     faq: [
       {
         vraag: "Is een gezamenlijke rekening verplicht als je trouwt of samenwoont?",
-        antwoord: "Nee. Er is geen wettelijke verplichting. Getrouwde stellen hebben standaard gemeenschap van goederen tenzij ze huwelijkse voorwaarden opstelden — maar dat zegt niets over hoe ze hun bankrekeningen inrichten.",
+        antwoord: "Nee. Er is geen wettelijke verplichting. Getrouwde stellen hebben standaard gemeenschap van goederen tenzij ze huwelijkse voorwaarden opstelden, maar dat zegt niets over hoe ze hun bankrekeningen inrichten.",
       },
       {
         vraag: "Wat is het beste systeem als we ongelijk verdienen?",
@@ -3866,12 +3866,12 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Hoe vaak moet je het geldsysteem als stel evalueren?",
-        antwoord: "Elk kwartaal is een goed ritme. Inkomens en vaste lasten veranderen — een systeem dat een jaar geleden werkte, kan nu niet meer kloppen. Een korte check van 15 minuten voorkomt frustratie.",
+        antwoord: "Elk kwartaal is een goed ritme. Inkomens en vaste lasten veranderen, een systeem dat een jaar geleden werkte, kan nu niet meer kloppen. Een korte check van 15 minuten voorkomt frustratie.",
       },
     ],
     externLinks: [
       {
-        label: "Nibud — financiën regelen als stel",
+        label: "Nibud: financiën regelen als stel",
         url: "https://www.nibud.nl/onderwerpen/inkomen/samenwonen/",
       },
     ],
@@ -3879,14 +3879,14 @@ export const artikelen: Artikel[] = [
   {
     slug: "wat-kost-een-financieel-adviseur",
     korteTitel: "Wat kost een financieel adviseur?",
-    titel: "Wat kost een financieel adviseur — en heb je er echt één nodig?",
+    titel: "Wat kost een financieel adviseur, en heb je er echt één nodig?",
     metaTitel: "Wat kost een financieel adviseur? Tarieven en alternatieven",
-    metaDescription: "Een financieel adviseur kost €150–€300/uur. Voor gezinnen die krap zitten is een eenmalig gesprek van €125 vaak voldoende. Wanneer je wat nodig hebt.",
+    metaDescription: "Een financieel adviseur kost €150 tot €300/uur. Voor gezinnen die krap zitten is een eenmalig gesprek van €125 vaak voldoende. Wanneer je wat nodig hebt.",
     datum: "2026-06-07",
     datumFormatted: "7 juni 2026",
     leestijd: "6",
     categorie: "Financieel advies",
-    excerpt: "Lisanne zocht op 'financieel adviseur' en sloot het tabblad zodra ze het tarief zag: €220/uur. Ze had geen hypotheek nodig — ze wilde weten waarom er nooit geld over was. Dat kost €125, niet €660.",
+    excerpt: "Lisanne zocht op 'financieel adviseur' en sloot het tabblad zodra ze het tarief zag: €220/uur. Ze had geen hypotheek nodig, ze wilde weten waarom er nooit geld over was. Dat kost €125, niet €660.",
     preview: {
       type: "vergelijking",
       label: "Kosten financieel advies vergelijken",
@@ -3916,11 +3916,11 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "AFM — vergelijk gecertificeerde financieel adviseurs",
+        label: "AFM: vergelijk gecertificeerde financieel adviseurs",
         url: "https://www.afm.nl/nl-nl/consumenten/diensten-producten/financieel-advies/adviseurs-vergelijken",
       },
       {
-        label: "Nibud — hoeveel geld heb je nodig voor een adviseur?",
+        label: "Nibud: hoeveel geld heb je nodig voor een adviseur?",
         url: "https://www.nibud.nl/consumenten/budgetadvies/",
       },
     ],
@@ -3928,14 +3928,14 @@ export const artikelen: Artikel[] = [
   {
     slug: "wat-doet-een-financieel-adviseur",
     korteTitel: "Wat doet een financieel adviseur?",
-    titel: "Wat doet een financieel adviseur — en heb jij er echt één nodig?",
+    titel: "Wat doet een financieel adviseur, en heb jij er echt één nodig?",
     metaTitel: "Wat doet een financieel adviseur en wanneer heb je er één?",
     metaDescription: "Een financieel adviseur adviseert over hypotheek, beleggingen en pensioen. Voor gezinnen die krap zitten is er een alternatief dat beter past.",
     datum: "2026-06-07",
     datumFormatted: "7 juni 2026",
     leestijd: "5",
     categorie: "Financieel advies",
-    excerpt: "Veel mensen denken dat een financieel adviseur voor rijke mensen is. Klopt niet — maar het hangt af van wat je vraag is. Voor hypotheek: ja. Voor 'waarom is ons geld op': nee. Lees het verschil.",
+    excerpt: "Veel mensen denken dat een financieel adviseur voor rijke mensen is. Klopt niet, maar het hangt af van wat je vraag is. Voor hypotheek: ja. Voor 'waarom is ons geld op': nee. Lees het verschil.",
     preview: {
       type: "pijn",
       label: "Wanneer heb je welk type hulp nodig?",
@@ -3949,7 +3949,7 @@ export const artikelen: Artikel[] = [
     faq: [
       {
         vraag: "Wat doet een financieel adviseur precies?",
-        antwoord: "Een financieel adviseur geeft advies over financiële producten zoals hypotheken, beleggingen en pensioenverzekeringen. In Nederland geldt voor die drie gebieden een vergunningsplicht (Wft). Buiten die producten — zoals budgetadvies of maandelijkse financiële planning — is er geen vergunning vereist.",
+        antwoord: "Een financieel adviseur geeft advies over financiële producten zoals hypotheken, beleggingen en pensioenverzekeringen. In Nederland geldt voor die drie gebieden een vergunningsplicht (Wft). Buiten die producten (zoals budgetadvies of maandelijkse financiële planning) is er geen vergunning vereist.",
       },
       {
         vraag: "Wat is het verschil tussen een financieel adviseur en een financieel coach?",
@@ -3966,7 +3966,7 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "AFM — gecertificeerde financieel adviseurs zoeken",
+        label: "AFM: gecertificeerde financieel adviseurs zoeken",
         url: "https://www.afm.nl/nl-nl/consumenten/diensten-producten/financieel-advies/adviseurs-vergelijken",
       },
     ],
@@ -3981,10 +3981,10 @@ export const artikelen: Artikel[] = [
     datumFormatted: "6 juni 2026",
     leestijd: "7",
     categorie: "Tweeverdieners",
-    excerpt: "Marieke verdient €2.100 bruto (4 dagen). Na BSO, reiskosten en belasting blijft er per maand €-350 over. Terug naar 3 dagen leverde €180 per maand méér op — plus merkbaar minder stress.",
+    excerpt: "Marieke verdient €2.100 bruto (4 dagen). Na BSO, reiskosten en belasting blijft er per maand €-350 over. Terug naar 3 dagen leverde €180 per maand méér op, plus merkbaar minder stress.",
     preview: {
       type: "vergelijking",
-      label: "Tweede inkomen Marieke — netto opbrengst",
+      label: "Tweede inkomen Marieke, netto opbrengst",
       items: [
         { naam: "Bruto inkomen", bedrag: 2100, kleur: "#16211F" },
         { naam: "Netto na kosten", bedrag: 0, kleur: "#B03A2E" },
@@ -3994,7 +3994,7 @@ export const artikelen: Artikel[] = [
     faq: [
       {
         vraag: "Waarom loont het tweede inkomen bij tweeverdieners vaak niet?",
-        antwoord: "Het tweede inkomen wordt belast in de hoogste schijf (49,5% bij hogere gezinsinkomens), terwijl de kosten van werken — BSO, reiskosten, gemaksuitgaven door tijdgebrek — direct aftrekken van het netto bedrag. De combinatie maakt dat er soms vrijwel niets overblijft.",
+        antwoord: "Het tweede inkomen wordt belast in de hoogste schijf (49,5% bij hogere gezinsinkomens), terwijl de kosten van werken (BSO, reiskosten, gemaksuitgaven door tijdgebrek) direct aftrekken van het netto bedrag. De combinatie maakt dat er soms vrijwel niets overblijft.",
       },
       {
         vraag: "Hoeveel kinderopvangtoeslag krijg ik bij een gezinsinkomen van €80.000?",
@@ -4002,7 +4002,7 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Betekent dit dat ik beter kan stoppen met werken?",
-        antwoord: "Niet per se. Pensioenopbouw, arbeidsmarktpositie en persoonlijke voldoening spelen ook een rol. Bovendien zijn BSO-kosten tijdelijk — als de kinderen naar groep 5 gaan, kantelt de rekensom volledig. De vraag is of je werkpatroon klopt bij je situatie.",
+        antwoord: "Niet per se. Pensioenopbouw, arbeidsmarktpositie en persoonlijke voldoening spelen ook een rol. Bovendien zijn BSO-kosten tijdelijk, als de kinderen naar groep 5 gaan, kantelt de rekensom volledig. De vraag is of je werkpatroon klopt bij je situatie.",
       },
       {
         vraag: "Helpt minder dagen werken financieel?",
@@ -4011,11 +4011,11 @@ export const artikelen: Artikel[] = [
     ],
     externLinks: [
       {
-        label: "Belastingdienst — schijventarief inkomstenbelasting 2026",
+        label: "Belastingdienst: schijventarief inkomstenbelasting 2026",
         url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/tarieven/",
       },
       {
-        label: "Toeslagen.nl — kinderopvangtoeslag berekenen",
+        label: "Toeslagen.nl: kinderopvangtoeslag berekenen",
         url: "https://www.toeslagen.nl",
       },
     ],

@@ -5,7 +5,7 @@ const winkels = [
     kleur: "#E7F1EE",
     tekstKleur: "#0B7A6E",
     beschrijving:
-      "De absolute must voor verzorgingsproducten. Tandpasta, shampoo, wasmiddel, babyspullen — hier is het verschil met Nederland het grootst. Tot 50% goedkoper dan Kruidvat.",
+      "De absolute must voor verzorgingsproducten. Tandpasta, shampoo, wasmiddel, babyspullen, hier is het verschil met Nederland het grootst. Tot 50% goedkoper dan Kruidvat.",
     bestVoor: ["Drogisterij", "Babyspullen", "Wasmiddel", "Huismerk producten"],
     tip: "Download de DM-app voor extra coupons",
   },
@@ -15,9 +15,9 @@ const winkels = [
     kleur: "#E4F1EE",
     tekstKleur: "#92600A",
     beschrijving:
-      "Alles onder één dak. Goed voor A-merken, vlees, en bulkinkopen. De statiegeldautomaten accepteren alle verpakkingen — handig voor je Pfand.",
+      "Alles onder één dak. Goed voor A-merken, vlees, en bulkinkopen. De statiegeldautomaten accepteren alle verpakkingen, handig voor je Pfand.",
     bestVoor: ["A-merken", "Vers vlees", "Bulkinkoop", "Non-food"],
-    tip: "Lever hier statiegeld in — automaat accepteert alles",
+    tip: "Lever hier statiegeld in, automaat accepteert alles",
   },
   {
     naam: "Aldi & Lidl",
@@ -25,7 +25,7 @@ const winkels = [
     kleur: "#E7F1EE",
     tekstKleur: "#0B7A6E",
     beschrijving:
-      "De goedkoopste huismerken van Duitsland. Frisdrank, pasta, sauzen, diepvries — structureel lager dan in Nederland. Dezelfde ketens als hier, maar goedkoper.",
+      "De goedkoopste huismerken van Duitsland. Frisdrank, pasta, sauzen en diepvries zijn structureel lager dan in Nederland. Dezelfde ketens als hier, maar goedkoper.",
     bestVoor: ["Frisdrank", "Huismerk", "Diepvries", "Snacks"],
     tip: "Combineer met DM voor de beste trip",
   },
@@ -35,7 +35,7 @@ const winkels = [
     kleur: "#E4F1EE",
     tekstKleur: "#92600A",
     beschrijving:
-      "DM's concurrent — soms zelfs goedkoper op A-merken. Goed voor parfum, gezichtsverzorging en schoonmaakmiddelen. Check beide apps voor de beste deal.",
+      "DM's concurrent, soms zelfs goedkoper op A-merken. Goed voor parfum, gezichtsverzorging en schoonmaakmiddelen. Check beide apps voor de beste deal.",
     bestVoor: [
       "Parfum",
       "Gezichtsverzorging",

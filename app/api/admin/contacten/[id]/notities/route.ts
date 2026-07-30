@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
-// POST /api/admin/contacten/[id]/notities — handmatige notitie toevoegen.
+// POST /api/admin/contacten/[id]/notities, handmatige notitie toevoegen.
 // Body: { tekst: string }
 export async function POST(
   req: NextRequest,

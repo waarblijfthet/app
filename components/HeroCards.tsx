@@ -35,7 +35,7 @@ export default function HeroCards() {
   return (
     <div className="hidden lg:block">
       <div className="relative w-full h-[520px]">
-        {/* Card 1 — Wat je overhoudt */}
+        {/* Card 1, Wat je overhoudt */}
         <div
           className="absolute top-0 left-8 w-64 animate-float-1 rounded-xl border border-[#E6E9E7] p-6"
           style={cardStyle}
@@ -65,7 +65,7 @@ export default function HeroCards() {
           </span>
         </div>
 
-        {/* Card 2 — Na het bijsturen */}
+        {/* Card 2, Na het bijsturen */}
         <div
           className="absolute top-36 right-0 w-60 animate-float-2 rounded-xl border border-[#E6E9E7] p-6"
           style={cardStyle}
@@ -82,7 +82,7 @@ export default function HeroCards() {
           </span>
         </div>
 
-        {/* Card 3 — Waar het naartoe gaat */}
+        {/* Card 3, Waar het naartoe gaat */}
         <div
           className="absolute bottom-0 left-4 animate-float-3 rounded-xl border border-[#E6E9E7] p-6"
           style={{ ...cardStyle, width: "272px" }}
