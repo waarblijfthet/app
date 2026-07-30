@@ -47,6 +47,15 @@ export async function POST(req: NextRequest) {
       ? ["verstuurd", "geopend"]
       : ["verstuurd", "geopend", "geklikt", "bounced"];
 
+  // Eerst de rij in outreach_mails (per mail, op resend_id), daarna pas het
+  // samenvattingsveld op outreach_contacts. Zie docs/admin-redesign-30-jul-2026.md
+  // sectie 4: outreach_mails is de bron voor de mailhistorie per contact,
+  // outreach_contacts blijft de samenvatting voor bestaande weergaven en de cron.
+  await supabase
+    .from("outreach_mails")
+    .update({ [mapping.veld]: data.created_at ?? new Date().toISOString() })
+    .eq("resend_id", resendId);
+
   await supabase
     .from("outreach_contacts")
     .update({

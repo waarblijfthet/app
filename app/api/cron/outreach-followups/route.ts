@@ -100,6 +100,28 @@ export async function GET(request: NextRequest) {
           resend_id: verzonden?.id ?? null,
         })
         .eq("id", contact.id);
+
+      // Zelfde outreach_mails/contact_notities-schrijfactie als de handmatige
+      // send-route (app/api/admin/outreach/send/route.ts), zodat de
+      // mailhistorie compleet is ongeacht of het contact automatisch of
+      // handmatig een follow-up kreeg. Wachttijdlogica en volgorde hierboven
+      // blijven ongewijzigd.
+      const mailNummer = (contact.followups ?? 0) + 2;
+      await supabase.from("outreach_mails").upsert(
+        {
+          contact_id: contact.id,
+          nummer: mailNummer,
+          verstuurd_at: new Date().toISOString(),
+          resend_id: verzonden?.id ?? null,
+        },
+        { onConflict: "contact_id,nummer" }
+      );
+      await supabase.from("contact_notities").insert({
+        outreach_contact_id: contact.id,
+        soort: "systeem",
+        tekst: `Mail ${mailNummer} automatisch verstuurd (cron).`,
+      });
+
       verstuurd += 1;
     } catch (err: unknown) {
       fouten.push(`${contact.naam}: ${err instanceof Error ? err.message : "onbekende fout"}`);

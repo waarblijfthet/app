@@ -116,6 +116,26 @@ export async function POST(req: NextRequest) {
 
       await supabase.from("outreach_contacts").update(update).eq("id", contact.id);
 
+      // Per verstuurde mail een rij in outreach_mails en een systeemnotitie,
+      // los van het samenvattingsveld hierboven (dat blijft bestaan voor de
+      // cron en bestaande weergaven). Zie docs/admin-redesign-30-jul-2026.md
+      // sectie 4 en de opdracht voor fase 2a.
+      const mailNummer = isFollowup ? (contact.followups ?? 0) + 2 : 1;
+      await supabase.from("outreach_mails").upsert(
+        {
+          contact_id: contact.id,
+          nummer: mailNummer,
+          verstuurd_at: new Date().toISOString(),
+          resend_id: verzonden?.id ?? null,
+        },
+        { onConflict: "contact_id,nummer" }
+      );
+      await supabase.from("contact_notities").insert({
+        outreach_contact_id: contact.id,
+        soort: "systeem",
+        tekst: `Mail ${mailNummer} verstuurd.`,
+      });
+
       resultaten.push({ id: contact.id, naam: contact.naam, ok: true });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Onbekende fout";

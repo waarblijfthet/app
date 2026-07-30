@@ -2,9 +2,19 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
+const STATUSWEERGAVEN = [
+  "nieuw", "verstuurd", "gereageerd_positief", "gereageerd_negatief",
+  "gereageerd_neutraal", "gestopt", "bounced",
+] as const;
+type Statusweergave = (typeof STATUSWEERGAVEN)[number];
+
 // GET /api/admin/outreach — contacten ophalen
 // Zonder queryparameters: ongewijzigd gedrag, alle rijen, plat array (bestaande UI leunt hierop).
-// Met queryparameters: zoekterm (naam/email), doelgroep, status, plaats, limiet, offset (standaard 50 rijen).
+// Met queryparameters: per-kolom filters (naam, email, plaats, psZin, doelgroep,
+// reactie, statusweergave), limiet, offset (standaard 50 rijen). Retourneert dan
+// { data, mails, total } i.p.v. een plat array: mails is de outreach_mails-
+// geschiedenis per contact (voor de voortgangskolom M1/M2/M3 in de tabel,
+// zie docs/admin-redesign-30-jul-2026.md sectie 5b).
 export async function GET(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
@@ -12,36 +22,96 @@ export async function GET(req: NextRequest) {
   const supabase = createServiceClient();
   const sp = req.nextUrl.searchParams;
   const zoekterm = sp.get("zoekterm");
+  const naam = sp.get("naam");
+  const email = sp.get("email");
   const doelgroep = sp.get("doelgroep");
   const status = sp.get("status");
   const plaats = sp.get("plaats");
+  const psZin = sp.get("psZin");
+  const reactie = sp.get("reactie"); // 'positief' | 'neutraal' | 'negatief' | 'geen'
+  const statusweergaveParam = sp.get("statusweergave");
+  const statusweergave: Statusweergave | null =
+    statusweergaveParam && (STATUSWEERGAVEN as readonly string[]).includes(statusweergaveParam)
+      ? (statusweergaveParam as Statusweergave)
+      : null;
   const limietParam = sp.get("limiet");
   const offsetParam = sp.get("offset");
 
   const heeftParams = Boolean(
-    zoekterm || doelgroep || status || plaats || limietParam || offsetParam
+    zoekterm || naam || email || doelgroep || status || plaats || psZin ||
+    reactie || statusweergave || limietParam || offsetParam
   );
 
   let query = supabase
     .from("outreach_contacts")
-    .select("*")
+    .select("*", heeftParams ? { count: "exact" } : undefined)
     .order("created_at", { ascending: false });
 
   if (heeftParams) {
     if (doelgroep) query = query.eq("doelgroep", doelgroep);
     if (status) query = query.eq("status", status);
     if (plaats) query = query.ilike("plaats", `%${plaats}%`);
+    if (naam) query = query.ilike("naam", `%${naam}%`);
+    if (email) query = query.ilike("email", `%${email}%`);
+    if (psZin) query = query.ilike("ps_zin", `%${psZin}%`);
     if (zoekterm) query = query.or(`naam.ilike.%${zoekterm}%,email.ilike.%${zoekterm}%`);
+    if (reactie === "geen") query = query.is("reactie", null);
+    else if (reactie && ["positief", "neutraal", "negatief"].includes(reactie)) {
+      query = query.eq("reactie", reactie);
+    }
+
+    if (statusweergave) {
+      switch (statusweergave) {
+        case "nieuw":
+          query = query.eq("status", "nieuw");
+          break;
+        case "verstuurd":
+          query = query.in("status", ["verstuurd", "geopend", "geklikt"]).eq("gestopt", false);
+          break;
+        case "gestopt":
+          query = query.eq("gestopt", true);
+          break;
+        case "bounced":
+          query = query.eq("status", "bounced");
+          break;
+        case "gereageerd_positief":
+          query = query.eq("status", "gereageerd").eq("reactie", "positief");
+          break;
+        case "gereageerd_negatief":
+          query = query.eq("status", "gereageerd").eq("reactie", "negatief");
+          break;
+        case "gereageerd_neutraal":
+          query = query.eq("status", "gereageerd").or("reactie.eq.neutraal,reactie.is.null");
+          break;
+      }
+    }
 
     const limiet = limietParam ? Number(limietParam) : 50;
     const offset = offsetParam ? Number(offsetParam) : 0;
     query = query.range(offset, offset + (Number.isFinite(limiet) ? limiet : 50) - 1);
   }
 
-  const { data, error } = await query;
+  const { data, error, count } = await query;
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
-  return NextResponse.json(data);
+  if (!heeftParams) return NextResponse.json(data);
+
+  const ids = (data ?? []).map((c) => c.id as string);
+  let mailsPerContact: Record<string, unknown[]> = {};
+  if (ids.length > 0) {
+    const { data: mails } = await supabase
+      .from("outreach_mails")
+      .select("*")
+      .in("contact_id", ids)
+      .order("nummer", { ascending: true });
+    mailsPerContact = (mails ?? []).reduce((acc: Record<string, unknown[]>, m) => {
+      const key = m.contact_id as string;
+      (acc[key] ??= []).push(m);
+      return acc;
+    }, {});
+  }
+
+  return NextResponse.json({ data, mails: mailsPerContact, total: count ?? data?.length ?? 0 });
 }
 
 // POST /api/admin/outreach — contact toevoegen

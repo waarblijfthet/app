@@ -12,6 +12,14 @@ interface Props {
   variant?: Variant;
   children: React.ReactNode;
   className?: string;
+  /**
+   * Vervangt de kleur van `variant` volledig door eigen Tailwind-classes
+   * (bijv. "bg-purple-50 text-purple-700"). Nodig voor categorale kleuren
+   * (zoals doelgroep) die geen van de vijf semantische varianten dekken.
+   * De vorm (padding, radius, tekstgrootte) blijft van deze component komen,
+   * dus dit is geen eigen badge-implementatie, alleen een kleur-override.
+   */
+  kleurOverride?: string;
 }
 
 /**
@@ -19,10 +27,10 @@ interface Props {
  * implementaties met inline hex-styles die er eerder waren (zie
  * docs/admin-redesign-30-jul-2026.md sectie 3).
  */
-export default function Badge({ variant = "neutraal", children, className = "" }: Props) {
+export default function Badge({ variant = "neutraal", children, className = "", kleurOverride }: Props) {
   return (
     <span
-      className={`font-body text-xs font-medium px-2 py-0.5 rounded-full whitespace-nowrap inline-block ${VARIANT_KLASSEN[variant]} ${className}`}
+      className={`font-body text-xs font-medium px-2 py-0.5 rounded-full whitespace-nowrap inline-block ${kleurOverride ?? VARIANT_KLASSEN[variant]} ${className}`}
     >
       {children}
     </span>
