@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { IntakeAanvraag } from "../page";
+import DataTabel, { DataTabelKolom } from "../ui/DataTabel";
+import Badge from "../ui/Badge";
 
 interface Props {
   aanvragen: IntakeAanvraag[];
@@ -9,35 +11,22 @@ interface Props {
 
 type Status = "nieuw" | "contact_opgenomen" | "betaald" | "gestart";
 
-const STATUS_CONFIG: Record<
-  Status,
-  { label: string; bg: string; color: string }
-> = {
-  nieuw: { label: "Nieuw", bg: "#FEF3C7", color: "#92400E" },
-  contact_opgenomen: { label: "Contact opgenomen", bg: "#DBEAFE", color: "#1E40AF" },
-  betaald: { label: "Betaald", bg: "#DAF2EC", color: "#0A6A5F" },
-  gestart: { label: "Gestart", bg: "#DAF2EC", color: "#0A6A5F" },
+const STATUS_CONFIG: Record<Status, { label: string; variant: "waarschuwing" | "actie" | "goed" }> = {
+  nieuw: { label: "Nieuw", variant: "waarschuwing" },
+  contact_opgenomen: { label: "Contact opgenomen", variant: "actie" },
+  betaald: { label: "Betaald", variant: "goed" },
+  gestart: { label: "Gestart", variant: "goed" },
 };
 
 function StatusPill({ status }: { status: string }) {
-  const cfg = STATUS_CONFIG[status as Status] ?? {
-    label: status,
-    bg: "#E6E9E7",
-    color: "#4A5A56",
-  };
-  return (
-    <span
-      className="font-body text-xs font-medium px-2 py-0.5 rounded-full whitespace-nowrap"
-      style={{ backgroundColor: cfg.bg, color: cfg.color }}
-    >
-      {cfg.label}
-    </span>
-  );
+  const cfg = STATUS_CONFIG[status as Status];
+  if (!cfg) return <Badge>{status}</Badge>;
+  return <Badge variant={cfg.variant}>{cfg.label}</Badge>;
 }
 
 function KnelpuntCell({ tekst }: { tekst: string | null }) {
   const [tooltip, setTooltip] = useState(false);
-  if (!tekst) return <span className="text-[#8B958F]">—</span>;
+  if (!tekst) return <span className="text-text-muted">—</span>;
   const kort = tekst.length > 60 ? tekst.slice(0, 60) + "…" : tekst;
   return (
     <span
@@ -48,7 +37,7 @@ function KnelpuntCell({ tekst }: { tekst: string | null }) {
       {kort}
       {tooltip && tekst.length > 60 && (
         <span
-          className="font-body absolute z-50 left-0 top-6 bg-[#16211F] text-white text-xs rounded-lg px-3 py-2 shadow-lg"
+          className="font-body absolute z-50 left-0 top-6 bg-primary text-white text-xs rounded-lg px-3 py-2 shadow-card-hover"
           style={{ maxWidth: "320px", minWidth: "200px", lineHeight: 1.6, whiteSpace: "normal" }}
         >
           {tekst}
@@ -59,11 +48,9 @@ function KnelpuntCell({ tekst }: { tekst: string | null }) {
 }
 
 function StatusSelect({
-  id,
   huidig,
   onChange,
 }: {
-  id: string;
   huidig: string;
   onChange: (nieuw: Status) => void;
 }) {
@@ -71,8 +58,8 @@ function StatusSelect({
     <select
       value={huidig}
       onChange={(e) => onChange(e.target.value as Status)}
-      className="font-body text-xs rounded-lg border border-[#E6E9E7] bg-white px-2 py-1 cursor-pointer"
-      style={{ color: "#16211F" }}
+      onClick={(e) => e.stopPropagation()}
+      className="font-body text-xs rounded-lg border border-[#E6E9E7] bg-white px-2 py-1 cursor-pointer text-primary"
     >
       {Object.entries(STATUS_CONFIG).map(([key, cfg]) => (
         <option key={key} value={key}>
@@ -84,13 +71,17 @@ function StatusSelect({
 }
 
 function formatDatum(iso: string) {
-  const d = new Date(iso);
-  return d.toLocaleDateString("nl-NL", {
+  return new Date(iso).toLocaleDateString("nl-NL", {
     day: "numeric",
     month: "short",
     year: "numeric",
   });
 }
+
+const PAKKET_LABEL: Record<string, string> = {
+  intensief: "Intensief",
+  geldscan: "Geldscan",
+};
 
 export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
   const [aanvragen, setAanvragen] = useState<IntakeAanvraag[]>(initAanvragen);
@@ -107,167 +98,132 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen }: Props) {
     }).catch(() => null);
 
     if (res?.ok) {
-      setAanvragen((prev) =>
-        prev.map((a) => (a.id === id ? { ...a, status } : a))
-      );
+      setAanvragen((prev) => prev.map((a) => (a.id === id ? { ...a, status } : a)));
     } else {
       setFout("Status bijwerken mislukt. Probeer het opnieuw.");
     }
     setBezig(null);
   }
 
-  if (aanvragen.length === 0) {
-    return (
-      <div className="py-16 text-center">
-        <p className="font-body text-[#8B958F] text-sm">
-          Nog geen aanvragen ontvangen.
-        </p>
-      </div>
-    );
-  }
+  const kolommen: DataTabelKolom<IntakeAanvraag>[] = [
+    {
+      key: "datum",
+      header: "Datum",
+      render: (a) => <span className="text-text-soft whitespace-nowrap">{formatDatum(a.created_at)}</span>,
+      sorteerWaarde: (a) => a.created_at,
+    },
+    {
+      key: "naam",
+      header: "Naam",
+      render: (a) => <span className="text-primary font-medium whitespace-nowrap">{a.naam ?? "—"}</span>,
+      sorteerWaarde: (a) => a.naam ?? "",
+    },
+    {
+      key: "email",
+      header: "Email",
+      render: (a) =>
+        a.email ? (
+          <a href={`mailto:${a.email}`} className="text-accent whitespace-nowrap">
+            {a.email}
+          </a>
+        ) : (
+          "—"
+        ),
+    },
+    {
+      key: "pakket",
+      header: "Pakket",
+      render: (a) => <Badge variant="actie">{PAKKET_LABEL[a.pakket] ?? "Adviesgesprek"}</Badge>,
+      sorteerWaarde: (a) => a.pakket,
+    },
+    {
+      key: "inkomen",
+      header: "Inkomen",
+      render: (a) => <span className="text-text-soft whitespace-nowrap">{a.inkomen_bracket ?? "—"}</span>,
+    },
+    {
+      key: "knelpunt",
+      header: "Knelpunt",
+      render: (a) => <KnelpuntCell tekst={a.grootste_knelpunt} />,
+      className: "max-w-[220px]",
+    },
+    {
+      key: "analyse",
+      header: "Analyse",
+      render: (a) =>
+        a.analyse_token ? (
+          <a
+            href={`/resultaat/${a.analyse_token}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+            className="text-accent font-medium whitespace-nowrap"
+          >
+            Bekijk analyse →
+          </a>
+        ) : a.analyse_gedaan === null ? (
+          <span className="text-text-muted">—</span>
+        ) : a.analyse_gedaan ? (
+          <span className="text-success">✓ Ja</span>
+        ) : (
+          <span className="text-text-muted">Nee</span>
+        ),
+    },
+    {
+      key: "start",
+      header: "Start",
+      render: (a) => <span className="text-text-soft whitespace-nowrap">{a.start_voorkeur ?? "—"}</span>,
+    },
+    {
+      key: "status",
+      header: "Status",
+      render: (a) => (
+        <div className="flex items-center gap-2 flex-wrap" style={{ opacity: bezig === a.id ? 0.6 : 1 }}>
+          <StatusPill status={a.status} />
+          <StatusSelect huidig={a.status} onChange={(s) => updateStatus(a.id, s)} />
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div>
       <div className="flex items-center justify-between mb-5">
-        <h2 className="font-body font-semibold text-[#16211F] text-base">
-          Intake aanvragen
-        </h2>
-        <span className="font-body text-sm text-[#8B958F]">
+        <h2 className="font-body font-semibold text-primary text-base">Intake aanvragen</h2>
+        <span className="font-body text-sm text-text-muted">
           {aanvragen.length} totaal ·{" "}
           {aanvragen.filter((a) => a.status === "nieuw").length} nieuw
         </span>
       </div>
 
-      {fout && (
-        <p className="font-body text-sm mb-3" style={{ color: "#B03A2E" }}>
-          {fout}
-        </p>
-      )}
+      {fout && <p className="font-body text-sm mb-3 text-danger">{fout}</p>}
 
-      <div style={{ overflowX: "auto" }}>
-        <table
-          className="font-body w-full text-sm"
-          style={{ borderCollapse: "collapse", minWidth: "900px" }}
-        >
-          <thead>
-            <tr style={{ borderBottom: "2px solid #E6E9E7" }}>
-              {[
-                "Datum",
-                "Naam",
-                "Email",
-                "Pakket",
-                "Inkomen",
-                "Knelpunt",
-                "Analyse",
-                "Start",
-                "Status",
-              ].map((h) => (
-                <th
-                  key={h}
-                  className="text-left pb-3 pr-4"
-                  style={{ color: "#8B958F", fontWeight: 500, fontSize: "0.78rem", whiteSpace: "nowrap" }}
-                >
-                  {h}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {aanvragen.map((a) => (
-              <tr
-                key={a.id}
-                style={{
-                  borderBottom: "1px solid #F0EBE3",
-                  opacity: bezig === a.id ? 0.6 : 1,
-                  transition: "opacity 0.15s",
-                }}
-              >
-                <td className="py-3 pr-4" style={{ whiteSpace: "nowrap", color: "#4A5A56", fontSize: "0.82rem" }}>
-                  {formatDatum(a.created_at)}
-                </td>
-                <td className="py-3 pr-4" style={{ color: "#16211F", fontWeight: 500, whiteSpace: "nowrap" }}>
-                  {a.naam ?? "—"}
-                </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5A56", whiteSpace: "nowrap" }}>
-                  {a.email ? (
-                    <a
-                      href={`mailto:${a.email}`}
-                      style={{ color: "#0B7A6E", textDecoration: "none" }}
-                    >
-                      {a.email}
-                    </a>
-                  ) : (
-                    "—"
-                  )}
-                </td>
-                <td className="py-3 pr-4" style={{ whiteSpace: "nowrap" }}>
-                  <span
-                    className="text-xs px-2 py-0.5 rounded-full"
-                    style={{
-                      backgroundColor:
-                        a.pakket === "intensief"
-                          ? "#F3E8FF"
-                          : a.pakket === "geldscan"
-                          ? "#FDE9DD"
-                          : "#E7F1EE",
-                      color:
-                        a.pakket === "intensief"
-                          ? "#6B21A8"
-                          : a.pakket === "geldscan"
-                          ? "#9A3B12"
-                          : "#0A6A5F",
-                      fontWeight: 500,
-                    }}
-                  >
-                    {a.pakket === "intensief"
-                      ? "Intensief"
-                      : a.pakket === "geldscan"
-                      ? "Geldscan"
-                      : "Adviesgesprek"}
-                  </span>
-                </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5A56", whiteSpace: "nowrap", fontSize: "0.82rem" }}>
-                  {a.inkomen_bracket ?? "—"}
-                </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5A56", fontSize: "0.82rem", maxWidth: "200px" }}>
-                  <KnelpuntCell tekst={a.grootste_knelpunt} />
-                </td>
-                <td className="py-3 pr-4" style={{ whiteSpace: "nowrap" }}>
-                  {a.analyse_token ? (
-                    <a
-                      href={`/resultaat/${a.analyse_token}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{ color: "#0B7A6E", textDecoration: "none", fontWeight: 500 }}
-                    >
-                      Bekijk analyse →
-                    </a>
-                  ) : a.analyse_gedaan === null ? (
-                    <span style={{ color: "#8B958F" }}>—</span>
-                  ) : a.analyse_gedaan ? (
-                    <span style={{ color: "#0B7A6E" }}>✓ Ja</span>
-                  ) : (
-                    <span style={{ color: "#8B958F" }}>Nee</span>
-                  )}
-                </td>
-                <td className="py-3 pr-4" style={{ color: "#4A5A56", fontSize: "0.82rem", whiteSpace: "nowrap" }}>
-                  {a.start_voorkeur ?? "—"}
-                </td>
-                <td className="py-3 pr-4">
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <StatusPill status={a.status} />
-                    <StatusSelect
-                      id={a.id}
-                      huidig={a.status}
-                      onChange={(s) => updateStatus(a.id, s)}
-                    />
-                  </div>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <DataTabel
+        data={aanvragen}
+        kolommen={kolommen}
+        rijSleutel={(a) => a.id}
+        legeStaatTitel="Nog geen aanvragen ontvangen"
+        mobieleKaart={(a) => (
+          <div className="rounded-xl border border-[#E6E9E7] bg-card p-4">
+            <div className="flex items-center justify-between">
+              <p className="font-body font-medium text-primary text-sm">{a.naam ?? "—"}</p>
+              <StatusPill status={a.status} />
+            </div>
+            {a.email && (
+              <a href={`mailto:${a.email}`} className="font-body text-accent text-sm block">
+                {a.email}
+              </a>
+            )}
+            <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <Badge variant="actie">{PAKKET_LABEL[a.pakket] ?? "Adviesgesprek"}</Badge>
+              <span className="font-body text-text-muted text-xs">{formatDatum(a.created_at)}</span>
+            </div>
+            <div className="mt-2">
+              <StatusSelect huidig={a.status} onChange={(s) => updateStatus(a.id, s)} />
+            </div>
+          </div>
+        )}
+      />
     </div>
   );
 }

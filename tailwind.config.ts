@@ -18,6 +18,17 @@ const config: Config = {
         "accent-bg": "#E4F1EE",
         "green-light": "#E7F1EE",
         "dark-block": "#16211F",
+
+        // Semantische statuskleuren voor Badge en tabelstatussen.
+        // Geconsolideerd uit de losse hex-strings die eerder per component stonden.
+        success: "#0A6A5F",
+        "success-bg": "#DAF2EC",
+        warning: "#92400E",
+        "warning-bg": "#FEF3C7",
+        danger: "#991B1B",
+        "danger-bg": "#FEE2E2",
+        info: "#1E40AF",
+        "info-bg": "#DBEAFE",
       },
       fontFamily: {
         display: ["var(--font-fraunces)", "Georgia", "serif"],

@@ -1,14 +1,12 @@
-import type { Metadata } from "next";
 import { redirect } from "next/navigation";
-import { createClient } from "@/lib/supabase-server";
-import { createServiceClient } from "@/lib/supabase-service";
-import AdminNav from "./components/AdminNav";
-import AdminClient from "./AdminClient";
 
-export const metadata: Metadata = {
-  title: "Admin | Waar blijft het",
-  robots: "noindex, nofollow",
-};
+/**
+ * /admin heeft geen eigen inhoud meer sinds de zijmenu-shell (30-jul-2026).
+ * Dit bestand blijft bestaan omdat de tabblad-componenten hun gedeelde
+ * interfaces en kolomconstanten hiervandaan importeren ("from ../page").
+ * De data-fetching zelf staat in app/admin/data.ts, dat deze types hergebruikt.
+ * Zie docs/admin-redesign-30-jul-2026.md sectie 3, punt 3 voor de afweging.
+ */
 
 export interface IntakeAanvraag {
   id: string;
@@ -60,52 +58,14 @@ export interface QuizResultaat {
 }
 
 // Kolommen die de tabbladen daadwerkelijk gebruiken (zie interfaces hierboven).
-const LEAD_KOLOMMEN = "id,email,naam,bron,created_at,toestemming_marketing,quiz_voltooid";
-const QUIZ_KOLOMMEN = "id,lead_id,token,email,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
-const AANVRAAG_KOLOMMEN = "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,analyse_token,naam,email,status";
-const MAX_RIJEN = 1000;
+export const LEAD_KOLOMMEN =
+  "id,email,naam,bron,created_at,toestemming_marketing,quiz_voltooid";
+export const QUIZ_KOLOMMEN =
+  "id,lead_id,token,email,created_at,woonsituatie,aantal_kinderen,auto_situatie,totaal_inkomen_berekend,totaal_uitgaven_berekend,maandelijks_over_berekend,benchmark_over_verwacht,verschil_met_benchmark,grootste_afwijking,verdict,wonen_huur_hypotheek,wonen_energie,wonen_internet_tv,boodschappen,verzekering_zorg_per_persoon,verzekering_overig";
+export const AANVRAAG_KOLOMMEN =
+  "id,created_at,pakket,gezinssituatie,inkomen_bracket,grootste_knelpunt,analyse_gedaan,start_voorkeur,analyse_token,naam,email,status";
+export const MAX_RIJEN = 1000;
 
-export default async function AdminPage() {
-  const supabase = await createClient();
-
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const user = session?.user;
-
-  if (!user) redirect("/admin/login");
-
-  // Data-reads via service client zodat RLS geen admin-reads blokkeert.
-  const service = createServiceClient();
-  const [{ data: leads }, { data: quizResultaten }, { data: aanvragen }] =
-    await Promise.all([
-      service
-        .from("leads")
-        .select(LEAD_KOLOMMEN)
-        .order("created_at", { ascending: false })
-        .limit(MAX_RIJEN),
-      service
-        .from("quiz_resultaten")
-        .select(QUIZ_KOLOMMEN)
-        .order("created_at", { ascending: false })
-        .limit(MAX_RIJEN),
-      service
-        .from("intake_aanvragen")
-        .select(AANVRAAG_KOLOMMEN)
-        .order("created_at", { ascending: false })
-        .limit(MAX_RIJEN),
-    ]);
-
-  return (
-    <div className="min-h-screen bg-background">
-      <AdminNav email={user!.email ?? ""} />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        <AdminClient
-          leads={(leads as unknown as Lead[]) ?? []}
-          quizResultaten={(quizResultaten as unknown as QuizResultaat[]) ?? []}
-          aanvragen={(aanvragen as unknown as IntakeAanvraag[]) ?? []}
-        />
-      </main>
-    </div>
-  );
+export default function AdminPage() {
+  redirect("/admin/vandaag");
 }

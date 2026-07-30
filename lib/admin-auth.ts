@@ -2,9 +2,27 @@ import { createServerClient } from "@supabase/ssr";
 import { cookies } from "next/headers";
 
 /**
- * Controleert of de inkomende request afkomstig is van een ingelogde admin.
+ * Controleert of een e-mailadres op de admin-allowlist staat.
+ * ADMIN_EMAILS is een kommagescheiden lijst in de omgevingsvariabelen.
+ * Staat de variabele leeg of ontbreekt hij, dan valt dit terug op het oude
+ * gedrag (elke ingelogde gebruiker is admin), zodat de admin niet op slot
+ * gaat zolang de variabele nog niet in Vercel staat.
+ */
+export function isEmailAllowed(email: string | null | undefined): boolean {
+  const lijst = process.env.ADMIN_EMAILS?.trim();
+  if (!lijst) return true;
+  if (!email) return false;
+  const toegestaan = lijst
+    .split(",")
+    .map((e) => e.trim().toLowerCase())
+    .filter(Boolean);
+  return toegestaan.includes(email.toLowerCase());
+}
+
+/**
+ * Controleert of de inkomende request afkomstig is van een ingelogde admin
+ * die ook op de allowlist staat (zie isEmailAllowed).
  * Gebruik in API routes die alleen door de admin mogen worden aangeroepen.
- * Geeft `true` terug als de gebruiker ingelogd is via Supabase auth.
  */
 export async function isAdminRequest(): Promise<boolean> {
   try {
@@ -29,7 +47,8 @@ export async function isAdminRequest(): Promise<boolean> {
       data: { user },
     } = await supabase.auth.getUser();
 
-    return !!user;
+    if (!user) return false;
+    return isEmailAllowed(user.email);
   } catch {
     return false;
   }

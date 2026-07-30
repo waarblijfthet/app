@@ -2,12 +2,12 @@
 
 import { useState, useMemo } from "react";
 import { Lead } from "../page";
+import DataTabel, { DataTabelKolom } from "../ui/DataTabel";
+import Badge from "../ui/Badge";
 
 interface Props {
   leads: Lead[];
 }
-
-const PER_PAGINA = 25;
 
 function exporteerCSV(leads: Lead[]) {
   const headers = [
@@ -36,9 +36,16 @@ function exporteerCSV(leads: Lead[]) {
   URL.revokeObjectURL(url);
 }
 
+function formatDatum(iso: string) {
+  return new Date(iso).toLocaleDateString("nl-NL", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+}
+
 export default function LeadsTabblad({ leads }: Props) {
   const [zoek, setZoek] = useState("");
-  const [pagina, setPagina] = useState(1);
 
   const gefilterd = useMemo(
     () =>
@@ -50,16 +57,52 @@ export default function LeadsTabblad({ leads }: Props) {
     [leads, zoek]
   );
 
-  const aantalPaginas = Math.ceil(gefilterd.length / PER_PAGINA);
-  const zichtbaar = gefilterd.slice(
-    (pagina - 1) * PER_PAGINA,
-    pagina * PER_PAGINA
-  );
-
-  function handleZoek(v: string) {
-    setZoek(v);
-    setPagina(1);
-  }
+  const kolommen: DataTabelKolom<Lead>[] = [
+    {
+      key: "email",
+      header: "Email",
+      render: (l) => <span className="text-primary font-medium">{l.email}</span>,
+      sorteerWaarde: (l) => l.email,
+    },
+    {
+      key: "naam",
+      header: "Naam",
+      render: (l) => l.naam || <span className="text-text-muted">—</span>,
+      sorteerWaarde: (l) => l.naam ?? "",
+    },
+    {
+      key: "bron",
+      header: "Bron",
+      render: (l) => <Badge>{l.bron}</Badge>,
+      sorteerWaarde: (l) => l.bron,
+    },
+    {
+      key: "datum",
+      header: "Datum",
+      render: (l) => <span className="text-text-muted">{formatDatum(l.created_at)}</span>,
+      sorteerWaarde: (l) => l.created_at,
+    },
+    {
+      key: "quiz",
+      header: "Quiz",
+      render: (l) =>
+        l.quiz_voltooid ? (
+          <span className="text-success">✓</span>
+        ) : (
+          <span className="text-text-muted">—</span>
+        ),
+    },
+    {
+      key: "marketing",
+      header: "Marketing",
+      render: (l) =>
+        l.toestemming_marketing ? (
+          <span className="text-success">✓</span>
+        ) : (
+          <span className="text-text-muted">—</span>
+        ),
+    },
+  ];
 
   return (
     <div>
@@ -72,7 +115,7 @@ export default function LeadsTabblad({ leads }: Props) {
           <input
             type="search"
             value={zoek}
-            onChange={(e) => handleZoek(e.target.value)}
+            onChange={(e) => setZoek(e.target.value)}
             placeholder="Zoek op email of naam…"
             className="input-base w-64 text-sm py-2"
             aria-label="Zoek leads"
@@ -86,127 +129,26 @@ export default function LeadsTabblad({ leads }: Props) {
         </button>
       </div>
 
-      {/* Tabel */}
-      <div className="rounded-xl overflow-hidden shadow-card border border-[#E6E9E7]">
-        <table className="w-full text-sm font-body border-collapse">
-          <thead>
-            <tr className="bg-primary text-white">
-              {["Email", "Naam", "Bron", "Datum", "Quiz", "Marketing"].map(
-                (h) => (
-                  <th
-                    key={h}
-                    className="text-left px-4 py-3 font-medium text-xs uppercase tracking-wide first:pl-5"
-                  >
-                    {h}
-                  </th>
-                )
-              )}
-            </tr>
-          </thead>
-          <tbody>
-            {zichtbaar.length === 0 ? (
-              <tr>
-                <td
-                  colSpan={6}
-                  className="text-center py-10 text-text-muted bg-card"
-                >
-                  Geen leads gevonden
-                </td>
-              </tr>
-            ) : (
-              zichtbaar.map((lead, i) => (
-                <tr
-                  key={lead.id}
-                  className={`border-b border-[#E6E9E7] last:border-0 ${
-                    i % 2 === 0 ? "bg-card" : "bg-background"
-                  }`}
-                >
-                  <td className="px-4 py-3 pl-5 text-primary font-medium">
-                    {lead.email}
-                  </td>
-                  <td className="px-4 py-3 text-text-soft">
-                    {lead.naam || <span className="text-text-muted">—</span>}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span className="bg-[#F0F3F1] text-text-soft text-xs px-2 py-0.5 rounded-full">
-                      {lead.bron}
-                    </span>
-                  </td>
-                  <td className="px-4 py-3 text-text-muted">
-                    {new Date(lead.created_at).toLocaleDateString("nl-NL", {
-                      day: "numeric",
-                      month: "short",
-                      year: "numeric",
-                    })}
-                  </td>
-                  <td className="px-4 py-3 text-center">
-                    {lead.quiz_voltooid ? (
-                      <span className="text-[#0B7A6E]">✓</span>
-                    ) : (
-                      <span className="text-text-muted">—</span>
-                    )}
-                  </td>
-                  <td className="px-4 py-3 text-center">
-                    {lead.toestemming_marketing ? (
-                      <span className="text-[#0B7A6E]">✓</span>
-                    ) : (
-                      <span className="text-text-muted">—</span>
-                    )}
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* Paginering */}
-      {aantalPaginas > 1 && (
-        <div className="flex items-center gap-2 justify-center mt-5">
-          <button
-            onClick={() => setPagina((p) => Math.max(1, p - 1))}
-            disabled={pagina === 1}
-            className="px-3 py-1.5 rounded-lg border border-[#D9DEDC] text-sm font-body text-text-soft hover:border-primary disabled:opacity-40"
-          >
-            ←
-          </button>
-          {Array.from({ length: aantalPaginas }, (_, i) => i + 1)
-            .filter(
-              (p) => p === 1 || p === aantalPaginas || Math.abs(p - pagina) <= 1
-            )
-            .reduce<(number | "…")[]>((acc, p, idx, arr) => {
-              if (idx > 0 && (arr[idx - 1] as number) < p - 1) acc.push("…");
-              acc.push(p);
-              return acc;
-            }, [])
-            .map((p, i) =>
-              p === "…" ? (
-                <span key={`ellipsis-${i}`} className="text-text-muted text-sm px-1">
-                  …
-                </span>
-              ) : (
-                <button
-                  key={p}
-                  onClick={() => setPagina(p as number)}
-                  className={`w-8 h-8 rounded-lg text-sm font-body font-medium transition-all ${
-                    pagina === p
-                      ? "bg-primary text-white"
-                      : "border border-[#D9DEDC] text-text-soft hover:border-primary"
-                  }`}
-                >
-                  {p}
-                </button>
-              )
-            )}
-          <button
-            onClick={() => setPagina((p) => Math.min(aantalPaginas, p + 1))}
-            disabled={pagina === aantalPaginas}
-            className="px-3 py-1.5 rounded-lg border border-[#D9DEDC] text-sm font-body text-text-soft hover:border-primary disabled:opacity-40"
-          >
-            →
-          </button>
-        </div>
-      )}
+      <DataTabel
+        data={gefilterd}
+        kolommen={kolommen}
+        rijSleutel={(l) => l.id}
+        legeStaatTitel="Geen leads gevonden"
+        mobieleKaart={(l) => (
+          <div className="rounded-xl border border-[#E6E9E7] bg-card p-4">
+            <p className="font-body font-medium text-primary text-sm">{l.email}</p>
+            {l.naam && <p className="font-body text-text-soft text-sm">{l.naam}</p>}
+            <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <Badge>{l.bron}</Badge>
+              <span className="font-body text-text-muted text-xs">
+                {formatDatum(l.created_at)}
+              </span>
+              {l.quiz_voltooid && <Badge variant="goed">Quiz voltooid</Badge>}
+              {l.toestemming_marketing && <Badge variant="actie">Marketing ok</Badge>}
+            </div>
+          </div>
+        )}
+      />
     </div>
   );
 }
