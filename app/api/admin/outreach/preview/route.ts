@@ -26,7 +26,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "ids ontbreken" }, { status: 400 });
   }
 
-  const query = supabase.from("outreach_contacts").select("*").in("id", ids);
+  const query = supabase
+    .from("outreach_contacts")
+    .select("*")
+    .in("id", ids)
+    .eq("gestopt", false)
+    .is("archived_at", null);
   const { data: contacten, error } = isFollowup
     ? await query.in("status", ["verstuurd", "geopend", "geklikt"])
     : await query.eq("status", "nieuw");

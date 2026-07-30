@@ -2,16 +2,43 @@ import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 
-// GET /api/admin/outreach — alle contacten ophalen
-export async function GET() {
+// GET /api/admin/outreach — contacten ophalen
+// Zonder queryparameters: ongewijzigd gedrag, alle rijen, plat array (bestaande UI leunt hierop).
+// Met queryparameters: zoekterm (naam/email), doelgroep, status, plaats, limiet, offset (standaard 50 rijen).
+export async function GET(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
-  const { data, error } = await supabase
+  const sp = req.nextUrl.searchParams;
+  const zoekterm = sp.get("zoekterm");
+  const doelgroep = sp.get("doelgroep");
+  const status = sp.get("status");
+  const plaats = sp.get("plaats");
+  const limietParam = sp.get("limiet");
+  const offsetParam = sp.get("offset");
+
+  const heeftParams = Boolean(
+    zoekterm || doelgroep || status || plaats || limietParam || offsetParam
+  );
+
+  let query = supabase
     .from("outreach_contacts")
     .select("*")
     .order("created_at", { ascending: false });
+
+  if (heeftParams) {
+    if (doelgroep) query = query.eq("doelgroep", doelgroep);
+    if (status) query = query.eq("status", status);
+    if (plaats) query = query.ilike("plaats", `%${plaats}%`);
+    if (zoekterm) query = query.or(`naam.ilike.%${zoekterm}%,email.ilike.%${zoekterm}%`);
+
+    const limiet = limietParam ? Number(limietParam) : 50;
+    const offset = offsetParam ? Number(offsetParam) : 0;
+    query = query.range(offset, offset + (Number.isFinite(limiet) ? limiet : 50) - 1);
+  }
+
+  const { data, error } = await query;
 
   if (error) return NextResponse.json({ error: error.message }, { status: 500 });
   return NextResponse.json(data);
@@ -27,6 +54,18 @@ export async function POST(req: NextRequest) {
 
   if (!naam || !email) {
     return NextResponse.json({ error: "naam en email zijn verplicht" }, { status: 400 });
+  }
+
+  const { data: geblokkeerd } = await supabase
+    .from("email_blocklist")
+    .select("reden")
+    .eq("email", email)
+    .maybeSingle();
+  if (geblokkeerd) {
+    return NextResponse.json(
+      { error: `Dit e-mailadres staat op de blocklist (${geblokkeerd.reden})` },
+      { status: 409 }
+    );
   }
 
   const { data, error } = await supabase

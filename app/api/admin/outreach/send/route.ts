@@ -34,7 +34,12 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "id(s) ontbreken" }, { status: 400 });
   }
 
-  const query = supabase.from("outreach_contacts").select("*").in("id", ids);
+  const query = supabase
+    .from("outreach_contacts")
+    .select("*")
+    .in("id", ids)
+    .eq("gestopt", false)
+    .is("archived_at", null);
   const { data: contacten, error: fetchError } = isFollowup
     ? await query.in("status", ["verstuurd", "geopend", "geklikt"])
     : await query.eq("status", "nieuw");
@@ -47,9 +52,23 @@ export async function POST(req: NextRequest) {
     );
   }
 
+  const emails = contacten.map((c) => c.email);
+  const { data: geblokkeerd } = await supabase
+    .from("email_blocklist")
+    .select("email, reden")
+    .in("email", emails);
+  const blocklistMap = new Map((geblokkeerd ?? []).map((b) => [b.email, b.reden]));
+
   const resultaten: { id: string; naam: string; ok: boolean; fout?: string }[] = [];
 
   for (const contact of contacten) {
+    if (blocklistMap.has(contact.email)) {
+      resultaten.push({
+        id: contact.id, naam: contact.naam, ok: false,
+        fout: `Staat op de blocklist (${blocklistMap.get(contact.email)})`,
+      });
+      continue;
+    }
     try {
       const doelgroep = (contact.doelgroep ?? "relatietherapeuten") as Doelgroep;
 

@@ -36,8 +36,22 @@ export async function POST(req: NextRequest) {
     .from("prospects").select("*").in("id", ids).eq("status", "gevonden");
   if (fetchError) return NextResponse.json({ error: fetchError.message }, { status: 500 });
 
+  const emails = (prospects ?? []).map((p) => p.email);
+  const { data: geblokkeerd } = await supabase
+    .from("email_blocklist")
+    .select("email, reden")
+    .in("email", emails);
+  const blocklistMap = new Map((geblokkeerd ?? []).map((b) => [b.email, b.reden]));
+
   const resultaten: { id: string; naam: string; ok: boolean; fout?: string }[] = [];
   for (const p of prospects ?? []) {
+    if (blocklistMap.has(p.email)) {
+      resultaten.push({
+        id: p.id, naam: p.naam, ok: false,
+        fout: `Staat op de blocklist (${blocklistMap.get(p.email)})`,
+      });
+      continue;
+    }
     const { error } = await supabase.from("outreach_contacts").insert({
       naam: p.naam,
       email: p.email,
@@ -45,6 +59,11 @@ export async function POST(req: NextRequest) {
         ? p.doelgroep
         : "relatietherapeuten",
       plaats: p.plaats ?? null,
+      praktijk: p.praktijk ?? null,
+      website: p.website ?? null,
+      bron_url: p.bron_url ?? null,
+      context: p.context ?? null,
+      doelgroep_score: p.doelgroep_score ?? 0,
     });
     if (error && error.code !== "23505") {
       resultaten.push({ id: p.id, naam: p.naam, ok: false, fout: error.message });
