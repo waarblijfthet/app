@@ -70,6 +70,16 @@ export default function ContactenTabblad() {
     if (open) setDetailId(open);
   }, []);
 
+  // Vanuit het Vandaag-dashboard komt "volgende actie rijp" hier terecht als
+  // /admin/contacten?chip=actie, zelfde window.location.search-patroon als
+  // hierboven.
+  useEffect(() => {
+    const chipParam = new URLSearchParams(window.location.search).get("chip");
+    if (chipParam && CHIPS.some((c) => c.value === chipParam)) {
+      setChip(chipParam as ChipFilter);
+    }
+  }, []);
+
   const [toonToevoegen, setToonToevoegen] = useState(false);
   const [nieuw, setNieuw] = useState({
     naam: "", email: "", telefoon: "", praktijk: "", website: "", plaats: "",

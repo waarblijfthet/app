@@ -8,9 +8,8 @@ import {
   REACTIE_LABEL,
   REACTIE_VARIANT,
   Reactie,
-  rijpeDatum,
-  verdeelInStapels,
 } from "@/lib/outreach/labels";
+import { berekenWerkvoorraad } from "@/lib/outreach/werkvoorraad";
 import { OutreachContact } from "@/lib/outreach/types";
 
 interface WeekBudget {
@@ -97,20 +96,10 @@ export default function OutreachWerklijst({
     }
   }
 
-  const stapels = verdeelInStapels(contacten);
-
-  const wachtMail2 = stapels.followupRijp.filter((c) => (c.followups ?? 0) === 0).length;
-  const wachtMail3 = stapels.followupRijp.filter((c) => (c.followups ?? 0) === 1).length;
-
-  const zonderPsZin = stapels.klaarOmTeVersturen.filter((c) => !c.ps_zin || !c.ps_zin.trim()).length;
-
-  const vroegsteWachtDagen = stapels.wachten.reduce<number | null>((min, c) => {
-    const rijp = rijpeDatum(c);
-    if (!rijp) return min;
-    const dagen = Math.ceil((rijp.getTime() - Date.now()) / 86400000);
-    if (dagen <= 0) return min;
-    return min === null ? dagen : Math.min(min, dagen);
-  }, null);
+  // Zelfde berekening als /api/admin/vandaag gebruikt voor blok 1 en 2, zie
+  // lib/outreach/werkvoorraad.ts (docs/admin-redesign-30-jul-2026.md sectie 6).
+  const { stapels, wachtMail2, wachtMail3, zonderPsZin, vroegsteWachtDagen } =
+    berekenWerkvoorraad(contacten);
 
   if (laden) {
     return <p className="text-text-muted text-sm">Werklijst laden...</p>;

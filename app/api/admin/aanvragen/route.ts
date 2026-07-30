@@ -5,6 +5,13 @@ import { isAdminRequest } from "@/lib/admin-auth";
 const GELDIGE_STATUSSEN = ["nieuw", "contact_opgenomen", "betaald", "gestart"];
 
 // PATCH /api/admin/aanvragen — status van een intake-aanvraag bijwerken
+//
+// Zodra een aanvraag met pakket = 'geldscan' voor het eerst naar status
+// 'gestart' gaat, stempelen we rapport_verzonden_at (zie
+// supabase/aanvragen_rapport_verzonden.sql en docs/admin-redesign-
+// 30-jul-2026.md sectie 6). Bij een geldscan is er geen apart traject om te
+// "starten"; 'gestart' betekent hier afgehandeld/rapport verstuurd. Alleen de
+// eerste keer stempelen, niet opnieuw als de status later nog eens wisselt.
 export async function PATCH(req: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
@@ -19,9 +26,23 @@ export async function PATCH(req: NextRequest) {
   }
 
   const supabase = createServiceClient();
+
+  const update: Record<string, unknown> = { status };
+
+  if (status === "gestart") {
+    const { data: huidig } = await supabase
+      .from("intake_aanvragen")
+      .select("pakket, rapport_verzonden_at")
+      .eq("id", id)
+      .maybeSingle();
+    if (huidig?.pakket === "geldscan" && !huidig.rapport_verzonden_at) {
+      update.rapport_verzonden_at = new Date().toISOString();
+    }
+  }
+
   const { error } = await supabase
     .from("intake_aanvragen")
-    .update({ status })
+    .update(update)
     .eq("id", id);
 
   if (error) {

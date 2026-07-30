@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { IntakeAanvraag } from "../page";
 import DataTabel, { DataTabelKolom } from "../ui/DataTabel";
 import Badge from "../ui/Badge";
@@ -91,6 +91,21 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
   const [fout, setFout] = useState<string | null>(null);
   const [gekoppeld, setGekoppeld] = useState<Record<string, string>>(contactPerIntakeId);
   const [doorzettenBezigId, setDoorzettenBezigId] = useState<string | null>(null);
+
+  // Vanuit het Vandaag-dashboard komt "aanvragen zonder rapport" hier terecht
+  // als /admin/aanvragen?filter=zonder-rapport. window.location.search in
+  // plaats van useSearchParams, zelfde patroon als de "open"-link in
+  // ContactenTabblad.tsx.
+  const [zonderRapportFilter, setZonderRapportFilter] = useState(false);
+  useEffect(() => {
+    const filter = new URLSearchParams(window.location.search).get("filter");
+    if (filter === "zonder-rapport") setZonderRapportFilter(true);
+  }, []);
+
+  const zichtbareAanvragen = useMemo(() => {
+    if (!zonderRapportFilter) return aanvragen;
+    return aanvragen.filter((a) => a.pakket === "geldscan" && a.status !== "gestart");
+  }, [aanvragen, zonderRapportFilter]);
 
   async function doorzetten(intakeId: string) {
     setDoorzettenBezigId(intakeId);
@@ -240,10 +255,24 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
         </span>
       </div>
 
+      {zonderRapportFilter && (
+        <div className="flex items-center justify-between text-sm bg-[#F5F0E8] rounded-lg px-4 py-2.5 mb-4">
+          <span className="text-text-soft">
+            Gefilterd: geldscans zonder rapport ({zichtbareAanvragen.length})
+          </span>
+          <button
+            onClick={() => setZonderRapportFilter(false)}
+            className="text-xs text-accent hover:underline"
+          >
+            Wis filter
+          </button>
+        </div>
+      )}
+
       {fout && <p className="font-body text-sm mb-3 text-danger">{fout}</p>}
 
       <DataTabel
-        data={aanvragen}
+        data={zichtbareAanvragen}
         kolommen={kolommen}
         rijSleutel={(a) => a.id}
         legeStaatTitel="Nog geen aanvragen ontvangen"
