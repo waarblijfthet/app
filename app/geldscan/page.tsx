@@ -241,36 +241,40 @@ export default function GeldscanPage({
         {/* Voorbeeld van wat je krijgt */}
         <section className="bg-background pt-14 pb-2">
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Wat zit er in zo&apos;n rapport? Zo ziet dat eruit
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
+              Zo ziet zo&apos;n rapport eruit
             </h2>
-            <div className="card-base border border-[#E6E9E7]">
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
-                Een voorbeeld ter illustratie, opgebouwd uit de lekken die ik
-                in de praktijk het vaakst tegenkom bij tweeverdieners met
-                kinderen (samen rond €5.000 netto):
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
+              Twee stukken uit een van de volledige voorbeeldrapporten op deze site. Sandra en Tom, twee
+              inkomens, samen 6.100 euro netto, twee kinderen, koopwoning. Dit huishouden bestaat niet: ik heb
+              het zelf bedacht inclusief de bedragen, want ik publiceer geen cijfers van een klant zonder
+              toestemming. Woon je alleen of zonder kinderen? Het tweede voorbeeldrapport is van een
+              alleenstaande.
+            </p>
+            <div className="card-base border border-[#E6E9E7]" style={{ borderLeft: "3px solid #0B7A6E" }}>
+              <p className="font-body font-medium text-primary text-sm mb-2">Wat ik zie, in één alinea</p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
+                Er is niets geks aan de hand en jullie geven ook niet te veel uit aan één post. Wat er mis
+                is, is de volgorde. Jullie zetten eerst geld weg voor later en betalen daarna de kosten die
+                zeker komen, en die kosten zijn samen groter dan wat er na de maandlasten overblijft. Daardoor
+                is de spaarrekening in de praktijk de rekening waarvan de vakantie, december en de dakgoot
+                betaald worden. Het gat is 64 euro per maand. Dat is een kleiner probleem dan het voelt, en
+                het is een ander probleem dan jullie dachten.
               </p>
-              <ul className="space-y-2 mb-3">
-                {[
-                  "Dubbel verzekerd: aansprakelijkheid en reisverzekering zaten ook in het pakket van de bank, €31 per maand",
-                  "Boodschappen €180 boven vergelijkbare gezinnen, vooral door losse ritjes, met twee concrete aanpassingen",
-                  "Drie vergeten abonnementen en een stilzwijgend verlengd energiecontract, €54 per maand",
-                ].map((t) => (
-                  <li key={t} className="flex items-start gap-2">
-                    <span style={{ color: "#0B7A6E", fontWeight: 600 }}>✓</span>
-                    <span className="font-body font-light text-sm text-text-soft leading-relaxed">{t}</span>
-                  </li>
-                ))}
-              </ul>
+              <p className="font-body font-medium text-primary text-sm mb-2">Wat ik niet als lek reken</p>
               <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                Samen ruim €260 per maand aan aanknopingspunten. Jouw lekken
-                zijn andere, maar dit is het soort antwoord dat je krijgt:
-                concreet, met bedragen, zonder oordeel. Woon je alleen of zonder kinderen? Dan kijk ik naar jouw eigen posten, de lekken zitten dan vaak in verzekeringen, abonnementen en vaste contracten. Ter referentie: bij de
-                huishoudens die ik tot nu toe begeleidde was het gemiddelde
-                resultaat €460 per maand meer over (eigen klantresultaten,
-                geen belofte).
+                De hypotheek van 1.750 euro. Dat is de prijs van het huis waarin jullie wonen en daar is niets
+                aan te repareren zonder verhuizen. De opvang van 420 euro is de prijs van twee banen en de
+                best renderende post in jullie hele overzicht. Aan de zorgverzekering, het huisdier en de
+                sportschool kan ik knabbelen zonder dat jullie er iets van merken behalve dat het minder leuk
+                wordt. Daar vroegen jullie mij niet voor.
               </p>
             </div>
+            <p className="mt-5 mb-1">
+              <Link href="/voorbeeldrapport" className="font-body font-medium text-sm hover:underline" style={{ color: "#0B7A6E" }}>
+                Lees beide voorbeeldrapporten van begin tot eind &rarr;
+              </Link>
+            </p>
             <div className="flex items-center gap-3 mt-5">
               <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ backgroundColor: "#16211F" }}>
                 <Image src="/jarno.jpg" alt="Jarno Koopman" width={40} height={40} className="w-full h-full object-cover" />

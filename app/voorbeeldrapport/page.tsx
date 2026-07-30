@@ -433,15 +433,6 @@ export default function VoorbeeldrapportPage() {
               Dat is alles. Als jullie na vier weken willen weten wat de
               teller zegt, mail dan gewoon.
             </p>
-
-            <Disclaimer>
-              <strong>
-                Dit was een samengesteld, fictief voorbeeld op basis van
-                veelvoorkomende situaties, geen echte klant.
-              </strong>{" "}
-              Alle namen en bedragen zijn verzonnen. De klantverhalen elders
-              op deze site zijn wel echt en staan er met toestemming.
-            </Disclaimer>
           </div>
         </section>
 
@@ -675,15 +666,6 @@ export default function VoorbeeldrapportPage() {
               Als je na vier weken wilt weten of het gat gedicht is, mail
               dan gewoon.
             </p>
-
-            <Disclaimer>
-              <strong>
-                Dit was een samengesteld, fictief voorbeeld op basis van
-                veelvoorkomende situaties, geen echte klant.
-              </strong>{" "}
-              Alle bedragen zijn verzonnen. De klantverhalen elders op deze
-              site zijn wel echt en staan er met toestemming.
-            </Disclaimer>
           </div>
         </section>
       </main>

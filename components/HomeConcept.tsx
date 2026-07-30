@@ -173,7 +173,7 @@ const pijn = [
 const stappen = [
   { nr: "1", titel: "De analyse, 5 minuten", tekst: "Vijf korte stappen: woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven. Schattingen zijn goed genoeg, je hoeft niets op te zoeken en geen bank te koppelen. Geen account, geen creditcard." },
   { nr: "2", titel: "Direct inzicht, concreet en eerlijk", tekst: "Het resultaat staat direct op je scherm: in welke categorie je valt en de twee of drie plekken waar het bij jou structureel fout gaat, uitgelegd in gewone taal. Een e-mailadres is niet verplicht en niemand belt of mailt je na, tenzij je daar zelf om vraagt." },
-  { nr: "3", titel: "Jij kiest het vervolg, of niet", tekst: "Zelf verder met je resultaat kan prima. Wil je meer? Kies de geldscan (€49): ik kijk persoonlijk naar je cijfers en stuur je een persoonlijk geldrapport met je drie grootste lekken, zonder gesprek. Of plan een adviesgesprek van 45 minuten (€125)." },
+  { nr: "3", titel: "Jij kiest het vervolg, of niet", tekst: "Zelf verder met je resultaat kan prima. Wil je weten wat ik zie? Kies het geldrapport (€49): ik kijk persoonlijk naar jouw cijfers en schrijf je de drie plekken waar het weglekt, met per plek wat ik zou doen. Geen gesprek nodig." },
 ];
 
 const anders: [string, string][] = [
@@ -193,7 +193,7 @@ export default function HomeConcept() {
       <section className="pt-24 pb-16 md:pt-28 md:pb-24">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
           <div>
-            <p className="mb-6" style={eyebrow}>Financiële coaching · Nederland</p>
+            <p className="mb-6" style={eyebrow}>Persoonlijk geldrapport · Nederland</p>
             <h1 className="font-display" style={{ fontWeight: 300, lineHeight: 1.02, letterSpacing: "-0.02em", color: C.ink }}>
               <span className="block" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)" }}>Goed salaris.</span>
               <span className="block italic relative" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)", color: C.teal, width: "fit-content" }}>
@@ -203,8 +203,8 @@ export default function HomeConcept() {
             </h1>
             <p className="mt-8 mb-9 max-w-md" style={{ fontSize: "1.08rem", lineHeight: 1.65, color: C.inkSoft, fontWeight: 300 }}>
               Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde van elke maand is het gewoon
-              weg. Je weet niet precies waarheen. Dat ligt niet aan jou, het is een structuurprobleem. Ik
-              laat zien waar het naartoe gaat, zodat je het kunt bijsturen.
+              weg. Dat je zelf niet ziet waarheen, is logisch: niemand legt zijn eigen cijfers naast die van
+              vergelijkbare huishoudens. Ik doe dat wel, en ik schrijf op wat eruit springt.
             </p>
             <div className="flex flex-col sm:flex-row gap-3 mb-5">
               <BtnPrimary href="/aanbod/intake?pakket=geldscan">Ja, help mij zien wat er anders kan &rarr;</BtnPrimary>
@@ -214,6 +214,9 @@ export default function HomeConcept() {
               €49, eenmalig. Ik schrijf het rapport zelf, geen algoritme. Kies je daarna een gesprek of
               traject, dan gaat de €49 eraf. Liever eerst zelf kijken? De analyse duurt 5 minuten, geen
               account of bankkoppeling.
+            </p>
+            <p className="mt-4">
+              <Link href="/voorbeeldrapport" style={{ color: C.teal, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>Zie eerst een compleet voorbeeldrapport &rarr;</Link>
             </p>
           </div>
 
@@ -280,6 +283,43 @@ export default function HomeConcept() {
         </div>
       </section>
 
+      {/* ── RAPPORTFRAGMENT ──────────────────── */}
+      <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}` }}>
+        <div className="max-w-4xl mx-auto px-6">
+          <p className="mb-4" style={eyebrow}>Wat je krijgt</p>
+          <h2 className="font-display mb-6" style={h2Style}>Dit is een stuk uit zo&apos;n rapport.</h2>
+          <p className="mb-9" style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65, maxWidth: "42rem" }}>
+            Sandra en Tom, twee inkomens, samen 6.100 euro netto, twee kinderen, koopwoning. Ze zetten elke
+            maand 250 euro weg en aan het einde van het jaar stond er niets meer op de spaarrekening dan aan
+            het begin. Dit huishouden bestaat niet: ik heb het zelf bedacht inclusief de bedragen, want ik
+            publiceer geen cijfers van een klant zonder toestemming. Het tweede voorbeeldrapport op die
+            pagina is van een alleenstaande.
+          </p>
+          <div style={{ backgroundColor: C.card, border: `1px solid ${C.line}`, borderLeft: `3px solid ${C.teal}`, borderRadius: "4px", padding: "1.75rem" }}>
+            <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.6rem" }}>Wat ik zie, in één alinea</p>
+            <p style={{ fontWeight: 300, fontSize: "0.98rem", color: C.inkSoft, lineHeight: 1.7, marginBottom: "1.5rem" }}>
+              Er is niets geks aan de hand en jullie geven ook niet te veel uit aan één post. Wat er mis is,
+              is de volgorde. Jullie zetten eerst geld weg voor later en betalen daarna de kosten die zeker
+              komen, en die kosten zijn samen groter dan wat er na de maandlasten overblijft. Daardoor is de
+              spaarrekening in de praktijk de rekening waarvan de vakantie, december en de dakgoot betaald
+              worden. Het gat is 64 euro per maand. Dat is een kleiner probleem dan het voelt, en het is een
+              ander probleem dan jullie dachten.
+            </p>
+            <p style={{ fontWeight: 500, fontSize: "0.95rem", color: C.ink, marginBottom: "0.6rem" }}>Wat ik niet als lek reken</p>
+            <p style={{ fontWeight: 300, fontSize: "0.98rem", color: C.inkSoft, lineHeight: 1.7 }}>
+              De hypotheek van 1.750 euro. Dat is de prijs van het huis waarin jullie wonen en daar is niets
+              aan te repareren zonder verhuizen. De opvang van 420 euro is de prijs van twee banen en de best
+              renderende post in jullie hele overzicht. Aan de zorgverzekering, het huisdier en de sportschool
+              kan ik knabbelen zonder dat jullie er iets van merken behalve dat het minder leuk wordt. Daar
+              vroegen jullie mij niet voor.
+            </p>
+          </div>
+          <div className="mt-7">
+            <BtnOutline href="/voorbeeldrapport">Lees beide rapporten van begin tot eind &rarr;</BtnOutline>
+          </div>
+        </div>
+      </section>
+
       {/* ── TESTIMONIALS ─────────────────────────────────────── */}
       <section className="py-16 md:py-24" style={{ borderTop: `1px solid ${C.line}` }}>
         <div className="max-w-6xl mx-auto px-6">
@@ -323,9 +363,10 @@ export default function HomeConcept() {
             </blockquote>
             <p style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65, marginBottom: "1rem" }}>
               Ik help mensen die goed verdienen maar structureel krap zitten. Gezinnen, stellen en
-              alleenstaanden. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte.
-              Daarom weet ik waar je moet kijken. Geen schuldhulpverlening, geen beleggingsadvies. Gewoon
-              eerlijk inzicht in wat er speelt en concrete stappen die werken.
+              alleenstaanden. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte,
+              dus ik weet hoe dat voelt. Waar ik naar kijk komt niet uit dat gevoel: ik leg jouw posten naast
+              die van huishoudens in dezelfde situatie en zoek de plekken waar jij eruit springt. Geen
+              schuldhulpverlening, geen beleggingsadvies.
             </p>
             <p style={{ fontWeight: 300, fontSize: "1rem", color: C.inkSoft, lineHeight: 1.65 }}>
               Ik werk onafhankelijk. Ik verkoop geen financiële producten en krijg geen provisie, dus het
@@ -374,7 +415,10 @@ export default function HomeConcept() {
             ))}
           </div>
           <div className="mt-12">
-            <BtnPrimary href="/analyse">Start de analyse &rarr;</BtnPrimary>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <BtnPrimary href="/aanbod/intake?pakket=geldscan">Vraag het geldrapport aan &rarr;</BtnPrimary>
+              <BtnOutline href="/analyse">Start eerst de gratis analyse &rarr;</BtnOutline>
+            </div>
             <p className="mt-4" style={{ fontSize: "0.82rem", color: C.pencil, lineHeight: 1.6, maxWidth: "42rem" }}>
               Stap 1 kost je niets. Geen verplichting tot stap 2 of 3. Je gegevens worden alleen bewaard als
               je daar zelf toestemming voor geeft en worden nooit gedeeld of verkocht.{" "}
@@ -393,7 +437,7 @@ export default function HomeConcept() {
             {[
               { node: <CountUp to={47} suffix="%" />, tekst: "van Nederlandse huishoudens is financieel kwetsbaar, ook met een goed inkomen", bron: "Deloitte, 2024", href: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html" },
               { node: <span>1 op 3</span>, tekst: "huishoudens heeft moeite rond te komen, ongeacht het inkomensniveau", bron: "Nibud, 2026", href: "https://www.nibud.nl/onderwerpen/rondkomen/moeite-met-rondkomen/" },
-              { node: <CountUp to={460} prefix="€ " />, tekst: "gemiddeld meer per maand bij de huishoudens die ik tot nu toe begeleid heb. Geen belofte, jouw uitkomst hangt af van je situatie", bron: "Eigen klantresultaten", href: null as string | null },
+              { node: <CountUp to={11} suffix="%" />, tekst: "van de huishoudens met een hoog inkomen maakt zich zorgen over de dagelijkse uitgaven. Het gaat dus ook over mensen die genoeg verdienen", bron: "Nationale Monitor Geldzorgen, Universiteit Leiden, meting maart 2025", href: "https://www.kcpeg.nl/wat-wij-doen/nationale-monitor-geldzorgen-" as string | null },
             ].map((s, i) => (
               <div key={i} className="py-6 md:py-2 md:px-9 first:md:pl-0 last:md:pr-0">
                 <p className="font-display tabular-nums" style={{ fontSize: "clamp(2.6rem, 8vw, 3.6rem)", fontWeight: 300, color: C.ink, lineHeight: 1, marginBottom: "0.75rem" }}>{s.node}</p>
