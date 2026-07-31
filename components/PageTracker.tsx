@@ -65,19 +65,37 @@ export function PageTracker() {
       ? "/resultaat/[token]"
       : pathname;
 
+    /**
+     * Eerst wegschrijven, daarna pas de locatie ophalen (30-jul-2026).
+     *
+     * Hiervoor stond `await getLocatie()` vóór de insert. Die haalt een externe
+     * dienst op met een timeout van 2 seconden, dus iedereen die de pagina
+     * binnen die 2 seconden weer verliet werd nooit geteld. Dat zijn precies de
+     * snelle afhakers op artikelen, en dat is de groep die we willen meten.
+     * Nu telt het bezoek altijd, en de stad komt er daarna bij als die op tijd
+     * beschikbaar is.
+     */
     async function trackBezoek() {
       try {
-        const locatie = await getLocatie();
         const supabase = createClient();
-        await supabase.from("paginabezoeken").insert({
-          pagina,
-          apparaat: getApparaat(),
-          referrer: document.referrer || null,
-          sessie_id: getSessieId(),
-          stad: locatie.stad,
-          regio: locatie.regio,
-          land: locatie.land,
-        });
+        const { data, error } = await supabase
+          .from("paginabezoeken")
+          .insert({
+            pagina,
+            apparaat: getApparaat(),
+            referrer: document.referrer || null,
+            sessie_id: getSessieId(),
+          })
+          .select("id")
+          .single();
+        if (error || !data) return;
+
+        const locatie = await getLocatie();
+        if (!locatie.stad && !locatie.regio) return;
+        await supabase
+          .from("paginabezoeken")
+          .update({ stad: locatie.stad, regio: locatie.regio, land: locatie.land })
+          .eq("id", data.id);
       } catch {
         // Stil falen, tracking mag nooit de site breken
       }

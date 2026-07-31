@@ -44,6 +44,25 @@ interface Trechter {
   betaald: number;
 }
 
+interface BezoekPeriode {
+  views: number;
+  sessies: number;
+}
+
+interface TopPagina {
+  pagina: string;
+  views: number;
+  sessies: number;
+}
+
+interface Bezoek {
+  migratieOntbreekt: boolean;
+  vandaag: BezoekPeriode;
+  week: BezoekPeriode;
+  maand: BezoekPeriode;
+  topPaginas: TopPagina[];
+}
+
 interface ActiviteitItem {
   type: string;
   tekst: string;
@@ -51,6 +70,7 @@ interface ActiviteitItem {
 }
 
 interface VandaagData {
+  bezoek: Bezoek;
   teDoen: TeDoen;
   weekbudget: WeekBudget;
   week: { dezeWeek: WeekTelling; vorigeWeek: WeekTelling };
@@ -80,6 +100,35 @@ const WEEK_RIJEN: { key: keyof WeekTelling; label: string }[] = [
  * gevoed door één aggregatieroute (/api/admin/vandaag), zie
  * docs/admin-redesign-30-jul-2026.md sectie 6.
  */
+/** Leesbare naam voor een pad, zodat de lijst niet uit slugs bestaat. */
+function paginaNaam(pad: string): string {
+  if (pad === "/") return "Homepage";
+  const laatste = pad.split("/").filter(Boolean).pop() ?? pad;
+  const schoon = laatste.replace(/-/g, " ").replace(/\[|\]/g, "");
+  return schoon.charAt(0).toUpperCase() + schoon.slice(1);
+}
+
+function soortPagina(pad: string): string {
+  if (pad.startsWith("/inzichten/") && pad !== "/inzichten") return "artikel";
+  if (pad.startsWith("/rapporten/") && pad !== "/rapporten") return "rapport";
+  if (pad === "/") return "home";
+  return "pagina";
+}
+
+function Bezoekcijfer({ label, periode }: { label: string; periode: BezoekPeriode }) {
+  return (
+    <div className="px-4 py-3">
+      <p className="font-body text-xs uppercase tracking-wide text-text-muted mb-1">{label}</p>
+      <p className="font-display font-light text-primary" style={{ fontSize: "2rem", lineHeight: 1.1 }}>
+        {periode.views.toLocaleString("nl-NL")}
+      </p>
+      <p className="font-body text-xs text-text-soft mt-0.5">
+        {periode.sessies.toLocaleString("nl-NL")} {periode.sessies === 1 ? "bezoeker" : "bezoekers"}
+      </p>
+    </div>
+  );
+}
+
 export default function VandaagDashboard() {
   const [data, setData] = useState<VandaagData | null>(null);
   const [laden, setLaden] = useState(true);
@@ -161,6 +210,71 @@ export default function VandaagDashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Blok 0: bezoekcijfers, bovenaan want dit is het dagelijkse cijfer */}
+      <section className="card-base overflow-hidden">
+        <div className="px-4 py-3 border-b border-[#F0F3F1] flex items-baseline justify-between gap-3">
+          <h2 className="font-body font-semibold text-primary text-sm">Bezoek</h2>
+          <span className="font-body text-xs text-text-muted">
+            paginaweergaven, met unieke bezoekers eronder
+          </span>
+        </div>
+
+        {data.bezoek.migratieOntbreekt ? (
+          <p className="px-4 py-3 text-sm text-text-soft">
+            De functies <code>views_periode</code> en <code>top_paginas</code> bestaan nog niet in de
+            database. Draai <code>supabase/top_paginas.sql</code> in de Supabase SQL-editor, dan staan deze
+            cijfers er.
+          </p>
+        ) : (
+          <>
+            <div className="grid grid-cols-3 divide-x divide-[#F0F3F1] border-b border-[#F0F3F1]">
+              <Bezoekcijfer label="Vandaag" periode={data.bezoek.vandaag} />
+              <Bezoekcijfer label="7 dagen" periode={data.bezoek.week} />
+              <Bezoekcijfer label="30 dagen" periode={data.bezoek.maand} />
+            </div>
+
+            <div className="px-4 py-3 border-b border-[#F0F3F1]">
+              <p className="font-body font-medium text-primary text-sm">
+                Best bezocht, laatste 30 dagen
+              </p>
+            </div>
+            {data.bezoek.topPaginas.length === 0 ? (
+              <p className="px-4 py-3 text-sm text-text-muted">Nog geen bezoeken gemeten.</p>
+            ) : (
+              <ul>
+                {data.bezoek.topPaginas.map((r) => (
+                  <li
+                    key={r.pagina}
+                    className="flex items-baseline justify-between gap-3 px-4 py-2 border-b border-[#F0F3F1] last:border-0"
+                  >
+                    <span className="min-w-0">
+                      <a
+                        href={r.pagina}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="font-body text-sm text-primary hover:underline block truncate"
+                      >
+                        {paginaNaam(r.pagina)}
+                      </a>
+                      <span className="font-body text-xs text-text-muted">
+                        {soortPagina(r.pagina)} · {r.pagina}
+                      </span>
+                    </span>
+                    <span className="font-body text-sm text-primary tabular-nums whitespace-nowrap">
+                      {r.views.toLocaleString("nl-NL")}
+                      <span className="text-text-muted text-xs">
+                        {" "}
+                        / {r.sessies.toLocaleString("nl-NL")}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </>
+        )}
+      </section>
+
       {/* Blok 1: Te doen */}
       <section className="card-base overflow-hidden">
         <div className="px-4 py-3 border-b border-[#F0F3F1]">

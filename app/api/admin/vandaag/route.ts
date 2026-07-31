@@ -30,6 +30,29 @@ export async function GET() {
 
   try {
     const nu = new Date();
+
+    // Begin van vandaag in Nederlandse tijd. De server draait op UTC, dus zonder
+    // dit staat "vandaag" 's ochtends vroeg en 's avonds laat op de verkeerde dag.
+    const nlDatum = new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Europe/Amsterdam",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(nu);
+    const offsetNaam = new Intl.DateTimeFormat("en-US", {
+      timeZone: "Europe/Amsterdam",
+      timeZoneName: "longOffset",
+    })
+      .formatToParts(nu)
+      .find((deel) => deel.type === "timeZoneName")?.value;
+    const offset = offsetNaam?.replace("GMT", "") || "+01:00";
+    const vandaagStart = new Date(`${nlDatum}T00:00:00${offset}`).toISOString();
+
+    // Bewust rollend en niet per kalenderweek of kalendermaand: anders ziet
+    // maandagochtend er altijd slecht uit en de eerste van de maand ook, en dan
+    // meet je de kalender in plaats van je verkeer.
+    const zevenDagen = new Date(nu.getTime() - 7 * 86400000).toISOString();
+
     const dezeWeekStart = maandagGrens(nu);
     const vorigeWeekStart = new Date(dezeWeekStart.getTime() - 7 * 86400000);
     const dertigDagenGeleden = new Date(nu.getTime() - 30 * 86400000).toISOString();
@@ -219,6 +242,49 @@ export async function GET() {
       betaald: betaald30Res.count ?? 0,
     };
 
+    // ── Blok 0: bezoekcijfers en best bezochte pagina's ──────────────────
+    // Bovenaan het dashboard, want dit is het cijfer dat Jarno dagelijks wil
+    // zien. views = paginaloads, sessies = unieke sessie_id's.
+    const [
+      viewsVandaagRes,
+      viewsWeekRes,
+      viewsMaandRes,
+      sessiesVandaagRes,
+      sessiesWeekRes,
+      sessiesMaandRes,
+      topPaginasRes,
+    ] = await Promise.all([
+      supabase.rpc("views_periode", { sinds: vandaagStart }),
+      supabase.rpc("views_periode", { sinds: zevenDagen }),
+      supabase.rpc("views_periode", { sinds: dertigDagenGeleden }),
+      supabase.rpc("bezoekers_periode", { sinds: vandaagStart }),
+      supabase.rpc("bezoekers_periode", { sinds: zevenDagen }),
+      supabase.rpc("bezoekers_periode", { sinds: dertigDagenGeleden }),
+      supabase.rpc("top_paginas", { sinds: dertigDagenGeleden, aantal: 12 }),
+    ]);
+
+    // Ontbreekt een van deze functies in de database, dan mag het dashboard niet
+    // omvallen: dan staat er nul en een melding, precies zoals bij een
+    // niet-gedraaide migratie hoort (technische les 6).
+    const bezoek = {
+      migratieOntbreekt: Boolean(viewsVandaagRes.error || topPaginasRes.error),
+      vandaag: {
+        views: (viewsVandaagRes.data as number | null) ?? 0,
+        sessies: (sessiesVandaagRes.data as number | null) ?? 0,
+      },
+      week: {
+        views: (viewsWeekRes.data as number | null) ?? 0,
+        sessies: (sessiesWeekRes.data as number | null) ?? 0,
+      },
+      maand: {
+        views: (viewsMaandRes.data as number | null) ?? 0,
+        sessies: (sessiesMaandRes.data as number | null) ?? 0,
+      },
+      topPaginas: ((topPaginasRes.data as { pagina: string; views: number; sessies: number }[] | null) ?? []).map(
+        (r) => ({ pagina: r.pagina, views: Number(r.views), sessies: Number(r.sessies) })
+      ),
+    };
+
     // ── Blok 6: laatste activiteit ───────────────────────────────────────
     const [leadsActiviteitRes, analysesActiviteitRes, aanvragenActiviteitRes, notitiesActiviteitRes] =
       await Promise.all([
@@ -274,6 +340,7 @@ export async function GET() {
     activiteit.sort((a, b) => (a.tijd < b.tijd ? 1 : -1));
 
     return NextResponse.json({
+      bezoek,
       teDoen,
       weekbudget,
       week: { dezeWeek, vorigeWeek },
