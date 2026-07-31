@@ -262,7 +262,7 @@ export default function ArtikelPage({ params }: Props) {
                       de toon valt.
                     </p>
                     <Link href="/geldscan" className="btn-primary">
-                      Laat mij je cijfers nakijken (€49) →
+                      Zie wat je krijgt voor €49 →
                     </Link>
                     <Link
                       href="/analyse"

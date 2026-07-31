@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BoodschappenKloof } from "@/components/artikel/BoodschappenKloof";
+import BoodschappenSituatiekiezer from "@/components/artikel/BoodschappenSituatiekiezer";
 import BoodschappenSlider from "@/components/artikel/BoodschappenSlider";
 
 const h2 = {
@@ -32,6 +32,7 @@ export default function WatIsNormaalBedragBoodschappen() {
           {[
             ["Alleen", "€300 tot €400 per maand"],
             ["Samen, geen kinderen", "€550 tot €700"],
+            ["Eén ouder met twee kinderen", "€650 tot €850"],
             ["Gezin met jonge kinderen", "€700 tot €900"],
             ["Gezin met pubers", "€1.000 tot €1.400"],
           ].map(([wie, bedrag], i) => (
@@ -41,17 +42,19 @@ export default function WatIsNormaalBedragBoodschappen() {
             </li>
           ))}
         </ul>
-        <p className="font-body text-sm" style={{ color: "#4A5A56", margin: 0 }}>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", marginBottom: "0.6rem" }}>
           De Nibud-norm ligt daar flink onder, want dat is een minimum en geen gemiddelde.
           Boven de norm zitten is dus normaal, geen teken dat je iets fout doet.
         </p>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", margin: 0 }}>
+          <strong style={{ fontWeight: 500 }}>Hierbij gerekend:</strong> eten, drinken, drogist en
+          schoonmaakspullen. <strong style={{ fontWeight: 500 }}>Niet meegerekend:</strong> bezorgmaaltijden
+          en uit eten. Bestel je regelmatig, reken daar dan 100 tot 250 euro per maand apart bij op. Je
+          bankapp zet supermarktbezorging bij Supermarkt, dus daar kun je het niet uit halen.
+        </p>
       </div>
 
-      <p className="font-body text-sm mb-8" style={{ color: "#4A5A56" }}>
-        Benieuwd hoe jouw boodschappen en andere uitgaven zich verhouden tot vergelijkbare huishoudens?{" "}
-        <Link href="/analyse" className="hover:underline" style={{ color: "#0B7A6E", fontWeight: 500, textDecoration: "none" }}>Doe de gratis analyse</Link>. Wil je dat ik er persoonlijk naar kijk, dan kan dat met de{" "}
-        <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", fontWeight: 500, textDecoration: "none" }}>geldscan (€49)</Link>.
-      </p>
+      <BoodschappenSituatiekiezer />
 
       <p className="font-body text-text-soft" style={p}>
         Neem een gezin van vijf met drie opgroeiende kinderen: gewoon eten, niks
@@ -79,6 +82,7 @@ export default function WatIsNormaalBedragBoodschappen() {
             {[
               ["Alleenstaande", "€272", "€300 tot €400"],
               ["Twee personen", "€495", "€550 tot €700"],
+              ["Eén ouder met twee kinderen", "€590", "€650 tot €850"],
               ["Gezin, twee jonge kinderen", "€634", "€700 tot €900"],
               ["Gezin met pubers", "€822", "€1.000 tot €1.400"],
               ["Groot of samengesteld gezin", "hoger", "€1.500 tot €2.000"],
@@ -95,13 +99,51 @@ export default function WatIsNormaalBedragBoodschappen() {
       <p className="font-body text-sm" style={{ ...p, color: "#8B958F" }}>
         Norm: Nibud-minimumbegroting voor voeding, juli 2025. Realistisch: een
         breder mandje inclusief drogist, bakker en tussendoor, gebaseerd op
-        transactiedata van ABN AMRO en op wat ik in de praktijk zie. Indicatief,
-        je eigen bedrag hangt af van winkelkeuze, leeftijd van de kinderen en
-        regio.
+        transactiedata van ABN AMRO en op de huishoudens die ik zelf heb
+        doorgerekend. Indicatief, je eigen bedrag hangt af van winkelkeuze,
+        leeftijd van de kinderen en regio. Zijn je kinderen een deel van de week
+        bij de andere ouder, reken dan ongeveer 10 procent lager.
       </p>
 
-      {/* Visual: de kloof tussen norm en realiteit */}
-      <BoodschappenKloof />
+      {/* Vijf echte huishoudens in plaats van forumcijfers. De persona-toets van
+          30-jul wees uit dat de oude visual op forum-polls met 51 deelnemers het
+          vertrouwen in alle getallen op deze pagina kostte, juist omdat er op
+          dezelfde pagina een meting van 150.000 huishoudens staat. */}
+      <div className="rounded-xl border p-5 my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
+        <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
+          Wat vijf echte huishoudens werkelijk uitgaven
+        </p>
+        <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300 }}>
+          Geen forumpolls of gemiddelden, maar vijf huishoudens die hun cijfers bij mij aanleverden.
+          Hun complete rapport staat op deze site, met toestemming.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {[
+            ["Alleenstaand, huurwoning", "€475", "/rapporten/alleenstaand-huurwoning"],
+            ["Stel zonder kinderen", "€690", "/rapporten/stel-zonder-kinderen"],
+            ["Zzp met partner, geen kinderen", "€720", "/rapporten/zzp-wisselend-inkomen"],
+            ["Eén ouder, kinderen van 7 en 11", "€790", "/rapporten/alleenstaande-ouder-twee-kinderen"],
+            ["Gezin, kinderen van 9, 12 en 14", "€1.150", "/rapporten/tweeverdieners-drie-kinderen"],
+          ].map(([wie, bedrag, href]) => (
+            <Link
+              key={href}
+              href={href}
+              className="flex items-baseline justify-between gap-3 rounded-lg px-3 py-2.5 transition-colors hover:border-[#0B7A6E]"
+              style={{ border: "1px solid #E6E9E7", textDecoration: "none" }}
+            >
+              <span className="font-body text-sm" style={{ color: "#4A5A56" }}>{wie}</span>
+              <span className="font-body text-sm tabular-nums" style={{ color: "#16211F", fontWeight: 600 }}>{bedrag}</span>
+            </Link>
+          ))}
+        </div>
+        <p className="font-body text-xs mt-4 mb-0" style={{ color: "#8B958F" }}>
+          Bij twee van deze vijf was mijn conclusie dat er niets te repareren viel.{" "}
+          <Link href="/rapporten" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">
+            Bekijk alle vijf de rapporten
+          </Link>
+          .
+        </p>
+      </div>
 
       {/* Waarom: norm-uitleg en echte cijfers samengevoegd */}
       <h2 className="font-display" style={h2}>
@@ -149,75 +191,37 @@ export default function WatIsNormaalBedragBoodschappen() {
       {/* Interactief: waar zit jij? */}
       <BoodschappenSlider />
 
-      {/* Drie echte huishoudens */}
+      {/* Ingekort 30-jul: hier haakten twee persona's af omdat het tips zijn die
+          ze al doen. Van drie uitgeschreven cases naar één blok. Scheelt ongeveer
+          2.500 pixels op mobiel en haalt het aanbod dichter naar voren. */}
       <h2 className="font-display" style={h2}>
-        Drie echte huishoudens, en wat ik ze zou aanraden
+        Waar het bij hoge boodschappen meestal in zit
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Cijfers zeggen weinig zonder context. Daarom drie huishoudens die ik
-        ken, met hun echte bedrag, waar het misgaat en wat de eerste concrete
-        stap zou zijn.
+        Bij de huishoudens die ik doorreken kom ik steeds dezelfde drie dingen tegen, en geen ervan is
+        onzuinig inkopen.
       </p>
-
-      {/* Case 1 */}
-      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
-        <h3 className="font-display" style={h3}>Samengesteld gezin van zes, rond de €2.000 per maand</h3>
-        <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
-          Twee ouders, drie pubers en een kleuter. Het grootste deel gaat naar
-          brood, beleg, snacks en vlees. Ze werken met een weekmenu en kopen uit
-          de aanbiedingen, maar het loopt vaak mis: niet iedereen lust alles, en
-          er wordt te veel gemaakt. Wat overblijft, gaat de prullenbak in.
-        </p>
-        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#16211F", fontWeight: 500 }}>Wat ik zou doen</p>
-        <ul className="space-y-1.5 font-body text-sm text-text-soft" style={{ marginBottom: 0, paddingLeft: "1.1rem", listStyle: "disc" }}>
-          <li>Bouw het weekmenu rond vier hoofdgerechten die iederéén eet, en varieer alleen de groente of saus eromheen. Dan hoef je nooit dubbel te koken.</li>
-          <li>Kook op afgemeten porties, en reken een puber als een volwassene. Plan één vaste restjesdag per week, zo wordt teveel opgegeten in plaats van weggegooid.</li>
-          <li>Draai de volgorde om: maak eerst het menu, kies dán de aanbiedingen die erbij passen. Een aanbieding die niet in je menu past is geen besparing, maar een extra uitgave.</li>
-          <li>Laat de kleuter een mini-versie van hetzelfde eten meekrijgen, nooit apart koken.</li>
-        </ul>
-      </div>
-
-      {/* Case 2 */}
-      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
-        <h3 className="font-display" style={h3}>Mats en Elsa, tweeverdieners, bijna €1.000 per maand</h3>
-        <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
-          Geen gezin, wel een hoge rekening. Ze kopen veel verse
-          gemaksmaaltijden, van die gezonde bakjes uit de supermarkt. Voelt niet
-          als luxe, maar tikt hard aan: een kant-en-klare pokebowl kost al snel
-          €7 tot €8, terwijl je &apos;m zelf maakt voor €3 tot €4. Over alle
-          gemaksmaaltijden samen zit je zo €150 tot €200 per maand hoger dan
-          nodig.
-        </p>
-        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#16211F", fontWeight: 500 }}>Wat ik zou doen</p>
-        <ul className="space-y-1.5 font-body text-sm text-text-soft" style={{ marginBottom: 0, paddingLeft: "1.1rem", listStyle: "disc" }}>
-          <li>Zweer niet alles af, dat houd je toch niet vol. Vervang de twee duurste gemaksgewoontes per week door een zelfgemaakte versie, juist de simpele zoals een bowl of een pasta.</li>
-          <li>Maak die in het weekend in één keer voor twee of drie dagen. Je houdt het gemak waar het je echt tijd bespaart, en betaalt alleen voor wat je niet zelf wilt doen.</li>
-        </ul>
-      </div>
-
-      {/* Case 3 */}
-      <div className="rounded-xl border p-5 my-5" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
-        <h3 className="font-display" style={h3}>Jurgen en Rachel, drie kinderen van 12 en ouder, €1.300 en willen naar €1.000</h3>
-        <p className="font-body text-text-soft text-sm" style={{ marginBottom: "0.75rem", fontWeight: 300 }}>
-          Ze hebben het niet breed en doen al veel goed: Too Good To Go, de
-          afgeprijsde bakken bij de Jumbo, en ze bedenken creatief gerechten.
-          Plannen vooruit, dat zit prima. En toch blijven ze op €1.300 hangen. De
-          twee lekken zitten ergens anders: er wordt nog te vaak even snel naar de
-          winkel gegaan, en de porties zijn te groot, met veel vlees en weinig
-          groente.
-        </p>
-        <p className="font-body text-sm" style={{ marginBottom: "0.4rem", color: "#16211F", fontWeight: 500 }}>Wat ik zou doen</p>
-        <ul className="space-y-1.5 font-body text-sm text-text-soft" style={{ marginBottom: 0, paddingLeft: "1.1rem", listStyle: "disc" }}>
-          <li>Snijd de losse tussenritjes weg: één hoofdmoment per week, hooguit één korte verse aanvulling. Elke losse rit kost €10 tot €20 aan dingen die niet op het lijstje stonden.</li>
-          <li>Meet vlees af op 100 tot 125 gram per persoon en vul aan met groente, peulvruchten of aardappel. Minder vlees en meer groente is goedkoper en gezonder tegelijk.</li>
-          <li>Twee vleesloze dagen per week met bonen, linzen of ei scheelt direct tientallen euro&apos;s per maand.</li>
-        </ul>
-        <p className="font-body text-text-soft text-sm" style={{ marginTop: "0.75rem", marginBottom: 0, fontWeight: 300 }}>
-          Het laatste stuk van €1.300 naar €1.000 zit bij hen niet in nog slimmer
-          shoppen, dat doen ze al. Het zit in routine en porties. Dat is goed
-          nieuws, want daar heb je zelf de hand in.
-        </p>
-      </div>
+      <ul className="space-y-2 font-body text-text-soft" style={{ marginBottom: "1.25rem", paddingLeft: "1.1rem", listStyle: "disc", fontWeight: 300 }}>
+        <li>
+          <strong style={{ color: "#16211F", fontWeight: 500 }}>Losse tussenritjes.</strong> Elke extra
+          rit naar de winkel kost 10 tot 20 euro aan dingen die niet op het lijstje stonden. Eén
+          hoofdmoment per week plus hooguit één verse aanvulling scheelt het meest.
+        </li>
+        <li>
+          <strong style={{ color: "#16211F", fontWeight: 500 }}>Gemaksmaaltijden.</strong> Een
+          kant-en-klare bowl kost 7 tot 8 euro, zelf gemaakt 3 tot 4. Bij een stel dat dit vaak doet
+          loopt dat op naar 150 tot 200 euro per maand.
+        </li>
+        <li>
+          <strong style={{ color: "#16211F", fontWeight: 500 }}>Porties en weggooien.</strong> Reken
+          een puber als een volwassene, meet vlees af op 100 tot 125 gram per persoon en plan één vaste
+          restjesdag. Dat werkt beter dan goedkoper inkopen.
+        </li>
+      </ul>
+      <p className="font-body text-text-soft" style={p}>
+        Doe je dit alles al en blijf je hoog zitten, dan zijn je boodschappen waarschijnlijk niet je
+        probleem. Dat is goed nieuws, want dan hoef je daar niets meer aan te doen.
+      </p>
 
       <h2 className="font-display" style={h2}>
         Wat kun je er realistisch aan doen?
@@ -247,9 +251,10 @@ export default function WatIsNormaalBedragBoodschappen() {
         legt uit wat waar loont.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Een realistisch doel: 10 tot 15 procent besparen op je huidige bedrag.
-        Voor een huishouden dat €1.000 uitgeeft is dat €100 tot €150 per maand,
-        oftewel €1.200 tot €1.800 per jaar, zonder dat je kwaliteit inlevert.
+        Een realistisch doel is 10 tot 15 procent van je huidige bedrag, dus 100 tot 150 euro bij een
+        huishouden dat 1.000 euro uitgeeft. Reken dat wel even door voordat je eraan begint: als er aan
+        het eind van de maand honderden euro&apos;s ontbreken, gaat die 100 euro je vraag niet
+        oplossen.
       </p>
 
       <div

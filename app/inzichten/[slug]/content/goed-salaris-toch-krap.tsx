@@ -101,7 +101,7 @@ export default function GoedsalarisTochKrap() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je dat ik in jouw eigen cijfers meekijk?{" "}
-        <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Laat mij je cijfers nakijken met de geldscan (€49)</Link>, of doe eerst de{" "}
+        <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Zie wat je krijgt voor €49 met de geldscan (€49)</Link>, of doe eerst de{" "}
         <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>{" "}en vergelijk je uitgaven met vergelijkbare huishoudens.
       </p>
       <p className="font-body text-text-soft" style={p}>

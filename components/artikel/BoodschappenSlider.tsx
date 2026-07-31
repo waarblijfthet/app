@@ -1,31 +1,79 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 
-// Gemiddelde boodschappen vergelijkbaar gezin, per aantal kinderen
-// (gelijk aan de benchmark in de analyse)
-const BENCH: Record<number, number> = { 0: 485, 1: 620, 2: 755, 3: 890 };
-const LABELS: Record<number, string> = {
-  0: "Geen kinderen",
-  1: "1 kind",
-  2: "2 kinderen",
-  3: "3+ kinderen",
-};
+/**
+ * Reken-mee-schuifje. Herzien 30-jul-2026 na de persona-toets.
+ *
+ * Drie dingen waren mis. (1) Het begon met het aantal kinderen, dus wie alleen
+ * woont zat meteen in een tool voor gezinnen. Nu kies je eerst het huishouden.
+ * (2) De regel "schattingen liggen meestal te laag" maakte elke uitkomst fout:
+ * zit je erboven dan ben je het probleem, zit je eronder dan lieg je tegen
+ * jezelf. Er bestond geen uitkomst waarin de lezer het goed doet, en dat leest
+ * als een verkoopmachine. Weg. (3) De uitkomst wees alleen naar de gratis
+ * analyse, terwijl dit het punt is waarop de lezer merkt dat boodschappen niet
+ * zijn probleem zijn. Daar staat nu ook het rapport, met de twee regels die de
+ * ICP's zelf noemden: geen gesprek nodig, en als er niets te repareren valt
+ * staat dat er ook.
+ *
+ * Bedragen gelijk aan lib/benchmarks.ts, herijkt op de vijf huishoudens op
+ * /rapporten: 700 basis bij twee volwassenen, 475 bij één, plus 150 per kind.
+ */
+
+const BASIS_TWEE = 700;
+const BASIS_EEN = 475;
+const PER_KIND = 150;
 
 const euro = (n: number) => "€" + Math.round(n).toLocaleString("nl-NL");
 
-export default function BoodschappenSlider() {
-  const [schatting, setSchatting] = useState(600);
-  const [kinderen, setKinderen] = useState(2);
+const HUISHOUDENS = [
+  { label: "Alleen", volw: 1, kind: 0 },
+  { label: "Alleen met 1 kind", volw: 1, kind: 1 },
+  { label: "Alleen met 2 kinderen", volw: 1, kind: 2 },
+  { label: "Samen", volw: 2, kind: 0 },
+  { label: "Samen met 1 kind", volw: 2, kind: 1 },
+  { label: "Samen met 2 kinderen", volw: 2, kind: 2 },
+  { label: "Samen met 3 kinderen", volw: 2, kind: 3 },
+];
 
-  const bench = BENCH[kinderen];
+export default function BoodschappenSlider() {
+  const [keuze, setKeuze] = useState(5);
+  const [schatting, setSchatting] = useState(800);
+
+  const h = HUISHOUDENS[keuze];
+  const bench = (h.volw === 1 ? BASIS_EEN : BASIS_TWEE) + h.kind * PER_KIND;
   const verschil = schatting - bench;
   const max = Math.max(schatting, bench, 1);
 
-  let oordeel: { kleur: string; bg: string; tekst: string };
-  if (verschil > 100) oordeel = { kleur: "#B03A2E", bg: "#E7F1EE", tekst: `Dat is ${euro(verschil)} méér dan vergelijkbare gezinnen.` };
-  else if (verschil < -100) oordeel = { kleur: "#0B7A6E", bg: "#E7F1EE", tekst: `Dat is ${euro(-verschil)} mínder dan vergelijkbare gezinnen.` };
-  else oordeel = { kleur: "#92600A", bg: "#FDF3E3", tekst: "Dat zit rond het gemiddelde van vergelijkbare gezinnen." };
+  let oordeel: { kleur: string; bg: string; kop: string; tekst: string };
+  if (verschil > 100) {
+    oordeel = {
+      kleur: "#92600A",
+      bg: "#FDF3E3",
+      kop: `Dat is ${euro(verschil)} meer dan bij een huishouden als het jouwe.`,
+      tekst:
+        "Dat is iets om naar te kijken, maar reken het eerst even door: dit verschil per jaar is " +
+        euro(verschil * 12) +
+        ". Verklaart dat waarom er aan het eind van de maand niets overblijft, of blijft er dan nog een gat?",
+    };
+  } else if (verschil < -100) {
+    oordeel = {
+      kleur: "#0B7A6E",
+      bg: "#E7F1EE",
+      kop: `Dat is ${euro(-verschil)} minder dan bij een huishouden als het jouwe.`,
+      tekst:
+        "Hier zit je probleem dus niet. Als er toch niets overblijft, ligt het aan een andere post, en op boodschappen bezuinigen gaat je niet helpen.",
+    };
+  } else {
+    oordeel = {
+      kleur: "#0B7A6E",
+      bg: "#E7F1EE",
+      kop: "Dat is normaal voor een huishouden als het jouwe.",
+      tekst:
+        "Hier zit je probleem dus niet. Als er toch niets overblijft, ligt het aan een andere post, en op boodschappen bezuinigen gaat je niet helpen.",
+    };
+  }
 
   return (
     <div className="rounded-2xl border border-[#E6E9E7] p-6 my-8" style={{ backgroundColor: "#FFFFFF" }}>
@@ -33,30 +81,34 @@ export default function BoodschappenSlider() {
         Reken even mee
       </p>
       <p className="font-display font-light text-[#16211F] text-xl mb-4">
-        Hoeveel denk je dat je per maand aan boodschappen uitgeeft?
+        Hoeveel ben jij per maand aan boodschappen kwijt?
       </p>
 
-      <div className="flex flex-wrap gap-2 mb-5">
-        {[0, 1, 2, 3].map((k) => (
+      {/* Mobiel horizontaal scrollend, desktop op meerdere regels binnen de tekstkolom. */}
+      <div className="flex gap-2 overflow-x-auto pb-2 mb-5 -mx-6 px-6 sm:mx-0 sm:px-0 sm:flex-wrap sm:overflow-visible">
+        {HUISHOUDENS.map((opt, i) => (
           <button
-            key={k}
+            key={opt.label}
             type="button"
-            onClick={() => setKinderen(k)}
-            aria-pressed={kinderen === k}
-            className="px-3 py-1.5 rounded-full text-sm font-body transition-colors"
+            onClick={() => setKeuze(i)}
+            aria-pressed={keuze === i}
+            className="shrink-0 whitespace-nowrap px-3 py-1.5 rounded-full text-sm font-body transition-colors"
             style={{
-              backgroundColor: kinderen === k ? "#16211F" : "white",
-              color: kinderen === k ? "white" : "#4A5A56",
-              border: `1px solid ${kinderen === k ? "#16211F" : "#E6E9E7"}`,
+              backgroundColor: keuze === i ? "#16211F" : "white",
+              color: keuze === i ? "white" : "#4A5A56",
+              border: `1px solid ${keuze === i ? "#16211F" : "#E6E9E7"}`,
             }}
           >
-            {LABELS[k]}
+            {opt.label}
           </button>
         ))}
       </div>
 
       <input
-        type="range" min={200} max={1500} step={10}
+        type="range"
+        min={200}
+        max={1600}
+        step={10}
         value={schatting}
         onChange={(e) => setSchatting(Number(e.target.value))}
         className="w-full accent-[#0B7A6E]"
@@ -64,19 +116,47 @@ export default function BoodschappenSlider() {
       />
 
       <div className="mt-5 space-y-3">
-        <Balk label="Jouw schatting" bedrag={schatting} max={max} kleur="#0B7A6E" />
-        <Balk label="Gemiddeld vergelijkbaar gezin" bedrag={bench} max={max} kleur="#8B958F" />
+        <Balk label="Bij jou" bedrag={schatting} max={max} kleur="#0B7A6E" />
+        <Balk label="Huishouden als het jouwe" bedrag={bench} max={max} kleur="#8B958F" />
       </div>
 
       <div className="mt-5 rounded-xl p-4" style={{ backgroundColor: oordeel.bg }}>
-        <p className="font-body text-sm" style={{ color: oordeel.kleur }}>{oordeel.tekst}</p>
+        <p className="font-body font-medium text-sm mb-1" style={{ color: oordeel.kleur }}>
+          {oordeel.kop}
+        </p>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
+          {oordeel.tekst}
+        </p>
       </div>
 
       <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
-        Schattingen liggen meestal te laag. Wil je je échte bedrag weten en
-        vergelijken op álle posten?{" "}
-        <a href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</a>.
+        Vergelijkingsbedrag op basis van de vijf huishoudens die ik zelf heb doorgerekend, zie{" "}
+        <Link href="/rapporten" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">
+          Rapporten
+        </Link>
+        . Het weet niets van de leeftijd van je kinderen of van bezorgmaaltijden.
       </p>
+
+      {/* Dit is het punt waar de lezer merkt dat boodschappen zijn vraag niet
+          beantwoorden. Vandaar hier het aanbod en niet zeven schermen lager. */}
+      <div className="mt-5 pt-5" style={{ borderTop: "1px solid #E6E9E7" }}>
+        <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
+          Wil je weten waar het bij jou dan wel zit?
+        </p>
+        <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
+          Ik leg je hele maand naast huishoudens als het jouwe en schrijf op wat er opvalt en wat juist
+          niet. Geen gesprek nodig, je leest het rustig terug. Valt er niets te repareren, dan staat dat
+          er ook. €49 eenmalig.
+        </p>
+        <Link href="/geldscan" className="btn-primary">
+          Bekijk wat je krijgt voor €49 &rarr;
+        </Link>
+        <p className="font-body text-sm mt-3 mb-0">
+          <Link href="/analyse" className="hover:underline" style={{ color: "#8B958F", textDecoration: "none" }}>
+            Liever eerst zelf je hele maand vergelijken? Dat is gratis &rarr;
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

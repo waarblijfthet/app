@@ -193,7 +193,7 @@ export default function FinancieelCoachPage() {
             </p>
             <div className="flex flex-wrap items-center gap-4">
               <Link href="/geldscan" className="btn-primary">
-                Laat mij je cijfers nakijken (€49) →
+                Zie wat je krijgt voor €49 →
               </Link>
               <Link
                 href="/adviesgesprek"

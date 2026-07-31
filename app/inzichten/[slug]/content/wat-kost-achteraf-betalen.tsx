@@ -160,7 +160,7 @@ export default function WatKostAchterafBetalen() {
           Wil je weten of het bij jou klopt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, en met wat er juist niet uit de toon valt. In gewone taal, geen gesprek nodig.
         </p>
         <Link href="/geldscan" className="btn-primary">
-          Laat mij je cijfers nakijken (€49) &rarr;
+          Zie wat je krijgt voor €49 &rarr;
         </Link>
       </div>
     </>

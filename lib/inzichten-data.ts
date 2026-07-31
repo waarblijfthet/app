@@ -2570,9 +2570,9 @@ export const artikelen: Artikel[] = [
   {
     slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
     cta: {
-      kop: "Boodschappen zijn vaak maar één plek waar het weglekt.",
+      kop: "Als je boodschappen normaal zijn, waar blijft het dan?",
       tekst: "Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, boodschappen en de rest van je maandbudget. In gewone taal, geen gesprek nodig.",
-      primairLabel: "Laat mij je cijfers nakijken (€49)",
+      primairLabel: "Zie wat je krijgt voor €49",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf een indruk? Doe de analyse",
       secundairHref: "/analyse",
@@ -2583,7 +2583,7 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Normale boodschappenkosten per maand 2026 (per huishouden)",
     metaDescription:
-      "Wat is een normaal boodschappenbedrag per maand? De norm is een ondergrens, echte huishoudens geven meer uit. Bedragen per persoon, stel en gezin, plus wat je eraan doet.",
+      "Wat is een normaal boodschappenbedrag per maand? De norm is een ondergrens, echte huishoudens geven meer uit. Bedragen per persoon, stel, gezin en één ouder, plus wat je eraan doet.",
     datum: "2026-06-26",
     datumFormatted: "26 juni 2026",
     leestijd: "9",
@@ -2646,7 +2646,7 @@ export const artikelen: Artikel[] = [
     cta: {
       kop: "Belangrijker dan of €4.000 goed is: wat hou jij ervan over?",
       tekst: "Een goed salaris is niet hetzelfde als geld overhouden. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt, met de drie dingen die het meest opvallen.",
-      primairLabel: "Laat mij je cijfers nakijken (€49)",
+      primairLabel: "Zie wat je krijgt voor €49",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
       secundairHref: "/analyse",
@@ -3374,7 +3374,7 @@ export const artikelen: Artikel[] = [
     cta: {
       kop: "Boven de Nibud-norm? Bijna iedereen.",
       tekst: "De echte vraag is niet of je boven de norm zit, maar of het bij jou klopt. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
-      primairLabel: "Laat mij je cijfers nakijken (€49)",
+      primairLabel: "Zie wat je krijgt voor €49",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf vergelijken? Doe de analyse",
       secundairHref: "/analyse",
@@ -3452,7 +3452,7 @@ export const artikelen: Artikel[] = [
     cta: {
       kop: "Wat is voor jou als alleenstaande normaal?",
       tekst: "Gemiddelden zeggen weinig over jouw huur, jouw inkomen en jouw stad. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt en wat er opvalt.",
-      primairLabel: "Laat mij je cijfers nakijken (€49)",
+      primairLabel: "Zie wat je krijgt voor €49",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
       secundairHref: "/analyse",
