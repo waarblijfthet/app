@@ -25,9 +25,56 @@ import Stap6Resultaat from "./stappen/Stap6Resultaat";
 const TOTAL_STEPS = 6;
 const STAP_LABELS = ["Profiel", "Inkomen", "Wonen", "Vervoer", "Dagelijks", "Resultaat"];
 
+/**
+ * Startwaarden uit de URL, zodat de rekenaar op het salarisartikel de analyse
+ * kan openen met de vier antwoorden al ingevuld (30-jul-2026). Alleen de vier
+ * profielvelden plus het inkomen; alle bedragen vult de bezoeker zelf in.
+ * Bewust tolerant: een onbekende of onzinnige waarde wordt genegeerd in plaats
+ * van dat de flow stukloopt.
+ */
+function startDataUitUrl(): QuizData {
+  if (typeof window === "undefined") return DEFAULT_QUIZ_DATA;
+  const q = new URLSearchParams(window.location.search);
+  const data: QuizData = { ...DEFAULT_QUIZ_DATA };
+
+  const volw = Number(q.get("volwassenen"));
+  if (volw === 1 || volw === 2) data.volwassenen = volw;
+
+  const kind = Number(q.get("kinderen"));
+  if ([0, 1, 2, 3].includes(kind)) data.kinderen = kind as QuizData["kinderen"];
+
+  const auto = q.get("auto");
+  if (auto && ["geen", "eigen", "lease_privé", "zakelijk"].includes(auto)) {
+    data.auto = auto as QuizData["auto"];
+  }
+  if (q.get("tweedeauto") === "1") data.tweedeAuto = true;
+
+  const woon = q.get("woonsituatie");
+  if (woon === "huur" || woon === "koop") data.woonsituatie = woon;
+
+  // Eén inkomen invullen bij één volwassene, anders verdelen we niet: de
+  // bezoeker moet zelf twee salarissen opgeven, want een gok van 50/50 zou de
+  // uitkomst verkeerd beïnvloeden zonder dat hij dat ziet.
+  const inkomen = Number(q.get("inkomen"));
+  if (inkomen >= 500 && inkomen <= 20000 && data.volwassenen === 1) {
+    data.salaris1 = String(inkomen);
+  }
+
+  return data;
+}
+
 export default function QuizClient() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<QuizData>(DEFAULT_QUIZ_DATA);
+  const voorgevuldRef = useRef(false);
+
+  // Na mount, want window bestaat niet bij server-rendering.
+  useEffect(() => {
+    if (voorgevuldRef.current) return;
+    voorgevuldRef.current = true;
+    const start = startDataUitUrl();
+    if (start !== DEFAULT_QUIZ_DATA) setData(start);
+  }, []);
 
   const sessieIdRef = useRef<string>("");
   const apparaatRef = useRef<string>("");

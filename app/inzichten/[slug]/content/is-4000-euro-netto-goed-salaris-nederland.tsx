@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { WerkelijkeVerdeling } from "@/components/artikel/WerkelijkeVerdeling";
+import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -14,43 +14,56 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function Is4000EuroNettoGoedSalaris() {
   return (
     <>
-      {/* ScanBox */}
-      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
-        <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
-        <ul className="space-y-1.5">
+      <SalarisRekenaar />
+
+      <p className="font-body text-text-soft" style={p}>
+        Waarom dit de verkeerde vraag is om mee te beginnen: of 4.000 euro netto goed is, hangt niet af
+        van het bedrag maar van wie het moet dragen. Voor iemand alleen is het ruim. Voor één ouder met
+        twee kinderen en een koopwoning is het krap. Voor twee inkomens die samen 4.000 halen is het
+        weer iets anders. Dat is de reden dat de rekenaar hierboven naar je huishouden vraagt en niet
+        alleen naar je salaris.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        En daarom klopt het gevoel dat veel mensen hier brengt. Je verdient objectief goed, je hoort dat
+        ook van anderen, en toch staat er aan het einde van de maand minder dan je zou verwachten. Dat is
+        geen klagen en het is ook geen karakterfout. Het is een rekensom die je nog nooit hebt gemaakt.
+      </p>
+
+      {/* Vijf echte huishoudens in plaats van de oude verdeling op forums en blogs.
+          Vier van de vier persona's vertrouwden die bron niet, en de bedragen
+          klopten sinds de herijking van lib/benchmarks.ts ook niet meer. */}
+      <div className="rounded-xl border p-5 my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
+        <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
+          Wat er bij vijf echte huishoudens overbleef
+        </p>
+        <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300 }}>
+          Geen forumcijfers of gemiddelden. Vijf huishoudens leverden hun cijfers bij mij aan, ik schreef
+          het rapport en drie tot vier maanden later schreven zij op wat er veranderde. Hun complete
+          rapport staat op deze site, met toestemming.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           {[
-            "Dat €4.000 netto je in de top 25% plaatst, en waarom dat toch krap kan voelen",
-            "Hoe een doorsnee gezin met dit inkomen er na alle vaste lasten werkelijk voor staat",
-            "Drie mechanismen die samen verklaren waarom een goed salaris toch krap aanvoelt",
-          ].map((item, i) => (
-            <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
-              <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
-              <span>{item}</span>
-            </li>
+            ["Alleenstaand, 3.650 netto", "/rapporten/alleenstaand-huurwoning"],
+            ["Eén ouder, 5.700 netto met kinderbijslag en alimentatie", "/rapporten/alleenstaande-ouder-twee-kinderen"],
+            ["Stel zonder kinderen, samen 6.990", "/rapporten/stel-zonder-kinderen"],
+            ["Gezin met drie kinderen, samen 7.880", "/rapporten/tweeverdieners-drie-kinderen"],
+            ["Zzp met partner, maanden tussen 2.400 en 8.100", "/rapporten/zzp-wisselend-inkomen"],
+          ].map(([wie, href]) => (
+            <Link
+              key={href}
+              href={href}
+              className="rounded-lg px-3 py-2.5 font-body text-sm transition-colors hover:border-[#0B7A6E]"
+              style={{ border: "1px solid #E6E9E7", color: "#4A5A56", textDecoration: "none" }}
+            >
+              {wie} &rarr;
+            </Link>
           ))}
-        </ul>
+        </div>
+        <p className="font-body text-xs mt-4 mb-0" style={{ color: "#8B958F" }}>
+          Bij twee van deze vijf was mijn conclusie dat er niets te repareren viel. Vier van de vijf
+          hadden het bij zichzelf mis.
+        </p>
       </div>
-
-      <p className="font-body text-text-soft" style={p}>
-        Stel: je verdient €4.000 netto per maand. Je hebt een koopwoning, twee
-        kinderen en een auto. Op papier is dat een goed inkomen, en dat is het
-        ook. Je zit in de top 25 procent van Nederland.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        En toch. Aan het einde van de maand staat er €505 op je rekening. Netto.
-        Na alle vaste lasten, boodschappen, kinderkosten en abonnementen.
-        Vijfhonderd euro voor het onverwachte, voor een keer uit eten, voor een
-        beetje buffer.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Dat voelt niet als top 25 procent. Dat voelt als krap.
-      </p>
-
-      <WerkelijkeVerdeling />
-
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Kort gezegd: 4.000 euro netto valt in de top 25 procent van Nederland. Toch houdt een gezin met koopwoning en twee kinderen daar vaak minder dan 500 euro van over. Dat ligt niet aan je inkomen, maar aan de vaste lasten die zijn meegegroeid.
-      </p>
 
       <h2 className="font-display" style={h2}>
         Wat is €4.000 netto waard in 2026?
@@ -72,26 +85,20 @@ export default function Is4000EuroNettoGoedSalaris() {
       </p>
 
       <h2 className="font-display" style={h2}>
-        De echte verdeling van €4.000 netto bij een gezin met twee kinderen
+        Waarom een bedrag niets zegt zonder het huishouden erbij
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Een doorsnee gezin met twee kinderen, een
-        koopwoning net buiten de Randstad en één auto.
+        Neem 4.000 euro netto en zet er twee huishoudens naast. Iemand die alleen woont houdt er volgens
+        mijn vuistregel ongeveer 680 euro van over. Bij een gezin met twee kinderen op datzelfde bedrag komt
+        de rekensom niet uit: de boodschappen zijn 525 euro hoger, er komt 380 euro aan opvang, school en
+        sport bij, en dan is er niets meer over. Hetzelfde salaris, twee compleet verschillende antwoorden.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Hypotheek plus energie plus internet: €1.550. Boodschappen voor vier
-        personen (inclusief drogisterij en bakker): €875. Auto inclusief
-        verzekering en wegenbelasting: €580. Kinderkosten (sport,
-        schoolmaterialen): €280. Abonnementen (telefoon, streaming, gym): €210.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Totaal: €3.495. Overblijvend: €505.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Dat is de realiteit voor veel gezinnen. En die €505 verdwijnt in de loop
-        van de maand in verjaardagscadeautjes, een avondje uit, een onverwachte
-        rekening, iets voor de kinderen. Aan het einde van de maand is er
-        structureel te weinig om serieus te sparen.
+        Dat is waarom de vraag &ldquo;is 4.000 netto goed&rdquo; nooit met ja of nee te beantwoorden is, en
+        waarom een tabel met één voorbeeldhuishouden je weinig vertelt over jezelf. Vul je eigen situatie in
+        de rekenaar hierboven in, dan zie je de posten die bij jouw huishouden horen. En let op wat er
+        gebeurt als je het inkomen omhoog schuift: het tekort verdwijnt, maar de ruimte groeit langzamer dan
+        je zou denken, omdat wonen en boodschappen meegroeien.
       </p>
 
       <h2 className="font-display" style={h2}>

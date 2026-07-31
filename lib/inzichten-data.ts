@@ -2008,7 +2008,7 @@ export const artikelen: Artikel[] = [
     faq: [
       {
         vraag: "Hoe kan een gezin met €4.000 netto toch krap zitten?",
-        antwoord: "Op papier houdt zo'n gezin zo'n €505 over, maar dat klopt alleen als alle posten binnen de norm blijven. Boodschappen die oplopen tot €875 (norm €627) en een abonnementenstapel richting €210 eten dat bedrag op.",
+        antwoord: "Omdat het bedrag niets zegt zonder het huishouden erbij. Reken je met de bedragen die ik bij vijf echte huishoudens zag, dan houdt iemand alleen op €4.000 netto ongeveer €680 over, en komt een gezin met twee kinderen op datzelfde bedrag niet uit: de boodschappen zijn ruim €500 hoger en er komt bijna €400 aan opvang, school en sport bij.",
       },
       {
         vraag: "Is dit een echt gezin?",
@@ -2657,13 +2657,13 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Is €4.000 netto een goed salaris in Nederland?",
     metaDescription:
-      "€4.000 netto is top 25% in Nederland. Maar een gezin met koopwoning en 2 kinderen houdt er vaak minder dan €500 van over. Hoe dat kan.",
+      "€4.000 netto is top 25% in Nederland. Maar wat je overhoudt hangt af van je huishouden: alleen ruim €600, met twee kinderen bijna niets. Reken je eigen situatie door.",
     datum: "2026-05-21",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
     categorie: "Inkomen",
     excerpt:
-      "€4.000 netto is top 25% van Nederland. En toch houdt een gezin met koopwoning en twee kinderen er gemiddeld €505 van over. Dat voelt niet als top 25 procent. Hoe dat kan, en wat je eraan doet.",
+      "€4.000 netto is top 25% van Nederland. Maar of het genoeg is, hangt volledig af van je huishouden: iemand alleen houdt er ruim €600 van over, een gezin met twee kinderen niets. Reken je eigen situatie door.",
     preview: {
       type: "verdeling",
       label: "Van €4.000 netto blijft over",
@@ -2673,7 +2673,7 @@ export const artikelen: Artikel[] = [
         { naam: "Vervoer", pct: 15, kleur: "#86BCAF" },
         { naam: "Rest", pct: 24, kleur: "#F0F3F1" },
       ],
-      uitkomst: "€505 over",
+      uitkomst: "Hangt af van je huishouden",
     },
     faq: [
       {
@@ -2684,7 +2684,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel houdt een gezin met twee kinderen over van €4.000 netto?",
         antwoord:
-          "Op basis van werkelijke gemiddelden: na hypotheek/huur, boodschappen, auto, kinderkosten en abonnementen blijft er €400-600 over per maand. Met oudere kinderen of hogere woonlasten kan dit dalen naar €100-300.",
+          "Reken je met de bedragen die ik bij vijf echte huishoudens zag, dan komt een gezin met twee kinderen op €4.000 netto ongeveer op nul uit: wonen inclusief energie en lokale lasten rond €1.360, boodschappen €1.000, vervoer €350, verzekeringen €416, abonnementen €150, opvang en sport €380 en vrije tijd €400. Bij een hoger inkomen groeit de ruimte, maar langzamer dan je denkt omdat wonen en boodschappen meegroeien.",
       },
       {
         vraag: "Waarom voelt €4.000 netto toch krap aan?",
