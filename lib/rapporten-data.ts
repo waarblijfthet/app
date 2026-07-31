@@ -16,7 +16,18 @@ export interface Post {
 
 export interface Rapport {
   slug: string;
+  /** Filterlabel bovenaan de index, puur voor herkenning van de situatie. */
   chip: string;
+  /**
+   * De kop van het rapport: de spanning of de ontdekking, niet de demografie.
+   * Reden (30-jul-2026, vijf echte ICP-reacties): de oude koppen waren labels
+   * voor segmentatie, terwijl de inhoud eronder een verhaal is. ICP 3 over het
+   * stel zonder kinderen: "Er is geen lek is verreweg de sterkste uitkomst op de
+   * pagina. Maak dat de titel, dat wil ik lezen."
+   */
+  verhaalTitel: string;
+  /** Kort rijtje kenmerken onder de kop, met punten ertussen. */
+  kenmerken: string[];
   situatie: string;
   profiel: string;
   metaTitel: string;
@@ -47,6 +58,9 @@ export interface Rapport {
 export const RAPPORTEN: Rapport[] = [
   {
     slug: "tweeverdieners-drie-kinderen",
+    verhaalTitel:
+      "Ze verdienden samen goed. Toch groeide de spaarrekening niet.",
+    kenmerken: ["Tweeverdieners", "3 kinderen van 9, 12 en 14", "koopwoning", "2 auto's", "samen €7.880 netto"],
     chip: "Gezin met kinderen",
     situatie: "Tweeverdieners, drie kinderen, koopwoning",
     profiel: "Twee inkomens, drie kinderen van 9, 12 en 14, koopwoning, twee eigen auto's.",
@@ -109,6 +123,9 @@ export const RAPPORTEN: Rapport[] = [
   },
   {
     slug: "alleenstaande-ouder-twee-kinderen",
+    verhaalTitel:
+      "Ze gaf niet te veel uit. Er was na de scheiding nooit iets herbouwd.",
+    kenmerken: ["Alleenstaande ouder", "kinderen van 7 en 11", "80 procent van de tijd bij haar", "koopwoning", "€5.700 netto"],
     chip: "Alleenstaande ouder",
     situatie: "Alleenstaande ouder, twee kinderen, koopwoning",
     profiel: "Eén inkomen, kinderen van 7 en 11 die 80 procent van de tijd bij haar wonen, koopwoning, één auto.",
@@ -171,6 +188,9 @@ export const RAPPORTEN: Rapport[] = [
   },
   {
     slug: "alleenstaand-huurwoning",
+    verhaalTitel:
+      "Haar vermoeden was juist. Het bedrag was 250 euro groter.",
+    kenmerken: ["Alleenstaand", "geen kinderen", "huurappartement", "één auto", "€3.650 netto"],
     chip: "Alleenstaand",
     situatie: "Alleenstaand, begin 30, huurwoning",
     profiel: "Eén inkomen, geen kinderen, huurappartement, één eigen auto.",
@@ -229,6 +249,9 @@ export const RAPPORTEN: Rapport[] = [
   },
   {
     slug: "stel-zonder-kinderen",
+    verhaalTitel:
+      "Ze zochten een geldlek. Dat was er niet.",
+    kenmerken: ["Stel eind 30", "geen kinderen", "koopappartement", "geen auto", "samen €6.990 netto"],
     chip: "Stel zonder kinderen",
     situatie: "Stel eind 30, geen kinderen, koopappartement",
     profiel: "Twee inkomens, geen kinderen, koopappartement, geen auto.",
@@ -288,6 +311,9 @@ export const RAPPORTEN: Rapport[] = [
   },
   {
     slug: "zzp-wisselend-inkomen",
+    verhaalTitel:
+      "Hij verdiende genoeg. Het probleem was wanneer het binnenkwam.",
+    kenmerken: ["Zzp met partner in loondienst", "geen kinderen", "koopwoning", "maanden van €2.400 tot €8.100"],
     chip: "Zzp of wisselend inkomen",
     situatie: "Zzp'er met partner in loondienst, wisselend inkomen, koopwoning",
     profiel: "Een zzp-inkomen dat per maand sterk verschilt, een partner in loondienst, koopwoning, geen kinderen.",

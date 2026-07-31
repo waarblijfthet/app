@@ -85,8 +85,12 @@ export default function RapportenPage() {
                 style={{ borderLeft: "3px solid #0B7A6E" }}
               >
                 <p className="section-eyebrow mb-2">{r.chip}</p>
-                <h2 className="font-display font-light text-primary text-xl sm:text-2xl mb-1">{r.situatie}</h2>
-                <p className="font-body font-light text-text-muted text-sm mb-5 leading-relaxed">{r.profiel}</p>
+                <h2 className="font-display font-light text-primary text-xl sm:text-2xl mb-2 leading-snug">
+                  {r.verhaalTitel}
+                </h2>
+                <p className="font-body font-light text-text-muted text-sm mb-5 leading-relaxed">
+                  {r.kenmerken.join(" · ")}
+                </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
                   <div>
@@ -142,7 +146,7 @@ export default function RapportenPage() {
             <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-6">
               Dit is waarom ik geen sjabloon gebruik. Twee keer was de uitkomst dat er niets te repareren viel,
               twee keer zat het in de jaaruitgaven die niemand had gereserveerd, en één keer was het inkomen zelf
-              het probleem, niet de uitgaven.
+              het probleem, niet de uitgaven. Vijf keer dezelfde vijf vragen, vijf verschillende antwoorden.
             </p>
             <div className="overflow-x-auto -mx-6 px-6 sm:mx-0 sm:px-0">
               <table className="w-full font-body text-sm" style={{ minWidth: "44rem", borderCollapse: "collapse" }}>

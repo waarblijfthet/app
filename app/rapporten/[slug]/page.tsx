@@ -17,7 +17,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description: r.metaDescription,
     alternates: { canonical: `https://www.waarblijfthet.nl/rapporten/${r.slug}` },
     openGraph: {
-      title: r.metaTitel,
+      // Bij delen werkt de verhalende kop beter dan de zoekwoordvariant. De
+      // title-tag blijft wel op zoekwoorden staan, want die moet vindbaar zijn.
+      title: r.verhaalTitel,
       description: r.metaDescription,
       url: `https://www.waarblijfthet.nl/rapporten/${r.slug}`,
       type: "article",
@@ -69,8 +71,9 @@ export default function RapportPagina({ params }: { params: { slug: string } }) 
 
             <p className="section-eyebrow mb-3">{r.chip} · echt rapport</p>
             <h1 className="font-display font-light text-primary text-3xl sm:text-4xl mb-3 leading-tight">
-              {r.situatie}
+              {r.verhaalTitel}
             </h1>
+            <p className="font-body font-medium text-primary text-sm mb-2">{r.kenmerken.join(" · ")}</p>
             <p className="font-body font-light text-text-soft leading-relaxed mb-2">{r.profiel}</p>
             <p className="font-body font-light text-text-muted text-sm leading-relaxed">
               Gepubliceerd met toestemming. Namen zijn weggelaten en herkenbare details zijn aangepast, alle
