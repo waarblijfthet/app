@@ -24,7 +24,7 @@ Nederlandse personal-finance site voor mensen die **goed verdienen maar toch kra
 
 **De inzet voor de 90 dagen tot 25-okt-2026: twaalf geldscans leveren en er vijf publiceerbare klantverhalen uit oogsten**, gratis of tegen kostprijs, in ruil voor hun ervaring. Volledige onderbouwing, weekplanning en kill criteria: `docs/groeibeslissing-aug-2026.md` (26-jul). De bindende beperking is vertrouwen: er is geen mens die voor Jarno instaat en er is in vier maanden één geldscan geleverd, terwijl elk gekozen kanaal (verwijzers, media, site) precies dat bewijs vraagt.
 
-Outreach naar verwijzers blijft het juiste kanaal maar is te vroeg: het plafond is verifieerbaarheid, niet de copy. Volume gaat tijdelijk van 10 per dag naar 10 per week; vol volume pas als er referenties in mail 1 staan. SEO is het vangnet/geloofwaardigheidskanaal, geen groeikanaal (`docs/kritische-analyse-en-plan-18-jul-2026.md`), en 79 artikelen is voor een vangnet meer dan genoeg: **nul nieuwe artikelen tot 25-okt**. SE Ranking is definitief van tafel (Jarno betaalt er niet voor); volumes blijven kwalitatief, nooit meer adviseren die connector te autoriseren.
+Outreach naar verwijzers blijft het juiste kanaal maar is te vroeg: het plafond is verifieerbaarheid, niet de copy. Volume gaat tijdelijk van 10 per dag naar 10 per week; vol volume pas als er referenties in mail 1 staan. SEO is het vangnet/geloofwaardigheidskanaal, geen groeikanaal (`docs/kritische-analyse-en-plan-18-jul-2026.md`). **De regel van nul nieuwe artikelen is op 30-jul door Jarno ingetrokken.** Nieuwe artikelen mogen weer, maar alleen met een geverifieerd gat in de Nederlandse SERP eronder en een aantoonbare ICP-fit, niet om het aantal te vergroten. Verifieer het gat met Chrome op google.nl, niet met de WebSearch-tool: die staat niet op Nederland en gaf bij deze vraag een ander beeld dan de echte SERP. Zie de zoekverkenning in `docs/artikelkansen-serp-30-jul-2026.md`. SE Ranking is definitief van tafel (Jarno betaalt er niet voor); volumes blijven kwalitatief, nooit meer adviseren die connector te autoriseren.
 
 Wat er staat en werkt:
 - Site met ~79 artikelen, GSC groeit (400-750 impressies/dag), verkeer komt vooral binnen op boodschappen/salaris-artikelen (informationeel, converteert niet direct).
@@ -53,7 +53,7 @@ Wat er staat en werkt:
 7. KvK-inschrijving + KOR: doen om administratieve redenen, niet om een kanaal te openen (zie werkgeversspoor onder Vaste afspraken).
 8. Alleenstaande-testimonial (wachten op echte klant, niet verzinnen).
 
-Bewust uitgesteld tot na 25-okt: nieuwe content (cluster C, rondkomen-serie, "waarom kan ik niet sparen"), e-mailflow na de analyse, verdere bouw aan admin/prospect-zoeker, persona-toetsingsrondes, mediapitches, werkgeversspoor.
+Bewust uitgesteld tot na 25-okt: e-mailflow na de analyse, verdere bouw aan admin/prospect-zoeker, persona-toetsingsrondes, mediapitches, werkgeversspoor.
 
 Meetpunten in deze fase: geleverde scans per week, schriftelijke ja's voor publicatie, en daarna nog steeds geboekte gesprekken en geldscan-aanvragen. Peilingen met kill criteria: 16-aug, 20-sep, 25-okt (getallen in het beslisdocument). Nul betalende klanten uit de site is in deze periode géén signaal; de rekensom voorspelt dat.
 
@@ -144,7 +144,7 @@ Drie bevindingen die nu al bruikbaar zijn, ook als het onderzoek niet wordt afge
 2. **De AFM trekt zelf de knip tussen gratis en betaald precies op "over jouw cijfers".** Een gratis orientatiegesprek mag, maar zodra er specifiek naar de situatie van de klant wordt gekeken is het advies en moeten de kosten in rekening worden gebracht (afm.nl, provisieverbod). Dat is institutionele rugdekking voor de scheiding gratis analyse (vergelijken) versus geldscan (verklaren).
 3. **De vorm draait aantoonbaar ergens.** Objective Financial Partners (Ontario) verkoopt losse consulten van 45 minuten per onderwerp, vooraf betaald, schriftelijke memo erna, prijzen openbaar per onderwerp, en framet dat expliciet als laagdrempelig alternatief voor het eigen zware traject. Twee details om over te nemen: prijs per onderwerp in plaats van een prijs voor "een gesprek", en het voorbereidend werk van de klant als waardeverhogend presenteren in plaats van als drempel. Geen prijsbewijs voor Nederland, wel een formatbewijs.
 
-Let op: dit onderzoek mag de lopende inzet niet doorkruisen (twaalf geldscans en vijf klantverhalen voor 25-okt, nul nieuwe artikelen). Het is denkwerk, geen nieuw product. Spoor 5 (de Wft-grens) is inmiddels uitgezocht (redenering op een geverifieerde regel, niet onafhankelijk juridisch getoetst) en wijst op een beperking, geen vrijbrief.
+Let op: dit onderzoek mag de lopende inzet niet doorkruisen (twaalf geldscans en vijf klantverhalen voor 25-okt). Het is denkwerk, geen nieuw product. Spoor 5 (de Wft-grens) is inmiddels uitgezocht (redenering op een geverifieerde regel, niet onafhankelijk juridisch getoetst) en wijst op een beperking, geen vrijbrief.
 
 ## Documentindex (docs/)
 - `admin-bouwprompts-30-jul-2026.md` (30-jul): kant-en-klare prompts per fase om de admin-redesign door Sonnet te laten bouwen, plus geadviseerde instellingen (nieuwe sessie per fase, plan-modus aan, uitgebreid denken bij fase 1, 2 en 5) en de escalatiesignalen naar Opus.
