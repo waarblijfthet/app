@@ -71,7 +71,7 @@ function regioZin(doelgroep: Doelgroep, plaats?: string | null): string | null {
     case "burnout-coaches":
       return `Ik zoek bewust iemand in de regio ${p}: een cliënt stuur ik liever naar iemand in de buurt dan naar een landelijke lijst.`;
     case "boekhouders":
-      return `Ik zoek bewust iemand in de regio ${p}; een warme overdracht werkt het best dichtbij.`;
+      return `Ik zoek bewust iemand in de regio ${p}: iemand doorsturen werkt het best als het dichtbij is.`;
   }
 }
 
@@ -102,7 +102,7 @@ const NAAMLOOS_ONDERWERP: Record<Doelgroep, string> = {
   "budgetcoaches": "Ik zoek een budgetcoach om naar door te verwijzen",
   "financieel-planners": "Ik zoek een financieel planner om naar door te verwijzen",
   "burnout-coaches": "Mag ik cliënten naar jouw praktijk verwijzen?",
-  "boekhouders": "Mag ik cliënten van je overnemen die verder gaan dan de cijfers?",
+  "boekhouders": "Mag ik mensen naar je doorverwijzen?",
 };
 
 export function eersteMail(
@@ -174,14 +174,15 @@ export function eersteMail(
       };
     case "boekhouders":
       return {
-        subject: betrouwbaar ? `${voornaam}, mag ik cliënten van je overnemen die verder gaan dan de cijfers?` : NAAMLOOS_ONDERWERP[doelgroep],
+        subject: betrouwbaar ? `${voornaam}, mag ik mensen naar je doorverwijzen?` : NAAMLOOS_ONDERWERP[doelgroep],
         alineas: [
           groet,
-          "Soms stelt een klant aan het eind van een aangifte of jaarrekening een heel andere vraag: kunnen we dit huis nog betalen, waarom houden we bij dit inkomen niets over, moeten we minder gaan werken. Geen boekhoudvraag, en ik neem aan dat je hem meestal netjes terugbrengt naar de cijfers waar het gesprek over ging.",
+          "Een klant komt voor zijn aangifte of jaarrekening en vraagt tussendoor: we verdienen eigenlijk goed, waarom houden we dan elke maand zo weinig over? Dat is geen fiscale vraag en geen boekhoudvraag, en midden in zo'n gesprek is er ook geen goed moment om er iets mee te doen.",
           ...ps,
-          "Wie ik ben: financieel coach, begonnen omdat ik zelf goed verdien en jarenlang niet begreep waarom het nooit klopte. Ik geef geen belastingadvies en doe geen administratie, dus we zitten elkaar niet in de weg: ik kijk naar waar het geld blijft, niet naar de aangifte.",
+          "Dat stuk is precies mijn werk. Ik help mensen die genoeg verdienen maar geen beeld hebben van waar hun geld blijft en hoeveel ruimte er werkelijk is. Geen administratie, geen belastingadvies, geen beleggingen, geen hypotheken. Ik kijk naar het huishouden als geheel en zet op papier waar het geld naartoe gaat en wat er anders kan. We zitten elkaar dus niet in de weg.",
           ...regioAlinea,
-          "Ik verwijs niet blind, dus ik wil weten naar wie ik zulke klanten zou sturen, en andersom. Stel me daarom gerust de vragen die je zou stellen aan iemand die zoiets voorstelt; jij bepaalt het tempo.",
+          "Wat ik zoek is een boekhouder naar wie ik iemand kan doorsturen als zijn vraag toch fiscaal of administratief blijkt. Ik stuur niemand naar iemand die ik niet ken, dus ik zou eerst willen weten hoe je werkt. Andersom hoeft voorlopig niets.",
+          "Krijg je die vraag weleens langs?",
           afsluiter,
         ],
       };
@@ -238,7 +239,7 @@ const FU2: Record<Doelgroep, string[]> = {
   ],
   "boekhouders": [
     "Laatste keer dat ik het aanbod noem: als een klant bij jou met zo'n bredere geldvraag komt, mag je gerust mijn naam noemen, of me mailen en ik neem het over. Geen tegenprestatie, geen leadconstructie.",
-    "En andersom, open kaart: zoek jij weleens een boekhouder voor een klant van mij die een aangifte nodig heeft, hoor ik dat ook graag. Alleen als het jou uitkomt.",
+    "En open kaart over mijn eigen belang: ik zoek zelf ook iemand naar wie ik kan doorsturen als een vraag toch over de aangifte of de administratie gaat. Dat hoeft nu niet, en als het nooit iets wordt is dat ook goed.",
   ],
 };
 
