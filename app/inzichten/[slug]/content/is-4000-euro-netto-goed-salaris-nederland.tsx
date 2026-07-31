@@ -179,6 +179,24 @@ export default function Is4000EuroNettoGoedSalaris() {
           <strong>Uit de praktijk.</strong> Een gezin dat ik hielp met €4.000 netto dacht oprecht dat ze 'gewoon slecht met geld omgingen'. Dat was niet zo, het zat in twee posten die ongemerkt waren meegegroeid. Top 25% verdienen en tóch krap is geen gevoel; als je de cijfers naast elkaar legt, klopt het gewoon.
         </p>
       </div>
+      <h2 className="font-display" style={h2}>
+        En als je meer verdient dan €4.000 netto?
+      </h2>
+      <p className="font-body text-text-soft" style={p}>
+        Dan verandert de vraag. Bij €5.000 netto weet je zelf ook dat het een hoog salaris is; de vraag is
+        dan waarom het niet voelt als een hoog inkomen, en wat je er bruto voor moet verdienen. Dat staat in{" "}
+        <Link href="/inzichten/is-5000-euro-netto-goed-salaris" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+          is €5.000 netto een goed salaris
+        </Link>
+        . Komt jullie inkomen uit twee salarissen samen, dan speelt er nog iets anders: bij twee inkomens is
+        er meestal geen lek en hebben beide partners een ander verhaal over waar het geld blijft. Daarover
+        gaat{" "}
+        <Link href="/inzichten/samen-6000-euro-netto-toch-niets-over" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+          samen €6.000 netto en toch niets over
+        </Link>
+        .
+      </p>
+
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/bruto-naar-netto-loonstrook-uitleg" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">van bruto naar netto</Link> en <Link href="/inzichten/netto-loonsverhoging-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je netto overhoudt van een loonsverhoging</Link>.</p>
     </>
   );

@@ -149,6 +149,15 @@ export default function SalarisverhoginBoven76000() {
         en ontdek waar jouw geld werkelijk naartoe gaat, los van wat de
         belasting inhoudt.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Dit is ook de reden dat de stap naar een hoog nettobedrag zoveel bruto kost. Wie €5.000 netto per
+        maand wil overhouden, heeft als eenverdiener ongeveer €90.000 bruto per jaar nodig, terwijl twee
+        inkomens samen daar met ruwweg €10.000 minder komen. Dat staat uitgerekend in{" "}
+        <Link href="/inzichten/is-5000-euro-netto-goed-salaris" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+          is €5.000 netto een goed salaris
+        </Link>
+        .
+      </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/netto-loonsverhoging-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je netto overhoudt van een loonsverhoging</Link> en <Link href="/inzichten/bonus-13e-maand-netto-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoeveel je overhoudt van je bonus of dertiende maand</Link>.</p>
     </>
   );

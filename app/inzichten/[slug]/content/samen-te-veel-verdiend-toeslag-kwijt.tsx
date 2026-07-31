@@ -134,6 +134,15 @@ export default function SamenTeVeelVerdiendToeslagKwijt() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
+          Verdienen jullie samen tussen de €5.000 en €7.500 netto en blijft er alsnog niets over? Bij de
+          twee huishoudens die ik op dat niveau doorrekende bleek er geen lek te zijn, en zat het in de
+          jaaruitgaven en in het verschil tussen wat beide partners dachten. Zie{" "}
+          <Link href="/inzichten/samen-6000-euro-netto-toch-niets-over" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+            samen €6.000 netto en toch niets over
+          </Link>
+          .
+        </p>
+        <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
           Wil je weten of het bij jou klopt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, en met wat er juist niet uit de toon valt. In gewone taal, geen gesprek nodig.
         </p>
         <Link href="/geldscan" className="btn-primary">

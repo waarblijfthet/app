@@ -42,11 +42,29 @@ const AUTO_LABELS: Record<string, string> = {
   zakelijk: "Auto van de zaak",
 };
 
-export default function SalarisRekenaar() {
-  const [inkomen, setInkomen] = useState(4000);
-  const [volwassenen, setVolwassenen] = useState<1 | 2>(2);
-  const [kinderen, setKinderen] = useState(2);
-  const [auto, setAuto] = useState("eigen");
+interface Props {
+  /** Startbedrag van de schuif. Elk artikel opent op zijn eigen zoekvraag. */
+  startInkomen?: number;
+  startVolwassenen?: 1 | 2;
+  startKinderen?: number;
+  startAuto?: string;
+  /** Eerste regel boven de rekenaar, per artikel anders. */
+  kop?: string;
+  intro?: string;
+}
+
+export default function SalarisRekenaar({
+  startInkomen = 4000,
+  startVolwassenen = 2,
+  startKinderen = 2,
+  startAuto = "eigen",
+  kop = "Kort antwoord: ja, €4.000 netto is een goed salaris. Modaal is ongeveer €3.100.",
+  intro = "Maar \u201cgoed\u201d zegt niets over wat er bij jou overblijft, en daar kwam je waarschijnlijk voor. Zet je eigen bedrag en huishouden hieronder, dan zie je wat ik bij een huishouden als het jouwe zou verwachten.",
+}: Props) {
+  const [inkomen, setInkomen] = useState(startInkomen);
+  const [volwassenen, setVolwassenen] = useState<1 | 2>(startVolwassenen);
+  const [kinderen, setKinderen] = useState(startKinderen);
+  const [auto, setAuto] = useState(startAuto);
   const [wisselend, setWisselend] = useState(false);
   const [werkelijkOver, setWerkelijkOver] = useState("");
 
@@ -82,12 +100,10 @@ export default function SalarisRekenaar() {
       style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}
     >
       <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>
-        Kort antwoord: ja, €4.000 netto is een goed salaris. Modaal is ongeveer €3.100.
+        {kop}
       </p>
       <p className="font-body text-sm mb-4" style={{ color: "#4A5A56" }}>
-        Maar &ldquo;goed&rdquo; zegt niets over wat er bij jou overblijft, en daar kwam je waarschijnlijk
-        voor. Zet je eigen bedrag en huishouden hieronder, dan zie je wat ik bij een huishouden als het
-        jouwe zou verwachten.
+        {intro}
       </p>
 
       <div className="rounded-xl p-4 mb-4" style={{ backgroundColor: "#FFFFFF", border: "1px solid #D6E5E0" }}>

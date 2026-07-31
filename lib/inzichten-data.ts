@@ -2642,6 +2642,154 @@ export const artikelen: Artikel[] = [
     ],
   },
   {
+    slug: "is-5000-euro-netto-goed-salaris",
+    cta: {
+      kop: "Je verdient objectief veel. Waarom voelt dat niet zo?",
+      tekst:
+        "Bij dit inkomen is de vraag zelden of je rondkomt, maar waarom je vermogen niet groeit. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt, met de drie dingen die het meest opvallen en wat juist niet.",
+      primairLabel: "Zie wat je krijgt voor €49",
+      primairHref: "/geldscan",
+      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
+      secundairHref: "/analyse",
+    },
+    korteTitel: "Is €5.000 netto een goed salaris?",
+    titel:
+      "Is €5.000 netto een goed salaris? Ja, en dit is wat je er bruto voor moet verdienen",
+    metaTitel: "Is €5.000 netto een goed salaris? (2026)",
+    metaDescription:
+      "€5.000 netto is een hoog salaris. Als eenverdiener kost dat ongeveer €90.000 bruto, met twee inkomens ruim €10.000 minder. Waarom het toch niet voelt als een hoog inkomen.",
+    datum: "2026-07-30",
+    datumFormatted: "30 juli 2026",
+    leestijd: "7",
+    categorie: "Inkomen",
+    excerpt:
+      "€5.000 netto is objectief hoog, dat weet je zelf ook. De vraag is waarom het niet voelt als een hoog inkomen. Wat je er bruto voor moet verdienen, waarom de stap van €4.000 minder oplevert dan je denkt, en wat er bij twee echte huishoudens op dit niveau uitkwam.",
+    preview: {
+      type: "vergelijking",
+      label: "Bruto nodig voor €5.000 netto",
+      items: [
+        { naam: "Eén inkomen", bedrag: 90000, kleur: "#B03A2E" },
+        { naam: "Twee inkomens samen", bedrag: 78000, kleur: "#0B7A6E" },
+      ],
+      noot: "Eigen berekening met de tweede schijf van 49,50% boven €78.426 (2026), niet een tabel van de Belastingdienst",
+    },
+    faq: [
+      {
+        vraag: "Is €5.000 netto per maand een goed salaris in Nederland?",
+        antwoord:
+          "Ja, dat is een hoog salaris. Het modale netto inkomen ligt in 2026 rond €3.100 per maand, dus met €5.000 netto zit je daar ruim boven. Of het genoeg voelt is een andere vraag: dat hangt af van je huishouden, je woonlast en van wat je tegelijk wilt sparen.",
+      },
+      {
+        vraag: "Hoeveel moet je bruto verdienen voor €5.000 netto per maand?",
+        antwoord:
+          "Als eenverdiener ongeveer €90.000 bruto per jaar. Voor €4.000 netto is ongeveer €65.000 bruto nodig, en boven de tweede schijfgrens van €78.426 houd je van elke extra bruto euro ongeveer vijftig cent over. Er moet dus bijna €24.000 bruto bij om €12.000 netto per jaar te winnen. Twee mensen die samen €5.000 netto verdienen komen daar met ongeveer €78.000 bruto samen, doordat ieder zijn eigen heffingskortingen en lagere schijven gebruikt.",
+      },
+      {
+        vraag: "Waarom voelt €5.000 netto niet als een hoog inkomen?",
+        antwoord:
+          "Drie dingen werken tegelijk. Toeslagen zijn op dit niveau volledig verdwenen, dus een deel van de stap omhoog is netto kleiner dan hij lijkt. De woonlast is meestal meegestapt, omdat een hoger inkomen een hogere maximale hypotheek gaf. En boven de tweede schijf levert meer werken minder op, waardoor de gebruikelijke oplossing niet werkt.",
+      },
+      {
+        vraag: "Is €6.000 netto per maand veel?",
+        antwoord:
+          "Ja, en op dat niveau verschuift het patroon verder: de vaste lasten zijn dan bijna nooit het probleem en de vraag gaat vrijwel altijd over de verhouding tussen levensstijl en doelen. Bij twee inkomens speelt daarnaast mee dat beide partners een ander beeld hebben van waar het geld blijft.",
+      },
+      {
+        vraag: "Hoeveel zou je moeten overhouden van €5.000 netto?",
+        antwoord:
+          "Dat hangt volledig af van je huishouden. Bij één persoon zonder kinderen is er volgens mijn vuistregel ruim €1.000 per maand te verwachten, bij een gezin met twee kinderen een paar honderd euro. Reken het door met de rekenaar bovenaan dit artikel en vergelijk het met wat er bij jou werkelijk overblijft.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Belastingdienst: schijventarief inkomstenbelasting 2026",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/",
+      },
+      {
+        label: "CPB: modaal inkomen 2026",
+        url: "https://www.cpb.nl",
+      },
+      {
+        label: "Nibud: huishoudelijke uitgaven",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
+      },
+    ],
+  },
+  {
+    slug: "samen-6000-euro-netto-toch-niets-over",
+    cta: {
+      kop: "Twee inkomens, geen lek, en toch blijft er niets over?",
+      tekst:
+        "Bij dit inkomen is de uitkomst vaak dat er niets te repareren valt. Bij de geldscan kijk ik persoonlijk naar jullie cijfers en schrijf ik op wat er opvalt, wat juist niet, en waar het verschil tussen jullie twee verhalen zit. Geen gesprek nodig.",
+      primairLabel: "Zie wat je krijgt voor €49",
+      primairHref: "/geldscan",
+      secundairLabel: "Liever eerst samen kijken? Doe de analyse",
+      secundairHref: "/analyse",
+    },
+    korteTitel: "Samen €6.000 netto en toch niets over",
+    titel:
+      "Wij verdienen samen €6.000 netto en houden niets over. Bij twee huishoudens zocht ik uit waarom",
+    metaTitel: "Samen €6.000 netto en toch niets over: dit zit eronder",
+    metaDescription:
+      "Twee inkomens, samen €6.000 netto, en toch groeit het spaargeld niet. Bij twee echte huishoudens op dit niveau bleek er geen lek te zijn. Wat er dan wel speelt.",
+    datum: "2026-07-30",
+    datumFormatted: "30 juli 2026",
+    leestijd: "8",
+    categorie: "Inkomen",
+    excerpt:
+      "Twee inkomens, samen tussen €5.000 en €7.500 netto, geen schulden, en toch blijft er niets over. Bij de twee huishoudens die ik op dit niveau doorrekende bleek er geen lek te zijn. Wat er dan wel speelt: de jaaruitgaven, en het feit dat jullie allebei een ander verhaal hebben.",
+    preview: {
+      type: "pijn",
+      label: "Wat er bij twee huishoudens op dit niveau uitkwam",
+      items: [
+        "Geen enkele buitensporige vaste last",
+        "€740 tot €970 per maand aan jaaruitgaven waar niet voor gereserveerd werd",
+        "Beide partners noemden een andere oorzaak, en één van de twee had gelijk",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Is €6.000 netto samen een goed huishoudinkomen?",
+        antwoord:
+          "Ja. Het modale netto inkomen ligt in 2026 rond €3.100 per maand, dus met €6.000 netto samen zit je daar ruim boven. Toch is dit het niveau waarop mensen mij het vaakst vragen waarom er niets overblijft, en dat is geen tegenstrijdigheid: bij dit inkomen is de vraag zelden of je rondkomt, maar waarom je vermogen niet groeit.",
+      },
+      {
+        vraag: "Waarom houden we niets over terwijl we samen goed verdienen?",
+        antwoord:
+          "Bij de twee huishoudens die ik op dit niveau doorrekende was er geen lek. Wat er wel speelde: voorspelbare jaaruitgaven van €740 tot €970 per maand waarvoor niet apart werd gereserveerd, en een spaardoel dat naast de bestaande levensstijl niet paste. Er werd wel gespaard, maar het geld werd er halverwege de maand weer afgehaald zodra er een grotere rekening kwam.",
+      },
+      {
+        vraag: "Is €6.000 netto uit twee inkomens hetzelfde als uit één inkomen?",
+        antwoord:
+          "Netto op de rekening wel, bruto niet. Twee inkomens die samen €6.000 netto halen kosten aanzienlijk minder bruto, omdat ieder van beiden zijn eigen heffingskortingen en lagere belastingschijven gebruikt. Een eenverdiener met hetzelfde nettobedrag zit met een groot deel van zijn salaris in de tweede schijf en levert daar bijna de helft van elke extra euro in.",
+      },
+      {
+        vraag: "Hoeveel zou een gezin met twee inkomens moeten overhouden?",
+        antwoord:
+          "Dat hangt af van het aantal kinderen en van je woonlast. Reken het door met de rekenaar bovenaan dit artikel: die zet naast elkaar wat ik bij een huishouden als het jouwe verwacht en wat er bij jullie werkelijk overblijft. Ligt dat binnen een paar honderd euro van elkaar, dan is er waarschijnlijk niets mis en gaat de vraag over wat je met die ruimte doet.",
+      },
+      {
+        vraag: "Hoe kan het dat mijn partner en ik iets anders denken over waar het geld blijft?",
+        antwoord:
+          "Dat is bij twee inkomens eerder regel dan uitzondering, en het is informatie in plaats van onenigheid. Wie de boodschappen doet ziet dat bedrag en overschat het daardoor. Wie de losse dingen koopt ziet elk bedrag apart en onderschat de optelsom. Bij het gezin met drie kinderen dat ik doorrekende bleek de partner gelijk te hebben: er was niet één groot lek maar veel losse bedragen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: huishoudelijke uitgaven",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
+      },
+      {
+        label: "CBS: inkomen van tweeverdieners",
+        url: "https://www.cbs.nl/nl-nl/cijfers/detail/83676NED",
+      },
+      {
+        label: "Belastingdienst: schijventarief inkomstenbelasting 2026",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/",
+      },
+    ],
+  },
+  {
     slug: "is-4000-euro-netto-goed-salaris-nederland",
     cta: {
       kop: "Belangrijker dan of €4.000 goed is: wat hou jij ervan over?",
