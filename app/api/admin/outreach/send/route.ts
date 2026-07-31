@@ -88,10 +88,10 @@ export async function POST(req: NextRequest) {
           });
           continue;
         }
-        const eersteSubject = eersteMail(contact.naam, doelgroep).subject;
-        mail = followupMail(contact.naam, doelgroep, alGedaan + 1, eersteSubject);
+        const eersteSubject = (await eersteMail(contact.naam, doelgroep)).subject;
+        mail = await followupMail(contact.naam, doelgroep, alGedaan + 1, eersteSubject);
       } else {
-        mail = eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
+        mail = await eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
       }
 
       const { data: verzonden } = await resend.emails.send({

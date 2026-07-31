@@ -80,8 +80,8 @@ export async function GET(request: NextRequest) {
   for (const contact of due) {
     try {
       const doelgroep = (contact.doelgroep ?? "relatietherapeuten") as Doelgroep;
-      const eersteSubject = eersteMail(contact.naam, doelgroep).subject;
-      const mail = followupMail(contact.naam, doelgroep, (contact.followups ?? 0) + 1, eersteSubject);
+      const eersteSubject = (await eersteMail(contact.naam, doelgroep)).subject;
+      const mail = await followupMail(contact.naam, doelgroep, (contact.followups ?? 0) + 1, eersteSubject);
 
       const { data: verzonden, error: sendError } = await resend.emails.send({
         from: "Jarno Koopman <hallo@waarblijfthet.nl>",

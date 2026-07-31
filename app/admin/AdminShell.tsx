@@ -31,6 +31,7 @@ function navGroepen(t: Tellingen): NavGroep[] {
       items: [
         { href: "/admin/vandaag", label: "Vandaag" },
         { href: "/admin/outreach", label: "Outreach" },
+        { href: "/admin/mailsjablonen", label: "Mailsjablonen" },
         { href: "/admin/contacten", label: "Contacten" },
         { href: "/admin/prospects", label: "Prospects" },
       ],
@@ -70,6 +71,7 @@ const MOBIEL_ONDERBALK = [
 ];
 
 const MOBIEL_MEER = [
+  { href: "/admin/mailsjablonen", label: "Mailsjablonen" },
   { href: "/admin/prospects", label: "Prospects" },
   { href: "/admin/analyses", label: "Analyses" },
   { href: "/admin/leads", label: "Leads" },

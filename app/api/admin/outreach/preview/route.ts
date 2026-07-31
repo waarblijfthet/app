@@ -69,8 +69,8 @@ export async function POST(req: NextRequest) {
         overgeslagen.push({ naam: contact.naam, reden: `laatste mail is ${Math.floor(dagen)} dag(en) oud` });
         continue;
       }
-      const eersteSubject = eersteMail(contact.naam, doelgroep).subject;
-      const mail = followupMail(contact.naam, doelgroep, alGedaan + 1, eersteSubject);
+      const eersteSubject = (await eersteMail(contact.naam, doelgroep)).subject;
+      const mail = await followupMail(contact.naam, doelgroep, alGedaan + 1, eersteSubject);
       items.push({
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
@@ -79,7 +79,7 @@ export async function POST(req: NextRequest) {
         naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });
     } else {
-      const mail = eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
+      const mail = await eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
       items.push({
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
