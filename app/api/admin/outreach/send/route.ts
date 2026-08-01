@@ -9,6 +9,7 @@ import {
   Mail,
   eersteMail,
   followupMail,
+  haalHandtekening,
   naarHtml,
   naarText,
 } from "@/lib/outreach/mails";
@@ -26,6 +27,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
+  const handtekening = await haalHandtekening();
   const body = await req.json();
 
   const ids: string[] = body.ids ?? (body.id ? [body.id] : []);
@@ -98,8 +100,8 @@ export async function POST(req: NextRequest) {
         from: "Jarno Koopman <hallo@waarblijfthet.nl>",
         to: contact.email,
         subject: mail.subject,
-        html: naarHtml(mail.alineas),
-        text: naarText(mail.alineas),
+        html: naarHtml(mail.alineas, handtekening),
+        text: naarText(mail.alineas, handtekening),
       });
 
       const update = isFollowup

@@ -6,6 +6,7 @@ import {
   MAX_FOLLOWUPS,
   eersteMail,
   followupMail,
+  haalHandtekening,
   naarHtml,
   naarText,
 } from "@/lib/outreach/mails";
@@ -31,6 +32,7 @@ export async function GET(request: NextRequest) {
 
   const start = Date.now();
   const supabase = createServiceClient();
+  const handtekening = await haalHandtekening();
 
   if (process.env.OUTREACH_AUTO_FOLLOWUP === "uit") {
     await supabase.from("cron_runs").insert({
@@ -87,8 +89,8 @@ export async function GET(request: NextRequest) {
         from: "Jarno Koopman <hallo@waarblijfthet.nl>",
         to: contact.email,
         subject: mail.subject,
-        html: naarHtml(mail.alineas),
-        text: naarText(mail.alineas),
+        html: naarHtml(mail.alineas, handtekening),
+        text: naarText(mail.alineas, handtekening),
       });
       if (sendError) throw new Error(sendError.message);
 

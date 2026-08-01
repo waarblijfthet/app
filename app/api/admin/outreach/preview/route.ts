@@ -7,6 +7,7 @@ import {
   MAX_FOLLOWUPS,
   eersteMail,
   followupMail,
+  haalHandtekening,
   naamIsBetrouwbaar,
   naarText,
 } from "@/lib/outreach/mails";
@@ -20,6 +21,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "Niet ingelogd" }, { status: 401 });
   }
   const supabase = createServiceClient();
+  const handtekening = await haalHandtekening();
   const body = await req.json();
   const ids: string[] = body.ids ?? [];
   const isFollowup = body.type === "followup";
@@ -74,7 +76,7 @@ export async function POST(req: NextRequest) {
       items.push({
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
-        mailNummer: alGedaan + 2, subject: mail.subject, text: naarText(mail.alineas),
+        mailNummer: alGedaan + 2, subject: mail.subject, text: naarText(mail.alineas, handtekening),
         heeftPsZin: true,
         naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });
@@ -83,7 +85,7 @@ export async function POST(req: NextRequest) {
       items.push({
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
-        mailNummer: 1, subject: mail.subject, text: naarText(mail.alineas),
+        mailNummer: 1, subject: mail.subject, text: naarText(mail.alineas, handtekening),
         heeftPsZin: Boolean(contact.ps_zin && String(contact.ps_zin).trim()),
         naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });

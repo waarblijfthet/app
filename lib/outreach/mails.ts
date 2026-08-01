@@ -30,9 +30,23 @@
 // blijven runtime-logica en staan als token in de alineas: {{GROET}},
 // {{PS}}, {{REGIO}}. Subject-tokens: {{voornaam}}. eersteMail en
 // followupMail zijn hierdoor async geworden (ze lezen de database).
+//
+// Handtekening en links (1-aug-2026): de handtekening onderaan elke mail
+// stond hardcoded (HANDTEKENING) en was nergens te zien of te wijzigen in de
+// preview. Nu bewerkbaar via /admin/mailsjablonen (nieuwe tabel
+// outreach_instellingen, sleutel "handtekening"), met dezelfde
+// terugval-aanpak als de mailsjablonen zelf: haalHandtekening() valt terug
+// op DEFAULT_HANDTEKENING als de rij ontbreekt. Zowel de alineas als de
+// handtekening ondersteunen nu "[tekst](url)" voor een klikbare link; de
+// omzetting naar html (<a>) of platte tekst ("tekst (url)") zit in
+// lib/outreach/render.ts, gedeeld met de admin-preview zodat die nooit
+// afwijkt van de echte verstuurde mail. naarHtml/naarText nemen de
+// handtekening nu als parameter (call sites halen hem één keer per request
+// op, niet per mail in een bulkverzending).
 
 import { createServiceClient } from "@/lib/supabase-service";
 import { isGeblokkeerdeNaam, lijktPersoonsnaam } from "@/lib/prospects/extract";
+import { alineaNaarHtml, alineaNaarText } from "@/lib/outreach/render";
 
 export type Doelgroep =
   | "relatietherapeuten"
@@ -51,15 +65,35 @@ export interface Mail {
 export const FOLLOWUP_WACHTDAGEN = 3;
 export const MAX_FOLLOWUPS = 2;
 
-const HANDTEKENING = "Jarno Koopman\nFinancieel coach, Waar blijft het\nwaarblijfthet.nl";
+// Terugval als outreach_instellingen geen rij "handtekening" heeft.
+export const DEFAULT_HANDTEKENING =
+  "Jarno Koopman\nFinancieel coach, Waar blijft het\n[waarblijfthet.nl](https://www.waarblijfthet.nl)";
 
-export function naarHtml(alineas: string[]): string {
-  const blokken = alineas
-    .map((a) => `<p style="margin:0 0 18px 0;">${a.replace(/\n/g, "<br>")}</p>`)
-    .join("\n");
-  const sig =
-    '<p style="margin:24px 0 0 0;">Jarno Koopman<br>Financieel coach, Waar blijft het<br>' +
-    '<a href="https://www.waarblijfthet.nl" style="color:#16211F;">waarblijfthet.nl</a></p>';
+/**
+ * Haalt de bewerkbare handtekening op (1x per request aanroepen, niet per
+ * mail: de tekst is niet contact-afhankelijk). Zelfde vangnet-patroon als
+ * haalTemplate hieronder: ontbrekende migratie of lege rij mag het
+ * versturen nooit blokkeren.
+ */
+export async function haalHandtekening(): Promise<string> {
+  try {
+    const supabase = createServiceClient();
+    const { data, error } = await supabase
+      .from("outreach_instellingen")
+      .select("waarde")
+      .eq("sleutel", "handtekening")
+      .maybeSingle();
+    if (error || !data) return DEFAULT_HANDTEKENING;
+    const tekst = (data.waarde as { tekst?: string } | null)?.tekst;
+    return typeof tekst === "string" && tekst.trim() ? tekst : DEFAULT_HANDTEKENING;
+  } catch {
+    return DEFAULT_HANDTEKENING;
+  }
+}
+
+export function naarHtml(alineas: string[], handtekening: string): string {
+  const blokken = alineas.map((a) => `<p style="margin:0 0 18px 0;">${alineaNaarHtml(a)}</p>`).join("\n");
+  const sig = `<p style="margin:24px 0 0 0;">${alineaNaarHtml(handtekening)}</p>`;
   return (
     '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#16211F;max-width:560px;">' +
     blokken +
@@ -68,8 +102,8 @@ export function naarHtml(alineas: string[]): string {
   );
 }
 
-export function naarText(alineas: string[]): string {
-  return alineas.join("\n\n") + "\n\n" + HANDTEKENING;
+export function naarText(alineas: string[], handtekening: string): string {
+  return alineas.map(alineaNaarText).join("\n\n") + "\n\n" + alineaNaarText(handtekening);
 }
 
 /** Eerste woord van de naam; aanhef en onderwerp gebruiken de voornaam. */

@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DOELGROEP_LABEL, DOELGROEPEN } from "@/lib/outreach/labels";
+import { alineaNaarHtml } from "@/lib/outreach/render";
 
 type MailType = "eerste" | "fu1" | "fu2";
 
@@ -10,6 +11,32 @@ const TYPE_LABEL: Record<MailType, string> = {
   fu1: "Follow-up 1",
   fu2: "Follow-up 2",
 };
+
+// Altijd zichtbare (niet alleen bij hover) legende met de ondersteunde
+// opmaak, met een title-tooltip erbij voor een voorbeeld. Jarno vroeg
+// hiernaar (1-aug-2026) omdat de eerdere uitleg alleen een lopende zin was
+// die makkelijk over het hoofd gezien wordt; dit staat nu direct boven elk
+// bewerkveld waar opmaak werkt.
+function OpmaakHulp() {
+  const badge = "bg-white border border-[#D9DEDC] rounded px-1.5 py-0.5 cursor-help";
+  return (
+    <div className="flex flex-wrap items-center gap-1.5 text-xs text-[#4A5A56]">
+      <span className="text-[10px] uppercase tracking-wide text-[#8B958F]">Opmaak:</span>
+      <span title={'Voorbeeld: **belangrijk** wordt "belangrijk" in vet.'} className={badge}>
+        <strong>**vet**</strong>
+      </span>
+      <span title={'Voorbeeld: *nadruk* of _nadruk_ wordt "nadruk" cursief.'} className={badge}>
+        <em>*cursief*</em>
+      </span>
+      <span
+        title={"Voorbeeld: [bekijk mijn site](https://www.waarblijfthet.nl) wordt een klikbare link."}
+        className={badge}
+      >
+        [linktekst](https://...)
+      </span>
+    </div>
+  );
+}
 
 interface TemplateItem {
   doelgroep: string;
@@ -36,30 +63,35 @@ function tekstNaarAlineas(tekst: string): string[] {
     .filter((a) => a.length > 0);
 }
 
-// Simpele render van de tokens voor het voorbeeld, met vaste voorbeeldnaam,
-// plaats en ps-zin. Zelfde token-logica als renderAlineas in
-// lib/outreach/mails.ts, maar bewust hier los gehouden: dit is puur ter
-// illustratie in de browser, het versturen zelf loopt via de server.
+// Render van de tokens + de [tekst](url)-linksyntax voor het voorbeeld, met
+// vaste voorbeeldnaam, plaats en ps-zin. De tokenlogica ({{GROET}} etc.) is
+// hier bewust los gehouden van lib/outreach/mails.ts (puur illustratie in de
+// browser), maar de link-omzetting (alineaNaarHtml) komt uit
+// lib/outreach/render.ts, dezelfde functie die de echte mail ook gebruikt,
+// zodat de preview daar nooit in afwijkt.
 const VOORBEELD_GROET = "Beste Jan,";
 const VOORBEELD_PS = "(voorbeeld: hier komt de losse ps-zin van dit contact te staan)";
-function renderVoorbeeld(item: Pick<TemplateItem, "type" | "subject" | "subjectNaamloos" | "regioZin" | "alineas">): {
-  subject: string;
-  tekst: string;
-} {
+function renderVoorbeeld(
+  item: Pick<TemplateItem, "type" | "subject" | "subjectNaamloos" | "regioZin" | "alineas">,
+  handtekening: string
+): { subject: string; html: string } {
   const regio = item.regioZin ? item.regioZin.replace(/\{\{plaats\}\}/g, "Utrecht") : null;
-  const regels = item.alineas.map((regelRuw) => {
-    const regel = regelRuw.trim();
-    if (regel === "{{GROET}}") return VOORBEELD_GROET;
-    if (regel === "{{PS}}") return regio !== null || true ? VOORBEELD_PS : "";
-    if (regel === "{{REGIO}}") return regio ?? "";
-    return regelRuw;
-  }).filter((r) => r.length > 0);
+  const regels = item.alineas
+    .map((regelRuw) => {
+      const regel = regelRuw.trim();
+      if (regel === "{{GROET}}") return VOORBEELD_GROET;
+      if (regel === "{{PS}}") return VOORBEELD_PS;
+      if (regel === "{{REGIO}}") return regio ?? "";
+      return regelRuw;
+    })
+    .filter((r) => r.length > 0);
   const subjectTemplate = item.subject ?? "";
   const subject =
     item.type === "eerste"
       ? subjectTemplate.replace(/\{\{voornaam\}\}/g, "Jan")
       : `Re: ${subjectTemplate.replace(/\{\{voornaam\}\}/g, "Jan")}`;
-  return { subject, tekst: regels.join("\n\n") };
+  const paragrafen = [...regels, handtekening].map((r) => `<p style="margin:0 0 14px 0;">${alineaNaarHtml(r)}</p>`);
+  return { subject, html: paragrafen.join("\n") };
 }
 
 export default function MailsjablonenTabblad() {
@@ -80,14 +112,32 @@ export default function MailsjablonenTabblad() {
   const [zojuistOpgeslagen, setZojuistOpgeslagen] = useState(false);
   const [resetBevestigen, setResetBevestigen] = useState(false);
 
+  // Handtekening, los van de sjablonen (geldt voor alle doelgroepen/mailtypen).
+  const [handtekeningOrigineel, setHandtekeningOrigineel] = useState("");
+  const [handtekeningAangepast, setHandtekeningAangepast] = useState(false);
+  const [handtekening, setHandtekening] = useState("");
+  const [handtekeningBezig, setHandtekeningBezig] = useState(false);
+  const [handtekeningFout, setHandtekeningFout] = useState<string | null>(null);
+  const [handtekeningOpgeslagen, setHandtekeningOpgeslagen] = useState(false);
+  const [handtekeningResetBevestigen, setHandtekeningResetBevestigen] = useState(false);
+
   const laadTemplates = useCallback(async () => {
     setLaden(true);
     setFout(null);
     try {
-      const res = await fetch("/api/admin/outreach/templates");
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
-      setItems(data.items ?? []);
+      const [templatesRes, handtekeningRes] = await Promise.all([
+        fetch("/api/admin/outreach/templates"),
+        fetch("/api/admin/outreach/handtekening"),
+      ]);
+      const templatesData = await templatesRes.json();
+      if (!templatesRes.ok) throw new Error(templatesData.error ?? `HTTP ${templatesRes.status}`);
+      setItems(templatesData.items ?? []);
+
+      const handtekeningData = await handtekeningRes.json();
+      if (!handtekeningRes.ok) throw new Error(handtekeningData.error ?? `HTTP ${handtekeningRes.status}`);
+      setHandtekeningOrigineel(handtekeningData.tekst ?? "");
+      setHandtekening(handtekeningData.tekst ?? "");
+      setHandtekeningAangepast(Boolean(handtekeningData.aangepast));
     } catch (err) {
       setFout(String(err));
     } finally {
@@ -126,6 +176,8 @@ export default function MailsjablonenTabblad() {
     }
     return alineasNaarTekst(huidig.alineas) !== tekst;
   }, [huidig, subject, subjectNaamloos, regioZin, tekst]);
+
+  const handtekeningIsVuil = handtekening !== handtekeningOrigineel;
 
   async function opslaan() {
     setOpslaanBezig(true);
@@ -173,8 +225,44 @@ export default function MailsjablonenTabblad() {
     }
   }
 
+  async function handtekeningOpslaan() {
+    setHandtekeningBezig(true);
+    setHandtekeningFout(null);
+    try {
+      const res = await fetch("/api/admin/outreach/handtekening", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ tekst: handtekening }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
+      setHandtekeningOpgeslagen(true);
+      await laadTemplates();
+    } catch (err) {
+      setHandtekeningFout(String(err));
+    } finally {
+      setHandtekeningBezig(false);
+    }
+  }
+
+  async function handtekeningTerugNaarStandaard() {
+    setHandtekeningBezig(true);
+    setHandtekeningFout(null);
+    try {
+      const res = await fetch("/api/admin/outreach/handtekening", { method: "DELETE" });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? `HTTP ${res.status}`);
+      setHandtekeningResetBevestigen(false);
+      await laadTemplates();
+    } catch (err) {
+      setHandtekeningFout(String(err));
+    } finally {
+      setHandtekeningBezig(false);
+    }
+  }
+
   const voorbeeld = huidig
-    ? renderVoorbeeld({ type, subject, subjectNaamloos, regioZin, alineas: tekstNaarAlineas(tekst) })
+    ? renderVoorbeeld({ type, subject, subjectNaamloos, regioZin, alineas: tekstNaarAlineas(tekst) }, handtekening)
     : null;
 
   const pill = (actief: boolean) =>
@@ -195,8 +283,72 @@ export default function MailsjablonenTabblad() {
         <h1 className="font-display text-2xl font-light text-[#16211F]">Mailsjablonen</h1>
         <p className="text-sm text-[#4A5A56] mt-1">
           De teksten die de outreach-mails gebruiken, per doelgroep en per moment in de reeks. Wijzigingen
-          gelden meteen voor nieuwe verzendingen (handmatig en via de automatische follow-up-cron).
+          gelden meteen voor nieuwe verzendingen (handmatig en via de automatische follow-up-cron). Overal
+          waar je tekst kunt bewerken (de sjablonen en de handtekening) werkt dezelfde lichte opmaak: vet,
+          cursief en een klikbare link. Het legendaatje boven elk tekstveld laat de syntax zien; hover erover
+          voor een voorbeeld. In de platte-tekstversie van de mail (voor mailprogramma&apos;s zonder html)
+          verdwijnen vet/cursief-markers en wordt een link &quot;tekst (url)&quot;.
         </p>
+      </div>
+
+      {/* Handtekening, geldt voor alle doelgroepen en mailtypen */}
+      <div className="rounded-xl border border-[#E6E9E7] p-4 space-y-3">
+        <div className="flex items-center justify-between gap-2">
+          <h2 className="font-display text-base font-medium text-[#16211F]">Handtekening</h2>
+          {handtekeningAangepast && <span className="text-[10px] text-[#8B958F]">aangepast</span>}
+        </div>
+        <p className="text-xs text-[#8B958F]">
+          Staat onderaan elke mail (eerste mail en beide follow-ups). Een lege regel = nieuwe regel.
+        </p>
+        <OpmaakHulp />
+        <textarea
+          className="w-full rounded-lg border border-[#D9DEDC] px-3 py-2 text-sm font-mono"
+          rows={4}
+          value={handtekening}
+          onChange={(e) => setHandtekening(e.target.value)}
+        />
+        {handtekeningFout && (
+          <div className="rounded-lg border border-red-200 bg-red-50 text-red-800 text-sm px-3 py-2">
+            {handtekeningFout}
+          </div>
+        )}
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => void handtekeningOpslaan()}
+            disabled={!handtekeningIsVuil || handtekeningBezig}
+            className="text-sm px-4 py-2 rounded-lg font-medium bg-[#16211F] text-white disabled:opacity-40"
+          >
+            {handtekeningBezig ? "Bezig…" : "Opslaan"}
+          </button>
+          {handtekeningOpgeslagen && !handtekeningIsVuil && (
+            <span className="text-xs text-[#0B7A6E]">Opgeslagen</span>
+          )}
+          {handtekeningAangepast &&
+            (handtekeningResetBevestigen ? (
+              <span className="text-xs text-[#4A5A56] flex items-center gap-2">
+                Zeker weten? Dit verwijdert de aanpassing.
+                <button
+                  type="button"
+                  onClick={() => void handtekeningTerugNaarStandaard()}
+                  className="underline text-red-700"
+                >
+                  Ja, terug naar standaard
+                </button>
+                <button type="button" onClick={() => setHandtekeningResetBevestigen(false)} className="underline">
+                  Annuleren
+                </button>
+              </span>
+            ) : (
+              <button
+                type="button"
+                onClick={() => setHandtekeningResetBevestigen(true)}
+                className="text-xs px-3 py-2 rounded-lg text-[#4A5A56] hover:bg-[#F7F8F7]"
+              >
+                Terug naar standaardtekst
+              </button>
+            ))}
+        </div>
       </div>
 
       {/* Doelgroep-keuze */}
@@ -238,6 +390,7 @@ export default function MailsjablonenTabblad() {
               </>
             )}
           </div>
+          <OpmaakHulp />
 
           {type === "eerste" && (
             <>
@@ -324,7 +477,7 @@ export default function MailsjablonenTabblad() {
           )}
         </div>
 
-        {/* Voorbeeld */}
+        {/* Voorbeeld, gerenderd zoals de html-mail (inclusief handtekening en klikbare links) */}
         <div className="space-y-2 rounded-xl border border-[#E6E9E7] p-4 bg-[#F7F8F7]">
           <p className="text-xs font-medium text-[#8B958F] uppercase tracking-wide">
             Voorbeeld (Jan, Utrecht{type === "eerste" ? ", met een ps-zin" : ""})
@@ -335,11 +488,16 @@ export default function MailsjablonenTabblad() {
             </p>
           )}
           {voorbeeld && (
-            <div className="rounded-lg bg-white border border-[#E6E9E7] p-4 text-sm text-[#16211F] whitespace-pre-wrap">
+            <div className="rounded-lg bg-white border border-[#E6E9E7] p-4 text-sm text-[#16211F]">
               <p className="font-medium mb-3">{voorbeeld.subject}</p>
-              {voorbeeld.tekst}
+              {/* eslint-disable-next-line react/no-danger */}
+              <div dangerouslySetInnerHTML={{ __html: voorbeeld.html }} />
             </div>
           )}
+          <p className="text-xs text-[#8B958F]">
+            Zo ziet de html-mail eruit; links zijn hier al klikbaar. In de platte-tekstversie (voor
+            mailprogramma&apos;s zonder html) staat een link als &quot;linktekst (url)&quot;.
+          </p>
         </div>
       </div>
     </div>
