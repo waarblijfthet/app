@@ -11,7 +11,7 @@ interface TeDoen {
   contactenActieRijp: number;
 }
 
-interface WeekBudget {
+interface DagBudget {
   verstuurd: number;
   budget: number;
   resterend: number;
@@ -72,7 +72,7 @@ interface ActiviteitItem {
 interface VandaagData {
   bezoek: Bezoek;
   teDoen: TeDoen;
-  weekbudget: WeekBudget;
+  dagbudget: DagBudget;
   week: { dezeWeek: WeekTelling; vorigeWeek: WeekTelling };
   repliesPerDoelgroep: DoelgroepReplies[];
   trechter: Trechter;
@@ -159,7 +159,7 @@ export default function VandaagDashboard() {
   if (fout) return <div className="bg-danger-bg text-danger text-sm rounded-md px-4 py-3">{fout}</div>;
   if (!data) return null;
 
-  const { teDoen, weekbudget, week, repliesPerDoelgroep, trechter, activiteit } = data;
+  const { teDoen, dagbudget, week, repliesPerDoelgroep, trechter, activiteit } = data;
 
   const teDoenRijen: { aantal: number; tekst: string; href: string }[] = [];
   if (teDoen.gereageerd > 0) {
@@ -179,7 +179,7 @@ export default function VandaagDashboard() {
   if (teDoen.mailsTeVersturen > 0) {
     teDoenRijen.push({
       aantal: teDoen.mailsTeVersturen,
-      tekst: `mail${teDoen.mailsTeVersturen === 1 ? "" : "s"} te versturen binnen het weekbudget`,
+      tekst: `mail${teDoen.mailsTeVersturen === 1 ? "" : "s"} te versturen binnen het dagbudget`,
       href: "/admin/outreach",
     });
   }
@@ -298,12 +298,12 @@ export default function VandaagDashboard() {
         )}
       </section>
 
-      {/* Blok 2: Weekbudget */}
+      {/* Blok 2: Dagbudget */}
       <section className="flex items-center justify-between text-sm text-text-soft bg-[#F5F0E8] rounded-lg px-4 py-2.5">
         <span>
-          Deze week: <span className="font-medium text-primary">{weekbudget.verstuurd} van {weekbudget.budget}</span> verstuurd
+          Vandaag: <span className="font-medium text-primary">{dagbudget.verstuurd} van {dagbudget.budget}</span> verstuurd
         </span>
-        <span className="text-text-muted text-xs">{weekbudget.resterend} nog te versturen deze week</span>
+        <span className="text-text-muted text-xs">{dagbudget.resterend} nog te versturen vandaag</span>
       </section>
 
       {/* Blok 3: Deze week vs vorige week */}

@@ -30,7 +30,7 @@ interface PreviewItem {
   naamBetrouwbaar: boolean;
 }
 
-interface WeekBudget {
+interface DagBudget {
   verstuurd: number;
   budget: number;
   resterend: number;
@@ -150,9 +150,9 @@ export default function OutreachTabblad() {
   const [previewGeselecteerd, setPreviewGeselecteerd] = useState(0);
   const [previewVerzenden, setPreviewVerzenden] = useState(false);
 
-  // Weekbudget: los van de geselecteerde weergave, want de preview-modal
+  // Dagbudget: los van de geselecteerde weergave, want de preview-modal
   // (gedeeld door werklijst en tabel) moet altijd kunnen waarschuwen.
-  const [budget, setBudget] = useState<WeekBudget | null>(null);
+  const [budget, setBudget] = useState<DagBudget | null>(null);
 
   // Bulkacties: doelgroep/plaats-wijzigen en verwijderen hebben invoer nodig,
   // vandaar het gedeelde modal. Stop mails en archiveren gaan direct.
@@ -193,15 +193,53 @@ export default function OutreachTabblad() {
 
   const laadBudget = useCallback(async () => {
     try {
-      const res = await fetch("/api/admin/outreach/weekbudget");
+      const res = await fetch("/api/admin/outreach/dagbudget");
       const data = await res.json();
       if (res.ok) setBudget(data);
     } catch {
-      // Stil falen: het weekbudget is een richtgetal, geen blokkade.
+      // Stil falen: het dagbudget is een richtgetal, geen blokkade.
     }
   }, []);
 
   useEffect(() => { laadBudget(); }, [laadBudget]);
+
+  // Automatisch de eerste mail versturen (toggle, sleutel "automatisering"
+  // in outreach_instellingen). Staat los van het budget hierboven: de cron
+  // (app/api/cron/outreach-eerste-mail) checkt deze toggle zelf nog een
+  // keer voor hij iets verstuurt, dit is puur de admin-bediening ervan.
+  const [autoEersteMail, setAutoEersteMail] = useState<boolean | null>(null);
+  const [autoBezig, setAutoBezig] = useState(false);
+
+  const laadAutomatisering = useCallback(async () => {
+    try {
+      const res = await fetch("/api/admin/outreach/automatisering");
+      const data = await res.json();
+      if (res.ok) setAutoEersteMail(Boolean(data.eersteMailAutomatisch));
+    } catch {
+      // Stil falen: de toggle blijft dan gewoon op zijn laatst bekende stand.
+    }
+  }, []);
+
+  useEffect(() => { laadAutomatisering(); }, [laadAutomatisering]);
+
+  async function zetAutoEersteMail(aan: boolean) {
+    setAutoBezig(true);
+    const vorige = autoEersteMail;
+    setAutoEersteMail(aan);
+    try {
+      const res = await fetch("/api/admin/outreach/automatisering", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ eersteMailAutomatisch: aan }),
+      });
+      if (!res.ok) throw new Error("opslaan mislukt");
+    } catch {
+      setAutoEersteMail(vorige);
+      toonMelding("Kon de instelling niet opslaan, probeer het nog eens.");
+    } finally {
+      setAutoBezig(false);
+    }
+  }
 
   function toonMelding(tekst: string) {
     setMelding(tekst);
@@ -434,7 +472,8 @@ export default function OutreachTabblad() {
         <div>
           <h2 className="font-display text-xl font-semibold text-primary">Outreach</h2>
           <p className="text-text-muted text-xs mt-1">
-            Mail 2 en 3 gaan vanzelf (dag 3-4 en dag 8-9, elke ochtend via de cron). Handmatig kan altijd eerder.
+            Mail 2 en 3 gaan altijd automatisch (dag 3-4 en dag 8-9, elke ochtend via de cron). Mail 1
+            optioneel automatisch, zie de schakelaar hieronder. Handmatig kan bij alle drie altijd eerder.
           </p>
         </div>
         <div className="flex gap-1 bg-[#F0F3F1] rounded-lg p-1">
@@ -455,6 +494,33 @@ export default function OutreachTabblad() {
             </button>
           ))}
         </div>
+      </div>
+
+      <div className="flex items-center justify-between flex-wrap gap-3 bg-white border border-[#E6E9E7] rounded-lg px-4 py-3">
+        <div>
+          <p className="text-sm font-medium text-primary">Eerste mail automatisch versturen</p>
+          <p className="text-xs text-text-muted mt-0.5">
+            Staat dit aan, dan verstuurt de dagelijkse cron (07:20 UTC) zelf de eerste mail aan nieuwe
+            contacten, tot het dagbudget hierboven op is. Staat het uit, dan blijft dit een bewuste klik
+            in de werklijst, zoals nu.
+          </p>
+        </div>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={autoEersteMail === true}
+          disabled={autoEersteMail === null || autoBezig}
+          onClick={() => zetAutoEersteMail(!autoEersteMail)}
+          className={`shrink-0 w-12 h-7 rounded-full transition-colors relative disabled:opacity-50 ${
+            autoEersteMail ? "bg-[#0B7A6E]" : "bg-[#D9DEDC]"
+          }`}
+        >
+          <span
+            className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+              autoEersteMail ? "translate-x-5" : ""
+            }`}
+          />
+        </button>
       </div>
 
       {fout && <div className="bg-danger-bg text-danger text-sm rounded-md px-4 py-3">{fout}</div>}
@@ -687,7 +753,7 @@ export default function OutreachTabblad() {
                 )}
                 {preview.type === "eerste" && budget && preview.items.length > budget.resterend && (
                   <span className="text-amber-600">
-                    Let op: dit is meer dan het weekbudget (nog {budget.resterend} van {budget.budget} deze week, {budget.verstuurd} al verstuurd). Je kunt dit overrulen.{" "}
+                    Let op: dit is meer dan het dagbudget (nog {budget.resterend} van {budget.budget} vandaag, {budget.verstuurd} al verstuurd). Je kunt dit overrulen.{" "}
                   </span>
                 )}
                 {preview.overgeslagen.length > 0 && (

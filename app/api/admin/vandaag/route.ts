@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
 import { berekenWerkvoorraad } from "@/lib/outreach/werkvoorraad";
-import { berekenWeekbudget, maandagGrens } from "@/lib/outreach/weekbudget";
+import { berekenDagbudget, maandagGrens } from "@/lib/outreach/dagbudget";
 import { DOELGROEPEN, DOELGROEP_LABEL } from "@/lib/outreach/labels";
 import { OutreachContact } from "@/lib/outreach/types";
 
@@ -13,7 +13,7 @@ import { OutreachContact } from "@/lib/outreach/types";
  *
  * Blok 1 en 2 hergebruiken exact dezelfde bron (dezelfde outreach_contacts-
  * fetch als GET /api/admin/outreach zonder parameters) en exact dezelfde
- * functies (lib/outreach/werkvoorraad.ts, lib/outreach/weekbudget.ts) als de
+ * functies (lib/outreach/werkvoorraad.ts, lib/outreach/dagbudget.ts) als de
  * outreach-werklijst zelf, zodat de getallen hier niet uit de pas kunnen
  * lopen met wat /admin/outreach laat zien.
  *
@@ -59,16 +59,16 @@ export async function GET() {
 
     // ── Bronnen die voor meerdere blokken worden hergebruikt ────────────────
     // Zelfde query als GET /api/admin/outreach zonder parameters: alle rijen,
-    // geen limiet. Voedt blok 1 (werkvoorraad), blok 2 (weekbudget, eigen
+    // geen limiet. Voedt blok 1 (werkvoorraad), blok 2 (dagbudget, eigen
     // count-query), blok 3 (replies), blok 4 (verstuurd/gereageerd per
     // doelgroep) en blok 6 (gereageerd-activiteit).
-    const [contactenRes, mailsRes, weekbudget] = await Promise.all([
+    const [contactenRes, mailsRes, dagbudget] = await Promise.all([
       supabase.from("outreach_contacts").select("*").order("created_at", { ascending: false }),
       supabase
         .from("outreach_mails")
         .select("id,contact_id,nummer,verstuurd_at,geopend_at")
         .order("verstuurd_at", { ascending: false }),
-      berekenWeekbudget(supabase, nu),
+      berekenDagbudget(supabase, nu),
     ]);
     if (contactenRes.error) throw contactenRes.error;
     if (mailsRes.error) throw mailsRes.error;
@@ -118,7 +118,7 @@ export async function GET() {
     const teDoen = {
       gereageerd: werkvoorraad.stapels.gereageerd.length,
       followupRijp: werkvoorraad.stapels.followupRijp.length,
-      mailsTeVersturen: Math.min(werkvoorraad.stapels.klaarOmTeVersturen.length, weekbudget.resterend),
+      mailsTeVersturen: Math.min(werkvoorraad.stapels.klaarOmTeVersturen.length, dagbudget.resterend),
       aanvragenZonderRapport: {
         aantal: aanvragenZonderRapportRes.count ?? 0,
         oudsteDagen,
@@ -342,7 +342,7 @@ export async function GET() {
     return NextResponse.json({
       bezoek,
       teDoen,
-      weekbudget,
+      dagbudget,
       week: { dezeWeek, vorigeWeek },
       repliesPerDoelgroep,
       trechter,

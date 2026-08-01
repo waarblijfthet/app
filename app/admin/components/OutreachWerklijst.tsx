@@ -12,7 +12,7 @@ import {
 import { berekenWerkvoorraad } from "@/lib/outreach/werkvoorraad";
 import { OutreachContact } from "@/lib/outreach/types";
 
-interface WeekBudget {
+interface DagBudget {
   verstuurd: number;
   budget: number;
   resterend: number;
@@ -47,7 +47,7 @@ export default function OutreachWerklijst({
   verversTeller,
 }: Props) {
   const [contacten, setContacten] = useState<OutreachContact[]>([]);
-  const [budget, setBudget] = useState<WeekBudget | null>(null);
+  const [budget, setBudget] = useState<DagBudget | null>(null);
   const [laden, setLaden] = useState(true);
   const [fout, setFout] = useState<string | null>(null);
   const [bezig, setBezig] = useState<string | null>(null);
@@ -65,12 +65,12 @@ export default function OutreachWerklijst({
     try {
       const [contactenRes, budgetRes] = await Promise.all([
         fetch("/api/admin/outreach"),
-        fetch("/api/admin/outreach/weekbudget"),
+        fetch("/api/admin/outreach/dagbudget"),
       ]);
       const contactenData = await contactenRes.json();
       if (!contactenRes.ok) throw new Error(contactenData?.error ?? "Kon contacten niet laden.");
       const budgetData = await budgetRes.json();
-      if (!budgetRes.ok) throw new Error(budgetData?.error ?? "Kon weekbudget niet laden.");
+      if (!budgetRes.ok) throw new Error(budgetData?.error ?? "Kon dagbudget niet laden.");
       setContacten(Array.isArray(contactenData) ? contactenData : []);
       setBudget(budgetData);
     } catch (e) {
@@ -112,9 +112,9 @@ export default function OutreachWerklijst({
       {budget && (
         <div className="flex items-center justify-between text-sm text-text-soft bg-[#F5F0E8] rounded-lg px-4 py-2.5">
           <span>
-            Deze week: <span className="font-medium text-primary">{budget.verstuurd} van {budget.budget}</span> verstuurd
+            Vandaag: <span className="font-medium text-primary">{budget.verstuurd} van {budget.budget}</span> verstuurd
           </span>
-          <span className="text-text-muted text-xs">{budget.resterend} nog te versturen deze week</span>
+          <span className="text-text-muted text-xs">{budget.resterend} nog te versturen vandaag</span>
         </div>
       )}
 
@@ -207,7 +207,7 @@ export default function OutreachWerklijst({
           className="w-full flex items-center justify-between px-4 py-3 text-left"
         >
           <span className="font-body font-semibold text-primary text-sm">
-            Klaar om te versturen{budget ? `, nog ${budget.resterend} deze week` : ""}
+            Klaar om te versturen{budget ? `, nog ${budget.resterend} vandaag` : ""}
           </span>
           <span className="text-xs bg-primary text-white rounded-full px-2 py-0.5">{stapels.klaarOmTeVersturen.length}</span>
         </button>

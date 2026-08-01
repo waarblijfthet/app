@@ -8,6 +8,10 @@
     {
       "path": "/api/cron/outreach-followups",
       "schedule": "15 7 * * *"
+    },
+    {
+      "path": "/api/cron/outreach-eerste-mail",
+      "schedule": "20 7 * * *"
     }
   ]
 }
