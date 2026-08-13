@@ -203,41 +203,57 @@ export default function OutreachTabblad() {
 
   useEffect(() => { laadBudget(); }, [laadBudget]);
 
-  // Automatisch de eerste mail versturen (toggle, sleutel "automatisering"
-  // in outreach_instellingen). Staat los van het budget hierboven: de cron
-  // (app/api/cron/outreach-eerste-mail) checkt deze toggle zelf nog een
-  // keer voor hij iets verstuurt, dit is puur de admin-bediening ervan.
+  // Automatisch mail 1/2/3 versturen (drie losse toggles, sleutel
+  // "automatisering" in outreach_instellingen). Staat los van het budget
+  // hierboven: de crons (app/api/cron/outreach-eerste-mail en
+  // app/api/cron/outreach-followups) checken deze toggles zelf nog een keer
+  // voor ze iets versturen, dit is puur de admin-bediening ervan.
   const [autoEersteMail, setAutoEersteMail] = useState<boolean | null>(null);
-  const [autoBezig, setAutoBezig] = useState(false);
+  const [autoTweedeMail, setAutoTweedeMail] = useState<boolean | null>(null);
+  const [autoDerdeMail, setAutoDerdeMail] = useState<boolean | null>(null);
+  const [autoBezig, setAutoBezig] = useState<"eerste" | "tweede" | "derde" | null>(null);
 
   const laadAutomatisering = useCallback(async () => {
     try {
       const res = await fetch("/api/admin/outreach/automatisering");
       const data = await res.json();
-      if (res.ok) setAutoEersteMail(Boolean(data.eersteMailAutomatisch));
+      if (res.ok) {
+        setAutoEersteMail(Boolean(data.eersteMailAutomatisch));
+        setAutoTweedeMail(Boolean(data.tweedeMailAutomatisch));
+        setAutoDerdeMail(Boolean(data.derdeMailAutomatisch));
+      }
     } catch {
-      // Stil falen: de toggle blijft dan gewoon op zijn laatst bekende stand.
+      // Stil falen: de toggles blijven dan gewoon op hun laatst bekende stand.
     }
   }, []);
 
   useEffect(() => { laadAutomatisering(); }, [laadAutomatisering]);
 
-  async function zetAutoEersteMail(aan: boolean) {
-    setAutoBezig(true);
-    const vorige = autoEersteMail;
-    setAutoEersteMail(aan);
+  async function zetAutomatisering(
+    mail: "eerste" | "tweede" | "derde",
+    aan: boolean
+  ) {
+    const config = {
+      eerste: { veld: "eersteMailAutomatisch", waarde: autoEersteMail, set: setAutoEersteMail },
+      tweede: { veld: "tweedeMailAutomatisch", waarde: autoTweedeMail, set: setAutoTweedeMail },
+      derde: { veld: "derdeMailAutomatisch", waarde: autoDerdeMail, set: setAutoDerdeMail },
+    }[mail];
+
+    setAutoBezig(mail);
+    const vorige = config.waarde;
+    config.set(aan);
     try {
       const res = await fetch("/api/admin/outreach/automatisering", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ eersteMailAutomatisch: aan }),
+        body: JSON.stringify({ [config.veld]: aan }),
       });
       if (!res.ok) throw new Error("opslaan mislukt");
     } catch {
-      setAutoEersteMail(vorige);
+      config.set(vorige);
       toonMelding("Kon de instelling niet opslaan, probeer het nog eens.");
     } finally {
-      setAutoBezig(false);
+      setAutoBezig(null);
     }
   }
 
@@ -509,8 +525,8 @@ export default function OutreachTabblad() {
           type="button"
           role="switch"
           aria-checked={autoEersteMail === true}
-          disabled={autoEersteMail === null || autoBezig}
-          onClick={() => zetAutoEersteMail(!autoEersteMail)}
+          disabled={autoEersteMail === null || autoBezig === "eerste"}
+          onClick={() => zetAutomatisering("eerste", !autoEersteMail)}
           className={`shrink-0 w-12 h-7 rounded-full transition-colors relative disabled:opacity-50 ${
             autoEersteMail ? "bg-[#0B7A6E]" : "bg-[#D9DEDC]"
           }`}
@@ -518,6 +534,58 @@ export default function OutreachTabblad() {
           <span
             className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
               autoEersteMail ? "translate-x-5" : ""
+            }`}
+          />
+        </button>
+      </div>
+
+      <div className="flex items-center justify-between flex-wrap gap-3 bg-white border border-[#E6E9E7] rounded-lg px-4 py-3">
+        <div>
+          <p className="text-sm font-medium text-primary">Mail 2 (follow-up 1) automatisch versturen</p>
+          <p className="text-xs text-text-muted mt-0.5">
+            Staat dit aan, dan verstuurt de dagelijkse cron zelf follow-up 1 zodra een contact daar
+            (3-4 dagen na de eerste mail) aan toe is. Staat het uit, dan blijft dit een bewuste klik.
+          </p>
+        </div>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={autoTweedeMail === true}
+          disabled={autoTweedeMail === null || autoBezig === "tweede"}
+          onClick={() => zetAutomatisering("tweede", !autoTweedeMail)}
+          className={`shrink-0 w-12 h-7 rounded-full transition-colors relative disabled:opacity-50 ${
+            autoTweedeMail ? "bg-[#0B7A6E]" : "bg-[#D9DEDC]"
+          }`}
+        >
+          <span
+            className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+              autoTweedeMail ? "translate-x-5" : ""
+            }`}
+          />
+        </button>
+      </div>
+
+      <div className="flex items-center justify-between flex-wrap gap-3 bg-white border border-[#E6E9E7] rounded-lg px-4 py-3">
+        <div>
+          <p className="text-sm font-medium text-primary">Mail 3 (follow-up 2) automatisch versturen</p>
+          <p className="text-xs text-text-muted mt-0.5">
+            Staat dit aan, dan verstuurt de dagelijkse cron zelf follow-up 2 zodra een contact daar
+            (5-9 dagen na follow-up 1) aan toe is. Staat het uit, dan blijft dit een bewuste klik.
+          </p>
+        </div>
+        <button
+          type="button"
+          role="switch"
+          aria-checked={autoDerdeMail === true}
+          disabled={autoDerdeMail === null || autoBezig === "derde"}
+          onClick={() => zetAutomatisering("derde", !autoDerdeMail)}
+          className={`shrink-0 w-12 h-7 rounded-full transition-colors relative disabled:opacity-50 ${
+            autoDerdeMail ? "bg-[#0B7A6E]" : "bg-[#D9DEDC]"
+          }`}
+        >
+          <span
+            className={`absolute top-1 left-1 w-5 h-5 rounded-full bg-white shadow transition-transform ${
+              autoDerdeMail ? "translate-x-5" : ""
             }`}
           />
         </button>

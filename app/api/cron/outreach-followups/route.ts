@@ -22,8 +22,17 @@ const FU2_NA_VORIGE_DAGEN = 5;
 const MAX_PER_RUN = 20;
 
 // GET /api/cron/outreach-followups (dagelijks via Vercel cron)
-// Verstuurt automatisch follow-up 1 en 2 voor contacten die eraan toe zijn.
-// Uitzetten kan met env OUTREACH_AUTO_FOLLOWUP=uit (handmatige knoppen blijven werken).
+// Verstuurt automatisch follow-up 1 (mail 2) en follow-up 2 (mail 3) voor
+// contacten die eraan toe zijn, maar allebei alleen als hun eigen toggle
+// ("tweedeMailAutomatisch" / "derdeMailAutomatisch" in outreach_instellingen,
+// sleutel "automatisering", zelfde patroon als "eersteMailAutomatisch", zie
+// app/api/admin/outreach/automatisering/route.ts) aan staat. Beide default
+// UIT: zonder toggle verandert er niets aan het bestaande gedrag, blijft een
+// follow-up een bewuste, handmatige actie in /admin/outreach. De twee
+// toggles staan los van elkaar, dus mail 2 kan automatisch gaan terwijl
+// mail 3 nog handmatig blijft (of omgekeerd).
+// OUTREACH_AUTO_FOLLOWUP=uit blijft daarnaast werken als harde noodstop die
+// alles uitzet, los van de toggles (handmatige knoppen blijven werken).
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
@@ -40,6 +49,27 @@ export async function GET(request: NextRequest) {
       duration_ms: Date.now() - start,
       status: "ok",
       result: { overgeslagen: "OUTREACH_AUTO_FOLLOWUP=uit" },
+    });
+    return NextResponse.json({ ok: true, overgeslagen: true });
+  }
+
+  const { data: instelling } = await supabase
+    .from("outreach_instellingen")
+    .select("waarde")
+    .eq("sleutel", "automatisering")
+    .maybeSingle();
+  const waarde = instelling?.waarde as
+    | { tweedeMailAutomatisch?: boolean; derdeMailAutomatisch?: boolean }
+    | null;
+  const mail2Aan = Boolean(waarde?.tweedeMailAutomatisch);
+  const mail3Aan = Boolean(waarde?.derdeMailAutomatisch);
+
+  if (!mail2Aan && !mail3Aan) {
+    await supabase.from("cron_runs").insert({
+      job: "outreach-followups",
+      duration_ms: Date.now() - start,
+      status: "ok",
+      result: { overgeslagen: "tweedeMailAutomatisch en derdeMailAutomatisch staan beide uit" },
     });
     return NextResponse.json({ ok: true, overgeslagen: true });
   }
@@ -67,9 +97,11 @@ export async function GET(request: NextRequest) {
   const due = (kandidaten ?? [])
     .filter((c) => {
       if ((c.followups ?? 0) === 0) {
+        if (!mail2Aan) return false;
         if (!c.verstuurd_at) return false;
         return (nu - new Date(c.verstuurd_at).getTime()) / 86400000 >= FU1_NA_DAGEN;
       }
+      if (!mail3Aan) return false;
       if (!c.laatste_followup_at) return false;
       return (nu - new Date(c.laatste_followup_at).getTime()) / 86400000 >= FU2_NA_VORIGE_DAGEN;
     })
@@ -138,7 +170,7 @@ export async function GET(request: NextRequest) {
     job: "outreach-followups",
     duration_ms: Date.now() - start,
     status: fouten.length > 0 ? "error" : "ok",
-    result: { kandidaten: due.length, verstuurd, fouten },
+    result: { kandidaten: due.length, verstuurd, fouten, mail2Aan, mail3Aan },
   });
 
   return NextResponse.json({ ok: true, kandidaten: due.length, verstuurd, fouten });
