@@ -25,6 +25,8 @@ const statisch = [
   { loc: "/samenwerken/budgetcoaches", priority: "0.6" },
   { loc: "/samenwerken/burnout-coaches", priority: "0.6" },
   { loc: "/samenwerken/financieel-planners", priority: "0.6" },
+  { loc: "/samenwerken/boekhouders", priority: "0.6" },
+  { loc: "/samenwerken/accountants-ondernemers", priority: "0.6" },
   { loc: "/rapporten", priority: "0.9" },
   { loc: "/rapporten/tweeverdieners-drie-kinderen", priority: "0.8" },
   { loc: "/rapporten/alleenstaande-ouder-twee-kinderen", priority: "0.8" },

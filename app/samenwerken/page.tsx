@@ -87,6 +87,39 @@ const partners = [
       </svg>
     ),
   },
+  {
+    href: "/samenwerken/boekhouders",
+    label: "Boekhouders die particulieren helpen",
+    eyebrow: "Een andere vraag dan de aangifte",
+    wanneer:
+      "Een klant snapt zijn eigen cijfers, maar niet waarom er ondanks een goed inkomen zo weinig overblijft.",
+    zin: "Ik zie in je cijfers dat je goed verdient. Waar het naartoe gaat is een andere vraag dan de aangifte, daar is een gratis analyse voor.",
+    onderscheid:
+      "Ik kom niet aan de administratie of de fiscale kant. Ik kijk alleen naar het huishouden als geheel.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <rect x="3" y="4" width="18" height="16" rx="2" />
+        <path d="M7 9h10M7 13h6" />
+      </svg>
+    ),
+  },
+  {
+    href: "/samenwerken/accountants-ondernemers",
+    label: "Accountants van ZZP'ers en MKB",
+    eyebrow: "Wie kijkt naar het huishouden?",
+    wanneer:
+      "Een ondernemer verdient genoeg, maar weet niet hoeveel daarvan structureel privé beschikbaar is.",
+    zin: "Voordat we iets over je bedrijf beslissen, is het goed om eerst te weten wat dat betekent voor je huishouden. Daar is een aparte analyse voor.",
+    onderscheid:
+      "Ik geef geen fiscaal of juridisch advies over de onderneming. Ik lever het huishoudelijke stuk ernaast.",
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 21h18" />
+        <path d="M5 21V9l6-4 6 4v12" />
+        <path d="M10 21v-6h4v6" />
+      </svg>
+    ),
+  },
 ];
 
 const funnelStappen = [
