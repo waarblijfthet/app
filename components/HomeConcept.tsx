@@ -202,34 +202,55 @@ export default function HomeConcept() {
   return (
     <div className={caveat.variable + " overflow-x-hidden"} style={{ backgroundColor: C.canvas, color: C.ink, fontFamily: "var(--font-plus-jakarta), system-ui, sans-serif" }}>
       {/* ── HERO ─────────────────────────────────────────────── */}
-      <section className="pt-24 pb-16 md:pt-28 md:pb-24">
+      <section className="pt-20 pb-14 md:pt-16 md:pb-14">
         <div className="max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-12 lg:gap-16 items-center">
           <div>
-            <p className="mb-6" style={eyebrow}>Persoonlijk geldrapport · Nederland</p>
+            <p className="mb-4 md:mb-5" style={eyebrow}>Persoonlijke geldanalyse</p>
             <h1 className="font-display" style={{ fontWeight: 300, lineHeight: 1.02, letterSpacing: "-0.02em", color: C.ink }}>
               <span className="block" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)" }}>Goed salaris.</span>
               <span className="block italic relative" style={{ fontSize: "clamp(2.6rem, 6.5vw, 5rem)", color: C.teal, width: "fit-content" }}>
-                Toch altijd krap.
+                Toch altijd krap?
                 <InkUnderline color={C.teal} delay={0.5} className="absolute -bottom-2 left-0" />
               </span>
             </h1>
-            <p className="mt-8 mb-9 max-w-md" style={{ fontSize: "1.08rem", lineHeight: 1.65, color: C.inkSoft, fontWeight: 300 }}>
-              Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde van elke maand is het gewoon
-              weg. Dat je zelf niet ziet waarheen, is logisch: niemand legt zijn eigen cijfers naast die van
-              vergelijkbare huishoudens. Ik doe dat wel, en ik schrijf op wat eruit springt.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 mb-5">
-              <BtnPrimary href="/aanbod/intake?pakket=geldscan">Ja, help mij zien wat er anders kan &rarr;</BtnPrimary>
-              <BtnOutline href="/analyse">Kijk eerst zelf &rarr;</BtnOutline>
+            <div className="mt-6 mb-6 max-w-md space-y-2">
+              <p style={{ fontSize: "1.08rem", lineHeight: 1.6, color: C.inkSoft, fontWeight: 300 }}>
+                Je betaalt alles op tijd. Je doet niks geks. Maar aan het einde van de maand is je geld gewoon weg.
+              </p>
+              <p style={{ fontSize: "1.08rem", lineHeight: 1.6, color: C.inkSoft, fontWeight: 300 }}>
+                Ik laat je eerst zien hoeveel er in jouw situatie normaal gesproken over zou moeten blijven.
+                Daarna kun je zelf bepalen of je wilt weten waar het verschil zit.
+              </p>
             </div>
-            <p style={{ fontSize: "0.82rem", color: C.pencil, lineHeight: 1.6 }}>
-              €49, eenmalig. Ik schrijf het rapport zelf, geen algoritme. Kies je daarna een gesprek of
-              traject, dan gaat de €49 eraf. Liever eerst zelf kijken? De analyse duurt 5 minuten, geen
-              account of bankkoppeling.
+
+            <div className="mb-2">
+              <BtnPrimary href="/analyse">Bekijk mijn situatie, gratis &rarr;</BtnPrimary>
+            </div>
+            <p className="mb-6" style={{ fontSize: "0.82rem", color: C.pencil, lineHeight: 1.5 }}>
+              5 minuten · geen account · geen bankkoppeling · direct resultaat
             </p>
-            <p className="mt-4">
-              <Link href="/rapporten" style={{ color: C.teal, fontWeight: 500, fontSize: "0.9rem", textDecoration: "none" }}>Zie eerst vijf echte rapporten &rarr;</Link>
+
+            <p className="mb-2" style={{ fontSize: "0.88rem", color: C.inkSoft, fontWeight: 300 }}>
+              Liever dat ik zelf naar je cijfers kijk?
             </p>
+            <div className="mb-6">
+              <BtnOutline href="/aanbod/intake?pakket=geldscan">Geldscan €49 &rarr;</BtnOutline>
+            </div>
+
+            <div className="flex gap-8" style={{ borderTop: `1px solid ${C.line}`, paddingTop: "0.9rem" }}>
+              <div>
+                <p style={{ fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase" as const, color: C.teal, fontWeight: 600, marginBottom: "0.3rem" }}>
+                  Gratis analyse
+                </p>
+                <p style={{ fontSize: "0.88rem", color: C.inkSoft, fontWeight: 300 }}>Zie waar je afwijkt</p>
+              </div>
+              <div>
+                <p style={{ fontSize: "0.68rem", letterSpacing: "0.14em", textTransform: "uppercase" as const, color: C.ink, fontWeight: 600, marginBottom: "0.3rem" }}>
+                  Geldscan €49
+                </p>
+                <p style={{ fontSize: "0.88rem", color: C.inkSoft, fontWeight: 300 }}>Ontdek waarom</p>
+              </div>
+            </div>
           </div>
 
           <div className="relative">
