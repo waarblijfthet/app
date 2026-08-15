@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
 
 /**
  * Rekenaar boven de vouw op het salarisartikel.
@@ -41,6 +42,17 @@ const AUTO_LABELS: Record<string, string> = {
   twee: "Twee auto's",
   zakelijk: "Auto van de zaak",
 };
+
+const euroSigned = (n: number) => (n < 0 ? "-" + euro(Math.abs(n)) : euro(n));
+
+/**
+ * Lezersfeedback (15-aug-2026) op het salarisartikel: na de rekenaar weet je wat
+ * normaal is, maar niet waarom jij daarvan afwijkt. Dit gezin is het bewijs dat
+ * de rekenaar zelf noemt: zij dachten vooraf aan boodschappen en de kinderen, en
+ * dat bleek niet de oorzaak. Bron: lib/rapporten-data.ts, werkregel 4 — nooit een
+ * cijfer of citaat over een echte klant uit het geheugen typen.
+ */
+const CASE_BOODSCHAPPEN_NIET_HET_PROBLEEM = rapportVoorSlug("tweeverdieners-drie-kinderen");
 
 interface Props {
   /** Startbedrag van de schuif. Elk artikel opent op zijn eigen zoekvraag. */
@@ -202,30 +214,113 @@ export default function SalarisRekenaar({
         />
 
         {heeftWerkelijk && (
+          // Reader-feedback 15-aug-2026: eerst het verschil expliciet maken (Verwacht/
+          // Bij jou/Verschil), dan pas de vraag "waarom" en de Geldscan-CTA. Zie ook
+          // docs/persona-toets-cta-positie-artikelen-30-jul-2026.md: het koopmoment ligt
+          // ná het eigen getal van de lezer, niet na het algemene antwoord.
           <div className="mt-3 rounded-lg p-3" style={{ backgroundColor: gat > 50 ? "#FDF3E3" : "#E7F1EE" }}>
+            <div className="grid grid-cols-3 gap-2 mb-3 text-center">
+              <div>
+                <p className="font-body text-[10px] uppercase tracking-wide" style={{ color: "#8B958F" }}>
+                  Verwacht
+                </p>
+                <p className="font-display tabular-nums" style={{ fontSize: "1.05rem", color: "#16211F" }}>
+                  {euroSigned(verwachtVrij)}
+                </p>
+              </div>
+              <div>
+                <p className="font-body text-[10px] uppercase tracking-wide" style={{ color: "#8B958F" }}>
+                  Bij jou
+                </p>
+                <p className="font-display tabular-nums" style={{ fontSize: "1.05rem", color: "#16211F" }}>
+                  {euroSigned(Number(werkelijk))}
+                </p>
+              </div>
+              <div>
+                <p className="font-body text-[10px] uppercase tracking-wide" style={{ color: "#8B958F" }}>
+                  Verschil
+                </p>
+                <p
+                  className="font-display tabular-nums"
+                  style={{ fontSize: "1.05rem", color: gat > 50 ? "#B03A2E" : "#0B7A6E" }}
+                >
+                  {euro(Math.abs(gat))}
+                </p>
+                <p className="font-body text-[10px]" style={{ color: "#8B958F" }}>
+                  {gat > 50 ? "per maand te weinig" : gat < -50 ? "meer dan verwacht" : "komt overeen"}
+                </p>
+              </div>
+            </div>
+
             {gat > 50 ? (
-              <>
-                <p className="font-body font-medium text-sm mb-1" style={{ color: "#92600A" }}>
-                  Er ontbreekt ongeveer {euro(gat)} per maand.
-                </p>
-                <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
-                  Dat is {euro(gat * 12)} per jaar. Bij bijna elk huishouden dat ik doorrekende zat dat niet in
-                  één grote post, maar in twee of drie kleinere die niemand controleert, plus de jaaruitgaven
-                  waar niet voor gereserveerd wordt.
-                </p>
-              </>
+              <p className="font-body font-medium text-sm mb-1" style={{ color: "#92600A" }}>
+                Er ontbreekt ongeveer {euro(gat)} per maand, {euro(gat * 12)} per jaar.
+              </p>
+            ) : gat < -50 ? (
+              <p className="font-body font-medium text-sm mb-1" style={{ color: "#0B7A6E" }}>
+                Je houdt ongeveer {euro(Math.abs(gat))} per maand meer over dan ik bij dit huishouden zou verwachten.
+              </p>
             ) : (
-              <>
-                <p className="font-body font-medium text-sm mb-1" style={{ color: "#0B7A6E" }}>
-                  Dat is ongeveer wat ik bij jouw situatie zou verwachten.
-                </p>
-                <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
-                  Voelt het toch krap, dan gaat het waarschijnlijk niet over je uitgaven maar over wat je
-                  tegelijk wilt: sparen, een buffer opbouwen en je leven blijven leiden zoals nu.
-                </p>
-              </>
+              <p className="font-body font-medium text-sm mb-1" style={{ color: "#0B7A6E" }}>
+                Dat is ongeveer wat ik bij jouw situatie zou verwachten.
+              </p>
             )}
+            <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
+              {gat > 50
+                ? "Dat verschil verklaart de rekenaar niet. Daarvoor moet je naar je hele financiële situatie kijken."
+                : gat < -50
+                ? "Ook dat verklaart de rekenaar niet: of dat komt doordat je al een systeem hebt, of doordat er ergens ruimte is die je nog niet gebruikt, weet je pas als je verder kijkt dan dit huishouden-gemiddelde."
+                : "Voelt het toch krap, dan gaat het waarschijnlijk niet over je uitgaven maar over wat je tegelijk wilt: sparen, een buffer opbouwen en je leven blijven leiden zoals nu. Ook dat verklaart de rekenaar hierboven niet."}
+            </p>
+
+            {CASE_BOODSCHAPPEN_NIET_HET_PROBLEEM && (
+              <div className="rounded-lg p-3 mb-3" style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}>
+                <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.6 }}>
+                  &ldquo;{CASE_BOODSCHAPPEN_NIET_HET_PROBLEEM.vermoeden}&rdquo; dacht een gezin met drie kinderen dat ik
+                  doorrekende, vooraf ook. Mijn conclusie: &ldquo;{CASE_BOODSCHAPPEN_NIET_HET_PROBLEEM.uitkomstKop}.&rdquo;{" "}
+                  <Link
+                    href={`/rapporten/${CASE_BOODSCHAPPEN_NIET_HET_PROBLEEM.slug}`}
+                    className="hover:underline"
+                    style={{ color: "#0B7A6E" }}
+                  >
+                    Lees hun rapport
+                  </Link>
+                  .
+                </p>
+              </div>
+            )}
+
+            <p className="font-body text-xs mb-4" style={{ color: "#5A6B66" }}>
+              Niet elke Geldscan vindt een lek. Bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length} gezinnen die ik
+              doorrekende was de conclusie dat er niets te repareren viel &mdash; dan hoor je dat ook gewoon terug.
+            </p>
+
+            <p className="font-body font-medium text-sm mb-3" style={{ color: "#16211F" }}>
+              De rekenaar hierboven vertelt je dát je afwijkt. De Geldscan zoekt uit waarom.
+            </p>
+
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Link href="/geldscan" className="btn-primary text-center">
+                Laat mij uitzoeken waar het verschil zit{" "}&rarr;{" "}€49
+              </Link>
+              <Link
+                href={analyseHref}
+                className="inline-flex items-center justify-center font-body text-sm font-medium"
+                style={{ color: "#16211F", border: "1.5px solid #16211F", borderRadius: "4px", padding: "0.75rem 1.25rem", textDecoration: "none" }}
+              >
+                Eerst gratis zelf kijken &rarr;
+              </Link>
+            </div>
           </div>
+        )}
+
+        {!heeftWerkelijk && (
+          <p className="font-body text-sm mt-3 text-center" style={{ color: "#5A6B66" }}>
+            Vul hierboven in wat je zelf overhoudt, dan zie je meteen of &mdash; en waarom &mdash; je afwijkt.{" "}
+            <Link href={analyseHref} className="hover:underline" style={{ color: "#0B7A6E" }}>
+              Nog niet zover? Eerst gratis zelf kijken &rarr;
+            </Link>
+          </p>
         )}
 
         <label
@@ -255,29 +350,13 @@ export default function SalarisRekenaar({
         )}
       </div>
 
-      <p className="font-body text-xs mt-3" style={{ color: "#5A6B66" }}>
+      <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>
         Vergelijkingsbedragen op basis van de vijf huishoudens die ik zelf heb doorgerekend, zie{" "}
         <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
           Rapporten
         </Link>
         . Dit is een vuistregel, geen norm: hij weet niets van de leeftijd van je kinderen, je regio,
         alimentatie of hoeveel je op je huis hebt afgelost.
-      </p>
-
-      <div className="mt-4 flex flex-col sm:flex-row gap-3">
-        <Link href={analyseHref} className="btn-primary text-center">
-          Vul je eigen cijfers in, gratis &rarr;
-        </Link>
-        <Link
-          href="/geldscan"
-          className="inline-flex items-center justify-center font-body text-sm font-medium"
-          style={{ color: "#16211F", border: "1.5px solid #16211F", borderRadius: "4px", padding: "0.75rem 1.25rem", textDecoration: "none" }}
-        >
-          Of laat mij het uitzoeken (€49) &rarr;
-        </Link>
-      </div>
-      <p className="font-body text-xs mt-2 mb-0" style={{ color: "#5A6B66" }}>
-        De analyse opent met deze vier antwoorden al ingevuld.
       </p>
     </div>
   );

@@ -2793,7 +2793,7 @@ export const artikelen: Artikel[] = [
     slug: "is-4000-euro-netto-goed-salaris-nederland",
     cta: {
       kop: "Belangrijker dan of €4.000 goed is: wat hou jij ervan over?",
-      tekst: "Een goed salaris is niet hetzelfde als geld overhouden. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt, met de drie dingen die het meest opvallen.",
+      tekst: "De rekenaar hierboven liet zien dát je afwijkt van wat ik bij jouw huishouden zou verwachten, of juist niet. Bij de Geldscan zoek ik uit waarom, en schrijf ik op papier wat er opvalt, en wat er juist niet uit de toon valt.",
       primairLabel: "Zie wat je krijgt voor €49",
       primairHref: "/geldscan",
       secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
