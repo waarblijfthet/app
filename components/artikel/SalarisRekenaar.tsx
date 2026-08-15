@@ -106,6 +106,21 @@ export default function SalarisRekenaar({
     `&kinderen=${kinderen}&auto=${auto === "twee" ? "eigen" : auto}` +
     (auto === "twee" ? "&tweedeauto=1" : "");
 
+  // Bridge naar /geldscan (bouwprompt 15-aug-2026, punt 11): iemand die hier
+  // net zijn huishouden heeft ingevuld, moet dat op de Geldscan-pagina niet
+  // opnieuw hoeven te doen. De situatiesleutel moet exact overeenkomen met
+  // SituatieSleutel in app/geldscan/page.tsx.
+  const geldscanSituatie = wisselend
+    ? "zzp"
+    : alleen
+    ? kinderen > 0
+      ? "alleenstaande-ouder"
+      : "alleenstaand"
+    : kinderen > 0
+    ? "gezin"
+    : "stel";
+  const geldscanHref = `/geldscan?situatie=${geldscanSituatie}&inkomen=${inkomen}&boodschappen=${Math.round(boodschappen)}`;
+
   return (
     <div
       className="rounded-2xl p-5 sm:p-6 mb-8"
@@ -300,7 +315,7 @@ export default function SalarisRekenaar({
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href="/geldscan" className="btn-primary text-center">
+              <Link href={geldscanHref} className="btn-primary text-center">
                 Laat mij uitzoeken waar het verschil zit{" "}&rarr;{" "}€49
               </Link>
               <Link
