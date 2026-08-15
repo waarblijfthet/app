@@ -2,37 +2,112 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Samenwerken · voor relatietherapeuten | Waar blijft het",
   description:
-    "Veel koppels in therapie vechten over geld, maar de financiën lost een relatietherapie niet op. Waar blijft het pakt het gelddeel aan, zodat jij je kunt focussen op de relatie.",
+    "Geld komt steeds terug in de sessie, maar het financiële deel hoort niet bij relatietherapie. Waar blijft het brengt het feitelijk en onafhankelijk in kaart, zodat jij je weer op de relatie kunt richten.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/relatietherapeuten" },
   openGraph: {
-    title: "Samenwerken met Waar blijft het · voor relatietherapeuten",
+    title: "Voor relatietherapeuten: het financiële deel hoort niet bij jouw vak",
     description:
-      "Koppels die bij jou komen vechtend over geld. Ik pak de financiën aan, jij pakt de relatie aan.",
+      "Geld komt steeds terug in de sessie. Ik breng het financiële vraagstuk feitelijk en onafhankelijk in kaart, jij focust op de relatie.",
     url: "https://www.waarblijfthet.nl/samenwerken/relatietherapeuten",
     type: "website",
   },
   robots: { index: true, follow: true },
 };
 
-const faq = [
+// Het echte Geldscan-rapport dat als bewijs dient. Titel, cijfers en citaten
+// komen rechtstreeks uit lib/rapporten-data.ts (werkregel 4): nooit een bedrag
+// of uitspraak van een echte klant uit het hoofd overtypen. Dit specifieke
+// koppel kwam niet per se binnen via een therapeutverwijzing, maar de uitkomst
+// (geen lek gevonden) is precies waarom dit rapport hier staat.
+const BEWIJS_SLUG = "stel-zonder-kinderen";
+
+const signalen = [
+  "Steeds ruzie over wie wat betaalt",
+  "Discussie over uitgaven en sparen, zonder dat iemand een gedeeld beeld heeft van wat genoeg is",
+  "Eén partner voelt zich financieel gecontroleerd",
+  "Eén partner vindt dat de ander “te veel uitgeeft”, zonder dat iemand het heeft nagerekend",
+  "Onduidelijkheid over hoeveel er aan het eind van de maand daadwerkelijk overblijft",
+  "Geldgesprekken die iedere sessie terugkomen, ongeacht het onderwerp waarmee je begint",
+  "Een stel dat goed verdient, maar toch voortdurend financiële spanning ervaart",
+];
+
+const watHetOplevert = [
+  "Je hoeft tijdens je sessie niet te bepalen wie financieel gelijk heeft.",
+  "Je hoeft geen financieel expert te worden om financiële spanning serieus te nemen.",
+  "Je blijft verantwoordelijk voor de relatie, de communicatie, de emoties en de patronen. Ik neem alleen het feitelijke geldvraagstuk onder handen.",
+];
+
+const onafhankelijk = [
+  "Geen financiële producten",
+  "Geen provisie",
+  "Geen belang bij de uitkomst",
+  "Geen oordeel over hoe een stel moet leven",
+  "Geen verplicht vervolgtraject",
+  "Geen concurrentie met relatietherapie",
+];
+
+const stappen = [
   {
-    vraag: "Wat doet Waar blijft het precies voor het koppel?",
-    antwoord:
-      "Ik breng het maandbudget in kaart, benoem de twee of drie plekken waar geld wegvloeit zonder dat ze het doorhebben, en geef concrete stappen. Geen beleggingsadvies, geen schuldhulp, gewoon grip op de maandelijkse cashflow.",
+    n: "1",
+    titel: "Je herkent het signaal",
+    tekst:
+      "Geld komt sessie na sessie terug. Je noemt Waar blijft het bij je cliënten. Meer hoeft de eerste stap niet te zijn.",
   },
   {
-    vraag: "Hoe werkt het verwijzen concreet?",
+    n: "2",
+    titel: "Het stel doet de gratis analyse",
+    tekst:
+      "Vijf minuten, op de site. Ze zien direct waar hun situatie afwijkt van vergelijkbare huishoudens, of juist dat die niet afwijkt.",
+  },
+  {
+    n: "3",
+    titel: "Optioneel: Geldscan of adviesgesprek",
+    tekst:
+      "Willen ze meer duiding, dan is er de Geldscan (€49, schriftelijk, geen gesprek nodig) of een adviesgesprek (€125, 45 minuten). Nooit verplicht.",
+  },
+  {
+    n: "4",
+    titel: "Jij krijgt de ruimte terug",
+    tekst:
+      "Het financiële stuk is uitgezocht, feitelijk en zonder oordeel. De sessie kan weer over de relatie gaan.",
+  },
+];
+
+const faq = [
+  {
+    vraag: "Wat doet Waar blijft het precies?",
     antwoord:
-      "Je stuurt het koppel door met een korte toelichting. Ze starten zelf met de analyse op de site. Ik neem het financiële deel over, jouw therapiegesprekken kunnen zich daarna richten op de relatie zelf.",
+      "Ik breng het financiële vraagstuk van een stel feitelijk en onafhankelijk in kaart: wat komt er binnen, wat gaat eruit, en waar wijkt hun situatie af van vergelijkbare huishoudens. Geen beleggingsadvies, geen schuldhulp, en geen oordeel over hun levensstijl.",
+  },
+  {
+    vraag: "Is geld altijd de echte oorzaak van hun relatieproblemen?",
+    antwoord:
+      "Nee. Geld kan een oorzaak zijn, een trigger, een gevolg van iets anders, of een factor die bestaande spanning versterkt. Daar doe ik vooraf geen uitspraak over, dat is jouw vak. Ik kijk alleen naar wat er feitelijk met het geld gebeurt.",
+  },
+  {
+    vraag: "Wat gebeurt er met mijn cliënt nadat ik doorverwijs?",
+    antwoord:
+      "Ze doen zelf de gratis analyse op de site, vijf minuten, en zien meteen waar hun situatie afwijkt. Willen ze meer uitleg, dan geeft de Geldscan (€49) een geschreven rapport met context, verklaring en prioriteiten. Een adviesgesprek (€125) is er voor wie liever doorpraat. Niets daarvan loopt via jouw sessie.",
   },
   {
     vraag: "Is er een financiële vergoeding voor de verwijzing?",
     antwoord:
       "Nee. Ik geloof in een eerlijk, onafhankelijk model. Geen affiliate-constructies, wel een betrouwbare schakel in jouw netwerk.",
+  },
+  {
+    vraag: "Concurreert dit met mijn werk als relatietherapeut?",
+    antwoord:
+      "Nee. Ik neem alleen het feitelijke financiële vraagstuk onder handen. Jij blijft verantwoordelijk voor de relatie, de communicatie en de patronen daarachter. Waar blijft het is aanvullend, geen vervanging.",
+  },
+  {
+    vraag: "Hoe leg ik dit eenvoudig uit aan mijn cliënt?",
+    antwoord:
+      "Bijvoorbeeld zo: “Er is iemand die het financiële deel feitelijk en onafhankelijk in kaart kan brengen, los van onze gesprekken. Geen advies over beleggen of schulden, gewoon een heldere blik op waar het geld naartoe gaat. Ik stel voor dat jullie de gratis analyse invullen, dat kost vijf minuten.”",
   },
   {
     vraag: "Ik wil je eerst beter kennen voordat ik doorverwijs. Kan dat?",
@@ -51,25 +126,9 @@ const faqSchema = {
   })),
 };
 
-const pijnpunten = [
-  {
-    titel: "Geld is de aanleiding, maar niet het echte probleem",
-    tekst:
-      "Je ziet het keer op keer: een koppel zit bij je vanwege communicatieproblemen of verwijdering, maar onder het oppervlak zit een financiële spanning die al maanden sluimert. Wie betaalt wat? Waarom holt het geld altijd op? Wie heeft de controle? De emoties zijn echt, maar de trigger is een onopgelost praktisch probleem.",
-  },
-  {
-    titel: "Ze verdienen samen genoeg, maar voelen zich toch krap",
-    tekst:
-      "Veel koppels in jouw praktijk zijn tweeverdieners met een modaal of bovenmodaal gezinsinkomen. Geen schulden, geen armoede, en toch chronisch krap. Dat onbegrip ('hoe kan dit?') voegt frustratie toe aan de relatiestress. Zolang niemand dat gelddeel aanpakt, circuleer je als therapeut in een lus.",
-  },
-  {
-    titel: "Jij bent er niet voor de financiën, en dat is precies het probleem",
-    tekst:
-      "Als relatietherapeut of koppelcoach help je met communicatie, patronen en emoties. Maar je bent geen financieel coach. Als het geld de trigger is en niemand dat oplost, staat de relatietherapie altijd onder druk van iets wat buiten jouw expertise valt.",
-  },
-];
-
 export default function RelatietherapeutenPage() {
+  const bewijs = rapportVoorSlug(BEWIJS_SLUG);
+
   return (
     <>
       <script
@@ -84,87 +143,87 @@ export default function RelatietherapeutenPage() {
           <div className="max-w-3xl mx-auto px-6">
             <p className="section-eyebrow mb-4">Voor relatietherapeuten &amp; koppelcoaches</p>
             <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-6 max-w-2xl leading-tight">
-              Je koppel vecht over geld.<br />
-              Ik los het gelddeel op.
+              Geld komt steeds terug in de sessie.<br />
+              Het financiële deel ligt buiten jouw expertise.
             </h1>
-            <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-2xl">
-              Veel koppels die bij jou komen hebben een onopgelost financieel probleem als
-              onderliggende trigger. Jij werkt aan de relatie, ik pak de maandbudgetten
-              aan, zodat jouw therapiegesprekken over de relatie kunnen gaan in plaats van
-              over wie de rekeningen betaalt.
+            <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-2xl mb-5">
+              Waar blijft het brengt dat financiële vraagstuk feitelijk en onafhankelijk in
+              kaart, zodat jij je weer volledig op de relatie kunt richten.
+            </p>
+            <p className="text-text-soft font-body font-light text-base leading-relaxed max-w-2xl">
+              Geld hoeft niet de kern van het probleem te zijn om toch telkens op tafel te
+              komen. Het kan een aanleiding zijn, een trigger, een gevolg van iets anders, of
+              een factor die bestaande spanning versterkt. Ik doe daar vooraf geen uitspraak
+              over. Ik kijk naar wat er feitelijk met het geld gebeurt, niet naar wat dat over
+              de relatie zegt.
             </p>
           </div>
         </section>
 
-        {/* Pijnpunten */}
+        {/* Herkenning */}
         <section className="bg-background pb-12">
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6">
-              Herken je dit bij jouw cliënten?
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
+              Herken je dit bij je cliënten?
             </h2>
-            <div className="space-y-5">
-              {pijnpunten.map((p) => (
-                <div key={p.titel} className="card-base border border-[#E6E9E7]">
-                  <h3 className="font-body font-medium text-primary text-base mb-2">{p.titel}</h3>
-                  <p className="font-body font-light text-text-soft text-sm leading-relaxed">{p.tekst}</p>
-                </div>
-              ))}
+            <p className="text-text-soft font-body font-light text-sm leading-relaxed mb-6">
+              Niet elk gesprek over geld vraagt om een aparte partij. Dit zijn de signalen
+              waarbij het financiële stuk waarschijnlijk buiten jouw bereik ligt.
+            </p>
+            <div className="card-base border border-[#E6E9E7]">
+              <ul className="space-y-3 font-body font-light text-text-soft text-sm leading-relaxed">
+                {signalen.map((s) => (
+                  <li key={s} className="flex gap-3 items-start">
+                    <span style={{ color: "#0B7A6E", flexShrink: 0 }}>&bull;</span>
+                    <span>{s}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* Oplossing */}
+        {/* Wat dit voor jou betekent + onafhankelijkheid */}
         <section className="bg-card py-14">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Wat ik doe, en wat dat voor jou oplevert
-            </h2>
-            <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
-              Waar blijft het is financiële coaching voor gezinnen en stellen die goed
-              verdienen maar toch krap zitten. Ik breng het maandbudget helder in kaart,
-              zonder oordeel en zonder jargon, en geef concrete stappen. Geen grote
-              besparingen op boodschappen, maar inzicht in waar het geld structureel naartoe
-              gaat.
-            </p>
-            <p className="text-text-soft font-body font-light text-base leading-relaxed mb-5">
-              Als jouw cliënten dit stuk oplossen, verandert de sfeer in de therapiesessie.
-              Ze komen niet meer met een concrete financiële griep, ze komen voor de relatie.
-              Dat is waar jij goed in bent.
-            </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8">
-              {[
-                ["Analyse", "Ze starten laagdrempelig. Geen verplichting voor hen of jou."],
-                ["Eenmalig gesprek", "€125 voor 45 minuten, concreet en behapbaar."],
-                ["Geen schuldhulp", "Voor stellen die genoeg verdienen maar grip missen."],
-              ].map(([t, d]) => (
-                <div key={t} className="text-center p-4 rounded-xl" style={{ backgroundColor: "#F7F8F7" }}>
-                  <p className="font-body font-medium text-primary text-sm mb-1">{t}</p>
-                  <p className="font-body font-light text-text-soft text-xs leading-relaxed">{d}</p>
-                </div>
-              ))}
+          <div className="max-w-3xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="card-base border border-[#A6D8CD] bg-green-light">
+              <p className="font-display font-light text-primary text-xl mb-4">
+                Wat dit voor jou betekent
+              </p>
+              <ul className="space-y-3 font-body font-light text-sm text-text-soft leading-relaxed">
+                {watHetOplevert.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="card-base border border-[#E6E9E7]">
+              <p className="font-display font-light text-primary text-xl mb-4">
+                Onafhankelijk, met opzet
+              </p>
+              <ul className="space-y-2 font-body font-light text-sm text-text-soft">
+                {onafhankelijk.map((t) => (
+                  <li key={t}>{t}</li>
+                ))}
+              </ul>
             </div>
           </div>
         </section>
 
-        {/* Hoe werkt het */}
+        {/* Zo werkt de samenwerking */}
         <section className="bg-background py-14">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6">
               Zo werkt de samenwerking
             </h2>
             <div className="space-y-4">
-              {[
-                ["1", "Vertel je cliënten over mij", "Je noemt Waar blijft het als het financiële stuk ter sprake komt. Meer hoeft het niet te zijn."],
-                ["2", "Ze doen de analyse", "Op waarblijfthet.nl. Vijf minuten. Ze zien direct wat er speelt, dat is vaak al een eye-opener."],
-                ["3", "Ik neem het over", "Eventueel volgt een adviesgesprek of traject. Jij blijft gewoon hun therapeut, ik ben complementair, niet concurrerend."],
-              ].map(([n, t, d]) => (
-                <div key={n} className="card-base border border-[#E6E9E7] flex items-start gap-4">
+              {stappen.map((s) => (
+                <div key={s.n} className="card-base border border-[#E6E9E7] flex items-start gap-4">
                   <div className="w-10 h-10 rounded-xl bg-green-light flex items-center justify-center shrink-0">
-                    <span className="font-display font-medium text-primary">{n}</span>
+                    <span className="font-display font-medium text-primary">{s.n}</span>
                   </div>
                   <div>
-                    <p className="font-body font-medium text-primary text-sm mb-1">{t}</p>
-                    <p className="font-body font-light text-text-soft text-sm leading-relaxed">{d}</p>
+                    <p className="font-body font-medium text-primary text-sm mb-1">{s.titel}</p>
+                    <p className="font-body font-light text-text-soft text-sm leading-relaxed">{s.tekst}</p>
                   </div>
                 </div>
               ))}
@@ -172,130 +231,83 @@ export default function RelatietherapeutenPage() {
           </div>
         </section>
 
-        {/* Zo werkt het in de praktijk */}
-        <section className="py-12 md:py-16 border-t border-[#E6E9E7]" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="mb-8">
-              <p className="section-eyebrow mb-3">Zo werkt het in de praktijk</p>
-              <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-tight">
-                Van geldruzie in de sessie naar grip thuis.
-              </h2>
-              <p className="font-body font-light text-text-soft text-sm mt-3">
-                Illustratief voorbeeld op basis van een doorverwijzing via een relatietherapeut. Namen fictief.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-4">
-              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>01</span>
-                  <p className="font-body font-semibold text-primary text-sm">De doorverwijzing</p>
-                </div>
-                <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5A56" }}>
-                  Emma (34) en Tom (37) wonen in Amsterdam. Gecombineerd netto inkomen €6.400. Geen kinderen. Ze zijn al vier sessies bij relatietherapeut Inge vanwege oplopende spanningen. Steeds vaker over geld: wie geeft te veel uit, wie spaart te weinig. Inge signaleert dat het financiële stuk haar werk blokkeert.
+        {/* Bewijs: een echt rapport, geen verzonnen besparingscase */}
+        {bewijs && (
+          <section className="py-12 md:py-16 border-t border-[#E6E9E7]" style={{ backgroundColor: "#FFFFFF" }}>
+            <div className="max-w-3xl mx-auto px-6">
+              <div className="mb-8">
+                <p className="section-eyebrow mb-3">Een echt voorbeeld, geen verzonnen besparingsverhaal</p>
+                <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-tight mb-3">
+                  Niet elke analyse vindt een lek. Dat is precies het punt.
+                </h2>
+                <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+                  Dit rapport kwam niet per se binnen via een therapeutverwijzing, maar laat
+                  zien wat een koppel dat jij doorstuurt kan verwachten: soms een duidelijke
+                  afwijking, soms de geruststelling dat er niets stuk is. Namen zijn weggelaten,
+                  de bedragen staan er precies zoals aangeleverd.
                 </p>
-                <blockquote className="font-body text-sm leading-relaxed mt-3" style={{ color: "#16211F", fontStyle: "italic", borderLeft: "3px solid #0B7A6E", paddingLeft: "0.75rem", marginLeft: 0 }}>
-                  &ldquo;Er is een analyse van vijf minuten die jullie inzicht geeft in waar het naartoe gaat. Ik stel voor dat jullie dat samen invullen, voor onze volgende sessie.&rdquo;
-                </blockquote>
               </div>
 
-              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>02</span>
-                  <p className="font-body font-semibold text-primary text-sm">Wat ze invullen (5 minuten)</p>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
+                <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>01</span>
+                    <p className="font-body font-semibold text-primary text-sm">De situatie</p>
+                  </div>
+                  <p className="font-body text-sm leading-relaxed mb-3" style={{ color: "#4A5A56" }}>
+                    {bewijs.profiel}
+                  </p>
+                  <blockquote className="font-body text-xs leading-relaxed" style={{ color: "#16211F", fontStyle: "italic", borderLeft: "3px solid #0B7A6E", paddingLeft: "0.75rem", marginLeft: 0 }}>
+                    &ldquo;{bewijs.vermoeden}&rdquo;
+                  </blockquote>
+                  <p className="font-body text-xs mt-2" style={{ color: "#8B958F" }}>{bewijs.vermoedenBedrag}</p>
                 </div>
-                <div className="space-y-2">
-                  {[
-                    ["Situatie", "Stel zonder kinderen"],
-                    ["Netto inkomen", "€ 6.400 / mnd"],
-                    ["Huur (Amsterdam)", "€ 1.850 / mnd"],
-                    ["Vervoer (1 auto + OV)", "€ 480 / mnd"],
-                    ["Boodschappen", "€ 640 / mnd"],
-                    ["Vaste abonnementen", "€ 285 / mnd"],
-                    ["Overig / pin", "€ 720 / mnd"],
-                  ].map(([label, waarde]) => (
-                    <div key={label} className="flex justify-between items-center py-1" style={{ borderBottom: "1px solid #F0F3F1" }}>
-                      <span className="font-body text-xs" style={{ color: "#8B958F" }}>{label}</span>
-                      <span className="font-body text-sm font-medium" style={{ color: "#16211F" }}>{waarde}</span>
-                    </div>
-                  ))}
+
+                <div style={{ backgroundColor: "#16211F", border: "1px solid #0B7A6E", borderRadius: "16px", padding: "1.5rem" }}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#86BCAF", opacity: 0.7 }}>02</span>
+                    <p className="font-body font-semibold text-sm" style={{ color: "white" }}>Wat de analyse toont</p>
+                  </div>
+                  <p className="font-body text-xs font-medium mb-2" style={{ color: "#86BCAF" }}>{bewijs.uitkomstKop}</p>
+                  <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
+                    {bewijs.uitkomst}
+                  </p>
                 </div>
+
+                <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>03</span>
+                    <p className="font-body font-semibold text-primary text-sm">Wat de Geldscan toevoegt</p>
+                  </div>
+                  <p className="font-body text-sm leading-relaxed" style={{ color: "#4A5A56" }}>
+                    {bewijs.adviesInleiding}
+                  </p>
+                </div>
+              </div>
+
+              <div style={{ backgroundColor: "#F7F8F7", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
+                <p className="font-body font-medium text-xs uppercase tracking-widest mb-3" style={{ color: "#0B7A6E" }}>
+                  Drie maanden later, in hun eigen woorden
+                </p>
+                <p className="font-body text-sm leading-relaxed mb-4" style={{ color: "#16211F" }}>
+                  &ldquo;{bewijs.evaluatie}&rdquo;
+                </p>
+                <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+                  Context, verklaring en prioriteiten, niet koste wat kost een besparing. Voor de
+                  therapeut betekent dat: het financiële stuk is uitgezocht, zonder oordeel over
+                  hun levensstijl. De volgende sessie kan weer over de relatie gaan.
+                </p>
+                <Link
+                  href={`/rapporten/${bewijs.slug}`}
+                  className="inline-block mt-4 font-body text-sm font-medium hover:underline"
+                  style={{ color: "#0B7A6E" }}
+                >
+                  Lees het volledige rapport &rarr;
+                </Link>
               </div>
             </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-              <div style={{ backgroundColor: "#16211F", border: "1px solid #0B7A6E", borderRadius: "16px", padding: "1.5rem" }}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#86BCAF", opacity: 0.7 }}>03</span>
-                  <p className="font-body font-semibold text-sm" style={{ color: "white" }}>Wat de analyse toont</p>
-                </div>
-                <div className="space-y-3">
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
-                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#86BCAF" }}>Afwijking 1: Abonnementen</p>
-                    <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
-                      <strong style={{ color: "white" }}>€ 285 per maand</strong> aan vaste abonnementen. Vergelijkbaar stel gemiddeld €135. Het verschil zit in overlap: drie streamingdiensten, twee sportabonnementen, twee nieuwsabonnementen.
-                    </p>
-                  </div>
-                  <div style={{ backgroundColor: "rgba(255,255,255,0.07)", borderRadius: "10px", padding: "0.875rem" }}>
-                    <p className="font-body text-xs font-medium mb-1" style={{ color: "#86BCAF" }}>Afwijking 2: Vrij besteedbaar ongestructureerd</p>
-                    <p className="font-body text-sm leading-relaxed" style={{ color: "rgba(245,240,232,0.85)" }}>
-                      <strong style={{ color: "white" }}>€ 720 per maand</strong> &apos;overig&apos; zonder gezamenlijk overzicht. Beiden voelen controleverlies, maar de oorzaak is geen verkwisting, het ontbreekt aan structuur.
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <div style={{ backgroundColor: "white", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="font-display font-light" style={{ fontSize: "1.25rem", color: "#0B7A6E", opacity: 0.5 }}>04</span>
-                  <p className="font-body font-semibold text-primary text-sm">Wat het gesprek (45 min) oplevert</p>
-                </div>
-                <div className="space-y-3">
-                  {[
-                    {
-                      actie: "Gezamenlijke rekening opgezet",
-                      resultaat: "Vaste lasten gaan van een gezamenlijke rekening, beiden storten maandelijks hun aandeel. Geen discussie meer over wie wat betaalt.",
-                    },
-                    {
-                      actie: "Pinpot per persoon: €175",
-                      resultaat: "Beiden hebben €175 vrij besteedbaar zonder verantwoording. Tom koopt wat hij wil, Emma ook. Einde van de controle-discussie.",
-                    },
-                    {
-                      actie: "Abonnementen teruggebracht",
-                      resultaat: "Van €285 naar €160 per maand. €125 vrijgemaakt door overlappende diensten op te zeggen.",
-                    },
-                  ].map((item) => (
-                    <div key={item.actie} className="flex gap-3 items-start">
-                      <span style={{ color: "#0B7A6E", fontWeight: 700, flexShrink: 0, fontSize: "0.9rem" }}>✓</span>
-                      <div>
-                        <p className="font-body text-xs font-semibold" style={{ color: "#16211F" }}>{item.actie}</p>
-                        <p className="font-body text-xs leading-relaxed" style={{ color: "#4A5A56" }}>{item.resultaat}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div style={{ backgroundColor: "#F7F8F7", border: "1px solid #E6E9E7", borderRadius: "16px", padding: "1.5rem" }}>
-              <p className="font-body font-medium text-xs uppercase tracking-widest mb-4" style={{ color: "#0B7A6E" }}>
-                Wat Inge als relatietherapeut eraan had
-              </p>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                {[
-                  { kop: "Sessies over de relatie", tekst: "De volgende sessies gingen niet meer over wie te veel uitgeeft. Het praktische probleem was opgelost, de diepere patronen konden aan bod komen." },
-                  { kop: "Minder geladen gesprekken", tekst: "Emma en Tom kwamen minder defensief. De financiële spanning was weg als onderstroom, wat ruimte gaf voor echte openheid." },
-                  { kop: "Bruikbare doorverwijzing", tekst: "Inge heeft nu een concrete schakel voor het gelddeel. Ze kan het in één zin uitleggen aan elk koppel waarbij geld een rol speelt." },
-                ].map((item) => (
-                  <div key={item.kop}>
-                    <p className="font-body font-semibold text-primary text-sm mb-1">{item.kop}</p>
-                    <p className="font-body font-light text-text-soft text-sm leading-relaxed">{item.tekst}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+          </section>
+        )}
 
         {/* FAQ */}
         <section className="bg-card py-12">
@@ -315,16 +327,19 @@ export default function RelatietherapeutenPage() {
         {/* CTA */}
         <section className="bg-dark-block py-20">
           <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">Laten we kennismaken</h2>
+            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
+              Heb je een stel waarbij geld steeds onderdeel van het conflict wordt?
+            </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Wil je weten of ik pas als schakel in jouw praktijk? Stuur een korte mail, dan plan ik een kennismakingsgesprek van 20 minuten.
+              Laten we kort kennismaken. Geen verkooppraat, gewoon even kijken of dit past bij
+              jouw praktijk.
             </p>
             <a href="mailto:hallo@waarblijfthet.nl?subject=Samenwerking%20als%20relatietherapeut" className="btn-primary" style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}>
-              Mail Jarno →
+              Laten we kennismaken &rarr;
             </a>
             <p className="mt-6">
               <Link href="/samenwerken" className="font-body text-sm" style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}>
-                ← Terug naar samenwerken overzicht
+                &larr; Terug naar samenwerken overzicht
               </Link>
             </p>
           </div>
