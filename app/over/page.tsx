@@ -3,6 +3,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Over Jarno Koopman | Waar blijft het",
@@ -49,7 +50,20 @@ const personSchema = {
   },
 };
 
+// Drie rapporten als bewijs, exact zoals ze ook op /rapporten staan.
+// Bedragen en citaten komen letterlijk uit lib/rapporten-data.ts (werkregel 4):
+// nooit een cijfer van een echte klant uit het hoofd overtypen.
+const BEWIJS_SLUGS = [
+  "tweeverdieners-drie-kinderen",
+  "stel-zonder-kinderen",
+  "alleenstaand-huurwoning",
+];
+
 export default function OverPage() {
+  const bewijsRapporten = BEWIJS_SLUGS.map((slug) => rapportVoorSlug(slug)).filter(
+    (r): r is NonNullable<typeof r> => Boolean(r)
+  );
+
   return (
     <>
       <script
@@ -77,7 +91,7 @@ export default function OverPage() {
           </div>
         </section>
 
-        {/* Wie */}
+        {/* Wie: foto en korte introductie */}
         <section className="bg-background pb-10">
           <div className="max-w-3xl mx-auto px-6">
             <div className="card-base border border-[#E6E9E7]">
@@ -113,7 +127,7 @@ export default function OverPage() {
           </div>
         </section>
 
-        {/* Het verhaal, merged: ontdekking + gap + waarom */}
+        {/* Het verhaal: ontdekking, wat ik toen nodig had, en de concrete uitkomst */}
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <p className="section-eyebrow mb-4">Hoe het begon</p>
@@ -133,6 +147,10 @@ export default function OverPage() {
                 Niet omdat we het niet konden. Maar omdat we het nooit echt
                 hadden bekeken.
               </p>
+
+              <p className="font-body font-medium text-primary pt-2">
+                Wat ik toen nodig had
+              </p>
               <p>
                 We zochten hulp. Schuldhulpverlening was niet voor ons. Een
                 financieel adviseur wilde praten over beleggen en hypotheken.
@@ -141,7 +159,9 @@ export default function OverPage() {
                 binnen, wat gaat er uit, en wat zegt dat over júllie situatie?
               </p>
               <p>
-                Dat is precies wat ik voor anderen wil zijn.
+                Daarom doe ik nu voor anderen wat ik toen zelf nodig had:
+                iemand die naast de cijfers ook naar het hele huishouden kijkt
+                en zegt wat hem opvalt.
               </p>
               <p>
                 Ik weet hoe het voelt. Keihard werken, normaal leven, en toch
@@ -152,15 +172,100 @@ export default function OverPage() {
                 niet, met een bank kom je nergens.
               </p>
               <p>
-                Wij zijn er doorheen gekomen. Met jaardoelen per kind, vaste
-                potjes met namen, en wekelijks samen kijken hoe het ging. Niet
-                makkelijk, niet vanzelf. Het vraagt aandacht, elke week weer.
-                Maar als je weet waar je op moet letten, is het te doen.
+                Wij zijn er niet in één keer uitgekomen. We hielden niet
+                ineens duizenden euro&apos;s meer over. We stopten vooral met
+                steeds opnieuw geld uit onze spaarpot te halen voor kosten die
+                we eigenlijk hadden kunnen voorspellen: een weekend weg, de
+                winterjassen, de decembermaand. In plaats daarvan kreeg ieder
+                kind een eigen jaardoel, kwamen er vaste potjes met een naam
+                erop, en keken we er wekelijks samen naar. Niet spannend, niet
+                in één keer klaar. Maar daardoor zagen we voor het eerst wat
+                we werkelijk konden sparen.
               </p>
               <p className="font-body font-normal text-primary">
                 Waar blijft het bestaat omdat ik die persoon wil zijn die er
                 voor ons nooit was.
               </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Waarom ik denk dat ik dit kan */}
+        <section className="bg-background py-14">
+          <div className="max-w-3xl mx-auto px-6">
+            <p className="section-eyebrow mb-4">Mijn achtergrond</p>
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
+              Waarom ik denk dat ik dit kan zien
+            </h2>
+            <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed">
+              <p>
+                Ik ben geen financieel adviseur. Mijn kracht zit in het
+                analyseren en begrijpelijk maken van huishoudfinanciën, en dat
+                doe ik dagelijks in mijn werk: ik bouw software waarmee
+                complexe financiële cijfers vertaald worden naar iets wat
+                iemand zonder financiële achtergrond kan lezen en gebruiken.
+              </p>
+              <p>
+                Die vaardigheid combineer ik met iets wat geen enkele
+                adviseur erbij kan leveren: ik heb zelf in een huishouden
+                gezeten waar de cijfers niet klopten, terwijl er niets
+                buitensporigs werd uitgegeven. Ik weet niet alleen hoe je een
+                huishoudboekje uitleest, ik weet ook hoe het voelt om er
+                middenin te zitten.
+              </p>
+              <p>
+                En misschien wel het belangrijkste: ik verkoop geen enkel
+                financieel product. Geen verzekering, geen hypotheek, geen
+                beleggingsfonds. Ik heb geen belang bij wat je met mijn
+                analyse doet, dus ook geen reden om je iets aan te praten.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Bewijs: echte rapporten */}
+        <section className="bg-card py-14">
+          <div className="max-w-3xl mx-auto px-6">
+            <p className="section-eyebrow mb-4">Bewijs, geen belofte</p>
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
+              Dit heb ik inmiddels voor andere huishoudens uitgezocht
+            </h2>
+            <p className="text-text-soft font-body font-light text-base leading-relaxed mb-8">
+              Ik deel deze rapporten niet als succesverhaal, maar zodat je
+              kunt zien hoe ik werk voordat je zelf iets deelt. Namen zijn
+              weggelaten, de bedragen staan er precies zoals ze zijn
+              aangeleverd. Bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length}{" "}
+              bleek er uiteindelijk niets te repareren, en ook dat lees je
+              terug.
+            </p>
+
+            <div className="space-y-4">
+              {bewijsRapporten.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/rapporten/${r.slug}`}
+                  className="card-base border border-[#E6E9E7] block hover:border-[#0B7A6E] transition-colors"
+                  style={{ borderLeft: "3px solid #0B7A6E", textDecoration: "none" }}
+                >
+                  <p className="section-eyebrow mb-2">{r.chip}</p>
+                  <p className="font-display font-light text-primary text-lg sm:text-xl mb-3 leading-snug">
+                    {r.uitkomstKop}
+                  </p>
+                  <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+                    Zij dachten vooraf: &ldquo;{r.vermoeden}&rdquo;
+                  </p>
+                </Link>
+              ))}
+            </div>
+
+            <div className="mt-7">
+              <Link
+                href="/rapporten"
+                className="font-body text-sm font-medium hover:underline"
+                style={{ color: "#0B7A6E" }}
+              >
+                Bekijk alle rapporten &rarr;
+              </Link>
             </div>
           </div>
         </section>
@@ -173,10 +278,11 @@ export default function OverPage() {
                 Wat ik wél doe
               </p>
               <ul className="space-y-2 font-body font-light text-sm text-text-soft">
-                <li>Eerlijk laten zien waar jullie geld naartoe gaat</li>
-                <li>Vergelijken met gezinnen in dezelfde situatie</li>
-                <li>Één concrete afwijking benoemen, in gewone taal</li>
-                <li>Meekijken en scherp houden als je dat wilt</li>
+                <li>Jullie huishoudfinanciën analyseren, in gewone taal</li>
+                <li>Vergelijken met huishoudens in een vergelijkbare situatie</li>
+                <li>Patronen zichtbaar maken die je zelf niet meer ziet</li>
+                <li>Onderscheid maken tussen een écht probleem en een bewuste keuze</li>
+                <li>Helpen een concreet plan te maken, geen abstract advies</li>
               </ul>
             </div>
             <div className="card-base border border-[#E6E9E7]">
@@ -184,8 +290,8 @@ export default function OverPage() {
                 Wat ik niet doe
               </p>
               <ul className="space-y-2 font-body font-light text-sm text-text-soft">
+                <li>Geen boekhouder, financieel planner, hypotheekadviseur of beleggingsadviseur</li>
                 <li>Geen schuldhulpverlening</li>
-                <li>Geen advies over beleggen, hypotheken of pensioen</li>
                 <li>Geen producten verkopen of doorverwijzen voor commissie</li>
                 <li>Geen spreadsheets of cursussen waar je toch niet aan begint</li>
               </ul>
@@ -193,18 +299,18 @@ export default function OverPage() {
           </div>
         </section>
 
-        {/* Eerlijk over */}
+        {/* Transparantie / grenzen */}
         <section className="bg-card py-14">
           <div className="max-w-3xl mx-auto px-6">
             <p className="section-eyebrow mb-4">Eerlijk is eerlijk</p>
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Ben ik een gecertificeerde adviseur?
+              Wat je van mij wel en niet mag verwachten
             </h2>
             <p className="text-text-soft font-body font-light text-base leading-relaxed mb-4">
-              Nee. Ik ben geen AFM-geregistreerde financieel adviseur en geef
-              geen financieel advies in de juridische zin. Wat ik bied is
-              inzicht, herkenning en een eerlijke blik van buitenaf, gebaseerd
-              op openbare cijfers van bronnen als het Nibud, CBS en de
+              Ik ben geen AFM-geregistreerde financieel adviseur en geef geen
+              financieel advies in de juridische zin. Wat ik bied is inzicht,
+              herkenning en een eerlijke blik van buitenaf, gebaseerd op
+              openbare cijfers van bronnen als het Nibud, CBS en de
               Belastingdienst. Bij elk artikel vermeld ik waar de cijfers
               vandaan komen, en ik maak onderscheid tussen harde data en
               indicaties uit de praktijk.
@@ -232,16 +338,20 @@ export default function OverPage() {
               Herken je dit verhaal?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Doe de analyse en zie in vijf minuten hoe jullie het doen
-              ten opzichte van vergelijkbare gezinnen.
+              Begin dan eens met vijf minuten kijken naar je eigen situatie.
             </p>
             <Link
               href="/analyse"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Start de analyse →
+              Doe de gratis analyse &rarr;
             </Link>
+            <p className="font-body font-light text-white/50 text-sm mt-5">
+              <Link href="/geldscan" className="hover:underline text-white/50">
+                Wil je dat ik gelijk met je meekijk? Dat kan ook, via de Geldscan &rarr;
+              </Link>
+            </p>
           </div>
         </section>
 
