@@ -60,6 +60,15 @@ function startDataUitUrl(): QuizData {
     data.salaris1 = String(inkomen);
   }
 
+  // Boodschappenbedrag (15-aug-2026). Wie via het boodschappenartikel of via
+  // /geldscan binnenkomt heeft dit getal al een keer ingevuld; opnieuw vragen
+  // is de goedkoopste manier om iemand te laten afhaken. Marge bewust ruim,
+  // buiten die marge negeren we het en vult de bezoeker het zelf in.
+  const boodschappen = Number(q.get("boodschappen"));
+  if (boodschappen >= 50 && boodschappen <= 3000) {
+    data.boodschappen = String(boodschappen);
+  }
+
   return data;
 }
 

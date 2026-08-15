@@ -1,64 +1,216 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
+import {
+  RAPPORTEN,
+  AANTAL_ZONDER_LEK,
+  AANTAL_ZONDER_VERVOLG,
+} from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Geldscan: jouw persoonlijke geldrapport, €49",
+  title: "Geldscan: waarom houd jij zo weinig over? €49",
   description:
-    "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je een persoonlijk rapport met de drie dingen die het meest opvallen en per stuk wat ik zou doen. Valt er niets te repareren, dan staat dat er ook. €49, geen gesprek nodig.",
+    "Je bankapp laat zien wat je hebt uitgegeven. De geldscan legt uit waarom dat bij jouw huishouden zo uitpakt en wat ik concreet zou veranderen. Persoonlijk geschreven, €49 eenmalig, geen gesprek nodig.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
-    title: "Geldscan: jouw persoonlijke geldrapport, €49",
+    title: "Geldscan: waarom houd jij zo weinig over? €49",
     description:
-      "Zie zwart op wit waar jouw geld elke maand blijft. Ik schrijf je persoonlijke geldrapport met wat opvalt, wat niet opvalt en wat ik zou doen. €49.",
+      "Je bankapp vertelt wat je hebt uitgegeven. Ik kijk naar het hele huishouden en zoek uit wat die cijfers voor jou betekenen. €49 eenmalig.",
     url: "https://www.waarblijfthet.nl/geldscan",
     type: "website",
   },
   robots: { index: true, follow: true },
 };
 
+/* ────────────────────────────────────────────────────────────────
+   Situatiecontext uit de URL (17 in de bouwprompt van 15-aug-2026).
+
+   Komt iemand binnen vanuit een artikel of een persona-CTA, dan houd ik
+   die context vast: de passende kaart staat bovenaan en gemarkeerd, de
+   hero krijgt een regel die zijn situatie benoemt, en alles wat al
+   bekend is reist mee naar de gratis analyse, zodat hij het daar niet
+   opnieuw hoeft in te vullen.
+
+   Bewust terughoudend met voorinvullen: alleen wat zeker is uit de
+   situatiekeuze zelf. Het aantal kinderen raad ik niet, want dat
+   verandert de vergelijking zonder dat de bezoeker het ziet.
+   ──────────────────────────────────────────────────────────────── */
+type SituatieSleutel =
+  | "gezin"
+  | "alleenstaand"
+  | "stel"
+  | "alleenstaande-ouder"
+  | "zzp";
+
+interface Situatie {
+  sleutel: SituatieSleutel;
+  kaartTitel: string;
+  kaartTekst: string;
+  /** Slug van het echte rapport dat het dichtst bij deze situatie ligt. */
+  rapport: string;
+  /** Regel in de hero als iemand met deze context binnenkomt. */
+  heroRegel: string;
+  /** Wat we zeker weten en dus meegeven aan de analyse. */
+  analyseParams: Record<string, string>;
+}
+
+const SITUATIES: Situatie[] = [
+  {
+    sleutel: "gezin",
+    kaartTitel: "Gezin",
+    kaartTekst: "Goed inkomen, kinderen, toch weinig over.",
+    rapport: "tweeverdieners-drie-kinderen",
+    heroRegel:
+      "Je komt binnen als gezin met twee inkomens. Het rapport dat hieronder is uitgewerkt gaat over precies zo'n huishouden, en daar lag het antwoord niet bij de boodschappen.",
+    analyseParams: { volwassenen: "2" },
+  },
+  {
+    sleutel: "alleenstaand",
+    kaartTitel: "Alleenstaand",
+    kaartTekst: "Goed salaris, maar alles komt op één inkomen neer.",
+    rapport: "alleenstaand-huurwoning",
+    heroRegel:
+      "Je komt binnen als alleenstaande. Eén inkomen draagt een vaste basis die voor twee mensen is geprijsd, en dat verschuift wat er normaal is.",
+    analyseParams: { volwassenen: "1", kinderen: "0" },
+  },
+  {
+    sleutel: "stel",
+    kaartTitel: "Stel zonder kinderen",
+    kaartTekst: "Goed verdienen, maar sparen lukt minder dan verwacht.",
+    rapport: "stel-zonder-kinderen",
+    heroRegel:
+      "Je komt binnen als stel zonder kinderen. Bij het stel dat je hieronder terugvindt was de uitkomst dat er geen lek was. Dat kan dus ook.",
+    analyseParams: { volwassenen: "2", kinderen: "0" },
+  },
+  {
+    sleutel: "alleenstaande-ouder",
+    kaartTitel: "Alleenstaande ouder",
+    kaartTekst: "Goed inkomen, maar één persoon draagt vrijwel alle risico's.",
+    rapport: "alleenstaande-ouder-twee-kinderen",
+    heroRegel:
+      "Je komt binnen als alleenstaande ouder. Je draagt in je eentje wat elders twee mensen dragen, en de vergelijking moet dat weten voordat er iets van te vinden valt.",
+    analyseParams: { volwassenen: "1" },
+  },
+  {
+    sleutel: "zzp",
+    kaartTitel: "Zzp of wisselend inkomen",
+    kaartTekst: "Goed gemiddeld inkomen, maar veel verschil tussen maanden.",
+    rapport: "zzp-wisselend-inkomen",
+    heroRegel:
+      "Je komt binnen met een wisselend inkomen. Juist dan is de vraag niet wat je gemiddeld verdient, maar welke vaste structuur eronder ligt.",
+    analyseParams: {},
+  },
+];
+
+function isSituatie(v: string | undefined): v is SituatieSleutel {
+  return !!v && SITUATIES.some((s) => s.sleutel === v);
+}
+
+/** Getal uit de URL, alleen als het binnen een geloofwaardige marge valt. */
+function bedragUitUrl(v: string | undefined, min: number, max: number): string | null {
+  if (!v) return null;
+  const n = Number(v.replace(/[^\d]/g, ""));
+  if (!Number.isFinite(n) || n < min || n > max) return null;
+  return String(n);
+}
+
+const stappen = [
+  {
+    n: "01",
+    titel: "Ik kijk naar jouw cijfers",
+    tekst:
+      "Je levert je inkomsten en je belangrijkste uitgaven aan. Schattingen zijn prima. Dat kost je een minuut of twee.",
+  },
+  {
+    n: "02",
+    titel: "Ik kijk naar jouw situatie",
+    tekst:
+      "Inkomen, wonen, kinderen, auto, huishouden en wat jij zelf belangrijk vindt. Er is een veld waarin je opschrijft wat de cijfers niet laten zien, en dat weegt zwaarder dan het gemiddelde.",
+  },
+  {
+    n: "03",
+    titel: "Ik zoek uit wat er werkelijk opvalt",
+    tekst:
+      "Niet alleen wat hoog is, ook wat juist normaal is. Een dure hypotheek is niet automatisch een probleem. Hoge boodschappen zijn niet automatisch een probleem.",
+  },
+  {
+    n: "04",
+    titel: "Je krijgt een persoonlijk plan",
+    tekst:
+      "Een rapport met mijn conclusies, de posten die afwijken, de posten die dat niet doen, en wat ik concreet zou veranderen in de komende maanden.",
+  },
+];
+
+const inhoudsopgave = [
+  { n: "1", titel: "Mijn eerste indruk", tekst: "Wat valt direct op?" },
+  { n: "2", titel: "Waar zit het verschil?", tekst: "Welke uitgaven wijken af en welke juist niet?" },
+  { n: "3", titel: "Wat is géén probleem?", tekst: "Welke dure uitgaven hoef je niet aan te pakken?" },
+  { n: "4", titel: "Waar zit de echte ruimte?", tekst: "Wat kun je structureel veranderen?" },
+  { n: "5", titel: "Mijn advies", tekst: "Een concreet plan voor de komende maanden." },
+  { n: "6", titel: "Evaluatie", tekst: "Wat zou je na drie maanden moeten zien veranderen?" },
+];
+
+const bankapp = [
+  "Je gaf €1.150 uit aan boodschappen",
+  "Je gaf €720 uit aan vrije tijd",
+  "Je hypotheek is €1.860",
+  "Je zette €1.000 opzij, en haalde er weer geld vanaf",
+];
+
+const geldscanVragen = [
+  "Is €1.150 aan boodschappen veel voor jouw huishouden?",
+  "Zijn je vaste lasten eigenlijk het probleem?",
+  "Welke jaarlijkse kosten trekken je spaargeld telkens weer leeg?",
+  "Hoeveel zou er structureel over moeten blijven?",
+  "Wat zou ik als eerste veranderen?",
+];
+
 const faq = [
   {
-    vraag: "Wat is de geldscan precies?",
+    vraag: "Is de geldscan automatisch?",
     antwoord:
-      "Je meldt je aan met je naam en e-mailadres. Na betaling vraag ik je de analyse in te vullen (2 minuten), optioneel stuur je ook een paar recente bankafschriften mee. Binnen twee werkdagen daarna krijg je jouw geldrapport: een persoonlijk geschreven rapport (PDF) met de drie dingen die in jouw cijfers het meest opvallen, met jouw eigen bedragen en per stuk wat ik zou doen. Ook wat er juist niet uit de toon valt, want dat is de helft van het antwoord. In gewone taal, herleesbaar en deelbaar met je partner.",
+      "Nee. Ik schrijf elk rapport zelf, met de hand. Er kijkt geen team en geen algoritme mee, en er is geen sjabloon waarin ik jouw bedragen giet. Dat is precies waarom er vijf verschillende antwoorden uit vijf rapporten kwamen.",
   },
   {
-    vraag: "Kan ik je eerst spreken?",
-    antwoord:
-      "Ja, een kwartier, kosteloos, via video of telefoon. Ik doe die gesprekken buiten kantoortijden en maximaal drie per week. In dat kwartier kijk ik niet naar jouw cijfers: ik leg uit wat ik doe, wat er in een geldrapport staat en wat er met je gegevens gebeurt. Zodra het over jouw eigen bedragen gaat, is het werk, en daar is de geldscan voor. Mail naar hallo@waarblijfthet.nl met als onderwerp Kennismaken.",
+    vraag: "Moet ik mijn bank koppelen?",
+    antwoord: "Nee. Er is geen koppeling, geen app en geen inlog. Je vult zelf in wat je weet.",
   },
   {
-    vraag: "Moet ik hiervoor met iemand praten of bellen?",
+    vraag: "Moet ik bankafschriften opsturen?",
     antwoord:
-      "Nee. Jij levert je cijfers aan wanneer het jou uitkomt, ik schrijf het rapport, jij leest het rustig terug op je eigen moment. Zo hou je het in eigen hand. Heb je daarna een vraag, dan beantwoord ik die per mail.",
+      "Nee, dat is optioneel. De ingevulde analyse is meestal genoeg. Wil je dat ik preciezer kijk, stuur dan een paar recente afschriften mee. Je mag daarin wegstrepen wat er voor mij niet toe doet: rekeningnummers, namen van anderen en betalingen die over iemand anders gaan. Ik heb de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind. Ik ben de enige die ze inziet, en direct na het versturen van je rapport verwijder ik ze.",
   },
   {
-    vraag: "Wat kost de geldscan?",
+    vraag: "Hoe lang duurt het?",
     antwoord:
-      "€49, eenmalig. Na je aanvraag stuur ik je een betaalverzoek, dat komt altijd van hallo@waarblijfthet.nl. En wil je daarna alsnog een gesprek of traject, dan trek ik de €49 af van de prijs daarvan.",
+      "Je krijgt het rapport binnen twee werkdagen nadat je informatie compleet is. De aanvraag zelf kost je twee minuten.",
   },
   {
-    vraag: "Wat als er bij mij niets uit de scan komt?",
+    vraag: "Krijg ik alleen tips om te bezuinigen?",
     antwoord:
-      "Dat kan. Ik beloof niet dat er altijd geld te besparen valt. Vaker is de winst dat je zwart op wit ziet dat het klopt, of dat je precies weet waar het naartoe gaat, ook als er weinig aan te snijden is.",
+      "Nee. Soms is een dure uitgave helemaal geen probleem, en dan schrijf ik dat op. Het rapport kijkt naar het geheel: wat wijkt af, wat wijkt juist niet af, en waar zit de ruimte werkelijk.",
   },
   {
-    vraag: "Is dit hetzelfde als het adviesgesprek?",
+    vraag: "Wat als er niets bijzonders uitkomt?",
     antwoord:
-      "Nee. Het adviesgesprek (€125) is een gesprek van 45 minuten waarin ik je help doelen te stellen en jij vragen kunt stellen. De geldscan is eenrichtingsverkeer: ik kijk naar jouw cijfers en zet op papier wat ik zie. Minder diepgang, wel een persoonlijke blik, voor een lagere prijs en zonder gesprek.",
+      `Dan schrijf ik dat ook. Van de vijf rapporten die openbaar op deze site staan, was dat bij ${AANTAL_ZONDER_LEK} van de vijf de uitkomst. Het doel is niet om koste wat kost iets te vinden, het doel is een antwoord dat klopt.`,
   },
   {
-    vraag: "Moet ik bankafschriften delen?",
+    vraag: "Kan ik daarna nog hulp krijgen?",
     antwoord:
-      "Nee, dat is optioneel. Na betaling vraag ik je de analyse in te vullen, dat is meestal genoeg voor een goede scan. Wil je dat ik preciezer kijk, stuur dan ook een paar recente bankafschriften mee als bijlage. Je mag daarin alles wegstrepen wat er voor mij niet toe doet: rekeningnummers, namen van andere mensen en betalingen die over iemand anders gaan. Ik heb alleen de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind. Ik ben de enige die ze inziet, er kijkt geen team of algoritme mee. Alles blijft vertrouwelijk: het rapport komt als PDF-bijlage per e-mail, alleen naar jou. Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard. Je hoeft daar niet om te vragen.",
+      `Ja, maar het hoeft niet. Je kunt een adviesgesprek of een traject kiezen, en dan trek ik de €49 van de prijs daarvan af. Bij ${AANTAL_ZONDER_VERVOLG} van de vijf gepubliceerde rapporten was een vervolggesprek niet nodig.`,
   },
   {
-    vraag: "Is dit financieel advies in de zin van de Wft?",
+    vraag: "Kan ik je eerst even spreken?",
     antwoord:
-      "Nee. Ik geef geen advies over hypotheken, beleggingen of pensioenproducten en ben geen schuldhulp. De geldscan is een praktische, persoonlijke blik op je maandbudget: waar gaat het naartoe en waar kun je bijsturen.",
+      "Dat kan, een kwartier, kosteloos, via video of telefoon. Ik doe die gesprekken buiten kantoortijden, zodat ik er de tijd voor kan nemen. In dat kwartier kijk ik niet naar jouw cijfers: ik leg uit wat ik doe, wat er in een rapport staat en wat er met je gegevens gebeurt. Mail naar hallo@waarblijfthet.nl met als onderwerp Kennismaken. Voor de scan zelf is het niet nodig.",
+  },
+  {
+    vraag: "Is dit financieel advies?",
+    antwoord:
+      "Nee. De geldscan is een persoonlijke analyse van je huishoudfinanciën. Voor belasting, hypotheek, beleggen en vergelijkbaar gespecialiseerd advies verwijs ik waar nodig door. Ik ben ook geen schuldhulp: heb je betalingsachterstanden, dan is kosteloze hulp via je gemeente of Geldfit passender.",
   },
 ];
 
@@ -78,7 +230,7 @@ const serviceSchema = {
   serviceType: "Persoonlijke geldscan",
   name: "Geldscan, Waar blijft het",
   description:
-    "Persoonlijk geschreven geldrapport over je maandbudget zonder gesprek: de drie posten die het meest opvallen, wat juist niet uit de toon valt, en per punt wat ik zou doen. Als PDF binnen twee werkdagen na aanlevering van je cijfers. €49 eenmalig.",
+    "Persoonlijk geschreven geldrapport over je huishoudfinanciën, zonder gesprek. Wat wijkt af, wat wijkt juist niet af, en wat er concreet moet veranderen. Als PDF binnen twee werkdagen na aanlevering van je cijfers. €49 eenmalig.",
   url: "https://www.waarblijfthet.nl/geldscan",
   areaServed: { "@type": "Country", name: "Nederland" },
   provider: {
@@ -96,48 +248,46 @@ const serviceSchema = {
   },
 };
 
-const stappen = [
-  {
-    n: "1",
-    titel: "Meld je aan",
-    tekst:
-      "Alleen je naam en e-mailadres, geen lang formulier. Je hoeft nog niets uit te rekenen of aan te leveren.",
-  },
-  {
-    n: "2",
-    titel: "Het betaalverzoek",
-    tekst:
-      "Na je aanvraag stuur ik je binnen één werkdag een betaalverzoek (€49), dat komt altijd van hallo@waarblijfthet.nl. Je weet dan al precies wat je krijgt: het rapport dat hieronder staat beschreven, door mij persoonlijk geschreven.",
-  },
-  {
-    n: "3",
-    titel: "Na betaling: vul de analyse in",
-    tekst:
-      "Zodra het betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers om je rapport op te baseren. Optioneel stuur je ook een paar recente bankafschriften mee, dan kijk ik naar wat er echt gebeurt in plaats van naar schattingen. Streep daarin weg wat je niet wilt delen: rekeningnummers, namen van anderen, betalingen die over iemand anders gaan. Ik heb de bedragen en de soort uitgave nodig, verder niets. Ik ben de enige die ze inziet.",
-  },
-  {
-    n: "4",
-    titel: "Binnen 2 werkdagen daarna: jouw geldrapport",
-    tekst:
-      "Je ontvangt jouw geldrapport als PDF per e-mail: persoonlijk geschreven, met de drie dingen die het meest opvallen, met jouw eigen bedragen en per stuk wat ik zou doen. Er staat ook in wat ik juist niet als probleem reken, en als er niets te repareren valt, lees je dat. In gewone taal, herleesbaar en deelbaar met je partner. Vragen achteraf stel je gewoon per reply.",
-  },
-  {
-    n: "5",
-    titel: "Direct daarna: alles verwijderd",
-    tekst:
-      "Direct na het versturen van het rapport verwijder ik je afschriften en analyse-gegevens, er blijft niets bewaard.",
-  },
-];
-
 export default function GeldscanPage({
   searchParams,
 }: {
-  searchParams?: { token?: string };
+  searchParams?: { token?: string; situatie?: string; inkomen?: string; boodschappen?: string };
 }) {
   const token = searchParams?.token;
-  const intakeHref = token
-    ? `/aanbod/intake?pakket=geldscan&token=${encodeURIComponent(token)}`
-    : "/aanbod/intake?pakket=geldscan";
+  const situatieSleutel = isSituatie(searchParams?.situatie) ? searchParams.situatie : null;
+  const situatie = situatieSleutel
+    ? SITUATIES.find((s) => s.sleutel === situatieSleutel) ?? null
+    : null;
+  const inkomen = bedragUitUrl(searchParams?.inkomen, 500, 20000);
+  const boodschappen = bedragUitUrl(searchParams?.boodschappen, 50, 3000);
+
+  // Aanmelden voor de scan.
+  const intakeParams = new URLSearchParams({ pakket: "geldscan" });
+  if (token) intakeParams.set("token", token);
+  if (situatieSleutel) intakeParams.set("situatie", situatieSleutel);
+  const intakeHref = `/aanbod/intake?${intakeParams.toString()}`;
+
+  // Gratis analyse, met alles wat we al van deze bezoeker weten.
+  const analyseParams = new URLSearchParams(situatie?.analyseParams ?? {});
+  if (inkomen) analyseParams.set("inkomen", inkomen);
+  if (boodschappen) analyseParams.set("boodschappen", boodschappen);
+  const analyseQuery = analyseParams.toString();
+  const analyseHref = analyseQuery ? `/analyse?${analyseQuery}` : "/analyse";
+
+  // De situatie waarmee iemand binnenkwam gaat bovenaan de kaartenrij staan.
+  const situatieKaarten = situatie
+    ? [situatie, ...SITUATIES.filter((s) => s.sleutel !== situatie.sleutel)]
+    : SITUATIES;
+
+  const PrimaireCta = ({ dark = false }: { dark?: boolean }) => (
+    <Link
+      href={intakeHref}
+      className="btn-primary"
+      style={dark ? { backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" } : undefined}
+    >
+      Laat mij jouw cijfers nakijken, €49
+    </Link>
+  );
 
   return (
     <>
@@ -152,318 +302,734 @@ export default function GeldscanPage({
       <Header />
 
       <main className="pt-16">
-        {/* Hero */}
-        <section className="bg-background pt-16 pb-10">
+        {/* ── 1. Hero ─────────────────────────────────────────── */}
+        <section className="bg-background pt-14 pb-12">
           <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Geldscan · persoonlijk geldrapport · €49</p>
-            <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-6 max-w-2xl">
-              Zie zwart op wit waar jouw geld elke maand blijft
+            <p className="section-eyebrow mb-5">Geldscan</p>
+            <h1 className="font-display font-light text-primary text-3xl sm:text-5xl mb-6 leading-tight">
+              Je weet waar je geld naartoe gaat.
+              <br />
+              Maar weet je ook waarom je zo weinig overhoudt?
             </h1>
-            <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-4">
-              Je krijgt een persoonlijk rapport: de drie dingen die in jouw cijfers het meest opvallen, met jouw eigen bedragen en per stuk precies wat ik zou doen. En wat ik juist niet als probleem reken, ook als dat de duurste post is. Ik schrijf het zelf, er kijkt geen algoritme mee.
+            <p className="font-body font-light text-text-soft text-lg leading-relaxed mb-4">
+              Je bankapp vertelt wat je hebt uitgegeven. Ik kijk naar het hele huishouden en zoek
+              uit wat die cijfers voor jou betekenen.
             </p>
-            <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-8">
-              Je levert je cijfers aan wanneer het jou uitkomt, ik doe het werk, en binnen twee werkdagen lees je het rapport rustig terug. Een vraag achteraf beantwoord ik gewoon per mail.
+            <p className="font-body font-light text-text-soft text-lg leading-relaxed mb-4">
+              Geen algemeen advies en geen oordeel over jou. Gewoon jouw cijfers, jouw situatie en
+              een concreet plan.
             </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link href={intakeHref} className="btn-primary">
-                Ja, help mij zien wat er anders kan →
-              </Link>
-              <Link
-                href="/analyse"
-                className="font-body text-sm hover:underline"
-                style={{ color: "#0B7A6E", textDecoration: "none" }}
-              >
-                Kijk eerst zelf →
-              </Link>
-              <Link
-                href="/rapporten"
-                className="font-body text-sm hover:underline"
-                style={{ color: "#0B7A6E", textDecoration: "none" }}
-              >
-                Zie eerst een compleet voorbeeld →
-              </Link>
-            </div>
-            <p className="font-body font-light text-text-muted text-xs mt-4">
-              Nog niet zeker? Je kunt me eerst{" "}
-              <a
-                href="mailto:hallo@waarblijfthet.nl?subject=Kennismaken%20(15%20minuten)"
-                className="hover:underline"
-                style={{ color: "#8B958F" }}
-              >
-                een kwartier spreken
-              </a>
-              , zonder kosten en zonder dat je iets aanlevert.
+            <p className="font-body font-light text-text-soft text-lg leading-relaxed mb-8">
+              Een bankapp heeft geen categorie voor kosten die nog moeten komen. Bij het gezin
+              verderop op deze pagina was dat €11.600 per jaar, en dat was precies de reden dat hun
+              €1.000 per maand sparen telkens terugliep.
             </p>
-            <p className="font-body font-light text-text-muted text-xs mt-4">
-              Binnen 2 werkdagen na aanlevering van je cijfers · €49 wordt verrekend als je later een gesprek of traject wilt
-            </p>
-          </div>
-        </section>
 
-        {/* Stappen */}
-        <section className="bg-background pb-8">
-          <div className="max-w-3xl mx-auto px-6 space-y-5">
-            {stappen.map((s) => (
-              <div key={s.n} className="card-base border border-[#E6E9E7]">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-green-light flex items-center justify-center shrink-0">
-                    <span className="font-display font-medium text-primary text-xl">{s.n}</span>
-                  </div>
-                  <div>
-                    <h2 className="font-display font-light text-primary text-xl mb-2">{s.titel}</h2>
-                    <p className="font-body font-light text-sm text-text-soft leading-relaxed">{s.tekst}</p>
-                  </div>
-                </div>
+            {situatie && (
+              <div
+                className="card-base border border-[#E6E9E7] mb-8"
+                style={{ borderLeft: "3px solid #0B7A6E" }}
+              >
+                <p className="section-eyebrow mb-2">{situatie.kaartTitel}</p>
+                <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                  {situatie.heroRegel}
+                </p>
               </div>
-            ))}
+            )}
+
+            <PrimaireCta />
+            <p className="font-body font-light text-text-muted text-xs mt-4">
+              Eenmalig · persoonlijk geschreven · binnen 2 werkdagen na je cijfers · geen gesprek
+              nodig
+            </p>
+
+            <p className="mt-7">
+              <Link
+                href={analyseHref}
+                className="font-body font-medium text-sm hover:underline"
+                style={{ color: "#0B7A6E" }}
+              >
+                Eerst gratis zelf kijken &rarr;
+              </Link>
+            </p>
+            <p className="font-body font-light text-text-muted text-xs mt-1.5">
+              De gratis analyse laat zien waar je afwijkt. De geldscan legt uit waarom. Je
+              antwoorden blijven anoniem totdat je zelf je e-mailadres achterlaat.
+            </p>
           </div>
         </section>
 
-        {/* Geruststelling */}
-        <section className="bg-card py-12">
+        {/* ── 2. Wat krijg ik? ────────────────────────────────── */}
+        <section className="bg-card py-16">
           <div className="max-w-3xl mx-auto px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-              {[
-                ["Op je eigen moment", "Je hoeft niets te plannen of te bellen. Jij levert je cijfers aan wanneer het uitkomt, ik lever het rapport."],
-                ["Geen oordeel", "Ik benoem wat ik zie en wat werkt. Schaamte is nergens voor nodig, dit patroon zie ik overal."],
-                ["Eén keer, klaar", "Eén scan, geen abonnement. Wil je daarna meer, dan verreken ik de €49."],
-              ].map(([t, d]) => (
-                <div key={t}>
-                  <p className="font-body font-medium text-primary text-sm mb-1">{t}</p>
-                  <p className="font-body font-light text-text-soft text-xs leading-relaxed">{d}</p>
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
+              Wat je voor €49 krijgt
+            </h2>
+            <div className="space-y-4">
+              {stappen.map((s) => (
+                <div key={s.n} className="card-base border border-[#E6E9E7]">
+                  <div className="flex items-start gap-5">
+                    <span
+                      className="font-display font-light shrink-0"
+                      style={{ color: "#0B7A6E", fontSize: "1.75rem", lineHeight: 1.1 }}
+                      aria-hidden="true"
+                    >
+                      {s.n}
+                    </span>
+                    <div>
+                      <h3 className="font-display font-light text-primary text-xl mb-2">
+                        {s.titel}
+                      </h3>
+                      <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                        {s.tekst}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
+            <p className="font-body font-medium text-primary text-sm mt-6">
+              Geen automatisch rapport. Ik schrijf het zelf.
+            </p>
           </div>
         </section>
 
-        {/* Voorbeeld van wat je krijgt */}
-        <section className="bg-background pt-14 pb-2">
-          <div className="max-w-3xl mx-auto px-6">
+        {/* ── 3. Het onderscheid met de bankapp ───────────────── */}
+        <section className="bg-background py-16">
+          <div className="max-w-4xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
-              Zo ziet zo&apos;n rapport eruit
+              Wat je bankapp al weet. En wat je nog niet weet.
             </h2>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
-              Stukken uit een echt rapport, gepubliceerd met toestemming. Alleenstaande ouder, twee kinderen
-              van 7 en 11 die 80 procent van de tijd bij haar wonen, koopwoning, één inkomen van €4.850 netto.
-              Namen zijn weggelaten, de bedragen staan er onveranderd.
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-8 max-w-2xl">
+              De bedragen links komen uit een echt rapport dat op deze site staat, bij een
+              huishouden met twee inkomens en drie kinderen. Er staan net zulke rapporten voor een
+              alleenstaande, een alleenstaande ouder, een stel en een zzp&apos;er. Twee van deze
+              vier bedragen waren overigens hun eigen schatting, en bij het invullen bleek die te
+              onzeker. Daarom heb ik drie maanden afschriften opgevraagd.
             </p>
-            <div className="card-base border border-[#E6E9E7]" style={{ borderLeft: "3px solid #0B7A6E" }}>
-              <p className="font-body font-medium text-primary text-sm mb-2">Wat zij zelf dacht</p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
-                &ldquo;Ik vermoed dat mijn vaste basis duur is voor één inkomen. Daarnaast geef ik mogelijk nog
-                uit alsof er soms twee inkomens zijn.&rdquo; Zij miste naar eigen schatting 400 tot 500 euro per
-                maand.
-              </p>
-              <p className="font-body font-medium text-primary text-sm mb-2">Wat ik schreef</p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
-                Je gevoel van krapte is deels logisch. Je draagt met één inkomen een koopwoning, auto en twee
-                kinderen. De oplossing is niet om je leven te behandelen alsof je te veel uitgeeft. Wel is de
-                structuur nog onvoldoende aangepast aan het feit dat je sinds de scheiding alleen de financiële
-                achtervang bent. Laat huis, auto en de sporten van de kinderen ongemoeid.
-              </p>
-              <p className="font-body font-medium text-primary text-sm mb-2">Haar evaluatie, na drie maanden</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              <div className="card-base border border-[#E6E9E7]">
+                <p className="section-eyebrow mb-4">Je bankapp</p>
+                <ul className="space-y-3">
+                  {bankapp.map((r) => (
+                    <li
+                      key={r}
+                      className="font-body font-light text-sm text-text-soft leading-relaxed flex gap-3"
+                    >
+                      <span aria-hidden="true" style={{ color: "#C6CCC9" }}>
+                        &bull;
+                      </span>
+                      <span>{r}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="font-body font-light text-text-muted text-xs mt-5 leading-relaxed">
+                  Vier bedragen. Allemaal juist, en geen van alle een antwoord.
+                </p>
+              </div>
+
+              <div
+                className="card-base border border-[#E6E9E7]"
+                style={{ borderLeft: "3px solid #0B7A6E" }}
+              >
+                <p className="section-eyebrow mb-4">De geldscan</p>
+                <ul className="space-y-3">
+                  {geldscanVragen.map((r) => (
+                    <li
+                      key={r}
+                      className="font-body text-sm text-primary leading-relaxed flex gap-3"
+                    >
+                      <span aria-hidden="true" style={{ color: "#0B7A6E" }}>
+                        &bull;
+                      </span>
+                      <span className="font-light">{r}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+
+            <div
+              className="card-base border border-[#E6E9E7] mt-5"
+              style={{ borderLeft: "3px solid #0B7A6E" }}
+            >
+              <p className="section-eyebrow mb-2">Het antwoord op de eerste vraag</p>
               <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                &ldquo;Mijn financiële situatie voelt vooral voorspelbaarder. Mijn echte buffer groeit met €500
-                per maand. Dat is minder dan de €750 die ik vroeger probeerde te sparen, maar het geld blijft nu
-                daadwerkelijk staan. Ik heb geen grote bezuinigingen gedaan.&rdquo;
+                Nee. Bij dit huishouden viel geen enkele vaste last uit de toon, en de boodschappen
+                hoefden niet omlaag. Wat er wel uit de toon viel, lees je hieronder.
               </p>
             </div>
-            <p className="mt-5 mb-1">
-              <Link href="/rapporten" className="font-body font-medium text-sm hover:underline" style={{ color: "#0B7A6E" }}>
-                Bekijk alle vijf de rapporten van begin tot eind &rarr;
+
+            <p className="font-body font-medium text-primary text-base leading-relaxed mt-8 max-w-2xl">
+              Daar betaal je €49 voor. Niet voor meer cijfers, maar voor een oordeel over jouw
+              cijfers. Ik leg ze naast de huishoudens die ik eerder heb doorgerekend, en ik vraag
+              door op wat een app niet ziet.
+            </p>
+          </div>
+        </section>
+
+        {/* ── 4. Het echte resultaat ──────────────────────────── */}
+        <section className="bg-card py-16">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6">
+              Zo ziet het er in de praktijk uit
+            </h2>
+
+            <div
+              className="card-base border border-[#E6E9E7]"
+              style={{ borderLeft: "3px solid #0B7A6E" }}
+            >
+              <p className="section-eyebrow mb-3">
+                Tweeverdieners · 3 kinderen · €7.880 netto
+              </p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-6">
+                De een dacht: de boodschappen en de kinderen. De ander dacht: alle losse uitgaven.
+                Samen misten ze naar eigen schatting 500 tot 750 euro per maand.
+              </p>
+
+              <p
+                className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-5"
+                style={{ letterSpacing: "-0.02em" }}
+              >
+                Geen enkele buitensporige vaste last.
+              </p>
+
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-8">
+                Het probleem bleek een combinatie van veel vrij besteedbare uitgaven, bijna €1.000
+                per maand aan voorspelbare jaaruitgaven, en sparen zonder die jaaruitgaven eerst te
+                reserveren.
+              </p>
+
+              <div
+                className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6"
+                style={{ borderTop: "1px solid #E6E9E7" }}
+              >
+                <div>
+                  <p className="section-eyebrow mb-3">Voor</p>
+                  <ul className="space-y-2">
+                    {[
+                      "€1.000 per maand sparen",
+                      "later dat geld weer terughalen",
+                      "het gevoel dat sparen niet lukt",
+                    ].map((r) => (
+                      <li
+                        key={r}
+                        className="font-body font-light text-sm text-text-soft leading-relaxed"
+                      >
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="section-eyebrow mb-3" style={{ color: "#0B7A6E" }}>
+                    Wat ik voorstelde
+                  </p>
+                  <ul className="space-y-2">
+                    {[
+                      "€975 per maand reserveren voor de jaaruitgaven",
+                      "€750 per maand als echte vermogensopbouw",
+                      "vrije uitgaven een maandplafond geven",
+                      "boodschappen en kinderen ongemoeid laten",
+                    ].map((r) => (
+                      <li
+                        key={r}
+                        className="font-body font-light text-sm text-primary leading-relaxed"
+                      >
+                        {r}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-6 pt-6" style={{ borderTop: "1px solid #E6E9E7" }}>
+                <p className="section-eyebrow mb-2">Hun evaluatie, na drie maanden</p>
+                <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                  &ldquo;Gemiddeld bleef ongeveer €850 per maand echt staan, naast de reserveringen
+                  voor jaaruitgaven. Vooral mijn partner bleek gelijk te hebben: er was niet één
+                  groot lek, maar veel losse bedragen.&rdquo;
+                </p>
+              </div>
+            </div>
+
+            <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
+              Dit is één huishouden, met toestemming gepubliceerd. Geen belofte over jouw uitkomst.
+            </p>
+
+            <p className="mt-5">
+              <Link
+                href="/rapporten/tweeverdieners-drie-kinderen"
+                className="font-body font-medium text-sm hover:underline"
+                style={{ color: "#0B7A6E" }}
+              >
+                Bekijk het volledige rapport &rarr;
               </Link>
             </p>
-            <div className="flex items-center gap-3 mt-5">
-              <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0" style={{ backgroundColor: "#16211F" }}>
-                <Image src="/jarno.jpg" alt="Jarno Koopman" width={40} height={40} className="w-full h-full object-cover" />
+
+            <div className="flex items-center gap-3 mt-8">
+              <div
+                className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0"
+                style={{ backgroundColor: "#16211F" }}
+              >
+                <Image
+                  src="/jarno.jpg"
+                  alt="Jarno Koopman"
+                  width={40}
+                  height={40}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <p className="font-body font-light text-sm text-text-soft">
                 Elk rapport schrijf ik zelf, er kijkt geen algoritme of team mee.{" "}
                 <Link href="/over" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                  Wie ik ben →
+                  Wie ik ben &rarr;
                 </Link>
               </p>
             </div>
           </div>
         </section>
 
-        {/* Waarmee ik vergelijk */}
-        <section className="bg-background pt-12 pb-2">
+        {/* ── 5. Ook: er is niets mis ─────────────────────────── */}
+        <section className="bg-background py-16">
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Waarmee ik jouw cijfers vergelijk, en waarmee niet
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6 leading-snug">
+              Ik zoek niet koste wat kost drie dingen om te schrappen.
             </h2>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-              De vergelijking kijkt naar vier dingen: je netto huishoudinkomen, het aantal volwassenen, het
-              aantal kinderen en je autosituatie, inclusief een eventuele tweede auto. Dat is genoeg om te
-              zien of een post uit de toon valt. Het is niet genoeg om te weten waarom.
-            </p>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-              De bedragen waarmee ik vergelijk komen niet uit openbare gemiddelden maar uit de huishoudens
-              die ik zelf heb doorgerekend. Dat zijn er nu vijf en die staan compleet op de pagina{" "}
-              <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                Rapporten
-              </Link>
-              , dus je kunt narekenen waar mijn cijfers vandaan komen. Bij elke geleverde scan stel ik ze bij.
-              Nibud-referentiebudgetten gebruik ik bewust niet: dat zijn grotendeels minimumbudgetten en die
-              meten iets anders dan wat een huishouden met een goed inkomen werkelijk uitgeeft.
-            </p>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-              Waar de vergelijking niets van weet: de leeftijd van je kinderen, de regio waarin je woont,
-              hoeveel dagen de kinderen bij je zijn, alimentatie, hoeveel je op je huis hebt afgelost en of
-              je auto zakelijk of privé is. Een gezin met drie tieners is financieel iets anders dan een
-              gezin met een peuter, en een alleenstaande ouder met twee kinderen die er bijna altijd zijn is
-              iets anders dan een weekendregeling. Die dingen komen uit wat jij erbij schrijft, en daar vraag
-              ik naar.
-            </p>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-              Daarom is de vergelijking het begin van het rapport en niet het rapport. Ik gebruik hem om te
-              bepalen welke vragen ik moet stellen, en het antwoord schrijf ik zelf.
-            </p>
-            <div className="card-base border border-[#E6E9E7]" style={{ borderLeft: "3px solid #0B7A6E" }}>
-              <p className="font-body font-medium text-primary text-sm mb-2">Dus vraag ik het je</p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                Bij de aanmelding staat een veld waarin je kunt opschrijven wat de vergelijking niet weet.
-                Kinderen van 13 en 16 die eten als volwassenen, co-ouderschap met 60 procent van de tijd bij
-                jou, geen alimentatie, vier kinderen in plaats van drie, een auto die van de zaak is, of een
-                inkomen dat per maand verschilt. Dat leest niemand anders dan ik, en het gaat vóór de
-                vergelijking. Wat jij daar opschrijft weegt zwaarder dan wat het gemiddelde zegt.
+            <div className="space-y-4 max-w-2xl">
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                Misschien zit er inderdaad een duidelijk lek. Maar misschien zijn je uitgaven
+                helemaal niet gek.
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                Misschien verdien je €7.000 per maand, geef je €6.500 bewust uit, en is je vraag
+                niet je uitgavenpatroon maar je spaardoel. Of misschien blijkt je hypotheek logisch,
+                maar verdwijnen er honderden euro&apos;s per maand in allerlei kleine uitgaven.
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                Dat weet ik pas nadat ik naar jouw hele situatie heb gekeken.
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                En als je dit met z&apos;n tweeën leest: het rapport wijst niemand aan. Ik kijk naar
+                het huishouden, niet naar wie van jullie meer uitgeeft. Bij het gezin hierboven
+                bleek achteraf dat allebei de vermoedens een kern van waarheid hadden.
               </p>
             </div>
-          </div>
-        </section>
 
-        {/* Echte ervaringen uit de begeleiding */}
-        <section className="bg-card py-14">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
-              Wat een blik van buitenaf oplevert
-            </h2>
-            <div className="card-base border border-[#E6E9E7] mb-8" style={{ borderLeft: "3px solid #0B7A6E" }}>
-              <p className="section-eyebrow mb-3">De eerste die de geldscan deed</p>
+            <div
+              className="card-base border border-[#E6E9E7] mt-8"
+              style={{ borderLeft: "3px solid #0B7A6E" }}
+            >
               <p className="font-body font-light text-primary text-base leading-relaxed mb-3">
-                &ldquo;We vonden het best spannend dat een vreemde naar onze
-                financiën zou kijken. Maar het advies was verhelderend: we
-                weten nu dat we sommige dingen goed doen, en we zagen afwijkingen
-                die we zelf niet doorhadden. We gaan eerst zelf aan de slag en
-                houden een gesprek open. En het verslag was snel af.&rdquo;
+                Bij {AANTAL_ZONDER_LEK} van de vijf rapporten die openbaar op deze site staan, was
+                mijn conclusie dat er niets te repareren viel. Bij {AANTAL_ZONDER_VERVOLG} van de
+                vijf was een vervolggesprek niet nodig.
               </p>
-              <p className="font-body font-medium text-primary text-sm">Sanne &amp; Joris</p>
-              <p className="font-body font-light text-text-muted text-xs">Gezin met twee kinderen</p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                Je hoeft me daarin niet op mijn woord te geloven. Die vijf rapporten staan er van
+                begin tot eind, inclusief de bedragen en de evaluatie na drie tot vier maanden.{" "}
+                <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
+                  Lees ze na &rarr;
+                </Link>
+              </p>
             </div>
-            <p className="font-body font-light text-text-soft text-sm leading-relaxed mb-6">
-              Uit mijn persoonlijke begeleiding, de zwaardere vorm, hoor ik
-              hetzelfde soort dingen terug:
+          </div>
+        </section>
+
+        {/* ── 6. Wat staat er in het rapport ──────────────────── */}
+        <section className="bg-card py-16">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
+              Wat er in het rapport staat
+            </h2>
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-8">
+              Jouw persoonlijke geldrapport, als PDF, in gewone taal. Op je eigen moment terug te
+              lezen, en te delen met wie je wilt.
             </p>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              {[
-                {
-                  quote:
-                    "We werden elk jaar overvallen door de dure maanden. Eén keer alles uitgerekend en opgesplitst in maandpotjes: de kerstpot staat er nu gewoon.",
-                  naam: "Daan & Roos",
-                  situatie: "Twee kinderen, koopwoning",
-                },
-                {
-                  quote:
-                    "Onze boodschappen waren een zwart gat. Een weekbudget en een korte check-in na elke boodschappenronde hielden ons scherp, juist op de momenten dat het misging.",
-                  naam: "Bram & Eva",
-                  situatie: "Gezin van vier, twee inkomens",
-                },
-                {
-                  quote:
-                    "Er werd meegedacht over flexibeler werken in plaats van alleen bezuinigen. Twee dagen minder opvang scheelt fors, en thuis is het rustiger.",
-                  naam: "Karim & Noor",
-                  situatie: "Twee jonge kinderen",
-                },
-              ].map((t) => (
-                <div key={t.naam} className="card-base border border-[#E6E9E7]">
-                  <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <p className="font-body font-medium text-primary text-sm">{t.naam}</p>
-                  <p className="font-body font-light text-text-muted text-xs">{t.situatie}</p>
-                </div>
-              ))}
+
+            <div className="card-base border border-[#E6E9E7]">
+              <ol className="space-y-0">
+                {inhoudsopgave.map((h, i) => (
+                  <li
+                    key={h.n}
+                    className="flex items-baseline gap-4 py-4"
+                    style={i === 0 ? undefined : { borderTop: "1px solid #E6E9E7" }}
+                  >
+                    <span
+                      className="font-display font-light shrink-0"
+                      style={{ color: "#0B7A6E", fontSize: "1.05rem", width: "1.25rem" }}
+                      aria-hidden="true"
+                    >
+                      {h.n}
+                    </span>
+                    <span>
+                      <span className="font-body font-medium text-primary text-sm">{h.titel}</span>
+                      <span className="font-body font-light text-text-soft text-sm">
+                        {" "}
+                        {h.tekst}
+                      </span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
             </div>
-            <p className="font-body font-light text-text-muted text-xs mt-4">
-              Namen aangepast voor privacy. Echte ervaringen; resultaten verschillen per situatie.
+
+            <p className="font-body font-light text-text-soft text-sm leading-relaxed mt-5">
+              Geen spreadsheet vol grafieken. Wel een helder antwoord op de vraag: wat moet ik nu
+              doen?
             </p>
           </div>
         </section>
 
-        {/* Voor wie */}
-        <section className="bg-background py-14">
+        {/* ── 7. Waarmee ik vergelijk ─────────────────────────── */}
+        <section className="bg-background py-16">
           <div className="max-w-3xl mx-auto px-6">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Voor wie is de geldscan?
+              Waarmee ik jouw cijfers vergelijk, en waarmee niet
             </h2>
-            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
-              Voor mensen die goed verdienen maar structureel te weinig
-              overhouden, en die wel een duidelijk antwoord willen maar geen
-              gesprek. Ook met wisselend zzp-inkomen: juist dan laat de scan
-              zien welke vaste structuur eronder ligt. Omdat het ongemakkelijk voelt om over geld te praten,
-              omdat je agenda vol zit, of omdat je eerst wilt weten of dit
-              iets voor je is voordat je €125 uitgeeft aan een{" "}
-              <Link href="/adviesgesprek" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                adviesgesprek
-              </Link>
-              .
-            </p>
-            <p className="font-body font-light text-text-soft leading-relaxed">
-              Heb je schulden of betalingsachterstanden? Dan is kosteloze hulp
-              via je gemeente of Geldfit passender, en dat zeg ik liever
-              eerlijk vooraf. Meer over hoe ik werk lees je op de pagina{" "}
-              <Link href="/financieel-coach" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                financieel coach
-              </Link>
-              .
-            </p>
+            <div className="space-y-4 max-w-2xl">
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                De vergelijking kijkt naar je netto huishoudinkomen, het aantal volwassenen, het
+                aantal kinderen en je autosituatie. Dat is genoeg om te zien of een post uit de toon
+                valt. Het is niet genoeg om te weten waarom.
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                Wisselt je inkomen per maand, dan vul je een gemiddelde over de laatste maanden in.
+                Voor de vergelijking is dat genoeg, en het verschil tussen je maanden is juist iets
+                waar ik naar vraag: bij een wisselend inkomen is de vraag zelden wat je gemiddeld
+                verdient, maar welke vaste structuur eronder ligt.
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                De bedragen waarmee ik vergelijk komen niet uit openbare gemiddelden, maar uit de
+                huishoudens die ik zelf heb doorgerekend. Nibud-referentiebudgetten gebruik ik
+                bewust niet: dat zijn grotendeels minimumbudgetten, en die meten iets anders dan wat
+                een huishouden met een goed inkomen werkelijk uitgeeft.
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                Waar de vergelijking niets van weet: de leeftijd van je kinderen, je regio, hoeveel
+                dagen de kinderen bij je zijn, alimentatie, hoeveel je hebt afgelost en of je auto
+                zakelijk is. Dat komt uit wat jij erbij schrijft, en daar vraag ik naar. Wat jij daar
+                opschrijft weegt zwaarder dan wat het gemiddelde zegt.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="bg-card py-14">
+        {/* ── 8. Voor wie ────────────────────────────────────── */}
+        <section className="bg-card py-16">
           <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
+              Voor wie is de geldscan?
+            </h2>
+            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-8">
+              Achter elke kaart staat een echt rapport van een huishouden in die situatie. Kies de
+              situatie die op jou lijkt en lees eerst wat eruit kwam.
+            </p>
+
+            <div className="space-y-3">
+              {situatieKaarten.map((s) => {
+                const rapport = RAPPORTEN.find((r) => r.slug === s.rapport);
+                const uitgelicht = situatie?.sleutel === s.sleutel;
+                return (
+                  <Link
+                    key={s.sleutel}
+                    href={`/rapporten/${s.rapport}`}
+                    className="card-base border border-[#E6E9E7] flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 transition-shadow hover:shadow-card-hover"
+                    style={{
+                      textDecoration: "none",
+                      borderLeft: uitgelicht ? "3px solid #0B7A6E" : "1px solid #E6E9E7",
+                    }}
+                  >
+                    <span className="sm:w-52 shrink-0">
+                      <span className="font-body font-medium text-primary text-sm block">
+                        {s.kaartTitel}
+                      </span>
+                    </span>
+                    <span className="font-body font-light text-sm text-text-soft leading-relaxed flex-1">
+                      {s.kaartTekst}
+                      {rapport && (
+                        <span className="block font-body text-text-muted text-xs mt-1">
+                          Uitkomst: {rapport.uitkomstKop.toLowerCase()}
+                        </span>
+                      )}
+                    </span>
+                    <span
+                      className="font-body font-medium text-sm shrink-0"
+                      style={{ color: "#0B7A6E" }}
+                    >
+                      Bekijk rapport &rarr;
+                    </span>
+                  </Link>
+                );
+              })}
+            </div>
+          </div>
+        </section>
+
+        {/* ── 9. Je hoeft niet alles te weten ─────────────────── */}
+        <section className="bg-background py-16">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
+              Je hoeft je financiën niet perfect te kennen
+            </h2>
+            <div className="space-y-4 max-w-2xl mb-8">
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                Je hoeft geen spreadsheet te hebben. Je hoeft niet precies te weten wat je vorige
+                maand aan boodschappen hebt uitgegeven. Schattingen zijn prima, en waar een
+                schatting te onzeker is, zeg ik dat.
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed">
+                Wil je dat ik preciezer kijk? Dan kun je een paar recente bankafschriften
+                meesturen. Dat is optioneel.
+              </p>
+            </div>
+
+            <div className="card-base border border-[#E6E9E7]">
+              <div className="flex items-start gap-4">
+                <svg
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#0B7A6E"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="shrink-0 mt-0.5"
+                  aria-hidden="true"
+                >
+                  <rect x="3" y="11" width="18" height="11" rx="2" />
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                </svg>
+                <div>
+                  <p className="font-body font-medium text-primary text-sm mb-3">
+                    Als je afschriften meestuurt
+                  </p>
+                  <ul className="space-y-2">
+                    {[
+                      "Alleen jij en ik zien ze, er kijkt geen team of algoritme mee",
+                      "Rekeningnummers mag je wegstrepen",
+                      "Namen van anderen mag je wegstrepen",
+                      "Ik heb alleen de bedragen en de soort uitgave nodig",
+                      "Direct na het versturen van je rapport verwijder ik ze, je hoeft daar niet om te vragen",
+                    ].map((r) => (
+                      <li
+                        key={r}
+                        className="font-body font-light text-sm text-text-soft leading-relaxed flex gap-3"
+                      >
+                        <span aria-hidden="true" style={{ color: "#0B7A6E" }}>
+                          &bull;
+                        </span>
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 10. Wat er daarna gebeurt ───────────────────────── */}
+        <section className="bg-card py-16">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
+              Wat er daarna gebeurt
+            </h2>
+
+            <ol className="space-y-0">
+              {[
+                {
+                  wanneer: "Vandaag",
+                  wat: "Je vraagt de geldscan aan met je naam en e-mailadres. Verder nog niets.",
+                },
+                {
+                  wanneer: "Binnen 1 werkdag",
+                  wat: "Ik stuur je een betaalverzoek van €49, altijd vanaf hallo@waarblijfthet.nl. Er is geen abonnement en geen automatische incasso.",
+                },
+                {
+                  wanneer: "Daarna",
+                  wat: "Je levert je cijfers en je context aan, dat kost twee minuten. Optioneel stuur je afschriften mee.",
+                },
+                {
+                  wanneer: "Binnen 2 werkdagen",
+                  wat: "Ik stuur je je persoonlijke rapport als PDF. Een vraag erover beantwoord ik gewoon per mail.",
+                },
+                {
+                  wanneer: "Direct daarna",
+                  wat: "Ik verwijder je afschriften en je aangeleverde gegevens. Er blijft niets bewaard.",
+                },
+                {
+                  wanneer: "Vanaf dan",
+                  wat: "Je kunt zelf aan de slag. Wil je dat ik je help met de volgende stap, dan kun je een gesprek of een traject kiezen en trek ik de €49 daarvan af. Dat hoeft niet, en ik kom er niet op terug.",
+                },
+              ].map((t, i, arr) => (
+                <li key={t.wanneer} className="flex gap-5">
+                  <div className="flex flex-col items-center shrink-0" aria-hidden="true">
+                    <span
+                      className="rounded-full"
+                      style={{
+                        width: "10px",
+                        height: "10px",
+                        backgroundColor: "#0B7A6E",
+                        marginTop: "0.4rem",
+                      }}
+                    />
+                    {i < arr.length - 1 && (
+                      <span style={{ width: "1px", flex: 1, backgroundColor: "#E6E9E7" }} />
+                    )}
+                  </div>
+                  <div className={i < arr.length - 1 ? "pb-7" : ""}>
+                    <p className="font-body font-medium text-primary text-sm mb-1">{t.wanneer}</p>
+                    <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                      {t.wat}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ── 11. Prijs ──────────────────────────────────────── */}
+        <section className="bg-background py-16">
+          <div className="max-w-3xl mx-auto px-6">
+            <div className="card-base border border-[#E6E9E7]">
+              <p
+                className="font-display font-light text-primary mb-2"
+                style={{ fontSize: "2.75rem", lineHeight: 1.1, letterSpacing: "-0.02em" }}
+              >
+                €49 eenmalig
+              </p>
+              <p className="font-body font-light text-text-soft leading-relaxed mb-8">
+                Voor een persoonlijk geldrapport dat ik zelf schrijf.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
+                <div>
+                  <p className="section-eyebrow mb-4">Inbegrepen</p>
+                  <ul className="space-y-2.5">
+                    {[
+                      "Persoonlijke analyse van jouw cijfers",
+                      "Vergelijking met jouw eigen situatie",
+                      "Mijn conclusies, in gewone taal",
+                      "Wat níét het probleem is",
+                      "Een concreet plan van aanpak",
+                      "Binnen 2 werkdagen na je cijfers",
+                    ].map((r) => (
+                      <li
+                        key={r}
+                        className="font-body font-light text-sm text-text-soft leading-relaxed flex gap-3"
+                      >
+                        <span aria-hidden="true" style={{ color: "#0B7A6E" }}>
+                          &#10003;
+                        </span>
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div>
+                  <p className="section-eyebrow mb-4">Niet inbegrepen</p>
+                  <ul className="space-y-2.5">
+                    {[
+                      "Een abonnement",
+                      "Een verplicht gesprek",
+                      "Financiële producten",
+                      "Beleggingsadvies",
+                      "Hypotheekadvies",
+                    ].map((r) => (
+                      <li
+                        key={r}
+                        className="font-body font-light text-sm text-text-muted leading-relaxed flex gap-3"
+                      >
+                        <span aria-hidden="true" style={{ color: "#C6CCC9" }}>
+                          &#10007;
+                        </span>
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-8 pt-7" style={{ borderTop: "1px solid #E6E9E7" }}>
+                <PrimaireCta />
+                <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
+                  Geen verplicht vervolg. Je kunt het rapport gewoon gebruiken en daarna zelf
+                  verder.
+                </p>
+              </div>
+            </div>
+
+            {/* ── 12. Prijsobstakel ─────────────────────────── */}
+            <div
+              className="card-base border border-[#E6E9E7] mt-5"
+              style={{ borderLeft: "3px solid #0B7A6E" }}
+            >
+              <p className="font-body font-medium text-primary text-base mb-3">
+                Twijfel je of €49 het waard is?
+              </p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
+                Daar is de gratis analyse voor. Die laat zien waar jouw bedragen afwijken van
+                huishoudens in dezelfde situatie. Dat kost je een paar minuten en verder niets.
+              </p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
+                Denk je daarna: ik wil weten wáárom mijn cijfers zo uitpakken, dan is de geldscan de
+                volgende stap. Denk je dat niet, dan heb je alsnog je antwoord.
+              </p>
+              <Link
+                href={analyseHref}
+                className="font-body font-medium text-sm hover:underline"
+                style={{ color: "#0B7A6E" }}
+              >
+                Eerst gratis zelf kijken &rarr;
+              </Link>
+            </div>
+          </div>
+        </section>
+
+        {/* ── 13. FAQ ────────────────────────────────────────── */}
+        <section className="bg-card py-16">
+          <div className="max-w-3xl mx-auto px-6">
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
               Veelgestelde vragen
             </h2>
             <div className="space-y-4">
               {faq.map((f) => (
                 <div key={f.vraag} className="card-base border border-[#E6E9E7]">
                   <p className="font-body font-medium text-primary text-sm mb-2">{f.vraag}</p>
-                  <p className="font-body font-light text-text-soft text-sm leading-relaxed">{f.antwoord}</p>
+                  <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+                    {f.antwoord}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA */}
+        {/* ── 14. Laatste CTA ────────────────────────────────── */}
         <section className="bg-dark-block py-20">
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
-              Weten of het bij jou klopt?
+          <div className="max-w-2xl mx-auto px-6 text-center">
+            <h2 className="font-display font-light text-white text-2xl sm:text-4xl mb-6 leading-snug">
+              Je hoeft niet nog een jaar te denken: waar blijft het?
             </h2>
-            <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              €49. Je meldt je aan, en binnen twee werkdagen na aanlevering
-              van je cijfers ontvang je jouw persoonlijke geldrapport. Zonder oordeel, op je eigen moment.
+            <p className="text-white/70 font-body font-light text-base leading-relaxed mb-8">
+              Je hoeft ook niet meteen alles om te gooien, en je hoeft het niet in je eentje uit te
+              zoeken. Ik kijk er van buitenaf naar en schrijf op wat er werkelijk aan de hand is.
             </p>
-            <Link
-              href={intakeHref}
-              className="btn-primary"
-              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
-            >
-              Ja, help mij zien wat er anders kan →
-            </Link>
-            <p className="mt-5">
+            <PrimaireCta dark />
+            <p className="text-white/50 font-body font-light text-xs mt-4">
+              €49 · eenmalig · persoonlijk rapport · binnen 2 werkdagen na je cijfers
+            </p>
+            <p className="mt-7">
               <Link
-                href="/analyse"
-                className="font-body text-sm"
+                href={analyseHref}
+                className="font-body text-sm hover:underline"
                 style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}
               >
-                Liever eerst zelf kijken? →
+                Eerst gratis zelf kijken &rarr;
               </Link>
             </p>
           </div>
