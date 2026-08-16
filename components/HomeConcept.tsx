@@ -130,7 +130,7 @@ function Wrap({ children, className = "" }: { children: React.ReactNode; classNa
 function Eyebrow({ children, color = C.muted }: { children: React.ReactNode; color?: string }) {
   return (
     <p
-      className="text-[13px] mb-4 md:mb-5"
+      className="text-[15px] mb-4 md:mb-5"
       style={{ fontFamily: FONT, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color }}
     >
       {children}
@@ -238,31 +238,31 @@ function SecondaryLink({ href, children }: { href: string; children: React.React
 
 const bewijsRapporten = [
   {
-    label: "Hier dachten ze dat boodschappen het probleem waren.",
-    r: RAPPORTEN.find((r) => r.slug === "tweeverdieners-drie-kinderen")!,
+    titel: "Ze dachten dat boodschappen het probleem waren.",
+    conclusie: "Dat waren ze niet.",
+    toelichting: "Het zat in jaarlijkse kosten en losse uitgaven, niet in de boodschappen.",
+    slug: "tweeverdieners-drie-kinderen",
   },
   {
-    label: "Hier bleek de financiële ruimte kleiner dan verwacht.",
-    r: RAPPORTEN.find((r) => r.slug === "alleenstaand-huurwoning")!,
+    titel: "Haar vermogen bleef achter.",
+    conclusie: "De oorzaak zat ergens anders.",
+    toelichting: "Na haar scheiding was de financiële structuur nooit opnieuw opgebouwd.",
+    slug: "alleenstaande-ouder-twee-kinderen",
   },
   {
-    label: "Hier was er eigenlijk niets mis.",
-    r: RAPPORTEN.find((r) => r.slug === "stel-zonder-kinderen")!,
+    titel: "Ze zochten een geldlek.",
+    conclusie: "Er was eigenlijk niets mis.",
+    toelichting: "Hun uitgaven pasten niet bij hun spaardoel. Een lek was het niet.",
+    slug: "stel-zonder-kinderen",
   },
 ];
 
 const testimonials = [
   {
     quote:
-      "Elk jaar werden we overvallen door verjaardagen, de vakantie en december. We hebben die kosten uitgerekend en opgesplitst in kleine potjes per maand. Nu staat de kerstpot er gewoon.",
+      "Elk jaar werden we overvallen door verjaardagen, de vakantie en december. We hebben die kosten opgesplitst in kleine potjes per maand. Nu staat de kerstpot er gewoon.",
     naam: "Daan & Roos",
     detail: "Twee kinderen, koopwoning",
-  },
-  {
-    quote:
-      "Onze boodschappen waren een zwart gat: impulsaankopen, nooit een plan. Samen een weekbudget gezet en na elke boodschappenronde een korte check-in. Dat hield ons scherp.",
-    naam: "Bram & Eva",
-    detail: "Gezin van vier, twee inkomens",
   },
   {
     quote:
@@ -294,10 +294,18 @@ const watDoeIk = [
 ];
 
 const doelgroepen = [
-  { label: "Goed inkomen, weinig over", href: "/analyse" },
-  { label: "Gezin met kinderen", href: "/rapporten/tweeverdieners-drie-kinderen" },
-  { label: "Samen goed verdienen", href: "/rapporten/stel-zonder-kinderen" },
-  { label: "ZZP / wisselend inkomen", href: "/rapporten/zzp-wisselend-inkomen" },
+  { label: "Goed inkomen, weinig over", href: "/analyse", sub: null },
+  { label: "Gezin met kinderen", href: "/rapporten/tweeverdieners-drie-kinderen", sub: null },
+  {
+    label: "Alleenstaand of alleen verantwoordelijk",
+    href: "/rapporten/alleenstaande-ouder-twee-kinderen",
+    sub: "Een goed inkomen voelt anders als één inkomen het hele huishouden draagt.",
+  },
+  {
+    label: "ZZP / wisselend inkomen",
+    href: "/rapporten/zzp-wisselend-inkomen",
+    sub: "De ene maand €3.800, de volgende €7.400. Wat houd je structureel werkelijk over?",
+  },
 ];
 
 export default function HomeConcept() {
@@ -320,8 +328,14 @@ export default function HomeConcept() {
               <div className="mb-3">
                 <CTAButton href="/analyse">Doe de gratis analyse</CTAButton>
               </div>
-              <p className="mb-7 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.65)" }}>
-                Gratis &bull; onafhankelijk &bull; geen verplichtingen
+              <p className="mb-1 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.7)" }}>
+                In een paar minuten zie je waar jouw huishouden afwijkt van vergelijkbare huishoudens.
+              </p>
+              <p className="mb-3 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.65)" }}>
+                Gratis &bull; vertrouwelijk &bull; geen verkoopgesprek
+              </p>
+              <p className="mb-7 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.55)" }}>
+                Je gegevens worden alleen gebruikt om jouw financiële situatie te analyseren.
               </p>
               <div style={{ color: "rgba(255,255,255,0.85)" }}>
                 <SecondaryLink href="#hoe-het-werkt">Lees hoe het werkt</SecondaryLink>
@@ -371,7 +385,7 @@ export default function HomeConcept() {
                   </span>
                 </div>
               </div>
-              <p className="text-center mt-4 text-[13px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.6)", fontStyle: "italic" }}>
+              <p className="text-center mt-4 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.6)", fontStyle: "italic" }}>
                 Illustratie van een geldscan-uitkomst, geen echte klant.
               </p>
             </div>
@@ -410,12 +424,18 @@ export default function HomeConcept() {
                 Voorbeeld
               </Small>
               <BigNumber color={C.dark}>&euro; 1.200 boodschappen</BigNumber>
-              <p className="mt-4 text-[18px] leading-[1.5]" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
-                Veel?
-                <br />
-                Misschien.
-                <br />
-                Misschien ook helemaal niet.
+              <div style={{ height: "1px", backgroundColor: "#E7E2D8", margin: "1.25rem 0" }} />
+              <p className="text-[16px] mb-1" style={{ fontFamily: FONT, fontWeight: 500, color: C.muted }}>
+                Daarnaast, ter vergelijking:
+              </p>
+              <p className="text-[32px] mb-1" style={{ ...heading, color: C.dark, lineHeight: 1.15 }}>
+                &euro; 7.880 netto inkomen
+              </p>
+              <p className="text-[32px]" style={{ ...heading, color: C.dark, lineHeight: 1.15 }}>
+                &euro; 1.950 structurele vrije ruimte
+              </p>
+              <p className="mt-5 text-[16px] leading-[1.5]" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
+                Is dat weinig? Veel? Dat hangt af van je huishouden.
               </p>
             </div>
           </div>
@@ -429,12 +449,12 @@ export default function HomeConcept() {
           <H2 className="mb-4">Dit is geen standaard budgetadvies.</H2>
           <Body className="mb-12 md:mb-14">Dit is wat een echte analyse oplevert.</Body>
 
-          <div className="flex gap-5 overflow-x-auto pb-4 -mx-5 px-5 md:mx-0 md:px-0 md:grid md:grid-cols-3 md:gap-7 md:overflow-visible mb-14">
-            {bewijsRapporten.map(({ label, r }) => (
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+            {bewijsRapporten.map((k) => (
               <Link
-                key={r.slug}
-                href={`/rapporten/${r.slug}`}
-                className="block shrink-0 w-[82vw] sm:w-[420px] md:w-auto transition-transform duration-150 hover:-translate-y-1"
+                key={k.slug}
+                href={`/rapporten/${k.slug}`}
+                className="block transition-transform duration-150 hover:-translate-y-1"
                 style={{
                   backgroundColor: C.offwhite,
                   borderRadius: "8px",
@@ -442,25 +462,14 @@ export default function HomeConcept() {
                   borderTop: `4px solid ${C.gold}`,
                 }}
               >
-                <Small color={C.wine} className="mb-3">
-                  {label}
-                </Small>
-                <H3 className="mb-3">{r.verhaalTitel}</H3>
-                <Small color={C.muted} className="mb-5">
-                  {r.kenmerken.join(" · ")}
-                </Small>
-                <div style={{ height: "1px", backgroundColor: "#E7E2D8", margin: "0 0 1rem" }} />
-                <p className="text-[15px] leading-[1.5] mb-2" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
-                  Vermoeden
+                <p className="text-[20px] leading-[1.3] mb-2" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
+                  {k.titel}
                 </p>
-                <p className="text-[15px] leading-[1.5] mb-4" style={{ fontFamily: FONT, color: C.muted }}>
-                  &ldquo;{r.vermoeden}&rdquo;
-                </p>
-                <p className="text-[15px] leading-[1.5] mb-2" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
-                  Uitkomst
+                <p className="text-[24px] leading-[1.25] mb-4" style={{ ...heading, color: C.wine }}>
+                  {k.conclusie}
                 </p>
                 <p className="text-[15px] leading-[1.5]" style={{ fontFamily: FONT, color: C.muted }}>
-                  {r.uitkomstKop}
+                  {k.toelichting}
                 </p>
               </Link>
             ))}
@@ -470,23 +479,23 @@ export default function HomeConcept() {
             <span style={{ color: C.wine }}>Bekijk alle vijf de rapporten</span>
           </SecondaryLink>
 
-          {/* Compacte testimonial-strook, bewust kleiner dan de rapportkaarten hierboven */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-14 pt-14" style={{ borderTop: "1px solid #E7E2D8" }}>
+          {/* Twee testimonials, ruim leesbaar, geen mini-tekst */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-14 pt-14" style={{ borderTop: "1px solid #E7E2D8" }}>
             {testimonials.map((t) => (
               <div key={t.naam}>
-                <p className="text-[15px] leading-[1.45] mb-3" style={{ fontFamily: FONT, color: C.muted }}>
+                <p className="text-[17px] leading-[1.5] mb-3" style={{ fontFamily: FONT, color: C.dark }}>
                   &ldquo;{t.quote}&rdquo;
                 </p>
                 <p className="text-[15px]" style={{ fontFamily: FONT, fontWeight: 700, color: C.dark }}>
                   {t.naam}
                 </p>
-                <p className="text-[13px]" style={{ fontFamily: FONT, color: C.muted }}>
+                <p className="text-[15px]" style={{ fontFamily: FONT, color: C.muted }}>
                   {t.detail}
                 </p>
               </div>
             ))}
           </div>
-          <p className="mt-6 text-[13px]" style={{ fontFamily: FONT, color: C.muted }}>
+          <p className="mt-6 text-[15px]" style={{ fontFamily: FONT, color: C.muted }}>
             Namen zijn aangepast voor privacy. Ervaringen van echte gezinnen.
           </p>
         </Wrap>
@@ -505,9 +514,14 @@ export default function HomeConcept() {
             >
               Dat zeggen we ook.
             </p>
+            <p
+              className="text-[22px] md:text-[24px] leading-[1.35] mb-5"
+              style={{ fontFamily: FONT, fontWeight: 700, color: "rgba(255,255,255,0.92)" }}
+            >
+              Niet ieder huishouden dat weinig spaart heeft een financieel probleem.
+            </p>
             <Body color="rgba(255,255,255,0.72)" className="mb-6">
-              Niet ieder huishouden dat weinig spaart heeft een financieel probleem. Soms is het inkomen, de
-              gezinssituatie en het uitgavenpatroon simpelweg logisch.
+              Soms is het inkomen, de gezinssituatie en het uitgavenpatroon simpelweg logisch.
             </Body>
             <Small color="rgba(255,255,255,0.5)">
               Bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length} rapporten hierboven was de conclusie: er valt niets
@@ -570,12 +584,20 @@ export default function HomeConcept() {
             <div style={{ backgroundColor: C.offwhite, borderRadius: "8px", padding: "1.75rem" }}>
               <BigNumber color={C.gold}>3</BigNumber>
               <H3 className="mt-4 mb-3">Bepaal of je verder wilt</H3>
+              <div className="flex items-baseline gap-2 mb-2">
+                <span className="text-[18px]" style={{ ...heading, color: C.dark }}>
+                  Geldscan &euro;49
+                </span>
+                <span className="text-[14px]" style={{ fontFamily: FONT, color: C.muted }}>
+                  optioneel
+                </span>
+              </div>
               <Body className="mb-0">
-                Wil je weten waarom je afwijkt en wat je ermee moet doen? Dan kun je de{" "}
+                Waarom wijk je af, wat betekent dat en wat kun je ermee?{" "}
                 <Link href="/aanbod/intake?pakket=geldscan" className="underline" style={{ color: C.wine }}>
-                  Geldscan bestellen
+                  Bestel de Geldscan
                 </Link>
-                , voor €49 eenmalig.
+                .
               </Body>
             </div>
           </div>
@@ -585,7 +607,7 @@ export default function HomeConcept() {
       {/* ── 8. DOELGROEP, drastisch beperkt ─────────────────────────────── */}
       <Section bg={C.offwhite}>
         <Wrap>
-          <H2 className="mb-10 md:mb-12">Herkenbaar?</H2>
+          <H2 className="mb-10 md:mb-12">Voor jouw situatie herkenbaar?</H2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
             {doelgroepen.map((d) => (
               <Link
@@ -594,9 +616,14 @@ export default function HomeConcept() {
                 className="block transition-colors hover:border-[#7B2D3E]"
                 style={{ backgroundColor: C.white, border: "1px solid #E7E2D8", borderRadius: "8px", padding: "1.5rem 1.75rem" }}
               >
-                <span className="text-[22px] md:text-[24px]" style={{ ...heading, color: C.dark }}>
+                <span className="text-[22px] md:text-[24px] block" style={{ ...heading, color: C.dark }}>
                   {d.label}
                 </span>
+                {d.sub && (
+                  <span className="text-[16px] block mt-2" style={{ fontFamily: FONT, fontWeight: 400, color: C.muted }}>
+                    {d.sub}
+                  </span>
+                )}
               </Link>
             ))}
           </div>
@@ -611,16 +638,13 @@ export default function HomeConcept() {
             className="text-[32px] leading-[1.15] md:text-[42px] md:leading-[1.15] mx-auto mb-6"
             style={{ ...heading, color: C.white }}
           >
-            Je hoeft niet meteen minder uit te geven.
-            <br />
-            Je moet eerst weten wat er gebeurt.
+            Ontdek waar jouw geld blijft.
           </h2>
           <p
             className="text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] mx-auto mb-9"
             style={{ fontFamily: FONT, fontWeight: 400, color: "rgba(255,255,255,0.85)", maxWidth: "540px" }}
           >
-            Ik kijk persoonlijk naar jouw cijfers en schrijf op wat er opvalt, wat er niet opvalt, en wat ik zou
-            doen. Als er niets misgaat, lees je dat.
+            Je hoeft niet meteen minder uit te geven. Je moet eerst weten wat er werkelijk gebeurt.
           </p>
           <CTAButton href="/analyse">Doe de gratis analyse</CTAButton>
           <p className="mt-6 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.6)" }}>
