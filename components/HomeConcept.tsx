@@ -110,14 +110,27 @@ function Section({
   bg,
   children,
   className = "",
+  padding = "standaard",
 }: {
   id?: string;
   bg: string;
   children: React.ReactNode;
   className?: string;
+  padding?: "standaard" | "hero" | "ruim";
 }) {
+  /* Eén vaste verticale spacing-hiërarchie voor alle secties: standaard
+     (mobiel 56px, desktop 96px), hero (extra lucht op mobiel zodat hij niet
+     tegen de header aandrukt) en ruim (128px desktop, 72px mobiel) voor de
+     ene merksectie die aantoonbaar meer gewicht verdient. Afwijkingen
+     alleen hier, niet per sectie los tweaken. */
+  const paddingClass =
+    padding === "hero"
+      ? "pt-[48px] pb-[64px] md:pt-[96px] md:pb-[96px]"
+      : padding === "ruim"
+      ? "pt-[72px] pb-[72px] md:pt-[128px] md:pb-[128px]"
+      : "pt-[56px] pb-[56px] md:pt-[96px] md:pb-[96px]";
   return (
-    <section id={id} className={"py-16 md:py-24 " + className} style={{ backgroundColor: bg }}>
+    <section id={id} className={paddingClass + " " + className} style={{ backgroundColor: bg }}>
       {children}
     </section>
   );
@@ -130,7 +143,7 @@ function Wrap({ children, className = "" }: { children: React.ReactNode; classNa
 function Eyebrow({ children, color = C.muted }: { children: React.ReactNode; color?: string }) {
   return (
     <p
-      className="text-[15px] mb-4 md:mb-5"
+      className="text-[15px] mb-3 md:mb-4"
       style={{ fontFamily: FONT, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color }}
     >
       {children}
@@ -315,7 +328,7 @@ export default function HomeConcept() {
       {/* Geen extra top-padding meer nodig: de header is nu sticky en opaque,
           niet fixed/overlappend, dus de hero begint gewoon na de header in
           de normale document-flow. Zelfde verticale ritme als de rest. */}
-      <Section bg={C.wine}>
+      <Section bg={C.wine} padding="hero">
         <Wrap>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
@@ -400,8 +413,8 @@ export default function HomeConcept() {
       <Section bg={C.white}>
         <Wrap>
           <Eyebrow>Wat gebeurt hier eigenlijk?</Eyebrow>
-          <H2 className="mb-12 md:mb-16">Niet &ldquo;waar kan ik besparen?&rdquo;, maar wat er echt speelt.</H2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-12">
+          <H2 className="mb-8 md:mb-16">Niet &ldquo;waar kan ik besparen?&rdquo;, maar wat er echt speelt.</H2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             {watDoeIk.map((s) => (
               <div key={s.nr}>
                 <BigNumber color={C.gold}>{s.nr}</BigNumber>
@@ -422,7 +435,7 @@ export default function HomeConcept() {
               <br />
               Maar niet of dat veel is voor jouw huishouden.
             </H2>
-            <div style={{ backgroundColor: C.white, borderRadius: "8px", padding: "2.25rem" }}>
+            <div className="p-5 md:p-6" style={{ backgroundColor: C.white, borderRadius: "8px" }}>
               <Small color={C.muted} className="uppercase tracking-[0.14em] mb-2">
                 Voorbeeld
               </Small>
@@ -449,19 +462,18 @@ export default function HomeConcept() {
       <Section bg={C.white}>
         <Wrap>
           <Eyebrow>Wat je krijgt</Eyebrow>
-          <H2 className="mb-4">Dit is geen standaard budgetadvies.</H2>
-          <Body className="mb-12 md:mb-14">Dit is wat een echte analyse oplevert.</Body>
+          <H2 className="mb-4 md:mb-5">Dit is geen standaard budgetadvies.</H2>
+          <Body className="mb-8 md:mb-10">Dit is wat een echte analyse oplevert.</Body>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-10">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-10">
             {bewijsRapporten.map((k) => (
               <Link
                 key={k.slug}
                 href={`/rapporten/${k.slug}`}
-                className="block transition-transform duration-150 hover:-translate-y-1"
+                className="block transition-transform duration-150 hover:-translate-y-1 p-5 md:p-6"
                 style={{
                   backgroundColor: C.offwhite,
                   borderRadius: "8px",
-                  padding: "1.75rem",
                   borderTop: `4px solid ${C.gold}`,
                 }}
               >
@@ -483,7 +495,7 @@ export default function HomeConcept() {
           </SecondaryLink>
 
           {/* Twee testimonials, ruim leesbaar, geen mini-tekst */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-14 pt-14" style={{ borderTop: "1px solid #E7E2D8" }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 mt-8 md:mt-16 pt-8 md:pt-16" style={{ borderTop: "1px solid #E7E2D8" }}>
             {testimonials.map((t) => (
               <div key={t.naam}>
                 <p className="text-[17px] leading-[1.5] mb-3" style={{ fontFamily: FONT, color: C.dark }}>
@@ -505,7 +517,7 @@ export default function HomeConcept() {
       </Section>
 
       {/* ── 5. SOMS IS ER NIETS MIS, merksectie ─────────────────────────── */}
-      <Section bg={C.dark}>
+      <Section bg={C.dark} padding="ruim">
         <Wrap>
           <div className="max-w-[700px]">
             <H2 color={C.white} className="mb-6">
@@ -543,8 +555,8 @@ export default function HomeConcept() {
             </div>
             <div>
               <Eyebrow>Waarom ik dit doe</Eyebrow>
-              <H2 className="mb-6">Ik bouw financiële software voor mijn werk. Toch wist ik zelf niet waar ons geld bleef.</H2>
-              <Body className="mb-8">
+              <H2 className="mb-4 md:mb-5">Ik bouw financiële software voor mijn werk. Toch wist ik zelf niet waar ons geld bleef.</H2>
+              <Body className="mb-8 md:mb-10">
                 Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Inmiddels leg ik jouw
                 posten naast huishoudens met een vergelijkbaar inkomen en dezelfde gezinsgrootte, en kijk waar jij
                 eruit springt. Ik werk onafhankelijk, verkoop geen financiële producten en krijg geen provisie. Het
@@ -566,11 +578,11 @@ export default function HomeConcept() {
       <Section bg={C.white} id="hoe-het-werkt">
         <Wrap>
           <Eyebrow>Hoe het werkt</Eyebrow>
-          <H2 className="mb-12 md:mb-16">Drie stappen. Geen verplichtingen.</H2>
+          <H2 className="mb-10">Drie stappen. Geen verplichtingen.</H2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
             <div>
               <BigNumber color={C.gold}>1</BigNumber>
-              <H3 className="mt-4 mb-3">Doe de gratis analyse</H3>
+              <H3 className="mt-2 mb-3">Doe de gratis analyse</H3>
               <Body>
                 Vijf korte stappen: woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven. Geen account,
                 geen bankkoppeling, 5 minuten.
@@ -578,15 +590,15 @@ export default function HomeConcept() {
             </div>
             <div>
               <BigNumber color={C.gold}>2</BigNumber>
-              <H3 className="mt-4 mb-3">Zie waar je afwijkt</H3>
+              <H3 className="mt-2 mb-3">Zie waar je afwijkt</H3>
               <Body>
                 Direct op je scherm: hoeveel ruimte er normaal gesproken is, hoeveel er werkelijk overblijft en
                 welke twee of drie posten eruit springen.
               </Body>
             </div>
-            <div style={{ backgroundColor: C.offwhite, borderRadius: "8px", padding: "1.75rem" }}>
+            <div className="p-6 md:p-8" style={{ backgroundColor: C.offwhite, borderRadius: "8px" }}>
               <BigNumber color={C.gold}>3</BigNumber>
-              <H3 className="mt-4 mb-3">Bepaal of je verder wilt</H3>
+              <H3 className="mt-2 mb-3">Bepaal of je verder wilt</H3>
               <div className="flex items-baseline gap-2 mb-2">
                 <span className="text-[18px]" style={{ ...heading, color: C.dark }}>
                   Geldscan &euro;49
@@ -610,14 +622,14 @@ export default function HomeConcept() {
       {/* ── 8. DOELGROEP, drastisch beperkt ─────────────────────────────── */}
       <Section bg={C.offwhite}>
         <Wrap>
-          <H2 className="mb-10 md:mb-12">Voor jouw situatie herkenbaar?</H2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <H2 className="mb-6 md:mb-8">Voor jouw situatie herkenbaar?</H2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
             {doelgroepen.map((d) => (
               <Link
                 key={d.label}
                 href={d.href}
-                className="block transition-colors hover:border-[#7B2D3E]"
-                style={{ backgroundColor: C.white, border: "1px solid #E7E2D8", borderRadius: "8px", padding: "1.5rem 1.75rem" }}
+                className="block transition-colors hover:border-[#7B2D3E] p-5 md:p-6"
+                style={{ backgroundColor: C.white, border: "1px solid #E7E2D8", borderRadius: "8px" }}
               >
                 <span className="text-[22px] md:text-[24px] block" style={{ ...heading, color: C.dark }}>
                   {d.label}
@@ -644,7 +656,7 @@ export default function HomeConcept() {
             Ontdek waar jouw geld blijft.
           </h2>
           <p
-            className="text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] mx-auto mb-9"
+            className="text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] mx-auto mb-8 md:mb-10"
             style={{ fontFamily: FONT, fontWeight: 400, color: "rgba(255,255,255,0.85)", maxWidth: "540px" }}
           >
             Je hoeft niet meteen minder uit te geven. Je moet eerst weten wat er werkelijk gebeurt.
