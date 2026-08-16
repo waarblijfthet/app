@@ -11,6 +11,7 @@ import {
   naamIsBetrouwbaar,
   naarText,
 } from "@/lib/outreach/mails";
+import { afmeldPaginaUrl } from "@/lib/outreach/afmelden";
 
 // POST /api/admin/outreach/preview
 // Body: { ids: string[], type?: "followup" }
@@ -76,7 +77,8 @@ export async function POST(req: NextRequest) {
       items.push({
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
-        mailNummer: alGedaan + 2, subject: mail.subject, text: naarText(mail.alineas, handtekening),
+        mailNummer: alGedaan + 2, subject: mail.subject,
+        text: naarText(mail.alineas, handtekening, afmeldPaginaUrl(contact.afmeld_token)),
         heeftPsZin: true,
         naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });
@@ -85,7 +87,8 @@ export async function POST(req: NextRequest) {
       items.push({
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
-        mailNummer: 1, subject: mail.subject, text: naarText(mail.alineas, handtekening),
+        mailNummer: 1, subject: mail.subject,
+        text: naarText(mail.alineas, handtekening, afmeldPaginaUrl(contact.afmeld_token)),
         heeftPsZin: Boolean(contact.ps_zin && String(contact.ps_zin).trim()),
         naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });

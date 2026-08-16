@@ -10,6 +10,7 @@ import {
   naarHtml,
   naarText,
 } from "@/lib/outreach/mails";
+import { afmeldApiUrl, afmeldPaginaUrl } from "@/lib/outreach/afmelden";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -107,22 +108,40 @@ export async function GET(request: NextRequest) {
     })
     .slice(0, MAX_PER_RUN);
 
+  // Blocklist-check, zelfde vangnet als in de send-route en de eerste-mail-cron.
+  // Iemand die zich afmeldt gaat op gestopt (dus hij valt hierboven al af),
+  // maar een adres kan ook op andere manieren op de blocklist komen; dat mag
+  // nooit alsnog een follow-up krijgen. Zie app/api/afmelden/[token]/route.ts.
+  const dueEmails = due.map((c) => c.email as string);
+  const { data: geblokkeerd } = await supabase
+    .from("email_blocklist")
+    .select("email")
+    .in("email", dueEmails.length > 0 ? dueEmails : [""]);
+  const blocklist = new Set((geblokkeerd ?? []).map((b) => b.email));
+
   const resend = new Resend(process.env.RESEND_API_KEY);
   let verstuurd = 0;
   const fouten: string[] = [];
 
   for (const contact of due) {
+    if (blocklist.has(contact.email)) continue;
     try {
       const doelgroep = (contact.doelgroep ?? "relatietherapeuten") as Doelgroep;
       const eersteSubject = (await eersteMail(contact.naam, doelgroep)).subject;
       const mail = await followupMail(contact.naam, doelgroep, (contact.followups ?? 0) + 1, eersteSubject);
+      // Zelfde afmeldlink als de handmatige send-route, zie lib/outreach/afmelden.ts.
+      const paginaUrl = afmeldPaginaUrl(contact.afmeld_token);
 
       const { data: verzonden, error: sendError } = await resend.emails.send({
         from: "Jarno Koopman <hallo@waarblijfthet.nl>",
         to: contact.email,
         subject: mail.subject,
-        html: naarHtml(mail.alineas, handtekening),
-        text: naarText(mail.alineas, handtekening),
+        html: naarHtml(mail.alineas, handtekening, paginaUrl),
+        text: naarText(mail.alineas, handtekening, paginaUrl),
+        headers: {
+          "List-Unsubscribe": `<${afmeldApiUrl(contact.afmeld_token)}>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       });
       if (sendError) throw new Error(sendError.message);
 

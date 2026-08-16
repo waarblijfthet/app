@@ -43,10 +43,19 @@
 // afwijkt van de echte verstuurde mail. naarHtml/naarText nemen de
 // handtekening nu als parameter (call sites halen hem één keer per request
 // op, niet per mail in een bulkverzending).
+//
+// Afmeldlink (16-aug-2026): naarHtml/naarText krijgen er een derde parameter
+// bij, de afmeld-url van dít contact (lib/outreach/afmelden.ts). Die url is
+// per contact anders, dus hij kan niet in de handtekeningtekst zelf staan;
+// {{AFMELDLINK}} in de handtekening (of in een alinea) wordt bij het
+// versturen vervangen. Staat dat token er nergens, dan komt er automatisch
+// een aparte, kleinere afmeldregel onder de handtekening: er staat dus altijd
+// een afmeldmogelijkheid onder elke mail, wat er ook in de sjablonen gebeurt.
 
 import { createServiceClient } from "@/lib/supabase-service";
 import { isGeblokkeerdeNaam, lijktPersoonsnaam } from "@/lib/prospects/extract";
 import { alineaNaarHtml, alineaNaarText } from "@/lib/outreach/render";
+import { splitsAfmeldregel, vulAfmeldUrl } from "@/lib/outreach/afmelden";
 
 export type Doelgroep =
   | "relatietherapeuten"
@@ -91,19 +100,31 @@ export async function haalHandtekening(): Promise<string> {
   }
 }
 
-export function naarHtml(alineas: string[], handtekening: string): string {
-  const blokken = alineas.map((a) => `<p style="margin:0 0 18px 0;">${alineaNaarHtml(a)}</p>`).join("\n");
-  const sig = `<p style="margin:24px 0 0 0;">${alineaNaarHtml(handtekening)}</p>`;
+export function naarHtml(alineas: string[], handtekening: string, afmeldUrl: string): string {
+  const { handtekening: sig, afmeldregel } = splitsAfmeldregel(handtekening, afmeldUrl);
+  const blokken = alineas
+    .map((a) => `<p style="margin:0 0 18px 0;">${alineaNaarHtml(vulAfmeldUrl(a, afmeldUrl))}</p>`)
+    .join("\n");
+  const sigHtml = `<p style="margin:24px 0 0 0;">${alineaNaarHtml(sig)}</p>`;
+  // Kleiner en grijzer dan de rest: een afmeldregel hoort niet te concurreren
+  // met de inhoud van de mail, maar moet wel vindbaar zijn.
+  const afmeldHtml = afmeldregel
+    ? `<p style="margin:22px 0 0 0;font-size:12px;line-height:1.6;color:#8B958F;">${alineaNaarHtml(afmeldregel)}</p>`
+    : "";
   return (
     '<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.7;color:#16211F;max-width:560px;">' +
     blokken +
-    sig +
+    sigHtml +
+    afmeldHtml +
     "</div>"
   );
 }
 
-export function naarText(alineas: string[], handtekening: string): string {
-  return alineas.map(alineaNaarText).join("\n\n") + "\n\n" + alineaNaarText(handtekening);
+export function naarText(alineas: string[], handtekening: string, afmeldUrl: string): string {
+  const { handtekening: sig, afmeldregel } = splitsAfmeldregel(handtekening, afmeldUrl);
+  const body = alineas.map((a) => alineaNaarText(vulAfmeldUrl(a, afmeldUrl))).join("\n\n");
+  const staart = afmeldregel ? "\n\n" + alineaNaarText(afmeldregel) : "";
+  return body + "\n\n" + alineaNaarText(sig) + staart;
 }
 
 /** Eerste woord van de naam; aanhef en onderwerp gebruiken de voornaam. */

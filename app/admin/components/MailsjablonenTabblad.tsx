@@ -3,6 +3,13 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { DOELGROEP_LABEL, DOELGROEPEN } from "@/lib/outreach/labels";
 import { alineaNaarHtml } from "@/lib/outreach/render";
+import {
+  AFMELD_TOKEN,
+  DEFAULT_AFMELDREGEL,
+  VOORBEELD_TOKEN,
+  afmeldPaginaUrl,
+  splitsAfmeldregel,
+} from "@/lib/outreach/afmelden";
 
 type MailType = "eerste" | "fu1" | "fu2";
 
@@ -17,7 +24,12 @@ const TYPE_LABEL: Record<MailType, string> = {
 // hiernaar (1-aug-2026) omdat de eerdere uitleg alleen een lopende zin was
 // die makkelijk over het hoofd gezien wordt; dit staat nu direct boven elk
 // bewerkveld waar opmaak werkt.
-function OpmaakHulp() {
+// AFMELD_TOKEN_REGEL is de regel die de knop "Zelf formuleren" in de
+// handtekening zet: hetzelfde als de automatische terugvalregel, alleen dan
+// bewerkbaar op zijn eigen plek.
+const AFMELD_TOKEN_REGEL = DEFAULT_AFMELDREGEL;
+
+function OpmaakHulp({ metAfmeldlink = false }: { metAfmeldlink?: boolean }) {
   const badge = "bg-white border border-[#D9DEDC] rounded px-1.5 py-0.5 cursor-help";
   return (
     <div className="flex flex-wrap items-center gap-1.5 text-xs text-[#4A5A56]">
@@ -34,6 +46,16 @@ function OpmaakHulp() {
       >
         [linktekst](https://...)
       </span>
+      {metAfmeldlink && (
+        <span
+          title={
+            "Wordt bij het versturen vervangen door de persoonlijke afmeldlink van dat contact. Gebruik hem als url: [meld je hier af]({{AFMELDLINK}})."
+          }
+          className={badge}
+        >
+          {AFMELD_TOKEN}
+        </span>
+      )}
     </div>
   );
 }
@@ -71,6 +93,10 @@ function tekstNaarAlineas(tekst: string): string[] {
 // zodat de preview daar nooit in afwijkt.
 const VOORBEELD_GROET = "Beste Jan,";
 const VOORBEELD_PS = "(voorbeeld: hier komt de losse ps-zin van dit contact te staan)";
+// Elke ontvanger heeft zijn eigen afmeldlink; het voorbeeld gebruikt een vaste
+// demo-url die naar een uitlegpagina wijst in plaats van iemand af te melden.
+const VOORBEELD_AFMELD_URL = afmeldPaginaUrl(VOORBEELD_TOKEN);
+
 function renderVoorbeeld(
   item: Pick<TemplateItem, "type" | "subject" | "subjectNaamloos" | "regioZin" | "alineas">,
   handtekening: string
@@ -90,7 +116,17 @@ function renderVoorbeeld(
     item.type === "eerste"
       ? subjectTemplate.replace(/\{\{voornaam\}\}/g, "Jan")
       : `Re: ${subjectTemplate.replace(/\{\{voornaam\}\}/g, "Jan")}`;
-  const paragrafen = [...regels, handtekening].map((r) => `<p style="margin:0 0 14px 0;">${alineaNaarHtml(r)}</p>`);
+  // Zelfde splitsing als naarHtml() in lib/outreach/mails.ts: staat
+  // {{AFMELDLINK}} in de handtekening, dan bepaalt de handtekening zelf de
+  // plek en de bewoording; staat het er niet, dan komt de standaard
+  // afmeldregel als kleinere grijze regel eronder.
+  const { handtekening: sig, afmeldregel } = splitsAfmeldregel(handtekening, VOORBEELD_AFMELD_URL);
+  const paragrafen = [...regels, sig].map((r) => `<p style="margin:0 0 14px 0;">${alineaNaarHtml(r)}</p>`);
+  if (afmeldregel) {
+    paragrafen.push(
+      `<p style="margin:18px 0 0 0;font-size:12px;line-height:1.6;color:#8B958F;">${alineaNaarHtml(afmeldregel)}</p>`
+    );
+  }
   return { subject, html: paragrafen.join("\n") };
 }
 
@@ -178,6 +214,7 @@ export default function MailsjablonenTabblad() {
   }, [huidig, subject, subjectNaamloos, regioZin, tekst]);
 
   const handtekeningIsVuil = handtekening !== handtekeningOrigineel;
+  const handtekeningHeeftAfmeldlink = handtekening.includes(AFMELD_TOKEN);
 
   async function opslaan() {
     setOpslaanBezig(true);
@@ -287,7 +324,8 @@ export default function MailsjablonenTabblad() {
           waar je tekst kunt bewerken (de sjablonen en de handtekening) werkt dezelfde lichte opmaak: vet,
           cursief en een klikbare link. Het legendaatje boven elk tekstveld laat de syntax zien; hover erover
           voor een voorbeeld. In de platte-tekstversie van de mail (voor mailprogramma&apos;s zonder html)
-          verdwijnen vet/cursief-markers en wordt een link &quot;tekst (url)&quot;.
+          verdwijnen vet/cursief-markers en wordt een link &quot;tekst (url)&quot;. Onder elke mail staat
+          automatisch een afmeldlink; hoe die eruitziet regel je hieronder bij de handtekening.
         </p>
       </div>
 
@@ -300,13 +338,49 @@ export default function MailsjablonenTabblad() {
         <p className="text-xs text-[#8B958F]">
           Staat onderaan elke mail (eerste mail en beide follow-ups). Een lege regel = nieuwe regel.
         </p>
-        <OpmaakHulp />
+        <OpmaakHulp metAfmeldlink />
         <textarea
           className="w-full rounded-lg border border-[#D9DEDC] px-3 py-2 text-sm font-mono"
-          rows={4}
+          rows={5}
           value={handtekening}
           onChange={(e) => setHandtekening(e.target.value)}
         />
+
+        {/* Afmeldlink: uitleg + snelknop. Onder elke mail staat er hoe dan ook
+            een, dit bepaalt alleen of jij de bewoording en de plek kiest. */}
+        <div className="rounded-lg border border-[#E6E9E7] bg-[#F7F8F7] px-3 py-2.5 space-y-2">
+          <p className="text-xs text-[#4A5A56] leading-relaxed">
+            <strong className="font-medium text-[#16211F]">Afmeldlink.</strong> Onder elke mail staat een
+            link waarmee de ontvanger zichzelf afmeldt. Eén klik en een bevestigknop: het contact wordt
+            gestopt en het e-mailadres komt op de blocklist, zodat het ook via een nieuwe import nooit meer
+            gemaild wordt. Jij hoeft er niets voor te doen.
+          </p>
+          {handtekeningHeeftAfmeldlink ? (
+            <p className="text-xs text-[#0B7A6E] leading-relaxed">
+              Je handtekening bevat{" "}
+              <code className="bg-white border border-[#D9DEDC] px-1 rounded">{AFMELD_TOKEN}</code>, dus jouw
+              eigen formulering wordt gebruikt. Bij het versturen wordt dat token vervangen door de
+              persoonlijke link van dat contact.
+            </p>
+          ) : (
+            <div className="space-y-2">
+              <p className="text-xs text-[#4A5A56] leading-relaxed">
+                Je handtekening bevat het token nog niet, dus deze regel komt automatisch als kleinere grijze
+                regel onder de mail:
+                <br />
+                <span className="text-[#8B958F]">&ldquo;{DEFAULT_AFMELDREGEL.replace(AFMELD_TOKEN, "…")}&rdquo;</span>
+              </p>
+              <button
+                type="button"
+                onClick={() => setHandtekening((h) => `${h.trimEnd()}\n${AFMELD_TOKEN_REGEL}`)}
+                className="text-xs px-3 py-1.5 rounded-lg border border-[#D9DEDC] bg-white text-[#4A5A56] hover:bg-[#F0F2F1]"
+              >
+                Zelf formuleren: zet de regel in de handtekening
+              </button>
+            </div>
+          )}
+        </div>
+
         {handtekeningFout && (
           <div className="rounded-lg border border-red-200 bg-red-50 text-red-800 text-sm px-3 py-2">
             {handtekeningFout}
@@ -496,7 +570,9 @@ export default function MailsjablonenTabblad() {
           )}
           <p className="text-xs text-[#8B958F]">
             Zo ziet de html-mail eruit; links zijn hier al klikbaar. In de platte-tekstversie (voor
-            mailprogramma&apos;s zonder html) staat een link als &quot;linktekst (url)&quot;.
+            mailprogramma&apos;s zonder html) staat een link als &quot;linktekst (url)&quot;. De afmeldlink
+            onderaan wijst hier naar een voorbeeldpagina; in een echte mail is hij per ontvanger anders en
+            meldt hij die ontvanger af.
           </p>
         </div>
       </div>

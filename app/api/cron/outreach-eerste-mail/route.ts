@@ -9,6 +9,7 @@ import {
   naarText,
 } from "@/lib/outreach/mails";
 import { berekenDagbudget } from "@/lib/outreach/dagbudget";
+import { afmeldApiUrl, afmeldPaginaUrl } from "@/lib/outreach/afmelden";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -108,13 +109,19 @@ export async function GET(request: NextRequest) {
     try {
       const doelgroep = (contact.doelgroep ?? "relatietherapeuten") as Doelgroep;
       const mail = await eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
+      // Zelfde afmeldlink als de handmatige send-route, zie lib/outreach/afmelden.ts.
+      const paginaUrl = afmeldPaginaUrl(contact.afmeld_token);
 
       const { data: verzonden, error: sendError } = await resend.emails.send({
         from: "Jarno Koopman <hallo@waarblijfthet.nl>",
         to: contact.email,
         subject: mail.subject,
-        html: naarHtml(mail.alineas, handtekening),
-        text: naarText(mail.alineas, handtekening),
+        html: naarHtml(mail.alineas, handtekening, paginaUrl),
+        text: naarText(mail.alineas, handtekening, paginaUrl),
+        headers: {
+          "List-Unsubscribe": `<${afmeldApiUrl(contact.afmeld_token)}>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       });
       if (sendError) throw new Error(sendError.message);
 

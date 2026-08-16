@@ -13,6 +13,7 @@ import {
   naarHtml,
   naarText,
 } from "@/lib/outreach/mails";
+import { afmeldApiUrl, afmeldPaginaUrl } from "@/lib/outreach/afmelden";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -96,12 +97,22 @@ export async function POST(req: NextRequest) {
         mail = await eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
       }
 
+      // Afmeldlink van dít contact: de zichtbare link in de mailtekst wijst
+      // naar de pagina met de bevestigknop, de List-Unsubscribe-headers naar
+      // de POST-route erachter (dat is de "Uitschrijven"-knop van
+      // Gmail/Outlook, RFC 8058). Zie lib/outreach/afmelden.ts.
+      const paginaUrl = afmeldPaginaUrl(contact.afmeld_token);
+
       const { data: verzonden } = await resend.emails.send({
         from: "Jarno Koopman <hallo@waarblijfthet.nl>",
         to: contact.email,
         subject: mail.subject,
-        html: naarHtml(mail.alineas, handtekening),
-        text: naarText(mail.alineas, handtekening),
+        html: naarHtml(mail.alineas, handtekening, paginaUrl),
+        text: naarText(mail.alineas, handtekening, paginaUrl),
+        headers: {
+          "List-Unsubscribe": `<${afmeldApiUrl(contact.afmeld_token)}>`,
+          "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
+        },
       });
 
       const update = isFollowup
