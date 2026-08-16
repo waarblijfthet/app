@@ -628,7 +628,7 @@ export default function HomeConcept() {
               <Link
                 key={d.label}
                 href={d.href}
-                className="block transition-colors hover:border-[#7B2D3E] p-5 md:p-6"
+                className="flex flex-col justify-center transition-colors hover:border-[#7B2D3E] p-5 md:p-6 sm:min-h-[132px]"
                 style={{ backgroundColor: C.white, border: "1px solid #E7E2D8", borderRadius: "8px" }}
               >
                 <span className="text-[22px] md:text-[24px] block" style={{ ...heading, color: C.dark }}>
