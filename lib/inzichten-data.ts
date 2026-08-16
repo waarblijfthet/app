@@ -471,45 +471,61 @@ export const artikelen: Artikel[] = [
 
   {
     slug: "klarna-niet-kunnen-betalen",
-    korteTitel: "Klarna niet kunnen betalen?",
-    titel: "Klarna niet kunnen betalen? Dit gebeurt er stap voor stap",
-    metaTitel: "Klarna niet kunnen betalen: wat gebeurt er (en wat kost het)?",
+    cta: {
+      kop: "De Geldscan: verdieping, optioneel",
+      tekst:
+        "De gratis analyse laat zien waar je afwijkt. De Geldscan legt uit waarom, wat het betekent en wat je ermee kunt doen. Persoonlijk geschreven, geen gesprek nodig.",
+      primairLabel: "Bekijk de Geldscan €49",
+      primairHref: "/geldscan",
+      secundairLabel: "Nog liever eerst de gratis analyse?",
+      secundairHref: "/analyse",
+    },
+    korteTitel: "Klarna niet kunnen betalen",
+    titel: "Klarna niet kunnen betalen: wat gebeurt er nu?",
+    metaTitel: "Klarna niet kunnen betalen: wat gebeurt er nu?",
     metaDescription:
-      "Een Klarna-betaling die je niet rond krijgt? Dit gebeurt er stap voor stap, wat de kosten ongeveer zijn, en waarom een aanmaning niet meteen een vaststaande schuld is.",
+      "Je Klarna-betaling lukt niet op tijd. Dit gebeurt er stap voor stap, wat je nu het beste doet, en wanneer een gemiste betaling meer zegt over je financiële ruimte.",
     datum: "2026-06-19",
     datumFormatted: "19 juni 2026",
-    leestijd: "5",
+    leestijd: "6",
     categorie: "Inzicht",
     excerpt:
-      "De betaaltermijn loopt af en het geld is er niet. Wat er stap voor stap gebeurt, wat de kosten ongeveer zijn, en waarom je niet hoeft te schrikken van een aanmaning. Rustig, zonder paniek.",
+      "De betaaltermijn van je Klarna loopt af en het geld is er niet. Wat er stap voor stap gebeurt, wat je nu het beste doet, en waarom een gemiste betaling niet automatisch een financieel probleem is.",
     preview: {
       type: "pijn",
       label: "Wat er gebeurt bij te laat betalen",
       items: [
-        "Eerst een gratis betaalherinnering",
-        "Daarna een aanmaning met kosten (rond €13,50)",
-        "Verder uitblijven: kan oplopen tot 15%, minimaal €40",
-        "Pas daarna overdracht aan een incassopartij",
+        "Eerst een gratis herinnering",
+        "Daarna een aanmaning met kosten",
+        "Bij aanhoudende achterstand: wettelijke incassokosten (minimaal €40 of 15%)",
+        "Incidenteel is geen probleem, een patroon kan dat wel zijn",
       ],
     },
     faq: [
       {
         vraag: "Wat gebeurt er als ik mijn Klarna niet op tijd betaal?",
         antwoord:
-          "Je krijgt eerst een gratis herinnering, daarna een aanmaning met kosten (in 2025/2026 rond €13,50, lager bij kleine bestellingen). Blijft betaling uit, dan kan het oplopen tot ongeveer 15% van het bedrag met een minimum van €40, en wordt het overgedragen aan een incassopartij. Hoe eerder je betaalt, hoe lager de kosten.",
+          "Je krijgt eerst een gratis herinnering, daarna een aanmaning met kosten. Blijft betaling langer uit, dan gelden de wettelijke incassokosten (minimaal €40 of 15 procent van het bedrag) en wordt de vordering overgedragen aan een incassopartner. Klarna kan daarnaast eigen kosten voor een herinnering of aanmaning rekenen, check je eigen app voor het actuele bedrag. Hoe eerder je betaalt, hoe lager de kosten blijven.",
+      },
+      {
+        vraag: "Betekent een gemiste Klarna-betaling dat ik financiële problemen heb?",
+        antwoord:
+          "Nee, niet automatisch. Een eenmalige gemiste betaling door een onverwachte uitgave is meestal incidenteel en zegt weinig. Schuif je vaker betalingen door, gebruik je meerdere achterafbetaaldiensten tegelijk, of houd je structureel weinig ruimte over terwijl je goed verdient, dan kan het de moeite waard zijn om te kijken waarom.",
       },
       {
         vraag: "Is een aanmaning van Klarna een vaststaande schuld?",
         antwoord:
-          "Je moet betalen wat je verschuldigd bent, maar je hoeft niet te schrikken van dreigende taal. In 2025 oordeelden rechters dat de incassokosten deel zijn van Klarna's verdienmodel, en meerdere vorderingen werden afgewezen wegens een gebrekkig dossier. Maak bezwaar tegen onterechte kosten en laat je niet opjagen.",
+          "Je moet betalen wat je verschuldigd bent, maar je hoeft niet te schrikken van dreigende taal. De rechtbank Midden-Nederland oordeelde in 2025 in meerdere zaken dat Klarna niet kon aantonen dat de incassokosten alleen kostendekkend waren, waardoor de regels voor consumentenkrediet golden. Maak bezwaar tegen kosten die je onterecht lijken en laat je niet opjagen.",
       },
       {
-        vraag: "Wat doe ik als ik echt niet kan betalen?",
+        vraag: "Wat doe ik als ik mijn Klarna-betaling nu echt niet kan betalen?",
         antwoord:
-          "Betaal wat je nu kunt zodat de kosten niet oplopen, en breng al je openstaande betalingen in beeld. Lukt het echt niet en stapelen de betalingen zich op, zoek dan op tijd hulp. Bij Geldfit kun je anoniem terecht.",
+          "Betaal wat je nu kunt zodat de kosten niet verder oplopen, en breng al je openstaande betalingen in beeld. Stapelen de betalingen zich op en kom je er zelf niet uit, wacht dan niet. Bij Geldfit kun je anoniem terecht voor een eerste stap.",
       },
     ],
     externLinks: [
+      { label: "Rijksoverheid: registratieplicht incassodienstverleners per 1 april 2025", url: "https://www.justis.nl/nieuws/31-03-2025-per-1-april-2025-registratieplicht-incassodienstverleners-van-kracht" },
+      { label: "NVVK: vragen en antwoorden over de Klarna-uitspraak", url: "https://www.nvvk.nl/nieuws-detail/2025/06/24/4-vragen-en-antwoorden-over-de-klarna-uitspraak" },
       { label: "AFM: Marktupdate Buy Now Pay Later 2025", url: "https://www.afm.nl/~/profmedia/files/rapporten/2025/rapport-marktupdate--bnpl-2025-ned.pdf" },
       { label: "NOS: rechter over incassokosten Klarna", url: "https://nos.nl/artikel/2565596-achterafbetaaldienst-klarna-verdient-aan-incassokosten-oordeelt-rechter" },
     ],
