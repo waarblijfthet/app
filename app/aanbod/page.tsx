@@ -111,7 +111,7 @@ export default function AanbodPage() {
       />
       <Header />
 
-      <main className="pt-16">
+      <main>
         {/* Hero met ingetogen Jarno-kaartje */}
         <section className="px-6 pb-14 pt-20" style={{ backgroundColor: "#F7F8F7" }}>
           <div className="mx-auto max-w-[860px]">

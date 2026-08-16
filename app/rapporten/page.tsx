@@ -23,7 +23,7 @@ export default function RapportenPage() {
   return (
     <>
       <Header />
-      <main className="pt-24">
+      <main>
         {/* Hero */}
         <section className="bg-background pt-10 pb-8">
           <div className="max-w-3xl mx-auto px-6">

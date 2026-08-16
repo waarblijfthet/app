@@ -6,7 +6,7 @@ export default function BedanktPage() {
   return (
     <>
       <Header />
-      <main className="pt-16" style={{ backgroundColor: "#F7F8F7", minHeight: "100vh" }}>
+      <main style={{ backgroundColor: "#F7F8F7", minHeight: "100vh" }}>
         <div
           style={{
             maxWidth: "540px",

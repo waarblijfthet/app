@@ -2,11 +2,35 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+/* ─────────────────────────────────────────────────────────────────────────
+   Volledig zelfstandige, opaque header. Geen transparantie, geen backdrop-
+   filter, geen afhankelijkheid van de achtergrondkleur van de pagina eronder.
+   Zelfde component op elke pagina, inclusief de homepage met zijn wijnrode
+   hero: de header staat er los boven, niet overlappend.
+   ────────────────────────────────────────────────────────────────────────── */
+
+const C = {
+  white: "#FFFFFF",
+  dark: "#202020",
+  wine: "#7B2D3E",
+  wineHover: "#642433",
+  gold: "#C9952A",
+  border: "#E8E5E1",
+};
 
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -33,80 +57,154 @@ export default function Header() {
     { href: "/analyse", label: "Analyse" },
   ];
 
-  const linkClass = (href: string) =>
-    "text-sm font-medium transition-colors pb-0.5 " +
-    (pathname.startsWith(href) && (href !== "/" || pathname === "/")
-      ? "text-[#16211F] border-b border-[#16211F]"
-      : "text-[#4A5A56] hover:text-[#16211F]");
-
-  const mobileLinkClass = (href: string) =>
-    "text-sm font-medium py-1 transition-colors " +
-    (pathname.startsWith(href) && (href !== "/" || pathname === "/")
-      ? "text-[#16211F]"
-      : "text-[#4A5A56]");
-
   return (
-    <header className="fixed top-0 left-0 right-0 z-50">
-      <div className="flex items-center justify-between px-6 py-4 bg-[#F7F8F7]/92 backdrop-blur-md border-b border-[rgba(20, 42, 40,0.08)]">
-        {/* Logo */}
+    <header
+      className="sticky top-0 z-50"
+      style={{
+        backgroundColor: C.white,
+        borderBottom: `1px solid ${C.border}`,
+        boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
+      }}
+    >
+      <div
+        className="relative flex items-center justify-between h-16 md:h-[76px] max-w-[1200px] mx-auto px-5 md:px-10"
+      >
+        {/* Logo, links uitgelijnd */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Waar blijft het">
-          <div className="w-8 h-8 rounded-full bg-[#16211F] flex items-center justify-center shrink-0" aria-hidden="true">
-            <span className="text-[#F7F8F7] text-xs font-medium" style={{ fontFamily: "Fraunces, serif" }}>wb</span>
+          <div
+            className="w-8 h-8 rounded-full flex items-center justify-center shrink-0"
+            style={{ backgroundColor: C.dark }}
+            aria-hidden="true"
+          >
+            <span style={{ color: C.white, fontSize: "12px", fontWeight: 600 }}>wb</span>
           </div>
-          <span className="text-[#16211F] text-base font-medium hidden sm:block" style={{ fontFamily: "Fraunces, serif" }}>
+          <span
+            className="hidden sm:block"
+            style={{ color: C.dark, fontSize: "16px", fontWeight: 600, fontFamily: "Fraunces, serif" }}
+          >
             Waar blijft het
           </span>
         </Link>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-8" aria-label="Hoofdnavigatie">
-          {navLinks.map(({ href, label }) => (
-            <Link key={href} href={href} className={linkClass(href)}>{label}</Link>
-          ))}
+        {/* Desktop nav, horizontaal gecentreerd t.o.v. de headerbreedte */}
+        <nav
+          className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2"
+          aria-label="Hoofdnavigatie"
+        >
+          {navLinks.map(({ href, label }) => {
+            const active = isActive(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                className="pb-1 border-b-2 transition-colors duration-150"
+                style={{
+                  fontSize: "15px",
+                  fontWeight: active ? 600 : 500,
+                  color: active ? C.wine : C.dark,
+                  borderBottomColor: active ? C.gold : "transparent",
+                }}
+                onMouseEnter={(e) => {
+                  if (!active) e.currentTarget.style.color = C.wine;
+                }}
+                onMouseLeave={(e) => {
+                  if (!active) e.currentTarget.style.color = C.dark;
+                }}
+              >
+                {label}
+              </Link>
+            );
+          })}
         </nav>
 
-        {/* Rechts: CTA + hamburger */}
-        <div className="flex items-center gap-3">
+        {/* CTA, rechts uitgelijnd, alleen desktop */}
+        <div className="hidden md:flex items-center shrink-0">
           {ctaConfig && (
             <Link
               href={ctaConfig.href}
-              className="hidden md:inline-flex items-center gap-1.5 bg-[#0B7A6E] text-[#FFFFFF] px-5 py-2 rounded-full text-sm font-medium hover:opacity-90 transition-opacity shrink-0"
+              className="inline-flex items-center gap-1.5 transition-colors duration-150"
+              style={{
+                backgroundColor: C.wine,
+                color: C.white,
+                height: "44px",
+                padding: "0 20px",
+                borderRadius: "8px",
+                fontSize: "15px",
+                fontWeight: 600,
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = C.wineHover)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = C.wine)}
             >
               {ctaConfig.label}
-              <span aria-hidden="true">&#x2192;</span>
+              <span aria-hidden="true">&rarr;</span>
             </Link>
           )}
-
-          {/* Hamburger */}
-          <button
-            className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5"
-            onClick={() => setMobileOpen((o) => !o)}
-            aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
-            aria-expanded={mobileOpen}
-          >
-            <span className={"block w-5 h-0.5 bg-[#16211F] transition-all duration-200" + (mobileOpen ? " rotate-45 translate-y-2" : "")} />
-            <span className={"block w-5 h-0.5 bg-[#16211F] transition-all duration-200" + (mobileOpen ? " opacity-0" : "")} />
-            <span className={"block w-5 h-0.5 bg-[#16211F] transition-all duration-200" + (mobileOpen ? " -rotate-45 -translate-y-2" : "")} />
-          </button>
         </div>
+
+        {/* Hamburger, alleen mobiel */}
+        <button
+          className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5"
+          onClick={() => setMobileOpen((o) => !o)}
+          aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
+          aria-expanded={mobileOpen}
+        >
+          <span
+            className={"block w-5 h-0.5 transition-all duration-200" + (mobileOpen ? " rotate-45 translate-y-2" : "")}
+            style={{ backgroundColor: C.dark }}
+          />
+          <span
+            className={"block w-5 h-0.5 transition-all duration-200" + (mobileOpen ? " opacity-0" : "")}
+            style={{ backgroundColor: C.dark }}
+          />
+          <span
+            className={"block w-5 h-0.5 transition-all duration-200" + (mobileOpen ? " -rotate-45 -translate-y-2" : "")}
+            style={{ backgroundColor: C.dark }}
+          />
+        </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobiel menu: volledig wit, geen transparantie */}
       {mobileOpen && (
-        <nav className="md:hidden bg-[#F7F8F7] border-b border-[rgba(20, 42, 40,0.08)] px-6 py-4 flex flex-col gap-4" aria-label="Mobiele navigatie">
-          {navLinks.map(({ href, label }) => (
-            <Link key={href} href={href} onClick={() => setMobileOpen(false)} className={mobileLinkClass(href)}>
-              {label}
-            </Link>
-          ))}
+        <nav
+          className="md:hidden flex flex-col px-5 py-2"
+          style={{ backgroundColor: C.white, borderTop: `1px solid ${C.border}` }}
+          aria-label="Mobiele navigatie"
+        >
+          {navLinks.map(({ href, label }) => {
+            const active = isActive(href);
+            return (
+              <Link
+                key={href}
+                href={href}
+                onClick={() => setMobileOpen(false)}
+                className="py-3"
+                style={{
+                  fontSize: "16px",
+                  fontWeight: active ? 600 : 500,
+                  color: active ? C.wine : C.dark,
+                  borderBottom: `1px solid ${C.border}`,
+                }}
+              >
+                {label}
+              </Link>
+            );
+          })}
           {ctaConfig && (
             <Link
               href={ctaConfig.href}
               onClick={() => setMobileOpen(false)}
-              className="mt-2 inline-flex items-center justify-center gap-1.5 bg-[#0B7A6E] text-[#FFFFFF] px-5 py-2.5 rounded-full text-sm font-medium hover:opacity-90 transition-opacity"
+              className="flex items-center justify-center gap-1.5 w-full my-4"
+              style={{
+                backgroundColor: C.wine,
+                color: C.white,
+                minHeight: "52px",
+                borderRadius: "8px",
+                fontSize: "16px",
+                fontWeight: 600,
+              }}
             >
               {ctaConfig.label}
-              <span aria-hidden="true">&#x2192;</span>
+              <span aria-hidden="true">&rarr;</span>
             </Link>
           )}
         </nav>

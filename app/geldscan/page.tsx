@@ -301,7 +301,7 @@ export default function GeldscanPage({
       />
       <Header />
 
-      <main className="pt-16">
+      <main>
         {/* ── 1. Hero ─────────────────────────────────────────── */}
         <section className="bg-background pt-14 pb-12">
           <div className="max-w-3xl mx-auto px-6">

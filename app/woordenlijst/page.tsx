@@ -123,7 +123,7 @@ export default function WoordenlijstPage() {
       />
       <Header />
 
-      <main className="pt-16">
+      <main>
         <section className="bg-background pt-16 pb-8">
           <div className="max-w-3xl mx-auto px-6">
             <p className="section-eyebrow mb-4">Woordenlijst</p>

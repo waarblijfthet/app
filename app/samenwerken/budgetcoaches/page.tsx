@@ -78,7 +78,7 @@ export default function BudgetcoachesPage() {
       />
       <Header />
 
-      <main className="pt-16">
+      <main>
         {/* Hero */}
         <section className="bg-background pt-16 pb-10">
           <div className="max-w-3xl mx-auto px-6">

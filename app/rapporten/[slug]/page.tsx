@@ -60,7 +60,7 @@ export default function RapportPagina({ params }: { params: { slug: string } }) 
   return (
     <>
       <Header />
-      <main className="pt-24">
+      <main>
         <article className="bg-background pt-10 pb-14">
           <div className="max-w-3xl mx-auto px-6">
             <p className="font-body text-sm mb-6">

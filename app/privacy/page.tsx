@@ -12,7 +12,7 @@ export default function PrivacyPage() {
   return (
     <>
       <Header />
-      <main className="pt-16 min-h-screen" style={{ background: "#F7F8F7" }}>
+      <main className="min-h-screen" style={{ background: "#F7F8F7" }}>
         <div
           style={{
             maxWidth: "720px",

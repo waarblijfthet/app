@@ -118,7 +118,7 @@ export default function ArtikelPage({ params }: Props) {
 
       <Header />
 
-      <main className="pt-16">
+      <main>
         <article>
           {/* Article header */}
           <header className="bg-background pt-16 pb-12">

@@ -172,7 +172,7 @@ export default function FinancieelCoachPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       <Header />
 
-      <main className="pt-16">
+      <main>
         {/* Hero: positionering meteen duidelijk, gratis analyse als primaire CTA */}
         <section className="bg-background pt-14 pb-10">
           <div className="max-w-5xl mx-auto px-6">

@@ -23,7 +23,7 @@ export default function InzichtenPage() {
     <>
       <Header />
 
-      <main className="pt-16">
+      <main>
         {/* ── Hero ── */}
         <section className="bg-background pt-12 pb-10 md:pt-16 md:pb-12 border-b border-[#E6E9E7]">
           <div className="max-w-6xl mx-auto px-6">

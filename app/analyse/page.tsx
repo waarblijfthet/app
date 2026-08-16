@@ -39,7 +39,7 @@ export default function AnalysePage() {
       />
       <Header />
 
-      <main className="pt-16 min-h-screen bg-background overflow-x-hidden">
+      <main className="min-h-screen bg-background overflow-x-hidden">
         <section className="pt-10 pb-6 md:pt-16 md:pb-8">
           <div className="max-w-6xl mx-auto px-5 sm:px-6">
             <p className="section-eyebrow mb-3">Analyse</p>

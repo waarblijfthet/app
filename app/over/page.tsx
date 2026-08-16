@@ -72,7 +72,7 @@ export default function OverPage() {
       />
       <Header />
 
-      <main className="pt-16">
+      <main>
 
         {/* Intro */}
         <section className="bg-background pt-16 pb-10">

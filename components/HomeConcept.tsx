@@ -312,7 +312,10 @@ export default function HomeConcept() {
   return (
     <div style={{ fontFamily: FONT }} className="overflow-x-hidden">
       {/* ── 1. HERO, probleem + gratis analyse ──────────────────────────── */}
-      <Section bg={C.wine} className="pt-28 pb-16 md:pt-32 md:pb-20">
+      {/* Geen extra top-padding meer nodig: de header is nu sticky en opaque,
+          niet fixed/overlappend, dus de hero begint gewoon na de header in
+          de normale document-flow. Zelfde verticale ritme als de rest. */}
+      <Section bg={C.wine}>
         <Wrap>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <div>
