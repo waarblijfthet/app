@@ -147,5 +147,7 @@ Raadpleeg deze alleen als je de reden achter een besluit nodig hebt. Ze zijn gee
 - `docs/onderzoek-leadgen-model-14-aug-2026.md` (14-aug): extern onderzoek dat het verwijsmodel bevestigt, met de uitlegbaarheidscijfers.
 - `docs/icp-personas.md`: de zeven ICP-profielen. Bij elke ICP-toets alle profielen langslopen.
 - `docs/outreach-strategie-jul-2026.md` en `docs/skill-verwijzer-personas.md`: outreach-onderbouwing en de toetsingspersona's.
+- `docs/artikel-bouwprompts-aug-2026.md` (17-aug): negen contentklussen als kant-en-klare prompts voor een eigen sessie, met de vaste zesstappenwerkwijze, de afvinklijst en een lijst van wat expliciet niet gebouwd wordt. Bijwerken na elke klus.
+- `docs/serp-inkomensbedragen-17-aug-2026.md` (17-aug): zeventien geverifieerde SERP's rond inkomensbedragen en rondkomen, met de top 15 kansen.
 - `docs/aanleverformat-voorbeeldrapporten-30-jul-2026.md` en `docs/vragenlijst-geldrapport-30-jul-2026.md`: wat je per klant ophaalt.
 - `docs/archief-claude-md-17-aug-2026.md` en `docs/archief-claude-md-tm-19-jul-2026.md`: alle sessielogboeken, voor als je wilt weten waarom iets ooit zo is besloten.
