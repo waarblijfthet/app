@@ -2,17 +2,17 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { RAPPORTEN, AANTAL_ZONDER_VERVOLG } from "@/lib/rapporten-data";
+import { RAPPORTEN, AANTAL_ZONDER_LEK, AANTAL_ZONDER_VERVOLG } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Vijf echte geldrapporten, van begin tot eind",
+  title: `${RAPPORTEN.length} echte gezinsbudgetten: cijfers, oordeel en nameting`,
   description:
-    "Vijf huishoudens leverden hun cijfers aan, ik schreef het rapport en drie tot vier maanden later vertelden ze wat er veranderde. Bij twee van de vijf was de uitkomst dat er niets misging.",
+    `${RAPPORTEN.length} huishoudens leverden hun cijfers aan zoals in een huishoudboekje, plus mijn oordeel en de nameting na drie tot vier maanden. Bij ${AANTAL_ZONDER_LEK} van de ${RAPPORTEN.length} ging er niets mis.`,
   alternates: { canonical: "https://www.waarblijfthet.nl/rapporten" },
   openGraph: {
-    title: "Vijf echte geldrapporten, van begin tot eind",
+    title: `${RAPPORTEN.length} echte gezinsbudgetten: cijfers, oordeel en nameting`,
     description:
-      "Wat vijf huishoudens zelf dachten, wat ik vond en wat er daarna veranderde. Met hun eigen cijfers.",
+      `Wat ${RAPPORTEN.length} huishoudens zelf dachten, wat ik vond en wat er daarna veranderde. Met hun eigen cijfers.`,
     url: "https://www.waarblijfthet.nl/rapporten",
     type: "website",
   },
@@ -32,13 +32,19 @@ export default function RapportenPage() {
               Wat ze zelf dachten, en wat er werkelijk uit kwam
             </h1>
             <p className="font-body font-light text-text-soft leading-relaxed mb-4">
-              Vijf huishoudens leverden hun cijfers aan. Ik schreef het rapport, zij gingen ermee aan de slag,
-              en drie tot vier maanden later hebben ze opgeschreven wat er veranderde. Je leest hieronder hun
-              ingevulde vragenlijst, mijn advies en hun eigen evaluatie.
+              {RAPPORTEN.length} huishoudens leverden hun cijfers aan zoals in een huishoudboekje: wat er
+              binnenkwam, wat wegging en wat er overbleef. Ik schreef er het rapport bij, zij gingen ermee aan
+              de slag, en drie tot vier maanden later hebben ze opgeschreven wat er veranderde. Je leest
+              hieronder hun ingevulde vragenlijst, mijn advies en hun eigen evaluatie.
             </p>
             <p className="font-body font-light text-text-soft leading-relaxed mb-4">
-              Vier van de vijf hadden het bij zichzelf mis. Bij twee van de vijf was mijn conclusie dat er niets
-              te repareren viel, en bij {AANTAL_ZONDER_VERVOLG} van de vijf was een vervolggesprek niet nodig.
+              Bij een huishoudboekje-rubriek lees je wat er binnenkwam en wegging. Hier staat dat ook, plus mijn
+              oordeel over wat ik zag en wat er drie tot vier maanden later in dat huishouden veranderde. Dat
+              oordeel en die nameting staan bij elk van de {RAPPORTEN.length} rapporten hierboven, ook de
+              {AANTAL_ZONDER_LEK} keer dat mijn conclusie was dat er niets te repareren viel.
+            </p>
+            <p className="font-body font-light text-text-soft leading-relaxed mb-4">
+              Bij {AANTAL_ZONDER_VERVOLG} van de {RAPPORTEN.length} was een vervolggesprek daarna niet nodig.
               Dat staat er ook.
             </p>
             <p className="font-body font-light text-text-muted text-sm leading-relaxed">

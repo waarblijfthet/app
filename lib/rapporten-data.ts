@@ -64,9 +64,9 @@ export const RAPPORTEN: Rapport[] = [
     chip: "Gezin met kinderen",
     situatie: "Tweeverdieners, drie kinderen, koopwoning",
     profiel: "Twee inkomens, drie kinderen van 9, 12 en 14, koopwoning, twee eigen auto's.",
-    metaTitel: "Echt geldrapport: tweeverdieners met drie kinderen",
+    metaTitel: "Gezinsbudget: samen €7.880 netto en toch niets over",
     metaDescription:
-      "Een echt geldrapport van een gezin met drie kinderen en twee inkomens. Zij dachten boodschappen en kinderen. Er bleek geen enkele buitensporige vaste last te zijn.",
+      "Tweeverdieners met drie kinderen, samen €7.880 netto. Zij dachten aan boodschappen en de kinderen, maar geen vaste last bleek buitensporig.",
     vermoeden:
       "Ik denk vooral boodschappen en de kinderen. Mijn partner denkt juist aan alle losse uitgaven.",
     vermoedenBedrag: "Zij misten naar eigen schatting 500 tot 750 euro per maand.",
@@ -129,9 +129,9 @@ export const RAPPORTEN: Rapport[] = [
     chip: "Alleenstaande ouder",
     situatie: "Alleenstaande ouder, twee kinderen, koopwoning",
     profiel: "Eén inkomen, kinderen van 7 en 11 die 80 procent van de tijd bij haar wonen, koopwoning, één auto.",
-    metaTitel: "Echt geldrapport: alleenstaande ouder met twee kinderen",
+    metaTitel: "Gezinsbudget: €5.700 netto en toch geen groeiende buffer",
     metaDescription:
-      "Een echt geldrapport van een alleenstaande ouder met twee kinderen. Haar gevoel van krapte bleek deels logisch. De buffer groeit nu met 500 euro per maand, zonder bezuinigingen.",
+      "Alleenstaande ouder met twee kinderen, €5.700 netto. Haar gevoel van krapte bleek deels logisch, en de buffer groeit nu met 500 euro per maand.",
     vermoeden:
       "Ik vermoed dat mijn vaste basis duur is voor één inkomen. Daarnaast geef ik mogelijk nog uit alsof er soms twee inkomens zijn.",
     vermoedenBedrag: "Zij miste naar eigen schatting 400 tot 500 euro per maand.",
@@ -194,9 +194,9 @@ export const RAPPORTEN: Rapport[] = [
     chip: "Alleenstaand",
     situatie: "Alleenstaand, begin 30, huurwoning",
     profiel: "Eén inkomen, geen kinderen, huurappartement, één eigen auto.",
-    metaTitel: "Echt geldrapport: alleenstaand met een goed salaris",
+    metaTitel: "Gezinsbudget: €3.650 netto, vermoeden klopte, bedrag niet",
     metaDescription:
-      "Een echt geldrapport van iemand die alleen woont met 3.650 euro netto. Het verschil tussen wat zij dacht uit te geven en wat er werkelijk wegging was ruim 250 euro per maand.",
+      "Alleenstaand, geen kinderen, €3.650 netto per maand. Het vermoeden over bestellen en uitgaan klopte, maar was 250 euro groter dan gedacht.",
     vermoeden: "Eten bestellen, uitgaan en online aankopen.",
     vermoedenBedrag: "Zij miste naar eigen schatting 300 tot 400 euro per maand.",
     uitkomstKop: "Het vermoeden was juist, maar 250 euro groter dan gedacht",
@@ -255,9 +255,9 @@ export const RAPPORTEN: Rapport[] = [
     chip: "Stel zonder kinderen",
     situatie: "Stel eind 30, geen kinderen, koopappartement",
     profiel: "Twee inkomens, geen kinderen, koopappartement, geen auto.",
-    metaTitel: "Echt geldrapport: stel zonder kinderen, twee goede inkomens",
+    metaTitel: "Gezinsbudget: samen €6.990 netto en toch geen lek",
     metaDescription:
-      "Een echt geldrapport van een stel met 6.800 euro netto en geen kinderen. De uitkomst was dat er geen lek was: hun levensstijl botste met hun spaardoel.",
+      "Stel zonder kinderen, samen €6.990 netto per maand. Ze zochten een geldlek. Dat bleek er niet te zijn, hun levensstijl botste met hun spaardoel.",
     vermoeden:
       "We denken dat we te makkelijk geld uitgeven, maar niet dat één categorie extreem is.",
     vermoedenBedrag: "Zij misten naar eigen schatting 700 tot 900 euro per maand.",
@@ -317,9 +317,9 @@ export const RAPPORTEN: Rapport[] = [
     chip: "Zzp of wisselend inkomen",
     situatie: "Zzp'er met partner in loondienst, wisselend inkomen, koopwoning",
     profiel: "Een zzp-inkomen dat per maand sterk verschilt, een partner in loondienst, koopwoning, geen kinderen.",
-    metaTitel: "Echt geldrapport: zzp'er met een sterk wisselend inkomen",
+    metaTitel: "Gezinsbudget: maanden van €2.400 tot €8.100, geen privélek",
     metaDescription:
-      "Een echt geldrapport van een zzp'er met maanden tussen 2.400 en 8.100 euro. Er was geen privélek: een grillig inkomen werd behandeld als een vast salaris.",
+      "Zzp'er met partner in loondienst, maanden tussen €2.400 en €8.100 netto. Geen privélek: een wisselend inkomen behandeld als vast salaris.",
     vermoeden:
       "Ik dacht eerst dat we privé te veel uitgeven. Ik vermoed nu dat ik goede maanden als normaal behandel.",
     vermoedenBedrag: "Hij miste naar eigen schatting 700 euro per maand.",
