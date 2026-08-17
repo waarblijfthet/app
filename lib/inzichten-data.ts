@@ -2880,6 +2880,11 @@ export const artikelen: Artikel[] = [
         antwoord:
           "Nee. Jan Modaal verdient in 2026 bruto €48.000 per jaar, ofwel €4.000 bruto per maand. Netto houdt hij daar €3.100 van over. Wie €4.000 netto verdient, heeft een bruto salaris van €65.000 of meer.",
       },
+      {
+        vraag: "Wie verdient €4.000 netto per maand?",
+        antwoord:
+          "Vooral mensen die duidelijk boven modaal zitten. Om netto €4.000 over te houden heb je een bruto jaarinkomen nodig vanaf ongeveer €65.000. Ter vergelijking, het gemiddelde persoonlijke inkomen van hoogopgeleiden in Nederland lag in 2022 op bijna €58.000 bruto per jaar, tegen €34.000 voor middelbaar opgeleiden en €22.000 voor laagopgeleiden (CBS, Materiële welvaart in Nederland 2024, cijfers over 2022). Een bruto inkomen van €65.000 of meer ligt dus zelfs boven het gemiddelde van de hoogst opgeleide groep.",
+      },
     ],
     externLinks: [
       {
@@ -2889,6 +2894,10 @@ export const artikelen: Artikel[] = [
       {
         label: "CBS inkomensverdeling 2024",
         url: "https://www.cbs.nl",
+      },
+      {
+        label: "CBS: inkomen van personen naar onderwijsniveau (Materiële welvaart in Nederland 2024, cijfers 2022)",
+        url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/inkomen-van-personen/",
       },
       {
         label: "KekMama gemiddelde kosten van een gezin",
