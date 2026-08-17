@@ -52,14 +52,34 @@ const REFERENTIE = 4200;
  */
 const VARIANTEN = [3500, 3750, 4100, 4200, 4300, 4500, 4600];
 
+/**
+ * Bewust een losse functie met drie expliciete parameters, en bewust geen
+ * binnenste arrow die `inkomen` uit een buitenste scope leent via de verkorte
+ * objectnotatie.
+ *
+ * Reden (17-aug-2026, productiebuild op Vercel gefaald met "ReferenceError:
+ * inkomen is not defined"): de minifier van Next 14.2 vouwde de oude
+ * hulpfunctie in en hernoemde daarbij alleen de eerste van de vier
+ * verwijzingen naar de parameter. De andere drie bleven als kale `inkomen`
+ * staan, en die bestond daar niet meer. `tsc` ziet dit niet en de dev-server
+ * ook niet, want die minificeert niet. Alleen een productiebuild vangt het.
+ * Houd deze vorm dus zo.
+ */
+function overVoor(inkomen: number, volwassenen: 1 | 2, kinderen: number): number {
+  return berekenVuistregel({
+    inkomen: inkomen,
+    volwassenen: volwassenen,
+    kinderen: kinderen,
+    auto: "eigen",
+  }).verwachtOver;
+}
+
 function voorBedrag(inkomen: number) {
-  const kies = (volwassenen: 1 | 2, kinderen: number) =>
-    berekenVuistregel({ inkomen, volwassenen, kinderen, auto: "eigen" }).verwachtOver;
   return {
-    alleen: kies(1, 0),
-    samen: kies(2, 0),
-    ouder: kies(1, 2),
-    gezin: kies(2, 2),
+    alleen: overVoor(inkomen, 1, 0),
+    samen: overVoor(inkomen, 2, 0),
+    ouder: overVoor(inkomen, 1, 2),
+    gezin: overVoor(inkomen, 2, 2),
   };
 }
 
@@ -71,16 +91,19 @@ function voorBedrag(inkomen: number) {
  */
 function omslagpunt(volwassenen: 1 | 2, kinderen: number): number {
   for (let i = 2000; i <= 12000; i += 1) {
-    if (berekenVuistregel({ inkomen: i, volwassenen, kinderen, auto: "eigen" }).verwachtOver >= 0) {
+    if (overVoor(i, volwassenen, kinderen) >= 0) {
       return Math.round(i / 10) * 10;
     }
   }
   return 0;
 }
 
+/** Eén keer berekenen op moduleniveau in plaats van per zin. */
+const OMSLAG_GEZIN = omslagpunt(2, 2);
+
 function regelVoor(bedrag: number): string {
   const v = voorBedrag(bedrag);
-  const omslagGezin = omslagpunt(2, 2);
+  const omslagGezin = OMSLAG_GEZIN;
   const stapEen = 57;
   const stapTwee = 65;
 
@@ -145,16 +168,11 @@ const h3 = {
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function SalarisBedragenTabel() {
+  // Zelfde valkuil als bij overVoor hierboven: geen verkorte objectnotatie in
+  // een geneste map die de parameter van de buitenste map leent.
   const rijen = BEDRAGEN.map((inkomen) => ({
-    inkomen,
-    cellen: HUISHOUDENS.map((h) =>
-      berekenVuistregel({
-        inkomen,
-        volwassenen: h.volwassenen,
-        kinderen: h.kinderen,
-        auto: "eigen",
-      })
-    ),
+    inkomen: inkomen,
+    cellen: HUISHOUDENS.map((h) => overVoor(inkomen, h.volwassenen, h.kinderen)),
   }));
 
   const uitsplitsing = HUISHOUDENS.map((h) => ({
@@ -231,16 +249,16 @@ export default function SalarisBedragenTabel() {
                   >
                     {euro(inkomen)}
                   </th>
-                  {cellen.map((c, i) => (
+                  {cellen.map((over, i) => (
                     <td
                       key={HUISHOUDENS[i].kop}
                       className="font-body text-sm py-2.5 px-3 text-right tabular-nums"
                       style={{
-                        color: c.verwachtOver < 0 ? "#B03A2E" : "#4A5A56",
+                        color: over < 0 ? "#B03A2E" : "#4A5A56",
                         borderBottom: "1px solid #F0F3F1",
                       }}
                     >
-                      {euroSigned(c.verwachtOver)}
+                      {euroSigned(over)}
                     </td>
                   ))}
                 </tr>
