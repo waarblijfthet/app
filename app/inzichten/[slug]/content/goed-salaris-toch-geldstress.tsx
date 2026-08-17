@@ -38,7 +38,7 @@ export default function GoedSalarisTochGeldstress() {
         <ul className="space-y-1.5">
           {[
             "Waarom geldstress ook bij een goed inkomen voorkomt, en dat je niet de enige bent",
-            "Waar de stress vandaan komt: het is een structuurprobleem, geen karakterfout",
+            "Waar de stress vandaan komt: het zit zelden in jou, bijna altijd in hoe je geld nu is ingedeeld",
             "De vier stappen waarmee er bij ons thuis weer rust kwam",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
@@ -55,13 +55,22 @@ export default function GoedSalarisTochGeldstress() {
         Geldstress hoort bij weinig geld, denken de meeste mensen. Maar dat klopt niet. Je kunt een
         prima inkomen hebben en toch elke maand datzelfde knagende gevoel houden: er klopt iets
         niet, en ik weet niet waar het zit. Ik ken dat gevoel uit eigen ervaring, en ik zie het bij
-        veel mensen die ik help.
+        veel mensen die ik help. Wil je eerst weten waar je geld concreet blijft, lees dan mijn
+        artikel{" "}
+        <Link
+          href="/inzichten/goed-salaris-toch-krap"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          goed salaris, maar toch niet rondkomen
+        </Link>
+        . Dit artikel gaat over het gevoel zelf, en hoe je daar vanaf komt.
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Kort gezegd: geldstress met een goed inkomen is bijna nooit een karakterfout en bijna altijd
-        een structuurprobleem. Je geld heeft geen duidelijke bestemming, dus het verdwijnt, en de
-        stress komt voort uit het niet weten waar het naartoe gaat. Met een paar vaste afspraken los
-        je dat op, zonder dat je meer hoeft te verdienen.
+        Kort gezegd: geldstress met een goed inkomen is bijna nooit een karakterfout. Je geld heeft
+        geen duidelijke bestemming, dus het verdwijnt, en de stress komt voort uit het niet weten
+        waar het naartoe gaat. Met een paar vaste afspraken los je dat op, zonder dat je meer hoeft
+        te verdienen.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -83,22 +92,18 @@ export default function GoedSalarisTochGeldstress() {
         Waarom een goed inkomen toch stress geeft
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        De stress komt zelden door één grote uitgave. Het is een optelsom. Je vaste lasten zijn
-        gegroeid: een gemiddeld huishouden is inmiddels ruim de helft van het inkomen kwijt aan vaste lasten, eerder richting 55 procent, terwijl het Nibud rond de 50 procent gezond vindt. Daar bovenop komen
-        uitgaven die je niet bijhoudt, want pinnen en tikken voelt niet als geld uitgeven. En als er
-        geen buffer is, betaal je elke tegenvaller uit je lopende maand, waardoor die maand niet
-        meer klopt.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        De diepere oorzaken werk ik uit in mijn artikelen over{" "}
+        De stress komt zelden door één grote uitgave. Het is een optelsom van vaste lasten die
+        gegroeid zijn, uitgaven die je niet bijhoudt omdat pinnen en tikken niet als geld uitgeven
+        voelt, en het ontbreken van een buffer waardoor elke tegenvaller je lopende maand omgooit.
+        De volledige uitwerking van die drie, met bedragen, staat in mijn artikel over{" "}
         <Link
           href="/inzichten/goed-salaris-toch-krap"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
-          goed salaris en toch krap
-        </Link>{" "}
-        en{" "}
+          goed salaris en toch niet rondkomen
+        </Link>
+        , en de vier lekken waarlangs het geld precies wegstroomt staan in{" "}
         <Link
           href="/inzichten/waarom-hou-ik-nooit-geld-over"
           style={{ color: "#0B7A6E", textDecoration: "none" }}

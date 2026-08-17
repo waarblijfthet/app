@@ -1175,7 +1175,7 @@ export const artikelen: Artikel[] = [
     leestijd: "6",
     categorie: "Inzicht",
     excerpt:
-      "Je verdient goed en hebt toch een knoop in je maag van geld. Je bent niet de enige: zelfs een kwart van de hoge inkomens komt moeilijk rond. Waarom het een structuurprobleem is, en de vier stappen waarmee er bij ons thuis weer rust kwam.",
+      "Je verdient goed en hebt toch een knoop in je maag van geld. Je bent niet de enige: zelfs een kwart van de hoge inkomens komt moeilijk rond. Waarom dat geen karakterfout is, en de vier stappen waarmee er bij ons thuis weer rust kwam.",
     preview: {
       type: "statistiek",
       label: "Hoog inkomen en toch moeite met rondkomen",
@@ -1198,7 +1198,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Ligt geldstress aan mezelf?",
         antwoord:
-          "Meestal niet. Geldstress met een goed inkomen is bijna altijd een structuurprobleem en geen karakterfout. Je geld verdwijnt omdat het geen richting heeft, niet omdat je iets verkeerd doet. Met een paar vaste afspraken buig je het om, zonder dat je meer hoeft te verdienen.",
+          "Meestal niet. Geldstress met een goed inkomen is bijna nooit een karakterfout. Je geld verdwijnt omdat het geen richting heeft, niet omdat je iets verkeerd doet. Met een paar vaste afspraken buig je het om, zonder dat je meer hoeft te verdienen.",
       },
     ],
     externLinks: [
@@ -2967,20 +2967,20 @@ export const artikelen: Artikel[] = [
     slug: "goed-salaris-toch-krap",
     korteTitel: "Goed salaris en toch krap",
     titel:
-      "Goed salaris en toch krap? Dat ligt niet aan jou",
-    metaTitel: "Goed salaris en toch krap? Zo kan dat",
+      "Goed salaris, maar toch niet rondkomen? Dit is waarom",
+    metaTitel: "Goed salaris, maar toch niet rondkomen? Dit is waarom",
     metaDescription:
-      "Goed verdienen maar toch weinig over? Je bent niet de enige. Ontdek waarom het geld verdwijnt en wat je er zonder grote offers aan kunt doen.",
+      "Je verdient goed maar houdt weinig over. De drie oorzaken die meestal samen een gat slaan, met een echt voorbeeld van een gezin dat hetzelfde overkwam.",
     datum: "2026-05-19",
     datumFormatted: "19 mei 2026",
-    leestijd: "7",
+    leestijd: "8",
     categorie: "Inzicht",
     excerpt:
-      "Je verdient genoeg. Niet extreem, maar genoeg. En toch staat er aan het einde van de maand bijna niks meer op de rekening. Hoe kan dat?",
+      "Je verdient genoeg. Niet extreem, maar genoeg. En toch staat er aan het einde van de maand bijna niks meer op de rekening. Dit is meestal waarom, en wat er wel werkt.",
     preview: {
       type: "pijn",
       label: "Herken jij dit?",
-      items: ["Goed verdienen", "Toch krap", "Geen idee waarom"],
+      items: ["Goed verdienen", "Toch niet rondkomen", "Geen idee waarom"],
     },
     faq: [
       {
@@ -3002,6 +3002,11 @@ export const artikelen: Artikel[] = [
         vraag: "Wat is de eerste stap om meer over te houden?",
         antwoord:
           "Inzicht, niet bezuinigen. Pak de afschriften van de afgelopen twee maanden en tel drie dingen op: vaste lasten, boodschappen en wat er overblijft. Pas als je ziet waar het heen gaat, kun je gericht bijsturen.",
+      },
+      {
+        vraag: "Is dit hetzelfde als geldstress door een goed salaris?",
+        antwoord:
+          "Niet helemaal. Dit artikel gaat over waar je geld concreet blijft. Gaat het je vooral om het knagende gevoel en hoe je daar rust in krijgt, lees dan mijn artikel 'Goed salaris, toch geldstress'. Wil je precies weten via welke vier lekken geld wegstroomt, lees dan 'Waarom hou ik nooit geld over'.",
       },
     ],
     externLinks: [

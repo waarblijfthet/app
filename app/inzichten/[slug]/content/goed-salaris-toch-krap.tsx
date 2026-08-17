@@ -1,18 +1,32 @@
 import Link from "next/link";
+import { RAPPORTEN, rapportVoorSlug } from "@/lib/rapporten-data";
 
 const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function GoedsalarisTochKrap() {
+  const rapport = rapportVoorSlug("tweeverdieners-drie-kinderen");
+
   return (
     <>
+      {/* Herken je dit? */}
+      <div className="rounded-xl p-4 mb-6" style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}>
+        <p className="font-body font-semibold text-sm mb-1" style={{ color: "#16211F" }}>Herken je dit?</p>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300 }}>
+          Op papier klopt het gewoon: een goed salaris, geen schulden, geen rare aankopen. Maar elke
+          maand vraag je je toch af hoe het kan dat er zo weinig blijft staan, zonder dat je één ding
+          kunt aanwijzen dat fout gaat.
+        </p>
+      </div>
+
       <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
-            "Goed salaris en toch krap: het ligt zelden aan je inkomen, bijna altijd aan de structuur",
+            "Goed salaris en toch niet rondkomen: het ligt zelden aan je inkomen, bijna altijd aan de structuur",
             "Drie oorzaken die samen een groot gat slaan: sluipende abonnementen, onderschatte boodschappen, en geen buffer",
-            "Meer verdienen lost het niet op, een systeem wel",
+            "Hoe dat er in een echt huishouden uitziet, met de bedragen erbij",
+            "Meer verdienen lost het zelden op, een systeem meestal wel",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
@@ -24,21 +38,24 @@ export default function GoedsalarisTochKrap() {
 
       <p className="font-body text-text-soft" style={p}>
         Je verdient genoeg. Niet extreem, maar genoeg. Twee inkomens misschien,
-        of een solide. Geen grote schulden, geen gekke aankopen. En toch staat er
+        of een solide salaris alleen. Geen grote schulden, geen gekke aankopen. En toch staat er
         aan het einde van de maand bijna niks meer op de rekening.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Het is een van de meest gehoorde maar zelden uitgesproken frustraties van
         Nederlandse huishoudens. Want hoe leg je dit uit aan een ander? Je kunt
         moeilijk klagen als je goed verdient. Dus zwijg je, en vraag je je
-        s avonds op de bank af waar het toch naartoe gaat.
+        &apos;s avonds op de bank af waar het toch naartoe gaat. Gaat het je vooral om dat knagende
+        gevoel zelf, lees dan ook mijn artikel over{" "}
+        <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris en toch geldstress</Link>. Hier
+        gaat het om waar het geld concreet blijft.
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Kort gezegd: als je goed verdient maar toch krap zit, ligt het zelden aan
+        Kort gezegd: als je goed verdient maar toch niet rondkomt, ligt het zelden aan
         je inkomen en dus ook niet aan jou. Het komt door drie dingen die
         ongemerkt optellen: sluipende vaste lasten en abonnementen, onderschatte
-        boodschappen, en het ontbreken van een buffer. Niet meer verdienen lost
-        dat op, maar meer structuur.
+        boodschappen, en het ontbreken van een buffer. Niet een hoger inkomen lost
+        dat op, maar structuur.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -78,6 +95,48 @@ export default function GoedsalarisTochKrap() {
       </p>
 
       <h2 className="font-display" style={h2}>
+        Zo zag dit eruit bij een echt gezin
+      </h2>
+      <p className="font-body text-text-soft" style={p}>
+        Geen gemiddelde en geen rekenvoorbeeld, maar een van de {RAPPORTEN.length} volledige
+        geldrapporten die ik openbaar op deze site heb staan, met toestemming en zonder namen.
+      </p>
+      {rapport && (
+        <div className="rounded-xl border p-5 my-6" style={{ borderColor: "#E6E9E7", borderLeft: "3px solid #0B7A6E" }}>
+          <p className="section-eyebrow mb-2">
+            {rapport.chip} · {rapport.kenmerken[rapport.kenmerken.length - 1]}
+          </p>
+          <p className="font-display font-light text-lg mb-3" style={{ color: "#16211F" }}>
+            {rapport.verhaalTitel}
+          </p>
+          <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300 }}>
+            Zij dachten vooraf: &ldquo;{rapport.vermoeden}&rdquo; {rapport.vermoedenBedrag}
+          </p>
+          <p className="font-body text-sm mb-3" style={{ color: "#16211F", fontWeight: 400 }}>
+            {rapport.uitkomstKop}. {rapport.uitkomst}
+          </p>
+          <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300 }}>
+            Hun evaluatie {rapport.doorlooptijd}: &ldquo;{rapport.evaluatie}&rdquo;
+          </p>
+          <Link
+            href={`/rapporten/${rapport.slug}`}
+            className="font-body text-sm font-medium hover:underline"
+            style={{ color: "#0B7A6E" }}
+          >
+            Lees het volledige rapport &rarr;
+          </Link>
+        </div>
+      )}
+      <p className="font-body text-text-soft" style={p}>
+        Geen enkele losse post schreeuwt hier om aandacht. Het is een stapeling van kleinere dingen
+        die niemand optelt, tot ze samen een gat slaan. Dit gezin heeft twee inkomens en drie
+        kinderen; woon je alleen of met zijn tweeën zonder kinderen, dan zie je vaak dezelfde opbouw
+        terug in andere bedragen. De andere{" "}
+        <Link href="/rapporten" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">volledige rapporten</Link>{" "}
+        laten dat per situatie zien.
+      </p>
+
+      <h2 className="font-display" style={h2}>
         Het ontbreekt niet aan geld, maar aan structuur
       </h2>
       <p className="font-body text-text-soft" style={p}>
@@ -88,6 +147,9 @@ export default function GoedsalarisTochKrap() {
         aparte rekening, spaardoelen in aparte potjes, een vast bedrag voor
         dagelijkse uitgaven. Hoe dat praktisch werkt, lees je in het artikel over de{" "}
         <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>.
+        Wil je precies weten via welke vier lekken geld het vaakst wegstroomt, en waarom een hogere
+        salarisverhoging dat zelden repareert, lees dan mijn artikel{" "}
+        <Link href="/inzichten/waarom-hou-ik-nooit-geld-over" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waarom hou ik nooit geld over</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -99,12 +161,30 @@ export default function GoedsalarisTochKrap() {
         wat overblijft. Vaak zie je dan al waar de ruimte zit, zonder dat je
         zuiniger hoeft te gaan leven.
       </p>
+
+      {/* Intern CTA */}
+      <div
+        style={{
+          backgroundColor: "#E7F1EE",
+          borderRadius: "16px",
+          padding: "1.5rem",
+          marginTop: "2rem",
+          marginBottom: "2.5rem",
+        }}
+      >
+        <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
+          Wil je weten of dit ook bij jou zo werkt? Bij de geldscan kijk ik persoonlijk naar jouw
+          cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, en met wat
+          er juist niet uit de toon valt. In gewone taal, geen gesprek nodig.
+        </p>
+        <Link href="/geldscan" className="btn-primary">
+          Zie wat je krijgt voor €49 &rarr;
+        </Link>
+      </div>
+
       <p className="font-body text-text-soft" style={p}>
-        Wil je dat ik in jouw eigen cijfers meekijk?{" "}
-        <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Zie wat je krijgt voor €49 met de geldscan (€49)</Link>, of doe eerst de{" "}
-        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>{" "}en vergelijk je uitgaven met vergelijkbare huishoudens.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
+        Wil je liever eerst je eigen uitgaven vergelijken? Doe de{" "}
+        <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>.
         Uit de praktijk: lees{" "}
         <Link href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappen onder controle kreeg</Link>.
       </p>

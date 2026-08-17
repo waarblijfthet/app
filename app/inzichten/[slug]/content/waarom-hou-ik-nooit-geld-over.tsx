@@ -54,7 +54,16 @@ export default function WaaromHouIkNooitGeldOver() {
         Als je goed verdient en tóch nooit iets overhoudt, voelt dat als falen. Je hoort jezelf
         denken: ik verdien meer dan genoeg, dus dit zou niet moeten kunnen. Maar het kan wel, en
         het overkomt veel meer mensen dan je denkt. Het ligt zelden aan je inkomen. Het ligt aan
-        de structuur eromheen.
+        de structuur eromheen, zoals ik ook beschrijf in mijn artikel over{" "}
+        <Link
+          href="/inzichten/goed-salaris-toch-krap"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          goed salaris, maar toch niet rondkomen
+        </Link>
+        . Hier ga ik specifiek in op de vier manieren waarop het geld wegstroomt, en waarom een
+        hoger salaris dat zelden repareert.
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: geld verdwijnt vooral als het onzichtbaar is. Vaste lasten en abonnementen
@@ -94,21 +103,21 @@ export default function WaaromHouIkNooitGeldOver() {
         een groot gat slaan.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Het eerste lek zijn de vaste lasten die sluipend groeien. Een gemiddeld huishouden is meer
-        dan de helft van het inkomen kwijt aan vaste lasten, terwijl het Nibud rond de 50 procent
-        als gezond beschouwt. Abonnementen tellen daarbij hard op: een gemiddeld gezin betaalt
-        inmiddels meer dan €200 per maand aan streaming, sport, apps en telecom samen. Veel mensen schatten dat op ongeveer de helft.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Het tweede lek is alles wat je niet bijhoudt. Pinnen en tikken voelt niet als geld
-        uitgeven. Boodschappen, lunches, een terrasje, bezorgmaaltijden: stuk voor stuk klein,
-        bij elkaar honderden euro&apos;s per maand waar geen budget op staat. Vraag iemand wat hij
-        aan boodschappen uitgeeft en het antwoord is bijna altijd te laag.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Het derde lek is de buffer die er niet is. Een kapotte wasmachine, de jaarlijkse
-        verzekeringspremie, de tandarts: dat zijn geen verrassingen, ze komen elk jaar. Maar zonder
-        apart potje betaal je ze uit je lopende maand, en dan klopt die maand niet meer.
+        Het eerste lek zijn de vaste lasten en abonnementen die sluipend groeien, vaak tot boven
+        de €200 per maand zonder dat je het doorhebt. Het tweede lek is alles wat je niet
+        bijhoudt: boodschappen, lunches, een terrasje, bezorgmaaltijden, want pinnen en tikken
+        voelt niet als geld uitgeven. Het derde lek is de buffer die er niet is, waardoor elke
+        &apos;onverwachte&apos; kapotte wasmachine of jaarlijkse premie uit je lopende maand
+        moet komen. Deze drie werk ik met bedragen en een echt voorbeeld uit in mijn artikel over{" "}
+        <Link
+          href="/inzichten/goed-salaris-toch-krap"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          goed salaris, maar toch niet rondkomen
+        </Link>
+        . Het vierde lek behandel ik hieronder, want dat is het lek dat het minst vaak wordt
+        herkend.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Het vierde lek is levensstijlinflatie. Elke keer dat je meer ging verdienen, ging je net
@@ -163,15 +172,7 @@ export default function WaaromHouIkNooitGeldOver() {
         verrassing in de middelste categorie.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Wil je dieper op de oorzaken in, lees dan ook{" "}
-        <Link
-          href="/inzichten/goed-salaris-toch-krap"
-          style={{ color: "#0B7A6E", textDecoration: "none" }}
-          className="hover:underline"
-        >
-          goed salaris en toch krap
-        </Link>{" "}
-        en, als je samen een huishouden voert,{" "}
+        Voer je samen een huishouden, lees dan ook{" "}
         <Link
           href="/inzichten/tweeverdieners-toch-krap"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
