@@ -88,7 +88,139 @@ export interface Artikel {
 
 // ── Artikeldata ──────────────────────────────────────────────────────────────
 
+/**
+ * Berekende bedragen voor "niet-rondkomen-met-4000-euro-netto" (17-aug-2026,
+ * klus 4, docs/artikel-bouwprompts-aug-2026.md). Nooit met de hand typen in de
+ * FAQ-antwoorden hieronder, werkregel 2: elk bedrag komt uit dezelfde functie
+ * die de rekenaar en de bedragentabel op het 4.000-artikel gebruiken.
+ */
+import { berekenVuistregel, omslagpunt, euro } from "./salaris-vuistregel";
+import { RAPPORTEN } from "./rapporten-data";
+
+const NR4K_INKOMEN = 4000;
+const NR4K_GEZIN = berekenVuistregel({
+  inkomen: NR4K_INKOMEN,
+  volwassenen: 2,
+  kinderen: 2,
+  auto: "eigen",
+});
+const NR4K_SAMEN = berekenVuistregel({
+  inkomen: NR4K_INKOMEN,
+  volwassenen: 2,
+  kinderen: 0,
+  auto: "eigen",
+}).verwachtOver;
+const NR4K_ALLEEN = berekenVuistregel({
+  inkomen: NR4K_INKOMEN,
+  volwassenen: 1,
+  kinderen: 0,
+  auto: "eigen",
+}).verwachtOver;
+const NR4K_OUDER = berekenVuistregel({
+  inkomen: NR4K_INKOMEN,
+  volwassenen: 1,
+  kinderen: 2,
+  auto: "eigen",
+}).verwachtOver;
+const NR4K_OMSLAG = omslagpunt(2, 2);
+const NR4K_TEKORT = Math.abs(NR4K_GEZIN.verwachtOver);
+const NR4K_EXTRA_TWEE_KINDEREN = NR4K_SAMEN - NR4K_GEZIN.verwachtOver;
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "niet-rondkomen-met-4000-euro-netto",
+    cta: {
+      kop: "Klopt dit ongeveer met jouw huishouden, of zit je er ver naast?",
+      tekst: `Deze vuistregel werkt met ${RAPPORTEN.length} huishoudens, niet met de jouwe. Bij de Geldscan lees ik je eigen cijfers na en schrijf ik op wat er bij jou opvalt, en wat er juist niet uit de toon valt.`,
+      primairLabel: "Zie wat je krijgt voor €49",
+      primairHref: "/geldscan?situatie=gezin",
+      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
+      secundairHref: "/analyse",
+    },
+    korteTitel: "Niet rondkomen van €4.000 netto",
+    titel:
+      "Niet rondkomen van €4.000 netto per maand? Dit is het rekenwerk erachter",
+    metaTitel: "Niet rondkomen met €4.000 netto? Dit is waarom",
+    metaDescription: `Je weet al dat €4.000 netto goed is. De vraag is waarom het bij jou niet zo voelt. Bij een gezin met twee kinderen komt mijn vuistregel op dit bedrag ongeveer ${euro(
+      NR4K_TEKORT
+    )} tekort, met een omslagpunt rond ${euro(NR4K_OMSLAG)}.`,
+    datum: "2026-08-17",
+    datumFormatted: "17 augustus 2026",
+    leestijd: "6",
+    categorie: "Inkomen",
+    excerpt: `Je hebt al gehoord dat €4.000 netto een goed salaris is. Dat maakt de vraag alleen groter waarom het bij jou niet zo voelt. Bij een gezin met twee kinderen komt mijn vuistregel op dit bedrag ongeveer ${euro(
+      NR4K_TEKORT
+    )} per maand tekort, met een omslagpunt rond ${euro(
+      NR4K_OMSLAG
+    )}. Reken je eigen huishouden door.`,
+    preview: {
+      type: "vergelijking",
+      label: `Bij €${NR4K_INKOMEN.toLocaleString("nl-NL")} netto, mijn vuistregel`,
+      items: [
+        { naam: "Samen, geen kinderen: houdt over", bedrag: NR4K_SAMEN, kleur: "#0B7A6E" },
+        { naam: "Gezin, 2 kinderen: komt tekort", bedrag: NR4K_TEKORT, kleur: "#B03A2E" },
+      ],
+      noot: `Eigen vuistregel op ${RAPPORTEN.length} huishoudens, geen Nibud- of CBS-norm`,
+    },
+    faq: [
+      {
+        vraag: "Waarom kom ik met €4.000 netto en twee kinderen net niet rond?",
+        antwoord: `Bij mijn vuistregel, afgeleid uit de huishoudens die ik zelf heb doorgerekend, komt een gezin met twee kinderen op €4.000 netto ongeveer ${euro(
+          NR4K_TEKORT
+        )} per maand tekort: wonen inclusief energie en lokale lasten rond ${euro(
+          NR4K_GEZIN.wonen
+        )}, boodschappen ${euro(NR4K_GEZIN.boodschappen)}, opvang, school en sport ${euro(
+          NR4K_GEZIN.kinderkosten
+        )}, verzekeringen ${euro(NR4K_GEZIN.verzekeringen)}, vervoer ${euro(
+          NR4K_GEZIN.vervoer
+        )}, abonnementen ${euro(NR4K_GEZIN.abonnementen)} en vrije tijd ${euro(
+          NR4K_GEZIN.vrijetijd
+        )}. Geen van die posten is op zichzelf overdreven, de optelsom past alleen niet in €4.000.`,
+      },
+      {
+        vraag: "Vanaf welk bedrag komt een gezin met twee kinderen niet meer tekort?",
+        antwoord: `Bij dezelfde vuistregel ligt dat omslagpunt rond ${euro(
+          NR4K_OMSLAG
+        )}. Onder dat bedrag staat de som in de min, erboven komt er langzaam iets bij. Dit is een afgeronde vuistregel op ${RAPPORTEN.length} huishoudens, geen exacte grens: je huur, je regio en de leeftijd van je kinderen verschuiven dit bedrag.`,
+      },
+      {
+        vraag: "Kost een tweede kind echt zoveel, of ligt het aan iets anders?",
+        antwoord: `Volgens CBS-cijfers die het Nibud aanhaalt, kosten twee kinderen gemiddeld 25 procent van het besteedbaar inkomen in een tweeoudergezin (Nibud, "Wat kost een kind?", geraadpleegd 17 augustus 2026). Mijn eigen vuistregel komt op €4.000 netto uit op ongeveer ${euro(
+          NR4K_EXTRA_TWEE_KINDEREN
+        )} extra voor twee kinderen ten opzichte van hetzelfde huishouden zonder kinderen. Dat is lager omdat mijn vuistregel alleen boodschappen, opvang, school en sport apart telt, en niet een groter huis of een grotere auto. De richting is wel gelijk: kinderen kosten een aanzienlijk deel van het inkomen, ook als er verder niets misgaat.`,
+      },
+      {
+        vraag: "Hoeveel moet je per maand verdienen om rond te komen?",
+        antwoord: `Dat hangt volledig af van het huishouden, niet van één vast bedrag. Bij mijn vuistregel houdt iemand alleen op €4.000 netto nog zo'n ${euro(
+          NR4K_ALLEEN
+        )} per maand over, komt een alleenstaande ouder met twee kinderen op datzelfde bedrag ongeveer op ${euro(
+          Math.abs(NR4K_OUDER)
+        )} uit, en staat een gezin met twee kinderen er nog ${euro(
+          NR4K_TEKORT
+        )} onder nul. Vul je eigen huishouden in bij de rekenaar bovenaan voor een indicatie, in plaats van te zoeken naar één bedrag dat voor iedereen geldt.`,
+      },
+      {
+        vraag: "Is het mijn schuld dat de rekensom bij mij niet uitkomt?",
+        antwoord:
+          "Niet per se. Bij een gezin met drie kinderen dat ik doorrekende dacht men vooraf zelf aan boodschappen en de kinderen, en dat bleek niet de kern: het zat in de optelsom van vrij besteedbare uitgaven en jaarlijkse kosten waarvoor niet apart was gereserveerd. Bij een alleenstaande ouder met twee kinderen was de conclusie dat haar gevoel van krapte deels gewoon logisch was, gegeven wat ze in haar eentje droeg. Twee verschillende huishoudens, dezelfde les: eerst rekenen, dan pas oordelen over jezelf.",
+      },
+    ],
+    externLinks: [
+      {
+        label: 'Nibud: "Wat kost een kind?" (CBS-cijfer), geraadpleegd 17 augustus 2026',
+        url: "https://www.nibud.nl/onderwerpen/kinderen-en-jongeren/wat-kost-een-kind/",
+      },
+      {
+        label:
+          "NOS: Huishoudens vaker in de knel, over Nibud-rapport Geldzaken in de praktijk 2026, geraadpleegd 17 augustus 2026",
+        url: "https://nos.nl/artikel/2619854-huishoudens-vaker-in-de-knel-meeste-jongvolwassenen-kunnen-niet-rondkomen",
+      },
+      {
+        label: "Modaal inkomen 2026 (CPB-kerncijfers), geraadpleegd 17 augustus 2026",
+        url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
+      },
+    ],
+  },
   {
     slug: "alleen-wonen-goed-salaris-toch-krap",
     korteTitel: "Alleen wonen, goed salaris, toch krap",

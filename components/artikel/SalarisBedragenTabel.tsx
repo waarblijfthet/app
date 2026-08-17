@@ -5,6 +5,7 @@ import {
   euroSigned,
   euro,
   geldscanSituatie,
+  omslagpunt,
 } from "@/lib/salaris-vuistregel";
 
 /**
@@ -84,21 +85,11 @@ function voorBedrag(inkomen: number) {
 }
 
 /**
- * Het eerste bedrag waarop dit huishouden niet meer in de min staat, afgerond op
- * tientallen. Afgerond omdat "rond €4.081" een precisie suggereert die een
- * vuistregel op vijf huishoudens niet heeft, en berekend omdat een handgetypte
- * €4.080 gaat liegen zodra iemand een constante wijzigt.
+ * De omslagpuntberekening zelf staat sinds 17-aug-2026 in
+ * `lib/salaris-vuistregel.ts`, want het 4.000-euro-artikel over "waarom kom ik
+ * er niet mee uit" heeft precies hetzelfde omslagpunt nodig. Hier alleen nog
+ * het moduleniveau-geheugen, zodat het niet per zin opnieuw wordt uitgerekend.
  */
-function omslagpunt(volwassenen: 1 | 2, kinderen: number): number {
-  for (let i = 2000; i <= 12000; i += 1) {
-    if (overVoor(i, volwassenen, kinderen) >= 0) {
-      return Math.round(i / 10) * 10;
-    }
-  }
-  return 0;
-}
-
-/** Eén keer berekenen op moduleniveau in plaats van per zin. */
 const OMSLAG_GEZIN = omslagpunt(2, 2);
 
 function regelVoor(bedrag: number): string {

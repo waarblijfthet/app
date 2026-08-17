@@ -98,6 +98,17 @@ export default function Is4000EuroNettoGoedSalaris() {
         gebeurt als je het inkomen omhoog schuift: het tekort verdwijnt, maar de ruimte groeit langzamer dan
         je zou denken, omdat wonen en boodschappen meegroeien.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Kom je hier terecht precies met dat huishouden, een gezin met twee kinderen op dit bedrag? Dan gaat{" "}
+        <Link
+          href="/inzichten/niet-rondkomen-met-4000-euro-netto"
+          className="hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          waarom €4.000 netto met twee kinderen niet uitkomt
+        </Link>{" "}
+        dieper in op het rekenwerk erachter, inclusief het omslagpunt waarop de som net wél uitkomt.
+      </p>
 
       <SalarisBedragenTabel />
 

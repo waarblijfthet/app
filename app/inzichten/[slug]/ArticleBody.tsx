@@ -10,6 +10,7 @@ import SalarisverhoginBoven76000 from "./content/salarisverhoging-boven-76000-we
 import VergelijkenBoodschappenNederlandDuitsland from "./content/vergelijken-boodschappen-nederland-duitsland";
 import WatIsNormaalBedragBoodschappen from "./content/wat-is-normaal-bedrag-boodschappen-per-maand";
 import Is4000EuroNettoGoedSalaris from "./content/is-4000-euro-netto-goed-salaris-nederland";
+import NietRondkomenMet4000EuroNetto from "./content/niet-rondkomen-met-4000-euro-netto";
 import Is5000EuroNettoGoedSalaris from "./content/is-5000-euro-netto-goed-salaris";
 import Samen6000EuroNettoTochNietsOver from "./content/samen-6000-euro-netto-toch-niets-over";
 import HoeveeSpaarenPerMaandNormaal from "./content/hoeveel-sparen-per-maand-normaal-nederland";
@@ -90,6 +91,7 @@ const contentMap: Record<string, () => JSX.Element> = {
   "vergelijken-boodschappen-nederland-duitsland": VergelijkenBoodschappenNederlandDuitsland,
   "wat-is-normaal-bedrag-boodschappen-per-maand": WatIsNormaalBedragBoodschappen,
   "is-4000-euro-netto-goed-salaris-nederland": Is4000EuroNettoGoedSalaris,
+  "niet-rondkomen-met-4000-euro-netto": NietRondkomenMet4000EuroNetto,
   "is-5000-euro-netto-goed-salaris": Is5000EuroNettoGoedSalaris,
   "samen-6000-euro-netto-toch-niets-over": Samen6000EuroNettoTochNietsOver,
   "hoeveel-sparen-per-maand-normaal-nederland": HoeveeSpaarenPerMaandNormaal,
