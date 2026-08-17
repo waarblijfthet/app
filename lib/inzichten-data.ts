@@ -168,8 +168,6 @@ const VDT2_PCT = Math.round((VDT2_VASTE_LASTEN / VDT2_INKOMEN) * 100);
 // dit artikel naar toe in plaats van het format over te doen.
 const ALLEEN_RAPPORT = rapportVoorSlug("alleenstaand-huurwoning")!;
 
-export const artikelen: Artikel[] = [
-
 /**
  * Rapport voor "huishoudboekje-voorbeeld" (17-aug-2026, klus 9,
  * docs/artikel-bouwprompts-aug-2026.md): het stel zonder kinderen dat vooraf
@@ -178,6 +176,8 @@ export const artikelen: Artikel[] = [
  * zegt nog niets over de uitkomst zonder vergelijking.
  */
 const HB_STEL = rapportVoorSlug("stel-zonder-kinderen")!;
+
+export const artikelen: Artikel[] = [
   {
     slug: "huishoudboekje-voorbeeld",
     cta: {
@@ -2784,7 +2784,7 @@ const HB_STEL = rapportVoorSlug("stel-zonder-kinderen")!;
       kop: "Twee inkomens en toch elke maand krap?",
       tekst: "Dat hoeft niet aan jouw gedrag te liggen, maar dat weet je pas als iemand het naast vergelijkbare huishoudens legt. Voor €49 kijk ik persoonlijk naar je cijfers en krijg je binnen twee werkdagen na aanlevering een persoonlijk geldrapport met de drie dingen die het meest opvallen, en met wat er juist niet uit de toon valt. Geen gesprek nodig.",
       primairLabel: "Bekijk de geldscan (€49)",
-      primairHref: "/geldscan",
+      primairHref: "/geldscan?situatie=gezin",
       secundairLabel: "Eerst gratis vergelijken met andere tweeverdieners",
       secundairHref: "/analyse",
     },
@@ -3867,7 +3867,7 @@ const HB_STEL = rapportVoorSlug("stel-zonder-kinderen")!;
       kop: "Boven de Nibud-norm? Bijna iedereen.",
       tekst: "De echte vraag is niet of je boven de norm zit, maar of het bij jou klopt. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
       primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan",
+      primairHref: "/geldscan?situatie=gezin",
       secundairLabel: "Liever eerst zelf vergelijken? Doe de analyse",
       secundairHref: "/analyse",
     },
@@ -3945,7 +3945,7 @@ const HB_STEL = rapportVoorSlug("stel-zonder-kinderen")!;
       kop: "Wat is voor jou als alleenstaande normaal?",
       tekst: "Gemiddelden zeggen weinig over jouw huur, jouw inkomen en jouw stad. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt en wat er opvalt.",
       primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan",
+      primairHref: "/geldscan?situatie=alleenstaand",
       secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
       secundairHref: "/analyse",
     },
