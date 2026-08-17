@@ -164,6 +164,13 @@ const VDT2_VASTE_LASTEN = VDT2.wonen + VDT2.boodschappen + VDT2.verzekeringen + 
 const VDT2_PCT = Math.round((VDT2_VASTE_LASTEN / VDT2_INKOMEN) * 100);
 
 export const artikelen: Artikel[] = [
+  /**
+   * titel en metaTitel hier zijn op 17-aug-2026 (klus 6, docs/artikel-bouwprompts-aug-2026.md)
+   * aangescherpt met "twee kinderen", nadat de SERP voor "4000 euro netto gezin twee kinderen
+   * rondkomen" bleek te overlappen met wat dit artikel al beantwoordt. Conclusie toen: geen
+   * apart artikel, wel dit artikel scherper op die zoekterm zetten. Zie het logboek voor de
+   * volledige afweging.
+   */
   {
     slug: "niet-rondkomen-met-4000-euro-netto",
     cta: {
@@ -176,8 +183,8 @@ export const artikelen: Artikel[] = [
     },
     korteTitel: "Niet rondkomen van €4.000 netto",
     titel:
-      "Niet rondkomen van €4.000 netto per maand? Dit is het rekenwerk erachter",
-    metaTitel: "Niet rondkomen met €4.000 netto? Dit is waarom",
+      "Niet rondkomen met €4.000 netto en twee kinderen? Dit is het rekenwerk erachter",
+    metaTitel: "Niet rondkomen: €4.000 netto met twee kinderen",
     metaDescription: `Je weet al dat €4.000 netto goed is. De vraag is waarom het bij jou niet zo voelt. Bij een gezin met twee kinderen komt mijn vuistregel op dit bedrag ongeveer ${euro(
       NR4K_TEKORT
     )} tekort, met een omslagpunt rond ${euro(NR4K_OMSLAG)}.`,
