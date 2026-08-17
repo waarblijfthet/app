@@ -106,7 +106,9 @@ function Voortgang({ mails }: { mails: OutreachMail[] | undefined }) {
 }
 
 export default function OutreachTabblad() {
-  const [weergave, setWeergave] = useState<Weergave>("werklijst");
+  // Standaard "Alle contacten" (Jarno, 17-aug): dat is de tab die hij het
+  // vaakst als eerste wil zien bij het openen van Outreach.
+  const [weergave, setWeergave] = useState<Weergave>("tabel");
   const [werklijstVersie, setWerklijstVersie] = useState(0);
 
   const [contacten, setContacten] = useState<OutreachContact[]>([]);

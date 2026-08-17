@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { DOELGROEPEN, DOELGROEP_LABEL, DOELGROEP_KLEUR } from "@/lib/outreach/labels";
+import { DOELGROEPEN, DOELGROEP_KLEUR } from "@/lib/outreach/labels";
 
 interface Prospect {
   id: string;
@@ -73,8 +73,17 @@ export default function ProspectsTabblad() {
   // Lokale, nog niet opgeslagen naamcorrecties (id -> naam)
   const [naamEdits, setNaamEdits] = useState<Record<string, string>>({});
   const [plaatsEdits, setPlaatsEdits] = useState<Record<string, string>>({});
-  // Zoekveld boven de lijst (deel 2): filtert client-side over alle kolommen.
-  const [zoekterm, setZoekterm] = useState("");
+  // Eén filterveld per kolom (Jarno, 17-aug: "voor elke column een filter"),
+  // in plaats van één zoekveld boven de tabel dat over alle kolommen tegelijk
+  // zocht. "categorie" is "alle" als er niet op gefilterd wordt, de rest is
+  // leeg. Client-side, geen extra serververzoek (zelfde aanpak als DataTabel).
+  const LEGE_FILTERS = {
+    naam: "", email: "", website: "", categorie: "alle", plaats: "", gevonden: "", context: "",
+  };
+  const [kolomFilters, setKolomFilters] = useState<Record<string, string>>(LEGE_FILTERS);
+  function zetFilter(kolom: string, waarde: string) {
+    setKolomFilters((f) => ({ ...f, [kolom]: waarde }));
+  }
 
   const laad = useCallback(async () => {
     try {
@@ -304,20 +313,41 @@ export default function ProspectsTabblad() {
     );
   }
 
-  // Client-side zoeken over alle kolommen; geen serververzoek (deel 2).
-  // GET haalt inmiddels tot 500 rijen op, dus zoeken gaat over de hele
-  // voorraad die in de admin-sessie geladen is.
+  // Client-side filteren, per kolom; geen serververzoek (deel 2, nu per
+  // kolom in plaats van één zoekveld over alles). GET haalt tot 500 rijen op,
+  // dus filteren gaat over de hele voorraad die in de admin-sessie geladen is.
+  const actieveFilters = useMemo(
+    () =>
+      Object.entries(kolomFilters).filter(
+        ([kolom, waarde]) => waarde.trim() !== "" && !(kolom === "categorie" && waarde === "alle")
+      ),
+    [kolomFilters]
+  );
+
   const gefilterd = useMemo(() => {
-    const term = zoekterm.trim().toLowerCase();
-    if (!term) return prospects;
+    if (actieveFilters.length === 0) return prospects;
+    const bevat = (waarde: string | null | undefined, zoek: string) =>
+      (waarde ?? "").toLowerCase().includes(zoek.trim().toLowerCase());
     return prospects.filter((p) => {
-      const doelgroepLabel = p.doelgroep ? (DOELGROEP_LABEL[p.doelgroep] ?? p.doelgroep) : "";
-      const velden = [
-        p.naam, p.praktijk, p.email, p.website, doelgroepLabel, p.plaats, p.context,
-      ];
-      return velden.some((v) => (v ?? "").toLowerCase().includes(term));
+      if (kolomFilters.naam.trim() && !bevat(`${p.naam} ${p.praktijk ?? ""}`, kolomFilters.naam)) return false;
+      if (kolomFilters.email.trim() && !bevat(p.email, kolomFilters.email)) return false;
+      if (kolomFilters.website.trim() && !bevat(p.website, kolomFilters.website)) return false;
+      if (kolomFilters.categorie !== "alle") {
+        if (kolomFilters.categorie === "onherkend") {
+          if (p.doelgroep) return false;
+        } else if (p.doelgroep !== kolomFilters.categorie) {
+          return false;
+        }
+      }
+      if (kolomFilters.plaats.trim() && !bevat(p.plaats, kolomFilters.plaats)) return false;
+      if (kolomFilters.gevonden.trim()) {
+        const datumWeergave = new Date(p.created_at).toLocaleDateString("nl-NL", { day: "2-digit", month: "2-digit" });
+        if (!bevat(datumWeergave, kolomFilters.gevonden)) return false;
+      }
+      if (kolomFilters.context.trim() && !bevat(p.context, kolomFilters.context)) return false;
+      return true;
     });
-  }, [prospects, zoekterm]);
+  }, [prospects, kolomFilters, actieveFilters.length]);
 
   const openJobs = jobs.filter(
     (j) => (j.status === "wachtrij" || j.status === "bezig") && j.id !== actieveJob?.id
@@ -491,35 +521,40 @@ export default function ProspectsTabblad() {
 
       {/* Review-wachtrij */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <h3 className="font-display text-lg font-semibold text-primary">
-          Te beoordelen ({zoekterm.trim() ? `${gefilterd.length} van ${prospects.length}` : prospects.length})
-        </h3>
-        <div className="flex items-center gap-2">
-          <input
-            type="text"
-            value={zoekterm}
-            onChange={(e) => setZoekterm(e.target.value)}
-            placeholder="Zoeken op naam, praktijk, e-mail, website, doelgroep, plaats of context…"
-            className="w-full sm:w-80 border border-[#E6E9E7] rounded-md px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-          />
-          {selectie.size > 0 && (
-            <div className="flex gap-2 shrink-0">
-              <button
-                onClick={() => review(Array.from(selectie), "goedkeuren")}
-                className="btn-primary text-sm px-4 py-2"
-              >
-                Keur {selectie.size} goed
-              </button>
-              <button
-                onClick={() => review(Array.from(selectie), "afwijzen")}
-                className="text-sm px-4 py-2 border border-red-200 text-red-500 rounded-md hover:bg-red-50"
-              >
-                Wijs af
-              </button>
-            </div>
+        <div className="flex items-center gap-3">
+          <h3 className="font-display text-lg font-semibold text-primary">
+            Te beoordelen ({actieveFilters.length > 0 ? `${gefilterd.length} van ${prospects.length}` : prospects.length})
+          </h3>
+          {actieveFilters.length > 0 && (
+            <button
+              type="button"
+              onClick={() => setKolomFilters(LEGE_FILTERS)}
+              className="text-xs text-accent hover:underline"
+            >
+              Filters wissen
+            </button>
           )}
         </div>
+        {selectie.size > 0 && (
+          <div className="flex gap-2 shrink-0">
+            <button
+              onClick={() => review(Array.from(selectie), "goedkeuren")}
+              className="btn-primary text-sm px-4 py-2"
+            >
+              Keur {selectie.size} goed
+            </button>
+            <button
+              onClick={() => review(Array.from(selectie), "afwijzen")}
+              className="text-sm px-4 py-2 border border-red-200 text-red-500 rounded-md hover:bg-red-50"
+            >
+              Wijs af
+            </button>
+          </div>
+        )}
       </div>
+      <p className="text-xs text-text-muted -mt-3">
+        Elke kolom heeft een eigen filter in de tabelkop hieronder; ze werken samen (en-en).
+      </p>
 
       {laden ? (
         <p className="text-text-muted text-sm">Laden...</p>
@@ -528,7 +563,12 @@ export default function ProspectsTabblad() {
           Nog niets te beoordelen. Start hierboven een zoekopdracht.
         </p>
       ) : gefilterd.length === 0 ? (
-        <p className="text-text-muted text-sm">Niets gevonden voor "{zoekterm}".</p>
+        <p className="text-text-muted text-sm">
+          Niets gevonden voor deze filters.{" "}
+          <button type="button" onClick={() => setKolomFilters(LEGE_FILTERS)} className="text-accent hover:underline">
+            Filters wissen
+          </button>
+        </p>
       ) : (
         <div className="overflow-x-auto rounded-lg border border-[#E6E9E7]">
           <table className="w-full text-sm table-fixed">
@@ -562,6 +602,87 @@ export default function ProspectsTabblad() {
                 <th className="text-left px-4 py-3">Plaats</th>
                 <th className="text-left px-4 py-3">Gevonden</th>
                 <th className="text-left px-4 py-3">Context</th>
+              </tr>
+              {/* Filterrij per kolom (Jarno, 17-aug). Werkt naast elkaar (en-en),
+                  client-side, dus geen extra serververzoek. */}
+              <tr className="bg-white border-t border-[#F0F3F1] normal-case tracking-normal">
+                <th className="px-3 py-2" />
+                <th className="px-3 py-2" />
+                <th className="px-3 py-2" />
+                <th className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={kolomFilters.naam}
+                    onChange={(e) => zetFilter("naam", e.target.value)}
+                    placeholder="Filter"
+                    aria-label="Filter op naam"
+                    className="w-full border border-[#E6E9E7] rounded px-2 py-1 text-xs font-normal focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </th>
+                <th className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={kolomFilters.email}
+                    onChange={(e) => zetFilter("email", e.target.value)}
+                    placeholder="Filter"
+                    aria-label="Filter op e-mail"
+                    className="w-full border border-[#E6E9E7] rounded px-2 py-1 text-xs font-normal focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </th>
+                <th className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={kolomFilters.website}
+                    onChange={(e) => zetFilter("website", e.target.value)}
+                    placeholder="Filter"
+                    aria-label="Filter op website"
+                    className="w-full border border-[#E6E9E7] rounded px-2 py-1 text-xs font-normal focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </th>
+                <th className="px-4 py-2">
+                  <select
+                    value={kolomFilters.categorie}
+                    onChange={(e) => zetFilter("categorie", e.target.value)}
+                    aria-label="Filter op categorie"
+                    className="w-full border border-[#E6E9E7] rounded px-1.5 py-1 text-xs font-normal bg-white focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  >
+                    <option value="alle">Alle</option>
+                    <option value="onherkend">Niet herkend</option>
+                    {DOELGROEPEN.map((d) => (
+                      <option key={d.value} value={d.value}>{d.label}</option>
+                    ))}
+                  </select>
+                </th>
+                <th className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={kolomFilters.plaats}
+                    onChange={(e) => zetFilter("plaats", e.target.value)}
+                    placeholder="Filter"
+                    aria-label="Filter op plaats"
+                    className="w-full border border-[#E6E9E7] rounded px-2 py-1 text-xs font-normal focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </th>
+                <th className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={kolomFilters.gevonden}
+                    onChange={(e) => zetFilter("gevonden", e.target.value)}
+                    placeholder="dd-mm"
+                    aria-label="Filter op gevonden datum"
+                    className="w-full border border-[#E6E9E7] rounded px-2 py-1 text-xs font-normal focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </th>
+                <th className="px-4 py-2">
+                  <input
+                    type="text"
+                    value={kolomFilters.context}
+                    onChange={(e) => zetFilter("context", e.target.value)}
+                    placeholder="Filter"
+                    aria-label="Filter op context"
+                    className="w-full border border-[#E6E9E7] rounded px-2 py-1 text-xs font-normal focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  />
+                </th>
               </tr>
             </thead>
             <tbody className="divide-y divide-[#F0F3F1]">
@@ -634,11 +755,19 @@ export default function ProspectsTabblad() {
                       )}
                     </td>
                     <td className="px-4 py-3">
+                      {/* Zelfde vorm/kleur als Badge.tsx (font-body text-xs font-medium
+                          px-2 py-0.5 rounded-full), maar dan als <select> zodat een
+                          fout herkende categorie in dezelfde klik te corrigeren blijft.
+                          appearance-none is nodig: sommige browsers (o.a. Firefox op
+                          Windows) negeren anders de achtergrondkleur van een <select>
+                          en tonen 'm effectief kleurloos, wat leek op "boekhouder
+                          heeft geen badge" terwijl de kleur (teal) er al wel was. */}
                       <select
                         value={p.doelgroep ?? ""}
                         onChange={(e) => werkBij(p.id, { doelgroep: e.target.value })}
-                        className={`text-xs font-medium px-2 py-1 rounded-full border-0 cursor-pointer ${
-                          p.doelgroep ? (DOELGROEP_KLEUR[p.doelgroep] ?? "bg-gray-100 text-gray-600") : "bg-amber-50 text-amber-700"
+                        title="Klik om de categorie te corrigeren"
+                        className={`appearance-none font-body text-xs font-medium px-2 py-0.5 rounded-full border-0 cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary/30 ${
+                          p.doelgroep ? (DOELGROEP_KLEUR[p.doelgroep] ?? "bg-slate-100 text-slate-600") : "bg-amber-50 text-amber-700"
                         }`}
                       >
                         {!p.doelgroep && <option value="">Niet herkend, kies zelf</option>}
