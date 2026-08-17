@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { rapportVoorSlug } from "@/lib/rapporten-data";
+
+const CASE_ALLEEN = rapportVoorSlug("alleenstaand-huurwoning");
 
 const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
@@ -36,8 +39,8 @@ export default function AlleenWonenGoedSalarisTochKrap() {
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: alleen wonen is per persoon duurder dan samenwonen, omdat je
         alle vaste lasten in je eentje draagt en niets deelt. Bij een goed salaris
-        valt dat niet op als tekort, het lekt stil weg. Het is een
-        structuurprobleem, geen kwestie van discipline.
+        valt dat niet op als tekort, het lekt stil weg. Dat zit in hoe je inkomen
+        is ingedeeld, niet in hoeveel discipline je hebt.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -64,9 +67,31 @@ export default function AlleenWonenGoedSalarisTochKrap() {
         ongemerkt geld naar gemak en naar buiten de deur: vaker uit eten,
         bezorgen, een lidmaatschap hier, een borrel daar. Geen van die uitgaven
         voelt als een misstap, en juist daarom tellen ze ongezien op tot een fors
-        bedrag per maand. Een gemiddeld huishouden geeft inmiddels ruim 200 euro
-        per maand aan abonnementen uit, en alleen betaal je die volledig zelf.
+        bedrag per maand, dat je alleen volledig zelf betaalt.
       </p>
+      {CASE_ALLEEN && (
+        <div
+          className="rounded-xl border p-5 my-8"
+          style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}
+        >
+          <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
+            {CASE_ALLEEN.kenmerken[0]}, {CASE_ALLEEN.kenmerken[2]}, {CASE_ALLEEN.kenmerken[4]}
+          </p>
+          <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300 }}>
+            &ldquo;{CASE_ALLEEN.vermoeden}&rdquo; dacht zij vooraf zelf. {CASE_ALLEEN.vermoedenBedrag} Mijn
+            conclusie na het doorrekenen:{" "}
+            &ldquo;{CASE_ALLEEN.uitkomstKop}.&rdquo; Precies dit soort stille posten, bestellen,
+            uitgaan en kleine online aankopen, bleek groter dan ze zelf inschatte.
+          </p>
+          <Link
+            href={`/rapporten/${CASE_ALLEEN.slug}`}
+            className="font-body text-sm hover:underline"
+            style={{ color: "#0B7A6E" }}
+          >
+            Lees haar volledige rapport →
+          </Link>
+        </div>
+      )}
 
       <h2 className="font-display" style={h2}>
         Je hebt niemand om het aan te toetsen

@@ -95,7 +95,7 @@ export interface Artikel {
  * die de rekenaar en de bedragentabel op het 4.000-artikel gebruiken.
  */
 import { berekenVuistregel, omslagpunt, euro } from "./salaris-vuistregel";
-import { RAPPORTEN } from "./rapporten-data";
+import { RAPPORTEN, rapportVoorSlug } from "./rapporten-data";
 
 const NR4K_INKOMEN = 4000;
 const NR4K_GEZIN = berekenVuistregel({
@@ -162,6 +162,11 @@ const VDT2 = berekenVuistregel({
 });
 const VDT2_VASTE_LASTEN = VDT2.wonen + VDT2.boodschappen + VDT2.verzekeringen + VDT2.vervoer;
 const VDT2_PCT = Math.round((VDT2_VASTE_LASTEN / VDT2_INKOMEN) * 100);
+
+// Rapport van de alleenstaande met €3.650 netto (klus 1: gepositioneerd als
+// kasboek-met-analyse op /rapporten). Klus 7 (17-aug-2026) verwijst er vanuit
+// dit artikel naar toe in plaats van het format over te doen.
+const ALLEEN_RAPPORT = rapportVoorSlug("alleenstaand-huurwoning")!;
 
 export const artikelen: Artikel[] = [
   /**
@@ -267,6 +272,14 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "alleen-wonen-goed-salaris-toch-krap",
+    cta: {
+      kop: "Klopt jouw vermoeden, of zit je ernaast zoals zij?",
+      tekst: `Bij de alleenstaande hierboven klopte het vermoeden, alleen was het bedrag groter dan gedacht. Bij de Geldscan lees ik jouw eigen cijfers na en schrijf ik op wat er bij jou opvalt, en wat er juist niet uit de toon valt.`,
+      primairLabel: "Zie wat je krijgt voor €49",
+      primairHref: "/geldscan?situatie=alleenstaand",
+      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
+      secundairHref: "/analyse",
+    },
     korteTitel: "Alleen wonen, goed salaris, toch krap",
     titel: "Alleen wonen met een goed salaris en toch elke maand krap",
     metaTitel: "Alleen wonen, goed salaris en toch krap? Zo zit dat",
@@ -302,12 +315,16 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Ligt het aan mij dat het niet lukt?",
         antwoord:
-          "Bijna nooit. Het is een structuurprobleem, geen kwestie van discipline. Wie alleen woont mist de spiegel van een partner en heeft vaak geen systeem dat het inkomen vooraf verdeelt. Meer verdienen lost dat niet op, een vaste verdeling wel.",
+          "Bijna nooit. Het zit vaker in hoe je inkomen is verdeeld dan in hoeveel je uitgeeft. Wie alleen woont mist de spiegel van een partner en heeft vaak geen systeem dat het inkomen vooraf verdeelt. Meer verdienen lost dat niet op, een vaste verdeling wel.",
       },
       {
         vraag: "Wat kan ik als eerste doen?",
         antwoord:
           "Pak de afschriften van de laatste twee maanden en tel je vaste lasten, je dagelijkse uitgaven en wat overblijft op. Vaak zie je dan meteen waar de ruimte zit, zonder zuiniger te hoeven leven. De gratis analyse vergelijkt je uitgaven met vergelijkbare huishoudens.",
+      },
+      {
+        vraag: "Bestaat er een echt voorbeeld van een alleenstaande die dit liet uitzoeken?",
+        antwoord: `Ja. Op /rapporten staat het geldrapport van een alleenstaande met ${ALLEEN_RAPPORT.kenmerken[4]} in een huurappartement. Haar eigen vermoeden vooraf: "${ALLEEN_RAPPORT.vermoeden}" Mijn conclusie na het doorrekenen: "${ALLEEN_RAPPORT.uitkomstKop}." Haar volledige cijfers, mijn advies en haar evaluatie na drie maanden staan open, met haar toestemming en zonder haar naam.`,
       },
     ],
     externLinks: [
