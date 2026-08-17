@@ -126,6 +126,43 @@ const NR4K_OMSLAG = omslagpunt(2, 2);
 const NR4K_TEKORT = Math.abs(NR4K_GEZIN.verwachtOver);
 const NR4K_EXTRA_TWEE_KINDEREN = NR4K_SAMEN - NR4K_GEZIN.verwachtOver;
 
+/**
+ * Berekende bedragen voor de uitbreiding van "50-30-20-regel-hoger-inkomen"
+ * (17-aug-2026, klus 5, docs/artikel-bouwprompts-aug-2026.md). Representatief
+ * huishouden: twee volwassenen, twee kinderen, een auto. Nooit met de hand
+ * typen in de FAQ-antwoorden hieronder, werkregel 2.
+ */
+const VDT_INKOMEN = 5500;
+const VDT = berekenVuistregel({
+  inkomen: VDT_INKOMEN,
+  volwassenen: 2,
+  kinderen: 2,
+  auto: "eigen",
+});
+const VDT_VASTE_LASTEN = VDT.wonen + VDT.boodschappen + VDT.verzekeringen + VDT.vervoer;
+const VDT_PCT = Math.round((VDT_VASTE_LASTEN / VDT_INKOMEN) * 100);
+const VDT_OVER = VDT_INKOMEN - VDT_VASTE_LASTEN;
+const VDT_OVER_5030 = Math.round(VDT_INKOMEN * 0.5);
+
+/**
+ * Tegenvoorbeeld (17-aug-2026, klus 5): bij het huishouden hierboven (gezin,
+ * twee kinderen) ligt het vaste-lastenpercentage bóven de 50%-norm, niet
+ * eronder. Zonder dit tweede voorbeeld zou de FAQ het tegenovergestelde lijken
+ * te beweren van wat de vergelijking hierboven op de pagina laat zien zodra
+ * een lezer zelf met de rekenaar speelt: dat is precies het soort
+ * ongefundeerde patroonclaim die werkregel 3 verbiedt. Stel zonder kinderen op
+ * een hoger inkomen laat de andere kant zien.
+ */
+const VDT2_INKOMEN = 9000;
+const VDT2 = berekenVuistregel({
+  inkomen: VDT2_INKOMEN,
+  volwassenen: 2,
+  kinderen: 0,
+  auto: "eigen",
+});
+const VDT2_VASTE_LASTEN = VDT2.wonen + VDT2.boodschappen + VDT2.verzekeringen + VDT2.vervoer;
+const VDT2_PCT = Math.round((VDT2_VASTE_LASTEN / VDT2_INKOMEN) * 100);
+
 export const artikelen: Artikel[] = [
   {
     slug: "niet-rondkomen-met-4000-euro-netto",
@@ -2564,19 +2601,25 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "50-30-20-regel-hoger-inkomen",
-    korteTitel: "Werkt 50/30/20 bij een hoger inkomen?",
+    cta: {
+      kop: "Klopt de 50/30/20-regel bij jouw huishouden, of niet?",
+      tekst: `De 50/30/20-regel komt uit een Amerikaans boek, niet uit onderzoek onder Nederlandse huishoudens. Mijn eigen vuistregel hierboven is gebaseerd op maar ${RAPPORTEN.length} huishoudens. Bij de Geldscan kijk ik naar jouw eigen cijfers, niet naar een vuistregel op wie dan ook.`,
+      primairLabel: "Zie wat je krijgt voor €49",
+      primairHref: `/geldscan?situatie=gezin&inkomen=${VDT_INKOMEN}&boodschappen=${Math.round(VDT.boodschappen)}`,
+      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
+      secundairHref: "/analyse",
+    },
+    korteTitel: "Hoeveel houd je over na vaste lasten?",
     titel:
-      "Werkt de 50/30/20-regel nog bij een hoger inkomen?",
+      "Hoeveel houd je over na je vaste lasten? De 50/30/20-regel getoetst bij een hoger inkomen",
     metaTitel:
-      "Werkt de 50/30/20-regel nog bij een hoger inkomen?",
-    metaDescription:
-      "De 50/30/20-regel is een prima startpunt, maar bij een hoger inkomen klopt de verdeling niet meer. Waarom, en welke verdeling dan wel werkt.",
-    datum: "2026-05-30",
-    datumFormatted: "30 mei 2026",
-    leestijd: "6",
+      "Hoeveel houd je over na je vaste lasten? 50/30/20 getoetst",
+    metaDescription: `Volgens de 50/30/20-regel houd je altijd 50% over na je vaste lasten. Mijn eigen vuistregel, op ${RAPPORTEN.length} echte huishoudens, laat zien wanneer dat bij een hoger inkomen niet klopt.`,
+    datum: "2026-08-17",
+    datumFormatted: "17 augustus 2026",
+    leestijd: "7",
     categorie: "Sparen",
-    excerpt:
-      "50% vaste lasten, 30% vrij, 20% sparen, het bekendste budgetadvies dat er is. Maar wie goed verdient en de regel letterlijk volgt, legitimeert vooral zijn eigen lifestyle-inflatie. Zo pak je het slimmer aan.",
+    excerpt: `De 50/30/20-regel zegt dat er na je vaste lasten altijd 50% overblijft, ongeacht je huishouden. Mijn eigen vuistregel, op ${RAPPORTEN.length} huishoudens die ik zelf doorrekende, zet daar per huishouden een ander getal tegenover. Reken je eigen situatie door.`,
     preview: {
       type: "verdeling",
       label: "De klassieke 50/30/20-regel",
@@ -2585,7 +2628,7 @@ export const artikelen: Artikel[] = [
         { naam: "Vrij besteedbaar", pct: 30, kleur: "#0A6A5F" },
         { naam: "Sparen", pct: 20, kleur: "#0B7A6E" },
       ],
-      uitkomst: "Bij een hoger inkomen is 20% sparen een ondergrens",
+      uitkomst: `Bij een gezin met 2 kinderen op ${VDT_INKOMEN.toLocaleString("nl-NL")} netto komt mijn vuistregel op ${VDT_PCT}% vaste lasten uit, niet op het vaste 50%`,
     },
     faq: [
       {
@@ -2594,9 +2637,24 @@ export const artikelen: Artikel[] = [
           "Je verdeelt je netto-inkomen in drie delen: 50% naar behoeften (huur of hypotheek, energie, verzekeringen, boodschappen, vervoer), 30% naar wensen (uit eten, hobby's, vakanties, abonnementen) en 20% naar sparen en aflossen. De kracht zit in de eenvoud.",
       },
       {
+        vraag: "Hoeveel houd je over na je vaste lasten volgens de 50/30/20-regel?",
+        antwoord: `Volgens de 50/30/20-regel blijft er altijd 50% van je netto-inkomen over na je vaste lasten, ongeacht je huishouden. Bij €${VDT_INKOMEN.toLocaleString(
+          "nl-NL"
+        )} netto is dat ${euro(VDT_OVER_5030)}. Mijn eigen vuistregel, op ${RAPPORTEN.length} huishoudens die ik zelf heb doorgerekend, komt bij een gezin met twee kinderen op datzelfde inkomen juist hóger uit dan die 50%: ${VDT_PCT}% (${euro(
+          VDT_VASTE_LASTEN
+        )}), simpelweg omdat kinderen geld kosten dat niet verdwijnt bij een hoger inkomen. Bij een stel zonder kinderen op €${VDT2_INKOMEN.toLocaleString(
+          "nl-NL"
+        )} netto ligt dat percentage wel onder de norm: ${VDT2_PCT}%. Het verschil zit 'm niet in of 50% altijd te hoog of te laag is, maar in dat de regel voor elk huishouden hetzelfde vaste percentage aanhoudt, terwijl de werkelijkheid daar fors van afwijkt.`,
+      },
+      {
         vraag: "Werkt de 50/30/20-regel ook bij een hoog inkomen?",
         antwoord:
           "Als startpunt wel, maar de verdeling klopt dan niet meer. Je behoeften groeien niet automatisch mee tot de helft van je inkomen, en 20% sparen is bij een hoger inkomen eerder een ondergrens dan een doel. Wie de regel letterlijk volgt, legitimeert vooral zijn eigen lifestyle-inflatie.",
+      },
+      {
+        vraag: "Is de 50/30/20-regel gebaseerd op Nederlandse huishoudens?",
+        antwoord:
+          "Nee. De regel komt uit het Amerikaanse boek \u201cAll Your Worth\u201d van Elizabeth Warren en Amelia Warren Tyagi (Raisin, geraadpleegd 17 augustus 2026), niet uit onderzoek onder Nederlandse huishoudens. Mijn eigen vuistregel is ook geen landelijke steekproef: die is gebaseerd op de vijf huishoudens die ik zelf heb doorgerekend, met per onderdeel een eigen foutmarge.",
       },
       {
         vraag: "Welke verdeling is beter als je goed verdient?",
@@ -2608,6 +2666,10 @@ export const artikelen: Artikel[] = [
       {
         label: "Nibud: uitgaven en de 50%-norm voor vaste lasten",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+      {
+        label: "Raisin: uitleg hoe de 50/30/20-regel werkt en waar hij vandaan komt, geraadpleegd 17 augustus 2026",
+        url: "https://www.raisin.com/nl-nl/kennisbank/50-30-20-regel/",
       },
     ],
   },
