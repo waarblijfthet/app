@@ -10,7 +10,7 @@ Alles hieronder is geverifieerd op 17 aug 2026 tenzij anders vermeld. Google-ran
 
 **1. Losse bedragvarianten zijn geen aparte artikelen waard.** Het 4000-artikel rankt al op de buurbedragen zonder dat die getallen erin staan. Op "is 4500 netto een goed salaris" staat het op plek 1 met de melding "Bevat niet: 4500". Op "is 4200" en "is 4100" staat het in de top drie, met dezelfde melding. Google behandelt 4000, 4100, 4200 en 4500 als varianten van één vraag en heeft geen exacte pagina om naar terug te vallen. Acht dunne pagina's per honderdtal bouwen levert dus nauwelijks nieuw verkeer op, kannibaliseert de plek-1-pagina, en valt onder wat Google zelf scaled content abuse noemt.
 
-**2. De echte opening is niet het bedrag maar het format.** Op elke "rondkomen"-zoekterm ranken huishoudboekje-artikelen: Kids en Kurken, J/M Ouders, Flair, Mamaplaats, Telegraaf Kasboek, Intermediair. Allemaal hetzelfde recept: één huishouden, echte bedragen, geen analyse. Waar blijft het heeft zeven echte doorgerekende huishoudens met analyse en met een uitkomst, en staat op geen van die zoektermen. De rapportenpagina's zijn feitelijk al huishoudboekjes, alleen niet zo geschreven en niet zo gevonden.
+**2. De echte opening is niet het bedrag maar het format.** Op elke "rondkomen"-zoekterm ranken huishoudboekje-artikelen: Kids en Kurken, J/M Ouders, Flair, Mamaplaats, Telegraaf Kasboek, Intermediair. Allemaal hetzelfde recept: één huishouden, echte bedragen, geen analyse. Waar blijft het heeft vijf echte doorgerekende huishoudens met analyse en met een uitkomst, en staat op geen van die zoektermen. De rapportenpagina's zijn feitelijk al huishoudboekjes, alleen niet zo geschreven en niet zo gevonden.
 
 **3. Deze SERP is vervuild en dus goedkoop te winnen.** Voor "is 4000 netto een goed salaris" ranken onder meer een sleepbedrijf (sstowingservice.nl), een Power BI-cursussite (dataanalytics.nl, op de 7000-variant) en twee uitzendbureaus met letterlijk `/SEO AI Posts/` in het URL-pad (360talent.nl, hellerenheller.nl). Geen van hen beantwoordt de vraag na het salarisoordeel. Eén pagina met echte cijfers slaat dat.
 
@@ -74,8 +74,8 @@ Gerangschikt op verwachte opbrengst gedeeld door bouwkosten, niet op zoekvolume.
 
 | # | Kans | Type | Primaire zoektermen | De eigen hoek | Kosten |
 |---|---|---|---|---|---|
-| 1 | Rapportenpagina's herschrijven als gezinsbudget | B, 7 pagina's | gezinsbudget 4000 euro netto, huishoudboekje gezin, gezinsbudget verhalen | Kids en Kurken publiceert het huishoudboekje. Jij publiceert hetzelfde plus het oordeel en de nameting. Kop wordt "Het gezinsbudget van X: samen €7.880 netto en toch niets over". | laag |
-| 2 | Niet rondkomen met 4000 euro netto | N | niet rondkomen met 4000 netto, rondkomen van 4000 euro per maand | Niemand beantwoordt dit. Jij hebt vijf echte huishoudens rond dit bedrag en de vergelijking eronder. Rekenaar bovenaan. | midden |
+| 1 | Rapportenpagina's herschrijven als gezinsbudget | B, 5 pagina's | gezinsbudget 4000 euro netto, huishoudboekje gezin, gezinsbudget verhalen | Kids en Kurken publiceert het huishoudboekje. Jij publiceert hetzelfde plus het oordeel en de nameting. Kop wordt "Het gezinsbudget van X: samen €7.880 netto en toch niets over". | laag |
+| 2 | Niet rondkomen met 4000 euro netto | N | niet rondkomen met 4000 netto, rondkomen van 4000 euro per maand | Niemand beantwoordt dit. Jij hebt echte huishoudens rond dit bedrag en de vergelijking eronder. Rekenaar bovenaan. | midden |
 | 3 | Bedragensectie in het 4000-artikel | B | is 3500, 3750, 4100, 4200, 4300, 4500, 4600 netto | Eén tabel met wat elk bedrag per huishouden overlaat. Haalt de melding "Bevat niet: 4200" weg zonder een tweede pagina. | zeer laag |
 | 4 | Wat houd je over na je vaste lasten | N | hoeveel moet je overhouden na vaste lasten, wat houden jullie over | De hele SERP is 50/30/20 van banken. Jij hebt een maatstaf uit echte huishoudens in plaats van een vuistregel uit een boek uit 2005. | midden |
 | 5 | Goed salaris en toch niet rondkomen, consolideren | B | goed salaris maar toch niet rondkomen, hoog salaris niet rondkomen | Je hebt hier drie artikelen die elkaar in de weg zitten (goed-salaris-toch-krap, goed-salaris-toch-geldstress, waarom-hou-ik-nooit-geld-over) en geen van drieën rankt. Eén winnen laten, de rest laten doorlinken. | laag |
@@ -95,7 +95,7 @@ Gerangschikt op verwachte opbrengst gedeeld door bouwkosten, niet op zoekvolume.
 ## 6. Wat ik zou doen, in volgorde
 
 1. Nummer 3 eerst, want het is een halve dag en het beschermt de plek-1-pagina tegen de dag dat iemand wel een is-4500-pagina bouwt.
-2. Daarna nummer 1. Zeven bestaande pagina's herschrijven opent een SERP-familie waar je nu nul aanwezigheid hebt, en het kost geen nieuw onderzoek.
+2. Daarna nummer 1. Vijf bestaande pagina's herschrijven opent een SERP-familie waar je nu nul aanwezigheid hebt, en het kost geen nieuw onderzoek.
 3. Daarna nummer 2 en 4 als echte nieuwe artikelen, allebei met de rekenaar bovenaan en de CTA na het eigen getal van de lezer.
 4. Nummer 5 is opruimwerk en geen groei, maar drie pagina's die elkaar kannibaliseren kosten je nu wel de zoekterm die het dichtst bij je positionering ligt.
 
@@ -106,3 +106,9 @@ Alles hierboven valt binnen de contentregels uit CLAUDE.md sectie 8: cluster op 
 - Zoekvolumes. Er is geen tool en die komt er niet. Alle uitspraken hierboven gaan over de bezetting van de SERP, niet over volume.
 - Of Google een AI Overview toont. Jarno ziet er een bij de 4000-zoekterm; in de tekstextractie van deze zeventien SERP's kwam geen AI-blok mee, dus ik kan het niet bevestigen of tegenspreken.
 - De rangposities zijn eenmalig gemeten, zonder ingelogde sessie en zonder locatiesignaal.
+
+---
+
+## 8. Correctie 17 aug 2026
+
+In de eerste versie van dit document stond zeven rapporten. Het zijn er vijf. De fout ontstond door `grep -c "slug:"` op `lib/rapporten-data.ts`, wat de interface-definitie en een functieparameter meetelt. Gebruik `RAPPORTEN.length`, nooit een telling met grep.

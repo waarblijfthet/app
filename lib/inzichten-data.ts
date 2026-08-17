@@ -2861,6 +2861,21 @@ export const artikelen: Artikel[] = [
           "Het Nibud adviseert minimaal 10% te sparen, dus €400 per maand. Dat is voor een gezin met kinderen en een koopwoning al uitdagend. Een realistischer doel voor veel gezinnen is beginnen met €150-200 per maand automatisch apart zetten.",
       },
       {
+        vraag: "Is €4.500 netto een goed salaris?",
+        antwoord:
+          "Ja, €4.500 netto ligt duidelijk boven modaal. Het verschil met €4.000 zit niet in het oordeel maar in de ruimte erna: bij een gezin met twee kinderen gaat het van ongeveer nul naar zo'n €270 per maand over, bij iemand alleen van ruim €600 naar ongeveer €965. Dat zijn bedragen uit mijn eigen vuistregel, geleid uit de huishoudens die ik heb doorgerekend, geen landelijk gemiddelde.",
+      },
+      {
+        vraag: "Is €3.500 netto genoeg om van rond te komen?",
+        antwoord:
+          "Voor iemand alleen wel, met ongeveer €395 per maand over volgens mijn vuistregel. Voor een gezin met twee kinderen komt de rekensom op €3.500 netto ruim €375 per maand tekort; dat huishouden komt pas rond €4.080 uit op nul. Hetzelfde salaris, twee compleet verschillende antwoorden, en dat komt door het huishouden en niet door het bedrag.",
+      },
+      {
+        vraag: "Wat is het verschil tussen €4.000, €4.200 en €4.300 netto per maand?",
+        antwoord:
+          "Minder dan je zou verwachten. Honderd euro extra netto levert ongeveer €57 tot €65 extra ruimte op, omdat een deel automatisch meegroeit in wonen en vrije tijd. Eén uitzondering is belangrijk: voor een gezin met twee kinderen ligt precies in deze bandbreedte het omslagpunt, want rond €4.080 gaat de som van een klein tekort naar een klein overschot. Verder verandert het huishouden de uitkomst veel harder dan honderd euro salaris.",
+      },
+      {
         vraag: "Verdient Jan Modaal €4.000 netto in 2026?",
         antwoord:
           "Nee. Jan Modaal verdient in 2026 bruto €48.000 per jaar, ofwel €4.000 bruto per maand. Netto houdt hij daar €3.100 van over. Wie €4.000 netto verdient, heeft een bruto salaris van €65.000 of meer.",

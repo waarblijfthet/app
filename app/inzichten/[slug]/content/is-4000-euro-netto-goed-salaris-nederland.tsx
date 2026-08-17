@@ -1,5 +1,7 @@
 import Link from "next/link";
 import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
+import SalarisBedragenTabel from "@/components/artikel/SalarisBedragenTabel";
+import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -29,39 +31,35 @@ export default function Is4000EuroNettoGoedSalaris() {
         geen klagen en het is ook geen karakterfout. Het is een rekensom die je nog nooit hebt gemaakt.
       </p>
 
-      {/* Vijf echte huishoudens in plaats van de oude verdeling op forums en blogs.
-          Vier van de vier persona's vertrouwden die bron niet, en de bedragen
-          klopten sinds de herijking van lib/benchmarks.ts ook niet meer. */}
+      {/* Echte huishoudens in plaats van de oude verdeling op forums en blogs.
+          17-aug-2026: de regels stonden hier met de hand getypt, inclusief de
+          bedragen. Nu uit RAPPORTEN, conform werkregel 2. De zin "vier van de
+          vijf hadden het bij zichzelf mis" is weggehaald: dat aantal is niet uit
+          de data af te leiden en viel dus onder werkregel 4b. */}
       <div className="rounded-xl border p-5 my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
         <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
-          Wat er bij vijf echte huishoudens overbleef
+          Wat er bij {RAPPORTEN.length} echte huishoudens overbleef
         </p>
         <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300 }}>
-          Geen forumcijfers of gemiddelden. Vijf huishoudens leverden hun cijfers bij mij aan, ik schreef
+          Geen forumcijfers of gemiddelden. Deze huishoudens leverden hun cijfers bij mij aan, ik schreef
           het rapport en drie tot vier maanden later schreven zij op wat er veranderde. Hun complete
           rapport staat op deze site, met toestemming.
         </p>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-          {[
-            ["Alleenstaand, 3.650 netto", "/rapporten/alleenstaand-huurwoning"],
-            ["Eén ouder, 5.700 netto met kinderbijslag en alimentatie", "/rapporten/alleenstaande-ouder-twee-kinderen"],
-            ["Stel zonder kinderen, samen 6.990", "/rapporten/stel-zonder-kinderen"],
-            ["Gezin met drie kinderen, samen 7.880", "/rapporten/tweeverdieners-drie-kinderen"],
-            ["Zzp met partner, maanden tussen 2.400 en 8.100", "/rapporten/zzp-wisselend-inkomen"],
-          ].map(([wie, href]) => (
+          {RAPPORTEN.map((r) => (
             <Link
-              key={href}
-              href={href}
+              key={r.slug}
+              href={`/rapporten/${r.slug}`}
               className="rounded-lg px-3 py-2.5 font-body text-sm transition-colors hover:border-[#0B7A6E]"
               style={{ border: "1px solid #E6E9E7", color: "#4A5A56", textDecoration: "none" }}
             >
-              {wie} &rarr;
+              {r.kenmerken[0]}, {r.kenmerken[r.kenmerken.length - 1]} &rarr;
             </Link>
           ))}
         </div>
         <p className="font-body text-xs mt-4 mb-0" style={{ color: "#8B958F" }}>
-          Bij twee van deze vijf was mijn conclusie dat er niets te repareren viel. Vier van de vijf
-          hadden het bij zichzelf mis.
+          Bij {AANTAL_ZONDER_LEK} van deze {RAPPORTEN.length} was mijn conclusie dat er niets te
+          repareren viel.
         </p>
       </div>
 
@@ -100,6 +98,8 @@ export default function Is4000EuroNettoGoedSalaris() {
         gebeurt als je het inkomen omhoog schuift: het tekort verdwijnt, maar de ruimte groeit langzamer dan
         je zou denken, omdat wonen en boodschappen meegroeien.
       </p>
+
+      <SalarisBedragenTabel />
 
       <h2 className="font-display" style={h2}>
         Waarom voelt goed verdienen toch krap?

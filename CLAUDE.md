@@ -16,7 +16,7 @@ Bouw niets nieuws (feature, pagina, adminscherm, automatisering) tenzij een mens
 
 - Nederlandse personal-finance site voor mensen die goed verdienen maar toch krap zitten. Geen schuldhulp, geen beleggingsadvies.
 - Live: https://www.waarblijfthet.nl. Repo: github.com/waarblijfthet/app.
-- 83 artikelen, 7 echte geanonimiseerde klantrapporten op /rapporten, 6 verwijzerspagina's onder /samenwerken (relatietherapeuten, budgetcoaches, financieel-planners, burnout-coaches, boekhouders, accountants-ondernemers).
+- 83 artikelen, 5 echte geanonimiseerde klantrapporten op /rapporten, 6 verwijzerspagina's onder /samenwerken (relatietherapeuten, budgetcoaches, financieel-planners, burnout-coaches, boekhouders, accountants-ondernemers).
 - Werkend en af: mailketen via Resend, outreach-CRM, prospect-zoeker, automatische follow-ups, afmeldlink, admin met Vandaag-dashboard en bezoekmeting.
 - Nul betalende klanten uit koud siteverkeer. De enige klanten kwamen via mensen.
 - Jarno is de enige persoon achter het project en heeft een baan ernaast.
@@ -24,17 +24,17 @@ Bouw niets nieuws (feature, pagina, adminscherm, automatisering) tenzij een mens
 ## 3. Harde waarheidsregels (nooit van afwijken)
 
 1. **Nooit een klantcase, review, resultaat of referentie verzinnen.** Een illustratie label je meer dan eens als illustratie.
-2. **Elk getal over een echte klant komt uit `lib/rapporten-data.ts`**, via `rapportVoorSlug()` en de constanten `AANTAL_ZONDER_LEK` en `AANTAL_ZONDER_VERVOLG`. Nooit uit je geheugen typen, ook niet als Jarno het getal aanlevert. Nooit middelen over huishoudens.
+2. **Elk getal over een echte klant komt uit `lib/rapporten-data.ts`**, via `rapportVoorSlug()` en de constanten `RAPPORTEN.length`, `AANTAL_ZONDER_LEK` en `AANTAL_ZONDER_VERVOLG`. Tel nooit met grep: `grep -c "slug:"` telt de interface en de functieparameter mee en gaf op 17-aug 7 in plaats van 5. Nooit uit je geheugen typen, ook niet als Jarno het getal aanlevert. Nooit middelen over huishoudens.
 3. **Nooit een markt-, uniciteits- of patroonclaim zonder gecontroleerde bron met datum**, in dezelfde commit. De onjuiste claim "49 euro, uniek in NL" stond negen dagen live. Niet gevonden is niet hetzelfde als niet aanwezig. Geldt ook voor impliciete patroonclaims over een kleine n.
 4. **Nooit garanties, beloofde bedragen of geld terug.** Beschrijf wat je doet, niet wat het oplevert.
-5. **Bij twijfel: claim weglaten.** De zeven echte rapporten zijn sterker dan elke zin die je erbij verzint.
+5. **Bij twijfel: claim weglaten.** De echte rapporten zijn sterker dan elke zin die je erbij verzint.
 
 ## 4. Positionering
 
 - Eén persoon, Jarno, leest jouw cijfers en schrijft met de hand een geldrapport. Geen app, geen cursus, geen abonnement, geen AI-rapport.
 - Voor de goedverdiener in loondienst die maandelijks krap zit. Dragend: Sandra (tweeverdienergezin) en Niels (alleenstaand of DINK). Zzp alleen via analyse en rapport, niet via coaching. Volledige set: `docs/icp-personas.md`.
-- Waarom hier en niet bij een concurrent: het werk ligt vooraf op tafel. Zeven complete klantrapporten openbaar, tarieven erbij.
-- Het bewijs dat die claim draagt: bij twee van de zeven was er geen lek, en dat staat er gewoon. Dat is niet na te maken zonder het te leveren.
+- Waarom hier en niet bij een concurrent: het werk ligt vooraf op tafel. Alle geleverde klantrapporten openbaar, tarieven erbij. Aantal nooit overtypen, gebruik `RAPPORTEN.length`.
+- Het bewijs dat die claim draagt: bij twee van de vijf was er geen lek, en dat staat er gewoon. Dat is niet na te maken zonder het te leveren.
 - Segment, prijs en toon zijn bezet (Budgetbuddy, Goede Geldgewoonten, diverse budgetcoaches met scans van 40 tot 97 euro). Claim daar nooit onderscheid op.
 - Positioneer op geleverd werk, nooit op karakter. Eerlijk, transparant en persoonlijk zijn claims. Laat ze weg.
 - Wat het NIET is: geen schuldhulp, geen boekhouder, geen beleggings- of hypotheekadvies, geen vergunningplichtig advies, geen bespaartips, geen traject als instap.
@@ -76,7 +76,7 @@ Dicht tot na 30 nov: media, werkgevers, publiek LinkedIn, betaalde advertenties.
 - Vraag altijd expliciet. Elke mail, pagina en gesprek eindigt met één concrete micro-vraag ("mag ik mensen naar je doorverwijzen", "heb je nu iemand in gedachten"). Zonder vraag geen verwijzing.
 - Vraagritueel: elke verwijzer die ooit positief of neutraal reageerde krijgt elke 6 weken één kort bericht met één concreet ding (een nieuw rapport, een uitkomst) plus dezelfde vraag. Als terugkerende taak in de CRM.
 - Volume: 25 mail-1's per dag, `OUTREACH_DAGBUDGET` in de env. De rem van 10 per week uit juli is vervallen, die was gebaseerd op nul verstuurde v5-mails. Kanaalkill: 30 mails in een beroepsgroep met minder dan 10 procent antwoord, dan die groep sluiten na hoogstens één herschrijfronde.
-- Verkoop met wat er staat. Noem /rapporten en de twee scans zonder lek in elke mail en elk gesprek. Geen nieuwe bewijsvorm bedenken zolang die zeven niet overal genoemd worden.
+- Verkoop met wat er staat. Noem /rapporten en de twee scans zonder lek in elke mail en elk gesprek. Geen nieuwe bewijsvorm bedenken zolang die vijf niet overal genoemd worden.
 
 **Outreach-copyregels (getoetst, niet opnieuw uitvinden):**
 

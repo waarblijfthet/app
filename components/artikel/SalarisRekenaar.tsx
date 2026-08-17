@@ -3,6 +3,15 @@
 import { useState } from "react";
 import Link from "next/link";
 import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
+import {
+  AUTO_LABELS,
+  VERVOER,
+  VUISTREGEL,
+  berekenVuistregel,
+  euro,
+  euroSigned,
+  type AutoKeuze,
+} from "@/lib/salaris-vuistregel";
 
 /**
  * Rekenaar boven de vouw op het salarisartikel.
@@ -22,28 +31,12 @@ import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-d
  * niet. Zie docs/persona-toets-salarisartikel-en-varianten-30-jul-2026.md.
  */
 
-const BASIS_TWEE = 700;
-const BASIS_EEN = 475;
-const PER_KIND_BOOD = 150;
-const PER_KIND_KOSTEN = 190;
-const ENERGIE = 200;
-const INTERNET = 62;
-const LOKALE_LASTEN = 95;
-const ABONNEMENTEN = 150;
-const VERVOER: Record<string, number> = { geen: 80, eigen: 350, twee: 650, zakelijk: 0 };
-
-const euro = (n: number) => "€" + Math.round(n).toLocaleString("nl-NL");
-
-const VRIJETIJD_PCT = 0.1;
-
-const AUTO_LABELS: Record<string, string> = {
-  geen: "Geen auto",
-  eigen: "Eén auto",
-  twee: "Twee auto's",
-  zakelijk: "Auto van de zaak",
-};
-
-const euroSigned = (n: number) => (n < 0 ? "-" + euro(Math.abs(n)) : euro(n));
+/**
+ * De constanten en de rekenregel stonden hier los van lib/benchmarks.ts en zijn
+ * op 17-aug-2026 samengevoegd in lib/salaris-vuistregel.ts, zodat de tabel
+ * verderop in ditzelfde artikel niet iets anders kan zeggen dan deze rekenaar.
+ */
+const ABONNEMENTEN = VUISTREGEL.abonnementen;
 
 /**
  * Lezersfeedback (15-aug-2026) op het salarisartikel: na de rekenaar weet je wat
@@ -81,21 +74,14 @@ export default function SalarisRekenaar({
   const [werkelijkOver, setWerkelijkOver] = useState("");
 
   const alleen = volwassenen === 1;
-  const woonlast = Math.round(inkomen * (alleen ? 0.33 : 0.25));
-  const wonen = woonlast + ENERGIE + INTERNET + LOKALE_LASTEN;
-  const boodschappen = (alleen ? BASIS_EEN : BASIS_TWEE) + kinderen * PER_KIND_BOOD;
-  const verzekeringen = 148 * volwassenen + 120;
-  const vervoer = VERVOER[auto];
-  const kinderkosten = kinderen * PER_KIND_KOSTEN;
-  const vrijetijd = Math.round(inkomen * VRIJETIJD_PCT);
+  const { wonen, boodschappen, verzekeringen, vervoer, kinderkosten, vrijetijd, verwachtOver } =
+    berekenVuistregel({ inkomen, volwassenen, kinderen, auto: auto as AutoKeuze });
 
   // Het verwachte bedrag is het inkomen min de posten die bij dit huishouden
   // horen, niet een percentage van het inkomen. Anders verandert het hoofdgetal
   // niet als je van "alleen" naar "gezin met drie kinderen" schakelt, en dat is
   // precies de as waar het bij deze bezoekers om gaat.
-  const somPosten =
-    wonen + boodschappen + vervoer + verzekeringen + ABONNEMENTEN + kinderkosten + vrijetijd;
-  const verwachtVrij = inkomen - somPosten;
+  const verwachtVrij = verwachtOver;
 
   const werkelijk = werkelijkOver.replace(/[^0-9]/g, "");
   const heeftWerkelijk = werkelijk.length > 0;
@@ -172,7 +158,7 @@ export default function SalarisRekenaar({
             ))}
           </Rij>
           <Rij label="Vervoer">
-            {Object.keys(VERVOER).map((a) => (
+            {(Object.keys(VERVOER) as AutoKeuze[]).map((a) => (
               <Chip key={a} actief={auto === a} onClick={() => setAuto(a)}>
                 {AUTO_LABELS[a]}
               </Chip>
