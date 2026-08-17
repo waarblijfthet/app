@@ -1,34 +1,24 @@
--- Afmeldlink onder elke outreach-mail (16-aug-2026)
--- Draai dit eenmalig in de Supabase SQL-editor, na outreach_crm.sql,
--- outreach_contacts_uitbreiding.sql en outreach_instellingen.sql.
+-- Afmeldlink onder elke outreach-mail (16-aug-2026), optionele migratie
 --
--- Achtergrond: de mails eindigden met "PS: liever niet? Eén woordje is
--- genoeg" en dat vroeg om handwerk (terugmailen, contact stopzetten, adres op
--- de blocklist). Elk contact krijgt nu een eigen afmeld_token; de link
--- /afmelden/<token> in de mail regelt het stopzetten en blokkeren zelf.
--- Zie lib/outreach/afmelden.ts voor de samenhang.
+-- LET OP: dit bestand is NIET nodig om de afmeldlink te laten werken. De link
+-- gebruikt outreach_contacts.id, een kolom die altijd bestaat, juist om te
+-- voorkomen dat een niet-gedraaide migratie de link stilletjes laat terugvallen
+-- op /afmelden/onbekend. Zie lib/outreach/afmelden.ts.
+--
+-- Wat het wel doet: de afmeldregel in de opgeslagen handtekening zetten, zodat
+-- de regel zichtbaar en bewerkbaar wordt in /admin/mailsjablonen. Zonder deze
+-- update zet de code de regel automatisch onder elke mail (splitsAfmeldregel),
+-- alleen staat hij dan niet in het handtekeningveld en kun je de bewoording
+-- niet aanpassen. Datzelfde kun je ook doen zonder SQL: klik op
+-- /admin/mailsjablonen op "Zelf formuleren: zet de regel in de handtekening"
+-- en sla op.
+--
+-- Een eerdere versie van dit bestand voegde een kolom afmeld_token en
+-- afgemeld_at toe. Die zijn vervallen. Staan ze al in de database omdat je die
+-- versie hebt gedraaid, dan is dat verder onschuldig; opruimen mag met:
+--   alter table outreach_contacts drop column if exists afmeld_token;
+--   alter table outreach_contacts drop column if exists afgemeld_at;
 
--- ── 1. Token per contact ─────────────────────────────────────────────────────
--- gen_random_uuid() is volatile, dus bestaande rijen krijgen elk een eigen
--- waarde (geen gedeelde default). Niet te raden, en per contact intrekbaar
--- door het token te vervangen:
---   update outreach_contacts set afmeld_token = gen_random_uuid() where id = '...';
-alter table outreach_contacts
-  add column if not exists afmeld_token uuid not null default gen_random_uuid();
-
-create unique index if not exists outreach_contacts_afmeld_token_idx
-  on outreach_contacts (afmeld_token);
-
--- Moment van afmelden, los van gestopt_at (dat ook door handmatig stopzetten
--- gezet wordt) zodat "heeft zichzelf afgemeld" apart telbaar blijft.
-alter table outreach_contacts
-  add column if not exists afgemeld_at timestamptz;
-
--- ── 2. Afmeldregel in de opgeslagen handtekening ─────────────────────────────
--- De code zet automatisch een afmeldregel onder elke mail als de handtekening
--- geen {{AFMELDLINK}} bevat (zie splitsAfmeldregel in lib/outreach/afmelden.ts),
--- dus dit is geen voorwaarde om te werken. Het maakt de regel wel meteen
--- zichtbaar en bewerkbaar in /admin/mailsjablonen.
 update outreach_instellingen
 set waarde = jsonb_set(
       waarde,
@@ -39,8 +29,3 @@ set waarde = jsonb_set(
 where sleutel = 'handtekening'
   and coalesce(waarde ->> 'tekst', '') <> ''
   and position('{{AFMELDLINK}}' in coalesce(waarde ->> 'tekst', '')) = 0;
-
--- ── 3. Controle ──────────────────────────────────────────────────────────────
--- select count(*) filter (where afmeld_token is not null) as met_token,
---        count(*) filter (where afgemeld_at is not null)  as afgemeld
--- from outreach_contacts;

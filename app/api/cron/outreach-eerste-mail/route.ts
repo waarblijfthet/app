@@ -110,7 +110,7 @@ export async function GET(request: NextRequest) {
       const doelgroep = (contact.doelgroep ?? "relatietherapeuten") as Doelgroep;
       const mail = await eersteMail(contact.naam, doelgroep, contact.ps_zin, contact.plaats);
       // Zelfde afmeldlink als de handmatige send-route, zie lib/outreach/afmelden.ts.
-      const paginaUrl = afmeldPaginaUrl(contact.afmeld_token);
+      const paginaUrl = afmeldPaginaUrl(contact.id);
 
       const { data: verzonden, error: sendError } = await resend.emails.send({
         from: "Jarno Koopman <hallo@waarblijfthet.nl>",
@@ -119,7 +119,7 @@ export async function GET(request: NextRequest) {
         html: naarHtml(mail.alineas, handtekening, paginaUrl),
         text: naarText(mail.alineas, handtekening, paginaUrl),
         headers: {
-          "List-Unsubscribe": `<${afmeldApiUrl(contact.afmeld_token)}>`,
+          "List-Unsubscribe": `<${afmeldApiUrl(contact.id)}>`,
           "List-Unsubscribe-Post": "List-Unsubscribe=One-Click",
         },
       });

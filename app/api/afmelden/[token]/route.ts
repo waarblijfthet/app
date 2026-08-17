@@ -1,16 +1,16 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
-import { afmeldPaginaUrl } from "@/lib/outreach/afmelden";
+import { AFMELD_REDEN, afmeldPaginaUrl } from "@/lib/outreach/afmelden";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-// POST /api/afmelden/<token>
+// POST /api/afmelden/<contact-id>
 //
 // Publieke route (bewust niet onder /api/admin, dus buiten de matcher van
-// middleware.ts): het afmeld_token uit de mail is het bewijs, niet een login.
-// Twee bronnen komen hier binnen:
-//   1. De knop op /afmelden/<token>, de zichtbare link in de mail.
+// middleware.ts): het niet te raden contact-id uit de mail is het bewijs, niet
+// een login. Twee bronnen komen hier binnen:
+//   1. De knop op /afmelden/<id>, de zichtbare link in de mail.
 //   2. De ingebouwde "Uitschrijven"-knop van Gmail/Outlook, via de
 //      List-Unsubscribe- en List-Unsubscribe-Post-headers (RFC 8058). Die
 //      stuurt een POST met body "List-Unsubscribe=One-Click".
@@ -20,8 +20,9 @@ export const dynamic = "force-dynamic";
 // ongewild afmelden. Zie lib/outreach/afmelden.ts.
 //
 // Wat er gebeurt (idempotent, herhalen mag):
-//   - het contact gaat op gestopt, zodat de crons en de handmatige knoppen
-//     hem overslaan (die filteren allemaal op gestopt = false);
+//   - het contact gaat op gestopt met gestopt_reden = AFMELD_REDEN, zodat de
+//     crons en de handmatige knoppen hem overslaan (die filteren allemaal op
+//     gestopt = false);
 //   - het e-mailadres gaat op email_blocklist met reden "afgemeld", zodat het
 //     ook via een nieuwe import of een andere doelgroep nooit meer een mail
 //     krijgt (de prospect-review en de send-routes checken die lijst);
@@ -39,10 +40,10 @@ export function GET(_req: NextRequest, { params }: { params: { token: string } }
 }
 
 export async function POST(_req: NextRequest, { params }: { params: { token: string } }) {
-  const token = (params.token ?? "").trim();
+  const id = (params.token ?? "").trim();
   // Vormcontrole vooraf: scheelt een query op willekeurige rommel en voorkomt
   // een type-fout in Postgres bij het vergelijken met een uuid-kolom.
-  if (!UUID.test(token)) {
+  if (!UUID.test(id)) {
     return NextResponse.json({ ok: false, fout: "onbekende-link" }, { status: 404 });
   }
 
@@ -50,8 +51,8 @@ export async function POST(_req: NextRequest, { params }: { params: { token: str
 
   const { data: contact, error } = await supabase
     .from("outreach_contacts")
-    .select("id, naam, email, afgemeld_at")
-    .eq("afmeld_token", token)
+    .select("id, naam, email, gestopt, gestopt_reden")
+    .eq("id", id)
     .maybeSingle();
 
   if (error) {
@@ -61,10 +62,12 @@ export async function POST(_req: NextRequest, { params }: { params: { token: str
     return NextResponse.json({ ok: false, fout: "onbekende-link" }, { status: 404 });
   }
 
-  // Al eerder afgemeld: niets opnieuw wegschrijven (anders komt er bij elke
-  // klik een notitie bij), maar wel een geslaagd antwoord. Voor de afzender
-  // van een one-click-POST is "stond al uit" hetzelfde als succes.
-  if (contact.afgemeld_at) {
+  // Al eerder via de link afgemeld: niets opnieuw wegschrijven (anders komt er
+  // bij elke klik een notitie bij), maar wel een geslaagd antwoord. Voor de
+  // afzender van een one-click-POST is "stond al uit" hetzelfde als succes.
+  // Iemand die om een andere reden gestopt staat, loopt bewust wél door de
+  // stappen hieronder: die staat nog niet op de blocklist.
+  if (contact.gestopt && contact.gestopt_reden === AFMELD_REDEN) {
     return NextResponse.json({ ok: true, alAfgemeld: true, email: contact.email });
   }
 
@@ -72,12 +75,7 @@ export async function POST(_req: NextRequest, { params }: { params: { token: str
 
   const { error: updateFout } = await supabase
     .from("outreach_contacts")
-    .update({
-      gestopt: true,
-      gestopt_at: nu,
-      gestopt_reden: "Afgemeld via de link in de mail",
-      afgemeld_at: nu,
-    })
+    .update({ gestopt: true, gestopt_at: nu, gestopt_reden: AFMELD_REDEN })
     .eq("id", contact.id);
   if (updateFout) {
     return NextResponse.json({ ok: false, fout: "serverfout" }, { status: 500 });

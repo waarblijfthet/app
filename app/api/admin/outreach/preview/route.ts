@@ -78,7 +78,7 @@ export async function POST(req: NextRequest) {
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
         mailNummer: alGedaan + 2, subject: mail.subject,
-        text: naarText(mail.alineas, handtekening, afmeldPaginaUrl(contact.afmeld_token)),
+        text: naarText(mail.alineas, handtekening, afmeldPaginaUrl(contact.id)),
         heeftPsZin: true,
         naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });
@@ -88,7 +88,7 @@ export async function POST(req: NextRequest) {
         id: contact.id, naam: contact.naam, email: contact.email,
         doelgroep, plaats: contact.plaats ?? null,
         mailNummer: 1, subject: mail.subject,
-        text: naarText(mail.alineas, handtekening, afmeldPaginaUrl(contact.afmeld_token)),
+        text: naarText(mail.alineas, handtekening, afmeldPaginaUrl(contact.id)),
         heeftPsZin: Boolean(contact.ps_zin && String(contact.ps_zin).trim()),
         naamBetrouwbaar: naamIsBetrouwbaar(contact.naam),
       });

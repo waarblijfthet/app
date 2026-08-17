@@ -2,14 +2,17 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { createServiceClient } from "@/lib/supabase-service";
-import { VOORBEELD_TOKEN } from "@/lib/outreach/afmelden";
+import { AFMELD_REDEN, VOORBEELD_TOKEN } from "@/lib/outreach/afmelden";
 import AfmeldKnop from "./AfmeldKnop";
 
-// Publieke afmeldpagina, de zichtbare link onderaan elke outreach-mail.
+// Publieke afmeldpagina, de zichtbare link onderaan elke outreach-mail. De
+// parameter is het id van het contact (outreach_contacts.id), zie
+// lib/outreach/afmelden.ts voor waarom dat geen e-mailadres of los token is.
+//
 // Deze pagina meldt bewust nog niemand af: dat doet pas de knop (POST naar
-// /api/afmelden/<token>). Link-scanners van Outlook en virusscanners openen
-// alle links in een mail automatisch met GET; zou deze pagina zelf afmelden,
-// dan meldden die scanners mensen ongewild af. Zie lib/outreach/afmelden.ts.
+// /api/afmelden/<id>). Link-scanners van Outlook en virusscanners openen alle
+// links in een mail automatisch met GET; zou deze pagina zelf afmelden, dan
+// meldden die scanners mensen ongewild af.
 
 export const dynamic = "force-dynamic";
 
@@ -34,11 +37,11 @@ function Kader({ children }: { children: React.ReactNode }) {
 }
 
 export default async function AfmeldPagina({ params }: { params: { token: string } }) {
-  const token = (params.token ?? "").trim();
+  const id = (params.token ?? "").trim();
 
   // Voorbeeldlink uit de admin-preview (/admin/mailsjablonen): nooit iemand
   // afmelden, wel laten zien wat de ontvanger te zien krijgt.
-  if (token === VOORBEELD_TOKEN) {
+  if (id === VOORBEELD_TOKEN) {
     return (
       <Kader>
         <h1 className="font-display font-light text-primary text-4xl mb-6">Afmelden</h1>
@@ -50,13 +53,13 @@ export default async function AfmeldPagina({ params }: { params: { token: string
     );
   }
 
-  let contact: { naam: string | null; email: string; afgemeld_at: string | null } | null = null;
-  if (UUID.test(token)) {
+  let contact: { email: string; gestopt: boolean | null; gestopt_reden: string | null } | null = null;
+  if (UUID.test(id)) {
     const supabase = createServiceClient();
     const { data } = await supabase
       .from("outreach_contacts")
-      .select("naam, email, afgemeld_at")
-      .eq("afmeld_token", token)
+      .select("email, gestopt, gestopt_reden")
+      .eq("id", id)
       .maybeSingle();
     contact = data ?? null;
   }
@@ -77,7 +80,7 @@ export default async function AfmeldPagina({ params }: { params: { token: string
     );
   }
 
-  if (contact.afgemeld_at) {
+  if (contact.gestopt && contact.gestopt_reden === AFMELD_REDEN) {
     return (
       <Kader>
         <h1 className="font-display font-light text-primary text-4xl mb-6">Je bent al afgemeld</h1>
@@ -99,7 +102,7 @@ export default async function AfmeldPagina({ params }: { params: { token: string
       <p className="font-body font-light text-text-soft text-base leading-relaxed mb-8">
         Eén klik en het is geregeld, je hoeft niets terug te mailen.
       </p>
-      <AfmeldKnop token={token} email={contact.email} />
+      <AfmeldKnop token={id} email={contact.email} />
     </Kader>
   );
 }
