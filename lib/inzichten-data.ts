@@ -169,6 +169,87 @@ const VDT2_PCT = Math.round((VDT2_VASTE_LASTEN / VDT2_INKOMEN) * 100);
 const ALLEEN_RAPPORT = rapportVoorSlug("alleenstaand-huurwoning")!;
 
 export const artikelen: Artikel[] = [
+
+/**
+ * Rapport voor "huishoudboekje-voorbeeld" (17-aug-2026, klus 9,
+ * docs/artikel-bouwprompts-aug-2026.md): het stel zonder kinderen dat vooraf
+ * zelf een bedrag schatte (vermoedenBedrag) en bij wie de conclusie geen lek
+ * was. Illustreert de kern van dit artikel: een eigen schatting of registratie
+ * zegt nog niets over de uitkomst zonder vergelijking.
+ */
+const HB_STEL = rapportVoorSlug("stel-zonder-kinderen")!;
+  {
+    slug: "huishoudboekje-voorbeeld",
+    cta: {
+      kop: "Wil je de vergelijking op je hele maand, niet op één schatting?",
+      tekst: `De rekenaar hierboven werkt met een vuistregel op ${RAPPORTEN.length} huishoudens, niet met jouw cijfers. Bij de gratis analyse vergelijk je je eigen uitgaven met vergelijkbare huishoudens. Wil je dat ik er zelf naar kijk en opschrijf wat opvalt, dat kan bij de Geldscan.`,
+      primairLabel: "Doe de gratis analyse",
+      primairHref: "/analyse",
+      secundairLabel: "Liever dat ik meekijk? Geldscan, €49",
+      secundairHref: "/geldscan",
+    },
+    korteTitel: "Huishoudboekje voorbeeld",
+    titel: "Huishoudboekje voorbeeld: waarom bijhouden je nog niet zegt of het veel is",
+    metaTitel: "Huishoudboekje voorbeeld: bijhouden is niet het probleem",
+    metaDescription:
+      "Een huishoudboekje maken kan overal, bij Rabobank, Nibud en Wijzer in geldzaken. Hier een kort voorbeeld, plus de vergelijking die geen sjabloon meelevert.",
+    datum: "2026-08-17",
+    datumFormatted: "17 augustus 2026",
+    leestijd: "4",
+    categorie: "Inzicht",
+    excerpt:
+      "Een huishoudboekje maken is overal te downloaden. Na een paar maanden weet je precies wat er wegging, en nog steeds niet of dat veel is. Een kort voorbeeld, en de vergelijking die daarna pas komt.",
+    preview: {
+      type: "pijn",
+      label: "Waarom een huishoudboekje niet genoeg is",
+      items: [
+        "Elke week een paar bonnetjes en pinbetalingen overtikken",
+        "Na twee maanden precies weten wat er wegging",
+        "Nog steeds geen idee of dat veel is voor jouw huishouden",
+        "Het boekje ligt stil, de eigenlijke vraag staat nog open",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat moet er in een huishoudboekje voorbeeld staan?",
+        antwoord:
+          "Twee kanten: wat er binnenkomt en wat eruit gaat, verdeeld in een paar vaste categorieën. Denk aan wonen en vaste lasten, boodschappen, vervoer, verzekeringen en abonnementen, vrije tijd en sparen. Nibud beschrijft in het eigen stappenplan dezelfde opbouw: eerst kiezen wat je bijhoudt, dan digitaal of op papier, daarna een kasboek met een inkomsten- en een uitgavenkant.",
+      },
+      {
+        vraag: "Hoe maak je een huishoudboekje?",
+        antwoord:
+          "Kies eerst welke categorieën je wilt bijhouden, kies daarna of je dat digitaal doet (Excel of een app) of op papier, en noteer vanaf dan elke uitgave onder de juiste categorie. Rabobank en Wijzer in geldzaken hebben allebei een gratis sjabloon als je liever niet zelf een indeling maakt.",
+      },
+      {
+        vraag: "Ik houd al een huishoudboekje bij, waarom voelt het dan nog steeds krap?",
+        antwoord: `Waarschijnlijk omdat je nu wel weet wat er wegging, maar niet of dat veel is voor een huishouden als het jouwe. Nibud noemt dat zelf ook in het eigen stappenplan: pas bij een aparte vergelijking met andere huishoudens zie je aan welke posten je meer uitgeeft dan gemiddeld. Bij een stel zonder kinderen dat ik doorrekende was de eigen schatting vooraf: "${HB_STEL.vermoedenBedrag}" Bij het doorrekenen bleek de conclusie: "${HB_STEL.uitkomstKop}." Hun uitgaven pasten niet bij het spaardoel dat ze zelf hadden, en dat verschil zie je niet terug in een huishoudboekje zonder vergelijking.`,
+      },
+      {
+        vraag: "Is een kant en klaar sjabloon van Rabobank of Nibud goed genoeg?",
+        antwoord:
+          "Voor het registreren wel, ze zijn gratis en ze werken. Voor het antwoord op de vraag of jouw bedragen veel zijn heb je er niets aan, want een sjabloon geeft alleen je eigen cijfers terug. Daarvoor heb je een tweede getal nodig om naast het jouwe te leggen.",
+      },
+      {
+        vraag: "Moet ik dan altijd een huishoudboekje blijven bijhouden?",
+        antwoord:
+          'Niet per se. Tijdelijk bijhouden is nuttig om te zien waar je geld heen gaat, maar blijvend registreren houdt bijna niemand vol. Waarom dat zo is en wat op de lange termijn beter werkt staat in "Moet je een huishoudboekje bijhouden?".',
+      },
+    ],
+    externLinks: [
+      {
+        label: "Rabobank: gratis huishoudboekje downloaden, geraadpleegd 17 augustus 2026",
+        url: "https://www.rabobank.nl/particulieren/financieel-gezond/inkomsten-en-uitgaven/huishoudboekje-downloaden",
+      },
+      {
+        label: "Nibud: stappenplan een kasboek maken, geraadpleegd 17 augustus 2026",
+        url: "https://www.nibud.nl/tools/stappenplan-kasboek-maken/",
+      },
+      {
+        label: "Wijzer in geldzaken: overzicht huishoudboekjes, geraadpleegd 17 augustus 2026",
+        url: "https://www.wijzeringeldzaken.nl/huishoudboekjes/",
+      },
+    ],
+  },
   /**
    * titel en metaTitel hier zijn op 17-aug-2026 (klus 6, docs/artikel-bouwprompts-aug-2026.md)
    * aangescherpt met "twee kinderen", nadat de SERP voor "4000 euro netto gezin twee kinderen

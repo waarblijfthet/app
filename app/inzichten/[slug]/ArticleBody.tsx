@@ -3,6 +3,7 @@ import AlleenWonenGoedSalarisTochKrap from "./content/alleen-wonen-goed-salaris-
 import PratenOverGeldMetJePartner from "./content/praten-over-geld-met-je-partner";
 import WaaromLijktIedereenRijker from "./content/waarom-lijkt-iedereen-rijker";
 import MoetJeEenHuishoudboekjeBijhouden from "./content/moet-je-een-huishoudboekje-bijhouden";
+import HuishoudboekjeVoorbeeld from "./content/huishoudboekje-voorbeeld";
 import PiekerenOverGeld from "./content/piekeren-over-geld";
 import BoodschappenDuitslandVoordeel from "./content/boodschappen-duitsland-voordeel";
 import SpaardoelenMaandelijkseInleg from "./content/spaardoelen-maandelijkse-inleg";
@@ -83,6 +84,7 @@ const contentMap: Record<string, () => JSX.Element> = {
   "praten-over-geld-met-je-partner": PratenOverGeldMetJePartner,
   "waarom-lijkt-iedereen-rijker": WaaromLijktIedereenRijker,
   "moet-je-een-huishoudboekje-bijhouden": MoetJeEenHuishoudboekjeBijhouden,
+  "huishoudboekje-voorbeeld": HuishoudboekjeVoorbeeld,
   "piekeren-over-geld": PiekerenOverGeld,
   "goed-salaris-toch-krap": GoedsalarisTochKrap,
   "boodschappen-duitsland-voordeel": BoodschappenDuitslandVoordeel,

@@ -80,6 +80,10 @@ export default function MoetJeEenHuishoudboekjeBijhouden() {
         niet als een gewoonte voor de rest van je leven. Na die momentopname zet
         je de structuur op, en kun je het boekje weer loslaten. Meer over een{" "}
         <Link href="/inzichten/budget-maken-dat-je-volhoudt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">budget dat je wel volhoudt</Link>.
+        Wil je die momentopname toch even doen, bijvoorbeeld met een sjabloon?
+        Zie een kort{" "}
+        <Link href="/inzichten/huishoudboekje-voorbeeld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">huishoudboekje voorbeeld</Link>{" "}
+        en wat het je, ook dan, nog niet vertelt.
       </p>
 
       <h2 className="font-display" style={h2}>

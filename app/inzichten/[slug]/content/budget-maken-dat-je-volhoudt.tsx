@@ -138,6 +138,18 @@ export default function BudgetMakenDatJeVolhoudt() {
         Een budget dat je een jaar volhoudt en dat tachtig procent klopt, is oneindig veel meer
         waard dan een perfect budget dat na twee weken in de la verdwijnt.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Hield je liever eerst een tijdje een huishoudboekje bij om te zien waar je nu staat? Zie
+        een kort{" "}
+        <Link
+          href="/inzichten/huishoudboekje-voorbeeld"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          huishoudboekje voorbeeld
+        </Link>{" "}
+        en de vergelijking die daarna pas komt.
+      </p>
 
       {/* Intern CTA */}
       <div
