@@ -47,13 +47,13 @@ export default function TweedeAutoRekenaar({
 
   const uitkomsten = (Object.keys(VERVOER) as AutoKeuze[]).reduce(
     (acc, a) => {
-      acc[a] = berekenVuistregel({ inkomen, volwassenen, kinderen, auto: a }).verwachtOver;
+      acc[a] = berekenVuistregel({ inkomen: inkomen, volwassenen: volwassenen, kinderen: kinderen, auto: a }).verwachtOver;
       return acc;
     },
     {} as Record<AutoKeuze, number>
   );
 
-  const huidige = berekenVuistregel({ inkomen, volwassenen, kinderen, auto });
+  const huidige = berekenVuistregel({ inkomen: inkomen, volwassenen: volwassenen, kinderen: kinderen, auto: auto });
   const verschilTweeVsEen = VERVOER.twee - VERVOER.eigen;
   const verschilEenVsGeen = VERVOER.eigen - VERVOER.geen;
 

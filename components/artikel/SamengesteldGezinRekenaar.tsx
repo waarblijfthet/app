@@ -33,8 +33,8 @@ export default function SamengesteldGezinRekenaar({
   const [eigenKinderen, setEigenKinderen] = useState(1);
   const [deeltijdKinderen, setDeeltijdKinderen] = useState(2);
 
-  const basis = berekenVuistregel({ inkomen, volwassenen: 2, kinderen: eigenKinderen, auto: "eigen" });
-  const vol = berekenVuistregel({ inkomen, volwassenen: 2, kinderen: eigenKinderen + deeltijdKinderen, auto: "eigen" });
+  const basis = berekenVuistregel({ inkomen: inkomen, volwassenen: 2, kinderen: eigenKinderen, auto: "eigen" });
+  const vol = berekenVuistregel({ inkomen: inkomen, volwassenen: 2, kinderen: eigenKinderen + deeltijdKinderen, auto: "eigen" });
 
   const gat = basis.verwachtOver - vol.verwachtOver;
   const boodschappenDelta = vol.boodschappen - basis.boodschappen;

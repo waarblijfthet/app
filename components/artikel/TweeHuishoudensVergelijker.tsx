@@ -45,12 +45,12 @@ export default function TweeHuishoudensVergelijker({
   const [kinderen, setKinderen] = useState(startKinderen);
   const [verdeling, setVerdeling] = useState(50);
 
-  const voor = berekenVuistregel({ inkomen, volwassenen: 2, kinderen, auto: "eigen" });
+  const voor = berekenVuistregel({ inkomen: inkomen, volwassenen: 2, kinderen: kinderen, auto: "eigen" });
 
   const inkomen1 = Math.round((inkomen * verdeling) / 100 / 10) * 10;
   const inkomen2 = inkomen - inkomen1;
 
-  const huis1 = berekenVuistregel({ inkomen: inkomen1, volwassenen: 1, kinderen, auto: "eigen" });
+  const huis1 = berekenVuistregel({ inkomen: inkomen1, volwassenen: 1, kinderen: kinderen, auto: "eigen" });
   const huis2 = berekenVuistregel({ inkomen: inkomen2, volwassenen: 1, kinderen: 0, auto: "eigen" });
 
   const naTotaal = huis1.verwachtOver + huis2.verwachtOver;
