@@ -164,6 +164,7 @@ export default function PotjesmethodeGezinHoeWerktHet() {
         Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">de potjesmethode in de praktijk bij een echt gezin</a>.
       </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/geld-indelen-salaris-potjes-systeem" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">je salaris slim indelen</Link> en <Link href="/inzichten/cash-stuffing-beginnen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">cash stuffing</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Ben je met een partner die ook eigen kinderen heeft, en wonen die er niet allemaal de hele week? Lees dan <Link href="/inzichten/samengesteld-gezin-twee-huishoudens-een-budget" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">samengesteld gezin: twee huishoudens in één budget</Link>.</p>
     </>
   );
 }

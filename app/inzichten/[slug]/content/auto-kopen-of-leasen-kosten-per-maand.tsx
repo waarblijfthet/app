@@ -78,6 +78,11 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
         die meegroeit met het inkomen zonder dat iemand het tegenhoudt; zie{" "}
         <Link href="/inzichten/tweeverdieners-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">tweeverdieners en toch krap</Link>.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Wil je precies weten wat die tweede auto bij jouw eigen inkomen en huishouden kost, in plaats
+        van een vast bedrag? Reken het door in{" "}
+        <Link href="/inzichten/twee-autos-wat-kost-de-tweede-echt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">twee auto&apos;s, wat kost de tweede echt</Link>.
+      </p>
 
       <h2 className="font-display" style={h2}>
         Hoe je de juiste keuze maakt

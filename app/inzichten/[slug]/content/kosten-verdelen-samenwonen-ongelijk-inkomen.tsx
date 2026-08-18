@@ -141,6 +141,18 @@ export default function KostenVerdelenSamenwonenOngelijkInkomen() {
         </Link>
         .
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Loopt de relatie toch stuk, dan verandert de rekensom niet naar min, maar naar twee losse
+        huishoudens. Wat dat met een maandbudget doet, reken ik door in{" "}
+        <Link
+          href="/inzichten/scheiden-goed-inkomen-toch-niks-over"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          scheiden met een goed inkomen en toch niks over
+        </Link>
+        .
+      </p>
 
       {/* Intern CTA */}
       <div

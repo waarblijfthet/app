@@ -94,7 +94,7 @@ export interface Artikel {
  * FAQ-antwoorden hieronder, werkregel 2: elk bedrag komt uit dezelfde functie
  * die de rekenaar en de bedragentabel op het 4.000-artikel gebruiken.
  */
-import { berekenVuistregel, omslagpunt, euro } from "./salaris-vuistregel";
+import { berekenVuistregel, omslagpunt, euro, VERVOER } from "./salaris-vuistregel";
 import { RAPPORTEN, rapportVoorSlug, AANTAL_ZONDER_LEK } from "./rapporten-data";
 import {
   BRUTO_VOOR_NETTO,
@@ -185,7 +185,271 @@ const ALLEEN_RAPPORT = rapportVoorSlug("alleenstaand-huurwoning")!;
  */
 const HB_STEL = rapportVoorSlug("stel-zonder-kinderen")!;
 
+
+/**
+ * Berekende bedragen voor de vier batch-1-artikelen (18-aug-2026,
+ * docs/artikel-bouwprompts-batch1-18-aug-2026.md). Elk bedrag in de preview-
+ * data en de FAQ's hieronder komt uit deze consts of rechtstreeks uit
+ * lib/salaris-vuistregel.ts en lib/rapporten-data.ts, nooit met de hand
+ * getypt.
+ */
+const SCHEIDEN_VOOR = berekenVuistregel({ inkomen: 6000, volwassenen: 2, kinderen: 2, auto: "eigen" });
+const SCHEIDEN_MET_KINDEREN = berekenVuistregel({ inkomen: 3000, volwassenen: 1, kinderen: 2, auto: "eigen" });
+const SCHEIDEN_ZONDER_KINDEREN = berekenVuistregel({ inkomen: 3000, volwassenen: 1, kinderen: 0, auto: "eigen" });
+const SCHEIDEN_VASTE_LASTEN_DELTA =
+  SCHEIDEN_MET_KINDEREN.wonen + SCHEIDEN_ZONDER_KINDEREN.wonen - SCHEIDEN_VOOR.wonen +
+  (SCHEIDEN_MET_KINDEREN.verzekeringen + SCHEIDEN_ZONDER_KINDEREN.verzekeringen - SCHEIDEN_VOOR.verzekeringen);
+const SCHEIDEN_VERVOER_DELTA = SCHEIDEN_MET_KINDEREN.vervoer + SCHEIDEN_ZONDER_KINDEREN.vervoer - SCHEIDEN_VOOR.vervoer;
+const SCHEIDEN_BOODSCHAPPEN_DELTA =
+  SCHEIDEN_MET_KINDEREN.boodschappen + SCHEIDEN_ZONDER_KINDEREN.boodschappen - SCHEIDEN_VOOR.boodschappen;
+const RAPPORT_SCHEIDEN = rapportVoorSlug("alleenstaande-ouder-twee-kinderen")!;
+
+const SAMENGESTELD_BASIS = berekenVuistregel({ inkomen: 6000, volwassenen: 2, kinderen: 1, auto: "eigen" });
+const SAMENGESTELD_VOL = berekenVuistregel({ inkomen: 6000, volwassenen: 2, kinderen: 3, auto: "eigen" });
+const SAMENGESTELD_BOODSCHAPPEN_DELTA = SAMENGESTELD_VOL.boodschappen - SAMENGESTELD_BASIS.boodschappen;
+const SAMENGESTELD_KINDERKOSTEN_DELTA = SAMENGESTELD_VOL.kinderkosten - SAMENGESTELD_BASIS.kinderkosten;
+
+const RAPPORT_STEL_ZONDER_KINDEREN = rapportVoorSlug("stel-zonder-kinderen")!;
+const RAPPORT_TWEEVERDIENERS_DRIE_KINDEREN = rapportVoorSlug("tweeverdieners-drie-kinderen")!;
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "scheiden-goed-inkomen-toch-niks-over",
+    cta: {
+      kop: "Wil je weten hoe het bij jouw twee huishoudens precies zit?",
+      tekst:
+        "De rekenaar hierboven werkt met een vuistregel, niet met jouw cijfers en niet met alimentatie of kinderopvangtoeslag. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
+      primairLabel: "Bekijk de Geldscan",
+      primairHref: "/geldscan?situatie=alleenstaande-ouder",
+      secundairLabel: "Eerst gratis zelf kijken",
+      secundairHref: "/analyse",
+    },
+    titel: "Scheiden met een goed inkomen en toch niks over",
+    korteTitel: "Scheiden en toch niks over",
+    metaTitel: "Scheiden met een goed inkomen en toch niks over",
+    metaDescription:
+      "Twee huishoudens kosten meer dan één. Reken door wat een scheiding met je maandbudget doet, met dezelfde vuistregel die ik in mijn geldscans gebruik.",
+    datum: "2026-08-18",
+    datumFormatted: "18 augustus 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Vóór de scheiding hield je samen iets over. Erna verdiende je ongeveer hetzelfde deel, en toch schiet er minder over. Dat komt niet door de leuke dingen, maar door de vaste lasten die twee keer opnieuw beginnen.",
+    preview: {
+      type: "vergelijking",
+      label: "Wat er twee keer gaat staan na een scheiding",
+      items: [
+        { naam: "Wonen en vaste lasten", bedrag: SCHEIDEN_VASTE_LASTEN_DELTA, kleur: "#16211F" },
+        { naam: "Boodschappen", bedrag: SCHEIDEN_BOODSCHAPPEN_DELTA, kleur: "#0A6A5F" },
+        { naam: "Vervoer, bij elk een auto", bedrag: SCHEIDEN_VERVOER_DELTA, kleur: "#0B7A6E" },
+      ],
+      noot: "Voorbeeld bij €6.000 netto en twee kinderen, verdeling maakt voor dit totaal niets uit.",
+    },
+    faq: [
+      {
+        vraag: "Wat kost een scheiding voor je maandbudget?",
+        antwoord:
+          "Dat hangt af van je inkomen en het aantal kinderen, niet van een vast bedrag. De rekenaar in dit artikel splitst je eigen huishouden in twee en laat precies zien wat er verdwijnt: vooral de vaste lasten die per huishouden gelden, energie, internet, gemeentelijke lasten, abonnementen en verzekeringen, en die na een scheiding voor beide huishoudens even hard staan.",
+      },
+      {
+        vraag: "Verandert de inkomensverdeling wat er in totaal verdwijnt?",
+        antwoord:
+          "Nee. Schuif de verdeling in de rekenaar hierboven en het totale bedrag dat verdwijnt blijft gelijk, omdat de posten die dubbel gaan staan per huishouden gelden en niet per hoofd. Wat de verdeling wél verandert, is wie van de twee ouders het tekort voelt.",
+      },
+      {
+        vraag: "Rekent de rekenaar ook alimentatie en kinderopvangtoeslag mee?",
+        antwoord:
+          "Nee, bewust niet. De vuistregel achter dit artikel kent alleen inkomen, aantal volwassenen, aantal kinderen en vervoer. Alimentatie en kinderopvangtoeslag kunnen het beeld voor jouw situatie flink veranderen, en dat is precies waar een rapport met je eigen cijfers wel naar kijkt en een vuistregel niet.",
+      },
+      {
+        vraag: `Kan het zijn dat een van de twee huishoudens na de scheiding negatief uitkomt?`,
+        antwoord: `Ja, dat is precies wat er in de rekenaar kan gebeuren bij een ouder met de kinderen en een kleiner deel van het inkomen. Bij een alleenstaande ouder met twee kinderen die ik doorrekende, de kinderen wonen ${RAPPORT_SCHEIDEN.kenmerken.find((k) => k.includes("procent"))}, was de eigen inschatting vooraf: "${RAPPORT_SCHEIDEN.vermoedenBedrag}" Mijn conclusie: "${RAPPORT_SCHEIDEN.uitkomstKop}."`,
+      },
+      {
+        vraag: "Waar kan ik terecht voor de juridische kant van een scheiding?",
+        antwoord:
+          "Niet hier. Dit artikel gaat alleen over het maandbudget nadat de verdeling al is afgesproken. Voor de verdeling van bezittingen, pensioen, alimentatie of een mediator kun je terecht bij een scheidingsplanner, een advocaat of het Juridisch Loket.",
+      },
+    ],
+  },
+  {
+    slug: "twee-autos-wat-kost-de-tweede-echt",
+    cta: {
+      kop: "Wil je niet alleen de auto, maar je hele budget laten narekenen?",
+      tekst:
+        "De rekenaar hierboven werkt met een vuistregel op vijf huishoudens, niet met jouw cijfers. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
+      primairLabel: "Bekijk de Geldscan",
+      primairHref: "/geldscan?situatie=gezin",
+      secundairLabel: "Eerst gratis zelf kijken",
+      secundairHref: "/analyse",
+    },
+    titel: "Twee auto's, wat kost de tweede echt",
+    korteTitel: "Wat kost de tweede auto",
+    metaTitel: "Twee auto's: wat kost de tweede echt per maand",
+    metaDescription:
+      "Niet wat een auto op zichzelf kost, maar wat de tweede auto doet met wat er van je huishoudinkomen overblijft. Reken het voor je eigen situatie door.",
+    datum: "2026-08-18",
+    datumFormatted: "18 augustus 2026",
+    leestijd: "4",
+    categorie: "Inzicht",
+    excerpt:
+      "Twee banen, dus twee auto's. Niemand heeft dat apart besloten, het rolde er gewoon zo in. Wat de tweede auto echt doet met je maandbudget, reken je hieronder voor je eigen huishouden door.",
+    preview: {
+      type: "vergelijking",
+      label: "Vervoer per maand, per keuze",
+      items: [
+        { naam: "Geen auto", bedrag: VERVOER.geen, kleur: "#16211F" },
+        { naam: "Eén auto", bedrag: VERVOER.eigen, kleur: "#0A6A5F" },
+        { naam: "Twee auto's", bedrag: VERVOER.twee, kleur: "#0B7A6E" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat kost een tweede auto per maand echt?",
+        antwoord:
+          "Zet je eigen inkomen en huishouden in de rekenaar hierboven en schuif tussen de vervoersopties. Het verschil tussen één en twee auto's zie je direct terug in wat er van je inkomen overblijft, niet alleen in wat de auto zelf aan brandstof, verzekering en onderhoud kost.",
+      },
+      {
+        vraag: "Is een tweede auto altijd een probleem?",
+        antwoord:
+          "Nee. Bij een gezin met drie kinderen en twee eigen auto's dat ik doorrekende, bleek er geen enkele buitensporige vaste last te zijn, de auto's inbegrepen. Twee auto's kunnen een bewuste keuze zijn die bij een gezin past. Het punt van dit artikel is dat je weet hoeveel ruimte die keuze precies inneemt.",
+      },
+      {
+        vraag: "Is private lease goedkoper dan een tweede auto kopen?",
+        antwoord:
+          "Dat hangt af van je rijgedrag en voorkeur voor voorspelbaarheid, en dat zet ik op een rij in mijn artikel over auto kopen of leasen. Dit artikel gaat niet over die keuze, maar over wat een tweede auto, hoe je hem ook financiert, doet met wat er van je inkomen overblijft.",
+      },
+      {
+        vraag: "Hoeveel scheelt het om van twee auto's naar één te gaan?",
+        antwoord:
+          "De rekenaar hierboven laat het verschil zien voor jouw eigen inkomen en huishouden: schuif van 'Twee auto's' naar 'Eén auto' en het bedrag dat je onderaan ziet, verandert direct mee met de vervoerspost uit de vuistregel.",
+      },
+      {
+        vraag: "Waarom staat de tweede auto niet los in mijn budget vermeld?",
+        antwoord:
+          "Omdat losse posten pas iets zeggen naast je andere vaste lasten. Een overzicht van al je vaste lasten samen laat zien of de auto de uitschieter is, of gewoon een van de posten die meegroeide met twee inkomens.",
+      },
+    ],
+  },
+  {
+    slug: "samengesteld-gezin-twee-huishoudens-een-budget",
+    cta: {
+      kop: "Wil je jullie eigen samengestelde gezin laten narekenen?",
+      tekst:
+        "De rekenaar hierboven telt alleen hele kinderen, niet een kind dat er de helft van de tijd is. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
+      primairLabel: "Bekijk de Geldscan",
+      primairHref: "/geldscan?situatie=gezin",
+      secundairLabel: "Eerst gratis zelf kijken",
+      secundairHref: "/analyse",
+    },
+    titel: "Samengesteld gezin: twee huishoudens in één budget",
+    korteTitel: "Samengesteld gezin, budget",
+    metaTitel: "Samengesteld gezin: wat deeltijdkinderen met je budget doen",
+    metaDescription:
+      "Kinderen die de helft van de tijd bij je zijn, kosten geen halve kinderen. Reken door waar de vuistregel je budget onderschat als je met een samengesteld gezin rekent.",
+    datum: "2026-08-18",
+    datumFormatted: "18 augustus 2026",
+    leestijd: "4",
+    categorie: "Inzicht",
+    excerpt:
+      "De helft van de week is het gezin compleet, de andere helft niet. Boodschappen en geld schuiven mee met het schema, de vaste lasten niet. Reken door waar dat je budget onderschat.",
+    preview: {
+      type: "vergelijking",
+      label: "Wat twee extra deeltijdkinderen toevoegen",
+      items: [
+        { naam: "Boodschappen, beweegt mee met de dagen", bedrag: Math.round(SAMENGESTELD_BOODSCHAPPEN_DELTA), kleur: "#0A6A5F" },
+        { naam: "Kamer, sport en kleding, beweegt niet mee", bedrag: Math.round(SAMENGESTELD_KINDERKOSTEN_DELTA), kleur: "#B03A2E" },
+      ],
+      noot: "Voorbeeld bij €6.000 netto, van 1 naar 3 kinderen meegerekend.",
+    },
+    faq: [
+      {
+        vraag: "Hoe reken je budget voor een samengesteld gezin met deeltijdkinderen?",
+        antwoord:
+          "Er is geen kant-en-klare formule voor een half kind. De rekenaar hierboven zet daarom twee gehele uitkomsten naast elkaar: met en zonder de deeltijdkinderen meegeteld. Het verschil daartussen is de bandbreedte waarin jouw werkelijke budget valt.",
+      },
+      {
+        vraag: "Waarom onderschat een vuistregel deeltijdkinderen?",
+        antwoord:
+          "Omdat niet alle kosten meebewegen met de kalender. Boodschappen bewegen wel mee met de dagen dat een kind er is, maar een eigen kamer, een sportclub en kleding blijven grotendeels overeind ook als een kind er maar de helft van de tijd is. Een vuistregel die per kind rekent en niet per dag aanwezigheid, telt die laatste posten dus te laag in plaats van te hoog.",
+      },
+      {
+        vraag: "Is er een landelijk cijfer over de kosten van co-ouderschap?",
+        antwoord:
+          "Niet in dit artikel. Dit artikel rekent met dezelfde vuistregel als de rest van deze site, gebaseerd op vijf huishoudens die ik zelf heb doorgerekend, niet met een landelijk gemiddelde voor co-ouderschap.",
+      },
+      {
+        vraag: "Wie betaalt wat in een samengesteld gezin?",
+        antwoord:
+          "Dat is een verdelingsvraag, en die staat hier niet centraal. Voor de verdeling van kosten en kindgebonden budget in een samengesteld gezin kun je terecht bij de Belastingdienst en bij coaches die daarin gespecialiseerd zijn. Dit artikel gaat over wat er, ongeacht die afspraken, van het maandbudget overblijft.",
+      },
+      {
+        vraag: "Wat als we net gescheiden zijn en dit voor het eerst uitzoeken?",
+        antwoord:
+          "Lees dan eerst mijn artikel over scheiden met een goed inkomen en toch niks over. Dat rekent de andere kant van dezelfde vraag door: wat er gebeurt als één huishouden met kinderen in twee losse huishoudens wordt gesplitst.",
+      },
+    ],
+  },
+  {
+    slug: "schamen-niet-rondkomen-goed-inkomen",
+    cta: {
+      kop: "Wil je weten of er bij jou wél iets te repareren valt?",
+      tekst:
+        "Begin met de gratis analyse en vergelijk je eigen uitgaven met vergelijkbare huishoudens. Wil je dat ik er zelf naar kijk en opschrijf wat opvalt, dat kan bij de Geldscan.",
+      primairLabel: "Doe de gratis analyse",
+      primairHref: "/analyse",
+      secundairLabel: "Liever dat ik meekijk? Geldscan, €49",
+      secundairHref: "/geldscan",
+    },
+    titel: "Schamen dat je niet rondkomt met een goed inkomen",
+    korteTitel: "Schamen bij een goed inkomen",
+    metaTitel: "Schamen dat je niet rondkomt met een goed inkomen",
+    metaDescription:
+      "Het gevoel dat je iets fout doet, is niet hetzelfde als iets fout doen. Bij een deel van de huishoudens die ik doorrekende bleek er geen lek te zijn.",
+    datum: "2026-08-18",
+    datumFormatted: "18 augustus 2026",
+    leestijd: "4",
+    categorie: "Inzicht",
+    excerpt:
+      "Je verdient goed, en toch voelt het krap, en je zegt er niets over. Het gevoel dat je iets fout doet, is niet hetzelfde als iets fout doen.",
+    preview: {
+      type: "pijn",
+      label: "Waarom je er niet over praat",
+      items: [
+        "Je verdient goed, dus klagen voelt ongepast",
+        "Je verwacht van jezelf dat het klopt, dus als het niet klopt, ligt het aan jou",
+        "Je weet niet hoe je het moet uitleggen, ook niet aan je partner",
+        "Je zoekt liever zelf verder dan dat je het toegeeft",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Is het normaal om je te schamen als je niet rondkomt met een goed inkomen?",
+        antwoord:
+          "Het is een herkenbaar gevoel, maar het zegt niets over of er daadwerkelijk iets misgaat in je budget. Bij een deel van de huishoudens die ik zelf heb doorgerekend, met een goed inkomen en een gevoel van krapte, bleek er bij het narekenen niets te repareren.",
+      },
+      {
+        vraag: "Betekent geen lek vinden dat ik het me verbeeld?",
+        antwoord:
+          "Nee. Bij een stel zonder kinderen dat ik doorrekende was de conclusie letterlijk dat er geen lek was, en toch was het gevoel van krapte reëel: hun uitgaven pasten simpelweg niet bij het spaardoel dat ze zichzelf hadden gesteld. Geen lek vinden is een net zo reëel uitkomst als wel een lek vinden.",
+      },
+      {
+        vraag: "Komt dit vaak voor bij mensen met een goed salaris?",
+        antwoord:
+          "Daar geeft dit artikel bewust geen landelijk cijfer voor. De cijfers die hier staan gaan over de huishoudens die ik zelf heb doorgerekend, niet over Nederland als geheel. Wil je lezen over het gevoel van geldstress bij een goed inkomen in bredere zin, kijk dan bij mijn artikel daarover.",
+      },
+      {
+        vraag: "Wat moet ik doen als ik me schaam om over geld te praten?",
+        antwoord:
+          "Beginnen met cijfers in plaats van met gevoel helpt. Zolang je alleen op je gevoel vaart, vergelijk je met een vaag beeld van normaal. Een gratis analyse zet je eigen uitgaven naast vergelijkbare huishoudens, zonder dat er meteen een oordeel bij hoort.",
+      },
+      {
+        vraag: "Wat als de gratis analyse ook niets bijzonders laat zien?",
+        antwoord:
+          "Dan weet je dat, en dat is zelf al waardevol. Niet elke geldscan vindt een lek. Bij een deel van de huishoudens die ik doorrekende was de conclusie dat er niets te repareren viel, en dan hoor je dat ook gewoon terug.",
+      },
+    ],
+  },
   {
     slug: "huishoudboekje-voorbeeld",
     cta: {

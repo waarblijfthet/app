@@ -353,7 +353,21 @@ meer vindt, gaat de klus naar "af" en wordt de URL in Search Console ingediend.
 
 | Datum | Klus | Gebouwd | Toets in losse sessie | Status |
 |---|---|---|---|---|
-| | A, scheiden | | | |
-| | B, twee auto's | | | |
-| | C, samengesteld gezin | | | |
-| | D, schaamte | | | |
+| 18-aug-2026 | A, scheiden | `scheiden-goed-inkomen-toch-niks-over`, component `TweeHuishoudensVergelijker.tsx`. Verdwenen bedrag met node handmatig nagerekend: bij €6.000 en 2 kinderen blijft het €1.707 bij verdeling 30/50/70, alleen wie negatief uitkomt verandert. | nog niet gedaan | klaar voor toets |
+| 18-aug-2026 | B, twee auto's | `twee-autos-wat-kost-de-tweede-echt`, component `TweedeAutoRekenaar.tsx`. SERP op google.nl gecontroleerd: ANWB, Nibud, autobladen, leasesites, Reddit, niemand legt het naast het huishoudbudget. Gat bevestigd, gebouwd. | nog niet gedaan | klaar voor toets |
+| 18-aug-2026 | C, samengesteld gezin | `samengesteld-gezin-twee-huishoudens-een-budget`, component `SamengesteldGezinRekenaar.tsx`. SERP op google.nl gecontroleerd: NN, Belastingdienst, Stiefgoed, relatiecoaches, allemaal over verdelen en regelen, niemand rekent deeltijdkinderen door. Gat bevestigd, gebouwd. | nog niet gedaan | klaar voor toets |
+| 18-aug-2026 | D, schaamte | `schamen-niet-rondkomen-goed-inkomen`, geen rekenlaag, alleen `AANTAL_ZONDER_LEK` tegen `RAPPORTEN.length`. Gratis analyse primair, Geldscan secundair. | nog niet gedaan | klaar voor toets |
+
+
+## 10. Opmerking bij oplevering 18-aug-2026
+
+`npx tsc --noEmit --incremental false` gaf exit 0, geen null bytes in de gewijzigde bestanden,
+`node scripts/generate-sitemap.mjs` is gedraaid (87 artikelen, sitemap en llms.txt bijgewerkt). Een
+volledige `next build` kon in deze sessie niet binnen de tool-timeout van 45 seconden per commando
+worden afgerond, dus de vier nieuwe pagina's zijn nog niet met een echte productiebuild
+gerenderd. Draai die zelf lokaal (`npm run build`) vóór de toets of de deploy, zodat een
+renderfout in een van de vier nieuwe content-componenten er niet doorheen glipt. De vier nieuwe
+URL's moeten na een succesvolle build met de hand in Search Console worden ingediend:
+`/inzichten/scheiden-goed-inkomen-toch-niks-over`, `/inzichten/twee-autos-wat-kost-de-tweede-echt`,
+`/inzichten/samengesteld-gezin-twee-huishoudens-een-budget`,
+`/inzichten/schamen-niet-rondkomen-goed-inkomen`.

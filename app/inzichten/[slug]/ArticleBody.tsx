@@ -78,6 +78,10 @@ import AchterafBetalenBkrRegistratie from "./content/achteraf-betalen-bkr-regist
 import WatKostAchterafBetalen from "./content/wat-kost-achteraf-betalen";
 import WatKostEenFinancieelCoach from "./content/wat-kost-een-financieel-coach";
 import VerschilBudgetcoachFinancieelCoach from "./content/verschil-budgetcoach-financieel-coach";
+import ScheidenGoedInkomenTochNiksOver from "./content/scheiden-goed-inkomen-toch-niks-over";
+import TweeAutosWatKostDeTweedeEcht from "./content/twee-autos-wat-kost-de-tweede-echt";
+import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-gezin-twee-huishoudens-een-budget";
+import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
   "alleen-wonen-goed-salaris-toch-krap": AlleenWonenGoedSalarisTochKrap,
@@ -160,6 +164,10 @@ const contentMap: Record<string, () => JSX.Element> = {
   "wat-kost-achteraf-betalen": WatKostAchterafBetalen,
   "wat-kost-een-financieel-coach": WatKostEenFinancieelCoach,
   "verschil-budgetcoach-financieel-coach": VerschilBudgetcoachFinancieelCoach,
+  "scheiden-goed-inkomen-toch-niks-over": ScheidenGoedInkomenTochNiksOver,
+  "twee-autos-wat-kost-de-tweede-echt": TweeAutosWatKostDeTweedeEcht,
+  "samengesteld-gezin-twee-huishoudens-een-budget": SamengesteldGezinTweeHuishoudensEenBudget,
+  "schamen-niet-rondkomen-goed-inkomen": SchamenNietRondkomenGoedInkomen,
 };
 
 export default function ArticleBody({ slug }: { slug: string }) {

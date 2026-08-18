@@ -95,6 +95,10 @@ export default function TweeverdienersTochKrap() {
       <p className="font-body text-text-soft" style={p}>
         Uit de praktijk: lees <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin de BSO-kosten omdraaide</a>.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        En reken de post die vaak het snelst meegroeit met twee inkomens door in{" "}
+        <Link href="/inzichten/twee-autos-wat-kost-de-tweede-echt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">twee auto&apos;s, wat kost de tweede echt</Link>.
+      </p>
     </>
   );
 }

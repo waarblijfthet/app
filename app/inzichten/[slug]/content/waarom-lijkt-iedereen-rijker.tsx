@@ -98,7 +98,8 @@ export default function WaaromLijktIedereenRijker() {
       <p className="font-body text-text-soft" style={p}>
         Lees ook{" "}
         <Link href="/inzichten/geldmythes-die-je-arm-houden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">vijf geldmythes die je arm houden</Link>{" "}en{" "}
-        <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch geldstress</Link>.
+        <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch geldstress</Link>. Voelt het vergelijken ook als schaamte, lees{" "}
+        <Link href="/inzichten/schamen-niet-rondkomen-goed-inkomen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">schamen dat je niet rondkomt met een goed inkomen</Link>.
       </p>
     </>
   );

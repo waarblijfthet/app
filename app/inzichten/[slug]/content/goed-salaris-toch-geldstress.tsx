@@ -170,6 +170,18 @@ export default function GoedSalarisTochGeldstress() {
         Het ligt dus niet aan jou, en het is om te buigen. Niet door meer te verdienen, maar door je
         geld een richting te geven.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Verdien je goed en schaam je je toch dat het niet lukt? Dat gevoel is geen bewijs dat je iets
+        fout doet, lees{" "}
+        <Link
+          href="/inzichten/schamen-niet-rondkomen-goed-inkomen"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          schamen dat je niet rondkomt met een goed inkomen
+        </Link>
+        .
+      </p>
 
       {/* Intern CTA */}
       <div

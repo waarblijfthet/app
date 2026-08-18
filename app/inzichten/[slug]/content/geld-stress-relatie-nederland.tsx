@@ -170,7 +170,7 @@ export default function GeldStressRelatieNederland() {
         </Link>{" "}
         helpt al om samen naar de cijfers te kijken, objectief en zonder oordeel.
       </p>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris en toch geldstress</Link> en <Link href="/inzichten/kosten-verdelen-samenwonen-ongelijk-inkomen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">kosten eerlijk verdelen bij een ongelijk inkomen</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris en toch geldstress</Link>, <Link href="/inzichten/kosten-verdelen-samenwonen-ongelijk-inkomen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">kosten eerlijk verdelen bij een ongelijk inkomen</Link> en, als het toch tot een scheiding komt, <Link href="/inzichten/scheiden-goed-inkomen-toch-niks-over" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">scheiden met een goed inkomen en toch niks over</Link>.</p>
     </>
   );
 }

@@ -77,6 +77,7 @@ export default function WatKostEenKindPerMaand() {
         Uit de praktijk: lees <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin de BSO-kosten omdraaide</a>.
       </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/is-3000-netto-genoeg-gezin" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">of €3.000 netto genoeg is voor een gezin</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Heb je ook kinderen die er maar een deel van de tijd zijn? Lees dan <Link href="/inzichten/samengesteld-gezin-twee-huishoudens-een-budget" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">samengesteld gezin: twee huishoudens in één budget</Link>.</p>
     </>
   );
 }
