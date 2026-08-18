@@ -34,14 +34,16 @@ export default function SamengesteldGezinTweeHuishoudensEenBudget() {
 
       <SamengesteldGezinRekenaar />
 
-      <h2 className="font-display" style={h2}>Waarom de vuistregel dit onderschat</h2>
+      <h2 className="font-display" style={h2}>Waarom de vuistregel hier geen scherp antwoord geeft</h2>
       <p className="font-body text-text-soft" style={p}>
         De rekenaar hierboven kan alleen hele kinderen tellen, niet een kind dat er de helft van de tijd is.
-        Dat is precies het probleem waar dit artikel over gaat: sommige kosten bewegen wél mee met de
-        kalender, de boodschappen bijvoorbeeld, en andere niet. Een eigen kamer, een sportclub, een stapel
-        kleding, die kosten blijven grotendeels overeind ook als een kind er maar de helft van de tijd is.
-        De vuistregel telt die posten per kind, niet per dag dat een kind aanwezig is, en onderschat een
-        deeltijdkind daardoor eerder dan dat hij hem overschat.
+        Dat is precies het probleem waar dit artikel over gaat: de vuistregel rekent per kind een vast
+        bedrag voor boodschappen en een vast bedrag voor de eigen bijdrage aan opvang, school en sport, en
+        kent geen aanwezigheidspercentage. Ze kan dus niet zeggen of jouw werkelijke kosten dichter bij het
+        basisbedrag liggen (alleen de kinderen die er altijd zijn) of bij het volledige bedrag (alle
+        kinderen meegeteld), alleen dat je ergens tussen die twee in valt. Een eigen kamer valt hier
+        overigens buiten: die zit niet in de kinderpost maar in de woonlast, en die vuistregel-post beweegt
+        helemaal niet mee met het aantal kinderen, deeltijd of niet.
       </p>
 
       <h2 className="font-display" style={h2}>Wat dit niet is</h2>
@@ -63,17 +65,10 @@ export default function SamengesteldGezinTweeHuishoudensEenBudget() {
         , dat artikel rekent de andere kant van dezelfde vraag door.
       </p>
 
-      <div style={{ backgroundColor: "#E7F1EE", borderRadius: "16px", padding: "1.5rem", marginTop: "2rem", marginBottom: "2.5rem" }}>
-        <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je jullie eigen samengestelde gezin laten narekenen? Bij de geldscan kijk ik persoonlijk naar
-          je cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen.
-        </p>
-        <Link href="/geldscan?situatie=gezin" className="btn-primary">Zie wat je krijgt voor €49 &rarr;</Link>
-      </div>
-
-      <p className="font-body text-text-soft" style={p}>
-        Vergelijkingsbedragen op basis van de vijf huishoudens die ik zelf heb doorgerekend, zie{" "}
-        <Link href="/rapporten" style={linkStyle} className="hover:underline">Rapporten</Link>.
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Dit is de bandbreedte waarin jouw budget valt, en dit is wat er nog overblijft aan beide kanten.
+        Een rapport met je eigen afschriften vertelt je preciezer waar je in die bandbreedte zit dan een
+        vuistregel dat kan.
       </p>
     </>
   );

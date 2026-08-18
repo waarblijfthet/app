@@ -94,7 +94,7 @@ export interface Artikel {
  * FAQ-antwoorden hieronder, werkregel 2: elk bedrag komt uit dezelfde functie
  * die de rekenaar en de bedragentabel op het 4.000-artikel gebruiken.
  */
-import { berekenVuistregel, omslagpunt, euro, VERVOER } from "./salaris-vuistregel";
+import { berekenVuistregel, omslagpunt, euro, VERVOER, VUISTREGEL } from "./salaris-vuistregel";
 import { RAPPORTEN, rapportVoorSlug, AANTAL_ZONDER_LEK } from "./rapporten-data";
 import {
   BRUTO_VOOR_NETTO,
@@ -242,6 +242,7 @@ export const artikelen: Artikel[] = [
         { naam: "Wonen en vaste lasten", bedrag: SCHEIDEN_VASTE_LASTEN_DELTA, kleur: "#16211F" },
         { naam: "Boodschappen", bedrag: SCHEIDEN_BOODSCHAPPEN_DELTA, kleur: "#0A6A5F" },
         { naam: "Vervoer, bij elk een auto", bedrag: SCHEIDEN_VERVOER_DELTA, kleur: "#0B7A6E" },
+        { naam: "Abonnementen, twee keer", bedrag: VUISTREGEL.abonnementen, kleur: "#5A6B66" },
       ],
       noot: "Voorbeeld bij €6.000 netto en twee kinderen, verdeling maakt voor dit totaal niets uit.",
     },
@@ -277,7 +278,7 @@ export const artikelen: Artikel[] = [
     cta: {
       kop: "Wil je niet alleen de auto, maar je hele budget laten narekenen?",
       tekst:
-        "De rekenaar hierboven werkt met een vuistregel op vijf huishoudens, niet met jouw cijfers. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
+        `De rekenaar hierboven werkt met een vuistregel op ${RAPPORTEN.length} huishoudens, niet met jouw cijfers. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.`,
       primairLabel: "Bekijk de Geldscan",
       primairHref: "/geldscan?situatie=gezin",
       secundairLabel: "Eerst gratis zelf kijken",

@@ -40,17 +40,17 @@ export default function SchamenNietRondkomenGoedInkomen() {
       <h2 className="font-display" style={h2}>Waarom een goed salaris de schaamte groter maakt</h2>
       <p className="font-body text-text-soft" style={p}>
         Bij een laag inkomen is niet rondkomen een erkend probleem, met hulp, regelingen en begrip. Bij een
-        goed inkomen is er niets van dat alles. Je verwacht van jezelf dat het klopt, en als het niet klopt,
-        is de eerste conclusie meestal dat jij iets verkeerd doet. Niet de vaste lasten, niet de opbouw van
-        je uitgaven, maar jij. Dat maakt het extra lastig om er hardop over te beginnen, ook tegen een
-        partner of vriend.
+        goed inkomen is er niets van dat alles: geen regeling, geen loket, geen vaste taal ervoor. Zonder
+        dat erkende kader is de vaste lasten of de opbouw van je uitgaven de schuld geven een minder
+        vanzelfsprekende eerste stap dan jezelf de schuld geven. Dat maakt het extra lastig om er hardop
+        over te beginnen, ook tegen een partner of vriend.
       </p>
 
       <h2 className="font-display" style={h2}>Wat ik in de praktijk zie</h2>
       <p className="font-body text-text-soft" style={p}>
-        Van de vijf huishoudens die ik zelf heb doorgerekend, met een goed inkomen en toch krap, bleek bij{" "}
-        {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length} dat er niets te repareren viel. Geen enkele
-        buitensporige vaste last, geen post die eruit sprong.{" "}
+        Van de {RAPPORTEN.length} huishoudens die ik zelf heb doorgerekend, met een goed inkomen en toch
+        krap, bleek bij {AANTAL_ZONDER_LEK} dat er niets te repareren viel. Geen enkele buitensporige
+        vaste last, geen post die eruit sprong.{" "}
         {RAPPORT && (
           <>Bij een stel zonder kinderen was de conclusie letterlijk: &ldquo;{RAPPORT.uitkomstKop}.&rdquo;
           Hun uitgaven pasten simpelweg niet bij het spaardoel dat ze zichzelf hadden gesteld.{" "}
@@ -61,9 +61,9 @@ export default function SchamenNietRondkomenGoedInkomen() {
         )}
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Dat is een kleine steekproef, vijf huishoudens, geen landelijk cijfer. Maar het laat wel zien dat
-        &ldquo;geen lek vinden&rdquo; een net zo reëel uitkomst is als &ldquo;wel een lek vinden&rdquo;. Het
-        gevoel van krapte zegt dus niet vooraf welke van de twee het bij jou wordt.
+        Dat is een kleine steekproef, {RAPPORTEN.length} huishoudens, geen landelijk cijfer. Maar het laat
+        wel zien dat &ldquo;geen lek vinden&rdquo; een net zo reëel uitkomst is als &ldquo;wel een lek
+        vinden&rdquo;. Het gevoel van krapte zegt dus niet vooraf welke van de twee het bij jou wordt.
       </p>
 
       <h2 className="font-display" style={h2}>Wat dit artikel niet doet</h2>
@@ -93,24 +93,24 @@ export default function SchamenNietRondkomenGoedInkomen() {
         . De gratis analyse zet je eigen uitgaven naast vergelijkbare huishoudens, zonder dat er meteen een
         oordeel bij hoort.
       </p>
-
-      <div style={{ backgroundColor: "#E7F1EE", borderRadius: "16px", padding: "1.5rem", marginTop: "2rem", marginBottom: "2.5rem" }}>
-        <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je weten of er bij jou wél iets te repareren valt, of dat het net als bij {AANTAL_ZONDER_LEK}{" "}
-          van de {RAPPORTEN.length} huishoudens die ik doorrekende meevalt? Begin met de gratis analyse.
-          Wil je dat ik er zelf naar kijk en opschrijf wat opvalt, dat kan bij de Geldscan.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3">
-          <Link href="/analyse" className="btn-primary">Doe de gratis analyse &rarr;</Link>
-          <Link href="/geldscan" style={{ ...linkStyle, border: "1.5px solid #16211F", color: "#16211F", borderRadius: "4px", padding: "0.75rem 1.25rem" }} className="inline-flex items-center justify-center font-body text-sm font-medium">
-            Liever dat ik meekijk? Geldscan, €49
-          </Link>
-        </div>
-      </div>
-
       <p className="font-body text-text-soft" style={p}>
-        Vergelijkingsbedragen op basis van de vijf huishoudens die ik zelf heb doorgerekend, zie{" "}
-        <Link href="/rapporten" style={linkStyle} className="hover:underline">Rapporten</Link>.
+        Voelt het gevoel van tekortschieten losser te staan van je werkelijke cijfers dan je zou verwachten,
+        lees dan{" "}
+        <Link href="/inzichten/money-dysmorphia-uitleg" style={linkStyle} className="hover:underline">
+          money dysmorphia uitgelegd
+        </Link>
+        . En voor de volledige uitwerking van waar het geld bij een goed inkomen daadwerkelijk blijft, met
+        bedragen, staat mijn artikel{" "}
+        <Link href="/inzichten/goed-salaris-toch-krap" style={linkStyle} className="hover:underline">
+          goed salaris, maar toch niet rondkomen
+        </Link>
+        .
+      </p>
+
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Het gevoel dat je iets fout doet, is niet hetzelfde als iets fout doen. Begin met de gratis analyse
+        en zie je eigen cijfers naast vergelijkbare huishoudens, zonder oordeel. Wil je dat ik er zelf naar
+        kijk en opschrijf wat opvalt, en wat juist niet, dan kan dat bij de Geldscan.
       </p>
     </>
   );

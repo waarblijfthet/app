@@ -81,7 +81,9 @@ export default function AutoKopenOfLeasenKostenPerMaand() {
       <p className="font-body text-text-soft" style={p}>
         Wil je precies weten wat die tweede auto bij jouw eigen inkomen en huishouden kost, in plaats
         van een vast bedrag? Reken het door in{" "}
-        <Link href="/inzichten/twee-autos-wat-kost-de-tweede-echt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">twee auto&apos;s, wat kost de tweede echt</Link>.
+        <Link href="/inzichten/twee-autos-wat-kost-de-tweede-echt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">twee auto&apos;s, wat kost de tweede echt</Link>. De bedragen daar liggen lager dan hierboven,
+        omdat die rekenaar met de werkelijke maandelijkse uitgaven van huishoudens werkt en niet met de
+        afschrijving die de ANWB hier wél meerekent.
       </p>
 
       <h2 className="font-display" style={h2}>

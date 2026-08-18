@@ -1,4 +1,16 @@
 import Link from "next/link";
+import { omslagpunt, euro } from "@/lib/salaris-vuistregel";
+
+/**
+ * Fix 18-aug-2026: de toetsronde op batch 1 (docs/artikel-bouwprompts-batch1-18-aug-2026.md)
+ * vond een tegenspraak tussen dit artikel en het nieuwe "scheiden-goed-inkomen-toch-niks-over":
+ * dit artikel noemde €3.000-3.500 als genoeg voor een alleenstaande ouder met twee kinderen,
+ * terwijl de vuistregel die de rest van de site gebruikt daar een omslagpunt van €4.000 geeft.
+ * Vervangen door omslagpunt() zelf, zodat dit artikel niet opnieuw uit de pas kan lopen met
+ * lib/salaris-vuistregel.ts.
+ */
+const OMSLAGPUNT_EEN_KIND = omslagpunt(1, 1, "eigen");
+const OMSLAGPUNT_TWEE_KINDEREN = omslagpunt(1, 2, "eigen");
 
 const h2 = {
   fontSize: "1.6rem",
@@ -62,7 +74,11 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
       </p>
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Kort gezegd: als alleenstaande ouder heb je in een middelgrote stad al snel 2.600 tot 3.000 euro netto per maand nodig voor een kind, inclusief een kleine buffer. Toeslagen en de ALO-kop maken een groot verschil. Hieronder de kosten en regelingen op een rij.
+        Kort gezegd: volgens de vuistregel die ik voor de hele site gebruik ligt het omslagpunt, het
+        bedrag waarboven dit huishouden niet meer in de min staat, voor een alleenstaande ouder met één
+        kind op {euro(OMSLAGPUNT_EEN_KIND)} netto per maand. Reken daar zelf nog een buffer bovenop.
+        Toeslagen en de ALO-kop maken een groot verschil in wat je bruto daarvoor moet verdienen. Hieronder
+        de kosten en regelingen op een rij.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -125,10 +141,10 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Na toeslagen en kinderbijslag is het beeld gunstiger dan het bruto getal doet vermoeden.
-        Maar het klinische antwoord is: een alleenstaande ouder met één kind heeft in een
-        middelgrote stad realistisch gezien minimaal €2.600-€3.000 netto per maand nodig om
-        rondom te komen en een kleine buffer op te bouwen. Met twee kinderen loopt dat op naar
-        €3.000-€3.500.
+        Maar het klinische antwoord, volgens de vuistregel die ik voor de hele site gebruik: een
+        alleenstaande ouder met één kind heeft minimaal {euro(OMSLAGPUNT_EEN_KIND)} netto per maand nodig
+        om niet in de min te staan, vóór een buffer. Met twee kinderen ligt dat omslagpunt op{" "}
+        {euro(OMSLAGPUNT_TWEE_KINDEREN)}.
       </p>
       <p className="font-body text-text-soft" style={p}>
         In de Randstad zijn die grenzen €300-500 hoger door de hogere huurprijzen. En in de

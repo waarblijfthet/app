@@ -62,7 +62,7 @@ export default function ScheidenGoedInkomenTochNiksOver() {
         <div className="rounded-xl border p-4 my-6" style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}>
           <p className="font-body text-sm" style={{ color: "#16211F" }}>
             <strong>Uit de praktijk.</strong> Bij een alleenstaande ouder met twee kinderen die ik doorrekende,
-            de kinderen wonen 80 procent van de tijd bij haar, was de eigen inschatting vooraf: &ldquo;
+            de kinderen wonen {RAPPORT.kenmerken.find((k) => k.includes("procent"))}, was de eigen inschatting vooraf: &ldquo;
             {RAPPORT.vermoedenBedrag}&rdquo; Mijn conclusie na haar rapport: &ldquo;{RAPPORT.uitkomstKop}.&rdquo;{" "}
             <Link href={`/rapporten/${RAPPORT.slug}`} style={linkStyle} className="hover:underline">Lees haar rapport</Link>.
           </p>
@@ -98,14 +98,11 @@ export default function ScheidenGoedInkomenTochNiksOver() {
         de posten waar je als één inkomen mee te maken krijgt.
       </p>
 
-      <div style={{ backgroundColor: "#E7F1EE", borderRadius: "16px", padding: "1.5rem", marginTop: "2rem", marginBottom: "2.5rem" }}>
-        <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je weten hoe het bij jouw twee huishoudens precies zit? Bij de geldscan kijk ik persoonlijk naar
-          je cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, en met wat er
-          juist niet uit de toon valt.
-        </p>
-        <Link href="/geldscan?situatie=alleenstaande-ouder" className="btn-primary">Zie wat je krijgt voor €49 &rarr;</Link>
-      </div>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Dit is het bedrag dat er bij jouw inkomen en jouw kinderen verdwijnt, en dit is bij wie van de twee
+        het gat valt. Een rapport met je eigen afschriften laat zien of het er bij jullie precies zo uitziet,
+        of dat er nog iets te schuiven is.
+      </p>
     </>
   );
 }

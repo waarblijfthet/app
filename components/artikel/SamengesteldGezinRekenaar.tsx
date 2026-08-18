@@ -116,13 +116,14 @@ export default function SamengesteldGezinRekenaar({
         {deeltijdKinderen > 0 ? (
           <div className="rounded-lg p-3" style={{ backgroundColor: "#FDF3E3" }}>
             <p className="font-body text-sm mb-1" style={{ color: "#92600A" }}>
-              Het verschil is {euro(gat)} per maand, waarvan {euro(boodschappenDelta)} boodschappen die
-              meebewegen met de dagen dat de kinderen er zijn, en {euro(kinderkostenDelta)} kamer, sport en
-              kleding, die niet vanzelf halveren als een kind er de helft van de tijd is.
+              Het verschil is {euro(gat)} per maand: {euro(boodschappenDelta)} boodschappen en{" "}
+              {euro(kinderkostenDelta)} eigen bijdrage aan opvang, school en sport, allebei berekend als
+              een vast bedrag per kind.
             </p>
             <p className="font-body text-xs" style={{ color: "#5A6B66" }}>
-              De vuistregel telt hierboven alleen hele kinderen. In werkelijkheid val je hier ergens
-              tussenin, en waarschijnlijk dichter bij het volledige bedrag dan bij het basisbedrag.
+              De vuistregel telt hierboven alleen hele kinderen, niet een aanwezigheidspercentage. Ze kan
+              dus niet zeggen of jouw werkelijke kosten dichter bij het basisbedrag of bij het volledige
+              bedrag liggen, alleen dat je ergens tussen die twee in valt.
             </p>
           </div>
         ) : (
@@ -134,9 +135,9 @@ export default function SamengesteldGezinRekenaar({
         {RAPPORT && (
           <div className="rounded-lg p-3 mt-3" style={{ backgroundColor: "#F7F8F7", border: "1px solid #E6E9E7" }}>
             <p className="font-body text-sm" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.6 }}>
-              Bij een alleenstaande ouder die ik doorrekende wonen de kinderen 80 procent van de tijd bij
-              haar, het enige echte co-ouderschapsgegeven dat ik in een rapport heb. Mijn conclusie daar:
-              &ldquo;{RAPPORT.uitkomstKop}.&rdquo;{" "}
+              Bij een alleenstaande ouder die ik doorrekende wonen de kinderen{" "}
+              {RAPPORT.kenmerken.find((k) => k.includes("procent"))}, het enige echte co-ouderschapsgegeven
+              dat ik in een rapport heb. Mijn conclusie daar: &ldquo;{RAPPORT.uitkomstKop}.&rdquo;{" "}
               <Link href={`/rapporten/${RAPPORT.slug}`} className="hover:underline" style={{ color: "#0B7A6E" }}>Lees haar rapport</Link>.
             </p>
           </div>

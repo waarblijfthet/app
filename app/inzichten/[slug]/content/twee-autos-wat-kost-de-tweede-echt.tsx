@@ -63,6 +63,13 @@ export default function TweeAutosWatKostDeTweedeEcht() {
         </Link>
         . Hier gaat het alleen over wat de tweede auto doet met wat er van je inkomen overblijft.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Let op: de bedragen in dat artikel liggen hoger dan de rekenaar hierboven. Dat komt doordat de ANWB
+        de afschrijving van de auto meerekent, de waardevermindering waar geen maandelijkse rekening voor
+        binnenkomt, terwijl de vervoerspost hier komt uit de werkelijke maandelijkse uitgaven (brandstof,
+        verzekering, wegenbelasting, onderhoud) van de huishoudens die ik doorrekende. Beide bedragen zijn
+        juist, ze meten alleen niet precies dezelfde kosten.
+      </p>
 
       <h2 className="font-display" style={h2}>Wat wél helpt</h2>
       <p className="font-body text-text-soft" style={p}>
@@ -75,13 +82,11 @@ export default function TweeAutosWatKostDeTweedeEcht() {
         .
       </p>
 
-      <div style={{ backgroundColor: "#E7F1EE", borderRadius: "16px", padding: "1.5rem", marginTop: "2rem", marginBottom: "2.5rem" }}>
-        <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je niet alleen de auto, maar je hele budget laten narekenen? Bij de geldscan kijk ik
-          persoonlijk naar je cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen.
-        </p>
-        <Link href="/geldscan?situatie=gezin" className="btn-primary">Zie wat je krijgt voor €49 &rarr;</Link>
-      </div>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Dit is het bedrag dat de tweede auto bij jouw inkomen en huishouden kost, en dit is wat er dan nog
+        overblijft. Een rapport met je eigen afschriften laat zien of vervoer bij jullie de post is die
+        opvalt, of dat het ergens anders zit.
+      </p>
     </>
   );
 }
