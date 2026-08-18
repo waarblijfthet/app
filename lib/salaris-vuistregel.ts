@@ -113,7 +113,7 @@ export function berekenVuistregel({
  * Reden (17-aug-2026): dit stond eerst alleen lokaal in
  * `components/artikel/SalarisBedragenTabel.tsx`. Het 4.000-euro-artikel over
  * "waarom kom ik er niet mee uit" heeft exact hetzelfde omslagpunt nodig. Twee
- * plekken die allebei zelf "4.080" uitrekenen kunnen na een wijziging in
+ * plekken die allebei zelf het omslagpunt uitrekenen kunnen na een wijziging in
  * `VUISTREGEL` uit elkaar gaan lopen zonder dat iemand dat op het scherm ziet.
  * Vandaar hierheen verplaatst, één berekening voor alle artikelen.
  *
@@ -127,7 +127,7 @@ export function omslagpunt(
 ): number {
   for (let i = 2000; i <= 12000; i += 1) {
     if (berekenVuistregel({ inkomen: i, volwassenen, kinderen, auto }).verwachtOver >= 0) {
-      return Math.round(i / 10) * 10;
+      return Math.ceil(i / 10) * 10;
     }
   }
   return 0;

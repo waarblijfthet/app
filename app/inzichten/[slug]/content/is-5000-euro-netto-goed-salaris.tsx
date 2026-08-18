@@ -1,5 +1,14 @@
 import Link from "next/link";
 import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
+import { euro } from "@/lib/salaris-vuistregel";
+import {
+  BRUTO_VOOR_NETTO,
+  BRUTO_VOOR_NETTO_SAMEN,
+  EENVERDIENER_MEERKOSTEN_5000,
+  SCHIJFGRENS_2,
+  TARIEF_SCHIJF_3,
+  MARGINAAL_BOVEN_SCHIJFGRENS_2,
+} from "@/lib/bruto-netto-referentie";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -38,27 +47,34 @@ export default function Is5000EuroNettoGoedSalaris() {
         bijna iedereen denkt. Reken mee.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Voor €4.000 netto per maand heb je als alleenverdiener ongeveer €65.000 bruto per jaar nodig. Wil
-        je van daar naar €5.000 netto, dan moet er €12.000 netto per jaar bij. Maar boven de tweede
-        schijfgrens van €78.426 betaal je 49,50 procent belasting over elke extra euro. Van elke bruto euro
-        houd je daar dus ongeveer vijftig cent over. Om €12.000 netto extra te krijgen moet er dan bijna
-        €24.000 bruto bij, en kom je uit rond de €90.000 bruto per jaar.
+        Voor €4.000 netto per maand heb je als alleenverdiener ongeveer {euro(BRUTO_VOOR_NETTO[4000])} bruto
+        per jaar nodig, met het vakantiegeld daar bovenop. Wil je van daar naar €5.000 netto per maand, dan
+        kom je uit rond {euro(BRUTO_VOOR_NETTO[5000])}. Er moet dus
+        {" "}{euro(BRUTO_VOOR_NETTO[5000] - BRUTO_VOOR_NETTO[4000])} bruto bij om €1.000 netto per maand te
+        winnen. Dat komt door wat er boven de tweede schijfgrens van {euro(SCHIJFGRENS_2)} gebeurt: je betaalt
+        daar {(TARIEF_SCHIJF_3 * 100).toLocaleString("nl-NL")} procent belasting, en daar bovenop bouwt je
+        arbeidskorting verder af. Samen is dat ongeveer
+        {" "}{Math.round(MARGINAAL_BOVEN_SCHIJFGRENS_2 * 100)} procent, dus van elke extra bruto euro houd je
+        daar ongeveer {Math.round((1 - MARGINAAL_BOVEN_SCHIJFGRENS_2) * 100)} cent over, niet vijftig.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Twee mensen die samen €5.000 netto verdienen, dus ieder €2.500, komen daar met ongeveer €78.000
-        bruto samen. Dat is grofweg €10.000 bruto per jaar minder voor exact hetzelfde bedrag op de
+        Twee mensen die samen €5.000 netto verdienen, dus ieder €2.500, komen daar met ongeveer
+        {" "}{euro(BRUTO_VOOR_NETTO_SAMEN[5000])} bruto samen. Dat is
+        {" "}{euro(EENVERDIENER_MEERKOSTEN_5000)} bruto per jaar minder voor exact hetzelfde bedrag op de
         rekening, omdat ieder van hen zijn eigen heffingskortingen en zijn eigen lagere schijven gebruikt.
       </p>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Dezelfde €5.000 netto kost als eenverdiener dus ongeveer €10.000 bruto per jaar meer dan als
-        tweeverdieners. Dat is geen fout in je situatie, dat is hoe het stelsel werkt. Wel verklaart het
+        Dezelfde €5.000 netto kost als eenverdiener dus ongeveer
+        {" "}{euro(EENVERDIENER_MEERKOSTEN_5000)} bruto per jaar meer dan als tweeverdieners. Dat is geen fout in je situatie, dat is hoe het stelsel werkt. Wel verklaart het
         waarom een eenverdiener met €5.000 netto vaak het gevoel heeft harder te werken voor minder
         resultaat: dat gevoel is juist.
       </p>
       <p className="font-body text-sm" style={{ ...p, color: "#8B958F" }}>
-        Gerekend met de tweede schijf van 49,50 procent boven €78.426 (2026) en met de vuistregel dat
-        €4.000 netto ongeveer €65.000 bruto vraagt. Dit is een berekening, geen tabel van de
-        Belastingdienst: heffingskortingen, pensioenpremie en arbeidsvoorwaarden schuiven het per persoon.
+        Gerekend met de tarieven en heffingskortingen van 2026 (Belastingdienst, geraadpleegd 18 augustus
+        2026). De netto maandbedragen zijn wat er twaalf keer per jaar binnenkomt, met 8 procent vakantiegeld
+        daar los bovenop. Dit is een eigen berekening en geen tabel van de Belastingdienst: pensioenpremie,
+        auto van de zaak en andere arbeidsvoorwaarden schuiven het per persoon. De herkomst staat in
+        lib/bruto-netto-referentie.ts.
       </p>
 
       <h2 className="font-display" style={h2}>

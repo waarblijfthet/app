@@ -41,7 +41,7 @@ export default function HuishoudboekjeVoorbeeld() {
     <>
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort antwoord: een huishoudboekje maken is in vijf minuten geregeld, met een gratis
-        sjabloon van Rabobank of Nibud, of met het overzicht van 38 varianten bij Wijzer in
+        sjabloon van Rabobank of Nibud, of met het overzicht van de 30 meest gebruikte huishoudboekjes bij Wijzer in
         geldzaken. Het sjabloon is niet waar het misgaat. Na een paar maanden bijhouden weet je
         precies wat er wegging, en dat is niet hetzelfde als weten of dat veel is.
       </p>
@@ -76,7 +76,7 @@ export default function HuishoudboekjeVoorbeeld() {
         <a href="https://www.nibud.nl/tools/stappenplan-kasboek-maken/" target="_blank" rel="noopener noreferrer" className="hover:underline" style={linkStyle}>
           stappenplan van Nibud
         </a>
-        , of het overzicht van 38 varianten bij{" "}
+        , of het overzicht van de 30 meest gebruikte huishoudboekjes bij{" "}
         <a href="https://www.wijzeringeldzaken.nl/huishoudboekjes/" target="_blank" rel="noopener noreferrer" className="hover:underline" style={linkStyle}>
           Wijzer in geldzaken
         </a>

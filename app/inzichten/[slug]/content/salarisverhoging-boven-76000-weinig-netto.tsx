@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { euro } from "@/lib/salaris-vuistregel";
+import { BRUTO_VOOR_NETTO, EENVERDIENER_MEERKOSTEN_5000 } from "@/lib/bruto-netto-referentie";
 
 const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
@@ -151,8 +153,8 @@ export default function SalarisverhoginBoven76000() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dit is ook de reden dat de stap naar een hoog nettobedrag zoveel bruto kost. Wie €5.000 netto per
-        maand wil overhouden, heeft als eenverdiener ongeveer €90.000 bruto per jaar nodig, terwijl twee
-        inkomens samen daar met ruwweg €10.000 minder komen. Dat staat uitgerekend in{" "}
+        maand wil overhouden, heeft als eenverdiener ongeveer {euro(BRUTO_VOOR_NETTO[5000])} bruto per jaar nodig,
+        terwijl twee inkomens samen daar met {euro(EENVERDIENER_MEERKOSTEN_5000)} minder komen. Dat staat uitgerekend in{" "}
         <Link href="/inzichten/is-5000-euro-netto-goed-salaris" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
           is €5.000 netto een goed salaris
         </Link>

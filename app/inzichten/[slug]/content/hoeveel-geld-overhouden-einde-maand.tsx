@@ -115,8 +115,7 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
         De doorsnee Nederlander heeft ongeveer €21.500 op de spaarrekening (CBS, 2024). Het
         gemiddelde ligt veel hoger, rond €54.700, maar dat komt doordat een kleine groep met veel
         spaargeld het gemiddelde omhoog trekt. De mediaan, die €21.500, geeft een eerlijker beeld
-        van de doorsnee. Tegelijk heeft ongeveer een op de vijf huishoudens minder dan €1.000
-        achter de hand. De spreiding is dus enorm, en daarom is vergelijken met een gemiddelde
+        van de doorsnee. De spreiding is enorm, en daarom is vergelijken met een gemiddelde
         weinig waard.
       </p>
 

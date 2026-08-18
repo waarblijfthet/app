@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { RAPPORTEN, rapportVoorSlug } from "@/lib/rapporten-data";
+import { VUISTREGEL, euro } from "@/lib/salaris-vuistregel";
 
 const h2 = { fontSize: "1.6rem", color: "#16211F", marginTop: "2.5rem", marginBottom: "1rem", fontWeight: 300 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
@@ -65,9 +66,9 @@ export default function GoedsalarisTochKrap() {
         De meeste mensen kennen hun grote vaste lasten: huur of hypotheek,
         verzekeringen, energie. Maar de categorie daaronder is verraderlijk.
         Streamingdiensten, sportabonnementen, apps, telefoonabonnementen, die
-        stapelen zich op zonder dat je het bewust doorhebt. Een gemiddeld
-        huishouden betaalt inmiddels meer dan €200 per maand aan abonnementen,
-        terwijl de meesten het op de helft schatten. Zie ook wat{" "}
+        stapelen zich op zonder dat je het bewust doorhebt. In mijn eigen vuistregel
+        reken ik met {euro(VUISTREGEL.abonnementen)} per maand aan abonnementen. Dat
+        klinkt bescheiden, tot je het over een heel jaar optelt. Zie ook wat{" "}
         <Link href="/inzichten/wat-zijn-normale-vaste-lasten-gezin" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">normale vaste lasten voor een gezin</Link>{" "}zijn.
       </p>
 

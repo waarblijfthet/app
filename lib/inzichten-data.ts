@@ -95,7 +95,15 @@ export interface Artikel {
  * die de rekenaar en de bedragentabel op het 4.000-artikel gebruiken.
  */
 import { berekenVuistregel, omslagpunt, euro } from "./salaris-vuistregel";
-import { RAPPORTEN, rapportVoorSlug } from "./rapporten-data";
+import { RAPPORTEN, rapportVoorSlug, AANTAL_ZONDER_LEK } from "./rapporten-data";
+import {
+  BRUTO_VOOR_NETTO,
+  BRUTO_VOOR_NETTO_SAMEN,
+  EENVERDIENER_MEERKOSTEN_5000,
+  SCHIJFGRENS_2,
+  TARIEF_SCHIJF_3,
+  MARGINAAL_BOVEN_SCHIJFGRENS_2,
+} from "./bruto-netto-referentie";
 
 const NR4K_INKOMEN = 4000;
 const NR4K_GEZIN = berekenVuistregel({
@@ -1673,13 +1681,17 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel spaargeld heeft de gemiddelde Nederlander?",
         antwoord:
-          "De doorsnee Nederlander heeft ongeveer €21.500 op de spaarrekening (CBS, 2024). Het gemiddelde ligt rond €54.700, maar dat is vertekend door een kleine groep met veel spaargeld. Tegelijk heeft ongeveer een op de vijf huishoudens minder dan €1.000 achter de hand.",
+          "De doorsnee Nederlander heeft ongeveer €21.500 op de spaarrekening (CBS, 2024). Het gemiddelde ligt rond €54.700, maar dat is vertekend door een kleine groep met veel spaargeld.",
       },
     ],
     externLinks: [
       {
         label: "CBS: vermogen van huishoudens 2024",
         url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/vermogen-van-huishoudens/",
+      },
+      {
+        label: "CBS tabel 83834NED: bank- en spaartegoeden huishoudens 2024 (voorlopig)",
+        url: "https://www.cbs.nl/nl-nl/cijfers/detail/83834NED",
       },
       {
         label: "Nibud: stappenplan maandelijks sparen",
@@ -2972,7 +2984,7 @@ export const artikelen: Artikel[] = [
       "Is €5.000 netto een goed salaris? Ja, en dit is wat je er bruto voor moet verdienen",
     metaTitel: "Is €5.000 netto een goed salaris? (2026)",
     metaDescription:
-      "€5.000 netto is een hoog salaris. Als eenverdiener kost dat ongeveer €90.000 bruto, met twee inkomens ruim €10.000 minder. Waarom het toch niet voelt als een hoog inkomen.",
+      `€5.000 netto is een hoog salaris. Als eenverdiener kost dat ongeveer ${euro(BRUTO_VOOR_NETTO[5000])} bruto, met twee inkomens ${euro(EENVERDIENER_MEERKOSTEN_5000)} minder. Waarom het toch niet voelt als een hoog inkomen.`,
     datum: "2026-07-30",
     datumFormatted: "30 juli 2026",
     leestijd: "7",
@@ -2997,7 +3009,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Hoeveel moet je bruto verdienen voor €5.000 netto per maand?",
         antwoord:
-          "Als eenverdiener ongeveer €90.000 bruto per jaar. Voor €4.000 netto is ongeveer €65.000 bruto nodig, en boven de tweede schijfgrens van €78.426 houd je van elke extra bruto euro ongeveer vijftig cent over. Er moet dus bijna €24.000 bruto bij om €12.000 netto per jaar te winnen. Twee mensen die samen €5.000 netto verdienen komen daar met ongeveer €78.000 bruto samen, doordat ieder zijn eigen heffingskortingen en lagere schijven gebruikt.",
+          `Als eenverdiener ongeveer ${euro(BRUTO_VOOR_NETTO[5000])} bruto per jaar. Voor €4.000 netto is ongeveer ${euro(BRUTO_VOOR_NETTO[4000])} bruto nodig, en boven de tweede schijfgrens van ${euro(SCHIJFGRENS_2)} houd je van elke extra bruto euro ongeveer ${Math.round((1 - MARGINAAL_BOVEN_SCHIJFGRENS_2) * 100)} cent over: ${(TARIEF_SCHIJF_3 * 100).toLocaleString("nl-NL")} procent belasting plus de afbouw van je arbeidskorting. Twee mensen die samen €5.000 netto verdienen komen daar met ongeveer ${euro(BRUTO_VOOR_NETTO_SAMEN[5000])} bruto samen, doordat ieder zijn eigen heffingskortingen en lagere schijven gebruikt.`,
       },
       {
         vraag: "Waarom voelt €5.000 netto niet als een hoog inkomen?",
@@ -3167,22 +3179,22 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Is €3.500 netto genoeg om van rond te komen?",
         antwoord:
-          "Voor iemand alleen wel, met ongeveer €395 per maand over volgens mijn vuistregel. Voor een gezin met twee kinderen komt de rekensom op €3.500 netto ruim €375 per maand tekort; dat huishouden komt pas rond €4.080 uit op nul. Hetzelfde salaris, twee compleet verschillende antwoorden, en dat komt door het huishouden en niet door het bedrag.",
+          `Voor iemand alleen wel, met ongeveer ${euro(berekenVuistregel({ inkomen: 3500, volwassenen: 1, kinderen: 0, auto: "eigen" }).verwachtOver)} per maand over volgens mijn vuistregel. Voor een gezin met twee kinderen komt de rekensom op €3.500 netto ${euro(Math.abs(berekenVuistregel({ inkomen: 3500, volwassenen: 2, kinderen: 2, auto: "eigen" }).verwachtOver))} per maand tekort; dat huishouden komt pas rond ${euro(omslagpunt(2, 2))} uit op nul. Hetzelfde salaris, twee compleet verschillende antwoorden, en dat komt door het huishouden en niet door het bedrag.`,
       },
       {
         vraag: "Wat is het verschil tussen €4.000, €4.200 en €4.300 netto per maand?",
         antwoord:
-          "Minder dan je zou verwachten. Honderd euro extra netto levert ongeveer €57 tot €65 extra ruimte op, omdat een deel automatisch meegroeit in wonen en vrije tijd. Eén uitzondering is belangrijk: voor een gezin met twee kinderen ligt precies in deze bandbreedte het omslagpunt, want rond €4.080 gaat de som van een klein tekort naar een klein overschot. Verder verandert het huishouden de uitkomst veel harder dan honderd euro salaris.",
+          `Minder dan je zou verwachten. Honderd euro extra netto levert ongeveer €57 tot €65 extra ruimte op, omdat een deel automatisch meegroeit in wonen en vrije tijd. Eén uitzondering is belangrijk: voor een gezin met twee kinderen ligt precies in deze bandbreedte het omslagpunt, want rond ${euro(omslagpunt(2, 2))} gaat de som van een klein tekort naar een klein overschot. Verder verandert het huishouden de uitkomst veel harder dan honderd euro salaris.`,
       },
       {
         vraag: "Verdient Jan Modaal €4.000 netto in 2026?",
         antwoord:
-          "Nee. Jan Modaal verdient in 2026 bruto €48.000 per jaar, ofwel €4.000 bruto per maand. Netto houdt hij daar €3.100 van over. Wie €4.000 netto verdient, heeft een bruto salaris van €65.000 of meer.",
+          `Nee. Jan Modaal verdient in 2026 bruto €48.000 per jaar, ofwel €4.000 bruto per maand. Netto houdt hij daar €3.100 van over. Wie €4.000 netto per maand verdient, heeft een bruto salaris vanaf ongeveer ${euro(BRUTO_VOOR_NETTO[4000])}.`,
       },
       {
         vraag: "Wie verdient €4.000 netto per maand?",
         antwoord:
-          "Vooral mensen die duidelijk boven modaal zitten. Om netto €4.000 over te houden heb je een bruto jaarinkomen nodig vanaf ongeveer €65.000. Ter vergelijking, het gemiddelde persoonlijke inkomen van hoogopgeleiden in Nederland lag in 2022 op bijna €58.000 bruto per jaar, tegen €34.000 voor middelbaar opgeleiden en €22.000 voor laagopgeleiden (CBS, Materiële welvaart in Nederland 2024, cijfers over 2022). Een bruto inkomen van €65.000 of meer ligt dus zelfs boven het gemiddelde van de hoogst opgeleide groep.",
+          `Vooral mensen die duidelijk boven modaal zitten. Om netto €4.000 per maand over te houden heb je een bruto jaarinkomen nodig vanaf ongeveer ${euro(BRUTO_VOOR_NETTO[4000])}. Ter vergelijking, het gemiddelde persoonlijke inkomen van hoogopgeleiden in Nederland lag in 2022 op bijna €58.000 bruto per jaar, tegen €34.000 voor middelbaar opgeleiden en €22.000 voor laagopgeleiden (CBS, Materiële welvaart in Nederland 2024, cijfers over 2022). Dat ligt dus ruim boven het gemiddelde van de hoogst opgeleide groep.`,
       },
     ],
     externLinks: [
@@ -3231,9 +3243,8 @@ export const artikelen: Artikel[] = [
     },
     faq: [
       {
-        vraag: "Hoeveel procent van de Nederlanders spaart helemaal niets?",
-        antwoord:
-          "Meer dan een kwart van de Nederlandse huishoudens spaart structureel niets, blijkt uit CBS-data en onderzoek van FinBuddy. Dat is niet uitzonderlijk, het is de werkelijkheid voor veel gezinnen met hoge vaste lasten en weinig overschot.",
+        vraag: "Is het normaal om helemaal niet te sparen?",
+        antwoord: `Ik heb geen bron gevonden die hard maakt hoeveel Nederlandse huishoudens structureel niets sparen, dus ik noem er geen percentage bij. Wat ik wel weet, komt uit de ${RAPPORTEN.length} huishoudens die ik zelf heb doorgerekend: bij ${AANTAL_ZONDER_LEK} van hen zat er na het narekenen geen enkel lek in de uitgaven. Dat er niets overblijft betekent dus niet automatisch dat er iets misgaat.`,
       },
       {
         vraag: "Hoeveel sparen Nederlanders gemiddeld per maand?",
