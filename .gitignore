@@ -24,3 +24,6 @@
 next-env.d.ts
 
 .vercel
+
+# Map voor bestanden die Jarno nog handmatig weggooit, nooit committen
+_to_delete/
