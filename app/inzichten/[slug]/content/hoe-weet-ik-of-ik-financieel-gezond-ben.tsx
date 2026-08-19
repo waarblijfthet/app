@@ -92,7 +92,7 @@ const SIGNALEN = [
 
 const GOED_INKOMEN_RISICOS = [
   "hogere woonlasten",
-  "duurdere auto&apos;s",
+  "duurdere auto's",
   "meer vakanties",
   "hogere vaste lasten",
   "meer vrij besteedbare uitgaven",
@@ -143,6 +143,10 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
         Dat klinkt logisch. Toch kijken veel mensen maar naar één onderdeel: hun salaris, hun
         spaargeld, of hun maandelijkse uitgaven. En daar ontstaat precies het probleem.
       </p>
+      <p className="font-body" style={pStrong}>
+        Je kunt financieel gezond zijn en toch weinig vermogen hebben. Je kunt goed verdienen en toch
+        weinig financiële ruimte hebben. Daarom is &ldquo;financieel gezond&rdquo; niet één getal.
+      </p>
 
       <h2 className="font-display" style={h2}>
         Wat betekent financieel gezond eigenlijk?
@@ -191,8 +195,12 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
           </div>
         ))}
       </div>
-      <p className="font-body text-sm" style={{ color: SOFT, marginBottom: "2rem" }}>
+      <p className="font-body text-sm" style={{ color: SOFT, marginBottom: "1rem" }}>
         Pas samen vertellen deze cijfers iets over je financiële situatie.
+      </p>
+      <p className="font-body" style={{ ...pStrong, marginBottom: "2rem" }}>
+        De vraag is uiteindelijk niet alleen of je financieel gezond bent. De vraag is of jouw
+        financiële situatie logisch is voor jouw inkomen, huishouden en doelen.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -218,6 +226,13 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
           </div>
         </div>
       ))}
+      <p className="font-body" style={pStrong}>
+        Zelfs als je op veel van deze punten goed scoort, weet je daarmee nog niet of je financiële
+        situatie relatief ruim, gemiddeld of krap is voor een huishouden zoals het jouwe.
+      </p>
+      <p className="font-body" style={p}>
+        Dat is precies de context die een algemene checklist mist.
+      </p>
 
       <SalarisRekenaar
         startInkomen={5500}
@@ -314,8 +329,12 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
       </div>
       <p className="font-body" style={p}>
         Het inkomen stijgt dan sneller dan het vermogen, of sneller dan de financiële ruimte. Je
-        verdient dus goed, maar je financiële situatie wordt niet automatisch evenredig sterker.
-        Woon je alleen, dan telt dit effect vaak nog directer door, zonder een tweede inkomen om het
+        verdient dus goed, maar je financiële situatie wordt niet automatisch evenredig sterker. Hoe
+        dat kan terwijl er niets geks aan de hand is, staat in{" "}
+        <Link href="/inzichten/goed-inkomen-weinig-vermogen" style={linkStyle}>
+          waarom een goed inkomen niet automatisch vermogen oplevert
+        </Link>
+        . Woon je alleen, dan telt dit effect vaak nog directer door, zonder een tweede inkomen om het
         op te vangen, zie ook{" "}
         <Link href="/inzichten/alleen-wonen-goed-salaris-toch-krap" style={linkStyle}>
           een goed salaris als alleenstaande en toch krap zitten
@@ -408,11 +427,11 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
 
       <div className="rounded-2xl p-6 sm:p-8 my-8" style={{ backgroundColor: WINE }}>
         <p className="font-display font-light" style={{ color: "#FFFFFF", fontSize: "1.5rem", marginBottom: "0.75rem" }}>
-          Wil je weten hoe jouw financiële situatie ervoor staat?
+          Hoe ziet dit er bij jouw huishouden uit?
         </p>
         <p className="font-body" style={{ color: "#FFFFFF", opacity: 0.92, fontWeight: 300, marginBottom: "1.25rem" }}>
-          De gratis analyse kijkt naar je volledige huishouden en laat zien waar jouw situatie
-          afwijkt. Niet alleen hoeveel je verdient, maar wat er werkelijk overblijft.
+          De gratis analyse laat zien waar jouw financiële situatie afwijkt en welke categorieën
+          relatief opvallen.
         </p>
         <Link
           href="/analyse"
@@ -448,6 +467,10 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
       <h2 className="font-display" style={h2}>
         Wanneer is de Geldscan interessant?
       </h2>
+      <p className="font-body" style={pStrong}>
+        De analyse geeft je het &ldquo;waar&rdquo;. De Geldscan geeft je het &ldquo;waarom&rdquo; en
+        &ldquo;wat nu&rdquo;.
+      </p>
       <p className="font-body" style={p}>
         De gratis analyse laat vooral zien waar jouw situatie afwijkt. Soms wil je daarna verder.
         Waarom wijkt jouw huishouden af? Is dat een probleem? Wat betekent het voor je financiële
@@ -476,6 +499,25 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
         Misschien betekent dat dat er iets moet veranderen. Maar misschien ook niet. Dat is precies
         wat je eerst moet uitzoeken.
       </p>
+
+      <div className="rounded-2xl p-6 sm:p-10 my-8" style={{ backgroundColor: WINE }}>
+        <p className="font-body" style={{ color: "#FFFFFF", fontWeight: 400, fontSize: "1.15rem", lineHeight: 1.6, marginBottom: 0 }}>
+          Financiële gezondheid is geen score die je ergens kunt opzoeken. Je moet weten hoe jouw
+          cijfers zich verhouden tot jouw werkelijkheid.
+        </p>
+      </div>
+      <div className="rounded-2xl p-6 sm:p-8 my-6" style={{ backgroundColor: OFFWHITE, border: `1.5px solid ${GOLD}` }}>
+        <Link
+          href="/analyse"
+          className="inline-flex items-center justify-center font-body text-sm font-medium"
+          style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
+        >
+          Doe de gratis analyse &rarr;
+        </Link>
+        <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
+          Gratis · vertrouwelijk · geen verkoopgesprek
+        </p>
+      </div>
     </>
   );
 }
