@@ -209,6 +209,8 @@ export default function Is4000EuroNettoGoedSalaris() {
       </p>
 
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/bruto-naar-netto-loonstrook-uitleg" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">van bruto naar netto</Link>, <Link href="/inzichten/netto-loonsverhoging-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je netto overhoudt van een loonsverhoging</Link> en <Link href="/inzichten/hoeveel-financiele-ruimte-heb-ik" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoeveel financiële ruimte dit salaris je eigenlijk geeft</Link>.</p>
+
+      <p className="font-body text-text-soft" style={p}>Verdien je dit al, maar merk je dat je vermogen er niet naar groeit? Lees dan <Link href="/inzichten/goed-inkomen-weinig-vermogen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waarom een goed inkomen niet vanzelf vermogen oplevert</Link>.</p>
     </>
   );
 }

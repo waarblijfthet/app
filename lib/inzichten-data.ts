@@ -214,6 +214,165 @@ const RAPPORT_TWEEVERDIENERS_DRIE_KINDEREN = rapportVoorSlug("tweeverdieners-dri
 
 export const artikelen: Artikel[] = [
   {
+    slug: "hoe-weet-ik-of-ik-financieel-gezond-ben",
+    cta: {
+      kop: "Wil je weten hoe jouw financiële situatie ervoor staat?",
+      tekst:
+        "De gratis analyse kijkt naar je volledige huishouden en laat zien waar jouw situatie afwijkt. Niet alleen hoeveel je verdient, maar wat er werkelijk overblijft.",
+      primairLabel: "Doe de gratis analyse",
+      primairHref: "/analyse",
+      secundairLabel: "Bekijk de Geldscan",
+      secundairHref: "/geldscan",
+    },
+    titel: "Hoe weet ik of ik financieel gezond ben?",
+    korteTitel: "Ben ik financieel gezond?",
+    metaTitel: "Hoe weet ik of ik financieel gezond ben? 7 signalen",
+    metaDescription:
+      "Goed verdienen betekent niet automatisch financieel gezond zijn. Ontdek welke 7 signalen echt iets zeggen over jouw financiële situatie.",
+    datum: "2026-08-19",
+    datumFormatted: "19 augustus 2026",
+    leestijd: "9",
+    categorie: "Inzicht",
+    excerpt:
+      "Een goed inkomen en geen schulden zeggen niet automatisch iets over je financiële gezondheid. Zeven signalen, twee huishoudens ter vergelijking, en waarom een gemiddelde vaak de verkeerde maatstaf is.",
+    preview: {
+      type: "pijn",
+      label: "7 signalen van financiële gezondheid",
+      items: [
+        "Je weet wat er structureel binnenkomt en uitgaat",
+        "Er blijft maandelijks ruimte over",
+        "Een tegenvaller ontspoort je maand niet",
+        "Je plannen passen bij je situatie",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Kan ik financieel gezond zijn met een hoog inkomen?",
+        antwoord:
+          "Ja. Een hoog inkomen helpt, maar financiële gezondheid hangt ook samen met uitgaven, sparen, buffers, schulden en plannen.",
+      },
+      {
+        vraag: "Hoe weet ik of ik genoeg spaargeld heb?",
+        antwoord:
+          "Dat hangt af van je huishouden en het type onverwachte kosten dat je moet kunnen opvangen. Voor een persoonlijke inschatting kun je de Nibud BufferBerekenaar gebruiken.",
+      },
+      {
+        vraag: "Is geen schulden hebben hetzelfde als financieel gezond zijn?",
+        antwoord:
+          "Nee. Geen schulden is positief, maar je kunt zonder schulden nog steeds weinig financiële ruimte, weinig buffer of weinig toekomstgerichte planning hebben.",
+      },
+      {
+        vraag: "Is een hoog salaris genoeg om financieel gezond te zijn?",
+        antwoord:
+          "Nee. Als je uitgaven structureel meegroeien met je inkomen, kan je financiële ruimte beperkt blijven.",
+      },
+      {
+        vraag: "Hoeveel moet je eigenlijk overhouden?",
+        antwoord:
+          "Daar is geen universeel bedrag voor. Het hangt af van je inkomen, huishouden, uitgaven en doelen.",
+      },
+      {
+        vraag: "Hoe weet ik of mijn uitgaven normaal zijn?",
+        antwoord:
+          "Door ze te vergelijken met huishoudens die daadwerkelijk vergelijkbaar zijn. Alleen een algemeen Nederlands gemiddelde zegt weinig.",
+      },
+    ],
+    externLinks: [
+      {
+        label:
+          "Deloitte, Nibud, Tilburg University en Universiteit Leiden: Financiële gezondheid van Nederlandse huishoudens in 2025",
+        url: "https://www.deloitte.com/nl/nl/Industries/financial-services/research/financiele-gezondheid-van-nederlandse-huishoudens.html",
+      },
+      {
+        label: "CBS: Materiële welvaart, verdeling (geraadpleegd 19 augustus 2026)",
+        url: "https://www.cbs.nl/nl-nl/visualisaties/monitor-brede-welvaart-en-de-sustainable-development-goals/verdeling/verdeling-materiele-welvaart",
+      },
+      {
+        label: "Nibud: BufferBerekenaar",
+        url: "https://www.nibud.nl/tools/een-financiele-buffer/",
+      },
+    ],
+  },
+
+  {
+    slug: "goed-inkomen-weinig-vermogen",
+    cta: {
+      kop: "Wil je weten waarom jouw vermogen niet sneller groeit?",
+      tekst:
+        "De gratis analyse laat zien waar jouw huishouden afwijkt en welke uitgaven relatief veel financiële ruimte innemen. Bij de Geldscan kijk ik persoonlijk naar je cijfers en zoek ik uit waarom.",
+      primairLabel: "Bekijk de Geldscan",
+      primairHref: "/geldscan?situatie=stel&inkomen=9000",
+      secundairLabel: "Eerst gratis de analyse doen",
+      secundairHref: "/analyse",
+    },
+    titel: "Waarom groeit mijn vermogen niet terwijl ik goed verdien?",
+    korteTitel: "Waarom groeit mijn vermogen niet?",
+    metaTitel: "Goed verdienen maar weinig vermogen? Dit kan de reden zijn",
+    metaDescription:
+      "Je verdient goed maar je vermogen groeit nauwelijks. Ontdek waar het verschil zit tussen inkomen, uitgaven en financiële ruimte.",
+    datum: "2026-08-19",
+    datumFormatted: "19 augustus 2026",
+    leestijd: "8",
+    categorie: "Vermogen",
+    excerpt:
+      "Een hoog inkomen bouwt niet vanzelf vermogen op. Wat het verschil bepaalt tussen wat er binnenkomt en wat er structureel overblijft, en waarom dat belangrijker is dan hoeveel je verdient.",
+    preview: {
+      type: "vergelijking",
+      label: "Wie houdt meer over om vermogen mee op te bouwen?",
+      items: [
+        { naam: "Huishouden A, €9.000 netto", bedrag: 800, kleur: "#5A6B66" },
+        { naam: "Huishouden B, €6.000 netto", bedrag: 1500, kleur: "#0B7A6E" },
+      ],
+      noot: "Hoger inkomen, minder maandelijkse ruimte. Een voorbeeld, geen gemiddelde.",
+    },
+    faq: [
+      {
+        vraag: "Waarom groeit mijn vermogen niet ondanks een goed salaris?",
+        antwoord:
+          "Vermogen groeit uit het verschil tussen wat er structureel binnenkomt en wat er structureel wordt uitgegeven, plus eventueel rendement. Een hoog inkomen zegt niets over hoe groot dat verschil is. Groeien je uitgaven mee met je inkomen, dan blijft er weinig over om mee te sparen of te beleggen, ongeacht hoeveel je verdient.",
+      },
+      {
+        vraag: "Hoeveel van mijn inkomen zou ik moeten kunnen sparen?",
+        antwoord:
+          "Het Nibud noemt 10 procent van je netto inkomen als richtlijn om naartoe te werken, de 50/30/20-verdeling mikt op 20 procent. Beide zijn vuistregels, geen norm. Hoeveel er bij jou realistisch is, hangt af van je vaste lasten en je huishouden.",
+      },
+      {
+        vraag: "Is een hoog inkomen genoeg om vermogen op te bouwen?",
+        antwoord:
+          "Niet vanzelf. Een hoog inkomen is een potentieel, geen resultaat. Pas de financiële ruimte die je daadwerkelijk overhoudt na vaste lasten, dagelijkse uitgaven en jaarlijkse kosten bepaalt hoeveel je structureel kunt sparen of beleggen.",
+      },
+      {
+        vraag: "Waarom spaar ik minder sinds mijn salaris is gestegen?",
+        antwoord:
+          "Vaak door lifestyle-inflatie: uitgaven groeien ongemerkt mee met een hoger inkomen, bijvoorbeeld via een grotere woning, een nieuwere auto of vaker op vakantie. De salarisverhoging verhoogt dan vooral je levensstijl, niet je financiële ruimte.",
+      },
+      {
+        vraag: "Hoeveel vermogen is normaal bij mijn inkomen?",
+        antwoord:
+          "Daar bestaat geen inkomensafhankelijke norm voor. Het mediane vermogen van een Nederlands huishouden lag begin 2022 op ruim €135.000 (CBS, Materiële welvaart in Nederland 2024). Dat cijfer gaat over alle huishoudens samen, ongeacht inkomen, leeftijd, hypotheek of gezinssituatie, en zegt dus weinig over wat normaal is bij jouw situatie.",
+      },
+      {
+        vraag: "Hoe weet ik waar mijn financiële ruimte blijft?",
+        antwoord:
+          "Door je netto inkomen, je vaste lasten, je dagelijkse uitgaven en je jaarlijkse kosten naast elkaar te zetten. Wat er dan overblijft is je structurele financiële ruimte. De gratis analyse laat in een paar minuten zien waar jouw huishouden daarin afwijkt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS: Materiële welvaart in Nederland 2024, vermogen van huishoudens, geraadpleegd 19 augustus 2026",
+        url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/vermogen-van-huishoudens/",
+      },
+      {
+        label: "Nibud: stappenplan maandelijks sparen, geraadpleegd 19 augustus 2026",
+        url: "https://www.nibud.nl/tools/stappenplan-maandelijks-sparen/",
+      },
+      {
+        label: "CBS: Materiële welvaart in Nederland 2024, inkomen van huishoudens, geraadpleegd 19 augustus 2026",
+        url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/inkomen-van-huishoudens/",
+      },
+    ],
+  },
+  {
     slug: "hoeveel-financiele-ruimte-heb-ik",
     cta: {
       kop: "Wil je weten waarom je financiële ruimte is zoals die is?",

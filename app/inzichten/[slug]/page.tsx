@@ -87,6 +87,21 @@ export default function ArtikelPage({ params }: Props) {
     inLanguage: "nl",
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: "https://www.waarblijfthet.nl/" },
+      { "@type": "ListItem", position: 2, name: "Inzichten", item: "https://www.waarblijfthet.nl/inzichten" },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: artikel.titel,
+        item: `https://www.waarblijfthet.nl/inzichten/${artikel.slug}`,
+      },
+    ],
+  };
+
   const faqSchema =
     artikel.faq.length > 0
       ? {
@@ -108,6 +123,10 @@ export default function ArtikelPage({ params }: Props) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
       {faqSchema && (
         <script

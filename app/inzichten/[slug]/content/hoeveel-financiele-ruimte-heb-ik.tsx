@@ -379,9 +379,26 @@ export default function HoeveelFinancieleRuimteHebIk() {
         .
       </p>
 
+      <p className="font-body text-text-soft" style={p}>
+        Heb je die ruimte wel, maar merk je dat je vermogen er toch niet snel genoeg mee groeit? Lees
+        dan{" "}
+        <Link href="/inzichten/goed-inkomen-weinig-vermogen" style={linkStyle} className="hover:underline">
+          waarom een goed inkomen niet automatisch vermogen oplevert
+        </Link>
+        .
+      </p>
+
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Je financiële ruimte is geen universeel bedrag. Het is wat er voor jouw huishouden werkelijk
         overblijft, gegeven je inkomen, verplichtingen, levensstijl en doelen.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Financiële ruimte is één onderdeel van een breder beeld. Wil je weten hoe je dat bredere
+        beeld beoordeelt, inclusief buffer, sparen en plannen, lees dan{" "}
+        <Link href="/inzichten/hoe-weet-ik-of-ik-financieel-gezond-ben" style={linkStyle} className="hover:underline">
+          hoe je weet of je financieel gezond bent
+        </Link>
+        .
       </p>
     </>
   );

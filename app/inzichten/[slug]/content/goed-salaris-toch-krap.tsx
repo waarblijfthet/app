@@ -190,6 +190,11 @@ export default function GoedsalarisTochKrap() {
         <Link href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin zijn boodschappen onder controle kreeg</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/waar-blijft-mijn-geld-einde-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar je geld aan het einde van de maand blijft</Link> en <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>
+        Wil je eerst breder checken of je financieel gezond bezig bent, voordat je naar een specifieke
+        oorzaak zoekt? Lees{" "}
+        <Link href="/inzichten/hoe-weet-ik-of-ik-financieel-gezond-ben" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe je weet of je financieel gezond bent</Link>.
+      </p>
     </>
   );
 }
