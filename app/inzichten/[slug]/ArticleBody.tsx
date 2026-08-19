@@ -1,3 +1,4 @@
+import HoeveelFinancieleRuimteHebIk from "./content/hoeveel-financiele-ruimte-heb-ik";
 import GoedsalarisTochKrap from "./content/goed-salaris-toch-krap";
 import AlleenWonenGoedSalarisTochKrap from "./content/alleen-wonen-goed-salaris-toch-krap";
 import PratenOverGeldMetJePartner from "./content/praten-over-geld-met-je-partner";
@@ -84,6 +85,7 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "hoeveel-financiele-ruimte-heb-ik": HoeveelFinancieleRuimteHebIk,
   "alleen-wonen-goed-salaris-toch-krap": AlleenWonenGoedSalarisTochKrap,
   "praten-over-geld-met-je-partner": PratenOverGeldMetJePartner,
   "waarom-lijkt-iedereen-rijker": WaaromLijktIedereenRijker,

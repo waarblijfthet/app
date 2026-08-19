@@ -203,6 +203,19 @@ export default function VrijBesteedbaarInkomenBerekenen() {
         </Link>
         .
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Deze rekenhulp geeft snel een bedrag met drie invoervelden. Wil je weten hoe dat bedrag
+        zich verhoudt tot je hele huishouden, inclusief jaarlijkse reserveringen zoals vakantie en
+        onderhoud, lees dan{" "}
+        <Link
+          href="/inzichten/hoeveel-financiele-ruimte-heb-ik"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          hoeveel financiële ruimte je eigenlijk hebt
+        </Link>
+        .
+      </p>
 
       {/* Intern CTA */}
       <div

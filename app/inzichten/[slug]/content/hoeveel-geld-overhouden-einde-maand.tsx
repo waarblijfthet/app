@@ -145,6 +145,19 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
         </Link>
         .
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Deze richtlijn gaat over wat er als vast percentage zou moeten overblijven. Wil je weten
+        wat er bij jouw huishouden werkelijk structureel beschikbaar is, inclusief jaarlijkse
+        kosten zoals vakantie en onderhoud, lees dan{" "}
+        <Link
+          href="/inzichten/hoeveel-financiele-ruimte-heb-ik"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          hoeveel financiële ruimte je eigenlijk hebt
+        </Link>
+        .
+      </p>
 
       {/* Intern CTA */}
       <div

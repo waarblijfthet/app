@@ -214,6 +214,87 @@ const RAPPORT_TWEEVERDIENERS_DRIE_KINDEREN = rapportVoorSlug("tweeverdieners-dri
 
 export const artikelen: Artikel[] = [
   {
+    slug: "hoeveel-financiele-ruimte-heb-ik",
+    cta: {
+      kop: "Wil je weten waarom je financiële ruimte is zoals die is?",
+      tekst:
+        "De gratis analyse laat zien waar je afwijkt. Bij de Geldscan kijk ik persoonlijk naar jouw cijfers, leg ik uit wat opvalt, wat niet relevant is en wat ik zou veranderen.",
+      primairLabel: "Bekijk de Geldscan",
+      primairHref: "/geldscan",
+      secundairLabel: "Eerst gratis de analyse doen",
+      secundairHref: "/analyse",
+    },
+    titel: "Hoeveel financiële ruimte heb ik eigenlijk?",
+    korteTitel: "Hoeveel financiële ruimte heb ik?",
+    metaTitel: "Hoeveel financiële ruimte heb ik? Bereken het werkelijk",
+    metaDescription:
+      "Hoeveel financiële ruimte heb je werkelijk? Kijk verder dan je inkomen en ontdek welke uitgaven je ruimte bepalen.",
+    datum: "2026-08-19",
+    datumFormatted: "19 augustus 2026",
+    leestijd: "7",
+    categorie: "Inzicht",
+    excerpt:
+      "Een hoog inkomen betekent niet automatisch veel financiële ruimte. Wat financiële ruimte precies is, hoe je die berekent, en waarom je die alleen kunt beoordelen in de context van je eigen huishouden.",
+    preview: {
+      type: "verdeling",
+      label: "Voorbeeld: van €6.500 netto blijft over",
+      posten: [
+        { naam: "Woonlasten", pct: 29, kleur: "#16211F" },
+        { naam: "Overige uitgaven", pct: 14, kleur: "#5A6B66" },
+        { naam: "Boodschappen", pct: 13, kleur: "#0B7A6E" },
+        { naam: "Verzekeringen en vaste lasten", pct: 11, kleur: "#86BCAF" },
+        { naam: "Vervoer", pct: 10, kleur: "#F0F3F1" },
+        { naam: "Resterende ruimte", pct: 23, kleur: "#9CCFC4" },
+      ],
+      uitkomst: "Hangt af van je huishouden",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel financiële ruimte heb ik nodig?",
+        antwoord:
+          "Daarvoor bestaat geen universeel bedrag. Je financiële ruimte hangt af van je netto huishoudinkomen, woonlasten, gezinssamenstelling, vervoer, verzekeringen, boodschappen, kinderopvang, schulden en verplichtingen, sparen en structurele vrije uitgaven. Dezelfde €1.000 per maand kan voor het ene huishouden ruim zijn en voor het andere nauwelijks voldoende.",
+      },
+      {
+        vraag: "Hoe bereken ik mijn financiële ruimte?",
+        antwoord:
+          "Tel al je netto inkomsten op, breng je vaste lasten en structurele variabele uitgaven in kaart, reserveer voor jaarlijkse kosten zoals vakantie en onderhoud, en trek dat alles af van je inkomen. Netto inkomen min structurele uitgaven min noodzakelijke reserveringen is je resterende financiële ruimte.",
+      },
+      {
+        vraag: "Is €1.000 overhouden per maand veel?",
+        antwoord: `Dat hangt volledig af van je huishouden. Bij een alleenstaande op €4.500 netto blijft er volgens mijn vuistregel ongeveer ${euro(berekenVuistregel({ inkomen: 4500, volwassenen: 1, kinderen: 0, auto: "eigen" }).verwachtOver)} per maand over. Bij een gezin met twee kinderen op hetzelfde inkomen is dat ongeveer ${euro(berekenVuistregel({ inkomen: 4500, volwassenen: 2, kinderen: 2, auto: "eigen" }).verwachtOver)}. Hetzelfde bedrag overhouden voelt dus totaal anders, afhankelijk van wie het moet dragen.`,
+      },
+      {
+        vraag: "Hoeveel moet ik sparen van mijn inkomen?",
+        antwoord:
+          "Het Nibud noemt 10% van je netto-inkomen als richtlijn om naar te werken. Mijn artikel over hoeveel sparen per maand normaal is gaat dieper in op wat haalbaar is als dat nu niet lukt. Sparen is niet hetzelfde als je totale financiële ruimte, het is er een vast onderdeel van.",
+      },
+      {
+        vraag: "Wat is het verschil tussen sparen en financiële ruimte?",
+        antwoord:
+          "Sparen is één bestemming voor geld. Financiële ruimte is breder: het is alles wat structureel beschikbaar blijft nadat je vaste lasten, variabele uitgaven en jaarlijkse reserveringen zijn meegenomen, inclusief het deel dat je spaart, maar ook het deel dat je vrij besteedt of opzij zet voor een doel.",
+      },
+      {
+        vraag: "Hoe weet ik of mijn financiële situatie normaal is?",
+        antwoord:
+          "Dat merk je het snelst door je cijfers te vergelijken met een huishouden dat op jou lijkt, niet met een landelijk gemiddelde. De gratis analyse laat in een paar minuten zien waar jouw huishouden afwijkt van vergelijkbare huishoudens.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Nibud: stappenplan maandelijks sparen",
+        url: "https://www.nibud.nl/tools/stappenplan-maandelijks-sparen/",
+      },
+      {
+        label: "Nibud: uitgaven van huishoudens",
+        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+      },
+      {
+        label: "Raisin: uitleg hoe de 50/30/20-regel werkt en waar hij vandaan komt, geraadpleegd 17 augustus 2026",
+        url: "https://www.raisin.com/nl-nl/kennisbank/50-30-20-regel/",
+      },
+    ],
+  },
+  {
     slug: "scheiden-goed-inkomen-toch-niks-over",
     cta: {
       kop: "Wil je weten hoe het bij jouw twee huishoudens precies zit?",
