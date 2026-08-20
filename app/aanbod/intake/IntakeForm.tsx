@@ -69,6 +69,100 @@ function RadioKaart({
   );
 }
 
+function StapIndicator({ actief }: { actief: number }) {
+  const stappen = [
+    "Korte intake",
+    "Betaling €49",
+    "Financiële gegevens",
+    "Persoonlijk rapport",
+  ];
+  return (
+    <div className="font-body" aria-label="Voortgang aanvraag" style={{ marginBottom: "2rem" }}>
+      {/* Desktop: horizontaal */}
+      <ol className="hidden sm:flex items-center" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+        {stappen.map((label, i) => {
+          const nr = i + 1;
+          const isActief = nr === actief;
+          const isLaatste = i === stappen.length - 1;
+          return (
+            <li
+              key={label}
+              className="flex items-center"
+              style={{ flex: isLaatste ? "0 0 auto" : "1 1 auto" }}
+            >
+              <span
+                className="flex items-center justify-center rounded-full shrink-0"
+                style={{
+                  width: "1.75rem",
+                  height: "1.75rem",
+                  fontSize: "0.8rem",
+                  fontWeight: 600,
+                  backgroundColor: isActief ? "#0B7A6E" : "#E6E9E7",
+                  color: isActief ? "white" : "#8B958F",
+                }}
+              >
+                {nr}
+              </span>
+              <span
+                style={{
+                  marginLeft: "0.5rem",
+                  marginRight: isLaatste ? 0 : "0.75rem",
+                  fontSize: "0.8rem",
+                  whiteSpace: "nowrap",
+                  color: isActief ? "#16211F" : "#8B958F",
+                  fontWeight: isActief ? 600 : 400,
+                }}
+              >
+                {label}
+              </span>
+              {!isLaatste && (
+                <span style={{ flex: 1, height: "1px", backgroundColor: "#E6E9E7" }} />
+              )}
+            </li>
+          );
+        })}
+      </ol>
+
+      {/* Mobiel: verticaal */}
+      <ol
+        className="flex sm:hidden flex-col gap-2"
+        style={{ listStyle: "none", padding: 0, margin: 0 }}
+      >
+        {stappen.map((label, i) => {
+          const nr = i + 1;
+          const isActief = nr === actief;
+          return (
+            <li key={label} className="flex items-center gap-2">
+              <span
+                className="flex items-center justify-center rounded-full shrink-0"
+                style={{
+                  width: "1.5rem",
+                  height: "1.5rem",
+                  fontSize: "0.75rem",
+                  fontWeight: 600,
+                  backgroundColor: isActief ? "#0B7A6E" : "#E6E9E7",
+                  color: isActief ? "white" : "#8B958F",
+                }}
+              >
+                {nr}
+              </span>
+              <span
+                style={{
+                  fontSize: "0.85rem",
+                  color: isActief ? "#16211F" : "#8B958F",
+                  fontWeight: isActief ? 600 : 400,
+                }}
+              >
+                {label}
+              </span>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
 export function IntakeForm({ pakket, token }: Props) {
   const router = useRouter();
   const [bezig, setBezig] = useState(false);
@@ -83,8 +177,16 @@ export function IntakeForm({ pakket, token }: Props) {
   const [startVoorkeur, setStartVoorkeur] = useState("");
   const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
+  const [detailsOpen, setDetailsOpen] = useState(false);
 
   const isGeldscan = pakket === "geldscan";
+
+  // Op desktop mag de toelichting bij vraag 4 zichtbaar blijven, op mobiel begint hij ingeklapt.
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.matchMedia("(min-width: 640px)").matches) {
+      setDetailsOpen(true);
+    }
+  }, []);
 
   // --- Actie-meting (PII-vrij): gestart, hoe ver, verzonden ---
   const gestartRef = useRef(false);
@@ -137,7 +239,7 @@ export function IntakeForm({ pakket, token }: Props) {
   const info = PAKKET_INFO[pakket];
 
   const subtitel = isGeldscan
-    ? "Vier korte vragen, de laatste is optioneel. Ik gebruik ze om je geldrapport direct persoonlijk te maken."
+    ? "Beantwoord vier korte vragen. Daarna krijg je een betaalverzoek van €49. Na betaling lever je je financiële gegevens aan en maak ik persoonlijk jouw Geldscan."
     : "Vijf korte vragen. Ik neem binnen één werkdag persoonlijk contact op.";
 
   const knelpuntLabelNr = isGeldscan ? "3" : "3";
@@ -225,7 +327,7 @@ export function IntakeForm({ pakket, token }: Props) {
         pakket,
         meta: { velden: veldenTotaal, totaal: veldenTotaal },
       });
-      router.push("/aanbod/intake/bedankt");
+      router.push(isGeldscan ? "/aanbod/intake/bedankt?pakket=geldscan" : "/aanbod/intake/bedankt");
     } catch (err) {
       console.error(err);
       setFout("Er ging iets mis. Probeer het nog eens of mail naar hallo@waarblijfthet.nl.");
@@ -259,7 +361,7 @@ export function IntakeForm({ pakket, token }: Props) {
         </span>
       </header>
 
-      <main style={{ maxWidth: "640px", margin: "0 auto", padding: "3rem 1.5rem 6rem" }}>
+      <main style={{ maxWidth: isGeldscan ? "800px" : "640px", margin: "0 auto", padding: "3rem 1.25rem 6rem" }}>
         {/* Pakket pill */}
         <div style={{ marginBottom: "2rem", display: "flex", justifyContent: "center" }}>
           <span
@@ -289,7 +391,7 @@ export function IntakeForm({ pakket, token }: Props) {
             lineHeight: 1.25,
           }}
         >
-          Vertel me iets over je situatie
+          {isGeldscan ? "Je bent één stap verwijderd van je Geldscan" : "Vertel me iets over je situatie"}
         </h1>
         <p
           className="font-body"
@@ -304,6 +406,7 @@ export function IntakeForm({ pakket, token }: Props) {
           {subtitel}
         </p>
 
+        {!isGeldscan && (
         <div
           className="font-body"
           style={{
@@ -339,6 +442,9 @@ export function IntakeForm({ pakket, token }: Props) {
             ))}
           </ul>
         </div>
+        )}
+
+        {isGeldscan && <StapIndicator actief={1} />}
 
         {isGeldscan && token && (
           <div
@@ -359,7 +465,7 @@ export function IntakeForm({ pakket, token }: Props) {
 
         <form onSubmit={handleSubmit}>
           {/* Vraag 1 */}
-          <fieldset style={{ border: "none", padding: 0, marginBottom: "2rem" }}>
+          <fieldset style={{ border: "none", padding: 0, marginBottom: "1.5rem" }}>
             <legend
               className="font-body"
               style={{
@@ -385,7 +491,7 @@ export function IntakeForm({ pakket, token }: Props) {
           </fieldset>
 
           {/* Vraag 2 */}
-          <fieldset style={{ border: "none", padding: 0, marginBottom: "2rem" }}>
+          <fieldset style={{ border: "none", padding: 0, marginBottom: "1.5rem" }}>
             <legend
               className="font-body"
               style={{
@@ -411,7 +517,7 @@ export function IntakeForm({ pakket, token }: Props) {
           </fieldset>
 
           {/* Vraag 3 */}
-          <div style={{ marginBottom: "2rem" }}>
+          <div style={{ marginBottom: "1.5rem" }}>
             <label
               htmlFor="knelpunt"
               className="font-body"
@@ -445,6 +551,7 @@ export function IntakeForm({ pakket, token }: Props) {
                   outline: "none",
                   fontFamily: "inherit",
                   boxSizing: "border-box",
+                  minHeight: "120px",
                 }}
                 onFocus={(e) => (e.target.style.borderColor = "#16211F")}
                 onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
@@ -465,7 +572,7 @@ export function IntakeForm({ pakket, token }: Props) {
           </div>
 
           {isGeldscan && (
-            <div style={{ marginBottom: "2rem" }}>
+            <div style={{ marginBottom: "1.5rem" }}>
               <label
                 htmlFor="situatie-details"
                 className="font-body"
@@ -473,16 +580,27 @@ export function IntakeForm({ pakket, token }: Props) {
               >
                 4. Wat moet ik van jouw situatie weten? (optioneel)
               </label>
-              <p
-                className="font-body"
-                style={{ fontSize: "0.82rem", color: "#8B958F", lineHeight: 1.6, marginBottom: "0.75rem" }}
-              >
-                De vergelijking kijkt naar je inkomen, woonsituatie, aantal volwassenen, aantal kinderen en
-                auto. Alles daarbuiten weet ik niet, en juist daar zit vaak het verschil. Denk aan: de
-                leeftijd van je kinderen, hoeveel dagen ze bij je zijn, alimentatie, vier of meer kinderen,
-                een zakelijke auto, of dat je inkomen per maand verschilt. Schrijf op wat volgens jou
-                meeweegt, dan reken ik daarmee in plaats van met een standaardhuishouden.
-              </p>
+              <details open={detailsOpen} className="font-body" style={{ marginBottom: "0.75rem" }}>
+                <summary
+                  style={{
+                    fontSize: "0.85rem",
+                    fontWeight: 600,
+                    color: "#0B7A6E",
+                    cursor: "pointer",
+                  }}
+                >
+                  Waarom vraag ik dit?
+                </summary>
+                <p
+                  style={{ fontSize: "0.82rem", color: "#8B958F", lineHeight: 1.6, marginTop: "0.6rem" }}
+                >
+                  De vergelijking kijkt naar je inkomen, woonsituatie, aantal volwassenen, aantal kinderen en
+                  auto. Alles daarbuiten weet ik niet, en juist daar zit vaak het verschil. Denk aan: de
+                  leeftijd van je kinderen, hoeveel dagen ze bij je zijn, alimentatie, vier of meer kinderen,
+                  een zakelijke auto, of dat je inkomen per maand verschilt. Schrijf op wat volgens jou
+                  meeweegt, dan reken ik daarmee in plaats van met een standaardhuishouden.
+                </p>
+              </details>
               <div style={{ position: "relative" }}>
                 <textarea
                   id="situatie-details"
@@ -503,6 +621,7 @@ export function IntakeForm({ pakket, token }: Props) {
                     outline: "none",
                     fontFamily: "inherit",
                     boxSizing: "border-box",
+                    minHeight: "120px",
                   }}
                   onFocus={(e) => (e.target.style.borderColor = "#16211F")}
                   onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
@@ -648,6 +767,7 @@ export function IntakeForm({ pakket, token }: Props) {
                     outline: "none",
                     fontFamily: "inherit",
                     boxSizing: "border-box",
+                    minHeight: "52px",
                   }}
                   onFocus={(e) => (e.target.style.borderColor = "#16211F")}
                   onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
@@ -685,6 +805,7 @@ export function IntakeForm({ pakket, token }: Props) {
                     outline: "none",
                     fontFamily: "inherit",
                     boxSizing: "border-box",
+                    minHeight: "52px",
                   }}
                   onFocus={(e) => (e.target.style.borderColor = "#16211F")}
                   onBlur={(e) => (e.target.style.borderColor = "#E6E9E7")}
@@ -692,6 +813,24 @@ export function IntakeForm({ pakket, token }: Props) {
               </div>
             </div>
           </div>
+
+          {isGeldscan && (
+            <div className="font-body" style={{ marginBottom: "1.5rem" }}>
+              <p style={{ fontSize: "0.85rem", color: "#4A5A56", lineHeight: 1.6, marginBottom: "0.5rem" }}>
+                Je hoeft hier nog geen financiële gegevens in te vullen. Dat doe je pas na betaling.
+              </p>
+              <p style={{ fontSize: "0.85rem", color: "#4A5A56", lineHeight: 1.6, marginBottom: "0.75rem" }}>
+                Na deze aanvraag ontvang je het betaalverzoek van €49.
+              </p>
+              <p style={{ fontSize: "0.82rem", color: "#8B958F", lineHeight: 1.6 }}>
+                Je gegevens worden uitsluitend gebruikt voor jouw Geldscan en worden niet verkocht of
+                gebruikt voor financiële productverkoop.{" "}
+                <Link href="/privacy" style={{ color: "#0B7A6E" }}>
+                  Privacyverklaring
+                </Link>
+              </p>
+            </div>
+          )}
 
           {/* Foutmelding */}
           {fout && (
@@ -729,21 +868,35 @@ export function IntakeForm({ pakket, token }: Props) {
               transition: "background-color 0.2s, opacity 0.2s",
             }}
           >
-            {bezig ? "Bezig…" : "Stuur mijn aanmelding →"}
+            {bezig ? "Bezig…" : isGeldscan ? "Mijn Geldscan aanvragen →" : "Stuur mijn aanmelding →"}
           </button>
 
-          <p
-            className="font-body"
-            style={{
-              textAlign: "center",
-              fontSize: "0.78rem",
-              color: "#8B958F",
-              marginTop: "1rem",
-              lineHeight: 1.6,
-            }}
-          >
-            {footerTekst}
-          </p>
+          {isGeldscan ? (
+            <div className="font-body" style={{ textAlign: "center", marginTop: "1rem" }}>
+              <p style={{ fontSize: "0.8125rem", color: "#8B958F", lineHeight: 1.6 }}>
+                Je ontvangt na je aanvraag een betaalverzoek van €49.
+              </p>
+              <p style={{ fontSize: "0.8125rem", color: "#8B958F", lineHeight: 1.6 }}>
+                Na betaling krijg je de link om je financiële gegevens aan te leveren.
+              </p>
+              <p style={{ fontSize: "0.8125rem", color: "#8B958F", lineHeight: 1.6 }}>
+                Geen abonnement. Geen verplicht vervolgtraject.
+              </p>
+            </div>
+          ) : (
+            <p
+              className="font-body"
+              style={{
+                textAlign: "center",
+                fontSize: "0.78rem",
+                color: "#8B958F",
+                marginTop: "1rem",
+                lineHeight: 1.6,
+              }}
+            >
+              {footerTekst}
+            </p>
+          )}
         </form>
       </main>
     </div>

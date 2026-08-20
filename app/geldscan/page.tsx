@@ -315,10 +315,14 @@ export default function GeldscanPage({
               Ik kijk persoonlijk naar je volledige financiële situatie en zoek uit waar het
               verschil vandaan komt.
             </p>
-            <p className="font-body font-light text-text-soft text-lg leading-relaxed mb-8">
-              Geen standaard bespaartips. Geen automatisch rapport. Gewoon jouw cijfers, jouw
-              situatie en mijn oordeel daarover.
-            </p>
+            <div className="mb-8">
+              <p className="font-display font-light text-primary text-xl sm:text-2xl leading-snug">
+                Geen automatisch rapport.
+              </p>
+              <p className="font-body font-light text-text-soft text-base leading-relaxed mt-1">
+                Ik kijk zelf naar je cijfers en schrijf jouw conclusie.
+              </p>
+            </div>
 
             {situatie && (
               <div
@@ -336,9 +340,40 @@ export default function GeldscanPage({
               </div>
             )}
 
+            <div
+              className="card-base border border-[#E6E9E7] mb-6"
+              style={{ borderLeft: "3px solid #0B7A6E" }}
+            >
+              <p className="section-eyebrow mb-3">Zo werkt het</p>
+              <ol className="space-y-3">
+                <li>
+                  <p className="font-body font-medium text-primary text-sm">
+                    1. Je vraagt de Geldscan aan
+                  </p>
+                  <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                    Vier korte vragen, daarna ontvang je een betaalverzoek.
+                  </p>
+                </li>
+                <li>
+                  <p className="font-body font-medium text-primary text-sm">2. Je betaalt €49</p>
+                  <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                    Na betaling ontvang je de link om je financiële gegevens aan te leveren.
+                  </p>
+                </li>
+                <li>
+                  <p className="font-body font-medium text-primary text-sm">
+                    3. Ik maak je Geldscan
+                  </p>
+                  <p className="font-body font-light text-sm text-text-soft leading-relaxed">
+                    Ik analyseer je situatie persoonlijk en schrijf zelf je rapport.
+                  </p>
+                </li>
+              </ol>
+            </div>
+
             <PrimaireCta />
             <p className="font-body font-light text-text-muted text-xs mt-4">
-              Eenmalig · persoonlijk geschreven · binnen 2 werkdagen · geen gesprek verplicht
+              Eenmalig €49 · persoonlijk geschreven · geen abonnement
             </p>
 
             <p className="mt-7">
