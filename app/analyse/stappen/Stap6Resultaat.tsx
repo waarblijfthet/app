@@ -43,8 +43,8 @@ function AfwijkingRij({
             verschil > 0 ? "text-[#A15A32]" : "text-[#0B7A6E]"
           }`}
         >
-          {verschil > 0 ? "+" : ""}
-          {fmtEur(verschil)}
+          {verschil > 0 ? "+" : "-"}
+          {fmtEur(Math.abs(verschil))}
         </span>
       </div>
       <div className="flex gap-4 text-xs text-text-muted font-body mb-2">

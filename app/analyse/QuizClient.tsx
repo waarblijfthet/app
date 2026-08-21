@@ -388,7 +388,7 @@ export default function QuizClient() {
                 <button
                   type="button"
                   onClick={prev}
-                  className="shrink-0 px-5 py-3.5 min-h-[52px] rounded-xl border-[1.5px] border-[#D9DEDC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all order-first sm:order-none"
+                  className="shrink-0 px-5 py-3.5 min-h-[52px] rounded-xl border-[1.5px] border-[#D9DEDC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
                 >
                   &larr; Vorige
                 </button>
