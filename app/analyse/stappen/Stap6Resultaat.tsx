@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import { useRouter } from "next/navigation";
 import {
   getBenchmarks,
@@ -335,32 +336,29 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
       {/* Eén volgende stap */}
       <div className="rounded-xl border border-[#E6E9E7] bg-card p-6 mb-8">
         <p className="font-display font-light text-primary text-xl sm:text-2xl mb-1 leading-snug">
-          Je weet nu waar je situatie afwijkt.
+          Je weet nu waar je afwijkt.
         </p>
         <p className="font-display font-light text-[#A15A32] text-xl sm:text-2xl mb-3 leading-snug">
           Maar nog niet waarom.
         </p>
         <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
-          Dat is precies waar ik persoonlijk naar kan kijken. De analyse laat
-          zien waar. De Geldscan laat zien waarom.
+          De gratis analyse laat zien waar jouw situatie afwijkt. In de Geldscan kijk ik persoonlijk
+          naar het waarom, wat het betekent en wat ik als eerste zou aanpakken.
         </p>
-        <Link href="/geldscan" className="btn-primary">
+        {/* Direct naar het aanmeldformulier, niet eerst naar /geldscan (21-aug-2026).
+            Wie hier staat heeft zijn eigen vergelijking al gezien en raakt de draad
+            kwijt als hij eerst nog een uitlegpagina doorleest. */}
+        <CtaLink
+          doel="geldscan"
+          href="/aanbod/intake?pakket=geldscan"
+          locatie="analyse-resultaat"
+          className="btn-primary"
+        >
           Laat mij uitzoeken waarom &rarr;
-        </Link>
+        </CtaLink>
         <p className="font-body text-text-muted text-xs mt-3">
-          Geldscan &euro;49 &middot; eenmalig &middot; persoonlijk geschreven
-        </p>
-        <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
-          Twijfel je of dat bij je past? Dan kun je me eerst{" "}
-          <a
-            href="mailto:hallo@waarblijfthet.nl?subject=Kennismaken%20(15%20minuten)"
-            className="hover:underline"
-            style={{ color: "#8B958F" }}
-          >
-            een kwartier spreken
-          </a>
-          . Ik kijk in dat kwartier niet naar je cijfers, ik leg alleen uit hoe
-          het werkt.
+          Geldscan &euro;49 &middot; eenmalig &middot; persoonlijk geschreven &middot;
+          binnen 2 werkdagen
         </p>
       </div>
 
