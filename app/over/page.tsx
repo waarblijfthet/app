@@ -4,17 +4,18 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
+import { analyseHref, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Over Jarno Koopman | Waar blijft het",
   description:
-    "Ik bouw financiële software voor mijn werk en wist tóch niet waar ons geld bleef. Geen schulden, geen luxe, en toch liepen de spaarpotten leeg. Dat is waarom Waar blijft het bestaat.",
+    "Ik verdiende goed en wist toch niet waar ons geld bleef. Geen schulden, geen luxe, en toch bleef er minder over dan verwacht. Dat is waarom Waar blijft het bestaat.",
   alternates: { canonical: "https://www.waarblijfthet.nl/over" },
   openGraph: {
     title: "Over Jarno Koopman | Waar blijft het",
     description:
-      "Ik bouw financiële software voor mijn werk en wist tóch niet waar ons geld bleef. Dat is waarom Waar blijft het bestaat.",
+      "Ik verdiende goed en wist toch niet waar ons geld bleef. Dat is waarom Waar blijft het bestaat.",
     url: "https://www.waarblijfthet.nl/over",
     type: "website",
   },
@@ -54,6 +55,7 @@ const personSchema = {
 // Drie rapporten als bewijs, exact zoals ze ook op /rapporten staan.
 // Bedragen en citaten komen letterlijk uit lib/rapporten-data.ts (werkregel 4):
 // nooit een cijfer van een echte klant uit het hoofd overtypen.
+// stel-zonder-kinderen staat er bewust bij, dat is de scan zonder lek.
 const BEWIJS_SLUGS = [
   "tweeverdieners-drie-kinderen",
   "stel-zonder-kinderen",
@@ -75,172 +77,235 @@ export default function OverPage() {
 
       <main>
 
-        {/* Intro */}
-        <section className="bg-background pt-16 pb-10">
-          <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Over mij</p>
-            <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-6 max-w-2xl">
-              Ik bouw financiële software voor mijn werk. Tóch wisten wij niet
-              waar ons geld bleef.
-            </h1>
-            <p className="text-text-soft font-body font-light text-lg leading-relaxed">
-              Geen schulden. Geen gek grote uitgaven. Twee inkomens, drie
-              kinderen. Elke maand hetzelfde gevoel: de spaarpotten lopen leeg
-              en we snappen niet waarom. Voor de buitenwereld hadden we het
-              prima voor elkaar. Van binnen vroegen we ons af wat we fout deden.
-            </p>
-          </div>
-        </section>
+        {/* 1. Hero: waarom dit bestaat, niet wat ik voor werk doe */}
+        <section className="bg-background pt-14 pb-12 sm:pt-16 sm:pb-14">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-14 items-center">
+              <div>
+                <p className="section-eyebrow mb-4">Over mij</p>
+                <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-5">
+                  Ik verdiende goed. Toch wist ik niet waar ons geld bleef.
+                </h1>
+                <p className="font-body font-normal text-primary text-lg leading-relaxed mb-5">
+                  Dat was uiteindelijk de reden om Waar blijft het? te beginnen.
+                </p>
+                <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-[52ch]">
+                  Ik wilde weten of er echt iets mis was met onze financiën, of
+                  dat ik gewoon niet goed begreep wat er iedere maand gebeurde.
+                </p>
+              </div>
 
-        {/* Wie: foto en korte introductie */}
-        <section className="bg-background pb-10">
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="card-base border border-[#E6E9E7]">
-              <div className="flex items-start gap-5 mb-5">
-                <div className="w-16 h-16 rounded-full bg-[#16211F] flex items-center justify-center shrink-0 overflow-hidden">
+              <div className="lg:justify-self-end w-full max-w-[400px] mx-auto lg:mx-0">
+                <div className="rounded-xl overflow-hidden shadow-card bg-card">
                   <Image
                     src="/jarno.jpg"
                     alt="Jarno Koopman"
-                    width={64}
-                    height={64}
-                    className="w-full h-full object-cover"
+                    width={400}
+                    height={400}
+                    className="w-full h-auto object-cover"
+                    priority
                   />
                 </div>
-                <div>
-                  <p className="font-display font-light text-primary text-xl">
-                    Jarno Koopman
+                <p className="font-body text-text-muted text-sm mt-3">
+                  Jarno Koopman, ik lees je cijfers en schrijf je rapport zelf.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 2. Persoonlijk verhaal */}
+        <section className="bg-card py-14">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-14">
+              <div>
+                <p className="section-eyebrow mb-4">Hoe het begon</p>
+                <h2 className="font-display font-light text-primary text-2xl sm:text-3xl">
+                  Er was niets aan de hand, en toch klopte het niet
+                </h2>
+              </div>
+              <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed max-w-[62ch]">
+                <p>
+                  Ik verdien goed. Geen schulden, geen buitensporige uitgaven,
+                  geen dure hobby&apos;s. Twee inkomens, drie kinderen, een heel
+                  normaal leven.
+                </p>
+                <p>
+                  Toch bleef er elke maand minder over dan ik verwachtte. Na een
+                  verhuizing met een hogere hypotheek liepen de spaarpotjes
+                  langzaam leeg, en ik kon niet uitleggen waardoor. Voor de
+                  buitenwereld hadden we het prima voor elkaar. Zelf vroeg ik me
+                  af of ik iets over het hoofd zag.
+                </p>
+                <p>
+                  Ik ging zoeken naar hulp. Schuldhulp was niet voor ons bedoeld.
+                  Een financieel adviseur wilde praten over hypotheken en
+                  beleggen. Een cursus of een spreadsheet hield ik nooit vol.
+                </p>
+                <p>
+                  Toen ik onze cijfers eindelijk naast elkaar legde, bleek het
+                  probleem niet één uitgavencategorie te zijn. Het ontbrak vooral
+                  aan context. Ik zag wat we uitgaven, maar niet of dat voor een
+                  huishouden als het onze veel of weinig was.
+                </p>
+                <p className="font-body font-normal text-primary">
+                  Daaruit is Waar blijft het? ontstaan.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Professionele achtergrond, als bewijs van deskundigheid */}
+        <section className="bg-background py-14">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-14">
+              <div>
+                <p className="section-eyebrow mb-4">Mijn achtergrond</p>
+                <h2 className="font-display font-light text-primary text-2xl sm:text-3xl">
+                  Ik werk dagelijks met financiële cijfers
+                </h2>
+              </div>
+              <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed max-w-[62ch]">
+                <p>
+                  Voor mijn werk houd ik me dagelijks bezig met financiële
+                  software, cijfers en processen. Dat maakte het extra opvallend
+                  dat ik thuis zelf niet goed kon verklaren waarom we minder
+                  overhielden dan ik verwachtte.
+                </p>
+                <p>
+                  Ik ontdekte dat cijfers alleen niet genoeg zijn. Je moet ze in
+                  de context van een huishouden kunnen plaatsen.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Positionering: waarom Waar blijft het bestaat */}
+        <section className="bg-card py-14">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-14">
+              <div>
+                <p className="section-eyebrow mb-4">De aanleiding</p>
+                <h2 className="font-display font-light text-primary text-2xl sm:text-3xl">
+                  Daarom bestaat Waar blijft het?
+                </h2>
+              </div>
+              <div className="max-w-[62ch]">
+                <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed">
+                  <p>
+                    Ik merkte dat veel financiële hulpmiddelen je vooral vertellen
+                    wat je uitgeeft. Maar niet of dat voor jouw situatie eigenlijk
+                    veel of weinig is.
                   </p>
-                  <p className="font-body text-text-muted text-sm">
-                    Oprichter, schrijft de artikelen en kijkt met je mee
+                  <p>
+                    Waar blijft het? kijkt daarom naar het volledige huishouden.
+                    Niet alleen naar losse categorieën, maar naar inkomen, wonen,
+                    kinderen, vervoer, dagelijkse uitgaven en de financiële ruimte
+                    die daar uiteindelijk uit overblijft.
+                  </p>
+                </div>
+
+                <div
+                  className="mt-7 card-base border border-[#A6D8CD] bg-green-light"
+                  style={{ borderLeft: "3px solid #0B7A6E" }}
+                >
+                  <p className="font-display font-light text-primary text-xl sm:text-2xl leading-snug">
+                    En soms is de conclusie simpelweg dat er financieel weinig
+                    geks aan de hand is. Ook dat is een waardevolle uitkomst.
                   </p>
                 </div>
               </div>
-              <p className="text-text-soft font-body font-light text-sm leading-relaxed">
-                Ik werk in de financiële software. Mijn vrouw is
-                doktersassistente. We verdienen samen niet slecht, maar na een
-                verhuizing met hogere hypotheek, duurdere boodschappen en drie
-                kinderen die steeds meer nodig hadden, kwamen we echt in de
-                knel. Niet door luxe. Niet door domme keuzes. De kosten
-                stapelden, de spaarpotten liepen langzaam leeg, en we hadden
-                geen systeem om het te zien.
-              </p>
             </div>
           </div>
         </section>
 
-        {/* Het verhaal: ontdekking, wat ik toen nodig had, en de concrete uitkomst */}
-        <section className="bg-card py-14">
-          <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Hoe het begon</p>
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Toen we kritisch gingen kijken, schrokken we.
-            </h2>
-            <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed">
-              <p>
-                De boodschappen bleken fors hoger dan gemiddeld. Verse dingen
-                die in de vuilnis belandden. Impulsief eten bestellen terwijl de
-                koelkast vol lag. Een weekend weg met de kinderen dat zomaar
-                honderden euro meer kostte dan gedacht. En verjaardagen,
-                feestdagen? Altijd een verrassing, want we hadden één grote
-                spaarpot zonder enig patroon.
-              </p>
-              <p>
-                Niet omdat we het niet konden. Maar omdat we het nooit echt
-                hadden bekeken.
-              </p>
-
-              <p className="font-body font-medium text-primary pt-2">
-                Wat ik toen nodig had
-              </p>
-              <p>
-                We zochten hulp. Schuldhulpverlening was niet voor ons. Een
-                financieel adviseur wilde praten over beleggen en hypotheken.
-                Een cursus of spreadsheet beginnen we toch nooit aan. Er was
-                niemand die gewoon met ons meeliep, die vroeg: wat komt er
-                binnen, wat gaat er uit, en wat zegt dat over júllie situatie?
-              </p>
-              <p>
-                Daarom doe ik nu voor anderen wat ik toen zelf nodig had:
-                iemand die naast de cijfers ook naar het hele huishouden kijkt
-                en zegt wat hem opvalt.
-              </p>
-              <p>
-                Ik weet hoe het voelt. Keihard werken, normaal leven, en toch
-                elke maand dat knagend gevoel. Zien hoe anderen op het terras
-                zitten, met het vliegtuig weggaan, en je stilletjes afvragen:
-                doen wij iets fout? Verdienen we te weinig? Je kunt het er
-                eigenlijk niet over hebben, want het is taboe. Met vrienden
-                niet, met een bank kom je nergens.
-              </p>
-              <p>
-                Wij zijn er niet in één keer uitgekomen. We hielden niet
-                ineens duizenden euro&apos;s meer over. We stopten vooral met
-                steeds opnieuw geld uit onze spaarpot te halen voor kosten die
-                we eigenlijk hadden kunnen voorspellen: een weekend weg, de
-                winterjassen, de decembermaand. In plaats daarvan kreeg ieder
-                kind een eigen jaardoel, kwamen er vaste potjes met een naam
-                erop, en keken we er wekelijks samen naar. Niet spannend, niet
-                in één keer klaar. Maar daardoor zagen we voor het eerst wat
-                we werkelijk konden sparen.
-              </p>
-              <p className="font-body font-normal text-primary">
-                Waar blijft het bestaat omdat ik die persoon wil zijn die er
-                voor ons nooit was.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Waarom ik denk dat ik dit kan */}
+        {/* 5. Wat ik wel en niet doe */}
         <section className="bg-background py-14">
-          <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Mijn achtergrond</p>
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Waarom ik denk dat ik dit kan zien
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <p className="section-eyebrow mb-4">Mijn rol</p>
+            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
+              Wat ik wel en niet doe
             </h2>
-            <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed">
-              <p>
-                Ik ben geen financieel adviseur. Mijn kracht zit in het
-                analyseren en begrijpelijk maken van huishoudfinanciën, en dat
-                doe ik dagelijks in mijn werk: ik bouw software waarmee
-                complexe financiële cijfers vertaald worden naar iets wat
-                iemand zonder financiële achtergrond kan lezen en gebruiken.
-              </p>
-              <p>
-                Die vaardigheid combineer ik met iets wat geen enkele
-                adviseur erbij kan leveren: ik heb zelf in een huishouden
-                gezeten waar de cijfers niet klopten, terwijl er niets
-                buitensporigs werd uitgegeven. Ik weet niet alleen hoe je een
-                huishoudboekje uitleest, ik weet ook hoe het voelt om er
-                middenin te zitten.
-              </p>
-              <p>
-                En misschien wel het belangrijkste: ik verkoop geen enkel
-                financieel product. Geen verzekering, geen hypotheek, geen
-                beleggingsfonds. Ik heb geen belang bij wat je met mijn
-                analyse doet, dus ook geen reden om je iets aan te praten.
-              </p>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+              <div className="card-base border border-[#A6D8CD] bg-green-light">
+                <p className="font-display font-light text-primary text-xl mb-4">
+                  Wel
+                </p>
+                <ul className="space-y-3 font-body font-light text-sm text-text-soft">
+                  <li>Ik analyseer financiële situaties van huishoudens.</li>
+                  <li>Ik vergelijk cijfers met vergelijkbare huishoudens.</li>
+                  <li>Ik geef mijn persoonlijke oordeel over wat opvalt.</li>
+                </ul>
+              </div>
+
+              <div className="card-base border border-[#E6E9E7]">
+                <p className="font-display font-light text-primary text-xl mb-4">
+                  Niet
+                </p>
+                <ul className="space-y-3 font-body font-light text-sm text-text-soft">
+                  <li>Ik verkoop geen financiële producten.</li>
+                  <li>Ik ontvang geen provisie.</li>
+                  <li>Ik ben geen hypotheek- of beleggingsadviseur.</li>
+                </ul>
+              </div>
+
+              <div
+                className="card-base border border-[#E6E9E7]"
+                style={{ borderLeft: "3px solid #16211F" }}
+              >
+                <p className="font-display font-light text-primary text-xl mb-4">
+                  Belangrijk
+                </p>
+                <ul className="space-y-3 font-body font-light text-sm text-text-soft">
+                  <li>Ik zoek niet automatisch naar besparingen.</li>
+                  <li>
+                    Als er financieel weinig geks aan de hand is, zeg ik dat ook.
+                  </li>
+                </ul>
+              </div>
             </div>
+
+            <p className="font-body font-light text-text-muted text-sm leading-relaxed mt-6 max-w-[70ch]">
+              Ik geef geen financieel advies in de juridische zin. Ik vergelijk
+              met openbare cijfers van bronnen als het Nibud, het CBS en de
+              Belastingdienst, en met de huishoudens die ik zelf heb
+              doorgerekend. Heb je schulden of een complexe situatie, dan ben je
+              beter op je plek bij een gecertificeerde budgetcoach of bij{" "}
+              <a
+                href="https://geldfit.nl"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-accent hover:underline"
+              >
+                Geldfit
+              </a>
+              .
+            </p>
           </div>
         </section>
 
-        {/* Bewijs: echte rapporten */}
+        {/* 6. Bewijs: echte rapporten */}
         <section className="bg-card py-14">
-          <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Bewijs, geen belofte</p>
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Dit heb ik inmiddels voor andere huishoudens uitgezocht
-            </h2>
-            <p className="text-text-soft font-body font-light text-base leading-relaxed mb-8">
-              Ik deel deze rapporten niet als succesverhaal, maar zodat je
-              kunt zien hoe ik werk voordat je zelf iets deelt. Namen zijn
-              weggelaten, de bedragen staan er precies zoals ze zijn
-              aangeleverd. Bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length}{" "}
-              bleek er uiteindelijk niets te repareren, en ook dat lees je
-              terug.
-            </p>
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="max-w-[62ch] mb-8">
+              <p className="section-eyebrow mb-4">Bewijs, geen belofte</p>
+              <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
+                Inmiddels heb ik dit voor meerdere huishoudens gedaan
+              </h2>
+              <p className="text-text-soft font-body font-light text-base leading-relaxed">
+                Ik deel deze rapporten zodat je kunt zien hoe ik werk voordat je
+                zelf iets deelt. Namen zijn weggelaten, de bedragen staan er
+                precies zoals ze zijn aangeleverd. Niet iedere analyse eindigt
+                met een lijst besparingen. Bij {AANTAL_ZONDER_LEK} van de{" "}
+                {RAPPORTEN.length} bleek er uiteindelijk niets te repareren, en
+                ook dat lees je terug.
+              </p>
+            </div>
 
-            <div className="space-y-4">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
               {bewijsRapporten.map((r) => (
                 <Link
                   key={r.slug}
@@ -271,89 +336,64 @@ export default function OverPage() {
           </div>
         </section>
 
-        {/* Wat ik wel en niet doe */}
-        <section className="bg-background py-14">
-          <div className="max-w-3xl mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="card-base border border-[#A6D8CD] bg-green-light">
-              <p className="font-display font-light text-primary text-xl mb-4">
-                Wat ik wél doe
+        {/* 7. Geen automatisch rapport */}
+        <section className="bg-background py-12">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div
+              className="card-base border border-[#E6E9E7] max-w-[70ch]"
+              style={{ borderLeft: "3px solid #0B7A6E" }}
+            >
+              <p className="section-eyebrow mb-3">Geen automatisch rapport</p>
+              <p className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug">
+                Ik kijk zelf naar de cijfers en schrijf zelf de conclusie.
               </p>
-              <ul className="space-y-2 font-body font-light text-sm text-text-soft">
-                <li>Jullie huishoudfinanciën analyseren, in gewone taal</li>
-                <li>Vergelijken met huishoudens in een vergelijkbare situatie</li>
-                <li>Patronen zichtbaar maken die je zelf niet meer ziet</li>
-                <li>Onderscheid maken tussen een écht probleem en een bewuste keuze</li>
-                <li>Helpen een concreet plan te maken, geen abstract advies</li>
-              </ul>
-            </div>
-            <div className="card-base border border-[#E6E9E7]">
-              <p className="font-display font-light text-primary text-xl mb-4">
-                Wat ik niet doe
-              </p>
-              <ul className="space-y-2 font-body font-light text-sm text-text-soft">
-                <li>Geen boekhouder, financieel planner, hypotheekadviseur of beleggingsadviseur</li>
-                <li>Geen schuldhulpverlening</li>
-                <li>Geen producten verkopen of doorverwijzen voor commissie</li>
-                <li>Geen spreadsheets of cursussen waar je toch niet aan begint</li>
-              </ul>
             </div>
           </div>
         </section>
 
-        {/* Transparantie / grenzen */}
-        <section className="bg-card py-14">
-          <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Eerlijk is eerlijk</p>
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Wat je van mij wel en niet mag verwachten
-            </h2>
-            <p className="text-text-soft font-body font-light text-base leading-relaxed mb-4">
-              Ik ben geen AFM-geregistreerde financieel adviseur en geef geen
-              financieel advies in de juridische zin. Wat ik bied is inzicht,
-              herkenning en een eerlijke blik van buitenaf, gebaseerd op
-              openbare cijfers van bronnen als het Nibud, CBS en de
-              Belastingdienst. Bij elk artikel vermeld ik waar de cijfers
-              vandaan komen, en ik maak onderscheid tussen harde data en
-              indicaties uit de praktijk.
-            </p>
-            <p className="text-text-soft font-body font-light text-base leading-relaxed">
-              Heb je schulden of een complexe situatie? Dan ben je bij een
-              gecertificeerde budgetcoach of bij{" "}
+        {/* 8. Contact, bewust ondergeschikt aan de analyse-CTA */}
+        <section className="bg-background pb-14">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="max-w-[70ch] border-t border-[#E6E9E7] pt-8">
+              <p className="font-body font-medium text-primary text-base mb-2">
+                Een vraag?
+              </p>
+              <p className="text-text-soft font-body font-light text-base leading-relaxed mb-3">
+                Niet zeker of Waar blijft het? bij jouw situatie past? Mail me
+                gerust. Ik lees zelf alle berichten.
+              </p>
               <a
-                href="https://geldfit.nl"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-accent hover:underline"
+                href="mailto:hallo@waarblijfthet.nl"
+                className="font-body text-sm font-medium hover:underline"
+                style={{ color: "#0B7A6E" }}
               >
-                Geldfit
-              </a>{" "}
-              beter op je plek. Dat zeg ik gewoon.
-            </p>
+                Mail Jarno &rarr;
+              </a>
+            </div>
           </div>
         </section>
 
-        {/* CTA */}
+        {/* 9. Primaire CTA: gratis analyse, geen Geldscan */}
         <section className="bg-dark-block py-20">
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
-              Herken je dit verhaal?
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6 text-center">
+            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5 max-w-2xl mx-auto">
+              Benieuwd hoe jouw financiële situatie ervoor staat?
             </h2>
-            <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Begin dan eens met vijf minuten kijken naar je eigen situatie.
+            <p className="text-white/70 font-body font-light text-base mb-8 max-w-lg mx-auto">
+              Begin met de gratis analyse. In een paar minuten zie je waar jouw
+              huishouden afwijkt van vergelijkbare huishoudens.
             </p>
             <CtaLink
               doel="analyse"
-              href="/analyse"
+              href={analyseHref()}
               locatie="over-slot"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Doe de gratis analyse &rarr;
+              {PRIMAIRE_CTA_LABEL} &rarr;
             </CtaLink>
             <p className="font-body font-light text-white/50 text-sm mt-5">
-              <CtaLink doel="geldscan" href="/geldscan" locatie="over-slot" className="hover:underline text-white/50">
-                Na de analyse kun je altijd nog kiezen voor de Geldscan &rarr;
-              </CtaLink>
+              Gratis &bull; vertrouwelijk &bull; geen verkoopgesprek
             </p>
           </div>
         </section>
