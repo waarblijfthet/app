@@ -20,10 +20,10 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
-    inkomen,
+    inkomen: inkomen,
     auto: data.auto,
     tweedeAuto: data.tweedeAuto,
-    aantalVolwassenen,
+    aantalVolwassenen: aantalVolwassenen,
   });
 
   const vervoer = berekenVervoer(data);

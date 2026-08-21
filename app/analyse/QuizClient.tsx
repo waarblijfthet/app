@@ -181,10 +181,10 @@ export default function QuizClient() {
           const benches = getBenchmarks({
             woonsituatie: dataArg.woonsituatie,
             kinderen: dataArg.kinderen,
-            inkomen,
+            inkomen: inkomen,
             auto: dataArg.auto,
             tweedeAuto: dataArg.tweedeAuto,
-            aantalVolwassenen,
+            aantalVolwassenen: aantalVolwassenen,
           });
           over = berekenOver(dataArg);
           uitgaven = inkomen - over;

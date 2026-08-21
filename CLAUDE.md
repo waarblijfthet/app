@@ -44,6 +44,8 @@ Bouw niets nieuws (feature, pagina, adminscherm, automatisering) tenzij een mens
 
 - Gratis analyse vergelijkt, het geldrapport van 49 euro verklaart. Bewaak dat verschil in elke tekst: de analyse vertelt dát je afwijkt, de Geldscan zoekt uit waarom.
 - Ladder: gratis analyse → Geldscan 49 euro (route /geldscan, in copy Geldrapport) → adviesgesprek 125 euro → traject 497 euro. De laatste twee blijven tekst op aanvraag, nooit een prijskaart naast het rapport.
+- **De gratis analyse is sinds 21-aug-2026 de enige primaire conversie-ingang.** De bezoeker hoeft vóór de analyse geen dienst te kiezen. Primaire CTA is overal exact `Doe de gratis analyse` naar `/analyse`; de Geldscan staat er als tekstlink of secundaire uitleg bij, met prijs, maar nooit als tweede grote knop op hetzelfde scherm. Adviesgesprek en traject krijgen nergens een primaire CTA. De enige plek waar de Geldscan de primaire actie is, is de resultaatpagina na de analyse (`app/analyse/stappen/Stap6Resultaat.tsx`).
+- Route, label en situatieparameters komen uit `lib/cta.ts`, nooit met de hand overgetypt. De site linkt nergens rechtstreeks naar `/aanbod/intake?pakket=geldscan`; die intake blijft werken en is bereikbaar vanaf `/geldscan` en vanaf de resultaatpagina.
 - Levering: met de hand geschreven, binnen 2 werkdagen, gegevens daarna verwijderd. De 49 euro wordt verrekend bij een vervolg.
 - Prijzen openbaar, nooit btw vermelden (KOR).
 - Volgorde nu: aanmelden, betaalverzoek, na betaling analyse invullen. Eerst leveren en dan factureren is een openstaande keuze van Jarno, zet dat niet zelf in copy.
@@ -99,11 +101,11 @@ SEO is geen vangnet meer. Het is de enige asset die groeit zonder Jarno's tijd, 
 2. Bouw clusters op **huishouden**, nooit op salarisbedrag. Vijf ingangen: tweeverdieners met kinderen, alleenstaand, alleenstaande ouder, stel zonder kinderen, zzp.
 3. Elke nieuwe pagina krijgt een interactief element. Hergebruik `SalarisRekenaar` of `BoodschappenSituatiekiezer` met eigen startwaarden. Geen rekenaar betekent niet publiceren.
 4. Zet de CTA na het eigen getal van de lezer, nooit boven het antwoord. Nul van vier persona's kiest de CTA vóór het antwoord en drie vertrekken dan.
-5. Geef elke CTA de situatieparameters `/geldscan?situatie=&inkomen=&boodschappen=`. De 83 bestaande artikelen omzetten in blokken van tien per sessie tot alles om is. Dit is de goedkoopste openstaande conversiewinst die er ligt.
+5. Geef elke CTA de situatieparameters mee via `analyseHref({ situatie, inkomen, boodschappen })` uit `lib/cta.ts`. Dat levert `/analyse?volwassenen=&kinderen=&inkomen=&boodschappen=`, zodat de lezer zijn eigen cijfers niet opnieuw hoeft in te vullen. Alle 83 bestaande artikelen zijn op 21-aug-2026 omgezet. Schrijf de velden expliciet uit (`inkomen: inkomen`), want de minifier van Next 14.2 breekt de verkorte objectnotatie.
 6. Link elk nieuw artikel in dezelfde deploy vanaf minstens twee bestaande pagina's, waaronder is-4000 (staat organisch op plek 1) bij alles over inkomen. Zonder inkomende link geldt het als niet gepubliceerd.
 7. Koppel elk artikel aan minstens één echt rapport, met bedrag en link.
 8. Ververs voor je uitbreidt. Haal maandelijks elke URL uit GSC met meer dan 100 impressies en minder dan 2 procent CTR, en herschrijf metaTitel en het antwoordblok.
-9. Verplicht per artikel: antwoord binnen het eerste scherm, interactief element, vijf FAQ's met schema, drie bronnen met ophaaldatum, twee interne links, één CTA met situatieparameter.
+9. Verplicht per artikel: antwoord binnen het eerste scherm, interactief element, vijf FAQ's met schema, drie bronnen met ophaaldatum, twee interne links, één primaire CTA naar `/analyse` met situatieparameter en daaronder de Geldscan als tekstlink.
 10. Dien elke nieuwe URL dezelfde dag handmatig in GSC in. De eigen submit-tool is IndexNow en bereikt alleen Bing en Yandex.
 11. Meet op klikken en instap, niet op impressies. SEO werkt als het aantal URL's met minstens één klik per week stijgt, en er maandelijks drie of meer geldscan-aanvragen uit organisch verkeer komen.
 

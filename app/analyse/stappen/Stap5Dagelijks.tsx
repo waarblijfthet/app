@@ -21,7 +21,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
-    inkomen,
+    inkomen: inkomen,
     auto: data.auto,
     tweedeAuto: data.tweedeAuto,
     aantalVolwassenen: aantalVolwassenenVan(data),

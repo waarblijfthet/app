@@ -103,10 +103,10 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
-    inkomen,
+    inkomen: inkomen,
     auto: data.auto,
     tweedeAuto: data.tweedeAuto,
-    aantalVolwassenen,
+    aantalVolwassenen: aantalVolwassenen,
   });
 
   const over = berekenOver(data);

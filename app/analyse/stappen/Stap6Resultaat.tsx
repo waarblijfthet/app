@@ -82,10 +82,10 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
     kinderen: data.kinderen,
-    inkomen,
+    inkomen: inkomen,
     auto: data.auto,
     tweedeAuto: data.tweedeAuto,
-    aantalVolwassenen,
+    aantalVolwassenen: aantalVolwassenen,
   });
 
   const over = berekenOver(data);
