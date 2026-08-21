@@ -314,11 +314,6 @@ export default function KlarnaNietKunnenBetalen() {
         </p>
       </div>
 
-      <p className="font-body text-text-soft" style={p}>
-        Wil je ook weten waarom je financiële ruimte zo klein voelt, wat dat betekent en wat je
-        ermee kunt? Dat is precies waarin de Geldscan verschilt van de gratis analyse: de analyse
-        laat zien waar je afwijkt, de Geldscan legt uit waarom.
-      </p>
     </>
   );
 }

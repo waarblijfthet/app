@@ -319,8 +319,8 @@ export default function HoeveelFinancieleRuimteHebIk() {
 
       {/* CTA gratis analyse */}
       <p className="font-body" style={pStrong}>
-        Je kunt je financiële ruimte zelf berekenen. Maar weet je ook of het veel of weinig is voor
-        jouw situatie?
+        Je kunt je financiële ruimte berekenen. Maar weet je ook of het veel of weinig is voor een
+        huishouden zoals het jouwe?
       </p>
       <div className="rounded-2xl p-6 sm:p-8 my-8" style={{ backgroundColor: WINE }}>
         <p className="font-display font-light" style={{ color: "#FFFFFF", fontSize: "1.5rem", marginBottom: "0.75rem" }}>
@@ -403,34 +403,6 @@ export default function HoeveelFinancieleRuimteHebIk() {
         Een bankapp vertelt je wat je uitgeeft. Een analyse helpt je begrijpen wat dat betekent.
       </p>
 
-      {/* Geldscan vs analyse */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 my-5">
-        <div className="rounded-xl p-5" style={{ backgroundColor: OFFWHITE, border: `1px solid ${GOLD}` }}>
-          <p className="font-display" style={{ color: DARK, fontSize: "1.1rem", fontWeight: 500, marginBottom: "0.5rem" }}>
-            Gratis analyse
-          </p>
-          <p className="font-body text-sm mb-0" style={{ color: SOFT, fontWeight: 300 }}>
-            Waar wijk ik af?
-          </p>
-        </div>
-        <div className="rounded-xl p-5" style={{ backgroundColor: "#FFFFFF", border: `1.5px solid ${WINE}` }}>
-          <p className="font-display" style={{ color: WINE, fontSize: "1.1rem", fontWeight: 500, marginBottom: "0.5rem" }}>
-            Geldscan €49
-          </p>
-          <p className="font-body text-sm mb-0" style={{ color: SOFT, fontWeight: 300 }}>
-            Waarom wijk ik af? Wat betekent het? Wat zou ik als eerste veranderen?
-          </p>
-        </div>
-      </div>
-      <p className="font-body" style={p}>
-        De gratis analyse laat zien waar je afwijkt. Bij de{" "}
-        <Link href="/geldscan" style={linkStyle}>
-          Geldscan
-        </Link>{" "}
-        ga ik een stap verder: ik kijk persoonlijk naar jouw cijfers, leg uit wat opvalt, wat niet
-        relevant is en wat ik zou veranderen. Geen abonnement, geen verplicht gesprek.
-      </p>
-
       <p className="font-body" style={p}>
         Wil je liever eerst zelf rekenen met vaste bedragen in plaats van een huishouden-schuif, gebruik
         dan mijn{" "}
@@ -464,19 +436,6 @@ export default function HoeveelFinancieleRuimteHebIk() {
           inderdaad kleiner is dan je denkt.
         </p>
       </div>
-      <div className="rounded-2xl p-6 sm:p-8 my-6" style={{ backgroundColor: OFFWHITE, border: `1.5px solid ${GOLD}` }}>
-        <Link
-          href="/analyse"
-          className="inline-flex items-center justify-center font-body text-sm font-medium"
-          style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
-        >
-          Doe de gratis analyse &rarr;
-        </Link>
-        <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
-          Gratis · geen account · geen bankkoppeling · geen verkoopgesprek
-        </p>
-      </div>
-
       <p className="font-body" style={p}>
         Financiële ruimte is één onderdeel van een breder beeld. Wil je weten hoe je dat bredere
         beeld beoordeelt, inclusief buffer, sparen en plannen, lees dan{" "}

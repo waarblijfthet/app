@@ -312,14 +312,11 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Benieuwd hoe jouw uitgaven zich verhouden tot vergelijkbare huishoudens? Doe de gratis analyse en zie het meteen. Wil je daarna dat ik persoonlijk naar je cijfers kijk en opschrijf wat er opvalt en wat juist niet, dan kan dat met de geldscan (€49).
+          Benieuwd hoe jouw uitgaven zich verhouden tot vergelijkbare huishoudens? Dat kun je alleen bepalen met jouw eigen cijfers.
         </p>
         <Link href="/analyse" className="btn-primary">
           Doe de gratis analyse &rarr;
         </Link>
-        <p className="font-body text-sm" style={{ marginTop: "0.75rem", marginBottom: 0 }}>
-          <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Na de analyse kun je altijd nog kiezen voor de Geldscan (€49)</Link>
-        </p>
       </div>
 
       {/* Meer over jouw situatie */}

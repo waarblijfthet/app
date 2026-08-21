@@ -411,11 +411,6 @@ export default function SalarisBedragenTabel() {
             </span>
           ))}
         </p>
-        <p className="font-body text-xs mt-2 mb-0" style={{ color: "#4A5A56" }}>
-          <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-          </Link>
-        </p>
       </div>
     </>
   );

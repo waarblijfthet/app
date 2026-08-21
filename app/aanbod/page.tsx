@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
 import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { TrackClick } from "@/components/TrackClick";
+import CtaLink from "@/components/CtaLink";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 
 export const metadata: Metadata = {
@@ -95,7 +96,7 @@ const details = [
     primaireHref: "/analyse",
     primaireLabel: "Doe eerst de gratis analyse",
     secundaireHref: "/geldscan",
-    secundaireLabel: "Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan",
+    secundaireLabel: "Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan",
   },
 ];
 
@@ -151,9 +152,9 @@ export default function AanbodPage() {
                 Begin met de gratis analyse. In een paar minuten zie je waar jouw financiële situatie
                 afwijkt van vergelijkbare huishoudens. Daarna kun je zelf bepalen of je verder wilt.
               </p>
-              <Link href={ANALYSE_ROUTE} className="btn-primary">
+              <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-boven" className="btn-primary">
                 {PRIMAIRE_CTA_LABEL} →
-              </Link>
+              </CtaLink>
               <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
                 Gratis · anoniem · 5 minuten. Je hoeft nog niets te kopen.
               </p>
@@ -225,9 +226,9 @@ export default function AanbodPage() {
                 <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
                   Wat het je geeft: een getal en de grootste afwijking. Wat het je niet geeft: de reden.
                 </p>
-                <Link href={ANALYSE_ROUTE} className="btn-primary justify-center">
+                <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-analysekaart" className="btn-primary justify-center">
                   {PRIMAIRE_CTA_LABEL} →
-                </Link>
+                </CtaLink>
               </div>
 
               {/* Geldrapport */}
@@ -250,11 +251,9 @@ export default function AanbodPage() {
                   Doe eerst de gratis analyse →
                 </Link>
                 <p className="font-body mt-3 text-sm font-light text-[#4A5A56]">
-                  <TrackClick gebeurtenis="aanbod_kaart_klik" pakket="geldscan">
-                    <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                      Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan →
-                    </Link>
-                  </TrackClick>
+                  <CtaLink doel="geldscan" href="/geldscan" locatie="aanbod-geldrapportkaart" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                    Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan →
+                  </CtaLink>
                 </p>
                 <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
                   49 euro, eenmalig. Kies je daarna een gesprek of traject, dan gaat de 49 euro daarvan af.{" "}
@@ -308,13 +307,13 @@ export default function AanbodPage() {
             <p className="font-body mb-6 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
               Heb je betalingsachterstanden of schulden, dan hoor je bij de kosteloze hulp van je gemeente en dan is dit niet de juiste plek. Dat is geen formaliteit, dat is een ander vak.
             </p>
-            <Link href={ANALYSE_ROUTE} className="btn-primary">
+            <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-voor-wie" className="btn-primary">
               {PRIMAIRE_CTA_LABEL} →
-            </Link>
+            </CtaLink>
             <p className="font-body mt-3 text-sm font-light text-[#4A5A56]">
-              <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan →
-              </Link>
+              <CtaLink doel="geldscan" href="/geldscan" locatie="aanbod-voor-wie" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan →
+              </CtaLink>
             </p>
           </div>
         </section>
@@ -329,7 +328,11 @@ export default function AanbodPage() {
               Soms is een rapport niet waar iemand naar zoekt. Dan is er een eenmalig gesprek van 45 minuten via video, 125 euro, waarin ik met je meedenk en jij kunt doorvragen. Je krijgt daarna een schriftelijke samenvatting, ook om met je partner te lezen. En er is een traject van drie maanden, 497 euro, waarin ik een plan met je opstel en blijf meekijken tot het staat. Daar neem ik maximaal drie mensen tegelijk voor aan, omdat ik dit naast mijn baan doe.
             </p>
             <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Beide zet ik niet als knop op deze pagina, omdat ik ze bijna nooit als eerste stap zou aanraden. Begin eerst met de gratis analyse, en als een gesprek of een traject beter past, dan zeg ik dat.
+              Beide zet ik niet als knop op deze pagina, omdat ik ze bijna nooit als eerste stap zou aanraden.{" "}
+              <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-advies-traject" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                Begin eerst met de gratis analyse
+              </CtaLink>
+              , en als een gesprek of een traject beter past, dan zeg ik dat.
             </p>
             <a
               href="mailto:hallo@waarblijfthet.nl"
@@ -428,18 +431,18 @@ export default function AanbodPage() {
                 </div>
 
                 <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <TrackClick gebeurtenis="aanbod_cta_klik" pakket={d.pakket}>
-                    <Link href={d.primaireHref} className="btn-primary">
-                      {d.primaireLabel} →
-                    </Link>
-                  </TrackClick>
-                  <Link
+                  <CtaLink doel="analyse" href={d.primaireHref} locatie={`aanbod-detail-${d.id}`} className="btn-primary">
+                    {d.primaireLabel} →
+                  </CtaLink>
+                  <CtaLink
+                    doel="geldscan"
                     href={d.secundaireHref}
+                    locatie={`aanbod-detail-${d.id}`}
                     className="font-body text-sm hover:underline"
                     style={{ color: "#0B7A6E", textDecoration: "none" }}
                   >
                     {d.secundaireLabel} →
-                  </Link>
+                  </CtaLink>
                 </div>
               </div>
             </section>
@@ -541,8 +544,10 @@ export default function AanbodPage() {
             >
               Doe eerst de gratis analyse. Daarna bepaal je zelf of je verder wilt. Wil je vooraf zien wat een geldrapport is, dan staan op de pagina Rapporten vijf complete rapporten van echte klanten, met de bedragen erbij en met de posten die ik géén probleem vind. Bij twee van de vijf was de uitkomst dat er niets te repareren viel.
             </p>
-            <Link
+            <CtaLink
+              doel="analyse"
               href={ANALYSE_ROUTE}
+              locatie="aanbod-slot"
               className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: "#0B7A6E",
@@ -552,18 +557,16 @@ export default function AanbodPage() {
               }}
             >
               {PRIMAIRE_CTA_LABEL} →
-            </Link>
+            </CtaLink>
             <p style={{ marginTop: "1rem" }}>
               <Link href="/rapporten" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
                 Of bekijk eerst vijf echte rapporten →
               </Link>
             </p>
             <p style={{ marginTop: "0.5rem" }}>
-              <TrackClick gebeurtenis="aanbod_cta_klik" pakket="geldscan">
-                <Link href="/geldscan" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
-                  Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan →
-                </Link>
-              </TrackClick>
+              <CtaLink doel="geldscan" href="/geldscan" locatie="aanbod-slot" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
+                Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan →
+              </CtaLink>
             </p>
             <p style={{ marginTop: "0.75rem", color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>
               Eenmalig · voor huishoudens in heel Nederland · je gegevens worden nooit gedeeld of verkocht

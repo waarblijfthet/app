@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import {
   berekenVuistregel,
   euro,
@@ -51,16 +52,16 @@ export default function VijftigDertigTwintigVergelijker() {
   const over5030 = inkomen - vasteLasten5030;
 
   const alleen = volwassenen === 1;
-  const geldscanSituatie = alleen
+  // Situatiesleutel voor de startwaarden van de analyse.
+  const situatieSleutel = alleen
     ? kinderen > 0
       ? "alleenstaande-ouder"
       : "alleenstaand"
     : kinderen > 0
     ? "gezin"
     : "stel";
-  const geldscanHref = `/geldscan?situatie=${geldscanSituatie}&inkomen=${inkomen}&boodschappen=${Math.round(boodschappen)}`;
   const analyseHref = analyseLink({
-    situatie: geldscanSituatie as SituatieSleutel,
+    situatie: situatieSleutel as SituatieSleutel,
     inkomen: inkomen,
     boodschappen: Math.round(boodschappen),
   });
@@ -189,10 +190,17 @@ export default function VijftigDertigTwintigVergelijker() {
         </div>
       </div>
 
-      <div className="mt-4 flex flex-col sm:flex-row gap-3">
-        <Link href={analyseHref} className="btn-primary text-center">
+      <p className="font-body text-sm mt-4 mb-1" style={{ color: "#16211F", fontWeight: 500 }}>
+        Dit is een indicatie. Jouw huishouden is meer dan deze berekening.
+      </p>
+      <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
+        Wil je zien hoe jouw volledige financiële situatie zich verhoudt tot vergelijkbare
+        huishoudens?
+      </p>
+      <div className="flex flex-col sm:flex-row gap-3">
+        <CtaLink doel="analyse" href={analyseHref} locatie="rekenaar" className="btn-primary text-center">
           Doe de gratis analyse &rarr;
-        </Link>
+        </CtaLink>
         <Link
           href="/rapporten"
           className="inline-flex items-center justify-center font-body text-sm font-medium"
@@ -201,11 +209,6 @@ export default function VijftigDertigTwintigVergelijker() {
           Bekijk de {RAPPORTEN.length} huishoudens achter dit getal &rarr;
         </Link>
       </div>
-      <p className="font-body text-sm mt-3 mb-0">
-        <Link href={geldscanHref} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-          Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-        </Link>
-      </p>
 
       <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>
         Bron 50/30/20-regel: Raisin, &ldquo;Uitleg: hoe werkt de 50/30/20 regel?&rdquo;, geraadpleegd 17

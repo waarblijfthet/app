@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 
 /**
  * Reken-mee-schuifje. Herzien 30-jul-2026 na de persona-toets.
@@ -144,17 +145,12 @@ export default function BoodschappenSlider() {
           Wil je weten waar het bij jou dan wel zit?
         </p>
         <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
-          Begin met je hele maand, niet met één post. De gratis analyse legt je uitgaven naast
-          huishoudens als het jouwe. Dat kost een paar minuten en verder niets.
+          Dit is een indicatie. Jouw huishouden is meer dan deze berekening. Wil je zien hoe jouw
+          volledige financiële situatie zich verhoudt tot vergelijkbare huishoudens?
         </p>
-        <Link href="/analyse" className="btn-primary">
+        <CtaLink doel="analyse" href="/analyse" locatie="rekenaar" className="btn-primary">
           Doe de gratis analyse &rarr;
-        </Link>
-        <p className="font-body text-sm mt-3 mb-0">
-          <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-          </Link>
-        </p>
+        </CtaLink>
       </div>
     </div>
   );

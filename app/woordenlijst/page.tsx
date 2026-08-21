@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 
 export const metadata: Metadata = {
   title: "Woordenlijst: geldbegrippen in gewone taal",
@@ -175,13 +176,15 @@ export default function WoordenlijstPage() {
               Doe de analyse en zie waar jullie geld naartoe gaat,
               vergeleken met vergelijkbare gezinnen.
             </p>
-            <Link
+            <CtaLink
+              doel="analyse"
               href="/analyse"
+              locatie="woordenlijst-slot"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Doe de gratis analyse →
-            </Link>
+            </CtaLink>
           </div>
         </section>
       </main>

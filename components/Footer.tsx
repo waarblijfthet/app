@@ -1,4 +1,6 @@
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
+import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 
 export default function Footer() {
   return (
@@ -49,22 +51,6 @@ export default function Footer() {
             Financieel coach
           </Link>
           <span className="text-white/20 mx-2">·</span>
-          <Link
-            href="/geldscan"
-            className="text-white/50 hover:text-white/80 transition-colors no-underline"
-            style={{ textDecoration: "none" }}
-          >
-            Geldscan
-          </Link>
-          <span className="text-white/20 mx-2">·</span>
-          <Link
-            href="/adviesgesprek"
-            className="text-white/50 hover:text-white/80 transition-colors no-underline"
-            style={{ textDecoration: "none" }}
-          >
-            Adviesgesprek
-          </Link>
-          <span className="text-white/20 mx-2">·</span>
           <a
             href="mailto:hallo@waarblijfthet.nl"
             className="text-white/50 hover:text-white/80 transition-colors"
@@ -72,15 +58,27 @@ export default function Footer() {
           >
             Contact
           </a>
-          <span className="text-white/20 mx-2">·</span>
-          <Link
-            href="/analyse"
-            className="text-white/50 hover:text-white/80 transition-colors"
-            style={{ textDecoration: "none" }}
-          >
-            Doe de gratis analyse
-          </Link>
         </nav>
+
+        {/* De enige commerciële CTA in de footer is de gratis analyse. */}
+        <CtaLink
+          doel="analyse"
+          href={ANALYSE_ROUTE}
+          locatie="footer"
+          className="inline-flex items-center gap-1.5 font-body"
+          style={{
+            backgroundColor: "#FFFFFF",
+            color: "#16211F",
+            borderRadius: "8px",
+            padding: "0.7rem 1.1rem",
+            fontSize: "0.85rem",
+            fontWeight: 600,
+            textDecoration: "none",
+          }}
+        >
+          {PRIMAIRE_CTA_LABEL}
+          <span aria-hidden="true">&rarr;</span>
+        </CtaLink>
 
         {/* Rechts: copyright */}
         <p

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { RAPPORTEN, AANTAL_ZONDER_LEK, AANTAL_ZONDER_VERVOLG } from "@/lib/rapporten-data";
@@ -248,13 +249,13 @@ export default function RapportenPage() {
               Begin met de gratis analyse. In een paar minuten zie je waar jouw huishouden afwijkt van
               vergelijkbare huishoudens. Daarna bepaal je zelf of je verder wilt.
             </p>
-            <Link href="/analyse" className="btn-primary">
+            <CtaLink doel="analyse" href="/analyse" locatie="rapporten-slot" className="btn-primary">
               Doe de gratis analyse &rarr;
-            </Link>
+            </CtaLink>
             <p className="font-body font-light text-text-muted text-sm mt-5">
-              <Link href="/geldscan" className="hover:underline">
-                Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-              </Link>
+              <CtaLink doel="geldscan" href="/geldscan" locatie="rapporten-slot" className="hover:underline">
+                Na de analyse kun je altijd nog kiezen voor de Geldscan &rarr;
+              </CtaLink>
             </p>
           </div>
         </section>

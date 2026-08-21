@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -208,10 +209,20 @@ function BigNumber({ children, color = C.dark }: { children: React.ReactNode; co
   );
 }
 
-function CTAButton({ href, children }: { href: string; children: React.ReactNode }) {
+function CTAButton({
+  href,
+  locatie,
+  children,
+}: {
+  href: string;
+  locatie: string;
+  children: React.ReactNode;
+}) {
   return (
-    <Link
+    <CtaLink
+      doel="analyse"
       href={href}
+      locatie={locatie}
       className="inline-flex items-center justify-center gap-2 w-full sm:w-auto transition-transform duration-150 hover:scale-[1.02]"
       style={{
         backgroundColor: C.gold,
@@ -227,7 +238,7 @@ function CTAButton({ href, children }: { href: string; children: React.ReactNode
     >
       {children}
       <span aria-hidden="true">&rarr;</span>
-    </Link>
+    </CtaLink>
   );
 }
 
@@ -342,7 +353,7 @@ export default function HomeConcept() {
                 en wat er werkelijk speelt.
               </p>
               <div className="mb-3">
-                <CTAButton href="/analyse">Doe de gratis analyse</CTAButton>
+                <CTAButton href="/analyse" locatie="hero">Doe de gratis analyse</CTAButton>
               </div>
               <p className="mb-1 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.7)" }}>
                 In een paar minuten zie je waar jouw huishouden afwijkt van vergelijkbare huishoudens.
@@ -602,13 +613,18 @@ export default function HomeConcept() {
               <BigNumber color={C.gold}>3</BigNumber>
               <H3 className="mt-2 mb-3">Bepaal of je verder wilt</H3>
               <Body className="mb-3">
-                Benieuwd waarom jouw situatie zo uitpakt? Dan kun je na de analyse kiezen voor de
-                Geldscan van &euro;49.
+                Benieuwd waarom? Na de analyse kun je kiezen voor de Geldscan van &euro;49.
               </Body>
               <Body className="mb-0">
-                <Link href="/geldscan" className="underline" style={{ color: C.wine }}>
+                <CtaLink
+                  doel="geldscan"
+                  href="/geldscan"
+                  locatie="hoe-het-werkt-stap-3"
+                  className="underline"
+                  style={{ color: C.wine }}
+                >
                   Bekijk de Geldscan
-                </Link>
+                </CtaLink>
               </Body>
             </div>
           </div>
@@ -657,7 +673,7 @@ export default function HomeConcept() {
           >
             Je hoeft niet meteen minder uit te geven. Je moet eerst weten wat er werkelijk gebeurt.
           </p>
-          <CTAButton href="/analyse">Doe de gratis analyse</CTAButton>
+          <CTAButton href="/analyse" locatie="slot">Doe de gratis analyse</CTAButton>
           <p className="mt-6 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.6)" }}>
             Geen abonnement. Geen verplicht gesprek.
           </p>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { createServiceClient } from "@/lib/supabase-service";
@@ -325,12 +326,14 @@ export default async function ResultaatPage({ params }: Props) {
             </div>
           )}
 
-          {/* ── SECTIE 3: Wat nu? ── */}
+          {/* ── SECTIE 3: het belangrijkste conversiemoment van de site.
+              Punt 10 van de CRO-opdracht: één vervolgstap, de Geldscan, en
+              geen tweede commercieel product ernaast. ── */}
           <div
             className="rounded-2xl overflow-hidden"
             style={{ background: "#16211F", marginBottom: "2rem" }}
           >
-            <div style={{ padding: "2rem 2rem 0.5rem" }}>
+            <div style={{ padding: "2rem" }}>
               <p
                 className="font-body text-xs font-medium mb-2"
                 style={{
@@ -341,106 +344,49 @@ export default async function ResultaatPage({ params }: Props) {
               >
                 Wat nu?
               </p>
-              <h2
-                className="font-display font-light text-3xl mb-6"
-                style={{ color: "#F7F8F7" }}
-              >
-                Drie manieren om verder te gaan
+              <h2 className="font-display font-light text-3xl mb-1" style={{ color: "#F7F8F7" }}>
+                Je weet nu waar je afwijkt.
               </h2>
+              <p className="font-display font-light text-3xl mb-5" style={{ color: "#C4603A" }}>
+                Maar nog niet waarom.
+              </p>
+              <p
+                className="font-body font-light text-base leading-relaxed mb-6"
+                style={{ color: "rgba(245,240,232,0.75)", maxWidth: "560px" }}
+              >
+                De gratis analyse laat zien waar jouw situatie afwijkt. In de Geldscan kijk ik
+                persoonlijk naar het waarom, wat het betekent en wat ik als eerste zou aanpakken.
+              </p>
+              <CtaLink
+                doel="geldscan"
+                href={`/geldscan?token=${params.token}`}
+                locatie="resultaat-mail"
+                className="inline-block px-6 py-3 rounded-xl font-body text-sm font-medium transition-opacity hover:opacity-90"
+                style={{ background: "#0B7A6E", color: "#FFFFFF", textDecoration: "none" }}
+              >
+                Bekijk de Geldscan &euro;49 &rarr;
+              </CtaLink>
+              <p
+                className="font-body font-light text-xs mt-3 mb-0"
+                style={{ color: "rgba(245,240,232,0.45)" }}
+              >
+                Eenmalig, persoonlijk geschreven, binnen 2 werkdagen na je cijfers.
+              </p>
             </div>
 
             <div
-              className="grid grid-cols-1 md:grid-cols-3 gap-0"
-              style={{ borderTop: "1px solid rgba(245,240,232,0.1)" }}
+              style={{
+                padding: "1.25rem 2rem 1.75rem",
+                borderTop: "1px solid rgba(245,240,232,0.1)",
+              }}
             >
-              {/* Kaartje 1, Deel */}
-              <div
-                style={{
-                  padding: "1.5rem 2rem 2rem",
-                  borderRight: "1px solid rgba(245,240,232,0.1)",
-                }}
+              <p
+                className="font-body font-light text-sm mb-3"
+                style={{ color: "rgba(245,240,232,0.6)" }}
               >
-                <p className="text-3xl mb-3">📊</p>
-                <h3
-                  className="font-body font-medium text-base mb-2"
-                  style={{ color: "#F7F8F7" }}
-                >
-                  Deel deze analyse
-                </h3>
-                <p
-                  className="font-body font-light text-sm leading-relaxed mb-5"
-                  style={{ color: "rgba(245,240,232,0.6)" }}
-                >
-                  Stuur de link naar je partner of sla hem op voor later.
-                </p>
-                <KopieerKnop url={resultaatUrl} />
-              </div>
-
-              {/* Kaartje 2, Betaald (hoofdoptie): het geldrapport */}
-              <div
-                style={{
-                  padding: "1.5rem 2rem 2rem",
-                  background: "rgba(245,240,232,0.05)",
-                  borderRight: "1px solid rgba(245,240,232,0.1)",
-                }}
-              >
-                <p className="text-3xl mb-3">📄</p>
-                <h3
-                  className="font-body font-medium text-base mb-2"
-                  style={{ color: "#F7F8F7" }}
-                >
-                  Het geldrapport
-                </h3>
-                <p
-                  className="font-body font-light text-sm leading-relaxed mb-5"
-                  style={{ color: "rgba(245,240,232,0.6)" }}
-                >
-                  Ik kijk persoonlijk naar jouw cijfers en stuur je binnen 2
-                  werkdagen na betaling een persoonlijk geldrapport: wat er
-                  opvalt, wat juist niet, en wat ik zou doen. Zonder gesprek.
-                  €49.
-                </p>
-                <Link
-                  href={`/geldscan?token=${params.token}`}
-                  className="block w-full text-center px-4 py-2.5 rounded-xl font-body text-sm font-medium transition-opacity hover:opacity-90"
-                  style={{
-                    background: "#0B7A6E",
-                    color: "#FFFFFF",
-                    textDecoration: "none",
-                  }}
-                >
-                  Bekijk het geldrapport →
-                </Link>
-              </div>
-
-              {/* Kaartje 3, Adviesgesprek */}
-              <div style={{ padding: "1.5rem 2rem 2rem" }}>
-                <p className="text-3xl mb-3">💬</p>
-                <h3
-                  className="font-body font-medium text-base mb-2"
-                  style={{ color: "#F7F8F7" }}
-                >
-                  Een adviesgesprek
-                </h3>
-                <p
-                  className="font-body font-light text-sm leading-relaxed mb-5"
-                  style={{ color: "rgba(245,240,232,0.6)" }}
-                >
-                  In 45 minuten samen naar je cijfers kijken en 2 tot 3
-                  concrete doelen stellen. Eenmalig €125, geen traject.
-                </p>
-                <a
-                  href="/aanbod"
-                  className="block w-full text-center px-4 py-2.5 rounded-xl border font-body text-sm font-medium transition-all hover:bg-white/10"
-                  style={{
-                    borderColor: "rgba(245,240,232,0.3)",
-                    color: "rgba(245,240,232,0.8)",
-                    textDecoration: "none",
-                  }}
-                >
-                  Bekijk het adviesgesprek →
-                </a>
-              </div>
+                Liever eerst bewaren of met je partner bekijken? Stuur de link naar deze analyse.
+              </p>
+              <KopieerKnop url={resultaatUrl} />
             </div>
           </div>
 

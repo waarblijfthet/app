@@ -430,8 +430,8 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
           Hoe ziet dit er bij jouw huishouden uit?
         </p>
         <p className="font-body" style={{ color: "#FFFFFF", opacity: 0.92, fontWeight: 300, marginBottom: "1.25rem" }}>
-          De gratis analyse laat zien waar jouw financiële situatie afwijkt en welke categorieën
-          relatief opvallen.
+          Een checklist kan vertellen waar je op moet letten. Alleen jouw cijfers kunnen laten zien
+          hoe jouw situatie ervoor staat.
         </p>
         <Link
           href="/analyse"
@@ -464,29 +464,6 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
         .
       </p>
 
-      <h2 className="font-display" style={h2}>
-        Wanneer is de Geldscan interessant?
-      </h2>
-      <p className="font-body" style={pStrong}>
-        Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.
-      </p>
-      <p className="font-body" style={p}>
-        De gratis analyse laat zien waar jouw situatie afwijkt van vergelijkbare huishoudens. Geen
-        account, geen bankkoppeling, een paar minuten. Je hoeft nog niets te kopen.
-      </p>
-      <Link
-        href="/analyse"
-        className="inline-flex items-center justify-center font-body text-sm font-medium"
-        style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
-      >
-        Doe de gratis analyse &rarr;
-      </Link>
-      <p className="font-body" style={{ ...p, marginTop: "0.85rem", marginBottom: "2rem" }}>
-        <Link href="/geldscan" className="hover:underline" style={{ color: WINE, textDecoration: "none" }}>
-          Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-        </Link>
-      </p>
-
       <p className="font-body" style={pStrong}>
         Financieel gezond betekent niet dat je alles perfect doet. Het betekent dat je begrijpt hoe je
         financiële situatie in elkaar zit. Je weet wat er binnenkomt. Je weet wat er structureel
@@ -502,18 +479,6 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
         <p className="font-body" style={{ color: "#FFFFFF", fontWeight: 400, fontSize: "1.15rem", lineHeight: 1.6, marginBottom: 0 }}>
           Financiële gezondheid is geen score die je ergens kunt opzoeken. Je moet weten hoe jouw
           cijfers zich verhouden tot jouw werkelijkheid.
-        </p>
-      </div>
-      <div className="rounded-2xl p-6 sm:p-8 my-6" style={{ backgroundColor: OFFWHITE, border: `1.5px solid ${GOLD}` }}>
-        <Link
-          href="/analyse"
-          className="inline-flex items-center justify-center font-body text-sm font-medium"
-          style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
-        >
-          Doe de gratis analyse &rarr;
-        </Link>
-        <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
-          Gratis · vertrouwelijk · geen verkoopgesprek
         </p>
       </div>
     </>

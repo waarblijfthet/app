@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
 import {
   AUTO_LABELS,
@@ -92,20 +93,9 @@ export default function SalarisRekenaar({
     `&kinderen=${kinderen}&auto=${auto === "twee" ? "eigen" : auto}` +
     (auto === "twee" ? "&tweedeauto=1" : "");
 
-  // Bridge naar /geldscan (bouwprompt 15-aug-2026, punt 11): iemand die hier
-  // net zijn huishouden heeft ingevuld, moet dat op de Geldscan-pagina niet
-  // opnieuw hoeven te doen. De situatiesleutel moet exact overeenkomen met
-  // SituatieSleutel in app/geldscan/page.tsx.
-  const geldscanSituatie = wisselend
-    ? "zzp"
-    : alleen
-    ? kinderen > 0
-      ? "alleenstaande-ouder"
-      : "alleenstaand"
-    : kinderen > 0
-    ? "gezin"
-    : "stel";
-  const geldscanHref = `/geldscan?situatie=${geldscanSituatie}&inkomen=${inkomen}&boodschappen=${Math.round(boodschappen)}`;
+  // Geen Geldscan-link in de rekenaar. De rekenaar is een opstap naar de gratis
+  // analyse, geen verkooppunt. De enige Geldscan-verwijzing van een artikel
+  // staat in het slotblok van app/inzichten/[slug]/page.tsx.
 
   return (
     <div
@@ -296,20 +286,19 @@ export default function SalarisRekenaar({
               doorrekende was de conclusie dat er niets te repareren viel. Dan hoor je dat ook gewoon terug.
             </p>
 
-            <p className="font-body font-medium text-sm mb-3" style={{ color: "#16211F" }}>
-              Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.
+            <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
+              Dit is een indicatie. Jouw huishouden is meer dan deze berekening.
+            </p>
+            <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
+              Wil je zien hoe jouw volledige financiële situatie zich verhoudt tot vergelijkbare
+              huishoudens?
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href={analyseHref} className="btn-primary text-center">
+              <CtaLink doel="analyse" href={analyseHref} locatie="rekenaar" className="btn-primary text-center">
                 Doe de gratis analyse &rarr;
-              </Link>
+              </CtaLink>
             </div>
-            <p className="font-body text-sm mt-3 mb-0">
-              <Link href={geldscanHref} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-              </Link>
-            </p>
           </div>
         )}
 
@@ -317,7 +306,7 @@ export default function SalarisRekenaar({
           <p className="font-body text-sm mt-3 text-center" style={{ color: "#5A6B66" }}>
             Vul hierboven in wat je zelf overhoudt, dan zie je meteen of je afwijkt, en waarom.{" "}
             <Link href={analyseHref} className="hover:underline" style={{ color: "#0B7A6E" }}>
-              Nog niet zover? Eerst gratis zelf kijken &rarr;
+              Doe de gratis analyse &rarr;
             </Link>
           </p>
         )}

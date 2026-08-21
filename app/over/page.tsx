@@ -3,6 +3,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
@@ -340,17 +341,19 @@ export default function OverPage() {
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
               Begin dan eens met vijf minuten kijken naar je eigen situatie.
             </p>
-            <Link
+            <CtaLink
+              doel="analyse"
               href="/analyse"
+              locatie="over-slot"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Doe de gratis analyse &rarr;
-            </Link>
+            </CtaLink>
             <p className="font-body font-light text-white/50 text-sm mt-5">
-              <Link href="/geldscan" className="hover:underline text-white/50">
-                Wil je dat ik gelijk met je meekijk? Dat kan ook, via de Geldscan &rarr;
-              </Link>
+              <CtaLink doel="geldscan" href="/geldscan" locatie="over-slot" className="hover:underline text-white/50">
+                Na de analyse kun je altijd nog kiezen voor de Geldscan &rarr;
+              </CtaLink>
             </p>
           </div>
         </section>

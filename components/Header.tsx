@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import CtaLink from "@/components/CtaLink";
 
 /* ─────────────────────────────────────────────────────────────────────────
    Volledig zelfstandige, opaque header. Geen transparantie, geen backdrop-
@@ -125,8 +126,10 @@ export default function Header() {
         {/* CTA, rechts uitgelijnd, alleen desktop */}
         <div className="hidden md:flex items-center shrink-0">
           {ctaConfig && (
-            <Link
+            <CtaLink
+              doel="analyse"
               href={ctaConfig.href}
+              locatie="header"
               className="inline-flex items-center gap-1.5 transition-colors duration-150"
               style={{
                 backgroundColor: C.wine,
@@ -142,7 +145,7 @@ export default function Header() {
             >
               {ctaConfig.label}
               <span aria-hidden="true">&rarr;</span>
-            </Link>
+            </CtaLink>
           )}
         </div>
 
@@ -195,8 +198,10 @@ export default function Header() {
             );
           })}
           {ctaConfig && (
-            <Link
+            <CtaLink
+              doel="analyse"
               href={ctaConfig.href}
+              locatie="header-mobiel"
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-1.5 w-full my-4"
               style={{
@@ -210,7 +215,7 @@ export default function Header() {
             >
               {ctaConfig.label}
               <span aria-hidden="true">&rarr;</span>
-            </Link>
+            </CtaLink>
           )}
         </nav>
       )}

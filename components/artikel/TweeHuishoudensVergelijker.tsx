@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
 import {
   VUISTREGEL,
@@ -60,7 +61,6 @@ export default function TweeHuishoudensVergelijker({
   const vasteLastenDelta =
     huis1.wonen + huis2.wonen - voor.wonen + (huis1.verzekeringen + huis2.verzekeringen - voor.verzekeringen);
 
-  const geldscanHref1 = `/geldscan?situatie=alleenstaande-ouder&inkomen=${inkomen1}&boodschappen=${Math.round(huis1.boodschappen)}`;
   const analyseHref1 = `/analyse?inkomen=${inkomen1}&volwassenen=1&kinderen=${kinderen}&auto=eigen`;
 
   return (
@@ -192,16 +192,18 @@ export default function TweeHuishoudensVergelijker({
           flink veranderen, precies iets waar een rapport wel naar kijkt en een vuistregel niet.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3 mt-4">
-          <Link href={analyseHref1} className="btn-primary text-center">
-            Doe de gratis analyse &rarr;
-          </Link>
-        </div>
-        <p className="font-body text-sm mt-3 mb-0">
-          <Link href={geldscanHref1} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-          </Link>
+        <p className="font-body text-sm mt-4 mb-1" style={{ color: "#16211F", fontWeight: 500 }}>
+          Dit is een indicatie. Jouw huishouden is meer dan deze berekening.
         </p>
+        <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
+          Wil je zien hoe jouw volledige financiële situatie zich verhoudt tot vergelijkbare
+          huishoudens?
+        </p>
+        <div className="flex flex-col sm:flex-row gap-3">
+          <CtaLink doel="analyse" href={analyseHref1} locatie="rekenaar" className="btn-primary text-center">
+            Doe de gratis analyse &rarr;
+          </CtaLink>
+        </div>
       </div>
 
       <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>

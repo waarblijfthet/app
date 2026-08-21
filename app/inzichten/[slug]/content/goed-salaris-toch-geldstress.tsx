@@ -199,11 +199,6 @@ export default function GoedSalarisTochGeldstress() {
         <Link href="/analyse" className="btn-primary">
           Doe de gratis analyse &rarr;
         </Link>
-        <p className="font-body text-sm" style={{ marginTop: "0.75rem", marginBottom: 0 }}>
-          <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">
-            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-          </Link>
-        </p>
       </div>
     </>
   );

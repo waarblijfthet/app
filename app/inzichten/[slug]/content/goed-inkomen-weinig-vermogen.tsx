@@ -117,6 +117,11 @@ export default function GoedInkomenWeinigVermogen() {
         intro="Een hoog inkomen zegt niets over hoeveel er structureel overblijft om mee te sparen of te beleggen. Zet je eigen inkomen en huishouden hieronder, dan zie je wat ik bij een huishouden zoals dat van jou zou verwachten."
       />
 
+      <p className="font-body" style={pStrong}>
+        De berekening laat zien wat mogelijk is. De gratis analyse laat zien wat er bij jouw
+        huishouden werkelijk gebeurt.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Hoog inkomen is niet hetzelfde als rijk zijn
       </h2>
@@ -352,38 +357,6 @@ export default function GoedInkomenWeinigVermogen() {
         dieper in op wat daarvoor nodig is.
       </p>
 
-      {/* Geldscan */}
-      <h2 className="font-display" style={h2}>
-        Wil je niet alleen weten waar het verschil zit, maar ook waarom?
-      </h2>
-      <p className="font-body" style={pStrong}>
-        Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.
-      </p>
-      <p className="font-body" style={p}>
-        De gratis analyse legt jouw inkomen, woonlasten, vervoer en dagelijkse uitgaven naast
-        huishoudens met een vergelijkbaar inkomen. Dat kost een paar minuten en verder niets.
-      </p>
-      <div className="rounded-2xl p-6 sm:p-8 my-6" style={{ backgroundColor: "#FFFFFF", border: `1.5px solid ${WINE}` }}>
-        <p className="font-display font-light mb-1" style={{ color: WINE, fontSize: "1.7rem" }}>
-          Gratis
-        </p>
-        <Link
-          href="/analyse?volwassenen=2&kinderen=0&inkomen=9000"
-          className="inline-flex items-center justify-center font-body text-sm font-medium mt-2"
-          style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
-        >
-          Doe de gratis analyse &rarr;
-        </Link>
-        <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
-          Geen abonnement. Geen verplichte afspraak.
-        </p>
-        <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
-          <Link href="/geldscan" className="hover:underline" style={{ color: WINE, textDecoration: "none" }}>
-            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
-          </Link>
-        </p>
-      </div>
-
       {/* Case */}
       {CASE_STEL && (
         <div className="rounded-xl p-5 my-8" style={{ backgroundColor: "#FFFFFF", border: `1px solid ${GOLD}` }}>
@@ -412,21 +385,6 @@ export default function GoedInkomenWeinigVermogen() {
         <p className="font-body" style={{ color: "#FFFFFF", fontWeight: 400, fontSize: "1.15rem", lineHeight: 1.6, marginBottom: 0 }}>
           Een hoog inkomen vertelt je hoeveel potentieel je hebt. Je financiële patroon vertelt je wat er
           daadwerkelijk gebeurt.
-        </p>
-      </div>
-      <p className="font-body" style={pStrong}>
-        Wil je weten hoe dat er bij jou uitziet?
-      </p>
-      <div className="rounded-2xl p-6 sm:p-8 my-6" style={{ backgroundColor: OFFWHITE, border: `1.5px solid ${GOLD}` }}>
-        <Link
-          href="/analyse"
-          className="inline-flex items-center justify-center font-body text-sm font-medium"
-          style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
-        >
-          Doe de gratis analyse &rarr;
-        </Link>
-        <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
-          Gratis · vertrouwelijk · geen verkoopgesprek
         </p>
       </div>
       <p className="font-body" style={p}>

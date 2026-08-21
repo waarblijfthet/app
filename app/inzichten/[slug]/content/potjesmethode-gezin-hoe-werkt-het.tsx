@@ -158,7 +158,7 @@ export default function PotjesmethodeGezinHoeWerktHet() {
         beter, ze maken het alleen complexer.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Lukt het niet om het vol te houden? Kijk dan eerst naar je volledige situatie met de{" "}<Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>. Wil je daarna weten waarom het bij jou zo uitpakt, dan kun je de{" "}<Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Geldscan bekijken</Link>.
+        Lukt het niet om het vol te houden? Dan zit de oorzaak zelden in de potjes zelf. Kijk eerst naar je volledige situatie met de{" "}<Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis analyse</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">de potjesmethode in de praktijk bij een echt gezin</a>.

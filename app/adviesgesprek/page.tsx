@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 
 export const metadata: Metadata = {
   title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
@@ -189,30 +190,34 @@ export default function AdviesgesprekPage() {
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
               Begin eerst met de gratis analyse. Daarna bepaal jij wat je doet.
             </p>
-            <Link
+            <CtaLink
+              doel="analyse"
               href="/analyse"
+              locatie="adviesgesprek-slot"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Doe de gratis analyse →
-            </Link>
+            </CtaLink>
             <p className="mt-5">
-              <Link
-                href="/aanbod/intake?pakket=gesprek"
-                className="font-body text-sm"
-                style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
-              >
-                Weet je al dat je een gesprek wilt? Plan je adviesgesprek, €125 →
-              </Link>
-            </p>
-            <p className="mt-2">
-              <Link
+              <CtaLink
+                doel="geldscan"
                 href="/geldscan"
+                locatie="adviesgesprek-slot"
                 className="font-body text-sm"
                 style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
               >
-                Liever geen gesprek? Bekijk de Geldscan (€49) →
-              </Link>
+                Na de analyse kun je altijd nog kiezen voor de Geldscan →
+              </CtaLink>
+            </p>
+            <p className="mt-3 mb-0">
+              <a
+                href="mailto:hallo@waarblijfthet.nl?subject=Adviesgesprek"
+                className="font-body text-xs"
+                style={{ color: "rgba(245,240,232,0.45)", textDecoration: "none" }}
+              >
+                Weet je al dat je liever meteen een gesprek wilt? Mail me dan waar je aan denkt.
+              </a>
             </p>
           </div>
         </section>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getArtikel, artikelen } from "@/lib/inzichten-data";
@@ -243,57 +244,41 @@ export default function ArtikelPage({ params }: Props) {
                   marginBottom: "2.5rem",
                 }}
               >
-                {artikel.cta ? (
-                  <>
-                    <p
-                      className="font-body font-medium text-primary"
-                      style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}
-                    >
-                      {artikel.cta.kop}
-                    </p>
-                    <p
-                      className="font-body font-light text-text-soft"
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      {artikel.cta.tekst}
-                    </p>
-                    <Link href={artikel.cta.primairHref} className="btn-primary">
-                      {artikel.cta.primairLabel} →
-                    </Link>
-                    <p style={{ marginTop: "0.85rem", marginBottom: 0 }}>
-                      <Link
-                        href={artikel.cta.secundairHref}
-                        className="font-body text-sm hover:underline"
-                        style={{ color: "#0B7A6E", textDecoration: "none" }}
-                      >
-                        {artikel.cta.secundairLabel} →
-                      </Link>
-                    </p>
-                  </>
-                ) : (
-                  <>
-                    <p
-                      className="font-body font-light text-text-soft"
-                      style={{ marginBottom: "1rem" }}
-                    >
-                      Wil je weten hoe jouw situatie ervoor staat? In een paar
-                      minuten zie je waar jouw huishouden afwijkt van
-                      vergelijkbare huishoudens. Je hoeft nog niets te kopen.
-                    </p>
-                    <Link href={ANALYSE_ROUTE} className="btn-primary">
-                      {PRIMAIRE_CTA_LABEL} →
-                    </Link>
-                    <p style={{ marginTop: "0.85rem", marginBottom: 0 }}>
-                      <Link
-                        href="/geldscan"
-                        className="font-body text-sm hover:underline"
-                        style={{ color: "#0B7A6E", textDecoration: "none" }}
-                      >
-                        Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan →
-                      </Link>
-                    </p>
-                  </>
-                )}
+                {/* Het slot van elk artikel, punt 22. Eén primaire analyse-CTA
+                    en daaronder, tekstueel en ondergeschikt, de enige
+                    Geldscan-verwijzing van het artikel. */}
+                <p
+                  className="font-body font-medium text-primary"
+                  style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}
+                >
+                  {artikel.cta?.kop ?? "Hoe zit dit bij jou?"}
+                </p>
+                <p
+                  className="font-body font-light text-text-soft"
+                  style={{ marginBottom: "1rem" }}
+                >
+                  {artikel.cta?.tekst ??
+                    "Algemene gemiddelden vertellen iets. Jouw eigen financiële situatie vertelt meer."}
+                </p>
+                <CtaLink
+                  doel="analyse"
+                  href={artikel.cta?.primairHref ?? ANALYSE_ROUTE}
+                  locatie="artikel-slot"
+                  className="btn-primary"
+                >
+                  {PRIMAIRE_CTA_LABEL} →
+                </CtaLink>
+                <p style={{ marginTop: "0.85rem", marginBottom: 0 }}>
+                  <CtaLink
+                    doel="geldscan"
+                    href="/geldscan"
+                    locatie="artikel-slot"
+                    className="font-body text-sm hover:underline"
+                    style={{ color: "#0B7A6E", textDecoration: "none" }}
+                  >
+                    Na de analyse kun je altijd nog kiezen voor de Geldscan →
+                  </CtaLink>
+                </p>
               </div>
 
               {/* FAQ sectie */}

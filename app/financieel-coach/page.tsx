@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import CtaLink from "@/components/CtaLink";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import { FinancieelCoachAccordion } from "./components/FinancieelCoachAccordion";
 
@@ -191,18 +192,9 @@ export default function FinancieelCoachPage() {
                   gebeurt. Geen financiële producten, geen provisie, geen oordeel en geen
                   standaard bespaartips.
                 </p>
-                <Link href="/analyse" className="btn-primary">
+                <CtaLink doel="analyse" href="/analyse" locatie="coach-hero" className="btn-primary">
                   Doe de gratis analyse →
-                </Link>
-                <p className="mt-3 mb-0">
-                  <Link
-                    href="/geldscan"
-                    className="font-body text-sm hover:underline"
-                    style={{ color: "#0B7A6E", textDecoration: "none" }}
-                  >
-                    Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan →
-                  </Link>
-                </p>
+                </CtaLink>
                 <p className="font-body font-light text-text-muted text-xs mt-4">
                   5 minuten · geen account · geen bankkoppeling · direct resultaat
                 </p>
@@ -387,17 +379,19 @@ export default function FinancieelCoachPage() {
                     </li>
                   ))}
                 </ul>
-                <Link
+                <CtaLink
+                  doel="geldscan"
                   href="/geldscan"
+                  locatie="coach-geldscankaart"
                   className="font-body text-sm font-medium hover:underline"
                   style={{ color: "#0B7A6E", textDecoration: "none" }}
                 >
                   Bekijk de Geldscan →
-                </Link>
+                </CtaLink>
               </div>
             </div>
             <p className="font-body font-light text-text-muted text-xs leading-relaxed mt-6 text-center">
-              Je hoeft niet meteen te weten wat je nodig hebt. Gratis → Geldscan €49 → Adviesgesprek €125 → optioneel traject €497.
+              Je hoeft niet meteen te weten wat je nodig hebt. Begin met de gratis analyse, daarna bepaal je zelf of je verder wilt.
             </p>
           </div>
         </section>
@@ -550,21 +544,17 @@ export default function FinancieelCoachPage() {
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
               Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom. Vijf minuten, geen account, geen bankkoppeling.
             </p>
-            <Link
+            <CtaLink
+              doel="analyse"
               href="/analyse"
+              locatie="coach-slot"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
               Doe de gratis analyse →
-            </Link>
-            <p className="mt-5">
-              <Link
-                href="/geldscan"
-                className="font-body text-sm"
-                style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
-              >
-                Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan van €49 →
-              </Link>
+            </CtaLink>
+            <p className="mt-5 mb-0 text-white/50 font-body font-light text-xs">
+              Na de analyse kun je altijd nog kiezen voor de Geldscan.
             </p>
           </div>
         </section>

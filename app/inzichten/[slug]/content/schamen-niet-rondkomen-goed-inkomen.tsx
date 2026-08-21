@@ -109,8 +109,7 @@ export default function SchamenNietRondkomenGoedInkomen() {
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Het gevoel dat je iets fout doet, is niet hetzelfde als iets fout doen. Begin met de gratis analyse
-        en zie je eigen cijfers naast vergelijkbare huishoudens, zonder oordeel. Wil je dat ik er zelf naar
-        kijk en opschrijf wat opvalt, en wat juist niet, dan kan dat bij de Geldscan.
+        en zie je eigen cijfers naast vergelijkbare huishoudens, zonder oordeel.
       </p>
     </>
   );
