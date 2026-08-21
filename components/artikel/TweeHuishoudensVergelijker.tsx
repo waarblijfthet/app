@@ -193,17 +193,15 @@ export default function TweeHuishoudensVergelijker({
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 mt-4">
-          <Link href={geldscanHref1} className="btn-primary text-center">
-            Laat mij naar jouw twee huishoudens kijken &rarr; €49
-          </Link>
-          <Link
-            href={analyseHref1}
-            className="inline-flex items-center justify-center font-body text-sm font-medium"
-            style={{ color: "#16211F", border: "1.5px solid #16211F", borderRadius: "4px", padding: "0.75rem 1.25rem", textDecoration: "none" }}
-          >
-            Eerst gratis zelf kijken &rarr;
+          <Link href={analyseHref1} className="btn-primary text-center">
+            Doe de gratis analyse &rarr;
           </Link>
         </div>
+        <p className="font-body text-sm mt-3 mb-0">
+          <Link href={geldscanHref1} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+          </Link>
+        </p>
       </div>
 
       <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>

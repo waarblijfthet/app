@@ -12,7 +12,6 @@ import {
   berekenVerzekeringen,
   berekenAbonnementen,
   berekenKinderen,
-  berekenJaarlijks,
   vindGrootsteAfwijking,
   bepaalVerdict,
   aantalVolwassenenVan,
@@ -23,35 +22,6 @@ interface Props {
   data: QuizData;
   onChange: (u: Partial<QuizData>) => void;
 }
-
-type Verdict = "goed" | "matig" | "zorgelijk";
-
-const VERDICT_CONFIG: Record<
-  Verdict,
-  { bg: string; border: string; title: string; text: string; textColor: string }
-> = {
-  goed: {
-    bg: "bg-green-light",
-    border: "border-[#A6D8CD]",
-    title: "Je doet het goed.",
-    text: "Er is ruimte, de vraag is of dat geld doelbewust wordt ingezet.",
-    textColor: "text-[#0B7A6E]",
-  },
-  matig: {
-    bg: "bg-[#FDF3E3]",
-    border: "border-[#F0D07A]",
-    title: "Je zit dicht bij het gemiddelde.",
-    text: "Maar er is weinig buffer. Een kleine tegenvaller en het klopt niet meer.",
-    textColor: "text-[#92600A]",
-  },
-  zorgelijk: {
-    bg: "bg-[#FDECEA]",
-    border: "border-[#F0A09A]",
-    title: "Je houdt structureel minder over.",
-    text: "Dit is het patroon waarvoor deze analyse bestaat. Of dat komt doordat je leven duur is of doordat er ongemerkt iets weglekt, kan ik hier niet uit zien. Dat is precies het verschil dat een geldrapport uitzoekt.",
-    textColor: "text-[#B03A2E]",
-  },
-};
 
 function AfwijkingRij({
   label,
@@ -67,9 +37,11 @@ function AfwijkingRij({
   return (
     <div className="py-4 border-b border-[#E6E9E7] last:border-0">
       <div className="flex justify-between items-center mb-2">
-        <span className="font-body font-medium text-sm text-text-soft">{label}</span>
+        <span className="font-body font-medium text-sm text-primary">{label}</span>
         <span
-          className={`text-sm font-body font-medium ${verschil > 0 ? "text-accent" : "text-[#0B7A6E]"}`}
+          className={`text-sm font-body font-medium ${
+            verschil > 0 ? "text-[#A15A32]" : "text-[#0B7A6E]"
+          }`}
         >
           {verschil > 0 ? "+" : ""}
           {fmtEur(verschil)}
@@ -77,12 +49,14 @@ function AfwijkingRij({
       </div>
       <div className="flex gap-4 text-xs text-text-muted font-body mb-2">
         <span>Jij: {fmtEur(jij)}</span>
-        <span>Gemiddeld: {fmtEur(benchmark)}</span>
+        <span>Vergelijkbare huishoudens: {fmtEur(benchmark)}</span>
       </div>
       <div className="space-y-1">
         <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
           <div
-            className={`h-full rounded-full ${verschil > 100 ? "bg-accent" : "bg-primary"}`}
+            className={`h-full rounded-full ${
+              verschil > 100 ? "bg-[#C4603A]" : "bg-primary"
+            }`}
             style={{ width: `${(jij / max) * 100}%` }}
           />
         </div>
@@ -120,27 +94,63 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   const tekort = -overDiff;
   const verdict = bepaalVerdict(data, benches);
   const grootsteAfwijking = vindGrootsteAfwijking(data, benches);
-  const verdictCfg = VERDICT_CONFIG[verdict];
 
   const wonenTotaal = berekenWonen(data);
   const vervoerTotaal = berekenVervoer(data);
   const verzekeringTotaal = berekenVerzekeringen(data);
   const abonnementenTotaalWaarde = berekenAbonnementen(data);
   const kinderenTotaal = berekenKinderen(data);
-  const jaarlijksTotaal = berekenJaarlijks(data);
   const spaardoelWaarde = parseEur(data.spaardoel);
 
+  // Eén conclusie in mensentaal. Geen diagnose, alleen de richting.
+  const conclusie =
+    overDiff > 100
+      ? "Je zit ruim boven de gemiddelde financiële ruimte van vergelijkbare huishoudens."
+      : overDiff < -100
+      ? "Je houdt minder ruimte over dan vergelijkbare huishoudens."
+      : "Je financiële ruimte ligt ongeveer rond het gemiddelde.";
+
   type AfwijkingEntry = { label: string; jij: number; bench: number; diff: number };
-  const allAfwijkingen: AfwijkingEntry[] = [
-    { label: "Boodschappen", jij: parseEur(data.boodschappen), bench: benches.boodschappen, diff: parseEur(data.boodschappen) - benches.boodschappen },
-    { label: "Abonnementen", jij: abonnementenTotaalWaarde, bench: benches.abonnementen, diff: abonnementenTotaalWaarde - benches.abonnementen },
-    { label: "Wonen", jij: wonenTotaal, bench: benches.wonen, diff: wonenTotaal - benches.wonen },
-    { label: "Verzekeringen", jij: verzekeringTotaal, bench: benches.verzekeringen, diff: verzekeringTotaal - benches.verzekeringen },
-    { label: "Vervoer", jij: vervoerTotaal, bench: benches.vervoer, diff: vervoerTotaal - benches.vervoer },
+  const gesorteerd: AfwijkingEntry[] = [
+    {
+      label: "Boodschappen",
+      jij: parseEur(data.boodschappen),
+      bench: benches.boodschappen,
+      diff: parseEur(data.boodschappen) - benches.boodschappen,
+    },
+    {
+      label: "Abonnementen",
+      jij: abonnementenTotaalWaarde,
+      bench: benches.abonnementen,
+      diff: abonnementenTotaalWaarde - benches.abonnementen,
+    },
+    {
+      label: "Wonen",
+      jij: wonenTotaal,
+      bench: benches.wonen,
+      diff: wonenTotaal - benches.wonen,
+    },
+    {
+      label: "Verzekeringen",
+      jij: verzekeringTotaal,
+      bench: benches.verzekeringen,
+      diff: verzekeringTotaal - benches.verzekeringen,
+    },
+    {
+      label: "Vervoer",
+      jij: vervoerTotaal,
+      bench: benches.vervoer,
+      diff: vervoerTotaal - benches.vervoer,
+    },
   ]
     .filter((a) => a.jij > 0)
-    .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff))
-    .slice(0, 2);
+    .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
+
+  // Twee posten die het meest opvallen, en alleen een derde als die ook echt
+  // nog iets toevoegt. Niet alle cijfers opnieuw opsommen.
+  const allAfwijkingen = gesorteerd
+    .slice(0, 3)
+    .filter((a, i) => i < 2 || Math.abs(a.diff) >= 50);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -210,7 +220,9 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
       console.error(err);
       const detail = err instanceof Error ? err.message : "";
       setError(
-        `Er ging iets mis bij het opslaan${detail ? ` (${detail})` : ""}. Probeer het opnieuw of mail naar hallo@waarblijfthet.nl.`
+        `Er ging iets mis bij het opslaan${
+          detail ? ` (${detail})` : ""
+        }. Probeer het opnieuw of mail naar hallo@waarblijfthet.nl.`
       );
       setSending(false);
     }
@@ -218,8 +230,9 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-10">
-        Jouw financiële plaatje
+      <p className="section-eyebrow mb-2">Jouw vergelijking</p>
+      <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
+        Dit is hoe jouw huishouden ervoor staat
       </h2>
 
       {/* Het grote getal: wat ik zou verwachten tegenover wat er overblijft */}
@@ -228,8 +241,8 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           {tekort > 50 ? "Het gat" : "Jouw ruimte"}
         </p>
         <p
-          className={`font-display font-light text-6xl mb-3 text-center ${
-            tekort > 50 || over < 0 ? "text-accent" : "text-primary"
+          className={`font-display font-light text-5xl sm:text-6xl mb-3 text-center ${
+            tekort > 50 || over < 0 ? "text-[#C4603A]" : "text-primary"
           }`}
         >
           {tekort > 50
@@ -256,7 +269,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             <p className="section-eyebrow mb-1">Blijft er over</p>
             <p
               className={`font-body font-medium text-lg ${
-                over < 0 ? "text-accent" : "text-primary"
+                over < 0 ? "text-[#C4603A]" : "text-primary"
               }`}
             >
               {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
@@ -264,43 +277,40 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           </div>
         </div>
         <p className="font-body font-light text-text-muted text-xs mt-5 leading-relaxed">
-          Die verwachting is mijn eigen vuistregel op basis van vier dingen: je inkomen, het aantal
-          volwassenen, het aantal kinderen en je autosituatie. Geen norm en geen oordeel. De vergelijking weet
-          niets over de leeftijd van je kinderen, je regio, alimentatie of hoeveel je op je huis hebt
-          afgelost, en die kunnen flink meewegen.
+          Die verwachting is mijn eigen vuistregel op basis van vier dingen: je
+          inkomen, het aantal volwassenen, het aantal kinderen en je
+          autosituatie. Geen norm en geen oordeel. De vergelijking weet niets
+          over de leeftijd van je kinderen, je regio, alimentatie of hoeveel je
+          op je huis hebt afgelost, en die kunnen flink meewegen.
         </p>
       </div>
 
-      {/* Spaardoel vs werkelijkheid, alleen als ingevuld */}
+      {/* Spaardoel tegenover de werkelijkheid, alleen als het is ingevuld */}
       {spaardoelWaarde > 0 && (
         <div className="card-base border border-[#E6E9E7] mb-6">
-          <div className="flex justify-between items-start gap-4">
-            <div>
-              <p className="section-eyebrow mb-1">Jouw spaardoel</p>
-              <p className="font-body font-medium text-primary text-sm">
-                Je wilt {fmtEur(spaardoelWaarde)}/mnd opzij zetten
-              </p>
-              <p className="font-body font-light text-text-soft text-xs mt-1 leading-relaxed">
-                {over >= spaardoelWaarde
-                  ? `Na dat spaardoel houd je nog ${fmtEur(over - spaardoelWaarde)}/mnd over.`
-                  : `Je houdt ${fmtEur(over)}/mnd over, ${fmtEur(spaardoelWaarde - over)} te weinig om dit spaardoel te halen.`}
-              </p>
-            </div>
-            <span
-              className={`text-xl font-body font-semibold shrink-0 ${
-                over >= spaardoelWaarde ? "text-[#0B7A6E]" : "text-accent"
-              }`}
-            >
-              {over >= spaardoelWaarde ? "✓" : "!"}
-            </span>
-          </div>
+          <p className="section-eyebrow mb-1">Jouw spaardoel</p>
+          <p className="font-body font-medium text-primary text-sm">
+            Je wilt {fmtEur(spaardoelWaarde)} per maand opzij zetten
+          </p>
+          <p className="font-body font-light text-text-soft text-xs mt-1 leading-relaxed">
+            {over >= spaardoelWaarde
+              ? `Na dat spaardoel houd je nog ${fmtEur(
+                  over - spaardoelWaarde
+                )} per maand over.`
+              : `Je houdt ${fmtEur(over)} per maand over, ${fmtEur(
+                  spaardoelWaarde - over
+                )} te weinig om dit spaardoel te halen.`}
+          </p>
         </div>
       )}
 
-      {/* Top-2 afwijkingen */}
+      {/* De posten die het meest opvallen */}
       {allAfwijkingen.length > 0 && (
         <div className="card-base border border-[#E6E9E7] mb-6">
-          <p className="section-eyebrow mb-4">Waar zit de afwijking?</p>
+          <p className="section-eyebrow mb-1">Waar zit de afwijking?</p>
+          <p className="font-body text-xs text-text-muted mb-3">
+            De posten die het meest opvallen. Niet al je cijfers opnieuw.
+          </p>
           {allAfwijkingen.map((a) => (
             <AfwijkingRij
               key={a.label}
@@ -312,34 +322,34 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </div>
       )}
 
-      {/* Verdict */}
-      <div
-        className={`rounded-xl border p-5 mb-8 ${verdictCfg.bg} ${verdictCfg.border}`}
-      >
-        <p className={`font-display font-light text-xl mb-2 ${verdictCfg.textColor}`}>
-          {verdictCfg.title}
+      {/* Eén conclusie */}
+      <div className="rounded-xl border border-[#E6E9E7] bg-[#F0F3F1] p-5 mb-8">
+        <p className="font-display font-light text-primary text-xl mb-2 leading-snug">
+          {conclusie}
         </p>
-        <p className={`font-body font-light text-sm ${verdictCfg.textColor}`}>
-          {verdictCfg.text}
+        <p className="font-body font-light text-sm text-text-soft">
+          De analyse laat zien dát er een verschil is. Niet waarom dat zo is.
         </p>
       </div>
 
-      {/* Hoofdaanbod: het geldrapport */}
-      <div
-        className="rounded-xl border border-[#E6E9E7] p-6 mb-8"
-        style={{ backgroundColor: "#FFFFFF" }}
-      >
-        <p className="section-eyebrow mb-3">En nu?</p>
-        <p className="font-display font-light text-primary text-xl sm:text-2xl mb-2 leading-snug">
-          Je weet nu waar je afwijkt
+      {/* Eén volgende stap */}
+      <div className="rounded-xl border border-[#E6E9E7] bg-card p-6 mb-8">
+        <p className="font-display font-light text-primary text-xl sm:text-2xl mb-1 leading-snug">
+          Je weet nu waar je situatie afwijkt.
+        </p>
+        <p className="font-display font-light text-[#A15A32] text-xl sm:text-2xl mb-3 leading-snug">
+          Maar nog niet waarom.
         </p>
         <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
-          Je weet nog niet waarom, want daar heeft dit niet naar gekeken. Dat
-          is wat ik in een geldrapport voor je uitzoek.
+          Dat is precies waar ik persoonlijk naar kan kijken. De analyse laat
+          zien waar. De Geldscan laat zien waarom.
         </p>
         <Link href="/geldscan" className="btn-primary">
-          Vraag het geldrapport aan &rarr;
+          Laat mij uitzoeken waarom &rarr;
         </Link>
+        <p className="font-body text-text-muted text-xs mt-3">
+          Geldscan &euro;49 &middot; eenmalig &middot; persoonlijk geschreven
+        </p>
         <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
           Twijfel je of dat bij je past? Dan kun je me eerst{" "}
           <a
@@ -349,31 +359,20 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
           >
             een kwartier spreken
           </a>
-          . Ik kijk in dat kwartier niet naar je cijfers, ik leg alleen uit
-          hoe het werkt.
-        </p>
-        <p className="mt-4">
-          <Link
-            href="/adviesgesprek"
-            className="font-body text-sm hover:underline"
-            style={{ color: "#0B7A6E", textDecoration: "none" }}
-          >
-            Liever eerst een gesprek van 45 minuten, €125? &rarr;
-          </Link>
+          . Ik kijk in dat kwartier niet naar je cijfers, ik leg alleen uit hoe
+          het werkt.
         </p>
       </div>
 
-      {/* Lead capture */}
+      {/* Bewaren, secundair aan het resultaat */}
       {!sent ? (
         <div className="card-base border border-[#E6E9E7]">
-          <p className="font-display font-light text-primary text-2xl mb-2">
-            Ontvang je volledige analyse
+          <p className="font-display font-light text-primary text-xl mb-2">
+            Wil je je vergelijking bewaren?
           </p>
           <p className="text-text-soft font-body font-light text-sm mb-6">
-            Per e-mail ontvang je een gedetailleerde breakdown van je situatie,
-            met concrete eerste stappen voor de categorie die het meest afwijkt.
-            Je resultaat hierboven blijft ook zonder e-mail gewoon zichtbaar.
-            Geen mails daarna, tenzij je het tweede vakje aanvinkt.
+            Laat je e-mailadres achter en ontvang je volledige analyse per mail.
+            Je resultaat hierboven blijft ook zonder e-mail zichtbaar.
           </p>
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
@@ -381,7 +380,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
               value={data.naam}
               onChange={(e) => onChange({ naam: e.target.value })}
               placeholder="Naam (optioneel)"
-              className="input-base"
+              className="input-base min-h-[52px]"
               aria-label="Naam"
             />
             <input
@@ -390,7 +389,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
               onChange={(e) => onChange({ email: e.target.value })}
               placeholder="jouw@email.nl"
               required
-              className="input-base"
+              className="input-base min-h-[52px]"
               aria-label="E-mailadres"
             />
             <label className="flex items-start gap-3 cursor-pointer">
@@ -399,57 +398,54 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
                 checked={data.toestemmingOpslaan}
                 onChange={(e) => onChange({ toestemmingOpslaan: e.target.checked })}
                 required
-                className="mt-0.5 w-4 h-4 accent-[#16211F] flex-shrink-0"
+                className="mt-0.5 w-4 h-4 accent-[#0B7A6E] flex-shrink-0"
               />
               <span className="font-body text-sm text-text-soft">
                 Ik ga akkoord met het opslaan van mijn antwoorden voor analyse{" "}
-                <span className="text-accent">*</span>
+                <span className="text-[#C4603A]">*</span>
               </span>
             </label>
             <label className="flex items-start gap-3 cursor-pointer">
               <input
                 type="checkbox"
                 checked={data.toestemmingMarketing}
-                onChange={(e) =>
-                  onChange({ toestemmingMarketing: e.target.checked })
-                }
-                className="mt-0.5 w-4 h-4 accent-[#16211F] flex-shrink-0"
+                onChange={(e) => onChange({ toestemmingMarketing: e.target.checked })}
+                className="mt-0.5 w-4 h-4 accent-[#0B7A6E] flex-shrink-0"
               />
               <span className="font-body text-sm text-text-soft">
                 Ik wil updates ontvangen van Waar blijft het
               </span>
             </label>
-            {error && (
-              <p className="text-accent font-body text-sm">{error}</p>
-            )}
+            {error && <p className="text-[#C4603A] font-body text-sm">{error}</p>}
             <button
               type="submit"
               disabled={sending || !data.email || !data.toestemmingOpslaan}
               className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              {sending ? "Even geduld…" : "Stuur mij de analyse →"}
+              {sending ? "Even geduld" : "Bewaar mijn vergelijking →"}
             </button>
+            <p className="font-body text-xs text-text-muted">
+              Je antwoorden zijn anoniem zolang je geen e-mailadres invult.{" "}
+              <Link
+                href="/privacy"
+                style={{ color: "#0B7A6E", textDecoration: "none" }}
+              >
+                Privacy &rarr;
+              </Link>
+            </p>
           </form>
         </div>
       ) : (
         <div className="card-base border border-[#A6D8CD] bg-green-light text-center">
-          <p className="font-display font-light text-primary text-2xl mb-2">Gelukt!</p>
+          <p className="font-display font-light text-primary text-2xl mb-2">
+            Gelukt
+          </p>
           <p className="text-text-soft font-body text-sm">
-            Je analyse is onderweg naar{" "}
-            <strong>{data.email}</strong>. Check ook je spamfolder.
+            Je analyse is onderweg naar <strong>{data.email}</strong>. Check ook
+            je spamfolder.
           </p>
         </div>
       )}
-
-      {/* Blog CTA */}
-      <div className="mt-8 text-center">
-        <Link
-          href="/inzichten/goed-salaris-toch-krap"
-          className="text-text-soft font-body text-sm hover:text-primary transition-colors"
-        >
-          Meer leren? Lees het artikel &rarr;
-        </Link>
-      </div>
     </div>
   );
 }

@@ -357,27 +357,30 @@ export default function GoedInkomenWeinigVermogen() {
         Wil je niet alleen weten waar het verschil zit, maar ook waarom?
       </h2>
       <p className="font-body" style={pStrong}>
-        De gratis analyse laat zien waar je afwijkt. De Geldscan helpt verklaren waarom en welke
-        afwijkingen er daadwerkelijk toe doen.
+        Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.
       </p>
       <p className="font-body" style={p}>
-        In de Geldscan kijk ik persoonlijk naar jouw cijfers. Ik leg uit wat opvalt, wat normaal is en
-        welke punten ik als eerste zou aanpakken. Dat is geen garantie dat er iets te besparen valt,
-        soms is de conclusie juist dat je situatie logisch is voor jouw huishouden.
+        De gratis analyse legt jouw inkomen, woonlasten, vervoer en dagelijkse uitgaven naast
+        huishoudens met een vergelijkbaar inkomen. Dat kost een paar minuten en verder niets.
       </p>
       <div className="rounded-2xl p-6 sm:p-8 my-6" style={{ backgroundColor: "#FFFFFF", border: `1.5px solid ${WINE}` }}>
         <p className="font-display font-light mb-1" style={{ color: WINE, fontSize: "1.7rem" }}>
-          €49 eenmalig
+          Gratis
         </p>
         <Link
-          href="/geldscan?situatie=stel&inkomen=9000"
+          href="/analyse?volwassenen=2&kinderen=0&inkomen=9000"
           className="inline-flex items-center justify-center font-body text-sm font-medium mt-2"
           style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
         >
-          Bekijk de Geldscan &rarr;
+          Doe de gratis analyse &rarr;
         </Link>
         <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
           Geen abonnement. Geen verplichte afspraak.
+        </p>
+        <p className="font-body text-xs mt-3 mb-0" style={{ color: SOFT }}>
+          <Link href="/geldscan" className="hover:underline" style={{ color: WINE, textDecoration: "none" }}>
+            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+          </Link>
         </p>
       </div>
 

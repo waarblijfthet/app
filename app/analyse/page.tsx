@@ -46,8 +46,12 @@ export default function AnalysePage() {
             <h1 className="font-display font-light text-primary text-2xl sm:text-4xl md:text-5xl max-w-2xl mb-2 leading-snug">
               Hoe doe jij het ten opzichte van vergelijkbare huishoudens?
             </h1>
-            <p className="text-text-soft font-body font-light text-base max-w-xl mb-0">
-              Anoniem, geen producten, geen bankadvies.
+            <p className="text-text-soft font-body font-light text-base max-w-xl mb-3">
+              Vul een paar dingen in en zie waar jouw huishouden afwijkt van
+              huishoudens in dezelfde situatie.
+            </p>
+            <p className="font-body font-medium text-accent text-sm sm:text-base max-w-xl mb-0">
+              Nog 6 korte stappen. Daarna zie je waar jouw huishouden afwijkt.
             </p>
           </div>
         </section>

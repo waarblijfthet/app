@@ -67,7 +67,7 @@ export default function InzichtenPage() {
                 className="btn-primary"
                 style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
               >
-                Start de analyse &rarr;
+                Doe de gratis analyse &rarr;
               </Link>
               <p className="font-body text-xs mt-3" style={{ color: "#8B958F" }}>
                 5 minuten &middot; Geen account &middot; Geen bankkoppeling
@@ -94,7 +94,7 @@ export default function InzichtenPage() {
                   className="btn-primary md:w-auto"
                   style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
                 >
-                  Start de analyse &rarr;
+                  Doe de gratis analyse &rarr;
                 </Link>
                 <Link
                   href="/aanbod"

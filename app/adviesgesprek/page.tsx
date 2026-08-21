@@ -187,22 +187,22 @@ export default function AdviesgesprekPage() {
               Klaar om te beginnen?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Eenmalig €125. Daarna bepaal jij wat je doet.
+              Begin eerst met de gratis analyse. Daarna bepaal jij wat je doet.
             </p>
             <Link
-              href="/aanbod/intake?pakket=gesprek"
+              href="/analyse"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Plan je adviesgesprek →
+              Doe de gratis analyse →
             </Link>
             <p className="mt-5">
               <Link
-                href="/analyse"
+                href="/aanbod/intake?pakket=gesprek"
                 className="font-body text-sm"
                 style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
               >
-                Liever eerst de analyse? →
+                Weet je al dat je een gesprek wilt? Plan je adviesgesprek, €125 →
               </Link>
             </p>
             <p className="mt-2">
@@ -211,7 +211,7 @@ export default function AdviesgesprekPage() {
                 className="font-body text-sm"
                 style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
               >
-                Liever geen gesprek? Bekijk de geldscan (€49) →
+                Liever geen gesprek? Bekijk de Geldscan (€49) →
               </Link>
             </p>
           </div>

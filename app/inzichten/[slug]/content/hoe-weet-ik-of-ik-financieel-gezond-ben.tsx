@@ -468,26 +468,24 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
         Wanneer is de Geldscan interessant?
       </h2>
       <p className="font-body" style={pStrong}>
-        De analyse geeft je het &ldquo;waar&rdquo;. De Geldscan geeft je het &ldquo;waarom&rdquo; en
-        &ldquo;wat nu&rdquo;.
+        Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.
       </p>
       <p className="font-body" style={p}>
-        De gratis analyse laat vooral zien waar jouw situatie afwijkt. Soms wil je daarna verder.
-        Waarom wijkt jouw huishouden af? Is dat een probleem? Wat betekent het voor je financiële
-        ruimte? En wat zou je als eerste moeten veranderen? Daarvoor is er de Geldscan.
-      </p>
-      <p className="font-body" style={pStrong}>
-        €49 eenmalig. Ik kijk persoonlijk naar jouw cijfers en beschrijf wat opvalt, wat juist niet
-        opvalt, en welke punten ik als eerste zou aanpakken. Geen abonnement. Geen financiële
-        producten. Geen provisie. Geen verplicht gesprek.
+        De gratis analyse laat zien waar jouw situatie afwijkt van vergelijkbare huishoudens. Geen
+        account, geen bankkoppeling, een paar minuten. Je hoeft nog niets te kopen.
       </p>
       <Link
-        href="/geldscan"
+        href="/analyse"
         className="inline-flex items-center justify-center font-body text-sm font-medium"
-        style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none", marginBottom: "2rem" }}
+        style={{ color: "#FFFFFF", backgroundColor: WINE, borderRadius: "10px", padding: "0.85rem 1.5rem", textDecoration: "none" }}
       >
-        Bekijk de Geldscan &rarr;
+        Doe de gratis analyse &rarr;
       </Link>
+      <p className="font-body" style={{ ...p, marginTop: "0.85rem", marginBottom: "2rem" }}>
+        <Link href="/geldscan" className="hover:underline" style={{ color: WINE, textDecoration: "none" }}>
+          Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+        </Link>
+      </p>
 
       <p className="font-body" style={pStrong}>
         Financieel gezond betekent niet dat je alles perfect doet. Het betekent dat je begrijpt hoe je

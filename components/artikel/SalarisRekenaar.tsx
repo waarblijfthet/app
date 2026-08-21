@@ -42,7 +42,7 @@ const ABONNEMENTEN = VUISTREGEL.abonnementen;
  * Lezersfeedback (15-aug-2026) op het salarisartikel: na de rekenaar weet je wat
  * normaal is, maar niet waarom jij daarvan afwijkt. Dit gezin is het bewijs dat
  * de rekenaar zelf noemt: zij dachten vooraf aan boodschappen en de kinderen, en
- * dat bleek niet de oorzaak. Bron: lib/rapporten-data.ts, werkregel 4 — nooit een
+ * dat bleek niet de oorzaak. Bron: lib/rapporten-data.ts, werkregel 4, nooit een
  * cijfer of citaat over een echte klant uit het geheugen typen.
  */
 const CASE_BOODSCHAPPEN_NIET_HET_PROBLEEM = rapportVoorSlug("tweeverdieners-drie-kinderen");
@@ -293,31 +293,29 @@ export default function SalarisRekenaar({
 
             <p className="font-body text-xs mb-4" style={{ color: "#5A6B66" }}>
               Niet elke Geldscan vindt een lek. Bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length} gezinnen die ik
-              doorrekende was de conclusie dat er niets te repareren viel &mdash; dan hoor je dat ook gewoon terug.
+              doorrekende was de conclusie dat er niets te repareren viel. Dan hoor je dat ook gewoon terug.
             </p>
 
             <p className="font-body font-medium text-sm mb-3" style={{ color: "#16211F" }}>
-              De rekenaar hierboven vertelt je dát je afwijkt. De Geldscan zoekt uit waarom.
+              Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-3">
-              <Link href={geldscanHref} className="btn-primary text-center">
-                Laat mij uitzoeken waar het verschil zit{" "}&rarr;{" "}€49
-              </Link>
-              <Link
-                href={analyseHref}
-                className="inline-flex items-center justify-center font-body text-sm font-medium"
-                style={{ color: "#16211F", border: "1.5px solid #16211F", borderRadius: "4px", padding: "0.75rem 1.25rem", textDecoration: "none" }}
-              >
-                Eerst gratis zelf kijken &rarr;
+              <Link href={analyseHref} className="btn-primary text-center">
+                Doe de gratis analyse &rarr;
               </Link>
             </div>
+            <p className="font-body text-sm mt-3 mb-0">
+              <Link href={geldscanHref} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+              </Link>
+            </p>
           </div>
         )}
 
         {!heeftWerkelijk && (
           <p className="font-body text-sm mt-3 text-center" style={{ color: "#5A6B66" }}>
-            Vul hierboven in wat je zelf overhoudt, dan zie je meteen of &mdash; en waarom &mdash; je afwijkt.{" "}
+            Vul hierboven in wat je zelf overhoudt, dan zie je meteen of je afwijkt, en waarom.{" "}
             <Link href={analyseHref} className="hover:underline" style={{ color: "#0B7A6E" }}>
               Nog niet zover? Eerst gratis zelf kijken &rarr;
             </Link>

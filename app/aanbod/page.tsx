@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
 import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { TrackClick } from "@/components/TrackClick";
+import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: "Tarieven: geldrapport, gesprek en traject",
@@ -91,10 +92,10 @@ const details = [
     titel: "Geldscan: jouw persoonlijke geldrapport",
     intro:
       "Jij levert je cijfers aan wanneer het uitkomt, ik schrijf op wat ik zie en wat ik zou doen. Zonder gesprek of agenda.",
-    primaireHref: "/aanbod/intake?pakket=geldscan",
-    primaireLabel: "Vraag de geldscan aan",
+    primaireHref: "/analyse",
+    primaireLabel: "Doe eerst de gratis analyse",
     secundaireHref: "/geldscan",
-    secundaireLabel: "Alles over de geldscan",
+    secundaireLabel: "Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan",
   },
 ];
 
@@ -138,6 +139,25 @@ export default function AanbodPage() {
                 Bekijk vijf echte geldrapporten →
               </Link>
             </p>
+
+            {/* De eerste en belangrijkste CTA van deze pagina. De bezoeker
+                hoeft hier geen dienst te kiezen, alleen nieuwsgierig genoeg te
+                zijn om te kijken. */}
+            <div className="mt-8 rounded-2xl border border-[#E6E9E7] bg-white p-6">
+              <h2 className="font-display mb-3 text-xl font-light text-[#16211F]">
+                Weet je nog niet wat je nodig hebt?
+              </h2>
+              <p className="font-body mb-5 max-w-[600px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
+                Begin met de gratis analyse. In een paar minuten zie je waar jouw financiële situatie
+                afwijkt van vergelijkbare huishoudens. Daarna kun je zelf bepalen of je verder wilt.
+              </p>
+              <Link href={ANALYSE_ROUTE} className="btn-primary">
+                {PRIMAIRE_CTA_LABEL} →
+              </Link>
+              <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
+                Gratis · anoniem · 5 minuten. Je hoeft nog niets te kopen.
+              </p>
+            </div>
 
             <div className="mt-10 flex items-start gap-4 rounded-2xl border border-[#E6E9E7] bg-white p-5 sm:items-center">
               <div
@@ -205,17 +225,13 @@ export default function AanbodPage() {
                 <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
                   Wat het je geeft: een getal en de grootste afwijking. Wat het je niet geeft: de reden.
                 </p>
-                <Link
-                  href="/analyse"
-                  className="font-body inline-flex items-center gap-1.5 text-sm font-medium"
-                  style={{ color: "#0B7A6E", textDecoration: "none" }}
-                >
-                  Doe de analyse →
+                <Link href={ANALYSE_ROUTE} className="btn-primary justify-center">
+                  {PRIMAIRE_CTA_LABEL} →
                 </Link>
               </div>
 
               {/* Geldrapport */}
-              <div className="flex flex-col rounded-2xl border-2 p-6 bg-white" style={{ borderColor: "#0B7A6E" }}>
+              <div className="flex flex-col rounded-2xl border p-6 bg-white" style={{ borderColor: "#E6E9E7" }}>
                 <p className="section-eyebrow mb-3">49 euro eenmalig · geen gesprek nodig</p>
                 <h3 className="font-display mb-3 text-xl font-light text-[#16211F]">
                   Het geldrapport: waarom is het bij jou zo?
@@ -226,11 +242,20 @@ export default function AanbodPage() {
                 <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
                   Dat is wat de machine niet kan: een reden opschrijven.
                 </p>
-                <TrackClick gebeurtenis="aanbod_kaart_klik" pakket="geldscan">
-                  <Link href="/aanbod/intake?pakket=geldscan" className="btn-primary justify-center">
-                    Vraag het geldrapport aan →
-                  </Link>
-                </TrackClick>
+                <Link
+                  href={ANALYSE_ROUTE}
+                  className="font-body inline-flex items-center justify-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
+                  style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
+                >
+                  Doe eerst de gratis analyse →
+                </Link>
+                <p className="font-body mt-3 text-sm font-light text-[#4A5A56]">
+                  <TrackClick gebeurtenis="aanbod_kaart_klik" pakket="geldscan">
+                    <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                      Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan →
+                    </Link>
+                  </TrackClick>
+                </p>
                 <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
                   49 euro, eenmalig. Kies je daarna een gesprek of traject, dan gaat de 49 euro daarvan af.{" "}
                   <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
@@ -283,13 +308,14 @@ export default function AanbodPage() {
             <p className="font-body mb-6 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
               Heb je betalingsachterstanden of schulden, dan hoor je bij de kosteloze hulp van je gemeente en dan is dit niet de juiste plek. Dat is geen formaliteit, dat is een ander vak.
             </p>
-            <Link
-              href="/aanbod/intake?pakket=geldscan"
-              className="font-body inline-flex items-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
-              style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
-            >
-              Vraag het geldrapport aan →
+            <Link href={ANALYSE_ROUTE} className="btn-primary">
+              {PRIMAIRE_CTA_LABEL} →
             </Link>
+            <p className="font-body mt-3 text-sm font-light text-[#4A5A56]">
+              <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan →
+              </Link>
+            </p>
           </div>
         </section>
 
@@ -303,7 +329,7 @@ export default function AanbodPage() {
               Soms is een rapport niet waar iemand naar zoekt. Dan is er een eenmalig gesprek van 45 minuten via video, 125 euro, waarin ik met je meedenk en jij kunt doorvragen. Je krijgt daarna een schriftelijke samenvatting, ook om met je partner te lezen. En er is een traject van drie maanden, 497 euro, waarin ik een plan met je opstel en blijf meekijken tot het staat. Daar neem ik maximaal drie mensen tegelijk voor aan, omdat ik dit naast mijn baan doe.
             </p>
             <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Beide zet ik niet als knop op deze pagina, omdat ik ze bijna nooit als eerste stap zou aanraden. Begin met het rapport of met een kwartier, en als een gesprek of een traject beter past, dan zeg ik dat.
+              Beide zet ik niet als knop op deze pagina, omdat ik ze bijna nooit als eerste stap zou aanraden. Begin eerst met de gratis analyse, en als een gesprek of een traject beter past, dan zeg ik dat.
             </p>
             <a
               href="mailto:hallo@waarblijfthet.nl"
@@ -502,7 +528,7 @@ export default function AanbodPage() {
               className="font-display font-light"
               style={{ fontSize: "2rem", color: "white", marginBottom: "1rem" }}
             >
-              Zie eerst wat je koopt
+              Je hoeft nog niets te kopen
             </h2>
             <p
               className="font-body"
@@ -513,10 +539,10 @@ export default function AanbodPage() {
                 marginBottom: "2rem",
               }}
             >
-              Op de pagina Rapporten staan vijf complete rapporten van echte klanten, met de bedragen erbij en met de posten die ik géén probleem vind. Bij twee van de vijf was de uitkomst dat er niets te repareren viel. Als je daarna wil dat ik naar jouw cijfers kijk, dan weet je precies wat er terugkomt.
+              Doe eerst de gratis analyse. Daarna bepaal je zelf of je verder wilt. Wil je vooraf zien wat een geldrapport is, dan staan op de pagina Rapporten vijf complete rapporten van echte klanten, met de bedragen erbij en met de posten die ik géén probleem vind. Bij twee van de vijf was de uitkomst dat er niets te repareren viel.
             </p>
             <Link
-              href="/rapporten"
+              href={ANALYSE_ROUTE}
               className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
               style={{
                 backgroundColor: "#0B7A6E",
@@ -525,12 +551,17 @@ export default function AanbodPage() {
                 textDecoration: "none",
               }}
             >
-              Bekijk vijf echte rapporten →
+              {PRIMAIRE_CTA_LABEL} →
             </Link>
             <p style={{ marginTop: "1rem" }}>
+              <Link href="/rapporten" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
+                Of bekijk eerst vijf echte rapporten →
+              </Link>
+            </p>
+            <p style={{ marginTop: "0.5rem" }}>
               <TrackClick gebeurtenis="aanbod_cta_klik" pakket="geldscan">
-                <Link href="/aanbod/intake?pakket=geldscan" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
-                  Of vraag het geldrapport meteen aan, 49 euro →
+                <Link href="/geldscan" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
+                  Al uit de analyse gekomen en wil je weten waarom? Bekijk de Geldscan →
                 </Link>
               </TrackClick>
             </p>

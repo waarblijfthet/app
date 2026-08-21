@@ -194,11 +194,16 @@ export default function GoedSalarisTochGeldstress() {
         }}
       >
         <p className="font-body font-light text-text-soft" style={{ marginBottom: "1rem" }}>
-          Wil je weten of het bij jou klopt? Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, en met wat er juist niet uit de toon valt. In gewone taal, geen gesprek nodig.
+          Wil je weten hoe jouw situatie ervoor staat? In een paar minuten zie je waar jouw huishouden afwijkt van vergelijkbare huishoudens. Je hoeft nog niets te kopen.
         </p>
-        <Link href="/geldscan" className="btn-primary">
-          Zie wat je krijgt voor €49 &rarr;
+        <Link href="/analyse" className="btn-primary">
+          Doe de gratis analyse &rarr;
         </Link>
+        <p className="font-body text-sm" style={{ marginTop: "0.75rem", marginBottom: 0 }}>
+          <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">
+            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+          </Link>
+        </p>
       </div>
     </>
   );

@@ -1,5 +1,11 @@
 import { QuizData } from "@/lib/quiz-types";
-import { berekenTotaalInkomen, berekenVervoer, berekenVerzekeringen, getBenchmarks, aantalVolwassenenVan } from "@/lib/benchmarks";
+import {
+  berekenTotaalInkomen,
+  berekenVervoer,
+  berekenVerzekeringen,
+  getBenchmarks,
+  aantalVolwassenenVan,
+} from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
 
@@ -25,166 +31,132 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
 
   return (
     <div>
-      <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-2">
+      <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
         Vervoer en verzekeringen
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Vaste maandelijkse kosten voor transport en dekking.
+        Wat betaal je hier gemiddeld per maand aan?
       </p>
 
-      {/* Vervoer, contextual */}
-      <div className="mb-8">
-        <p className="font-body font-medium text-text-soft text-sm mb-4">Vervoer</p>
-
+      {/* Vervoer, alleen de velden die bij je autosituatie horen. */}
+      <div className="mb-10">
         {data.auto === "geen" && (
           <EuroInput
-            label="OV abonnement (maandelijks)"
+            label="Openbaar vervoer en fiets"
             id="ovAbonnement"
             value={data.ovAbonnement}
             onChange={(v) => onChange({ ovAbonnement: v })}
-            hint="Gemiddeld €80/mnd (OV + fiets)"
+            hint="Per maand. Een schatting is voldoende."
+            plausibelTot={1500}
           />
         )}
 
         {data.auto === "eigen" && (
-          <div className="space-y-4">
+          <div className="space-y-8">
             <EuroInput
-              label="Brandstof per maand"
+              label="Brandstof of laden per maand"
               id="brandstof"
               value={data.brandstof}
               onChange={(v) => onChange({ brandstof: v })}
-              hint="Gemiddeld €180/mnd. Meerdere auto's? Tel ze bij elkaar op."
+              hint="Een schatting is voldoende."
+              plausibelTot={2000}
             />
             <EuroInput
-              label="Autoverzekering + wegenbelasting (samen)"
+              label="Autoverzekering en wegenbelasting"
               id="autoVerzWB"
               value={data.autoVerzWB}
               onChange={(v) => onChange({ autoVerzWB: v })}
-              hint="Gemiddeld €170/mnd samen. Tel meerdere auto's bij elkaar op."
+              hint="Samen, per maand."
+              plausibelTot={2000}
             />
           </div>
         )}
 
         {data.auto === "lease_privé" && (
           <EuroInput
-            label="Maandelijks leasebedrag (all-in)"
+            label="Leasebedrag per maand"
             id="leaseBedrag"
             value={data.leaseBedrag}
             onChange={(v) => onChange({ leaseBedrag: v })}
-            hint="Gemiddeld €450/mnd voor private lease"
+            hint="Het all-in bedrag dat je maandelijks betaalt."
+            plausibelTot={3000}
           />
         )}
 
         {data.auto === "zakelijk" && (
-          <div>
-            <div className="bg-[#F0F3F1] rounded-xl p-4 mb-4">
-              <p className="font-body text-sm text-text-soft">
-                De kosten van je zakelijke auto zitten in je arbeidsvoorwaarden.
-                Vul alleen een eigen bijdrage in als je die betaalt.
-              </p>
-            </div>
-            <EuroInput
-              label="Eigen bijdrage privégebruik (optioneel)"
-              id="zakelijkEigenBijdrage"
-              value={data.zakelijkEigenBijdrage}
-              onChange={(v) => onChange({ zakelijkEigenBijdrage: v })}
-            />
-          </div>
+          <EuroInput
+            label="Eigen bijdrage privégebruik"
+            id="zakelijkEigenBijdrage"
+            value={data.zakelijkEigenBijdrage}
+            onChange={(v) => onChange({ zakelijkEigenBijdrage: v })}
+            hint="Betaal je niets? Laat leeg."
+            plausibelTot={2000}
+          />
         )}
 
         {vervoer > 0 && (
-          <div className="mt-3">
+          <div className="mt-2">
             <MiniVergelijking jij={vervoer} benchmark={benches.vervoer} />
           </div>
         )}
       </div>
 
-      {/* Verzekeringen */}
-      <div className="mb-8">
-        <p className="font-body font-medium text-text-soft text-sm mb-4">Verzekeringen</p>
-
-        <div className="mb-4">
-          {aantalVolwassenen === 2 && (
-            <div className="flex gap-2 mb-2">
+      <div className="mb-10">
+        {aantalVolwassenen === 2 && (
+          <div className="flex gap-2 mb-2">
+            {(
+              [
+                { v: "per_persoon", label: "Per persoon" },
+                { v: "totaal", label: "Totaal huishouden" },
+              ] as const
+            ).map((opt) => (
               <button
+                key={opt.v}
                 type="button"
-                onClick={() => onChange({ zorgToggle: "per_persoon" })}
+                onClick={() => onChange({ zorgToggle: opt.v })}
                 className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
-                  data.zorgToggle === "per_persoon"
+                  data.zorgToggle === opt.v
                     ? "bg-primary text-white"
                     : "bg-[#E6E9E7] text-text-soft"
                 }`}
               >
-                Per persoon
+                {opt.label}
               </button>
-              <button
-                type="button"
-                onClick={() => onChange({ zorgToggle: "totaal" })}
-                className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
-                  data.zorgToggle === "totaal"
-                    ? "bg-primary text-white"
-                    : "bg-[#E6E9E7] text-text-soft"
-                }`}
-              >
-                Totaal huishouden
-              </button>
-            </div>
-          )}
-          <EuroInput
-            label={
-              aantalVolwassenen === 1
-                ? "Zorgverzekering per maand"
-                : data.zorgToggle === "per_persoon"
-                ? "Zorgverzekering per persoon"
-                : "Zorgverzekering totaal huishouden"
-            }
-            id="zorgPerPersoon"
-            value={data.zorgPerPersoon}
-            onChange={(v) => onChange({ zorgPerPersoon: v })}
-            hint={
-              aantalVolwassenen === 1 || data.zorgToggle === "per_persoon"
-                ? "Het bedrag dat maandelijks aan je zorgverzekeraar wordt betaald, per persoon. Gemiddeld €148/mnd in 2026. De zorgtoeslag heb je al bij inkomen ingevuld, dus trek die hier niet af."
-                : "Het bedrag dat maandelijks aan de zorgverzekeraar wordt betaald, voor jullie samen. De zorgtoeslag heb je al bij inkomen ingevuld, dus trek die hier niet af."
-            }
-          />
-        </div>
-
+            ))}
+          </div>
+        )}
         <EuroInput
-          label="Overige verzekeringen (alles samen)"
+          label={
+            aantalVolwassenen === 1
+              ? "Zorgverzekering per maand"
+              : data.zorgToggle === "per_persoon"
+              ? "Zorgverzekering per persoon"
+              : "Zorgverzekering totaal huishouden"
+          }
+          id="zorgPerPersoon"
+          value={data.zorgPerPersoon}
+          onChange={(v) => onChange({ zorgPerPersoon: v })}
+          hint="Gebruik het bedrag dat je daadwerkelijk per maand betaalt."
+          plausibelTot={1200}
+        />
+      </div>
+
+      <div className="mb-10">
+        <EuroInput
+          label="Overige verzekeringen"
           id="verzekeringOverig"
           value={data.verzekeringOverig}
           onChange={(v) => onChange({ verzekeringOverig: v })}
-          hint="Inboedel, opstal, rechtsbijstand, leven. Zzp'er? Tel je arbeidsongeschiktheidsverzekering hier mee. Gemiddeld €120/mnd"
+          hint="Denk aan inboedel, aansprakelijkheid, auto, rechtsbijstand, leven en eventueel arbeidsongeschiktheid."
+          hint2="Een realistische schatting is voldoende."
+          plausibelTot={3000}
         />
-
         {verzekeringen > 0 && (
-          <div className="mt-3">
+          <div className="mt-2">
             <MiniVergelijking jij={verzekeringen} benchmark={benches.verzekeringen} />
           </div>
         )}
       </div>
-
-      {/* Mobile: beide balken */}
-      {(vervoer > 0 || verzekeringen > 0) && (
-        <div className="lg:hidden space-y-3">
-          {vervoer > 0 && (
-            <div className="bg-[#F0F3F1] rounded-xl p-3">
-              <p className="text-xs font-body text-text-soft">
-                <strong>Vervoer:</strong> jij €{vervoer} vs gemiddeld €
-                {benches.vervoer}
-              </p>
-            </div>
-          )}
-          {verzekeringen > 0 && (
-            <div className="bg-[#F0F3F1] rounded-xl p-3">
-              <p className="text-xs font-body text-text-soft">
-                <strong>Verzekeringen:</strong> jij €{verzekeringen} vs gemiddeld €
-                {benches.verzekeringen}
-              </p>
-            </div>
-          )}
-        </div>
-      )}
     </div>
   );
 }

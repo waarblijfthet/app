@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
 import { berekenVuistregel, euro, euroSigned } from "@/lib/salaris-vuistregel";
+import { analyseHref as analyseLink, type SituatieSleutel } from "@/lib/cta";
 
 /**
  * Rekenlaag voor "samengesteld-gezin-twee-huishoudens-een-budget" (klus C,
@@ -41,6 +42,7 @@ export default function SamengesteldGezinRekenaar({
   const kinderkostenDelta = vol.kinderkosten - basis.kinderkosten;
 
   const geldscanHref = `/geldscan?situatie=gezin&inkomen=${inkomen}&boodschappen=${Math.round(vol.boodschappen)}`;
+  const analyseHref = analyseLink({ situatie: "gezin", inkomen: inkomen, boodschappen: Math.round(vol.boodschappen) });
 
   return (
     <div className="rounded-2xl p-5 sm:p-6 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
@@ -144,8 +146,13 @@ export default function SamengesteldGezinRekenaar({
         )}
 
         <div className="flex flex-col sm:flex-row gap-3 mt-4">
-          <Link href={geldscanHref} className="btn-primary text-center">Reken ons hele budget door &rarr; €49</Link>
+          <Link href={analyseHref} className="btn-primary text-center">Doe de gratis analyse &rarr;</Link>
         </div>
+        <p className="font-body text-sm mt-3 mb-0">
+          <Link href={geldscanHref} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+          </Link>
+        </p>
       </div>
 
       <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>

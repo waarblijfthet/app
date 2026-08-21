@@ -78,7 +78,7 @@ export default function Footer() {
             className="text-white/50 hover:text-white/80 transition-colors"
             style={{ textDecoration: "none" }}
           >
-            Start de analyse
+            Doe de gratis analyse
           </Link>
         </nav>
 

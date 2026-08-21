@@ -7,30 +7,22 @@ import {
   berekenAbonnementen,
   berekenKinderen,
   berekenOver,
-  getVergelijkingStatus,
   getPercentiel,
-  VergelijkingStatus,
   aantalVolwassenenVan,
 } from "@/lib/benchmarks";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
+import {
+  bepaalRichting,
+  RICHTING_LABEL,
+  RICHTING_PIL,
+  RICHTING_BALK,
+} from "./vergelijking-labels";
 
 interface Props {
   data: QuizData;
   currentStep: number;
   embedded?: boolean;
 }
-
-const STATUS_PILL: Record<VergelijkingStatus, { cls: string; label: string }> = {
-  goed: { cls: "bg-green-light text-[#0B7A6E]", label: "✓ Onder gemiddeld" },
-  matig: { cls: "bg-[#FDF3E3] text-[#92600A]", label: "~ Rond gemiddeld" },
-  zorgelijk: { cls: "bg-[#FDECEA] text-[#B03A2E]", label: "⚠ Boven gemiddeld" },
-};
-
-const STATUS_BAR: Record<VergelijkingStatus, string> = {
-  goed: "bg-primary",
-  matig: "bg-[#E8A830]",
-  zorgelijk: "bg-accent",
-};
 
 function CompareBalk({
   label,
@@ -43,34 +35,34 @@ function CompareBalk({
 }) {
   if (!jij && !benchmark) return null;
   const max = Math.max(jij, benchmark, 1);
-  const status = getVergelijkingStatus(jij, benchmark);
-  const pill = STATUS_PILL[status];
-  const barColor = STATUS_BAR[status];
+  const richting = bepaalRichting(jij, benchmark);
 
   return (
     <div className="mb-4">
-      <div className="flex items-center justify-between mb-1.5">
-        <span className="font-body text-xs text-text-soft font-medium">{label}</span>
-        <span className={`text-xs px-2 py-0.5 rounded-full font-body font-medium ${pill.cls}`}>
-          {pill.label}
+      <div className="flex items-center justify-between gap-2 mb-1.5">
+        <span className="font-body text-xs text-primary font-medium">{label}</span>
+        <span
+          className={`text-xs px-2 py-0.5 rounded-full font-body font-medium whitespace-nowrap ${RICHTING_PIL[richting]}`}
+        >
+          {RICHTING_LABEL[richting]}
         </span>
       </div>
       <div className="space-y-1">
         <div>
           <div className="flex justify-between text-xs text-text-muted font-body mb-0.5">
             <span>Jij</span>
-            <span className="font-medium">{fmtEur(jij)}</span>
+            <span className="font-medium text-text-soft">{fmtEur(jij)}</span>
           </div>
           <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
             <div
-              className={`h-full rounded-full transition-all duration-300 ${barColor}`}
+              className={`h-full rounded-full transition-all duration-300 ${RICHTING_BALK[richting]}`}
               style={{ width: `${(jij / max) * 100}%` }}
             />
           </div>
         </div>
         <div>
           <div className="flex justify-between text-xs text-text-muted font-body mb-0.5">
-            <span>Gemiddeld</span>
+            <span>Vergelijkbare huishoudens</span>
             <span>{fmtEur(benchmark)}</span>
           </div>
           <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
@@ -82,6 +74,23 @@ function CompareBalk({
         </div>
       </div>
     </div>
+  );
+}
+
+function PaneelKop({ ondertitel }: { ondertitel: string }) {
+  return (
+    <div className="mb-4">
+      <p className="section-eyebrow">Voorlopige vergelijking</p>
+      <p className="font-body text-xs text-text-muted mt-1">{ondertitel}</p>
+    </div>
+  );
+}
+
+function PaneelVoet() {
+  return (
+    <p className="font-body text-xs text-text-muted mt-4 pt-4 border-t border-[#E6E9E7]">
+      Nog niet je volledige financiële beeld.
+    </p>
   );
 }
 
@@ -103,7 +112,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
   const over = berekenOver(data);
   const overDiff = over - benches.vrij_besteedbaar;
 
-  // Step 1, only profile confirmation, no numbers yet
+  // Stap 1, alleen bevestigen met wie je wordt vergeleken. Nog geen cijfers.
   if (currentStep === 1) {
     if (
       data.volwassenen === null ||
@@ -112,44 +121,41 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
       !data.auto
     )
       return null;
+    const k = data.kinderen ?? 0;
+    const kindTekst =
+      k === 0
+        ? "zonder kinderen"
+        : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
+    const volwTekst = data.volwassenen === 1 ? "één volwassene" : "twee volwassenen";
     return (
       <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
-        <p className="section-eyebrow mb-4">Jouw vergelijking</p>
+        <p className="section-eyebrow mb-4">Wie word jij vergeleken</p>
         <div className="bg-green-light rounded-xl p-4">
           <p className="font-body text-sm text-primary font-medium">
-            {(() => {
-              const k = data.kinderen ?? 0;
-              const kindTekst =
-                k === 0
-                  ? "zonder kinderen"
-                  : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
-              const volwTekst =
-                data.volwassenen === 1 ? "één volwassene" : "twee volwassenen";
-              return (
-                <>
-                  Je wordt vergeleken met een huishouden van {volwTekst}{" "}
-                  {kindTekst} in een{" "}
-                  {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
-                </>
-              );
-            })()}
+            Een huishouden van {volwTekst} {kindTekst} in een{" "}
+            {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
           </p>
         </div>
+        <p className="font-body text-xs text-text-muted mt-3">
+          Vanaf de volgende stap zie je hier je eerste vergelijking.
+        </p>
       </div>
     );
   }
 
-  // Step 2, income overview
+  // Stap 2, inkomen.
   if (currentStep === 2) {
     if (inkomen === 0) return null;
     const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
     return (
       <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
-        <p className="section-eyebrow mb-4">Jouw inkomen</p>
+        <PaneelKop ondertitel="Op basis van wat je tot nu toe hebt ingevuld." />
         <p className="font-display font-light text-primary text-4xl mb-1">
           {fmtEur(inkomen)}
         </p>
-        <p className="text-text-muted font-body text-xs mb-4">per maand netto</p>
+        <p className="text-text-muted font-body text-xs mb-4">
+          netto per maand binnen
+        </p>
         <div className="bg-[#F0F3F1] rounded-xl p-3 mb-4">
           <p className="font-body text-xs text-text-soft">
             Je zit in de{" "}
@@ -161,22 +167,20 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
           <div
             className="h-full bg-primary rounded-full"
             style={{
-              width: `${Math.min(
-                ((inkomen - 1500) / (8000 - 1500)) * 100,
-                100
-              )}%`,
+              width: `${Math.min(((inkomen - 1500) / (8000 - 1500)) * 100, 100)}%`,
             }}
           />
         </div>
         <div className="flex justify-between text-xs text-text-muted font-body mt-1">
-          <span>€1.500</span>
-          <span>€8.000+</span>
+          <span>&euro;1.500</span>
+          <span>&euro;8.000+</span>
         </div>
+        <PaneelVoet />
       </div>
     );
   }
 
-  // Steps 3-5, cumulative expense overview
+  // Stap 3 tot 5, oplopend beeld van de uitgaven.
   const wonen = berekenWonen(data);
   const vervoer = berekenVervoer(data);
   const verzekeringen = berekenVerzekeringen(data);
@@ -186,7 +190,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
 
   return (
     <div className={`card-base border border-[#E6E9E7] ${stickyCls} ${scrollCls}`}>
-      <p className="section-eyebrow mb-1">Live vergelijking</p>
+      <PaneelKop ondertitel="Op basis van wat je tot nu toe hebt ingevuld." />
 
       {inkomen > 0 && (
         <div className="mb-4 pb-4 border-b border-[#E6E9E7]">
@@ -236,15 +240,15 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
         )}
       </div>
 
-      {inkomen > 0 && (over !== 0 || berekenWonen(data) > 0) && (
+      {inkomen > 0 && wonen > 0 && (
         <div className="mt-4 pt-4 border-t border-[#E6E9E7]">
           <div className="flex justify-between items-baseline mb-1">
-            <span className="font-body text-xs text-text-soft font-medium">
-              Resterend
+            <span className="font-body text-xs text-primary font-medium">
+              Tot nu toe over
             </span>
             <span
               className={`font-display font-light text-xl ${
-                over < 0 ? "text-accent" : "text-primary"
+                over < 0 ? "text-[#C4603A]" : "text-primary"
               }`}
             >
               {over < 0 ? `-${fmtEur(Math.abs(over))}` : fmtEur(over)}
@@ -252,12 +256,12 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
           </div>
           {benches.vrij_besteedbaar > 0 && (
             <p className="text-text-muted font-body text-xs">
-              Gemiddeld:{" "}
+              Vergelijkbare huishoudens:{" "}
               <span className="font-medium">{fmtEur(benches.vrij_besteedbaar)}</span>
-              {overDiff !== 0 && (
+              {Math.abs(overDiff) >= 10 && (
                 <span
                   className={`ml-1 font-medium ${
-                    overDiff > 0 ? "text-[#0B7A6E]" : "text-accent"
+                    overDiff > 0 ? "text-[#0B7A6E]" : "text-[#A15A32]"
                   }`}
                 >
                   ({overDiff > 0 ? "+" : ""}
@@ -268,6 +272,8 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
           )}
         </div>
       )}
+
+      <PaneelVoet />
     </div>
   );
 }

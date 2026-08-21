@@ -1,3 +1,5 @@
+import { analyseHref, PRIMAIRE_CTA_LABEL } from "./cta";
+
 export interface FAQItem {
   vraag: string;
   antwoord: string;
@@ -219,9 +221,9 @@ export const artikelen: Artikel[] = [
       kop: "Wil je weten hoe jouw financiële situatie ervoor staat?",
       tekst:
         "De gratis analyse kijkt naar je volledige huishouden en laat zien waar jouw situatie afwijkt. Niet alleen hoeveel je verdient, maar wat er werkelijk overblijft.",
-      primairLabel: "Doe de gratis analyse",
+      primairLabel: PRIMAIRE_CTA_LABEL,
       primairHref: "/analyse",
-      secundairLabel: "Bekijk de Geldscan",
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
       secundairHref: "/geldscan",
     },
     titel: "Hoe weet ik of ik financieel gezond ben?",
@@ -297,13 +299,13 @@ export const artikelen: Artikel[] = [
   {
     slug: "goed-inkomen-weinig-vermogen",
     cta: {
-      kop: "Wil je weten waarom jouw vermogen niet sneller groeit?",
+      kop: "Wil je weten hoe jouw situatie ervoor staat?",
       tekst:
-        "De gratis analyse laat zien waar jouw huishouden afwijkt en welke uitgaven relatief veel financiële ruimte innemen. Bij de Geldscan kijk ik persoonlijk naar je cijfers en zoek ik uit waarom.",
-      primairLabel: "Bekijk de Geldscan",
-      primairHref: "/geldscan?situatie=stel&inkomen=9000",
-      secundairLabel: "Eerst gratis de analyse doen",
-      secundairHref: "/analyse",
+        "De gratis analyse laat zien waar jouw huishouden afwijkt en welke uitgaven relatief veel financiële ruimte innemen. Dat kost een paar minuten en verder niets. Wil je daarna weten waarom het bij jou zo uitpakt, dan kun je de Geldscan bekijken.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "stel", inkomen: 9000 }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     titel: "Waarom groeit mijn vermogen niet terwijl ik goed verdien?",
     korteTitel: "Waarom groeit mijn vermogen niet?",
@@ -375,13 +377,13 @@ export const artikelen: Artikel[] = [
   {
     slug: "hoeveel-financiele-ruimte-heb-ik",
     cta: {
-      kop: "Wil je weten waarom je financiële ruimte is zoals die is?",
+      kop: "Wil je weten hoe jouw financiële ruimte ervoor staat?",
       tekst:
-        "De gratis analyse laat zien waar je afwijkt. Bij de Geldscan kijk ik persoonlijk naar jouw cijfers, leg ik uit wat opvalt, wat niet relevant is en wat ik zou veranderen.",
-      primairLabel: "Bekijk de Geldscan",
-      primairHref: "/geldscan",
-      secundairLabel: "Eerst gratis de analyse doen",
-      secundairHref: "/analyse",
+        "De gratis analyse laat zien waar je afwijkt van vergelijkbare huishoudens. Daarna bepaal je zelf of je wilt weten waarom dat bij jou zo uitpakt.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     titel: "Hoeveel financiële ruimte heb ik eigenlijk?",
     korteTitel: "Hoeveel financiële ruimte heb ik?",
@@ -458,11 +460,11 @@ export const artikelen: Artikel[] = [
     cta: {
       kop: "Wil je weten hoe het bij jouw twee huishoudens precies zit?",
       tekst:
-        "De rekenaar hierboven werkt met een vuistregel, niet met jouw cijfers en niet met alimentatie of kinderopvangtoeslag. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
-      primairLabel: "Bekijk de Geldscan",
-      primairHref: "/geldscan?situatie=alleenstaande-ouder",
-      secundairLabel: "Eerst gratis zelf kijken",
-      secundairHref: "/analyse",
+        "De rekenaar hierboven werkt met een vuistregel, niet met jouw cijfers en niet met alimentatie of kinderopvangtoeslag. Begin met de gratis analyse, die vergelijkt jouw eigen bedragen met vergelijkbare huishoudens. Daarna kun je zelf bepalen of je verder wilt.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "alleenstaande-ouder" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     titel: "Scheiden met een goed inkomen en toch niks over",
     korteTitel: "Scheiden en toch niks over",
@@ -516,13 +518,13 @@ export const artikelen: Artikel[] = [
   {
     slug: "twee-autos-wat-kost-de-tweede-echt",
     cta: {
-      kop: "Wil je niet alleen de auto, maar je hele budget laten narekenen?",
+      kop: "Wil je niet alleen de auto, maar je hele budget naast andere huishoudens leggen?",
       tekst:
-        `De rekenaar hierboven werkt met een vuistregel op ${RAPPORTEN.length} huishoudens, niet met jouw cijfers. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.`,
-      primairLabel: "Bekijk de Geldscan",
-      primairHref: "/geldscan?situatie=gezin",
-      secundairLabel: "Eerst gratis zelf kijken",
-      secundairHref: "/analyse",
+        `De rekenaar hierboven werkt met een vuistregel op ${RAPPORTEN.length} huishoudens, niet met jouw cijfers. Bij de gratis analyse vergelijk je je eigen uitgaven met vergelijkbare huishoudens. Daarna bepaal je zelf of je verder wilt.`,
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     titel: "Twee auto's, wat kost de tweede echt",
     korteTitel: "Wat kost de tweede auto",
@@ -575,13 +577,13 @@ export const artikelen: Artikel[] = [
   {
     slug: "samengesteld-gezin-twee-huishoudens-een-budget",
     cta: {
-      kop: "Wil je jullie eigen samengestelde gezin laten narekenen?",
+      kop: "Wil je weten hoe jullie eigen samengestelde gezin ervoor staat?",
       tekst:
-        "De rekenaar hierboven telt alleen hele kinderen, niet een kind dat er de helft van de tijd is. Bij de Geldscan kijk ik persoonlijk naar je afschriften en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
-      primairLabel: "Bekijk de Geldscan",
-      primairHref: "/geldscan?situatie=gezin",
-      secundairLabel: "Eerst gratis zelf kijken",
-      secundairHref: "/analyse",
+        "De rekenaar hierboven telt alleen hele kinderen, niet een kind dat er de helft van de tijd is. Bij de gratis analyse vul je je eigen situatie in en zie je waar jullie afwijken. Daarna bepaal je zelf of je verder wilt.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     titel: "Samengesteld gezin: twee huishoudens in één budget",
     korteTitel: "Samengesteld gezin, budget",
@@ -634,12 +636,12 @@ export const artikelen: Artikel[] = [
   {
     slug: "schamen-niet-rondkomen-goed-inkomen",
     cta: {
-      kop: "Wil je weten of er bij jou wél iets te repareren valt?",
+      kop: "Wil je weten hoe jouw situatie ervoor staat?",
       tekst:
-        "Begin met de gratis analyse en vergelijk je eigen uitgaven met vergelijkbare huishoudens. Wil je dat ik er zelf naar kijk en opschrijf wat opvalt, dat kan bij de Geldscan.",
-      primairLabel: "Doe de gratis analyse",
+        "Begin met de gratis analyse en vergelijk je eigen uitgaven met vergelijkbare huishoudens. Je hoeft nog niets te kopen. Daarna bepaal je zelf of je verder wilt.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
       primairHref: "/analyse",
-      secundairLabel: "Liever dat ik meekijk? Geldscan, €49",
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
       secundairHref: "/geldscan",
     },
     titel: "Schamen dat je niet rondkomt met een goed inkomen",
@@ -696,9 +698,9 @@ export const artikelen: Artikel[] = [
     cta: {
       kop: "Wil je de vergelijking op je hele maand, niet op één schatting?",
       tekst: `De rekenaar hierboven werkt met een vuistregel op ${RAPPORTEN.length} huishoudens, niet met jouw cijfers. Bij de gratis analyse vergelijk je je eigen uitgaven met vergelijkbare huishoudens. Wil je dat ik er zelf naar kijk en opschrijf wat opvalt, dat kan bij de Geldscan.`,
-      primairLabel: "Doe de gratis analyse",
+      primairLabel: PRIMAIRE_CTA_LABEL,
       primairHref: "/analyse",
-      secundairLabel: "Liever dat ik meekijk? Geldscan, €49",
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
       secundairHref: "/geldscan",
     },
     korteTitel: "Huishoudboekje voorbeeld",
@@ -774,11 +776,11 @@ export const artikelen: Artikel[] = [
     slug: "niet-rondkomen-met-4000-euro-netto",
     cta: {
       kop: "Klopt dit ongeveer met jouw huishouden, of zit je er ver naast?",
-      tekst: `Deze vuistregel werkt met ${RAPPORTEN.length} huishoudens, niet met de jouwe. Bij de Geldscan lees ik je eigen cijfers na en schrijf ik op wat er bij jou opvalt, en wat er juist niet uit de toon valt.`,
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan?situatie=gezin",
-      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
-      secundairHref: "/analyse",
+      tekst: `Deze vuistregel werkt met ${RAPPORTEN.length} huishoudens, niet met de jouwe. Bij de gratis analyse vul je je eigen bedragen in en zie je direct waar je afwijkt. Daarna bepaal je zelf of je wilt weten waarom.`,
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Niet rondkomen van €4.000 netto",
     titel:
@@ -868,11 +870,11 @@ export const artikelen: Artikel[] = [
     slug: "alleen-wonen-goed-salaris-toch-krap",
     cta: {
       kop: "Klopt jouw vermoeden, of zit je ernaast zoals zij?",
-      tekst: `Bij de alleenstaande hierboven klopte het vermoeden, alleen was het bedrag groter dan gedacht. Bij de Geldscan lees ik jouw eigen cijfers na en schrijf ik op wat er bij jou opvalt, en wat er juist niet uit de toon valt.`,
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan?situatie=alleenstaand",
-      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
-      secundairHref: "/analyse",
+      tekst: `Bij de alleenstaande hierboven klopte het vermoeden, alleen was het bedrag groter dan gedacht. Bij de gratis analyse zie je in een paar minuten waar jouw eigen bedragen afwijken. Daarna bepaal je zelf of je wilt weten waarom.`,
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "alleenstaand" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Alleen wonen, goed salaris, toch krap",
     titel: "Alleen wonen met een goed salaris en toch elke maand krap",
@@ -1259,13 +1261,13 @@ export const artikelen: Artikel[] = [
   {
     slug: "klarna-niet-kunnen-betalen",
     cta: {
-      kop: "De Geldscan: verdieping, optioneel",
+      kop: "Los dit niet alleen op voor deze maand",
       tekst:
-        "De gratis analyse laat zien waar je afwijkt. De Geldscan legt uit waarom, wat het betekent en wat je ermee kunt doen. Persoonlijk geschreven, geen gesprek nodig.",
-      primairLabel: "Bekijk de Geldscan €49",
-      primairHref: "/geldscan",
-      secundairLabel: "Nog liever eerst de gratis analyse?",
-      secundairHref: "/analyse",
+        "Kijk eerst naar je volledige situatie. De gratis analyse laat zien waar je afwijkt van vergelijkbare huishoudens. Wil je daarna weten waarom dat bij jou zo uitpakt, dan kun je de Geldscan bekijken.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Klarna niet kunnen betalen",
     titel: "Klarna niet kunnen betalen: wat gebeurt er nu?",
@@ -1543,11 +1545,11 @@ export const artikelen: Artikel[] = [
     slug: "netto-loonsverhoging-berekenen",
     cta: {
       kop: "Loonsverhoging gehad en toch niets extra over?",
-      tekst: "Dan lekt het ergens anders. Voor €49 kijk ik persoonlijk naar jouw cijfers en laat ik je in een persoonlijk geldrapport zien waar je verhoging blijft. Geen gesprek nodig.",
-      primairLabel: "Bekijk de geldscan (€49)",
-      primairHref: "/geldscan",
-      secundairLabel: "Eerst gratis je uitgaven vergelijken",
-      secundairHref: "/analyse",
+      tekst: "Kijk dan eerst naar je volledige situatie. De gratis analyse laat zien waar jouw huishouden afwijkt van vergelijkbare huishoudens. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Wat houd je netto over van je opslag?",
     titel: "Wat houd je netto over van je loonsverhoging in 2026?",
@@ -3225,11 +3227,11 @@ export const artikelen: Artikel[] = [
     slug: "50-30-20-regel-hoger-inkomen",
     cta: {
       kop: "Klopt de 50/30/20-regel bij jouw huishouden, of niet?",
-      tekst: `De 50/30/20-regel komt uit een Amerikaans boek, niet uit onderzoek onder Nederlandse huishoudens. Mijn eigen vuistregel hierboven is gebaseerd op maar ${RAPPORTEN.length} huishoudens. Bij de Geldscan kijk ik naar jouw eigen cijfers, niet naar een vuistregel op wie dan ook.`,
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: `/geldscan?situatie=gezin&inkomen=${VDT_INKOMEN}&boodschappen=${Math.round(VDT.boodschappen)}`,
-      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
-      secundairHref: "/analyse",
+      tekst: `De 50/30/20-regel komt uit een Amerikaans boek, niet uit onderzoek onder Nederlandse huishoudens. Mijn eigen vuistregel hierboven is gebaseerd op maar ${RAPPORTEN.length} huishoudens. Bij de gratis analyse vul je je eigen cijfers in, in plaats van een vuistregel op wie dan ook.`,
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin", inkomen: VDT_INKOMEN, boodschappen: Math.round(VDT.boodschappen) }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Hoeveel houd je over na vaste lasten?",
     titel:
@@ -3299,11 +3301,11 @@ export const artikelen: Artikel[] = [
     slug: "tweeverdieners-toch-krap",
     cta: {
       kop: "Twee inkomens en toch elke maand krap?",
-      tekst: "Dat hoeft niet aan jouw gedrag te liggen, maar dat weet je pas als iemand het naast vergelijkbare huishoudens legt. Voor €49 kijk ik persoonlijk naar je cijfers en krijg je binnen twee werkdagen na aanlevering een persoonlijk geldrapport met de drie dingen die het meest opvallen, en met wat er juist niet uit de toon valt. Geen gesprek nodig.",
-      primairLabel: "Bekijk de geldscan (€49)",
-      primairHref: "/geldscan?situatie=gezin",
-      secundairLabel: "Eerst gratis vergelijken met andere tweeverdieners",
-      secundairHref: "/analyse",
+      tekst: "Dat hoeft niet aan jullie gedrag te liggen, maar dat weet je pas als je het naast vergelijkbare huishoudens legt. Dat is precies wat de gratis analyse doet. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Tweeverdieners en toch krap",
     titel:
@@ -3403,11 +3405,11 @@ export const artikelen: Artikel[] = [
     slug: "wat-is-normaal-bedrag-boodschappen-per-maand",
     cta: {
       kop: "Als je boodschappen normaal zijn, waar blijft het dan?",
-      tekst: "Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen, boodschappen en de rest van je maandbudget. In gewone taal, geen gesprek nodig.",
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan",
-      secundairLabel: "Liever eerst zelf een indruk? Doe de analyse",
-      secundairHref: "/analyse",
+      tekst: "Kijk dan naar je volledige situatie in plaats van naar één post. De gratis analyse legt je hele maand naast vergelijkbare huishoudens. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Boodschappen: norm versus praktijk",
     titel:
@@ -3476,13 +3478,13 @@ export const artikelen: Artikel[] = [
   {
     slug: "is-5000-euro-netto-goed-salaris",
     cta: {
-      kop: "Je verdient objectief veel. Waarom voelt dat niet zo?",
+      kop: "Je verdient objectief veel. Hoe staat jouw situatie er dan voor?",
       tekst:
-        "Bij dit inkomen is de vraag zelden of je rondkomt, maar waarom je vermogen niet groeit. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt, met de drie dingen die het meest opvallen en wat juist niet.",
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan",
-      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
-      secundairHref: "/analyse",
+        "Bij dit inkomen is de vraag zelden of je rondkomt, maar wat er werkelijk overblijft. De gratis analyse laat dat in een paar minuten zien. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Is €5.000 netto een goed salaris?",
     titel:
@@ -3552,11 +3554,11 @@ export const artikelen: Artikel[] = [
     cta: {
       kop: "Twee inkomens, geen lek, en toch blijft er niets over?",
       tekst:
-        "Bij dit inkomen is de uitkomst vaak dat er niets te repareren valt. Bij de geldscan kijk ik persoonlijk naar jullie cijfers en schrijf ik op wat er opvalt, wat juist niet, en waar het verschil tussen jullie twee verhalen zit. Geen gesprek nodig.",
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan",
-      secundairLabel: "Liever eerst samen kijken? Doe de analyse",
-      secundairHref: "/analyse",
+        "Bij dit inkomen kan de uitkomst ook zijn dat er niets te repareren valt. Begin met de gratis analyse: die legt jullie bedragen naast vergelijkbare huishoudens. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Samen €6.000 netto en toch niets over",
     titel:
@@ -3625,11 +3627,11 @@ export const artikelen: Artikel[] = [
     slug: "is-4000-euro-netto-goed-salaris-nederland",
     cta: {
       kop: "Belangrijker dan of €4.000 goed is: wat hou jij ervan over?",
-      tekst: "De rekenaar hierboven liet zien dát je afwijkt van wat ik bij jouw huishouden zou verwachten, of juist niet. Bij de Geldscan zoek ik uit waarom, en schrijf ik op papier wat er opvalt, en wat er juist niet uit de toon valt.",
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan",
-      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
-      secundairHref: "/analyse",
+      tekst: "De rekenaar hierboven werkt met een vuistregel. Bij de gratis analyse vul je je eigen woonlasten, vervoer en dagelijkse uitgaven in en zie je waar je werkelijk afwijkt. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Is €4.000 netto een goed salaris?",
     titel:
@@ -4381,11 +4383,11 @@ export const artikelen: Artikel[] = [
     slug: "nibud-boodschappen-versus-werkelijkheid",
     cta: {
       kop: "Boven de Nibud-norm? Bijna iedereen.",
-      tekst: "De echte vraag is niet of je boven de norm zit, maar of het bij jou klopt. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en schrijf ik je een rapport met de drie dingen die het meest opvallen.",
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan?situatie=gezin",
-      secundairLabel: "Liever eerst zelf vergelijken? Doe de analyse",
-      secundairHref: "/analyse",
+      tekst: "De echte vraag is niet of je boven de norm zit, maar hoe jouw hele huishouden ervoor staat. Dat laat de gratis analyse zien. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Nibud norm vs. wat gezinnen écht uitgeven",
     titel:
@@ -4459,11 +4461,11 @@ export const artikelen: Artikel[] = [
     slug: "kosten-levensonderhoud-alleenstaande-2026",
     cta: {
       kop: "Wat is voor jou als alleenstaande normaal?",
-      tekst: "Gemiddelden zeggen weinig over jouw huur, jouw inkomen en jouw stad. Bij de geldscan kijk ik persoonlijk naar jouw cijfers en zet ik op papier of het bij jou klopt en wat er opvalt.",
-      primairLabel: "Zie wat je krijgt voor €49",
-      primairHref: "/geldscan?situatie=alleenstaand",
-      secundairLabel: "Liever eerst zelf kijken? Doe de analyse",
-      secundairHref: "/analyse",
+      tekst: "Gemiddelden zeggen weinig over jouw huur, jouw inkomen en jouw stad. Bij de gratis analyse vul je je eigen bedragen in en zie je waar je afwijkt. Daarna bepaal je zelf of je wilt weten waarom.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "alleenstaand" }),
+      secundairLabel: "Wil je na de analyse weten waarom? Bekijk de Geldscan",
+      secundairHref: "/geldscan",
     },
     korteTitel: "Kosten levensonderhoud alleenstaande 2026",
     titel:

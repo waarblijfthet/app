@@ -189,15 +189,20 @@ export default function RapportPagina({ params }: { params: { slug: string } }) 
         <section className="bg-card py-14">
           <div className="max-w-2xl mx-auto px-6 text-center">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Zo'n rapport over jouw cijfers
+              Hoe staat jouw situatie ervoor?
             </h2>
             <p className="font-body font-light text-text-soft leading-relaxed mb-7">
-              Je levert je bedragen aan en schrijft erbij wat de vergelijking niet weet. Binnen twee werkdagen
-              heb je het rapport, zonder gesprek, 49 euro eenmalig.
+              Begin met de gratis analyse. In een paar minuten zie je waar jouw huishouden afwijkt van
+              vergelijkbare huishoudens. Daarna bepaal je zelf of je verder wilt.
             </p>
-            <Link href="/aanbod/intake?pakket=geldscan" className="btn-primary">
-              Vraag het geldrapport aan &rarr;
+            <Link href="/analyse" className="btn-primary">
+              Doe de gratis analyse &rarr;
             </Link>
+            <p className="font-body font-light text-text-muted text-sm mt-5">
+              <Link href="/geldscan" className="hover:underline">
+                Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+              </Link>
+            </p>
           </div>
         </section>
       </main>

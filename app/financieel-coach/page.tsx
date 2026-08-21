@@ -8,12 +8,12 @@ import { FinancieelCoachAccordion } from "./components/FinancieelCoachAccordion"
 export const metadata: Metadata = {
   title: "Financieel coach nodig? Online, vanaf gratis, geen traject verplicht",
   description:
-    "Financieel coach voor wie goed verdient en toch weinig overhoudt. Begin gratis met de analyse, kies daarna zelf voor een geldrapport van €49 of een adviesgesprek. Online, heel Nederland.",
+    "Financieel coach voor wie goed verdient en toch weinig overhoudt. Doe eerst de gratis analyse, kies daarna zelf voor een geldrapport van €49 of een adviesgesprek. Online, heel Nederland.",
   alternates: { canonical: "https://www.waarblijfthet.nl/financieel-coach" },
   openGraph: {
     title: "Financieel coach nodig? Online, vanaf gratis, geen traject verplicht",
     description:
-      "Financieel coach voor wie goed verdient en toch weinig overhoudt. Begin gratis met de analyse, kies daarna zelf een vervolgstap.",
+      "Financieel coach voor wie goed verdient en toch weinig overhoudt. Doe eerst de gratis analyse, kies daarna zelf een vervolgstap.",
     url: "https://www.waarblijfthet.nl/financieel-coach",
     type: "website",
   },
@@ -191,18 +191,18 @@ export default function FinancieelCoachPage() {
                   gebeurt. Geen financiële producten, geen provisie, geen oordeel en geen
                   standaard bespaartips.
                 </p>
-                <div className="flex flex-wrap items-center gap-4">
-                  <Link href="/analyse" className="btn-primary">
-                    Bekijk mijn situatie, gratis →
-                  </Link>
+                <Link href="/analyse" className="btn-primary">
+                  Doe de gratis analyse →
+                </Link>
+                <p className="mt-3 mb-0">
                   <Link
                     href="/geldscan"
                     className="font-body text-sm hover:underline"
                     style={{ color: "#0B7A6E", textDecoration: "none" }}
                   >
-                    Bekijk de Geldscan €49 →
+                    Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan →
                   </Link>
-                </div>
+                </p>
                 <p className="font-body font-light text-text-muted text-xs mt-4">
                   5 minuten · geen account · geen bankkoppeling · direct resultaat
                 </p>
@@ -287,7 +287,7 @@ export default function FinancieelCoachPage() {
               Geen account, geen bankkoppeling, geen verplicht gesprek.
             </p>
             <Link href="/analyse" className="btn-primary">
-              Start gratis analyse →
+              Doe de gratis analyse →
             </Link>
           </div>
         </section>
@@ -387,7 +387,11 @@ export default function FinancieelCoachPage() {
                     </li>
                   ))}
                 </ul>
-                <Link href="/geldscan" className="btn-primary justify-center">
+                <Link
+                  href="/geldscan"
+                  className="font-body text-sm font-medium hover:underline"
+                  style={{ color: "#0B7A6E", textDecoration: "none" }}
+                >
                   Bekijk de Geldscan →
                 </Link>
               </div>
@@ -427,7 +431,11 @@ export default function FinancieelCoachPage() {
               ))}
             </div>
             <div className="text-center">
-              <Link href="/rapporten" className="btn-primary">
+              <Link
+                href="/rapporten"
+                className="font-body inline-flex items-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
+                style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
+              >
                 Bekijk alle rapporten →
               </Link>
             </div>
@@ -540,14 +548,14 @@ export default function FinancieelCoachPage() {
               Benieuwd waar jouw geld blijft?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Begin gratis. Vijf minuten, geen account, geen bankkoppeling, direct resultaat.
+              Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom. Vijf minuten, geen account, geen bankkoppeling.
             </p>
             <Link
               href="/analyse"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Start de gratis analyse →
+              Doe de gratis analyse →
             </Link>
             <p className="mt-5">
               <Link
@@ -555,7 +563,7 @@ export default function FinancieelCoachPage() {
                 className="font-body text-sm"
                 style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
               >
-                Liever dat ik zelf naar je cijfers kijk? Bekijk de Geldscan van €49 →
+                Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan van €49 →
               </Link>
             </p>
           </div>

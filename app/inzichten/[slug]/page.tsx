@@ -6,6 +6,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getArtikel, artikelen } from "@/lib/inzichten-data";
 import ArticleBody from "./ArticleBody";
+import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 
 interface Props {
   params: { slug: string };
@@ -275,21 +276,22 @@ export default function ArtikelPage({ params }: Props) {
                       className="font-body font-light text-text-soft"
                       style={{ marginBottom: "1rem" }}
                     >
-                      Benieuwd of het bij jou klopt? Bij de geldscan kijk ik persoonlijk
-                      naar jouw cijfers en schrijf ik je een rapport met de drie
-                      dingen die het meest opvallen, en met wat er juist niet uit
-                      de toon valt.
+                      Wil je weten hoe jouw situatie ervoor staat? In een paar
+                      minuten zie je waar jouw huishouden afwijkt van
+                      vergelijkbare huishoudens. Je hoeft nog niets te kopen.
                     </p>
-                    <Link href="/geldscan" className="btn-primary">
-                      Zie wat je krijgt voor €49 →
+                    <Link href={ANALYSE_ROUTE} className="btn-primary">
+                      {PRIMAIRE_CTA_LABEL} →
                     </Link>
-                    <Link
-                      href="/analyse"
-                      className="font-body text-sm inline-block mt-3 sm:mt-0 sm:ml-4"
-                      style={{ color: "#0B7A6E", textDecoration: "none" }}
-                    >
-                      Liever eerst zelf kijken? →
-                    </Link>
+                    <p style={{ marginTop: "0.85rem", marginBottom: 0 }}>
+                      <Link
+                        href="/geldscan"
+                        className="font-body text-sm hover:underline"
+                        style={{ color: "#0B7A6E", textDecoration: "none" }}
+                      >
+                        Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan →
+                      </Link>
+                    </p>
                   </>
                 )}
               </div>

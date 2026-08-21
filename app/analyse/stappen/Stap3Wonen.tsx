@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
-import { berekenTotaalInkomen, berekenWonen, getBenchmarks, getVergelijkingStatus, aantalVolwassenenVan } from "@/lib/benchmarks";
+import { ENERGIE_BENCH, INTERNET_BENCH } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
+import Uitklap from "../components/Uitklap";
 
 interface Props {
   data: QuizData;
@@ -10,162 +10,97 @@ interface Props {
 }
 
 export default function Stap3Wonen({ data, onChange }: Props) {
-  const [overigOpen, setOverigOpen] = useState(false);
-
-  const inkomen = berekenTotaalInkomen(data);
-  const wonen = berekenWonen(data);
-  const aantalVolwassenen = aantalVolwassenenVan(data);
-  const benches = getBenchmarks({
-    woonsituatie: data.woonsituatie,
-    kinderen: data.kinderen,
-    inkomen,
-    auto: data.auto,
-    tweedeAuto: data.tweedeAuto,
-    aantalVolwassenen,
-  });
-
-  const wonenPct = inkomen > 0 ? (wonen / inkomen) * 100 : 0;
-  const benchPct = data.woonsituatie === "koop" ? 28 : 30;
-  const status = wonen > 0 ? getVergelijkingStatus(wonen, benches.wonen) : null;
+  const gemeenteMaand =
+    data.gemeenteBelastingenPer === "jaar"
+      ? Math.round(parseEur(data.gemeenteBelastingen) / 12)
+      : parseEur(data.gemeenteBelastingen);
 
   return (
     <div>
-      <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-2">
-        Je woonlasten
+      <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
+        Wat kost je woning per maand?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Vul de maandelijkse kosten in voor je woning.
+        Vul je normale maandelijkse woonlasten in.
       </p>
 
-      <div className="space-y-5 mb-8">
-        <div>
-          <EuroInput
-            label={
-              data.woonsituatie === "huur"
-                ? "Maandelijkse huur"
-                : "Hypotheek per maand (bruto)"
-            }
-            id="huurHypotheek"
-            value={data.huurHypotheek}
-            onChange={(v) => onChange({ huurHypotheek: v })}
-            hint={
-              data.woonsituatie === "koop"
-                ? "Het bedrag dat je maandelijks aan de bank overmaakt. De hypotheekrenteaftrek vul je apart in als inkomen (stap 2)."
-                : undefined
-            }
-          />
-        </div>
-
-        <div>
-          <EuroInput
-            label="Energie (gas + stroom + water)"
-            id="energie"
-            value={data.energie}
-            onChange={(v) => onChange({ energie: v })}
-            hint="Gemiddeld €216/mnd voor een tussenwoning"
-          />
-          {parseEur(data.energie) > 0 && (
-            <div className="mt-2">
-              <MiniVergelijking jij={parseEur(data.energie)} benchmark={216} />
-            </div>
-          )}
-        </div>
-
-        <div>
-          <EuroInput
-            label="Internet, TV en vaste telefoon"
-            id="internet"
-            value={data.internet}
-            onChange={(v) => onChange({ internet: v })}
-            hint="Gemiddeld €55/mnd"
-          />
-          {parseEur(data.internet) > 0 && (
-            <div className="mt-2">
-              <MiniVergelijking jij={parseEur(data.internet)} benchmark={55} />
-            </div>
-          )}
-        </div>
+      <div className="mb-10">
+        {/* Alleen het veld dat bij je woonsituatie hoort. */}
+        <EuroInput
+          label={
+            data.woonsituatie === "huur" ? "Huur per maand" : "Bruto hypotheek per maand"
+          }
+          id="huurHypotheek"
+          value={data.huurHypotheek}
+          onChange={(v) => onChange({ huurHypotheek: v })}
+          hint={
+            data.woonsituatie === "koop"
+              ? "Het bedrag dat je maandelijks aan de bank overmaakt."
+              : "Het bedrag dat je maandelijks aan de verhuurder betaalt."
+          }
+          plausibelTot={8000}
+        />
       </div>
 
-      {/* Overige woonkosten */}
-      <div className="mb-8">
-        <button
-          type="button"
-          onClick={() => setOverigOpen((o) => !o)}
-          className="flex items-center gap-2 text-sm font-body font-medium text-text-soft hover:text-primary transition-colors"
-        >
-          <span className={`transition-transform duration-200 ${overigOpen ? "rotate-90" : ""}`}>
-            ▶
-          </span>
-          {overigOpen ? "Verberg overige woonkosten" : "+ Overige woonkosten toevoegen"}
-        </button>
-        {overigOpen && (
-          <div className="mt-4 space-y-4">
-            <EuroInput
-              label="Servicekosten / VvE"
-              id="servicekosten"
-              value={data.servicekosten}
-              onChange={(v) => onChange({ servicekosten: v })}
-            />
-            <div>
-              <div className="flex gap-2 mb-2">
-                {(["maand", "jaar"] as const).map((per) => (
-                  <button
-                    key={per}
-                    type="button"
-                    onClick={() => onChange({ gemeenteBelastingenPer: per })}
-                    className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
-                      data.gemeenteBelastingenPer === per
-                        ? "bg-primary text-white"
-                        : "bg-[#E6E9E7] text-text-soft"
-                    }`}
-                  >
-                    Per {per}
-                  </button>
-                ))}
-              </div>
-              <EuroInput
-                label={`Gemeentelijke belastingen (OZB e.d.), per ${data.gemeenteBelastingenPer}`}
-                id="gemeenteBelastingen"
-                value={data.gemeenteBelastingen}
-                onChange={(v) => onChange({ gemeenteBelastingen: v })}
-                hint="Vaak een jaaraanslag, kies dan 'per jaar'."
-              />
-            </div>
+      <div className="mb-10">
+        <EuroInput
+          label="Energie per maand"
+          id="energie"
+          value={data.energie}
+          onChange={(v) => onChange({ energie: v })}
+          hint="Gas, stroom en water."
+          hint2="Weet je het niet precies? Gebruik je gemiddelde maandbedrag."
+          plausibelTot={1500}
+        />
+        {parseEur(data.energie) > 0 && (
+          <div className="mt-2">
+            <MiniVergelijking jij={parseEur(data.energie)} benchmark={ENERGIE_BENCH} />
           </div>
         )}
       </div>
 
-      {/* Mobile feedback */}
-      {wonen > 0 && inkomen > 0 && (
-        <div
-          className={`lg:hidden rounded-xl p-4 ${
-            status === "goed"
-              ? "bg-green-light"
-              : status === "matig"
-              ? "bg-[#FDF3E3]"
-              : "bg-[#FDECEA]"
-          }`}
-        >
-          <p
-            className={`font-body font-medium text-sm ${
-              status === "goed"
-                ? "text-[#0B7A6E]"
-                : status === "matig"
-                ? "text-[#92600A]"
-                : "text-[#B03A2E]"
-            }`}
-          >
-            Je besteedt{" "}
-            <strong>{wonenPct.toFixed(0)}%</strong> van je inkomen aan wonen. Normaal voor een{" "}
-            {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"} is{" "}
-            <strong>{benchPct}%</strong>.
-          </p>
-          <p className="text-xs mt-1 opacity-70 font-body">
-            {fmtEur(wonen)} vs gemiddeld {fmtEur(benches.wonen)}
-          </p>
-        </div>
-      )}
+      <div className="mb-10">
+        <EuroInput
+          label="Internet, tv en vaste telefoon"
+          id="internet"
+          value={data.internet}
+          onChange={(v) => onChange({ internet: v })}
+          hint="Vul het bedrag in dat je maandelijks betaalt."
+          plausibelTot={500}
+        />
+        {parseEur(data.internet) > 0 && (
+          <div className="mt-2">
+            <MiniVergelijking jij={parseEur(data.internet)} benchmark={INTERNET_BENCH} />
+          </div>
+        )}
+      </div>
+
+      <Uitklap titel="+ Meer woonkosten toevoegen" titelOpen="Verberg extra woonkosten">
+        <EuroInput
+          label="Servicekosten of VvE"
+          id="servicekosten"
+          value={data.servicekosten}
+          onChange={(v) => onChange({ servicekosten: v })}
+          hint="Per maand."
+        />
+        <EuroInput
+          label="Gemeentelijke belastingen"
+          id="gemeenteBelastingen"
+          value={data.gemeenteBelastingen}
+          onChange={(v) => onChange({ gemeenteBelastingen: v })}
+          periode={{
+            waarde: data.gemeenteBelastingenPer,
+            onChange: (v) => onChange({ gemeenteBelastingenPer: v }),
+          }}
+          hint="Vaak een jaaraanslag, dus staat 'per jaar' voorgeselecteerd."
+          onderschrift={
+            data.gemeenteBelastingenPer === "jaar" && gemeenteMaand > 0
+              ? `Ik reken hiermee ${fmtEur(gemeenteMaand)} per maand.`
+              : undefined
+          }
+        />
+      </Uitklap>
+
     </div>
   );
 }

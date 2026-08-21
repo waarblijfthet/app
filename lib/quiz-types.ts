@@ -9,7 +9,7 @@ export interface QuizData {
   woonsituatie: Woonsituatie | null;
   kinderen: KinderenAantal | null;
   auto: AutoSituatie | null;
-  zakelijkBijtellingSalaris: boolean; // bijtelling NOG NIET in salaris verrekend
+  zakelijkBijtellingSalaris: boolean; // er is een zakelijke auto met bijtelling, dus het nettobedrag moet erna zijn genomen
   tweedeAuto: boolean; // tweede privéauto naast de gekozen autosituatie
 
   // Stap 2, Inkomsten
@@ -136,7 +136,10 @@ export function canProceed(step: number, data: QuizData): boolean {
     case 3:
       return parseEur(data.huurHypotheek) > 0;
     case 4:
-      return parseEur(data.zorgPerPersoon) > 0;
+      // Bewust niet verplicht (21-aug-2026). Zo min mogelijk verplichte velden,
+      // en wie vervoer en verzekeringen overslaat ziet in het paneel dat het
+      // beeld nog niet compleet is.
+      return true;
     case 5:
       return parseEur(data.boodschappen) > 0;
     case 6:

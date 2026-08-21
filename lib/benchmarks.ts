@@ -63,6 +63,14 @@ const ENERGIE = 200; // n=5 (145, 165, 220, 230, 245)
 const INTERNET = 62; // n=5 (52, 58, 64, 65, 72)
 const LOKALE_LASTEN = 95; // n=5, gemeentelijke lasten en waterschap per maand
 
+/**
+ * Dezelfde twee getallen, maar exporteerbaar voor de losse veldvergelijking in
+ * de analyse (21-aug-2026). Zo staat het bedrag op één plek en kan het niet
+ * meer uit elkaar lopen met wat de benchmark zelf gebruikt.
+ */
+export const ENERGIE_BENCH = ENERGIE;
+export const INTERNET_BENCH = INTERNET;
+
 /** Vervoer per autosituatie. Kloppend bij vier van de vijf, ongewijzigd gelaten. */
 const VERVOER_BENCH: Record<string, number> = {
   geen: 80,

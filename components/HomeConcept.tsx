@@ -596,23 +596,19 @@ export default function HomeConcept() {
                 welke twee of drie posten eruit springen.
               </Body>
             </div>
+            {/* Stap 3 is bewust secundair: geen knop, geen prijskaart naast
+                de gratis analyse. De bezoeker hoeft vooraf niets te kiezen. */}
             <div className="p-6 md:p-8" style={{ backgroundColor: C.offwhite, borderRadius: "8px" }}>
               <BigNumber color={C.gold}>3</BigNumber>
               <H3 className="mt-2 mb-3">Bepaal of je verder wilt</H3>
-              <div className="flex items-baseline gap-2 mb-2">
-                <span className="text-[18px]" style={{ ...heading, color: C.dark }}>
-                  Geldscan &euro;49
-                </span>
-                <span className="text-[14px]" style={{ fontFamily: FONT, color: C.muted }}>
-                  optioneel
-                </span>
-              </div>
+              <Body className="mb-3">
+                Benieuwd waarom jouw situatie zo uitpakt? Dan kun je na de analyse kiezen voor de
+                Geldscan van &euro;49.
+              </Body>
               <Body className="mb-0">
-                Waarom wijk je af, wat betekent dat en wat kun je ermee?{" "}
-                <Link href="/aanbod/intake?pakket=geldscan" className="underline" style={{ color: C.wine }}>
-                  Bestel de Geldscan
+                <Link href="/geldscan" className="underline" style={{ color: C.wine }}>
+                  Bekijk de Geldscan
                 </Link>
-                .
               </Body>
             </div>
           </div>

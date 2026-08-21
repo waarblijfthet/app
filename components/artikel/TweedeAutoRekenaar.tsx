@@ -11,6 +11,7 @@ import {
   euroSigned,
   type AutoKeuze,
 } from "@/lib/salaris-vuistregel";
+import { analyseHref as analyseLink, type SituatieSleutel } from "@/lib/cta";
 
 /**
  * Rekenlaag voor "twee-autos-wat-kost-de-tweede-echt" (klus B,
@@ -59,6 +60,11 @@ export default function TweedeAutoRekenaar({
 
   const geldscanSituatie = volwassenen === 1 ? (kinderen > 0 ? "alleenstaande-ouder" : "alleenstaand") : kinderen > 0 ? "gezin" : "stel";
   const geldscanHref = `/geldscan?situatie=${geldscanSituatie}&inkomen=${inkomen}&boodschappen=${Math.round(huidige.boodschappen)}`;
+  const analyseHref = analyseLink({
+    situatie: geldscanSituatie as SituatieSleutel,
+    inkomen: inkomen,
+    boodschappen: Math.round(huidige.boodschappen),
+  });
 
   return (
     <div className="rounded-2xl p-5 sm:p-6 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
@@ -168,8 +174,13 @@ export default function TweedeAutoRekenaar({
         )}
 
         <div className="flex flex-col sm:flex-row gap-3 mt-4">
-          <Link href={geldscanHref} className="btn-primary text-center">Reken mijn hele huishouden door &rarr; €49</Link>
+          <Link href={analyseHref} className="btn-primary text-center">Doe de gratis analyse &rarr;</Link>
         </div>
+        <p className="font-body text-sm mt-3 mb-0">
+          <Link href={geldscanHref} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+          </Link>
+        </p>
       </div>
 
       <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>

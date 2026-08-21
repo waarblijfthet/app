@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 
 /* ─────────────────────────────────────────────────────────────────────────
    Volledig zelfstandige, opaque header. Geen transparantie, geen backdrop-
@@ -38,15 +39,19 @@ export default function Header() {
   };
 
   const isOpAnalyse = pathname.startsWith("/analyse");
-  const isOpInzichten = pathname.startsWith("/inzichten");
   const isOpResultaat = pathname.startsWith("/resultaat");
 
-  const ctaConfig =
-    isOpAnalyse || isOpInzichten
-      ? null
-      : isOpResultaat
-      ? { label: "Doe analyse opnieuw", href: "/analyse" }
-      : { label: "Zie waar je geld blijft", href: "/geldscan" };
+  /* De gratis analyse is de enige primaire conversie-ingang van de site.
+     Vanaf elke pagina moet die met één klik bereikbaar zijn, dus staat de
+     CTA overal in de header, behalve op de analyse zelf. Op de
+     resultaatpagina heeft iemand de analyse net gedaan, daar wijst hij
+     naar een nieuwe ronde. Route en label komen uit lib/cta.ts, zodat er
+     nergens een tweede variant ontstaat. */
+  const ctaConfig = isOpAnalyse
+    ? null
+    : isOpResultaat
+    ? { label: "Doe analyse opnieuw", href: ANALYSE_ROUTE }
+    : { label: PRIMAIRE_CTA_LABEL, href: ANALYSE_ROUTE };
 
   const navLinks = [
     { href: "/rapporten", label: "Rapporten" },

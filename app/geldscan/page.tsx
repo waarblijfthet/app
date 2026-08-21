@@ -279,13 +279,28 @@ export default function GeldscanPage({
     ? [situatie, ...SITUATIES.filter((s) => s.sleutel !== situatie.sleutel)]
     : SITUATIES;
 
+  /* De gratis analyse is de enige primaire actie op deze pagina. Wie hier
+     binnenkomt heeft nog geen eigen vergelijking gezien, en hoeft dus nog
+     niets te kopen. */
   const PrimaireCta = ({ dark = false }: { dark?: boolean }) => (
     <Link
-      href={intakeHref}
+      href={analyseHref}
       className="btn-primary"
       style={dark ? { backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" } : undefined}
     >
-      Laat mij jouw cijfers nakijken &middot; €49
+      Doe de gratis analyse
+    </Link>
+  );
+
+  /* De Geldscan zelf: altijd secundair, nooit een tweede grote knop naast de
+     analyse. De prijs blijft zichtbaar, alleen niet als instappunt. */
+  const GeldscanLink = ({ dark = false }: { dark?: boolean }) => (
+    <Link
+      href={intakeHref}
+      className="font-body font-medium text-sm hover:underline"
+      style={{ color: dark ? "rgba(255,255,255,0.85)" : "#0B7A6E", textDecoration: "none" }}
+    >
+      Al uit je analyse en wil je dat ik persoonlijk naar het waarom kijk? Vraag de Geldscan aan, €49 &rarr;
     </Link>
   );
 
@@ -340,11 +355,44 @@ export default function GeldscanPage({
               </div>
             )}
 
+            {/* Het eerste actiepunt van de pagina: de gratis analyse. */}
             <div
               className="card-base border border-[#E6E9E7] mb-6"
               style={{ borderLeft: "3px solid #0B7A6E" }}
             >
-              <p className="section-eyebrow mb-3">Zo werkt het</p>
+              <p className="section-eyebrow mb-3">Begin liever hier</p>
+              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
+                Wil je eerst weten waar jouw situatie afwijkt? Doe dan eerst de gratis analyse. Dat
+                kost een paar minuten en geeft je direct een eerste vergelijking.
+              </p>
+              <PrimaireCta />
+              <p className="font-body font-light text-text-muted text-xs mt-4">
+                Daarna kun je zelf bepalen of je wilt weten waarom.
+              </p>
+            </div>
+
+            <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+              Benieuwd naar het waarom? De Geldscan is de vervolgstap na de analyse.
+            </p>
+            <p className="mt-2">
+              <Link
+                href="#prijs"
+                className="font-body font-medium text-sm hover:underline"
+                style={{ color: "#0B7A6E" }}
+              >
+                Bekijk hoe de Geldscan werkt &rarr;
+              </Link>
+            </p>
+            <p className="font-body font-light text-text-muted text-xs mt-1.5">
+              Eenmalig €49 · persoonlijk geschreven · geen abonnement. Je antwoorden in de analyse
+              blijven anoniem totdat je zelf je e-mailadres achterlaat.
+            </p>
+
+            <div
+              className="card-base border border-[#E6E9E7] mt-6 mb-0"
+              style={{ borderLeft: "3px solid #0B7A6E" }}
+            >
+              <p className="section-eyebrow mb-3">Zo werkt de Geldscan, na de analyse</p>
               <ol className="space-y-3">
                 <li>
                   <p className="font-body font-medium text-primary text-sm">
@@ -371,24 +419,6 @@ export default function GeldscanPage({
               </ol>
             </div>
 
-            <PrimaireCta />
-            <p className="font-body font-light text-text-muted text-xs mt-4">
-              Eenmalig €49 · persoonlijk geschreven · geen abonnement
-            </p>
-
-            <p className="mt-7">
-              <Link
-                href={analyseHref}
-                className="font-body font-medium text-sm hover:underline"
-                style={{ color: "#0B7A6E" }}
-              >
-                Eerst gratis zelf kijken &rarr;
-              </Link>
-            </p>
-            <p className="font-body font-light text-text-muted text-xs mt-1.5">
-              De gratis analyse laat zien dát je afwijkt. De Geldscan zoekt uit waarom. Je
-              antwoorden blijven anoniem totdat je zelf je e-mailadres achterlaat.
-            </p>
           </div>
         </section>
 
@@ -462,15 +492,11 @@ export default function GeldscanPage({
               cijfers.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mt-7 items-start sm:items-center">
+            <div className="mt-7">
               <PrimaireCta />
-              <Link
-                href={analyseHref}
-                className="font-body font-medium text-sm hover:underline"
-                style={{ color: "#0B7A6E" }}
-              >
-                Eerst gratis zelf kijken &rarr;
-              </Link>
+              <p className="mt-3 mb-0">
+                <GeldscanLink />
+              </p>
             </div>
           </div>
         </section>
@@ -1053,7 +1079,7 @@ export default function GeldscanPage({
         </section>
 
         {/* ── 11. Prijs ──────────────────────────────────────── */}
-        <section className="bg-card py-16">
+        <section id="prijs" className="bg-card py-16" style={{ scrollMarginTop: "90px" }}>
           <div className="max-w-3xl mx-auto px-6">
             <div className="card-base border border-[#E6E9E7]">
               <p
@@ -1116,6 +1142,13 @@ export default function GeldscanPage({
 
               <div className="mt-8 pt-7" style={{ borderTop: "1px solid #E6E9E7" }}>
                 <PrimaireCta />
+                <p className="font-body font-light text-text-soft text-sm mt-4 leading-relaxed">
+                  Al uit je analyse en wil je dat ik persoonlijk naar het waarom kijk? Dan is de
+                  Geldscan €49.
+                </p>
+                <p className="mt-2 mb-0">
+                  <GeldscanLink />
+                </p>
                 <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
                   Je hoeft geen gesprek te boeken en geen vervolgtraject te nemen. Je krijgt het
                   rapport en bepaalt daarna zelf wat je ermee doet.
@@ -1143,13 +1176,7 @@ export default function GeldscanPage({
                 Denk je daarna: ik wil weten wáárom mijn cijfers zo uitpakken, dan is de geldscan de
                 volgende stap. Denk je dat niet, dan heb je alsnog je antwoord.
               </p>
-              <Link
-                href={analyseHref}
-                className="font-body font-medium text-sm hover:underline"
-                style={{ color: "#0B7A6E" }}
-              >
-                Eerst gratis zelf kijken &rarr;
-              </Link>
+              <PrimaireCta />
             </div>
           </div>
         </section>
@@ -1187,16 +1214,13 @@ export default function GeldscanPage({
             </p>
             <PrimaireCta dark />
             <p className="text-white/50 font-body font-light text-xs mt-4">
-              €49 · eenmalig · persoonlijk rapport · binnen 2 werkdagen na je cijfers
+              Je kunt daarna altijd nog besluiten of je de Geldscan wilt.
             </p>
             <p className="mt-7">
-              <Link
-                href={analyseHref}
-                className="font-body text-sm hover:underline"
-                style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none" }}
-              >
-                Eerst gratis zelf kijken &rarr;
-              </Link>
+              <GeldscanLink dark />
+            </p>
+            <p className="text-white/40 font-body font-light text-xs mt-3">
+              €49 · eenmalig · persoonlijk rapport · binnen 2 werkdagen na je cijfers
             </p>
           </div>
         </section>

@@ -7,6 +7,7 @@ import {
   geldscanSituatie,
   omslagpunt,
 } from "@/lib/salaris-vuistregel";
+import { analyseHref as analyseLink, type SituatieSleutel } from "@/lib/cta";
 
 /**
  * Statische bedragentabel onder de rekenaar op het salarisartikel.
@@ -383,16 +384,15 @@ export default function SalarisBedragenTabel() {
         </p>
         <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300 }}>
           Dan zegt dat nog niets over jou, want deze tabel weet niets van jouw huur, je aflossing of je
-          alimentatie. Bij de Geldscan lees ik je eigen cijfers na en schrijf ik op wat er het meest
-          opvalt, en wat er juist niet uit de toon valt. Valt er niets te repareren, dan staat dat er
-          ook.
+          alimentatie. Bij de gratis analyse vul je je eigen bedragen in en zie je waar jouw huishouden
+          werkelijk afwijkt. Daarna bepaal je zelf of je verder wilt.
         </p>
         <Link
-          href="/geldscan"
+          href="/analyse"
           className="inline-block rounded-lg px-5 py-2.5 font-body text-sm"
           style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF", textDecoration: "none" }}
         >
-          Zie wat je krijgt voor €49
+          Doe de gratis analyse
         </Link>
         <p className="font-body text-xs mt-3 mb-0" style={{ color: "#4A5A56" }}>
           Direct naar jouw situatie:{" "}
@@ -400,7 +400,9 @@ export default function SalarisBedragenTabel() {
             <span key={h.kop}>
               {i > 0 ? " · " : ""}
               <Link
-                href={`/geldscan?situatie=${geldscanSituatie(h.volwassenen, h.kinderen)}`}
+                href={analyseLink({
+                  situatie: geldscanSituatie(h.volwassenen, h.kinderen) as SituatieSleutel,
+                })}
                 className="hover:underline"
                 style={{ color: "#0B7A6E", textDecoration: "none" }}
               >
@@ -408,6 +410,11 @@ export default function SalarisBedragenTabel() {
               </Link>
             </span>
           ))}
+        </p>
+        <p className="font-body text-xs mt-2 mb-0" style={{ color: "#4A5A56" }}>
+          <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+          </Link>
         </p>
       </div>
     </>

@@ -180,7 +180,7 @@ export default function WoordenlijstPage() {
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Start de analyse →
+              Doe de gratis analyse →
             </Link>
           </div>
         </section>

@@ -144,16 +144,15 @@ export default function BoodschappenSlider() {
           Wil je weten waar het bij jou dan wel zit?
         </p>
         <p className="font-body text-sm mb-4" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
-          Ik leg je hele maand naast huishoudens als het jouwe en schrijf op wat er opvalt en wat juist
-          niet. Geen gesprek nodig, je leest het rustig terug. Valt er niets te repareren, dan staat dat
-          er ook. €49 eenmalig.
+          Begin met je hele maand, niet met één post. De gratis analyse legt je uitgaven naast
+          huishoudens als het jouwe. Dat kost een paar minuten en verder niets.
         </p>
-        <Link href="/geldscan" className="btn-primary">
-          Bekijk wat je krijgt voor €49 &rarr;
+        <Link href="/analyse" className="btn-primary">
+          Doe de gratis analyse &rarr;
         </Link>
         <p className="font-body text-sm mt-3 mb-0">
-          <Link href="/analyse" className="hover:underline" style={{ color: "#8B958F", textDecoration: "none" }}>
-            Liever eerst zelf je hele maand vergelijken? Dat is gratis &rarr;
+          <Link href="/geldscan" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+            Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
           </Link>
         </p>
       </div>

@@ -163,7 +163,7 @@ export default function VakantiegeldNettoHoeveelHouJeOver2026() {
           Doe de gratis analyse &rarr;
         </Link>
         <p className="font-body text-sm" style={{ marginTop: "0.75rem", marginBottom: 0 }}>
-          <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Of laat mij je cijfers persoonlijk nakijken (€49)</Link>
+          <Link href="/geldscan" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Na de analyse kun je altijd nog kiezen voor de Geldscan (€49)</Link>
         </p>
       </div>
     </>

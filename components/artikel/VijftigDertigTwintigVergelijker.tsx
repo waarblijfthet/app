@@ -10,6 +10,7 @@ import {
   type AutoKeuze,
 } from "@/lib/salaris-vuistregel";
 import { RAPPORTEN } from "@/lib/rapporten-data";
+import { analyseHref as analyseLink, type SituatieSleutel } from "@/lib/cta";
 
 /**
  * Vergelijkt de 50/30/20-regel met mijn eigen vuistregel, per huishouden.
@@ -58,6 +59,11 @@ export default function VijftigDertigTwintigVergelijker() {
     ? "gezin"
     : "stel";
   const geldscanHref = `/geldscan?situatie=${geldscanSituatie}&inkomen=${inkomen}&boodschappen=${Math.round(boodschappen)}`;
+  const analyseHref = analyseLink({
+    situatie: geldscanSituatie as SituatieSleutel,
+    inkomen: inkomen,
+    boodschappen: Math.round(boodschappen),
+  });
 
   const verschil = pctVuistregel - 50;
 
@@ -184,8 +190,8 @@ export default function VijftigDertigTwintigVergelijker() {
       </div>
 
       <div className="mt-4 flex flex-col sm:flex-row gap-3">
-        <Link href={geldscanHref} className="btn-primary text-center">
-          Reken mijn eigen situatie na &rarr; €49
+        <Link href={analyseHref} className="btn-primary text-center">
+          Doe de gratis analyse &rarr;
         </Link>
         <Link
           href="/rapporten"
@@ -195,6 +201,11 @@ export default function VijftigDertigTwintigVergelijker() {
           Bekijk de {RAPPORTEN.length} huishoudens achter dit getal &rarr;
         </Link>
       </div>
+      <p className="font-body text-sm mt-3 mb-0">
+        <Link href={geldscanHref} className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+          Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
+        </Link>
+      </p>
 
       <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>
         Bron 50/30/20-regel: Raisin, &ldquo;Uitleg: hoe werkt de 50/30/20 regel?&rdquo;, geraadpleegd 17

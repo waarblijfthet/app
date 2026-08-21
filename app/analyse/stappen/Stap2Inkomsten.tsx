@@ -1,14 +1,14 @@
-import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
 import { aantalVolwassenenVan } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
+import Uitklap from "../components/Uitklap";
 
 interface Props {
   data: QuizData;
   onChange: (u: Partial<QuizData>) => void;
 }
 
-function Toggle({
+function Vinkje({
   checked,
   onChange,
   label,
@@ -21,14 +21,12 @@ function Toggle({
 }) {
   return (
     <label className="flex items-start gap-3 cursor-pointer group">
-      <span className="mt-0.5 flex-shrink-0">
-        <input
-          type="checkbox"
-          checked={checked}
-          onChange={(e) => onChange(e.target.checked)}
-          className="w-4 h-4 accent-[#16211F] rounded cursor-pointer"
-        />
-      </span>
+      <input
+        type="checkbox"
+        checked={checked}
+        onChange={(e) => onChange(e.target.checked)}
+        className="mt-0.5 w-4 h-4 accent-[#0B7A6E] rounded cursor-pointer flex-shrink-0"
+      />
       <span>
         <span className="font-body text-sm text-text-soft group-hover:text-primary transition-colors">
           {label}
@@ -39,256 +37,163 @@ function Toggle({
   );
 }
 
-function SalarisBlok({
-  label,
-  hint,
-  salarisKey,
-  vakantieKey,
-  dertiendeKey,
-  data,
-  onChange,
-  showBijtelling,
-}: {
-  label: string;
-  hint?: string;
-  salarisKey: "salaris1" | "salaris2";
-  vakantieKey: "salaris1InclVakantiegeld" | "salaris2InclVakantiegeld";
-  dertiendeKey: "salaris1InclDertiende" | "salaris2InclDertiende";
-  data: QuizData;
-  onChange: (u: Partial<QuizData>) => void;
-  showBijtelling?: boolean;
-}) {
-  const [verfijnOpen, setVerfijnOpen] = useState(false);
-  const s = parseEur(data[salarisKey]);
-  const vakantieExtra = data[vakantieKey] ? Math.round(s * 0.08 / 12) : 0;
-  const dertiendeExtra = data[dertiendeKey] ? Math.round(s / 12) : 0;
-  const effectief = s + vakantieExtra + dertiendeExtra;
-
-  return (
-    <div className="mb-6">
-      <EuroInput
-        label={label}
-        id={salarisKey}
-        value={data[salarisKey]}
-        onChange={(v) => onChange({ [salarisKey]: v } as Partial<QuizData>)}
-        placeholder="bijv. 2.800"
-        hint={hint ?? "Netto bedrag per maand, na belasting"}
-      />
-      {s === 0 && (
-        <p className="font-body text-xs text-text-muted mt-2">
-          Een ronde schatting is prima, je hoeft niets op te zoeken.
-        </p>
-      )}
-      {s > 0 && (
-        <div className="mt-3 space-y-2 pl-1">
-          <button
-            type="button"
-            onClick={() => setVerfijnOpen((o) => !o)}
-            className="flex items-center gap-2 text-xs font-body font-medium text-text-soft hover:text-primary transition-colors"
-          >
-            <span className={`transition-transform duration-200 ${verfijnOpen ? "rotate-90" : ""}`}>
-              ▶
-            </span>
-            {verfijnOpen
-              ? "Verberg vakantiegeld en 13e maand"
-              : "Vakantiegeld of 13e maand? Verfijn (optioneel)"}
-          </button>
-          {verfijnOpen && (
-            <div className="space-y-2 pt-1">
-              <Toggle
-                checked={data[vakantieKey]}
-                onChange={(v) => onChange({ [vakantieKey]: v } as Partial<QuizData>)}
-                label="Inclusief vakantiegeld"
-                hint={
-                  data[vakantieKey]
-                    ? `Voegt ${fmtEur(vakantieExtra)}/mnd toe (8%÷12)`
-                    : "Verdeelt het jaarlijkse vakantiegeld over 12 maanden"
-                }
-              />
-              <Toggle
-                checked={data[dertiendeKey]}
-                onChange={(v) => onChange({ [dertiendeKey]: v } as Partial<QuizData>)}
-                label="Inclusief 13e maand"
-                hint={
-                  data[dertiendeKey]
-                    ? `Voegt ${fmtEur(dertiendeExtra)}/mnd toe (÷12)`
-                    : "Alleen aanvinken als je een 13e maand hebt"
-                }
-              />
-            </div>
-          )}
-          {showBijtelling && data.auto === "zakelijk" && data.zakelijkBijtellingSalaris && (
-            <p className="font-body text-xs text-[#92600A] bg-[#FDF3E3] rounded-lg px-3 py-2">
-              Je gaf aan dat de bijtelling nog niet in je salarisstrook zit.
-              Vul hier dan het salaris in dat na de bijtelling overblijft,
-              anders pakt de vergelijking te rooskleurig uit.
-            </p>
-          )}
-        </div>
-      )}
-      {effectief > s && (
-        <p className="text-xs font-body text-[#0B7A6E] mt-2 font-medium">
-          Effectief maandbedrag: {fmtEur(effectief)}
-        </p>
-      )}
-    </div>
-  );
-}
-
 export default function Stap2Inkomsten({ data, onChange }: Props) {
-  const [overigOpen, setOverigOpen] = useState(false);
-  const [toeslagenOpen, setToeslagenOpen] = useState(false);
   const alleen = aantalVolwassenenVan(data) === 1;
+
+  const s1 = parseEur(data.salaris1);
+  const s2 = parseEur(data.salaris2);
+  const extra1 =
+    (data.salaris1InclVakantiegeld ? Math.round((s1 * 0.08) / 12) : 0) +
+    (data.salaris1InclDertiende ? Math.round(s1 / 12) : 0);
+  const extra2 =
+    (data.salaris2InclVakantiegeld ? Math.round((s2 * 0.08) / 12) : 0) +
+    (data.salaris2InclDertiende ? Math.round(s2 / 12) : 0);
+  const extraTotaal = extra1 + extra2;
 
   return (
     <div>
-      <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-2">
-        Wat komt er binnen?
+      <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
+        Wat komt er gemiddeld per maand binnen?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Vul het netto bedrag in, dus na belasting en inhoudingen.
+        Vul netto bedragen in. Een realistische schatting is voldoende.
       </p>
 
-      <SalarisBlok
-        label={alleen ? "Jouw netto inkomen per maand" : "Jouw netto salaris"}
-        hint="In loondienst: je nettosalaris na belasting. Zzp'er of wisselend inkomen? Vul het gemiddelde van de afgelopen 6 tot 12 maanden in, na belastingreservering."
-        salarisKey="salaris1"
-        vakantieKey="salaris1InclVakantiegeld"
-        dertiendeKey="salaris1InclDertiende"
-        data={data}
-        onChange={onChange}
-        showBijtelling
-      />
+      <div className="mb-10">
+        <EuroInput
+          label={alleen ? "Netto inkomen per maand" : "Jouw netto inkomen per maand"}
+          id="salaris1"
+          value={data.salaris1}
+          onChange={(v) => onChange({ salaris1: v })}
+          placeholder="bijv. 2.800"
+          hint="Je normale netto bedrag na belasting en inhoudingen."
+          hint2="Wisselend inkomen? Neem het gemiddelde van de afgelopen 6 tot 12 maanden."
+          plausibelTot={25000}
+        />
+        {data.auto === "zakelijk" && data.zakelijkBijtellingSalaris && s1 > 0 && (
+          <p className="font-body text-xs text-[#92600A] bg-[#FDF3E3] rounded-lg px-3 py-2 mt-2">
+            Vul het bedrag in dat na de bijtelling overblijft, anders pakt de
+            vergelijking te rooskleurig uit.
+          </p>
+        )}
+      </div>
 
       {!alleen && (
-        <SalarisBlok
-          label="Netto salaris van je partner"
-          hint="Voor een kloppend totaalplaatje telt het inkomen van je partner mee. Weet je het niet of houden jullie alles gescheiden? Laat het leeg en vul dan ook alleen jouw deel van de kosten in."
-          salarisKey="salaris2"
-          vakantieKey="salaris2InclVakantiegeld"
-          dertiendeKey="salaris2InclDertiende"
-          data={data}
-          onChange={onChange}
-        />
+        <div className="mb-10">
+          <EuroInput
+            label="Netto inkomen partner per maand"
+            id="salaris2"
+            value={data.salaris2}
+            onChange={(v) => onChange({ salaris2: v })}
+            hint="Gebruik het gemiddelde netto bedrag per maand."
+            hint2="Weet je het exacte bedrag niet? Een schatting is prima."
+            plausibelTot={25000}
+          />
+        </div>
       )}
 
-      {/* Hypotheekrenteaftrek, inkomen, alleen bij koopwoning */}
+      <Uitklap titel="+ Extra inkomen toevoegen" titelOpen="Verberg extra inkomen">
+        <Vinkje
+          checked={data.salaris1InclVakantiegeld}
+          onChange={(v) => onChange({ salaris1InclVakantiegeld: v })}
+          label="Ik krijg vakantiegeld"
+          hint="Verdeelt 8 procent over twaalf maanden."
+        />
+        <Vinkje
+          checked={data.salaris1InclDertiende}
+          onChange={(v) => onChange({ salaris1InclDertiende: v })}
+          label="Ik krijg een 13e maand"
+        />
+        {!alleen && (
+          <>
+            <Vinkje
+              checked={data.salaris2InclVakantiegeld}
+              onChange={(v) => onChange({ salaris2InclVakantiegeld: v })}
+              label="Mijn partner krijgt vakantiegeld"
+            />
+            <Vinkje
+              checked={data.salaris2InclDertiende}
+              onChange={(v) => onChange({ salaris2InclDertiende: v })}
+              label="Mijn partner krijgt een 13e maand"
+            />
+          </>
+        )}
+        <EuroInput
+          label="Andere vaste inkomsten"
+          id="toeslagOverig"
+          value={data.toeslagOverig}
+          onChange={(v) => onChange({ toeslagOverig: v })}
+          hint="Bijvoorbeeld alimentatie of verhuur, per maand."
+        />
+        {extraTotaal > 0 && (
+          <p className="font-body text-xs text-accent font-medium">
+            Dit telt {fmtEur(extraTotaal)} per maand extra mee.
+          </p>
+        )}
+      </Uitklap>
+
+      {/* Alleen bij een koopwoning, want anders is er niets terug te krijgen. */}
       {data.woonsituatie === "koop" && (
-        <div className="mb-6">
-          <div className="flex gap-2 mb-2">
-            {(["maand", "jaar"] as const).map((per) => (
-              <button
-                key={per}
-                type="button"
-                onClick={() => onChange({ hypotheekRenteAftrekPer: per })}
-                className={`text-xs px-3 py-1.5 rounded-lg font-body font-medium transition-all ${
-                  data.hypotheekRenteAftrekPer === per
-                    ? "bg-primary text-white"
-                    : "bg-[#E6E9E7] text-text-soft"
-                }`}
-              >
-                Per {per}
-              </button>
-            ))}
-          </div>
+        <div className="mb-10">
           <EuroInput
-            label={`Hypotheekrenteaftrek / teruggave, per ${data.hypotheekRenteAftrekPer}`}
+            label="Krijg je jaarlijks hypotheekrente terug van de Belastingdienst?"
             id="hypotheekRenteAftrek"
             value={data.hypotheekRenteAftrek}
             onChange={(v) => onChange({ hypotheekRenteAftrek: v })}
-            hint="Krijg je belasting terug vanwege je hypotheek, vaak via de voorlopige aanslag? Vul dat hier in, meestal als jaarbedrag. Weet je het niet? Laat leeg, dan rekent de analyse gewoon zonder."
+            periode={{
+              waarde: data.hypotheekRenteAftrekPer,
+              onChange: (v) => onChange({ hypotheekRenteAftrekPer: v }),
+            }}
+            hint="Vul het bedrag in dat je ongeveer per jaar terugkrijgt. Weet je het niet? Laat leeg."
           />
         </div>
       )}
 
-      {/* Toeslagen */}
-      <div className="mb-6">
-        <button
-          type="button"
-          onClick={() => setToeslagenOpen((o) => !o)}
-          className="flex items-center gap-2 text-sm font-body font-medium text-text-soft hover:text-primary transition-colors mb-4"
-        >
-          <span className={`transition-transform duration-200 ${toeslagenOpen ? "rotate-90" : ""}`}>
-            ▶
-          </span>
-          {toeslagenOpen ? "Verberg toeslagen" : "+ Toeslagen toevoegen (optioneel)"}
-        </button>
-        {toeslagenOpen && (
-        <div className="space-y-4">
+      <Uitklap
+        intro="Ontvang je toeslagen?"
+        titel="+ Toeslagen toevoegen"
+        titelOpen="Verberg toeslagen"
+      >
+        <p className="font-body text-xs text-text-muted">
+          Vul het gemiddelde bedrag per maand in.
+        </p>
+        <EuroInput
+          label="Zorgtoeslag"
+          id="toeslagZorg"
+          value={data.toeslagZorg}
+          onChange={(v) => onChange({ toeslagZorg: v })}
+        />
+        {(data.kinderen ?? 0) > 0 && (
+          <>
+            <EuroInput
+              label="Kinderopvangtoeslag"
+              id="toeslagKinderopvang"
+              value={data.toeslagKinderopvang}
+              onChange={(v) => onChange({ toeslagKinderopvang: v })}
+            />
+            <EuroInput
+              label="Kindgebonden budget"
+              id="toeslagKindgebonden"
+              value={data.toeslagKindgebonden}
+              onChange={(v) => onChange({ toeslagKindgebonden: v })}
+            />
+            <EuroInput
+              label="Kinderbijslag"
+              id="toeslagKinderbijslag"
+              value={data.toeslagKinderbijslag}
+              onChange={(v) => onChange({ toeslagKinderbijslag: v })}
+            />
+          </>
+        )}
+        {data.woonsituatie === "huur" && (
           <EuroInput
-            label="Zorgtoeslag"
-            id="toeslagZorg"
-            value={data.toeslagZorg}
-            onChange={(v) => onChange({ toeslagZorg: v })}
-            hint="In 2026 maximaal €238/mnd voor een stel, ongeveer de helft voor een alleenstaande"
+            label="Huurtoeslag"
+            id="toeslagHuur"
+            value={data.toeslagHuur}
+            onChange={(v) => onChange({ toeslagHuur: v })}
           />
-
-          {(data.kinderen ?? 0) > 0 && (
-            <>
-              <EuroInput
-                label="Kindgebonden budget"
-                id="toeslagKindgebonden"
-                value={data.toeslagKindgebonden}
-                onChange={(v) => onChange({ toeslagKindgebonden: v })}
-                hint="Max €300/mnd per kind"
-              />
-              <EuroInput
-                label="Kinderopvangtoeslag"
-                id="toeslagKinderopvang"
-                value={data.toeslagKinderopvang}
-                onChange={(v) => onChange({ toeslagKinderopvang: v })}
-                hint="Hoeveel ontvang je na verrekening?"
-              />
-              <EuroInput
-                label="Kinderbijslag"
-                id="toeslagKinderbijslag"
-                value={data.toeslagKinderbijslag}
-                onChange={(v) => onChange({ toeslagKinderbijslag: v })}
-                hint="Gemiddeld €93/mnd per kind (€278/kwartaal)"
-              />
-            </>
-          )}
-
-          {data.woonsituatie === "huur" && (
-            <EuroInput
-              label="Huurtoeslag"
-              id="toeslagHuur"
-              value={data.toeslagHuur}
-              onChange={(v) => onChange({ toeslagHuur: v })}
-            />
-          )}
-        </div>
         )}
-      </div>
-
-      {/* Overig inkomen */}
-      <div className="mb-6">
-        <button
-          type="button"
-          onClick={() => setOverigOpen((o) => !o)}
-          className="flex items-center gap-2 text-sm font-body font-medium text-text-soft hover:text-primary transition-colors"
-        >
-          <span
-            className={`transition-transform duration-200 ${overigOpen ? "rotate-90" : ""}`}
-          >
-            ▶
-          </span>
-          {overigOpen ? "Verberg overig inkomen" : "+ Overig inkomen toevoegen"}
-        </button>
-        {overigOpen && (
-          <div className="mt-4 space-y-4">
-            <EuroInput
-              label="Overig inkomen (alimentatie, verhuur, etc.)"
-              id="toeslagOverig"
-              value={data.toeslagOverig}
-              onChange={(v) => onChange({ toeslagOverig: v })}
-            />
-          </div>
-        )}
-      </div>
-
-      {/* Mobiele live feedback komt nu uit het ingesloten vergelijkingspaneel
-          onder de vragen (QuizClient), zodat het niet dubbel staat. */}
+      </Uitklap>
     </div>
   );
 }

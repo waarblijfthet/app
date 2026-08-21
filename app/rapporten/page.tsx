@@ -245,15 +245,15 @@ export default function RapportenPage() {
               Wil je weten of het bij jou klopt?
             </h2>
             <p className="font-body font-light text-text-soft leading-relaxed mb-7">
-              Je levert je cijfers aan, ik schrijf je zo'n rapport over jouw situatie. Binnen twee werkdagen,
-              zonder gesprek, 49 euro eenmalig. Als er bij jou niets te repareren valt, lees je dat.
+              Begin met de gratis analyse. In een paar minuten zie je waar jouw huishouden afwijkt van
+              vergelijkbare huishoudens. Daarna bepaal je zelf of je verder wilt.
             </p>
-            <Link href="/aanbod/intake?pakket=geldscan" className="btn-primary">
-              Vraag het geldrapport aan &rarr;
+            <Link href="/analyse" className="btn-primary">
+              Doe de gratis analyse &rarr;
             </Link>
             <p className="font-body font-light text-text-muted text-sm mt-5">
-              <Link href="/analyse" className="hover:underline">
-                Liever eerst zelf je cijfers vergelijken? De analyse is gratis &rarr;
+              <Link href="/geldscan" className="hover:underline">
+                Wil je na de analyse weten waarom jouw situatie zo uitpakt? Bekijk de Geldscan &rarr;
               </Link>
             </p>
           </div>
