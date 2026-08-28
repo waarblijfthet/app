@@ -40,7 +40,8 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         Waar gaat je geld dagelijks naartoe?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Schat je gemiddelde maandbedragen. Precies weten hoeft niet.
+        Laatste stap voordat je je vergelijking ziet. Schat je gemiddelde
+        maandbedragen, precies weten hoeft niet.
       </p>
 
       <div className="mb-10">

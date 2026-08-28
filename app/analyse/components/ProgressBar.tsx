@@ -1,115 +1,75 @@
 interface ProgressBarProps {
   currentStep: number;
   totalSteps: number;
-  labels?: string[];
+  /** Korte, positieve omschrijving van de huidige fase. */
+  faseTekst?: string;
   onStepClick?: (step: number) => void;
 }
 
 /**
- * Voortgang (21-aug-2026).
+ * Rustige voortgang (28-aug-2026).
  *
- * Mobiel bewust geen zes labels naast elkaar. Alleen "Stap 2 van 6", de naam
- * van de stap en een doorlopende balk. Op desktop wel de volledige stepper,
- * met een duidelijk zichtbare actieve stap.
+ * Bij de start tonen we geen "Stap 1 van 6": dat communiceert vooral hoeveel
+ * werk er nog komt. In plaats daarvan een rij stippen plus de tijdsindicatie.
+ * Zodra iemand bezig is, verschijnt een dunne balk met een korte, positieve
+ * omschrijving van de fase. De hoeveelheid stappen dringt zich nergens op.
  */
 export default function ProgressBar({
   currentStep,
   totalSteps,
-  labels = [],
+  faseTekst,
   onStepClick,
 }: ProgressBarProps) {
-  const huidigLabel = labels[currentStep - 1] ?? "";
   const pct = Math.round((currentStep / totalSteps) * 100);
+  const startModus = currentStep === 1;
 
   return (
     <div className="mb-8">
-      {/* Mobiel: compacte voortgang */}
-      <div className="sm:hidden">
-        <p className="font-body text-xs font-medium text-text-muted mb-0.5">
-          Stap {currentStep} van {totalSteps}
-        </p>
-        <p className="font-body text-base font-medium text-primary mb-2">
-          {huidigLabel}
-        </p>
-        <div className="h-2 bg-[#E6E9E7] rounded-full overflow-hidden">
-          <div
-            className="h-full rounded-full bg-accent transition-all duration-300"
-            style={{ width: `${pct}%` }}
-          />
-        </div>
+      {/* Stippen: gevuld tot en met de huidige stap. Voltooide stappen zijn
+          klikbaar om terug te gaan. */}
+      <div className="flex items-center gap-1.5 mb-2">
+        {Array.from({ length: totalSteps }).map((_, i) => {
+          const stap = i + 1;
+          const gedaan = stap <= currentStep;
+          const klikbaar = stap < currentStep && !!onStepClick;
+          return (
+            <button
+              key={stap}
+              type="button"
+              disabled={!klikbaar}
+              onClick={() => klikbaar && onStepClick!(stap)}
+              aria-label={`Onderdeel ${stap} van ${totalSteps}${
+                klikbaar ? ", klik om terug te gaan" : ""
+              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                klikbaar ? "cursor-pointer" : "cursor-default"
+              }`}
+              style={{
+                width: stap === currentStep ? "1.75rem" : "0.5rem",
+                backgroundColor: gedaan ? "#0B7A6E" : "#DCE3E0",
+              }}
+            />
+          );
+        })}
       </div>
 
-      {/* Desktop: stepper met categorienamen */}
-      <div className="hidden sm:block">
-        <p className="font-body text-xs font-medium text-text-muted mb-3">
-          Stap {currentStep} van {totalSteps}
-          {huidigLabel ? `: ${huidigLabel}` : ""}
+      {startModus ? (
+        <p className="font-body text-xs text-text-muted">
+          &#8987; &plusmn; 2 minuten &middot; begin met een paar tikjes
         </p>
-        <div className="flex items-center">
-          {Array.from({ length: totalSteps }).map((_, i) => {
-            const stap = i + 1;
-            const label = labels[i] ?? `Stap ${stap}`;
-            const voltooid = stap < currentStep;
-            const huidig = stap === currentStep;
-            const klikbaar = voltooid && !!onStepClick;
-            return (
-              <div
-                key={label}
-                className="flex items-center"
-                style={{ flex: i < totalSteps - 1 ? 1 : "0 0 auto" }}
-              >
-                <button
-                  type="button"
-                  disabled={!klikbaar}
-                  onClick={() => klikbaar && onStepClick!(stap)}
-                  aria-current={huidig ? "step" : undefined}
-                  aria-label={`Stap ${stap}: ${label}${
-                    voltooid ? " (voltooid, klik om te bewerken)" : ""
-                  }`}
-                  className={`flex items-center gap-2 rounded-full transition-all ${
-                    huidig ? "bg-[#E7F1EE] pl-1 pr-3 py-1" : ""
-                  } ${klikbaar ? "cursor-pointer hover:opacity-80" : "cursor-default"}`}
-                >
-                  <span
-                    className="flex items-center justify-center rounded-full font-body font-semibold flex-shrink-0 transition-all"
-                    style={{
-                      width: huidig ? "2rem" : "1.65rem",
-                      height: huidig ? "2rem" : "1.65rem",
-                      fontSize: huidig ? "0.8rem" : "0.7rem",
-                      backgroundColor: voltooid
-                        ? "#16211F"
-                        : huidig
-                        ? "#0B7A6E"
-                        : "#EDF0EE",
-                      color: voltooid || huidig ? "#FFFFFF" : "#A3ADA8",
-                    }}
-                  >
-                    {voltooid ? "\u2713" : stap}
-                  </span>
-                  <span
-                    className="font-body whitespace-nowrap transition-colors"
-                    style={{
-                      color: huidig ? "#0B7A6E" : voltooid ? "#4A5A56" : "#A3ADA8",
-                      fontWeight: huidig ? 600 : 400,
-                      fontSize: huidig ? "0.85rem" : "0.75rem",
-                    }}
-                  >
-                    {label}
-                  </span>
-                </button>
-                {i < totalSteps - 1 && (
-                  <div
-                    className="h-px flex-1 mx-2 transition-colors duration-300"
-                    style={{
-                      backgroundColor: stap < currentStep ? "#16211F" : "#E6E9E7",
-                    }}
-                  />
-                )}
-              </div>
-            );
-          })}
+      ) : (
+        <div>
+          <div className="h-1 bg-[#E6E9E7] rounded-full overflow-hidden mb-2">
+            <div
+              className="h-full rounded-full bg-accent transition-all duration-300"
+              style={{ width: `${pct}%` }}
+            />
+          </div>
+          {faseTekst && (
+            <p className="font-body text-sm font-medium text-primary">{faseTekst}</p>
+          )}
         </div>
-      </div>
+      )}
     </div>
   );
 }

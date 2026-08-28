@@ -125,11 +125,12 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
 export function canProceed(step: number, data: QuizData): boolean {
   switch (step) {
     case 1:
+      // Autosituatie is naar stap 4 verplaatst (28-aug-2026), dus hier niet meer
+      // verplicht. Het eerste scherm vraagt alleen de huishoudsamenstelling.
       return (
         data.volwassenen !== null &&
         data.woonsituatie !== null &&
-        data.kinderen !== null &&
-        data.auto !== null
+        data.kinderen !== null
       );
     case 2:
       return parseEur(data.salaris1) > 0;

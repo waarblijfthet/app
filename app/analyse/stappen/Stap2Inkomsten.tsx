@@ -56,7 +56,8 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         Wat komt er gemiddeld per maand binnen?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Vul netto bedragen in. Een realistische schatting is voldoende.
+        Zo bepalen we hoeveel financiële ruimte logisch is voor jouw huishouden.
+        Netto, een realistische schatting is voldoende.
       </p>
 
       <div className="mb-10">

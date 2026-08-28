@@ -21,7 +21,8 @@ export default function Stap3Wonen({ data, onChange }: Props) {
         Wat kost je woning per maand?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Vul je normale maandelijkse woonlasten in.
+        Woonlasten zijn vaak het grootste verschil tussen vergelijkbare
+        huishoudens. Vul je normale maandbedragen in.
       </p>
 
       <div className="mb-10">

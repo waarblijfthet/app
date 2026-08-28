@@ -23,7 +23,6 @@ import Stap5Dagelijks from "./stappen/Stap5Dagelijks";
 import Stap6Resultaat from "./stappen/Stap6Resultaat";
 
 const TOTAL_STEPS = 6;
-const STAP_LABELS = ["Profiel", "Inkomen", "Wonen", "Vervoer", "Dagelijks", "Resultaat"];
 
 /**
  * Knoptekst vertelt wat je hierna te zien krijgt, niet dat er een volgende
@@ -35,6 +34,15 @@ const VOLGENDE_LABELS: Record<number, string> = {
   3: "Naar vervoer →",
   4: "Naar je dagelijkse uitgaven →",
   5: "Bekijk mijn vergelijking →",
+};
+
+/** Korte, positieve omschrijving van de fase voor de rustige voortgangsbalk. */
+const FASE_TEKST: Record<number, string> = {
+  2: "We bepalen je uitgangssituatie",
+  3: "Nu je woonlasten, meestal het grootste verschil",
+  4: "Vervoer en verzekeringen",
+  5: "Bijna klaar, je dagelijkse uitgaven",
+  6: "Je vergelijking is klaar",
 };
 
 const BEWAAR_SLEUTEL = "wbh-analyse-antwoorden";
@@ -128,6 +136,9 @@ export default function QuizClient() {
   const maxStapRef = useRef<number>(1);
   const gestartRef = useRef<boolean>(false);
   const dataRef = useRef<QuizData>(data);
+  // Funnel-markers: welke fases deze sessie zag. Migratievrij bewaard in het
+  // antwoorden-jsonb, zodat de afhaakplek per fase meetbaar is (28-aug-2026).
+  const eventsRef = useRef<string[]>([]);
 
   useEffect(() => {
     dataRef.current = data;
@@ -223,7 +234,7 @@ export default function QuizClient() {
               maandelijks_over: voltooid ? over : null,
               verdict,
               grootste_afwijking: grootste,
-              antwoorden,
+              antwoorden: { ...antwoorden, _events: eventsRef.current },
               updated_at: new Date().toISOString(),
             },
             { onConflict: "sessie_id" }
@@ -236,11 +247,27 @@ export default function QuizClient() {
     [ensureSessie]
   );
 
+  /** Markeer een fase eenmalig en bewaar het stil mee met de voortgang. */
+  const markeer = useCallback(
+    (event: string) => {
+      if (eventsRef.current.includes(event)) return;
+      eventsRef.current = [...eventsRef.current, event];
+      logVoortgang(step, dataRef.current, gestartRef.current);
+    },
+    [logVoortgang, step]
+  );
+
   // Log bij elke stapwissel (en bij mount: pagina geladen = stap 1).
   useEffect(() => {
     logVoortgang(step, dataRef.current, gestartRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
+
+  // Pagina geladen, eenmalig.
+  useEffect(() => {
+    markeer("analysis_landing_view");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const update = useCallback(
     (changes: Partial<QuizData>) => {
@@ -249,6 +276,7 @@ export default function QuizClient() {
       // begonnen" te onderscheiden is van "begon in te vullen".
       if (!gestartRef.current) {
         gestartRef.current = true;
+        eventsRef.current = [...eventsRef.current, "analysis_started"];
         const merged = { ...dataRef.current, ...changes };
         logVoortgang(1, merged, true);
       }
@@ -257,6 +285,10 @@ export default function QuizClient() {
   );
 
   const next = () => {
+    // Fasemarkers op de logische overgangen.
+    if (step === 1) markeer("analysis_household_completed");
+    if (step === 2) markeer("analysis_income_completed");
+    if (step === 5) markeer("analysis_result_viewed");
     setStep((s) => Math.min(s + 1, TOTAL_STEPS));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -284,133 +316,96 @@ export default function QuizClient() {
   const overLive = inkomenLive - uitgavenLive;
   const toonLiveBalk = step >= 3 && step <= 5 && inkomenLive > 0 && uitgavenLive > 0;
 
+  // Eerste persoonlijke terugkoppeling (huishoudgroep bij stap 1, inkomen bij
+  // stap 2): eenmalig markeren zodra die daadwerkelijk in beeld komt.
+  const eersteFeedbackZichtbaar =
+    (step === 1 &&
+      data.volwassenen !== null &&
+      data.woonsituatie !== null &&
+      data.kinderen !== null) ||
+    (step === 2 && inkomenLive > 0);
+  useEffect(() => {
+    if (eersteFeedbackZichtbaar) markeer("analysis_first_feedback_shown");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [eersteFeedbackZichtbaar]);
+
   return (
     <div className={"overflow-x-hidden" + (toonLiveBalk ? " pb-16 lg:pb-0" : "")}>
-      {step === 1 && (
-        <div className="mb-10 max-w-xl">
-          <div className="inline-flex items-center gap-2 bg-[#E7F1EE] text-[#0B7A6E] text-xs font-medium px-3 py-1.5 rounded-full mb-3">
-            <span>&#8987;</span>
-            <span>&plusmn; 2 minuten voor de eerste vergelijking</span>
-          </div>
-          <p className="text-text-soft font-body text-sm leading-relaxed mb-2">
-            Je hoeft niet alles exact te weten. Een goede schatting is prima.
-          </p>
-          <p className="text-text-muted font-body text-xs">
-            Anoniem &middot; geen account &middot; geen bankkoppeling &middot;
-            geen financiële producten
-          </p>
-
-          {/* Vooraf laten zien wat je krijgt, zodat niemand blind begint */}
-          <div className="mt-5 bg-card border border-[#E6E9E7] rounded-xl p-4">
-            <p className="text-[11px] uppercase tracking-wider text-[#8B958F] font-medium mb-2">
-              Voorbeeld van wat je straks ziet
-            </p>
-            <div className="flex items-center justify-between mb-1.5">
-              <span className="text-xs text-primary font-medium">Boodschappen</span>
-              <span className="text-xs px-2 py-0.5 rounded-full bg-[#F6EEE8] text-[#A15A32] font-medium">
-                Hoger dan gemiddeld
-              </span>
-            </div>
-            <div className="space-y-1">
-              <div className="flex justify-between text-xs text-[#8B958F] mb-0.5">
-                <span>Jij</span>
-                <span className="font-medium">&euro;640</span>
-              </div>
-              <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
-                <div className="h-full rounded-full bg-[#C4603A]" style={{ width: "100%" }} />
-              </div>
-              <div className="flex justify-between text-xs text-[#8B958F] mb-0.5">
-                <span>Vergelijkbare huishoudens</span>
-                <span>&euro;585</span>
-              </div>
-              <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden">
-                <div className="h-full rounded-full bg-[#B2CCC6]" style={{ width: "91%" }} />
-              </div>
-            </div>
-          </div>
-
-          <p className="text-text-muted text-xs mt-4">
-            Je antwoorden zijn anoniem zolang je geen e-mailadres invult.{" "}
-            <Link href="/privacy" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-              Privacy &rarr;
-            </Link>
-          </p>
-
-          <div className="flex items-center gap-2.5 mt-3">
-            <img
-              src="/jarno.jpg"
-              alt="Jarno Koopman"
-              className="w-8 h-8 rounded-full object-cover flex-shrink-0"
-            />
-            <p className="text-text-muted text-xs">
-              Gemaakt door Jarno Koopman, financieel coach.{" "}
-              <Link href="/over" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                Wie ik ben &rarr;
-              </Link>
-            </p>
-          </div>
-        </div>
-      )}
-
       <ProgressBar
         currentStep={step}
         totalSteps={TOTAL_STEPS}
-        labels={STAP_LABELS}
+        faseTekst={FASE_TEKST[step]}
         onStepClick={(s) => {
           if (s < step) setStep(s);
         }}
       />
 
       {step < TOTAL_STEPS ? (
-        <div className="lg:flex lg:gap-12 lg:items-start">
-          {/* Links: de vragen. Bewust niet breder dan 560px. */}
-          <div className="w-full lg:max-w-[560px] lg:flex-1">
-            {stepComponents[step]}
+        <div>
+          {stepComponents[step]}
 
-            {/* Mobiel eerst de vergelijking, dan de knop: eerst zien wat je
-                antwoord doet, dan doorgaan. */}
-            {showPanel && (
-              <div className="lg:hidden mt-8">
-                <VergelijkingsPaneel data={data} currentStep={step} embedded />
-              </div>
-            )}
+          {/* De vergelijking direct onder de vraag: eerst zien wat je antwoord
+              doet, dan doorgaan. Eén kolom, geen zijbalk (28-aug-2026). */}
+          {showPanel && (
+            <div className="mt-8">
+              <VergelijkingsPaneel data={data} currentStep={step} embedded />
+            </div>
+          )}
 
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+          <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <button
+              type="button"
+              onClick={next}
+              disabled={!canGo}
+              className="btn-primary sm:flex-1 disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              {VOLGENDE_LABELS[step]}
+            </button>
+            {step > 1 && (
               <button
                 type="button"
-                onClick={next}
-                disabled={!canGo}
-                className="btn-primary sm:flex-1 disabled:opacity-40 disabled:cursor-not-allowed"
+                onClick={prev}
+                className="shrink-0 px-5 py-3.5 min-h-[52px] rounded-xl border-[1.5px] border-[#D9DEDC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
               >
-                {VOLGENDE_LABELS[step]}
+                ← Vorige
               </button>
-              {step > 1 && (
-                <button
-                  type="button"
-                  onClick={prev}
-                  className="shrink-0 px-5 py-3.5 min-h-[52px] rounded-xl border-[1.5px] border-[#D9DEDC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
-                >
-                  &larr; Vorige
-                </button>
-              )}
-            </div>
-
-            {!canGo && step === 1 && (
-              <p className="text-xs text-text-muted mt-3">
-                Maak eerst een keuze bij alle vier de vragen hierboven.
-              </p>
-            )}
-            {!canGo && step > 1 && (
-              <p className="text-xs text-text-muted mt-3">
-                Vul het eerste bedrag in, dan kun je verder. Een schatting mag.
-              </p>
             )}
           </div>
 
-          {/* Rechts: de vergelijking, meeschuivend zodat je niet hoeft te scrollen */}
-          {showPanel && (
-            <div className="hidden lg:block lg:w-[400px] lg:flex-shrink-0">
-              <VergelijkingsPaneel data={data} currentStep={step} />
+          {!canGo && step === 1 && (
+            <p className="text-xs text-text-muted mt-3">
+              Maak eerst een keuze bij de vragen hierboven.
+            </p>
+          )}
+          {!canGo && step > 1 && (
+            <p className="text-xs text-text-muted mt-3">
+              Vul het eerste bedrag in, dan kun je verder. Een schatting mag.
+            </p>
+          )}
+
+          {/* Rustige geruststelling, pas onder de eerste vraag in plaats van
+              als muur ervoor (28-aug-2026). */}
+          {step === 1 && (
+            <div className="mt-8 pt-5 border-t border-[#E6E9E7]">
+              <p className="font-body text-xs text-text-muted mb-2">
+                Anoniem &middot; geen account &middot; geen bankgegevens.{" "}
+                <Link href="/privacy" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                  Hoe ik met je gegevens omga →
+                </Link>
+              </p>
+              <div className="flex items-center gap-2.5">
+                <img
+                  src="/jarno.jpg"
+                  alt="Jarno Koopman"
+                  className="w-7 h-7 rounded-full object-cover flex-shrink-0"
+                />
+                <p className="font-body text-xs text-text-muted">
+                  Gemaakt door Jarno Koopman, financieel coach.{" "}
+                  <Link href="/over" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                    Wie ik ben →
+                  </Link>
+                </p>
+              </div>
             </div>
           )}
         </div>

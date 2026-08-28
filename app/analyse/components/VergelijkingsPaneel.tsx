@@ -117,8 +117,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
     if (
       data.volwassenen === null ||
       !data.woonsituatie ||
-      data.kinderen === null ||
-      !data.auto
+      data.kinderen === null
     )
       return null;
     const k = data.kinderen ?? 0;
@@ -175,6 +174,17 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
           <span>&euro;1.500</span>
           <span>&euro;8.000+</span>
         </div>
+        {benches.vrij_besteedbaar > 0 && (
+          <div className="bg-green-light rounded-xl p-3 mt-4">
+            <p className="font-body text-xs text-text-soft leading-relaxed">
+              Vergelijkbare huishoudens houden hiervan ongeveer{" "}
+              <strong className="text-primary">
+                {fmtEur(benches.vrij_besteedbaar)}
+              </strong>{" "}
+              per maand over. Straks zie je wat er bij jou overblijft.
+            </p>
+          </div>
+        )}
         <PaneelVoet />
       </div>
     );

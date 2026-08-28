@@ -10,8 +10,7 @@ export const metadata: Metadata = {
     "Vul in wat je verdient en uitgeeft. Zie direct hoe je het doet ten opzichte van vergelijkbare Nederlandse huishoudens. Anoniem, geen producten, geen bankkoppeling.",
   alternates: { canonical: "https://www.waarblijfthet.nl/analyse" },
   openGraph: {
-    title:
-      "Financiële analyse | Waar blijft het",
+    title: "Financiële analyse | Waar blijft het",
     description:
       "Vul in wat je verdient en uitgeeft. Zie direct hoe je het doet ten opzichte van vergelijkbare Nederlandse huishoudens. Anoniem, geen producten, geen bankkoppeling.",
     url: "https://www.waarblijfthet.nl/analyse",
@@ -40,24 +39,26 @@ export default function AnalysePage() {
       <Header />
 
       <main className="min-h-screen bg-background overflow-x-hidden">
-        <section className="pt-10 pb-6 md:pt-16 md:pb-8">
-          <div className="max-w-6xl mx-auto px-5 sm:px-6">
-            <p className="section-eyebrow mb-3">Analyse</p>
-            <h1 className="font-display font-light text-primary text-2xl sm:text-4xl md:text-5xl max-w-2xl mb-2 leading-snug">
-              Hoe doe jij het ten opzichte van vergelijkbare huishoudens?
+        {/* Bewust kort (28-aug-2026). De kop mag niet het hele scherm vullen; de
+            eerste vraag moet zonder scrollen in beeld komen, ook op mobiel. */}
+        <section className="pt-7 pb-5 md:pt-10 md:pb-6">
+          <div className="max-w-[720px] mx-auto px-5 sm:px-6">
+            <p className="section-eyebrow mb-2">Analyse</p>
+            <h1 className="font-display font-light text-primary text-2xl sm:text-3xl md:text-4xl mb-2 leading-snug">
+              Hoe doe jij het financieel?
             </h1>
-            <p className="text-text-soft font-body font-light text-base max-w-xl mb-3">
-              Vul een paar dingen in en zie waar jouw huishouden afwijkt van
-              huishoudens in dezelfde situatie.
+            <p className="text-text-soft font-body font-light text-base mb-1">
+              Vergelijk jouw huishouden met vergelijkbare huishoudens.
             </p>
-            <p className="font-body font-medium text-accent text-sm sm:text-base max-w-xl mb-0">
-              Nog 6 korte stappen. Daarna zie je waar jouw huishouden afwijkt.
+            <p className="text-text-muted font-body text-sm">
+              Beantwoord een paar korte vragen. Je ziet onderweg al wat jouw
+              antwoorden betekenen.
             </p>
           </div>
         </section>
 
         <section className="pb-12 md:pb-16">
-          <div className="max-w-6xl mx-auto px-5 sm:px-6">
+          <div className="max-w-[720px] mx-auto px-5 sm:px-6">
             <QuizClient />
           </div>
         </section>
