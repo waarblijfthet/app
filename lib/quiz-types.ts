@@ -133,6 +133,14 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   toestemmingMarketing: false,
 };
 
+/**
+ * Sessionstorage-sleutel voor de actieve resultaatstap (1 t/m 4) binnen de
+ * begeleide resultatenflow. Gedeeld tussen QuizClient (die 'm wist bij een
+ * verse voltooiing) en Stap6Resultaat (die 'm leest en bijwerkt), zodat een
+ * refresh op de resultatenpagina op dezelfde stap blijft staan.
+ */
+export const RESULTAAT_STAP_SLEUTEL = "wbh-analyse-v2-resultaatstap";
+
 export function parseEur(s: string): number {
   if (!s) return 0;
   return parseInt(s.replace(/[^\d]/g, ""), 10) || 0;

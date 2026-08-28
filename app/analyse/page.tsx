@@ -43,7 +43,9 @@ export default function AnalysePage() {
             De vraag zelf is de pagina; de header hierboven is bewust minimaal
             zodat de introductie direct de eerste vraag toont. */}
         <section className="pt-10 pb-16 md:pt-14 md:pb-20">
-          <div className="max-w-[600px] mx-auto px-5 sm:px-6">
+          {/* Geen vaste breedte hier: de vragenflow houdt zichzelf smal, de
+              resultatenflow gebruikt bewust meer breedte (zie QuizClient). */}
+          <div className="px-5 sm:px-6">
             <QuizClient />
           </div>
         </section>

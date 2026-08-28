@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { QuizData, DEFAULT_QUIZ_DATA } from "@/lib/quiz-types";
+import { QuizData, DEFAULT_QUIZ_DATA, RESULTAAT_STAP_SLEUTEL } from "@/lib/quiz-types";
 import { createClient } from "@/lib/supabase-browser";
 import {
   getBenchmarks,
@@ -272,6 +272,14 @@ export default function QuizClient() {
   const advance = useCallback(() => {
     const next = volgendeSchermId(currentId, dataRef.current);
     if (next === null) {
+      // Een verse voltooiing begint altijd bij uitkomst 1, ook als een
+      // eerdere sessie in dit tabblad ergens anders in de resultatenflow
+      // stond (28-aug-2026, resultatenherbouw).
+      try {
+        window.sessionStorage.removeItem(RESULTAAT_STAP_SLEUTEL);
+      } catch {
+        // stil falen
+      }
       setFase("resultaat");
     } else {
       setCurrentId(next);
@@ -303,6 +311,16 @@ export default function QuizClient() {
     if (prev !== null) setCurrentId(prev);
   }, [currentId]);
 
+  /** Van uitkomst 1 terug naar de laatste vraag die voor deze antwoorden geldt. */
+  const terugNaarVragen = useCallback(() => {
+    const actueel = actieveSchermen(dataRef.current);
+    const laatste = actueel[actueel.length - 1];
+    if (laatste) {
+      setCurrentId(laatste.id);
+      setFase("vraag");
+    }
+  }, []);
+
   useEffect(() => {
     if (fase === "intro") return;
     const categorie =
@@ -324,30 +342,41 @@ export default function QuizClient() {
 
   return (
     <div ref={containerRef} className="overflow-x-hidden scroll-mt-24">
-      {fase === "intro" && (
-        <IntroScherm onStart={() => setFase("vraag")} />
-      )}
+      {/* Vragenflow: smalle kolom, een Typeform-gevoel. De resultatenflow
+          bepaalt zijn eigen, bredere breedte per stap (spec sectie 8), dus
+          die staat hieronder bewust buiten deze wrapper. */}
+      {(fase === "intro" || fase === "vraag") && (
+        <div className="max-w-[600px] mx-auto">
+          {fase === "intro" && <IntroScherm onStart={() => setFase("vraag")} />}
 
-      {fase === "vraag" && (
-        <div>
-          <ProgressBar
-            categorie={huidig.categorie}
-            positie={positie}
-            totaal={actief.length}
-            toonVorige={toonVorige}
-            onVorige={vorige}
-          />
-          <huidig.Component
-            key={currentId}
-            data={data}
-            patch={patch}
-            kiesEnGa={kiesEnGa}
-            ga={advance}
-          />
+          {fase === "vraag" && (
+            <div>
+              <ProgressBar
+                categorie={huidig.categorie}
+                positie={positie}
+                totaal={actief.length}
+                toonVorige={toonVorige}
+                onVorige={vorige}
+              />
+              <huidig.Component
+                key={currentId}
+                data={data}
+                patch={patch}
+                kiesEnGa={kiesEnGa}
+                ga={advance}
+              />
+            </div>
+          )}
         </div>
       )}
 
-      {fase === "resultaat" && <Stap6Resultaat data={data} onChange={patch} />}
+      {fase === "resultaat" && (
+        <Stap6Resultaat
+          data={data}
+          onChange={patch}
+          onTerugNaarVragen={terugNaarVragen}
+        />
+      )}
     </div>
   );
 }
