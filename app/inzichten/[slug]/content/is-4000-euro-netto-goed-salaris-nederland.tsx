@@ -1,7 +1,9 @@
 import Link from "next/link";
-import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
+import CtaLink from "@/components/CtaLink";
+import SalarisMiniFlow from "@/components/artikel/SalarisMiniFlow";
 import SalarisBedragenTabel from "@/components/artikel/SalarisBedragenTabel";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
+import { berekenVuistregel, euro, euroSigned } from "@/lib/salaris-vuistregel";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -14,21 +16,84 @@ const h2 = {
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function Is4000EuroNettoGoedSalaris() {
+  // Vaste bedrag van dit artikel (4.000 euro), drie huishoudens ter vergelijking.
+  // Bewust dezelfde functie als de rekenaar en de tabel verderop, zodat deze
+  // pagina zichzelf nooit tegenspreekt.
+  const alleen = berekenVuistregel({ inkomen: 4000, volwassenen: 1, kinderen: 0, auto: "eigen" });
+  const samen = berekenVuistregel({ inkomen: 4000, volwassenen: 2, kinderen: 0, auto: "eigen" });
+  const gezin = berekenVuistregel({ inkomen: 4000, volwassenen: 2, kinderen: 2, auto: "eigen" });
+  const verschilBoodschappen = gezin.boodschappen - alleen.boodschappen;
+
   return (
     <>
-      <SalarisRekenaar />
-
-      <p className="font-body text-text-soft" style={p}>
-        Waarom dit de verkeerde vraag is om mee te beginnen: of 4.000 euro netto goed is, hangt niet af
-        van het bedrag maar van wie het moet dragen. Voor iemand alleen is het ruim. Voor één ouder met
-        twee kinderen en een koopwoning is het krap. Voor twee inkomens die samen 4.000 halen is het
-        weer iets anders. Dat is de reden dat de rekenaar hierboven naar je huishouden vraagt en niet
-        alleen naar je salaris.
+      {/* DEEL 1: direct antwoord boven de vouw */}
+      <p className="font-body font-medium" style={{ ...p, fontSize: "1.15rem", color: "#16211F" }}>
+        Ja. €4.000 netto per maand is een goed inkomen.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        En daarom klopt het gevoel dat veel mensen hier brengt. Je verdient objectief goed, je hoort dat
-        ook van anderen, en toch staat er aan het einde van de maand minder dan je zou verwachten. Dat is
-        geen klagen en het is ook geen karakterfout. Het is een rekensom die je nog nooit hebt gemaakt.
+        In 2026 ligt dat duidelijk boven modaal. Maar of je daar ook veel financiële ruimte aan
+        overhoudt, hangt sterk af van het huishouden dat van dit inkomen moet leven.
+      </p>
+
+      {/* DEEL 2: het verschil direct visueel, drie huishoudens op hetzelfde bedrag */}
+      <div className="rounded-xl border p-5 my-8" style={{ backgroundColor: "#FFFFFF", borderColor: "#E6E9E7" }}>
+        <p className="font-body font-medium" style={{ color: "#16211F", marginBottom: "1rem" }}>
+          Bij hetzelfde inkomen kan de uitkomst compleet verschillen.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+          {[
+            { label: "Alleen", waarde: alleen.verwachtOver },
+            { label: "Samen, geen kinderen", waarde: samen.verwachtOver },
+            { label: "Gezin, 2 kinderen", waarde: gezin.verwachtOver },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="rounded-lg p-3"
+              style={{ backgroundColor: "#F7F8F7", border: "1px solid #E6E9E7" }}
+            >
+              <p className="font-body text-xs mb-1" style={{ color: "#8B958F" }}>
+                {s.label}
+              </p>
+              <p
+                className="font-display"
+                style={{ fontSize: "1.4rem", fontWeight: 300, color: s.waarde < 0 ? "#B03A2E" : "#16211F" }}
+              >
+                {euroSigned(s.waarde)}
+              </p>
+              <p className="font-body text-xs" style={{ color: "#8B958F" }}>
+                {s.waarde < 0 ? "tekort per maand" : "over per maand"}
+              </p>
+            </div>
+          ))}
+        </div>
+        <p className="font-body text-sm" style={{ color: "#4A5A56", marginBottom: "0.5rem" }}>
+          Daarom is de interessantere vraag niet alleen of €4.000 een goed salaris is.
+        </p>
+        <p className="font-body font-medium text-sm mb-4" style={{ color: "#16211F" }}>
+          De vraag is: hoeveel zou er bij jouw huishouden ongeveer moeten overblijven?
+        </p>
+        <a
+          href="#mijn-situatie"
+          className="inline-block rounded-lg px-5 py-2.5 font-body text-sm"
+          style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF", textDecoration: "none" }}
+        >
+          Bekijk jouw situatie &rarr;
+        </a>
+      </div>
+
+      {/* DEEL 3 t/m 6: stap-voor-stap trigger, uitsluitend voor dit artikel */}
+      <SalarisMiniFlow />
+
+      <p className="font-body text-text-soft" style={p}>
+        Dat is de reden dat de rekenaar hierboven naar je huishouden vraagt en niet alleen naar je
+        salaris. Voor iemand alleen is €4.000 ruim. Voor een gezin met twee kinderen komt de som
+        vaak niet uit. Voor twee inkomens die samen op €4.000 uitkomen is het weer anders.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Dat verklaart ook het gevoel dat veel mensen hier brengt. Je verdient objectief goed, je
+        hoort dat ook van anderen, en toch staat er aan het einde van de maand minder dan je zou
+        verwachten. Dat is geen klagen en het is ook geen karakterfout. Het is een rekensom die je
+        nog nooit hebt gemaakt.
       </p>
 
       {/* Echte huishoudens in plaats van de oude verdeling op forums en blogs.
@@ -67,16 +132,14 @@ export default function Is4000EuroNettoGoedSalaris() {
         Wat is €4.000 netto waard in 2026?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Jan Modaal verdient in 2026 netto ongeveer €3.100 per maand. Wie €4.000
-        netto heeft, zit significant boven het meest voorkomende inkomen in
-        Nederland. Dat is objectief gezien goed.
+        Jan Modaal verdient in 2026 netto ongeveer €3.100 per maand. Wie €4.000 netto heeft, zit dus
+        duidelijk boven het meest voorkomende inkomen in Nederland.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Maar &ldquo;goed&rdquo; is relatief. Het CBS mediaan inkomen voor werkende
-        Nederlanders ligt op €38.000-40.000 bruto per jaar, netto iets boven
-        €2.600. Op dat niveau is €4.000 netto luxe. Op het niveau van twee
-        kinderen, een koopwoning en een auto in de Randstad is het soms nauwelijks
-        voldoende.
+        Maar boven modaal zitten en genoeg overhouden zijn twee verschillende dingen. Het CBS mediaan
+        inkomen voor werkende Nederlanders ligt op €38.000-40.000 bruto per jaar, netto iets boven
+        €2.600. Op dat niveau is €4.000 netto luxe. Op het niveau van twee kinderen, een koopwoning
+        en een auto in de Randstad is het soms nauwelijks voldoende.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dat is geen klagen. Dat is gewoon rekenen.
@@ -86,17 +149,16 @@ export default function Is4000EuroNettoGoedSalaris() {
         Waarom een bedrag niets zegt zonder het huishouden erbij
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Neem 4.000 euro netto en zet er twee huishoudens naast. Iemand die alleen woont houdt er volgens
-        mijn vuistregel ongeveer 680 euro van over. Bij een gezin met twee kinderen op datzelfde bedrag komt
-        de rekensom niet uit: de boodschappen zijn 525 euro hoger, er komt 380 euro aan opvang, school en
-        sport bij, en dan is er niets meer over. Hetzelfde salaris, twee compleet verschillende antwoorden.
+        Bij het gezin met twee kinderen hierboven zit het verschil met iemand die alleen woont niet in
+        één grote losse post, maar in de stapeling: de boodschappen liggen ongeveer {euro(verschilBoodschappen)}{" "}
+        hoger, en daar komt nog eens {euro(gezin.kinderkosten)} aan opvang, school en sport bij. Geen van
+        beide bedragen is op zichzelf schokkend. Samen maken ze het verschil tussen ruimte en een tekort.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Dat is waarom de vraag &ldquo;is 4.000 netto goed&rdquo; nooit met ja of nee te beantwoorden is, en
-        waarom een tabel met één voorbeeldhuishouden je weinig vertelt over jezelf. Vul je eigen situatie in
-        de rekenaar hierboven in, dan zie je de posten die bij jouw huishouden horen. En let op wat er
-        gebeurt als je het inkomen omhoog schuift: het tekort verdwijnt, maar de ruimte groeit langzamer dan
-        je zou denken, omdat wonen en boodschappen meegroeien.
+        Vul je eigen situatie in bij de rekenaar hierboven in, dan zie je de posten die bij jouw
+        huishouden horen. En let op wat er gebeurt als je het inkomen omhoog schuift: het tekort
+        verdwijnt, maar de ruimte groeit langzamer dan je zou denken, omdat wonen en boodschappen
+        meegroeien.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Kom je hier terecht precies met dat huishouden, een gezin met twee kinderen op dit bedrag? Dan gaat{" "}
@@ -171,16 +233,17 @@ export default function Is4000EuroNettoGoedSalaris() {
         lees je in dat artikel.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Benieuwd hoe jullie verdeling eruitziet ten opzichte van een vergelijkbaar
-        gezin met hetzelfde inkomen? Doe de{" "}
-        <Link
+        Benieuwd hoe jullie verdeling zich verhoudt tot een vergelijkbaar gezin met
+        hetzelfde inkomen?{" "}
+        <CtaLink
+          doel="analyse"
           href="/analyse"
+          locatie="artikel-lopende-tekst"
           className="hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
-          analyse
-        </Link>{" "}
-        en zie direct waar het verschil zit.
+          Bekijk waar dat verschil zit &rarr;
+        </CtaLink>
       </p>
       <div
         className="rounded-xl border p-4 my-6"
