@@ -16,13 +16,12 @@ import {
 } from "@/lib/benchmarks";
 import { QuizData, parseEur, fmtEur, RESULTAAT_STAP_SLEUTEL } from "@/lib/quiz-types";
 import { bepaalRichting } from "../components/vergelijking-labels";
-import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import ResultaatProgressBar from "./resultaat/ResultaatProgressBar";
 import Resultaat1Uitkomst from "./resultaat/Resultaat1Uitkomst";
 import Resultaat2Verschil from "./resultaat/Resultaat2Verschil";
 import Resultaat3Betekenis from "./resultaat/Resultaat3Betekenis";
-import Resultaat4Aanbod, { type BrugVariant } from "./resultaat/Resultaat4Aanbod";
-import type { AfwijkingEntry, Brug } from "./resultaat/types";
+import Resultaat4Aanbod from "./resultaat/Resultaat4Aanbod";
+import type { AfwijkingEntry } from "./resultaat/types";
 
 interface Props {
   data: QuizData;
@@ -38,51 +37,13 @@ const TITEL_PER_STAP: Record<1 | 2 | 3 | 4, (meerdere: boolean) => string> = {
   4: () => "De volgende stap",
 };
 
-/** Iets bredere leeszone dan de vragenflow, per stap net iets anders (spec sectie 8). */
+/** Iets bredere leeszone dan de vragenflow, per stap net iets anders. */
 const BREEDTE_PER_STAP: Record<1 | 2 | 3 | 4, string> = {
   1: "max-w-2xl",
   2: "max-w-3xl",
   3: "max-w-2xl",
   4: "max-w-2xl",
 };
-
-/**
- * De brug naar de Geldscan hangt af van de uitkomst, niet van een vast
- * verhaal (28-aug-2026, pass 4). Drie gevallen: er valt iets uit de toon, de
- * bedragen kloppen maar de ruimte blijft achter, of er valt niets uit de toon
- * en er is ook ruimte. In dat laatste geval is "geen lek" het antwoord, en dan
- * hoort daar geen tekst over hogere uitgaven bij.
- */
-function bouwBrug(hoogstePost: string | null, ruimteDiff: number): Brug {
-  if (hoogstePost) {
-    return {
-      kop: "Je weet nu wáár het verschil zit.",
-      tegen: "Maar cijfers vertellen nog niet of dit een probleem is.",
-      uitleg: `Hoge ${hoogstePost} kunnen een probleem zijn. Maar net zo goed het gevolg van bewuste keuzes of een patroon dat verder prima past.`,
-      slot:
-        "Daarom kijk ik bij de Geldscan persoonlijk naar het waarom, en wat ik als eerste zou onderzoeken.",
-      cta: "Laat mij uitzoeken waarom →",
-    };
-  }
-  if (ruimteDiff < -100) {
-    return {
-      kop: "Je weet nu dat de grote bedragen kloppen.",
-      tegen: "Dan zit de verklaring ergens anders.",
-      uitleg: `Bij ${AANTAL_ZONDER_LEK} van de ${RAPPORTEN.length} huishoudens die ik doorrekende zat er geen lek in de bedragen, en dat staat ook zo in hun rapport. De krapte was er wel.`,
-      slot:
-        "Bij de Geldscan kijk ik daar persoonlijk naar, en schrijf ik op wat ik als eerste zou onderzoeken.",
-      cta: "Laat mij uitzoeken waar het dan zit →",
-    };
-  }
-  return {
-    kop: "Op deze cijfers valt er niets uit de toon.",
-    tegen: "Dat is ook een antwoord.",
-    uitleg: `Bij ${AANTAL_ZONDER_LEK} van de ${RAPPORTEN.length} huishoudens die ik doorrekende was dat de uitkomst, en dat staat ook zo in hun rapport. Voelt het bij jou toch krap, dan zit dat in iets wat een maandgemiddelde niet laat zien.`,
-    slot:
-      "Wil je zeker weten dat je niets mist, dan kijk ik bij de Geldscan persoonlijk mee.",
-    cta: "Laat mij persoonlijk meekijken →",
-  };
-}
 
 export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Props) {
   const [substap, setSubstap] = useState<1 | 2 | 3 | 4>(1);
@@ -117,6 +78,8 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Pr
   const meerdere = aantalVolwassenen === 2;
   const onderw = meerdere ? "jullie" : "jou";
   const situatiePos = meerdere ? "jullie" : "jouw";
+  const situatiePosHoofdletter =
+    situatiePos.charAt(0).toUpperCase() + situatiePos.slice(1);
 
   const benches = getBenchmarks({
     woonsituatie: data.woonsituatie,
@@ -129,7 +92,6 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Pr
 
   const over = berekenOver(data);
   const overDiff = over - benches.vrij_besteedbaar;
-  const tekort = -overDiff;
   const verdict = bepaalVerdict(data, benches);
   const grootsteAfwijking = vindGrootsteAfwijking(data, benches);
 
@@ -145,17 +107,22 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Pr
       ? `Bij ${onderw} blijft waarschijnlijk meer over dan je zelf zou verwachten.`
       : overDiff < -100
       ? `Bij ${onderw} blijft waarschijnlijk minder over dan logisch is voor ${situatiePos} situatie.`
-      : `${situatiePos.charAt(0).toUpperCase() + situatiePos.slice(1)} financiële ruimte lijkt vooralsnog goed te passen bij ${situatiePos} huishouden.`;
+      : `${situatiePosHoofdletter} financiële ruimte lijkt vooralsnog goed te passen bij ${situatiePos} huishouden.`;
 
-  const interpretatie =
-    tekort > 100
-      ? `Dat betekent niet automatisch dat er ${fmtEur(
-          tekort
-        )} per maand verkeerd gaat. Maar ${situatiePos} situatie wijkt wel duidelijk af.`
-      : tekort < -100
-      ? "Op dit niveau gaat er waarschijnlijk niets structureels mis."
-      : `${situatiePos.charAt(0).toUpperCase() + situatiePos.slice(1)} ruimte ligt dicht bij wat we bij dit huishouden verwachten.`;
+  // De context onder het hoofdbedrag, zodat "financiële ruimte" niet als
+  // oordeel wordt gelezen: het verschil met de vergelijking is geen conclusie
+  // op zich, alleen een constatering.
+  const contextZin =
+    Math.abs(overDiff) < 100
+      ? `${situatiePosHoofdletter} ruimte ligt dicht bij wat we bij dit huishouden verwachten.`
+      : `Dat betekent niet automatisch dat er ${fmtEur(
+          Math.abs(overDiff)
+        )} misgaat. Het laat alleen zien dat ${situatiePos} financiële situatie anders uitpakt dan we bij een vergelijkbaar huishouden zouden verwachten.`;
 
+  // Alleen posten met een echte benchmark: bij een zakelijke auto is de
+  // vervoerbenchmark 0 (geen vergelijkingsdata voor eigen bijdrage), en €0 als
+  // "vergelijkbaar huishouden" tonen zou ongeloofwaardig zijn. Zo'n post hoort
+  // niet thuis in de vergelijking, niet als "geen verschil".
   const gesorteerd: AfwijkingEntry[] = [
     {
       label: "Boodschappen",
@@ -188,34 +155,25 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Pr
       diff: vervoerTotaal - benches.vervoer,
     },
   ]
-    .filter((a) => a.jij > 0)
+    .filter((a) => a.jij > 0 && a.bench > 0)
     .sort((a, b) => Math.abs(b.diff) - Math.abs(a.diff));
 
   const opvallend = gesorteerd
     .slice(0, 3)
     .filter((a, i) => i < 2 || Math.abs(a.diff) >= 50);
 
-  const bovenBenchmark = gesorteerd.filter(
-    (a) => bepaalRichting(a.jij, a.bench) === "hoger"
-  );
-
-  const brug = bouwBrug(
-    bovenBenchmark.length > 0 ? bovenBenchmark[0].label.toLowerCase() : null,
-    overDiff
-  );
-  const brugVariant: BrugVariant =
-    bovenBenchmark.length > 0 ? "afwijking" : overDiff < -100 ? "tekort" : "niets";
-
   function zinVoor(a: AfwijkingEntry, i: number): string {
     const richting = bepaalRichting(a.jij, a.bench);
     const post = a.label.toLowerCase();
     if (richting === "hoger") {
       return i === 0
-        ? "Hier zit het grootste verschil in."
-        : `Ook bij ${post} zit je hoger dan verwacht.`;
+        ? "Dit is jullie grootste verschil. Dat kan een bewuste keuze zijn, maar de afwijking is groot genoeg om verder te onderzoeken."
+        : "Ook hier geven jullie meer uit dan vergelijkbare huishoudens. Op basis van deze vergelijking is nog niet te zeggen of dat logisch, bewust of onnodig is.";
     }
     if (richting === "lager") {
-      return `Bij ${post} zit je juist onder vergelijkbare huishoudens.`;
+      return i === 0
+        ? "Dit is jullie grootste verschil. Jullie geven hier minder uit dan vergelijkbare huishoudens."
+        : `Bij ${post} geven jullie minder uit dan vergelijkbare huishoudens.`;
     }
     return `Bij ${post} zit je dicht bij vergelijkbare huishoudens.`;
   }
@@ -269,7 +227,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Pr
             conclusieKop={conclusieKop}
             over={over}
             benchmarkOver={benches.vrij_besteedbaar}
-            interpretatie={interpretatie}
+            contextZin={contextZin}
             inkomenWisselend={data.inkomenWisselend}
             spaardoelWaarde={spaardoelWaarde}
             onVerder={() => setSubstap(2)}
@@ -282,21 +240,9 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Pr
             onVerder={() => setSubstap(3)}
           />
         )}
-        {substap === 3 && (
-          <Resultaat3Betekenis
-            brug={brug}
-            heeftAfwijking={brugVariant === "afwijking"}
-            onVerder={() => setSubstap(4)}
-          />
-        )}
+        {substap === 3 && <Resultaat3Betekenis onVerder={() => setSubstap(4)} />}
         {substap === 4 && (
-          <Resultaat4Aanbod
-            variant={brugVariant}
-            brug={brug}
-            data={data}
-            onChange={onChange}
-            resultaat={resultaat}
-          />
+          <Resultaat4Aanbod data={data} onChange={onChange} resultaat={resultaat} />
         )}
       </div>
     </div>

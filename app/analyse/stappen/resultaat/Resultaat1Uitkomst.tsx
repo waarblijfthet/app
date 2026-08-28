@@ -4,7 +4,7 @@ interface Props {
   conclusieKop: string;
   over: number;
   benchmarkOver: number;
-  interpretatie: string;
+  contextZin: string;
   inkomenWisselend: boolean;
   spaardoelWaarde: number;
   onVerder: () => void;
@@ -19,7 +19,7 @@ export default function Resultaat1Uitkomst({
   conclusieKop,
   over,
   benchmarkOver,
-  interpretatie,
+  contextZin,
   inkomenWisselend,
   spaardoelWaarde,
   onVerder,
@@ -48,8 +48,8 @@ export default function Resultaat1Uitkomst({
             <strong className="text-primary font-medium">{fmtEur(benchmarkOver)}</strong>{" "}
             per maand.
           </p>
-          <p className="text-text-soft font-body font-light text-sm text-center mt-3 leading-relaxed">
-            {interpretatie}
+          <p className="text-primary font-body text-sm text-center mt-3 leading-relaxed">
+            {contextZin}
           </p>
         </div>
         <p className="font-body font-light text-text-muted text-xs mt-5 leading-relaxed">
@@ -85,7 +85,7 @@ export default function Resultaat1Uitkomst({
 
       <div className="mt-8 text-center">
         <button type="button" onClick={onVerder} className="btn-primary">
-          Bekijk wat opvalt →
+          Laat zien waar het verschil zit →
         </button>
       </div>
     </div>
