@@ -64,12 +64,12 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
         Wat komt er gemiddeld binnen?
       </h2>
-      <p className="text-text-soft font-body font-light text-base mb-10">
+      <p className="text-text-soft font-body font-light text-base mb-7">
         Een realistische schatting is genoeg. We kijken naar wat er netto
         beschikbaar is voor {alleen ? "je huishouden" : "jullie huishouden"}.
       </p>
 
-      <div className="mb-10">
+      <div className="mb-6">
         <EuroInput
           label={
             alleen
@@ -80,30 +80,46 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
           value={data.salaris1}
           onChange={(v) => onChange({ salaris1: v })}
           placeholder="bijv. 2.800"
-          hint="Je normale netto bedrag na belasting en inhoudingen."
-          hint2="Wisselend inkomen? Neem het gemiddelde van de afgelopen 6 tot 12 maanden."
+          hint={
+            data.inkomenWisselend
+              ? "Neem het gemiddelde van de afgelopen 6 tot 12 maanden. Bij zzp het bedrag dat je overhoudt na belasting en reserveringen."
+              : "Je normale netto bedrag na belasting en inhoudingen."
+          }
           plausibelTot={25000}
         />
+        <div className="mt-3">
+          <Vinkje
+            checked={data.inkomenWisselend}
+            onChange={(v) => onChange({ inkomenWisselend: v })}
+            label="Mijn inkomen wisselt per maand"
+            hint="Zzp, wisselende uren, provisie of bonussen. Dan reken ik met je gemiddelde en houd ik daar in je uitkomst rekening mee."
+          />
+        </div>
       </div>
 
       {!alleen && (
-        <div className="mb-10">
+        <div className="mb-6">
           <EuroInput
             label="Netto inkomen partner per maand"
             id="salaris2"
             value={data.salaris2}
             onChange={(v) => onChange({ salaris2: v })}
-            hint="Gebruik het gemiddelde netto bedrag per maand."
-            hint2="Weet je het exacte bedrag niet? Een schatting is prima."
+            hint="Het gemiddelde netto bedrag per maand. Een schatting is prima."
             plausibelTot={25000}
           />
         </div>
       )}
 
-      <Uitklap titel="+ Nog een inkomen toevoegen" titelOpen="Verberg extra inkomen">
+      {/* Twee losse uitklappers in plaats van één (28-aug-2026, pass 4). Onder
+          "nog een inkomen toevoegen" stonden eerst de vinkjes voor vakantiegeld,
+          en dat is geen extra inkomen maar een verdeling van hetzelfde salaris. */}
+      <Uitklap
+        titel="+ Vakantiegeld of 13e maand meerekenen"
+        titelOpen="Verberg vakantiegeld en 13e maand"
+      >
         <p className="font-body text-xs text-text-muted">
-          Bijvoorbeeld zzp-inkomen, alimentatie, een uitkering of een structureel
-          neveninkomen. Alleen invullen als het bij jullie speelt.
+          Dit verdeelt het bedrag over twaalf maanden. Alleen aanvinken als je het
+          krijgt bovenop het bedrag dat je hierboven invulde.
         </p>
         <Vinkje
           checked={data.salaris1InclVakantiegeld}
@@ -130,13 +146,6 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
             />
           </>
         )}
-        <EuroInput
-          label="Andere vaste inkomsten per maand"
-          id="toeslagOverig"
-          value={data.toeslagOverig}
-          onChange={(v) => onChange({ toeslagOverig: v })}
-          hint="Bijvoorbeeld alimentatie, een uitkering of verhuur."
-        />
         {extraTotaal > 0 && (
           <p className="font-body text-xs text-accent font-medium">
             Dit telt {fmtEur(extraTotaal)} per maand extra mee.
@@ -144,14 +153,27 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         )}
       </Uitklap>
 
+      <Uitklap titel="+ Nog een inkomen toevoegen" titelOpen="Verberg extra inkomen">
+        <EuroInput
+          label="Andere vaste inkomsten per maand"
+          id="toeslagOverig"
+          value={data.toeslagOverig}
+          onChange={(v) => onChange({ toeslagOverig: v })}
+          hint="Bijvoorbeeld zzp-inkomen naast je baan, alimentatie, een uitkering of verhuur."
+        />
+      </Uitklap>
+
       {/* Hypotheekrenteaftrek: compact en optioneel, nooit een blokkade. */}
       {data.woonsituatie === "koop" && (
-        <div className="mb-10">
-          <p className="font-body font-medium text-primary text-sm mb-3">
+        <div className="mb-7">
+          <p className="font-body font-medium text-primary text-sm mb-1">
             Ontvang je jaarlijks hypotheekrenteaftrek?
           </p>
+          <p className="font-body text-xs text-text-muted mb-3">
+            Geen idee? Sla dit gerust over, je vergelijking werkt ook zonder.
+          </p>
           {aftrekKeuze !== "invullen" ? (
-            <div className="flex flex-wrap gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
               <button
                 type="button"
                 onClick={() => setAftrekKeuze("invullen")}
@@ -198,9 +220,6 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
               </button>
             </>
           )}
-          <p className="font-body text-xs text-text-muted mt-2">
-            Geen idee? Sla dit gerust over, je vergelijking werkt ook zonder.
-          </p>
         </div>
       )}
 
@@ -210,7 +229,8 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         titelOpen="Verberg toeslagen"
       >
         <p className="font-body text-xs text-text-muted">
-          Vul het gemiddelde bedrag per maand in.
+          Vul het gemiddelde bedrag per maand in. Wat je niet weet, mag je leeg
+          laten.
         </p>
         <EuroInput
           label="Zorgtoeslag"

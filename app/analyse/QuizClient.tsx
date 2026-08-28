@@ -15,6 +15,7 @@ import {
 } from "@/lib/benchmarks";
 import ProgressBar from "./components/ProgressBar";
 import VergelijkingsPaneel from "./components/VergelijkingsPaneel";
+import LiveInzicht from "./components/LiveInzicht";
 import Stap1Profiel from "./stappen/Stap1Profiel";
 import Stap2Inkomsten from "./stappen/Stap2Inkomsten";
 import Stap3Wonen from "./stappen/Stap3Wonen";
@@ -98,6 +99,18 @@ function bewaardeData(): Partial<QuizData> {
     delete parsed.naam;
     delete parsed.toestemmingOpslaan;
     delete parsed.toestemmingMarketing;
+    // Kinderkosten zijn sinds 28-aug-2026 één bedrag met een uitsplitsing
+    // eronder. Wie in dezelfde browsersessie nog de drie losse velden had
+    // ingevuld, houdt die dus zichtbaar in plaats van dat het bedrag stil op nul
+    // valt.
+    const losseKinderkosten =
+      !parsed.kinderenTotaal &&
+      !!(
+        parsed.kinderopvangEigenBijdrage ||
+        parsed.schoolActiviteiten ||
+        parsed.sportHobbyKinderen
+      );
+    if (losseKinderkosten) parsed.kinderenExpanded = true;
     return parsed;
   } catch {
     return {};
@@ -107,7 +120,7 @@ function bewaardeData(): Partial<QuizData> {
 export default function QuizClient() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<QuizData>(DEFAULT_QUIZ_DATA);
-  const [paneelOpen, setPaneelOpen] = useState(false); // mobiel, stap 3 tot 5
+  const [paneelOpen, setPaneelOpen] = useState(false); // mobiel, het detailvenster
   const voorgevuldRef = useRef(false);
 
   useEffect(() => {
@@ -143,6 +156,18 @@ export default function QuizClient() {
       // stil falen
     }
   }, [data]);
+
+  /** Achtergrond niet mee laten scrollen zolang het detailvenster open staat. */
+  useEffect(() => {
+    if (typeof document === "undefined") return;
+    if (paneelOpen) {
+      const vorige = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = vorige;
+      };
+    }
+  }, [paneelOpen]);
 
   const ensureSessie = useCallback(() => {
     if (!sessieIdRef.current) {
@@ -261,14 +286,31 @@ export default function QuizClient() {
     [logVoortgang]
   );
 
+  const uitkomstRef = useRef<HTMLDivElement | null>(null);
+
   const next = () => {
     if (step === 1) markeer("analysis_household_completed");
     if (step === 2) markeer("analysis_income_completed");
     if (step === 5) markeer("analysis_result_viewed");
     setPaneelOpen(false);
-    setStep((s) => Math.min(s + 1, TOTAL_STEPS));
-    if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+    const volgende = Math.min(step + 1, TOTAL_STEPS);
+    setStep(volgende);
+    // De uitkomst scrollt naar zichzelf, zie het effect hieronder.
+    if (typeof window !== "undefined" && volgende !== TOTAL_STEPS) {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
+
+  /**
+   * Op de uitkomst niet naar de top van de pagina, want daar staat de introtekst
+   * van de analyse die de bezoeker net heeft doorlopen. De conclusie moet het
+   * eerste zijn wat hij ziet. Als effect, dus na de render waarin de uitkomst
+   * daadwerkelijk in de DOM staat.
+   */
+  useEffect(() => {
+    if (step !== TOTAL_STEPS) return;
+    uitkomstRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [step]);
   const prev = () => {
     setPaneelOpen(false);
     setStep((s) => Math.max(s - 1, 1));
@@ -286,7 +328,6 @@ export default function QuizClient() {
     6: <Stap6Resultaat {...stepProps} />,
   };
 
-  const showPanel = step >= 1 && step <= 5;
   const canGo = canProceed(step, data);
 
   const inkomenLive = berekenTotaalInkomen(data);
@@ -305,87 +346,79 @@ export default function QuizClient() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eersteFeedbackZichtbaar]);
 
-  return (
-    <div className={"overflow-x-hidden" + (toonLiveBalk ? " pb-16 lg:pb-0" : "")}>
-      {step < TOTAL_STEPS && (
-        <ProgressBar
-          currentStep={step}
-          totalSteps={INVUL_STAPPEN}
-          stapNaam={STAP_NAMEN[step]}
-          onStepClick={(s) => {
-            if (s < step) setStep(s);
-          }}
-        />
-      )}
+  // Het resultaat krijgt de volle, smalle kolom. Geen voortgangsbalk meer en
+  // geen vergelijkingspaneel ernaast: hier is de uitkomst zelf de inhoud.
+  if (step === TOTAL_STEPS) {
+    return (
+      <div ref={uitkomstRef} className="overflow-x-hidden scroll-mt-24">
+        {stepComponents[6]}
+      </div>
+    );
+  }
 
-      {step < TOTAL_STEPS ? (
-        <div>
+  const navigatie = (
+    <>
+      <div className="mt-7 flex flex-col-reverse sm:flex-row gap-3">
+        <button
+          type="button"
+          onClick={next}
+          disabled={!canGo}
+          className="btn-primary sm:flex-1 disabled:opacity-40 disabled:cursor-not-allowed"
+        >
+          {VOLGENDE_LABELS[step]}
+        </button>
+        {step > 1 && (
+          <button
+            type="button"
+            onClick={prev}
+            className="shrink-0 px-5 py-3.5 min-h-[52px] rounded-xl border-[1.5px] border-[#D9DEDC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
+          >
+            &larr; Vorige
+          </button>
+        )}
+      </div>
+
+      {step === 1 && canGo && (
+        <p className="text-xs text-text-muted mt-3">
+          Je kunt bedragen straks gewoon schatten.
+        </p>
+      )}
+      {!canGo && step === 1 && (
+        <p className="text-xs text-text-muted mt-3">
+          Maak eerst een keuze bij de vragen hierboven.
+        </p>
+      )}
+      {!canGo && step > 1 && (
+        <p className="text-xs text-text-muted mt-3">
+          Vul het eerste bedrag in, dan kun je verder. Een schatting mag.
+        </p>
+      )}
+    </>
+  );
+
+  return (
+    <div className={"overflow-x-hidden" + (toonLiveBalk ? " pb-20 lg:pb-0" : "")}>
+      {/* Eén Vorige-knop, en die staat naast de hoofdknop onderaan. Hij stond
+          eerder ook in de voortgangsbalk, wat twee terugwegen op één scherm gaf. */}
+      <ProgressBar
+        currentStep={step}
+        totalSteps={INVUL_STAPPEN}
+        stapNaam={STAP_NAMEN[step]}
+      />
+
+      {/* Vanaf lg staat de vergelijking ernaast in plaats van eronder, zodat de
+          knop direct onder de laatste vraag blijft staan. Daaronder is het
+          precies omgekeerd: daar is de compacte beloning de brug naar de knop en
+          zit het volledige beeld achter de balk onderin. */}
+      <div className="lg:grid lg:grid-cols-[minmax(0,1fr)_300px] lg:gap-10 lg:items-start">
+        <div className="min-w-0">
           {stepComponents[step]}
 
-          {/* De vergelijking direct onder de vraag. Stap 1 en 2 zijn kort en de
-              beloning zelf, dus altijd zichtbaar. Vanaf stap 3 kan de kaart lang
-              worden, dus op mobiel standaard ingeklapt achter een knop. */}
-          {showPanel && step <= 2 && (
-            <div className="mt-8">
-              <VergelijkingsPaneel data={data} currentStep={step} embedded />
-            </div>
-          )}
-          {showPanel && step >= 3 && (
-            <div className="mt-8">
-              <button
-                type="button"
-                onClick={() => setPaneelOpen((o) => !o)}
-                aria-expanded={paneelOpen}
-                className="sm:hidden w-full flex items-center justify-between px-4 py-3 rounded-xl border-[1.5px] border-[#D9DEDC] bg-card font-body font-medium text-sm text-text-soft"
-              >
-                <span>
-                  {paneelOpen ? "Verberg je vergelijking" : "Bekijk je vergelijking tot nu toe"}
-                </span>
-                <span className={"transition-transform " + (paneelOpen ? "rotate-180" : "")}>
-                  ⌄
-                </span>
-              </button>
-              <div className={paneelOpen ? "mt-3" : "hidden sm:block"}>
-                <VergelijkingsPaneel data={data} currentStep={step} embedded />
-              </div>
-            </div>
-          )}
-
-          <div className="mt-8 flex flex-col sm:flex-row gap-3">
-            <button
-              type="button"
-              onClick={next}
-              disabled={!canGo}
-              className="btn-primary sm:flex-1 disabled:opacity-40 disabled:cursor-not-allowed"
-            >
-              {VOLGENDE_LABELS[step]}
-            </button>
-            {step > 1 && (
-              <button
-                type="button"
-                onClick={prev}
-                className="shrink-0 px-5 py-3.5 min-h-[52px] rounded-xl border-[1.5px] border-[#D9DEDC] font-body font-medium text-sm text-text-soft hover:border-primary hover:text-primary transition-all"
-              >
-                ← Vorige
-              </button>
-            )}
+          <div className="lg:hidden mt-7">
+            <LiveInzicht data={data} currentStep={step} />
           </div>
 
-          {step === 1 && canGo && (
-            <p className="text-xs text-text-muted mt-3">
-              Je kunt bedragen straks gewoon schatten.
-            </p>
-          )}
-          {!canGo && step === 1 && (
-            <p className="text-xs text-text-muted mt-3">
-              Maak eerst een keuze bij de vragen hierboven.
-            </p>
-          )}
-          {!canGo && step > 1 && (
-            <p className="text-xs text-text-muted mt-3">
-              Vul het eerste bedrag in, dan kun je verder. Een schatting mag.
-            </p>
-          )}
+          {navigatie}
 
           {/* Rustige geruststelling, onder de eerste vraag in plaats van als muur
               ervoor (28-aug-2026). */}
@@ -414,25 +447,70 @@ export default function QuizClient() {
             </div>
           )}
         </div>
-      ) : (
-        <div>{stepComponents[6]}</div>
-      )}
 
+        <aside className="hidden lg:block">
+          <VergelijkingsPaneel data={data} currentStep={step} />
+        </aside>
+      </div>
+
+      {/* Mobiel: de vaste balk onderin is de doorlopende beloning. Tikken opent
+          het volledige beeld, zodat de kaart niet bij elke stap tussen de laatste
+          vraag en de knop hoeft te staan. */}
       {toonLiveBalk && (
         <div
-          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[#E6E9E7] px-5 py-2.5"
-          style={{ backgroundColor: "rgba(253,250,244,0.96)", backdropFilter: "blur(6px)" }}
+          className="lg:hidden fixed bottom-0 left-0 right-0 z-40 border-t border-[#E6E9E7]"
+          style={{ backgroundColor: "rgba(253,250,244,0.97)", backdropFilter: "blur(6px)" }}
         >
-          <div className="flex items-center justify-between gap-3 max-w-lg mx-auto font-body text-xs">
-            <span className="text-text-soft">
-              Binnen <strong className="text-primary">{fmtEur(inkomenLive)}</strong>
-            </span>
-            <span className="text-text-soft">
-              Geschatte ruimte tot nu toe{" "}
-              <strong className={overLive < 0 ? "text-[#C4603A]" : "text-[#0B7A6E]"}>
-                {overLive < 0 ? `-${fmtEur(Math.abs(overLive))}` : fmtEur(overLive)}
-              </strong>
-            </span>
+          <button
+            type="button"
+            onClick={() => setPaneelOpen(true)}
+            aria-expanded={paneelOpen}
+            className="w-full px-5 py-2.5 text-left"
+          >
+            <div className="flex items-center justify-between gap-3 max-w-lg mx-auto font-body text-xs">
+              <span className="text-text-soft">
+                Binnen <strong className="text-primary">{fmtEur(inkomenLive)}</strong>
+              </span>
+              <span className="text-text-soft">
+                Ruimte tot nu toe{" "}
+                <strong className={overLive < 0 ? "text-[#C4603A]" : "text-[#0B7A6E]"}>
+                  {overLive < 0 ? `-${fmtEur(Math.abs(overLive))}` : fmtEur(overLive)}
+                </strong>
+              </span>
+              <span className="shrink-0 font-medium text-accent">Details</span>
+            </div>
+          </button>
+        </div>
+      )}
+
+      {paneelOpen && (
+        <div
+          className="lg:hidden fixed inset-0 z-50 flex items-end"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Jouw vergelijking tot nu toe"
+        >
+          <button
+            type="button"
+            aria-label="Sluiten"
+            onClick={() => setPaneelOpen(false)}
+            className="absolute inset-0"
+            style={{ backgroundColor: "rgba(22,33,31,0.45)" }}
+          />
+          <div className="relative w-full max-h-[82vh] overflow-y-auto rounded-t-2xl bg-background px-5 pt-4 pb-8">
+            <div className="flex items-center justify-between gap-3 mb-4">
+              <p className="font-body font-medium text-sm text-primary">
+                Jouw vergelijking tot nu toe
+              </p>
+              <button
+                type="button"
+                onClick={() => setPaneelOpen(false)}
+                className="shrink-0 font-body font-medium text-xs text-text-soft hover:text-primary transition-colors px-3 py-2"
+              >
+                Sluiten
+              </button>
+            </div>
+            <VergelijkingsPaneel data={data} currentStep={step} embedded />
           </div>
         </div>
       )}

@@ -14,6 +14,11 @@ export interface QuizData {
 
   // Stap 2, Inkomsten
   salaris1: string;
+  /**
+   * Het inkomen wisselt per maand (zzp, wisselende uren, provisie). Verandert
+   * alleen de begeleiding en het voorbehoud in het resultaat, niet de rekensom.
+   */
+  inkomenWisselend: boolean;
   salaris1InclVakantiegeld: boolean;
   salaris1InclDertiende: boolean;
   salaris2: string;
@@ -53,6 +58,9 @@ export interface QuizData {
   telefoonBedrag: string;
   abonnementenOverigBedrag: string;
   abonnementenExpanded: boolean;
+  /** Kinderkosten in één bedrag. De drie velden hieronder zijn de uitsplitsing. */
+  kinderenTotaal: string;
+  kinderenExpanded: boolean;
   kinderopvangEigenBijdrage: string;
   schoolActiviteiten: string;
   sportHobbyKinderen: string;
@@ -76,6 +84,7 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   zakelijkBijtellingSalaris: false,
   tweedeAuto: false,
   salaris1: "",
+  inkomenWisselend: false,
   salaris1InclVakantiegeld: false,
   salaris1InclDertiende: false,
   salaris2: "",
@@ -109,6 +118,8 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   telefoonBedrag: "",
   abonnementenOverigBedrag: "",
   abonnementenExpanded: false,
+  kinderenTotaal: "",
+  kinderenExpanded: false,
   kinderopvangEigenBijdrage: "",
   schoolActiviteiten: "",
   sportHobbyKinderen: "",

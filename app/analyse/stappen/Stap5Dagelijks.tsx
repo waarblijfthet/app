@@ -12,7 +12,6 @@ import {
 } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
-import Uitklap from "../components/Uitklap";
 
 interface Props {
   data: QuizData;
@@ -51,11 +50,11 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
         Waar gaat daarnaast ongeveer geld naartoe?
       </h2>
-      <p className="text-text-soft font-body font-light text-base mb-10">
+      <p className="text-text-soft font-body font-light text-base mb-7">
         Je hoeft niets terug te zoeken. Een gemiddelde maand is genoeg.
       </p>
 
-      <div className="mb-10">
+      <div className="mb-7">
         <EuroInput
           label="Boodschappen per maand"
           id="boodschappen"
@@ -80,8 +79,8 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         )}
       </div>
 
-      {/* Abonnementen, standaard één totaal. Uitsplitsen mag, maar hoeft niet. */}
-      <div className="mb-10">
+      {/* Abonnementen, standaard een totaal. Uitsplitsen mag, maar hoeft niet. */}
+      <div className="mb-7">
         {!data.abonnementenExpanded ? (
           <>
             <EuroInput
@@ -102,19 +101,19 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           </>
         ) : (
           <>
-            <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center justify-between gap-3 mb-3">
               <p className="font-body font-medium text-primary text-sm">
                 Abonnementen per maand
               </p>
               <button
                 type="button"
                 onClick={() => onChange({ abonnementenExpanded: false })}
-                className="text-xs font-body font-medium text-accent hover:text-primary transition-colors"
+                className="shrink-0 text-xs font-body font-medium text-accent hover:text-primary transition-colors"
               >
                 Weer samenvoegen
               </button>
             </div>
-            <div className="space-y-6 pl-3 border-l-2 border-[#E6E9E7]">
+            <div className="space-y-5 pl-3 border-l-2 border-[#E6E9E7]">
               <EuroInput
                 label="Streaming"
                 id="streaming"
@@ -147,36 +146,70 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         )}
       </div>
 
-      {/* Kinderkosten alleen als er kinderen thuis zijn. */}
+      {/* Kinderkosten: standaard één bedrag (28-aug-2026, pass 4). Hier stonden
+          drie verplicht ogende velden op een rij, en dat is precies het moment
+          waarop iemand denkt dat hij dingen moet opzoeken. */}
       {heeftKinderen && (
-        <div className="mb-10">
-          <p className="font-body font-medium text-primary text-sm mb-4">
-            Kosten voor de kinderen
-          </p>
-          <div className="space-y-8">
-            <EuroInput
-              label="Opvang per maand"
-              id="kinderopvang"
-              value={data.kinderopvangEigenBijdrage}
-              onChange={(v) => onChange({ kinderopvangEigenBijdrage: v })}
-              hint="Je eigen bijdrage, dus na de toeslag."
-              plausibelTot={4000}
-            />
-            <EuroInput
-              label="School en activiteiten"
-              id="school"
-              value={data.schoolActiviteiten}
-              onChange={(v) => onChange({ schoolActiviteiten: v })}
-              plausibelTot={3000}
-            />
-            <EuroInput
-              label="Sport en hobby's"
-              id="sport"
-              value={data.sportHobbyKinderen}
-              onChange={(v) => onChange({ sportHobbyKinderen: v })}
-              plausibelTot={3000}
-            />
-          </div>
+        <div className="mb-7">
+          {!data.kinderenExpanded ? (
+            <>
+              <EuroInput
+                label="Kosten voor de kinderen per maand"
+                id="kinderenTotaal"
+                value={data.kinderenTotaal}
+                onChange={(v) => onChange({ kinderenTotaal: v })}
+                hint="Opvang na de toeslag, school en activiteiten, sport en hobby samen. Eten en kleding horen hier niet bij."
+                hint2="Een schatting is genoeg."
+                plausibelTot={5000}
+              />
+              <button
+                type="button"
+                onClick={() => onChange({ kinderenExpanded: true })}
+                className="mt-2 text-xs font-body font-medium text-accent hover:text-primary transition-colors"
+              >
+                Wil je de kinderkosten uitsplitsen?
+              </button>
+            </>
+          ) : (
+            <>
+              <div className="flex items-center justify-between gap-3 mb-3">
+                <p className="font-body font-medium text-primary text-sm">
+                  Kosten voor de kinderen
+                </p>
+                <button
+                  type="button"
+                  onClick={() => onChange({ kinderenExpanded: false })}
+                  className="shrink-0 text-xs font-body font-medium text-accent hover:text-primary transition-colors"
+                >
+                  Weer samenvoegen
+                </button>
+              </div>
+              <div className="space-y-5 pl-3 border-l-2 border-[#E6E9E7]">
+                <EuroInput
+                  label="Opvang per maand"
+                  id="kinderopvang"
+                  value={data.kinderopvangEigenBijdrage}
+                  onChange={(v) => onChange({ kinderopvangEigenBijdrage: v })}
+                  hint="Je eigen bijdrage, dus na de toeslag."
+                  plausibelTot={4000}
+                />
+                <EuroInput
+                  label="School en activiteiten"
+                  id="school"
+                  value={data.schoolActiviteiten}
+                  onChange={(v) => onChange({ schoolActiviteiten: v })}
+                  plausibelTot={3000}
+                />
+                <EuroInput
+                  label="Sport en hobby's"
+                  id="sport"
+                  value={data.sportHobbyKinderen}
+                  onChange={(v) => onChange({ sportHobbyKinderen: v })}
+                  plausibelTot={3000}
+                />
+              </div>
+            </>
+          )}
           {kinderenWaarde > 0 && benches.kinderen > 0 && (
             <div className="mt-2">
               <MiniVergelijking jij={kinderenWaarde} benchmark={benches.kinderen} />
@@ -185,7 +218,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         </div>
       )}
 
-      <div className="mb-10">
+      <div className="mb-7">
         <EuroInput
           label="Uitgaan, kleding en andere vrije uitgaven"
           id="vrijetijd"
@@ -203,9 +236,10 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
       </div>
 
       {/* Grote, niet-maandelijkse kosten. Neutraal en optioneel: nooit de
-          suggestie dat de bezoeker iets verkeerd doet. */}
-      <div className="mb-10">
-        <p className="font-body font-medium text-primary text-sm mb-2">
+          suggestie dat de bezoeker iets verkeerd doet. Het spaardoel is naar de
+          uitkomst verhuisd (28-aug-2026, pass 4), want daar betekent het iets. */}
+      <div>
+        <p className="font-body font-medium text-primary text-sm mb-1">
           Zijn er grote kosten die niet elke maand terugkomen?
         </p>
         <p className="font-body text-xs text-text-muted mb-3">
@@ -213,7 +247,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           gemeentelijke belastingen.
         </p>
         {jaarlijksKeuze !== "invullen" ? (
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-2 gap-3 sm:flex sm:flex-wrap">
             <button
               type="button"
               onClick={() => setJaarlijksKeuze("invullen")}
@@ -266,20 +300,6 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           </>
         )}
       </div>
-
-      <Uitklap
-        titel="+ Optioneel: wil je je spaardoel meenemen?"
-        titelOpen="Verberg spaardoel"
-      >
-        <EuroInput
-          label="Wat wil je maandelijks sparen?"
-          id="spaardoel"
-          value={data.spaardoel}
-          onChange={(v) => onChange({ spaardoel: v })}
-          hint="Wat je structureel opzij wilt zetten."
-          plausibelTot={10000}
-        />
-      </Uitklap>
     </div>
   );
 }

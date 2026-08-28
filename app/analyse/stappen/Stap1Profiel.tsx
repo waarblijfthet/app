@@ -34,7 +34,7 @@ function KaartBtn({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className={`flex-1 min-w-[140px] px-4 rounded-xl border-[1.5px] font-body font-medium transition-all duration-150 text-left ${
+      className={`w-full px-4 rounded-xl border-[1.5px] font-body font-medium transition-all duration-150 text-left ${
         groot ? "min-h-[60px] py-4 text-base" : "min-h-[52px] py-3.5 text-sm"
       } ${
         selected
@@ -111,7 +111,7 @@ export default function Stap1Profiel({ data, onChange }: Props) {
         <legend className="font-body font-medium text-primary text-sm mb-3">
           Met wie woon je?
         </legend>
-        <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <KaartBtn groot selected={samenstelling === "alleen"} onClick={kiesAlleen}>
             Alleen
           </KaartBtn>
@@ -140,7 +140,7 @@ export default function Stap1Profiel({ data, onChange }: Props) {
           <legend className="font-body font-medium text-primary text-sm mb-3">
             Hoeveel kinderen wonen thuis?
           </legend>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid grid-cols-3 gap-3">
             {(
               [
                 { label: "1", value: 1 },
@@ -164,7 +164,7 @@ export default function Stap1Profiel({ data, onChange }: Props) {
         <legend className="font-body font-medium text-primary text-sm mb-3">
           Woon je in een koop- of huurwoning?
         </legend>
-        <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-2 gap-3">
           <KaartBtn
             selected={data.woonsituatie === "koop"}
             onClick={() => onChange({ woonsituatie: "koop" })}

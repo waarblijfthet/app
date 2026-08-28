@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { parseEur } from "@/lib/quiz-types";
 
 interface EuroInputProps {
@@ -52,6 +52,42 @@ export default function EuroInput({
   const twijfel =
     !!plausibelTot && rustig && bedrag > plausibelTot;
 
+  /**
+   * Duizendtallen tijdens het typen (28-aug-2026, pass 4). "2800" laat zich
+   * slecht controleren, "2.800" wel, en dat scheelt bij bedragen die iemand uit
+   * zijn hoofd invult. Opgeslagen blijft het altijd alleen cijfers, dus dit is
+   * puur weergave.
+   */
+  const weergave = bedrag > 0 ? bedrag.toLocaleString("nl-NL") : value;
+
+  // Omdat de waarde van buitenaf wordt gezet, springt de cursor zonder dit naar
+  // het eind. Dat is prima zolang je achteraan typt, maar niet als je een cijfer
+  // middenin een bedrag verbetert. We onthouden daarom hoeveel cijfers er links
+  // van de cursor stonden en zetten hem daar terug.
+  const inputRef = useRef<HTMLInputElement>(null);
+  const cijfersLinksRef = useRef<number | null>(null);
+
+  useEffect(() => {
+    const el = inputRef.current;
+    const doel = cijfersLinksRef.current;
+    if (!el || doel === null) return;
+    cijfersLinksRef.current = null;
+    let gezien = 0;
+    let pos = 0;
+    while (pos < el.value.length && gezien < doel) {
+      if (/\d/.test(el.value[pos])) gezien++;
+      pos++;
+    }
+    el.setSelectionRange(pos, pos);
+  }, [weergave]);
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const ruw = e.target.value;
+    const caret = e.target.selectionStart ?? ruw.length;
+    cijfersLinksRef.current = ruw.slice(0, caret).replace(/[^\d]/g, "").length;
+    onChange(ruw.replace(/[^\d]/g, ""));
+  }
+
   return (
     <div className={className}>
       {periode && (
@@ -88,11 +124,12 @@ export default function EuroInput({
         </span>
         <input
           id={id}
+          ref={inputRef}
           type="text"
           inputMode="numeric"
-          value={value}
+          value={weergave}
           onBlur={() => setRustig(true)}
-          onChange={(e) => onChange(e.target.value.replace(/[^\d]/g, ""))}
+          onChange={handleChange}
           placeholder={placeholder}
           className={`w-full min-h-[52px] bg-white border rounded-[10px] pl-8 pr-4 py-3.5 text-base text-primary font-body placeholder:text-text-muted focus:outline-none transition-colors ${
             twijfel

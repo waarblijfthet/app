@@ -1,11 +1,5 @@
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
-import {
-  ENERGIE_BENCH,
-  getBenchmarks,
-  berekenTotaalInkomen,
-  berekenWonen,
-  aantalVolwassenenVan,
-} from "@/lib/benchmarks";
+import { ENERGIE_BENCH } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
 import MiniVergelijking from "../components/MiniVergelijking";
 import Uitklap from "../components/Uitklap";
@@ -21,41 +15,12 @@ export default function Stap3Wonen({ data, onChange }: Props) {
       ? Math.round(parseEur(data.gemeenteBelastingen) / 12)
       : parseEur(data.gemeenteBelastingen);
 
-  const inkomen = berekenTotaalInkomen(data);
-  const aantalVolwassenen = aantalVolwassenenVan(data);
-  const benches = getBenchmarks({
-    woonsituatie: data.woonsituatie,
-    kinderen: data.kinderen,
-    inkomen: inkomen,
-    auto: data.auto,
-    tweedeAuto: data.tweedeAuto,
-    aantalVolwassenen: aantalVolwassenen,
-  });
-  const wonenTotaal = berekenWonen(data);
-  const wonenVerschil = wonenTotaal - benches.wonen;
-
-  // "Dit valt nu op" (28-aug-2026, pass 3): de gebruiker moet na deze stap iets
-  // leren over het totaal, niet alleen een losse pil per post zien. Neutraal bij
-  // een lager bedrag, geen waarschuwing bij een hoger bedrag.
-  let wonenZin = "";
-  if (wonenTotaal > 0 && benches.wonen > 0) {
-    if (wonenVerschil > 100) {
-      wonenZin =
-        "Hogere woonkosten verklaren nu al een deel van het verschil met vergelijkbare huishoudens.";
-    } else if (wonenVerschil < -100) {
-      wonenZin = "Je woonkosten liggen lager dan bij vergelijkbare huishoudens.";
-    } else {
-      wonenZin =
-        "Je woonkosten lijken vooralsnog goed te passen bij vergelijkbare huishoudens.";
-    }
-  }
-
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
         Wat kost jullie woning elke maand?
       </h2>
-      <p className="text-text-soft font-body font-light text-base mb-10">
+      <p className="text-text-soft font-body font-light text-base mb-7">
         Voor veel huishoudens zit hier een groot verschil. Vul alleen de
         bedragen in die je ongeveer weet.
       </p>
@@ -78,14 +43,13 @@ export default function Stap3Wonen({ data, onChange }: Props) {
         />
       </div>
 
-      <div className="mb-10">
+      <div className="mb-7">
         <EuroInput
           label="Gas, stroom en water samen"
           id="energie"
           value={data.energie}
           onChange={(v) => onChange({ energie: v })}
-          hint="Gas, stroom en water."
-          hint2="Weet je het niet precies? Gebruik je gemiddelde maandbedrag."
+          hint="Weet je het niet precies? Gebruik je gemiddelde maandbedrag."
           plausibelTot={1500}
         />
         {parseEur(data.energie) > 0 && (
@@ -94,18 +58,6 @@ export default function Stap3Wonen({ data, onChange }: Props) {
           </div>
         )}
       </div>
-
-      {/* Totaal wonen tegen vergelijkbare huishoudens, los van de losse
-          energie-vergelijking hierboven die per post blijft. */}
-      {wonenZin && (
-        <div className="mb-10 rounded-xl border border-[#E6E9E7] bg-[#F7F5F0] p-4">
-          <p className="section-eyebrow mb-2">Dit valt nu op</p>
-          <MiniVergelijking jij={wonenTotaal} benchmark={benches.wonen} />
-          <p className="font-body text-xs text-text-soft mt-2 leading-relaxed">
-            {wonenZin}
-          </p>
-        </div>
-      )}
 
       <Uitklap titel="+ Nog een woonkost toevoegen" titelOpen="Verberg extra woonkosten">
         <EuroInput
@@ -140,7 +92,6 @@ export default function Stap3Wonen({ data, onChange }: Props) {
           }
         />
       </Uitklap>
-
     </div>
   );
 }

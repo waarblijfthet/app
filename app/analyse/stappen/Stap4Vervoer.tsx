@@ -1,15 +1,7 @@
 "use client";
 
 import { QuizData, AutoSituatie } from "@/lib/quiz-types";
-import {
-  berekenTotaalInkomen,
-  berekenVervoer,
-  berekenVerzekeringen,
-  getBenchmarks,
-  aantalVolwassenenVan,
-} from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
-import MiniVergelijking from "../components/MiniVergelijking";
 
 interface Props {
   data: QuizData;
@@ -30,7 +22,7 @@ function OptionBtn({
       type="button"
       onClick={onClick}
       aria-pressed={selected}
-      className={`flex-1 min-w-[150px] min-h-[52px] px-4 py-3.5 rounded-xl border-[1.5px] font-body font-medium text-sm transition-all duration-150 text-left ${
+      className={`w-full min-h-[52px] px-4 py-3.5 rounded-xl border-[1.5px] font-body font-medium text-sm transition-all duration-150 text-left ${
         selected
           ? "bg-green-light border-accent text-primary shadow-card"
           : "bg-card border-[#D9DEDC] text-text-soft hover:border-accent/60"
@@ -42,36 +34,22 @@ function OptionBtn({
 }
 
 export default function Stap4Vervoer({ data, onChange }: Props) {
-  const inkomen = berekenTotaalInkomen(data);
-  const aantalVolwassenen = aantalVolwassenenVan(data);
-  const benches = getBenchmarks({
-    woonsituatie: data.woonsituatie,
-    kinderen: data.kinderen,
-    inkomen: inkomen,
-    auto: data.auto,
-    tweedeAuto: data.tweedeAuto,
-    aantalVolwassenen: aantalVolwassenen,
-  });
-
-  const vervoer = berekenVervoer(data);
-  const verzekeringen = berekenVerzekeringen(data);
-
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
         Hoe ziet vervoer er bij jullie uit?
       </h2>
-      <p className="text-text-soft font-body font-light text-base mb-8">
+      <p className="text-text-soft font-body font-light text-base mb-7">
         Dit verschilt sterk per huishouden. Kies wat het beste bij jullie
         situatie past, een schatting per maand is genoeg.
       </p>
 
       {/* Autosituatie bepaalt welke vraag hieronder verschijnt. */}
-      <fieldset className="mb-8">
+      <fieldset className="mb-7">
         <legend className="font-body font-medium text-primary text-sm mb-3">
           Hebben jullie een auto?
         </legend>
-        <div className="flex flex-wrap gap-3">
+        <div className="grid grid-cols-2 gap-3">
           {(
             [
               { label: "Geen auto", value: "geen" },
@@ -99,7 +77,7 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
 
       {/* Alleen de vraag die bij de gekozen autosituatie hoort. */}
       {data.auto === "geen" && (
-        <div className="mb-10">
+        <div className="mb-7">
           <EuroInput
             label="Reiskosten per maand"
             id="ovAbonnement"
@@ -108,16 +86,11 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
             hint="Ov, fiets of deelvervoer. Een schatting is voldoende."
             plausibelTot={1500}
           />
-          {vervoer > 0 && (
-            <div className="mt-2">
-              <MiniVergelijking jij={vervoer} benchmark={benches.vervoer} />
-            </div>
-          )}
         </div>
       )}
 
       {data.auto === "eigen" && (
-        <div className="mb-10">
+        <div className="mb-7">
           <EuroInput
             label="Wat kost jullie auto ongeveer per maand?"
             id="brandstof"
@@ -148,16 +121,11 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
               {"'"}s dan hierboven bij elkaar op.
             </span>
           </label>
-          {vervoer > 0 && (
-            <div className="mt-3">
-              <MiniVergelijking jij={vervoer} benchmark={benches.vervoer} />
-            </div>
-          )}
         </div>
       )}
 
       {data.auto === "lease_privé" && (
-        <div className="mb-10">
+        <div className="mb-7">
           <EuroInput
             label="Leasebedrag per maand"
             id="leaseBedrag"
@@ -166,16 +134,11 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
             hint="Het all-in bedrag dat je maandelijks betaalt."
             plausibelTot={3000}
           />
-          {vervoer > 0 && (
-            <div className="mt-2">
-              <MiniVergelijking jij={vervoer} benchmark={benches.vervoer} />
-            </div>
-          )}
         </div>
       )}
 
       {data.auto === "zakelijk" && (
-        <div className="mb-10">
+        <div className="mb-7">
           <EuroInput
             label="Wat betaal je zelf gemiddeld voor de auto?"
             id="zakelijkEigenBijdrage"
@@ -184,20 +147,15 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
             hint="Eigen bijdrage of andere kosten die je privé betaalt. Betaal je niets, laat leeg."
             plausibelTot={2000}
           />
-          {vervoer > 0 && (
-            <div className="mt-2">
-              <MiniVergelijking jij={vervoer} benchmark={benches.vervoer} />
-            </div>
-          )}
         </div>
       )}
 
       {/* Vaste verzekeringen. */}
-      <div className="mb-8">
+      <div>
         <p className="font-body font-medium text-primary text-sm mb-4">
           Vaste verzekeringen
         </p>
-        <div className="mb-8">
+        <div className="mb-7">
           <EuroInput
             label="Zorgverzekering, totaal huishouden"
             id="zorgPerPersoon"
@@ -215,11 +173,6 @@ export default function Stap4Vervoer({ data, onChange }: Props) {
           hint="Aansprakelijkheid, inboedel, auto, rechtsbijstand en overlijdensrisico. Een schatting is genoeg."
           plausibelTot={3000}
         />
-        {verzekeringen > 0 && (
-          <div className="mt-3">
-            <MiniVergelijking jij={verzekeringen} benchmark={benches.verzekeringen} />
-          </div>
-        )}
       </div>
     </div>
   );

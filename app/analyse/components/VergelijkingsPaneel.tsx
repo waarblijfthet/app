@@ -7,10 +7,10 @@ import {
   berekenAbonnementen,
   berekenKinderen,
   berekenOver,
-  getPercentiel,
   aantalVolwassenenVan,
 } from "@/lib/benchmarks";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
+import LiveInzicht from "./LiveInzicht";
 import {
   bepaalRichting,
   RICHTING_LABEL,
@@ -82,15 +82,15 @@ function samenvatContributie(
   posten: Array<{ naam: string; jij: number; bench: number }>
 ): string {
   const boven = posten
-    .filter((p) => p.jij > 0 && p.jij - p.bench > 50)
+    .filter((p) => p.jij > 0 && bepaalRichting(p.jij, p.bench) === "hoger")
     .sort((a, b) => b.jij - b.bench - (a.jij - a.bench))
     .slice(0, 2)
     .map((p) => p.naam.toLowerCase());
 
   if (boven.length === 0) return "";
   if (boven.length === 1)
-    return `Op dit moment valt vooral ${boven[0]} op in je vergelijking.`;
-  return `Op dit moment verklaren ${boven[0]} en ${boven[1]} het grootste deel van het verschil.`;
+    return `Op dit moment zie ik vooral verschil bij ${boven[0]}.`;
+  return `Op dit moment zit het grootste deel van het verschil bij ${boven[0]} en ${boven[1]}.`;
 }
 
 export default function VergelijkingsPaneel({ data, currentStep, embedded }: Props) {
@@ -111,67 +111,12 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
   const over = berekenOver(data);
   const overDiff = over - benches.vrij_besteedbaar;
 
-  // Stap 1, alleen bevestigen met wie je wordt vergeleken. Nog geen cijfers.
-  if (currentStep === 1) {
-    if (
-      data.volwassenen === null ||
-      !data.woonsituatie ||
-      data.kinderen === null
-    )
-      return null;
-    const k = data.kinderen ?? 0;
-    const kindTekst =
-      k === 0
-        ? "zonder kinderen"
-        : `met ${k === 3 ? "3 of meer" : k} ${k === 1 ? "kind" : "kinderen"}`;
-    const volwTekst = data.volwassenen === 1 ? "één volwassene" : "twee volwassenen";
+  // Stap 1 en 2 zijn kort en de beloning zelf. Die staan in LiveInzicht, zodat
+  // er niet twee versies van dezelfde tekst bestaan (28-aug-2026, pass 4).
+  if (currentStep <= 2) {
     return (
-      <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
-        <p className="section-eyebrow mb-4">Jouw vergelijking</p>
-        <div className="bg-green-light rounded-xl p-4">
-          <p className="font-body text-sm text-primary font-medium">
-            Een huishouden van {volwTekst} {kindTekst} in een{" "}
-            {data.woonsituatie === "koop" ? "koopwoning" : "huurwoning"}.
-          </p>
-        </div>
-        <p className="font-body text-xs text-text-muted mt-3">
-          Vanaf nu bouwen we jouw persoonlijke vergelijking op.
-        </p>
-      </div>
-    );
-  }
-
-  // Stap 2, inkomen. "Dit zien we nu al."
-  if (currentStep === 2) {
-    if (inkomen === 0) return null;
-    const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
-    const hoog = percentiel.startsWith("top");
-    const midden = percentiel === "middengroep";
-    const inkomenZin = hoog
-      ? "Je inkomen ligt hoger dan bij veel vergelijkbare huishoudens."
-      : midden
-      ? "Je inkomen zit rond het midden van vergelijkbare huishoudens."
-      : "Je inkomen ligt wat lager dan bij veel vergelijkbare huishoudens.";
-    return (
-      <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
-        <p className="section-eyebrow mb-3">Dit zien we nu al</p>
-        <p className="text-text-muted font-body text-xs mb-1">
-          Geschat netto huishoudinkomen
-        </p>
-        <p className="font-display font-light text-primary text-4xl mb-3">
-          {fmtEur(inkomen)}
-          <span className="text-base text-text-muted font-body"> p/m</span>
-        </p>
-        <div className="bg-[#F0F3F1] rounded-xl p-3 mb-3">
-          <p className="font-body text-xs text-text-soft leading-relaxed">
-            {inkomenZin} Je zit in de{" "}
-            <strong className="text-primary">{percentiel}</strong> van Nederlandse
-            huishoudens.
-          </p>
-        </div>
-        <p className="font-body text-xs text-text-muted">
-          Nu kijken we hoeveel daarvan al opgaat aan wonen.
-        </p>
+      <div className={stickyCls}>
+        <LiveInzicht data={data} currentStep={currentStep} />
       </div>
     );
   }
@@ -194,7 +139,9 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
   ]);
 
   return (
-    <div className={`card-base border border-[#E6E9E7] ${stickyCls} ${scrollCls}`}>
+    <div
+      className={`bg-card rounded-xl border border-[#E6E9E7] p-5 ${stickyCls} ${scrollCls}`}
+    >
       <p className="section-eyebrow mb-1">Jouw foto tot nu toe</p>
       <p className="font-body text-xs text-text-muted mb-4">
         Op basis van wat je tot nu toe invulde.
@@ -268,12 +215,11 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
               <span className="font-medium">{fmtEur(benches.vrij_besteedbaar)}</span>
               {Math.abs(overDiff) >= 10 && (
                 <span
-                  className={`ml-1 font-medium ${
+                  className={`ml-1.5 font-medium ${
                     overDiff > 0 ? "text-[#0B7A6E]" : "text-[#A15A32]"
                   }`}
                 >
-                  ({overDiff > 0 ? "+" : ""}
-                  {fmtEur(overDiff)})
+                  {`(${overDiff > 0 ? "+" : "-"}${fmtEur(Math.abs(overDiff))})`}
                 </span>
               )}
             </p>

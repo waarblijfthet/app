@@ -242,11 +242,17 @@ export function berekenAbonnementen(data: QuizData): number {
 
 export function berekenKinderen(data: QuizData): number {
   if (data.kinderen === 0) return 0;
-  return (
-    parseEur(data.kinderopvangEigenBijdrage) +
-    parseEur(data.schoolActiviteiten) +
-    parseEur(data.sportHobbyKinderen)
-  );
+  // Standaard één bedrag (28-aug-2026). Wie wil uitsplitsen krijgt dezelfde drie
+  // velden als eerder, over exact dezelfde smalle definitie: opvang, school en
+  // activiteiten, sport en hobby. Dus zonder eten, kleding en woonruimte.
+  if (data.kinderenExpanded) {
+    return (
+      parseEur(data.kinderopvangEigenBijdrage) +
+      parseEur(data.schoolActiviteiten) +
+      parseEur(data.sportHobbyKinderen)
+    );
+  }
+  return parseEur(data.kinderenTotaal);
 }
 
 export function berekenJaarlijks(data: QuizData): number {

@@ -11,13 +11,24 @@ import { fmtEur } from "@/lib/quiz-types";
  */
 export type Richting = "lager" | "rond" | "hoger";
 
+/**
+ * Naast de relatieve marge ook een bodem in euro's (28-aug-2026, pass 4). Op een
+ * post van 80 euro is tien procent acht euro, en dan kreeg een verschil van 15
+ * euro het label "hoger dan gemiddeld" en kantelde het daarmee de conclusietekst
+ * in de uitkomst. Onder dit bedrag noemen we het niet, want dat is ruis binnen
+ * schattingen die de bezoeker uit zijn hoofd invult.
+ */
+const BODEM_EUR = 25;
+
 export function bepaalRichting(
   jij: number,
   benchmark: number,
   tolerantie = 0.1
 ): Richting {
   if (!benchmark) return "rond";
-  const pct = (jij - benchmark) / benchmark;
+  const verschil = jij - benchmark;
+  if (Math.abs(verschil) < BODEM_EUR) return "rond";
+  const pct = verschil / benchmark;
   if (pct < -tolerantie) return "lager";
   if (pct > tolerantie) return "hoger";
   return "rond";
@@ -44,7 +55,7 @@ export const RICHTING_BALK: Record<Richting, string> = {
 /** Korte, feitelijke toelichting bij een categorie. Geen oordeel. */
 export function verschilTekst(jij: number, benchmark: number): string {
   const verschil = jij - benchmark;
-  if (!benchmark || Math.abs(verschil) < 10) return "";
+  if (!benchmark || Math.abs(verschil) < BODEM_EUR) return "";
   return verschil > 0
     ? `${fmtEur(verschil)} boven gemiddeld`
     : `${fmtEur(Math.abs(verschil))} onder gemiddeld`;
