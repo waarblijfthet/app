@@ -5,26 +5,16 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { logGebeurtenis } from "@/lib/track";
+import { SITUATIE_OPTIES, INKOMEN_OPTIES } from "./opties";
 
 interface Props {
   pakket: "intensief" | "gesprek" | "geldscan";
   token?: string;
+  /** Vooringevuld vanuit de analyse, zodat niemand hetzelfde twee keer intypt. */
+  initieleSituatie?: string;
+  initieelInkomen?: string;
+  initieelInkomenWisselt?: boolean;
 }
-
-const SITUATIE_OPTIES = [
-  "Alleenstaand, geen kinderen",
-  "Alleenstaande ouder",
-  "Stel zonder kinderen",
-  "Gezin met jonge kinderen (0 tot 8)",
-  "Gezin met oudere kinderen (8+)",
-];
-
-const INKOMEN_OPTIES = [
-  "Minder dan €3.000",
-  "€3.000 tot €4.500",
-  "€4.500 tot €6.000",
-  "Meer dan €6.000",
-];
 
 const ANALYSE_OPTIES = [
   "Ja, en ik wil nu verder",
@@ -163,16 +153,22 @@ function StapIndicator({ actief }: { actief: number }) {
   );
 }
 
-export function IntakeForm({ pakket, token }: Props) {
+export function IntakeForm({
+  pakket,
+  token,
+  initieleSituatie,
+  initieelInkomen,
+  initieelInkomenWisselt,
+}: Props) {
   const router = useRouter();
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
 
-  const [situatie, setSituatie] = useState("");
-  const [inkomen, setInkomen] = useState("");
+  const [situatie, setSituatie] = useState(initieleSituatie ?? "");
+  const [inkomen, setInkomen] = useState(initieelInkomen ?? "");
   const [knelpunt, setKnelpunt] = useState("");
   const [situatieDetails, setSituatieDetails] = useState("");
-  const [inkomenWisselt, setInkomenWisselt] = useState(false);
+  const [inkomenWisselt, setInkomenWisselt] = useState(initieelInkomenWisselt ?? false);
   const [analyse, setAnalyse] = useState("");
   const [startVoorkeur, setStartVoorkeur] = useState("");
   const [naam, setNaam] = useState("");
@@ -460,6 +456,23 @@ export function IntakeForm({ pakket, token }: Props) {
             }}
           >
             Je analyse is gekoppeld. Ik gebruik die cijfers als basis voor je geldrapport, je hoeft ze hieronder niet te herhalen.
+          </div>
+        )}
+
+        {isGeldscan && !token && (initieleSituatie || initieelInkomen) && (
+          <div
+            className="font-body"
+            style={{
+              backgroundColor: "#E7F1EE",
+              border: "1px solid #CFE6E0",
+              borderRadius: "12px",
+              padding: "0.875rem 1rem",
+              fontSize: "0.85rem",
+              color: "#16211F",
+              marginBottom: "2rem",
+            }}
+          >
+            Ik heb vraag 1{initieelInkomen ? " en 2" : ""} alvast ingevuld op basis van je analyse. Klopt het niet, pas het gerust aan.
           </div>
         )}
 

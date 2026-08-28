@@ -16,11 +16,43 @@ interface Props {
 }
 
 /**
+ * Zelfde situatiesleutel als lib/cta.ts (SituatieSleutel) en app/geldscan/page.tsx.
+ * Alleen de ondubbelzinnige gevallen: bij kinderen weet de analyse niet of ze
+ * jong of ouder zijn, dus "gezin" blijft hier bewust ongebruikt op de
+ * intake-pagina (die vraagt dat apart).
+ */
+function situatieSleutelVoorIntake(data: QuizData): string | null {
+  if (data.volwassenen === 1 && data.kinderen === 0) return "alleenstaand";
+  if (data.volwassenen === 1 && (data.kinderen ?? 0) > 0) return "alleenstaande-ouder";
+  if (data.volwassenen === 2 && data.kinderen === 0) return "stel";
+  return null;
+}
+
+/**
+ * De intake vraagt hetzelfde als de analyse al beantwoord heeft: huishouden,
+ * inkomen en of dat wisselt. Deze link geeft dat door, zodat niemand het op
+ * het intakeformulier moet overtypen. Zie app/aanbod/intake/page.tsx voor de
+ * kant die deze parameters weer inleest.
+ */
+function intakeHrefMetPrefill(data: QuizData, resultaat: Record<string, unknown>): string {
+  const params = new URLSearchParams({ pakket: "geldscan" });
+  const situatieSleutel = situatieSleutelVoorIntake(data);
+  if (situatieSleutel) params.set("situatie", situatieSleutel);
+  const inkomen = resultaat.totaal_inkomen_berekend;
+  if (typeof inkomen === "number" && inkomen > 0) {
+    params.set("inkomen", String(Math.round(inkomen)));
+  }
+  if (data.inkomenWisselend) params.set("inkomenWisselt", "1");
+  return `/aanbod/intake?${params.toString()}`;
+}
+
+/**
  * Uitkomst 4 van 4: het aanbod. De gratis vergelijking liet al zien WAAR het
  * verschil zit, dus de CTA belooft geen herhaling daarvan. De Geldscan
  * onderzoekt WAAROM, en dat is precies wat hier staat.
  */
 export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
+  const intakeHref = intakeHrefMetPrefill(data, resultaat);
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-1 leading-snug">
@@ -60,7 +92,7 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
 
         <CtaLink
           doel="geldscan"
-          href="/aanbod/intake?pakket=geldscan"
+          href={intakeHref}
           locatie="analyse-resultaat"
           className="btn-primary w-full sm:w-auto text-base"
         >
