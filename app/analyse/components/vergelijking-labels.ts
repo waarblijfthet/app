@@ -46,17 +46,3 @@ export const RICHTING_PIL: Record<Richting, string> = {
   hoger: "bg-[#F6EEE8] text-[#A15A32]",
 };
 
-export const RICHTING_BALK: Record<Richting, string> = {
-  lager: "bg-accent",
-  rond: "bg-primary",
-  hoger: "bg-[#C4603A]",
-};
-
-/** Korte, feitelijke toelichting bij een categorie. Geen oordeel. */
-export function verschilTekst(jij: number, benchmark: number): string {
-  const verschil = jij - benchmark;
-  if (!benchmark || Math.abs(verschil) < BODEM_EUR) return "";
-  return verschil > 0
-    ? `${fmtEur(verschil)} boven gemiddeld`
-    : `${fmtEur(Math.abs(verschil))} onder gemiddeld`;
-}

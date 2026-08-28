@@ -20,7 +20,6 @@ import {
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
 import { bepaalRichting } from "../components/vergelijking-labels";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
-import EuroInput from "../components/EuroInput";
 
 interface Props {
   data: QuizData;
@@ -83,11 +82,6 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
   const [sending, setSending] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
-  // Sparen wordt pas hier gevraagd (28-aug-2026, pass 4). In stap 5 was het een
-  // veld tussen de uitgaven; hier is het een vraag met een antwoord eronder.
-  const [spaardoelOpen, setSpaardoelOpen] = useState(
-    parseEur(data.spaardoel) > 0
-  );
 
   const inkomen = berekenTotaalInkomen(data);
   const aantalVolwassenen = aantalVolwassenenVan(data);
@@ -386,48 +380,26 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </div>
       )}
 
-      {/* Sparen: hier pas gevraagd, want hier betekent het bedrag iets. Dicht
-          standaard, zodat het niet met de knop hieronder concurreert. */}
-      <div className="card-base border border-[#E6E9E7] mb-6">
-        <p className="section-eyebrow mb-2">Sparen</p>
-        {!spaardoelOpen ? (
-          <>
-            <p className="font-body font-light text-text-soft text-sm leading-relaxed">
-              Wilde je maandelijks een bedrag opzij zetten? Dan leg ik dat naast
-              de ruimte die we hier zien.
-            </p>
-            <button
-              type="button"
-              onClick={() => setSpaardoelOpen(true)}
-              className="mt-3 font-body font-medium text-sm text-accent hover:text-primary transition-colors"
-            >
-              Ja, ik had een bedrag in gedachten
-            </button>
-          </>
-        ) : (
-          <>
-            <EuroInput
-              label="Wat wil je maandelijks sparen?"
-              id="spaardoel"
-              value={data.spaardoel}
-              onChange={(v) => onChange({ spaardoel: v })}
-              hint="Wat je structureel opzij wilt zetten. Een schatting is genoeg."
-              plausibelTot={10000}
-            />
-            {spaardoelWaarde > 0 && (
-              <p className="font-body font-light text-text-soft text-sm leading-relaxed mt-3">
-                {over >= spaardoelWaarde
-                  ? `Dat past binnen de ruimte die we zien, er blijft dan nog ${fmtEur(
-                      over - spaardoelWaarde
-                    )} over.`
-                  : `Op basis van deze cijfers is dat ${fmtEur(
-                      spaardoelWaarde - over
-                    )} meer dan de ruimte die we nu zien. Dat hoeft geen lek te zijn: het kan ook betekenen dat het doel en de huidige uitgaven niet naast elkaar passen.`}
-              </p>
-            )}
-          </>
-        )}
-      </div>
+      {/* Sparen is tijdens de flow zelf al gevraagd, dus hier alleen de
+          vergelijking als er een spaardoel is opgegeven (28-aug-2026, pass 5). */}
+      {spaardoelWaarde > 0 && (
+        <div className="card-base border border-[#E6E9E7] mb-6">
+          <p className="section-eyebrow mb-2">Sparen</p>
+          <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+            {over >= spaardoelWaarde
+              ? `Je wilde ${fmtEur(
+                  spaardoelWaarde
+                )} per maand opzij zetten. Dat past binnen de ruimte die we zien, er blijft dan nog ${fmtEur(
+                  over - spaardoelWaarde
+                )} over.`
+              : `Je wilde ${fmtEur(
+                  spaardoelWaarde
+                )} per maand opzij zetten. Op basis van deze cijfers is dat ${fmtEur(
+                  spaardoelWaarde - over
+                )} meer dan de ruimte die we nu zien. Dat hoeft geen lek te zijn: het kan ook betekenen dat het doel en de huidige uitgaven niet naast elkaar passen.`}
+          </p>
+        </div>
+      )}
 
       {/* 4. Wat betekent dit. De brug naar de vraag "waarom". */}
       <div className="rounded-xl border border-[#E6E9E7] bg-[#F0F3F1] p-5 mb-8">

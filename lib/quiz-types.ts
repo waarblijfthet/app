@@ -133,34 +133,6 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   toestemmingMarketing: false,
 };
 
-export function canProceed(step: number, data: QuizData): boolean {
-  switch (step) {
-    case 1:
-      // Autosituatie is naar stap 4 verplaatst (28-aug-2026), dus hier niet meer
-      // verplicht. Het eerste scherm vraagt alleen de huishoudsamenstelling.
-      return (
-        data.volwassenen !== null &&
-        data.woonsituatie !== null &&
-        data.kinderen !== null
-      );
-    case 2:
-      return parseEur(data.salaris1) > 0;
-    case 3:
-      return parseEur(data.huurHypotheek) > 0;
-    case 4:
-      // Bewust niet verplicht (21-aug-2026). Zo min mogelijk verplichte velden,
-      // en wie vervoer en verzekeringen overslaat ziet in het paneel dat het
-      // beeld nog niet compleet is.
-      return true;
-    case 5:
-      return parseEur(data.boodschappen) > 0;
-    case 6:
-      return false; // handled by Stap6 itself
-    default:
-      return true;
-  }
-}
-
 export function parseEur(s: string): number {
   if (!s) return 0;
   return parseInt(s.replace(/[^\d]/g, ""), 10) || 0;

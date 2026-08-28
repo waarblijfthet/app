@@ -39,29 +39,11 @@ export default function AnalysePage() {
       <Header />
 
       <main className="min-h-screen bg-background overflow-x-hidden">
-        {/* Bewust kort (28-aug-2026). De kop mag niet het hele scherm vullen; de
-            eerste vraag moet zonder scrollen in beeld komen, ook op mobiel. */}
-        <section className="pt-7 pb-5 md:pt-10 md:pb-6">
-          {/* Zelfde breedte als de quiz eronder, anders lopen de linkerranden
-              op lg uit elkaar. De tekst zelf blijft op leesbreedte. */}
-          <div className="max-w-[720px] lg:max-w-[1060px] mx-auto px-5 sm:px-6">
-            <p className="section-eyebrow mb-2">Analyse</p>
-            <h1 className="font-display font-light text-primary text-2xl sm:text-3xl md:text-4xl mb-2 leading-snug">
-              Hoe doe jij het financieel?
-            </h1>
-            <p className="text-text-soft font-body font-light text-base max-w-[620px]">
-              Je hoeft niet precies te weten waar elke euro heen gaat. Met een
-              paar realistische schattingen ontdek je hoe jouw huishouden ervoor
-              staat ten opzichte van vergelijkbare huishoudens.
-            </p>
-          </div>
-        </section>
-
-        {/* Breder vanaf lg, want daar staat de vergelijking naast de vraag in
-            plaats van eronder (28-aug-2026, pass 4). Tot lg blijft het exact de
-            leesbreedte van 720 die de rest van de site ook gebruikt. */}
-        <section className="pb-12 md:pb-16">
-          <div className="max-w-[720px] lg:max-w-[1060px] mx-auto px-5 sm:px-6">
+        {/* Eén gefocuste kolom, geen lange formulierpagina (28-aug-2026, pass 5).
+            De vraag zelf is de pagina; de header hierboven is bewust minimaal
+            zodat de introductie direct de eerste vraag toont. */}
+        <section className="pt-10 pb-16 md:pt-14 md:pb-20">
+          <div className="max-w-[600px] mx-auto px-5 sm:px-6">
             <QuizClient />
           </div>
         </section>

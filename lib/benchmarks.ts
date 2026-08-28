@@ -70,6 +70,7 @@ const LOKALE_LASTEN = 95; // n=5, gemeentelijke lasten en waterschap per maand
  */
 export const ENERGIE_BENCH = ENERGIE;
 export const INTERNET_BENCH = INTERNET;
+export const LOKALE_LASTEN_BENCH = LOKALE_LASTEN;
 
 /** Vervoer per autosituatie. Kloppend bij vier van de vijf, ongewijzigd gelaten. */
 const VERVOER_BENCH: Record<string, number> = {
@@ -83,6 +84,14 @@ const TWEEDE_AUTO = 300; // n=1, conservatief onder de 345 die ik in dat gezin z
 /** Verzekeringen. Klopte al: van min 4 tot plus 28 over vijf huishoudens. */
 const ZORG_PER_VOLWASSENE = 148; // n=5
 const VERZEKERING_OVERIG = 120; // n=5
+
+/**
+ * Ook deze twee exporteerbaar, om dezelfde reden als ENERGIE_BENCH en
+ * INTERNET_BENCH: de analyse-flow genereert er snelkeuzes rond, en dan moet
+ * dat bedrag op precies één plek staan (28-aug-2026, pass 5).
+ */
+export const ZORG_PER_VOLWASSENE_BENCH = ZORG_PER_VOLWASSENE;
+export const VERZEKERING_OVERIG_BENCH = VERZEKERING_OVERIG;
 
 /**
  * Vrij besteedbaar: wat ik bij een huishouden zou verwachten dat er overblijft.
