@@ -317,13 +317,12 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
 
   return (
     <div className="max-w-2xl mx-auto">
-      {/* 1. De conclusie eerst. */}
+      {/* 1. Het hoofdresultaat: de conclusie, dan het kernbedrag. */}
       <p className="section-eyebrow mb-2">Jouw uitkomst</p>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8 leading-snug">
         {conclusieKop}
       </h2>
 
-      {/* 2. Het getal met de verwachting ernaast. */}
       <div className="card-base border border-[#E6E9E7] mb-6">
         <p className="section-eyebrow mb-2 text-center">Geschatte financiële ruimte</p>
         <p
@@ -362,9 +361,29 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             kleiner en in een goede maand groter.
           </p>
         )}
+        {/* Sparen is tijdens de flow zelf al gevraagd, dus hier alleen de
+            vergelijking als er een spaardoel is opgegeven. Onder de
+            hoofduitkomst in plaats van in een eigen kaart, want de
+            resultaatpagina mag niet meer dan vijf secties tellen
+            (28-aug-2026, pass 6). */}
+        {spaardoelWaarde > 0 && (
+          <p className="font-body font-light text-text-soft text-xs mt-3 leading-relaxed border-t border-[#E6E9E7] pt-3">
+            {over >= spaardoelWaarde
+              ? `Je wilde ${fmtEur(
+                  spaardoelWaarde
+                )} per maand opzij zetten. Dat past binnen deze ruimte, er blijft dan nog ${fmtEur(
+                  over - spaardoelWaarde
+                )} over.`
+              : `Je wilde ${fmtEur(
+                  spaardoelWaarde
+                )} per maand opzij zetten. Dat is ${fmtEur(
+                  spaardoelWaarde - over
+                )} meer dan de ruimte die we nu zien. Dat hoeft geen lek te zijn: het kan ook betekenen dat het doel en de uitgaven nu niet naast elkaar passen.`}
+          </p>
+        )}
       </div>
 
-      {/* 3. Wat valt het meest op. */}
+      {/* 2. Wat valt het meest op: maximaal drie afwijkingen. */}
       {opvallend.length > 0 && (
         <div className="card-base border border-[#E6E9E7] mb-6">
           <p className="section-eyebrow mb-3">Wat valt het meest op?</p>
@@ -380,28 +399,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </div>
       )}
 
-      {/* Sparen is tijdens de flow zelf al gevraagd, dus hier alleen de
-          vergelijking als er een spaardoel is opgegeven (28-aug-2026, pass 5). */}
-      {spaardoelWaarde > 0 && (
-        <div className="card-base border border-[#E6E9E7] mb-6">
-          <p className="section-eyebrow mb-2">Sparen</p>
-          <p className="font-body font-light text-text-soft text-sm leading-relaxed">
-            {over >= spaardoelWaarde
-              ? `Je wilde ${fmtEur(
-                  spaardoelWaarde
-                )} per maand opzij zetten. Dat past binnen de ruimte die we zien, er blijft dan nog ${fmtEur(
-                  over - spaardoelWaarde
-                )} over.`
-              : `Je wilde ${fmtEur(
-                  spaardoelWaarde
-                )} per maand opzij zetten. Op basis van deze cijfers is dat ${fmtEur(
-                  spaardoelWaarde - over
-                )} meer dan de ruimte die we nu zien. Dat hoeft geen lek te zijn: het kan ook betekenen dat het doel en de huidige uitgaven niet naast elkaar passen.`}
-          </p>
-        </div>
-      )}
-
-      {/* 4. Wat betekent dit. De brug naar de vraag "waarom". */}
+      {/* 3. Wat betekent dit. De brug naar de vraag "waarom". */}
       <div className="rounded-xl border border-[#E6E9E7] bg-[#F0F3F1] p-5 mb-8">
         <p className="section-eyebrow mb-2">Wat betekent dit?</p>
         <p className="font-body font-light text-primary text-base leading-relaxed">
@@ -411,8 +409,10 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </p>
       </div>
 
-      {/* 5. De Geldscan als de logische volgende vraag: waarom. */}
-      <div className="rounded-xl border border-[#E6E9E7] bg-card p-6 mb-8">
+      {/* 4. De Geldscan als de logische volgende vraag: waarom. Duidelijk de
+          meest prominente sectie van de pagina: eigen accentkleurige
+          achtergrond in plaats van het neutrale wit van de kaarten erboven. */}
+      <div className="rounded-xl border-[1.5px] border-accent/25 bg-green-light p-6 mb-8">
         <p className="font-display font-light text-primary text-xl sm:text-2xl mb-1 leading-snug">
           {brug.kop}
         </p>
@@ -422,9 +422,24 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         <p className="text-text-soft font-body font-light text-sm mb-3 leading-relaxed">
           {brug.uitleg}
         </p>
-        <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
+        <p className="text-text-soft font-body font-light text-sm mb-4 leading-relaxed">
           {brug.slot}
         </p>
+        <ul className="space-y-2 mb-6">
+          {[
+            "Persoonlijke analyse van jullie situatie",
+            "Inzicht in wat echt opvalt en waarom",
+            "Concrete aanknopingspunten om verder te kijken",
+          ].map((punt) => (
+            <li
+              key={punt}
+              className="flex items-start gap-2.5 font-body text-sm text-primary"
+            >
+              <span className="text-accent shrink-0">✓</span>
+              {punt}
+            </li>
+          ))}
+        </ul>
         <CtaLink
           doel="geldscan"
           href="/aanbod/intake?pakket=geldscan"
@@ -441,7 +456,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
         </p>
       </div>
 
-      {/* 6. Resultaat bewaren, duidelijk secundair. */}
+      {/* 5. Resultaat bewaren, duidelijk secundair. */}
       {!sent ? (
         <div className="rounded-xl border border-[#E6E9E7] p-6">
           <p className="font-body font-medium text-primary text-base mb-1">
@@ -478,7 +493,7 @@ export default function Stap6Resultaat({ data, onChange }: Props) {
             <button
               type="submit"
               disabled={sending || !data.email || !data.toestemmingOpslaan}
-              className="btn-primary w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+              className="btn-outline w-full justify-center disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {sending ? "Even geduld" : "Stuur mijn vergelijking →"}
             </button>

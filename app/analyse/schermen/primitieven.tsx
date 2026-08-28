@@ -60,7 +60,7 @@ export function Pill({
       onClick={onClick}
       disabled={disabled}
       aria-pressed={selected}
-      className={`min-h-[56px] px-5 py-3.5 rounded-2xl border-[1.5px] font-body font-medium text-base text-left transition-all duration-150 ${
+      className={`min-h-[56px] px-5 py-3.5 rounded-2xl border-[1.5px] font-body font-medium text-base text-left transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 ${
         volledigeBreedte ? "w-full" : ""
       } ${
         selected
@@ -147,11 +147,13 @@ export function ZelfInvullen({
   plausibelTot?: number;
 }) {
   return (
-    <div className="mt-1">
+    <div className="mt-3">
       <EuroInput
         value={waarde}
         onChange={onChange}
         plausibelTot={plausibelTot}
+        autoFocus
+        onEnter={onBevestig}
         className=""
       />
       <Verder onClick={onBevestig} disabled={parseEur(waarde) <= 0}>

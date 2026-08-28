@@ -38,7 +38,8 @@ export default function ProgressBar({
           <button
             type="button"
             onClick={onVorige}
-            className="shrink-0 font-body text-xs text-text-muted hover:text-primary transition-colors"
+            aria-label="Vorige vraag"
+            className="shrink-0 inline-flex min-h-[40px] items-center gap-1.5 rounded-full border border-[#C7CFCB] bg-card px-4 py-2.5 font-body text-sm font-medium text-primary shadow-sm transition-colors hover:border-accent hover:text-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2"
           >
             &larr; Vorige
           </button>

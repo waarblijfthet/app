@@ -22,6 +22,10 @@ interface EuroInputProps {
   };
   /** Korte regel onder het veld, bijvoorbeeld het omgerekende maandbedrag. */
   onderschrift?: string;
+  /** Direct focus geven zodra het veld verschijnt, bijvoorbeeld na "Ander bedrag invullen". */
+  autoFocus?: boolean;
+  /** Enter bevestigt, net als de knop ernaast. */
+  onEnter?: () => void;
 }
 
 export default function EuroInput({
@@ -36,6 +40,8 @@ export default function EuroInput({
   plausibelTot,
   periode,
   onderschrift,
+  autoFocus,
+  onEnter,
 }: EuroInputProps) {
   // Inline validatie, maar pas nadat iemand klaar is met typen of het veld
   // verlaat. Tijdens het typen is 17 nog even 1700000 onderweg.
@@ -130,7 +136,14 @@ export default function EuroInput({
           value={weergave}
           onBlur={() => setRustig(true)}
           onChange={handleChange}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              e.preventDefault();
+              onEnter?.();
+            }
+          }}
           placeholder={placeholder}
+          autoFocus={autoFocus}
           className={`w-full min-h-[52px] bg-white border rounded-[10px] pl-8 pr-4 py-3.5 text-base text-primary font-body placeholder:text-text-muted focus:outline-none transition-colors ${
             twijfel
               ? "border-[#E8A830] focus:border-[#E8A830]"

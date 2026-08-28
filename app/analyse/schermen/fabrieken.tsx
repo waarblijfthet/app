@@ -7,7 +7,6 @@ import {
   PillGrid,
   VraagKop,
   Insight,
-  TekstKnop,
   ZelfInvullen,
 } from "./primitieven";
 import type { BedragKeuze } from "./bedragen";
@@ -140,37 +139,41 @@ export function maakBedragScherm(cfg: {
     return (
       <div>
         <VraagKop vraag={cfg.vraag(data)} subtekst={cfg.subtekst?.(data)} />
-        {!zelfInvullen ? (
-          <>
-            <PillGrid>
-              {opties.map((opt) => (
-                <Pill
-                  key={opt.value}
-                  selected={gekozen === opt.value}
-                  disabled={overgang}
-                  onClick={() => kies(opt)}
-                >
-                  {opt.label}
-                </Pill>
-              ))}
-            </PillGrid>
-            <TekstKnop onClick={() => setZelfInvullen(true)}>
-              {cfg.customLabel ?? "Ik vul zelf een bedrag in"}
-            </TekstKnop>
-            {gekozen !== null && (
-              <Insight
-                jij={gekozen}
-                benchmark={benchmark}
-                extraZin={zachtereZin ?? extraZin}
-              />
-            )}
-          </>
-        ) : (
-          <ZelfInvullen
-            waarde={customWaarde}
-            onChange={setCustomWaarde}
-            onBevestig={bevestigCustom}
-            plausibelTot={cfg.plausibelTot}
+        <PillGrid>
+          {opties.map((opt) => (
+            <Pill
+              key={opt.value}
+              selected={gekozen === opt.value && !zelfInvullen}
+              disabled={overgang || zelfInvullen}
+              onClick={() => kies(opt)}
+            >
+              {opt.label}
+            </Pill>
+          ))}
+        </PillGrid>
+        <div className="mt-3">
+          <Pill
+            selected={zelfInvullen}
+            disabled={overgang}
+            onClick={() => setZelfInvullen(true)}
+            volledigeBreedte
+          >
+            {cfg.customLabel ?? "Ander bedrag invullen"}
+          </Pill>
+          {zelfInvullen && (
+            <ZelfInvullen
+              waarde={customWaarde}
+              onChange={setCustomWaarde}
+              onBevestig={bevestigCustom}
+              plausibelTot={cfg.plausibelTot}
+            />
+          )}
+        </div>
+        {gekozen !== null && !zelfInvullen && (
+          <Insight
+            jij={gekozen}
+            benchmark={benchmark}
+            extraZin={zachtereZin ?? extraZin}
           />
         )}
       </div>
@@ -279,31 +282,37 @@ export function maakBucketScherm(cfg: {
     return (
       <div>
         <VraagKop vraag={cfg.vraag(data)} subtekst={cfg.subtekst?.(data)} />
-        {!zelfInvullen ? (
-          <>
-            <PillGrid>
-              {buckets.map((b) => (
-                <Pill
-                  key={b.label}
-                  selected={gekozen === b.value}
-                  disabled={overgang}
-                  onClick={() => kiesBucket(b.value)}
-                >
-                  {b.label}
-                </Pill>
-              ))}
-            </PillGrid>
-            <TekstKnop onClick={() => setZelfInvullen(true)}>
-              {cfg.customLabel ?? "Zelf invullen"}
-            </TekstKnop>
-            {gekozen !== null && <Insight jij={gekozen} benchmark={benchmark} />}
-          </>
-        ) : (
-          <ZelfInvullen
-            waarde={customWaarde}
-            onChange={setCustomWaarde}
-            onBevestig={bevestigCustom}
-          />
+        <PillGrid>
+          {buckets.map((b) => (
+            <Pill
+              key={b.label}
+              selected={gekozen === b.value && !zelfInvullen}
+              disabled={overgang || zelfInvullen}
+              onClick={() => kiesBucket(b.value)}
+            >
+              {b.label}
+            </Pill>
+          ))}
+        </PillGrid>
+        <div className="mt-3">
+          <Pill
+            selected={zelfInvullen}
+            disabled={overgang}
+            onClick={() => setZelfInvullen(true)}
+            volledigeBreedte
+          >
+            {cfg.customLabel ?? "Ander bedrag invullen"}
+          </Pill>
+          {zelfInvullen && (
+            <ZelfInvullen
+              waarde={customWaarde}
+              onChange={setCustomWaarde}
+              onBevestig={bevestigCustom}
+            />
+          )}
+        </div>
+        {gekozen !== null && !zelfInvullen && (
+          <Insight jij={gekozen} benchmark={benchmark} />
         )}
       </div>
     );

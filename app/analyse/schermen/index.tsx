@@ -25,7 +25,7 @@ import {
   type Scherm,
   type SchermCtx,
 } from "./fabrieken";
-import { Pill, PillGrid, VraagKop, Verder, TekstKnop } from "./primitieven";
+import { Pill, PillGrid, VraagKop, Verder } from "./primitieven";
 import EuroInput from "../components/EuroInput";
 import { keuzesRond } from "./bedragen";
 
