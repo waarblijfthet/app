@@ -99,13 +99,18 @@ export default function Stap1Profiel({ data, onChange }: Props) {
 
   return (
     <div>
+      <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
+        Met wie vergelijk je jouw huishouden?
+      </h2>
+      <p className="text-text-soft font-body font-light text-base mb-8">
+        We vergelijken je met huishoudens die zoveel mogelijk op het jouwe
+        lijken.
+      </p>
+
       <fieldset className="mb-8">
-        <legend className="font-display font-light text-primary text-xl sm:text-2xl mb-1">
+        <legend className="font-body font-medium text-primary text-sm mb-3">
           Met wie woon je?
         </legend>
-        <p className="font-body text-sm text-text-muted mb-4">
-          Eén tik. Hiermee bepalen we met welk soort huishouden we je vergelijken.
-        </p>
         <div className="flex flex-wrap gap-3">
           <KaartBtn groot selected={samenstelling === "alleen"} onClick={kiesAlleen}>
             Alleen

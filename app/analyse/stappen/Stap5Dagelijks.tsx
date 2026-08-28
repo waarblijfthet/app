@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
 import {
   berekenTotaalInkomen,
@@ -34,14 +37,22 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
   const jaarlijksWaarde = berekenJaarlijks(data);
   const heeftKinderen = (data.kinderen ?? 0) > 0;
 
+  const [jaarlijksKeuze, setJaarlijksKeuze] = useState<"none" | "invullen" | "over">(
+    parseEur(data.jaarlijkseKosten) > 0 ? "invullen" : "none"
+  );
+
+  const boodschappenValtOp =
+    boodschappenWaarde > 0 &&
+    benches.boodschappen > 0 &&
+    boodschappenWaarde - benches.boodschappen > 100;
+
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
-        Waar gaat je geld dagelijks naartoe?
+        Waar gaat daarnaast ongeveer geld naartoe?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Laatste stap voordat je je vergelijking ziet. Schat je gemiddelde
-        maandbedragen, precies weten hoeft niet.
+        Je hoeft niets terug te zoeken. Een gemiddelde maand is genoeg.
       </p>
 
       <div className="mb-10">
@@ -50,7 +61,7 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
           id="boodschappen"
           value={data.boodschappen}
           onChange={(v) => onChange({ boodschappen: v })}
-          hint="Weet je het niet precies? Schat wat je gemiddeld uitgeeft."
+          hint="Supermarkt en dagelijkse boodschappen samen."
           plausibelTot={4000}
         />
         {boodschappenWaarde > 0 && (
@@ -59,6 +70,12 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
               jij={boodschappenWaarde}
               benchmark={benches.boodschappen}
             />
+            {boodschappenValtOp && (
+              <p className="font-body text-xs text-text-muted mt-1.5">
+                Dat zegt nog niet dat dit een probleem is. We kijken eerst naar
+                het totaal.
+              </p>
+            )}
           </div>
         )}
       </div>
@@ -68,11 +85,11 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         {!data.abonnementenExpanded ? (
           <>
             <EuroInput
-              label="Totale abonnementen per maand"
+              label="Abonnementen en memberships"
               id="abonnementenTotaal"
               value={data.abonnementenTotaal}
               onChange={(v) => onChange({ abonnementenTotaal: v })}
-              hint="Streaming, telefoon, sport, apps, alles bij elkaar."
+              hint="Streaming, telefoon, sport, apps en andere terugkerende kosten."
               plausibelTot={2000}
             />
             <button
@@ -170,11 +187,11 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
 
       <div className="mb-10">
         <EuroInput
-          label="Vrije bestedingen per maand"
+          label="Uitgaan, kleding en andere vrije uitgaven"
           id="vrijetijd"
           value={data.vrijetijd}
           onChange={(v) => onChange({ vrijetijd: v })}
-          hint="Denk aan horeca, kleding, cadeaus, uitjes en vakantie."
+          hint="Horeca, kleding, cadeaus, leuke dingen en uitgaven die niet iedere maand gelijk zijn."
           hint2="Een schatting is voldoende."
           plausibelTot={6000}
         />
@@ -185,25 +202,69 @@ export default function Stap5Dagelijks({ data, onChange }: Props) {
         )}
       </div>
 
+      {/* Grote, niet-maandelijkse kosten. Neutraal en optioneel: nooit de
+          suggestie dat de bezoeker iets verkeerd doet. */}
       <div className="mb-10">
-        <EuroInput
-          label="Jaarlijkse kosten die je makkelijk vergeet"
-          id="jaarlijkseKosten"
-          value={data.jaarlijkseKosten}
-          onChange={(v) => onChange({ jaarlijkseKosten: v })}
-          periode={{
-            waarde: data.jaarlijkseKostenPer,
-            onChange: (v) => onChange({ jaarlijkseKostenPer: v }),
-          }}
-          hint="Denk aan onderhoud, reparaties, tandarts, brillen, eigen risico en cadeaus."
-          hint2="Weet je het niet? Maak een ruwe schatting."
-          plausibelTot={60000}
-          onderschrift={
-            jaarlijksWaarde > 0
-              ? `Ik reken hiermee ${fmtEur(jaarlijksWaarde)} per maand.`
-              : undefined
-          }
-        />
+        <p className="font-body font-medium text-primary text-sm mb-2">
+          Zijn er grote kosten die niet elke maand terugkomen?
+        </p>
+        <p className="font-body text-xs text-text-muted mb-3">
+          Denk aan vakantie, onderhoud, reparaties, tandarts, cadeaus of
+          gemeentelijke belastingen.
+        </p>
+        {jaarlijksKeuze !== "invullen" ? (
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => setJaarlijksKeuze("invullen")}
+              className="min-h-[48px] px-4 py-3 rounded-xl border-[1.5px] border-[#D9DEDC] bg-card font-body font-medium text-sm text-text-soft hover:border-accent/60 transition-all"
+            >
+              Ja, ik schat het
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                setJaarlijksKeuze("over");
+                onChange({ jaarlijkseKosten: "" });
+              }}
+              className={`min-h-[48px] px-4 py-3 rounded-xl border-[1.5px] font-body font-medium text-sm transition-all ${
+                jaarlijksKeuze === "over"
+                  ? "bg-green-light border-accent text-primary"
+                  : "border-[#D9DEDC] bg-card text-text-soft hover:border-accent/60"
+              }`}
+            >
+              Geen idee, sla over
+            </button>
+          </div>
+        ) : (
+          <>
+            <EuroInput
+              id="jaarlijkseKosten"
+              value={data.jaarlijkseKosten}
+              onChange={(v) => onChange({ jaarlijkseKosten: v })}
+              periode={{
+                waarde: data.jaarlijkseKostenPer,
+                onChange: (v) => onChange({ jaarlijkseKostenPer: v }),
+              }}
+              hint="Een ruwe schatting is genoeg."
+              onderschrift={
+                jaarlijksWaarde > 0
+                  ? `Ik reken hiermee ${fmtEur(jaarlijksWaarde)} per maand.`
+                  : undefined
+              }
+            />
+            <button
+              type="button"
+              onClick={() => {
+                setJaarlijksKeuze("over");
+                onChange({ jaarlijkseKosten: "" });
+              }}
+              className="mt-2 text-xs font-body font-medium text-accent hover:text-primary transition-colors"
+            >
+              Toch overslaan
+            </button>
+          </>
+        )}
       </div>
 
       <Uitklap

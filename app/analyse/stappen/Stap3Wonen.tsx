@@ -18,18 +18,18 @@ export default function Stap3Wonen({ data, onChange }: Props) {
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
-        Wat kost je woning per maand?
+        Wat kost jullie woning elke maand?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Woonlasten zijn vaak het grootste verschil tussen vergelijkbare
-        huishoudens. Vul je normale maandbedragen in.
+        Voor veel huishoudens zit hier een groot verschil. Vul alleen de
+        bedragen in die je ongeveer weet.
       </p>
 
       <div className="mb-10">
         {/* Alleen het veld dat bij je woonsituatie hoort. */}
         <EuroInput
           label={
-            data.woonsituatie === "huur" ? "Huur per maand" : "Bruto hypotheek per maand"
+            data.woonsituatie === "huur" ? "Huur per maand" : "Wat maak je maandelijks over voor je hypotheek?"
           }
           id="huurHypotheek"
           value={data.huurHypotheek}
@@ -45,7 +45,7 @@ export default function Stap3Wonen({ data, onChange }: Props) {
 
       <div className="mb-10">
         <EuroInput
-          label="Energie per maand"
+          label="Gas, stroom en water samen"
           id="energie"
           value={data.energie}
           onChange={(v) => onChange({ energie: v })}
@@ -76,7 +76,7 @@ export default function Stap3Wonen({ data, onChange }: Props) {
         )}
       </div>
 
-      <Uitklap titel="+ Meer woonkosten toevoegen" titelOpen="Verberg extra woonkosten">
+      <Uitklap titel="+ Nog een woonkost toevoegen" titelOpen="Verberg extra woonkosten">
         <EuroInput
           label="Servicekosten of VvE"
           id="servicekosten"

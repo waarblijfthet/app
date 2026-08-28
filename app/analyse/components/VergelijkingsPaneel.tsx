@@ -77,21 +77,20 @@ function CompareBalk({
   );
 }
 
-function PaneelKop({ ondertitel }: { ondertitel: string }) {
-  return (
-    <div className="mb-4">
-      <p className="section-eyebrow">Voorlopige vergelijking</p>
-      <p className="font-body text-xs text-text-muted mt-1">{ondertitel}</p>
-    </div>
-  );
-}
+/** De één of twee posten die tot nu toe het meest boven vergelijkbaar liggen. */
+function samenvatContributie(
+  posten: Array<{ naam: string; jij: number; bench: number }>
+): string {
+  const boven = posten
+    .filter((p) => p.jij > 0 && p.jij - p.bench > 50)
+    .sort((a, b) => b.jij - b.bench - (a.jij - a.bench))
+    .slice(0, 2)
+    .map((p) => p.naam.toLowerCase());
 
-function PaneelVoet() {
-  return (
-    <p className="font-body text-xs text-text-muted mt-4 pt-4 border-t border-[#E6E9E7]">
-      Nog niet je volledige financiële beeld.
-    </p>
-  );
+  if (boven.length === 0) return "";
+  if (boven.length === 1)
+    return `Op dit moment valt vooral ${boven[0]} op in je vergelijking.`;
+  return `Op dit moment verklaren ${boven[0]} en ${boven[1]} het grootste deel van het verschil.`;
 }
 
 export default function VergelijkingsPaneel({ data, currentStep, embedded }: Props) {
@@ -128,7 +127,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
     const volwTekst = data.volwassenen === 1 ? "één volwassene" : "twee volwassenen";
     return (
       <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
-        <p className="section-eyebrow mb-4">Wie word jij vergeleken</p>
+        <p className="section-eyebrow mb-4">Jouw vergelijking</p>
         <div className="bg-green-light rounded-xl p-4">
           <p className="font-body text-sm text-primary font-medium">
             Een huishouden van {volwTekst} {kindTekst} in een{" "}
@@ -136,61 +135,48 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
           </p>
         </div>
         <p className="font-body text-xs text-text-muted mt-3">
-          Vanaf de volgende stap zie je hier je eerste vergelijking.
+          Vanaf nu bouwen we jouw persoonlijke vergelijking op.
         </p>
       </div>
     );
   }
 
-  // Stap 2, inkomen.
+  // Stap 2, inkomen. "Dit zien we nu al."
   if (currentStep === 2) {
     if (inkomen === 0) return null;
     const percentiel = getPercentiel(inkomen, data.kinderen ?? 0);
+    const hoog = percentiel.startsWith("top");
+    const midden = percentiel === "middengroep";
+    const inkomenZin = hoog
+      ? "Je inkomen ligt hoger dan bij veel vergelijkbare huishoudens."
+      : midden
+      ? "Je inkomen zit rond het midden van vergelijkbare huishoudens."
+      : "Je inkomen ligt wat lager dan bij veel vergelijkbare huishoudens.";
     return (
       <div className={`card-base border border-[#E6E9E7] ${stickyCls}`}>
-        <PaneelKop ondertitel="Op basis van wat je tot nu toe hebt ingevuld." />
-        <p className="font-display font-light text-primary text-4xl mb-1">
+        <p className="section-eyebrow mb-3">Dit zien we nu al</p>
+        <p className="text-text-muted font-body text-xs mb-1">
+          Geschat netto huishoudinkomen
+        </p>
+        <p className="font-display font-light text-primary text-4xl mb-3">
           {fmtEur(inkomen)}
+          <span className="text-base text-text-muted font-body"> p/m</span>
         </p>
-        <p className="text-text-muted font-body text-xs mb-4">
-          netto per maand binnen
-        </p>
-        <div className="bg-[#F0F3F1] rounded-xl p-3 mb-4">
-          <p className="font-body text-xs text-text-soft">
-            Je zit in de{" "}
+        <div className="bg-[#F0F3F1] rounded-xl p-3 mb-3">
+          <p className="font-body text-xs text-text-soft leading-relaxed">
+            {inkomenZin} Je zit in de{" "}
             <strong className="text-primary">{percentiel}</strong> van Nederlandse
             huishoudens.
           </p>
         </div>
-        <div className="h-3 bg-[#F0F3F1] rounded-full overflow-hidden">
-          <div
-            className="h-full bg-primary rounded-full"
-            style={{
-              width: `${Math.min(((inkomen - 1500) / (8000 - 1500)) * 100, 100)}%`,
-            }}
-          />
-        </div>
-        <div className="flex justify-between text-xs text-text-muted font-body mt-1">
-          <span>&euro;1.500</span>
-          <span>&euro;8.000+</span>
-        </div>
-        {benches.vrij_besteedbaar > 0 && (
-          <div className="bg-green-light rounded-xl p-3 mt-4">
-            <p className="font-body text-xs text-text-soft leading-relaxed">
-              Vergelijkbare huishoudens houden hiervan ongeveer{" "}
-              <strong className="text-primary">
-                {fmtEur(benches.vrij_besteedbaar)}
-              </strong>{" "}
-              per maand over. Straks zie je wat er bij jou overblijft.
-            </p>
-          </div>
-        )}
-        <PaneelVoet />
+        <p className="font-body text-xs text-text-muted">
+          Nu kijken we hoeveel daarvan al opgaat aan wonen.
+        </p>
       </div>
     );
   }
 
-  // Stap 3 tot 5, oplopend beeld van de uitgaven.
+  // Stap 3 tot 5, oplopend beeld: "Jouw foto tot nu toe".
   const wonen = berekenWonen(data);
   const vervoer = berekenVervoer(data);
   const verzekeringen = berekenVerzekeringen(data);
@@ -198,9 +184,21 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
   const abonnementen = berekenAbonnementen(data);
   const kinderen = berekenKinderen(data);
 
+  const samenvatting = samenvatContributie([
+    { naam: "Wonen", jij: wonen, bench: benches.wonen },
+    { naam: "Vervoer", jij: vervoer, bench: benches.vervoer },
+    { naam: "Verzekeringen", jij: verzekeringen, bench: benches.verzekeringen },
+    { naam: "Boodschappen", jij: boodschappen, bench: benches.boodschappen },
+    { naam: "Abonnementen", jij: abonnementen, bench: benches.abonnementen },
+    { naam: "Kinderkosten", jij: kinderen, bench: benches.kinderen },
+  ]);
+
   return (
     <div className={`card-base border border-[#E6E9E7] ${stickyCls} ${scrollCls}`}>
-      <PaneelKop ondertitel="Op basis van wat je tot nu toe hebt ingevuld." />
+      <p className="section-eyebrow mb-1">Jouw foto tot nu toe</p>
+      <p className="font-body text-xs text-text-muted mb-4">
+        Op basis van wat je tot nu toe invulde.
+      </p>
 
       {inkomen > 0 && (
         <div className="mb-4 pb-4 border-b border-[#E6E9E7]">
@@ -254,7 +252,7 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
         <div className="mt-4 pt-4 border-t border-[#E6E9E7]">
           <div className="flex justify-between items-baseline mb-1">
             <span className="font-body text-xs text-primary font-medium">
-              Tot nu toe over
+              Tot nu toe geschatte ruimte
             </span>
             <span
               className={`font-display font-light text-xl ${
@@ -283,7 +281,16 @@ export default function VergelijkingsPaneel({ data, currentStep, embedded }: Pro
         </div>
       )}
 
-      <PaneelVoet />
+      {samenvatting ? (
+        <p className="font-body text-xs text-text-soft mt-4 pt-4 border-t border-[#E6E9E7] leading-relaxed">
+          {samenvatting}
+        </p>
+      ) : (
+        <p className="font-body text-xs text-text-muted mt-4 pt-4 border-t border-[#E6E9E7]">
+          Nog even doorgaan. Daarna kunnen we je volledige vergelijking laten
+          zien.
+        </p>
+      )}
     </div>
   );
 }

@@ -1,75 +1,53 @@
 interface ProgressBarProps {
   currentStep: number;
+  /** Aantal invulstappen (het resultaat telt niet mee). */
   totalSteps: number;
-  /** Korte, positieve omschrijving van de huidige fase. */
-  faseTekst?: string;
+  /** Naam van de huidige stap, het ene heldere systeem. */
+  stapNaam?: string;
   onStepClick?: (step: number) => void;
 }
 
 /**
- * Rustige voortgang (28-aug-2026).
- *
- * Bij de start tonen we geen "Stap 1 van 6": dat communiceert vooral hoeveel
- * werk er nog komt. In plaats daarvan een rij stippen plus de tijdsindicatie.
- * Zodra iemand bezig is, verschijnt een dunne balk met een korte, positieve
- * omschrijving van de fase. De hoeveelheid stappen dringt zich nergens op.
+ * Eén helder voortgangssysteem (28-aug-2026): "Stap X van 5", de naam van de
+ * stap, en een dunne balk. Geen losse bolletjes naast een lijn naast wisselende
+ * teksten. De voortgang motiveert door te benoemen wat je nú doet.
  */
 export default function ProgressBar({
   currentStep,
   totalSteps,
-  faseTekst,
+  stapNaam,
   onStepClick,
 }: ProgressBarProps) {
   const pct = Math.round((currentStep / totalSteps) * 100);
-  const startModus = currentStep === 1;
+  const terug = currentStep > 1 && !!onStepClick;
 
   return (
     <div className="mb-8">
-      {/* Stippen: gevuld tot en met de huidige stap. Voltooide stappen zijn
-          klikbaar om terug te gaan. */}
-      <div className="flex items-center gap-1.5 mb-2">
-        {Array.from({ length: totalSteps }).map((_, i) => {
-          const stap = i + 1;
-          const gedaan = stap <= currentStep;
-          const klikbaar = stap < currentStep && !!onStepClick;
-          return (
-            <button
-              key={stap}
-              type="button"
-              disabled={!klikbaar}
-              onClick={() => klikbaar && onStepClick!(stap)}
-              aria-label={`Onderdeel ${stap} van ${totalSteps}${
-                klikbaar ? ", klik om terug te gaan" : ""
-              }`}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                klikbaar ? "cursor-pointer" : "cursor-default"
-              }`}
-              style={{
-                width: stap === currentStep ? "1.75rem" : "0.5rem",
-                backgroundColor: gedaan ? "#0B7A6E" : "#DCE3E0",
-              }}
-            />
-          );
-        })}
-      </div>
-
-      {startModus ? (
-        <p className="font-body text-xs text-text-muted">
-          &#8987; &plusmn; 2 minuten &middot; begin met een paar tikjes
+      <div className="flex items-baseline justify-between mb-1.5">
+        <p className="section-eyebrow">
+          Stap {currentStep} van {totalSteps}
         </p>
-      ) : (
-        <div>
-          <div className="h-1 bg-[#E6E9E7] rounded-full overflow-hidden mb-2">
-            <div
-              className="h-full rounded-full bg-accent transition-all duration-300"
-              style={{ width: `${pct}%` }}
-            />
-          </div>
-          {faseTekst && (
-            <p className="font-body text-sm font-medium text-primary">{faseTekst}</p>
-          )}
-        </div>
+        {terug && (
+          <button
+            type="button"
+            onClick={() => onStepClick!(currentStep - 1)}
+            className="font-body text-xs text-text-muted hover:text-primary transition-colors"
+          >
+            ← Vorige
+          </button>
+        )}
+      </div>
+      {stapNaam && (
+        <p className="font-display font-light text-primary text-lg mb-2">
+          {stapNaam}
+        </p>
       )}
+      <div className="h-1.5 bg-[#E6E9E7] rounded-full overflow-hidden">
+        <div
+          className="h-full rounded-full bg-accent transition-all duration-300"
+          style={{ width: `${Math.max(pct, 8)}%` }}
+        />
+      </div>
     </div>
   );
 }

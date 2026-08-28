@@ -101,7 +101,7 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   leaseBedrag: "",
   zakelijkEigenBijdrage: "",
   zorgPerPersoon: "",
-  zorgToggle: "per_persoon",
+  zorgToggle: "totaal",
   verzekeringOverig: "",
   boodschappen: "",
   abonnementenTotaal: "",

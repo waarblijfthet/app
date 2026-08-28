@@ -1,3 +1,6 @@
+"use client";
+
+import { useState } from "react";
 import { QuizData, parseEur, fmtEur } from "@/lib/quiz-types";
 import { aantalVolwassenenVan } from "@/lib/benchmarks";
 import EuroInput from "../components/EuroInput";
@@ -40,6 +43,12 @@ function Vinkje({
 export default function Stap2Inkomsten({ data, onChange }: Props) {
   const alleen = aantalVolwassenenVan(data) === 1;
 
+  // Hypotheekrenteaftrek is voor veel mensen een bedrag dat ze niet uit hun
+  // hoofd weten. Daarom compact en optioneel, nooit een blokkade.
+  const [aftrekKeuze, setAftrekKeuze] = useState<"none" | "invullen" | "over">(
+    parseEur(data.hypotheekRenteAftrek) > 0 ? "invullen" : "none"
+  );
+
   const s1 = parseEur(data.salaris1);
   const s2 = parseEur(data.salaris2);
   const extra1 =
@@ -53,16 +62,20 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
-        Wat komt er gemiddeld per maand binnen?
+        Wat komt er gemiddeld binnen?
       </h2>
       <p className="text-text-soft font-body font-light text-base mb-10">
-        Zo bepalen we hoeveel financiële ruimte logisch is voor jouw huishouden.
-        Netto, een realistische schatting is voldoende.
+        Een realistische schatting is genoeg. We kijken naar wat er netto
+        beschikbaar is voor {alleen ? "je huishouden" : "jullie huishouden"}.
       </p>
 
       <div className="mb-10">
         <EuroInput
-          label={alleen ? "Netto inkomen per maand" : "Jouw netto inkomen per maand"}
+          label={
+            alleen
+              ? "Wat komt er gemiddeld netto op je rekening binnen?"
+              : "Jouw netto inkomen per maand"
+          }
           id="salaris1"
           value={data.salaris1}
           onChange={(v) => onChange({ salaris1: v })}
@@ -71,12 +84,6 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
           hint2="Wisselend inkomen? Neem het gemiddelde van de afgelopen 6 tot 12 maanden."
           plausibelTot={25000}
         />
-        {data.auto === "zakelijk" && data.zakelijkBijtellingSalaris && s1 > 0 && (
-          <p className="font-body text-xs text-[#92600A] bg-[#FDF3E3] rounded-lg px-3 py-2 mt-2">
-            Vul het bedrag in dat na de bijtelling overblijft, anders pakt de
-            vergelijking te rooskleurig uit.
-          </p>
-        )}
       </div>
 
       {!alleen && (
@@ -93,7 +100,11 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         </div>
       )}
 
-      <Uitklap titel="+ Extra inkomen toevoegen" titelOpen="Verberg extra inkomen">
+      <Uitklap titel="+ Nog een inkomen toevoegen" titelOpen="Verberg extra inkomen">
+        <p className="font-body text-xs text-text-muted">
+          Bijvoorbeeld zzp-inkomen, alimentatie, een uitkering of een structureel
+          neveninkomen. Alleen invullen als het bij jullie speelt.
+        </p>
         <Vinkje
           checked={data.salaris1InclVakantiegeld}
           onChange={(v) => onChange({ salaris1InclVakantiegeld: v })}
@@ -120,11 +131,11 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
           </>
         )}
         <EuroInput
-          label="Andere vaste inkomsten"
+          label="Andere vaste inkomsten per maand"
           id="toeslagOverig"
           value={data.toeslagOverig}
           onChange={(v) => onChange({ toeslagOverig: v })}
-          hint="Bijvoorbeeld alimentatie of verhuur, per maand."
+          hint="Bijvoorbeeld alimentatie, een uitkering of verhuur."
         />
         {extraTotaal > 0 && (
           <p className="font-body text-xs text-accent font-medium">
@@ -133,20 +144,63 @@ export default function Stap2Inkomsten({ data, onChange }: Props) {
         )}
       </Uitklap>
 
-      {/* Alleen bij een koopwoning, want anders is er niets terug te krijgen. */}
+      {/* Hypotheekrenteaftrek: compact en optioneel, nooit een blokkade. */}
       {data.woonsituatie === "koop" && (
         <div className="mb-10">
-          <EuroInput
-            label="Krijg je jaarlijks hypotheekrente terug van de Belastingdienst?"
-            id="hypotheekRenteAftrek"
-            value={data.hypotheekRenteAftrek}
-            onChange={(v) => onChange({ hypotheekRenteAftrek: v })}
-            periode={{
-              waarde: data.hypotheekRenteAftrekPer,
-              onChange: (v) => onChange({ hypotheekRenteAftrekPer: v }),
-            }}
-            hint="Vul het bedrag in dat je ongeveer per jaar terugkrijgt. Weet je het niet? Laat leeg."
-          />
+          <p className="font-body font-medium text-primary text-sm mb-3">
+            Ontvang je jaarlijks hypotheekrenteaftrek?
+          </p>
+          {aftrekKeuze !== "invullen" ? (
+            <div className="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onClick={() => setAftrekKeuze("invullen")}
+                className="min-h-[48px] px-4 py-3 rounded-xl border-[1.5px] border-[#D9DEDC] bg-card font-body font-medium text-sm text-text-soft hover:border-accent/60 transition-all"
+              >
+                Ik weet ongeveer hoeveel
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setAftrekKeuze("over");
+                  onChange({ hypotheekRenteAftrek: "" });
+                }}
+                className={`min-h-[48px] px-4 py-3 rounded-xl border-[1.5px] font-body font-medium text-sm transition-all ${
+                  aftrekKeuze === "over"
+                    ? "bg-green-light border-accent text-primary"
+                    : "border-[#D9DEDC] bg-card text-text-soft hover:border-accent/60"
+                }`}
+              >
+                Overslaan
+              </button>
+            </div>
+          ) : (
+            <>
+              <EuroInput
+                id="hypotheekRenteAftrek"
+                value={data.hypotheekRenteAftrek}
+                onChange={(v) => onChange({ hypotheekRenteAftrek: v })}
+                periode={{
+                  waarde: data.hypotheekRenteAftrekPer,
+                  onChange: (v) => onChange({ hypotheekRenteAftrekPer: v }),
+                }}
+                hint="Ongeveer hoeveel je per jaar terugkrijgt van de Belastingdienst."
+              />
+              <button
+                type="button"
+                onClick={() => {
+                  setAftrekKeuze("over");
+                  onChange({ hypotheekRenteAftrek: "" });
+                }}
+                className="mt-2 text-xs font-body font-medium text-accent hover:text-primary transition-colors"
+              >
+                Toch overslaan
+              </button>
+            </>
+          )}
+          <p className="font-body text-xs text-text-muted mt-2">
+            Geen idee? Sla dit gerust over, je vergelijking werkt ook zonder.
+          </p>
         </div>
       )}
 

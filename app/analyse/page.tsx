@@ -47,12 +47,9 @@ export default function AnalysePage() {
             <h1 className="font-display font-light text-primary text-2xl sm:text-3xl md:text-4xl mb-2 leading-snug">
               Hoe doe jij het financieel?
             </h1>
-            <p className="text-text-soft font-body font-light text-base mb-1">
-              Vergelijk jouw huishouden met vergelijkbare huishoudens.
-            </p>
-            <p className="text-text-muted font-body text-sm">
-              Beantwoord een paar korte vragen. Je ziet onderweg al wat jouw
-              antwoorden betekenen.
+            <p className="text-text-soft font-body font-light text-base">
+              Met een paar realistische schattingen zie je hoe jouw huishouden
+              ervoor staat ten opzichte van vergelijkbare huishoudens.
             </p>
           </div>
         </section>

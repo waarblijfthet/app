@@ -22,37 +22,33 @@ import Stap4Vervoer from "./stappen/Stap4Vervoer";
 import Stap5Dagelijks from "./stappen/Stap5Dagelijks";
 import Stap6Resultaat from "./stappen/Stap6Resultaat";
 
-const TOTAL_STEPS = 6;
+const TOTAL_STEPS = 6; // intern: 5 invulstappen plus het resultaat
+const INVUL_STAPPEN = 5; // wat de bezoeker als "van 5" ziet
 
-/**
- * Knoptekst vertelt wat je hierna te zien krijgt, niet dat er een volgende
- * pagina komt (21-aug-2026).
- */
-const VOLGENDE_LABELS: Record<number, string> = {
-  1: "Naar je inkomen →",
-  2: "Naar je woonlasten →",
-  3: "Naar vervoer →",
-  4: "Naar je dagelijkse uitgaven →",
-  5: "Bekijk mijn vergelijking →",
+/** Naam van elke invulstap: het ene heldere voortgangssysteem. */
+const STAP_NAMEN: Record<number, string> = {
+  1: "Jouw huishouden",
+  2: "Wat komt er binnen?",
+  3: "Wat kost wonen?",
+  4: "Vervoer en vaste lasten",
+  5: "Wat geef je daarnaast uit?",
 };
 
-/** Korte, positieve omschrijving van de fase voor de rustige voortgangsbalk. */
-const FASE_TEKST: Record<number, string> = {
-  2: "We bepalen je uitgangssituatie",
-  3: "Nu je woonlasten, meestal het grootste verschil",
-  4: "Vervoer en verzekeringen",
-  5: "Bijna klaar, je dagelijkse uitgaven",
-  6: "Je vergelijking is klaar",
+/** Knoptekst vertelt waar je naartoe gaat, niet dat er een pagina komt. */
+const VOLGENDE_LABELS: Record<number, string> = {
+  1: "Verder, naar mijn inkomen →",
+  2: "Verder, naar mijn woonkosten →",
+  3: "Verder, naar vervoer en vaste lasten →",
+  4: "Verder, naar dagelijkse uitgaven →",
+  5: "Bekijk mijn volledige vergelijking →",
 };
 
 const BEWAAR_SLEUTEL = "wbh-analyse-antwoorden";
 
 /**
  * Startwaarden uit de URL, zodat de rekenaar op het salarisartikel de analyse
- * kan openen met de vier antwoorden al ingevuld (30-jul-2026). Alleen de vier
- * profielvelden plus het inkomen; alle bedragen vult de bezoeker zelf in.
- * Bewust tolerant: een onbekende of onzinnige waarde wordt genegeerd in plaats
- * van dat de flow stukloopt.
+ * kan openen met de vier antwoorden al ingevuld (30-jul-2026). Bewust tolerant:
+ * een onbekende of onzinnige waarde wordt genegeerd.
  */
 function startDataUitUrl(): Partial<QuizData> {
   if (typeof window === "undefined") return {};
@@ -74,18 +70,11 @@ function startDataUitUrl(): Partial<QuizData> {
   const woon = q.get("woonsituatie");
   if (woon === "huur" || woon === "koop") data.woonsituatie = woon;
 
-  // Eén inkomen invullen bij één volwassene, anders verdelen we niet: de
-  // bezoeker moet zelf twee salarissen opgeven, want een gok van 50/50 zou de
-  // uitkomst verkeerd beïnvloeden zonder dat hij dat ziet.
   const inkomen = Number(q.get("inkomen"));
   if (inkomen >= 500 && inkomen <= 20000 && data.volwassenen === 1) {
     data.salaris1 = String(inkomen);
   }
 
-  // Boodschappenbedrag (15-aug-2026). Wie via het boodschappenartikel of via
-  // /geldscan binnenkomt heeft dit getal al een keer ingevuld; opnieuw vragen
-  // is de goedkoopste manier om iemand te laten afhaken. Marge bewust ruim,
-  // buiten die marge negeren we het en vult de bezoeker het zelf in.
   const boodschappen = Number(q.get("boodschappen"));
   if (boodschappen >= 50 && boodschappen <= 3000) {
     data.boodschappen = String(boodschappen);
@@ -95,11 +84,9 @@ function startDataUitUrl(): Partial<QuizData> {
 }
 
 /**
- * Antwoorden bewaren binnen de browsersessie (21-aug-2026). Wie terugklikt,
- * verspringt of per ongeluk verversts mag nooit opnieuw beginnen. Bewust
- * sessionStorage en niet localStorage: het zijn financiële gegevens die niet
- * langer dan het bezoek op het apparaat hoeven te staan. Toestemmingen en
- * e-mailadres bewaren we niet.
+ * Antwoorden bewaren binnen de browsersessie (21-aug-2026). Bewust
+ * sessionStorage: het zijn financiële gegevens die niet langer dan het bezoek
+ * op het apparaat hoeven te staan. Toestemmingen en e-mailadres bewaren we niet.
  */
 function bewaardeData(): Partial<QuizData> {
   if (typeof window === "undefined") return {};
@@ -120,10 +107,9 @@ function bewaardeData(): Partial<QuizData> {
 export default function QuizClient() {
   const [step, setStep] = useState(1);
   const [data, setData] = useState<QuizData>(DEFAULT_QUIZ_DATA);
+  const [paneelOpen, setPaneelOpen] = useState(false); // mobiel, stap 3 tot 5
   const voorgevuldRef = useRef(false);
 
-  // Na mount, want window bestaat niet bij server-rendering. De URL wint van
-  // de bewaarde sessie: wie via een artikel binnenkomt bedoelt die waarden.
   useEffect(() => {
     if (voorgevuldRef.current) return;
     voorgevuldRef.current = true;
@@ -136,16 +122,12 @@ export default function QuizClient() {
   const maxStapRef = useRef<number>(1);
   const gestartRef = useRef<boolean>(false);
   const dataRef = useRef<QuizData>(data);
-  // Funnel-markers: welke fases deze sessie zag. Migratievrij bewaard in het
-  // antwoorden-jsonb, zodat de afhaakplek per fase meetbaar is (28-aug-2026).
   const eventsRef = useRef<string[]>([]);
 
   useEffect(() => {
     dataRef.current = data;
   });
 
-  // Bewaren bij elke wijziging, stil falend. Nooit de tool laten breken op een
-  // volle of geblokkeerde storage.
   useEffect(() => {
     if (!voorgevuldRef.current) return;
     try {
@@ -247,7 +229,6 @@ export default function QuizClient() {
     [ensureSessie]
   );
 
-  /** Markeer een fase eenmalig en bewaar het stil mee met de voortgang. */
   const markeer = useCallback(
     (event: string) => {
       if (eventsRef.current.includes(event)) return;
@@ -257,13 +238,11 @@ export default function QuizClient() {
     [logVoortgang, step]
   );
 
-  // Log bij elke stapwissel (en bij mount: pagina geladen = stap 1).
   useEffect(() => {
     logVoortgang(step, dataRef.current, gestartRef.current);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [step]);
 
-  // Pagina geladen, eenmalig.
   useEffect(() => {
     markeer("analysis_landing_view");
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -272,8 +251,6 @@ export default function QuizClient() {
   const update = useCallback(
     (changes: Partial<QuizData>) => {
       setData((prev) => ({ ...prev, ...changes }));
-      // Eerste echte interactie apart loggen, zodat "geladen maar niet
-      // begonnen" te onderscheiden is van "begon in te vullen".
       if (!gestartRef.current) {
         gestartRef.current = true;
         eventsRef.current = [...eventsRef.current, "analysis_started"];
@@ -285,14 +262,15 @@ export default function QuizClient() {
   );
 
   const next = () => {
-    // Fasemarkers op de logische overgangen.
     if (step === 1) markeer("analysis_household_completed");
     if (step === 2) markeer("analysis_income_completed");
     if (step === 5) markeer("analysis_result_viewed");
+    setPaneelOpen(false);
     setStep((s) => Math.min(s + 1, TOTAL_STEPS));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const prev = () => {
+    setPaneelOpen(false);
     setStep((s) => Math.max(s - 1, 1));
     if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -316,8 +294,6 @@ export default function QuizClient() {
   const overLive = inkomenLive - uitgavenLive;
   const toonLiveBalk = step >= 3 && step <= 5 && inkomenLive > 0 && uitgavenLive > 0;
 
-  // Eerste persoonlijke terugkoppeling (huishoudgroep bij stap 1, inkomen bij
-  // stap 2): eenmalig markeren zodra die daadwerkelijk in beeld komt.
   const eersteFeedbackZichtbaar =
     (step === 1 &&
       data.volwassenen !== null &&
@@ -331,24 +307,47 @@ export default function QuizClient() {
 
   return (
     <div className={"overflow-x-hidden" + (toonLiveBalk ? " pb-16 lg:pb-0" : "")}>
-      <ProgressBar
-        currentStep={step}
-        totalSteps={TOTAL_STEPS}
-        faseTekst={FASE_TEKST[step]}
-        onStepClick={(s) => {
-          if (s < step) setStep(s);
-        }}
-      />
+      {step < TOTAL_STEPS && (
+        <ProgressBar
+          currentStep={step}
+          totalSteps={INVUL_STAPPEN}
+          stapNaam={STAP_NAMEN[step]}
+          onStepClick={(s) => {
+            if (s < step) setStep(s);
+          }}
+        />
+      )}
 
       {step < TOTAL_STEPS ? (
         <div>
           {stepComponents[step]}
 
-          {/* De vergelijking direct onder de vraag: eerst zien wat je antwoord
-              doet, dan doorgaan. Eén kolom, geen zijbalk (28-aug-2026). */}
-          {showPanel && (
+          {/* De vergelijking direct onder de vraag. Stap 1 en 2 zijn kort en de
+              beloning zelf, dus altijd zichtbaar. Vanaf stap 3 kan de kaart lang
+              worden, dus op mobiel standaard ingeklapt achter een knop. */}
+          {showPanel && step <= 2 && (
             <div className="mt-8">
               <VergelijkingsPaneel data={data} currentStep={step} embedded />
+            </div>
+          )}
+          {showPanel && step >= 3 && (
+            <div className="mt-8">
+              <button
+                type="button"
+                onClick={() => setPaneelOpen((o) => !o)}
+                aria-expanded={paneelOpen}
+                className="sm:hidden w-full flex items-center justify-between px-4 py-3 rounded-xl border-[1.5px] border-[#D9DEDC] bg-card font-body font-medium text-sm text-text-soft"
+              >
+                <span>
+                  {paneelOpen ? "Verberg je vergelijking" : "Bekijk je vergelijking tot nu toe"}
+                </span>
+                <span className={"transition-transform " + (paneelOpen ? "rotate-180" : "")}>
+                  ⌄
+                </span>
+              </button>
+              <div className={paneelOpen ? "mt-3" : "hidden sm:block"}>
+                <VergelijkingsPaneel data={data} currentStep={step} embedded />
+              </div>
             </div>
           )}
 
@@ -372,6 +371,11 @@ export default function QuizClient() {
             )}
           </div>
 
+          {step === 1 && canGo && (
+            <p className="text-xs text-text-muted mt-3">
+              Je kunt bedragen straks gewoon schatten.
+            </p>
+          )}
           {!canGo && step === 1 && (
             <p className="text-xs text-text-muted mt-3">
               Maak eerst een keuze bij de vragen hierboven.
@@ -383,12 +387,13 @@ export default function QuizClient() {
             </p>
           )}
 
-          {/* Rustige geruststelling, pas onder de eerste vraag in plaats van
-              als muur ervoor (28-aug-2026). */}
+          {/* Rustige geruststelling, onder de eerste vraag in plaats van als muur
+              ervoor (28-aug-2026). */}
           {step === 1 && (
             <div className="mt-8 pt-5 border-t border-[#E6E9E7]">
               <p className="font-body text-xs text-text-muted mb-2">
-                Anoniem &middot; geen account &middot; geen bankgegevens.{" "}
+                Geen account &middot; geen bankkoppeling &middot; geen
+                verkoopgesprek.{" "}
                 <Link href="/privacy" style={{ color: "#0B7A6E", textDecoration: "none" }}>
                   Hoe ik met je gegevens omga →
                 </Link>
@@ -423,7 +428,7 @@ export default function QuizClient() {
               Binnen <strong className="text-primary">{fmtEur(inkomenLive)}</strong>
             </span>
             <span className="text-text-soft">
-              Tot nu toe over{" "}
+              Geschatte ruimte tot nu toe{" "}
               <strong className={overLive < 0 ? "text-[#C4603A]" : "text-[#0B7A6E]"}>
                 {overLive < 0 ? `-${fmtEur(Math.abs(overLive))}` : fmtEur(overLive)}
               </strong>
