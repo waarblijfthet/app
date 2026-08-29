@@ -8,7 +8,7 @@ import { rapportVoorSlug } from "@/lib/rapporten-data";
 
 const CASE_SLUG = "tweeverdieners-drie-kinderen";
 
-type IcoonNaam = "huis" | "portemonnee" | "cirkel" | "zoek" | "kar" | "lamp";
+type IcoonNaam = "huis" | "portemonnee" | "cirkel" | "zoek" | "kar" | "lamp" | "gezin";
 
 const STAPPEN: { nummer: string; icoon: IcoonNaam; titel: string; tekst: string }[] = [
   { nummer: "1", icoon: "huis", titel: "Jouw huishouden", tekst: "Wie woont er mee, en hoe woon je?" },
@@ -75,6 +75,14 @@ function Icoon({ naam, className = "h-6 w-6" }: { naam: IcoonNaam; className?: s
           <path d="M9.2 14.5c-.2-1-.8-1.8-1.5-2.5A5.5 5.5 0 1 1 17.5 8c0 1.4-.6 2.7-1.7 3.6-.7.7-1.2 1.5-1.4 2.4" />
           <path d="M9.5 18h5" />
           <path d="M10.5 21.5h3" />
+        </>
+      )}
+      {naam === "gezin" && (
+        <>
+          <circle cx="7" cy="7.5" r="2.6" />
+          <circle cx="16.5" cy="8.5" r="2" />
+          <path d="M2.5 19v-2.2A4.3 4.3 0 0 1 6.8 12.5h.4a4.3 4.3 0 0 1 4.3 4.3V19" />
+          <path d="M14.2 19v-2.6a3.4 3.4 0 0 1 3.4-3.4h.2a3.4 3.4 0 0 1 3.2 3.4V19" />
         </>
       )}
     </svg>
@@ -370,30 +378,110 @@ function ProductScene() {
   );
 }
 
+/** Situatiekenmerken van de case, letterlijk uit rapporten-data, nooit met de hand overgetypt. */
+function kenmerkenVanCase(kenmerken: string[]) {
+  const gekozen: { icoon: IcoonNaam; tekst: string }[] = [
+    { icoon: "gezin", tekst: kenmerken[1] },
+    { icoon: "huis", tekst: kenmerken[2] },
+    { icoon: "portemonnee", tekst: kenmerken[4] },
+  ];
+  return gekozen
+    .filter((item) => Boolean(item.tekst))
+    .map((item) => ({ ...item, tekst: item.tekst.charAt(0).toUpperCase() + item.tekst.slice(1) }));
+}
+
+/** Het bedrag komt uit de evaluatietekst in rapporten-data, zodat er geen tweede bron ontstaat. */
+function bedragUitEvaluatie(evaluatie: string) {
+  const gevonden = evaluatie.match(/€\s?[\d.]+/);
+  return gevonden ? gevonden[0] : null;
+}
+
 function CaseScene() {
   const rapport = rapportVoorSlug(CASE_SLUG);
   if (!rapport) return null;
 
+  const kenmerken = kenmerkenVanCase(rapport.kenmerken);
+  const bedrag = bedragUitEvaluatie(rapport.evaluatie);
+
   return (
-    <section className="overflow-hidden bg-card">
-      <div className="mx-auto grid max-w-[1280px] md:grid-cols-2">
-        <div className="flex min-h-[360px] flex-col justify-between bg-[#1C3A2A] px-6 py-10 text-white sm:px-10 sm:py-14 md:min-h-[560px] md:px-14 md:py-16">
-          <p className="font-body text-xs font-semibold uppercase tracking-[0.18em] text-white/60">Een echt rapport</p>
-          <div className="py-10 md:py-14">
-            <p className="font-display text-[38px] font-light leading-[1.08] sm:text-5xl md:text-[60px]">Ze dachten dat boodschappen het probleem waren.</p>
-            <p className="mt-3 font-display text-[38px] font-light leading-[1.08] text-[#B2CCC6] sm:text-5xl md:text-[60px]">Dat waren ze niet.</p>
+    <section className="bg-card py-16 sm:py-20 md:py-24 lg:py-28">
+      <div className="mx-auto max-w-[1220px] px-5 sm:px-8 md:px-10">
+        <div className="grid items-center gap-10 lg:grid-cols-[minmax(0,0.54fr)_minmax(0,0.46fr)] lg:gap-14 xl:gap-20">
+
+          {/* Links: het verhaal. */}
+          <div>
+            <p className="section-eyebrow">Uit het rapport</p>
+
+            <blockquote className="mt-6 font-display text-[30px] font-light leading-[1.12] text-primary sm:text-[38px] lg:text-[40px] xl:text-[44px]">
+              &ldquo;{rapport.vermoeden}&rdquo;
+            </blockquote>
+            <p className="mt-4 font-display text-[26px] font-light leading-[1.15] text-[#C4603A] sm:text-[32px] lg:text-[34px] xl:text-[38px]">
+              Dat bleek niet het probleem.
+            </p>
+
+            <ul className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-5 sm:gap-y-3">
+              {kenmerken.map((item, index) => (
+                <li key={item.tekst} className="flex items-center gap-2.5">
+                  {index > 0 && <span className="hidden h-4 w-px bg-[#E6E9E7] sm:mr-2.5 sm:block" aria-hidden="true" />}
+                  <span className="shrink-0 text-text-muted">
+                    <Icoon naam={item.icoon} className="h-[18px] w-[18px]" />
+                  </span>
+                  <span className="font-body text-[14px] leading-snug text-text-soft">{item.tekst}</span>
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-7 border-t border-[#E6E9E7] pt-7">
+              <p className="max-w-[520px] font-body text-[15px] font-light leading-relaxed text-text-soft sm:text-base">
+                {rapport.adviesInleiding}
+              </p>
+            </div>
+
+            <div className="mt-8 flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:gap-7">
+              <Link
+                href={`/rapporten/${rapport.slug}`}
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-[#1C3A2A] px-6 py-3.5 font-body text-[15px] font-medium text-white transition-colors duration-200 hover:bg-primary sm:w-auto"
+              >
+                Lees het volledige rapport <span aria-hidden="true">&rarr;</span>
+              </Link>
+              <Link
+                href="/rapporten"
+                className="font-body text-[15px] text-text-soft underline-offset-4 hover:text-primary hover:underline"
+              >
+                Alle voorbeelden bekijken <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
           </div>
-          <p className="max-w-[430px] font-body text-sm leading-relaxed text-white/75">{rapport.kenmerken.join(" · ")}</p>
-        </div>
-        <div className="flex flex-col justify-center px-6 py-12 sm:px-10 md:px-14 md:py-16">
-          <p className="section-eyebrow">Wat zij vooraf dachten</p>
-          <blockquote className="mt-4 max-w-[480px] font-display text-2xl font-light leading-snug text-text-soft sm:text-3xl">&ldquo;{rapport.vermoeden}&rdquo;</blockquote>
-          <div className="my-8 h-px w-full max-w-[460px] bg-[#E6E9E7]" />
-          <p className="max-w-[510px] font-body text-base font-light leading-relaxed text-text-soft">{rapport.adviesInleiding}</p>
-          <div className="mt-8 flex flex-col items-start gap-3">
-            <Link href={`/rapporten/${rapport.slug}`} className="font-body text-[15px] font-semibold text-accent hover:underline">Lees het volledige rapport <span aria-hidden="true">→</span></Link>
-            <Link href="/rapporten" className="font-body text-sm text-text-muted hover:text-primary hover:underline">Bekijk de andere echte rapporten <span aria-hidden="true">→</span></Link>
+
+          {/* Rechts: één rustig donker vlak met daarin één inzicht. */}
+          <div className="rounded-2xl bg-[#1C3A2A] px-5 py-10 sm:px-10 sm:py-14 lg:px-12 lg:py-16">
+            <div className="mx-auto max-w-[420px] rounded-xl bg-card px-6 py-9 text-center sm:px-9 sm:py-12">
+              <p className="section-eyebrow">Hun evaluatie, {rapport.doorlooptijd}</p>
+
+              {bedrag && (
+                <p className="mt-6 font-display text-[58px] font-light leading-none tracking-tight text-primary sm:text-[76px] lg:text-[84px]">
+                  {bedrag}
+                </p>
+              )}
+              <p className="mt-4 font-body text-sm text-text-muted">gemiddeld per maand</p>
+
+              <span className="mx-auto mt-7 block h-px w-10 bg-[#D9DEDC]" aria-hidden="true" />
+
+              <p className="mt-7 font-display text-[24px] font-light leading-snug text-primary sm:text-[28px]">
+                bleef er echt staan.
+              </p>
+
+              <div className="mt-9 flex items-start gap-3 border-t border-[#E6E9E7] pt-7 text-left">
+                <span className="mt-0.5 shrink-0 text-[#C4603A]">
+                  <Icoon naam="lamp" className="h-[18px] w-[18px]" />
+                </span>
+                <p className="font-body text-[14px] leading-relaxed text-text-soft">
+                  Niet door minder boodschappen, maar door eerst te reserveren voor de voorspelbare jaaruitgaven.
+                </p>
+              </div>
+            </div>
           </div>
+
         </div>
       </div>
     </section>
