@@ -70,7 +70,7 @@ export default function RapportPagina({ params }: { params: { slug: string } }) 
               </Link>
             </p>
 
-            <p className="section-eyebrow mb-3">{r.chip} · echt rapport</p>
+            <p className="section-eyebrow mb-3">{r.chip}</p>
             <h1 className="font-display font-light text-primary text-3xl sm:text-4xl mb-3 leading-tight">
               {r.verhaalTitel}
             </h1>

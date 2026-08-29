@@ -67,7 +67,7 @@ function CaseKaart({ r, nummer }: { r: Rapport; nummer: number }) {
       </div>
 
       <div className="relative">
-        <p className="section-eyebrow mb-2">{volgnummer} &middot; Echt rapport</p>
+        <p className="section-eyebrow mb-2">{volgnummer}</p>
         <p
           className="font-body font-semibold text-xs uppercase mb-4"
           style={{ color: "#0B7A6E", letterSpacing: "0.08em" }}
