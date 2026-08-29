@@ -2,7 +2,11 @@ import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 
-export default function Footer() {
+/**
+ * toonCta staat standaard aan. De homepage zet hem uit: daar staat de
+ * analyse al in de header, in de hero en in het slotblok er vlak boven.
+ */
+export default function Footer({ toonCta = true }: { toonCta?: boolean } = {}) {
   return (
     <footer className="bg-dark-block border-t border-white/10">
       <div className="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
@@ -61,24 +65,26 @@ export default function Footer() {
         </nav>
 
         {/* De enige commerciële CTA in de footer is de gratis analyse. */}
-        <CtaLink
-          doel="analyse"
-          href={ANALYSE_ROUTE}
-          locatie="footer"
-          className="inline-flex items-center gap-1.5 font-body"
-          style={{
-            backgroundColor: "#FFFFFF",
-            color: "#16211F",
-            borderRadius: "8px",
-            padding: "0.7rem 1.1rem",
-            fontSize: "0.85rem",
-            fontWeight: 600,
-            textDecoration: "none",
-          }}
-        >
-          {PRIMAIRE_CTA_LABEL}
-          <span aria-hidden="true">&rarr;</span>
-        </CtaLink>
+        {toonCta && (
+          <CtaLink
+            doel="analyse"
+            href={ANALYSE_ROUTE}
+            locatie="footer"
+            className="inline-flex items-center gap-1.5 font-body"
+            style={{
+              backgroundColor: "#FFFFFF",
+              color: "#16211F",
+              borderRadius: "8px",
+              padding: "0.7rem 1.1rem",
+              fontSize: "0.85rem",
+              fontWeight: 600,
+              textDecoration: "none",
+            }}
+          >
+            {PRIMAIRE_CTA_LABEL}
+            <span aria-hidden="true">&rarr;</span>
+          </CtaLink>
+        )}
 
         {/* Rechts: copyright */}
         <p

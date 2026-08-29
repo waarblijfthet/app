@@ -44,7 +44,7 @@ export default function HomePage() {
       <main>
         <HomeConcept />
       </main>
-      <Footer />
+      <Footer toonCta={false} />
     </>
   );
 }

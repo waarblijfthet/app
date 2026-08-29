@@ -18,6 +18,10 @@ const C = {
   dark: "#202020",
   wine: "#7B2D3E",
   wineHover: "#642433",
+  // Dezelfde groen als .btn-primary in globals.css, zodat de knop in de
+  // header niet als een tweede knopstijl naast de rest van de site staat.
+  green: "#0B7A6E",
+  greenHover: "#0A6A5F",
   gold: "#C9952A",
   border: "#E8E5E1",
 };
@@ -132,7 +136,7 @@ export default function Header() {
               locatie="header"
               className="inline-flex items-center gap-1.5 transition-colors duration-150"
               style={{
-                backgroundColor: C.wine,
+                backgroundColor: C.green,
                 color: C.white,
                 height: "44px",
                 padding: "0 20px",
@@ -140,8 +144,8 @@ export default function Header() {
                 fontSize: "15px",
                 fontWeight: 600,
               }}
-              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = C.wineHover)}
-              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = C.wine)}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = C.greenHover)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = C.green)}
             >
               {ctaConfig.label}
               <span aria-hidden="true">&rarr;</span>
@@ -205,7 +209,7 @@ export default function Header() {
               onClick={() => setMobileOpen(false)}
               className="flex items-center justify-center gap-1.5 w-full my-4"
               style={{
-                backgroundColor: C.wine,
+                backgroundColor: C.green,
                 color: C.white,
                 minHeight: "52px",
                 borderRadius: "8px",
