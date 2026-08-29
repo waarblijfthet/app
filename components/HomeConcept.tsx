@@ -5,38 +5,87 @@ import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
 import { HOMEPAGE_CTA_LABEL, analyseHref } from "@/lib/cta";
 import { rapportVoorSlug } from "@/lib/rapporten-data";
-import Resultaat2Verschil from "@/app/analyse/stappen/resultaat/Resultaat2Verschil";
-import type { AfwijkingEntry } from "@/app/analyse/stappen/resultaat/types";
 
 const CASE_SLUG = "tweeverdieners-drie-kinderen";
 
-const previewAfwijkingen: AfwijkingEntry[] = [
-  { label: "Boodschappen", jij: 1200, bench: 680, diff: 520 },
-  { label: "Wonen", jij: 1860, bench: 1350, diff: 510 },
+type IcoonNaam = "huis" | "portemonnee" | "cirkel" | "zoek" | "kar" | "lamp";
+
+const STAPPEN: { nummer: string; icoon: IcoonNaam; titel: string; tekst: string }[] = [
+  { nummer: "1", icoon: "huis", titel: "Jouw huishouden", tekst: "Wie woont er mee, en hoe woon je?" },
+  { nummer: "2", icoon: "portemonnee", titel: "Netto inkomen", tekst: "Wat komt er iedere maand binnen?" },
+  { nummer: "3", icoon: "cirkel", titel: "Financiële ruimte", tekst: "Wat blijft er over na je vaste lasten en uitgaven?" },
+  { nummer: "4", icoon: "zoek", titel: "Waar valt het op?", tekst: "Je ziet welke uitgaven het meest afwijken van vergelijkbare huishoudens." },
 ];
+
+/** Voorbeeldbedragen die de analyse kan opleveren, geen cijfers van een echte klant. */
+const VOORBEELD_AFWIJKINGEN: { label: string; icoon: IcoonNaam; jij: number; bench: number; diff: number }[] = [
+  { label: "Boodschappen", icoon: "kar", jij: 1200, bench: 680, diff: 520 },
+  { label: "Wonen", icoon: "huis", jij: 1860, bench: 1350, diff: 510 },
+];
+
+function euro(bedrag: number) {
+  return "€ " + String(bedrag).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+}
+
+function Icoon({ naam, className = "h-6 w-6" }: { naam: IcoonNaam; className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      {naam === "huis" && (
+        <>
+          <path d="m3 9.5 9-7 9 7V20a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+          <path d="M9.5 22v-8h5v8" />
+        </>
+      )}
+      {naam === "portemonnee" && (
+        <>
+          <path d="M19 7.5V5.5A1.5 1.5 0 0 0 17.5 4H5.5A2.5 2.5 0 0 0 3 6.5v11A2.5 2.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 18.5 8H5.5" />
+          <path d="M16.5 14h.01" />
+        </>
+      )}
+      {naam === "cirkel" && (
+        <>
+          <path d="M21.2 15.9A10 10 0 1 1 8 2.8" />
+          <path d="M22 12A10 10 0 0 0 12 2v10z" />
+        </>
+      )}
+      {naam === "zoek" && (
+        <>
+          <circle cx="11" cy="11" r="7.5" />
+          <path d="m21 21-4.3-4.3" />
+        </>
+      )}
+      {naam === "kar" && (
+        <>
+          <circle cx="9" cy="20" r="1.3" />
+          <circle cx="18" cy="20" r="1.3" />
+          <path d="M2.5 3h2.3l2.5 11.2a1.7 1.7 0 0 0 1.7 1.3h9a1.7 1.7 0 0 0 1.7-1.3L21.5 7H5.6" />
+        </>
+      )}
+      {naam === "lamp" && (
+        <>
+          <path d="M9.2 14.5c-.2-1-.8-1.8-1.5-2.5A5.5 5.5 0 1 1 17.5 8c0 1.4-.6 2.7-1.7 3.6-.7.7-1.2 1.5-1.4 2.4" />
+          <path d="M9.5 18h5" />
+          <path d="M10.5 21.5h3" />
+        </>
+      )}
+    </svg>
+  );
+}
 
 function AnalyseCta({ locatie, className = "" }: { locatie: string; className?: string }) {
   return (
     <CtaLink doel="analyse" href={analyseHref()} locatie={locatie} className={`btn-primary ${className}`.trim()}>
       {HOMEPAGE_CTA_LABEL} <span aria-hidden="true">→</span>
     </CtaLink>
-  );
-}
-
-/** Ook dit is de bestaande resultaten-UI, niet een losse marketingmock-up. */
-function VerschilPreview() {
-  return (
-    <div className="pointer-events-none [&_button]:hidden [&_h2]:text-2xl [&_.card-base]:rounded-lg [&_.card-base]:p-5 md:[&_h2]:text-3xl">
-      <Resultaat2Verschil
-        opvallend={previewAfwijkingen}
-        zinVoor={(afwijking) =>
-          afwijking.label === "Boodschappen"
-            ? "Dit is een voorbeeld van een verschil dat de analyse zichtbaar maakt."
-            : "De vergelijking is een signaal om verder te kijken, geen oordeel."
-        }
-        onVerder={() => undefined}
-      />
-    </div>
   );
 }
 
@@ -136,48 +185,185 @@ function EditorialScene() {
   );
 }
 
+function JourneyStapTekst({ titel, tekst, className = "" }: { titel: string; tekst: string; className?: string }) {
+  return (
+    <div className={className}>
+      <p className="font-body text-base font-semibold leading-snug text-primary">{titel}</p>
+      <p className="mt-2 font-body text-[15px] leading-relaxed text-text-soft">{tekst}</p>
+    </div>
+  );
+}
+
+function Pijl() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4" aria-hidden="true">
+      <path d="M5 12h13" />
+      <path d="m13 6.5 5.5 5.5L13 17.5" />
+    </svg>
+  );
+}
+
+/** Horizontale journey vanaf lg: vier markers op een doorlopende lijn. */
+function JourneyBreed() {
+  return (
+    <div className="hidden xl:block" aria-hidden="true">
+      <div className="grid grid-cols-4">
+        {STAPPEN.map((stap) => (
+          <div key={stap.nummer} className="flex justify-center">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-primary font-body text-xs font-semibold text-white">
+              {stap.nummer}
+            </span>
+          </div>
+        ))}
+      </div>
+
+      <div className="relative mt-7">
+        <div className="absolute left-[12.5%] right-[12.5%] top-1/2 h-px -translate-y-1/2 bg-[#D9DEDC]" />
+        {[25, 50, 75].map((positie) => (
+          <span
+            key={positie}
+            className="absolute top-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-1.5 text-text-muted"
+            style={{ left: positie + "%" }}
+          >
+            <Pijl />
+          </span>
+        ))}
+        <div className="relative grid grid-cols-4">
+          {STAPPEN.map((stap) => (
+            <div key={stap.nummer} className="flex justify-center">
+              <span className="flex h-[72px] w-[72px] items-center justify-center rounded-full bg-green-light text-primary ring-[7px] ring-background">
+                <Icoon naam={stap.icoon} className="h-7 w-7" />
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-7 grid grid-cols-4 gap-3">
+        {STAPPEN.map((stap) => (
+          <JourneyStapTekst key={stap.nummer} titel={stap.titel} tekst={stap.tekst} className="text-center" />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** Verticale journey op mobiel en tablet, met een doorlopende lijn tussen de markers. */
+function JourneySmal() {
+  return (
+    <ol className="xl:hidden">
+      {STAPPEN.map((stap, index) => (
+        <li key={stap.nummer} className="relative flex gap-5 pb-8 last:pb-0">
+          {index < STAPPEN.length - 1 && (
+            <span className="absolute bottom-0 left-[27px] top-[58px] w-px bg-[#D9DEDC]" aria-hidden="true" />
+          )}
+          <div className="relative shrink-0">
+            <span className="flex h-[54px] w-[54px] items-center justify-center rounded-full bg-green-light text-primary">
+              <Icoon naam={stap.icoon} className="h-6 w-6" />
+            </span>
+            <span className="absolute -left-1.5 -top-1.5 flex h-[26px] w-[26px] items-center justify-center rounded-full bg-primary font-body text-[11px] font-semibold text-white ring-[3px] ring-background">
+              {stap.nummer}
+            </span>
+          </div>
+          <JourneyStapTekst titel={stap.titel} tekst={stap.tekst} className="pt-1.5" />
+        </li>
+      ))}
+    </ol>
+  );
+}
+
+/** Beide regels op dezelfde schaal, met het bedrag altijd als tekst ernaast. */
+function AfwijkingRegel({ label, bedrag, breedte, accent }: { label: string; bedrag: number; breedte: number; accent: boolean }) {
+  return (
+    <div>
+      <p className="font-body text-xs text-text-muted">{label}</p>
+      <div className="mt-1.5 flex items-center gap-4">
+        <div className="h-1.5 flex-1 rounded-full bg-[#E6E9E7]">
+          <div
+            className={accent ? "h-1.5 rounded-full bg-[#C4603A]" : "h-1.5 rounded-full bg-text-muted"}
+            style={{ width: breedte + "%" }}
+          />
+        </div>
+        <p className="w-[72px] shrink-0 text-right font-body text-sm font-medium text-primary">{euro(bedrag)}</p>
+      </div>
+    </div>
+  );
+}
+
+function AfwijkingKaart({ item }: { item: (typeof VOORBEELD_AFWIJKINGEN)[number] }) {
+  const hoogste = Math.max(item.jij, item.bench);
+  return (
+    <div className="rounded-xl border border-[#E2E6E4] bg-card p-5 sm:p-6">
+      <div className="flex items-start justify-between gap-3 sm:gap-4">
+        <div className="flex min-w-0 items-center gap-2.5 sm:gap-3.5">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#C4603A]/10 sm:h-11 sm:w-11 text-[#C4603A]">
+            <Icoon naam={item.icoon} className="h-5 w-5" />
+          </span>
+          <p className="font-body text-base font-semibold text-primary sm:text-[17px]">{item.label}</p>
+        </div>
+        <div className="shrink-0 text-right">
+          <p className="whitespace-nowrap font-body text-[22px] font-semibold leading-none text-[#C4603A] sm:text-[25px]">+ {euro(item.diff)}</p>
+          <p className="mt-2 font-body text-[11px] text-text-muted sm:text-xs">hoger per maand</p>
+        </div>
+      </div>
+
+      <div className="mt-5 space-y-3.5">
+        <AfwijkingRegel label="Jullie" bedrag={item.jij} breedte={(item.jij / hoogste) * 100} accent />
+        <AfwijkingRegel label="Vergelijkbare huishoudens" bedrag={item.bench} breedte={(item.bench / hoogste) * 100} accent={false} />
+      </div>
+    </div>
+  );
+}
+
 function ProductScene() {
   return (
     <section className="bg-background py-20 sm:py-24 md:py-28 lg:py-32">
-      <div className="mx-auto max-w-[1200px] px-5 sm:px-8 md:px-10">
-        <div className="text-center">
-          <p className="section-eyebrow">Zo ziet het eruit</p>
-          <h2 className="mt-3 font-display text-[32px] font-light leading-tight text-primary sm:text-4xl md:text-5xl">Van je inkomen naar je financiële ruimte.</h2>
-        </div>
+      <div className="mx-auto max-w-[1180px] px-5 sm:px-8 md:px-10">
+        <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.6fr)] lg:gap-0">
+          <div className="lg:pr-10 xl:pr-14">
+            <h2 className="max-w-[600px] font-display text-[36px] font-light leading-[1.04] text-primary sm:text-[44px] lg:text-[50px] xl:text-[54px]">
+              Van je inkomen naar je <span className="text-text-soft">financiële ruimte.</span>
+            </h2>
 
-        <div className="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-[minmax(0,1fr)_minmax(420px,0.86fr)] lg:items-center lg:gap-16">
-          <ol className="grid border-y border-[#D9DEDC] sm:grid-cols-2 lg:grid-cols-4 lg:border-y-0" aria-label="Stappen in de analyse">
-            <li className="border-b border-[#D9DEDC] px-1 py-6 sm:border-r sm:pr-7 lg:border-b-0 lg:px-6 lg:first:pl-0">
-              <span className="font-display text-3xl text-text-muted">01</span>
-              <p className="mt-8 font-body text-sm font-semibold text-primary">Jouw huishouden</p>
-              <p className="mt-2 font-body text-sm leading-relaxed text-text-soft">Wie woont er mee, en hoe woon je?</p>
-            </li>
-            <li className="border-b border-[#D9DEDC] px-1 py-6 sm:border-b sm:pl-7 lg:border-b-0 lg:border-r lg:px-6">
-              <span className="font-display text-3xl text-text-muted">02</span>
-              <p className="mt-8 font-body text-sm font-semibold text-primary">Netto inkomen</p>
-              <p className="mt-2 font-display text-2xl font-light text-primary">€ 7.880 <span className="font-body text-xs text-text-muted">p/m</span></p>
-            </li>
-            <li className="border-b border-[#D9DEDC] px-1 py-6 sm:border-b-0 sm:border-r sm:pr-7 lg:px-6">
-              <span className="font-display text-3xl text-text-muted">03</span>
-              <p className="mt-8 font-body text-sm font-semibold text-primary">Financiële ruimte</p>
-              <p className="mt-2 font-display text-2xl font-light text-primary">€ 1.863 <span className="font-body text-xs text-text-muted">p/m</span></p>
-            </li>
-            <li className="px-1 py-6 sm:pl-7 lg:pl-6 lg:pr-0">
-              <span className="font-display text-3xl text-text-muted">04</span>
-              <p className="mt-8 font-body text-sm font-semibold text-primary">Waar valt het op?</p>
-              <p className="mt-2 font-body text-sm leading-relaxed text-text-soft">Je ziet welke posten het meest afwijken.</p>
-            </li>
-          </ol>
+            <p className="section-eyebrow mt-9 lg:mt-12">Zo ziet het eruit</p>
 
-          <div className="border-t border-[#D9DEDC] pt-7 lg:border-l lg:border-t-0 lg:pl-10 lg:pt-0">
-            <p className="mb-5 font-body text-xs italic text-text-muted">Voorbeeld van de vergelijking, geen echte klant.</p>
-            <VerschilPreview />
+            <div className="mt-7 lg:mt-9">
+              <JourneySmal />
+              <JourneyBreed />
+            </div>
+
+            <p className="mx-auto mt-10 max-w-[460px] text-center font-display text-[19px] font-light leading-[1.5] text-text-soft lg:mt-14 lg:text-[21px]">
+              Je ziet niet alleen wat je uitgeeft, maar hoe jouw situatie zich verhoudt tot vergelijkbare huishoudens.
+            </p>
           </div>
-        </div>
 
-        <div className="mx-auto mt-10 max-w-[530px] text-center md:mt-14">
-          <p className="font-body text-base font-light leading-relaxed text-text-soft sm:text-lg">Je ziet niet alleen wat je uitgeeft, maar hoe jouw situatie zich verhoudt tot vergelijkbare huishoudens.</p>
-          <div className="mt-7"><AnalyseCta locatie="product-experience" /></div>
+          <div className="border-t border-[#D9DEDC] pt-10 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0 xl:pl-16">
+            <p className="section-eyebrow">Hier zit het grootste verschil.</p>
+            <h3 className="mt-4 font-display text-[26px] font-light leading-[1.12] text-primary sm:text-[30px] lg:text-[28px] xl:text-[31px]">
+              Dit zijn de uitgaven die het meest afwijken van vergelijkbare huishoudens.
+            </h3>
+            <p className="mt-3 font-body text-xs italic text-text-muted">Voorbeeld van de vergelijking, geen echte klant.</p>
+
+            <div className="mt-7 space-y-4">
+              {VOORBEELD_AFWIJKINGEN.map((item) => (
+                <AfwijkingKaart key={item.label} item={item} />
+              ))}
+            </div>
+
+            <div className="mt-5 flex items-start gap-3 rounded-xl bg-[#C4603A]/[0.07] px-4 py-3.5">
+              <span className="mt-px shrink-0 text-[#C4603A]">
+                <Icoon naam="lamp" className="h-[18px] w-[18px]" />
+              </span>
+              <p className="font-body text-sm leading-relaxed text-text-soft">
+                De vergelijking is een signaal om verder te kijken, geen oordeel.
+              </p>
+            </div>
+
+            <p className="mt-8 text-center font-body text-[15px] leading-relaxed text-text-soft">
+              Je ziet nu waar jullie het meest afwijken.
+              <span className="block">Maar deze cijfers vertellen nog niet waarom.</span>
+            </p>
+          </div>
         </div>
       </div>
     </section>
