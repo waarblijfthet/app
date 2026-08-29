@@ -15,9 +15,9 @@ const previewAfwijkingen: AfwijkingEntry[] = [
   { label: "Wonen", jij: 1860, bench: 1350, diff: 510 },
 ];
 
-function AnalyseCta({ locatie }: { locatie: string }) {
+function AnalyseCta({ locatie, className = "" }: { locatie: string; className?: string }) {
   return (
-    <CtaLink doel="analyse" href={analyseHref()} locatie={locatie} className="btn-primary">
+    <CtaLink doel="analyse" href={analyseHref()} locatie={locatie} className={`btn-primary ${className}`.trim()}>
       {HOMEPAGE_CTA_LABEL} <span aria-hidden="true">→</span>
     </CtaLink>
   );
@@ -42,75 +42,63 @@ function VerschilPreview() {
 
 function HeroScene() {
   return (
-    <section className="overflow-hidden bg-background py-12 sm:py-16 md:py-20 lg:py-24">
-      <div className="mx-auto grid max-w-[1220px] items-center gap-11 px-5 sm:px-8 md:px-10 lg:grid-cols-[minmax(0,0.42fr)_minmax(0,0.58fr)] lg:gap-12">
+    <section className="overflow-hidden bg-background py-12 sm:py-16 md:py-20 xl:py-16">
+      <div className="mx-auto grid max-w-[1220px] items-center gap-10 px-5 sm:px-8 md:px-10 xl:grid-cols-[minmax(0,0.44fr)_minmax(0,0.56fr)] xl:gap-10">
         <div className="animate-hero-1">
           <p className="section-eyebrow mb-5 text-primary">Persoonlijke geldanalyse</p>
-          <h1 className="max-w-[480px] font-display text-[42px] font-light leading-[1.06] text-primary sm:text-[52px] md:text-[58px] lg:text-[62px]">
-            <span className="block">Je verdient goed.</span>
-            <span className="block">Toch houd je</span>
-            <span className="block text-text-soft">minder over</span>
-            <span className="block">dan je verwacht.</span>
+          <h1 className="max-w-[540px] font-display text-[38px] font-light leading-[0.98] text-primary sm:text-[56px] xl:text-[56px]">
+            <span className="block whitespace-nowrap">Je verdient goed.</span>
+            <span className="block whitespace-nowrap">Toch houd je</span>
+            <span className="block whitespace-nowrap text-text-soft">minder over</span>
+            <span className="block whitespace-nowrap">dan je verwacht.</span>
           </h1>
           <p className="mt-7 max-w-[440px] font-body text-base font-light leading-relaxed text-text-soft sm:text-lg">
             Ontdek gratis hoeveel financiële ruimte er in jouw situatie zit en waar jouw geld anders heen gaat dan je denkt.
           </p>
-          <div className="mt-8"><AnalyseCta locatie="hero" /></div>
+          <div className="mt-8"><AnalyseCta locatie="hero" className="sm:min-w-[272px]" /></div>
           <p className="mt-4 font-body text-sm text-text-soft">Een snelle vergelijking van jouw financiële situatie.</p>
         </div>
 
-        <div className="animate-hero-3 mx-auto w-full max-w-[720px] lg:translate-x-4">
-          <div className="overflow-hidden rounded-xl border border-[#E6E9E7] bg-card shadow-card sm:rounded-2xl">
-            <div className="hidden w-[152px] border-r border-[#E6E9E7] px-5 py-7 md:float-left md:block md:min-h-[480px]">
-              <p className="font-display text-lg font-semibold leading-none text-primary">waar<br />blijft het?</p>
-              <p className="mt-11 rounded-lg bg-green-light px-3 py-2.5 font-body text-xs font-semibold text-primary">Overzicht</p>
-              <p className="mt-4 px-3 font-body text-xs text-text-muted">Inkomen</p>
-              <p className="mt-4 px-3 font-body text-xs text-text-muted">Uitgaven</p>
-              <p className="mt-4 px-3 font-body text-xs text-text-muted">Vergelijking</p>
-              <p className="mt-4 px-3 font-body text-xs text-text-muted">Rapport</p>
+        <div className="animate-hero-3 mx-auto w-full max-w-[680px] xl:translate-x-2">
+          <div className="rounded-xl border border-[#E6E9E7] bg-card px-5 py-6 shadow-card sm:px-7 sm:py-8 md:rounded-2xl md:px-9 md:py-9">
+            <div className="flex flex-col gap-1 border-b border-[#E6E9E7] pb-5 md:flex-row md:items-end md:justify-between">
+              <p className="font-body text-lg font-semibold text-primary">Jouw overzicht</p>
+              <div className="font-body text-xs text-text-muted md:text-right">
+                <p>Gezinssituatie</p>
+                <p className="mt-0.5 font-medium text-primary">2 volwassenen · 2 kinderen · koopwoning</p>
+              </div>
             </div>
-            <div className="p-5 sm:p-7 md:ml-[152px] md:p-7">
-              <div className="flex items-start justify-between gap-4 md:items-center">
-                <p className="font-body text-lg font-semibold text-primary">Jouw overzicht</p>
-                <div className="hidden text-right md:block">
-                  <p className="font-body text-[10px] text-text-muted">Gezinssituatie</p>
-                  <p className="font-body text-xs font-medium text-primary">2 volwassenen, 2 kinderen, koopwoning</p>
-                </div>
-                <span className="rounded-full bg-accent-bg px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-accent md:hidden">Voorbeeld</span>
-              </div>
 
-              <div className="mt-5 grid grid-cols-2 rounded-xl border border-[#E6E9E7] md:mt-7 md:grid-cols-3">
-                <div className="border-r border-[#E6E9E7] p-4 sm:p-5">
-                  <p className="section-eyebrow text-[9px]">Netto inkomen</p>
-                  <p className="mt-3 font-display text-[31px] font-light leading-none text-primary sm:text-[36px]">€ 5.400</p>
-                  <p className="mt-2 font-body text-xs text-text-muted">per maand</p>
-                </div>
-                <div className="p-4 sm:p-5 md:border-r">
-                  <p className="section-eyebrow text-[9px]">Geschatte financiële ruimte</p>
-                  <p className="mt-3 font-display text-[31px] font-light leading-none text-primary sm:text-[36px]">€ 2.163</p>
-                  <p className="mt-2 font-body text-xs text-text-muted">per maand</p>
-                </div>
-                <div className="col-span-2 border-t border-[#E6E9E7] p-4 sm:p-5 md:col-span-1 md:border-t-0">
-                  <p className="section-eyebrow text-[9px]">Waar valt het op?</p>
-                  <div className="mt-3 flex items-center justify-between gap-3 font-body text-xs text-primary"><span>Boodschappen</span><strong>+ € 1.000</strong></div>
-                  <div className="mt-3 hidden items-center justify-between gap-3 font-body text-xs text-primary md:flex"><span>Wonen</span><strong>+ € 510</strong></div>
-                </div>
+            <div className="grid grid-cols-2 border-b border-[#E6E9E7]">
+              <div className="border-r border-[#E6E9E7] py-6 pr-4 sm:py-7 sm:pr-6">
+                <p className="section-eyebrow text-[9px]">Netto inkomen</p>
+                <p className="mt-3 whitespace-nowrap font-display text-[33px] font-light leading-none text-primary sm:text-[40px] md:text-[44px]">€5.400</p>
+                <p className="mt-2 font-body text-xs text-text-muted">per maand</p>
               </div>
+              <div className="py-6 pl-4 sm:py-7 sm:pl-6">
+                <p className="section-eyebrow text-[9px] leading-tight">Geschatte ruimte</p>
+                <p className="mt-3 whitespace-nowrap font-display text-[33px] font-light leading-none text-primary sm:text-[40px] md:text-[44px]">€2.163</p>
+                <p className="mt-2 font-body text-xs text-text-muted">per maand</p>
+              </div>
+            </div>
 
-              <div className="mt-6 hidden rounded-xl border border-[#E6E9E7] p-6 md:block">
-                <p className="font-body text-sm font-semibold text-primary">Jouw financiële ruimte vergeleken</p>
-                <div className="mt-5 hidden grid-cols-[1fr_auto_1fr] items-end gap-3 font-body text-[10px] text-text-muted md:grid">
-                  <span>Minder ruimte</span><span>Gemiddeld</span><span className="text-right">Meer ruimte</span>
-                </div>
-                <div className="relative mt-3 h-2 rounded-full bg-[#E6E9E7]">
-                  <div className="absolute left-[12%] top-0 h-2 w-[31%] rounded-full bg-[#668278]" />
-                  <span className="absolute left-[49%] top-[-5px] h-3 w-3 rounded-full border-2 border-card bg-accent" aria-label="Jouw positie" />
-                </div>
-                <div className="mt-3 flex items-center justify-between font-body text-xs"><span className="font-semibold text-primary">Jij</span><span className="text-text-muted">Gemiddeld</span></div>
+            <div className="py-6 sm:py-7">
+              <p className="section-eyebrow text-[9px]">Waar valt het op?</p>
+              <div className="mt-4 flex items-center justify-between gap-4 border-b border-[#E6E9E7] pb-3 font-body text-sm text-primary"><span>Boodschappen</span><strong className="whitespace-nowrap">+€1.000</strong></div>
+              <div className="flex items-center justify-between gap-4 pt-3 font-body text-sm text-primary"><span>Wonen</span><strong className="whitespace-nowrap">+€510</strong></div>
+            </div>
+
+            <div className="hidden border-t border-[#E6E9E7] pt-6 md:block">
+              <p className="font-body text-sm font-semibold text-primary">Jouw financiële ruimte vergeleken</p>
+              <div className="mt-4 flex justify-between font-body text-[10px] text-text-muted"><span>Minder ruimte</span><span>Meer ruimte</span></div>
+              <div className="relative mt-2 h-1.5 bg-[#E6E9E7]">
+                <div className="absolute left-[12%] top-0 h-1.5 w-[35%] bg-[#668278]" />
+                <span className="absolute left-[49%] top-[-5px] h-3 w-3 rounded-full border-2 border-card bg-accent" aria-label="Jouw positie" />
               </div>
+              <p className="mt-3 text-center font-body text-xs font-semibold text-primary">Jij</p>
             </div>
           </div>
-          <p className="mt-3 text-center font-body text-xs italic text-text-muted lg:text-left">Voorbeelduitkomst van de analyse, geen echte klant.</p>
+          <p className="mt-3 text-center font-body text-xs italic text-text-muted xl:text-left">Voorbeelduitkomst van de analyse, geen echte klant.</p>
         </div>
       </div>
     </section>
