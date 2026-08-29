@@ -4,13 +4,17 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
-import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
+import { analyseHref } from "@/lib/cta";
+import { RAPPORTEN, AANTAL_ZONDER_LEK, rapportVoorSlug } from "@/lib/rapporten-data";
 
 /* ─────────────────────────────────────────────────────────────────────────
-   Kleuren en typografie, exact volgens het herontwerp. Eén vaste sans-serif
-   voor de hele homepage (Plus Jakarta Sans, al aanwezig als --font-plus-jakarta
-   in app/layout.tsx). Headings krijgen die font-family expliciet inline mee,
-   want globals.css zet h1-h6 standaard op Fraunces voor de rest van de site.
+   Homepage-herontwerp, vijf hoofdstukken volgens de nieuwe informatiearchitectuur:
+   1. Hero, 2. Wat komt er echt uit, 3. Wat krijg jij + hoe werkt het,
+   4. Waarom vertrouwen, 5. Slot-CTA. Eén primaire route overal: /analyse.
+
+   Kleuren en typografie ongewijzigd: het wijnrood/goud-palet is bewust en
+   geldt alleen voor deze pagina (CLAUDE.md 6.8). Eén vaste sans-serif voor
+   de hele pagina (Plus Jakarta Sans), geen Fraunces hier.
    ────────────────────────────────────────────────────────────────────────── */
 
 const C = {
@@ -20,12 +24,13 @@ const C = {
   white: "#FFFFFF",
   dark: "#202020",
   muted: "#666666",
+  line: "#E7E2D8",
 };
 
 const FONT = "var(--font-plus-jakarta), system-ui, sans-serif";
 const heading: React.CSSProperties = { fontFamily: FONT, fontWeight: 700, margin: 0 };
 
-/* ─── Motion helpers (alleen voor de subtiele CountUp in de hero) ───────── */
+/* ─── Motion helpers (subtiele CountUp in de hero-preview) ──────────────── */
 
 function useReducedMotion() {
   const [reduce, setReduce] = useState(false);
@@ -61,13 +66,10 @@ function useInView<T extends Element>(ref: React.RefObject<T | null>) {
   return seen;
 }
 
-function CountUp({ to, prefix = "", suffix = "", duration = 1000 }: { to: number; prefix?: string; suffix?: string; duration?: number }) {
+function CountUp({ to, prefix = "", suffix = "", duration = 900 }: { to: number; prefix?: string; suffix?: string; duration?: number }) {
   const ref = useRef<HTMLSpanElement | null>(null);
   const seen = useInView(ref);
   const reduce = useReducedMotion();
-  // Staat het getal al in beeld bij het laden, toon dan meteen de eindwaarde.
-  // Alleen animeren wat bij het laden buiten beeld stond (zie eerdere sessie:
-  // anders las de bezoeker "€ 0" in de hero).
   const [val, setVal] = useState(to);
   const [animeer, setAnimeer] = useState<boolean | null>(null);
   useEffect(() => {
@@ -117,18 +119,15 @@ function Section({
   bg: string;
   children: React.ReactNode;
   className?: string;
-  padding?: "standaard" | "hero" | "ruim";
+  padding?: "standaard" | "hero" | "ruim" | "krap";
 }) {
-  /* Eén vaste verticale spacing-hiërarchie voor alle secties: standaard
-     (mobiel 56px, desktop 96px), hero (extra lucht op mobiel zodat hij niet
-     tegen de header aandrukt) en ruim (128px desktop, 72px mobiel) voor de
-     ene merksectie die aantoonbaar meer gewicht verdient. Afwijkingen
-     alleen hier, niet per sectie los tweaken. */
   const paddingClass =
     padding === "hero"
       ? "pt-[48px] pb-[64px] md:pt-[96px] md:pb-[96px]"
       : padding === "ruim"
       ? "pt-[72px] pb-[72px] md:pt-[128px] md:pb-[128px]"
+      : padding === "krap"
+      ? "pt-[48px] pb-[48px] md:pt-[72px] md:pb-[72px]"
       : "pt-[56px] pb-[56px] md:pt-[96px] md:pb-[96px]";
   return (
     <section id={id} className={paddingClass + " " + className} style={{ backgroundColor: bg }}>
@@ -141,11 +140,11 @@ function Wrap({ children, className = "" }: { children: React.ReactNode; classNa
   return <div className={"max-w-[1200px] mx-auto px-5 md:px-10 " + className}>{children}</div>;
 }
 
-function Eyebrow({ children, color = C.muted }: { children: React.ReactNode; color?: string }) {
+function Eyebrow({ children, color = C.muted, className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
     <p
-      className="text-[15px] mb-3 md:mb-4"
-      style={{ fontFamily: FONT, fontWeight: 600, letterSpacing: "0.14em", textTransform: "uppercase", color }}
+      className={"text-[13px] md:text-[14px] mb-3 md:mb-4 " + className}
+      style={{ fontFamily: FONT, fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color }}
     >
       {children}
     </p>
@@ -155,7 +154,7 @@ function Eyebrow({ children, color = C.muted }: { children: React.ReactNode; col
 function H1({ children, color }: { children: React.ReactNode; color: string }) {
   return (
     <h1
-      className="text-[40px] leading-[1.08] md:text-[64px] md:leading-[1.05] max-w-[780px]"
+      className="text-[36px] leading-[1.1] md:text-[60px] md:leading-[1.06] max-w-[760px]"
       style={{ ...heading, color }}
     >
       {children}
@@ -166,7 +165,7 @@ function H1({ children, color }: { children: React.ReactNode; color: string }) {
 function H2({ children, color = C.dark, className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
     <h2
-      className={"text-[32px] leading-[1.1] md:text-[42px] md:leading-[1.1] max-w-[700px] " + className}
+      className={"text-[30px] leading-[1.12] md:text-[40px] md:leading-[1.1] max-w-[700px] " + className}
       style={{ ...heading, color }}
     >
       {children}
@@ -176,7 +175,7 @@ function H2({ children, color = C.dark, className = "" }: { children: React.Reac
 
 function H3({ children, color = C.dark, className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
-    <h3 className={"text-[22px] leading-[1.2] md:text-[24px] md:leading-[1.2] " + className} style={{ ...heading, color }}>
+    <h3 className={"text-[20px] leading-[1.25] md:text-[22px] md:leading-[1.25] " + className} style={{ ...heading, color }}>
       {children}
     </h3>
   );
@@ -185,7 +184,7 @@ function H3({ children, color = C.dark, className = "" }: { children: React.Reac
 function Body({ children, color = C.muted, className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
     <p
-      className={"text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] max-w-[680px] " + className}
+      className={"text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] max-w-[640px] " + className}
       style={{ fontFamily: FONT, fontWeight: 400, color }}
     >
       {children}
@@ -195,17 +194,18 @@ function Body({ children, color = C.muted, className = "" }: { children: React.R
 
 function Small({ children, color = C.muted, className = "" }: { children: React.ReactNode; color?: string; className?: string }) {
   return (
-    <p className={"text-[15px] leading-[1.45] " + className} style={{ fontFamily: FONT, fontWeight: 500, color }}>
+    <p className={"text-[14px] leading-[1.45] " + className} style={{ fontFamily: FONT, fontWeight: 500, color }}>
       {children}
     </p>
   );
 }
 
-function BigNumber({ children, color = C.dark }: { children: React.ReactNode; color?: string }) {
+/* Eén vaste tekst onder elke primaire CTA op de hele pagina. */
+function FrictionText({ color = "rgba(255,255,255,0.65)" }: { color?: string }) {
   return (
-    <span className="text-[36px] md:text-[48px] block" style={{ ...heading, color, lineHeight: 1 }}>
-      {children}
-    </span>
+    <p className="text-[14px]" style={{ fontFamily: FONT, color }}>
+      Gratis &middot; Geen account &middot; Geen verkoopgesprek
+    </p>
   );
 }
 
@@ -213,17 +213,22 @@ function CTAButton({
   href,
   locatie,
   children,
+  full = false,
 }: {
   href: string;
   locatie: string;
   children: React.ReactNode;
+  full?: boolean;
 }) {
   return (
     <CtaLink
       doel="analyse"
       href={href}
       locatie={locatie}
-      className="inline-flex items-center justify-center gap-2 w-full sm:w-auto transition-transform duration-150 hover:scale-[1.02]"
+      className={
+        "inline-flex items-center justify-center gap-2 transition-transform duration-150 hover:scale-[1.02] " +
+        (full ? "w-full sm:w-auto" : "")
+      }
       style={{
         backgroundColor: C.gold,
         color: C.dark,
@@ -242,106 +247,173 @@ function CTAButton({
   );
 }
 
-/* De ene toegestane secundaire CTA op de hele pagina. */
-function SecondaryLink({ href, children }: { href: string; children: React.ReactNode }) {
+/* De secundaire linkstijl, altijd zichtbaar minder dominant dan CTAButton. */
+function SecondaryLink({ href, children, color = C.wine }: { href: string; children: React.ReactNode; color?: string }) {
   return (
-    <a
+    <Link
       href={href}
       className="inline-flex items-center gap-1.5 hover:underline"
-      style={{ fontFamily: FONT, fontWeight: 600, fontSize: "15px", color: "inherit" }}
+      style={{ fontFamily: FONT, fontWeight: 600, fontSize: "15px", color }}
     >
       {children}
       <span aria-hidden="true">&rarr;</span>
-    </a>
+    </Link>
   );
 }
 
-/* ─── Databronnen: echte rapporten en testimonials, ongewijzigd overgenomen ─
-   uit de bestaande homepage-copy en lib/rapporten-data.ts. Geen nieuwe
-   klantcases, geen aangepaste bedragen. ────────────────────────────────── */
+/* Badge die een illustratie meer dan eens markeert als illustratie, nooit
+   als echte klant. Verplicht op elke UI-preview op deze pagina. */
+function VoorbeeldBadge() {
+  return (
+    <span
+      className="inline-block px-2.5 py-1 rounded-full text-[11px]"
+      style={{
+        fontFamily: FONT,
+        fontWeight: 700,
+        letterSpacing: "0.08em",
+        textTransform: "uppercase",
+        color: C.wine,
+        backgroundColor: "rgba(123,45,62,0.08)",
+      }}
+    >
+      Voorbeeld
+    </span>
+  );
+}
 
-const bewijsRapporten = [
-  {
-    titel: "Ze dachten dat boodschappen het probleem waren.",
-    conclusie: "Dat waren ze niet.",
-    toelichting: "Het zat in jaarlijkse kosten en losse uitgaven, niet in de boodschappen.",
-    slug: "tweeverdieners-drie-kinderen",
-  },
-  {
-    titel: "Haar vermogen bleef achter.",
-    conclusie: "De oorzaak zat ergens anders.",
-    toelichting: "Na haar scheiding was de financiële structuur nooit opnieuw opgebouwd.",
-    slug: "alleenstaande-ouder-twee-kinderen",
-  },
-  {
-    titel: "Ze zochten een geldlek.",
-    conclusie: "Er was eigenlijk niets mis.",
-    toelichting: "Hun uitgaven pasten niet bij hun spaardoel. Een lek was het niet.",
-    slug: "stel-zonder-kinderen",
-  },
-];
+/* ─── Databronnen: drie echte rapporten uit lib/rapporten-data.ts ───────────
+   Werkregel 2 (CLAUDE.md): elk getal en citaat komt uit rapportVoorSlug(),
+   nooit met de hand overgetypt. Gekozen situaties per opdracht: gezin met
+   kinderen, stel met goed inkomen, zzp met wisselend inkomen. ────────────── */
 
-const testimonials = [
-  {
-    quote:
-      "Elk jaar werden we overvallen door verjaardagen, de vakantie en december. We hebben die kosten opgesplitst in kleine potjes per maand. Nu staat de kerstpot er gewoon.",
-    naam: "Daan & Roos",
-    detail: "Twee kinderen, koopwoning",
-  },
-  {
-    quote:
-      "De BSO-kosten liepen de pan uit. In plaats van alleen bezuinigen dachten we samen na over flexibeler werken. Twee dagen minder opvang scheelt fors, en het is rustiger thuis.",
-    naam: "Karim & Noor",
-    detail: "Twee jonge kinderen",
-  },
-];
+const CASE_SLUGS = ["tweeverdieners-drie-kinderen", "stel-zonder-kinderen", "zzp-wisselend-inkomen"] as const;
 
-const watDoeIk = [
+const casesVoorHomepage = CASE_SLUGS.map((slug) => rapportVoorSlug(slug)).filter(
+  (r): r is NonNullable<typeof r> => Boolean(r)
+);
+
+const ditZieJe = [
   {
     nr: "01",
-    titel: "Waar wijk je af?",
+    titel: "Hoeveel ruimte je waarschijnlijk hebt",
     tekst:
-      "Je vult je woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven in. Ik leg die posten naast huishoudens met een vergelijkbaar inkomen en dezelfde gezinsgrootte.",
+      "Niet alleen wat er binnenkomt, maar hoeveel er onderaan de streep realistisch beschikbaar kan zijn.",
   },
   {
     nr: "02",
-    titel: "Wat is eigenlijk normaal?",
+    titel: "Waar jouw situatie opvalt",
     tekst:
-      "Je ziet niet alleen je eigen cijfers, maar ook wat gebruikelijk is bij een vergelijkbare situatie. Zo weet je of 820 euro boodschappen veel is, of gewoon normaal.",
+      "Zie welke onderdelen hoger, lager of anders zijn dan bij vergelijkbare huishoudens.",
   },
   {
     nr: "03",
-    titel: "Wat betekent dat voor jou?",
+    titel: "Wat dat betekent",
     tekst:
-      "Het resultaat staat direct op je scherm: hoeveel ruimte er in jouw situatie te verwachten is, hoeveel er werkelijk overblijft, en welke twee of drie posten eruit springen.",
+      "Soms is er iets om te veranderen. Soms blijkt dat er financieel weinig geks aan de hand is.",
   },
 ];
 
-const doelgroepen = [
-  { label: "Goed inkomen, weinig over", href: "/analyse", sub: null },
-  { label: "Gezin met kinderen", href: "/rapporten/tweeverdieners-drie-kinderen", sub: null },
+const zoWerktHet = [
   {
-    label: "Alleenstaand of alleen verantwoordelijk",
-    href: "/rapporten/alleenstaande-ouder-twee-kinderen",
-    sub: "Een goed inkomen voelt anders als één inkomen het hele huishouden draagt.",
+    nr: "01",
+    titel: "Vul je situatie in",
+    tekst: "Inkomen, huishouden en belangrijkste uitgaven.",
   },
   {
-    label: "ZZP / wisselend inkomen",
-    href: "/rapporten/zzp-wisselend-inkomen",
-    sub: "De ene maand €3.800, de volgende €7.400. Wat houd je structureel werkelijk over?",
+    nr: "02",
+    titel: "Bekijk je vergelijking",
+    tekst: "Je ziet direct waar jouw situatie opvalt.",
+  },
+  {
+    nr: "03",
+    titel: "Kies zelf wat je ermee doet",
+    tekst: "Wil je alleen inzicht, of wil je daarna verder kijken?",
   },
 ];
+
+const vertrouwenStatements = [
+  "Ik verkoop geen hypotheek, belegging of verzekering.",
+  "Ik ontvang geen commissie als jij iets afsluit.",
+  "Als er niets geks uitkomt, dan zeg ik dat ook.",
+];
+
+/* ─── Hoofdstuk-onderdelen ───────────────────────────────────────────────── */
+
+function CaseCard({ nr, rapport }: { nr: string; rapport: NonNullable<ReturnType<typeof rapportVoorSlug>> }) {
+  return (
+    <div>
+      <span
+        className="block text-[28px] md:text-[32px] mb-4"
+        style={{ ...heading, color: C.gold, lineHeight: 1 }}
+      >
+        {nr}
+      </span>
+      <Small color={C.wine} className="uppercase tracking-[0.1em] mb-4">
+        {rapport.chip}
+      </Small>
+      <Small color={C.muted} className="uppercase tracking-[0.1em] mb-2">
+        Ze dachten
+      </Small>
+      <p className="text-[17px] leading-[1.5] mb-5" style={{ fontFamily: FONT, fontWeight: 500, color: C.dark, fontStyle: "italic" }}>
+        &ldquo;{rapport.vermoeden}&rdquo;
+      </p>
+      <div className="flex items-center gap-2 mb-5" style={{ color: C.gold }} aria-hidden="true">
+        <span style={{ height: "1px", width: "24px", backgroundColor: C.line, display: "inline-block" }} />
+        <span className="text-[13px]" style={{ fontFamily: FONT, fontWeight: 700 }}>
+          &darr;
+        </span>
+      </div>
+      <Small color={C.muted} className="uppercase tracking-[0.1em] mb-2">
+        Wat eruit kwam
+      </Small>
+      <p className="text-[22px] md:text-[24px] leading-[1.25] mb-3" style={{ ...heading, color: C.wine }}>
+        {rapport.uitkomstKop}
+      </p>
+      <Body className="mb-0">{rapport.uitkomst}</Body>
+    </div>
+  );
+}
+
+function TimelineGroep({
+  label,
+  items,
+}: {
+  label: string;
+  items: { nr: string; titel: string; tekst: string; extra?: React.ReactNode }[];
+}) {
+  return (
+    <div>
+      <Small color={C.wine} className="uppercase tracking-[0.14em] mb-5">
+        {label}
+      </Small>
+      <div className="space-y-6">
+        {items.map((item) => (
+          <div key={item.nr} className="flex gap-4 items-start">
+            <div
+              className="shrink-0 flex items-center justify-center rounded-full"
+              style={{ width: "36px", height: "36px", backgroundColor: C.gold }}
+            >
+              <span style={{ ...heading, fontSize: "14px", color: C.dark }}>{item.nr}</span>
+            </div>
+            <div className="pt-1">
+              <H3 className="mb-1.5">{item.titel}</H3>
+              <Body className="mb-0">{item.tekst}</Body>
+              {item.extra}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 export default function HomeConcept() {
   return (
     <div style={{ fontFamily: FONT }} className="overflow-x-hidden">
-      {/* ── 1. HERO, probleem + gratis analyse ──────────────────────────── */}
-      {/* Geen extra top-padding meer nodig: de header is nu sticky en opaque,
-          niet fixed/overlappend, dus de hero begint gewoon na de header in
-          de normale document-flow. Zelfde verticale ritme als de rest. */}
+      {/* ── 1. HERO ──────────────────────────────────────────────────────── */}
       <Section bg={C.wine} padding="hero">
         <Wrap>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
             <div>
               <Eyebrow color="rgba(255,255,255,0.75)">Persoonlijke geldanalyse</Eyebrow>
               <H1 color={C.white}>Je verdient goed. Toch houd je minder over dan je verwacht.</H1>
@@ -349,24 +421,15 @@ export default function HomeConcept() {
                 className="mt-6 mb-8 text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] max-w-[520px]"
                 style={{ fontFamily: FONT, fontWeight: 400, color: "rgba(255,255,255,0.88)" }}
               >
-                Waar blijft het analyseert jouw volledige huishouden en laat zien waar je afwijkt, wat normaal is
-                en wat er werkelijk speelt.
+                Ontdek gratis hoeveel financiële ruimte er in jouw situatie zit en waar jouw geld anders heen gaat
+                dan je denkt.
               </p>
-              <div className="mb-3">
-                <CTAButton href="/analyse" locatie="hero">Doe de gratis analyse</CTAButton>
+              <div className="mb-4">
+                <CTAButton href={analyseHref()} locatie="hero" full>
+                  Start de gratis analyse
+                </CTAButton>
               </div>
-              <p className="mb-1 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.7)" }}>
-                In een paar minuten zie je waar jouw huishouden afwijkt van vergelijkbare huishoudens.
-              </p>
-              <p className="mb-3 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.65)" }}>
-                Gratis &bull; vertrouwelijk &bull; geen verkoopgesprek
-              </p>
-              <p className="mb-7 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.55)" }}>
-                Je gegevens worden alleen gebruikt om jouw financiële situatie te analyseren.
-              </p>
-              <div style={{ color: "rgba(255,255,255,0.85)" }}>
-                <SecondaryLink href="#hoe-het-werkt">Lees hoe het werkt</SecondaryLink>
-              </div>
+              <FrictionText />
             </div>
 
             <div>
@@ -374,310 +437,219 @@ export default function HomeConcept() {
                 style={{
                   backgroundColor: C.white,
                   borderRadius: "8px",
-                  padding: "1.75rem 1.75rem 2rem",
+                  padding: "1.75rem",
                   boxShadow: "0 24px 60px -24px rgba(0,0,0,0.45)",
                 }}
               >
-                <div className="flex items-baseline justify-between mb-1">
-                  <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: "17px", color: C.dark }}>
-                    Netto inkomen
+                <div className="flex items-center justify-between mb-5">
+                  <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: "15px", color: C.muted, textTransform: "uppercase", letterSpacing: "0.1em" }}>
+                    Geschatte financiële ruimte
                   </span>
-                  <span className="tabular-nums" style={{ fontFamily: FONT, fontWeight: 700, fontSize: "20px", color: C.dark }}>
-                    &euro; 5.400
-                  </span>
+                  <VoorbeeldBadge />
                 </div>
-                <div style={{ height: "1px", backgroundColor: "#E7E2D8", margin: "0.9rem 0 1.1rem" }} />
-                <div className="space-y-3">
+                <span
+                  className="block text-[44px] md:text-[52px] mb-2"
+                  style={{ ...heading, color: C.dark, lineHeight: 1 }}
+                >
+                  <CountUp to={1950} prefix="&euro; " />
+                </span>
+                <Small color={C.muted} className="mb-5">per maand</Small>
+                <div style={{ height: "1px", backgroundColor: C.line, margin: "0 0 1.1rem" }} />
+                <p className="text-[15px] leading-[1.5]" style={{ fontFamily: FONT, color: C.muted }}>
+                  Voor een vergelijkbaar huishouden verwachten we ongeveer{" "}
+                  <strong style={{ color: C.dark, fontWeight: 700 }}>&euro; 1.640</strong> per maand.
+                </p>
+              </div>
+              <p className="text-center mt-4 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.6)", fontStyle: "italic" }}>
+                Voorbeelduitkomst van de analyse. Geen echte klant.
+              </p>
+            </div>
+          </div>
+        </Wrap>
+      </Section>
+
+      {/* ── 2. WAT KOMT ER ECHT UIT? ─────────────────────────────────────── */}
+      <Section bg={C.white}>
+        <Wrap>
+          <Eyebrow>Dit kwam er bij anderen uit</Eyebrow>
+          <H2 className="mb-4 md:mb-5">Misschien zit het probleem ergens anders dan je denkt.</H2>
+          <Body className="mb-12 md:mb-16">
+            Vijf huishoudens dachten vooraf te weten waar het probleem zat. De uitkomst was niet altijd wat ze
+            verwachtten.
+          </Body>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
+            {casesVoorHomepage.map((rapport, i) => (
+              <CaseCard key={rapport.slug} nr={String(i + 1).padStart(2, "0")} rapport={rapport} />
+            ))}
+          </div>
+
+          <div className="mt-12 md:mt-16 pt-8 md:pt-10" style={{ borderTop: "1px solid " + C.line }}>
+            <Small color={C.dark} className="mb-6 md:mb-0">
+              Bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length} rapporten hierboven was de conclusie: er viel niets
+              te repareren.
+            </Small>
+            <div className="mt-6">
+              <SecondaryLink href="/rapporten">Bekijk alle echte rapporten</SecondaryLink>
+            </div>
+          </div>
+        </Wrap>
+      </Section>
+
+      {/* ── 3. WAT KRIJG JIJ + HOE WERKT HET ─────────────────────────────── */}
+      <Section bg={C.offwhite}>
+        <Wrap>
+          <Eyebrow>Wat je krijgt</Eyebrow>
+          <H2 className="mb-4 md:mb-5">Zie wat er bij jou opvalt.</H2>
+          <Body className="mb-10 md:mb-14">
+            Vul je situatie in en vergelijk jouw huishouden met vergelijkbare situaties.
+          </Body>
+
+          <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start">
+            {/* Echte UI-preview, illustratief, tweemaal gelabeld als voorbeeld */}
+            <div className="lg:sticky lg:top-24">
+              <div
+                style={{
+                  backgroundColor: C.white,
+                  borderRadius: "8px",
+                  padding: "1.75rem",
+                  boxShadow: "0 16px 40px -20px rgba(32,32,32,0.18)",
+                }}
+              >
+                <div className="flex items-center justify-between mb-5">
+                  <H3 className="mb-0">Waar jij opvalt</H3>
+                  <VoorbeeldBadge />
+                </div>
+                <div className="space-y-4">
                   {[
-                    ["Wonen", "€ 1.740"],
-                    ["Boodschappen", "€ 820"],
-                    ["Vervoer", "€ 465"],
-                    ["Verzekeringen", "€ 390"],
-                    ["Abonnementen", "€ 118"],
-                  ].map(([label, amount]) => (
-                    <div key={label} className="flex items-baseline gap-3">
-                      <span style={{ fontFamily: FONT, fontSize: "15px", color: C.muted }}>{label}</span>
-                      <span aria-hidden="true" className="flex-1" style={{ borderBottom: "1px dotted #E7E2D8", transform: "translateY(-4px)" }} />
-                      <span className="tabular-nums" style={{ fontFamily: FONT, fontSize: "15px", color: C.muted }}>
-                        {amount}
+                    { label: "Boodschappen", bedrag: "€ 820", tag: "Hoger", kleur: C.wine, achtergrond: "rgba(123,45,62,0.08)" },
+                    { label: "Wonen", bedrag: "€ 1.740", tag: "Vergelijkbaar", kleur: C.dark, achtergrond: "rgba(32,32,32,0.06)" },
+                    { label: "Vervoer", bedrag: "€ 465", tag: "Lager", kleur: C.muted, achtergrond: "rgba(102,102,102,0.08)" },
+                  ].map((r) => (
+                    <div key={r.label} className="flex items-center justify-between gap-3 pb-4" style={{ borderBottom: "1px solid " + C.line }}>
+                      <div>
+                        <p className="text-[15px] mb-1" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
+                          {r.label}
+                        </p>
+                        <p className="tabular-nums text-[15px]" style={{ fontFamily: FONT, color: C.muted }}>
+                          {r.bedrag}
+                        </p>
+                      </div>
+                      <span
+                        className="px-2.5 py-1 rounded-full text-[12px] shrink-0"
+                        style={{ fontFamily: FONT, fontWeight: 700, color: r.kleur, backgroundColor: r.achtergrond }}
+                      >
+                        {r.tag}
                       </span>
                     </div>
                   ))}
                 </div>
-                <div style={{ height: "2px", borderTop: `1px solid ${C.dark}`, borderBottom: `1px solid ${C.dark}`, margin: "1.3rem 0 1.1rem" }} aria-hidden="true" />
-                <div className="flex items-baseline justify-between">
-                  <span style={{ fontFamily: FONT, fontWeight: 700, fontSize: "17px", color: C.dark }}>Onverklaard</span>
-                  <span className="tabular-nums" style={{ fontFamily: FONT, fontWeight: 700, fontSize: "26px", color: C.gold }}>
-                    <CountUp to={412} prefix="€ " />
-                  </span>
-                </div>
               </div>
-              <p className="text-center mt-4 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.6)", fontStyle: "italic" }}>
-                Illustratie van een geldscan-uitkomst, geen echte klant.
+              <p className="mt-4 text-[14px]" style={{ fontFamily: FONT, color: C.muted, fontStyle: "italic" }}>
+                Voorbeeld van hoe de vergelijking eruitziet. Geen echte klant.
               </p>
             </div>
-          </div>
-        </Wrap>
-      </Section>
 
-      {/* ── 2. WAT DOE IK? ───────────────────────────────────────────────── */}
-      <Section bg={C.white}>
-        <Wrap>
-          <Eyebrow>Wat gebeurt hier eigenlijk?</Eyebrow>
-          <H2 className="mb-8 md:mb-16">Niet &ldquo;waar kan ik besparen?&rdquo;, maar wat er echt speelt.</H2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-            {watDoeIk.map((s) => (
-              <div key={s.nr}>
-                <BigNumber color={C.gold}>{s.nr}</BigNumber>
-                <H3 className="mt-4 mb-3">{s.titel}</H3>
-                <Body>{s.tekst}</Body>
-              </div>
-            ))}
-          </div>
-        </Wrap>
-      </Section>
-
-      {/* ── 3. BANKAPP VERSUS CONTEXT ────────────────────────────────────── */}
-      <Section bg={C.offwhite}>
-        <Wrap>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-            <H2 className="mb-0">
-              Je bankapp weet hoeveel je uitgeeft.
-              <br />
-              Maar niet of dat veel is voor jouw huishouden.
-            </H2>
-            <div className="p-5 md:p-6" style={{ backgroundColor: C.white, borderRadius: "8px" }}>
-              <Small color={C.muted} className="uppercase tracking-[0.14em] mb-2">
-                Voorbeeld
-              </Small>
-              <BigNumber color={C.dark}>&euro; 1.200 boodschappen</BigNumber>
-              <div style={{ height: "1px", backgroundColor: "#E7E2D8", margin: "1.25rem 0" }} />
-              <p className="text-[16px] mb-1" style={{ fontFamily: FONT, fontWeight: 500, color: C.muted }}>
-                Daarnaast, ter vergelijking:
-              </p>
-              <p className="text-[32px] mb-1" style={{ ...heading, color: C.dark, lineHeight: 1.15 }}>
-                &euro; 7.880 netto inkomen
-              </p>
-              <p className="text-[32px]" style={{ ...heading, color: C.dark, lineHeight: 1.15 }}>
-                &euro; 1.950 structurele vrije ruimte
-              </p>
-              <p className="mt-5 text-[16px] leading-[1.5]" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
-                Is dat weinig? Veel? Dat hangt af van je huishouden.
-              </p>
+            {/* Eén doorlopende tijdlijn: wat je ziet, daarna hoe het werkt */}
+            <div className="space-y-10">
+              <TimelineGroep label="Dit zie je" items={ditZieJe} />
+              <div style={{ height: "1px", backgroundColor: C.line }} />
+              <TimelineGroep
+                label="Zo werkt het"
+                items={zoWerktHet.map((item, i) =>
+                  i === zoWerktHet.length - 1
+                    ? {
+                        ...item,
+                        extra: (
+                          <p className="mt-2">
+                            <CtaLink
+                              doel="geldscan"
+                              href="/geldscan"
+                              locatie="wat-krijg-jij-stap-3"
+                              className="underline text-[15px]"
+                              style={{ fontFamily: FONT, fontWeight: 600, color: C.wine }}
+                            >
+                              Bekijk de Geldscan
+                            </CtaLink>
+                          </p>
+                        ),
+                      }
+                    : item
+                )}
+              />
             </div>
           </div>
-        </Wrap>
-      </Section>
 
-      {/* ── 4. ECHTE RAPPORTEN, het zwaarste bewijsblok ─────────────────── */}
-      <Section bg={C.white}>
-        <Wrap>
-          <Eyebrow>Wat je krijgt</Eyebrow>
-          <H2 className="mb-4 md:mb-5">Dit is geen standaard budgetadvies.</H2>
-          <Body className="mb-8 md:mb-10">Dit is wat een echte analyse oplevert.</Body>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8 mb-10">
-            {bewijsRapporten.map((k) => (
-              <Link
-                key={k.slug}
-                href={`/rapporten/${k.slug}`}
-                className="block transition-transform duration-150 hover:-translate-y-1 p-5 md:p-6"
-                style={{
-                  backgroundColor: C.offwhite,
-                  borderRadius: "8px",
-                  borderTop: `4px solid ${C.gold}`,
-                }}
-              >
-                <p className="text-[20px] leading-[1.3] mb-2" style={{ fontFamily: FONT, fontWeight: 600, color: C.dark }}>
-                  {k.titel}
-                </p>
-                <p className="text-[24px] leading-[1.25] mb-4" style={{ ...heading, color: C.wine }}>
-                  {k.conclusie}
-                </p>
-                <p className="text-[15px] leading-[1.5]" style={{ fontFamily: FONT, color: C.muted }}>
-                  {k.toelichting}
-                </p>
-              </Link>
-            ))}
-          </div>
-
-          <SecondaryLink href="/rapporten">
-            <span style={{ color: C.wine }}>Bekijk alle vijf de rapporten</span>
-          </SecondaryLink>
-
-          {/* Twee testimonials, ruim leesbaar, geen mini-tekst */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-6 mt-8 md:mt-16 pt-8 md:pt-16" style={{ borderTop: "1px solid #E7E2D8" }}>
-            {testimonials.map((t) => (
-              <div key={t.naam}>
-                <p className="text-[17px] leading-[1.5] mb-3" style={{ fontFamily: FONT, color: C.dark }}>
-                  &ldquo;{t.quote}&rdquo;
-                </p>
-                <p className="text-[15px]" style={{ fontFamily: FONT, fontWeight: 700, color: C.dark }}>
-                  {t.naam}
-                </p>
-                <p className="text-[15px]" style={{ fontFamily: FONT, color: C.muted }}>
-                  {t.detail}
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="mt-6 text-[15px]" style={{ fontFamily: FONT, color: C.muted }}>
-            Namen zijn aangepast voor privacy. Ervaringen van echte gezinnen.
-          </p>
-        </Wrap>
-      </Section>
-
-      {/* ── 5. SOMS IS ER NIETS MIS, merksectie ─────────────────────────── */}
-      <Section bg={C.dark} padding="ruim">
-        <Wrap>
-          <div className="max-w-[700px]">
-            <H2 color={C.white} className="mb-6">
-              Soms is er niets om te repareren.
-            </H2>
-            <p
-              className="text-[22px] md:text-[24px] leading-[1.3] mb-8"
-              style={{ fontFamily: FONT, fontWeight: 700, color: "rgba(255,255,255,0.85)" }}
-            >
-              Dat zeggen we ook.
-            </p>
-            <p
-              className="text-[22px] md:text-[24px] leading-[1.35] mb-5"
-              style={{ fontFamily: FONT, fontWeight: 700, color: "rgba(255,255,255,0.92)" }}
-            >
-              Niet ieder huishouden dat weinig spaart heeft een financieel probleem.
-            </p>
-            <Body color="rgba(255,255,255,0.72)" className="mb-6">
-              Soms is het inkomen, de gezinssituatie en het uitgavenpatroon simpelweg logisch.
-            </Body>
-            <Small color="rgba(255,255,255,0.5)">
-              Bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length} rapporten hierboven was de conclusie: er valt niets
-              te repareren.
-            </Small>
-          </div>
-        </Wrap>
-      </Section>
-
-      {/* ── 6. JARNO, vertrouwen ─────────────────────────────────────────── */}
-      <Section bg={C.offwhite}>
-        <Wrap>
-          <div className="grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-10 lg:gap-16 items-center">
-            <div className="relative overflow-hidden" style={{ borderRadius: "8px", aspectRatio: "4 / 5" }}>
-              <Image src="/jarno.jpg" alt="Jarno Koopman" fill sizes="(max-width: 1024px) 100vw, 40vw" style={{ objectFit: "cover" }} />
+          <div className="mt-14 md:mt-16 text-center">
+            <div className="mb-4 inline-block">
+              <CTAButton href={analyseHref()} locatie="wat-je-krijgt">
+                Start de gratis analyse
+              </CTAButton>
             </div>
             <div>
-              <Eyebrow>Waarom ik dit doe</Eyebrow>
-              <H2 className="mb-4 md:mb-5">Ik bouw financiële software voor mijn werk. Toch wist ik zelf niet waar ons geld bleef.</H2>
-              <Body className="mb-8 md:mb-10">
-                Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Inmiddels leg ik jouw
-                posten naast huishoudens met een vergelijkbaar inkomen en dezelfde gezinsgrootte, en kijk waar jij
-                eruit springt. Ik werk onafhankelijk, verkoop geen financiële producten en krijg geen provisie. Het
-                enige dat ik lever is inzicht, geen abonnement en geen doorlopend traject.
-              </Body>
-              <div className="flex flex-wrap gap-x-8 gap-y-2">
-                {["Geen producten", "Geen provisie", "Geen belang bij de uitkomst"].map((t) => (
-                  <span key={t} className="text-[15px]" style={{ fontFamily: FONT, fontWeight: 700, color: C.wine }}>
-                    {t}
-                  </span>
+              <FrictionText color={C.muted} />
+            </div>
+          </div>
+        </Wrap>
+      </Section>
+
+      {/* ── 4. WAAROM VERTROUWEN ─────────────────────────────────────────── */}
+      <Section bg={C.white} padding="ruim">
+        <Wrap>
+          <div className="grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-10 lg:gap-16 items-center">
+            <div className="relative overflow-hidden mx-auto lg:mx-0 w-[160px] h-[160px] lg:w-full lg:h-auto" style={{ borderRadius: "8px", aspectRatio: "4 / 5" }}>
+              <Image src="/jarno.jpg" alt="Jarno Koopman" fill sizes="(max-width: 1024px) 160px, 32vw" style={{ objectFit: "cover" }} />
+            </div>
+            <div>
+              <H2 className="mb-6 md:mb-8">Geen financieel product. Geen verborgen belang.</H2>
+              <div className="mb-8 md:mb-10 space-y-4">
+                {vertrouwenStatements.map((s) => (
+                  <p
+                    key={s}
+                    className="text-[17px] md:text-[18px] leading-[1.5] pl-5"
+                    style={{ fontFamily: FONT, fontWeight: 600, color: C.dark, borderLeft: "3px solid " + C.gold }}
+                  >
+                    {s}
+                  </p>
                 ))}
               </div>
+              <Body className="mb-4">
+                Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte.
+              </Body>
+              <SecondaryLink href="/over">Lees waarom ik dit doe</SecondaryLink>
             </div>
           </div>
         </Wrap>
       </Section>
 
-      {/* ── 7. HOE HET WERKT ─────────────────────────────────────────────── */}
-      <Section bg={C.white} id="hoe-het-werkt">
-        <Wrap>
-          <Eyebrow>Hoe het werkt</Eyebrow>
-          <H2 className="mb-10">Drie stappen. Geen verplichtingen.</H2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-8">
-            <div>
-              <BigNumber color={C.gold}>1</BigNumber>
-              <H3 className="mt-2 mb-3">Doe de gratis analyse</H3>
-              <Body>
-                Vijf korte stappen: woonsituatie, inkomen, woonlasten, vervoer en dagelijkse uitgaven. Geen account,
-                geen bankkoppeling, 5 minuten.
-              </Body>
-            </div>
-            <div>
-              <BigNumber color={C.gold}>2</BigNumber>
-              <H3 className="mt-2 mb-3">Zie waar je afwijkt</H3>
-              <Body>
-                Direct op je scherm: hoeveel ruimte er normaal gesproken is, hoeveel er werkelijk overblijft en
-                welke twee of drie posten eruit springen.
-              </Body>
-            </div>
-            {/* Stap 3 is bewust secundair: geen knop, geen prijskaart naast
-                de gratis analyse. De bezoeker hoeft vooraf niets te kiezen. */}
-            <div className="p-6 md:p-8" style={{ backgroundColor: C.offwhite, borderRadius: "8px" }}>
-              <BigNumber color={C.gold}>3</BigNumber>
-              <H3 className="mt-2 mb-3">Bepaal of je verder wilt</H3>
-              <Body className="mb-3">
-                Benieuwd waarom? Na de analyse kun je kiezen voor de Geldscan van &euro;49.
-              </Body>
-              <Body className="mb-0">
-                <CtaLink
-                  doel="geldscan"
-                  href="/geldscan"
-                  locatie="hoe-het-werkt-stap-3"
-                  className="underline"
-                  style={{ color: C.wine }}
-                >
-                  Bekijk de Geldscan
-                </CtaLink>
-              </Body>
-            </div>
-          </div>
-        </Wrap>
-      </Section>
-
-      {/* ── 8. DOELGROEP, drastisch beperkt ─────────────────────────────── */}
-      <Section bg={C.offwhite}>
-        <Wrap>
-          <H2 className="mb-6 md:mb-8">Voor jouw situatie herkenbaar?</H2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
-            {doelgroepen.map((d) => (
-              <Link
-                key={d.label}
-                href={d.href}
-                className="flex flex-col justify-center transition-colors hover:border-[#7B2D3E] p-5 md:p-6 sm:min-h-[132px]"
-                style={{ backgroundColor: C.white, border: "1px solid #E7E2D8", borderRadius: "8px" }}
-              >
-                <span className="text-[22px] md:text-[24px] block" style={{ ...heading, color: C.dark }}>
-                  {d.label}
-                </span>
-                {d.sub && (
-                  <span className="text-[16px] block mt-2" style={{ fontFamily: FONT, fontWeight: 400, color: C.muted }}>
-                    {d.sub}
-                  </span>
-                )}
-              </Link>
-            ))}
-          </div>
-        </Wrap>
-      </Section>
-
-      {/* ── 9. SLOT CTA ──────────────────────────────────────────────────── */}
+      {/* ── 5. SLOTCTA ───────────────────────────────────────────────────── */}
       <Section bg={C.wine}>
         <Wrap>
-        <div className="text-center max-w-[760px] mx-auto">
-          <h2
-            className="text-[32px] leading-[1.15] md:text-[42px] md:leading-[1.15] mx-auto mb-6"
-            style={{ ...heading, color: C.white }}
-          >
-            Ontdek waar jouw geld blijft.
-          </h2>
-          <p
-            className="text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] mx-auto mb-8 md:mb-10"
-            style={{ fontFamily: FONT, fontWeight: 400, color: "rgba(255,255,255,0.85)", maxWidth: "540px" }}
-          >
-            Je hoeft niet meteen minder uit te geven. Je moet eerst weten wat er werkelijk gebeurt.
-          </p>
-          <CTAButton href="/analyse" locatie="slot">Doe de gratis analyse</CTAButton>
-          <p className="mt-6 text-[14px]" style={{ fontFamily: FONT, color: "rgba(255,255,255,0.6)" }}>
-            Geen abonnement. Geen verplicht gesprek.
-          </p>
-        </div>
+          <div className="text-center max-w-[680px] mx-auto">
+            <Eyebrow color="rgba(255,255,255,0.75)" className="text-center">
+              Jouw situatie
+            </Eyebrow>
+            <h2
+              className="text-[30px] leading-[1.15] md:text-[42px] md:leading-[1.15] mx-auto mb-6"
+              style={{ ...heading, color: C.white }}
+            >
+              Benieuwd wat er bij jou opvalt?
+            </h2>
+            <p
+              className="text-[17px] leading-[1.5] md:text-[18px] md:leading-[1.55] mx-auto mb-8 md:mb-10"
+              style={{ fontFamily: FONT, fontWeight: 400, color: "rgba(255,255,255,0.85)", maxWidth: "480px" }}
+            >
+              Vergelijk jouw eigen situatie gratis en ontdek hoeveel financiële ruimte er in jouw huishouden zit.
+            </p>
+            <div className="mb-4 inline-block">
+              <CTAButton href={analyseHref()} locatie="slot">
+                Start de gratis analyse
+              </CTAButton>
+            </div>
+            <div>
+              <FrictionText />
+            </div>
+          </div>
         </Wrap>
       </Section>
     </div>
