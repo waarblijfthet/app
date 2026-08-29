@@ -9,6 +9,9 @@ export const ANALYSE_ROUTE = "/analyse";
 /** De enige toegestane tekst voor een primaire CTA. */
 export const PRIMAIRE_CTA_LABEL = "Doe de gratis analyse";
 
+/** Homepage heeft één compacte formulering; alle links volgen dezelfde analyseroute. */
+export const HOMEPAGE_CTA_LABEL = "Start de gratis analyse";
+
 /** De kernboodschap, letterlijk herbruikbaar. */
 export const CTA_KERN =
   "Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.";
