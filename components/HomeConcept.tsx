@@ -8,7 +8,18 @@ import { rapportVoorSlug } from "@/lib/rapporten-data";
 
 const CASE_SLUG = "tweeverdieners-drie-kinderen";
 
-type IcoonNaam = "huis" | "portemonnee" | "cirkel" | "zoek" | "kar" | "lamp" | "gezin";
+type IcoonNaam =
+  | "huis"
+  | "portemonnee"
+  | "cirkel"
+  | "zoek"
+  | "kar"
+  | "lamp"
+  | "gezin"
+  | "persoon"
+  | "gesprek"
+  | "schild"
+  | "hart";
 
 const STAPPEN: { nummer: string; icoon: IcoonNaam; titel: string; tekst: string }[] = [
   { nummer: "1", icoon: "huis", titel: "Jouw huishouden", tekst: "Wie woont er mee, en hoe woon je?" },
@@ -21,6 +32,14 @@ const STAPPEN: { nummer: string; icoon: IcoonNaam; titel: string; tekst: string 
 const VOORBEELD_AFWIJKINGEN: { label: string; icoon: IcoonNaam; jij: number; bench: number; diff: number }[] = [
   { label: "Boodschappen", icoon: "kar", jij: 1200, bench: 680, diff: 520 },
   { label: "Wonen", icoon: "huis", jij: 1860, bench: 1350, diff: 510 },
+];
+
+/** De vier eigenschappen in sectie 5, kort en scanbaar. */
+const EIGENSCHAPPEN: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
+  { icoon: "persoon", titel: "Persoonlijk", tekst: "Elke analyse wordt door mij geschreven." },
+  { icoon: "gesprek", titel: "Onafhankelijk", tekst: "Geen provisies. Geen financiële producten." },
+  { icoon: "schild", titel: "Ervaren", tekst: "Jarenlange ervaring met geld, keuzes en financiële rust." },
+  { icoon: "hart", titel: "Betrokken", tekst: "Ik kijk verder dan de cijfers. Naar jouw hele situatie." },
 ];
 
 function euro(bedrag: number) {
@@ -84,6 +103,24 @@ function Icoon({ naam, className = "h-6 w-6" }: { naam: IcoonNaam; className?: s
           <path d="M2.5 19v-2.2A4.3 4.3 0 0 1 6.8 12.5h.4a4.3 4.3 0 0 1 4.3 4.3V19" />
           <path d="M14.2 19v-2.6a3.4 3.4 0 0 1 3.4-3.4h.2a3.4 3.4 0 0 1 3.2 3.4V19" />
         </>
+      )}
+      {naam === "persoon" && (
+        <>
+          <circle cx="12" cy="7.5" r="3.6" />
+          <path d="M4.5 20.5v-1.2a5.3 5.3 0 0 1 5.3-5.3h4.4a5.3 5.3 0 0 1 5.3 5.3v1.2" />
+        </>
+      )}
+      {naam === "gesprek" && (
+        <path d="M20.5 11.6a8 8 0 0 1-8.6 8 8.7 8.7 0 0 1-3.5-.9L3.5 20.5l1.8-4.9a8.7 8.7 0 0 1-.8-3.5 8 8 0 0 1 8-8.6h.5a8 8 0 0 1 7.5 7.5z" />
+      )}
+      {naam === "schild" && (
+        <>
+          <path d="M12 21.5c4.7-2 7.3-5.4 7.3-9.9V5.4L12 2.5 4.7 5.4v6.2c0 4.5 2.6 7.9 7.3 9.9z" />
+          <path d="m9 11.8 2.2 2.2 4-4.2" />
+        </>
+      )}
+      {naam === "hart" && (
+        <path d="M12 20.5 4.4 13a4.6 4.6 0 0 1 0-6.6 4.8 4.8 0 0 1 6.7 0l.9.9.9-.9a4.8 4.8 0 0 1 6.7 0 4.6 4.6 0 0 1 0 6.6z" />
       )}
     </svg>
   );
@@ -491,18 +528,67 @@ function CaseScene() {
 function TrustScene() {
   return (
     <section className="bg-background py-20 sm:py-24 md:py-28 lg:py-32">
-      <div className="mx-auto grid max-w-[1080px] items-end gap-10 px-5 sm:px-8 md:grid-cols-[0.75fr_1fr] md:gap-16 md:px-10">
-        <div className="relative mx-auto aspect-[4/5] w-full max-w-[390px] overflow-hidden rounded-xl shadow-card md:mx-0">
-          <Image src="/jarno.jpg" alt="Jarno Koopman" fill sizes="(max-width: 768px) 390px, 38vw" className="object-cover" />
-        </div>
-        <div className="pb-1">
-          <p className="section-eyebrow">Waarom ik dit doe</p>
-          <h2 className="mt-4 max-w-[550px] font-display text-[34px] font-light leading-[1.14] text-primary sm:text-5xl">Als er niets mis is, zeg ik dat ook.</h2>
-          <div className="mt-7 max-w-[540px] space-y-4 font-body text-base font-light leading-relaxed text-text-soft sm:text-lg">
-            <p>Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte.</p>
-            <p>Daarom kijk ik niet alleen naar wat je uitgeeft, maar naar wat een bedrag betekent in de context van jouw huishouden.</p>
+      <div className="mx-auto max-w-[1180px] px-5 sm:px-8 md:px-10">
+        <div className="grid gap-14 lg:grid-cols-2 lg:gap-0">
+
+          {/* Links: wie het werk doet. */}
+          <div className="lg:pr-12 xl:pr-16">
+            <p className="section-eyebrow">De analyse achter Waar blijft het?</p>
+
+            <h2 className="mt-6 max-w-[540px] font-display text-[34px] font-light leading-[1.08] text-primary sm:text-[42px] lg:text-[44px] xl:text-[48px]">
+              Geen automatische tool.
+              <span className="block">
+                <span className="italic text-accent">Gewoon iemand</span> die snapt hoe geld in het echt werkt.
+              </span>
+            </h2>
+
+            <p className="mt-7 max-w-[430px] font-body text-base font-light leading-relaxed text-text-soft sm:text-lg">
+              Ik ben Jarno. De analyses schrijf ik zelf. Geen standaardrapporten, maar inzicht vanuit de cijfers en de situatie erachter.
+            </p>
+
+            <ul className="mt-10 grid gap-7 sm:grid-cols-2 sm:gap-x-8 lg:mt-14 lg:gap-y-9">
+              {EIGENSCHAPPEN.map((item) => (
+                <li key={item.titel} className="flex items-start gap-4 lg:flex-col lg:gap-3.5">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-green-light text-primary">
+                    <Icoon naam={item.icoon} className="h-5 w-5" />
+                  </span>
+                  <div>
+                    <p className="font-body text-[15px] font-semibold leading-snug text-primary">{item.titel}</p>
+                    <p className="mt-1.5 max-w-[230px] font-body text-[14px] leading-relaxed text-text-soft">{item.tekst}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
-          <Link href="/over" className="mt-7 inline-flex font-body text-[15px] font-semibold text-accent hover:underline">Lees mijn verhaal <span className="ml-1.5" aria-hidden="true">→</span></Link>
+
+          {/* Rechts: de persoon zelf. */}
+          <div className="border-t border-[#D9DEDC] pt-12 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0 xl:pl-16">
+            <div className="mx-auto w-full max-w-[420px] overflow-hidden rounded-2xl bg-green-light lg:mx-0">
+              <div className="relative aspect-square w-full">
+                <Image
+                  src="/jarno.jpg"
+                  alt="Jarno Koopman"
+                  fill
+                  sizes="(max-width: 1024px) 420px, 420px"
+                  className="object-cover object-top"
+                />
+              </div>
+              <div className="px-6 py-8 sm:px-8 sm:py-9">
+                <p className="font-display text-[26px] font-light leading-none text-primary sm:text-[29px]">Jarno Koopman</p>
+                <p className="mt-2.5 font-body text-[15px] text-text-soft">Oprichter van Waar blijft het?</p>
+                <p className="mt-6 font-body text-[15px] font-light leading-relaxed text-text-soft">
+                  Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte.
+                </p>
+                <Link
+                  href="/over"
+                  className="mt-6 inline-flex font-body text-[15px] text-primary underline-offset-4 hover:underline"
+                >
+                  Lees mijn verhaal <span className="ml-1.5" aria-hidden="true">&rarr;</span>
+                </Link>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </section>
