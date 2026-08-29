@@ -107,20 +107,30 @@ function HeroScene() {
 
 function EditorialScene() {
   return (
-    <section className="bg-green-light py-20 sm:py-24 md:py-32 lg:py-36">
-      <div className="mx-auto grid max-w-[1120px] items-end gap-12 px-5 sm:px-8 md:grid-cols-[minmax(0,1.35fr)_minmax(220px,0.45fr)] md:px-10">
-        <div>
-          <p className="section-eyebrow mb-7">Wat je bankapp niet vertelt</p>
-          <h2 className="max-w-[790px] font-display text-[36px] font-light leading-[1.13] text-primary sm:text-5xl md:text-[58px] lg:text-[66px]">
-            Je bankapp weet waar je geld naartoe gaat.<br />
-            <span className="text-text-soft">Maar niet of dat veel is voor een huishouden zoals het jouwe.</span>
-          </h2>
+    <section className="bg-green-light py-16 sm:py-20 md:py-24">
+      <div className="mx-auto max-w-[1180px] px-5 sm:px-8 md:px-10">
+        <div className="md:grid md:grid-cols-[minmax(0,1fr)_minmax(220px,0.4fr)] md:items-start md:gap-14 lg:gap-20">
+          <div>
+            <p className="font-body text-[12px] font-medium uppercase tracking-[0.08em] text-text-muted">
+              Wat je bankapp niet vertelt
+            </p>
+            <h2 className="mt-8 font-display text-[40px] font-light leading-[1.05] text-primary sm:text-[52px] md:text-[58px] lg:text-[64px] xl:text-[72px]">
+              Je bankapp weet waar je geld naartoe gaat.
+              <span className="block text-text-soft">
+                Maar niet of dat veel is voor een huishouden zoals het jouwe.
+              </span>
+            </h2>
+          </div>
+          <aside className="mt-10 border-t border-primary/15 pt-8 font-body text-[16px] leading-[1.6] text-text-soft md:mt-12 md:border-l md:border-t-0 md:pl-10 md:pt-0 lg:text-[18px]">
+            <p className="whitespace-nowrap text-primary">&euro; 1.200 boodschappen</p>
+            <p className="mt-6">
+              Veel?
+              <br />
+              Weinig?
+            </p>
+            <p className="mt-6">Dat hangt ervan af.</p>
+          </aside>
         </div>
-        <aside className="border-l border-primary/20 pl-6 font-body text-sm leading-relaxed text-primary sm:text-base md:mb-2">
-          <p className="font-semibold">€ 1.200 boodschappen</p>
-          <p className="mt-5">Veel?<br />Weinig?</p>
-          <p className="mt-5 font-medium">Dat hangt ervan af.</p>
-        </aside>
       </div>
     </section>
   );
