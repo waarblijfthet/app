@@ -55,9 +55,15 @@ function CaseKaart({ r, nummer }: { r: Rapport; nummer: number }) {
   return (
     <article
       id={r.slug}
-      className="card-base border border-[#E6E9E7] relative overflow-hidden"
+      className="group card-base border border-[#E6E9E7] relative overflow-hidden transition-shadow duration-200 hover:shadow-card-hover"
       style={{ scrollMarginTop: "100px" }}
     >
+      <Link
+        href={`/rapporten/${r.slug}`}
+        aria-label={`Lees het hele rapport: ${r.verhaalTitel}`}
+        className="absolute inset-0 z-10"
+      />
+
       <div
         aria-hidden="true"
         className="pointer-events-none select-none absolute top-4 right-5 sm:top-6 sm:right-7 font-display font-light"
@@ -134,13 +140,12 @@ function CaseKaart({ r, nummer }: { r: Rapport; nummer: number }) {
         </div>
 
         <div className="flex justify-end pt-2" style={{ borderTop: "1px solid #E6E9E7" }}>
-          <Link
-            href={`/rapporten/${r.slug}`}
-            className="font-body text-sm font-medium hover:underline mt-4"
+          <span
+            className="font-body text-sm font-medium group-hover:underline mt-4"
             style={{ color: "#0B7A6E" }}
           >
             Lees het hele rapport &rarr;
-          </Link>
+          </span>
         </div>
       </div>
     </article>
