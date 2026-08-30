@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getArtikel, artikelen } from "@/lib/inzichten-data";
 import ArticleBody from "./ArticleBody";
-import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL, geldscanHref } from "@/lib/cta";
 
 interface Props {
   params: { slug: string };
@@ -271,12 +271,12 @@ export default function ArtikelPage({ params }: Props) {
                 <p style={{ marginTop: "0.85rem", marginBottom: 0 }}>
                   <CtaLink
                     doel="geldscan"
-                    href="/geldscan"
+                    href={geldscanHref()}
                     locatie="artikel-slot"
                     className="font-body text-sm hover:underline"
                     style={{ color: "#0B7A6E", textDecoration: "none" }}
                   >
-                    Na de analyse kun je altijd nog kiezen voor de Geldscan →
+                    Na de analyse kun je de Geldscan aanvragen, €49 →
                   </CtaLink>
                 </p>
               </div>

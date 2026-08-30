@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
+import { geldscanHref } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
@@ -202,12 +203,12 @@ export default function AdviesgesprekPage() {
             <p className="mt-5">
               <CtaLink
                 doel="geldscan"
-                href="/geldscan"
+                href={geldscanHref()}
                 locatie="adviesgesprek-slot"
                 className="font-body text-sm"
                 style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
               >
-                Na de analyse kun je altijd nog kiezen voor de Geldscan →
+                Na de analyse kun je de Geldscan aanvragen, €49 →
               </CtaLink>
             </p>
             <p className="mt-3 mb-0">

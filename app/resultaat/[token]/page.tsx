@@ -8,6 +8,7 @@ import { getBenchmarks } from "@/lib/benchmarks";
 import { fmtEur, KinderenAantal } from "@/lib/quiz-types";
 import KopieerKnop from "./KopieerKnop";
 import EmailReminderForm from "./EmailReminderForm";
+import { geldscanHref } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: "Jouw financiële analyse | Waar blijft het",
@@ -359,12 +360,12 @@ export default async function ResultaatPage({ params }: Props) {
               </p>
               <CtaLink
                 doel="geldscan"
-                href={`/geldscan?token=${params.token}`}
+                href={geldscanHref({ token: params.token })}
                 locatie="resultaat-mail"
                 className="inline-block px-6 py-3 rounded-xl font-body text-sm font-medium transition-opacity hover:opacity-90"
                 style={{ background: "#0B7A6E", color: "#FFFFFF", textDecoration: "none" }}
               >
-                Bekijk de Geldscan &euro;49 &rarr;
+                Geldscan aanvragen, &euro;49 &rarr;
               </CtaLink>
               <p
                 className="font-body font-light text-xs mt-3 mb-0"

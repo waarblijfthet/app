@@ -4,6 +4,7 @@ import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { RAPPORTEN, AANTAL_ZONDER_LEK, AANTAL_ZONDER_VERVOLG, type Rapport } from "@/lib/rapporten-data";
+import { geldscanHref } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: `${RAPPORTEN.length} echte gezinsbudgetten: cijfers, oordeel en nameting`,
@@ -387,9 +388,9 @@ export default function RapportenPage() {
               Gratis · vertrouwelijk · geen verkoopgesprek
             </p>
             <p className="font-body font-light text-text-muted text-sm mt-5">
-              <CtaLink doel="geldscan" href="/geldscan" locatie="rapporten-slot" className="hover:underline">
-                Wil je dat ik daarna zelf naar je hele situatie kijk? Dan kies je voor een persoonlijke Geldscan
-                van €49 &rarr;
+              <CtaLink doel="geldscan" href={geldscanHref()} locatie="rapporten-slot" className="hover:underline">
+                Wil je dat ik daarna zelf naar je hele situatie kijk? Vraag dan een persoonlijke Geldscan aan,
+                €49 &rarr;
               </CtaLink>
             </p>
           </div>

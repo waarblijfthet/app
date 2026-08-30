@@ -16,6 +16,29 @@ export const HOMEPAGE_CTA_LABEL = "Start de gratis analyse";
 export const CTA_KERN =
   "Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom.";
 
+/**
+ * De Geldscan-route. Sinds 30-aug-2026 wijst elke knop en tekstlink op de site
+ * rechtstreeks naar het aanvraagformulier. De uitlegpagina /geldscan bestaat
+ * nog voor zoekverkeer, maar staat niet meer tussen een bezoeker en zijn
+ * aanvraag in: die las het verhaal anders twee keer.
+ *
+ * Typ deze route nooit met de hand over, gebruik geldscanHref().
+ */
+export const GELDSCAN_ROUTE = "/aanbod/intake?pakket=geldscan";
+
+/** De enige toegestane tekst voor een Geldscan-knop. */
+export const GELDSCAN_CTA_LABEL = "Geldscan aanvragen";
+
+/**
+ * Bouwt de Geldscan-link. Geef het analysetoken mee als je het hebt, dan
+ * koppelt het aanvraagformulier de aanvraag aan die analyse.
+ */
+export function geldscanHref(opties: { token?: string } = {}): string {
+  return opties.token
+    ? `${GELDSCAN_ROUTE}&token=${encodeURIComponent(opties.token)}`
+    : GELDSCAN_ROUTE;
+}
+
 export type SituatieSleutel =
   | "gezin"
   | "alleenstaand"

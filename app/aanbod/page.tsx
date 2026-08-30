@@ -4,7 +4,7 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CtaLink from "@/components/CtaLink";
-import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL, geldscanHref, GELDSCAN_CTA_LABEL } from "@/lib/cta";
 import { RAPPORTEN, AANTAL_ZONDER_VERVOLG, rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
@@ -791,11 +791,11 @@ export default function AanbodPage() {
               </div>
               <CtaLink
                 doel="geldscan"
-                href="/aanbod/intake?pakket=geldscan"
+                href={geldscanHref()}
                 locatie="aanbod-geldscan-sectie"
                 className="btn-primary lg:flex-shrink-0"
               >
-                Geldscan aanvragen →
+                {GELDSCAN_CTA_LABEL} →
               </CtaLink>
             </div>
           </div>

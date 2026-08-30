@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { RAPPORTEN, rapportVoorSlug, type Post } from "@/lib/rapporten-data";
+import { geldscanHref } from "@/lib/cta";
 
 export function generateStaticParams() {
   return RAPPORTEN.map((r) => ({ slug: r.slug }));
@@ -200,8 +201,8 @@ export default function RapportPagina({ params }: { params: { slug: string } }) 
               Doe de gratis analyse &rarr;
             </CtaLink>
             <p className="font-body font-light text-text-muted text-sm mt-5">
-              <CtaLink doel="geldscan" href="/geldscan" locatie="rapport-slot" className="hover:underline">
-                Na de analyse kun je altijd nog kiezen voor de Geldscan &rarr;
+              <CtaLink doel="geldscan" href={geldscanHref()} locatie="rapport-slot" className="hover:underline">
+                Na de analyse kun je de Geldscan aanvragen, &euro;49 &rarr;
               </CtaLink>
             </p>
           </div>

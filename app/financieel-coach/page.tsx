@@ -5,6 +5,7 @@ import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import { FinancieelCoachAccordion } from "./components/FinancieelCoachAccordion";
+import { geldscanHref } from "@/lib/cta";
 
 export const metadata: Metadata = {
   title: "Financieel coach nodig? Online, vanaf gratis, geen traject verplicht",
@@ -381,12 +382,12 @@ export default function FinancieelCoachPage() {
                 </ul>
                 <CtaLink
                   doel="geldscan"
-                  href="/geldscan"
+                  href={geldscanHref()}
                   locatie="coach-geldscankaart"
                   className="font-body text-sm font-medium hover:underline"
                   style={{ color: "#0B7A6E", textDecoration: "none" }}
                 >
-                  Bekijk de Geldscan →
+                  Geldscan aanvragen →
                 </CtaLink>
               </div>
             </div>

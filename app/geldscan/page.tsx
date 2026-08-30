@@ -3,7 +3,7 @@ import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { analyseHref, type SituatieSleutel } from "@/lib/cta";
+import { analyseHref, geldscanHref } from "@/lib/cta";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
@@ -32,26 +32,6 @@ export const metadata: Metadata = {
    bestaande intakeroute. De gratis analyse staat er alleen als
    tekstlink in stap 1, voor wie hem al gedaan heeft.
    ──────────────────────────────────────────────────────────────── */
-
-const SITUATIE_SLEUTELS: SituatieSleutel[] = [
-  "gezin",
-  "alleenstaand",
-  "stel",
-  "alleenstaande-ouder",
-  "zzp",
-];
-
-function isSituatie(v: string | undefined): v is SituatieSleutel {
-  return !!v && SITUATIE_SLEUTELS.includes(v as SituatieSleutel);
-}
-
-/** Getal uit de URL, alleen als het binnen een geloofwaardige marge valt. */
-function bedragUitUrl(v: string | undefined, min: number, max: number): string | null {
-  if (!v) return null;
-  const n = Number(v.replace(/[^\d]/g, ""));
-  if (!Number.isFinite(n) || n < min || n > max) return null;
-  return String(n);
-}
 
 /* --- Iconen ------------------------------------------------------------
    Eén set lijniconen, dezelfde stijl als op /aanbod: 1,4 stroke, geen
@@ -415,24 +395,14 @@ export default function GeldscanPage({
 }: {
   searchParams?: {
     token?: string;
-    situatie?: string;
-    inkomen?: string;
-    boodschappen?: string;
   };
 }) {
   const token = searchParams?.token;
-  const situatieSleutel = isSituatie(searchParams?.situatie) ? searchParams.situatie : undefined;
-  const inkomen = bedragUitUrl(searchParams?.inkomen, 500, 20000);
-  const boodschappen = bedragUitUrl(searchParams?.boodschappen, 50, 3000);
 
-  /* De bestaande aanmeldroute. Alles wat we al van deze bezoeker weten
-     reist mee, zodat hij het in de intake niet opnieuw invult. */
-  const intakeParams = new URLSearchParams({ pakket: "geldscan" });
-  if (token) intakeParams.set("token", token);
-  if (situatieSleutel) intakeParams.set("situatie", situatieSleutel);
-  if (inkomen) intakeParams.set("inkomen", inkomen);
-  if (boodschappen) intakeParams.set("boodschappen", boodschappen);
-  const intakeHref = `/aanbod/intake?${intakeParams.toString()}`;
+  /* De aanvraagroute. Alleen het analysetoken reist nog mee: het formulier
+     vraagt voor de betaling alleen naam en e-mailadres, dus situatie, inkomen
+     en boodschappen vallen daar niets meer in te vullen. */
+  const intakeHref = geldscanHref({ token });
 
   const StartKnop = ({ locatie }: { locatie: string }) => (
     <CtaLink doel="geldscan" href={intakeHref} locatie={locatie} className="btn-primary">
