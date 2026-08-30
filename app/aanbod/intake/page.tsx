@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { IntakeForm } from "./IntakeForm";
 import { GeldscanAanvraag } from "./GeldscanAanvraag";
+import { GesprekAanvraag } from "./GesprekAanvraag";
 import { SITUATIE_OPTIES, INKOMEN_OPTIES } from "./opties";
 
 export function generateMetadata(): Metadata {
@@ -11,15 +12,15 @@ export function generateMetadata(): Metadata {
 }
 
 /**
- * Zelfde situatiesleutel als lib/cta.ts (SituatieSleutel) en app/geldscan/page.tsx,
- * want de analyse-resultaatpagina en /geldscan geven hem allebei door aan deze
- * route. "gezin" en "zzp" staan er bewust niet bij: de analyse weet niet of de
- * kinderen jong of ouder zijn, en heeft geen zzp-vraag. Gokken op die twee zou
- * een antwoord voorspiegelen dat niemand heeft gegeven.
+ * Zelfde situatiesleutel als lib/cta.ts (SituatieSleutel) en app/geldscan/page.tsx.
+ * "gezin" en "zzp" staan er bewust niet bij: de analyse weet niet of de kinderen
+ * jong of ouder zijn, en heeft geen zzp-vraag. Gokken op die twee zou een
+ * antwoord voorspiegelen dat niemand heeft gegeven.
  *
- * De Geldscan gebruikt deze voorinvulling niet meer: die aanvraag vraagt voor
- * de betaling alleen naam en e-mailadres. De parameters mogen wel in de URL
- * blijven staan, /geldscan en de analyse zetten ze er nog op.
+ * Alleen het traject gebruikt deze voorinvulling nog. De Geldscan en het
+ * adviesgesprek vragen voor de betaling alleen naam en e-mailadres, dus die
+ * twee slaan hem over. De parameters mogen wel in de URL blijven staan,
+ * /geldscan en de analyse zetten ze er nog op.
  */
 const SITUATIE_LABEL_VOOR_SLEUTEL: Record<string, string> = {
   alleenstaand: SITUATIE_OPTIES[0],
@@ -51,7 +52,12 @@ export default function IntakePage({
     return <GeldscanAanvraag token={searchParams.token} />;
   }
 
-  const pakket = searchParams.pakket === "intensief" ? "intensief" : "gesprek";
+  // Het adviesgesprek werkt sinds 30-aug-2026 net zo: alleen naam, e-mailadres
+  // en de vraag of iemand al een Geldscan heeft. Cijfers horen in het gesprek,
+  // niet in een formulier voor iets wat nog niet gekocht is.
+  if (searchParams.pakket !== "intensief") {
+    return <GesprekAanvraag token={searchParams.token} />;
+  }
 
   const initieleSituatie = searchParams.situatie
     ? SITUATIE_LABEL_VOOR_SLEUTEL[searchParams.situatie]
@@ -65,7 +71,7 @@ export default function IntakePage({
 
   return (
     <IntakeForm
-      pakket={pakket}
+      pakket="intensief"
       token={searchParams.token}
       initieleSituatie={initieleSituatie}
       initieelInkomen={initieelInkomen}
