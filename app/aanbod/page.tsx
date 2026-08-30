@@ -7,7 +7,7 @@ import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { TrackClick } from "@/components/TrackClick";
 import CtaLink from "@/components/CtaLink";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
-import { RAPPORTEN } from "@/lib/rapporten-data";
+import { RAPPORTEN, rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Tarieven: geldrapport, gesprek en traject",
@@ -188,6 +188,141 @@ function PreviewKopje({ tekst }: { tekst: string }) {
     </p>
   );
 }
+
+/* --- Sectie 2: Geldscan ------------------------------------------------
+   Het hoofdaanbod krijgt een eigen sectie: links vier korte voordelen,
+   rechts een preview van een rapport dat werkelijk geleverd en met
+   toestemming gepubliceerd is. Alle regels in die preview komen uit
+   lib/rapporten-data.ts via rapportVoorSlug, dus er staat geen bedrag in
+   dat niet echt is. Nooit met de hand een bedrag overtypen. */
+
+type VoordeelIcoon = "loep" | "uitleg" | "doel" | "vink";
+
+function VoordeelIcoontje({ naam }: { naam: VoordeelIcoon }) {
+  const paden: Record<VoordeelIcoon, React.ReactNode> = {
+    loep: (
+      <>
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="M19.5 19.5l-3.6-3.6" />
+      </>
+    ),
+    uitleg: <path d="M20 12.5c0 3.6-3.6 6.5-8 6.5-.9 0-1.7-.1-2.5-.3L5 20.5l1.2-3.3C4.8 16 4 14.4 4 12.5 4 8.9 7.6 6 12 6s8 2.9 8 6.5z" />,
+    doel: (
+      <>
+        <circle cx="12" cy="12" r="7.5" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    vink: (
+      <>
+        <circle cx="12" cy="12" r="8" />
+        <path d="M8.5 12.2l2.4 2.4 4.6-4.8" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#0B7A6E"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {paden[naam]}
+    </svg>
+  );
+}
+
+const geldscanVoordelen: { icoon: VoordeelIcoon; titel: string; tekst: string }[] = [
+  {
+    icoon: "loep",
+    titel: "Ik kijk zelf naar jouw cijfers",
+    tekst: "Geen automatische tool, maar een persoonlijke analyse door mij.",
+  },
+  {
+    icoon: "uitleg",
+    titel: "Je krijgt mijn uitleg",
+    tekst: "Je ontvangt heldere uitleg bij wat opvalt en waarom jij afwijkt.",
+  },
+  {
+    icoon: "doel",
+    titel: "Concrete aandachtspunten",
+    tekst: "Praktische inzichten waar je direct iets mee kunt.",
+  },
+  {
+    icoon: "vink",
+    titel: "Daarna kun jij kiezen",
+    tekst: "Gebruik het inzicht zelf, of bespreek het in een vervolgsessie.",
+  },
+];
+
+type TrustIcoon = "eenmalig" | "slot" | "persoon";
+
+function TrustIcoontje({ naam }: { naam: TrustIcoon }) {
+  const paden: Record<TrustIcoon, React.ReactNode> = {
+    eenmalig: <path d="M12 3.2l7 2.8v4.9c0 4.2-2.9 7.9-7 9.9-4.1-2-7-5.7-7-9.9V6l7-2.8z" />,
+    slot: (
+      <>
+        <rect x="5" y="10.5" width="14" height="9.5" rx="2" />
+        <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" />
+      </>
+    ),
+    persoon: (
+      <>
+        <circle cx="12" cy="8.5" r="3.4" />
+        <path d="M5.5 20c0-3.3 2.9-5.4 6.5-5.4s6.5 2.1 6.5 5.4" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#0B7A6E"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {paden[naam]}
+    </svg>
+  );
+}
+
+const geldscanTrust: { icoon: TrustIcoon; titel: string; tekst: string }[] = [
+  { icoon: "eenmalig", titel: "Eenmalige betaling", tekst: "Geen abonnement." },
+  { icoon: "slot", titel: "100% vertrouwelijk", tekst: "Je gegevens zijn veilig." },
+  {
+    icoon: "persoon",
+    titel: "Persoonlijk en onafhankelijk",
+    tekst: "Geen provisies. Geen producten.",
+  },
+];
+
+/* Het rapport in de preview is een echt geleverd rapport, met toestemming
+   gepubliceerd. De posten worden op label uit het rapport gehaald, zodat de
+   bedragen letterlijk uit de data komen. */
+const previewRapport = rapportVoorSlug("tweeverdieners-drie-kinderen");
+
+const PREVIEW_POSTEN = [
+  "Hypotheek",
+  "Energie",
+  "Internet en tv",
+  "Zorgverzekering",
+  "Overige verzekeringen",
+];
+
+const previewLasten = previewRapport
+  ? PREVIEW_POSTEN.map((label) => previewRapport.lasten.find((p) => p.label === label)).filter(
+      (p): p is { label: string; waarde: string } => Boolean(p)
+    )
+  : [];
 
 export default function AanbodPage() {
   return (
@@ -440,65 +575,243 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* Vergelijken of verklaren: twee routes */}
-        <section className="px-6 py-14" style={{ backgroundColor: "#F7F8F7" }}>
-          <div className="mx-auto max-w-[860px]">
-            <h2 className="font-display mb-2 text-2xl font-light text-[#16211F] sm:text-3xl">
-              Vergelijken of verklaren
-            </h2>
-            <p className="font-body mb-10 max-w-[600px] text-sm font-light leading-relaxed text-[#4A5A56]">
-              Er zijn twee dingen die je hier kunt doen en ze beantwoorden een andere vraag. Het eerste is gratis en doet een machine. Het tweede kost geld omdat ik het zelf schrijf.
-            </p>
+        {/* Sectie 2: de Geldscan, het hoofdaanbod.
+            Links vier voordelen, rechts een preview van een echt rapport.
+            In deze sectie staat bewust geen tweede aanbod en geen tweede
+            knop, zodat de Geldscan hier het enige onderwerp is. */}
+        <section className="px-6 py-16 sm:py-20" style={{ backgroundColor: "#E7F1EE" }}>
+          <div className="mx-auto max-w-[1180px]">
+            {/* Kop, gecentreerd boven beide kolommen */}
+            <div className="mx-auto max-w-[680px] text-center">
+              <p
+                className="font-body mb-5 text-xs font-medium uppercase tracking-[0.18em]"
+                style={{ color: "#4A5A56" }}
+              >
+                Het hoofdaanbod
+              </p>
+              <h2
+                className="font-display font-light text-[#16211F]"
+                style={{ fontSize: "clamp(1.9rem, 3.4vw, 2.6rem)", lineHeight: 1.15 }}
+              >
+                Geldscan · €49
+              </h2>
+              <p
+                className="font-body mt-3 text-lg font-medium"
+                style={{ color: "#0B7A6E" }}
+              >
+                Het complete inzicht in jouw geld.
+              </p>
+              <p
+                className="font-body mx-auto mt-4 max-w-[560px] font-light leading-relaxed"
+                style={{ color: "#4A5A56" }}
+              >
+                Ik analyseer je inkomsten en uitgaven en geef je duidelijkheid over wat opvalt,
+                waarom en wat je ermee kunt.
+              </p>
+            </div>
 
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2">
-              {/* Analyse */}
-              <div className="flex flex-col rounded-2xl border border-[#E6E9E7] bg-white p-6">
-                <p className="section-eyebrow mb-3">Gratis · anoniem · 5 minuten</p>
-                <h3 className="font-display mb-3 text-xl font-light text-[#16211F]">
-                  De analyse: waar wijk je af?
-                </h3>
-                <p className="font-body mb-4 flex-1 text-sm font-light leading-relaxed text-[#4A5A56]">
-                  Je vult je inkomen, je woonlasten, je vervoer en je dagelijkse uitgaven in en je ziet direct hoe je verdeling zich verhoudt tot huishoudens met een vergelijkbaar inkomen en een vergelijkbare samenstelling. Geen account, geen e-mailadres nodig, en je resultaat blijft ook zonder e-mailadres zichtbaar.
-                </p>
-                <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
-                  Wat het je geeft: een getal en de grootste afwijking. Wat het je niet geeft: de reden.
-                </p>
-                <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-analysekaart" className="btn-primary justify-center">
-                  {PRIMAIRE_CTA_LABEL} →
-                </CtaLink>
+            <div className="mt-14 grid grid-cols-1 items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
+              {/* Links: vier voordelen, zonder kaartjes, met hairlines ertussen */}
+              <div>
+                {geldscanVoordelen.map((v, i) => (
+                  <div
+                    key={v.titel}
+                    className={
+                      i > 0
+                        ? "flex items-start gap-4 border-t border-[#CFE2DC] pt-6 sm:pt-7"
+                        : "flex items-start gap-4"
+                    }
+                    style={i > 0 ? undefined : { paddingTop: 0 }}
+                  >
+                    <span
+                      className="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl"
+                      style={{ backgroundColor: "#FFFFFF" }}
+                    >
+                      <VoordeelIcoontje naam={v.icoon} />
+                    </span>
+                    <div className={i < geldscanVoordelen.length - 1 ? "pb-6 sm:pb-7" : undefined}>
+                      <p className="font-body mb-1.5 text-[15px] font-semibold leading-snug text-[#16211F]">
+                        {v.titel}
+                      </p>
+                      <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
+                        {v.tekst}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Geldrapport */}
-              <div className="flex flex-col rounded-2xl border p-6 bg-white" style={{ borderColor: "#E6E9E7" }}>
-                <p className="section-eyebrow mb-3">49 euro eenmalig · geen gesprek nodig</p>
-                <h3 className="font-display mb-3 text-xl font-light text-[#16211F]">
-                  Het geldrapport: waarom is het bij jou zo?
-                </h3>
-                <p className="font-body mb-4 flex-1 text-sm font-light leading-relaxed text-[#4A5A56]">
-                  Ik kijk met de hand naar jouw cijfers en schrijf je een rapport: de drie dingen die het meest opvallen, per stuk wat het je per jaar kost, wat ik zou doen en wat het niet oplost. Plus de posten die ik géén probleem vind, want die zijn er ook. Valt er niets te repareren, dan is dat de uitkomst en schrijf ik dat op. In gewone taal, herleesbaar, en te delen met je partner.
+              {/* Rechts: een preview van een echt geleverd rapport */}
+              <div className="relative">
+                <p className="relative mb-3 flex items-end justify-center gap-2 sm:justify-end">
+                  <span className="font-display text-[15px] font-light italic leading-snug text-[#4A5A56]">
+                    Voorbeeld uit een échte Geldscan
+                  </span>
+                  <svg
+                    width="26"
+                    height="26"
+                    viewBox="0 0 28 28"
+                    fill="none"
+                    stroke="#8B958F"
+                    strokeWidth="1.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="hidden flex-shrink-0 sm:block"
+                  >
+                    <path d="M4 4c9 1 14 7 15 17" />
+                    <path d="M13 20.5l6.2 1.2.9-6.2" />
+                  </svg>
                 </p>
-                <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
-                  Dat is wat de machine niet kan: een reden opschrijven.
+
+                {previewRapport ? (
+                  <>
+                    <div
+                      className="flex flex-col gap-4 rounded-2xl p-4 sm:flex-row sm:items-start sm:gap-0 sm:p-6"
+                      style={{ backgroundColor: "#F7F8F7" }}
+                    >
+                      {/* Vel 1: de cover en de samenvatting */}
+                      <div className="relative z-10 rounded-2xl border border-[#D5E5E0] bg-white p-6 shadow-card sm:w-[58%]">
+                        <div className="mb-4 flex items-center justify-between gap-3">
+                          <span
+                            className="font-body text-[9px] font-semibold uppercase tracking-[0.16em]"
+                            style={{ color: "#8B958F" }}
+                          >
+                            Geldrapport
+                          </span>
+                          <span
+                            className="font-body rounded-full px-2.5 py-1 text-[10px] font-medium"
+                            style={{ backgroundColor: "#F0F3F1", color: "#4A5A56" }}
+                          >
+                            {previewRapport.chip}
+                          </span>
+                        </div>
+
+                        <p className="font-display mb-3 text-[19px] font-light leading-snug text-[#16211F]">
+                          {previewRapport.verhaalTitel}
+                        </p>
+                        <p className="font-body mb-5 text-xs font-light leading-relaxed text-[#8B958F]">
+                          {previewRapport.kenmerken.join(" · ")}
+                        </p>
+
+                        <div className="border-t border-[#EDF0EF] pt-5">
+                          <p
+                            className="font-body mb-1.5 text-[9px] font-semibold uppercase tracking-[0.16em]"
+                            style={{ color: "#8B958F" }}
+                          >
+                            Wat ze vooraf dachten
+                          </p>
+                          <p className="font-body mb-5 text-sm font-light leading-relaxed text-[#4A5A56]">
+                            {previewRapport.vermoedenBedrag}
+                          </p>
+                          <p
+                            className="font-body mb-1.5 text-[9px] font-semibold uppercase tracking-[0.16em]"
+                            style={{ color: "#8B958F" }}
+                          >
+                            Wat eruit kwam
+                          </p>
+                          <p className="font-body text-sm font-medium leading-snug text-[#16211F]">
+                            {previewRapport.uitkomstKop}
+                          </p>
+                        </div>
+
+                        <p
+                          className="font-body mt-6 text-[10px] font-medium"
+                          style={{ color: "#0B7A6E" }}
+                        >
+                          waar blijft het?
+                        </p>
+                      </div>
+
+                      {/* Vel 2: de posten zoals ze in het rapport staan */}
+                      <div className="rounded-2xl border border-[#D5E5E0] bg-white p-5 shadow-card sm:-ml-6 sm:mt-12 sm:w-[48%] sm:pl-9">
+                        <p
+                          className="font-body mb-4 text-[9px] font-semibold uppercase tracking-[0.16em]"
+                          style={{ color: "#8B958F" }}
+                        >
+                          Vaste lasten in dit rapport
+                        </p>
+                        <ul>
+                          {previewLasten.map((post) => (
+                            <li
+                              key={post.label}
+                              className="border-b border-[#EDF0EF] py-2.5 last:border-0"
+                            >
+                              <p className="font-body text-[13px] font-medium leading-snug text-[#16211F]">
+                                {post.label}
+                              </p>
+                              <p className="font-body text-[12px] font-light leading-snug text-[#4A5A56]">
+                                {post.waarde}
+                              </p>
+                            </li>
+                          ))}
+                        </ul>
+                        <p
+                          className="font-body mt-5 text-[10px] font-medium"
+                          style={{ color: "#0B7A6E" }}
+                        >
+                          waar blijft het?
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="font-body mt-5 text-xs font-light leading-relaxed text-[#4A5A56]">
+                      Dit is een echt rapport, gepubliceerd met toestemming van de klant.{" "}
+                      <Link
+                        href={`/rapporten/${previewRapport.slug}`}
+                        className="hover:underline"
+                        style={{ color: "#0B7A6E", textDecoration: "none" }}
+                      >
+                        Lees het helemaal →
+                      </Link>
+                    </p>
+                  </>
+                ) : null}
+              </div>
+            </div>
+
+            {/* Trust-strip onder de preview */}
+            <div className="mt-14 rounded-2xl border border-[#D5E5E0] bg-white px-6 py-7 sm:px-8">
+              <div className="grid grid-cols-1 gap-7 sm:grid-cols-3 sm:gap-8">
+                {geldscanTrust.map((t) => (
+                  <div key={t.titel} className="flex items-start gap-3.5">
+                    <span
+                      className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl"
+                      style={{ backgroundColor: "#E7F1EE" }}
+                    >
+                      <TrustIcoontje naam={t.icoon} />
+                    </span>
+                    <div>
+                      <p className="font-body mb-1 text-[14px] font-semibold leading-snug text-[#16211F]">
+                        {t.titel}
+                      </p>
+                      <p className="font-body text-[13px] font-light leading-relaxed text-[#4A5A56]">
+                        {t.tekst}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Afsluiting van de sectie: de enige knop hier gaat naar de Geldscan */}
+            <div className="mt-5 flex flex-col gap-6 rounded-2xl border border-[#D5E5E0] bg-white px-6 py-7 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <p className="font-display mb-1.5 text-xl font-light text-[#16211F]">
+                  Klaar om echt inzicht te krijgen?
                 </p>
-                <Link
-                  href={ANALYSE_ROUTE}
-                  className="font-body inline-flex items-center justify-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
-                  style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
-                >
-                  Doe eerst de gratis analyse →
-                </Link>
-                <p className="font-body mt-3 text-sm font-light text-[#4A5A56]">
-                  <CtaLink doel="geldscan" href="/geldscan" locatie="aanbod-geldrapportkaart" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                    Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan →
-                  </CtaLink>
-                </p>
-                <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
-                  49 euro, eenmalig. Kies je daarna een gesprek of traject, dan gaat de 49 euro daarvan af.{" "}
-                  <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                    Zie eerst een compleet voorbeeld →
-                  </Link>
+                <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
+                  Ontdek wat er in jouw Geldscan staat.
                 </p>
               </div>
+              <CtaLink
+                doel="geldscan"
+                href="/geldscan"
+                locatie="aanbod-geldscan-sectie"
+                className="btn-primary lg:flex-shrink-0"
+              >
+                Bekijk de Geldscan →
+              </CtaLink>
             </div>
           </div>
         </section>
