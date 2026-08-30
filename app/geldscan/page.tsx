@@ -1,25 +1,20 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
-import { PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import {
-  RAPPORTEN,
-  AANTAL_ZONDER_LEK,
-  AANTAL_ZONDER_VERVOLG,
-} from "@/lib/rapporten-data";
+import { analyseHref, type SituatieSleutel } from "@/lib/cta";
+import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Geldscan: waarom houd jij zo weinig over? €49",
   description:
-    "Je bankapp laat zien wat je hebt uitgegeven. De geldscan legt uit waarom dat bij jouw huishouden zo uitpakt en wat ik concreet zou veranderen. Persoonlijk geschreven, €49 eenmalig, geen gesprek nodig.",
+    "Je bankapp laat zien wat je hebt uitgegeven. De Geldscan legt uit waarom dat bij jouw huishouden zo uitpakt en wat ik concreet zou veranderen. Persoonlijk geschreven, €49 eenmalig, binnen 2 werkdagen.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
     title: "Geldscan: waarom houd jij zo weinig over? €49",
     description:
-      "Je bankapp vertelt wat je hebt uitgegeven. Ik kijk naar het hele huishouden en zoek uit wat die cijfers voor jou betekenen. €49 eenmalig.",
+      "Ik analyseer je inkomsten en uitgaven en geef je duidelijkheid over wat opvalt, waarom en wat je ermee kunt. €49 eenmalig.",
     url: "https://www.waarblijfthet.nl/geldscan",
     type: "website",
   },
@@ -27,87 +22,27 @@ export const metadata: Metadata = {
 };
 
 /* ────────────────────────────────────────────────────────────────
-   Situatiecontext uit de URL (17 in de bouwprompt van 15-aug-2026).
+   Deze pagina is de productpagina van de Geldscan en heeft precies
+   één koopproces: hero, prijs, zo werkt het, wat je krijgt, faq,
+   slot. Alles wat hier eerder dubbel stond (twee processecties, een
+   tweede uitleg over afschriften, drie koopblokken) is weg. Wie een
+   sectie toevoegt haalt er dus eerst een weg.
 
-   Komt iemand binnen vanuit een artikel of een persona-CTA, dan houd ik
-   die context vast: de passende kaart staat bovenaan en gemarkeerd, de
-   hero krijgt een regel die zijn situatie benoemt, en alles wat al
-   bekend is reist mee naar de gratis analyse, zodat hij het daar niet
-   opnieuw hoeft in te vullen.
-
-   Bewust terughoudend met voorinvullen: alleen wat zeker is uit de
-   situatiekeuze zelf. Het aantal kinderen raad ik niet, want dat
-   verandert de vergelijking zonder dat de bezoeker het ziet.
+   De enige actie op deze pagina is Start de Geldscan, naar de
+   bestaande intakeroute. De gratis analyse staat er alleen als
+   tekstlink in stap 1, voor wie hem al gedaan heeft.
    ──────────────────────────────────────────────────────────────── */
-type SituatieSleutel =
-  | "gezin"
-  | "alleenstaand"
-  | "stel"
-  | "alleenstaande-ouder"
-  | "zzp";
 
-interface Situatie {
-  sleutel: SituatieSleutel;
-  kaartTitel: string;
-  kaartTekst: string;
-  /** Slug van het echte rapport dat het dichtst bij deze situatie ligt. */
-  rapport: string;
-  /** Regel in de hero als iemand met deze context binnenkomt. */
-  heroRegel: string;
-  /** Wat we zeker weten en dus meegeven aan de analyse. */
-  analyseParams: Record<string, string>;
-}
-
-const SITUATIES: Situatie[] = [
-  {
-    sleutel: "gezin",
-    kaartTitel: "Gezin",
-    kaartTekst: "Goed inkomen, kinderen, toch weinig over.",
-    rapport: "tweeverdieners-drie-kinderen",
-    heroRegel:
-      "Je komt binnen als gezin met twee inkomens. Het rapport dat hieronder is uitgewerkt gaat over precies zo'n huishouden, en daar lag het antwoord niet bij de boodschappen.",
-    analyseParams: { volwassenen: "2" },
-  },
-  {
-    sleutel: "alleenstaand",
-    kaartTitel: "Alleenstaand",
-    kaartTekst: "Goed salaris, maar alles komt op één inkomen neer.",
-    rapport: "alleenstaand-huurwoning",
-    heroRegel:
-      "Je komt binnen als alleenstaande. Eén inkomen draagt een vaste basis die voor twee mensen is geprijsd, en dat verschuift wat er normaal is.",
-    analyseParams: { volwassenen: "1", kinderen: "0" },
-  },
-  {
-    sleutel: "stel",
-    kaartTitel: "Stel zonder kinderen",
-    kaartTekst: "Goed verdienen, maar sparen lukt minder dan verwacht.",
-    rapport: "stel-zonder-kinderen",
-    heroRegel:
-      "Je komt binnen als stel zonder kinderen. Bij het stel dat je hieronder terugvindt was de uitkomst dat er geen lek was. Dat kan dus ook.",
-    analyseParams: { volwassenen: "2", kinderen: "0" },
-  },
-  {
-    sleutel: "alleenstaande-ouder",
-    kaartTitel: "Alleenstaande ouder",
-    kaartTekst: "Goed inkomen, maar één persoon draagt vrijwel alle risico's.",
-    rapport: "alleenstaande-ouder-twee-kinderen",
-    heroRegel:
-      "Je komt binnen als alleenstaande ouder. Je draagt in je eentje wat elders twee mensen dragen, en de vergelijking moet dat weten voordat er iets van te vinden valt.",
-    analyseParams: { volwassenen: "1" },
-  },
-  {
-    sleutel: "zzp",
-    kaartTitel: "Zzp of wisselend inkomen",
-    kaartTekst: "Goed gemiddeld inkomen, maar veel verschil tussen maanden.",
-    rapport: "zzp-wisselend-inkomen",
-    heroRegel:
-      "Je komt binnen met een wisselend inkomen. Juist dan is de vraag niet wat je gemiddeld verdient, maar welke vaste structuur eronder ligt.",
-    analyseParams: {},
-  },
+const SITUATIE_SLEUTELS: SituatieSleutel[] = [
+  "gezin",
+  "alleenstaand",
+  "stel",
+  "alleenstaande-ouder",
+  "zzp",
 ];
 
 function isSituatie(v: string | undefined): v is SituatieSleutel {
-  return !!v && SITUATIES.some((s) => s.sleutel === v);
+  return !!v && SITUATIE_SLEUTELS.includes(v as SituatieSleutel);
 }
 
 /** Getal uit de URL, alleen als het binnen een geloofwaardige marge valt. */
@@ -118,101 +53,302 @@ function bedragUitUrl(v: string | undefined, min: number, max: number): string |
   return String(n);
 }
 
-const stappen = [
+/* --- Iconen ------------------------------------------------------------
+   Eén set lijniconen, dezelfde stijl als op /aanbod: 1,4 stroke, geen
+   vlakken, altijd in het accentgroen. */
+
+type IcoonNaam =
+  | "persoon"
+  | "document"
+  | "loep"
+  | "rapport"
+  | "staaf"
+  | "lamp"
+  | "checklist"
+  | "doel"
+  | "slot"
+  | "pen"
+  | "envelop"
+  | "prijs";
+
+const ICOON_PADEN: Record<IcoonNaam, React.ReactNode> = {
+  persoon: (
+    <>
+      <circle cx="12" cy="8.5" r="3.4" />
+      <path d="M5.5 20c0-3.3 2.9-5.4 6.5-5.4s6.5 2.1 6.5 5.4" />
+    </>
+  ),
+  document: (
+    <>
+      <path d="M6 3.5h7.5L18 8v12.5H6z" />
+      <path d="M13.5 3.5V8H18" />
+      <path d="M9 12.5h6" />
+      <path d="M9 16h4" />
+    </>
+  ),
+  loep: (
+    <>
+      <circle cx="11" cy="11" r="6.5" />
+      <path d="M19.5 19.5l-3.6-3.6" />
+    </>
+  ),
+  rapport: (
+    <>
+      <rect x="5" y="3.5" width="14" height="17" rx="2" />
+      <path d="M8.5 8.5h7" />
+      <path d="M8.5 12h7" />
+      <path d="M8.5 15.5h4" />
+    </>
+  ),
+  staaf: (
+    <>
+      <path d="M6 19.5V12" />
+      <path d="M12 19.5V6.5" />
+      <path d="M18 19.5V9.5" />
+    </>
+  ),
+  lamp: (
+    <>
+      <path d="M9.2 16.5a5.5 5.5 0 1 1 5.6 0v1.6H9.2z" />
+      <path d="M10 21h4" />
+    </>
+  ),
+  checklist: (
+    <>
+      <path d="M4 7l1.6 1.6L8.5 5.5" />
+      <path d="M4 13l1.6 1.6L8.5 11.5" />
+      <path d="M4 19l1.6 1.6L8.5 17.5" />
+      <path d="M11.5 7h8.5" />
+      <path d="M11.5 13h8.5" />
+      <path d="M11.5 19h6" />
+    </>
+  ),
+  doel: (
+    <>
+      <circle cx="12" cy="12" r="7.5" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  slot: (
+    <>
+      <rect x="5" y="10.5" width="14" height="9.5" rx="2" />
+      <path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" />
+    </>
+  ),
+  pen: (
+    <>
+      <path d="M4 20l.9-3.6L15.5 5.8a2 2 0 0 1 2.8 2.8L7.7 19.1z" />
+      <path d="M13.8 7.5l2.8 2.8" />
+    </>
+  ),
+  envelop: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="13" rx="2" />
+      <path d="M3.5 7.5l8.5 6 8.5-6" />
+    </>
+  ),
+  prijs: (
+    <>
+      <path d="M12.5 3.5H20v7.5l-9 9L3.5 12.5z" />
+      <circle cx="16.2" cy="7.5" r="1.3" />
+    </>
+  ),
+};
+
+function Icoon({ naam, maat = 19 }: { naam: IcoonNaam; maat?: number }) {
+  return (
+    <svg
+      width={maat}
+      height={maat}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#0B7A6E"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {ICOON_PADEN[naam]}
+    </svg>
+  );
+}
+
+/* --- Rapportpreview ----------------------------------------------------
+   De preview toont de opbouw van een Geldscan, niet de inhoud van een
+   klant. Er staan daarom geen bedragen in: de regels zijn balkjes en de
+   ring is een vorm zonder waardes. Twee keer staat erbij dat dit een
+   voorbeeldweergave is, op het vel zelf en in de regel eronder. Wie hier
+   ooit een bedrag in zet maakt er een verzonnen klantcase van. */
+
+function Balk({ breedte, sterk = false }: { breedte: string; sterk?: boolean }) {
+  return (
+    <span
+      aria-hidden="true"
+      className="block h-[7px] rounded-full"
+      style={{ width: breedte, backgroundColor: sterk ? "#DDE3E1" : "#EDF0EF" }}
+    />
+  );
+}
+
+function PreviewKopje({ tekst }: { tekst: string }) {
+  return (
+    <p
+      className="font-body mb-2.5 text-[9px] font-semibold uppercase tracking-[0.16em]"
+      style={{ color: "#8B958F" }}
+    >
+      {tekst}
+    </p>
+  );
+}
+
+/* --- Hero: twee korte waarden ----------------------------------------- */
+
+const heroWaarden: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
   {
-    n: "01",
-    titel: "Ik kijk naar jouw cijfers",
-    tekst:
-      "Je levert je inkomsten en je belangrijkste uitgaven aan. Schattingen zijn prima. Dat kost je een minuut of twee.",
+    icoon: "persoon",
+    titel: "Persoonlijk geschreven",
+    tekst: "Geen standaardrapport.",
   },
   {
-    n: "02",
-    titel: "Ik kijk naar jouw situatie",
-    tekst:
-      "Inkomen, wonen, kinderen, auto, huishouden en wat jij zelf belangrijk vindt. Er is een veld waarin je opschrijft wat de cijfers niet laten zien, en dat weegt zwaarder dan het gemiddelde.",
-  },
-  {
-    n: "03",
-    titel: "Ik zoek uit wat er werkelijk opvalt",
-    tekst:
-      "Niet alleen wat hoog is, ook wat juist normaal is. Een dure hypotheek is niet automatisch een probleem. Hoge boodschappen zijn niet automatisch een probleem.",
-  },
-  {
-    n: "04",
-    titel: "Je krijgt een persoonlijk plan",
-    tekst:
-      "Een rapport met mijn conclusies, de posten die afwijken, de posten die dat niet doen, en wat ik concreet zou veranderen in de komende maanden.",
+    icoon: "document",
+    titel: "Je ziet de onderbouwing",
+    tekst: "De cijfers en mijn conclusie staan er allebei in.",
   },
 ];
 
-const inhoudsopgave = [
-  { n: "1", titel: "Mijn eerste indruk", tekst: "Wat valt direct op?" },
-  { n: "2", titel: "Waar zit het verschil?", tekst: "Welke uitgaven wijken af en welke juist niet?" },
-  { n: "3", titel: "Wat is géén probleem?", tekst: "Welke dure uitgaven hoef je niet aan te pakken?" },
-  { n: "4", titel: "Waar zit de echte ruimte?", tekst: "Wat kun je structureel veranderen?" },
-  { n: "5", titel: "Mijn advies", tekst: "Wat zou ik als eerste veranderen?" },
-  { n: "6", titel: "Plan voor de komende maanden", tekst: "Wat kun je concreet gaan doen?" },
+/* --- Het enige proces op deze pagina ---------------------------------- */
+
+const stappen: {
+  icoon: IcoonNaam;
+  titel: string;
+  tekst: React.ReactNode;
+  optioneel?: string;
+}[] = [
+  {
+    icoon: "persoon",
+    titel: "Start met je situatie",
+    tekst: (
+      <>
+        Je vult je gegevens en financiële situatie in. Heb je de{" "}
+        <CtaLink
+          doel="analyse"
+          href={analyseHref()}
+          locatie="geldscan-stap1"
+          className="font-medium hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          gratis analyse
+        </CtaLink>{" "}
+        al gedaan? Dan kun je daarop voortbouwen.
+      </>
+    ),
+  },
+  {
+    icoon: "document",
+    titel: "Deel wat je hebt",
+    tekst: (
+      <>
+        Je kunt bankafschriften toevoegen als je die hebt. Handig voor extra detail, maar niet
+        nodig om de Geldscan te maken.
+      </>
+    ),
+    optioneel: "Optioneel, maar handig voor extra detail.",
+  },
+  {
+    icoon: "loep",
+    titel: "Ik analyseer jouw situatie",
+    tekst: (
+      <>
+        Ik kijk naar je inkomsten, uitgaven en opvallende verschillen en leg verbanden tussen de
+        cijfers.
+      </>
+    ),
+  },
+  {
+    icoon: "rapport",
+    titel: "Je ontvangt je Geldscan",
+    tekst: (
+      <>
+        Binnen 2 werkdagen ontvang je je persoonlijke rapport met wat opvalt, waarom het opvalt en
+        waar ik als eerste naar zou kijken.
+      </>
+    ),
+  },
 ];
 
-const bankapp = [
-  "Je gaf €1.150 uit aan boodschappen",
-  "Je gaf €720 uit aan vrije tijd",
-  "Je hypotheek is €1.860",
-  "Je zette €1.000 opzij, en haalde er weer geld vanaf",
+const procesTrust: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
+  {
+    icoon: "slot",
+    titel: "Jouw gegevens zijn veilig",
+    tekst:
+      "Alleen ik zie ze. Direct na het versturen van je rapport verwijder ik wat je hebt aangeleverd.",
+  },
+  {
+    icoon: "pen",
+    titel: "Ik schrijf het zelf",
+    tekst: "Geen algoritme, geen sjabloon en geen team dat meekijkt.",
+  },
 ];
 
-const geldscanVragen = [
-  "Is €1.150 aan boodschappen veel voor jouw huishouden?",
-  "Zijn je vaste lasten eigenlijk het probleem?",
-  "Welke jaarlijkse kosten trekken je spaargeld telkens weer leeg?",
-  "Hoeveel zou er structureel over moeten blijven?",
-  "Wat zou ik als eerste veranderen?",
+/* --- Wat je krijgt ----------------------------------------------------- */
+
+const watJeKrijgt: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
+  {
+    icoon: "staaf",
+    titel: "Duidelijke uitleg",
+    tekst: "Je ziet precies wat opvalt in jouw cijfers.",
+  },
+  {
+    icoon: "lamp",
+    titel: "Inzicht in oorzaken",
+    tekst: "Ik leg uit waarom het verschil ontstaat.",
+  },
+  {
+    icoon: "checklist",
+    titel: "Concrete aandachtspunten",
+    tekst: "Praktische punten waar je direct mee kunt.",
+  },
+  {
+    icoon: "doel",
+    titel: "Persoonlijk advies",
+    tekst: "Onafhankelijk, zonder provisies of producten, geschreven voor jouw situatie.",
+  },
 ];
+
+/* --- FAQ ---------------------------------------------------------------
+   Alleen vragen die een aankoop kunnen blokkeren. De uitleg over
+   afschriften en over privacy staat hier, en nergens anders meer op de
+   pagina. */
 
 const faq = [
   {
-    vraag: "Is de geldscan automatisch?",
+    vraag: "Moet ik bankafschriften aanleveren?",
     antwoord:
-      "Nee. Ik schrijf elk rapport zelf, met de hand. Er kijkt geen team en geen algoritme mee, en er is geen sjabloon waarin ik jouw bedragen giet. Dat is precies waarom er vijf verschillende antwoorden uit vijf rapporten kwamen.",
+      "Nee, dat is optioneel. De ingevulde analyse is meestal voldoende. Met afschriften kan ik preciezer naar je uitgaven kijken. Je mag daarin wegstrepen wat er voor mij niet toe doet, zoals rekeningnummers en namen van anderen. Ik heb de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind.",
   },
   {
-    vraag: "Moet ik mijn bank koppelen?",
-    antwoord: "Nee. Er is geen koppeling, geen app en geen inlog. Je vult zelf in wat je weet.",
-  },
-  {
-    vraag: "Moet ik bankafschriften opsturen?",
+    vraag: "Is mijn informatie veilig?",
     antwoord:
-      "Nee, dat is optioneel. De ingevulde analyse is meestal genoeg. Wil je dat ik preciezer kijk, stuur dan een paar recente afschriften mee. Je mag daarin wegstrepen wat er voor mij niet toe doet: rekeningnummers, namen van anderen en betalingen die over iemand anders gaan. Ik heb de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind. Ik ben de enige die ze inziet, en direct na het versturen van je rapport verwijder ik ze.",
+      "Alleen ik zie wat je aanlevert. Er kijkt geen team en geen algoritme mee, en je gegevens gaan niet naar derden. Direct na het versturen van je rapport verwijder ik je afschriften en de gegevens die je hebt ingevuld.",
   },
   {
     vraag: "Hoe lang duurt het?",
     antwoord:
-      "Je krijgt het rapport binnen twee werkdagen nadat je informatie compleet is. De aanvraag zelf kost je twee minuten.",
+      "Je krijgt je rapport binnen 2 werkdagen nadat je informatie compleet is. Het aanleveren zelf kost je een paar minuten.",
   },
   {
-    vraag: "Krijg ik alleen tips om te bezuinigen?",
+    vraag: "Is de Geldscan automatisch?",
     antwoord:
-      "Nee. Soms is een dure uitgave helemaal geen probleem, en dan schrijf ik dat op. Het rapport kijkt naar het geheel: wat wijkt af, wat wijkt juist niet af, en waar zit de ruimte werkelijk.",
+      "Nee. Ik schrijf elk rapport zelf, met de hand. Er is geen sjabloon waarin ik jouw bedragen giet, en er kijkt geen algoritme mee.",
   },
   {
-    vraag: "Wat als er niets bijzonders uitkomt?",
-    antwoord:
-      `Dan schrijf ik dat ook. Van de vijf rapporten die openbaar op deze site staan, was dat bij ${AANTAL_ZONDER_LEK} van de vijf de uitkomst. Het doel is niet om koste wat kost iets te vinden, het doel is een antwoord dat klopt.`,
-  },
-  {
-    vraag: "Kan ik daarna nog hulp krijgen?",
-    antwoord:
-      `Ja, maar het hoeft niet. Je kunt een adviesgesprek of een traject kiezen, en dan trek ik de €49 van de prijs daarvan af. Bij ${AANTAL_ZONDER_VERVOLG} van de vijf gepubliceerde rapporten was een vervolggesprek niet nodig.`,
-  },
-  {
-    vraag: "Kan ik je eerst even spreken?",
-    antwoord:
-      "Dat kan, een kwartier, kosteloos, via video of telefoon. Ik doe die gesprekken buiten kantoortijden, zodat ik er de tijd voor kan nemen. In dat kwartier kijk ik niet naar jouw cijfers: ik leg uit wat ik doe, wat er in een rapport staat en wat er met je gegevens gebeurt. Mail naar hallo@waarblijfthet.nl met als onderwerp Kennismaken. Voor de scan zelf is het niet nodig.",
+    vraag: "Krijg ik alleen advies om te bezuinigen?",
+    antwoord: `Nee. Soms is een dure uitgave helemaal geen probleem, en dan schrijf ik dat op. Ik kijk naar het geheel: wat wijkt af, wat wijkt juist niet af, en waar zit de ruimte werkelijk. Bij ${AANTAL_ZONDER_LEK} van de ${RAPPORTEN.length} gepubliceerde rapporten was mijn conclusie dat er niets te repareren viel.`,
   },
   {
     vraag: "Is dit financieel advies?",
     antwoord:
-      "Nee. De geldscan is een persoonlijke analyse van je huishoudfinanciën. Voor belasting, hypotheek, beleggen en vergelijkbaar gespecialiseerd advies verwijs ik waar nodig door. Ik ben ook geen schuldhulp: heb je betalingsachterstanden, dan is kosteloze hulp via je gemeente of Geldfit passender.",
+      "Nee. De Geldscan is een persoonlijke analyse van je huishoudfinanciën. Voor belasting, hypotheek, beleggen en vergelijkbaar gespecialiseerd advies verwijs ik waar nodig door. Ik ben ook geen schuldhulp: heb je betalingsachterstanden, dan is kosteloze hulp via je gemeente of Geldfit passender.",
   },
 ];
 
@@ -232,7 +368,7 @@ const serviceSchema = {
   serviceType: "Persoonlijke geldscan",
   name: "Geldscan, Waar blijft het",
   description:
-    "Persoonlijk geschreven geldrapport over je huishoudfinanciën, zonder gesprek. Wat wijkt af, wat wijkt juist niet af, en wat er concreet moet veranderen. Als PDF binnen twee werkdagen na aanlevering van je cijfers. €49 eenmalig.",
+    "Persoonlijk geschreven geldrapport over je huishoudfinanciën. Wat opvalt, waarom het opvalt en waar ik als eerste naar zou kijken. Binnen 2 werkdagen na aanlevering van je cijfers. €49 eenmalig.",
   url: "https://www.waarblijfthet.nl/geldscan",
   areaServed: { "@type": "Country", name: "Nederland" },
   provider: {
@@ -250,76 +386,57 @@ const serviceSchema = {
   },
 };
 
+/* Het pijltje van een open vraag. De rotatie zit op de omhullende span,
+   zodat de svg zelf alleen vorm is en geen transform draagt. */
+function Chevron() {
+  return (
+    <span
+      aria-hidden="true"
+      className="flex flex-shrink-0 transition-transform duration-200 group-open:rotate-180"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="#8B958F"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M6 9.5l6 6 6-6" />
+      </svg>
+    </span>
+  );
+}
+
 export default function GeldscanPage({
   searchParams,
 }: {
-  searchParams?: { token?: string; situatie?: string; inkomen?: string; boodschappen?: string };
+  searchParams?: {
+    token?: string;
+    situatie?: string;
+    inkomen?: string;
+    boodschappen?: string;
+  };
 }) {
   const token = searchParams?.token;
-  const situatieSleutel = isSituatie(searchParams?.situatie) ? searchParams.situatie : null;
-  const situatie = situatieSleutel
-    ? SITUATIES.find((s) => s.sleutel === situatieSleutel) ?? null
-    : null;
+  const situatieSleutel = isSituatie(searchParams?.situatie) ? searchParams.situatie : undefined;
   const inkomen = bedragUitUrl(searchParams?.inkomen, 500, 20000);
   const boodschappen = bedragUitUrl(searchParams?.boodschappen, 50, 3000);
 
-  // Aanmelden voor de scan.
+  /* De bestaande aanmeldroute. Alles wat we al van deze bezoeker weten
+     reist mee, zodat hij het in de intake niet opnieuw invult. */
   const intakeParams = new URLSearchParams({ pakket: "geldscan" });
   if (token) intakeParams.set("token", token);
   if (situatieSleutel) intakeParams.set("situatie", situatieSleutel);
+  if (inkomen) intakeParams.set("inkomen", inkomen);
+  if (boodschappen) intakeParams.set("boodschappen", boodschappen);
   const intakeHref = `/aanbod/intake?${intakeParams.toString()}`;
 
-  // Gratis analyse, met alles wat we al van deze bezoeker weten.
-  const analyseParams = new URLSearchParams(situatie?.analyseParams ?? {});
-  if (inkomen) analyseParams.set("inkomen", inkomen);
-  if (boodschappen) analyseParams.set("boodschappen", boodschappen);
-  const analyseQuery = analyseParams.toString();
-  const analyseHref = analyseQuery ? `/analyse?${analyseQuery}` : "/analyse";
-
-  // De situatie waarmee iemand binnenkwam gaat bovenaan de kaartenrij staan.
-  const situatieKaarten = situatie
-    ? [situatie, ...SITUATIES.filter((s) => s.sleutel !== situatie.sleutel)]
-    : SITUATIES;
-
-  /* De gratis analyse is de enige primaire actie op deze pagina. Wie hier
-     binnenkomt heeft nog geen eigen vergelijking gezien, en hoeft dus nog
-     niets te kopen. */
-  const PrimaireCta = ({ dark = false, locatie }: { dark?: boolean; locatie: string }) => (
-    <CtaLink
-      doel="analyse"
-      href={analyseHref}
-      locatie={locatie}
-      className="btn-primary"
-      style={dark ? { backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" } : undefined}
-    >
-      {PRIMAIRE_CTA_LABEL}
-    </CtaLink>
-  );
-
-  /* De enige secundaire knop van deze pagina, punt 8. Outline, nooit gevuld,
-     zodat hij visueel ondergeschikt blijft aan de gratis analyse. */
-  const GeldscanKnop = () => (
-    <CtaLink
-      doel="geldscan"
-      href="#prijs"
-      locatie="geldscan-hero"
-      className="font-body inline-flex items-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
-      style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
-    >
-      Bekijk de Geldscan &rarr;
-    </CtaLink>
-  );
-
-  /* De aanvraag zelf. Alleen bij de prijs, waar iemand er expliciet naar zoekt. */
-  const GeldscanAanvraag = () => (
-    <CtaLink
-      doel="geldscan"
-      href={intakeHref}
-      locatie="geldscan-prijs"
-      className="font-body font-medium text-sm hover:underline"
-      style={{ color: "#0B7A6E", textDecoration: "none" }}
-    >
-      Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan, €49 &rarr;
+  const StartKnop = ({ locatie }: { locatie: string }) => (
+    <CtaLink doel="geldscan" href={intakeHref} locatie={locatie} className="btn-primary">
+      Start de Geldscan →
     </CtaLink>
   );
 
@@ -336,878 +453,466 @@ export default function GeldscanPage({
       <Header />
 
       <main>
-        {/* ── 1. Hero ─────────────────────────────────────────── */}
-        <section className="bg-background pt-14 pb-12">
-          <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-5">Geldscan</p>
-            <h1 className="font-display font-light text-primary text-3xl sm:text-5xl mb-6 leading-tight">
-              Je verdient goed.
-              <br />
-              Toch houd je minder over dan je zou verwachten?
-            </h1>
-            <p className="font-body font-light text-text-soft text-lg leading-relaxed mb-4">
-              Ik kijk persoonlijk naar je volledige financiële situatie en zoek uit waar het
-              verschil vandaan komt.
-            </p>
-            <div className="mb-8">
-              <p className="font-display font-light text-primary text-xl sm:text-2xl leading-snug">
-                Geen automatisch rapport.
-              </p>
-              <p className="font-body font-light text-text-soft text-base leading-relaxed mt-1">
-                Ik kijk zelf naar je cijfers en schrijf jouw conclusie.
-              </p>
-            </div>
-
-            {situatie && (
-              <div
-                className="card-base border border-[#E6E9E7] mb-8"
-                style={{ borderLeft: "3px solid #0B7A6E" }}
-              >
-                <p className="section-eyebrow mb-2">{situatie.kaartTitel}</p>
-                <p className="font-body font-light text-sm text-primary leading-relaxed mb-2">
-                  Je weet nu ongeveer wat een huishouden zoals het jouwe zou moeten overhouden.
-                  Maar weet je ook waarom jij daar misschien vanaf wijkt? Daarvoor is de Geldscan.
+        {/* ── 1. Hero, met de koopbalk als afsluiting ─────────────────────
+            Links de belofte en twee korte waarden, rechts hoe het
+            eindproduct eruitziet. De koopbalk staat direct onder de hero
+            in dezelfde zone, zodat de prijs meteen in beeld is en er maar
+            één knop boven de vouw staat. */}
+        <section
+          className="overflow-hidden px-6 pb-14 pt-14 sm:pt-20 lg:pb-20 lg:pt-24"
+          style={{ backgroundColor: "#F7F8F7" }}
+        >
+          <div className="mx-auto max-w-[1180px]">
+            <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-[1.02fr_0.98fr] lg:gap-16">
+              {/* Links: belofte en waarden */}
+              <div>
+                <p
+                  className="font-body mb-6 text-xs font-medium uppercase tracking-[0.18em]"
+                  style={{ color: "#8B958F" }}
+                >
+                  De Geldscan
                 </p>
-                <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                  {situatie.heroRegel}
+
+                <h1
+                  className="font-display font-light text-[#16211F]"
+                  style={{
+                    fontSize: "clamp(2.1rem, 4vw, 3.05rem)",
+                    lineHeight: 1.12,
+                    marginBottom: "1rem",
+                  }}
+                >
+                  Geldscan · €49
+                </h1>
+
+                <p
+                  className="font-body text-lg font-medium leading-snug"
+                  style={{ color: "#0B7A6E" }}
+                >
+                  Het complete inzicht in jouw geld.
                 </p>
-              </div>
-            )}
 
-            {/* Het eerste actiepunt van de pagina: de gratis analyse. */}
-            <div
-              className="card-base border border-[#E6E9E7] mb-6"
-              style={{ borderLeft: "3px solid #0B7A6E" }}
-            >
-              <p className="section-eyebrow mb-3">Nog niet begonnen?</p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
-                Doe eerst de gratis analyse. Dan zie je waar jouw situatie afwijkt en kun je daarna
-                bepalen of je wilt weten waarom.
-              </p>
-              <PrimaireCta locatie="geldscan-boven" />
-              <p className="font-body font-light text-text-muted text-xs mt-4">
-                Gratis, anoniem, een paar minuten. Je hoeft nog niets te kopen.
-              </p>
-            </div>
-
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mt-10 mb-3">
-              De Geldscan
-            </h2>
-            <p className="font-body font-light text-text-soft text-base leading-relaxed">
-              De gratis analyse laat zien waar. De Geldscan onderzoekt waarom.
-            </p>
-            <p className="font-body font-medium text-primary text-base mt-2 mb-4">
-              €49 eenmalig
-            </p>
-            <GeldscanKnop />
-            <p className="font-body font-light text-text-muted text-xs mt-3">
-              Persoonlijk geschreven, geen abonnement. Je antwoorden in de analyse blijven anoniem
-              totdat je zelf je e-mailadres achterlaat.
-            </p>
-
-            <div
-              className="card-base border border-[#E6E9E7] mt-6 mb-0"
-              style={{ borderLeft: "3px solid #0B7A6E" }}
-            >
-              <p className="section-eyebrow mb-3">Zo werkt de Geldscan, na de analyse</p>
-              <ol className="space-y-3">
-                <li>
-                  <p className="font-body font-medium text-primary text-sm">
-                    1. Je vraagt de Geldscan aan
-                  </p>
-                  <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                    Vier korte vragen, daarna ontvang je een betaalverzoek.
-                  </p>
-                </li>
-                <li>
-                  <p className="font-body font-medium text-primary text-sm">2. Je betaalt €49</p>
-                  <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                    Na betaling ontvang je de link om je financiële gegevens aan te leveren.
-                  </p>
-                </li>
-                <li>
-                  <p className="font-body font-medium text-primary text-sm">
-                    3. Ik maak je Geldscan
-                  </p>
-                  <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                    Ik analyseer je situatie persoonlijk en schrijf zelf je rapport.
-                  </p>
-                </li>
-              </ol>
-            </div>
-
-          </div>
-        </section>
-
-        {/* ── 1b. Gratis vs betaald: het centrale onderscheid ─── */}
-        <section className="bg-card py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8 leading-snug">
-              Wat gratis is, en wat je voor €49 krijgt
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="card-base border border-[#E6E9E7]">
-                <p className="section-eyebrow mb-4">Gratis analyse</p>
-                <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-                  Je ontdekt:
+                <p
+                  className="font-body mt-5 max-w-[470px] font-light leading-relaxed"
+                  style={{ fontSize: "1.05rem", color: "#4A5A56" }}
+                >
+                  Ik analyseer je inkomsten en uitgaven en geef je duidelijkheid over wat opvalt,
+                  waarom en wat je ermee kunt.
                 </p>
-                <ul className="space-y-3">
-                  {[
-                    "wat volgens de vergelijking normaal is voor een huishouden zoals het jouwe",
-                    "wat jij ongeveer zou moeten overhouden",
-                    "of jouw situatie daarvan afwijkt",
-                  ].map((r) => (
-                    <li
-                      key={r}
-                      className="font-body font-light text-sm text-text-soft leading-relaxed flex gap-3"
-                    >
-                      <span aria-hidden="true" style={{ color: "#C6CCC9" }}>
-                        &bull;
+
+                <div className="mt-9 grid max-w-[500px] grid-cols-1 gap-6 sm:grid-cols-2">
+                  {heroWaarden.map((w) => (
+                    <div key={w.titel} className="flex items-start gap-3.5">
+                      <span
+                        className="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl"
+                        style={{ backgroundColor: "#FFFFFF" }}
+                      >
+                        <Icoon naam={w.icoon} />
                       </span>
-                      <span>{r}</span>
-                    </li>
+                      <div>
+                        <p className="font-body mb-1 text-[14px] font-semibold leading-snug text-[#16211F]">
+                          {w.titel}
+                        </p>
+                        <p className="font-body text-[13px] font-light leading-relaxed text-[#4A5A56]">
+                          {w.tekst}
+                        </p>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
 
-              <div
-                className="card-base border border-[#E6E9E7]"
-                style={{ borderLeft: "3px solid #0B7A6E" }}
-              >
-                <p className="section-eyebrow mb-4">Geldscan &middot; €49</p>
-                <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-                  Ik kijk vervolgens zelf naar:
-                </p>
-                <ul className="space-y-3">
-                  {[
-                    "waar het verschil vandaan komt",
-                    "welke uitgaven werkelijk opvallen",
-                    "welke uitgaven juist géén probleem zijn",
-                    "welke structurele ruimte er werkelijk is",
-                    "wat ik als eerste zou veranderen",
-                  ].map((r) => (
-                    <li
-                      key={r}
-                      className="font-body text-sm text-primary leading-relaxed flex gap-3"
-                    >
-                      <span aria-hidden="true" style={{ color: "#0B7A6E" }}>
-                        &bull;
+              {/* Rechts: hoe het eindproduct eruitziet */}
+              <div className="relative">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-24 -top-24 hidden h-[440px] w-[440px] rounded-full lg:block"
+                  style={{ backgroundColor: "rgba(196, 96, 58, 0.07)" }}
+                />
+
+                <div className="relative mx-auto max-w-[420px] lg:max-w-none">
+                  {/* Achterste vel: het uitgavenoverzicht. */}
+                  <div
+                    aria-hidden="true"
+                    className="absolute -right-4 -top-8 hidden w-[68%] rounded-xl border border-[#E6E9E7] bg-white p-5 sm:block"
+                    style={{
+                      transform: "rotate(3deg)",
+                      boxShadow: "0 2px 20px rgba(22, 33, 31, 0.06)",
+                    }}
+                  >
+                    <PreviewKopje tekst="Uitgavenoverzicht" />
+                    <div className="flex flex-row-reverse items-center gap-4">
+                      <svg width="72" height="72" viewBox="0 0 42 42" className="flex-shrink-0">
+                        <circle cx="21" cy="21" r="15.9" fill="none" stroke="#EDF0EF" strokeWidth="7" />
+                        <circle
+                          cx="21"
+                          cy="21"
+                          r="15.9"
+                          fill="none"
+                          stroke="#0B7A6E"
+                          strokeWidth="7"
+                          strokeDasharray="34 66"
+                          strokeDashoffset="25"
+                        />
+                        <circle
+                          cx="21"
+                          cy="21"
+                          r="15.9"
+                          fill="none"
+                          stroke="#9FCFC5"
+                          strokeWidth="7"
+                          strokeDasharray="22 78"
+                          strokeDashoffset="-9"
+                        />
+                      </svg>
+                      <div className="flex-1 space-y-[9px]">
+                        {["78%", "62%", "88%", "54%", "70%"].map((b) => (
+                          <Balk key={b} breedte={b} />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="mt-5 border-t border-[#EDF0EF] pt-4">
+                      <PreviewKopje tekst="Waar gaat je geld naartoe?" />
+                      <div className="space-y-[9px]">
+                        <Balk breedte="92%" />
+                        <Balk breedte="64%" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Voorste vel: de eerste pagina van het rapport. */}
+                  <div className="relative rounded-xl border border-[#E6E9E7] bg-white p-6 shadow-card sm:w-[86%] sm:p-8">
+                    <div className="mb-6 flex items-start justify-between gap-4">
+                      <span
+                        className="font-body rounded-full px-2.5 py-1 text-[9px] font-semibold uppercase tracking-[0.16em]"
+                        style={{ backgroundColor: "#F0F3F1", color: "#8B958F" }}
+                      >
+                        Voorbeeldweergave
                       </span>
-                      <span className="font-light">{r}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
+                      <span
+                        className="font-body text-[9px] font-medium uppercase tracking-[0.16em]"
+                        style={{ color: "#C6CECB" }}
+                      >
+                        Waar blijft het?
+                      </span>
+                    </div>
 
-            <p className="font-body font-medium text-primary text-base leading-relaxed mt-8 max-w-2xl">
-              De gratis analyse vertelt je dát er een verschil is. De Geldscan zoekt uit waarom.
-            </p>
-            <p className="font-body font-light text-text-soft text-sm leading-relaxed mt-3 max-w-2xl">
-              Je betaalt €49 niet voor meer cijfers. Je betaalt voor mijn oordeel over jouw
-              cijfers.
-            </p>
+                    <p className="font-display mb-1 text-2xl font-light leading-tight text-[#16211F] sm:text-[28px]">
+                      Geldscan
+                    </p>
+                    <p className="font-body mb-6 text-xs font-light text-[#8B958F]">
+                      Jouw persoonlijke rapport
+                    </p>
 
-            <div className="mt-7">
-              <PrimaireCta locatie="geldscan-vergelijking" />
-            </div>
-          </div>
-        </section>
+                    <div className="mb-6 border-t border-[#EDF0EF] pt-6">
+                      <PreviewKopje tekst="Samenvatting" />
+                      <div className="space-y-[11px]">
+                        <Balk breedte="100%" />
+                        <Balk breedte="93%" />
+                        <Balk breedte="71%" />
+                      </div>
+                    </div>
 
-        {/* ── 2. Wat krijg ik? ────────────────────────────────── */}
-        <section className="bg-background py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
-              Wat je voor €49 krijgt
-            </h2>
-            <div className="space-y-4">
-              {stappen.map((s) => (
-                <div key={s.n} className="card-base border border-[#E6E9E7]">
-                  <div className="flex items-start gap-5">
-                    <span
-                      className="font-display font-light shrink-0"
-                      style={{ color: "#0B7A6E", fontSize: "1.75rem", lineHeight: 1.1 }}
-                      aria-hidden="true"
-                    >
-                      {s.n}
-                    </span>
+                    <div className="mb-6">
+                      <PreviewKopje tekst="Wat het meest opvalt" />
+                      <div className="space-y-3.5">
+                        {["86%", "78%", "82%"].map((b, i) => (
+                          <div key={b} className="flex items-center gap-3">
+                            <span
+                              className="font-body flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full text-[10px] font-semibold"
+                              style={{ backgroundColor: "#E4F1EE", color: "#0B7A6E" }}
+                            >
+                              {i + 1}
+                            </span>
+                            <span className="flex-1">
+                              <Balk breedte={b} sterk />
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
                     <div>
-                      <h3 className="font-display font-light text-primary text-xl mb-2">
-                        {s.titel}
-                      </h3>
-                      <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                        {s.tekst}
-                      </p>
+                      <PreviewKopje tekst="Wat juist niet uit de toon valt" />
+                      <div className="space-y-[11px]">
+                        <Balk breedte="88%" />
+                        <Balk breedte="59%" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              ))}
-            </div>
-            <p className="font-body font-medium text-primary text-sm mt-6">
-              Geen automatisch AI-rapport. Ik schrijf het zelf.
-            </p>
-          </div>
-        </section>
 
-        {/* ── 3. Het onderscheid met de bankapp ───────────────── */}
-        <section className="bg-card py-16">
-          <div className="max-w-4xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
-              Wat je al weet, en wat je nog niet weet
-            </h2>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-8 max-w-2xl">
-              De bedragen links zijn wat een bankapp of gratis analyse je al vertelt, bij een echt
-              rapport op deze site, van een huishouden met twee inkomens en drie kinderen. Er staan
-              net zulke rapporten voor een alleenstaande, een alleenstaande ouder, een stel en een
-              zzp&apos;er. Twee van deze vier bedragen waren overigens hun eigen schatting, en bij
-              het invullen bleek die te onzeker. Daarom heb ik drie maanden afschriften opgevraagd.
-            </p>
-
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              <div className="card-base border border-[#E6E9E7]">
-                <p className="section-eyebrow mb-4">Je bankapp</p>
-                <ul className="space-y-3">
-                  {bankapp.map((r) => (
-                    <li
-                      key={r}
-                      className="font-body font-light text-sm text-text-soft leading-relaxed flex gap-3"
-                    >
-                      <span aria-hidden="true" style={{ color: "#C6CCC9" }}>
-                        &bull;
-                      </span>
-                      <span>{r}</span>
-                    </li>
-                  ))}
-                </ul>
-                <p className="font-body font-light text-text-muted text-xs mt-5 leading-relaxed">
-                  Vier bedragen. Allemaal juist, en geen van alle een antwoord.
-                </p>
-              </div>
-
-              <div
-                className="card-base border border-[#E6E9E7]"
-                style={{ borderLeft: "3px solid #0B7A6E" }}
-              >
-                <p className="section-eyebrow mb-4">De geldscan</p>
-                <ul className="space-y-3">
-                  {geldscanVragen.map((r) => (
-                    <li
-                      key={r}
-                      className="font-body text-sm text-primary leading-relaxed flex gap-3"
-                    >
-                      <span aria-hidden="true" style={{ color: "#0B7A6E" }}>
-                        &bull;
-                      </span>
-                      <span className="font-light">{r}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div
-              className="card-base border border-[#E6E9E7] mt-5"
-              style={{ borderLeft: "3px solid #0B7A6E" }}
-            >
-              <p className="section-eyebrow mb-2">Het antwoord op de eerste vraag</p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                Nee. Bij dit huishouden viel geen enkele vaste last uit de toon, en de boodschappen
-                hoefden niet omlaag. Wat er wel uit de toon viel, lees je hieronder.
-              </p>
-            </div>
-
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mt-8 max-w-2xl">
-              Dit is precies het rapport hieronder. Zo ziet het eruit als de gratis analyse dát had
-              laten zien, en de Geldscan waarom.
-            </p>
-          </div>
-        </section>
-
-        {/* ── 4. Het echte resultaat ──────────────────────────── */}
-        <section className="bg-background py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6">
-              Zo ziet het er in de praktijk uit
-            </h2>
-
-            <div
-              className="card-base border border-[#E6E9E7]"
-              style={{ borderLeft: "3px solid #0B7A6E" }}
-            >
-              <p className="section-eyebrow mb-3">
-                Tweeverdieners · 3 kinderen
-              </p>
-
-              <div className="flex flex-wrap items-baseline gap-x-8 gap-y-1 mb-6">
-                <p
-                  className="font-display font-light text-primary"
-                  style={{ fontSize: "2.75rem", lineHeight: 1.1, letterSpacing: "-0.02em" }}
-                >
-                  €7.880 <span className="text-lg font-body font-light text-text-muted">netto</span>
-                </p>
-                <p
-                  className="font-display font-light"
-                  style={{ fontSize: "2.75rem", lineHeight: 1.1, letterSpacing: "-0.02em", color: "#0B7A6E" }}
-                >
-                  €850 <span className="text-lg font-body font-light text-text-muted">structureel over</span>
-                </p>
-              </div>
-
-              <p className="font-body font-medium text-primary text-lg leading-snug mb-1">
-                Ze dachten dat boodschappen het probleem waren.
-              </p>
-              <p className="font-body font-medium text-lg leading-snug mb-5" style={{ color: "#0B7A6E" }}>
-                Dat waren ze niet.
-              </p>
-
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-                De een dacht: de boodschappen en de kinderen. De ander dacht: alle losse uitgaven.
-                Samen misten ze naar eigen schatting 500 tot 750 euro per maand.
-              </p>
-
-              <p
-                className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-5"
-                style={{ letterSpacing: "-0.02em" }}
-              >
-                Geen enkele buitensporige vaste last.
-              </p>
-
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-4">
-                Bijna €1.000 per maand aan voorspelbare jaaruitgaven kwam steeds terug uit het
-                spaargeld, boven op veel vrij besteedbare uitgaven zonder plafond.
-              </p>
-
-              <p className="font-body font-medium text-primary text-sm leading-relaxed mb-8">
-                Zonder de volledige analyse hadden ze waarschijnlijk geprobeerd te besparen op het
-                verkeerde: de boodschappen en de kinderen.
-              </p>
-
-              <div
-                className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6"
-                style={{ borderTop: "1px solid #E6E9E7" }}
-              >
-                <div>
-                  <p className="section-eyebrow mb-3">Voor</p>
-                  <ul className="space-y-2">
-                    {[
-                      "€1.000 per maand sparen",
-                      "later dat geld weer terughalen",
-                      "het gevoel dat sparen niet lukt",
-                    ].map((r) => (
-                      <li
-                        key={r}
-                        className="font-body font-light text-sm text-text-soft leading-relaxed"
-                      >
-                        {r}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="section-eyebrow mb-3" style={{ color: "#0B7A6E" }}>
-                    Wat ik voorstelde
-                  </p>
-                  <ul className="space-y-2">
-                    {[
-                      "€975 per maand reserveren voor de jaaruitgaven",
-                      "€750 per maand als echte vermogensopbouw",
-                      "vrije uitgaven een maandplafond geven",
-                      "boodschappen en kinderen ongemoeid laten",
-                    ].map((r) => (
-                      <li
-                        key={r}
-                        className="font-body font-light text-sm text-primary leading-relaxed"
-                      >
-                        {r}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-6 pt-6" style={{ borderTop: "1px solid #E6E9E7" }}>
-                <p className="section-eyebrow mb-2">Hun evaluatie, na drie maanden</p>
-                <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                  &ldquo;Gemiddeld bleef ongeveer €850 per maand echt staan, naast de reserveringen
-                  voor jaaruitgaven. Vooral mijn partner bleek gelijk te hebben: er was niet één
-                  groot lek, maar veel losse bedragen.&rdquo;
-                </p>
-              </div>
-            </div>
-
-            <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
-              Dit is één huishouden, met toestemming gepubliceerd. Geen belofte over jouw uitkomst.
-            </p>
-
-            <p className="mt-5">
-              <Link
-                href="/rapporten/tweeverdieners-drie-kinderen"
-                className="font-body font-medium text-sm hover:underline"
-                style={{ color: "#0B7A6E" }}
-              >
-                Bekijk het volledige rapport &rarr;
-              </Link>
-            </p>
-
-            <div className="mt-7">
-              <PrimaireCta locatie="geldscan-voorbeeldrapport" />
-            </div>
-
-            <div className="flex items-center gap-3 mt-8">
-              <div
-                className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0"
-                style={{ backgroundColor: "#16211F" }}
-              >
-                <Image
-                  src="/jarno.jpg"
-                  alt="Jarno Koopman"
-                  width={40}
-                  height={40}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-              <p className="font-body font-light text-sm text-text-soft">
-                Elk rapport schrijf ik zelf, er kijkt geen algoritme of team mee.{" "}
-                <Link href="/over" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                  Wie ik ben &rarr;
-                </Link>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 5. Ook: er is niets mis ─────────────────────────── */}
-        <section className="bg-card py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6 leading-snug">
-              Ik zoek niet koste wat kost naar iets om te besparen.
-            </h2>
-            <div className="space-y-4 max-w-2xl">
-              <p className="font-body font-light text-text-soft leading-relaxed">
-                Misschien blijkt dat je boodschappen helemaal niet extreem zijn. Misschien is je
-                hypotheek prima te dragen. Misschien zijn je vrije uitgaven bewuste keuzes. Misschien
-                blijkt zelfs dat er financieel weinig mis is. Dan krijg je dat ook te horen.
-              </p>
-              <p className="font-body font-medium text-primary leading-relaxed">
-                Ik word niet betaald om problemen te vinden.
-              </p>
-              <p className="font-body font-light text-text-soft leading-relaxed">
-                Misschien verdien je €7.000 per maand, geef je €6.500 bewust uit, en is je vraag
-                niet je uitgavenpatroon maar je spaardoel. Of misschien blijkt je hypotheek logisch,
-                maar verdwijnen er honderden euro&apos;s per maand in allerlei kleine uitgaven. Dat
-                weet ik pas nadat ik naar jouw hele situatie heb gekeken.
-              </p>
-              <p className="font-body font-light text-text-soft leading-relaxed">
-                En als je dit met z&apos;n tweeën leest: het rapport wijst niemand aan. Ik kijk naar
-                het huishouden, niet naar wie van jullie meer uitgeeft. Bij het gezin hierboven
-                bleek achteraf dat allebei de vermoedens een kern van waarheid hadden.
-              </p>
-            </div>
-
-            <div
-              className="card-base border border-[#E6E9E7] mt-8"
-              style={{ borderLeft: "3px solid #0B7A6E" }}
-            >
-              <p className="font-body font-light text-primary text-base leading-relaxed mb-3">
-                Bij {AANTAL_ZONDER_LEK} van de vijf rapporten die openbaar op deze site staan, was
-                mijn conclusie dat er niets te repareren viel. Bij {AANTAL_ZONDER_VERVOLG} van de
-                vijf was een vervolggesprek niet nodig.
-              </p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                Je hoeft me daarin niet op mijn woord te geloven. Die vijf rapporten staan er van
-                begin tot eind, inclusief de bedragen en de evaluatie na drie tot vier maanden.{" "}
-                <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                  Lees ze na &rarr;
-                </Link>
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* ── 6. Wat staat er in het rapport ──────────────────── */}
-        <section className="bg-background py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2">
-              Wat er in het rapport staat
-            </h2>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-8">
-              Jouw persoonlijke geldrapport, als PDF, in gewone taal. Op je eigen moment terug te
-              lezen, en te delen met wie je wilt.
-            </p>
-
-            <div className="card-base border border-[#E6E9E7]">
-              <ol className="space-y-0">
-                {inhoudsopgave.map((h, i) => (
-                  <li
-                    key={h.n}
-                    className="flex items-baseline gap-4 py-4"
-                    style={i === 0 ? undefined : { borderTop: "1px solid #E6E9E7" }}
-                  >
-                    <span
-                      className="font-display font-light shrink-0"
-                      style={{ color: "#0B7A6E", fontSize: "1.05rem", width: "1.25rem" }}
-                      aria-hidden="true"
-                    >
-                      {h.n}
-                    </span>
-                    <span>
-                      <span className="font-body font-medium text-primary text-sm">{h.titel}</span>
-                      <span className="font-body font-light text-text-soft text-sm">
-                        {" "}
-                        {h.tekst}
-                      </span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
-
-            <p className="font-body font-light text-text-soft text-sm leading-relaxed mt-5">
-              Geen spreadsheet vol grafieken. Wel een helder antwoord op de vraag: wat moet ik nu
-              doen?
-            </p>
-          </div>
-        </section>
-
-        {/* ── 7. Waarmee ik vergelijk ─────────────────────────── */}
-        <section className="bg-card py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
-              Waarmee ik jouw cijfers vergelijk, en waarmee niet
-            </h2>
-            <p className="font-body font-light text-text-soft leading-relaxed max-w-2xl mb-2">
-              Op inkomen, huishouden en autosituatie. Niet op naam van je bank, en niet op
-              Nibud-minimumbudgetten.
-            </p>
-            <details className="max-w-2xl">
-              <summary
-                className="font-body font-medium text-sm cursor-pointer select-none"
-                style={{ color: "#0B7A6E" }}
-              >
-                Lees de volledige methode &rarr;
-              </summary>
-              <div className="space-y-4 mt-4">
-                <p className="font-body font-light text-text-soft leading-relaxed">
-                  De vergelijking kijkt naar je netto huishoudinkomen, het aantal volwassenen, het
-                  aantal kinderen en je autosituatie. Dat is genoeg om te zien of een post uit de
-                  toon valt. Het is niet genoeg om te weten waarom.
-                </p>
-                <p className="font-body font-light text-text-soft leading-relaxed">
-                  Wisselt je inkomen per maand, dan vul je een gemiddelde over de laatste maanden
-                  in. Voor de vergelijking is dat genoeg, en het verschil tussen je maanden is
-                  juist iets waar ik naar vraag: bij een wisselend inkomen is de vraag zelden wat
-                  je gemiddeld verdient, maar welke vaste structuur eronder ligt.
-                </p>
-                <p className="font-body font-light text-text-soft leading-relaxed">
-                  De bedragen waarmee ik vergelijk komen niet uit openbare gemiddelden, maar uit de
-                  huishoudens die ik zelf heb doorgerekend. Nibud-referentiebudgetten gebruik ik
-                  bewust niet: dat zijn grotendeels minimumbudgetten, en die meten iets anders dan
-                  wat een huishouden met een goed inkomen werkelijk uitgeeft.
-                </p>
-                <p className="font-body font-light text-text-soft leading-relaxed">
-                  Waar de vergelijking niets van weet: de leeftijd van je kinderen, je regio,
-                  hoeveel dagen de kinderen bij je zijn, alimentatie, hoeveel je hebt afgelost en of
-                  je auto zakelijk is. Dat komt uit wat jij erbij schrijft, en daar vraag ik naar.
-                  Wat jij daar opschrijft weegt zwaarder dan wat het gemiddelde zegt.
-                </p>
-              </div>
-            </details>
-          </div>
-        </section>
-
-        {/* ── 8. Voor wie ────────────────────────────────────── */}
-        <section className="bg-background py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-3">
-              Voor wie is de geldscan?
-            </h2>
-            <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-8">
-              Achter elke kaart staat een echt rapport van een huishouden in die situatie. Kies de
-              situatie die op jou lijkt en lees eerst wat eruit kwam.
-            </p>
-
-            <div className="space-y-3">
-              {situatieKaarten.map((s) => {
-                const rapport = RAPPORTEN.find((r) => r.slug === s.rapport);
-                const uitgelicht = situatie?.sleutel === s.sleutel;
-                return (
+                <p className="font-body relative mt-6 text-xs font-light leading-relaxed text-[#8B958F]">
+                  Dit is een voorbeeldweergave van de opbouw, geen echt huishouden.{" "}
                   <Link
-                    key={s.sleutel}
-                    href={`/rapporten/${s.rapport}`}
-                    className="card-base border border-[#E6E9E7] flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 transition-shadow hover:shadow-card-hover"
-                    style={{
-                      textDecoration: "none",
-                      borderLeft: uitgelicht ? "3px solid #0B7A6E" : "1px solid #E6E9E7",
-                    }}
+                    href="/rapporten"
+                    className="hover:underline"
+                    style={{ color: "#0B7A6E", textDecoration: "none" }}
                   >
-                    <span className="sm:w-52 shrink-0">
-                      <span className="font-body font-medium text-primary text-sm block">
-                        {s.kaartTitel}
-                      </span>
-                    </span>
-                    <span className="font-body font-light text-sm text-text-soft leading-relaxed flex-1">
-                      {s.kaartTekst}
-                      {rapport && (
-                        <span className="block font-body text-text-muted text-xs mt-1">
-                          Uitkomst: {rapport.uitkomstKop.toLowerCase()}
-                        </span>
-                      )}
-                    </span>
-                    <span
-                      className="font-body font-medium text-sm shrink-0"
-                      style={{ color: "#0B7A6E" }}
-                    >
-                      Bekijk rapport &rarr;
-                    </span>
+                    Lees {RAPPORTEN.length} complete rapporten van echte klanten →
                   </Link>
-                );
-              })}
-            </div>
-          </div>
-        </section>
-
-        {/* ── 9. Je hoeft niet alles te weten ─────────────────── */}
-        <section className="bg-card py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-              Je hoeft je financiën niet perfect te kennen
-            </h2>
-            <div className="space-y-4 max-w-2xl mb-8">
-              <p className="font-body font-light text-text-soft leading-relaxed">
-                Je hoeft geen spreadsheet te hebben. Je hoeft niet precies te weten wat je vorige
-                maand aan boodschappen hebt uitgegeven. Schattingen zijn prima, en waar een
-                schatting te onzeker is, zeg ik dat.
-              </p>
-              <p className="font-body font-light text-text-soft leading-relaxed">
-                Wil je dat ik preciezer kijk? Dan kun je een paar recente bankafschriften
-                meesturen. Dat is optioneel.
-              </p>
+                </p>
+              </div>
             </div>
 
-            <div className="card-base border border-[#E6E9E7]">
+            {/* ── 2. Prijs en actie ─────────────────────────────────────
+                Eén koopbalk, direct onder de hero. De prijs staat op deze
+                pagina verder alleen nog in het slot. */}
+            <div
+              id="prijs"
+              className="mt-14 flex flex-col gap-6 rounded-2xl border border-[#E6E9E7] bg-white px-6 py-6 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10"
+              style={{ scrollMarginTop: "90px" }}
+            >
               <div className="flex items-start gap-4">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#0B7A6E"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="shrink-0 mt-0.5"
-                  aria-hidden="true"
+                <span
+                  className="mt-0.5 flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
+                  style={{ backgroundColor: "#E7F1EE" }}
                 >
-                  <rect x="3" y="11" width="18" height="11" rx="2" />
-                  <path d="M7 11V7a5 5 0 0 1 10 0v4" />
-                </svg>
+                  <Icoon naam="prijs" maat={21} />
+                </span>
                 <div>
-                  <p className="font-body font-medium text-primary text-sm mb-3">
-                    Als je afschriften meestuurt
+                  <p className="font-display mb-1 text-xl font-light leading-snug text-[#16211F]">
+                    €49 eenmalig
                   </p>
-                  <ul className="space-y-2">
-                    {[
-                      "Alleen jij en ik zien ze, er kijkt geen team of algoritme mee",
-                      "Rekeningnummers mag je wegstrepen",
-                      "Namen van anderen mag je wegstrepen",
-                      "Ik heb alleen de bedragen en de soort uitgave nodig",
-                      "Direct na het versturen van je rapport verwijder ik ze, je hoeft daar niet om te vragen",
-                    ].map((r) => (
-                      <li
-                        key={r}
-                        className="font-body font-light text-sm text-text-soft leading-relaxed flex gap-3"
-                      >
-                        <span aria-hidden="true" style={{ color: "#0B7A6E" }}>
-                          &bull;
-                        </span>
-                        <span>{r}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <p className="font-body max-w-[440px] text-sm font-light leading-relaxed text-[#4A5A56]">
+                    Je betaalt één keer en ontvangt je persoonlijke rapport binnen 2 werkdagen
+                    nadat je informatie compleet is.
+                  </p>
                 </div>
+              </div>
+
+              <div className="lg:flex-shrink-0 lg:text-center">
+                <StartKnop locatie="geldscan-koopbalk" />
+                <p className="font-body mt-3 text-xs font-light text-[#8B958F]">Geen abonnement.</p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* ── 10. Wat er daarna gebeurt ───────────────────────── */}
-        <section className="bg-background py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
-              Wat er daarna gebeurt
-            </h2>
+        {/* ── 3. Zo werkt de Geldscan ─────────────────────────────────────
+            Het enige proces op deze pagina. Op desktop een horizontale
+            reis, op mobiel een verticale lijn met een eigen opbouw. Stap 2
+            is expliciet als optioneel gemarkeerd, want daar haken mensen
+            af die denken dat ze eerst hun afschriften moeten uitzoeken. */}
+        <section className="px-6 py-16 sm:py-20" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="mx-auto max-w-[1080px]">
+            <div className="mx-auto max-w-[620px] text-center">
+              <h2
+                className="font-display font-light text-[#16211F]"
+                style={{ fontSize: "clamp(1.75rem, 3.1vw, 2.35rem)", lineHeight: 1.15 }}
+              >
+                Zo werkt de Geldscan
+              </h2>
+              <p className="font-body mt-3 font-light leading-relaxed text-[#4A5A56]">
+                In vier heldere stappen naar persoonlijk inzicht.
+              </p>
+            </div>
 
-            <ol className="space-y-0">
-              {[
-                {
-                  wanneer: "Vandaag",
-                  wat: "Je vraagt de geldscan aan met je naam en e-mailadres. Verder nog niets.",
-                },
-                {
-                  wanneer: "Binnen 1 werkdag",
-                  wat: "Ik stuur je een betaalverzoek van €49, altijd vanaf hallo@waarblijfthet.nl. Er is geen abonnement en geen automatische incasso.",
-                },
-                {
-                  wanneer: "Daarna",
-                  wat: "Je levert je cijfers en je context aan, dat kost twee minuten. Optioneel stuur je afschriften mee.",
-                },
-                {
-                  wanneer: "Binnen 2 werkdagen",
-                  wat: "Ik stuur je je persoonlijke rapport als PDF. Een vraag erover beantwoord ik gewoon per mail.",
-                },
-                {
-                  wanneer: "Direct daarna",
-                  wat: "Ik verwijder je afschriften en je aangeleverde gegevens. Er blijft niets bewaard.",
-                },
-                {
-                  wanneer: "Vanaf dan",
-                  wat: "Je kunt zelf aan de slag. Wil je dat ik je help met de volgende stap, dan kun je een gesprek of een traject kiezen en trek ik de €49 daarvan af. Dat hoeft niet, en ik kom er niet op terug.",
-                },
-              ].map((t, i, arr) => (
-                <li key={t.wanneer} className="flex gap-5">
-                  <div className="flex flex-col items-center shrink-0" aria-hidden="true">
+            {/* Desktop: horizontale reis */}
+            <ol className="mt-14 hidden md:grid md:grid-cols-4 md:gap-x-8">
+              {stappen.map((s, i) => (
+                <li key={s.titel} className="relative">
+                  {i < stappen.length - 1 && (
                     <span
-                      className="rounded-full"
+                      aria-hidden="true"
+                      className="absolute h-px"
                       style={{
-                        width: "10px",
-                        height: "10px",
-                        backgroundColor: "#0B7A6E",
-                        marginTop: "0.4rem",
+                        left: "4.5rem",
+                        top: "2rem",
+                        width: "calc(100% + 2rem - 5rem)",
+                        backgroundColor: "#E6E9E7",
                       }}
                     />
-                    {i < arr.length - 1 && (
-                      <span style={{ width: "1px", flex: 1, backgroundColor: "#E6E9E7" }} />
+                  )}
+                  <span
+                    className="relative flex h-16 w-16 items-center justify-center rounded-full border"
+                    style={{ backgroundColor: "#F7F8F7", borderColor: "#D5E5E0" }}
+                  >
+                    <Icoon naam={s.icoon} maat={24} />
+                    <span
+                      className="font-body absolute -left-1 -top-1 flex h-6 w-6 items-center justify-center rounded-full text-[11px] font-semibold"
+                      style={{ backgroundColor: "#16211F", color: "#FFFFFF" }}
+                    >
+                      {i + 1}
+                    </span>
+                  </span>
+
+                  <p className="font-body mb-2 mt-6 text-[15px] font-semibold leading-snug text-[#16211F]">
+                    {s.titel}
+                  </p>
+                  <p className="font-body pr-4 text-sm font-light leading-relaxed text-[#4A5A56]">
+                    {s.tekst}
+                  </p>
+                  {s.optioneel && (
+                    <p
+                      className="font-body mt-3 inline-block rounded-lg px-3 py-2 text-xs font-medium leading-snug"
+                      style={{ backgroundColor: "#F0F3F1", color: "#4A5A56" }}
+                    >
+                      {s.optioneel}
+                    </p>
+                  )}
+                </li>
+              ))}
+            </ol>
+
+            {/* Mobiel: verticale reis, bewust een eigen opbouw */}
+            <ol className="mt-10 md:hidden">
+              {stappen.map((s, i) => (
+                <li key={s.titel} className="flex gap-4">
+                  <div className="flex flex-col items-center">
+                    <span
+                      className="font-body flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-[12px] font-semibold"
+                      style={{ backgroundColor: "#16211F", color: "#FFFFFF" }}
+                    >
+                      {i + 1}
+                    </span>
+                    {i < stappen.length - 1 && (
+                      <span
+                        aria-hidden="true"
+                        className="w-px flex-1"
+                        style={{ backgroundColor: "#E6E9E7" }}
+                      />
                     )}
                   </div>
-                  <div className={i < arr.length - 1 ? "pb-7" : ""}>
-                    <p className="font-body font-medium text-primary text-sm mb-1">{t.wanneer}</p>
-                    <p className="font-body font-light text-sm text-text-soft leading-relaxed">
-                      {t.wat}
+
+                  <div className={i < stappen.length - 1 ? "pb-8" : undefined}>
+                    <div className="mb-2 flex items-center gap-3">
+                      <span
+                        className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl"
+                        style={{ backgroundColor: "#E7F1EE" }}
+                      >
+                        <Icoon naam={s.icoon} maat={18} />
+                      </span>
+                      <p className="font-body text-[15px] font-semibold leading-snug text-[#16211F]">
+                        {s.titel}
+                      </p>
+                    </div>
+                    <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
+                      {s.tekst}
                     </p>
+                    {s.optioneel && (
+                      <p
+                        className="font-body mt-3 inline-block rounded-lg px-3 py-2 text-xs font-medium leading-snug"
+                        style={{ backgroundColor: "#F0F3F1", color: "#4A5A56" }}
+                      >
+                        {s.optioneel}
+                      </p>
+                    )}
                   </div>
                 </li>
               ))}
             </ol>
-          </div>
-        </section>
 
-        {/* ── 11. Prijs ──────────────────────────────────────── */}
-        <section id="prijs" className="bg-card py-16" style={{ scrollMarginTop: "90px" }}>
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="card-base border border-[#E6E9E7]">
-              <p
-                className="font-display font-light text-primary mb-2"
-                style={{ fontSize: "2.75rem", lineHeight: 1.1, letterSpacing: "-0.02em" }}
-              >
-                €49 eenmalig
-              </p>
-              <p className="font-body font-light text-text-soft leading-relaxed mb-8">
-                Voor een persoonlijk geldrapport dat ik zelf schrijf.
-              </p>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
-                <div>
-                  <p className="section-eyebrow mb-4">Inbegrepen</p>
-                  <ul className="space-y-2.5">
-                    {[
-                      "Persoonlijke analyse van jouw cijfers",
-                      "Vergelijking met jouw eigen situatie",
-                      "Mijn conclusies, in gewone taal",
-                      "Wat níét het probleem is",
-                      "Een concreet plan van aanpak",
-                      "Binnen 2 werkdagen na je cijfers",
-                    ].map((r) => (
-                      <li
-                        key={r}
-                        className="font-body font-light text-sm text-text-soft leading-relaxed flex gap-3"
-                      >
-                        <span aria-hidden="true" style={{ color: "#0B7A6E" }}>
-                          &#10003;
-                        </span>
-                        <span>{r}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div>
-                  <p className="section-eyebrow mb-4">Niet inbegrepen</p>
-                  <ul className="space-y-2.5">
-                    {[
-                      "Een abonnement",
-                      "Een verplicht gesprek",
-                      "Financiële producten",
-                      "Beleggingsadvies",
-                      "Hypotheekadvies",
-                    ].map((r) => (
-                      <li
-                        key={r}
-                        className="font-body font-light text-sm text-text-muted leading-relaxed flex gap-3"
-                      >
-                        <span aria-hidden="true" style={{ color: "#C6CCC9" }}>
-                          &#10007;
-                        </span>
-                        <span>{r}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-
-              <div className="mt-8 pt-7" style={{ borderTop: "1px solid #E6E9E7" }}>
-                <PrimaireCta locatie="geldscan-watjekrijgt" />
-                <p className="font-body font-light text-text-soft text-sm mt-4 leading-relaxed">
-                  Al uit je analyse en wil je dat ik persoonlijk naar het waarom kijk? Dan is de
-                  Geldscan €49.
-                </p>
-                <p className="mt-2 mb-0">
-                  <GeldscanAanvraag />
-                </p>
-                <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
-                  Je hoeft geen gesprek te boeken en geen vervolgtraject te nemen. Je krijgt het
-                  rapport en bepaalt daarna zelf wat je ermee doet.
-                </p>
-                <p className="font-body font-light text-text-muted text-xs mt-2 leading-relaxed">
-                  Wil je daarna verder met mij? Dan verreken ik deze €49 met een adviesgesprek of
-                  traject.
-                </p>
-              </div>
-            </div>
-
-            {/* ── 12. Prijsobstakel ─────────────────────────── */}
+            {/* Wat er met je gegevens gebeurt, en wie het rapport schrijft */}
             <div
-              className="card-base border border-[#E6E9E7] mt-5"
-              style={{ borderLeft: "3px solid #0B7A6E" }}
+              className="mt-14 rounded-2xl px-6 py-7 sm:px-8"
+              style={{ backgroundColor: "#F7F8F7" }}
             >
-              <p className="font-body font-medium text-primary text-base mb-3">
-                Twijfel je of €49 het waard is?
-              </p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-3">
-                Daar is de gratis analyse voor. Die laat zien waar jouw bedragen afwijken van
-                huishoudens in dezelfde situatie. Dat kost je een paar minuten en verder niets.
-              </p>
-              <p className="font-body font-light text-sm text-text-soft leading-relaxed mb-5">
-                Denk je daarna: ik wil weten wáárom mijn cijfers zo uitpakken, dan is de geldscan de
-                volgende stap. Denk je dat niet, dan heb je alsnog je antwoord.
-              </p>
-              <PrimaireCta locatie="geldscan-prijsobstakel" />
+              <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 sm:gap-10">
+                {procesTrust.map((t) => (
+                  <div key={t.titel} className="flex items-start gap-3.5">
+                    <span
+                      className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl"
+                      style={{ backgroundColor: "#FFFFFF" }}
+                    >
+                      <Icoon naam={t.icoon} />
+                    </span>
+                    <div>
+                      <p className="font-body mb-1 text-[14px] font-semibold leading-snug text-[#16211F]">
+                        {t.titel}
+                      </p>
+                      <p className="font-body text-[13px] font-light leading-relaxed text-[#4A5A56]">
+                        {t.tekst}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
+
+            <p className="font-body mt-8 flex flex-wrap items-center justify-center gap-2 text-sm font-light text-[#4A5A56]">
+              <Icoon naam="envelop" maat={17} />
+              <span>Vragen of hulp nodig?</span>
+              <a
+                href="mailto:hallo@waarblijfthet.nl?subject=Geldscan"
+                className="font-medium hover:underline"
+                style={{ color: "#0B7A6E" }}
+              >
+                Neem contact op →
+              </a>
+            </p>
           </div>
         </section>
 
-        {/* ── 13. FAQ ────────────────────────────────────────── */}
-        <section className="bg-background py-16">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
+        {/* ── 4. Wat je krijgt ────────────────────────────────────────
+            Vier korte items, geen kaarten. Daaronder staat het enige
+            bewijsblok van de pagina: de echte rapporten. Aantallen komen
+            altijd uit lib/rapporten-data.ts, nooit met de hand getypt. */}
+        <section className="px-6 py-16 sm:py-20" style={{ backgroundColor: "#E7F1EE" }}>
+          <div className="mx-auto max-w-[1080px]">
+            <h2
+              className="font-display text-center font-light text-[#16211F]"
+              style={{ fontSize: "clamp(1.75rem, 3.1vw, 2.35rem)", lineHeight: 1.15 }}
+            >
+              Wat je krijgt
+            </h2>
+
+            <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 sm:gap-x-10 lg:grid-cols-4">
+              {watJeKrijgt.map((w) => (
+                <div key={w.titel} className="flex flex-col items-center text-center">
+                  <span
+                    className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl"
+                    style={{ backgroundColor: "#FFFFFF" }}
+                  >
+                    <Icoon naam={w.icoon} maat={22} />
+                  </span>
+                  <p className="font-body mb-2 text-[15px] font-semibold leading-snug text-[#16211F]">
+                    {w.titel}
+                  </p>
+                  <p className="font-body max-w-[240px] text-sm font-light leading-relaxed text-[#4A5A56]">
+                    {w.tekst}
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <p className="font-body mx-auto mt-12 max-w-[660px] text-center text-sm font-light leading-relaxed text-[#4A5A56]">
+              Er staan {RAPPORTEN.length} complete rapporten op deze site, met de cijfers, mijn
+              advies en de evaluatie van de klant. Bij {AANTAL_ZONDER_LEK} van de{" "}
+              {RAPPORTEN.length} was mijn conclusie dat er niets te repareren viel.{" "}
+              <Link
+                href="/rapporten"
+                className="font-medium hover:underline"
+                style={{ color: "#0B7A6E", textDecoration: "none" }}
+              >
+                Lees ze na →
+              </Link>
+            </p>
+          </div>
+        </section>
+
+        {/* ── 5. Veelgestelde vragen ──────────────────────────────────
+            Alleen bezwaren die een aankoop tegenhouden. De uitleg over
+            afschriften en privacy staat hier, en nergens anders. */}
+        <section className="px-6 py-16 sm:py-20" style={{ backgroundColor: "#FDFAF4" }}>
+          <div className="mx-auto max-w-[760px]">
+            <h2
+              className="font-display text-center font-light text-[#16211F]"
+              style={{ fontSize: "clamp(1.75rem, 3.1vw, 2.35rem)", lineHeight: 1.15 }}
+            >
               Veelgestelde vragen
             </h2>
-            <div className="space-y-3">
+
+            <div className="mt-10 space-y-3">
               {faq.map((f) => (
-                <details key={f.vraag} className="card-base border border-[#E6E9E7]">
-                  <summary className="font-body font-medium text-primary text-sm cursor-pointer select-none">
-                    {f.vraag}
+                <details
+                  key={f.vraag}
+                  className="group rounded-xl border border-[#EAE3D8] bg-white px-5 py-4 sm:px-6"
+                >
+                  <summary className="font-body flex cursor-pointer select-none items-center justify-between gap-4 text-[15px] font-medium leading-snug text-[#16211F]">
+                    <span>{f.vraag}</span>
+                    <Chevron />
                   </summary>
-                  <p className="font-body font-light text-text-soft text-sm leading-relaxed mt-3">
+                  <p className="font-body mt-3 text-sm font-light leading-relaxed text-[#4A5A56]">
                     {f.antwoord}
                   </p>
                 </details>
@@ -1216,20 +921,36 @@ export default function GeldscanPage({
           </div>
         </section>
 
-        {/* ── 14. Laatste CTA ────────────────────────────────── */}
-        <section className="bg-dark-block py-20">
-          <div className="max-w-2xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-2xl sm:text-4xl mb-6 leading-snug">
-              Je hoeft niet nog een jaar te denken: waar blijft het?
-            </h2>
-            <p className="text-white/70 font-body font-light text-base leading-relaxed mb-8">
-              Je hoeft ook niet meteen alles om te gooien, en je hoeft het niet in je eentje uit te
-              zoeken. Ik kijk er van buitenaf naar en schrijf op wat er werkelijk aan de hand is.
-            </p>
-            <PrimaireCta dark locatie="geldscan-slot" />
-            <p className="text-white/50 font-body font-light text-xs mt-4">
-              Je kunt daarna altijd nog besluiten of je de Geldscan wilt.
-            </p>
+        {/* ── 6. Slot ─────────────────────────────────────────────────── */}
+        <section className="px-6 py-16 sm:py-20" style={{ backgroundColor: "#16211F" }}>
+          <div className="mx-auto flex max-w-[900px] flex-col items-center gap-8 text-center lg:flex-row lg:gap-12 lg:text-left">
+            <span
+              className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl"
+              style={{ backgroundColor: "rgba(255, 255, 255, 0.08)" }}
+              aria-hidden="true"
+            >
+              <Icoon naam="rapport" maat={26} />
+            </span>
+
+            <div className="flex-1">
+              <h2
+                className="font-display font-light text-white"
+                style={{ fontSize: "clamp(1.7rem, 3vw, 2.2rem)", lineHeight: 1.18 }}
+              >
+                Klaar voor inzicht?
+              </h2>
+              <p className="font-body mt-3 font-light leading-relaxed text-white/70">
+                Ontdek wat er in jouw financiële situatie speelt en waar je als eerste naar zou
+                kijken.
+              </p>
+            </div>
+
+            <div className="w-full lg:w-auto lg:flex-shrink-0 lg:text-center">
+              <StartKnop locatie="geldscan-slot" />
+              <p className="font-body mt-3 text-xs font-light text-white/50">
+                €49 eenmalig · Binnen 2 werkdagen
+              </p>
+            </div>
           </div>
         </section>
       </main>
