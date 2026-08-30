@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 import CtaLink from "@/components/CtaLink";
 
@@ -11,13 +11,17 @@ import CtaLink from "@/components/CtaLink";
    filter, geen afhankelijkheid van de achtergrondkleur van de pagina eronder.
    Zelfde component op elke pagina, inclusief de homepage met zijn wijnrode
    hero: de header staat er los boven, niet overlappend.
+
+   De navigatie is bewust kort: vier links plus één primaire actie. Die
+   primaire actie is altijd de gratis analyse, want dat is de enige primaire
+   conversie-ingang van de site. Route en label komen uit lib/cta.ts. Contact
+   staat niet in de hoofdnavigatie, wel in het mobiele menu en in de footer.
    ────────────────────────────────────────────────────────────────────────── */
 
 const C = {
   white: "#FFFFFF",
   dark: "#202020",
   wine: "#7B2D3E",
-  wineHover: "#642433",
   // Dezelfde groen als .btn-primary in globals.css, zodat de knop in de
   // header niet als een tweede knopstijl naast de rest van de site staat.
   green: "#0B7A6E",
@@ -26,10 +30,21 @@ const C = {
   border: "#E8E5E1",
 };
 
+const CONTACT_MAILTO = "mailto:hallo@waarblijfthet.nl";
+
+const navLinks = [
+  { href: "/analyse", label: "Analyse" },
+  { href: "/rapporten", label: "Rapporten" },
+  { href: "/aanbod", label: "Aanbod" },
+  { href: "/over", label: "Over" },
+];
+
 export default function Header() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const knopRef = useRef<HTMLButtonElement>(null);
+  const paneelRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 0);
@@ -37,6 +52,57 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
+
+  const sluitEnFocusKnop = useCallback(() => {
+    setMobileOpen(false);
+    knopRef.current?.focus();
+  }, []);
+
+  // Menu dicht bij navigatie, zodat er nooit een open paneel achterblijft.
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [pathname]);
+
+  // Escape sluit, Tab blijft binnen het paneel, pagina eronder scrollt niet.
+  useEffect(() => {
+    if (!mobileOpen) return;
+
+    const vorigeOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        sluitEnFocusKnop();
+        return;
+      }
+      if (e.key !== "Tab") return;
+
+      const paneel = paneelRef.current;
+      if (!paneel) return;
+      const focusbaar = Array.from(
+        paneel.querySelectorAll<HTMLElement>("a[href], button:not([disabled])")
+      );
+      if (focusbaar.length === 0) return;
+      const eerste = focusbaar[0];
+      const laatste = focusbaar[focusbaar.length - 1];
+      const actief = document.activeElement;
+
+      if (e.shiftKey && (actief === eerste || actief === knopRef.current)) {
+        e.preventDefault();
+        laatste.focus();
+      } else if (!e.shiftKey && actief === laatste) {
+        e.preventDefault();
+        knopRef.current?.focus();
+      }
+    };
+
+    document.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = vorigeOverflow;
+    };
+  }, [mobileOpen, sluitEnFocusKnop]);
 
   const isActive = (href: string) => {
     if (href === "/") return pathname === "/";
@@ -50,35 +116,23 @@ export default function Header() {
      Vanaf elke pagina moet die met één klik bereikbaar zijn, dus staat de
      CTA overal in de header, behalve op de analyse zelf. Op de
      resultaatpagina heeft iemand de analyse net gedaan, daar wijst hij
-     naar een nieuwe ronde. Route en label komen uit lib/cta.ts, zodat er
-     nergens een tweede variant ontstaat. */
+     naar een nieuwe ronde. */
   const ctaConfig = isOpAnalyse
     ? null
     : isOpResultaat
     ? { label: "Doe analyse opnieuw", href: ANALYSE_ROUTE }
     : { label: PRIMAIRE_CTA_LABEL, href: ANALYSE_ROUTE };
 
-  const navLinks = [
-    { href: "/rapporten", label: "Rapporten" },
-    { href: "/inzichten", label: "Inzichten" },
-    { href: "/aanbod", label: "Tarieven" },
-    { href: "/over", label: "Over" },
-    { href: "/samenwerken", label: "Samenwerken" },
-    { href: "/analyse", label: "Analyse" },
-  ];
-
   return (
     <header
       className="sticky top-0 z-50"
       style={{
         backgroundColor: C.white,
-        borderBottom: `1px solid ${C.border}`,
+        borderBottom: "1px solid " + C.border,
         boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
       }}
     >
-      <div
-        className="relative flex items-center justify-between h-16 md:h-[76px] max-w-[1200px] mx-auto px-5 md:px-10"
-      >
+      <div className="flex items-center justify-between h-16 md:h-[76px] max-w-[1200px] mx-auto px-5 md:px-10">
         {/* Logo, links uitgelijnd */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Waar blijft het">
           <div
@@ -96,45 +150,43 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Desktop nav, horizontaal gecentreerd t.o.v. de headerbreedte */}
-        <nav
-          className="hidden md:flex items-center gap-6 absolute left-1/2 -translate-x-1/2"
-          aria-label="Hoofdnavigatie"
-        >
-          {navLinks.map(({ href, label }) => {
-            const active = isActive(href);
-            return (
-              <Link
-                key={href}
-                href={href}
-                className="pb-1 border-b-2 transition-colors duration-150"
-                style={{
-                  fontSize: "15px",
-                  fontWeight: active ? 600 : 500,
-                  color: active ? C.wine : C.dark,
-                  borderBottomColor: active ? C.gold : "transparent",
-                }}
-                onMouseEnter={(e) => {
-                  if (!active) e.currentTarget.style.color = C.wine;
-                }}
-                onMouseLeave={(e) => {
-                  if (!active) e.currentTarget.style.color = C.dark;
-                }}
-              >
-                {label}
-              </Link>
-            );
-          })}
-        </nav>
+        {/* Desktop: vier navigatielinks en daarnaast één primaire actie */}
+        <div className="hidden md:flex items-center gap-8">
+          <nav className="flex items-center gap-7" aria-label="Hoofdnavigatie">
+            {navLinks.map(({ href, label }) => {
+              const active = isActive(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  aria-current={active ? "page" : undefined}
+                  className="pb-1 border-b-2 transition-colors duration-150"
+                  style={{
+                    fontSize: "15px",
+                    fontWeight: active ? 600 : 500,
+                    color: active ? C.wine : C.dark,
+                    borderBottomColor: active ? C.gold : "transparent",
+                    textDecoration: "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!active) e.currentTarget.style.color = C.wine;
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!active) e.currentTarget.style.color = C.dark;
+                  }}
+                >
+                  {label}
+                </Link>
+              );
+            })}
+          </nav>
 
-        {/* CTA, rechts uitgelijnd, alleen desktop */}
-        <div className="hidden md:flex items-center shrink-0">
           {ctaConfig && (
             <CtaLink
               doel="analyse"
               href={ctaConfig.href}
               locatie="header"
-              className="inline-flex items-center gap-1.5 transition-colors duration-150"
+              className="inline-flex items-center gap-1.5 shrink-0 transition-colors duration-150"
               style={{
                 backgroundColor: C.green,
                 color: C.white,
@@ -143,6 +195,7 @@ export default function Header() {
                 borderRadius: "8px",
                 fontSize: "15px",
                 fontWeight: 600,
+                textDecoration: "none",
               }}
               onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = C.greenHover)}
               onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = C.green)}
@@ -153,61 +206,84 @@ export default function Header() {
           )}
         </div>
 
-        {/* Hamburger, alleen mobiel */}
+        {/* Mobiel: alleen een menuknop. Klikgebied 44 bij 44, met een
+            hamburger van drie horizontale lijnen als het menu dicht is en
+            een kruis als het open staat. */}
         <button
-          className="md:hidden flex flex-col justify-center items-center w-9 h-9 gap-1.5"
-          onClick={() => setMobileOpen((o) => !o)}
+          ref={knopRef}
+          type="button"
+          className="md:hidden flex items-center justify-center w-11 h-11 -mr-2 rounded-lg"
+          onClick={() => (mobileOpen ? sluitEnFocusKnop() : setMobileOpen(true))}
           aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
           aria-expanded={mobileOpen}
+          aria-controls="mobiel-menu"
         >
-          <span
-            className={"block w-5 h-0.5 transition-all duration-200" + (mobileOpen ? " rotate-45 translate-y-2" : "")}
-            style={{ backgroundColor: C.dark }}
-          />
-          <span
-            className={"block w-5 h-0.5 transition-all duration-200" + (mobileOpen ? " opacity-0" : "")}
-            style={{ backgroundColor: C.dark }}
-          />
-          <span
-            className={"block w-5 h-0.5 transition-all duration-200" + (mobileOpen ? " -rotate-45 -translate-y-2" : "")}
-            style={{ backgroundColor: C.dark }}
-          />
+          {mobileOpen ? (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M6 6L18 18M18 6L6 18" stroke={C.dark} strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          ) : (
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M3 6H21M3 12H21M3 18H21" stroke={C.dark} strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          )}
         </button>
       </div>
 
-      {/* Mobiel menu: volledig wit, geen transparantie */}
+      {/* Mobiel menu: volledig wit, geen transparantie, verdwijnt helemaal
+          zodra het dicht is. */}
       {mobileOpen && (
-        <nav
-          className="md:hidden flex flex-col px-5 py-2"
-          style={{ backgroundColor: C.white, borderTop: `1px solid ${C.border}` }}
-          aria-label="Mobiele navigatie"
+        <div
+          id="mobiel-menu"
+          ref={paneelRef}
+          className="md:hidden px-5 pt-2 pb-7"
+          style={{ backgroundColor: C.white, borderTop: "1px solid " + C.border }}
         >
-          {navLinks.map(({ href, label }) => {
-            const active = isActive(href);
-            return (
-              <Link
-                key={href}
-                href={href}
-                onClick={() => setMobileOpen(false)}
-                className="py-3"
-                style={{
-                  fontSize: "16px",
-                  fontWeight: active ? 600 : 500,
-                  color: active ? C.wine : C.dark,
-                  borderBottom: `1px solid ${C.border}`,
-                }}
-              >
-                {label}
-              </Link>
-            );
-          })}
+          <nav className="flex flex-col" aria-label="Mobiele navigatie">
+            {navLinks.map(({ href, label }) => {
+              const active = isActive(href);
+              return (
+                <Link
+                  key={href}
+                  href={href}
+                  onClick={() => setMobileOpen(false)}
+                  aria-current={active ? "page" : undefined}
+                  className="flex items-center min-h-[52px]"
+                  style={{
+                    fontSize: "17px",
+                    fontWeight: active ? 600 : 500,
+                    color: active ? C.wine : C.dark,
+                    borderBottom: "1px solid " + C.border,
+                    textDecoration: "none",
+                  }}
+                >
+                  {label}
+                </Link>
+              );
+            })}
+            <a
+              href={CONTACT_MAILTO}
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center min-h-[52px]"
+              style={{
+                fontSize: "17px",
+                fontWeight: 500,
+                color: C.dark,
+                borderBottom: "1px solid " + C.border,
+                textDecoration: "none",
+              }}
+            >
+              Contact
+            </a>
+          </nav>
+
           {ctaConfig && (
             <CtaLink
               doel="analyse"
               href={ctaConfig.href}
               locatie="header-mobiel"
               onClick={() => setMobileOpen(false)}
-              className="flex items-center justify-center gap-1.5 w-full my-4"
+              className="flex items-center justify-center gap-1.5 w-full mt-6"
               style={{
                 backgroundColor: C.green,
                 color: C.white,
@@ -215,13 +291,14 @@ export default function Header() {
                 borderRadius: "8px",
                 fontSize: "16px",
                 fontWeight: 600,
+                textDecoration: "none",
               }}
             >
               {ctaConfig.label}
               <span aria-hidden="true">&rarr;</span>
             </CtaLink>
           )}
-        </nav>
+        </div>
       )}
     </header>
   );
