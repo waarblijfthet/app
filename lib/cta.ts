@@ -39,6 +39,21 @@ export function geldscanHref(opties: { token?: string } = {}): string {
     : GELDSCAN_ROUTE;
 }
 
+/**
+ * Het adviesgesprek. Er is geen agendatool: de bezoeker vult het
+ * aanmeldformulier in, daarna neem ik binnen 1 werkdag contact op om te plannen
+ * en stuur ik het betaalverzoek. Beloof op geen enkele pagina dat iemand zelf
+ * een tijdstip in een agenda prikt, want dat kan niet.
+ */
+export const GESPREK_ROUTE = "/aanbod/intake?pakket=gesprek";
+
+/** De enige toegestane tekst voor een adviesgesprek-knop. */
+export const GESPREK_CTA_LABEL = "Plan mijn adviesgesprek";
+
+export function gesprekHref(): string {
+  return GESPREK_ROUTE;
+}
+
 export type SituatieSleutel =
   | "gezin"
   | "alleenstaand"

@@ -1,89 +1,300 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
-import { geldscanHref } from "@/lib/cta";
+import { gesprekHref, GESPREK_CTA_LABEL } from "@/lib/cta";
+
+/**
+ * /adviesgesprek, herbouwd op 30-aug-2026.
+ *
+ * De pagina heeft één actie: het gesprek aanvragen. De oude versie sloot af
+ * met "Begin eerst met de gratis analyse" plus een Geldscan-link plus een
+ * mailto, drie routes weg van de enige actie die deze bezoeker zocht. Die zijn
+ * er allemaal uit.
+ *
+ * Twee dingen die je hier nooit mag schrijven, hoe verleidelijk ook:
+ * - dat iemand zelf een tijdstip in een agenda prikt. Er is geen agendatool,
+ *   de aanvraag gaat via het formulier en ik plan daarna met de hand in.
+ * - dat er geen voorbereiding nodig is. Je legt je cijfers klaar en bedenkt je
+ *   grootste vraag, dat is precies wat het gesprek bruikbaar maakt.
+ *
+ * Feiten komen uit lib/aanbod-content.ts (PAKKET_INFO.gesprek): €125, 45
+ * minuten, video, schriftelijke samenvatting achteraf, gegevens daarna weg.
+ */
 
 export const metadata: Metadata = {
-  title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
+  title: "Financieel adviesgesprek, eenmalig €125, 45 minuten",
   description:
-    "Een eenmalig financieel adviesgesprek van 45 minuten: naar je cijfers kijken en 2 à 3 concrete doelen stellen. €125, geen traject, geen verplichting.",
+    "Een eenmalig adviesgesprek van 45 minuten via Google Meet. Ik kijk met je naar je cijfers, wat je tegenhoudt en wat je als volgende stap kunt doen. €125, geen traject.",
   alternates: { canonical: "https://www.waarblijfthet.nl/adviesgesprek" },
   openGraph: {
-    title: "Financieel adviesgesprek, eenmalig €125, vrijblijvend",
+    title: "Financieel adviesgesprek, eenmalig €125, 45 minuten",
     description:
-      "Ik kijk met je naar je cijfers en help je 2 à 3 concrete doelen te stellen. Geen traject, geen verplichting.",
+      "Ik kijk met je naar je cijfers en je krijgt concrete aandachtspunten mee. Eenmalig €125, geen traject.",
     url: "https://www.waarblijfthet.nl/adviesgesprek",
     type: "website",
   },
   robots: { index: true, follow: true },
 };
 
-const faq = [
+const PRIJS = "€125";
+const DUUR = "45 minuten";
+
+const WAARDEN = [
+  {
+    icoon: "persoon" as const,
+    titel: "Persoonlijk",
+    regel: "Advies afgestemd op jouw situatie.",
+  },
+  {
+    icoon: "vinkje" as const,
+    titel: "Praktisch",
+    regel: "Concrete keuzes en vervolgstappen.",
+  },
+  {
+    icoon: "schild" as const,
+    titel: "Onafhankelijk",
+    regel: "Geen producten of provisies.",
+  },
+];
+
+const STAPPEN = [
+  {
+    icoon: "verstuur" as const,
+    titel: "Aanmelden",
+    regel: "Je vraagt een gesprek aan.",
+  },
+  {
+    icoon: "mail" as const,
+    titel: "Voorbereiden",
+    regel: "Ik neem binnen 1 werkdag contact op en laat weten wat je klaarlegt.",
+  },
+  {
+    icoon: "gesprek" as const,
+    titel: "45 minuten samen",
+    regel: "Ik loop je cijfers, je vragen en je keuzes met je door.",
+  },
+  {
+    icoon: "doel" as const,
+    titel: "Richting bepalen",
+    regel: "Je krijgt concrete aandachtspunten en vervolgstappen.",
+  },
+  {
+    icoon: "document" as const,
+    titel: "Daarna beslis jij",
+    regel: "Je bepaalt zelf wat je met het advies doet.",
+  },
+];
+
+const OPBRENGST = [
+  {
+    icoon: "vergrootglas" as const,
+    titel: "Inzicht",
+    regel: "Je begrijpt beter waar je financiële ruimte zit.",
+  },
+  {
+    icoon: "sorteren" as const,
+    titel: "Prioriteiten",
+    regel: "Je weet welke zaken het meeste aandacht verdienen.",
+  },
+  {
+    icoon: "kompas" as const,
+    titel: "Richting",
+    regel: "Je hebt een concreet beeld van je volgende stap.",
+  },
+  {
+    icoon: "rust" as const,
+    titel: "Rust",
+    regel: "Je hoeft het niet meer alleen uit te zoeken.",
+  },
+];
+
+const FAQ = [
   {
     vraag: "Wat kost het adviesgesprek?",
     antwoord:
-      "Eenmalig €125 voor een videogesprek van 45 minuten, inclusief de voorbereiding en een schriftelijke samenvatting achteraf. Geen abonnement, geen traject. Je betaalt één keer en zit nergens aan vast.",
+      "€125 eenmalig voor 45 minuten. Na je aanvraag neem ik contact op en stuur ik je een betaalverzoek. Geen abonnement, geen traject.",
   },
   {
-    vraag: "Moet ik daarna een traject afnemen?",
+    vraag: "Wat moet ik voorbereiden?",
     antwoord:
-      "Nee. Het gesprek is eenmalig en op zichzelf compleet. Je gaat naar huis met concrete doelen waar je zelf mee verder kunt. Wil je later meer begeleiding, dan kan dat, maar het hoeft niet.",
+      "Leg je cijfers klaar en bedenk in één zin wat je grootste vraag is. Een paar recente bankafschriften mogen, dat hoeft niet. Ik laat vooraf weten wat voor jouw situatie handig is.",
   },
   {
-    vraag: "Krijg jij toegang tot mijn bankrekening?",
+    vraag: "Kan ik mijn Geldscan meenemen in het gesprek?",
     antwoord:
-      "Nee. Je deelt alleen wat je zelf wilt. De analyse en eventueel een paar bankafschriften die je zelf aanlevert zijn genoeg. Ik koppel niets aan je bank.",
+      "Ja. Heb je al een Geldscan, dan is dat rapport het vertrekpunt en hoef je niets opnieuw aan te leveren. De €49 verreken ik met de prijs van het gesprek.",
   },
   {
-    vraag: "Is dit financieel advies of schuldhulp?",
+    vraag: "Is het gesprek een verplicht onderdeel van een traject?",
     antwoord:
-      "Nee. Ik geef geen financieel advies in de zin van de Wft, doe niet aan beleggen en ben geen schuldhulp. Het is een praktische blik op je maandbudget en concrete doelen om meer over te houden.",
+      "Nee. Het gesprek is eenmalig en op zichzelf compleet. Je gaat weg met concrete aandachtspunten waar je zelf mee verder kunt.",
+  },
+  {
+    vraag: "Hoe vindt het gesprek plaats?",
+    antwoord:
+      "Online via Google Meet. Achteraf krijg je een korte schriftelijke samenvatting, en daarna verwijder ik alles wat je hebt aangeleverd.",
   },
 ];
 
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faq.map((f) => ({
+  mainEntity: FAQ.map((f) => ({
     "@type": "Question",
     name: f.vraag,
     acceptedAnswer: { "@type": "Answer", text: f.antwoord },
   })),
 };
 
-const stappen = [
-  {
-    n: "1",
-    titel: "Vooraf: plannen en voorbereiden",
-    items: [
-      "Na je aanmelding neem ik binnen één werkdag contact op om het gesprek te plannen.",
-      "Na je aanvraag stuur ik je een betaalverzoek (€125).",
-      "Doe vooraf de analyse (5 min), dat is de basis van het gesprek. Optioneel: leg een paar recente bankafschriften klaar.",
-      "Bedenk in één zin: wat is je grootste vraag of zorg?",
-    ],
-  },
-  {
-    n: "2",
-    titel: "Het gesprek: 45 minuten",
-    items: [
-      "Ik kijk samen met jou naar je cijfers en de twee grootste afwijkingen.",
-      "Geen verkooppraat, geen oordeel. Gewoon een blik van buitenaf.",
-      "Samen bepalen jij en ik 2 à 3 concrete doelen waar je meteen mee verder kunt.",
-    ],
-  },
-  {
-    n: "3",
-    titel: "Erna: iets tastbaars",
-    items: [
-      "Je krijgt een korte schriftelijke samenvatting met je doelen, om terug te lezen.",
-      "Direct daarna verwijder ik alle aangeleverde gegevens, er blijft niets bewaard.",
-      "Daarmee ga je zelf verder, in je eigen tempo.",
-      "Wil je meer begeleiding? Dan bekijk ik met je of een traject bij je past. Maar dat hoeft niet.",
-    ],
-  },
-];
+type IcoonNaam =
+  | "persoon"
+  | "vinkje"
+  | "schild"
+  | "verstuur"
+  | "mail"
+  | "gesprek"
+  | "doel"
+  | "document"
+  | "vergrootglas"
+  | "sorteren"
+  | "kompas"
+  | "rust";
+
+/* Eén set lijniconen, dezelfde stijl als op /geldscan en het
+   aanvraagformulier: 1,6 stroke, geen vlakken, kleur van de ouder. */
+function Icoon({ naam, grootte = 20 }: { naam: IcoonNaam; grootte?: number }) {
+  const paden: Record<IcoonNaam, React.ReactNode> = {
+    persoon: (
+      <>
+        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+        <circle cx="12" cy="7" r="4" />
+      </>
+    ),
+    vinkje: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <polyline points="8.5 12 11 14.5 15.5 9.5" />
+      </>
+    ),
+    schild: (
+      <>
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        <polyline points="9 11 11 13 15 9" />
+      </>
+    ),
+    verstuur: (
+      <>
+        <path d="M21 3L10.5 13.5" />
+        <path d="M21 3l-6.5 18-4-8-8-4L21 3z" />
+      </>
+    ),
+    mail: (
+      <>
+        <rect x="3" y="5" width="18" height="14" rx="2" />
+        <polyline points="3.5 6.5 12 13 20.5 6.5" />
+      </>
+    ),
+    gesprek: (
+      <>
+        <path d="M20 14a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2z" />
+        <path d="M8.5 10h7" />
+        <path d="M8.5 13h4" />
+      </>
+    ),
+    doel: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <circle cx="12" cy="12" r="4.5" />
+        <circle cx="12" cy="12" r="1" />
+      </>
+    ),
+    document: (
+      <>
+        <path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z" />
+        <polyline points="14 3 14 8 19 8" />
+        <path d="M8.5 13h7" />
+        <path d="M8.5 16.5h4.5" />
+      </>
+    ),
+    vergrootglas: (
+      <>
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="M16 16l4.5 4.5" />
+      </>
+    ),
+    sorteren: (
+      <>
+        <path d="M4 7h13" />
+        <path d="M4 12h9" />
+        <path d="M4 17h5" />
+        <polyline points="17 14 20 17 17 20" />
+      </>
+    ),
+    kompas: (
+      <>
+        <circle cx="12" cy="12" r="9" />
+        <polygon points="15.5 8.5 10.5 10.5 8.5 15.5 13.5 13.5" />
+      </>
+    ),
+    rust: (
+      <>
+        <path d="M12 21s-7-4.5-7-9.5A4 4 0 0 1 12 8a4 4 0 0 1 7 3.5c0 5-7 9.5-7 9.5z" />
+      </>
+    ),
+  };
+
+  return (
+    <svg
+      width={grootte}
+      height={grootte}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      focusable="false"
+    >
+      {paden[naam]}
+    </svg>
+  );
+}
+
+function IcoonBol({ naam, grootte = 44 }: { naam: IcoonNaam; grootte?: number }) {
+  return (
+    <span
+      className="flex shrink-0 items-center justify-center rounded-full bg-green-light text-accent"
+      style={{ width: grootte, height: grootte }}
+    >
+      <Icoon naam={naam} grootte={Math.round(grootte * 0.45)} />
+    </span>
+  );
+}
+
+function Chevron() {
+  return (
+    <span
+      aria-hidden="true"
+      className="flex flex-shrink-0 text-text-muted transition-transform duration-200 group-open:rotate-180"
+    >
+      <svg
+        width="16"
+        height="16"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      >
+        <path d="M6 9.5l6 6 6-6" />
+      </svg>
+    </span>
+  );
+}
 
 export default function AdviesgesprekPage() {
   return (
@@ -95,130 +306,222 @@ export default function AdviesgesprekPage() {
       <Header />
 
       <main>
-        {/* Hero */}
-        <section className="bg-background pt-16 pb-10">
-          <div className="max-w-3xl mx-auto px-6">
-            <p className="section-eyebrow mb-4">Eenmalig adviesgesprek · €125</p>
-            <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-6 max-w-2xl">
-              Zo werkt het adviesgesprek
-            </h1>
-            <p className="text-text-soft font-body font-light text-lg leading-relaxed">
-              Eén gesprek van 45 minuten waarin ik eerlijk naar je cijfers
-              kijk en je 2 à 3 concrete doelen meekrijgt. Geen traject, geen
-              verplichting. Gewoon de por die je nodig hebt om van krap naar
-              ruim te gaan.
-            </p>
-          </div>
-        </section>
+        {/* ── 1. Hero: belofte links, beeld en prijs rechts ──────────────── */}
+        <section className="bg-background px-6 pb-16 pt-14 sm:pt-20">
+          <div className="mx-auto grid max-w-[1120px] grid-cols-1 items-start gap-x-14 gap-y-10 lg:grid-cols-2">
+            {/* Intro */}
+            <div className="order-1 lg:col-start-1 lg:row-start-1">
+              <p className="font-body mb-5 text-xs font-semibold uppercase tracking-[0.16em] text-accent">
+                Adviesgesprek
+              </p>
+              <h1
+                className="font-display mb-5 font-light text-primary"
+                style={{ fontSize: "clamp(2rem, 5vw, 3.1rem)", lineHeight: 1.12 }}
+              >
+                Persoonlijk advies voor jouw financiële situatie.
+              </h1>
+              <p className="font-body max-w-[32rem] text-base font-light leading-relaxed text-text-soft">
+                In {DUUR} kijk ik samen met jou naar je cijfers, naar wat je tegenhoudt en naar wat
+                je als volgende stap kunt doen.
+              </p>
+            </div>
 
-        {/* Stappen */}
-        <section className="bg-background pb-8">
-          <div className="max-w-3xl mx-auto px-6 space-y-5">
-            {stappen.map((s) => (
-              <div key={s.n} className="card-base border border-[#E6E9E7]">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-xl bg-green-light flex items-center justify-center shrink-0">
-                    <span className="font-display font-medium text-primary text-xl">
-                      {s.n}
-                    </span>
-                  </div>
-                  <div>
-                    <h2 className="font-display font-light text-primary text-xl mb-3">
-                      {s.titel}
-                    </h2>
-                    <ul className="space-y-2">
-                      {s.items.map((it) => (
-                        <li key={it} className="flex items-start gap-2">
-                          <span style={{ color: "#0B7A6E", fontWeight: 600 }}>✓</span>
-                          <span className="font-body font-light text-sm text-text-soft leading-relaxed">
-                            {it}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
+            {/* Beeld */}
+            <div className="order-2 lg:col-start-2 lg:row-start-1">
+              <div className="overflow-hidden rounded-2xl border border-[#E6E9E7] bg-card">
+                <Image
+                  src="/jarno.jpg"
+                  alt="Jarno Koopman, die het adviesgesprek voert"
+                  width={720}
+                  height={520}
+                  className="h-[260px] w-full object-cover sm:h-[320px]"
+                  priority
+                />
+                <p className="font-body px-5 py-4 text-sm font-light leading-relaxed text-text-soft">
+                  Je spreekt mij, Jarno. Geen intaker, geen team achter een formulier.
+                </p>
               </div>
-            ))}
+            </div>
+
+            {/* Prijs en de enige actie van deze pagina */}
+            <div className="order-3 lg:col-start-2 lg:row-start-2">
+              <div className="rounded-2xl border border-[#D5E5E0] bg-card p-6 sm:p-7">
+                <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="font-display text-3xl font-light leading-none text-primary">
+                      {PRIJS}
+                    </p>
+                    <p className="font-body mt-1.5 text-sm text-text-muted">
+                      eenmalig &middot; {DUUR}
+                    </p>
+                  </div>
+                  <CtaLink
+                    doel="gesprek"
+                    href={gesprekHref()}
+                    locatie="adviesgesprek-hero"
+                    className="btn-primary sm:flex-shrink-0"
+                  >
+                    {GESPREK_CTA_LABEL} →
+                  </CtaLink>
+                </div>
+                <p className="font-body mt-4 text-sm font-light leading-relaxed text-text-soft">
+                  Online via Google Meet. Ik neem binnen 1 werkdag contact op om het gesprek in te
+                  plannen.
+                </p>
+              </div>
+            </div>
+
+            {/* Drie waarden */}
+            <ul className="order-4 flex list-none flex-col gap-6 p-0 lg:col-start-1 lg:row-start-2">
+              {WAARDEN.map((w) => (
+                <li key={w.titel} className="flex items-start gap-4">
+                  <IcoonBol naam={w.icoon} />
+                  <div className="pt-1">
+                    <p className="font-body mb-0.5 text-[15px] font-semibold text-primary">
+                      {w.titel}
+                    </p>
+                    <p className="font-body text-sm font-light leading-relaxed text-text-soft">
+                      {w.regel}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 
-        {/* Geruststelling */}
-        <section className="bg-card py-12">
-          <div className="max-w-3xl mx-auto px-6">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-center">
-              {[
-                ["Geen verplichting", "Eén gesprek. Daarna bepaal jij wat je doet."],
-                ["Geen toegang tot je bank", "Je deelt alleen wat je zelf wilt."],
-                ["Geen schuldhulp of beleggen", "Gewoon grip op je maandbudget."],
-              ].map(([t, d]) => (
-                <div key={t}>
-                  <p className="font-body font-medium text-primary text-sm mb-1">{t}</p>
-                  <p className="font-body font-light text-text-soft text-xs leading-relaxed">{d}</p>
+        {/* ── 2. Zo verloopt het gesprek ────────────────────────────────── */}
+        <section className="bg-card px-6 py-16 sm:py-20">
+          <div className="mx-auto max-w-[1120px]">
+            <h2
+              className="font-display mb-12 text-center font-light text-primary"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", lineHeight: 1.15 }}
+            >
+              Zo verloopt het gesprek.
+            </h2>
+
+            {/* Desktop: horizontaal */}
+            <ol className="hidden list-none grid-cols-5 gap-4 p-0 sm:grid">
+              {STAPPEN.map((s, i) => (
+                <li key={s.titel}>
+                  <div className="mb-4 flex items-center">
+                    <IcoonBol naam={s.icoon} />
+                    {i < STAPPEN.length - 1 && (
+                      <span className="h-px flex-1 bg-[#E6E9E7]" />
+                    )}
+                  </div>
+                  <p className="font-body mb-1.5 pr-3 text-sm font-semibold text-primary">
+                    {i + 1}. {s.titel}
+                  </p>
+                  <p className="font-body pr-3 text-[13px] font-light leading-relaxed text-text-soft">
+                    {s.regel}
+                  </p>
+                </li>
+              ))}
+            </ol>
+
+            {/* Mobiel: verticaal */}
+            <ol className="flex list-none flex-col gap-5 p-0 sm:hidden">
+              {STAPPEN.map((s, i) => (
+                <li key={s.titel} className="flex items-start gap-4">
+                  <IcoonBol naam={s.icoon} grootte={40} />
+                  <div className="pt-0.5">
+                    <p className="font-body mb-1 text-[15px] font-semibold text-primary">
+                      {i + 1}. {s.titel}
+                    </p>
+                    <p className="font-body text-sm font-light leading-relaxed text-text-soft">
+                      {s.regel}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </section>
+
+        {/* ── 3. Wat het oplevert ───────────────────────────────────────── */}
+        <section className="bg-background px-6 py-16 sm:py-20">
+          <div className="mx-auto max-w-[1120px]">
+            <h2
+              className="font-display mb-12 text-center font-light text-primary"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", lineHeight: 1.15 }}
+            >
+              Na het gesprek weet je beter wat je moet doen.
+            </h2>
+
+            <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 sm:gap-10 lg:grid-cols-4">
+              {OPBRENGST.map((o) => (
+                <div
+                  key={o.titel}
+                  className="flex items-start gap-4 lg:block lg:border-l lg:border-[#E6E9E7] lg:pl-5"
+                >
+                  <span className="flex shrink-0 text-accent lg:mb-4 lg:block">
+                    <Icoon naam={o.icoon} grootte={26} />
+                  </span>
+                  <div>
+                    <p className="font-body mb-1.5 text-[15px] font-semibold text-primary">
+                      {o.titel}
+                    </p>
+                    <p className="font-body text-sm font-light leading-relaxed text-text-soft">
+                      {o.regel}
+                    </p>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="bg-background py-14">
-          <div className="max-w-3xl mx-auto px-6">
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-6">
+        {/* ── 4. Vragen die een boeking in de weg staan ─────────────────── */}
+        <section className="bg-card px-6 py-16 sm:py-20">
+          <div className="mx-auto max-w-[760px]">
+            <h2
+              className="font-display mb-9 text-center font-light text-primary"
+              style={{ fontSize: "clamp(1.6rem, 3vw, 2.2rem)", lineHeight: 1.15 }}
+            >
               Veelgestelde vragen
             </h2>
-            <div className="space-y-4">
-              {faq.map((f) => (
-                <div key={f.vraag} className="card-base border border-[#E6E9E7]">
-                  <p className="font-body font-medium text-primary text-sm mb-2">
-                    {f.vraag}
-                  </p>
-                  <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+            <div className="flex flex-col gap-3">
+              {FAQ.map((f) => (
+                <details
+                  key={f.vraag}
+                  className="group rounded-xl border border-[#E6E9E7] bg-background px-5 py-4 sm:px-6"
+                >
+                  <summary className="font-body flex cursor-pointer select-none items-center justify-between gap-4 text-[15px] font-medium leading-snug text-primary">
+                    <span>{f.vraag}</span>
+                    <Chevron />
+                  </summary>
+                  <p className="font-body mt-3 text-sm font-light leading-relaxed text-text-soft">
                     {f.antwoord}
                   </p>
-                </div>
+                </details>
               ))}
             </div>
           </div>
         </section>
 
-        {/* CTA */}
-        <section className="bg-dark-block py-20">
-          <div className="max-w-3xl mx-auto px-6 text-center">
-            <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5">
-              Klaar om te beginnen?
+        {/* ── 5. Slot: dezelfde actie, nu als afsluiting ────────────────── */}
+        <section className="bg-dark-block px-6 py-16 sm:py-20">
+          <div className="mx-auto max-w-[760px] text-center">
+            <h2
+              className="font-display mb-4 font-light text-white"
+              style={{ fontSize: "clamp(1.7rem, 3.4vw, 2.4rem)", lineHeight: 1.15 }}
+            >
+              Klaar om samen naar jouw situatie te kijken?
             </h2>
-            <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Begin eerst met de gratis analyse. Daarna bepaal jij wat je doet.
+            <p className="font-body mx-auto mb-8 max-w-[30rem] text-base font-light leading-relaxed text-white/70">
+              Plan een persoonlijk gesprek en bepaal daarna zelf wat je met het advies doet.
             </p>
             <CtaLink
-              doel="analyse"
-              href="/analyse"
+              doel="gesprek"
+              href={gesprekHref()}
               locatie="adviesgesprek-slot"
               className="btn-primary"
-              style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
             >
-              Doe de gratis analyse →
+              {GESPREK_CTA_LABEL} →
             </CtaLink>
-            <p className="mt-5">
-              <CtaLink
-                doel="geldscan"
-                href={geldscanHref()}
-                locatie="adviesgesprek-slot"
-                className="font-body text-sm"
-                style={{ color: "rgba(245,240,232,0.7)", textDecoration: "none" }}
-              >
-                Na de analyse kun je de Geldscan aanvragen, €49 →
-              </CtaLink>
-            </p>
-            <p className="mt-3 mb-0">
-              <a
-                href="mailto:hallo@waarblijfthet.nl?subject=Adviesgesprek"
-                className="font-body text-xs"
-                style={{ color: "rgba(245,240,232,0.45)", textDecoration: "none" }}
-              >
-                Weet je al dat je liever meteen een gesprek wilt? Mail me dan waar je aan denkt.
-              </a>
+            <p className="font-body mb-0 mt-5 text-sm text-white/45">
+              {PRIJS} &middot; {DUUR} &middot; Online via Google Meet
             </p>
           </div>
         </section>

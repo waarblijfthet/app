@@ -13,11 +13,21 @@ import { logGebeurtenis } from "@/lib/track";
  * doel bepaalt de gebeurtenisnaam:
  *   analyse  -> cta_analysis
  *   geldscan -> cta_geldscan
+ *   gesprek  -> cta_gesprek
+ *
+ * De kolom gebeurtenis in paginagebeurtenissen is vrije tekst, dus een nieuw
+ * doel toevoegen kost geen migratie.
  *
  * De styling komt van buiten, zodat de visuele hiërarchie uit punt 24 per plek
  * bepaald wordt en dit component niets aan het ontwerp verandert.
  */
-export type CtaDoel = "analyse" | "geldscan";
+export type CtaDoel = "analyse" | "geldscan" | "gesprek";
+
+const GEBEURTENIS_VOOR_DOEL: Record<CtaDoel, string> = {
+  analyse: "cta_analysis",
+  geldscan: "cta_geldscan",
+  gesprek: "cta_gesprek",
+};
 
 interface Props {
   doel: CtaDoel;
@@ -53,8 +63,8 @@ export default function CtaLink({
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       onClick={() => {
-        logGebeurtenis(doel === "analyse" ? "cta_analysis" : "cta_geldscan", {
-          pakket: doel === "geldscan" ? "geldscan" : null,
+        logGebeurtenis(GEBEURTENIS_VOOR_DOEL[doel], {
+          pakket: doel === "analyse" ? null : doel,
           meta: { pagina: pathname, locatie: locatie, vervolgpagina: href },
         });
         onClick?.();
