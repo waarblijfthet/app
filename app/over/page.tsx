@@ -1,16 +1,20 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
-import { analyseHref, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
-import { rapportVoorSlug, AANTAL_ZONDER_LEK, RAPPORTEN } from "@/lib/rapporten-data";
+import { analyseHref, PRIMAIRE_CTA_LABEL, geldscanHref } from "@/lib/cta";
+import {
+  rapportVoorSlug,
+  AANTAL_ZONDER_LEK,
+  RAPPORTEN,
+} from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Over Jarno Koopman | Waar blijft het",
   description:
-    "Ik verdiende goed en wist toch niet waar ons geld bleef. Geen schulden, geen luxe, en toch bleef er minder over dan verwacht. Dat is waarom Waar blijft het bestaat.",
+    "Ik ben Jarno Koopman. Ik verdiende zelf goed en wist toch niet waar ons geld bleef. Daarom kijk ik nu naar de cijfers van andere huishoudens en schrijf ik met de hand op wat opvalt.",
   alternates: { canonical: "https://www.waarblijfthet.nl/over" },
   openGraph: {
     title: "Over Jarno Koopman | Waar blijft het",
@@ -52,10 +56,160 @@ const personSchema = {
   },
 };
 
-// Drie rapporten als bewijs, exact zoals ze ook op /rapporten staan.
-// Bedragen en citaten komen letterlijk uit lib/rapporten-data.ts (werkregel 4):
-// nooit een cijfer van een echte klant uit het hoofd overtypen.
-// stel-zonder-kinderen staat er bewust bij, dat is de scan zonder lek.
+/* --- Iconen -----------------------------------------------------------
+   Dunne lijniconen in de accentkleur, geen vlakken en geen schaduw. Ze dragen
+   geen betekenis die niet ook in de tekst staat, dus ze zijn aria-hidden. */
+
+function Icoon({ children }: { children: React.ReactNode }) {
+  return (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#0B7A6E"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {children}
+    </svg>
+  );
+}
+
+const IcoonPersoon = (
+  <Icoon>
+    <path d="M12 12a4 4 0 100-8 4 4 0 000 8z" />
+    <path d="M5 20a7 7 0 0114 0" />
+  </Icoon>
+);
+
+const IcoonSchild = (
+  <Icoon>
+    <path d="M12 3l7 3v5.5c0 4.2-2.9 7.6-7 8.5-4.1-.9-7-4.3-7-8.5V6l7-3z" />
+    <path d="M9.2 11.8l2 2 3.6-3.8" />
+  </Icoon>
+);
+
+const IcoonDoel = (
+  <Icoon>
+    <path d="M20.5 12a8.5 8.5 0 11-4.7-7.6" />
+    <path d="M16.5 12a4.5 4.5 0 11-2.6-4.1" />
+    <path d="M12 12l5.5-5.5" />
+  </Icoon>
+);
+
+const IcoonVerbanden = (
+  <Icoon>
+    <path d="M6 8.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+    <path d="M18 8.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+    <path d="M12 20.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5z" />
+    <path d="M7.5 7.5l3.2 8" />
+    <path d="M16.5 7.5l-3.2 8" />
+  </Icoon>
+);
+
+const IcoonTaal = (
+  <Icoon>
+    <path d="M20 15.5a2.5 2.5 0 01-2.5 2.5H9l-4 3v-3H5.5A2.5 2.5 0 013 15.5v-8A2.5 2.5 0 015.5 5h12A2.5 2.5 0 0120 7.5v8z" />
+    <path d="M8 10h8" />
+    <path d="M8 13.5h5" />
+  </Icoon>
+);
+
+const IcoonKeuzes = (
+  <Icoon>
+    <path d="M5 20V9.5a3 3 0 013-3h8" />
+    <path d="M13 3.5l3 3-3 3" />
+    <path d="M5 14.5h5a3 3 0 003-3v-1" />
+  </Icoon>
+);
+
+function Vinkje() {
+  return (
+    <svg
+      width="16"
+      height="16"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#0B7A6E"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+      className="mt-1 shrink-0"
+    >
+      <path d="M4.5 12.5l5 5 10-11" />
+    </svg>
+  );
+}
+
+/* --- Vaste inhoud ------------------------------------------------------ */
+
+const WAARDEN: { icoon: React.ReactNode; titel: string; tekst: string }[] = [
+  {
+    icoon: IcoonPersoon,
+    titel: "Persoonlijk",
+    tekst: "Ik schrijf de Geldscan zelf.",
+  },
+  {
+    icoon: IcoonSchild,
+    titel: "Onafhankelijk",
+    tekst: "Geen financiële producten of provisies.",
+  },
+  {
+    icoon: IcoonDoel,
+    titel: "Praktisch",
+    tekst: "Geen standaardadvies, maar kijken naar jouw situatie.",
+  },
+];
+
+const MANIER_VAN_KIJKEN: {
+  icoon: React.ReactNode;
+  titel: string;
+  tekst: string;
+}[] = [
+  {
+    icoon: IcoonVerbanden,
+    titel: "Ik kijk naar verbanden",
+    tekst:
+      "Niet alleen naar wat je uitgeeft, maar naar wat samen het beeld vormt.",
+  },
+  {
+    icoon: IcoonTaal,
+    titel: "Ik maak het begrijpelijk",
+    tekst: "Geen financieel jargon, maar uitleg in gewone taal.",
+  },
+  {
+    icoon: IcoonKeuzes,
+    titel: "Ik help je keuzes zien",
+    tekst: "Wat is een probleem, wat is een bewuste keuze en waar zit ruimte?",
+  },
+];
+
+const VOOR_WIE: { kop: string; tekst: string }[] = [
+  {
+    kop: "Je verdient goed.",
+    tekst: "Toch blijft er minder over dan je verwacht.",
+  },
+  {
+    kop: "Je doet het op zich goed.",
+    tekst: "Maar je mist overzicht.",
+  },
+  {
+    kop: "Je wilt weten waar het verschil zit.",
+    tekst: "Niet alleen horen dat je minder moet uitgeven.",
+  },
+  {
+    kop: "Je wilt keuzes maken die bij jouw leven passen.",
+    tekst: "En niet bij het gemiddelde huishouden.",
+  },
+];
+
+// Drie echte rapporten als bewijs. Labels en koppen komen letterlijk uit
+// lib/rapporten-data.ts (werkregel 4). stel-zonder-kinderen staat er bewust
+// bij, dat is de scan waar niets te repareren viel.
 const BEWIJS_SLUGS = [
   "tweeverdieners-drie-kinderen",
   "stel-zonder-kinderen",
@@ -76,32 +230,33 @@ export default function OverPage() {
       <Header />
 
       <main>
-
-        {/* 1. Hero: waarom dit bestaat, niet wat ik voor werk doe */}
-        <section className="bg-background pt-14 pb-12 sm:pt-16 sm:pb-14">
+        {/* 1. Hero: tekst, foto, waarden.
+            Op mobiel volgt de DOM-volgorde het ontwerp: tekst, foto, waarden.
+            Op desktop zet het raster de waarden onder de tekst en laat de foto
+            over beide rijen lopen. */}
+        <section className="bg-background pt-14 pb-14 sm:pt-16 sm:pb-16">
           <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-10 lg:gap-14 items-center">
-              <div>
+            <div className="grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:grid-rows-[auto_auto] lg:items-start lg:gap-x-14 lg:gap-y-12">
+              <div className="lg:col-start-1 lg:row-start-1 lg:self-center">
                 <p className="section-eyebrow mb-4">Over mij</p>
-                <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-5">
-                  Ik verdiende goed. Toch wist ik niet waar ons geld bleef.
+                <h1 className="font-display font-light text-primary text-4xl sm:text-5xl leading-[1.1] mb-6">
+                  Ik help mensen die goed verdienen, maar toch geen grip voelen
+                  op hun geld.
                 </h1>
-                <p className="font-body font-normal text-primary text-lg leading-relaxed mb-5">
-                  Dat was uiteindelijk de reden om Waar blijft het? te beginnen.
-                </p>
                 <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-[52ch]">
-                  Ik wilde weten of er echt iets mis was met onze financiën, of
-                  dat ik gewoon niet goed begreep wat er iedere maand gebeurde.
+                  Ik ben Jarno Koopman. Ik kijk naar cijfers en verbanden en
+                  vertaal ze naar een begrijpelijk verhaal over jouw financiële
+                  situatie.
                 </p>
               </div>
 
-              <div className="lg:justify-self-end w-full max-w-[400px] mx-auto lg:mx-0">
-                <div className="rounded-xl overflow-hidden shadow-card bg-card">
+              <div className="w-full max-w-[420px] mx-auto lg:col-start-2 lg:row-start-1 lg:row-span-2 lg:mx-0 lg:justify-self-end lg:self-center">
+                <div className="rounded-xl overflow-hidden bg-card shadow-card">
                   <Image
                     src="/jarno.jpg"
                     alt="Jarno Koopman"
-                    width={400}
-                    height={400}
+                    width={420}
+                    height={420}
                     className="w-full h-auto object-cover"
                     priority
                   />
@@ -110,170 +265,202 @@ export default function OverPage() {
                   Jarno Koopman, ik lees je cijfers en schrijf je rapport zelf.
                 </p>
               </div>
-            </div>
-          </div>
-        </section>
 
-        {/* 2. Persoonlijk verhaal */}
-        <section className="bg-card py-14">
-          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-14">
-              <div>
-                <p className="section-eyebrow mb-4">Hoe het begon</p>
-                <h2 className="font-display font-light text-primary text-2xl sm:text-3xl">
-                  Er was niets aan de hand, en toch klopte het niet
-                </h2>
-              </div>
-              <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed max-w-[62ch]">
-                <p>
-                  Ik verdien goed. Geen schulden, geen buitensporige uitgaven,
-                  geen dure hobby&apos;s. Twee inkomens, drie kinderen, een heel
-                  normaal leven.
-                </p>
-                <p>
-                  Toch bleef er elke maand minder over dan ik verwachtte. Na een
-                  verhuizing met een hogere hypotheek liepen de spaarpotjes
-                  langzaam leeg, en ik kon niet uitleggen waardoor. Voor de
-                  buitenwereld hadden we het prima voor elkaar. Zelf vroeg ik me
-                  af of ik iets over het hoofd zag.
-                </p>
-                <p>
-                  Ik ging zoeken naar hulp. Schuldhulp was niet voor ons bedoeld.
-                  Een financieel adviseur wilde praten over hypotheken en
-                  beleggen. Een cursus of een spreadsheet hield ik nooit vol.
-                </p>
-                <p>
-                  Toen ik onze cijfers eindelijk naast elkaar legde, bleek het
-                  probleem niet één uitgavencategorie te zijn. Het ontbrak vooral
-                  aan context. Ik zag wat we uitgaven, maar niet of dat voor een
-                  huishouden als het onze veel of weinig was.
-                </p>
-                <p className="font-body font-normal text-primary">
-                  Daaruit is Waar blijft het? ontstaan.
-                </p>
+              <div className="lg:col-start-1 lg:row-start-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-7 sm:gap-6">
+                  {WAARDEN.map((w) => (
+                    <div key={w.titel} className="flex gap-3.5 sm:block">
+                      <span className="shrink-0 sm:mb-3 sm:block">{w.icoon}</span>
+                      <div>
+                        <p className="font-body font-semibold text-primary text-sm mb-1">
+                          {w.titel}
+                        </p>
+                        <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+                          {w.tekst}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 3. Professionele achtergrond, als bewijs van deskundigheid */}
-        <section className="bg-background py-14">
+        {/* 2. Mijn verhaal: editorial twee kolommen, tekst links, citaat rechts.
+            Het citaat is een letterlijke zin uit de bestaande pagina. */}
+        <section className="bg-card py-16 sm:py-20">
           <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-14">
+            <div className="grid grid-cols-1 lg:grid-cols-[1.25fr_0.75fr] gap-10 lg:gap-16">
               <div>
-                <p className="section-eyebrow mb-4">Mijn achtergrond</p>
-                <h2 className="font-display font-light text-primary text-2xl sm:text-3xl">
-                  Ik werk dagelijks met financiële cijfers
+                <p className="section-eyebrow mb-4">Mijn verhaal</p>
+                <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-7">
+                  Het begon bij onszelf.
                 </h2>
-              </div>
-              <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed max-w-[62ch]">
-                <p>
-                  Voor mijn werk houd ik me dagelijks bezig met financiële
-                  software, cijfers en processen. Dat maakte het extra opvallend
-                  dat ik thuis zelf niet goed kon verklaren waarom we minder
-                  overhielden dan ik verwachtte.
-                </p>
-                <p>
-                  Ik ontdekte dat cijfers alleen niet genoeg zijn. Je moet ze in
-                  de context van een huishouden kunnen plaatsen.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* 4. Positionering: waarom Waar blijft het bestaat */}
-        <section className="bg-card py-14">
-          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <div className="grid grid-cols-1 md:grid-cols-[0.8fr_1.2fr] gap-8 md:gap-14">
-              <div>
-                <p className="section-eyebrow mb-4">De aanleiding</p>
-                <h2 className="font-display font-light text-primary text-2xl sm:text-3xl">
-                  Daarom bestaat Waar blijft het?
-                </h2>
-              </div>
-              <div className="max-w-[62ch]">
-                <div className="space-y-4 text-text-soft font-body font-light text-base leading-relaxed">
+                <div className="space-y-4 text-text-soft font-body font-light text-base sm:text-lg leading-relaxed max-w-[60ch]">
                   <p>
-                    Ik merkte dat veel financiële hulpmiddelen je vooral vertellen
-                    wat je uitgeeft. Maar niet of dat voor jouw situatie eigenlijk
-                    veel of weinig is.
+                    Ik verdien goed. Geen schulden, geen buitensporige uitgaven,
+                    geen dure hobby&apos;s. Twee inkomens, drie kinderen, een
+                    heel normaal leven.
                   </p>
                   <p>
-                    Waar blijft het? kijkt daarom naar het volledige huishouden.
-                    Niet alleen naar losse categorieën, maar naar inkomen, wonen,
-                    kinderen, vervoer, dagelijkse uitgaven en de financiële ruimte
-                    die daar uiteindelijk uit overblijft.
+                    Toch bleef er elke maand minder over dan ik verwachtte. Na
+                    een verhuizing met een hogere hypotheek liepen de spaarpotjes
+                    langzaam leeg, en ik kon niet uitleggen waardoor. Voor de
+                    buitenwereld hadden we het prima voor elkaar. Zelf vroeg ik
+                    me af of ik iets over het hoofd zag.
+                  </p>
+                  <p>
+                    Pas toen ik onze cijfers eindelijk naast elkaar legde, werd
+                    duidelijk wat er gebeurde. Het probleem was niet een enkele
+                    uitgavencategorie. Het ontbrak vooral aan context.
+                  </p>
+                  <p className="font-body font-normal text-primary">
+                    Daaruit is Waar blijft het? ontstaan.
                   </p>
                 </div>
+              </div>
 
+              <div className="lg:pt-16">
+                <figure className="bg-green-light rounded-xl p-7 sm:p-8">
+                  <svg
+                    width="26"
+                    height="20"
+                    viewBox="0 0 26 20"
+                    fill="#0B7A6E"
+                    aria-hidden="true"
+                    className="mb-4 opacity-60"
+                  >
+                    <path d="M0 20V11.4C0 5.3 3.4 1.1 9.6 0l1 2.6C6.8 3.9 4.9 6 4.9 8.7h4.4V20H0zm15.6 0v-8.6C15.6 5.3 19 1.1 25.2 0l1 2.6c-3.8 1.3-5.7 3.4-5.7 6.1h4.4V20h-9.3z" />
+                  </svg>
+                  <blockquote className="font-display font-light text-primary text-xl sm:text-2xl leading-snug">
+                    Ik zag wat we uitgaven, maar niet of dat voor een huishouden
+                    als het onze veel of weinig was.
+                  </blockquote>
+                  <figcaption className="font-body font-light text-text-soft text-sm mt-5">
+                    Jarno
+                  </figcaption>
+                </figure>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* 3. Mijn manier van kijken: drie losse items, veel witruimte, geen cards. */}
+        <section className="bg-background py-16 sm:py-20">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="max-w-[46ch] mb-11 sm:mb-14">
+              <p className="section-eyebrow mb-4">Mijn manier van kijken</p>
+              <h2 className="font-display font-light text-primary text-3xl sm:text-4xl">
+                Ik kijk verder dan de losse cijfers.
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0">
+              {MANIER_VAN_KIJKEN.map((item, i) => (
                 <div
-                  className="mt-7 card-base border border-[#A6D8CD] bg-green-light"
-                  style={{ borderLeft: "3px solid #0B7A6E" }}
+                  key={item.titel}
+                  className={
+                    i === 0
+                      ? "md:pr-10"
+                      : "md:border-l md:border-[#E1E6E4] md:px-10 last:md:pr-0"
+                  }
                 >
-                  <p className="font-display font-light text-primary text-xl sm:text-2xl leading-snug">
-                    En soms is de conclusie simpelweg dat er financieel weinig
-                    geks aan de hand is. Ook dat is een waardevolle uitkomst.
+                  <span className="mb-4 block">{item.icoon}</span>
+                  <h3 className="font-display font-light text-primary text-xl sm:text-2xl mb-3 leading-snug">
+                    {item.titel}
+                  </h3>
+                  <p className="font-body font-light text-text-soft text-base leading-relaxed max-w-[34ch]">
+                    {item.tekst}
                   </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 4. Voor wie ik er ben, met het bewijs ernaast. Op mobiel eerst de
+            tekst, daarna de rapporten. */}
+        <section className="bg-card py-16 sm:py-20">
+          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+              <div>
+                <p className="section-eyebrow mb-4">Voor wie</p>
+                <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-5">
+                  Voor wie ik er ben
+                </h2>
+                <p className="text-text-soft font-body font-light text-base sm:text-lg leading-relaxed max-w-[50ch] mb-8">
+                  Voor mensen die goed verdienen, maar merken dat geld toch te
+                  weinig overzicht, ruimte of rust geeft.
+                </p>
+
+                <ul className="space-y-5 max-w-[52ch]">
+                  {VOOR_WIE.map((p) => (
+                    <li key={p.kop} className="flex gap-3">
+                      <Vinkje />
+                      <p className="font-body text-base leading-relaxed">
+                        <span className="font-medium text-primary">{p.kop}</span>{" "}
+                        <span className="font-light text-text-soft">
+                          {p.tekst}
+                        </span>
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              <div>
+                <p className="section-eyebrow mb-4">Bewijs, geen belofte</p>
+                <h2 className="font-display font-light text-primary text-3xl sm:text-4xl mb-5">
+                  Je kunt eerst zien hoe ik werk.
+                </h2>
+                <p className="text-text-soft font-body font-light text-base leading-relaxed max-w-[50ch] mb-7">
+                  Alle {RAPPORTEN.length} geldrapporten die ik heb geleverd staan
+                  openbaar op de site, met de cijfers, mijn advies en de reactie
+                  van de klant. Bij {AANTAL_ZONDER_LEK} ervan viel er niets te
+                  repareren, en ook dat lees je gewoon terug.
+                </p>
+
+                <div className="space-y-3">
+                  {bewijsRapporten.map((r) => (
+                    <Link
+                      key={r.slug}
+                      href={"/rapporten/" + r.slug}
+                      className="block rounded-xl border border-[#E6E9E7] px-5 py-4 transition-colors hover:border-[#0B7A6E]"
+                      style={{ textDecoration: "none" }}
+                    >
+                      <p className="section-eyebrow mb-1.5">{r.chip}</p>
+                      <p className="font-display font-light text-primary text-lg leading-snug">
+                        {r.uitkomstKop}
+                      </p>
+                    </Link>
+                  ))}
+                </div>
+
+                <div className="mt-6">
+                  <Link
+                    href="/rapporten"
+                    className="font-body text-sm font-medium hover:underline"
+                    style={{ color: "#0B7A6E" }}
+                  >
+                    Bekijk de rapporten &rarr;
+                  </Link>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* 5. Wat ik wel en niet doe */}
-        <section className="bg-background py-14">
+        {/* 5. Afbakening, compact en laag op de pagina. */}
+        <section className="bg-background py-12">
           <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <p className="section-eyebrow mb-4">Mijn rol</p>
-            <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-8">
-              Wat ik wel en niet doe
-            </h2>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              <div className="card-base border border-[#A6D8CD] bg-green-light">
-                <p className="font-display font-light text-primary text-xl mb-4">
-                  Wel
-                </p>
-                <ul className="space-y-3 font-body font-light text-sm text-text-soft">
-                  <li>Ik analyseer financiële situaties van huishoudens.</li>
-                  <li>Ik vergelijk cijfers met vergelijkbare huishoudens.</li>
-                  <li>Ik geef mijn persoonlijke oordeel over wat opvalt.</li>
-                </ul>
-              </div>
-
-              <div className="card-base border border-[#E6E9E7]">
-                <p className="font-display font-light text-primary text-xl mb-4">
-                  Niet
-                </p>
-                <ul className="space-y-3 font-body font-light text-sm text-text-soft">
-                  <li>Ik verkoop geen financiële producten.</li>
-                  <li>Ik ontvang geen provisie.</li>
-                  <li>Ik ben geen hypotheek- of beleggingsadviseur.</li>
-                </ul>
-              </div>
-
-              <div
-                className="card-base border border-[#E6E9E7]"
-                style={{ borderLeft: "3px solid #16211F" }}
-              >
-                <p className="font-display font-light text-primary text-xl mb-4">
-                  Belangrijk
-                </p>
-                <ul className="space-y-3 font-body font-light text-sm text-text-soft">
-                  <li>Ik zoek niet automatisch naar besparingen.</li>
-                  <li>
-                    Als er financieel weinig geks aan de hand is, zeg ik dat ook.
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <p className="font-body font-light text-text-muted text-sm leading-relaxed mt-6 max-w-[70ch]">
-              Ik geef geen financieel advies in de juridische zin. Ik vergelijk
-              met openbare cijfers van bronnen als het Nibud, het CBS en de
-              Belastingdienst, en met de huishoudens die ik zelf heb
-              doorgerekend. Heb je schulden of een complexe situatie, dan ben je
-              beter op je plek bij een gecertificeerde budgetcoach of bij{" "}
+            <p className="font-body font-light text-text-muted text-sm leading-relaxed max-w-[76ch] border-t border-[#E1E6E4] pt-7">
+              Ik geef geen financieel advies in de juridische zin, verkoop geen
+              producten en ontvang geen provisie. Ik vergelijk met openbare
+              cijfers van bronnen als het Nibud, het CBS en de Belastingdienst,
+              en met de huishoudens die ik zelf heb doorgerekend. Heb je schulden
+              of een complexe situatie, dan ben je beter op je plek bij een
+              gecertificeerde budgetcoach of bij{" "}
               <a
                 href="https://geldfit.nl"
                 target="_blank"
@@ -282,106 +469,28 @@ export default function OverPage() {
               >
                 Geldfit
               </a>
-              .
+              . Een vraag over je eigen situatie mag altijd naar{" "}
+              <a
+                href="mailto:hallo@waarblijfthet.nl"
+                className="text-accent hover:underline"
+              >
+                hallo@waarblijfthet.nl
+              </a>
+              , ik lees alles zelf.
             </p>
           </div>
         </section>
 
-        {/* 6. Bewijs: echte rapporten */}
-        <section className="bg-card py-14">
-          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <div className="max-w-[62ch] mb-8">
-              <p className="section-eyebrow mb-4">Bewijs, geen belofte</p>
-              <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-5">
-                Inmiddels heb ik dit voor meerdere huishoudens gedaan
-              </h2>
-              <p className="text-text-soft font-body font-light text-base leading-relaxed">
-                Ik deel deze rapporten zodat je kunt zien hoe ik werk voordat je
-                zelf iets deelt. Namen zijn weggelaten, de bedragen staan er
-                precies zoals ze zijn aangeleverd. Niet iedere analyse eindigt
-                met een lijst besparingen. Bij {AANTAL_ZONDER_LEK} van de{" "}
-                {RAPPORTEN.length} bleek er uiteindelijk niets te repareren, en
-                ook dat lees je terug.
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-              {bewijsRapporten.map((r) => (
-                <Link
-                  key={r.slug}
-                  href={`/rapporten/${r.slug}`}
-                  className="card-base border border-[#E6E9E7] block hover:border-[#0B7A6E] transition-colors"
-                  style={{ borderLeft: "3px solid #0B7A6E", textDecoration: "none" }}
-                >
-                  <p className="section-eyebrow mb-2">{r.chip}</p>
-                  <p className="font-display font-light text-primary text-lg sm:text-xl mb-3 leading-snug">
-                    {r.uitkomstKop}
-                  </p>
-                  <p className="font-body font-light text-text-soft text-sm leading-relaxed">
-                    Zij dachten vooraf: &ldquo;{r.vermoeden}&rdquo;
-                  </p>
-                </Link>
-              ))}
-            </div>
-
-            <div className="mt-7">
-              <Link
-                href="/rapporten"
-                className="font-body text-sm font-medium hover:underline"
-                style={{ color: "#0B7A6E" }}
-              >
-                Bekijk alle rapporten &rarr;
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        {/* 7. Geen automatisch rapport */}
-        <section className="bg-background py-12">
-          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <div
-              className="card-base border border-[#E6E9E7] max-w-[70ch]"
-              style={{ borderLeft: "3px solid #0B7A6E" }}
-            >
-              <p className="section-eyebrow mb-3">Geen automatisch rapport</p>
-              <p className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug">
-                Ik kijk zelf naar de cijfers en schrijf zelf de conclusie.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* 8. Contact, bewust ondergeschikt aan de analyse-CTA */}
-        <section className="bg-background pb-14">
-          <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
-            <div className="max-w-[70ch] border-t border-[#E6E9E7] pt-8">
-              <p className="font-body font-medium text-primary text-base mb-2">
-                Een vraag?
-              </p>
-              <p className="text-text-soft font-body font-light text-base leading-relaxed mb-3">
-                Niet zeker of Waar blijft het? bij jouw situatie past? Mail me
-                gerust. Ik lees zelf alle berichten.
-              </p>
-              <a
-                href="mailto:hallo@waarblijfthet.nl"
-                className="font-body text-sm font-medium hover:underline"
-                style={{ color: "#0B7A6E" }}
-              >
-                Mail Jarno &rarr;
-              </a>
-            </div>
-          </div>
-        </section>
-
-        {/* 9. Primaire CTA: gratis analyse, geen Geldscan */}
+        {/* 6. Slot: een primaire actie, de gratis analyse. De Geldscan staat
+            eronder als tekstlink, nooit als tweede knop. */}
         <section className="bg-dark-block py-20">
           <div className="max-w-[1200px] mx-auto px-5 sm:px-6 text-center">
             <h2 className="font-display font-light text-white text-3xl sm:text-4xl mb-5 max-w-2xl mx-auto">
-              Benieuwd hoe jouw financiële situatie ervoor staat?
+              Benieuwd wat er bij jou opvalt?
             </h2>
-            <p className="text-white/70 font-body font-light text-base mb-8 max-w-lg mx-auto">
-              Begin met de gratis analyse. In een paar minuten zie je waar jouw
-              huishouden afwijkt van vergelijkbare huishoudens.
+            <p className="text-white/70 font-body font-light text-base mb-8 max-w-[46ch] mx-auto">
+              Begin met de gratis analyse. Dan zie je eerst zelf hoe jouw
+              situatie zich verhoudt tot vergelijkbare huishoudens.
             </p>
             <CtaLink
               doel="analyse"
@@ -392,12 +501,24 @@ export default function OverPage() {
             >
               {PRIMAIRE_CTA_LABEL} &rarr;
             </CtaLink>
-            <p className="font-body font-light text-white/50 text-sm mt-5">
+            <p className="font-body font-light text-white/50 text-sm mt-6">
               Gratis &bull; vertrouwelijk &bull; geen verkoopgesprek
+            </p>
+            <p className="font-body font-light text-white/60 text-sm mt-6">
+              Liever meteen een geldrapport?
+            </p>
+            <p className="font-body font-light text-sm mt-1">
+              <CtaLink
+                doel="geldscan"
+                href={geldscanHref()}
+                locatie="over-slot-secundair"
+                className="text-white underline underline-offset-4 hover:text-white/80"
+              >
+                Vraag de Geldscan aan, 49 euro &rarr;
+              </CtaLink>
             </p>
           </div>
         </section>
-
       </main>
 
       <Footer />
