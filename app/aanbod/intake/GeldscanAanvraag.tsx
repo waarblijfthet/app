@@ -468,7 +468,7 @@ export function GeldscanAanvraag({ token }: Props) {
         }}
       >
         <Link
-          href="/geldscan"
+          href="/"
           className="font-display font-light"
           style={{ color: DONKER, fontSize: "1.15rem", textDecoration: "none" }}
         >

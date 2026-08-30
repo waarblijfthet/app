@@ -776,7 +776,10 @@ export default function AanbodPage() {
               </div>
             </div>
 
-            {/* Afsluiting van de sectie: de enige knop hier gaat naar de Geldscan */}
+            {/* Afsluiting van de sectie: de enige knop hier gaat rechtstreeks
+                naar het aanvraagformulier. De sectie hierboven vertelt al wat
+                de Geldscan is, dus eerst doorsturen naar /geldscan zou dat
+                verhaal een tweede keer laten lezen. */}
             <div className="mt-5 flex flex-col gap-6 rounded-2xl border border-[#D5E5E0] bg-white px-6 py-7 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="font-display mb-1.5 text-xl font-light text-[#16211F]">
@@ -788,11 +791,11 @@ export default function AanbodPage() {
               </div>
               <CtaLink
                 doel="geldscan"
-                href="/geldscan"
+                href="/aanbod/intake?pakket=geldscan"
                 locatie="aanbod-geldscan-sectie"
                 className="btn-primary lg:flex-shrink-0"
               >
-                Bekijk de Geldscan →
+                Geldscan aanvragen →
               </CtaLink>
             </div>
           </div>
