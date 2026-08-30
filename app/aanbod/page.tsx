@@ -3,9 +3,6 @@ import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { AanbodAccordion } from "./components/AanbodAccordion";
-import { PAKKET_INFO } from "@/lib/aanbod-content";
-import { TrackClick } from "@/components/TrackClick";
 import CtaLink from "@/components/CtaLink";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
 import { RAPPORTEN, AANTAL_ZONDER_VERVOLG, rapportVoorSlug } from "@/lib/rapporten-data";
@@ -30,76 +27,6 @@ const serviceSchema = {
   serviceType: "Financiële coaching",
   areaServed: "NL",
 };
-
-const faq = [
-  {
-    vraag: "Is dit hetzelfde als een budgetcoach of schuldhulp?",
-    antwoord:
-      "Nee. Schuldhulp en de meeste budgetcoaches werken met mensen die betalingsproblemen of schulden hebben. Ik werk met huishoudens die alles op tijd betalen, niets geks doen en toch structureel niets overhouden. Betaal je alles netjes op tijd maar snap je niet waarom er niets overblijft, dan zit je in de groep waarvoor ik werk.",
-  },
-  {
-    vraag: "Ik heb geen schulden maar ook geen spaargeld. Is dit dan iets voor mij?",
-    antwoord:
-      "Ja, dat is de situatie waar ik voor ben. Geen crisis en ook geen rust. Wat ik doe is uitzoeken waar het naartoe gaat en dat opschrijven met de reden erbij. Of het daarna verandert, hangt af van wat je met dat rapport doet, en dat kan ik niet voor je beloven.",
-  },
-  {
-    vraag: "Wat kost het, en waarom kost een kwartier bellen dan niets?",
-    antwoord:
-      "Het geldrapport kost 49 euro, eenmalig. Een kwartier kennismaken kost niets. Dat verschil zit niet in mijn goedheid maar in wat er gebeurt: in dat kwartier leg ik uit hoe ik werk en kijk ik niet naar jouw cijfers. Zodra het over jouw eigen bedragen gaat, is het werk, en werk breng ik in rekening. Dat is ook precies de grens die de wet trekt.",
-  },
-  {
-    vraag: "Mag ik zien wat ik koop voordat ik betaal?",
-    antwoord:
-      "Ja, en dat vind ik ook niet meer dan normaal. Op de pagina Rapporten staan vijf complete rapporten van echte klanten, gepubliceerd met hun toestemming. Je leest hun cijfers, wat ze vooraf zelf dachten, wat ik erop schreef en wat er drie tot vier maanden later was veranderd. Namen zijn weggelaten, de bedragen zijn onveranderd.",
-  },
-  {
-    vraag: "Geef je advies over beleggen, hypotheken of pensioen?",
-    antwoord:
-      "Nee. Ik kijk naar wat er maandelijks binnenkomt en waar het heen gaat. Over financiële producten geef ik geen advies en ik noem ook geen aanbieders. Wil je dat wel, dan heb je iemand met een vergunning nodig.",
-  },
-  {
-    vraag: "Ben je gecertificeerd financieel adviseur?",
-    antwoord:
-      "Nee. Ik ben geen gecertificeerd financieel adviseur en ik val niet onder de AFM-vergunningplicht, omdat ik niet over financiële producten adviseer. Wat ik doe is rekenen en opschrijven: waar gaat het heen, wat valt er uit de toon en wat zou ik eraan doen. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dat is de reden dat ik dit doe.",
-  },
-  {
-    vraag: "Wat gebeurt er met mijn gegevens?",
-    antwoord:
-      "Je vult de analyse in en stuurt optioneel een paar recente bankafschriften mee. Daarin mag je alles wegstrepen wat er voor mij niet toe doet: rekeningnummers, namen van andere mensen en betalingen die over iemand anders gaan. Ik heb de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind. Ik ben de enige die ze inziet. Het rapport komt als PDF per e-mail, alleen naar jou. Direct na het versturen verwijder ik je afschriften en je analysegegevens. Je hoeft daar niet om te vragen en er blijft niets bewaard.",
-  },
-  {
-    vraag: "Wat als er bij mij niets uit komt?",
-    antwoord:
-      "Dat kan gebeuren en dan zeg ik dat. Ik beloof niet dat er geld te vinden is. Vaker is de uitkomst dat je zwart op wit ziet dat het klopt, of dat het bedrag dat ontbreekt veel kleiner is dan het voelde. Bij twee van de vijf echte rapporten op deze site was de conclusie dat er niets te repareren viel, en bij de andere drie was het ontbrekende bedrag kleiner dan de klant vooraf dacht.",
-  },
-];
-
-const faqSchema = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: faq.map((f) => ({
-    "@type": "Question",
-    name: f.vraag,
-    acceptedAnswer: { "@type": "Answer", text: f.antwoord },
-  })),
-};
-
-const details = [
-  {
-    id: "geldscan",
-    pakket: "geldscan" as const,
-    bg: "#F7F8F7",
-    cardBg: "#FFFFFF",
-    eyebrow: "Zonder gesprek · €49 eenmalig",
-    titel: "Geldscan: jouw persoonlijke geldrapport",
-    intro:
-      "Jij levert je cijfers aan wanneer het uitkomt, ik schrijf op wat ik zie en wat ik zou doen. Zonder gesprek of agenda.",
-    primaireHref: "/analyse",
-    primaireLabel: "Doe eerst de gratis analyse",
-    secundaireHref: "/geldscan",
-    secundaireLabel: "Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan",
-  },
-];
 
 /* --- Hero -------------------------------------------------------------
    De hero is een keuze-overzicht, geen productpagina. Links de belofte en
@@ -405,10 +332,6 @@ export default function AanbodPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <Header />
 
       <main>
@@ -631,21 +554,6 @@ export default function AanbodPage() {
                 </p>
               </div>
             </div>
-          </div>
-        </section>
-
-        {/* Ik doe één ding */}
-        <section className="px-6 py-14" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="mx-auto max-w-[860px]">
-            <h2 className="font-display mb-5 text-2xl font-light text-[#16211F] sm:text-3xl">
-              Ik doe één ding
-            </h2>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Ik kijk naar de cijfers van huishoudens in loondienst die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Je krijgt een rapport dat ik met de hand schrijf, over jouw bedragen, met de drie dingen die het meest opvallen en per stuk wat ik zou doen. Geen sjabloon, geen algoritme, geen traject dat je vooraf moet kopen.
-            </p>
-            <p className="font-body max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Vijf van die rapporten staan compleet op deze site, met toestemming van de klanten. Je leest hun ingevulde cijfers, wat ze vooraf zelf dachten, wat ik erop schreef en wat er drie tot vier maanden later werkelijk was veranderd. Namen zijn weggelaten, de bedragen staan er onveranderd. Bij twee van de vijf was mijn conclusie dat er niets te repareren viel.
-            </p>
           </div>
         </section>
 
@@ -890,58 +798,6 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* Het gratis kwartier */}
-        <section className="px-6 py-14" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="mx-auto max-w-[860px]">
-            <p className="section-eyebrow mb-3">Vrijblijvend · 15 minuten · geen kosten</p>
-            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
-              Liever eerst weten met wie je te maken hebt
-            </h2>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Je koopt hier iets van iemand die je niet kent, en dat is een rare transactie. Daarom kun je me eerst een kwartier spreken. Video of telefoon, wat jij wilt, en ik doe ze buiten kantoortijden omdat ik dit naast mijn baan doe.
-            </p>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              In dat kwartier kijk ik niet naar jouw cijfers. Ik leg uit wat ik doe, wat er in een geldrapport staat, wat er met je gegevens gebeurt en voor wie dit niet werkt. Jij stelt de vragen die je op de site niet beantwoord krijgt. Zodra het over jouw bedragen gaat, is het werk, en dat is de geldscan.
-            </p>
-            <p className="font-body mb-6 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Ik verkoop je in dat kwartier niets. Aan het eind zeg ik wat volgens mij de logische volgende stap is, en verder hoor ik het wel. Ik doe er maximaal drie per week, dus het kan zijn dat het een week later is.
-            </p>
-            <a
-              href="mailto:hallo@waarblijfthet.nl?subject=Kennismaken%20(15%20minuten)"
-              className="font-body inline-flex items-center gap-1.5 rounded-xl border px-5 py-2.5 text-sm font-medium"
-              style={{ borderColor: "#0B7A6E", color: "#0B7A6E", textDecoration: "none" }}
-            >
-              Vraag een kwartier aan →
-            </a>
-            <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
-              Mail met als onderwerp Kennismaken. Zet erin wanneer het je schikt, dan stel ik een moment voor.
-            </p>
-          </div>
-        </section>
-
-        {/* Voor wie het geldrapport werkt */}
-        <section className="px-6 py-14" style={{ backgroundColor: "#F7F8F7" }}>
-          <div className="mx-auto max-w-[860px]">
-            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
-              Voor wie het geldrapport werkt
-            </h2>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Het geldrapport werkt het best voor huishoudens in loondienst met een bovenmodaal inkomen, die alle rekeningen op tijd betalen en toch weinig overhouden. Ik vraag je om je cijfers volledig in te vullen, dat is nodig om precies te zien waar het weglekt.
-            </p>
-            <p className="font-body mb-6 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Heb je betalingsachterstanden of schulden, dan hoor je bij de kosteloze hulp van je gemeente en dan is dit niet de juiste plek. Dat is geen formaliteit, dat is een ander vak.
-            </p>
-            <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-voor-wie" className="btn-primary">
-              {PRIMAIRE_CTA_LABEL} →
-            </CtaLink>
-            <p className="font-body mt-3 text-sm font-light text-[#4A5A56]">
-              <CtaLink doel="geldscan" href="/geldscan" locatie="aanbod-voor-wie" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan →
-              </CtaLink>
-            </p>
-          </div>
-        </section>
-
         {/* Sectie 3: de persoonlijke vervolgsessie, als vervolg op de Geldscan */}
         <section className="px-6 py-16 sm:py-20" style={{ backgroundColor: "#FDFAF4" }}>
           <div className="mx-auto max-w-[1180px]">
@@ -1039,236 +895,6 @@ export default function AanbodPage() {
                 Plan een sessie →
               </Link>
             </div>
-          </div>
-        </section>
-
-        {/* Wanneer je hier niets aan hebt */}
-        <section className="px-6 py-14" style={{ backgroundColor: "#F7F8F7" }}>
-          <div className="mx-auto max-w-[860px]">
-            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
-              Wanneer je hier niets aan hebt
-            </h2>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Als je betalingsachterstanden of schulden hebt, dan hoor je bij de schuldhulp van je gemeente en die is kosteloos. Dat is beter werk dan wat ik doe en het is een ander vak.
-            </p>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Als je een advies wil over een hypotheek, een verzekering, je pensioen of beleggen, dan moet je bij iemand met een vergunning zijn. Die heb ik niet en die wil ik ook niet, want dan word ik iemand die producten verkoopt.
-            </p>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Als je op zoek bent naar een manier om zo zuinig mogelijk te leven, dan heb ik niets voor je. Ik reken uit waar het geld heen gaat en ik zet erbij welke posten ik géén lek vind. Vaak is dat de helft van het overzicht.
-            </p>
-            <p className="font-body max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              En als je hoopt dat er altijd geld te vinden is: dat beloof ik niet. Soms is de uitkomst dat het klopt, en dat je alleen niet wist waarom.
-            </p>
-          </div>
-        </section>
-
-        {/* Detail-sectie: geldrapport, proces (links) strikt gescheiden van inhoud (rechts) */}
-        {details.map((d) => {
-          const info = PAKKET_INFO[d.pakket];
-          return (
-            <section
-              key={d.id}
-              id={d.id}
-              className="px-6 py-16"
-              style={{ backgroundColor: d.bg, scrollMarginTop: "90px" }}
-            >
-              <div className="mx-auto max-w-[900px]">
-                <p className="section-eyebrow mb-2">{d.eyebrow}</p>
-                <h2 className="font-display mb-3 text-2xl font-light text-[#16211F] sm:text-3xl">
-                  {d.titel}
-                </h2>
-                <p className="font-body mb-8 max-w-[560px] font-light leading-relaxed text-[#4A5A56]">
-                  {d.intro}
-                </p>
-
-                <div className="grid items-start gap-6 md:grid-cols-2 md:gap-6">
-                  {/* Hoe het werkt: de volgorde der dingen */}
-                  <div
-                    className="rounded-2xl border border-[#E6E9E7] p-6"
-                    style={{ backgroundColor: "rgba(255,255,255,0.5)" }}
-                  >
-                    <p className="section-eyebrow mb-4">Hoe het werkt</p>
-                    <ol className="space-y-3">
-                      {info.hoeHetWerkt.map((t, i) => (
-                        <li key={t} className="flex items-start gap-2.5">
-                          <span
-                            aria-hidden="true"
-                            className="font-body flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full text-xs font-medium"
-                            style={{ backgroundColor: "#E6E9E7", color: "#4A5A56", marginTop: "1px" }}
-                          >
-                            {i + 1}
-                          </span>
-                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
-                            {t}
-                          </span>
-                        </li>
-                      ))}
-                    </ol>
-                  </div>
-
-                  {/* Wat je krijgt: de inhoud van het pakket */}
-                  <div
-                    className="rounded-2xl border border-[#E6E9E7] p-6"
-                    style={{ backgroundColor: d.cardBg }}
-                  >
-                    <p className="section-eyebrow mb-4">Wat je krijgt</p>
-                    <ul className="space-y-3">
-                      {info.watJeKrijgt.map((t) => (
-                        <li key={t} className="flex items-start gap-2.5">
-                          <span aria-hidden="true" style={{ color: "#0B7A6E", fontWeight: 600 }}>
-                            ✓
-                          </span>
-                          <span className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
-                            {t}
-                          </span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="mt-8 flex flex-wrap items-center gap-4">
-                  <CtaLink doel="analyse" href={d.primaireHref} locatie={`aanbod-detail-${d.id}`} className="btn-primary">
-                    {d.primaireLabel} →
-                  </CtaLink>
-                  <CtaLink
-                    doel="geldscan"
-                    href={d.secundaireHref}
-                    locatie={`aanbod-detail-${d.id}`}
-                    className="font-body text-sm hover:underline"
-                    style={{ color: "#0B7A6E", textDecoration: "none" }}
-                  >
-                    {d.secundaireLabel} →
-                  </CtaLink>
-                </div>
-              </div>
-            </section>
-          );
-        })}
-
-        {/* Sociale proof */}
-        <section style={{ backgroundColor: "#FFFFFF", padding: "3.5rem 1.5rem" }}>
-          <div style={{ maxWidth: "1100px", margin: "0 auto" }}>
-            <p
-              className="font-body mb-6 text-center text-xs font-medium uppercase tracking-widest"
-              style={{ color: "#0B7A6E" }}
-            >
-              Wat het andere gezinnen opleverde
-            </p>
-            <div className="mx-auto mb-8 max-w-[720px] rounded-2xl border border-[#E6E9E7] p-6" style={{ borderLeft: "3px solid #0B7A6E" }}>
-              <p className="section-eyebrow mb-2">Over de geldscan</p>
-              <p className="font-body mb-2 text-sm font-light leading-relaxed text-[#16211F]">
-                &ldquo;We vonden het best spannend dat een vreemde naar onze
-                financiën keek. Maar het was verhelderend: we zagen
-                afwijkingen die we zelf niet doorhadden.&rdquo;
-              </p>
-              <p className="font-body text-xs text-[#8B958F]">Sanne &amp; Joris, gezin met twee kinderen</p>
-            </div>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              {[
-                {
-                  resultaat: "Geen verrassingen meer in de piekmaanden",
-                  quote:
-                    "Periodieke kosten uitgerekend en opgesplitst in maandpotjes. De kerstpot staat er nu gewoon.",
-                  naam: "Daan & Roos",
-                },
-                {
-                  resultaat: "Boodschappen eindelijk onder controle",
-                  quote:
-                    "Samen een weekbudget en een korte check-in na elke keer boodschappen. Dat hield ons scherp.",
-                  naam: "Bram & Eva",
-                },
-                {
-                  resultaat: "Twee dagen minder BSO, rust én geld over",
-                  quote:
-                    "Meegedacht over flexibeler werken in plaats van alleen bezuinigen. Thuis is het rustiger.",
-                  naam: "Karim & Noor",
-                },
-              ].map((t) => (
-                <div
-                  key={t.naam}
-                  className="rounded-2xl border border-[#E6E9E7] p-6"
-                  style={{ backgroundColor: "white" }}
-                >
-                  <p className="font-body mb-2 text-sm font-medium text-[#0B7A6E]">
-                    {t.resultaat}
-                  </p>
-                  <p className="font-body mb-3 text-sm font-light leading-relaxed text-[#16211F]">
-                    &ldquo;{t.quote}&rdquo;
-                  </p>
-                  <p className="font-body text-xs text-[#8B958F]">{t.naam}</p>
-                </div>
-              ))}
-            </div>
-            <p className="font-body mt-6 text-center text-xs" style={{ color: "#8B958F" }}>
-              Echte ervaringen van de eerste gezinnen die ik hielp. Namen aangepast voor hun privacy.
-            </p>
-          </div>
-        </section>
-
-        {/* FAQ Accordion */}
-        <section style={{ backgroundColor: "white", padding: "4rem 1.5rem" }}>
-          <div style={{ maxWidth: "720px", margin: "0 auto" }}>
-            <h2
-              className="font-display font-light text-[#16211F]"
-              style={{ fontSize: "2rem", marginBottom: "2rem" }}
-            >
-              Veelgestelde vragen
-            </h2>
-            <AanbodAccordion />
-          </div>
-        </section>
-
-        {/* Finale CTA */}
-        <section
-          style={{ backgroundColor: "#16211F", padding: "4rem 1.5rem", textAlign: "center" }}
-        >
-          <div style={{ maxWidth: "600px", margin: "0 auto" }}>
-            <h2
-              className="font-display font-light"
-              style={{ fontSize: "2rem", color: "white", marginBottom: "1rem" }}
-            >
-              Je hoeft nog niets te kopen
-            </h2>
-            <p
-              className="font-body"
-              style={{
-                color: "rgba(255,255,255,0.65)",
-                fontSize: "1rem",
-                lineHeight: 1.7,
-                marginBottom: "2rem",
-              }}
-            >
-              Doe eerst de gratis analyse. Daarna bepaal je zelf of je verder wilt. Wil je vooraf zien wat een geldrapport is, dan staan op de pagina Rapporten vijf complete rapporten van echte klanten, met de bedragen erbij en met de posten die ik géén probleem vind. Bij twee van de vijf was de uitkomst dat er niets te repareren viel.
-            </p>
-            <CtaLink
-              doel="analyse"
-              href={ANALYSE_ROUTE}
-              locatie="aanbod-slot"
-              className="font-body inline-block px-8 py-3 text-sm font-medium transition-opacity hover:opacity-90"
-              style={{
-                backgroundColor: "#0B7A6E",
-                color: "#FFFFFF",
-                borderRadius: "12px",
-                textDecoration: "none",
-              }}
-            >
-              {PRIMAIRE_CTA_LABEL} →
-            </CtaLink>
-            <p style={{ marginTop: "1rem" }}>
-              <Link href="/rapporten" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
-                Of bekijk eerst vijf echte rapporten →
-              </Link>
-            </p>
-            <p style={{ marginTop: "0.5rem" }}>
-              <CtaLink doel="geldscan" href="/geldscan" locatie="aanbod-slot" style={{ color: "rgba(255,255,255,0.7)", textDecoration: "none", fontSize: "0.9rem" }}>
-                Al uit je analyse en benieuwd naar het waarom? Bekijk de Geldscan →
-              </CtaLink>
-            </p>
-            <p style={{ marginTop: "0.75rem", color: "rgba(255,255,255,0.4)", fontSize: "0.75rem" }}>
-              Eenmalig · voor huishoudens in heel Nederland · je gegevens worden nooit gedeeld of verkocht
-            </p>
           </div>
         </section>
       </main>
