@@ -8,6 +8,7 @@ import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { TrackClick } from "@/components/TrackClick";
 import CtaLink from "@/components/CtaLink";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Tarieven: geldrapport, gesprek en traject",
@@ -100,6 +101,122 @@ const details = [
   },
 ];
 
+/* --- Hero -------------------------------------------------------------
+   De vier waarden staan als een horizontale rij onder de belofte, zonder
+   kaartjes. Op mobiel worden het twee rijen van twee. De iconen zijn
+   inline outline-svg, dezelfde stijl als op /geldscan. */
+
+type IconNaam = "loep" | "schild" | "staaf" | "persoon";
+
+function WaardeIcoon({ naam }: { naam: IconNaam }) {
+  const paden: Record<IconNaam, React.ReactNode> = {
+    loep: (
+      <>
+        <circle cx="11" cy="11" r="6.5" />
+        <path d="M19.5 19.5l-3.6-3.6" />
+      </>
+    ),
+    schild: <path d="M12 3.2l7 2.8v4.9c0 4.2-2.9 7.9-7 9.9-4.1-2-7-5.7-7-9.9V6l7-2.8z" />,
+    staaf: <path d="M5.5 19.5V11M12 19.5V4.5M18.5 19.5v-6" />,
+    persoon: (
+      <>
+        <circle cx="12" cy="8.5" r="3.4" />
+        <path d="M5.5 20c0-3.3 2.9-5.4 6.5-5.4s6.5 2.1 6.5 5.4" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#16211F"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {paden[naam]}
+    </svg>
+  );
+}
+
+const heroWaarden: { icoon: IconNaam; titel: string; tekst: string }[] = [
+  {
+    icoon: "loep",
+    titel: "Inzicht zonder oordeel",
+    tekst: "Je krijgt helderheid, geen goed of fout.",
+  },
+  {
+    icoon: "schild",
+    titel: "100% onafhankelijk",
+    tekst: "Geen provisies. Geen producten. Alleen advies.",
+  },
+  {
+    icoon: "staaf",
+    titel: "Jij staat centraal",
+    tekst: "Ik kijk verder dan de cijfers. Naar jouw hele situatie.",
+  },
+  {
+    icoon: "persoon",
+    titel: "Echt menselijk",
+    tekst: "Geen standaardrapporten, maar maatwerk.",
+  },
+];
+
+/* De preview laat zien hoe een uitkomst eruitziet, met verzonnen bedragen.
+   Daarom staat er twee keer bij dat het een voorbeeld is: als label boven
+   de kaart en als regel eronder. Nooit presenteren als een echte klant. */
+type AfwijkingIcoon = "wonen" | "vervoer" | "boodschappen";
+
+function AfwijkingIcoontje({ naam }: { naam: AfwijkingIcoon }) {
+  const paden: Record<AfwijkingIcoon, React.ReactNode> = {
+    wonen: (
+      <>
+        <path d="M4 11l8-6 8 6" />
+        <path d="M6.5 10v9h11v-9" />
+      </>
+    ),
+    vervoer: (
+      <>
+        <path d="M4.5 16.5h-1a1 1 0 0 1-1-1v-2.7c0-.35.09-.7.26-1l1.9-3.4a2 2 0 0 1 1.75-1.03h7.3c.55 0 1.08.23 1.46.63L18.5 10.3l2.2.65c.48.14.8.58.8 1.08v3.47a1 1 0 0 1-1 1h-1" />
+        <path d="M9 16.5h6" />
+        <circle cx="6.75" cy="16.5" r="1.75" />
+        <circle cx="17.25" cy="16.5" r="1.75" />
+      </>
+    ),
+    boodschappen: (
+      <>
+        <path d="M3.5 5h2.2l2.3 9.5h9.3L19 8H7" />
+        <circle cx="9.5" cy="18.5" r="1.2" />
+        <circle cx="16.5" cy="18.5" r="1.2" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      width="18"
+      height="18"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#4A5A56"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {paden[naam]}
+    </svg>
+  );
+}
+
+const voorbeeldAfwijkingen: { icoon: AfwijkingIcoon; label: string; bedrag: string }[] = [
+  { icoon: "wonen", label: "Wonen", bedrag: "+€550" },
+  { icoon: "vervoer", label: "Vervoer", bedrag: "+€220" },
+  { icoon: "boodschappen", label: "Boodschappen", bedrag: "+€60" },
+];
+
 export default function AanbodPage() {
   return (
     <>
@@ -114,76 +231,207 @@ export default function AanbodPage() {
       <Header />
 
       <main>
-        {/* Hero met ingetogen Jarno-kaartje */}
-        <section className="px-6 pb-14 pt-20" style={{ backgroundColor: "#F7F8F7" }}>
-          <div className="mx-auto max-w-[860px]">
-            <p
-              className="font-body mb-4 text-xs font-medium uppercase tracking-widest"
-              style={{ color: "#0B7A6E" }}
-            >
-              Tarieven
-            </p>
-            <h1
-              className="font-display font-light text-[#16211F]"
-              style={{ fontSize: "clamp(2rem, 5vw, 3rem)", lineHeight: 1.2, marginBottom: "1.25rem" }}
-            >
-              Goed verdienen en toch te weinig overhouden. Dat lost zich niet vanzelf op.
-            </h1>
-            <p
-              className="font-body max-w-[600px] font-light leading-relaxed"
-              style={{ fontSize: "1.05rem", color: "#4A5A56" }}
-            >
-              Ik kijk naar de cijfers van huishoudens die goed verdienen en toch elke maand krap zitten, en ik schrijf op wat ik zie. Geen cursus, geen abonnement, geen beleggingsverhaal. Mijn tarieven staan hieronder en vijf echte rapporten staan op deze site, met de cijfers, mijn advies en de evaluatie van de klant erbij, dus je weet wat je koopt voordat je betaalt.
-            </p>
-            <p className="font-body mt-4 text-sm" style={{ color: "#8B958F" }}>
-              <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                Bekijk vijf echte geldrapporten →
-              </Link>
-            </p>
-
-            {/* De eerste en belangrijkste CTA van deze pagina. De bezoeker
-                hoeft hier geen dienst te kiezen, alleen nieuwsgierig genoeg te
-                zijn om te kijken. */}
-            <div className="mt-8 rounded-2xl border border-[#E6E9E7] bg-white p-6">
-              <h2 className="font-display mb-3 text-xl font-light text-[#16211F]">
-                Weet je nog niet wat je nodig hebt?
-              </h2>
-              <p className="font-body mb-5 max-w-[600px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-                Begin met de gratis analyse. In een paar minuten zie je waar jouw financiële situatie
-                afwijkt van vergelijkbare huishoudens. Daarna kun je zelf bepalen of je verder wilt.
-              </p>
-              <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-boven" className="btn-primary">
-                {PRIMAIRE_CTA_LABEL} →
-              </CtaLink>
-              <p className="font-body mt-3 text-xs font-light text-[#8B958F]">
-                Gratis · anoniem · 5 minuten. Je hoeft nog niets te kopen.
-              </p>
-            </div>
-
-            <div className="mt-10 flex items-start gap-4 rounded-2xl border border-[#E6E9E7] bg-white p-5 sm:items-center">
-              <div
-                className="h-14 w-14 flex-shrink-0 overflow-hidden rounded-full"
-                style={{ backgroundColor: "#16211F" }}
-              >
-                <Image
-                  src="/jarno.jpg"
-                  alt="Jarno Koopman"
-                  width={56}
-                  height={56}
-                  className="h-full w-full object-cover"
-                />
-              </div>
-              <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
-                <span className="font-medium text-[#16211F]">Ik ben Jarno.</span>{" "}
-                Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Dit doe ik naast mijn baan, voor mensen die dat patroon herkennen. Ik ben geen gecertificeerd adviseur en ik verkoop geen financiële producten.{" "}
-                <Link
-                  href="/over"
-                  className="whitespace-nowrap hover:underline"
-                  style={{ color: "#0B7A6E", textDecoration: "none" }}
+        {/* Hero: links de belofte en de enige primaire actie, rechts hoe een
+            uitkomst eruitziet. De gratis analyse is de enige grote knop, de
+            Geldscan staat hier bewust niet. */}
+        <section
+          className="overflow-hidden px-6 pb-16 pt-14 sm:pt-20"
+          style={{ backgroundColor: "#F7F8F7" }}
+        >
+          <div className="mx-auto max-w-[1180px]">
+            <div className="grid grid-cols-1 items-center gap-14 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+              {/* Links: belofte, waarden, actie */}
+              <div>
+                <p
+                  className="font-body mb-5 text-xs font-medium uppercase tracking-[0.18em]"
+                  style={{ color: "#8B958F" }}
                 >
-                  Meer over mij →
-                </Link>
-              </p>
+                  Jouw geld. Jouw inzicht.
+                </p>
+
+                <h1
+                  className="font-display font-light text-[#16211F]"
+                  style={{
+                    fontSize: "clamp(2.1rem, 4vw, 3rem)",
+                    lineHeight: 1.12,
+                    marginBottom: "1.5rem",
+                  }}
+                >
+                  Ontdek waar je geld naartoe gaat.
+                  <span className="block" style={{ color: "#C4603A" }}>
+                    En wat je eraan kunt doen.
+                  </span>
+                </h1>
+
+                <p
+                  className="font-body max-w-[520px] font-light leading-relaxed"
+                  style={{ fontSize: "1.05rem", color: "#4A5A56" }}
+                >
+                  Een persoonlijke analyse van jouw inkomsten en uitgaven, vergeleken met
+                  vergelijkbare huishoudens.
+                </p>
+
+                {/* Vier waarden als een rij, op mobiel twee bij twee. Geen kaartjes. */}
+                <div className="mt-10 grid grid-cols-2 gap-x-6 gap-y-8 sm:grid-cols-4 sm:gap-x-0">
+                  {heroWaarden.map((w, i) => (
+                    <div
+                      key={w.titel}
+                      className={i > 0 ? "sm:border-l sm:border-[#E6E9E7] sm:pl-5" : undefined}
+                    >
+                      <span
+                        className="mb-3 flex h-9 w-9 items-center justify-center rounded-full"
+                        style={{ backgroundColor: "#F0F3F1" }}
+                      >
+                        <WaardeIcoon naam={w.icoon} />
+                      </span>
+                      <p className="font-body mb-1.5 text-[13px] font-semibold leading-snug text-[#16211F]">
+                        {w.titel}
+                      </p>
+                      <p className="font-body text-[13px] font-light leading-relaxed text-[#4A5A56]">
+                        {w.tekst}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-11 flex flex-col items-stretch gap-4 sm:flex-row sm:items-center sm:gap-7">
+                  <CtaLink
+                    doel="analyse"
+                    href={ANALYSE_ROUTE}
+                    locatie="aanbod-hero"
+                    className="btn-primary"
+                  >
+                    Start gratis analyse →
+                  </CtaLink>
+                  <Link
+                    href="/rapporten"
+                    className="font-body text-center text-[15px] font-medium hover:underline sm:text-left"
+                    style={{ color: "#16211F", textDecoration: "none" }}
+                  >
+                    Bekijk een voorbeeld →
+                  </Link>
+                </div>
+              </div>
+
+              {/* Rechts: hoe een uitkomst eruitziet */}
+              <div className="relative">
+                {/* Zachte vorm achter de preview, alleen decoratief. */}
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -right-16 -top-20 hidden h-[460px] w-[460px] rounded-full lg:block"
+                  style={{ backgroundColor: "rgba(196, 96, 58, 0.07)" }}
+                />
+
+                <p className="relative mb-3 flex items-start justify-end gap-2 text-right">
+                  <span className="font-display text-sm font-light italic leading-snug text-[#4A5A56]">
+                    Echt inzicht. Geen giswerk.
+                  </span>
+                  <svg
+                    width="26"
+                    height="26"
+                    viewBox="0 0 28 28"
+                    fill="none"
+                    stroke="#8B958F"
+                    strokeWidth="1.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden="true"
+                    className="mt-1 flex-shrink-0"
+                  >
+                    <path d="M4 4c9 1 14 7 15 17" />
+                    <path d="M13 20.5l6.2 1.2.9-6.2" />
+                  </svg>
+                </p>
+
+                <div className="relative rounded-2xl border border-[#E6E9E7] bg-white p-6 shadow-card sm:p-8">
+                  <p className="section-eyebrow mb-6">Voorbeeld van een uitkomst</p>
+
+                  <div className="grid grid-cols-1 gap-7 sm:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] sm:gap-8">
+                    <div className="flex flex-col">
+                      <p className="font-body mb-4 text-sm font-medium text-[#16211F]">
+                        Jouw situatie
+                      </p>
+                      {/* Het bedrag zoekt het midden van de kaart op, zodat er
+                          onder de linkerkolom geen leeg vlak overblijft. */}
+                      <div className="flex flex-1 flex-col justify-center">
+                        <p
+                          className="font-display font-light leading-none text-[#16211F]"
+                          style={{ fontSize: "clamp(2.6rem, 6vw, 3.4rem)" }}
+                        >
+                          €850
+                        </p>
+                        <p className="font-body mt-2 text-sm font-light text-[#8B958F]">
+                          per maand over
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="border-t border-[#E6E9E7] pt-6 sm:border-l sm:border-t-0 sm:pl-8 sm:pt-0">
+                      <p className="font-body mb-4 text-sm font-medium text-[#16211F]">
+                        Inzicht in jouw afwijkingen
+                      </p>
+                      <ul>
+                        {voorbeeldAfwijkingen.map((a) => (
+                          <li
+                            key={a.label}
+                            className="flex items-center gap-3 border-b border-[#EEF1F0] py-3 last:border-0"
+                          >
+                            <span
+                              className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-full"
+                              style={{ backgroundColor: "#F0F3F1" }}
+                            >
+                              <AfwijkingIcoontje naam={a.icoon} />
+                            </span>
+                            <span className="font-body flex-1 text-sm font-light text-[#16211F]">
+                              {a.label}
+                            </span>
+                            <span
+                              className="font-body text-sm font-medium"
+                              style={{ color: "#A15A32" }}
+                            >
+                              {a.bedrag}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                      <p className="font-body mt-4 text-xs font-light leading-relaxed text-[#8B958F]">
+                        In vergelijking met vergelijkbare huishoudens
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Onder de preview alleen cijfers die echt bestaan. */}
+                <div className="relative mt-6 flex items-start gap-3">
+                  <div
+                    className="h-10 w-10 flex-shrink-0 overflow-hidden rounded-full"
+                    style={{ backgroundColor: "#16211F" }}
+                  >
+                    <Image
+                      src="/jarno.jpg"
+                      alt="Jarno Koopman"
+                      width={40}
+                      height={40}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <p className="font-body text-xs font-light leading-relaxed text-[#8B958F]">
+                    De bedragen hierboven zijn een voorbeeld, geen echt huishouden.{" "}
+                    <span className="text-[#4A5A56]">
+                      {RAPPORTEN.length} complete rapporten van echte klanten staan open op deze
+                      site, met hun cijfers en hun evaluatie erbij. Bij {AANTAL_ZONDER_LEK} van de{" "}
+                      {RAPPORTEN.length} was mijn conclusie dat er niets te repareren viel.
+                    </span>{" "}
+                    <Link
+                      href="/rapporten"
+                      className="hover:underline"
+                      style={{ color: "#0B7A6E", textDecoration: "none" }}
+                    >
+                      Lees ze →
+                    </Link>
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
