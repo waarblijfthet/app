@@ -7,6 +7,15 @@ import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { logGebeurtenis } from "@/lib/track";
 import { SITUATIE_OPTIES, INKOMEN_OPTIES } from "./opties";
 
+/**
+ * LET OP: de Geldscan loopt sinds 30-aug-2026 niet meer via dit formulier.
+ * Die aanvraag staat in GeldscanAanvraag.tsx en vraagt voor de betaling
+ * alleen naam en e-mailadres. Dit formulier bedient nog het adviesgesprek
+ * en het traject. De geldscan-takken hieronder worden dus niet meer
+ * gerenderd; ze zijn blijven staan om de twee overgebleven paden niet aan
+ * te raken.
+ */
+
 interface Props {
   pakket: "intensief" | "gesprek" | "geldscan";
   token?: string;

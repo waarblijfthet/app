@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IntakeForm } from "./IntakeForm";
+import { GeldscanAanvraag } from "./GeldscanAanvraag";
 import { SITUATIE_OPTIES, INKOMEN_OPTIES } from "./opties";
 
 export function generateMetadata(): Metadata {
@@ -15,6 +16,10 @@ export function generateMetadata(): Metadata {
  * route. "gezin" en "zzp" staan er bewust niet bij: de analyse weet niet of de
  * kinderen jong of ouder zijn, en heeft geen zzp-vraag. Gokken op die twee zou
  * een antwoord voorspiegelen dat niemand heeft gegeven.
+ *
+ * De Geldscan gebruikt deze voorinvulling niet meer: die aanvraag vraagt voor
+ * de betaling alleen naam en e-mailadres. De parameters mogen wel in de URL
+ * blijven staan, /geldscan en de analyse zetten ze er nog op.
  */
 const SITUATIE_LABEL_VOOR_SLEUTEL: Record<string, string> = {
   alleenstaand: SITUATIE_OPTIES[0],
@@ -40,12 +45,13 @@ export default function IntakePage({
     inkomenWisselt?: string;
   };
 }) {
-  const pakket =
-    searchParams.pakket === "intensief"
-      ? "intensief"
-      : searchParams.pakket === "geldscan"
-      ? "geldscan"
-      : "gesprek";
+  // De Geldscan is een aanvraag, geen intake: korte aanvraag, daarna met de
+  // hand een betaalverzoek, en pas na betaling vraag ik de gegevens op.
+  if (searchParams.pakket === "geldscan") {
+    return <GeldscanAanvraag token={searchParams.token} />;
+  }
+
+  const pakket = searchParams.pakket === "intensief" ? "intensief" : "gesprek";
 
   const initieleSituatie = searchParams.situatie
     ? SITUATIE_LABEL_VOOR_SLEUTEL[searchParams.situatie]
