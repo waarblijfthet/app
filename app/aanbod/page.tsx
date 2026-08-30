@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { AanbodAccordion } from "./components/AanbodAccordion";
@@ -7,7 +8,7 @@ import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { TrackClick } from "@/components/TrackClick";
 import CtaLink from "@/components/CtaLink";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
-import { RAPPORTEN, rapportVoorSlug } from "@/lib/rapporten-data";
+import { RAPPORTEN, AANTAL_ZONDER_VERVOLG, rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
   title: "Tarieven: geldrapport, gesprek en traject",
@@ -323,6 +324,79 @@ const previewLasten = previewRapport
       (p): p is { label: string; waarde: string } => Boolean(p)
     )
   : [];
+
+/* --- Sectie 3: de persoonlijke vervolgsessie ---------------------------
+   Rustiger en menselijker dan de Geldscan-sectie: geen preview, geen
+   prijskaart, geen tweede aanbod. De sessie staat er nadrukkelijk als
+   vervolg op de Geldscan, niet als losse ingang, en de knop is bewust de
+   secundaire variant zodat hij naast de analyse en de Geldscan geen
+   primaire actie wordt. */
+
+type SessieIcoon = "gesprek" | "doel" | "lamp" | "personen";
+
+function SessieIcoontje({ naam }: { naam: SessieIcoon }) {
+  const paden: Record<SessieIcoon, React.ReactNode> = {
+    gesprek: <path d="M20 12.5c0 3.6-3.6 6.5-8 6.5-.9 0-1.7-.1-2.5-.3L5 20.5l1.2-3.3C4.8 16 4 14.4 4 12.5 4 8.9 7.6 6 12 6s8 2.9 8 6.5z" />,
+    doel: (
+      <>
+        <circle cx="12" cy="12" r="7.5" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ),
+    lamp: (
+      <>
+        <path d="M9.2 16.5a5.5 5.5 0 1 1 5.6 0v1.6H9.2z" />
+        <path d="M10 21h4" />
+      </>
+    ),
+    personen: (
+      <>
+        <circle cx="10" cy="9" r="3.2" />
+        <path d="M4 19.5c0-3.1 2.7-5 6-5s6 1.9 6 5" />
+        <path d="M16.5 7.2a2.8 2.8 0 0 1 0 5.4" />
+        <path d="M18 14.8c1.5.6 2.5 1.9 2.5 3.7" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      width="19"
+      height="19"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="#0B7A6E"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {paden[naam]}
+    </svg>
+  );
+}
+
+const sessieVoordelen: { icoon: SessieIcoon; titel: string; tekst: string }[] = [
+  {
+    icoon: "gesprek",
+    titel: "45 minuten persoonlijk",
+    tekst: "We bespreken je Geldscan en wat daarin opvalt.",
+  },
+  {
+    icoon: "doel",
+    titel: "Gericht op jouw situatie",
+    tekst: "Jouw vragen, jouw keuzes. Geen standaardlijstje.",
+  },
+  {
+    icoon: "lamp",
+    titel: "Duidelijkheid over vervolgstappen",
+    tekst: "Je weet wat verstandig is om nu te doen.",
+  },
+  {
+    icoon: "personen",
+    titel: "Praktisch en onafhankelijk",
+    tekst: "Eerlijk advies, zonder provisies of producten.",
+  },
+];
 
 export default function AanbodPage() {
   return (
@@ -868,29 +942,103 @@ export default function AanbodPage() {
           </div>
         </section>
 
-        {/* Adviesgesprek en traject, op aanvraag */}
-        <section className="px-6 py-14" style={{ backgroundColor: "#FFFFFF" }}>
-          <div className="mx-auto max-w-[860px]">
-            <h2 className="font-display mb-4 text-2xl font-light text-[#16211F] sm:text-3xl">
-              En als een rapport niet genoeg is
-            </h2>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Soms is een rapport niet waar iemand naar zoekt. Dan is er een eenmalig gesprek van 45 minuten via video, 125 euro, waarin ik met je meedenk en jij kunt doorvragen. Je krijgt daarna een schriftelijke samenvatting, ook om met je partner te lezen. En er is een traject van drie maanden, 497 euro, waarin ik een plan met je opstel en blijf meekijken tot het staat. Daar neem ik maximaal drie mensen tegelijk voor aan, omdat ik dit naast mijn baan doe.
-            </p>
-            <p className="font-body mb-4 max-w-[640px] font-light leading-relaxed" style={{ color: "#4A5A56" }}>
-              Beide zet ik niet als knop op deze pagina, omdat ik ze bijna nooit als eerste stap zou aanraden.{" "}
-              <CtaLink doel="analyse" href={ANALYSE_ROUTE} locatie="aanbod-advies-traject" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
-                Begin eerst met de gratis analyse
-              </CtaLink>
-              , en als een gesprek of een traject beter past, dan zeg ik dat.
-            </p>
-            <a
-              href="mailto:hallo@waarblijfthet.nl"
-              className="font-body inline-flex items-center gap-1.5 text-sm font-medium"
-              style={{ color: "#0B7A6E", textDecoration: "none" }}
-            >
-              Mail me waar je aan denkt →
-            </a>
+        {/* Sectie 3: de persoonlijke vervolgsessie, als vervolg op de Geldscan */}
+        <section className="px-6 py-16 sm:py-20" style={{ backgroundColor: "#FDFAF4" }}>
+          <div className="mx-auto max-w-[1180px]">
+            <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-[1.05fr_0.95fr] lg:gap-16">
+              {/* Links: kop, intro en vier punten */}
+              <div>
+                <p
+                  className="font-body mb-5 text-xs font-medium uppercase tracking-[0.18em]"
+                  style={{ color: "#8B958F" }}
+                >
+                  Vervolgstap
+                </p>
+                <h2
+                  className="font-display font-light text-[#16211F]"
+                  style={{ fontSize: "clamp(1.8rem, 3.2vw, 2.4rem)", lineHeight: 1.15 }}
+                >
+                  Persoonlijke vervolgsessie · €125
+                </h2>
+                <p className="font-body mt-3 text-lg font-medium" style={{ color: "#0B7A6E" }}>
+                  Verdiep je inzicht. Bespreek wat je nu weet.
+                </p>
+                <p
+                  className="font-body mt-4 max-w-[520px] font-light leading-relaxed"
+                  style={{ color: "#4A5A56" }}
+                >
+                  Na je Geldscan kun je in een persoonlijke sessie je uitkomst bespreken. We kijken
+                  samen naar de keuzes die bij jouw situatie passen.
+                </p>
+
+                <div className="mt-10">
+                  {sessieVoordelen.map((v, i) => (
+                    <div
+                      key={v.titel}
+                      className={
+                        i > 0
+                          ? "flex items-start gap-4 border-t border-[#EAE3D8] pt-6"
+                          : "flex items-start gap-4"
+                      }
+                    >
+                      <span
+                        className="mt-0.5 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl"
+                        style={{ backgroundColor: "#FFFFFF" }}
+                      >
+                        <SessieIcoontje naam={v.icoon} />
+                      </span>
+                      <div className={i < sessieVoordelen.length - 1 ? "pb-6" : undefined}>
+                        <p className="font-body mb-1.5 text-[15px] font-semibold leading-snug text-[#16211F]">
+                          {v.titel}
+                        </p>
+                        <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
+                          {v.tekst}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Rechts: met wie je het gesprek hebt. Geen dashboard en geen
+                  rapportpreview, alleen de persoon die de sessie doet. */}
+              <div className="rounded-2xl p-6 sm:p-8" style={{ backgroundColor: "#F5F0E8" }}>
+                <div className="mx-auto max-w-[380px] overflow-hidden rounded-2xl">
+                  <Image
+                    src="/jarno.jpg"
+                    alt="Jarno Koopman"
+                    width={400}
+                    height={400}
+                    sizes="(min-width: 1024px) 420px, 90vw"
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <p className="font-body mt-6 text-[15px] font-semibold text-[#16211F]">
+                  Je spreekt mij, Jarno
+                </p>
+                <p className="font-body mt-1.5 text-sm font-light leading-relaxed text-[#4A5A56]">
+                  Ik doe de sessies zelf, via video of telefoon, buiten kantoortijden.
+                </p>
+              </div>
+            </div>
+
+            {/* Onder beide kolommen: wanneer dit een logische stap is, met de
+                knop naar de bestaande route voor het gesprek. */}
+            <div className="mt-12 flex flex-col gap-6 rounded-2xl border border-[#EAE3D8] px-6 py-7 sm:px-8 lg:flex-row lg:items-center lg:justify-between lg:gap-10">
+              <div>
+                <p className="font-body mb-1.5 text-[15px] font-semibold text-[#16211F]">
+                  Wanneer kies je voor een vervolgsessie?
+                </p>
+                <p className="font-body max-w-[620px] text-sm font-light leading-relaxed text-[#4A5A56]">
+                  Voor als je na je Geldscan wilt doorvragen, keuzes wilt bespreken of samen wilt
+                  bepalen wat een logische volgende stap is. Bij {AANTAL_ZONDER_VERVOLG} van de{" "}
+                  {RAPPORTEN.length} rapporten op deze site was een vervolg niet nodig.
+                </p>
+              </div>
+              <Link href="/adviesgesprek" className="btn-outline lg:flex-shrink-0">
+                Plan een sessie →
+              </Link>
+            </div>
           </div>
         </section>
 
