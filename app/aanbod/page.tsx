@@ -322,27 +322,6 @@ export default function AanbodPage() {
                   style={{ backgroundColor: "rgba(196, 96, 58, 0.07)" }}
                 />
 
-                <p className="relative mb-3 flex items-start justify-end gap-2 text-right">
-                  <span className="font-display text-sm font-light italic leading-snug text-[#4A5A56]">
-                    Echt inzicht. Geen giswerk.
-                  </span>
-                  <svg
-                    width="26"
-                    height="26"
-                    viewBox="0 0 28 28"
-                    fill="none"
-                    stroke="#8B958F"
-                    strokeWidth="1.3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    aria-hidden="true"
-                    className="mt-1 flex-shrink-0"
-                  >
-                    <path d="M4 4c9 1 14 7 15 17" />
-                    <path d="M13 20.5l6.2 1.2.9-6.2" />
-                  </svg>
-                </p>
-
                 <div className="relative rounded-2xl border border-[#E6E9E7] bg-white p-6 shadow-card sm:p-8">
                   <p className="section-eyebrow mb-6">Voorbeeld van een uitkomst</p>
 
