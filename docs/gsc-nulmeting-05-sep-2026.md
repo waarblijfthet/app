@@ -218,15 +218,26 @@ Buiten het plan om, en groot genoeg om apart te noemen:
 
 ## 6. Vijf bevindingen die het plan raken
 
-### 1. De pagina over modaal inkomen is onzichtbaar terwijl de term op positie 2 staat
+### 1. Twee salarispagina's pakken de modaalterm, de eigen modaalpagina krijgt niets
 
-"modaal inkomen 2026" gaf 118 vertoningen op gemiddelde positie 2,38 met één klik, dat is 0,85 procent CTR. Het hele modaal-cluster is 38 termen, 295 vertoningen, 3 klikken, vrijwel allemaal op positie 1 tot 3. `modaal-inkomen-2026` bestaat, staat in `public/sitemap-0.xml` met lastmod 30 mei 2026 en in `public/llms.txt`, en heeft in 90 dagen nul vertoningen.
+Op 5 september gecontroleerd met het GSC-filter op zoekopdracht "modaal", tabblad Pagina's, laatste drie maanden. Het cluster is 329 vertoningen, 3 klikken, CTR 0,9 procent, gemiddelde positie 2,2. De verdeling over URL's:
 
-Er staat dus een andere URL op positie 2 voor de term waar een eigen pagina voor gemaakt is. Welke, kan ik uit deze export niet zien.
+| URL | Klikken | Vertoningen |
+|---|---:|---:|
+| `/inzichten/is-4000-euro-netto-goed-salaris-nederland` | 2 | 215 |
+| `/inzichten/is-5000-euro-netto-goed-salaris` | 1 | 120 |
 
-Dit is de eerste GSC-handeling voor jou, en het is een minuut werk: filter in GSC op zoekterm "modaal", dimensie pagina. Blijkt is-4000 de rankende pagina, dan is dit kannibalisatie op een term die op positie 2 staat, en dan is het antwoord ofwel de modaalpagina laten vallen en de vraag als FAQ in is-4000 zetten, ofwel de modaalpagina echt onderscheidend maken en vanuit is-4000 linken. Blijkt er geen enkele pagina te ranken en zijn het losse vertoningen van andere URL's, dan is `modaal-inkomen-2026` niet goed geïndexeerd en is de URL-inspectie de volgende stap.
+`modaal-inkomen-2026` komt in die lijst niet voor. De pagina bestaat, staat in `public/sitemap-0.xml` met lastmod 30 mei 2026 en in `public/llms.txt`, en krijgt nul vertoningen terwijl twee andere eigen pagina's de term op positie 2,2 bezetten. Dat is kannibalisatie in de meest letterlijke vorm: de pagina die voor de vraag gebouwd is, verliest van twee pagina's die de vraag alleen aanstippen.
 
-Hoe dan ook: positie 2 met 0,85 procent CTR op een term die je ICP typt, is de goedkoopste winst in dit hele document en hij staat niet in het plan.
+**Ik stel mijn eigen inschatting hier naar beneden bij.** In de eerste versie van dit document noemde ik dit de goedkoopste winst in het hele document. Dat was te groot gebracht. 329 vertoningen in 90 dagen is ongeveer 110 per maand, en 0,9 procent CTR op positie 2,2 is het patroon van een vraag die Google zelf beantwoordt in het resultaat of in het AI-overzicht. Zelfs met een perfecte titel praat je over vijf tot tien klikken per maand. Het is een opruimklus, geen groeikans.
+
+Wat er wel moet gebeuren, in oplopende zwaarte:
+
+1. URL-inspectie op `modaal-inkomen-2026` in GSC, om te weten of hij überhaupt geïndexeerd is. Dat kost een minuut en bepaalt of dit een indexeringsprobleem is of puur een rankingprobleem.
+2. Is hij geïndexeerd en verliest hij gewoon: 301 naar `is-4000` in `next.config.mjs`, met het modaalantwoord als FAQ in is-4000, waar de term toch al op positie 2 staat. Dat volgt CLAUDE.md 8.6 en het scheelt een pagina die niets doet.
+3. Twee interne links wijzen nu naar de modaalpagina, in `bruto-naar-netto-loonstrook-uitleg` en `hoeveel-geld-overhouden-einde-maand`. Die moeten in dezelfde deploy mee.
+
+Ik doe hier niets aan zonder jouw akkoord, want een 301 op een bestaande URL is niet terug te draaien zonder kosten.
 
 ### 2. De pijler van cluster P heeft nul vertoningen
 
@@ -263,11 +274,54 @@ Het plan noemt Z8 "alleen cijfers vervangen, in januari". `vakantiegeld-netto-ho
 
 Op positie 86 is 2027 in de titel zetten geen werk dat iets oplevert. Als je hier iets wilt, is het een herschrijving naar het volledige paginapakket, en dat is een halve week. Mijn advies is dat niet te doen voor mei 2027 en Z8 uit de planning van december te halen. Dat scheelt een sessie die naar cluster Z kan.
 
-### 5. is-3500 staat al op positie 5,71 zonder eigen pagina
+### 5. is-3500 wordt een FAQ in is-4000, geen eigen pagina
 
-"is 3500 netto een goed salaris" gaf 17 vertoningen op positie 5,71, plus twee varianten met 5 vertoningen. Nul klikken. Er is geen `is-3500`-pagina, dus een bestaande URL, vrijwel zeker is-4000, pakt die vertoningen al op de eerste pagina van Google.
+Op 5 september gecontroleerd met het GSC-filter op "3500", tabblad Pagina's: 26 vertoningen, nul klikken, gemiddelde positie 6,8, verdeeld over `is-4000` en `is-5000`. In `Queries.csv` is "is 3500 netto een goed salaris" 17 vertoningen op positie 5,71.
 
-CLAUDE.md 8.2 zegt: vertoont een bestaande URL al op die term, dan upgraden in plaats van bouwen. Strikt toegepast wordt S1 dus een FAQ in is-4000, samen met de S2-varianten, en geen eigen pagina. Dat scheelt opnieuw een sessie. De tegenwerping is dat 3.500 een andere levensvraag is dan 4.000 en de brug naar hub H3 zou moeten zijn. Ik heb hier geen sterke voorkeur, maar S2 en S1 in één sessie afdoen als FAQ-blok is duidelijk de goedkoopste route, en je kunt daarna in GSC zien of "is 3500" losloopt van "is 4000".
+CLAUDE.md 8.2 laat hier geen ruimte: vertoont een bestaande URL al op die term, dan upgraden in plaats van bouwen. En de salarisreeks staat niet ergens op pagina 3, maar op positie 6,8, dus is-4000 wordt al als het antwoord op deze vraag gezien.
+
+Besluit voor de bouwvolgorde: **S1 vervalt als eigen pagina en gaat samen met S2 in één FAQ-blok in is-4000**, met de bedragen 3.500, 4.100, 4.200, 4.300, 4.500 en 4.600, gevoed uit `berekenVuistregel()` en `omslagpunt()` en nooit hardgetypt. Dat is één sessie in plaats van twee, en het houdt de brug naar hub H3 in de pijler die er toch al staat.
+
+Wat je daarna in GSC kunt zien: of "is 3500" na die FAQ losloopt van "is 4000" in vertoningen. Loopt het los en groeit het door, dan is een eigen pagina alsnog te verdedigen. Nu niet.
+
+## 6b. URL-attributie per zoekterm, gecontroleerd op 5 september
+
+Drie van de vier openstaande filters uit sectie 8 zijn gedraaid, met het GSC-filter op zoekopdracht en het tabblad Pagina's, periode laatste drie maanden. De totalen wijken licht af van de sommen die ik uit `Queries.csv` maakte, omdat GSC in het gefilterde totaal ook de zoektermen meetelt die te weinig gezocht zijn om apart te tonen. De GSC-cijfers hieronder zijn dus completer dan die in sectie 5.
+
+**Filter "modaal": 3 klikken, 329 vertoningen, CTR 0,9 procent, positie 2,2.** Zie bevinding 1. Kannibalisatie, kleine prijs.
+
+**Filter "boodschappen": 6 klikken, 1.720 vertoningen, CTR 0,3 procent, positie 31,8.**
+
+| URL | Klikken | Vertoningen |
+|---|---:|---:|
+| `/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand` | 6 | 1693 |
+| `/inzichten/nibud-boodschappen-versus-werkelijkheid` | 0 | 27 |
+| `/inzichten/kosten-levensonderhoud-alleenstaande-2026` | 0 | 6 |
+| `/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden` | 0 | 4 |
+| `/inzichten/is-4000-euro-netto-goed-salaris-nederland` | 0 | 1 |
+| `/inzichten/vaste-lasten-overzicht-maken` | 0 | 1 |
+
+Geen kannibalisatie. Eén pagina pakt 98 procent van de vertoningen. De vrees die ik in sectie 8 opschreef, dat twee boodschappenpagina's om dezelfde termen zouden vechten, klopt niet.
+
+Wat er wel uit blijkt: op de boodschappen-termen staat die pagina op gemiddelde positie 31,8, terwijl haar gemiddelde over alle termen samen 11,58 is. De pagina rankt dus goed op een paar Nibud-achtige termen (bijvoorbeeld "nibud boodschappen 2 personen 2026" op positie 6,55) en diep op de rest van de boodschappen-staart. Dat is een rankingopgave, niet iets wat een nieuwe titel oplost.
+
+**Filter "vaste lasten": 1 klik, 543 vertoningen, CTR 0,2 procent, positie 53,6.**
+
+| URL | Klikken | Vertoningen |
+|---|---:|---:|
+| `/inzichten/vaste-lasten-overzicht-maken` | 1 | 489 |
+| `/inzichten/grip-op-je-geld-krijgen` | 0 | 28 |
+| `/inzichten/kosten-levensonderhoud-alleenstaande-2026` | 0 | 18 |
+| `/inzichten/hoeveel-financiele-ruimte-heb-ik` | 0 | 5 |
+| `/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand` | 0 | 3 |
+
+Ook hier geen kannibalisatie: één pagina pakt 90 procent. `wat-zijn-normale-vaste-lasten-gezin` en `hoeveel-geld-overhouden-einde-maand` komen niet voor, want die hebben nul vertoningen in de hele periode.
+
+Positie 53,6 is pagina 5 of 6 van Google. "vaste lasten overzicht" alleen al is 158 vertoningen. Dit is de duidelijkste kandidaat voor cluster B2, maar dan als herschrijving van `vaste-lasten-overzicht-maken` naar het volledige paginapakket, en niet als upgrade van `50-30-20-regel-hoger-inkomen` zoals het plan voorstelt. Die laatste heeft 84 vertoningen op positie 68,87 en is de zwakkere van de twee.
+
+**Filter "3500": 0 klikken, 26 vertoningen, CTR 0 procent, positie 6,8.** De vertoningen gaan naar `is-4000-euro-netto-goed-salaris-nederland` en `is-5000-euro-netto-goed-salaris`. Er is geen eigen 3500-pagina en die is er ook niet nodig: de salarisreeks staat al op pagina 1 voor het bedrag. Zie bevinding 5, die hiermee beslist is.
+
+**Wat dit samen betekent voor de bouwvolgorde.** Twee van de drie gecontroleerde clusters lopen niet vast op overlappende pagina's maar op hun positie. Consolideren helpt daar niet; het volledige paginapakket uit CLAUDE.md sectie 8 punt 8 tot 16 wel. Dat verschuift werk van "301's en titels" naar "herschrijven", wat duurder is per pagina en dus scherper kiezen betekent.
 
 ## 7. Fase 0 stap 3: de vier casestudy-pagina's
 
@@ -277,7 +331,7 @@ Advies in één alinea, zoals gevraagd: de casestudy's zijn geen SEO-probleem en
 
 ## 8. Wat ik niet kon meten en wat jij daarvoor moet doen
 
-1. **Zoekterm naar URL.** Vier filters in GSC, elk een minuut, en ze beslissen echt iets: "modaal" (bevinding 1), "3500" (bevinding 5), "boodschappen" (welke van de twee boodschappenpagina's de 1.674 vertoningen pakt) en "vaste lasten" (welke van de drie vastelastenpagina's). Zet de uitkomst in dit document onder deze regel, dan kan de bouwvolgorde eroverheen.
+1. **Zoekterm naar URL.** Alle vier de filters zijn op 5 september gedraaid en staan in sectie 6b: "modaal", "boodschappen", "vaste lasten" en "3500". Wat hier nog open staat is de URL-inspectie op `modaal-inkomen-2026` (bevinding 1), die bepaalt of dat een indexeringsprobleem is of een rankingprobleem.
 2. **Bing.** Deze export is Google. Bing Webmaster Tools staat volgens plan sectie 6 punt 5 nog niet aan, dus over ChatGPT-zoeken weet ik vandaag niets.
 3. **Nibud-cijfers.** `nibud.nl` blokkeert automatisch opvragen. Waar het plan Nibud-normen nodig heeft (L6, B4), wacht dat op jou.
 4. **De SERP zelf.** Fase 0 stap 2 is nog niet gedaan: dit document is GSC, geen google.nl. De SERP-verificatie per cluster in Chrome is de volgende sessie.
