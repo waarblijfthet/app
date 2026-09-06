@@ -75,3 +75,26 @@ export const BRUTO_VOOR_NETTO_SAMEN: Record<number, number> = {
 /** Eén bron voor de zin "dit kost een eenverdiener extra". */
 export const EENVERDIENER_MEERKOSTEN_5000 =
   BRUTO_VOOR_NETTO[5000] - BRUTO_VOOR_NETTO_SAMEN[5000];
+
+/**
+ * Modaal inkomen 2026 en 2027, bruto per jaar. Bron: CPB, concept-Macro
+ * Economische Verkenning (cMEV) 2027, kerngegeventabel, geraadpleegd
+ * 6 september 2026.
+ * https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027
+ * Dit is een concept-raming: de cMEV wordt gevolgd door de definitieve
+ * koopkrachtcijfers met Prinsjesdag op 15 september 2026. Herzien zodra die
+ * cijfers er zijn.
+ */
+export const BRUTO_MODAAL_2026 = 48000;
+export const BRUTO_MODAAL_2027 = 50000;
+
+/**
+ * Netto modaal inkomen 2026, per maand, exclusief vakantiegeld: GEEN officieel
+ * cijfer. Eigen berekening met dezelfde methode en aannames als
+ * BRUTO_VOOR_NETTO hierboven (loondienst, één inkomen, loonheffingskorting,
+ * belastingtarieven en heffingskortingen 2026), toegepast op het door het CPB
+ * geraamde bruto modale inkomen (BRUTO_MODAAL_2026). Afgerond op tientallen
+ * euro's. Noem dit in artikelen als berekening, niet als officieel cijfer van
+ * het CPB of CBS.
+ */
+export const NETTO_MODAAL_2026_MAAND = 3030;

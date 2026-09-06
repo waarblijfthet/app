@@ -144,6 +144,8 @@ import {
   SCHIJFGRENS_2,
   TARIEF_SCHIJF_3,
   MARGINAAL_BOVEN_SCHIJFGRENS_2,
+  BRUTO_MODAAL_2026,
+  NETTO_MODAAL_2026_MAAND,
 } from "./bruto-netto-referentie";
 
 const NR4K_INKOMEN = 4000;
@@ -4121,14 +4123,14 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "Is €4.000 netto een goed salaris in Nederland?",
     metaDescription:
-      "€4.000 netto is top 25% in Nederland. Maar wat je overhoudt hangt af van je huishouden: alleen ruim €600, met twee kinderen bijna niets. Reken je eigen situatie door.",
+      "€4.000 netto ligt ruim boven modaal (€3.030 netto in 2026). Wat je overhoudt hangt af van je huishouden: alleen ruim €600, met twee kinderen bijna niets. Reken je eigen situatie door.",
     datum: "2026-05-21",
     gewijzigd: "2026-09-06",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
     categorie: "Inkomen",
     excerpt:
-      "€4.000 netto is top 25% van Nederland. Maar of het genoeg is, hangt volledig af van je huishouden: iemand alleen houdt er ruim €600 van over, een gezin met twee kinderen niets. Reken je eigen situatie door.",
+      "€4.000 netto ligt ruim boven modaal. Maar of het genoeg is, hangt volledig af van je huishouden: iemand alleen houdt er ruim €600 van over, een gezin met twee kinderen niets. Reken je eigen situatie door.",
     preview: {
       type: "verdeling",
       label: "Van €4.000 netto blijft over",
@@ -4142,9 +4144,29 @@ export const artikelen: Artikel[] = [
     },
     faq: [
       {
+        vraag: "Waar verdien je €4.000 netto per maand?",
+        antwoord:
+          `Vooral bij een inkomen dat duidelijk boven modaal ligt. Het bruto modale inkomen was in 2026 ongeveer ${euro(BRUTO_MODAAL_2026)} per jaar (CPB, concept-Macro Economische Verkenning 2027, geraadpleegd 6 september 2026), tegen een bruto jaarinkomen vanaf ongeveer ${euro(BRUTO_VOOR_NETTO[4000])} dat nodig is voor €4.000 netto per maand. Verdienen jij en een partner er samen naartoe, dan ligt het benodigde bruto huishoudinkomen door de eigen heffingskortingen van ieder een stuk lager dan bij één verdiener.`,
+      },
+      {
         vraag: "Is €4.000 netto per maand een goed salaris in Nederland?",
         antwoord:
-          "Ja. Het meest voorkomende netto inkomen in Nederland is €3.100 (modaal 2026). Wie €4.000 netto verdient, zit in de top 25 procent. Maar of het 'genoeg' voelt, hangt volledig af van gezinssamenstelling en vaste lasten.",
+          `Ja. €4.000 netto ligt ruim boven modaal: het bruto modale inkomen was in 2026 ongeveer ${euro(BRUTO_MODAAL_2026)} per jaar, wat volgens de belastingtarieven van 2026 neerkomt op ongeveer ${euro(NETTO_MODAAL_2026_MAAND)} netto per maand (CPB, concept-Macro Economische Verkenning 2027, geraadpleegd 6 september 2026, en eigen berekening). Maar of €4.000 netto ook 'genoeg' voelt, hangt volledig af van je gezinssamenstelling en vaste lasten.`,
+      },
+      {
+        vraag: "Wie verdient €4.000 netto per maand?",
+        antwoord:
+          `Vooral mensen die duidelijk boven modaal zitten. Om netto €4.000 per maand over te houden heb je een bruto jaarinkomen nodig vanaf ongeveer ${euro(BRUTO_VOOR_NETTO[4000])}, tegen ongeveer ${euro(BRUTO_MODAAL_2026)} bruto voor het modale inkomen in 2026 (CPB, concept-Macro Economische Verkenning 2027, geraadpleegd 6 september 2026). Ter vergelijking, het gemiddelde persoonlijke inkomen van hoogopgeleiden in Nederland lag in 2022 op bijna €58.000 bruto per jaar, tegen €34.000 voor middelbaar opgeleiden en €22.000 voor laagopgeleiden (CBS, Materiële welvaart in Nederland 2024, cijfers over 2022). Dat ligt dus ruim boven het gemiddelde van de hoogst opgeleide groep.`,
+      },
+      {
+        vraag: "Wat is een normaal salaris netto in Nederland?",
+        antwoord:
+          `Een normaal, oftewel modaal, netto salaris komt in 2026 uit op ongeveer ${euro(NETTO_MODAAL_2026_MAAND)} per maand. Dat is een eigen berekening op basis van het bruto modale inkomen van ongeveer ${euro(BRUTO_MODAAL_2026)} per jaar (CPB, concept-Macro Economische Verkenning 2027, geraadpleegd 6 september 2026) en de belastingtarieven en heffingskortingen van 2026, geen officieel netto cijfer van het CPB of CBS zelf. Wie €4.000 netto verdient, zit daar dus duidelijk boven.`,
+      },
+      {
+        vraag: "Hoeveel bruto is €4.000 netto?",
+        antwoord:
+          `Om €4.000 netto per maand over te houden heb je een bruto jaarinkomen nodig vanaf ongeveer ${euro(BRUTO_VOOR_NETTO[4000])}, berekend met de belastingtarieven en heffingskortingen van 2026 voor loondienst zonder pensioenpremie of andere aftrekposten. Dat ligt ruim boven het bruto modale inkomen van ongeveer ${euro(BRUTO_MODAAL_2026)} per jaar in 2026 (CPB, concept-Macro Economische Verkenning 2027, geraadpleegd 6 september 2026). Verdien je er met een partner samen naartoe, dan ligt het benodigde bruto huishoudinkomen door de eigen heffingskortingen van ieder een stuk lager.`,
       },
       {
         vraag: "Hoeveel houdt een gezin met twee kinderen over van €4.000 netto?",
@@ -4176,33 +4198,15 @@ export const artikelen: Artikel[] = [
         antwoord:
           `Minder dan je zou verwachten. Honderd euro extra netto levert ongeveer €57 tot €65 extra ruimte op, omdat een deel automatisch meegroeit in wonen en vrije tijd. Eén uitzondering is belangrijk: voor een gezin met twee kinderen ligt precies in deze bandbreedte het omslagpunt, want rond ${euro(omslagpunt(2, 2))} gaat de som van een klein tekort naar een klein overschot. Verder verandert het huishouden de uitkomst veel harder dan honderd euro salaris.`,
       },
-      {
-        vraag: "Verdient Jan Modaal €4.000 netto in 2026?",
-        antwoord:
-          `Nee. Jan Modaal verdient in 2026 bruto €48.000 per jaar, ofwel €4.000 bruto per maand. Netto houdt hij daar €3.100 van over. Wie €4.000 netto per maand verdient, heeft een bruto salaris vanaf ongeveer ${euro(BRUTO_VOOR_NETTO[4000])}.`,
-      },
-      {
-        vraag: "Wie verdient €4.000 netto per maand?",
-        antwoord:
-          `Vooral mensen die duidelijk boven modaal zitten. Om netto €4.000 per maand over te houden heb je een bruto jaarinkomen nodig vanaf ongeveer ${euro(BRUTO_VOOR_NETTO[4000])}. Ter vergelijking, het gemiddelde persoonlijke inkomen van hoogopgeleiden in Nederland lag in 2022 op bijna €58.000 bruto per jaar, tegen €34.000 voor middelbaar opgeleiden en €22.000 voor laagopgeleiden (CBS, Materiële welvaart in Nederland 2024, cijfers over 2022). Dat ligt dus ruim boven het gemiddelde van de hoogst opgeleide groep.`,
-      },
     ],
     externLinks: [
       {
-        label: "CPB modaal inkomen 2026",
-        url: "https://www.cpb.nl",
+        label: "CPB: modaal inkomen 2026, concept-Macro Economische Verkenning (cMEV) 2027, geraadpleegd 6 september 2026",
+        url: "https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027",
       },
       {
-        label: "CBS inkomensverdeling 2024",
-        url: "https://www.cbs.nl",
-      },
-      {
-        label: "CBS: inkomen van personen naar onderwijsniveau (Materiële welvaart in Nederland 2024, cijfers 2022)",
+        label: "CBS: inkomen van personen, mediaan en naar onderwijsniveau (Materiële welvaart in Nederland 2024, cijfers over 2022)",
         url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/inkomen-van-personen/",
-      },
-      {
-        label: "KekMama gemiddelde kosten van een gezin",
-        url: "https://www.kekmama.nl/artikel/financien-en-verzekering/gemiddelde-kosten-van-een-gezin",
       },
     ],
   },

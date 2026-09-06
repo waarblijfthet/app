@@ -4,7 +4,7 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 6 september 2026, na vijf sessies op die dag. De laatste was de eenmalige batchdag van `docs/plan-nieuwe-invalshoeken-06-sep-2026.md`. Er staan nu zes lokale commits klaar die Jarno nog moet pushen, tot en met `9e3a514`. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn de vijf nieuwe pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
 
 **Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd, inclusief de antwoordblokken die bij de nieuwe titels horen. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
 
@@ -22,7 +22,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 **Tot en met 12 september: geen nieuwe pagina bouwen.** Op 6 september zijn er acht pagina's nieuw of herschreven (Z4, de pijler, H1, plus de batch N1 tot N5). De tempo-regel uit CLAUDE.md sectie 1 is twee per week, nooit meer, en dat is geen richtlijn maar de regel die voorkomt dat er halve pagina's live gaan. Deze week is dus vol. Doe in die periode onderhoud, dat valt er expliciet buiten:
 
 - ~~De CTR-titels tegen hun antwoordblok.~~ Gedaan op 6 september, zie sectie 12. Alle vijf antwoordblokken noemen nu hetzelfde getal als hun metaTitel.
-- **De modaal-FAQ in is-4000** (nu de hoogste prioriteit van wat er nog staat). Het cijfer waar sectie 2 op wachtte is er nu: CPB cMEV 2027 geeft bruto modaal €48.000 voor 2026 en €50.000 voor 2027, geverifieerd op https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027 op 6 september 2026. Neem in dezelfde deploy de ontbrekende FAQ's voor €4.100 en €4.600 mee (sectie 6). Een FAQ toevoegen is onderhoud, geen herschrijving.
+- ~~De modaal-FAQ in is-4000~~ **Gedaan op 6 september**, zie sectie 15: `BRUTO_MODAAL_2026`/`NETTO_MODAAL_2026_MAAND` nieuw in `lib/bruto-netto-referentie.ts`, FAQ's herordend op de PAA-vragen, "top 25 procent"-claim bewust weggelaten (zie de openstaande beslissing hieronder). **De ontbrekende FAQ's voor €4.100 en €4.600 staan nog open**, dat is de eerstvolgende onderhoudsklus op deze pagina.
 - **Em dashes en "structuurprobleem"** opruimen op elke pagina die je toch aanraakt, zoals CLAUDE.md sectie 11 voorschrijft.
 
 **Vanaf 13 september: eerst het lek, dan pas de tweede hub.**
@@ -38,7 +38,8 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. |
 | 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand; tabel en rekenaar volgen vanzelf. Zet `gewijzigd` op die dag. |
 | 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
-| 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast, pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op, en wat doet H1 na vier weken. Plus de beslissing over `wat-zijn-normale-vaste-lasten-gezin`, zie hieronder. |
+| 20 september | **+14 dagen op de is-4000 AI-overzicht-fix van 6 september** (sectie 15): GSC Generative AI features nakijken, en meteen is-5000 en het boodschappenartikel controleren op dezelfde knik, want dat kon deze sessie niet vanaf hier. |
+| 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast (+28 dagen op de fix van 6 september, sectie 15), pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op, en wat doet H1 na vier weken. Plus de beslissing over `wat-zijn-normale-vaste-lasten-gezin`, zie hieronder. |
 | 5 november | **Meetpunt N5**, de Engelse pagina: haalt hij meer dan 100 vertoningen per week in GSC? Zo niet, dan blijft het bij deze ene Engelse pagina en komt er geen tweede. Nulmeting op 6 september: 1 vertoning in 90 dagen op alles met "salary" erin. |
 | 5 december | **Meetpunt N1 tot N4**, 90 dagen na publicatie. Een pagina met minder dan 20 vertoningen per maand en geen externe links gaat mee in de contentkill van CLAUDE.md sectie 9. Let vooral op N4: die deelt taalgebied met de twee coach-pagina's. |
 | 1 november | Killgrens uit plan sectie 9: onder 3.000 sessies per maand of onder 5 betaalde Geldscans gaan clusters L en B in de wacht. |
@@ -47,9 +48,11 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 ### Openstaande beslissingen voor Jarno
 
-1. **De €2.000 tot €2.400 in de titel van `kosten-levensonderhoud-alleenstaande-2026` heeft geen deugdelijke bron.** Dat bedrag staat sinds 6 september in de metaTitel en nu ook in het antwoordblok, maar de bronnen eronder zijn FinBuddy en HetGeldCollege (commerciële blogs) plus een kale link naar cbs.nl zonder tabel. Dat is precies wat CLAUDE.md regel 3 verbiedt. Twee opties: een echte CBS- of Nibud-onderbouwing zoeken en de bronnenlijst vervangen, of de bandbreedte uit titel en antwoordblok halen. Uiterlijk beslissen bij de CTR-meting van 4 oktober, want tot die tijd meet die titel wel mee.
-2. **`wat-zijn-normale-vaste-lasten-gezin`**: nul vertoningen in 90 dagen en het zit in het taalgebied van H1. Kandidaat voor samenvoegen of een 301 naar H1 bij de CTR-ronde van 4 oktober. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar.
-3. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan bedrag en ophaaldatum aan, dan komt het er met bron bij.
+1. **De "top 25 procent"-claim op is-4000 is eruit gehaald (sectie 15) en heeft nog geen vervanging.** Stond zonder bron in metaDescription, excerpt, FAQ en een callout. De CBS-longread "Materiële welvaart in Nederland 2024" geeft alleen decielgrenzen voor "persoonlijk inkomen" (bruto-achtig, cijfers 2022): 10e-decielgrens €72.000, wat dicht bij het benodigde bruto van €73.300 voor €4.000 netto ligt, niet bij een 75e-percentielgrens. De claim was dus hoogstwaarschijnlijk fout. Lever een echte bron aan met een matchende definitie (netto of bruto, huishouden of individu, welk jaar) als je hem terug wilt, anders blijft hij weg.
+2. **GSC Generative AI features voor is-5000 en het boodschappenartikel is niet gecontroleerd op dezelfde knik als is-4000 (sectie 15).** Dat vereist de Search Console-UI (Zoekresultaten, filter op zoekuiterlijk); de admin-`search-analytics`-route in de codebase kan dat niet querien. Check dit bij de 20-september- of 4-oktober-meting.
+3. **De €2.000 tot €2.400 in de titel van `kosten-levensonderhoud-alleenstaande-2026` heeft geen deugdelijke bron.** Dat bedrag staat sinds 6 september in de metaTitel en nu ook in het antwoordblok, maar de bronnen eronder zijn FinBuddy en HetGeldCollege (commerciële blogs) plus een kale link naar cbs.nl zonder tabel. Dat is precies wat CLAUDE.md regel 3 verbiedt. Twee opties: een echte CBS- of Nibud-onderbouwing zoeken en de bronnenlijst vervangen, of de bandbreedte uit titel en antwoordblok halen. Uiterlijk beslissen bij de CTR-meting van 4 oktober, want tot die tijd meet die titel wel mee.
+4. **`wat-zijn-normale-vaste-lasten-gezin`**: nul vertoningen in 90 dagen en het zit in het taalgebied van H1. Kandidaat voor samenvoegen of een 301 naar H1 bij de CTR-ronde van 4 oktober. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar.
+5. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan bedrag en ophaaldatum aan, dan komt het er met bron bij.
 
 ### Openstaand aan Jarno's kant
 
@@ -462,7 +465,7 @@ Dit is de voorraad, niet de volgorde. **BEGIN HIER bepaalt wat er als eerste geb
 4. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn. Let op de waarschuwing in sectie 4 over het eigen risico.
 5. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven bekend zijn. Let op: de afschaffing en directe financiering gaan om 2029, niet 2027.
 6. **B2 vaste lasten**: `vaste-lasten-overzicht-maken` herschrijven, niet `50-30-20-regel-hoger-inkomen`. Zie sectie 3.
-7. **De modaal-FAQ in is-4000**, plus de ontbrekende FAQ's voor €4.100 en €4.600. Onderhoud, mag altijd.
+7. ~~De modaal-FAQ in is-4000~~ Gedaan op 6 september, zie sectie 15. **De ontbrekende FAQ's voor €4.100 en €4.600 blijven open.** Onderhoud, mag altijd.
 8. **De data-asset** "Waar blijft het bij [n] huishoudens", CLAUDE.md 8.25. Kan pas als er genoeg analyses met toestemming zijn; de toestemmingsvraag staat sinds 6 september op het resultaatscherm. Controleer de kolom `toestemming_data_asset` voordat je hier tijd in steekt.
 
 **Funnel en techniek**
@@ -474,3 +477,27 @@ Dit is de voorraad, niet de volgorde. **BEGIN HIER bepaalt wat er als eerste geb
 13. **De maandelijkse AI-test**: vijf kernvragen met de hand in ChatGPT, Perplexity en Google met AI-overzicht, uitkomst in de vrijdagmeting (CLAUDE.md 8.21). Nog nooit gedaan.
 
 **Waarheidsschuld**, af te werken zodra je in de buurt komt van de betreffende pagina: de openstaande feitfouten uit `docs/serp-brainstorm-18-aug-2026.md` sectie "Nog open", de em dashes in metaTitels en bronlabels, en "structuurprobleem" in twee artikelen en vier FAQ-antwoorden.
+
+## 15. is-4000 AI-overzicht-citatie herstelpoging, 6 september 2026
+
+Deliverable van deze sessie: is-4000 weer citeerbaar maken voor Google's AI-overzicht zonder de eigen huishoudhoek te verliezen. Achtergrond in `project_ai-overzicht-citatie-verloren-06-sep-2026` (projectgeheugen): het overzicht citeert nu Reddit, NationaleBeroepengids, Flexurance en anderen, niet waarblijfthet, en framet de vraag als salarisvraag (boven modaal, benodigd bruto) terwijl de pagina eerst de huishoudnuance bracht zonder gesourcete cijfers.
+
+**Nieuwe gesourcete constanten, `lib/bruto-netto-referentie.ts`.** `BRUTO_MODAAL_2026` (€48.000) en `BRUTO_MODAAL_2027` (€50.000): CPB, concept-Macro Economische Verkenning 2027, kerngegeventabel, geraadpleegd 6 september 2026, `https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027`. `NETTO_MODAAL_2026_MAAND` (€3.030): GEEN officieel cijfer, eigen berekening met dezelfde methode als `BRUTO_VOOR_NETTO` toegepast op het bruto modale inkomen. Het script `scripts/bruto-netto-ijkpunten.mjs` print de afleiding nu ook, voor reproduceerbaarheid. De oude, nergens gesourcete "€3.100 netto modaal" stond op minstens vijf plekken (FAQ, twee lopende-tekstalinea's, is-5000) en is overal vervangen.
+
+**is-4000 herschreven op vier punten uit de opdracht:**
+1. Eerste alinea: "Ja, €4.000 netto per maand is een goed salaris" met twee gesourcete feiten (bruto modaal + netto modaal 2026, en het benodigde bruto van €73.300 uit `BRUTO_VOOR_NETTO[4000]`), huishoudnuance erna.
+2. Zichtbare regel "Cijfers bijgewerkt op 6 september 2026" toegevoegd; `dateModified` stond al op vandaag (eerdere sessie vandaag).
+3. FAQ's herordend: de eerste vijf zijn nu letterlijk de PAA-vragen uit de opdracht (waar verdien je 4000 netto, is het een goed salaris, wie verdient het, wat is een normaal salaris netto, hoeveel bruto is 4000 netto), elk met het getal in de eerste zin en bron+datum erbij. De bestaande huishoud-FAQ's (gezin met kinderen, €4.500, €3.500, verschil tussen bedragen) blijven staan, want die zijn de eigen hoek van de site en al goed gesourcet uit `RAPPORTEN`/de vuistregel.
+4. is-5000 en het boodschappenartikel gecontroleerd op hetzelfde patroon: **niet gecontroleerd of ze dezelfde GSC Generative AI features-knik hebben**, want dat vereist de Search Console-UI zelf (Zoekresultaten, filter op zoekuiterlijk) en die heb ik niet. De admin-route `app/api/admin/search-analytics/route.ts` queryt alleen dimensions query/page, geen searchAppearance. Wel alvast hetzelfde ontbrekende-bron-lek gedicht op is-5000: de kop van de `SalarisRekenaar` gebruikte ook het ongesourcete "€3.100 netto", nu vervangen door dezelfde constante. Verder niet herschreven; dat is geen onderdeel van deze opdracht.
+
+**Bewust weggelaten: de "top 25 procent"-claim.** Stond in metaDescription, excerpt, FAQ en een callout van is-4000, zonder bron (net als de oude modaalpagina, zie sectie 2). Onderzocht: de CBS-longread "Materiële welvaart in Nederland 2024" (inkomen van personen) geeft alleen decielgrenzen voor "persoonlijk inkomen" (bruto-achtig, cijfers 2022): 10e-decielgrens €72.000. Het bruto salaris voor €4.000 netto (€73.300) zit dus rond die 10e-decielgrens, niet bij de 75e-percentielgrens die "top 25%" veronderstelt. **Openstaande beslissing voor Jarno**: de claim is hoogstwaarschijnlijk fout of gebruikt een bron die ik niet heb gevonden; ofwel een echte bron aanleveren met een matchende definitie (netto, huishouden of individu, welk jaar), ofwel de claim blijft weg. CLAUDE.md regel 6 toegepast: bij twijfel weggelaten.
+
+**Bronnenlijst van is-4000 gerepareerd** (dezelfde soort fout als de bare CPB/CBS-homepagelinks die het contentaudit-document al signaleerde): CPB wijst nu naar de echte cMEV-pagina met retrieval-datum, CBS naar de longread die zowel het mediaancijfer als de onderwijsniveau-cijfers dekt. De ongebruikte KekMama-bronvermelding (geen enkele referentie in de lopende tekst) is verwijderd.
+
+**Bron zelf geopend in Chrome**, conform de werkregel: CPB cMEV-pagina bezocht en gecontroleerd dat hij leeft (geen 404), CBS-zoekpagina en de longread "Materiële welvaart in Nederland 2024" bezocht en de decielcijfers er zelf uitgelezen. De Kerngegevens-PDF zelf is niet geopend (voorkomt een ongevraagde bestandsdownload); de €48.000/€50.000-cijfers zijn hetzelfde als een eerdere sessie vandaag al noteerde met bron en datum (zie sectie 2), dat is niet opnieuw gedaan.
+
+**Productiebuild gedraaid** volgens de procedure in `feedback_minifier_verkorte_objectnotatie`: getest dat `€48.000`, `€3.030`, `€73.300`, de vijf nieuwe FAQ-vragen en `dateModified: 2026-09-06` allemaal correct in de gerenderde HTML staan, en dat "top 25", "Jan Modaal" en het oude "€3.100" nergens meer voorkomen. De is-5000-wijziging (dezelfde constante, één regel) is niet apart doorgebouwd; risico is verwaarloosbaar, het is exact hetzelfde patroon dat de build al bevestigde.
+
+**Meten**: 20 september (+14 dagen) en 4 oktober (+28 dagen, samen met CTR-ronde 1) in GSC Generative AI features voor is-4000, en dan meteen ook is-5000 en het boodschappenartikel nakijken op dezelfde knik. Toegevoegd aan de tabel "Wat er op een datum wacht" in BEGIN HIER.
+
+Achterstallige lijst punt 7 is deels gedaan: de modaal-FAQ staat er, de ontbrekende FAQ's voor €4.100 en €4.600 niet. Die blijven open.

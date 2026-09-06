@@ -4,6 +4,7 @@ import SalarisMiniFlow from "@/components/artikel/SalarisMiniFlow";
 import SalarisBedragenTabel from "@/components/artikel/SalarisBedragenTabel";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import { berekenVuistregel, euro, euroSigned } from "@/lib/salaris-vuistregel";
+import { BRUTO_MODAAL_2026, NETTO_MODAAL_2026_MAAND, BRUTO_VOOR_NETTO } from "@/lib/bruto-netto-referentie";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -26,13 +27,23 @@ export default function Is4000EuroNettoGoedSalaris() {
 
   return (
     <>
-      {/* DEEL 1: direct antwoord boven de vouw */}
+      {/* DEEL 1: direct antwoord boven de vouw, met de gesourcete feiten die het
+          AI-overzicht ook noemt: boven modaal, benodigd bruto, bron en datum.
+          Zie project_ai-overzicht-citatie-verloren-06-sep-2026 in het
+          projectgeheugen: zonder deze feiten letterlijk in de eerste alinea
+          citeert Google's AI-overzicht andere sites in plaats van deze pagina. */}
       <p className="font-body font-medium" style={{ ...p, fontSize: "1.15rem", color: "#16211F" }}>
-        Ja. €4.000 netto per maand is een goed inkomen.
+        Ja, €4.000 netto per maand is een goed salaris.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        In 2026 ligt dat duidelijk boven modaal. Maar of je daar ook veel financiële ruimte aan
-        overhoudt, hangt sterk af van het huishouden dat van dit inkomen moet leven.
+        Het ligt ruim boven modaal: het bruto modale inkomen was in 2026 ongeveer{" "}
+        {euro(BRUTO_MODAAL_2026)} per jaar, ongeveer {euro(NETTO_MODAAL_2026_MAAND)} netto per maand
+        (CPB, concept-Macro Economische Verkenning 2027, geraadpleegd 6 september 2026). Voor €4.000
+        netto zelf heb je een bruto jaarinkomen nodig vanaf ongeveer {euro(BRUTO_VOOR_NETTO[4000])}.
+        Of dat ook genoeg voelt, hangt af van je huishouden.
+      </p>
+      <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
+        Cijfers bijgewerkt op 6 september 2026, bronnen en berekening onderaan dit artikel.
       </p>
 
       {/* DEEL 2: het verschil direct visueel, drie huishoudens op hetzelfde bedrag */}
@@ -132,14 +143,17 @@ export default function Is4000EuroNettoGoedSalaris() {
         Wat is €4.000 netto waard in 2026?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Jan Modaal verdient in 2026 netto ongeveer €3.100 per maand. Wie €4.000 netto heeft, zit dus
-        duidelijk boven het meest voorkomende inkomen in Nederland.
+        Het bruto modale inkomen was in 2026 ongeveer {euro(BRUTO_MODAAL_2026)} per jaar, wat volgens
+        de belastingtarieven van 2026 neerkomt op ongeveer {euro(NETTO_MODAAL_2026_MAAND)} netto per
+        maand (CPB, concept-Macro Economische Verkenning 2027, geraadpleegd 6 september 2026). Wie
+        €4.000 netto heeft, zit dus duidelijk boven het meest voorkomende inkomen in Nederland.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Maar boven modaal zitten en genoeg overhouden zijn twee verschillende dingen. Het CBS mediaan
-        inkomen voor werkende Nederlanders ligt op €38.000-40.000 bruto per jaar, netto iets boven
-        €2.600. Op dat niveau is €4.000 netto luxe. Op het niveau van twee kinderen, een koopwoning
-        en een auto in de Randstad is het soms nauwelijks voldoende.
+        inkomen van mensen met inkomen uit werk lag in 2022 op €41.000 bruto per jaar, netto ongeveer
+        €2.720 per maand (CBS, Materiële welvaart in Nederland 2024, cijfers over 2022). Op dat niveau
+        is €4.000 netto luxe. Op het niveau van twee kinderen, een koopwoning en een auto in de
+        Randstad is het soms nauwelijks voldoende.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Dat is geen klagen. Dat is gewoon rekenen.
@@ -250,7 +264,7 @@ export default function Is4000EuroNettoGoedSalaris() {
         style={{ backgroundColor: "#F7F8F7", borderColor: "#E6E9E7" }}
       >
         <p className="font-body text-sm" style={{ color: "#16211F" }}>
-          <strong>Uit de praktijk.</strong> Een gezin dat ik hielp met €4.000 netto dacht oprecht dat ze 'gewoon slecht met geld omgingen'. Dat was niet zo, het zat in twee posten die ongemerkt waren meegegroeid. Top 25% verdienen en tóch krap is geen gevoel; als je de cijfers naast elkaar legt, klopt het gewoon.
+          <strong>Uit de praktijk.</strong> Een gezin dat ik hielp met €4.000 netto dacht oprecht dat ze 'gewoon slecht met geld omgingen'. Dat was niet zo, het zat in twee posten die ongemerkt waren meegegroeid. Boven modaal verdienen en tóch krap is geen gevoel. Als je de cijfers naast elkaar legt, klopt het gewoon.
         </p>
       </div>
       <h2 className="font-display" style={h2}>

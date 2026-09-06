@@ -59,3 +59,8 @@ console.log(`  5000: ${perPersoon * 2},`.padEnd(22), '-> ieder', perPersoon);
 console.log('\nMARGINAAL_BOVEN_SCHIJFGRENS_2 =', marginaal(S2 + 1000).toFixed(4));
 console.log('  je houdt over van elke extra bruto euro:', (1 - marginaal(S2 + 1000)).toFixed(2));
 console.log('AHK is nul vanaf bruto', Math.round(AHK_START + AHK_MAX / AHK_PCT));
+
+console.log('\nMODAAL 2026/2027 (bruto: CPB cMEV 2027, kerngegeventabel, 6-sep-2026)');
+for (const bruto of [48000, 50000]) {
+  console.log(`  ${bruto} bruto/jaar -> netto/mnd excl vakantiegeld`, maandNettoExclVakantiegeld(bruto).toFixed(0), '(afronden op tientallen voor NETTO_MODAAL_2026_MAAND)');
+}

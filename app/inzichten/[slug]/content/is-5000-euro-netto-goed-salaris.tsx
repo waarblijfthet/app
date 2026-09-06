@@ -8,6 +8,7 @@ import {
   SCHIJFGRENS_2,
   TARIEF_SCHIJF_3,
   MARGINAAL_BOVEN_SCHIJFGRENS_2,
+  NETTO_MODAAL_2026_MAAND,
 } from "@/lib/bruto-netto-referentie";
 
 const h2 = {
@@ -27,7 +28,7 @@ export default function Is5000EuroNettoGoedSalaris() {
         startInkomen={5000}
         startVolwassenen={2}
         startKinderen={2}
-        kop="Kort antwoord: ja, €5.000 netto is een hoog salaris. Modaal is ongeveer €3.100 netto."
+        kop={`Kort antwoord: ja, €5.000 netto is een hoog salaris. Modaal was in 2026 ongeveer ${euro(NETTO_MODAAL_2026_MAAND)} netto (CPB, cMEV 2027, geraadpleegd 6 september 2026).`}
         intro="Alleen is dat niet de vraag die je eigenlijk hebt. Bij dit bedrag weet je zelf ook dat het goed is. De vraag is waarom het niet voelt als een hoog inkomen. Zet je eigen bedrag en huishouden hieronder."
       />
 
