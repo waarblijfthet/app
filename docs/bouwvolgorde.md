@@ -1,6 +1,42 @@
-# Bouwvolgorde, 6 september 2026
+# Bouwvolgorde, waar blijft het
 
-Levend document. Bijgewerkt na elke publicatie. Basis: `docs/plan-seo-conversie-100-geldscans-05-sep-2026.md` en `docs/gsc-nulmeting-05-sep-2026.md`.
+Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-geldscans-05-sep-2026.md` en `docs/gsc-nulmeting-05-sep-2026.md`.
+
+## BEGIN HIER
+
+Laatst bijgewerkt: 6 september 2026. Alles hieronder is gecommit en gepusht tot en met `4141175`.
+
+**Stand van zaken.** Fase 0 is af (nulmeting, SERP-verificatie cluster Z, bouwvolgorde). Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 is uitgevoerd. Uit cluster Z staat Z4 gepubliceerd. De pijler van cluster P is verlegd en herschreven.
+
+**De eerstvolgende actie is: H1 bouwen, de hub voor tweeverdieners met kinderen.**
+
+Dat gaat in deze volgorde:
+
+1. SERP-verificatie in Chrome op google.nl (`hl=nl`, `gl=nl`) voor de H-termen uit plan sectie 4, want die staan in geen enkel SERP-document. Minimaal: "wat geeft een gezin uit per maand", "gezinsbudget 6000 netto", "uitgaven gezin 2 kinderen per maand". Vastleggen in `docs/serp-hubs-<datum>.md` en scoren op de 35-puntsschaal uit `docs/serp-brainstorm-18-aug-2026.md`.
+2. H1 bouwen met het volledige pakket uit CLAUDE.md sectie 8 punt 8 tot 16. Hergebruik `components/artikel/GezinsbudgetTabel.tsx`, dat de twee echte huishoudens al post voor post naast elkaar zet uit `rapportVoorSlug()`.
+3. Inkomende links in dezelfde deploy vanuit is-4000, het boodschappenartikel en `samen-6000-euro-netto-toch-niets-over`. Die laatste is de pijler van cluster P en wacht op een link naar H1.
+4. Daarna pas beslissen wat er met `goed-salaris-toch-krap` gebeurt (nul vertoningen, staat nog).
+
+**Wat er buiten die actie op een datum wacht:**
+
+| Wanneer | Wat |
+|---|---|
+| 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. Zeven dagen na de migratie. |
+| 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand, tabel en rekenaar volgen vanzelf. |
+| 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
+| 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1 van dit document. |
+| 12 november | Z1 zorgpremie 2027 bouwen, als de premies bekend zijn. |
+| 8 december | 2027-sweep over 25 metaTitels. |
+
+**Openstaand aan Jarno's kant:** Bing Webmaster Tools aanzetten en de sitemap indienen, en de URL van Z4 handmatig indienen in GSC.
+
+**Bekende schuld:** de anon-rol mag `quiz_voortgang` nog lezen omdat het funneltabblad met de browserclient leest. Eerst die lezing naar een server-route, dan pas select intrekken. Staat als waarschuwing in `supabase/quiz_voortgang_v3.sql`.
+
+**Alles daaronder is het logboek, oudste sectie eerst. Lees dat alleen als je wilt weten waarom iets zo besloten is.**
+
+**Werkwijze voor dit bestand:** het houdt zijn naam, `docs/bouwvolgorde.md`. Werk na elke sessie het blok BEGIN HIER bij (stand, eerstvolgende actie, datumtabel) en zet je logboeksectie eronder aan het eind met de datum in de kop. Maak geen nieuw bestand met een datum in de naam: dan weet een volgende sessie niet meer welk bestand geldt.
+
+---
 
 ## 1. CTR-ronde 1, uitgevoerd 6 september 2026
 
