@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { QuizData, DEFAULT_QUIZ_DATA, RESULTAAT_STAP_SLEUTEL } from "@/lib/quiz-types";
-import { createClient } from "@/lib/supabase-browser";
+import { getSessieId, getApparaat } from "@/lib/sessie";
 import {
   getBenchmarks,
   berekenTotaalInkomen,
@@ -161,26 +161,36 @@ export default function QuizClient() {
   const sessieIdRef = useRef<string>("");
   const apparaatRef = useRef<string>("");
   const maxCategorieRef = useRef<number>(1);
+  const maxSchermIndexRef = useRef<number>(0);
   const gestartRef = useRef<boolean>(false);
-  const geloggeCategorieRef = useRef<number>(0);
+  const gelogdSchermRef = useRef<string>("");
   const eventsRef = useRef<string[]>([]);
 
   const ensureSessie = useCallback(() => {
+    // Dezelfde sessie-id als PageTracker en lib/track.ts, zodat paginabezoeken,
+    // CTA-kliks en analysevoortgang op sessie_id aan elkaar te rekenen zijn.
+    // Tot 6-sep-2026 had de analyse een eigen UUID en brak de trechter precies
+    // op die join.
     if (!sessieIdRef.current) {
-      sessieIdRef.current =
-        typeof crypto !== "undefined" && crypto.randomUUID
-          ? crypto.randomUUID()
-          : Math.random().toString(36).slice(2);
+      sessieIdRef.current = getSessieId();
     }
-    if (!apparaatRef.current && typeof window !== "undefined") {
-      apparaatRef.current = window.innerWidth < 1024 ? "mobiel" : "desktop";
+    if (!apparaatRef.current) {
+      apparaatRef.current = getApparaat();
     }
   }, []);
 
   const logVoortgang = useCallback(
-    (categorieArg: number, dataArg: QuizData, voltooid: boolean) => {
+    (
+      categorieArg: number,
+      dataArg: QuizData,
+      voltooid: boolean,
+      schermArg: string,
+      schermIndexArg: number
+    ) => {
       ensureSessie();
+      if (!sessieIdRef.current) return;
       maxCategorieRef.current = Math.max(maxCategorieRef.current, categorieArg);
+      maxSchermIndexRef.current = Math.max(maxSchermIndexRef.current, schermIndexArg);
 
       let inkomen = 0;
       let over = 0;
@@ -192,7 +202,10 @@ export default function QuizClient() {
           const benches = getBenchmarks({
             woonsituatie: dataArg.woonsituatie,
             kinderen: dataArg.kinderen,
-            inkomen,
+            // Bewust uitgeschreven, geen verkorte notatie: de minifier van
+            // Next 14.2 hernoemt dan niet alle verwijzingen. Zie
+            // docs en feedback_minifier_verkorte_objectnotatie.
+            inkomen: inkomen,
             auto: dataArg.auto,
             tweedeAuto: dataArg.tweedeAuto,
             aantalVolwassenen: aantalVolwassenenVan(dataArg),
@@ -213,35 +226,36 @@ export default function QuizClient() {
         ...antwoorden
       } = dataArg;
 
+      // Schrijven gaat via de server-route met de service key. De browser
+      // heeft sinds quiz_voortgang_v3.sql geen schrijfrecht meer op deze tabel.
+      // keepalive, zodat een laatste schrijfactie ook vertrekt als de bezoeker
+      // meteen daarna wegklikt.
       try {
-        const supabase = createClient();
-        supabase
-          .from("quiz_voortgang")
-          .upsert(
-            {
-              sessie_id: sessieIdRef.current,
-              huidige_stap: categorieArg,
-              max_stap: maxCategorieRef.current,
-              voltooid,
-              apparaat: apparaatRef.current || null,
-              eerste_interactie: gestartRef.current,
-              woonsituatie: dataArg.woonsituatie,
-              aantal_kinderen: dataArg.kinderen,
-              auto_situatie: dataArg.auto,
-              totaal_inkomen: inkomen || null,
-              totaal_uitgaven: voltooid ? inkomen - over : null,
-              maandelijks_over: voltooid ? over : null,
-              verdict,
-              grootste_afwijking: grootste,
-              antwoorden: { ...antwoorden, _events: eventsRef.current },
-              updated_at: new Date().toISOString(),
-            },
-            { onConflict: "sessie_id" }
-          )
-          .then(
-            () => {},
-            () => {}
-          );
+        const payload = JSON.stringify({
+          sessie_id: sessieIdRef.current,
+          huidige_stap: categorieArg,
+          max_stap: maxCategorieRef.current,
+          huidig_scherm: schermArg,
+          max_scherm_index: maxSchermIndexRef.current,
+          voltooid: voltooid,
+          apparaat: apparaatRef.current || null,
+          eerste_interactie: gestartRef.current,
+          woonsituatie: dataArg.woonsituatie,
+          aantal_kinderen: dataArg.kinderen,
+          auto_situatie: dataArg.auto,
+          totaal_inkomen: inkomen || null,
+          totaal_uitgaven: voltooid ? inkomen - over : null,
+          maandelijks_over: voltooid ? over : null,
+          verdict: verdict,
+          grootste_afwijking: grootste,
+          antwoorden: { ...antwoorden, _events: eventsRef.current },
+        });
+        void fetch("/api/analyse-voortgang", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: payload,
+          keepalive: true,
+        }).catch(() => {});
       } catch {
         // stil falen
       }
@@ -321,17 +335,32 @@ export default function QuizClient() {
     }
   }, []);
 
+  // Meten per scherm in plaats van per categorie (6-sep-2026). De flow heeft
+  // 29 schermen in 5 categorieen, dus op categorieniveau was "afgehaakt in
+  // vervoer en vaste lasten" het fijnste dat je kon zien, en dat zijn negen
+  // schermen. Per sessie zijn dit hooguit 29 upserts in plaats van 6, wat bij
+  // dit volume niets voorstelt.
   useEffect(() => {
     if (fase === "intro") return;
+    const scherm = fase === "resultaat" ? "resultaat" : currentId;
+    if (scherm === gelogdSchermRef.current) return;
+    gelogdSchermRef.current = scherm;
+
     const categorie =
       fase === "resultaat"
         ? 6
         : ALLE_SCHERMEN.find((s) => s.id === currentId)?.categorie ?? 1;
-    if (categorie !== geloggeCategorieRef.current) {
-      geloggeCategorieRef.current = categorie;
-      logVoortgang(categorie, dataRef.current, fase === "resultaat");
-      if (fase === "resultaat") markeer("analysis_result_viewed");
-    }
+    const actieveLijst = actieveSchermen(dataRef.current);
+    const index =
+      fase === "resultaat"
+        ? actieveLijst.length
+        : Math.max(
+            actieveLijst.findIndex((s) => s.id === currentId),
+            0
+          );
+
+    logVoortgang(categorie, dataRef.current, fase === "resultaat", scherm, index);
+    if (fase === "resultaat") markeer("analysis_result_viewed");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fase, currentId]);
 

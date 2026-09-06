@@ -20,7 +20,7 @@ type GebeurtenisRij = {
   meta: { velden?: number; totaal?: number } | null;
   created_at: string;
 };
-type VoortgangRij = { max_stap: number | null; voltooid: boolean | null; created_at: string; totaal_inkomen: number | null; maandelijks_over: number | null; verdict: string | null; aantal_kinderen: number | null; woonsituatie: string | null; eerste_interactie: boolean | null; apparaat: string | null };
+type VoortgangRij = { huidig_scherm: string | null; max_scherm_index: number | null; max_stap: number | null; voltooid: boolean | null; created_at: string; totaal_inkomen: number | null; maandelijks_over: number | null; verdict: string | null; aantal_kinderen: number | null; woonsituatie: string | null; eerste_interactie: boolean | null; apparaat: string | null };
 
 const PAGINA_LABELS: Record<string, string> = {
   "/": "Homepage",
@@ -79,7 +79,7 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
           .limit(8000),
         supabase
           .from("quiz_voortgang")
-          .select("max_stap,voltooid,created_at,totaal_inkomen,maandelijks_over,verdict,aantal_kinderen,woonsituatie,eerste_interactie,apparaat")
+          .select("huidig_scherm,max_scherm_index,max_stap,voltooid,created_at,totaal_inkomen,maandelijks_over,verdict,aantal_kinderen,woonsituatie,eerste_interactie,apparaat")
           .order("created_at", { ascending: false })
           .gte("created_at", sinds)
           .limit(8000),
@@ -162,6 +162,23 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
     const voltooid = voortgang.filter((v) => v.voltooid).length;
     const gestart = voortgang.filter((v) => v.eerste_interactie === true).length;
     return { labels, starts, bereikt, voltooid, gestart };
+  }, [voortgang]);
+
+  // Verlies per scherm (6-sep-2026). max_stap zegt alleen in welke van de vijf
+  // categorieen iemand afhaakte, en categorie 4 alleen is al negen schermen.
+  // huidig_scherm is het laatste scherm dat deze sessie zag, dus de telling
+  // hieronder is letterlijk: hier hield het op.
+  const schermVerlies = useMemo(() => {
+    const nietVoltooid = voortgang.filter((v) => !v.voltooid && v.huidig_scherm);
+    const tellen = new Map<string, number>();
+    nietVoltooid.forEach((v) => {
+      const id = v.huidig_scherm as string;
+      tellen.set(id, (tellen.get(id) ?? 0) + 1);
+    });
+    const rijen = Array.from(tellen.entries())
+      .map(([scherm, aantal]) => ({ scherm: scherm, aantal: aantal }))
+      .sort((a, b) => b.aantal - a.aantal);
+    return { rijen: rijen, totaal: nietVoltooid.length };
   }, [voortgang]);
 
   // Apparaat-verdeling: geladen vs begon in te vullen vs voltooid.
@@ -302,6 +319,46 @@ export default function FunnelTabblad({ leads, aanvragen }: Props) {
               voltooid&rdquo; en verder zijn periodetotalen; de stap-percentages
               zijn indicatief (niet sessie-gekoppeld).
             </p>
+          </div>
+
+          {/* Waar de analyse afhaakt, per scherm */}
+          <div className="bg-white rounded-xl border border-[#E6E9E7] p-5 mb-6">
+            <p className="text-xs font-medium text-[#4A5A56] mb-1 uppercase tracking-wider font-body">
+              Waar de analyse afhaakt, per scherm
+            </p>
+            <p className="text-xs text-[#8B958F] mb-4 font-body">
+              Het laatste scherm dat een niet-voltooide sessie zag. Dit is de
+              lijst waarop je de eerste wijziging kiest: bovenaan staat het
+              scherm dat de meeste mensen kwijtraakt.
+            </p>
+            {schermVerlies.rijen.length === 0 ? (
+              <p className="text-sm text-[#8B958F] py-6 text-center font-body">
+                Nog geen schermdata. Die verschijnt zodra de migratie
+                quiz_voortgang_v3.sql gedraaid is en er sessies binnenkomen.
+              </p>
+            ) : (
+              <div className="space-y-2">
+                {schermVerlies.rijen.slice(0, 12).map((r) => (
+                  <div key={r.scherm} className="flex items-center gap-3">
+                    <span className="text-sm font-body text-[#16211F] w-44 shrink-0 truncate">
+                      {r.scherm}
+                    </span>
+                    <div className="flex-1 h-2 rounded-full bg-[#F1F4F3] overflow-hidden">
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: `${Math.min(100, (r.aantal / Math.max(schermVerlies.rijen[0].aantal, 1)) * 100)}%`,
+                          backgroundColor: "#0B7A6E",
+                        }}
+                      />
+                    </div>
+                    <span className="text-sm font-body text-[#4A5A56] w-24 text-right shrink-0">
+                      {r.aantal} van {schermVerlies.totaal}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Actie op de aanbodpagina */}

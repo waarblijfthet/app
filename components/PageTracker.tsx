@@ -3,26 +3,9 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { createClient } from "@/lib/supabase-browser";
-
-function getSessieId(): string {
-  if (typeof window === "undefined") return "";
-  let id = sessionStorage.getItem("wb_sessie");
-  if (!id) {
-    id = Math.random().toString(36).substring(2, 15);
-    sessionStorage.setItem("wb_sessie", id);
-  }
-  return id;
-}
-
-function getApparaat(): string {
-  if (typeof window === "undefined") return "onbekend";
-  return window.innerWidth < 768 ? "mobiel" : "desktop";
-}
-
-function isEigenaar(): boolean {
-  if (typeof document === "undefined") return false;
-  return document.cookie.includes("wb_eigenaar=true");
-}
+// Sessie-id, apparaat en de eigenaarscookie komen sinds 6-sep-2026 uit één
+// bron. Zie lib/sessie.ts voor waarom dat nodig was.
+import { getSessieId, getApparaat, isEigenaar } from "@/lib/sessie";
 
 async function getLocatie(): Promise<{
   stad: string | null;
