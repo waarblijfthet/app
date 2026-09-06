@@ -26,7 +26,8 @@ export default function WatIsNormaalBedragBoodschappen() {
       {/* Kort antwoord: het getal meteen, boven de vouw */}
       <div className="rounded-xl p-5 mb-4" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>
-          Kort antwoord: een normaal boodschappenbedrag ligt hoger dan de meeste mensen denken.
+          Kort antwoord: normaal is in 2026 tussen de €300 en €1.400 per maand, afhankelijk van
+          hoeveel mensen er eten en hoe oud ze zijn. Dat ligt hoger dan de meeste mensen denken.
         </p>
         <ul className="space-y-1.5 mb-3">
           {[

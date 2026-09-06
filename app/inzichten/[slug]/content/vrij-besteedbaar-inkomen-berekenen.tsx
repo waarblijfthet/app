@@ -133,6 +133,13 @@ function Calculator() {
 export default function VrijBesteedbaarInkomenBerekenen() {
   return (
     <>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Je vrij besteedbaar inkomen is wat er van je netto-inkomen overblijft nadat je vaste lasten
+        en je noodzakelijke dagelijkse uitgaven eraf zijn. Als richtlijn houd je daar het liefst 10
+        tot 20 procent van je netto-inkomen aan over. Reken hieronder uit wat er bij jou blijft
+        staan, schattingen zijn goed genoeg.
+      </p>
+
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
@@ -148,10 +155,8 @@ export default function VrijBesteedbaarInkomenBerekenen() {
       </div>
 
       <p className="font-body text-text-soft" style={p}>
-        Je vrij besteedbaar inkomen is wat er overblijft als je van je netto-inkomen je vaste lasten
-        en je noodzakelijke dagelijkse uitgaven afhaalt. Dat is het bedrag waarover je echt iets te
-        zeggen hebt: sparen, leuke dingen, of een buffer opbouwen. Vul je cijfers in, schattingen
-        zijn goed genoeg.
+        Dat is het bedrag waarover je echt iets te zeggen hebt: sparen, leuke dingen, of een buffer
+        opbouwen. De rest van je inkomen ligt al vast voordat de maand begint.
       </p>
 
       <Calculator />

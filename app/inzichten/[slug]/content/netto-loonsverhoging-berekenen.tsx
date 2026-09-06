@@ -18,6 +18,13 @@ export default function NettoLoonsverhogingBerekenen() {
 
   return (
     <>
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Van 3 procent loonsverhoging houd je netto ongeveer de helft tot twee derde over. Van elke
+        €100 bruto erbij blijft in 2026 meestal €50 tot €64 netto. Verdien je €4.000 bruto per
+        maand, dan is 3 procent €120 bruto erbij, en daarvan houd je netto ongeveer €50 tot €75 per
+        maand over.
+      </p>
+
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
@@ -56,19 +63,19 @@ export default function NettoLoonsverhogingBerekenen() {
         </ul>
       </div>
 
-      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Van elke €100 bruto loonsverhoging houd je netto meestal tussen de €50 en €64 over,
-        afhankelijk van je inkomen. In het middensegment kan dat zelfs lager uitvallen, doordat je
-        boven op de belasting ook een deel van je heffingskortingen verliest. Dat je weinig voelt
-        van een opslag is dus geen gevoel, het klopt.
+      <p className="font-body text-text-soft" style={p}>
+        Hoeveel precies hangt af van je inkomen. In het middensegment kan het zelfs lager
+        uitvallen, doordat je boven op de belasting ook een deel van je heffingskortingen verliest.
+        Dat je weinig voelt van een opslag is dus geen gevoel, het klopt.
       </p>
 
       <h2 className="font-display" style={h2}>
         Wat je ongeveer overhoudt per €100 bruto
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Dit zijn richtbedragen voor 2026. Ze gelden voor je bruto jaarinkomen, dus reken een
-        maandelijkse verhoging om naar twaalf maanden om te zien in welke zone je valt.
+        Dit zijn richtbedragen voor 2026, op basis van de tarieven en heffingskortingen van de
+        Belastingdienst. Ze gelden voor je bruto jaarinkomen, dus reken een maandelijkse verhoging
+        om naar twaalf maanden om te zien in welke zone je valt.
       </p>
 
       <div style={{ overflowX: "auto", marginBottom: "1.5rem" }}>

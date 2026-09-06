@@ -4508,7 +4508,7 @@ export const artikelen: Artikel[] = [
     metaTitel:
       "€627 Nibud boodschappengeld gezin: haalbaar in 2026?",
     metaDescription:
-      "Nibud zegt €627 voor een gezin van vier. Maar wat geven gezinnen werkelijk uit? Het eerlijke verhaal achter de normen, en waarom ze bijna niemand halen.",
+      "Nibud zegt €627 voor een gezin van vier. In de praktijk geeft een gezin €700 tot €900 uit. Wat de norm wel en niet meet, en waarom bijna geen gezin hem haalt.",
     datum: "2026-05-28",
     gewijzigd: "2026-09-06",
     datumFormatted: "28 mei 2026",

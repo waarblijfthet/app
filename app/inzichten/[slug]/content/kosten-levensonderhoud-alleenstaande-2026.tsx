@@ -13,6 +13,20 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function KostenLevensonderhoudAlleenstaande2026() {
   return (
     <>
+      {/* Kort antwoord: het getal meteen, boven de vouw */}
+      <div
+        className="rounded-xl p-5 mb-8"
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}
+      >
+        <p className="font-body text-sm" style={{ color: "#16211F", margin: 0 }}>
+          <strong style={{ fontWeight: 600 }}>Kort antwoord:</strong> als alleenstaande liggen de
+          vaste lasten in 2026 gemiddeld tussen de €2.000 en €2.400 per maand. Dat is alleen de
+          basis: wonen, energie, boodschappen, verzekeringen en vervoer. Vrije tijd, kleding en
+          vakantie zitten er niet in. In de Randstad ligt het €300 tot €400 hoger, vooral door de
+          huur.
+        </p>
+      </div>
+
       {/* Herken je dit? persona-selector */}
       <div style={{ marginBottom: "2rem" }}>
         <p
@@ -144,16 +158,10 @@ export default function KostenLevensonderhoudAlleenstaande2026() {
       </div>
 
       <p className="font-body text-text-soft" style={p}>
-        Hoeveel heb je nodig om als alleenstaande rond te komen in 2026? Het eerlijke antwoord is:
-        meer dan de meeste modellen suggereren, en sterk afhankelijk van waar je woont.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Gemiddeld liggen de vaste lasten voor een alleenstaande in 2026 tussen de €2.000 en €2.400
-        per maand. Dat is exclusief vrije tijd, kleding en vakantie. Alleen de basis.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        Dit artikel geeft een volledig overzicht per kostenpost en per regio. En ook: waarom een
-        goed salaris als alleenstaande alsnog krap kan voelen.
+        Wat je nodig hebt om als alleenstaande rond te komen in 2026, ligt hoger dan de meeste
+        modellen suggereren en hangt vooral af van waar je woont. Hieronder staat het overzicht per
+        kostenpost en per regio, en ook waarom een goed salaris als alleenstaande alsnog krap kan
+        voelen.
       </p>
 
       <AlleenstaandeUitgaven />

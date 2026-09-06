@@ -13,8 +13,18 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function NibudBoodschappenVersusWerkelijkheid() {
   return (
     <>
-      {/* ScanBox */}
+      {/* Kort antwoord: het getal meteen, boven de vouw */}
       <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}>
+        <p className="font-body text-sm" style={{ color: "#16211F", margin: 0 }}>
+          <strong style={{ fontWeight: 600 }}>Kort antwoord:</strong> nee, voor de meeste gezinnen
+          is €627 niet haalbaar. Dat is het Nibud-minimum voor voeding voor een gezin van twee
+          ouders en twee kinderen in 2026. Een gezin van vier geeft in de praktijk eerder €700 tot
+          €900 per maand uit, inclusief drogist, bakker en wat er tussendoor meegaat.
+        </p>
+      </div>
+
+      {/* ScanBox */}
+      <div className="rounded-xl p-5 mb-8" style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}>
         <p className="font-body font-semibold text-sm mb-3" style={{ color: "#16211F" }}>Na dit artikel weet je:</p>
         <ul className="space-y-1.5">
           {[
@@ -31,11 +41,9 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
       </div>
 
       <p className="font-body text-text-soft" style={p}>
-        Het Nibud hanteert voor een gezin van twee ouders en twee kinderen een
-        minimum boodschappenbudget van €627 per maand. Dat getal is gebaseerd op
-        berekeningen van het Voedingscentrum en de Nederlandse Vereniging van
-        Diëtisten, wetenschappelijk onderbouwd, regelmatig bijgewerkt, en voor
-        de meeste gezinnen volledig onhaalbaar.
+        Dat bedrag van €627 is gebaseerd op berekeningen van het Voedingscentrum en de
+        Nederlandse Vereniging van Diëtisten. Wetenschappelijk onderbouwd, regelmatig bijgewerkt,
+        en voor de meeste gezinnen volledig onhaalbaar.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Niet omdat gezinnen gek doen. Maar omdat de Nibud-norm iets anders meet
@@ -46,7 +54,7 @@ export default function NibudBoodschappenVersusWerkelijkheid() {
       <NibudVergelijker />
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Kort gezegd: het Nibud houdt 627 euro aan voor een gezin van vier, maar dat is een minimum dat bijna niemand haalt. In de praktijk ligt het vaak flink hoger, en dat komt niet door verspilling. Hieronder het eerlijke verhaal achter de norm.
+        Kort gezegd: het Nibud houdt 627 euro aan voor een gezin van vier, maar dat is een minimum dat bijna niemand haalt. In de praktijk ligt het vaak flink hoger, en dat komt niet door verspilling. Hieronder wat de norm wel en niet meet.
       </p>
 
       <h2 className="font-display" style={h2}>
