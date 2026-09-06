@@ -154,10 +154,24 @@ De volgorde op het scherm is nu zoals plan sectie 6 punt 3 hem voorschrijft: eer
 
 **Wat er nog niet is uit fase 1:** de opvolgmail op dag 0, 3 en 8 (punt 4) en Bing Webmaster Tools plus de schema-audit (punt 5). Punt 4 heeft pas zin als er afgeronde analyses met e-mailadres zijn, dus dat wacht op de eerste week data. Punt 5 kan los en kost een half uur, grotendeels aan jouw kant.
 
-## 9. Volgende sessies
+## 9. Pijler cluster P herschreven, 6 september 2026
+
+`samen-6000-euro-netto-toch-niets-over` is nu de pijler van cluster P en tegelijk de brug naar de hub voor tweeverdieners.
+
+**Wat ik bewust niet heb aangeraakt: de metaTitel.** Deze pagina doet 7,34 procent CTR op positie 4,43. De CTR-regel uit CLAUDE.md 8.22 geldt voor URL's onder 2 procent, en dit is de best presterende pagina van de zes uit cluster P. Een pagina die werkt herschrijf je niet omdat het plan het woord pijler gebruikt.
+
+**Wat er wel bij is gekomen:**
+
+1. **De begrotingstabel per post**, via `components/artikel/GezinsbudgetTabel.tsx`. Twee echte huishoudens naast elkaar, 19 posten verdeeld over wat er binnenkomt, de vaste lasten en het dagelijkse plus jaarlijkse. Alle bedragen komen uit `rapportVoorSlug()`, letterlijk zoals de huishoudens ze aanleverden. Dit is het gezinsbudget-format uit `docs/serp-inkomensbedragen-17-aug-2026.md` kans 7, en het is de vorm die volgens dat onderzoek in deze SERP wint.
+2. **Geen derde kolom met een gemiddelde.** Dat is de waarheidsregel, en het zou hier ook onzin geven: het ene huishouden heeft drie kinderen en twee auto's, het andere geen kinderen en alleen ov. Dat verschil is juist waarvoor de lezer komt. Waar een post bij de ander niet bestaat staat "niet van toepassing".
+3. **De Geldscan als tekstlink in het slotblok.** Die ontbrak volledig op deze pagina, terwijl CLAUDE.md 8.13 hem voorschrijft en dit de best converterende pagina van het cluster is.
+
+**Wat nog open staat voor deze pijler:** de hub voor tweeverdieners met kinderen (H1) bestaat nog niet, dus de link daarheen kan pas als die hub er is. Zodra H1 er staat, linkt deze pagina erheen en H1 terug.
+
+## 10. Volgende sessies
 
 1. **Bing Webmaster Tools aanzetten en de sitemap indienen** (fase 1 punt 5, jouw kant). ChatGPT-zoeken leunt op Bing en daar meten we vandaag niets.
-2. **Pijler cluster P herschrijven**: `samen-6000-euro-netto-toch-niets-over` naar het gezinsbudget-format met het volledige paginapakket, en dan pas beslissen wat er met `goed-salaris-toch-krap` gebeurt.
+2. **H1 bouwen**: de hub voor tweeverdieners met kinderen. Daarna beslissen wat er met `goed-salaris-toch-krap` gebeurt.
 3. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn.
 4. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven 2027 bekend zijn.
 5. **Het lek dichten**: rond 13 september de schermlijst lezen en één wijziging doen op het scherm bovenaan.

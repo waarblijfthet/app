@@ -1,5 +1,8 @@
 import Link from "next/link";
 import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
+import GezinsbudgetTabel from "@/components/artikel/GezinsbudgetTabel";
+import CtaLink from "@/components/CtaLink";
+import { geldscanHref } from "@/lib/cta";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -32,6 +35,11 @@ export default function Samen6000EuroNettoTochNietsOver() {
         exact op dit niveau. Bij beide was mijn conclusie dat er geen lek was. Dat is geen ontwijkend
         antwoord, dat is de uitkomst, en het verandert wat je eraan moet doen.
       </p>
+
+      <h2 className="font-display" style={h2}>
+        Het gezinsbudget van twee huishoudens op dit niveau
+      </h2>
+      <GezinsbudgetTabel />
 
       <h2 className="font-display" style={h2}>
         Waarom twee inkomens fiscaal gunstig zijn en het toch niet zo voelt
@@ -229,6 +237,19 @@ export default function Samen6000EuroNettoTochNietsOver() {
         En schrijf ieder apart op waar je denkt dat het geld blijft. Vergelijk die twee antwoorden voordat
         je naar de afschriften kijkt. Als jullie het eens zijn, weet je waar je moet beginnen. Als jullie
         het oneens zijn, heb je net iets belangrijkers ontdekt dan een bedrag.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Kom je er met die twee stappen niet uit, dan kijk ik met de{" "}
+        <CtaLink
+          doel="geldscan"
+          href={geldscanHref()}
+          locatie="slot"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          Geldscan van &euro;49
+        </CtaLink>{" "}
+        naar jullie eigen cijfers, net zoals bij de twee huishoudens hierboven.
       </p>
     </>
   );
