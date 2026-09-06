@@ -69,7 +69,10 @@ export default function SamenTeVeelVerdiendToeslagKwijt() {
       <p className="font-body text-text-soft" style={p}>
         Het kindgebonden budget bouwt geleidelijk af, met 7,6 procent van het inkomen boven de grens.
         Voor alleenstaande ouders ligt het afbouwpunt lager, vanaf ongeveer €29.736, met daarbovenop
-        de alleenstaande-ouderkop. Hoe dat voor een alleenstaande ouder uitpakt, lees je in mijn
+        de alleenstaande-ouderkop. Vanaf 2027 komt daar een tweede afbouwschijf bij voor huishoudens boven
+        ongeveer €65.000 gezamenlijk, waardoor het kindgebonden budget veel sneller daalt. Wat dat
+        per maand kost staat in{" "}
+        <Link href="/inzichten/kindgebonden-budget-2027-inkomensgrens" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">kindgebonden budget 2027: vanaf welk inkomen verlies je het sneller</Link>. Hoe dat voor een alleenstaande ouder uitpakt, lees je in mijn
         artikel over de{" "}
         <Link
           href="/inzichten/kosten-levensonderhoud-alleenstaande-ouder-2026"

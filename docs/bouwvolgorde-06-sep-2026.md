@@ -89,11 +89,34 @@ Het plan noemt bij Z1 "eigen risico 165". Dat komt in de SERP nergens voor. Menz
 
 Bij Z3: de afschaffing van de kinderopvangtoeslag en directe financiering aan de opvang gaat om **2029**, niet 2027. In 2027 gaat alleen het vergoedingspercentage naar 96 procent voor het eerste kind, ook voor ouders die daar nu geen recht op hebben. Wie die twee door elkaar haalt schrijft een fout artikel.
 
-## 5. Volgende sessies
+## 5. Z4 gepubliceerd, 6 september 2026
+
+`/inzichten/kindgebonden-budget-2027-inkomensgrens`. Eerste pagina van cluster Z, negen dagen vóór Prinsjesdag.
+
+metaTitel: "2027: vanaf welk inkomen daalt je kindgebonden budget?" (53 tekens).
+
+**Wat de pagina zegt, doorgerekend en niet getypt.** Alle bedragen komen uit `lib/kindgebonden-budget.ts`, dat de tabel én de rekenaar voedt zodat ze niet uit elkaar kunnen lopen. Voor een stel met twee kinderen onder de 12:
+
+| Gezamenlijk inkomen | KGB 2026 p/m | KGB 2027 p/m | Wat de maatregel kost p/m |
+|---|---:|---:|---:|
+| €65.000 | €266 | €277 | niets |
+| €75.000 | €203 | €176 | €34 |
+| €85.000 | €140 | €73 | €70 |
+| €90.000 | €108 | €22 | €88 |
+
+Het nulpunt schuift van ongeveer €106.300 naar €92.100, dus ruim €14.000 eerder.
+
+**Wat vaststaat en wat een raming is.** Vast, uit het wetsvoorstel: het tweede afbouwpunt bij €60.000 prijspeil 2024, en het afbouwpercentage van 12,35 procent in 2027 en 12,80 procent in 2028, een verhoging van 4,30 procentpunt. Daaruit volgt het basispercentage van 8,05 procent. Geraamd: de indexatie van de grens naar circa €65.560 in 2027 en de maximumbedragen, allebei de 2026-bedragen plus 3 procent per jaar in lijn met de CPB-inflatieraming. De raming staat als één regel onder de kop en als vermelding onder de tabel, niet als disclaimer door de hele tekst.
+
+**Verplicht pakket afgevinkt:** antwoord met bedragen in de eerste alinea, tabel per inkomen, rekenaar met huishouden, kinderen en inkomen, vijf FAQ's, vier bronnen met ophaaldatum, analyse-CTA met situatieparameter na het eigen getal, Geldscan als enkele tekstlink in het slotblok, zichtbare regel "Cijfers bijgewerkt op 6 september 2026", twee inkomende links in dezelfde deploy vanuit is-4000 en `samen-te-veel-verdiend-toeslag-kwijt`.
+
+**Na de push, twee dingen voor jou.** URL handmatig indienen in GSC. En op 16 september, of zodra de Prinsjesdagcijfers er zijn, de vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen. Alleen dat bestand, de tabel en de rekenaar volgen vanzelf.
+
+## 6. Volgende sessies
 
 1. **S2 plus S1**: het bedragen-FAQ-blok in is-4000, uit `berekenVuistregel()` en `omslagpunt()`, met 3.500, 4.100, 4.200, 4.300, 4.500 en 4.600. Geen nieuwe pagina. Het modaalantwoord kan in datzelfde blok mee zodra het cijfer een bron heeft.
 2. **Pijler cluster P herschrijven**: `samen-6000-euro-netto-toch-niets-over` naar het gezinsbudget-format met het volledige paginapakket, en dan pas beslissen wat er met `goed-salaris-toch-krap` gebeurt.
-3. **Z4 bouwen**: kindgebonden budget 2027 voor tweeverdieners, het volledige paginapakket. Eerst de €60.000-grens naar prijspeil 2027 hard krijgen.
+3. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn. Tot die tijd geen eigen pagina.
 4. **Fase 1**: scherm-id in `logVoortgang()`, de twee markers op het resultaatscherm, en de schrijfactie naar een server-route. Zie `docs/funnelmeting-status-05-sep-2026.md`.
 
 De killgrens uit plan sectie 9 blijft staan: is de analyse-afronding op 19 september nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. Titelwerk en 301's vallen daar niet onder, die zijn onderhoud.

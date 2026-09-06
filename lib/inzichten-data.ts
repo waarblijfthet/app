@@ -216,6 +216,85 @@ const RAPPORT_TWEEVERDIENERS_DRIE_KINDEREN = rapportVoorSlug("tweeverdieners-dri
 
 export const artikelen: Artikel[] = [
   {
+    slug: "kindgebonden-budget-2027-inkomensgrens",
+    cta: {
+      kop: "Reken uit wat dit voor jouw huishouden doet",
+      tekst:
+        "De gratis analyse legt jullie hele maand naast vergelijkbare huishoudens, inclusief de posten die in 2027 veranderen. In een paar minuten zie je waar jullie afwijken.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Kindgebonden budget 2027: vanaf welk inkomen verlies je het sneller?",
+    korteTitel: "Kindgebonden budget 2027",
+    metaTitel: "2027: vanaf welk inkomen daalt je kindgebonden budget?",
+    metaDescription:
+      "Vanaf 2027 bouwt het kindgebonden budget sneller af boven een gezamenlijk inkomen van circa \u20ac65.000. Doorgerekend per huishouden, met rekenaar.",
+    datum: "2026-09-06",
+    datumFormatted: "6 september 2026",
+    leestijd: "6",
+    categorie: "Toeslagen",
+    excerpt:
+      "Vanaf 1 januari 2027 komt er een tweede afbouwschijf in het kindgebonden budget. Boven ongeveer \u20ac65.000 gezamenlijk inkomen gaat er 4,30 procentpunt extra af. Wat dat per maand kost, doorgerekend voor een stel met twee kinderen.",
+    preview: {
+      type: "vergelijking",
+      label: "Kindgebonden budget per maand, stel met twee kinderen",
+      items: [
+        { naam: "Bij \u20ac70.000 in 2026", bedrag: 235, kleur: "#0B7A6E" },
+        { naam: "Bij \u20ac70.000 in 2027", bedrag: 228, kleur: "#9CCFC4" },
+        { naam: "Bij \u20ac90.000 in 2026", bedrag: 108, kleur: "#0B7A6E" },
+        { naam: "Bij \u20ac90.000 in 2027", bedrag: 22, kleur: "#9CCFC4" },
+      ],
+      noot: "Bedragen voor 2027 zijn een raming, de definitieve bedragen komen op Prinsjesdag.",
+    },
+    faq: [
+      {
+        vraag: "Vanaf welk inkomen daalt het kindgebonden budget in 2027 sneller?",
+        antwoord:
+          "Vanaf een gezamenlijk toetsingsinkomen van \u20ac60.000 in prijspeil 2024. Ge\u00efndexeerd naar 2027 komt dat naar verwachting rond de \u20ac65.000 uit. Boven die grens stijgt het afbouwpercentage van 8,05 naar 12,35 procent, een verhoging van 4,30 procentpunt. Onder die grens verandert er niets aan de afbouw.",
+      },
+      {
+        vraag: "Wat kost deze maatregel mij per maand?",
+        antwoord:
+          "Dat hangt af van hoever je boven de grens zit. Voor een stel met twee kinderen onder de 12 loopt het op van niets bij \u20ac65.000 tot ongeveer \u20ac88 per maand bij \u20ac90.000. Boven ongeveer \u20ac92.000 is het kindgebonden budget helemaal weg en kan het niet verder dalen.",
+      },
+      {
+        vraag: "Bij welk inkomen krijg ik in 2027 helemaal geen kindgebonden budget meer?",
+        antwoord:
+          "Voor een stel met twee kinderen onder de 12 komt het budget rond de \u20ac92.000 gezamenlijk inkomen op nul uit. Zonder deze maatregel zou dat pas rond de \u20ac106.000 gebeuren. Het nulpunt schuift dus ruim \u20ac14.000 naar beneden.",
+      },
+      {
+        vraag: "Geldt dit ook voor alleenstaande ouders?",
+        antwoord:
+          "Ja, de tweede afbouwschijf geldt voor elk huishouden met een toetsingsinkomen boven de grens. Alleenstaande ouders beginnen wel bij een hoger maximumbedrag door de alleenstaande-ouderkop, en hun eerste afbouwpunt ligt lager. In de rekenaar hierboven kun je die situatie kiezen.",
+      },
+      {
+        vraag: "Staan deze bedragen definitief vast?",
+        antwoord:
+          "Het afbouwpercentage van 12,35 procent en de grens van \u20ac60.000 in prijspeil 2024 staan in het wetsvoorstel en zijn vastgesteld. De bedragen die daarvan afhangen, zoals het maximum per kind en de ge\u00efndexeerde grens voor 2027, zijn nog een raming. Die worden op Prinsjesdag definitief en ik werk dit artikel dan bij.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Rijksoverheid: minder kindgebonden budget voor hogere inkomens in 2027 (opgehaald 6 september 2026)",
+        url: "https://www.rijksoverheid.nl/actueel/nieuws",
+      },
+      {
+        label: "Wetgevingskalender: wijziging Wet op het kindgebonden budget (opgehaald 6 september 2026)",
+        url: "https://wetgevingskalender.overheid.nl/",
+      },
+      {
+        label: "Belastingdienst: wat verandert er in 2026 voor uw toeslagen (opgehaald 6 september 2026)",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/nl/toeslagen/toeslagen",
+      },
+      {
+        label: "CPB: concept-Macro Economische Verkenning 2027 (opgehaald 6 september 2026)",
+        url: "https://www.cpb.nl/raming-concept-macro-economische-verkenning-cmev-2027",
+      },
+    ],
+  },
+  {
     slug: "hoe-weet-ik-of-ik-financieel-gezond-ben",
     cta: {
       kop: "Wil je weten hoe jouw financiële situatie ervoor staat?",
