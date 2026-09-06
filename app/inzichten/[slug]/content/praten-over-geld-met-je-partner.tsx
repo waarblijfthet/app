@@ -98,6 +98,14 @@ export default function PratenOverGeldMetJePartner() {
         dieper dan het geld zelf, dan is een relatietherapeut de juiste plek.
       </p>
       <p className="font-body text-text-soft" style={p}>
+        Gaat het gesprek bij jullie specifiek over uitgaven die de een te hoog vindt en de ander
+        niet, dan staat in{" "}
+        <Link href="/inzichten/partner-geeft-te-veel-uit" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">mijn partner geeft te veel uit</Link>{" "}
+        per post wat jij ziet, wat je partner waarschijnlijk ziet en wat de cijfers zeggen. Gaat het
+        over geld dat voor je verzwegen wordt, dan is dat een eigen onderwerp met eigen cijfers:{" "}
+        <Link href="/inzichten/financiele-ontrouw-partner-verzwijgt-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">financi&euml;le ontrouw</Link>.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
         Lees ook over de{" "}
         <Link href="/inzichten/gezamenlijke-rekening-voor-en-nadelen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gezamenlijke rekening, voor- en nadelen</Link>.
       </p>

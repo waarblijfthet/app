@@ -308,6 +308,157 @@ const N1_KLEIN = berekenRenteVerschil({
 
 export const artikelen: Artikel[] = [
   {
+    slug: "financiele-ontrouw-partner-verzwijgt-geld",
+    cta: {
+      kop: "Zet eerst de maand op een rij, samen",
+      tekst:
+        "De gratis analyse vergelijkt jullie uitgaven post voor post met vergelijkbare huishoudens. Dat is geen bewijsmateriaal, het is een neutraal beginpunt: de vergelijking kent het verhaal van geen van beiden.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "stel" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Financiële ontrouw: als je partner uitgaven of een lening verzwijgt",
+    korteTitel: "Financiële ontrouw",
+    metaTitel: "11,75% verzweeg een lening: financiële ontrouw uitgelegd",
+    metaDescription:
+      "Financi\u00eble ontrouw is geld verzwijgen voor je partner. 11,75 procent verzweeg ooit een lening (n=400), 42,4 procent uit schaamte (n=1.127). Vijf vormen, met bron, datum en het eerste signaal.",
+    datum: "2026-09-06",
+    datumFormatted: "6 september 2026",
+    leestijd: "7",
+    categorie: "Geld en relatie",
+    excerpt:
+      "De term bestaat in de Nederlandse media, maar geen enkele personal-financepagina beantwoordt hem met cijfers. Hier staan ze wel, met de opdrachtgever, de steekproef en de datum erbij, en bij drie van de vijf vormen staat er dat ik geen cijfer heb.",
+    preview: {
+      type: "statistiek",
+      label: "Van wie ooit een lening verborgen hield (Lening.nl, aug 2026, n=1.127)",
+      segmenten: [
+        { label: "Schaamte als reden", pct: 42, kleur: "#C4603A", tekstKleur: "#FFFFFF" },
+        { label: "Andere redenen", pct: 58, kleur: "#E7F1EE", tekstKleur: "#16211F" },
+      ],
+    },
+    faq: [
+      {
+        vraag: "Is een aparte rekening al financiële ontrouw?",
+        antwoord:
+          "Nee, zolang jullie allebei weten dat hij bestaat, ongeveer hoe groot hij is en waarom hij er is. Financi\u00eble ontrouw gaat over verzwijgen en niet over gescheiden houden; heel veel stellen hebben bewust ieder een eigen rekening met een vast bedrag waarover niemand verantwoording aflegt, en dat is een afspraak en geen geheim. Het wordt pas iets anders als de ander niet weet dat de rekening er is of er geld naartoe gaat dat in het gezamenlijke overzicht ontbreekt.",
+      },
+      {
+        vraag: "Ben ik aansprakelijk voor een schuld die mijn partner verzwijgt?",
+        antwoord:
+          "Als jullie samenwonen, met of zonder samenlevingscontract, bent u meestal niet aansprakelijk voor schulden van uw partner; wel voor uw eigen schulden en voor schulden die u samen maakt (Het Juridisch Loket). Bij een huwelijk of geregistreerd partnerschap ligt het anders en hangt het af van wanneer de schuld is ontstaan en van eventuele huwelijkse voorwaarden. Dit is een juridische vraag en geen budgetvraag: het Juridisch Loket helpt kosteloos en is de juiste plek om het te laten uitzoeken.",
+      },
+      {
+        vraag: "Moet ik het melden bij de bank?",
+        antwoord:
+          "Nee. Een bank heeft hier geen rol en er is niets te melden: een lening die je partner op eigen naam is aangegaan is een geldige overeenkomst, ook als jij er niets van wist. Waar het wel zin heeft om naartoe te gaan is de gemeente, zodra de schuld niet meer te betalen is. Schuldhulpverlening is kosteloos en kan met schuldeisers onderhandelen, wat een particulier zelf zelden voor elkaar krijgt.",
+      },
+      {
+        vraag: "Helpt een gezamenlijke rekening hiertegen?",
+        antwoord:
+          "Maar deels. Een gezamenlijke rekening maakt zichtbaar wat er via die rekening loopt, en dat is winst. Wat er buiten de rekening om gebeurt, zoals een lening op eigen naam of een aankoop op afbetaling, ziet hij niet. Wat in de praktijk meer doet is een keer per maand samen naar hetzelfde overzicht kijken, ongeacht bij welke rekening wat staat. De voor- en nadelen per vorm staan in het artikel over de gezamenlijke rekening.",
+      },
+      {
+        vraag: "Wanneer ga je hiermee naar een relatietherapeut?",
+        antwoord:
+          "Zodra het gesprek niet meer over bedragen gaat maar over vertrouwen, of als hetzelfde gesprek al een paar keer op dezelfde manier is misgelopen. In het onderzoek van augustus 2026 (n=1.127) zegt bijna 12 procent een ernstig relatieconflict te hebben meegemaakt door een verzwegen schuld en ruim 9 procent dat het tot een breuk leidde, dus dit is niet iets wat vanzelf overwaait. Een vergelijking van jullie uitgaven repareert dat deel niet en doet niet alsof.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Lening.nl via Wonen360: 11,75 procent verzweeg ooit een lening voor de partner, onderzoek onder 400 volwassenen, zelfgerapporteerd (opgehaald 6 september 2026)",
+        url: "https://www.wonen360.nl/article/9826206/verborgen-leningen-zetten-relaties-onder-druk/",
+      },
+      {
+        label: "Lening.nl via Banken.nl: 42,4 procent schaamte, 21 procent nieuwe lening om een oude te verbergen, onderzoek onder 1.127 Nederlanders (opgehaald 6 september 2026)",
+        url: "https://www.banken.nl/nieuws/27303/schaamte-houdt-nederlanders-weg-van-hulp-bij-schulden",
+      },
+      {
+        label: "Het Juridisch Loket: ben ik aansprakelijk voor schulden van mijn partner bij samenwonen (opgehaald 6 september 2026)",
+        url: "https://www.juridischloket.nl/schulden-en-incasso/schulden-oplossen/schulden-samenwonen/",
+      },
+      {
+        label: "Rijksoverheid: schulden en waar je terechtkunt voor schuldhulpverlening (opgehaald 6 september 2026)",
+        url: "https://www.rijksoverheid.nl/themas/recht-veiligheid-en-defensie/schulden",
+      },
+    ],
+  },
+  {
+    slug: "partner-geeft-te-veel-uit",
+    cta: {
+      kop: "Doe de analyse samen, dan praat je over hetzelfde getal",
+      tekst:
+        "De gratis analyse zet jullie uitgaven post voor post naast vergelijkbare huishoudens. Vul hem samen in, aan dezelfde tafel. Dan gaat het gesprek daarna over de cijfers en niet over wie er gelijk heeft.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "stel" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Mijn partner geeft te veel uit: wat je kunt doen zonder ruzie",
+    korteTitel: "Partner geeft te veel uit",
+    metaTitel: "Partner geeft te veel uit: wat je doet zonder ruzie",
+    metaDescription:
+      "Het is bijna nooit \u00e9\u00e9n post en bijna altijd twee beelden van normaal. Vier posten naast elkaar: wat jij ziet, wat je partner ziet en wat de cijfers zeggen, met de n erbij.",
+    datum: "2026-09-06",
+    datumFormatted: "6 september 2026",
+    leestijd: "7",
+    categorie: "Geld en relatie",
+    excerpt:
+      "Zeven van de negen zoekresultaten op deze vraag zijn forum of blog, en geen enkel zet er een bedrag naast. Hier staan de bedragen wel, met per post het aantal huishoudens waarop ze rusten, en bij twee posten staat er eerlijk dat ik geen cijfer heb.",
+    preview: {
+      type: "vergelijking",
+      label: "Wat de cijfers zeggen, voor twee volwassenen per maand",
+      items: [
+        { naam: "Boodschappen", bedrag: 700, kleur: "#0B7A6E" },
+        { naam: "Abonnementen", bedrag: 150, kleur: "#3E9A8C" },
+        { naam: "Uit eten, geen apart cijfer", bedrag: 0, kleur: "#C4603A" },
+        { naam: "Kleding, geen cijfer bekend", bedrag: 0, kleur: "#C4603A" },
+      ],
+      noot: "Op twee van de vier posten heb ik met vijf huishoudens geen los cijfer, en dat staat in de tabel.",
+    },
+    faq: [
+      {
+        vraag: "Mag ik de uitgaven van mijn partner controleren?",
+        antwoord:
+          "Op een gezamenlijke rekening zie je alles van elkaar en dat is inherent aan die keuze. Op een priv\u00e9rekening kun je niets zien zonder dat je partner het je laat zien, en dat afdwingen is geen goed idee. Bovendien lost het je vraag niet op: je wilt niet controleren, je wilt weten of jullie samen veel of weinig uitgeven vergeleken met anderen. Dat kun je samen doen zonder dat iemand elkaars rekening inziet, met bedragen per post in plaats van per transactie.",
+      },
+      {
+        vraag: "Aparte of gezamenlijke rekening bij ongelijk uitgavengedrag?",
+        antwoord:
+          "Er is geen vorm die dit oplost, want de vraag gaat niet over de rekening maar over wat jullie normaal vinden. Wat in de praktijk het minste wrijving geeft is een gezamenlijke rekening voor alles wat samen is, met voor ieder een vast bedrag naar een eigen rekening waarover niemand verantwoording aflegt. De voor- en nadelen per vorm staan in het artikel over de gezamenlijke rekening; de kosten verdelen als jullie inkomens verschillen is een aparte vraag.",
+      },
+      {
+        vraag: "Hoe begin je het gesprek over geld met je partner?",
+        antwoord:
+          "Met een vraag waarop het antwoord ook voor jou onbekend is, en niet met een conclusie die je al getrokken hebt. \u201cZullen we een keer samen kijken wat er eigenlijk uitgaat, ik weet het zelf ook niet precies\u201d werkt, \u201cweet je wel hoeveel jij vorige maand hebt uitgegeven\u201d niet. Kies een moment waarop niemand moe of gespannen is, en zet iets concreets op tafel: een lijst met bedragen kent het verhaal van geen van beiden en is daarom een neutrale start.",
+      },
+      {
+        vraag: "Wat als mijn partner niet wil meedoen aan een analyse?",
+        antwoord:
+          "Doe hem dan zelf, met de bedragen die je kent, en laat de uitkomst zien in plaats van hem uit te leggen. Dat is minder confronterend dan het lijkt, want de uitkomst gaat over jullie huishouden en niet over een van jullie tweeen. Wat je niet moet doen is de uitkomst als bewijs gebruiken in een discussie die al liep; dan wordt de vergelijking een wapen en is de kans op meedoen daarna kleiner.",
+      },
+      {
+        vraag: "Is een budgetcoach iets voor stellen zonder schulden?",
+        antwoord:
+          "Kan, als jullie begeleiding over meerdere maanden willen; een budgetcoach rekent doorgaans \u20ac60 tot \u20ac100 per uur. Voor de vraag of jullie veel uitgeven vergeleken met vergelijkbare huishoudens hoef je geen traject in. Welke vier soorten hulp er zijn en bij welke je moet zijn staat op de pagina over iemand naar je financi\u00ebn laten kijken zonder dat je schulden hebt.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Lening.nl via Wonen360: 11,75 procent van de Nederlanders met een partner verzweeg ooit een lening, onderzoek onder 400 volwassenen en zelfgerapporteerd (opgehaald 6 september 2026)",
+        url: "https://www.wonen360.nl/article/9826206/verborgen-leningen-zetten-relaties-onder-druk/",
+      },
+      {
+        label: "Lening.nl via Banken.nl: 42,4 procent noemt schaamte als reden om een lening te verzwijgen, onderzoek onder 1.127 Nederlanders (opgehaald 6 september 2026)",
+        url: "https://www.banken.nl/nieuws/27303/schaamte-houdt-nederlanders-weg-van-hulp-bij-schulden",
+      },
+      {
+        label: "De vijf doorgerekende huishoudens waarop de bedragen in de tabel rusten, met de n per post",
+        url: "https://www.waarblijfthet.nl/rapporten",
+      },
+    ],
+  },
+  {
     slug: "kan-iemand-naar-mijn-financien-kijken",
     dienstSchema: true,
     cta: {
@@ -1336,6 +1487,7 @@ export const artikelen: Artikel[] = [
     metaTitel: "Praten over geld met je partner zonder ruzie",
     metaDescription:
       "Waarom een geldgesprek zo vaak ruzie wordt, hoe je het opent zonder verwijt en op het juiste moment, en wat je doet als jullie er samen niet uitkomen.",
+    gewijzigd: "2026-09-06",
     datum: "2026-07-11",
     datumFormatted: "11 juli 2026",
     leestijd: "5",
@@ -4559,6 +4711,7 @@ export const artikelen: Artikel[] = [
       "Geld en relatiestress: wat het doet en hoe je erover praat",
     metaDescription:
       "De helft van de Nederlandse stellen heeft ooit ruzie gemaakt over geld. Maar de meeste praten er nauwelijks over. Waarom, en wat je eraan kunt doen.",
+    gewijzigd: "2026-09-06",
     datum: "2026-05-23",
     datumFormatted: "23 mei 2026",
     leestijd: "7",

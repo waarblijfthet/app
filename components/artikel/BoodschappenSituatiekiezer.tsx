@@ -88,18 +88,34 @@ const SITUATIES: Situatie[] = [
   },
 ];
 
-export default function BoodschappenSituatiekiezer() {
+/**
+ * Twee optionele teksten (6-sep-2026, brief N2). De kiezer wordt nu op twee
+ * pagina's gebruikt en de vraag erboven verschilt: op het boodschappenartikel
+ * is het "zit je binnen die bedragen en houd je toch niets over", op de pagina
+ * over een partner die te veel uitgeeft is het "vul samen in". De chips, de
+ * bedragen en de vervolgroutes blijven exact hetzelfde, want die komen uit de
+ * persona-toets van 30-jul-2026 en die staat los van de vraag erboven. Zonder
+ * meegegeven tekst gedraagt het component zich precies als voorheen.
+ */
+interface Props {
+  kop?: string;
+  intro?: string;
+}
+
+export default function BoodschappenSituatiekiezer({
+  kop = "Zit je binnen die bedragen en houd je toch niets over?",
+  intro = "Dan zit het niet in je boodschappen. Kies je situatie, dan zeg ik waar het bij jouw huishouden meestal wel zit.",
+}: Props = {}) {
   const [actief, setActief] = useState<number | null>(null);
   const s = actief === null ? null : SITUATIES[actief];
 
   return (
     <div className="my-6">
       <p className="font-body font-medium text-sm mb-1" style={{ color: "#16211F" }}>
-        Zit je binnen die bedragen en houd je toch niets over?
+        {kop}
       </p>
       <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300 }}>
-        Dan zit het niet in je boodschappen. Kies je situatie, dan zeg ik waar het bij jouw
-        huishouden meestal wel zit.
+        {intro}
       </p>
 
       {/* Mobiel: horizontaal scrollend en randloos aflopend, zodat zichtbaar is dat er meer staat.

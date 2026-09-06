@@ -1,3 +1,5 @@
+import FinancieleOntrouwPartnerVerzwijgtGeld from "./content/financiele-ontrouw-partner-verzwijgt-geld";
+import PartnerGeeftTeVeelUit from "./content/partner-geeft-te-veel-uit";
 import KanIemandNaarMijnFinancienKijken from "./content/kan-iemand-naar-mijn-financien-kijken";
 import RentevastePeriodeLooptAfWatNu from "./content/rentevaste-periode-loopt-af-wat-nu";
 import WatGeeftEenGezinUitPerMaand from "./content/wat-geeft-een-gezin-uit-per-maand";
@@ -89,6 +91,8 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "financiele-ontrouw-partner-verzwijgt-geld": FinancieleOntrouwPartnerVerzwijgtGeld,
+  "partner-geeft-te-veel-uit": PartnerGeeftTeVeelUit,
   "kan-iemand-naar-mijn-financien-kijken": KanIemandNaarMijnFinancienKijken,
   "rentevaste-periode-loopt-af-wat-nu": RentevastePeriodeLooptAfWatNu,
   "wat-geeft-een-gezin-uit-per-maand": WatGeeftEenGezinUitPerMaand,
