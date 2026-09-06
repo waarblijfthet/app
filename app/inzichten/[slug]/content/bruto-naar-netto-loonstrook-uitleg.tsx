@@ -135,7 +135,7 @@ export default function BrutoNaarNettoLoonstrookUitleg() {
         </Link>
         , wat{" "}
         <Link
-          href="/inzichten/modaal-inkomen-2026"
+          href="/inzichten/is-4000-euro-netto-goed-salaris-nederland"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >

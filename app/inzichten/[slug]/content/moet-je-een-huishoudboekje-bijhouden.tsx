@@ -95,7 +95,7 @@ export default function MoetJeEenHuishoudboekjeBijhouden() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Lees ook{" "}
-        <Link href="/inzichten/waar-blijft-mijn-geld-einde-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar je geld aan het einde van de maand blijft</Link>.
+        <Link href="/inzichten/waarom-hou-ik-nooit-geld-over" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar je geld aan het einde van de maand blijft</Link>.
       </p>
     </>
   );

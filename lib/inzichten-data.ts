@@ -1728,51 +1728,6 @@ export const artikelen: Artikel[] = [
     ],
   },
   {
-    slug: "waar-blijft-mijn-geld-einde-maand",
-    korteTitel: "Waar blijft mijn geld?",
-    titel: "Waar blijft mijn geld aan het einde van de maand?",
-    metaTitel: "Waar blijft mijn geld aan het einde van de maand?",
-    metaDescription:
-      "Niks geks gedaan en toch is het bijna op? Je geld gaat bijna altijd naar vier plekken. Zo zie je in een paar minuten welke het bij jou is.",
-    datum: "2026-06-19",
-    datumFormatted: "19 juni 2026",
-    leestijd: "4",
-    categorie: "Inzicht",
-    excerpt:
-      "Het is de 24e en je vraagt je af waar het gebleven is. Je geld gaat bijna altijd naar vier plekken. Hoe je in een paar minuten ziet welke het bij jou is, en wat de eerste stap is.",
-    preview: {
-      type: "pijn",
-      label: "De vier verdachten",
-      items: [
-        "Vaste lasten, hoger dan je denkt",
-        "Dagelijkse uitgaven die je niet bijhoudt",
-        "Onregelmatige kosten zonder eigen potje",
-        "Kleine gewoontes die optellen",
-      ],
-    },
-    faq: [
-      {
-        vraag: "Waar gaat mijn geld naartoe aan het einde van de maand?",
-        antwoord:
-          "Meestal naar vier plekken: vaste lasten die hoger zijn dan je denkt (vaak richting 55% van je inkomen), dagelijkse uitgaven die je niet bijhoudt, onregelmatige kosten zonder eigen potje, en kleine gewoontes die optellen. Welke het bij jou is, zie je pas als je het zwart op wit zet.",
-      },
-      {
-        vraag: "Hoe kom ik erachter waar mijn geld blijft?",
-        antwoord:
-          "Pak de afschriften van de afgelopen twee maanden en tel drie dingen op: vaste lasten, dagelijkse uitgaven en wat er echt overblijft. Negen van de tien keer zit de verrassing in de dagelijkse uitgaven die niemand bijhoudt.",
-      },
-      {
-        vraag: "Ligt het aan mij dat ik niks overhoud?",
-        antwoord:
-          "Meestal niet. Het is bijna nooit een grote uitgave, maar een optelsom van kleine dingen en gegroeide vaste lasten. Dat is een structuurprobleem, en daar valt op te sturen.",
-      },
-    ],
-    externLinks: [
-      { label: "Nibud: uitgaven van huishoudens", url: "https://www.nibud.nl/onderwerpen/uitgaven/" },
-      { label: "CBS: besparingen huishoudens", url: "https://www.cbs.nl/nl-nl/nieuws/2025/22/besparingen-huishoudens-namen-sterk-toe-in-2024" },
-    ],
-  },
-  {
     slug: "bonus-13e-maand-netto-berekenen",
     korteTitel: "Bonus of 13e maand: netto",
     titel: "Hoeveel houd je netto over van je bonus of dertiende maand?",
@@ -2617,47 +2572,6 @@ export const artikelen: Artikel[] = [
       {
         label: "Nationale Onderwijsgids: wat kost de BSO in 2026",
         url: "https://www.nationaleonderwijsgids.nl/kinderopvang/wat-kost-de-buitenschoolse-opvang-in-2026/",
-      },
-    ],
-  },
-  {
-    slug: "modaal-inkomen-2026",
-    korteTitel: "Modaal inkomen 2026",
-    titel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
-    metaTitel: "Modaal inkomen 2026: wat is het en wat houd je netto over?",
-    metaDescription: "Het modaal inkomen is in 2026 circa €48.000 bruto, netto zo'n €2.700 tot €3.100 per maand. Wat modaal betekent en waarom het toch krap kan voelen.",
-    datum: "2026-05-30",
-    datumFormatted: "30 mei 2026",
-    leestijd: "5",
-    categorie: "Inkomen",
-    excerpt: "Modaal is geen gemiddelde en geen minimum, maar het meest voorkomende inkomen. In 2026 is dat ongeveer €48.000 bruto per jaar, netto €2.700 tot €3.100 per maand. En toch voelt het vaak krap.",
-    preview: {
-      type: "vergelijking",
-      label: "Modaal inkomen 2026",
-      items: [
-        { naam: "Bruto per maand", bedrag: 3700, kleur: "#0B7A6E" },
-        { naam: "Netto (indicatie)", bedrag: 2900, kleur: "#0A6A5F" },
-      ],
-      noot: "€48.000 bruto/jaar incl. vakantiegeld (CPB)",
-    },
-    faq: [
-      {
-        vraag: "Wat is het modaal inkomen in 2026?",
-        antwoord: "Het modaal inkomen is in 2026 vastgesteld op ongeveer €48.000 bruto per jaar inclusief vakantiegeld, oftewel zo'n €3.700 bruto per maand. Het is het meest voorkomende inkomen in Nederland, niet het gemiddelde.",
-      },
-      {
-        vraag: "Wat houd je netto over van een modaal inkomen?",
-        antwoord: "Dat hangt af van je situatie (heffingskortingen, pensioen, toeslagen), maar netto komt een modaal inkomen ongeveer neer op €2.700 tot €3.100 per maand.",
-      },
-      {
-        vraag: "Is modaal hetzelfde als het gemiddelde inkomen?",
-        antwoord: "Nee. Modaal is het meest voorkomende inkomen; het gemiddelde ligt hoger omdat een kleine groep hoge inkomens het gemiddelde omhoog trekt.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Modaal inkomen 2026 (CPB-kerncijfers)",
-        url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
       },
     ],
   },

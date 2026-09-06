@@ -42,7 +42,6 @@ import WatKostEenKindPerMaand from "./content/wat-kost-een-kind-per-maand";
 import SchoolkostenPerJaarGezin from "./content/schoolkosten-per-jaar-gezin";
 import HogereHypotheekWatKostHetPerMaand from "./content/hogere-hypotheek-wat-kost-het-per-maand";
 import VerbouwenFinancieleValkuilen from "./content/verbouwen-financiele-valkuilen";
-import ModaalInkomen2026 from "./content/modaal-inkomen-2026";
 import OnsBoodschappenbudgetMislukte from "./content/ons-boodschappenbudget-mislukte-tot-we-dit-deden";
 import KerstpotVerjaardagspotZoBouwdenWeDie from "./content/kerstpot-en-verjaardagspot-zo-bouwden-we-die";
 import BsoKostenTweedeInkomen from "./content/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om";
@@ -69,7 +68,6 @@ import NettoLoonsverhogingBerekenen from "./content/netto-loonsverhoging-bereken
 import Weken53SpaaruitdagingSchema2026 from "./content/53-weken-spaaruitdaging-schema-2026";
 import VergetenAftrekpostenBelastingaangifte from "./content/vergeten-aftrekposten-belastingaangifte";
 import MoneyDysmorphiaUitleg from "./content/money-dysmorphia-uitleg";
-import WaarBlijftMijnGeldEindeMaand from "./content/waar-blijft-mijn-geld-einde-maand";
 import Bonus13eMaandNettoBerekenen from "./content/bonus-13e-maand-netto-berekenen";
 import SamenTeVeelVerdiendToeslagKwijt from "./content/samen-te-veel-verdiend-toeslag-kwijt";
 import CashStuffingBeginnen from "./content/cash-stuffing-beginnen";
@@ -131,7 +129,6 @@ const contentMap: Record<string, () => JSX.Element> = {
   "schoolkosten-per-jaar-gezin": SchoolkostenPerJaarGezin,
   "hogere-hypotheek-wat-kost-het-per-maand": HogereHypotheekWatKostHetPerMaand,
   "verbouwen-financiele-valkuilen": VerbouwenFinancieleValkuilen,
-  "modaal-inkomen-2026": ModaalInkomen2026,
   "ons-boodschappenbudget-mislukte-tot-we-dit-deden": OnsBoodschappenbudgetMislukte,
   "kerstpot-en-verjaardagspot-zo-bouwden-we-die": KerstpotVerjaardagspotZoBouwdenWeDie,
   "bso-kosten-tweede-inkomen-zo-draaiden-we-het-om": BsoKostenTweedeInkomen,
@@ -158,7 +155,6 @@ const contentMap: Record<string, () => JSX.Element> = {
   "53-weken-spaaruitdaging-schema-2026": Weken53SpaaruitdagingSchema2026,
   "vergeten-aftrekposten-belastingaangifte": VergetenAftrekpostenBelastingaangifte,
   "money-dysmorphia-uitleg": MoneyDysmorphiaUitleg,
-  "waar-blijft-mijn-geld-einde-maand": WaarBlijftMijnGeldEindeMaand,
   "bonus-13e-maand-netto-berekenen": Bonus13eMaandNettoBerekenen,
   "samen-te-veel-verdiend-toeslag-kwijt": SamenTeVeelVerdiendToeslagKwijt,
   "cash-stuffing-beginnen": CashStuffingBeginnen,
