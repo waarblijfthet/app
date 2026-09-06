@@ -1,7 +1,9 @@
 import CtaLink from "@/components/CtaLink";
 import { QuizData } from "@/lib/quiz-types";
 import { geldscanHref } from "@/lib/cta";
+import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import BewaarUitkomst from "./BewaarUitkomst";
+import ToestemmingDataAsset from "./ToestemmingDataAsset";
 
 const PUNTEN = [
   "Persoonlijke analyse van jullie situatie",
@@ -51,26 +53,34 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
           ))}
         </ul>
 
-        <div className="flex items-baseline gap-2 mb-1">
-          <span className="font-display font-light text-primary text-2xl">€49</span>
-          <span className="font-body text-sm text-text-muted">eenmalig</span>
-        </div>
-        <p className="font-body text-text-muted text-xs mb-6">
-          Persoonlijk bekeken &middot; geen abonnement &middot; geen verkoopgesprek
+        <p className="font-body text-text-muted text-xs mb-5">
+          Eenmalig &middot; geen abonnement &middot; geen verkoopgesprek
         </p>
 
+        {/* Eén primaire knop met de prijs erin (plan sectie 6 punt 3). De prijs
+            stond eerder als los bedrag boven de knop; wie alleen de knop las,
+            klikte zonder te weten wat het kost. */}
         <CtaLink
           doel="geldscan"
           href={geldscanHref()}
           locatie="analyse-resultaat"
           className="btn-primary w-full sm:w-auto text-base"
         >
-          Laat mij onderzoeken wat hierachter zit →
+          Laat mij uitzoeken wat hierachter zit, €49 →
         </CtaLink>
         <p className="font-body text-text-muted text-xs mt-3">
           Binnen 2 werkdagen persoonlijk geschreven.
         </p>
+
+        {/* Bewijsregel uit lib/rapporten-data.ts. Nooit met de hand een aantal
+            neerzetten: dit telt de echte rapporten. */}
+        <p className="font-body text-text-soft text-sm mt-5 pt-5 border-t border-accent/25">
+          Ik schreef er inmiddels {RAPPORTEN.length} uit. Bij {AANTAL_ZONDER_LEK} daarvan bleek er
+          geen lek te zitten, en dat schreef ik er ook zo in.
+        </p>
       </div>
+
+      <ToestemmingDataAsset />
 
       <BewaarUitkomst data={data} onChange={onChange} resultaat={resultaat} />
     </div>

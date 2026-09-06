@@ -138,12 +138,30 @@ Wat er nu staat:
 
 **Wat er daarna gebeurt.** Vanaf de eerste sessie na de migratie zie je per scherm waar het ophoudt. Zeven dagen data, dan één wijziging op het scherm bovenaan, een week meten, dan het volgende. De hypothesevolgorde uit het plan (inkomensvraag zonder uitleg, e-mail vóór resultaat, te veel velden op mobiel) is vanaf dat moment niet meer nodig als gok.
 
-## 8. Volgende sessies
+## 8. Fase 1 punt 3 gebouwd, 6 september 2026
 
-1. **Pijler cluster P herschrijven**: `samen-6000-euro-netto-toch-niets-over` naar het gezinsbudget-format met het volledige paginapakket, en dan pas beslissen wat er met `goed-salaris-toch-krap` gebeurt.
-2. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn.
-3. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven 2027 bekend zijn.
-4. **Het lek dichten**: zeven dagen na de migratie de schermlijst lezen en één wijziging doen op het scherm bovenaan.
-5. **Admin-lezing van `quiz_voortgang` naar een server-route**, zodat anon select ingetrokken kan worden.
+Het resultaatscherm, `app/analyse/stappen/resultaat/Resultaat4Aanbod.tsx`. Hiermee is het laatste blokkerende item vóór contentbouw uit plan sectie 6 klaar.
+
+Drie wijzigingen:
+
+1. **De prijs staat nu in de knop.** Hij stond als los bedrag boven de knop, dus wie alleen de knop las klikte zonder te weten wat het kost. De knop is nu "Laat mij uitzoeken wat hierachter zit, €49".
+2. **De bewijsregel staat er,** met `RAPPORTEN.length` en `AANTAL_ZONDER_LEK` uit `lib/rapporten-data.ts`. Vandaag is dat vijf rapporten waarvan twee zonder lek. Nooit met de hand een aantal neerzetten: dit telt de echte rapporten en gaat vanzelf mee als er een zesde bij komt.
+3. **De toestemmingsvraag voor de data-asset** staat eronder, als één opt-in-zin in een eigen component, opgeslagen via `/api/analyse-voortgang` in de kolom `toestemming_data_asset`. Lege checkbox, geen vooraf aangevinkt vakje. Daarmee is de kolom die gisteren met de migratie meekwam ook echt gevuld; die stond tot vandaag leeg.
+
+De volgorde op het scherm is nu zoals plan sectie 6 punt 3 hem voorschrijft: eerst de vergelijking in uitkomst 1 tot 3, dan de knop met de prijs, dan de bewijsregel, dan de toestemmingsvraag, en de e-mail blijft secundair als tekstlink die pas na een bewuste klik opengaat.
+
+**Wat dit betekent voor het plan.** Fase 1 punt 1 en punt 3 staan allebei live. De regel "contentbouw begint pas als punt 1 en 3 live staan" is daarmee vervuld, dus vanaf nu mag de bouwvolgorde weer lopen. De killgrens blijft staan: is de afronding op 19 september nog nul procent, dan stopt alles tot het lek gevonden is.
+
+**Wat er nog niet is uit fase 1:** de opvolgmail op dag 0, 3 en 8 (punt 4) en Bing Webmaster Tools plus de schema-audit (punt 5). Punt 4 heeft pas zin als er afgeronde analyses met e-mailadres zijn, dus dat wacht op de eerste week data. Punt 5 kan los en kost een half uur, grotendeels aan jouw kant.
+
+## 9. Volgende sessies
+
+1. **Bing Webmaster Tools aanzetten en de sitemap indienen** (fase 1 punt 5, jouw kant). ChatGPT-zoeken leunt op Bing en daar meten we vandaag niets.
+2. **Pijler cluster P herschrijven**: `samen-6000-euro-netto-toch-niets-over` naar het gezinsbudget-format met het volledige paginapakket, en dan pas beslissen wat er met `goed-salaris-toch-krap` gebeurt.
+3. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn.
+4. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven 2027 bekend zijn.
+5. **Het lek dichten**: rond 13 september de schermlijst lezen en één wijziging doen op het scherm bovenaan.
+6. **Admin-lezing van `quiz_voortgang` naar een server-route**, zodat anon select ingetrokken kan worden.
+7. **Opvolgmail dag 0, 3 en 8** zodra er afgeronde analyses met e-mailadres zijn.
 
 De killgrens uit plan sectie 9 blijft staan: is de analyse-afronding op 19 september nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. Titelwerk en 301's vallen daar niet onder, die zijn onderhoud.
