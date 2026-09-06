@@ -1,3 +1,4 @@
+import KanIemandNaarMijnFinancienKijken from "./content/kan-iemand-naar-mijn-financien-kijken";
 import RentevastePeriodeLooptAfWatNu from "./content/rentevaste-periode-loopt-af-wat-nu";
 import WatGeeftEenGezinUitPerMaand from "./content/wat-geeft-een-gezin-uit-per-maand";
 import KindgebondenBudget2027Inkomensgrens from "./content/kindgebonden-budget-2027-inkomensgrens";
@@ -88,6 +89,7 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "kan-iemand-naar-mijn-financien-kijken": KanIemandNaarMijnFinancienKijken,
   "rentevaste-periode-loopt-af-wat-nu": RentevastePeriodeLooptAfWatNu,
   "wat-geeft-een-gezin-uit-per-maand": WatGeeftEenGezinUitPerMaand,
   "kindgebonden-budget-2027-inkomensgrens": KindgebondenBudget2027Inkomensgrens,

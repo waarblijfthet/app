@@ -140,6 +140,18 @@ export default function VerschilBudgetcoachFinancieelCoach() {
         </Link>
         . Geen traject verplicht, geen verkooppraat.
       </p>
+
+      <p style={p}>
+        Deze pagina beantwoordt wie wat doet.{" "}
+        <Link href="/inzichten/kan-iemand-naar-mijn-financien-kijken" style={oranje} className="hover:underline">
+          Kan iemand naar mijn financi&euml;n kijken zonder dat ik schulden heb
+        </Link>{" "}
+        beantwoordt of het iets voor jou is als je geen schulden hebt, en{" "}
+        <Link href="/inzichten/wat-kost-een-financieel-coach" style={oranje} className="hover:underline">
+          wat kost een financieel coach
+        </Link>{" "}
+        beantwoordt wat het kost.
+      </p>
     </>
   );
 }

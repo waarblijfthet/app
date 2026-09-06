@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getArtikel, artikelen, laatstGewijzigd } from "@/lib/inzichten-data";
 import ArticleBody from "./ArticleBody";
+import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL, geldscanHref } from "@/lib/cta";
 
 interface Props {
@@ -104,6 +105,36 @@ export default function ArtikelPage({ params }: Props) {
     ],
   };
 
+  /**
+   * Service-schema met prijs, alleen op de pagina die de dienst zelf beschrijft
+   * (brief N4). De prijs komt uit lib/aanbod-content.ts, zodat hij nooit kan
+   * afwijken van wat er op /aanbod en in de tabel op die pagina staat.
+   */
+  const dienstSchema = artikel.dienstSchema
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        name: "Geldscan",
+        serviceType: "Analyse van het huishoudbudget met handgeschreven rapport",
+        description:
+          "Eenmalige vergelijking van de uitgaven van een huishouden met vergelijkbare huishoudens, met daarna een met de hand geschreven rapport binnen 2 werkdagen. Geen schuldhulp en geen advies over financiele producten.",
+        areaServed: { "@type": "Country", name: "Nederland" },
+        provider: {
+          "@type": "Person",
+          name: "Jarno Koopman",
+          url: "https://www.waarblijfthet.nl/over",
+        },
+        offers: {
+          "@type": "Offer",
+          price: PAKKET_INFO.geldscan.prijs.replace(/[^0-9]/g, ""),
+          priceCurrency: "EUR",
+          url: "https://www.waarblijfthet.nl/aanbod/intake?pakket=geldscan",
+          availability: "https://schema.org/InStock",
+        },
+        url: `https://www.waarblijfthet.nl/inzichten/${artikel.slug}`,
+      }
+    : null;
+
   const faqSchema =
     artikel.faq.length > 0
       ? {
@@ -134,6 +165,12 @@ export default function ArtikelPage({ params }: Props) {
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+        />
+      )}
+      {dienstSchema && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(dienstSchema) }}
         />
       )}
 

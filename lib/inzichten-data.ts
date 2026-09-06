@@ -102,6 +102,14 @@ export interface Artikel {
   excerpt: string;
   faq: FAQItem[];
   externLinks?: ExternLink[];
+  /**
+   * Zet dit alleen op een pagina die de dienst zelf beschrijft, niet op een
+   * artikel dat er langs gaat. Dan komt er naast Article, FAQPage en
+   * BreadcrumbList ook een Service-schema met de prijs uit
+   * lib/aanbod-content.ts (CLAUDE.md 8.17 en brief N4). Twee pagina's met een
+   * Service-schema voor dezelfde dienst zijn dubbelop, dus houd het bij een.
+   */
+  dienstSchema?: boolean;
   preview: ArticlePreviewData;
 }
 
@@ -299,6 +307,84 @@ const N1_KLEIN = berekenRenteVerschil({
 }).verschil;
 
 export const artikelen: Artikel[] = [
+  {
+    slug: "kan-iemand-naar-mijn-financien-kijken",
+    dienstSchema: true,
+    cta: {
+      kop: "Begin bij de vergelijking, die is gratis",
+      tekst:
+        "De analyse zet je uitgaven post voor post naast vergelijkbare huishoudens. Geen account, geen afschriften. Daarna beslis je zelf of je wilt weten waarom je afwijkt.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Kan iemand naar mijn financiën kijken zonder dat ik schulden heb?",
+    korteTitel: "Naar je financiën laten kijken",
+    metaTitel: "Iemand naar je financiën laten kijken zonder schulden",
+    metaDescription:
+      "Ja. Vier opties naast elkaar: schuldhulp via de gemeente, budgetcoach, financieel planner en de Geldscan van \u20ac49. Met een keuzehulp van drie vragen en de vijf geleverde rapporten als bewijs.",
+    datum: "2026-09-06",
+    datumFormatted: "6 september 2026",
+    leestijd: "7",
+    categorie: "Financieel advies",
+    excerpt:
+      "Het aanbod in Nederland is of schuldhulp of advies over producten. Wie rondkomt en toch weinig overhoudt, valt bij beide buiten de instap. Wat er wel is, wat het kost en bij welke van de vier je moet zijn.",
+    preview: {
+      type: "pijn",
+      label: "Vier soorten hulp, vier verschillende vragen",
+      items: [
+        "Schulden die je niet kunt betalen \u2192 gemeente, kosteloos",
+        "Een product afsluiten \u2192 adviseur met AFM-vergunning",
+        "Weten waar je geld blijft \u2192 vergelijking en rapport",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wie kan mij helpen met overzicht in mijn geld zonder dat ik schulden heb?",
+        antwoord:
+          "Een budgetcoach als je begeleiding over meerdere maanden wilt, een financieel planner als je voor een keuze over een product staat, en voor de vraag waar je maandgeld blijft een vergelijking van je uitgaven met vergelijkbare huishoudens. Schuldhulpverlening via de gemeente is kosteloos maar begint bij een achterstand, dus die valt af als er niets misgaat. Je hoeft geen probleem te hebben om te mogen vragen waar je geld blijft.",
+      },
+      {
+        vraag: "Wat is het verschil tussen een budgetcoach en een geldscan?",
+        antwoord:
+          "Een budgetcoach begeleidt je over een periode, met een reeks gesprekken en een sluitende begroting; je betaalt per uur of per pakket. Een Geldscan is eenmalig: ik vergelijk je uitgaven met vergelijkbare huishoudens en schrijf met de hand een rapport met de drie dingen die het meest opvallen, plus wat juist niet uit de toon valt. Geen begeleiding, geen abonnement. Wie iemand wil die meekijkt en erop houdt, is bij een coach beter af.",
+      },
+      {
+        vraag: "Wat kost het om iemand naar je financiën te laten kijken?",
+        antwoord:
+          "Schuldhulpverlening via de gemeente is kosteloos. Een budgetcoach rekent ongeveer \u20ac60 tot \u20ac100 per uur, met pakketten vanaf circa \u20ac250. Bij een financieel planner betaal je advieskosten die je rechtstreeks afrekent, want ze mogen wettelijk niet in het product verwerkt zitten; het bedrag staat in de dienstenwijzer van het kantoor. Mijn Geldscan kost \u20ac49 en wordt binnen 2 werkdagen geleverd.",
+      },
+      {
+        vraag: "Is het veilig om bankafschriften te delen?",
+        antwoord:
+          "Afschriften zijn bij mij optioneel: de vragenlijst werkt ook op bedragen per post. Stuur je ze wel, streep dan rekeningnummers, namen van anderen en betalingen die er niet bij hoeven weg; dat deed het huishouden van het eerste rapport ook. Ik vraag nooit om inloggegevens van je bank en koppel nooit een rekening. Na levering verwijder ik wat je hebt aangeleverd, en dat doe ik met de hand, niet automatisch.",
+      },
+      {
+        vraag: "Kan dit ook online en zonder dat ik iemand hoef te spreken?",
+        antwoord:
+          "Ja, het hele traject gaat per e-mail en er komt geen gesprek aan te pas tenzij je dat zelf wilt. De gratis analyse doe je zonder account en zonder je naam. Voor de Geldscan heb ik alleen een voornaam en een e-mailadres nodig om het betaalverzoek te sturen; je cijfers vraag ik pas na de betaling. Volledig anoniem kan niet, want ik moet het rapport ergens naartoe kunnen sturen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Rijksoverheid: schulden en waar je terechtkunt voor schuldhulpverlening (opgehaald 6 september 2026)",
+        url: "https://www.rijksoverheid.nl/themas/recht-veiligheid-en-defensie/schulden",
+      },
+      {
+        label: "AFM: financieel advies, advieskosten en het provisieverbod (opgehaald 6 september 2026)",
+        url: "https://www.afm.nl/nl-nl/consumenten/themas/financieel-advies",
+      },
+      {
+        label: "Eigen pagina met de tarieven van coaches en de bronnen daaronder, gepubliceerd 2 juli 2026",
+        url: "https://www.waarblijfthet.nl/inzichten/wat-kost-een-financieel-coach",
+      },
+      {
+        label: "De vijf geleverde rapporten, compleet en met bedragen",
+        url: "https://www.waarblijfthet.nl/rapporten",
+      },
+    ],
+  },
   {
     slug: "rentevaste-periode-loopt-af-wat-nu",
     cta: {
@@ -1456,6 +1542,7 @@ export const artikelen: Artikel[] = [
     metaTitel: "Wat kost een financieel coach? Tarieven 2026",
     metaDescription:
       "Een financieel coach kost gemiddeld €60 tot €150 per uur, een traject €250 tot €800. Bekijk alle tarieven, wanneer het zich terugverdient en de gratis alternatieven.",
+    gewijzigd: "2026-09-06",
     datum: "2026-07-02",
     datumFormatted: "2 juli 2026",
     leestijd: "6",
@@ -1516,6 +1603,7 @@ export const artikelen: Artikel[] = [
     metaTitel: "Verschil budgetcoach en financieel coach uitgelegd",
     metaDescription:
       "Een budgetcoach helpt bij geldproblemen en schulden, een financieel coach als je genoeg verdient maar weinig overhoudt. Zo kies je de juiste hulp, met kosten per optie.",
+    gewijzigd: "2026-09-06",
     datum: "2026-07-02",
     datumFormatted: "2 juli 2026",
     leestijd: "6",

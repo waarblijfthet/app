@@ -137,6 +137,16 @@ export default function WatKostEenFinancieelCoach() {
         </Link>
         .
       </p>
+
+      <h2 style={h2}>En als je vraag is of dit iets voor jou is?</h2>
+      <p style={p}>
+        Deze pagina beantwoordt wat het kost.{" "}
+        <Link href="/inzichten/kan-iemand-naar-mijn-financien-kijken" style={oranje} className="hover:underline">
+          Kan iemand naar mijn financi&euml;n kijken zonder dat ik schulden heb
+        </Link>{" "}
+        beantwoordt of het iets voor jou is als je geen schulden hebt: vier soorten hulp naast
+        elkaar, met een keuzehulp van drie vragen die ook zegt wanneer je bij mij niet moet zijn.
+      </p>
     </>
   );
 }
