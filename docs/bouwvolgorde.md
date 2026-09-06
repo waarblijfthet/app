@@ -4,9 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 6 september 2026, na drie sessies op die dag. **Alles is gecommit en gepusht tot en met `671e652`.** Werk op de mount is dus schoon; begin met `git log --oneline -3` om te zien of dat nog klopt.
+Laatst bijgewerkt: 6 september 2026, na vier sessies op die dag. Gepusht is tot en met `671e652`; daarna staan er twee lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -4` om te zien of dat nog klopt.
 
-**Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
+**Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd, inclusief de antwoordblokken die bij de nieuwe titels horen. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
 
 ### Eerst dit, elke sessie, kost vijf minuten
 
@@ -17,8 +17,8 @@ Laatst bijgewerkt: 6 september 2026, na drie sessies op die dag. **Alles is geco
 
 **Tot en met 12 september: geen nieuwe pagina bouwen.** Op 6 september zijn er drie pagina's nieuw of herschreven (Z4, de pijler, H1). De tempo-regel uit CLAUDE.md sectie 1 is twee per week, nooit meer, en dat is geen richtlijn maar de regel die voorkomt dat er halve pagina's live gaan. Deze week is dus vol. Doe in die periode onderhoud, dat valt er expliciet buiten:
 
-- **De CTR-titels tegen hun antwoordblok** (halve sessie, hoogste prioriteit van de drie). Bij de vijf URL's uit sectie 1 hieronder moet de eerste alinea hetzelfde getal noemen als de nieuwe metaTitel. Dat is bij geen van de vijf gecontroleerd. Doe je het niet, dan meet je op 4 oktober een titel die iets belooft wat de pagina niet meteen waarmaakt, en weet je niet wat je gemeten hebt. Zet bij elke pagina die je aanraakt `gewijzigd: "<vandaag>"`, zie sectie 11.
-- **De modaal-FAQ in is-4000.** Het cijfer waar sectie 2 op wachtte is er nu: CPB cMEV 2027 geeft bruto modaal €48.000 voor 2026 en €50.000 voor 2027, geverifieerd op https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027 op 6 september 2026. Neem in dezelfde deploy de ontbrekende FAQ's voor €4.100 en €4.600 mee (sectie 6). Een FAQ toevoegen is onderhoud, geen herschrijving.
+- ~~De CTR-titels tegen hun antwoordblok.~~ Gedaan op 6 september, zie sectie 12. Alle vijf antwoordblokken noemen nu hetzelfde getal als hun metaTitel.
+- **De modaal-FAQ in is-4000** (nu de hoogste prioriteit van wat er nog staat). Het cijfer waar sectie 2 op wachtte is er nu: CPB cMEV 2027 geeft bruto modaal €48.000 voor 2026 en €50.000 voor 2027, geverifieerd op https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027 op 6 september 2026. Neem in dezelfde deploy de ontbrekende FAQ's voor €4.100 en €4.600 mee (sectie 6). Een FAQ toevoegen is onderhoud, geen herschrijving.
 - **Em dashes en "structuurprobleem"** opruimen op elke pagina die je toch aanraakt, zoals CLAUDE.md sectie 11 voorschrijft.
 
 **Vanaf 13 september: eerst het lek, dan pas de tweede hub.**
@@ -41,8 +41,9 @@ Laatst bijgewerkt: 6 september 2026, na drie sessies op die dag. **Alles is geco
 
 ### Openstaande beslissingen voor Jarno
 
-1. **`wat-zijn-normale-vaste-lasten-gezin`**: nul vertoningen in 90 dagen en het zit in het taalgebied van H1. Kandidaat voor samenvoegen of een 301 naar H1 bij de CTR-ronde van 4 oktober. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar.
-2. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan bedrag en ophaaldatum aan, dan komt het er met bron bij.
+1. **De €2.000 tot €2.400 in de titel van `kosten-levensonderhoud-alleenstaande-2026` heeft geen deugdelijke bron.** Dat bedrag staat sinds 6 september in de metaTitel en nu ook in het antwoordblok, maar de bronnen eronder zijn FinBuddy en HetGeldCollege (commerciële blogs) plus een kale link naar cbs.nl zonder tabel. Dat is precies wat CLAUDE.md regel 3 verbiedt. Twee opties: een echte CBS- of Nibud-onderbouwing zoeken en de bronnenlijst vervangen, of de bandbreedte uit titel en antwoordblok halen. Uiterlijk beslissen bij de CTR-meting van 4 oktober, want tot die tijd meet die titel wel mee.
+2. **`wat-zijn-normale-vaste-lasten-gezin`**: nul vertoningen in 90 dagen en het zit in het taalgebied van H1. Kandidaat voor samenvoegen of een 301 naar H1 bij de CTR-ronde van 4 oktober. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar.
+3. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan bedrag en ophaaldatum aan, dan komt het er met bron bij.
 
 ### Openstaand aan Jarno's kant
 
@@ -55,6 +56,8 @@ Laatst bijgewerkt: 6 september 2026, na drie sessies op die dag. **Alles is geco
 - De anon-rol mag `quiz_voortgang` nog lezen omdat het funneltabblad met de browserclient leest. Eerst die lezing naar een server-route, dan pas select intrekken. Staat als waarschuwing in `supabase/quiz_voortgang_v3.sql`.
 - De zin "ik verwijder je afschriften en aangeleverde gegevens" klopt alleen zolang Jarno dat met de hand doet. Er verwijdert niets softwarematig.
 - De vier casestudy-pagina's met bedachte namen moeten gecontroleerd op hun illustratielabel in tekst, titel en schema.
+- Het woord "eerlijk" staat nog 27 keer in `lib/inzichten-data.ts`, in excerpts, metaDescriptions en FAQ-antwoorden. Copyregel 6 verbiedt het. Ruim het op per pagina die je aanraakt, net als de em dashes.
+- De regel "Cijfers bijgewerkt op [datum]" (CLAUDE.md sectie 8, punt 14) staat alleen op de twee pagina's van 6 september. De vijf CTR-pagina's hebben hem niet. Zet hem er pas op als je de cijfers op die pagina ook echt geverifieerd hebt; een versheidsregel zonder controle is een valse claim.
 
 ### Werkregels die deze week zijn bijgekomen
 
@@ -317,7 +320,29 @@ De gegenereerde HTML gecontroleerd: het boodschappenartikel heeft nu `datePublis
 
 **Wat je hierna verwacht.** Na de push draait de job morgenochtend om 06:30 en dient hij alles in wat sinds 17 juni is bijgekomen, in één call en ruim binnen het dagbudget van 200. Klik je vandaag zelf op indienen in het tabblad, dan gebeurt het meteen. Vervolgens toont het tabblad bij elke run wat er is ingediend en waarom.
 
-## 12. Achterstallige lijst
+## 12. Antwoordblokken op de vijf CTR-pagina's, 6 september 2026
+
+Het openstaande punt uit CTR-ronde 1: de nieuwe metaTitel belooft een getal, dus de eerste alinea van de pagina moet datzelfde getal noemen. Anders meet je op 4 oktober een titel die de pagina niet meteen waarmaakt en weet je niet wat je gemeten hebt. Alle vijf zijn nagelopen, alle vijf zijn aangepast. Geen enkele pagina heeft nieuwe cijfers gekregen; elk getal in een antwoordblok stond al ergens anders op diezelfde pagina.
+
+| URL | Wat er mis was | Wat er nu staat |
+|---|---|---|
+| `wat-is-normaal-bedrag-boodschappen-per-maand` | Titel begint met €300 tot €1.400, de eerste zin noemde geen enkel bedrag. De bandbreedte stond alleen in de lijst eronder. | De bandbreedte en het jaartal staan nu in de eerste zin, met de reden waarom hij zo breed is. |
+| `netto-loonsverhoging-berekenen` | Titel belooft 3 procent, de pagina rekende alleen per €100 bruto en verderop met €200 per maand. Nergens een 3-procentgetal. | Antwoordalinea bovenaan, boven het "Herken je dit?"-blok: 3 procent op €4.000 bruto per maand is €120 bruto en netto ongeveer €50 tot €75. Afgeleid uit de zonetabel die al op de pagina staat (€44 tot €62 per €100 in het middensegment), naar buiten afgerond. |
+| `kosten-levensonderhoud-alleenstaande-2026` | Titel begint met €2.000 tot €2.400, maar het bedrag stond pas na de persona-kiezer en de ScanBox, ver voorbij de 60 woorden. | Kort-antwoordblok bovenaan met de bandbreedte, wat er wel en niet in zit, en het Randstadverschil. De drie inleidende alinea's eronder zijn tot één samengevat. |
+| `nibud-boodschappen-versus-werkelijkheid` | Titel stelt een ja-neevraag ("haalbaar in 2026?") die nergens met ja of nee beantwoord werd. | Kort-antwoordblok bovenaan dat met nee opent, met €627 en de €700 tot €900 uit de praktijk. De ScanBox eronder is neutraal wit geworden, anders staan er twee groene blokken op elkaar. |
+| `vrij-besteedbaar-inkomen-berekenen` | Titel heeft geen getal, dus niets te matchen. Wel stond de definitie pas na het "Herken je dit?"-blok en ontbrak een maatstaf bovenaan. | Definitie plus de richtlijn van 10 tot 20 procent staat nu in de eerste alinea. |
+
+Meegenomen omdat ik de pagina toch aanraakte:
+
+- Copyregel 6 (het woord "eerlijk" nooit in copy) werd op twee van de vijf overtreden: "Het eerlijke antwoord is" in het alleenstaande-artikel en "het eerlijke verhaal achter de norm" in het Nibud-artikel, plus dezelfde zin in de metaDescription van dat laatste. Alle drie weg. Bij het naspeuren bleek het woord nog 27 keer in `lib/inzichten-data.ts` te staan; dat staat nu als schuld in BEGIN HIER.
+- De zonetabel in het loonsverhogingartikel noemt nu de Belastingdienst in de zin zelf, niet alleen onderaan in de bronnenlijst.
+- Em dashes en "structuurprobleem": op deze vijf pagina's stond geen van beide, in de tekst niet en in hun data-entry niet.
+
+`gewijzigd` stond bij alle vijf al op 2026-09-06 door de titelronde van vanochtend, dus daar hoefde niets aan. `npx tsc --noEmit --incremental false` is schoon, geen null bytes. Een echte productiebuild is niet gedraaid: de wijzigingen zijn uitsluitend tekst in JSX, zonder nieuwe objectliteralen of berekende waarden, dus het patroon uit `feedback_minifier_verkorte_objectnotatie` kan hier niet toeslaan.
+
+Wat hier bewust niet is gebeurd: de regel "Cijfers bijgewerkt op [datum]" is er niet bij gezet. Die regel claimt dat de cijfers op die dag gecontroleerd zijn, en dat is niet gebeurd; er is alleen verplaatst wat er al stond. En bij het alleenstaande-artikel bleek dat de €2.000 tot €2.400 die nu in de titel én in het antwoordblok staat, geen bron heeft die CLAUDE.md regel 3 aankan. Dat staat als openstaande beslissing voor Jarno in BEGIN HIER.
+
+## 13. Achterstallige lijst
 
 Dit is de voorraad, niet de volgorde. **BEGIN HIER bepaalt wat er als eerste gebeurt**; dit is waaruit BEGIN HIER put als er ruimte is. Streep af wat je doet.
 
