@@ -1500,7 +1500,7 @@ export const artikelen: Artikel[] = [
     slug: "vrij-besteedbaar-inkomen-berekenen",
     korteTitel: "Wat blijft er over? Reken het uit",
     titel: "Wat blijft er over na je vaste lasten? Reken je vrij besteedbaar inkomen uit",
-    metaTitel: "Vrij besteedbaar inkomen berekenen (rekenhulp 2026)",
+    metaTitel: "Vrij besteedbaar inkomen berekenen: wat blijft er over? 2026",
     metaDescription:
       "Reken in een paar seconden uit wat er na je vaste lasten echt vrij overblijft. Met een simpele rekenhulp en uitleg wat een gezonde uitkomst is.",
     datum: "2026-06-19",
@@ -1553,7 +1553,7 @@ export const artikelen: Artikel[] = [
     },
     korteTitel: "Wat houd je netto over van je opslag?",
     titel: "Wat houd je netto over van je loonsverhoging in 2026?",
-    metaTitel: "Netto overhouden van loonsverhoging berekenen (2026)",
+    metaTitel: "3% loonsverhoging: hoeveel houd je er netto van over? (2026)",
     metaDescription:
       "Van elke 100 euro opslag houd je netto vaak 50 tot 64 euro over. Zo werkt het in 2026, waarom het tegenvalt en waarom meer verdienen je krappe gevoel niet oplost.",
     datum: "2026-06-19",
@@ -3415,7 +3415,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Boodschappen per maand: wat is normaal in 2026? Per persoon, stel en gezin",
     metaTitel:
-      "Normale boodschappenkosten per maand 2026 (per huishouden)",
+      "€300 tot €1.400 boodschappen per maand: normaal in 2026?",
     metaDescription:
       "Wat is een normaal boodschappenbedrag per maand? De norm is een ondergrens, echte huishoudens geven meer uit. Bedragen per persoon, stel, gezin en één ouder, plus wat je eraan doet.",
     datum: "2026-06-26",
@@ -4393,7 +4393,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Het Nibud-boodschappenbudget 2026, wat de norm zegt en wat gezinnen werkelijk uitgeven",
     metaTitel:
-      "Nibud boodschappenbudget 2026: norm versus werkelijkheid",
+      "€627 Nibud boodschappengeld gezin: haalbaar in 2026?",
     metaDescription:
       "Nibud zegt €627 voor een gezin van vier. Maar wat geven gezinnen werkelijk uit? Het eerlijke verhaal achter de normen, en waarom ze bijna niemand halen.",
     datum: "2026-05-28",
@@ -4471,7 +4471,7 @@ export const artikelen: Artikel[] = [
     titel:
       "Kosten levensonderhoud alleenstaande in 2026: wat je werkelijk nodig hebt om rond te komen",
     metaTitel:
-      "Kosten levensonderhoud alleenstaande 2026: overzicht",
+      "€2.000 tot €2.400: kosten levensonderhoud alleenstaande 2026",
     metaDescription:
       "Wat kost het leven als alleenstaande in 2026? Van huur tot boodschappen tot verzekeringen: alle gemiddelden op een rij, plus waar de meeste ruimte zit.",
     datum: "2026-05-28",
