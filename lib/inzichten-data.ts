@@ -79,6 +79,23 @@ export interface Artikel {
   metaTitel: string;
   metaDescription: string;
   datum: string;
+  /**
+   * De dag waarop de inhoud voor het laatst is gewijzigd, als die afwijkt van
+   * `datum`. Leeg laten bij een nieuw artikel.
+   *
+   * Reden (6-sep-2026): `datum` deed drie dingen tegelijk. Hij was
+   * datePublished, dateModified en de lastmod in de sitemap, en hij staat
+   * zichtbaar onder de kop als publicatiedatum. Daardoor kon een herschrijving
+   * niet worden vastgelegd zonder de pagina te laten lijken alsof hij vandaag
+   * is verschenen. Gevolg: de CTR-ronde van vanochtend gaf vijf pagina's een
+   * nieuwe metaTitel zonder dat de sitemap of IndexNow daar iets van merkte.
+   *
+   * Vanaf nu: `datum` blijft de publicatiedatum en de zichtbare datum,
+   * `gewijzigd` voedt dateModified, de sitemap-lastmod en de herindiening bij
+   * IndexNow. Zet hem bij elke inhoudelijke wijziging, ook bij alleen een
+   * nieuwe metaTitel of een bijgewerkt cijfer (CLAUDE.md 8.14 en 8.23).
+   */
+  gewijzigd?: string;
   datumFormatted: string;
   leestijd: string;
   categorie: string;
@@ -1680,6 +1697,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Reken in een paar seconden uit wat er na je vaste lasten echt vrij overblijft. Met een simpele rekenhulp en uitleg wat een gezonde uitkomst is.",
     datum: "2026-06-19",
+    gewijzigd: "2026-09-06",
     datumFormatted: "19 juni 2026",
     leestijd: "5",
     categorie: "Inzicht",
@@ -1733,6 +1751,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Van elke 100 euro opslag houd je netto vaak 50 tot 64 euro over. Zo werkt het in 2026, waarom het tegenvalt en waarom meer verdienen je krappe gevoel niet oplost.",
     datum: "2026-06-19",
+    gewijzigd: "2026-09-06",
     datumFormatted: "19 juni 2026",
     leestijd: "5",
     categorie: "Inkomen",
@@ -3405,6 +3424,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Twee inkomens en toch elke maand krap? Je bent niet de enige. Waarom twee salarissen vaak dubbele vaste lasten betekenen, en wat eraan helpt.",
     datum: "2026-05-30",
+    gewijzigd: "2026-09-06",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
@@ -3509,6 +3529,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Wat is een normaal boodschappenbedrag per maand? De norm is een ondergrens, echte huishoudens geven meer uit. Bedragen per persoon, stel, gezin en één ouder, plus wat je eraan doet.",
     datum: "2026-06-26",
+    gewijzigd: "2026-09-06",
     datumFormatted: "26 juni 2026",
     leestijd: "9",
     categorie: "Besparen",
@@ -3657,6 +3678,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Twee inkomens, samen €6.000 netto, en toch groeit het spaargeld niet. Bij twee echte huishoudens op dit niveau bleek er geen lek te zijn. Wat er dan wel speelt.",
     datum: "2026-07-30",
+    gewijzigd: "2026-09-06",
     datumFormatted: "30 juli 2026",
     leestijd: "8",
     categorie: "Inkomen",
@@ -3731,6 +3753,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "€4.000 netto is top 25% in Nederland. Maar wat je overhoudt hangt af van je huishouden: alleen ruim €600, met twee kinderen bijna niets. Reken je eigen situatie door.",
     datum: "2026-05-21",
+    gewijzigd: "2026-09-06",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
     categorie: "Inkomen",
@@ -4487,6 +4510,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Nibud zegt €627 voor een gezin van vier. Maar wat geven gezinnen werkelijk uit? Het eerlijke verhaal achter de normen, en waarom ze bijna niemand halen.",
     datum: "2026-05-28",
+    gewijzigd: "2026-09-06",
     datumFormatted: "28 mei 2026",
     leestijd: "7",
     categorie: "Inzicht",
@@ -4565,6 +4589,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Wat kost het leven als alleenstaande in 2026? Van huur tot boodschappen tot verzekeringen: alle gemiddelden op een rij, plus waar de meeste ruimte zit.",
     datum: "2026-05-28",
+    gewijzigd: "2026-09-06",
     datumFormatted: "28 mei 2026",
     leestijd: "7",
     categorie: "Inzicht",
@@ -5121,6 +5146,11 @@ export const artikelen: Artikel[] = [
     ],
   },
 ];
+
+/** De datum die telt voor dateModified, de sitemap en IndexNow. */
+export function laatstGewijzigd(artikel: Artikel): string {
+  return artikel.gewijzigd ?? artikel.datum;
+}
 
 export function getArtikel(slug: string): Artikel | undefined {
   return artikelen.find((a) => a.slug === slug);

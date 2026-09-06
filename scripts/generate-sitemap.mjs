@@ -44,16 +44,28 @@ const uniekeSlugs = [...new Set(slugs)];
 // sitemap-lastmod klopt. Google leunt sinds het wegvallen van de sitemap-ping
 // zwaarder op lastmod voor hercrawl-planning; een correcte datum betekent dat
 // echt gewijzigde artikelen sneller opnieuw worden opgehaald.
-const datumMap = new Map(
-  [...data.matchAll(/slug:\s*"([^"]+)"[\s\S]*?\n\s*datum:\s*"(\d{4}-\d{2}-\d{2})"/g)].map(
-    (m) => [m[1], m[2]]
-  )
-);
-const datums = [...datumMap.values()].sort();
+// Per artikelblok de datums lezen. Bewust NIET met één regex over het hele
+// bestand: een lazy `[\s\S]*?` tussen `slug:` en `gewijzigd:` loopt vrolijk het
+// volgende artikel in zodra het huidige artikel dat veld niet heeft, en dan
+// krijgt het verkeerde artikel de verkeerde datum. Dat is precies de fout die
+// deze functie op 6-sep-2026 stil maakte. Blok voor blok is saaier en klopt.
+const blokken = data.split(/\n\s*slug:\s*"/).slice(1);
+const datumMap = new Map();
+const gewijzigdMap = new Map();
+
+for (const blok of blokken) {
+  const slug = blok.slice(0, blok.indexOf('"'));
+  const d = blok.match(/\n\s*datum:\s*"(\d{4}-\d{2}-\d{2})"/);
+  const g = blok.match(/\n\s*gewijzigd:\s*"(\d{4}-\d{2}-\d{2})"/);
+  if (d) datumMap.set(slug, d[1]);
+  if (g) gewijzigdMap.set(slug, g[1]);
+}
+
+const datums = [...datumMap.values(), ...gewijzigdMap.values()].sort();
 const laatsteDatum = datums.length > 0 ? `${datums[datums.length - 1]}T00:00:00.000Z` : now;
 
 function lastmodVoor(slug) {
-  const d = datumMap.get(slug);
+  const d = gewijzigdMap.get(slug) ?? datumMap.get(slug);
   return d ? `${d}T00:00:00.000Z` : laatsteDatum;
 }
 

@@ -1,4 +1,4 @@
-import { artikelen } from "./inzichten-data";
+import { artikelen, laatstGewijzigd } from "./inzichten-data";
 
 const BASE = "https://www.waarblijfthet.nl";
 
@@ -19,6 +19,33 @@ const STATISCHE_URLS = [
   `${BASE}/samenwerken/boekhouders`,
   `${BASE}/samenwerken/accountants-ondernemers`,
 ];
+
+export interface UrlMetDatum {
+  url: string;
+  /** De `datum` uit inzichten-data, of null voor een statische pagina. */
+  lastmod: string | null;
+}
+
+/**
+ * Dezelfde lijst, met de laatste wijzigdatum per artikel erbij.
+ *
+ * Reden (6-sep-2026): IndexNow moet een URL opnieuw kunnen indienen zodra de
+ * inhoud verandert. Zonder datum weet de indieningsjob alleen of een URL ooit
+ * is ingediend, en dan blijft een herschreven pagina (CTR-ronde, 2027-sweep)
+ * eeuwig op `submitted` staan zonder dat Bing hem opnieuw ophaalt.
+ *
+ * Statische pagina's hebben geen datumveld en krijgen null: die worden alleen
+ * ingediend als ze nog nooit zijn ingediend.
+ */
+export function getAllUrlsMetDatum(): UrlMetDatum[] {
+  return [
+    ...STATISCHE_URLS.map((url) => ({ url: url, lastmod: null })),
+    ...artikelen.map((a) => ({
+      url: `${BASE}/inzichten/${a.slug}`,
+      lastmod: laatstGewijzigd(a),
+    })),
+  ];
+}
 
 export function getAllUrls(): string[] {
   const artikelUrls = artikelen.map(

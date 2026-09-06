@@ -33,6 +33,11 @@ interface CronRun {
     not_indexed?: number;
     errors?: number;
     error?: string;
+    submitted?: number;
+    skipped?: number;
+    urls?: number;
+    handmatig?: boolean;
+    perReden?: Record<string, number>;
   } | null;
 }
 
@@ -40,6 +45,7 @@ interface StatusResponse {
   rows: IndexingRow[];
   summary: Summary;
   lastCronRun: CronRun | null;
+  lastSubmitRun: CronRun | null;
 }
 
 interface InspectDebug {
@@ -120,6 +126,7 @@ export default function IndexingTabblad() {
   const [rows, setRows] = useState<IndexingRow[]>([]);
   const [summary, setSummary] = useState<Summary | null>(null);
   const [lastCronRun, setLastCronRun] = useState<CronRun | null>(null);
+  const [lastSubmitRun, setLastSubmitRun] = useState<CronRun | null>(null);
   const [laden, setLaden] = useState(true);
   const [bezig, setBezig] = useState<string | null>(null);
   const [resultaat, setResultaat] = useState<ActionResult | null>(null);
@@ -135,6 +142,7 @@ export default function IndexingTabblad() {
       setRows(data.rows ?? []);
       setSummary(data.summary ?? null);
       setLastCronRun(data.lastCronRun ?? null);
+      setLastSubmitRun(data.lastSubmitRun ?? null);
     } catch (err) {
       setResultaat({ message: `Laden mislukt: ${String(err)}`, type: "error" });
     } finally {
@@ -279,6 +287,41 @@ export default function IndexingTabblad() {
   return (
     <div className="space-y-6">
 
+      {/* Laatste indiening bij IndexNow.
+          Deze regel bestaat sinds 6-sep-2026. De indieningsjob stond van 7 juni
+          tot 6 september stil doordat hij uit vercel.json was verdwenen, en
+          niets op dit scherm liet dat zien. Nu wel. */}
+      {lastSubmitRun ? (
+        <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 text-sm px-4 py-2.5 rounded-lg border ${
+          lastSubmitRun.status === "ok"
+            ? "bg-green-50 border-green-200 text-green-800"
+            : "bg-red-50 border-red-200 text-red-800"
+        }`}>
+          <span>
+            📤 <strong>Laatste indiening bij IndexNow:</strong> {datumTijd(lastSubmitRun.ran_at)}
+            {lastSubmitRun.result?.handmatig ? " (met de hand)" : ""}
+          </span>
+          {lastSubmitRun.result && lastSubmitRun.status === "ok" && (
+            <span className="opacity-75">
+              {lastSubmitRun.result.submitted ?? 0} ingediend
+              {(lastSubmitRun.result.skipped ?? 0) > 0 && ` · ${lastSubmitRun.result.skipped} overgeslagen`}
+              {lastSubmitRun.result.perReden &&
+                Object.keys(lastSubmitRun.result.perReden).length > 0 &&
+                ` · ${Object.entries(lastSubmitRun.result.perReden)
+                  .map(([reden, aantal]) => `${aantal} ${reden}`)
+                  .join(", ")}`}
+            </span>
+          )}
+          {lastSubmitRun.status === "error" && (
+            <span className="opacity-75">{lastSubmitRun.result?.error ?? "onbekende fout"}</span>
+          )}
+        </div>
+      ) : !laden ? (
+        <div className="text-sm px-4 py-2.5 rounded-lg border border-amber-200 bg-amber-50 text-amber-800">
+          📤 <strong>Nog nooit automatisch ingediend.</strong> De dagelijkse job draait om 06:30. Zie je dit morgen nog steeds, dan draait de cron niet.
+        </div>
+      ) : null}
+
       {/* Laatste automatische run */}
       {lastCronRun ? (
         <div className={`flex flex-wrap items-center gap-x-4 gap-y-1 text-sm px-4 py-2.5 rounded-lg border ${
@@ -287,7 +330,7 @@ export default function IndexingTabblad() {
             : "bg-red-50 border-red-200 text-red-800"
         }`}>
           <span>
-            🕐 <strong>Laatste automatische run:</strong> {datumTijd(lastCronRun.ran_at)}
+            🕐 <strong>Laatste indexcontrole bij Google:</strong> {datumTijd(lastCronRun.ran_at)}
           </span>
           {lastCronRun.result && lastCronRun.status === "ok" && (
             <span className="opacity-75">
@@ -304,7 +347,7 @@ export default function IndexingTabblad() {
         </div>
       ) : !laden ? (
         <div className="text-sm px-4 py-2.5 rounded-lg border border-[#E6E9E7] bg-[#F7F8F7] text-[#8B958F]">
-          🕐 Nog geen automatische run gedraaid. Eerste run is morgen om 09:00.
+          🕐 Nog geen indexcontrole gedraaid. Die draait dagelijks om 07:00.
         </div>
       ) : null}
 

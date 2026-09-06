@@ -1,123 +1,91 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createServiceClient } from "@/lib/supabase-service";
 import { isAdminRequest } from "@/lib/admin-auth";
+import { dienIn, synchroniseer, logRun, DAGELIJKS_LIMIET } from "@/lib/indexnow";
 
-const INDEXNOW_KEY = "4ace44fac0c44918a2929428e9b757c5";
-const HOST = "www.waarblijfthet.nl";
-const DAGELIJKS_LIMIET = 200;
+/**
+ * De knop "indienen" in het indexeringstabblad.
+ *
+ * Gebruikt sinds 6-sep-2026 exact dezelfde selectie en dezelfde bijwerkroute
+ * als de dagelijkse cron (`lib/indexnow.ts`). Daarvoor stonden de sleutel, de
+ * host, het dagbudget en de hele lus hier nog een tweede keer.
+ *
+ * Zonder body: synchroniseert eerst de URL-lijst en dient daarna in wat aan de
+ * beurt is. Met een `urls`-body: dient precies die URL's in, voor als Jarno
+ * één nieuwe pagina meteen kwijt wil.
+ */
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
 
 export async function POST(request: NextRequest) {
   if (!(await isAdminRequest())) {
     return NextResponse.json({ error: "Niet geautoriseerd" }, { status: 401 });
   }
 
+  const start = Date.now();
   const supabase = createServiceClient();
 
-  // Tel hoeveel er vandaag al ingediend zijn
-  const vandaag = new Date();
-  vandaag.setHours(0, 0, 0, 0);
+  let alleenDeze: string[] | undefined;
+  try {
+    const body = (await request.json()) as { urls?: string[] };
+    if (body.urls && body.urls.length > 0) alleenDeze = body.urls;
+  } catch {
+    // geen body, dan de normale selectie
+  }
 
-  const { count: vandaagIngediend } = await supabase
-    .from("google_indexing")
-    .select("*", { count: "exact", head: true })
-    .gte("last_submitted_at", vandaag.toISOString());
+  if (!alleenDeze) {
+    try {
+      await synchroniseer(supabase);
+    } catch (err) {
+      return NextResponse.json(
+        { error: `Sync mislukt: ${String(err)}`, submitted: 0, skipped: 0, errors: [] },
+        { status: 500 }
+      );
+    }
+  }
 
-  const resterend = DAGELIJKS_LIMIET - (vandaagIngediend ?? 0);
+  const resultaat = await dienIn(supabase, { alleenDeze: alleenDeze });
 
-  if (resterend <= 0) {
+  await logRun(
+    supabase,
+    "indexing-submit",
+    resultaat.fout ? "error" : "ok",
+    {
+      handmatig: true,
+      submitted: resultaat.ingediend,
+      skipped: resultaat.overgeslagen,
+      perReden: resultaat.perReden,
+      error: resultaat.fout ?? undefined,
+    },
+    Date.now() - start
+  );
+
+  if (resultaat.fout && resultaat.ingediend === 0) {
+    const status = resultaat.log[0]?.startsWith("Dagbudget") ? 429 : 500;
     return NextResponse.json(
-      { error: `Dagelijks limiet van ${DAGELIJKS_LIMIET} bereikt`, submitted: 0, skipped: 0, errors: [] },
+      { error: resultaat.fout, submitted: 0, skipped: resultaat.overgeslagen, errors: [resultaat.fout] },
+      { status: status }
+    );
+  }
+
+  if (resultaat.ingediend === 0 && resultaat.log[0]?.startsWith("Dagbudget")) {
+    return NextResponse.json(
+      {
+        error: `Dagelijks limiet van ${DAGELIJKS_LIMIET} bereikt`,
+        submitted: 0,
+        skipped: 0,
+        errors: [],
+      },
       { status: 429 }
     );
   }
 
-  // URLs ophalen
-  let urls: string[] = [];
-  try {
-    const body = await request.json() as { urls?: string[] };
-    if (body.urls && body.urls.length > 0) {
-      urls = body.urls.slice(0, resterend);
-    }
-  } catch {
-    // geen body
-  }
-
-  if (urls.length === 0) {
-    const { data } = await supabase
-      .from("google_indexing")
-      .select("url")
-      .in("status", ["pending", "not_indexed", "error"])
-      .order("created_at", { ascending: true })
-      .limit(resterend);
-
-    urls = (data ?? []).map((r: { url: string }) => r.url);
-  }
-
-  if (urls.length === 0) {
-    return NextResponse.json({ submitted: 0, skipped: 0, errors: [] });
-  }
-
-  const errors: string[] = [];
-
-  // IndexNow, batch submit (max 10.000 per call, wij doen alles in één keer)
-  try {
-    const res = await fetch("https://api.indexnow.org/indexnow", {
-      method: "POST",
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-      body: JSON.stringify({
-        host: HOST,
-        key: INDEXNOW_KEY,
-        keyLocation: `https://${HOST}/${INDEXNOW_KEY}.txt`,
-        urlList: urls,
-      }),
-    });
-
-    if (res.ok || res.status === 202) {
-      // Alles succesvol ingediend, update Supabase
-      const nu = new Date().toISOString();
-      for (const url of urls) {
-        const { data: bestaand } = await supabase
-          .from("google_indexing")
-          .select("submit_count")
-          .eq("url", url)
-          .single();
-
-        await supabase
-          .from("google_indexing")
-          .update({
-            status: "submitted",
-            last_submitted_at: nu,
-            error_message: null,
-            submit_count: ((bestaand?.submit_count as number) ?? 0) + 1,
-          })
-          .eq("url", url);
-      }
-
-      return NextResponse.json({ submitted: urls.length, skipped: 0, errors: [] });
-    } else {
-      const errBody = await res.text();
-      const errMsg = `IndexNow ${res.status}: ${errBody.slice(0, 300)}`;
-      errors.push(errMsg);
-
-      // Zet alle URLs op error
-      for (const url of urls) {
-        await supabase
-          .from("google_indexing")
-          .update({ status: "error", error_message: errMsg })
-          .eq("url", url);
-      }
-
-      return NextResponse.json({ submitted: 0, skipped: urls.length, errors });
-    }
-  } catch (err) {
-    const errMsg = `Netwerkfout: ${String(err)}`;
-    errors.push(errMsg);
-    for (const url of urls) {
-      await supabase
-        .from("google_indexing")
-        .update({ status: "error", error_message: errMsg })
-        .eq("url", url);
-    }
-    return NextResponse.json({ submitted: 0, skipped: urls.length, errors });
-  }
+  return NextResponse.json({
+    submitted: resultaat.ingediend,
+    skipped: resultaat.overgeslagen,
+    errors: resultaat.fout ? [resultaat.fout] : [],
+    log: resultaat.log,
+    perReden: resultaat.perReden,
+  });
 }

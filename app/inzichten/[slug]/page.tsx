@@ -5,7 +5,7 @@ import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { getArtikel, artikelen } from "@/lib/inzichten-data";
+import { getArtikel, artikelen, laatstGewijzigd } from "@/lib/inzichten-data";
 import ArticleBody from "./ArticleBody";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL, geldscanHref } from "@/lib/cta";
 
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url: `https://www.waarblijfthet.nl/inzichten/${artikel.slug}`,
       type: "article",
       publishedTime: artikel.datum,
-      modifiedTime: artikel.datum,
+      modifiedTime: laatstGewijzigd(artikel),
     },
     robots: { index: true, follow: true },
   };
@@ -49,7 +49,7 @@ export default function ArtikelPage({ params }: Props) {
     headline: artikel.titel,
     description: artikel.metaDescription,
     datePublished: artikel.datum,
-    dateModified: artikel.datum,
+    dateModified: laatstGewijzigd(artikel),
     author: {
       "@type": "Person",
       name: "Jarno Koopman",

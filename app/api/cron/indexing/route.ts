@@ -1,10 +1,32 @@
 import { NextRequest, NextResponse } from "next/server";
-import { getAllUrls } from "@/lib/sitemap-urls";
 import { createServiceClient } from "@/lib/supabase-service";
+import { synchroniseer, dienIn, logRun } from "@/lib/indexnow";
 
-const INDEXNOW_KEY = "4ace44fac0c44918a2929428e9b757c5";
-const HOST = "www.waarblijfthet.nl";
-const DAGELIJKS_LIMIET = 200;
+/**
+ * Dagelijkse IndexNow-indiening.
+ *
+ * Reden dat dit bestand op 6-sep-2026 is herschreven: deze job heeft sinds
+ * 7 juni 2026 niet meer gedraaid. In commit 6f56f9d is in `vercel.json` het pad
+ * `/api/cron/indexing` VERVANGEN door `/api/cron/indexing-inspect` in plaats
+ * van dat er een tweede regel bij kwam. De inspectiejob controleert alleen of
+ * Google een URL kent; hij dient niets in. Gevolg: geen enkele URL die na
+ * 17 juni is gepubliceerd is ooit bij IndexNow aangeboden, en de sync die de
+ * nieuwe URL's in de tabel zet draaide ook niet, dus ze stonden er niet eens in.
+ *
+ * Drie dingen daarom veranderd:
+ *   1. Het pad staat weer in `vercel.json`, náást de inspectiejob.
+ *   2. De job schrijft zijn uitkomst in `cron_runs`, zodat het indexeringstabblad
+ *      laat zien wanneer hij voor het laatst liep. Een job die stil stopt is
+ *      hetzelfde als een job die er niet is.
+ *   3. De selectie- en indieningslogica staat in `lib/indexnow.ts`, gedeeld met
+ *      de knop in de admin, zodat de twee niet meer uit elkaar kunnen lopen.
+ */
+
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+export const maxDuration = 60;
+
+const JOB = "indexing-submit";
 
 export async function GET(request: NextRequest) {
   const authHeader = request.headers.get("authorization");
@@ -14,83 +36,36 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ error: "Niet geautoriseerd" }, { status: 401 });
   }
 
+  const start = Date.now();
   const supabase = createServiceClient();
   const log: string[] = [];
 
-  // ── 1. Sync ──
-  const urls = getAllUrls();
-  const rows = urls.map((url) => ({ url, status: "pending" }));
-  await supabase
-    .from("google_indexing")
-    .upsert(rows, { onConflict: "url", ignoreDuplicates: true });
-  log.push(`Sync: ${urls.length} URLs`);
-
-  // ── 2. Submit via IndexNow ──
-  const vandaag = new Date();
-  vandaag.setHours(0, 0, 0, 0);
-
-  const { count: vandaagIngediend } = await supabase
-    .from("google_indexing")
-    .select("*", { count: "exact", head: true })
-    .gte("last_submitted_at", vandaag.toISOString());
-
-  const resterend = DAGELIJKS_LIMIET - (vandaagIngediend ?? 0);
-
-  if (resterend > 0) {
-    const { data: toSubmit } = await supabase
-      .from("google_indexing")
-      .select("url")
-      .in("status", ["pending", "not_indexed", "error"])
-      .order("created_at", { ascending: true })
-      .limit(resterend);
-
-    const submitUrls = (toSubmit ?? []).map((r: { url: string }) => r.url);
-
-    if (submitUrls.length > 0) {
-      try {
-        const res = await fetch("https://api.indexnow.org/indexnow", {
-          method: "POST",
-          headers: { "Content-Type": "application/json; charset=utf-8" },
-          body: JSON.stringify({
-            host: HOST,
-            key: INDEXNOW_KEY,
-            keyLocation: `https://${HOST}/${INDEXNOW_KEY}.txt`,
-            urlList: submitUrls,
-          }),
-        });
-
-        const nu = new Date().toISOString();
-        if (res.ok || res.status === 202) {
-          for (const url of submitUrls) {
-            const { data: bestaand } = await supabase
-              .from("google_indexing")
-              .select("submit_count")
-              .eq("url", url)
-              .single();
-            await supabase
-              .from("google_indexing")
-              .update({
-                status: "submitted",
-                last_submitted_at: nu,
-                error_message: null,
-                submit_count: ((bestaand?.submit_count as number) ?? 0) + 1,
-              })
-              .eq("url", url);
-          }
-          log.push(`Submit: ${submitUrls.length} URLs via IndexNow`);
-        } else {
-          const errBody = await res.text();
-          log.push(`Submit mislukt: IndexNow ${res.status} ${errBody.slice(0, 200)}`);
-        }
-      } catch (err) {
-        log.push(`Submit mislukt: ${String(err)}`);
-      }
-    } else {
-      log.push("Submit: niets te indienen");
-    }
-  } else {
-    log.push("Submit: dagelijks limiet bereikt");
+  let aantalUrls = 0;
+  try {
+    aantalUrls = await synchroniseer(supabase);
+    log.push(`Sync: ${aantalUrls} URL's uit de site.`);
+  } catch (err) {
+    const melding = `Sync mislukt: ${String(err)}`;
+    await logRun(supabase, JOB, "error", { error: melding }, Date.now() - start);
+    return NextResponse.json({ ok: false, log: [melding] }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true, log });
+  const resultaat = await dienIn(supabase);
+  log.push(...resultaat.log);
+
+  await logRun(
+    supabase,
+    JOB,
+    resultaat.fout ? "error" : "ok",
+    {
+      urls: aantalUrls,
+      submitted: resultaat.ingediend,
+      skipped: resultaat.overgeslagen,
+      perReden: resultaat.perReden,
+      error: resultaat.fout ?? undefined,
+    },
+    Date.now() - start
+  );
+
+  return NextResponse.json({ ok: !resultaat.fout, log: log });
 }

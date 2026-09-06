@@ -66,14 +66,25 @@ export async function GET() {
     error: rows.filter((r) => r.status === "error").length,
   };
 
-  // Laatste cron run ophalen
-  const { data: cronData } = await supabase
-    .from("cron_runs")
-    .select("ran_at, status, result, duration_ms")
-    .eq("job", "indexing-inspect")
-    .order("ran_at", { ascending: false })
-    .limit(1)
-    .maybeSingle();
+  // Laatste run van beide jobs. De indieningsjob apart, want die heeft van
+  // 7-jun tot 6-sep-2026 stilgestaan zonder dat iets dat liet zien: hij stond
+  // niet meer in vercel.json en schreef ook geen regel in cron_runs. Eén
+  // ontbrekende datum in dit tabblad had dat meteen verraden.
+  const laatsteRun = async (job: string) => {
+    const { data } = await supabase
+      .from("cron_runs")
+      .select("ran_at, status, result, duration_ms")
+      .eq("job", job)
+      .order("ran_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    return (data ?? null) as CronRun | null;
+  };
 
-  return NextResponse.json({ rows, summary, lastCronRun: (cronData ?? null) as CronRun | null });
+  const [lastCronRun, lastSubmitRun] = await Promise.all([
+    laatsteRun("indexing-inspect"),
+    laatsteRun("indexing-submit"),
+  ]);
+
+  return NextResponse.json({ rows, summary, lastCronRun, lastSubmitRun });
 }

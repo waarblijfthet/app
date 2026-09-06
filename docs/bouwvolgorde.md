@@ -30,8 +30,9 @@ Voor H2 geldt dezelfde volgorde als bij H1: eerst SERP-verificatie in Chrome op 
 1. Bing Webmaster Tools aanzetten en de sitemap indienen.
 2. De URL van Z4 handmatig indienen in GSC.
 3. **De URL van H1 handmatig indienen in GSC:** `/inzichten/wat-geeft-een-gezin-uit-per-maand`.
-4. In `.git/index.lock` blijft af en toe een lege lock staan die ik niet kan verwijderen. Ik verplaats hem nu naar `_to_delete/`. Ruim die map een keer op, hij staat vol met dat soort restanten.
-5. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan het bedrag en de ophaaldatum aan, dan zet ik het er met bron bij.
+4. **Na de push: één keer op "indienen" klikken in het indexeringstabblad.** De IndexNow-job stond stil sinds 7 juni (zie sectie 11). Hij draait vanaf nu elke dag om 06:30, maar met die ene klik haal je de achterstand van bijna drie maanden meteen weg. Je ziet daarna bovenaan het tabblad staan wanneer er voor het laatst is ingediend.
+5. In `.git/index.lock` blijft af en toe een lege lock staan die ik niet kan verwijderen. Ik verplaats hem nu naar `_to_delete/`. Ruim die map een keer op, hij staat vol met dat soort restanten.
+6. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan het bedrag en de ophaaldatum aan, dan zet ik het er met bron bij.
 
 **Bekende schuld:** de anon-rol mag `quiz_voortgang` nog lezen omdat het funneltabblad met de browserclient leest. Eerst die lezing naar een server-route, dan pas select intrekken. Staat als waarschuwing in `supabase/quiz_voortgang_v3.sql`.
 
@@ -250,10 +251,51 @@ Ook nieuw: `afgerondOpHonderd()`. De metaTitel en de eerste alinea noemen allebe
 
 **Beslissing die openstaat voor Jarno.** `wat-zijn-normale-vaste-lasten-gezin` heeft nul vertoningen in 90 dagen en zit in het taalgebied van de hub. Volgens de contentkill komt die bij de CTR-ronde van 4 oktober in aanmerking om samengevoegd of ge-301'd te worden naar H1. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar. Hij staat wel als spaak gelinkt.
 
-## 11. Volgende sessies
+## 11. IndexNow gerepareerd, 6 september 2026
+
+Jarno zag in het indexeringstabblad dat er sinds 17 juni niets meer was ingediend. Klopt, en de oorzaak was eenvoudig en pijnlijk.
+
+**Oorzaak.** In commit `6f56f9d` van 7 juni 2026 is in `vercel.json` het pad `/api/cron/indexing` **vervangen** door `/api/cron/indexing-inspect`, in plaats van dat er een tweede regel bij kwam. De inspectiejob controleert alleen of Google een URL kent; hij dient niets in. Sinds die dag heeft de indieningsjob dus geen enkele keer gedraaid.
+
+Het gevolg was groter dan alleen niet indienen. Diezelfde job doet ook de sync die nieuwe URL's in de tabel `google_indexing` zet. Elke pagina die na 17 juni is gepubliceerd stond daardoor niet eens in de wachtrij, en is nooit bij Bing of Yandex aangeboden. ChatGPT-zoeken leunt op Bing, dus dat is precies het kanaal waar het plan op mikt.
+
+**Waarom niemand het zag.** De job schreef geen regel in `cron_runs`, dus het tabblad kon niet laten zien dat hij stilstond. Een job die verdwijnt uit `vercel.json` verdwijnt volledig geruisloos.
+
+**Vier dingen gerepareerd.**
+
+1. `/api/cron/indexing` staat weer in `vercel.json`, om 06:30, náást de inspectiejob van 07:00.
+2. De job schrijft nu zijn uitkomst in `cron_runs` onder `indexing-submit`, en het indexeringstabblad toont bovenaan een tweede regel: "Laatste indiening bij IndexNow". Heeft hij nog nooit gedraaid, dan staat daar een oranje waarschuwing in plaats van niets.
+3. De sleutel, de host, het dagbudget en de hele selectie- en bijwerklogica staan nu in `lib/indexnow.ts`, gedeeld door de cron en de knop in de admin. Ze stonden twee keer in de codebase, met twee kopieën van hetzelfde cijfer.
+4. Het bijwerken deed twee query's per URL, dus 400 heen-en-weertjes bij een volle batch van 200. Dat is nu één select en één upsert. En de route had geen `maxDuration`, dus hij liep op de standaardlimiet.
+
+**Nieuw: opnieuw indienen als de inhoud verandert.** De oude regel was: alles met status `pending`, `not_indexed` of `error`. Een URL die eenmaal `submitted` was kwam nooit meer aan de beurt, ook niet na een volledige herschrijving. Voor een site die elke maand een CTR-ronde doet en in december 25 metaTitels omzet is dat de verkeerde regel. De nieuwe selectie zit in `kiesTeIndienen()`:
+
+| Reden | Wanneer |
+|---|---|
+| nieuw | nooit eerder ingediend, gaat altijd voor |
+| gewijzigd | de wijzigdatum van het artikel ligt na de laatste indiening |
+| fout | vorige indiening mislukte |
+| herkansing | status `not_indexed` en langer dan 14 dagen geleden ingediend |
+
+Plus een cooldown van 20 uur, zodat één URL nooit twee keer op een dag wordt aangeboden. De herkansingsgrens van 14 dagen is er omdat de oude volgorde (`created_at` oplopend) betekende dat oude niet-geïndexeerde URL's het dagbudget opaten voordat een nieuw artikel aan de beurt kwam.
+
+**Wat daarvoor eerst gerepareerd moest worden: er was geen wijzigdatum.** `datum` deed vier dingen tegelijk: publicatiedatum, `dateModified` in het Article-schema, `lastmod` in de sitemap en de zichtbare datum onder de kop. Daardoor kon een herschrijving niet worden vastgelegd zonder de pagina te laten lijken alsof hij vandaag verschenen was. De CTR-ronde van vanochtend liet dat meteen zien: vijf pagina's kregen een nieuwe metaTitel en hun `lastmod` bleef op mei en juni staan.
+
+Er is nu een optioneel veld `gewijzigd` in `Artikel`. `datum` blijft de publicatiedatum en de zichtbare datum; `gewijzigd` voedt `dateModified`, de sitemap-lastmod en de herindiening bij IndexNow. **Werkregel voor elke volgende sessie: raak je een artikel inhoudelijk aan, ook als het alleen de metaTitel is, zet dan `gewijzigd` op vandaag.** De acht artikelen die vandaag zijn veranderd hebben hem gekregen, de vijf uit de CTR-ronde en de drie die een link naar de hub kregen.
+
+Onderweg zat er nog een fout in `scripts/generate-sitemap.mjs`: die las de datums met één regex over het hele bestand, met een lazy `[\s\S]*?` tussen `slug:` en het datumveld. Zodra een artikel het veld niet heeft loopt zo'n match het volgende artikel in en krijgt het verkeerde artikel de verkeerde datum. Nu blok voor blok.
+
+**Verificatie.** `kiesTeIndienen()` is een pure functie en is getest met acht rijen die alle takken raken: nieuw, gewijzigd, fout, herkansing, te vers voor een herkansing, vandaag al ingediend, ongewijzigd en statisch. Uitkomst en volgorde klopten. Verder tsc schoon en een productiebuild in de cloud-container groen. Die build ving ook een echte fout: `export const JOB` in een route-bestand breekt Next.js met "does not match the required types of a Next.js Route", en tsc zag dat niet.
+
+De gegenereerde HTML gecontroleerd: het boodschappenartikel heeft nu `datePublished` 26 juni en `dateModified` 6 september, de hub twee keer 6 september, en een ongewijzigd artikel houdt zijn eigen datum twee keer.
+
+**Wat je hierna verwacht.** Na de push draait de job morgenochtend om 06:30 en dient hij alles in wat sinds 17 juni is bijgekomen, in één call en ruim binnen het dagbudget van 200. Klik je vandaag zelf op indienen in het tabblad, dan gebeurt het meteen. Vervolgens toont het tabblad bij elke run wat er is ingediend en waarom.
+
+## 12. Volgende sessies
 
 1. **H2 bouwen**: de hub voor het stel zonder kinderen, met `stel-zonder-kinderen` als rapport. Of eerst de CTR-titels tegen hun antwoordblok controleren, zie BEGIN HIER.
-2. **Bing Webmaster Tools aanzetten en de sitemap indienen** (fase 1 punt 5, Jarno's kant).
+2. **Bing Webmaster Tools aanzetten en de sitemap indienen** (fase 1 punt 5, Jarno's kant). Nu extra de moeite waard: IndexNow dient vanaf morgen weer in bij Bing, en zonder Webmaster Tools zie je niet wat dat oplevert.
+3. **Over een week het indexeringstabblad controleren**: staat er een verse regel bij "Laatste indiening bij IndexNow", dan draait de cron. Staat er niets, dan pakt Vercel de nieuwe cron niet op en moet je in het Vercel-dashboard kijken of het plan meer dan drie cronjobs toestaat.
 3. **Het lek dichten**: rond 13 september de schermlijst lezen en één wijziging doen op het scherm bovenaan.
 4. **De modaal-FAQ in is-4000**, nu het CPB-cijfer met ophaaldatum vaststaat, samen met de FAQ's voor €4.100 en €4.600.
 5. **Z1 zorgpremie 2027**: pas na 12 november.
