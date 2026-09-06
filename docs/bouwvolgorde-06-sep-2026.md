@@ -67,11 +67,33 @@ Meegegaan in dezelfde deploy, want een interne link naar een redirect is verspil
 | CTR-ronde | elke URL boven 100 vertoningen onder 2 procent | alleen die met positie 10 of beter, dat zijn er 5 van de 16 | 11 URL's minder werk per ronde |
 | 2027-sweep | 17 metaTitels | 25 metaTitels | meer werk, plan erop |
 
-## 4. Volgende sessies
+## 4. Cluster Z na SERP-verificatie, 6 september 2026
+
+Volledig in `docs/serp-cluster-z-06-sep-2026.md`. Chrome op google.nl, vijf termen geverifieerd, gescoord op de schaal uit `docs/serp-brainstorm-18-aug-2026.md`. Geen van de vijf had een AI-overzicht en op geen van de vijf staat een eigen URL.
+
+| # | Zoekterm | Score | Plan | Na SERP | Publiceren |
+|---|---|---:|---|---|---|
+| Z4 | kindgebonden budget 2027 inkomensgrens | 30,5 | A | A, eerst | kan nu, mits de €60.000-grens naar prijspeil 2027 vaststaat |
+| Z1 | zorgpremie 2027 | 26,5 | A | A | als raming, herzien 16 sep en na 12 nov |
+| Z3 | kinderopvangtoeslag 2027 | 26 | A | A | zodra de maximum uurtarieven 2027 bekend zijn |
+| Z2 | koopkracht 2027 | 21 | A | B | niet als eerste, en niet op deze term |
+| Z2b | wat houd ik over in 2027 | 8 | niet in plan | vervalt | nooit, de SERP is zonnepanelen |
+
+**Z4 wordt de eerste Z-pagina.** Het kabinet verlaagt vanaf 1 januari 2027 het kindgebonden budget voor huishoudens boven €60.000 door het afbouwpercentage te verhogen (Rijksoverheid, Tweede Kamer, wetgevingskalender). Dat raakt de ICP gericht en niemand anders. De hele SERP is instituut: Rijksoverheid legt de maatregel uit, de Belastingdienst de rekenregel, het wetsvoorstel de wetstekst. Niemand rekent het voor een huishouden uit.
+
+**Z2 zakt.** De PAA bij "koopkracht 2027" is macro-economisch (crisis, vooruitzichten) en de SERP is nieuws tot en met NOS, BNR en TikTok. Dat is een andere zoeker dan die de analyse invult. De CPB-cijfers blijven bruikbaar als alinea met bron in Z4 en Z1: koopkracht +0,6% in 2026, min 0,3% in 2027, inflatie circa 3%, cao-loongroei 4,2%.
+
+**Twee feitelijke waarschuwingen.**
+
+Het plan noemt bij Z1 "eigen risico 165". Dat komt in de SERP nergens voor. Menzis noemt €385 voor 2027, het wetsvoorstel spreekt van €60 verhoging, de PAA vraagt naar €520, en Welingelichte Kringen kopt dat de verhoging een jaar is uitgesteld. Dit cijfer is op 6 september niet vast te stellen en gaat niet in een publicatie tot dat wel kan. De premies zijn 12 november bekend (CZ).
+
+Bij Z3: de afschaffing van de kinderopvangtoeslag en directe financiering aan de opvang gaat om **2029**, niet 2027. In 2027 gaat alleen het vergoedingspercentage naar 96 procent voor het eerste kind, ook voor ouders die daar nu geen recht op hebben. Wie die twee door elkaar haalt schrijft een fout artikel.
+
+## 5. Volgende sessies
 
 1. **S2 plus S1**: het bedragen-FAQ-blok in is-4000, uit `berekenVuistregel()` en `omslagpunt()`, met 3.500, 4.100, 4.200, 4.300, 4.500 en 4.600. Geen nieuwe pagina. Het modaalantwoord kan in datzelfde blok mee zodra het cijfer een bron heeft.
 2. **Pijler cluster P herschrijven**: `samen-6000-euro-netto-toch-niets-over` naar het gezinsbudget-format met het volledige paginapakket, en dan pas beslissen wat er met `goed-salaris-toch-krap` gebeurt.
-3. **Fase 0 stap 2**: SERP-verificatie in Chrome op google.nl voor cluster Z, vóór 15 september, want Z2 moet vóór Prinsjesdag live.
+3. **Z4 bouwen**: kindgebonden budget 2027 voor tweeverdieners, het volledige paginapakket. Eerst de €60.000-grens naar prijspeil 2027 hard krijgen.
 4. **Fase 1**: scherm-id in `logVoortgang()`, de twee markers op het resultaatscherm, en de schrijfactie naar een server-route. Zie `docs/funnelmeting-status-05-sep-2026.md`.
 
 De killgrens uit plan sectie 9 blijft staan: is de analyse-afronding op 19 september nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. Titelwerk en 301's vallen daar niet onder, die zijn onderhoud.
