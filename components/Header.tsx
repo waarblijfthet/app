@@ -12,10 +12,23 @@ import CtaLink from "@/components/CtaLink";
    Zelfde component op elke pagina, inclusief de homepage met zijn wijnrode
    hero: de header staat er los boven, niet overlappend.
 
-   De navigatie is bewust kort: vier links plus één primaire actie. Die
-   primaire actie is altijd de gratis analyse, want dat is de enige primaire
+   De navigatie is kort: vijf links plus één primaire actie. Die primaire
+   actie is altijd de gratis analyse, want dat is de enige primaire
    conversie-ingang van de site. Route en label komen uit lib/cta.ts. Contact
    staat niet in de hoofdnavigatie, wel in het mobiele menu en in de footer.
+
+   BREAKPOINTS (6-sep-2026, toen Inzichten erbij kwam). De volledige navigatie
+   staat vanaf `lg` (1024px) en niet meer vanaf `md` (768px). Reden: gemeten op
+   de live header is de balk met vijf links 872px breed (logo 143, nav 403, gap
+   32, knop 214, padding 80). Op 768px liep dat dus over. Onder `lg` staat de
+   hamburger.
+
+   De primaire knop is daarvan losgekoppeld en staat vanaf `sm` (640px) altijd
+   in de balk, ook als de navigatie al is ingeklapt. Zonder die splitsing zou
+   een tablet de gratis analyse achter het menu krijgen, en die moet vanaf elke
+   pagina met één klik bereikbaar zijn. Onder `sm` blijft het zoals het was: de
+   knop staat alleen in het uitgeklapte menu, want naast logo en hamburger past
+   hij daar niet op een telefoon van 320px.
    ────────────────────────────────────────────────────────────────────────── */
 
 const C = {
@@ -34,6 +47,7 @@ const CONTACT_MAILTO = "mailto:hallo@waarblijfthet.nl";
 
 const navLinks = [
   { href: "/analyse", label: "Analyse" },
+  { href: "/inzichten", label: "Inzichten" },
   { href: "/rapporten", label: "Rapporten" },
   { href: "/aanbod", label: "Aanbod" },
   { href: "/over", label: "Over" },
@@ -132,7 +146,7 @@ export default function Header() {
         boxShadow: scrolled ? "0 2px 8px rgba(0,0,0,0.04)" : "none",
       }}
     >
-      <div className="flex items-center justify-between h-16 md:h-[76px] max-w-[1200px] mx-auto px-5 md:px-10">
+      <div className="flex items-center justify-between h-16 lg:h-[76px] max-w-[1200px] mx-auto px-5 lg:px-10">
         {/* Logo, links uitgelijnd */}
         <Link href="/" className="flex items-center gap-2.5 shrink-0" aria-label="Waar blijft het">
           <div
@@ -150,9 +164,10 @@ export default function Header() {
           </span>
         </Link>
 
-        {/* Desktop: vier navigatielinks en daarnaast één primaire actie */}
-        <div className="hidden md:flex items-center gap-8">
-          <nav className="flex items-center gap-7" aria-label="Hoofdnavigatie">
+        {/* Rechterkant: de navigatie vanaf lg, de primaire knop vanaf sm, en de
+            menuknop onder lg. Zie de toelichting bovenaan over de breedtes. */}
+        <div className="flex items-center gap-3 sm:gap-5 lg:gap-8">
+          <nav className="hidden lg:flex items-center gap-6" aria-label="Hoofdnavigatie">
             {navLinks.map(({ href, label }) => {
               const active = isActive(href);
               return (
@@ -186,7 +201,7 @@ export default function Header() {
               doel="analyse"
               href={ctaConfig.href}
               locatie="header"
-              className="inline-flex items-center gap-1.5 shrink-0 transition-colors duration-150"
+              className="hidden sm:inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-colors duration-150"
               style={{
                 backgroundColor: C.green,
                 color: C.white,
@@ -204,30 +219,33 @@ export default function Header() {
               <span aria-hidden="true">&rarr;</span>
             </CtaLink>
           )}
-        </div>
 
-        {/* Mobiel: alleen een menuknop. Klikgebied 44 bij 44, met een
-            hamburger van drie horizontale lijnen als het menu dicht is en
-            een kruis als het open staat. */}
-        <button
-          ref={knopRef}
-          type="button"
-          className="md:hidden flex items-center justify-center w-11 h-11 -mr-2 rounded-lg"
-          onClick={() => (mobileOpen ? sluitEnFocusKnop() : setMobileOpen(true))}
-          aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
-          aria-expanded={mobileOpen}
-          aria-controls="mobiel-menu"
-        >
-          {mobileOpen ? (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M6 6L18 18M18 6L6 18" stroke={C.dark} strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          ) : (
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M3 6H21M3 12H21M3 18H21" stroke={C.dark} strokeWidth="2" strokeLinecap="round" />
-            </svg>
-          )}
-        </button>
+          {/* Menuknop, zichtbaar onder lg. Klikgebied 44 bij 44, met een
+              hamburger van drie horizontale lijnen als het menu dicht is en
+              een kruis als het open staat. Staat bewust binnen hetzelfde
+              rechterblok als de navigatie en de knop: de balk is
+              justify-between met precies twee kinderen, het logo en dit blok.
+              Zet je hem er weer buiten, dan schuift dit blok naar het midden. */}
+          <button
+            ref={knopRef}
+            type="button"
+            className="lg:hidden flex items-center justify-center w-11 h-11 -mr-2 rounded-lg"
+            onClick={() => (mobileOpen ? sluitEnFocusKnop() : setMobileOpen(true))}
+            aria-label={mobileOpen ? "Menu sluiten" : "Menu openen"}
+            aria-expanded={mobileOpen}
+            aria-controls="mobiel-menu"
+          >
+            {mobileOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M6 6L18 18M18 6L6 18" stroke={C.dark} strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M3 6H21M3 12H21M3 18H21" stroke={C.dark} strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            )}
+          </button>
+        </div>
       </div>
 
       {/* Mobiel menu: volledig wit, geen transparantie, verdwijnt helemaal
@@ -236,7 +254,7 @@ export default function Header() {
         <div
           id="mobiel-menu"
           ref={paneelRef}
-          className="md:hidden px-5 pt-2 pb-7"
+          className="lg:hidden px-5 pt-2 pb-7"
           style={{ backgroundColor: C.white, borderTop: "1px solid " + C.border }}
         >
           <nav className="flex flex-col" aria-label="Mobiele navigatie">

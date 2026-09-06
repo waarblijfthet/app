@@ -429,6 +429,19 @@ Die zin staat nu letterlijk op alle drie de pagina's, met links over en weer. Ho
 
 **Beslispunt voor Jarno:** dit pas oppakken als N5 zijn meetpunt van 5 november haalt. Doet hij dat niet, dan is het weggegooid werk.
 
+### Inzichten terug in het hoofdmenu
+
+Jarno merkte na de batch op dat `/inzichten` in de header ontbrak, terwijl het de pagina is die alle artikelen toont. Hij stond wel in de footer, niet in het menu. Toegevoegd aan `navLinks` in `components/Header.tsx`, op plek twee: Analyse, Inzichten, Rapporten, Aanbod, Over. Desktop en mobiel lezen allebei uit die ene lijst, dus één regel dekt beide.
+
+Wat er wél omheen moest, en waarom. Met vijf links past de balk niet meer op 768px. Opgemeten op de live header: logo 143, navigatie 387 bij een gap van 24, tussenruimte 32, knop 214, padding 80, samen 856 pixels. Daarom:
+
+- De volledige navigatie staat nu vanaf `lg` (1024px) in plaats van vanaf `md`. Op 1024 blijft er 168 pixels over.
+- **De primaire knop is losgekoppeld van de navigatie en staat vanaf `sm` (640px) altijd in de balk.** Zonder die splitsing zou een tablet de gratis analyse achter de hamburger krijgen, en CLAUDE.md sectie 5 wil hem vanaf elke pagina met één klik bereikbaar. Op 640 heeft die combinatie 481 pixels nodig.
+- Onder `sm` verandert er niets: daar staat de knop alleen in het uitgeklapte menu, want naast logo en hamburger past hij niet op een telefoon van 320 pixels.
+- De hamburger is van de balk naar het rechterblok verhuisd. De balk is `justify-between` met precies twee kinderen; laat je de knop erbuiten, dan schuift het rechterblok naar het midden. Dat staat als waarschuwing in het component.
+
+Niet gecontroleerd in een echte browser: de dev-server overleeft de shell op deze mount niet, dus de breedtes zijn opgemeten door de nieuwe balk op de live pagina na te bouwen. Loop de header na de deploy zelf even langs op telefoon, tablet en desktop.
+
 ### Openstaand na deze batch
 
 1. **Pushen en dan pas indienen.** Zie "Openstaand aan Jarno's kant" in BEGIN HIER. De vijf URL's gaven op 6 september nog een 404.
