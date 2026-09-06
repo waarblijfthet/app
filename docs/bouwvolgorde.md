@@ -4,9 +4,13 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 6 september 2026, na vier sessies op die dag. Gepusht is tot en met `671e652`; daarna staan er twee lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -4` om te zien of dat nog klopt.
+Laatst bijgewerkt: 6 september 2026, na vijf sessies op die dag. De laatste was de eenmalige batchdag van `docs/plan-nieuwe-invalshoeken-06-sep-2026.md`. Er staan nu zes lokale commits klaar die Jarno nog moet pushen, tot en met `9e3a514`. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn de vijf nieuwe pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
 
 **Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd, inclusief de antwoordblokken die bij de nieuwe titels horen. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
+
+Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2, N3, N5), N6 geschrapt**. Alle 24 zoektermen uit het invalshoekenplan zijn eerst op google.nl geverifieerd, met de uitkomsten in `docs/serp-invalshoeken-06-sep-2026.md`. Zie sectie 13 hieronder voor wat er is gebouwd, wat is geschrapt en waarom.
+
+**Let op de tempo-regel.** Met deze batch staan er op 6 september acht pagina's nieuw of herschreven, tegen een norm van twee per week. Dat was een expliciete, eenmalige keuze van Jarno en het plan noemt hem ook zo. Vanaf nu geldt de norm van twee per week weer, en de eerstvolgende nieuwe pagina is H2, niet eerder dan 13 september.
 
 ### Eerst dit, elke sessie, kost vijf minuten
 
@@ -15,7 +19,7 @@ Laatst bijgewerkt: 6 september 2026, na vier sessies op die dag. Gepusht is tot 
 
 ### Wat de eerstvolgende actie is, hangt af van de datum
 
-**Tot en met 12 september: geen nieuwe pagina bouwen.** Op 6 september zijn er drie pagina's nieuw of herschreven (Z4, de pijler, H1). De tempo-regel uit CLAUDE.md sectie 1 is twee per week, nooit meer, en dat is geen richtlijn maar de regel die voorkomt dat er halve pagina's live gaan. Deze week is dus vol. Doe in die periode onderhoud, dat valt er expliciet buiten:
+**Tot en met 12 september: geen nieuwe pagina bouwen.** Op 6 september zijn er acht pagina's nieuw of herschreven (Z4, de pijler, H1, plus de batch N1 tot N5). De tempo-regel uit CLAUDE.md sectie 1 is twee per week, nooit meer, en dat is geen richtlijn maar de regel die voorkomt dat er halve pagina's live gaan. Deze week is dus vol. Doe in die periode onderhoud, dat valt er expliciet buiten:
 
 - ~~De CTR-titels tegen hun antwoordblok.~~ Gedaan op 6 september, zie sectie 12. Alle vijf antwoordblokken noemen nu hetzelfde getal als hun metaTitel.
 - **De modaal-FAQ in is-4000** (nu de hoogste prioriteit van wat er nog staat). Het cijfer waar sectie 2 op wachtte is er nu: CPB cMEV 2027 geeft bruto modaal €48.000 voor 2026 en €50.000 voor 2027, geverifieerd op https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027 op 6 september 2026. Neem in dezelfde deploy de ontbrekende FAQ's voor €4.100 en €4.600 mee (sectie 6). Een FAQ toevoegen is onderhoud, geen herschrijving.
@@ -35,6 +39,8 @@ Laatst bijgewerkt: 6 september 2026, na vier sessies op die dag. Gepusht is tot 
 | 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand; tabel en rekenaar volgen vanzelf. Zet `gewijzigd` op die dag. |
 | 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
 | 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast, pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op, en wat doet H1 na vier weken. Plus de beslissing over `wat-zijn-normale-vaste-lasten-gezin`, zie hieronder. |
+| 5 november | **Meetpunt N5**, de Engelse pagina: haalt hij meer dan 100 vertoningen per week in GSC? Zo niet, dan blijft het bij deze ene Engelse pagina en komt er geen tweede. Nulmeting op 6 september: 1 vertoning in 90 dagen op alles met "salary" erin. |
+| 5 december | **Meetpunt N1 tot N4**, 90 dagen na publicatie. Een pagina met minder dan 20 vertoningen per maand en geen externe links gaat mee in de contentkill van CLAUDE.md sectie 9. Let vooral op N4: die deelt taalgebied met de twee coach-pagina's. |
 | 1 november | Killgrens uit plan sectie 9: onder 3.000 sessies per maand of onder 5 betaalde Geldscans gaan clusters L en B in de wacht. |
 | 12 november | Z1 zorgpremie 2027 bouwen, als de premies bekend zijn. |
 | 8 december | 2027-sweep over 25 metaTitels. Zet bij elke pagina `gewijzigd`, anders merkt de sitemap er niets van. |
@@ -49,7 +55,14 @@ Laatst bijgewerkt: 6 september 2026, na vier sessies op die dag. Gepusht is tot 
 
 1. Bing Webmaster Tools aanzetten en de sitemap indienen. Nu extra de moeite waard: IndexNow dient weer in bij Bing en zonder Webmaster Tools zie je niet wat dat oplevert.
 2. De URL's van Z4 en H1 handmatig indienen in GSC, als dat nog niet gebeurd is: `/inzichten/kindgebonden-budget-2027-inkomensgrens` en `/inzichten/wat-geeft-een-gezin-uit-per-maand`.
-3. `_to_delete/` een keer legen. Daar staan lege git-locks in die ik niet kan verwijderen, plus twee oude build-tars.
+3. **Pushen, en pas daarna de vijf nieuwe URL's indienen in GSC.** Ze zijn op 6 september bewust niet ingediend, want ze gaven op dat moment nog een 404 en een 404 indienen bij Google levert een crawlfout op in plaats van een indexering. Zodra de deploy staat, alle vijf via URL-inspectie indienen:
+   - `/inzichten/rentevaste-periode-loopt-af-wat-nu`
+   - `/inzichten/kan-iemand-naar-mijn-financien-kijken`
+   - `/inzichten/partner-geeft-te-veel-uit`
+   - `/inzichten/financiele-ontrouw-partner-verzwijgt-geld`
+   - `/en/is-5000-net-a-good-salary-netherlands`
+   Controleer meteen dat die laatste ook echt rendert; het is de eerste pagina buiten `/inzichten` met eigen metadata en eigen schema.
+4. `_to_delete/` een keer legen. Daar staan lege git-locks in die ik niet kan verwijderen, plus twee oude build-tars.
 
 ### Bekende schuld
 
@@ -342,13 +355,95 @@ Meegenomen omdat ik de pagina toch aanraakte:
 
 Wat hier bewust niet is gebeurd: de regel "Cijfers bijgewerkt op [datum]" is er niet bij gezet. Die regel claimt dat de cijfers op die dag gecontroleerd zijn, en dat is niet gebeurd; er is alleen verplaatst wat er al stond. En bij het alleenstaande-artikel bleek dat de €2.000 tot €2.400 die nu in de titel én in het antwoordblok staat, geen bron heeft die CLAUDE.md regel 3 aankan. Dat staat als openstaande beslissing voor Jarno in BEGIN HIER.
 
-## 13. Achterstallige lijst
+## 13. Batchdag nieuwe invalshoeken, 6 september 2026
+
+Eenmalige batchdag uit `docs/plan-nieuwe-invalshoeken-06-sep-2026.md`, expliciet zo afgesproken. Zes pagina's gepland, vijf gebouwd, een geschrapt. Vanaf morgen geldt de norm van twee per week weer.
+
+### Stap 1: SERP-verificatie van alle 24 zoektermen
+
+Chrome op google.nl, `hl=nl` en `gl=nl` voor de Nederlandse termen, `hl=en` en `gl=nl` voor de Engelse (de zoeker is Engelstalig maar zit hier, en met `hl=nl` zie je een andere pagina 1 dan hij). Volledig verslag in `docs/serp-invalshoeken-06-sep-2026.md`.
+
+**Op geen van de 24 SERP's stond een AI-overzicht, en op geen enkele stond een eigen URL op pagina 1.** Dat is consistent met de hubs-meting van dezelfde dag.
+
+GSC-controle per onderwerp, laatste 90 dagen: hypotheek 7 vertoningen op positie 4,6; partner 12 op 32,1; coach 1.190 op 52,6; salary 1 op 35. Alleen die derde is een kannibalisatierisico, zie N4 hieronder.
+
+### Wat er gebouwd is
+
+| # | Slug | Primaire zoekterm | Interactief element | Rapport |
+|---|---|---|---|---|
+| N1 | `rentevaste-periode-loopt-af-wat-nu` | rentevaste periode loopt af wat nu | `RenteVerschilRekenaar` op `lib/rente-verschil.ts` | tweeverdieners-drie-kinderen |
+| N4 | `kan-iemand-naar-mijn-financien-kijken` | iemand die naar mijn financiën kijkt | `HulpKeuzehulp`, drie vragen | alle vijf via /rapporten |
+| N2 | `partner-geeft-te-veel-uit` | partner geeft te veel uit | `BoodschappenSituatiekiezer` met eigen kop | stel-zonder-kinderen |
+| N3 | `financiele-ontrouw-partner-verzwijgt-geld` | financiële ontrouw | `OpenheidChecklist`, vijf ja/nee-vragen | geen, bewust |
+| N5 | `/en/is-5000-net-a-good-salary-netherlands` | is 5000 net a good salary netherlands | `HouseholdCalculatorEn` | stel-zonder-kinderen en gezin |
+
+Commits, in volgorde: `92358a9` (N1 plus de SERP-verificatie), `c350c97` (N4), `95e07bc` (N2 en N3 samen), `9e3a514` (N5). N2 en N3 zitten in één commit omdat ze elkaar over en weer linken; los committen zou in de eerste een link naar een nog niet bestaande slug zetten.
+
+### Wat er geschrapt is, en waarom
+
+**N6, "wat je bankapp je niet vertelt", helemaal geschrapt.** Alle vier de zoektermen leveren een SERP die voor zes tot acht van de negen plekken uit de helppagina's van ING, Rabobank, ABN en ASN bestaat. Google leest deze termen als supportvragen over je eigen bankapp, en op die vraag is de helppagina van je eigen bank het juiste antwoord. Een onafhankelijke pagina komt daar niet boven. Bijkomend: de zoekterm "Rabobank Grip" uit de brief beschrijft een product dat niet bestaat, want Grip is de app van ABN AMRO en de Rabobank noemt het Inzicht.
+
+De hoek zelf ("de app telt, de vergelijking ontbreekt") is wel goed, maar het is een argument en geen zoekmoment. **Voorstel, geparkeerd, beslissing aan Jarno:** neem het op als sectie in het boodschappenartikel (10.932 vertoningen) of in H1, onder de kop "waarom je bankapp niet zegt of het erg is". Dat is een half uur en valt onder onderhoud, niet onder de tempo-regel.
+
+**Zes losse zoektermen geschrapt terwijl hun pagina bleef staan:**
+
+| Zoekterm | Bij | Waarom |
+|---|---|---|
+| hypotheek 2016 verlengen 2026 | N1 | Google negeert "2016" (zes van de negen resultaten zeggen letterlijk "Bevat niet: 2016") en toont de hypotheekregels van 2026. Cohortomschrijving, geen zoekterm. |
+| vrouw koopt te veel | N2 | SERP is volledig koopverslaving: Afkickkliniekwijzer op 1, psychologie.nl, verslavingskliniek, oniomanie in "mensen zoeken ook naar". Gezondheidsterrein, copyregel 5. |
+| partner verzwijgt schulden | N3 | SERP is juridisch: Judex, Juridisch Loket, aansprakelijkheid bij scheiding. De zoeker wil weten of hij aansprakelijk is en dat beantwoordt deze site niet. Komt terug als FAQ met doorverwijzing. |
+| second opinion huishoudbudget | N4 | Google laat "huishoudbudget" bij vijf van de negen resultaten vallen. De term heeft geen corpus: hij is bedacht, niet getypt. |
+| financiële check laten doen | N4 | Alle negen resultaten gaan over de financiële check bij nieuwbouw. Volledig bezet, met een betekenis die niets met deze dienst te maken heeft. |
+| why can't I save money in the netherlands | N5 | SERP is bespaartips (Becksplore, All About Expats, Expatica). CLAUDE.md sectie 4 en 8 sluiten bespaartips uit. |
+
+**Dit beantwoordt meteen D1 uit het plan van 5 september.** Dat punt vroeg om te controleren of "financiële APK" of "geldcheck laten doen" bezet is door hypotheekadviseurs. Het antwoord is ja, volledig. D1 mag daarom nooit op die naam gebouwd worden. N4 vervangt D1 en doet het op natuurlijke taal.
+
+### Correcties op de briefs, na verificatie
+
+1. **N3, schaamtecijfer.** De brief noemde 38 procent. Het geverifieerde cijfer is **42,4 procent**, en het hoort bij een tweede onderzoek van Lening.nl onder **1.127** mensen (via Banken.nl, 12 augustus 2026), niet bij het onderzoek van april onder **400** mensen. Uit dat eerste komt de 11,75 procent (via Wonen360, 3 april 2026). De brief noemde maart 2026 als datum; de publicatiedatum is 2 april 2026. Beide onderzoeken zijn zelfgerapporteerd en van een commercieel vergelijkingsplatform, en dat staat bij elk cijfer op de pagina.
+2. **N1, het NHG-cijfer.** De brief noemde "bijna 100 euro bruto per maand erbij, NHG via Ikbenfrits, april 2026". Dat cijfer is op google.nl niet teruggevonden; Ikbenfrits heeft wel een pagina over aflopende rentevaste periodes, maar die is van 4 juni 2025 en noemt het bedrag niet. **Het staat dus niet in de pagina.** In plaats daarvan rekent N1 het verschil zelf uit met de annuïteitenformule, met de formule zichtbaar, en gebruikt Van Bruggen (26 maart 2026, zelf geopend) alleen als bron voor het rentespoor van net onder 2 naar rond 4 procent.
+3. **N1, vierde tabelkolom.** De brief noemt +0,5, +1,0 en +1,5 procentpunt. Daar is +2,0 aan toegevoegd, want de geverifieerde bron laat zien dat het cohort van 2016 in de praktijk ongeveer twee procentpunt omhoog gaat. Een tabel die op anderhalf stopt toont de situatie niet die nu speelt.
+4. **N5, Amsterdamse huur.** De brief vroeg om huur en woonlasten met bron. Er is geen gesourced huurníveau voor Amsterdam gevonden, alleen een huurstíjging (CBS, 4 september 2026: landelijk 4,4 procent, Amsterdam 4,3 procent, het laagst van de vier grote steden). De pagina zegt daarom expliciet dat ik geen huurniveau heb en gebruikt de stijging plus de woonlastvuistregel.
+
+### Waarom N4 tóch gebouwd is terwijl GSC kannibalisatie suggereert
+
+CLAUDE.md sectie 8A punt 2 zegt: vertoont een bestaande URL al op die zoekterm, dan upgraden in plaats van bouwen. Op "coach"-termen staat de site op 1.190 vertoningen in 90 dagen, positie 52,6, nul klikken. Dat gaat naar `wat-kost-een-financieel-coach` en `verschil-budgetcoach-financieel-coach`.
+
+De toets uit sectie 10 is toegepast: de scheiding moet in één zin uit te leggen zijn. Die zin is:
+
+> `wat-kost-een-financieel-coach` beantwoordt wat het kost, `verschil-budgetcoach-financieel-coach` beantwoordt wie wat doet, en N4 beantwoordt of het iets voor jou is als je geen schulden hebt.
+
+Die zin staat nu letterlijk op alle drie de pagina's, met links over en weer. Houdt N4 na 90 dagen minder dan 20 vertoningen, dan gaat hij met die twee mee in de contentkill. Meetdatum staat in de datumtabel op 5 december.
+
+### Wat er technisch bij is gekomen
+
+- `lib/rente-verschil.ts`: annuïteit plus restschuld, met de formules gedocumenteerd. Rekent bewust alleen het verschil in bruto maandlast bij een gegeven rente. Nooit uitbreiden naar rentevergelijking of aanbieders; CLAUDE.md sluit een hypotheekrekenaar uit.
+- Vier nieuwe componenten: `RenteVerschilRekenaar`, `HulpKeuzehulp`, `OpenheidChecklist`, `HouseholdCalculatorEn`.
+- `BoodschappenSituatiekiezer` heeft twee optionele teksten gekregen (`kop`, `intro`) zodat N2 hem kan hergebruiken. Chips, bedragen en vervolgroutes zijn ongewijzigd; zonder meegegeven tekst gedraagt hij zich precies als voorheen.
+- Twee optionele velden op `Artikel`: `dienstSchema` (Service-schema met prijs, alleen op N4) en `enVertaling` (hreflang, alleen op is-5000). Komt er ooit een tweede Engelse pagina, dan is dat het moment om er een echte i18n-laag van te maken in plaats van een veld.
+- `/en/` is de eerste route buiten `/inzichten` met eigen metadata en eigen Article-, FAQPage- en BreadcrumbList-schema. Toegevoegd aan `scripts/generate-sitemap.mjs` én aan `lib/sitemap-urls.ts`; dat zijn twee losse lijsten en ze worden allebei gebruikt. Sitemap staat nu op 117 URL's, llms.txt heeft een eigen kopje "In English".
+
+### Wat bewust NIET gebouwd is
+
+**Een Engelse labelset voor de analyse.** De brief van N5 vroeg om te beoordelen of dat in één sessie haalbaar is. Dat is het niet: het zijn zes stapcomponenten in `app/analyse/stappen`, plus de resultaatteksten en de mailketen, en half vertalen is erger dan niet vertalen. Op de Engelse pagina staat daarom letterlijk dat de vergelijking Nederlands is en dat het rapport in het Engels geleverd wordt.
+
+**Beslispunt voor Jarno:** dit pas oppakken als N5 zijn meetpunt van 5 november haalt. Doet hij dat niet, dan is het weggegooid werk.
+
+### Openstaand na deze batch
+
+1. **Pushen en dan pas indienen.** Zie "Openstaand aan Jarno's kant" in BEGIN HIER. De vijf URL's gaven op 6 september nog een 404.
+2. **Draai een productiebuild voordat je pusht.** Vier nieuwe clientcomponenten en een nieuwe route; `tsc` is schoon maar die ving deze week twee minifier-fouten niet.
+3. **Nibud over geldgesprekken in relaties.** De brief van N2 vroeg om een Nibud-bron als die vindbaar was. Nibud heeft een rapport "Geld en relatie" uit 2019 dat op de SERP staat, maar Nibud blokkeert automatisch opvragen (CLAUDE.md 8A.1). Wil je dat cijfer op N2, lever dan bedrag, vindplaats en ophaaldatum aan.
+4. **N6 als sectie ergens anders**, zie hierboven. Geparkeerd tot Jarno erover beslist.
+
+## 14. Achterstallige lijst
 
 Dit is de voorraad, niet de volgorde. **BEGIN HIER bepaalt wat er als eerste gebeurt**; dit is waaruit BEGIN HIER put als er ruimte is. Streep af wat je doet.
 
 **Content en SEO**
 
 1. **H2**, hub voor het stel zonder kinderen, rapport `stel-zonder-kinderen`. Prio A.
+   - Kijk vóór H2 naar N2 en N3: die linken allebei naar het stel zonder kinderen en horen straks onder deze hub te hangen.
 2. **H3**, alleenstaand: geen nieuwe pagina, `kosten-levensonderhoud-alleenstaande-2026` ombouwen tot hub. Prio B.
 3. **H4** alleenstaande ouder en **H5** zzp. Prio B en C.
 4. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn. Let op de waarschuwing in sectie 4 over het eigen risico.
