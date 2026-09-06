@@ -96,7 +96,7 @@ export interface Artikel {
  * FAQ-antwoorden hieronder, werkregel 2: elk bedrag komt uit dezelfde functie
  * die de rekenaar en de bedragentabel op het 4.000-artikel gebruiken.
  */
-import { berekenVuistregel, omslagpunt, euro, VERVOER, VUISTREGEL } from "./salaris-vuistregel";
+import { berekenVuistregel, omslagpunt, euro, afgerondOpHonderd, VERVOER, VUISTREGEL } from "./salaris-vuistregel";
 import { RAPPORTEN, rapportVoorSlug, AANTAL_ZONDER_LEK } from "./rapporten-data";
 import {
   BRUTO_VOOR_NETTO,
@@ -214,7 +214,104 @@ const SAMENGESTELD_KINDERKOSTEN_DELTA = SAMENGESTELD_VOL.kinderkosten - SAMENGES
 const RAPPORT_STEL_ZONDER_KINDEREN = rapportVoorSlug("stel-zonder-kinderen")!;
 const RAPPORT_TWEEVERDIENERS_DRIE_KINDEREN = rapportVoorSlug("tweeverdieners-drie-kinderen")!;
 
+
+/**
+ * Berekende bedragen voor de hub H1, `wat-geeft-een-gezin-uit-per-maand`
+ * (6-sep-2026, docs/serp-hubs-06-sep-2026.md). Het representatieve huishouden
+ * van de hub: twee volwassenen, twee kinderen, één eigen auto. Elk bedrag in de
+ * excerpt, de preview en de FAQ's hieronder komt uit deze consts, precies zoals
+ * de tabel en de rekenaar op de pagina zelf. Nooit met de hand overtypen,
+ * werkregel 2.
+ */
+const H1_ONDER = 3500;
+const H1_BOVEN = 6500;
+const H1_LAAG = berekenVuistregel({ inkomen: H1_ONDER, volwassenen: 2, kinderen: 2, auto: "eigen" });
+const H1_HOOG = berekenVuistregel({ inkomen: H1_BOVEN, volwassenen: 2, kinderen: 2, auto: "eigen" });
+const H1_SOM_LAAG = H1_ONDER - H1_LAAG.verwachtOver;
+const H1_SOM_HOOG = H1_BOVEN - H1_HOOG.verwachtOver;
+const H1_SOM_LAAG_ROND = afgerondOpHonderd(H1_SOM_LAAG);
+const H1_SOM_HOOG_ROND = afgerondOpHonderd(H1_SOM_HOOG);
+const H1_OMSLAG = omslagpunt(2, 2, "eigen");
+const H1_OMSLAG_EEN_KIND = omslagpunt(2, 1, "eigen");
+const H1_OMSLAG_DRIE_KINDEREN = omslagpunt(2, 3, "eigen");
+const H1_5500 = berekenVuistregel({ inkomen: 5500, volwassenen: 2, kinderen: 2, auto: "eigen" });
+const H1_5500_ZONDER = berekenVuistregel({ inkomen: 5500, volwassenen: 2, kinderen: 0, auto: "eigen" });
+const H1_KIND_PER_MAAND = Math.round((H1_5500.verwachtOver === 0 ? 0 : (H1_5500_ZONDER.verwachtOver - H1_5500.verwachtOver)) / 2);
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "wat-geeft-een-gezin-uit-per-maand",
+    cta: {
+      kop: "Leg jullie eigen maand ernaast",
+      tekst:
+        "De gratis analyse zet jullie begroting post voor post naast vergelijkbare huishoudens. In een paar minuten zie je op welke posten jullie afwijken, en op welke juist niet.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Wat geeft een gezin uit per maand? De begroting per post",
+    korteTitel: "Wat geeft een gezin uit per maand",
+    metaTitel: `${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)}: wat geeft een gezin uit per maand?`,
+    metaDescription:
+      `Een gezin met twee inkomens en twee kinderen geeft ${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)} per maand uit. De hele begroting per post, met per bedrag het aantal huishoudens waarop het rust.`,
+    datum: "2026-09-06",
+    datumFormatted: "6 september 2026",
+    leestijd: "8",
+    categorie: "Gezinsbudget",
+    excerpt: `De volledige maandbegroting van een gezin met twee inkomens, van ${euro(H1_ONDER)} tot ${euro(H1_BOVEN)} netto. Per post, met de herkomst en het aantal huishoudens erbij. Geen gemiddelde, maar wat vijf doorgerekende huishoudens werkelijk uitgaven.`,
+    preview: {
+      type: "vergelijking",
+      label: "Maanduitgaven gezin, twee inkomens en twee kinderen",
+      items: [
+        { naam: `Bij ${euro(4000)} netto`, bedrag: 4000 - berekenVuistregel({ inkomen: 4000, volwassenen: 2, kinderen: 2, auto: "eigen" }).verwachtOver, kleur: "#0B7A6E" },
+        { naam: `Bij ${euro(5000)} netto`, bedrag: 5000 - berekenVuistregel({ inkomen: 5000, volwassenen: 2, kinderen: 2, auto: "eigen" }).verwachtOver, kleur: "#3E9A8C" },
+        { naam: `Bij ${euro(6000)} netto`, bedrag: 6000 - berekenVuistregel({ inkomen: 6000, volwassenen: 2, kinderen: 2, auto: "eigen" }).verwachtOver, kleur: "#6FBCAF" },
+        { naam: `Bij ${euro(6500)} netto`, bedrag: H1_SOM_HOOG, kleur: "#9CCFC4" },
+      ],
+      noot: "Het verschil zit vrijwel helemaal in wonen en vrije tijd. De andere posten bewegen niet mee met het inkomen.",
+    },
+    faq: [
+      {
+        vraag: "Wat geeft een gezin met twee kinderen gemiddeld uit per maand?",
+        antwoord: `Bij twee inkomens, twee kinderen thuis en één auto kom ik op ongeveer ${euro(H1_SOM_LAAG_ROND)} per maand bij ${euro(H1_ONDER)} netto en ${euro(H1_SOM_HOOG_ROND)} bij ${euro(H1_BOVEN)} netto. Dat is geen landelijk gemiddelde maar wat ik verwacht op grond van de ${RAPPORTEN.length} huishoudens die ik zelf heb doorgerekend. Het verschil tussen die twee bedragen zit bijna volledig in de woonlast en in vrije tijd; boodschappen, verzekeringen, abonnementen en de auto zijn op beide inkomens even hoog.`,
+      },
+      {
+        vraag: "Hoeveel netto inkomen heeft een gezin met twee kinderen minimaal nodig?",
+        antwoord: `Op deze vuistregel komt de begroting van een gezin met twee kinderen en één auto rond ${euro(H1_OMSLAG)} netto per maand voor het eerst uit. Met één kind is dat ongeveer ${euro(H1_OMSLAG_EEN_KIND)} en met drie kinderen ongeveer ${euro(H1_OMSLAG_DRIE_KINDEREN)}. Daaronder is er niets misgegaan: dan is de optelsom van wonen, kinderen en een auto simpelweg groter dan wat er binnenkomt.`,
+      },
+      {
+        vraag: "Wat kost een kind per maand in dit overzicht?",
+        antwoord: `Ongeveer ${euro(H1_KIND_PER_MAAND)} per kind per maand, opgebouwd uit ${euro(VUISTREGEL.boodschappenPerKind)} extra boodschappen en ${euro(VUISTREGEL.kinderenPerKind)} voor opvang, school, sport en hobby. Dat is bewust een smalle definitie: kleding en de extra woonruimte zitten er niet in. Cijfers die veel hoger uitkomen tellen die posten wel mee en meten dus iets anders.`,
+      },
+      {
+        vraag: "Waarom staat er geen gemiddelde over meerdere huishoudens in de tabel?",
+        antwoord: `Omdat middelen over vijf huishoudens een getal oplevert dat over niemand gaat. Het ene gezin heeft drie kinderen en twee auto's, het andere geen kinderen en alleen ov. Ik geef per post het bedrag met daarbij hoeveel van de vijf eronder liggen, zodat je zelf ziet hoe stevig het is. Bij een n van 1 of 2 is het een richting en geen norm.`,
+      },
+      {
+        vraag: "Waarom liggen deze bedragen hoger dan de bedragen die je elders leest?",
+        antwoord: `De meeste overzichten werken met referentie- of minimumbudgetten: wat een huishouden nodig heeft om rond te komen. Deze bedragen komen uit vijf huishoudens met een bovenmodaal inkomen en laten zien wat zij werkelijk uitgaven. Dat is iets anders. Bij alle vijf lagen de boodschappen fors boven wat de norm aangeeft, en juist dat verschil is de reden dat mensen met een goed salaris zich niet in een normbudget herkennen.`,
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS: inflatie in augustus 3,3 procent bij snelle raming (opgehaald 6 september 2026)",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2026/36/inflatie-in-augustus-3-3-procent-bij-snelle-raming",
+      },
+      {
+        label: "CPB: concept-Macro Economische Verkenning (cMEV) 2027, kerngegevens (opgehaald 6 september 2026)",
+        url: "https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027",
+      },
+      {
+        label: "Rijksoverheid: kindgebonden budget (opgehaald 6 september 2026)",
+        url: "https://www.rijksoverheid.nl/themas/familie-zorg-en-gezondheid/kindgebonden-budget",
+      },
+      {
+        label: `De vijf doorgerekende huishoudens waarop de bedragen rusten, met hun eigen cijfers`,
+        url: "https://www.waarblijfthet.nl/rapporten",
+      },
+    ],
+  },
   {
     slug: "kindgebonden-budget-2027-inkomensgrens",
     cta: {
@@ -278,7 +375,7 @@ export const artikelen: Artikel[] = [
     externLinks: [
       {
         label: "Rijksoverheid: minder kindgebonden budget voor hogere inkomens in 2027 (opgehaald 6 september 2026)",
-        url: "https://www.rijksoverheid.nl/actueel/nieuws",
+        url: "https://www.rijksoverheid.nl/themas/familie-zorg-en-gezondheid/kindgebonden-budget",
       },
       {
         label: "Wetgevingskalender: wijziging Wet op het kindgebonden budget (opgehaald 6 september 2026)",
@@ -290,7 +387,7 @@ export const artikelen: Artikel[] = [
       },
       {
         label: "CPB: concept-Macro Economische Verkenning 2027 (opgehaald 6 september 2026)",
-        url: "https://www.cpb.nl/raming-concept-macro-economische-verkenning-cmev-2027",
+        url: "https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027",
       },
     ],
   },

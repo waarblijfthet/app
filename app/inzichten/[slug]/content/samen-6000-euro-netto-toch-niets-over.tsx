@@ -251,6 +251,11 @@ export default function Samen6000EuroNettoTochNietsOver() {
         </CtaLink>{" "}
         naar jullie eigen cijfers, net zoals bij de twee huishoudens hierboven.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Zit jullie inkomen hoger of lager dan de twee huishoudens hierboven, dan staat dezelfde
+        begroting doorgerekend van €3.500 tot €6.500 netto in{" "}
+        <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
+      </p>
     </>
   );
 }

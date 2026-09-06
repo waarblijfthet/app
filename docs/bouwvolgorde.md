@@ -4,18 +4,15 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 6 september 2026. Alles hieronder is gecommit en gepusht tot en met `4141175`.
+Laatst bijgewerkt: 6 september 2026, tweede sessie van die dag. Alles hieronder is gecommit tot en met de commit van deze sessie. Pushen doet Jarno.
 
-**Stand van zaken.** Fase 0 is af (nulmeting, SERP-verificatie cluster Z, bouwvolgorde). Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 is uitgevoerd. Uit cluster Z staat Z4 gepubliceerd. De pijler van cluster P is verlegd en herschreven.
+**Stand van zaken.** Fase 0 is af. Fase 1 punt 1 en 3 staan live. Fase 2 CTR-ronde 1 is uitgevoerd. Uit cluster Z staat Z4 gepubliceerd. De pijler van cluster P is verlegd en herschreven. **H1 staat er nu ook**, de eerste van de vijf hubs, met vier inkomende links.
 
-**De eerstvolgende actie is: H1 bouwen, de hub voor tweeverdieners met kinderen.**
+**De eerstvolgende actie is: H2 bouwen, de hub voor het stel zonder kinderen, of eerst de CTR-titels controleren tegen hun antwoordblok.**
 
-Dat gaat in deze volgorde:
+Kies aan het begin van de sessie welke van die twee. De tweede is klein en staat al klaar: bij de vijf URL's uit sectie 1 moet de eerste alinea hetzelfde getal noemen als de nieuwe metaTitel, en dat is bij geen van de vijf gecontroleerd. Dat is een halve sessie en het beschermt de meting van 4 oktober.
 
-1. SERP-verificatie in Chrome op google.nl (`hl=nl`, `gl=nl`) voor de H-termen uit plan sectie 4, want die staan in geen enkel SERP-document. Minimaal: "wat geeft een gezin uit per maand", "gezinsbudget 6000 netto", "uitgaven gezin 2 kinderen per maand". Vastleggen in `docs/serp-hubs-<datum>.md` en scoren op de 35-puntsschaal uit `docs/serp-brainstorm-18-aug-2026.md`.
-2. H1 bouwen met het volledige pakket uit CLAUDE.md sectie 8 punt 8 tot 16. Hergebruik `components/artikel/GezinsbudgetTabel.tsx`, dat de twee echte huishoudens al post voor post naast elkaar zet uit `rapportVoorSlug()`.
-3. Inkomende links in dezelfde deploy vanuit is-4000, het boodschappenartikel en `samen-6000-euro-netto-toch-niets-over`. Die laatste is de pijler van cluster P en wacht op een link naar H1.
-4. Daarna pas beslissen wat er met `goed-salaris-toch-krap` gebeurt (nul vertoningen, staat nog).
+Voor H2 geldt dezelfde volgorde als bij H1: eerst SERP-verificatie in Chrome op google.nl voor de H2-termen uit plan sectie 4, vastleggen in `docs/serp-hubs-06-sep-2026.md` als extra sectie (niet in een nieuw bestand), dan bouwen met het volledige pakket, dan de inkomende links in dezelfde deploy. Het rapport voor H2 is `stel-zonder-kinderen`, het huishouden waar geen lek was.
 
 **Wat er buiten die actie op een datum wacht:**
 
@@ -24,11 +21,17 @@ Dat gaat in deze volgorde:
 | 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. Zeven dagen na de migratie. |
 | 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand, tabel en rekenaar volgen vanzelf. |
 | 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
-| 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1 van dit document. |
+| 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast, en pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op. En: wat doet H1 na vier weken. |
 | 12 november | Z1 zorgpremie 2027 bouwen, als de premies bekend zijn. |
 | 8 december | 2027-sweep over 25 metaTitels. |
 
-**Openstaand aan Jarno's kant:** Bing Webmaster Tools aanzetten en de sitemap indienen, en de URL van Z4 handmatig indienen in GSC.
+**Openstaand aan Jarno's kant:**
+
+1. Bing Webmaster Tools aanzetten en de sitemap indienen.
+2. De URL van Z4 handmatig indienen in GSC.
+3. **De URL van H1 handmatig indienen in GSC:** `/inzichten/wat-geeft-een-gezin-uit-per-maand`.
+4. In `.git/index.lock` blijft af en toe een lege lock staan die ik niet kan verwijderen. Ik verplaats hem nu naar `_to_delete/`. Ruim die map een keer op, hij staat vol met dat soort restanten.
+5. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan het bedrag en de ophaaldatum aan, dan zet ik het er met bron bij.
 
 **Bekende schuld:** de anon-rol mag `quiz_voortgang` nog lezen omdat het funneltabblad met de browserclient leest. Eerst die lezing naar een server-route, dan pas select intrekken. Staat als waarschuwing in `supabase/quiz_voortgang_v3.sql`.
 
@@ -204,14 +207,58 @@ De volgorde op het scherm is nu zoals plan sectie 6 punt 3 hem voorschrijft: eer
 
 **Wat nog open staat voor deze pijler:** de hub voor tweeverdieners met kinderen (H1) bestaat nog niet, dus de link daarheen kan pas als die hub er is. Zodra H1 er staat, linkt deze pagina erheen en H1 terug.
 
-## 10. Volgende sessies
+## 10. H1 gebouwd, 6 september 2026
 
-1. **Bing Webmaster Tools aanzetten en de sitemap indienen** (fase 1 punt 5, jouw kant). ChatGPT-zoeken leunt op Bing en daar meten we vandaag niets.
-2. **H1 bouwen**: de hub voor tweeverdieners met kinderen. Daarna beslissen wat er met `goed-salaris-toch-krap` gebeurt.
-3. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn.
-4. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven 2027 bekend zijn.
-5. **Het lek dichten**: rond 13 september de schermlijst lezen en één wijziging doen op het scherm bovenaan.
-6. **Admin-lezing van `quiz_voortgang` naar een server-route**, zodat anon select ingetrokken kan worden.
-7. **Opvolgmail dag 0, 3 en 8** zodra er afgeronde analyses met e-mailadres zijn.
+`/inzichten/wat-geeft-een-gezin-uit-per-maand`. De eerste van de vijf hubs, voor tweeverdieners met kinderen. SERP-verificatie volledig in `docs/serp-hubs-06-sep-2026.md`.
 
-De killgrens uit plan sectie 9 blijft staan: is de analyse-afronding op 19 september nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. Titelwerk en 301's vallen daar niet onder, die zijn onderhoud.
+**De hub gaat niet op de term die het plan aanwees, en dat is de belangrijkste beslissing van deze sessie.** Vijf termen geverifieerd in Chrome op google.nl. De hoogst scorende, "gezinsbudget 6000 netto" (29 van de 35), is precies de term van `samen-6000-euro-netto-toch-niets-over`: positie 4,43, CTR 7,34 procent, gisteren nog tot pijler gemaakt. Een hub daarop zou de best converterende pagina van de site beconcurreren. De hub gaat daarom op "wat geeft een gezin uit per maand" (22,5), de enige van de vijf waar het onderwerp de volledige begroting is en niet één post of één bedrag.
+
+De intentiescheiding is nu: het boodschappenartikel pakt één post, de pijler pakt één bedrag met één verhaal, de hub pakt het hele huishouden per post op elk inkomen.
+
+**Wat er op geen van de vijf SERP's stond.** Op "wat geeft een gezin uit per maand" en "uitgaven gezin 2 kinderen per maand" geven alle negen resultaten een gemiddelde of een norm, met Nibud twee keer op pagina 1. Op "gezinsbudget 6000 netto" staat geen enkele institutionele bron: daar wint het huishoudboekje van één echt gezin, Kids en Kurken bezet er vier van de negen plekken. Wat nergens staat is een begroting per post die je op je eigen inkomen kunt zetten, met per bedrag de herkomst en n erbij. Dat is de hoek geworden.
+
+**De pagina, doorgerekend en niet getypt.** Elk bedrag komt uit `berekenVuistregel()` of uit `rapportVoorSlug()`. Voor twee volwassenen, twee kinderen en één auto:
+
+| | €4.000 | €5.000 | €6.000 | €6.500 |
+|---|---:|---:|---:|---:|
+| Totaal uitgaven | €4.053 | €4.403 | €4.753 | €4.928 |
+| Wat er overblijft | -€53 | €597 | €1.247 | €1.572 |
+
+Het punt van die tabel: van de €1.050 verschil tussen €3.500 en €6.500 netto gaat €750 naar wonen en €300 naar vrije tijd. Boodschappen, verzekeringen, abonnementen, de auto en de kinderkosten zijn op €6.500 precies even hoog als op €3.500. Het omslagpunt ligt op €4.090.
+
+**Nieuw in de rekenbron: `VUISTREGEL_HERKOMST` in `lib/salaris-vuistregel.ts`.** Twaalf regels met per post het bedrag, de n en wat de vijf huishoudens aanleverden. Die n stond alleen in commentaar boven in `lib/benchmarks.ts` en was daarmee niet renderbaar; nu staat hij naast het bedrag zelf en kan een artikel hem niet meer met de hand typen. De hub rendert die tabel voluit, inclusief de posten met n van 2 in een andere kleur. Dat is tegelijk het blok waarop een AI-zoekmachine kan citeren: eigen data, n per cel, datum erbij.
+
+Ook nieuw: `afgerondOpHonderd()`. De metaTitel en de eerste alinea noemen allebei €3.900 tot €4.900 uit dezelfde functie, de tabel eronder toont €3.878 en €4.928. Een vuistregel op vijf huishoudens hoort geen eurobedrag in een titel te zetten, en titel en eerste alinea moeten hetzelfde getal noemen.
+
+**Interactief element: `SalarisRekenaar` met eigen startwaarden** (€5.500, twee volwassenen, twee kinderen, één auto), zoals CLAUDE.md 8.9 toestaat. Geen nieuwe rekenaar gebouwd: die zou dezelfde vuistregel nog een keer implementeren, en de bestaande toont de posten, het echte rapport, de regel over de twee van de vijf zonder lek en de analyse-CTA al.
+
+**Verplicht pakket afgevinkt:** antwoord met bedragen in de eerste alinea, begrotingstabel direct daarna, koppen als vragen, rekenaar met eigen startwaarden, eigen cijfer met n uit de rekenbron, het echte rapport `tweeverdieners-drie-kinderen` gelinkt met hun eigen bedragen (€7.880 netto, €1.150 boodschappen, €11.600 jaaruitgaven), vijf FAQ's, drie bronnen met ophaaldatum plus /rapporten als vierde, één analyse-CTA in de rekenaar en één in het slotblok, Geldscan als enkele tekstlink, zichtbare regel "Cijfers bijgewerkt op 6 september 2026", metaTitel van 52 tekens met het bedrag vooraan, tabellen die binnen hun container scrollen.
+
+**Vier inkomende links in dezelfde deploy**, één meer dan de twee die CLAUDE.md 8.5 eist: vanuit is-4000 (de sterkste pagina), het boodschappenartikel (de grootste vertoningenbron, en volgens de nulmeting de plek waar het gezinsverkeer binnenkomt), de pijler `samen-6000-euro-netto-toch-niets-over` (die daar sinds gisteren op wachtte) en `tweeverdieners-toch-krap`. De hub linkt terug naar zestien spaken en naar het rapport.
+
+**Geen jaartal in de metaTitel, bewust.** CLAUDE.md 8.15 zegt "waar de zoeker het typt". Op geen van de vijf geverifieerde SERP's kwam een jaartal voor in de PAA of in de gerelateerde zoekopdrachten. Bij de 2027-sweep van 8 december opnieuw bekijken: staat de pagina dan in de buurt van de top 10, dan is een jaartal alsnog het proberen waard.
+
+**Twee fouten van gisteren gerepareerd.** De CPB-bronlink onder Z4 gaf een 404: `cpb.nl/raming-concept-...` moet `cpb.nl/raming/concept-...` zijn. En de Rijksoverheid-bron wees naar de nieuwsindex in plaats van naar de maatregel; die staat nu op de themapagina kindgebonden budget, waar het internetconsultatie-item ook echt op staat. Allebei geverifieerd in Chrome. Les voor elke volgende sessie: een bron-URL die je niet zelf hebt geopend is geen bron.
+
+**Wat de CPB-pagina ook opleverde en wat nog openstaat.** De kerngegevenstabel van de cMEV 2027 geeft bruto modaal op €48.000 voor 2026 en €50.000 voor 2027, met ophaaldatum. Dat is precies het cijfer waar sectie 2 van dit document op wachtte voor de modaal-FAQ in is-4000. Die FAQ is nog niet gebouwd: meelifen op de eerstvolgende deploy die is-4000 toch aanraakt, samen met de ontbrekende FAQ's voor €4.100 en €4.600.
+
+**Wat de sessie verder opleverde aan feiten.** CBS, snelle raming 1 september 2026: voedingsmiddelen, dranken en tabak waren in augustus 0,5 procent goedkoper dan een jaar eerder, terwijl energie inclusief motorbrandstoffen 11,7 procent duurder was. Dat is een bruikbaar cijfer voor de hele boodschappenkant van de site: de post waar iedereen als eerste naar wijst staat stil, de post waar niemand iets aan kan doen loopt hard op.
+
+**Verificatie.** `npx tsc --noEmit --incremental false` schoon, geen null bytes, geen em dashes. En een echte productiebuild in de cloud-container volgens de vaste route, want `next build` kan niet op de mount: 158 pagina's, `wat-geeft-een-gezin-uit-per-maand` geprerenderd, alle bedragen in de gegenereerde HTML gecontroleerd. Dat was hier geen formaliteit: de eerste versie had `KOLOMMEN.map((inkomen) => ({ inkomen, ... }))`, precies het patroon dat de minifier van Next 14.2 op 17 augustus brak. Vervangen door een losse functie `kolomVoor()` op moduleniveau met `inkomen: inkomen` voluit.
+
+**Opgeruimd:** twaalf bestanden in `_to_delete/` stonden nog in git terwijl de map gitignored is, waaronder een build-tar. Uit de index gehaald met `git rm --cached`, de bestanden zelf staan er nog.
+
+**Beslissing die openstaat voor Jarno.** `wat-zijn-normale-vaste-lasten-gezin` heeft nul vertoningen in 90 dagen en zit in het taalgebied van de hub. Volgens de contentkill komt die bij de CTR-ronde van 4 oktober in aanmerking om samengevoegd of ge-301'd te worden naar H1. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar. Hij staat wel als spaak gelinkt.
+
+## 11. Volgende sessies
+
+1. **H2 bouwen**: de hub voor het stel zonder kinderen, met `stel-zonder-kinderen` als rapport. Of eerst de CTR-titels tegen hun antwoordblok controleren, zie BEGIN HIER.
+2. **Bing Webmaster Tools aanzetten en de sitemap indienen** (fase 1 punt 5, Jarno's kant).
+3. **Het lek dichten**: rond 13 september de schermlijst lezen en één wijziging doen op het scherm bovenaan.
+4. **De modaal-FAQ in is-4000**, nu het CPB-cijfer met ophaaldatum vaststaat, samen met de FAQ's voor €4.100 en €4.600.
+5. **Z1 zorgpremie 2027**: pas na 12 november.
+6. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven 2027 bekend zijn.
+7. **Admin-lezing van `quiz_voortgang` naar een server-route**, zodat anon select ingetrokken kan worden.
+8. **Opvolgmail dag 0, 3 en 8** zodra er afgeronde analyses met e-mailadres zijn.
+
+De killgrens uit plan sectie 9 blijft staan: is de analyse-afronding op 19 september nog nul procent, dan stopt alle contentbouw tot het lek gevonden is.

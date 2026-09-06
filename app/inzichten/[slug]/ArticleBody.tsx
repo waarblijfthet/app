@@ -1,3 +1,4 @@
+import WatGeeftEenGezinUitPerMaand from "./content/wat-geeft-een-gezin-uit-per-maand";
 import KindgebondenBudget2027Inkomensgrens from "./content/kindgebonden-budget-2027-inkomensgrens";
 import GoedInkomenWeinigVermogen from "./content/goed-inkomen-weinig-vermogen";
 import HoeWeetIkOfIkFinancieelGezondBen from "./content/hoe-weet-ik-of-ik-financieel-gezond-ben";
@@ -86,6 +87,7 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "wat-geeft-een-gezin-uit-per-maand": WatGeeftEenGezinUitPerMaand,
   "kindgebonden-budget-2027-inkomensgrens": KindgebondenBudget2027Inkomensgrens,
   "goed-inkomen-weinig-vermogen": GoedInkomenWeinigVermogen,
   "hoe-weet-ik-of-ik-financieel-gezond-ben": HoeWeetIkOfIkFinancieelGezondBen,

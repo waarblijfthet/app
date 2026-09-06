@@ -280,6 +280,11 @@ export default function Is4000EuroNettoGoedSalaris() {
       </p>
 
       <p className="font-body text-text-soft" style={p}>Verdien je dit al, maar merk je dat je vermogen er niet naar groeit? Lees dan <Link href="/inzichten/goed-inkomen-weinig-vermogen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waarom een goed inkomen niet vanzelf vermogen oplevert</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>
+        Wil je niet alleen weten wat er overblijft maar ook waar het per post naartoe gaat, dan
+        staat de hele begroting van een gezin met twee inkomens in{" "}
+        <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
+      </p>
     </>
   );
 }

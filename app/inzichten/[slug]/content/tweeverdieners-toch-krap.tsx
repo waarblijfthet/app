@@ -99,6 +99,10 @@ export default function TweeverdienersTochKrap() {
         En reken de post die vaak het snelst meegroeit met twee inkomens door in{" "}
         <Link href="/inzichten/twee-autos-wat-kost-de-tweede-echt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">twee auto&apos;s, wat kost de tweede echt</Link>.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        En wil je de hele maand per post zien in plaats van alleen de knelpunten, kijk dan bij{" "}
+        <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
+      </p>
     </>
   );
 }

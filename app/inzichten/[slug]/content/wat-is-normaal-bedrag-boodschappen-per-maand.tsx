@@ -274,6 +274,11 @@ export default function WatIsNormaalBedragBoodschappen() {
         Benieuwd hoe anderen het aanpakten? Lees{" "}
         <a href="/inzichten/ons-boodschappenbudget-mislukte-tot-we-dit-deden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin van €950 naar €720 per maand ging</a>.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Boodschappen zijn één post van een stuk of tien. Wil je zien hoe die post zich verhoudt tot
+        de rest van de maand, dan staat de volledige begroting van een gezin met twee inkomens in{" "}
+        <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
+      </p>
     </>
   );
 }
