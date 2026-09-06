@@ -4,37 +4,63 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 6 september 2026, tweede sessie van die dag. Alles hieronder is gecommit tot en met de commit van deze sessie. Pushen doet Jarno.
+Laatst bijgewerkt: 6 september 2026, na drie sessies op die dag. **Alles is gecommit en gepusht tot en met `671e652`.** Werk op de mount is dus schoon; begin met `git log --oneline -3` om te zien of dat nog klopt.
 
-**Stand van zaken.** Fase 0 is af. Fase 1 punt 1 en 3 staan live. Fase 2 CTR-ronde 1 is uitgevoerd. Uit cluster Z staat Z4 gepubliceerd. De pijler van cluster P is verlegd en herschreven. **H1 staat er nu ook**, de eerste van de vijf hubs, met vier inkomende links.
+**Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
 
-**De eerstvolgende actie is: H2 bouwen, de hub voor het stel zonder kinderen, of eerst de CTR-titels controleren tegen hun antwoordblok.**
+### Eerst dit, elke sessie, kost vijf minuten
 
-Kies aan het begin van de sessie welke van die twee. De tweede is klein en staat al klaar: bij de vijf URL's uit sectie 1 moet de eerste alinea hetzelfde getal noemen als de nieuwe metaTitel, en dat is bij geen van de vijf gecontroleerd. Dat is een halve sessie en het beschermt de meting van 4 oktober.
+1. **Draaide de IndexNow-cron?** Open het indexeringstabblad. Bovenaan hoort een verse regel te staan bij "Laatste indiening bij IndexNow". Staat daar iets van gisteren of eergisteren, dan is het goed. Staat er niets nieuws, dan pakt Vercel de cron van 06:30 niet op en moet Jarno in het Vercel-dashboard kijken of het plan meer dan drie cronjobs toestaat. Zie sectie 11 voor de achtergrond.
+2. **Wat zegt de vrijdagmeting?** Eén regel, tien minuten, handmatig, zoals CLAUDE.md sectie 9 hem beschrijft. Zonder dat cijfer weet je niet of de sessie ergens over gaat.
 
-Voor H2 geldt dezelfde volgorde als bij H1: eerst SERP-verificatie in Chrome op google.nl voor de H2-termen uit plan sectie 4, vastleggen in `docs/serp-hubs-06-sep-2026.md` als extra sectie (niet in een nieuw bestand), dan bouwen met het volledige pakket, dan de inkomende links in dezelfde deploy. Het rapport voor H2 is `stel-zonder-kinderen`, het huishouden waar geen lek was.
+### Wat de eerstvolgende actie is, hangt af van de datum
 
-**Wat er buiten die actie op een datum wacht:**
+**Tot en met 12 september: geen nieuwe pagina bouwen.** Op 6 september zijn er drie pagina's nieuw of herschreven (Z4, de pijler, H1). De tempo-regel uit CLAUDE.md sectie 1 is twee per week, nooit meer, en dat is geen richtlijn maar de regel die voorkomt dat er halve pagina's live gaan. Deze week is dus vol. Doe in die periode onderhoud, dat valt er expliciet buiten:
+
+- **De CTR-titels tegen hun antwoordblok** (halve sessie, hoogste prioriteit van de drie). Bij de vijf URL's uit sectie 1 hieronder moet de eerste alinea hetzelfde getal noemen als de nieuwe metaTitel. Dat is bij geen van de vijf gecontroleerd. Doe je het niet, dan meet je op 4 oktober een titel die iets belooft wat de pagina niet meteen waarmaakt, en weet je niet wat je gemeten hebt. Zet bij elke pagina die je aanraakt `gewijzigd: "<vandaag>"`, zie sectie 11.
+- **De modaal-FAQ in is-4000.** Het cijfer waar sectie 2 op wachtte is er nu: CPB cMEV 2027 geeft bruto modaal €48.000 voor 2026 en €50.000 voor 2027, geverifieerd op https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027 op 6 september 2026. Neem in dezelfde deploy de ontbrekende FAQ's voor €4.100 en €4.600 mee (sectie 6). Een FAQ toevoegen is onderhoud, geen herschrijving.
+- **Em dashes en "structuurprobleem"** opruimen op elke pagina die je toch aanraakt, zoals CLAUDE.md sectie 11 voorschrijft.
+
+**Vanaf 13 september: eerst het lek, dan pas de tweede hub.**
+
+- **13 september, en dit gaat vóór alles: de schermlijst lezen** in het funneltabblad, blok "Waar de analyse afhaakt, per scherm". Zeven dagen na de migratie van 6 september. Kies het scherm bovenaan, doe daar één wijziging, meet een week. Niet twee wijzigingen tegelijk, want dan weet je niet welke het deed. Hier hangt de killgrens van 19 september aan: is de afronding dan nog nul procent, dan stopt alle contentbouw.
+- **Daarna H2**, de hub voor het stel zonder kinderen. Zelfde volgorde als bij H1: eerst SERP-verificatie in Chrome op google.nl voor de H2-termen uit plan sectie 4, uitkomsten als extra sectie in `docs/serp-hubs-06-sep-2026.md` (niet in een nieuw bestand), dan bouwen met het volledige pakket uit CLAUDE.md sectie 8, dan de inkomende links in dezelfde deploy. Het rapport voor H2 is `stel-zonder-kinderen`, het huishouden waar geen lek was, en dat is meteen de sterkste hoek die die hub heeft.
+- **Lees vóór H2 sectie 10 hieronder.** Daar staat waarom H1 niet op de sterkste zoekterm is gebouwd. Diezelfde toets hoort bij elke hub: welke bestaande pagina bezet deze intentie al, en kan de hub de scheiding uitleggen in één zin? Kan dat niet, dan is het geen aparte pagina.
+
+### Wat er op een datum wacht
 
 | Wanneer | Wat |
 |---|---|
-| 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. Zeven dagen na de migratie. |
-| 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand, tabel en rekenaar volgen vanzelf. |
+| 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. |
+| 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand; tabel en rekenaar volgen vanzelf. Zet `gewijzigd` op die dag. |
 | 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
-| 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast, en pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op. En: wat doet H1 na vier weken. |
+| 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast, pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op, en wat doet H1 na vier weken. Plus de beslissing over `wat-zijn-normale-vaste-lasten-gezin`, zie hieronder. |
+| 1 november | Killgrens uit plan sectie 9: onder 3.000 sessies per maand of onder 5 betaalde Geldscans gaan clusters L en B in de wacht. |
 | 12 november | Z1 zorgpremie 2027 bouwen, als de premies bekend zijn. |
-| 8 december | 2027-sweep over 25 metaTitels. |
+| 8 december | 2027-sweep over 25 metaTitels. Zet bij elke pagina `gewijzigd`, anders merkt de sitemap er niets van. |
 
-**Openstaand aan Jarno's kant:**
+### Openstaande beslissingen voor Jarno
 
-1. Bing Webmaster Tools aanzetten en de sitemap indienen.
-2. De URL van Z4 handmatig indienen in GSC.
-3. **De URL van H1 handmatig indienen in GSC:** `/inzichten/wat-geeft-een-gezin-uit-per-maand`.
-4. **Na de push: één keer op "indienen" klikken in het indexeringstabblad.** De IndexNow-job stond stil sinds 7 juni (zie sectie 11). Hij draait vanaf nu elke dag om 06:30, maar met die ene klik haal je de achterstand van bijna drie maanden meteen weg. Je ziet daarna bovenaan het tabblad staan wanneer er voor het laatst is ingediend.
-5. In `.git/index.lock` blijft af en toe een lege lock staan die ik niet kan verwijderen. Ik verplaats hem nu naar `_to_delete/`. Ruim die map een keer op, hij staat vol met dat soort restanten.
-6. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan het bedrag en de ophaaldatum aan, dan zet ik het er met bron bij.
+1. **`wat-zijn-normale-vaste-lasten-gezin`**: nul vertoningen in 90 dagen en het zit in het taalgebied van H1. Kandidaat voor samenvoegen of een 301 naar H1 bij de CTR-ronde van 4 oktober. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar.
+2. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan bedrag en ophaaldatum aan, dan komt het er met bron bij.
 
-**Bekende schuld:** de anon-rol mag `quiz_voortgang` nog lezen omdat het funneltabblad met de browserclient leest. Eerst die lezing naar een server-route, dan pas select intrekken. Staat als waarschuwing in `supabase/quiz_voortgang_v3.sql`.
+### Openstaand aan Jarno's kant
+
+1. Bing Webmaster Tools aanzetten en de sitemap indienen. Nu extra de moeite waard: IndexNow dient weer in bij Bing en zonder Webmaster Tools zie je niet wat dat oplevert.
+2. De URL's van Z4 en H1 handmatig indienen in GSC, als dat nog niet gebeurd is: `/inzichten/kindgebonden-budget-2027-inkomensgrens` en `/inzichten/wat-geeft-een-gezin-uit-per-maand`.
+3. `_to_delete/` een keer legen. Daar staan lege git-locks in die ik niet kan verwijderen, plus twee oude build-tars.
+
+### Bekende schuld
+
+- De anon-rol mag `quiz_voortgang` nog lezen omdat het funneltabblad met de browserclient leest. Eerst die lezing naar een server-route, dan pas select intrekken. Staat als waarschuwing in `supabase/quiz_voortgang_v3.sql`.
+- De zin "ik verwijder je afschriften en aangeleverde gegevens" klopt alleen zolang Jarno dat met de hand doet. Er verwijdert niets softwarematig.
+- De vier casestudy-pagina's met bedachte namen moeten gecontroleerd op hun illustratielabel in tekst, titel en schema.
+
+### Werkregels die deze week zijn bijgekomen
+
+- **Zet `gewijzigd: "<vandaag>"` op elk artikel dat je inhoudelijk aanraakt**, ook als het alleen de metaTitel is. `datum` blijft de publicatiedatum. Zonder dat veld merken de sitemap, `dateModified` en de herindiening bij IndexNow niets van je wijziging. Zie sectie 11.
+- **Open elke bronlink zelf in Chrome voordat je hem commit.** Op 6 september bleek een dezelfde dag gepubliceerde CPB-bron een 404 te geven. Een URL die plausibel lijkt is geen gecontroleerde bron.
+- **Draai een echte productiebuild voordat Jarno pusht**, niet alleen `tsc`. Dat kan niet op de mount; de route staat in de projectmemory onder `feedback_minifier_verkorte_objectnotatie`. Die build ving deze week twee fouten die `tsc` niet zag.
 
 **Alles daaronder is het logboek, oudste sectie eerst. Lees dat alleen als je wilt weten waarom iets zo besloten is.**
 
@@ -291,16 +317,27 @@ De gegenereerde HTML gecontroleerd: het boodschappenartikel heeft nu `datePublis
 
 **Wat je hierna verwacht.** Na de push draait de job morgenochtend om 06:30 en dient hij alles in wat sinds 17 juni is bijgekomen, in één call en ruim binnen het dagbudget van 200. Klik je vandaag zelf op indienen in het tabblad, dan gebeurt het meteen. Vervolgens toont het tabblad bij elke run wat er is ingediend en waarom.
 
-## 12. Volgende sessies
+## 12. Achterstallige lijst
 
-1. **H2 bouwen**: de hub voor het stel zonder kinderen, met `stel-zonder-kinderen` als rapport. Of eerst de CTR-titels tegen hun antwoordblok controleren, zie BEGIN HIER.
-2. **Bing Webmaster Tools aanzetten en de sitemap indienen** (fase 1 punt 5, Jarno's kant). Nu extra de moeite waard: IndexNow dient vanaf morgen weer in bij Bing, en zonder Webmaster Tools zie je niet wat dat oplevert.
-3. **Over een week het indexeringstabblad controleren**: staat er een verse regel bij "Laatste indiening bij IndexNow", dan draait de cron. Staat er niets, dan pakt Vercel de nieuwe cron niet op en moet je in het Vercel-dashboard kijken of het plan meer dan drie cronjobs toestaat.
-3. **Het lek dichten**: rond 13 september de schermlijst lezen en één wijziging doen op het scherm bovenaan.
-4. **De modaal-FAQ in is-4000**, nu het CPB-cijfer met ophaaldatum vaststaat, samen met de FAQ's voor €4.100 en €4.600.
-5. **Z1 zorgpremie 2027**: pas na 12 november.
-6. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven 2027 bekend zijn.
-7. **Admin-lezing van `quiz_voortgang` naar een server-route**, zodat anon select ingetrokken kan worden.
-8. **Opvolgmail dag 0, 3 en 8** zodra er afgeronde analyses met e-mailadres zijn.
+Dit is de voorraad, niet de volgorde. **BEGIN HIER bepaalt wat er als eerste gebeurt**; dit is waaruit BEGIN HIER put als er ruimte is. Streep af wat je doet.
 
-De killgrens uit plan sectie 9 blijft staan: is de analyse-afronding op 19 september nog nul procent, dan stopt alle contentbouw tot het lek gevonden is.
+**Content en SEO**
+
+1. **H2**, hub voor het stel zonder kinderen, rapport `stel-zonder-kinderen`. Prio A.
+2. **H3**, alleenstaand: geen nieuwe pagina, `kosten-levensonderhoud-alleenstaande-2026` ombouwen tot hub. Prio B.
+3. **H4** alleenstaande ouder en **H5** zzp. Prio B en C.
+4. **Z1 zorgpremie 2027**: pas na 12 november, als de premies bekend zijn. Let op de waarschuwing in sectie 4 over het eigen risico.
+5. **Z3 kinderopvangtoeslag 2027**: zodra de maximum uurtarieven bekend zijn. Let op: de afschaffing en directe financiering gaan om 2029, niet 2027.
+6. **B2 vaste lasten**: `vaste-lasten-overzicht-maken` herschrijven, niet `50-30-20-regel-hoger-inkomen`. Zie sectie 3.
+7. **De modaal-FAQ in is-4000**, plus de ontbrekende FAQ's voor €4.100 en €4.600. Onderhoud, mag altijd.
+8. **De data-asset** "Waar blijft het bij [n] huishoudens", CLAUDE.md 8.25. Kan pas als er genoeg analyses met toestemming zijn; de toestemmingsvraag staat sinds 6 september op het resultaatscherm. Controleer de kolom `toestemming_data_asset` voordat je hier tijd in steekt.
+
+**Funnel en techniek**
+
+9. **Het lek dichten**: schermlijst lezen, één wijziging, een week meten, herhalen. Dit blijft doorlopen tot de afronding boven nul komt.
+10. **Opvolgmail dag 0, 3 en 8** (fase 1 punt 4), zodra er afgeronde analyses met e-mailadres zijn. Teksten bewerkbaar in de admin.
+11. **Admin-lezing van `quiz_voortgang` naar een server-route**, zodat anon select ingetrokken kan worden.
+12. **Schema-audit** (fase 1 punt 5): Person met sameAs op /over, Organization sitewide, en de illustratielabels op de vier casestudy-pagina's.
+13. **De maandelijkse AI-test**: vijf kernvragen met de hand in ChatGPT, Perplexity en Google met AI-overzicht, uitkomst in de vrijdagmeting (CLAUDE.md 8.21). Nog nooit gedaan.
+
+**Waarheidsschuld**, af te werken zodra je in de buurt komt van de betreffende pagina: de openstaande feitfouten uit `docs/serp-brainstorm-18-aug-2026.md` sectie "Nog open", de em dashes in metaTitels en bronlabels, en "structuurprobleem" in twee artikelen en vier FAQ-antwoorden.
