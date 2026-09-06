@@ -57,6 +57,7 @@ const spaken: { slug: string; tekst: string }[] = [
   { slug: "bso-kosten-tweede-inkomen-zo-draaiden-we-het-om", tekst: "Wat de bso met het tweede inkomen doet" },
   { slug: "tweede-inkomen-loont-niet-tweeverdieners", tekst: "Waarom het tweede inkomen minder oplevert dan het lijkt" },
   { slug: "twee-autos-wat-kost-de-tweede-echt", tekst: "Wat kost de tweede auto echt?" },
+  { slug: "rentevaste-periode-loopt-af-wat-nu", tekst: "Je rentevaste periode loopt af: wat het per maand doet" },
   { slug: "wat-kost-een-zomervakantie-gezin", tekst: "Wat kost een zomervakantie met een gezin?" },
   { slug: "wat-kost-december-feestdagen-gezin", tekst: "Wat kost december?" },
   { slug: "seizoens-kostenkalender-per-maand", tekst: "De kostenkalender: welke maand welke rekening brengt" },

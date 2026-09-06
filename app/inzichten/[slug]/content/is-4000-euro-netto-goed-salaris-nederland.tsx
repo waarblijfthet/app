@@ -285,6 +285,11 @@ export default function Is4000EuroNettoGoedSalaris() {
         staat de hele begroting van een gezin met twee inkomens in{" "}
         <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Heb je een koopwoning en loopt je rentevaste periode af, dan komt daar een vaste last bij
+        zonder dat je iets hebt gekozen. Wat dat per maand doet staat in{" "}
+        <Link href="/inzichten/rentevaste-periode-loopt-af-wat-nu" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">je rentevaste periode loopt af: wat het per maand met je huishouden doet</Link>.
+      </p>
     </>
   );
 }

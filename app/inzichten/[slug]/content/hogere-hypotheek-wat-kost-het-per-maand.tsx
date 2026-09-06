@@ -60,6 +60,14 @@ export default function HogereHypotheekWatKostHetPerMaand() {
         precies het mechanisme achter{" "}
         <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>: een hoge vaste last laat geen lucht over.
       </p>
+      <h2 className="font-display" style={h2}>En als je hypotheek niet hoger wordt maar je rente wel?</h2>
+      <p className="font-body text-text-soft" style={p}>
+        Dat is een ander moment met dezelfde uitkomst: een hogere vaste last zonder dat er iets
+        aan het huis verandert. Loopt je rentevaste periode af, dan staat in{" "}
+        <Link href="/inzichten/rentevaste-periode-loopt-af-wat-nu" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat een aflopende rentevaste periode per maand met je huishouden doet</Link>{" "}
+        de doorrekening per hypotheekbedrag, met de formule erbij.
+      </p>
+
       <p className="font-body text-text-soft" style={p}>
         Wil je zien hoeveel ruimte jullie woonlasten nu laten?{" "}
         <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>. Wonen is de eerste categorie die ik vergelijk.

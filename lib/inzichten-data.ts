@@ -116,6 +116,13 @@ export interface Artikel {
 import { berekenVuistregel, omslagpunt, euro, afgerondOpHonderd, VERVOER, VUISTREGEL } from "./salaris-vuistregel";
 import { RAPPORTEN, rapportVoorSlug, AANTAL_ZONDER_LEK } from "./rapporten-data";
 import {
+  berekenRenteVerschil,
+  LOOPTIJD_JAREN,
+  RENTEVASTE_PERIODE_JAREN,
+  RENTE_2016,
+  RENTE_2026,
+} from "./rente-verschil";
+import {
   BRUTO_VOOR_NETTO,
   BRUTO_VOOR_NETTO_SAMEN,
   EENVERDIENER_MEERKOSTEN_5000,
@@ -255,7 +262,119 @@ const H1_5500 = berekenVuistregel({ inkomen: 5500, volwassenen: 2, kinderen: 2, 
 const H1_5500_ZONDER = berekenVuistregel({ inkomen: 5500, volwassenen: 2, kinderen: 0, auto: "eigen" });
 const H1_KIND_PER_MAAND = Math.round((H1_5500.verwachtOver === 0 ? 0 : (H1_5500_ZONDER.verwachtOver - H1_5500.verwachtOver)) / 2);
 
+/**
+ * Berekende bedragen voor N1, "rentevaste periode loopt af wat nu"
+ * (6-sep-2026, docs/plan-nieuwe-invalshoeken-06-sep-2026.md). Nooit met de hand
+ * typen in de metaTitel, het excerpt of de FAQ hieronder, werkregel 2: elk
+ * bedrag komt uit dezelfde functie die de tabel en de rekenaar op die pagina
+ * gebruiken.
+ *
+ * Het geval is het cohort dat nu een brief krijgt: in 2016 tien jaar rentevast
+ * met NHG op ongeveer 2 procent, afloop in 2026 met een voorstel van rond de
+ * 4 procent (Van Bruggen, 26 maart 2026, geverifieerd in
+ * docs/serp-invalshoeken-06-sep-2026.md).
+ */
+const N1_HOOFDSOM = 350000;
+const N1 = berekenRenteVerschil({
+  hoofdsom: N1_HOOFDSOM,
+  huidigeRente: RENTE_2016,
+  nieuweRente: RENTE_2026,
+  looptijdJaren: LOOPTIJD_JAREN,
+  verstrekenJaren: RENTEVASTE_PERIODE_JAREN,
+});
+const N1_REF_INKOMEN = 6000;
+const N1_REF_OVER = berekenVuistregel({
+  inkomen: N1_REF_INKOMEN,
+  volwassenen: 2,
+  kinderen: 2,
+  auto: "eigen",
+}).verwachtOver;
+const N1_AANDEEL = Math.round((N1.verschil / N1_REF_OVER) * 100);
+const N1_KLEIN = berekenRenteVerschil({
+  hoofdsom: 250000,
+  huidigeRente: RENTE_2016,
+  nieuweRente: RENTE_2016 + 1,
+  looptijdJaren: LOOPTIJD_JAREN,
+  verstrekenJaren: RENTEVASTE_PERIODE_JAREN,
+}).verschil;
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "rentevaste-periode-loopt-af-wat-nu",
+    cta: {
+      kop: "Reken uit wat dit voor jullie huishouden doet",
+      tekst:
+        "De gratis analyse legt jullie hele maand naast vergelijkbare huishoudens, inclusief de woonlast. In een paar minuten zie je of dit verschil ergens vandaan kan komen.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin", inkomen: N1_REF_INKOMEN }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Je rentevaste periode loopt af: wat het per maand met je huishouden doet",
+    korteTitel: "Rentevaste periode loopt af",
+    metaTitel: `${euro(N1.verschil)} per maand erbij: rentevaste periode loopt af`,
+    metaDescription: `Bij ${euro(N1_HOOFDSOM)} hypotheek en twee procentpunt meer rente stijgt je bruto maandlast ongeveer ${euro(N1.verschil)}. Doorgerekend per hypotheekbedrag, met de formule en een rekenaar.`,
+    datum: "2026-09-06",
+    datumFormatted: "6 september 2026",
+    leestijd: "7",
+    categorie: "Wonen",
+    excerpt: `Het cohort dat in 2016 tien jaar vastzette krijgt nu een brief. Wat een hogere rente per maand kost bij ${euro(250000)}, ${euro(N1_HOOFDSOM)} en ${euro(450000)}, en belangrijker: wat dat is van wat er bij een huishouden overblijft.`,
+    preview: {
+      type: "vergelijking",
+      label: `Extra bruto maandlast bij ${euro(N1_HOOFDSOM)} hypotheek`,
+      items: [
+        { naam: "+0,5 procentpunt", bedrag: berekenRenteVerschil({ hoofdsom: N1_HOOFDSOM, huidigeRente: RENTE_2016, nieuweRente: RENTE_2016 + 0.5, looptijdJaren: LOOPTIJD_JAREN, verstrekenJaren: RENTEVASTE_PERIODE_JAREN }).verschil, kleur: "#9CCFC4" },
+        { naam: "+1,0 procentpunt", bedrag: berekenRenteVerschil({ hoofdsom: N1_HOOFDSOM, huidigeRente: RENTE_2016, nieuweRente: RENTE_2016 + 1, looptijdJaren: LOOPTIJD_JAREN, verstrekenJaren: RENTEVASTE_PERIODE_JAREN }).verschil, kleur: "#6FBCAF" },
+        { naam: "+1,5 procentpunt", bedrag: berekenRenteVerschil({ hoofdsom: N1_HOOFDSOM, huidigeRente: RENTE_2016, nieuweRente: RENTE_2016 + 1.5, looptijdJaren: LOOPTIJD_JAREN, verstrekenJaren: RENTEVASTE_PERIODE_JAREN }).verschil, kleur: "#3E9A8C" },
+        { naam: "+2,0 procentpunt", bedrag: N1.verschil, kleur: "#C4603A" },
+      ],
+      noot: "Bruto, over de restschuld na tien jaar aflossen. De hypotheekrenteaftrek verschilt per huishouden en zit er niet in.",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel stijgt mijn hypotheek bij 1 procent hogere rente?",
+        antwoord: `Bij een annuïteitenhypotheek van ${euro(250000)} met nog twintig jaar te gaan komt er bij één procentpunt extra ongeveer ${euro(N1_KLEIN)} bruto per maand bij. Bij ${euro(N1_HOOFDSOM)} en twee procentpunt extra, het geval dat nu bij veel huishoudens speelt, is het ongeveer ${euro(N1.verschil)}. Die bedragen rekenen over de restschuld en niet over het oorspronkelijke bedrag, want na tien jaar aflossen staat er minder open. Bruto, dus zonder het effect van de hypotheekrenteaftrek.`,
+      },
+      {
+        vraag: "Kan ik mijn rentevaste periode eerder openbreken?",
+        antwoord:
+          "Meestal wel, maar dan betaal je vrijwel altijd een vergoeding voor gemiste rente, en in sommige situaties is rentemiddeling een alternatief. Of dat in jouw geval loont hangt af van de resterende periode, het verschil tussen je oude en je nieuwe rente en de voorwaarden van je geldverstrekker. Dat is vergunningplichtig advies en daar heb je een hypotheekadviseur voor nodig. Ik reken alleen uit wat een gegeven renteverschil met je maandlast en met je huishouden doet.",
+      },
+      {
+        vraag: "Wat als de rente in 2027 weer daalt?",
+        antwoord:
+          "Dan heb je een periode vastgezet tegen een rente die achteraf hoger was dan nodig, en dat is precies het risico dat je koopt als je zekerheid kiest. Ik voorspel geen rentes en ik ken niemand die dat betrouwbaar kan. Wat je wel kunt doen is bepalen hoeveel schommeling je huishouden aankan, en die vraag beantwoord je met je eigen cijfers en niet met een verwachting over de markt.",
+      },
+      {
+        vraag: "Telt de hypotheekrenteaftrek dit verschil weg?",
+        antwoord:
+          "Nee, hij dempt het. Je betaalt meer rente en mag daar een deel van aftrekken, dus netto valt de stijging lager uit dan bruto. Hoeveel lager hangt af van je inkomen, het aftrektarief en je eigenwoningforfait, en dat verschilt zo per huishouden dat een gemiddelde hier een schijnnauwkeurigheid zou zijn. Alle bedragen op deze pagina zijn daarom bruto. De regels staan bij de Belastingdienst.",
+      },
+      {
+        vraag: "Moet ik oversluiten of bij mijn eigen bank blijven?",
+        antwoord:
+          "Dat is een vraag voor een hypotheekadviseur, niet voor mij. Wat ik er wel over kan zeggen: aan het einde van je rentevaste periode kun je in de regel boetevrij naar een andere geldverstrekker, en er komen dan meestal wel andere kosten bij kijken, zoals taxatie en advies. Zoek dat uit nadat je weet wat je huishouden aankan, niet ervoor.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Van Bruggen: nieuwe rente vaak bijna dubbel zo hoog, 2016 tien jaar vast met NHG op net onder 2 procent tegenover rond 4 procent bij afloop in 2026 (opgehaald 6 september 2026)",
+        url: "https://www.vanbruggen.nl/actueel/nieuws/2026/nieuwe-rente-vaak-bijna-dubbel-zo-hoog",
+      },
+      {
+        label: "De Nederlandsche Bank: dashboard woninghypotheken, ongeveer de helft van de huishoudens heeft een hypotheek, samen ruim 800 miljard euro (opgehaald 6 september 2026)",
+        url: "https://www.dnb.nl/statistieken/dashboards/woninghypotheken/",
+      },
+      {
+        label: "Belastingdienst: hypotheekrenteaftrek, welke kosten aftrekbaar zijn (opgehaald 6 september 2026)",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/aftrekposten/hypotheekrenteaftrek/hypotheekrenteaftrek",
+      },
+      {
+        label: "De vijf doorgerekende huishoudens waarop het referentiebedrag rust, met hun eigen cijfers",
+        url: "https://www.waarblijfthet.nl/rapporten",
+      },
+    ],
+  },
   {
     slug: "wat-geeft-een-gezin-uit-per-maand",
     cta: {
@@ -272,6 +391,7 @@ export const artikelen: Artikel[] = [
     metaTitel: `${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)}: wat geeft een gezin uit per maand?`,
     metaDescription:
       `Een gezin met twee inkomens en twee kinderen geeft ${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)} per maand uit. De hele begroting per post, met per bedrag het aantal huishoudens waarop het rust.`,
+    gewijzigd: "2026-09-06",
     datum: "2026-09-06",
     datumFormatted: "6 september 2026",
     leestijd: "8",
@@ -2848,6 +2968,7 @@ export const artikelen: Artikel[] = [
     titel: "Wat kost een hogere hypotheek echt per maand?",
     metaTitel: "Wat kost een hogere hypotheek echt per maand?",
     metaDescription: "Elke €100.000 extra hypotheek kost bij ~4% rente grofweg €475 per maand, 30 jaar lang. Waarom 'het kan net' gevaarlijk is. Rekenvoorbeeld, geen advies.",
+    gewijzigd: "2026-09-06",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
