@@ -18,6 +18,10 @@ const STATISCHE_URLS = [
   `${BASE}/samenwerken/relatietherapeuten`,
   `${BASE}/samenwerken/boekhouders`,
   `${BASE}/samenwerken/accountants-ondernemers`,
+  // De enige Engelstalige pagina (6-sep-2026, N5). Staat bewust in de
+  // statische lijst en niet in inzichten-data: hij hoort niet in /inzichten en
+  // heeft zijn eigen route, metadata en schema.
+  `${BASE}/en/is-5000-net-a-good-salary-netherlands`,
 ];
 
 export interface UrlMetDatum {

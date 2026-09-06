@@ -110,6 +110,13 @@ export interface Artikel {
    * Service-schema voor dezelfde dienst zijn dubbelop, dus houd het bij een.
    */
   dienstSchema?: boolean;
+  /**
+   * De Engelstalige tegenhanger onder /en/, als die er is. Zet alleen het pad,
+   * niet het domein. Levert hreflang over en weer op (6-sep-2026, N5). Er is
+   * er op dit moment precies een; wordt het er meer, dan is dit het moment om
+   * er een echte i18n-laag van te maken in plaats van een veld.
+   */
+  enVertaling?: string;
   preview: ArticlePreviewData;
 }
 
@@ -3964,6 +3971,8 @@ export const artikelen: Artikel[] = [
     metaTitel: "Is €5.000 netto een goed salaris? (2026)",
     metaDescription:
       `€5.000 netto is een hoog salaris. Als eenverdiener kost dat ongeveer ${euro(BRUTO_VOOR_NETTO[5000])} bruto, met twee inkomens ${euro(EENVERDIENER_MEERKOSTEN_5000)} minder. Waarom het toch niet voelt als een hoog inkomen.`,
+    enVertaling: "/en/is-5000-net-a-good-salary-netherlands",
+    gewijzigd: "2026-09-06",
     datum: "2026-07-30",
     datumFormatted: "30 juli 2026",
     leestijd: "7",

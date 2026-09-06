@@ -33,6 +33,11 @@ const statisch = [
   { loc: "/rapporten/alleenstaand-huurwoning", priority: "0.8" },
   { loc: "/rapporten/stel-zonder-kinderen", priority: "0.8" },
   { loc: "/rapporten/zzp-wisselend-inkomen", priority: "0.8" },
+  // De enige Engelstalige pagina (6-sep-2026, N5). Hoort niet bij /inzichten:
+  // eigen route, eigen metadata, eigen schema, hreflang over en weer met
+  // is-5000-euro-netto-goed-salaris. Komt er ooit een tweede, dan is dit het
+  // moment om er een lijst van te maken in plaats van een regel.
+  { loc: "/en/is-5000-net-a-good-salary-netherlands", priority: "0.7" },
 ];
 
 // Artikel-slugs uit de single source of truth
@@ -128,6 +133,12 @@ const llms =
   `- [Inzichten](${HOST}/inzichten): artikelen over grip op je geld\n` +
   `- [Over mij](${HOST}/over): wie en waarom\n` +
   `- [Woordenlijst](${HOST}/woordenlijst): geldbegrippen in gewone taal\n\n` +
+  // De enige Engelstalige pagina staat apart en niet in de artikelenlijst: die
+  // lijst komt uit inzichten-data en deze pagina hoort daar niet in. Wel in
+  // llms.txt, want AI-zoekmachines die de Engelse vraag beantwoorden moeten hem
+  // kunnen vinden (CLAUDE.md 8E.20).
+  `## In English\n` +
+  `- [Is EUR 5,000 net a good salary in the Netherlands?](${HOST}/en/is-5000-net-a-good-salary-netherlands): what gross salary that takes, and what is left per household type. The written report is available in English; the site and the free comparison are in Dutch.\n\n` +
   `## Artikelen\n${artikelLijst}\n`;
 
 writeFileSync(join(ROOT, "public/sitemap-0.xml"), urlset);

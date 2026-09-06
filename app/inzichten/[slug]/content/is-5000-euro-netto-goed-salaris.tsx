@@ -220,6 +220,14 @@ export default function Is5000EuroNettoGoedSalaris() {
         </Link>
         .
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Werk je in Nederland en lees je liever Engels, of ken je iemand die deze vraag in het Engels
+        stelt? Dezelfde rekensom staat op{" "}
+        <Link href="/en/is-5000-net-a-good-salary-netherlands" className="hover:underline" style={{ color: "#0B7A6E" }} hrefLang="en">
+          is €5,000 net a good salary in the Netherlands
+        </Link>
+        , met de huishoudtabel en een stuk over wat er verandert als de expatregeling stopt.
+      </p>
     </>
   );
 }

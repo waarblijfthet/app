@@ -290,6 +290,14 @@ export default function Is4000EuroNettoGoedSalaris() {
         zonder dat je iets hebt gekozen. Wat dat per maand doet staat in{" "}
         <Link href="/inzichten/rentevaste-periode-loopt-af-wat-nu" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">je rentevaste periode loopt af: wat het per maand met je huishouden doet</Link>.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Dezelfde vraag wordt in Nederland ook veel in het Engels gesteld, door kenniswerkers die hier
+        werken. Voor hen staat de rekensom, de huishoudtabel en het stuk over de expatregeling op{" "}
+        <Link href="/en/is-5000-net-a-good-salary-netherlands" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline" hrefLang="en">
+          is €5,000 net a good salary in the Netherlands
+        </Link>
+        .
+      </p>
     </>
   );
 }

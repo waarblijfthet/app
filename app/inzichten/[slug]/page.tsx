@@ -27,6 +27,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     description: artikel.metaDescription,
     alternates: {
       canonical: `https://www.waarblijfthet.nl/inzichten/${artikel.slug}`,
+      // hreflang alleen als er echt een vertaling is (6-sep-2026, N5).
+      ...(artikel.enVertaling
+        ? {
+            languages: {
+              "nl-NL": `https://www.waarblijfthet.nl/inzichten/${artikel.slug}`,
+              "en-NL": `https://www.waarblijfthet.nl${artikel.enVertaling}`,
+              "x-default": `https://www.waarblijfthet.nl/inzichten/${artikel.slug}`,
+            },
+          }
+        : {}),
     },
     openGraph: {
       title: artikel.metaTitel,
