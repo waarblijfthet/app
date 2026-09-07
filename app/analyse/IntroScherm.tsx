@@ -357,24 +357,33 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      {/* 2. Wat krijg je te zien: drie kaarten. */}
-      <div className="mb-20 md:mb-28">
-        <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-2 text-center">
+      {/* 2. Wat krijg je te zien: drie kaarten. Herzien 7-sep-2026 (opdracht
+          "sectie 2 herontwerp"): alleen visuele hiërarchie, kaartbreedte en
+          verticale ritme aangepast. Tekst, kaarten, iconen en volgorde
+          ongewijzigd. Container blijft dezelfde MAX_BREEDTE als de hero, dus
+          de kaarten gebruiken al de volle paginabreedte; drie kolommen pas
+          vanaf lg (1024px) zodat de tekst op tablet-breedtes niet te veel
+          regels breekt. */}
+      <div className="mb-16 md:mb-20">
+        <h2 className="font-display font-light text-primary text-2xl sm:text-3xl md:text-[32px] leading-snug mb-3 text-center">
           Wat krijg je te zien?
         </h2>
-        <p className="text-text-soft font-body font-light text-base leading-relaxed mb-10 text-center">
+        <p className="text-text-soft font-body font-light text-base leading-relaxed mb-8 text-center">
           Na een paar korte vragen krijg je direct inzicht in:
         </p>
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-6">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-3 lg:gap-6">
           {WAT_KRIJG_JE.map((kaart) => (
-            <div key={kaart.titel} className="card-base border border-[#E6E9E7]">
-              <span className="mb-4 flex h-11 w-11 items-center justify-center rounded-full bg-accent-bg">
-                <Icoon naam={kaart.icoon} maat={20} />
+            <div
+              key={kaart.titel}
+              className="flex flex-col rounded-xl border border-[#E6E9E7] bg-card shadow-card px-6 py-6 sm:px-7 sm:py-7 min-h-[135px] md:min-h-[155px]"
+            >
+              <span className="mb-5 flex h-10 w-10 items-center justify-center rounded-full bg-accent-bg">
+                <Icoon naam={kaart.icoon} maat={18} />
               </span>
-              <p className="font-display font-light text-primary text-lg mb-1.5 leading-snug">
+              <p className="font-display font-light text-primary text-lg mb-2 leading-snug">
                 {kaart.titel}
               </p>
-              <p className="font-body font-light text-text-soft text-sm leading-relaxed">
+              <p className="font-body font-light text-text-soft text-sm leading-[1.45]">
                 {kaart.tekst}
               </p>
             </div>
