@@ -26,7 +26,7 @@ const HUISHOUDENS: { sleutel: Huishouden; label: string }[] = [
 ];
 
 function eur(n: number): string {
-  return "\u20ac" + n.toLocaleString("nl-NL");
+  return "€" + n.toLocaleString("nl-NL");
 }
 
 export default function KindgebondenBudgetRekenaar() {
@@ -40,10 +40,20 @@ export default function KindgebondenBudgetRekenaar() {
 
   const knop =
     "px-3 py-2 rounded-lg font-body text-sm transition-colors border";
+  const brugH2 = {
+    fontSize: "1.6rem",
+    color: "#16211F",
+    marginTop: "0.75rem",
+    marginBottom: "1rem",
+    fontWeight: 300,
+  } as const;
+  const brugP = { marginBottom: "1.25rem", fontWeight: 300 } as const;
+  const brugPLaatst = { marginBottom: "1.5rem", fontWeight: 300 } as const;
   const aan = { backgroundColor: "#0B7A6E", color: "#FFFFFF", borderColor: "#0B7A6E" };
   const uit = { backgroundColor: "#FFFFFF", color: "#16211F", borderColor: "#E6E9E7" };
 
   return (
+    <>
     <div
       className="rounded-xl p-5 my-8"
       style={{ backgroundColor: "#FFFFFF", border: "1.5px solid #9CCFC4" }}
@@ -138,16 +148,40 @@ export default function KindgebondenBudgetRekenaar() {
         tussen 2026 en 2027 niet, want de afbouw werkt hetzelfde. De bedragen voor 2027 zijn een
         raming, zie de bronnen onder dit artikel.
       </p>
+      </div>
 
-      <CtaLink
-        doel="analyse"
-        href={analyseHref({ situatie: "gezin" })}
-        locatie="rekenaar"
-        className="inline-block rounded-lg px-5 py-3 font-body text-sm"
-        style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF" }}
-      >
-        Reken uit wat er in jouw huishouden overblijft &rarr;
-      </CtaLink>
-    </div>
+      <section>
+        <h2 className="font-display" style={brugH2}>
+          Maar dit is maar één onderdeel van jullie financiële situatie
+        </h2>
+        <p className="font-body text-text-soft" style={brugP}>
+          {maatregel.perMaand === 0
+            ? "Aan deze afbouw verandert er bij jullie niets."
+            : eur(maatregel.perMaand) + " per maand minder is concreet."}{" "}
+          Maar wonen, boodschappen, opvang, vervoer en andere uitgaven bepalen samen hoeveel
+          financiële ruimte jullie uiteindelijk overhouden.
+        </p>
+        <p className="font-body text-text-soft" style={brugP}>
+          De interessantere vraag is daarom: hoeveel zou er bij een huishouden zoals het jouwe
+          ongeveer over moeten blijven?
+        </p>
+        <p className="font-body text-text-soft" style={brugPLaatst}>
+          De gratis analyse vergelijkt jullie hele financiële situatie met vergelijkbare
+          huishoudens en laat zien waar jullie daarvan afwijken.
+        </p>
+        <CtaLink
+          doel="analyse"
+          href={analyseHref({ situatie: "gezin" })}
+          locatie="brug"
+          className="inline-block rounded-lg px-5 py-3 font-body text-sm"
+          style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF" }}
+        >
+          Bekijk mijn financiële situatie &rarr;
+        </CtaLink>
+        <p className="font-body text-xs" style={{ color: "#4A5A56", marginTop: "0.5rem" }}>
+          ± 2 minuten · gratis · anoniem · geen bankgegevens
+        </p>
+      </section>
+    </>
   );
 }
