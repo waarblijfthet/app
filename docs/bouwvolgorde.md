@@ -53,6 +53,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 3. **De €2.000 tot €2.400 in de titel van `kosten-levensonderhoud-alleenstaande-2026` heeft geen deugdelijke bron.** Dat bedrag staat sinds 6 september in de metaTitel en nu ook in het antwoordblok, maar de bronnen eronder zijn FinBuddy en HetGeldCollege (commerciële blogs) plus een kale link naar cbs.nl zonder tabel. Dat is precies wat CLAUDE.md regel 3 verbiedt. Twee opties: een echte CBS- of Nibud-onderbouwing zoeken en de bronnenlijst vervangen, of de bandbreedte uit titel en antwoordblok halen. Uiterlijk beslissen bij de CTR-meting van 4 oktober, want tot die tijd meet die titel wel mee.
 4. **`wat-zijn-normale-vaste-lasten-gezin`**: nul vertoningen in 90 dagen en het zit in het taalgebied van H1. Kandidaat voor samenvoegen of een 301 naar H1 bij de CTR-ronde van 4 oktober. Nu niet gedaan, want een 301 op de dag dat de hub live gaat maakt de meting onleesbaar.
 5. **Nibud-cijfers.** Nibud blokkeert automatisch opvragen, dus H1 citeert geen enkel Nibud-bedrag. Wil je de vergelijking met de Nibud-voorbeeldbedragen op de hub, lever dan bedrag en ophaaldatum aan, dan komt het er met bron bij.
+6. **Keyword research op verzoek van Jarno (7 september), buiten de bouwvolgorde om.** Zeven zoektermen rond "financieel coach"/"budgetcoach"/"financiële APK" onderzocht op google.nl en in Perplexity, uitkomsten in `docs/serp-financieel-coach-07-sep-2026.md`. Geen van de zeven is een kandidaat voor een nieuwe pagina: de coach/planner-termen zijn bezet of vallen onder vergunningplichtig advies, de inzicht/APK-termen concurreren met Nibud/MijnGeldzaken's eigen gratis tools. Wel bevestigd: de bestaande positioneringstaal ("geen schulden, verdien genoeg, toch niets over") wordt al door Perplexity geciteerd en aanbevolen bij twee van de zeven zoekopdrachten, zonder dat daar een specifieke pagina voor bestaat. **Open voor Jarno**: GSC-filter op `/financieel-coach` (bestaande pagina, niet eerder genoemd in dit document) voor "financieel coach voor particulieren" en "persoonlijke financiële coaching", om te zien of upgraden zinvoller is dan wat dan ook nieuws bouwen.
 
 ### Openstaand aan Jarno's kant
 
@@ -501,3 +502,22 @@ Deliverable van deze sessie: is-4000 weer citeerbaar maken voor Google's AI-over
 **Meten**: 20 september (+14 dagen) en 4 oktober (+28 dagen, samen met CTR-ronde 1) in GSC Generative AI features voor is-4000, en dan meteen ook is-5000 en het boodschappenartikel nakijken op dezelfde knik. Toegevoegd aan de tabel "Wat er op een datum wacht" in BEGIN HIER.
 
 Achterstallige lijst punt 7 is deels gedaan: de modaal-FAQ staat er, de ontbrekende FAQ's voor €4.100 en €4.600 niet. Die blijven open.
+
+
+## 16. Keyword research zeven zoektermen, 7 september 2026
+
+Geen bouwsessie: op verzoek van Jarno keyword research gedaan naar zeven termen buiten het bestaande plan (financieel coach voor particulieren, persoonlijke financiële coaching, financieel planner particulier, persoonlijk financieel inzicht, budgetcoach voor mensen zonder schulden, financiële APK/financiële check, waar gaat mijn geld naartoe hulp). Tempo-regel en bouwstop tot en met 12 september blijven ongemoeid: er is niets gebouwd.
+
+**Methode.** SERP-verificatie in Chrome op google.nl (hl=nl, gl=nl), zoals CLAUDE.md A.1 voorschrijft. AI-test in Perplexity, uitgelogd (representatieve "koude" test). Een losse test in ChatGPT bleek onbruikbaar: dat liep via Jarno's eigen ingelogde account, waarvan het geheugen ongevraagd positioneringsadvies over Waar Blijft Het gaf in plaats van een neutraal antwoord. Niet in de uitkomsten verwerkt. Geen Google AI-overzicht gezien bij geen van de zeven termen op het moment van testen.
+
+**Belangrijkste vondst: er bestaat al een pagina `/financieel-coach`** (`app/financieel-coach/page.tsx`, niet eerder genoemd in dit document), met FAQ's over kosten, verschil budgetcoach/financieel coach/geldcoach/adviseur, en de gratis analyse als CTA. Voor "financieel coach voor particulieren" en "persoonlijke financiële coaching" is de vraag dus niet of er een pagina moet komen, maar of `/financieel-coach` in GSC al vertoningen heeft op die termen. Dat kon vanaf hier niet gecheckt worden.
+
+**Uitkomst per term**, volledige tabel met SEO- en AI-kolom in `docs/serp-financieel-coach-07-sep-2026.md`:
+- Financieel coach voor particulieren / persoonlijke financiële coaching: bezet segment, local pack en advertenties, overlapt met `/financieel-coach`. Niet bouwen.
+- Financieel planner particulier: volledig verkeerde markt (CFP/Wft-vergunningplichtig advies, €2.250 tot €3.250 per traject). Uitgesloten.
+- Persoonlijk financieel inzicht: concurreert met Nibud's eigen gratis Persoonlijk Budgetadvies. Geen aparte pagina, hooguit een hoek in bestaande content.
+- Budgetcoach voor mensen zonder schulden: zwakke Google-SERP (schuldhulp-buren), maar **Perplexity citeert waarblijfthet expliciet en beveelt de gratis analyse aan**, zonder dat er een pagina met deze titel bestaat. Bevestiging dat de bestaande positioneringstaal goed AI-indexeert.
+- Financiële APK: geen advertenties, redelijke conceptuele match met de gratis analyse, maar Nibud/MijnGeldzaken/Geldloket zijn sterke gratis concurrenten. Financiële check (los getest): volledig gekaapt door hypotheek/nieuwbouw-content, verboden categorie, genegeerd.
+- Waar gaat mijn geld naartoe hulp: merknaam sluit bijna letterlijk aan bij een PAA-vraag ("Waar blijft mijn geld?") en Perplexity citeert waarblijfthet voor het juiste gedeelte van het antwoord, maar de zoekfrase zelf is dubbelzinnig (donatie vs. eigen budget) en dus verdund.
+
+**Conclusie: geen van de zeven termen wordt een nieuwe pagina.** Twee kleine, niet-dringende vervolgacties genoteerd onder "Openstaande beslissingen voor Jarno" hierboven (punt 6): de GSC-check op `/financieel-coach`, en eventueel één FAQ-regel toevoegen in de letterlijke bewoording die al AI-citatie oplevert, bij de eerstvolgende keer dat die pagina toch wordt aangeraakt.
