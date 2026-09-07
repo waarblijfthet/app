@@ -19,6 +19,15 @@
  * waarheidsregel 1). De richtingkleuren (terracotta voor "hoger") komen uit
  * dezelfde palet als Resultaat2Verschil, voor visuele consistentie met het
  * echte resultaatscherm.
+ *
+ * Sectie 3 herzien (7-sep-2026, opdracht 3, uitsluitend sectie 3): eigen
+ * ResultaatKaartGroot-component in plaats van ResultaatPreview zonder
+ * compact-prop. Zelfde voorbeeldcijfers en dezelfde "voorbeeld"-labeling,
+ * maar een eigen opbouw (groot hoofdcijfer plus horizontale
+ * vergelijkingsbalken) zodat de sectie niet meer als een grotere kopie van
+ * de hero-teaser oogt. ResultaatPreview zelf is ongewijzigd en wordt nu
+ * alleen nog compact (in de hero) aangeroepen; de niet-compacte tak erin
+ * is dode code, bewust laten staan om de hero-rendering niet aan te raken.
  */
 
 const MAX_BREEDTE = "max-w-[1180px]";
@@ -217,11 +226,13 @@ function OpvallendRegel({
 }
 
 /**
- * De resultaatpreview: een kleinere, ingehouden versie in de hero (compact,
- * geen eyebrow, kleinere cijfers, geen "groot dashboard") en een grotere,
- * volledige versie in sectie 3, waar de eyebrow erboven staat (zie het
- * IntroScherm-component hieronder, blok 3). Beide tonen dezelfde voorbeeldcijfers, dat is
- * bewust: de hero belooft alvast wat sectie 3 uitgebreider laat zien.
+ * De resultaatpreview: de kleinere, ingehouden versie in de hero (compact,
+ * geen eyebrow, kleinere cijfers, geen "groot dashboard"). Sectie 3 gebruikt
+ * sinds 7-sep-2026 (opdracht 3) niet meer dit component maar het eigen
+ * ResultaatKaartGroot hieronder; de niet-compacte tak hier blijft ongebruikt
+ * staan zodat deze compacte hero-rendering met zekerheid ongewijzigd blijft.
+ * Beide tonen dezelfde voorbeeldcijfers, dat is bewust: de hero belooft
+ * alvast wat sectie 3 uitgebreider laat zien.
  */
 function ResultaatPreview({ compact = false }: { compact?: boolean }) {
   // 7-sep-2026, hero-herziening opdracht 4: de kaart in de hero moet duidelijk
@@ -270,6 +281,79 @@ function ResultaatPreview({ compact = false }: { compact?: boolean }) {
       </div>
 
       <p className="font-body font-light text-text-muted text-xs mt-5 leading-relaxed">
+        Voorbeeldweergave van de opbouw van je resultaat, geen echt huishouden.
+      </p>
+    </div>
+  );
+}
+
+/**
+ * Sectie 3 ("Zo ziet je resultaat eruit"): de grote, op zichzelf staande
+ * uitwerking van hetzelfde voorbeeldresultaat als de hero-preview hierboven.
+ * Bewust een los component in plaats van een variant van ResultaatPreview
+ * (7-sep-2026, opdracht 3, uitsluitend sectie 3): de hero blijft een
+ * compacte belofte, dit is het belangrijkste bewijsstuk van de pagina, met
+ * een eigen opbouw. Structuur: links het hoofdcijfer (Jouw financiële
+ * ruimte) met een horizontale vergelijking tegenover vergelijkbare
+ * huishoudens en de verschilboodschap, rechts "Wat valt op?". Op mobiel
+ * stapelt dat in exact die volgorde, want de verschilboodschap zit in de
+ * linkerkolom en komt zo vóór "Wat valt op?" te staan. Zelfde
+ * voorbeeldcijfers en dezelfde "voorbeeld"-labeling als ResultaatPreview
+ * (harde waarheidsregel 1), dezelfde visuele taal (kleuren, radius, borders,
+ * typografie) als de rest van de pagina, alleen groter en rijker uitgevoerd.
+ */
+function ResultaatKaartGroot() {
+  return (
+    <div className="card-base border border-[#E6E9E7] p-7 sm:p-9 lg:p-11">
+      <div className="flex items-center justify-end mb-6">
+        <VoorbeeldPil />
+      </div>
+
+      <div className="grid gap-10 lg:grid-cols-[3fr_2fr] lg:gap-14">
+        {/* Links: hoofdcijfer, horizontale vergelijking en de verschilboodschap. */}
+        <div>
+          <p className="section-eyebrow mb-2">Jouw financiële ruimte</p>
+          <p className="font-display font-light text-primary text-5xl sm:text-6xl leading-none mb-1.5">
+            &euro; 1.650
+          </p>
+          <p className="font-body text-sm text-text-muted mb-7">per maand</p>
+
+          <div className="space-y-4">
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="font-body text-sm text-text-soft">Jouw situatie</span>
+              </div>
+              <Balk breedte="78%" sterk />
+            </div>
+            <div>
+              <div className="flex items-center justify-between mb-1.5">
+                <span className="font-body text-sm text-text-soft">Vergelijkbare huishoudens</span>
+                <span className="font-display font-light text-text-soft text-xl sm:text-2xl leading-none">
+                  &euro; 2.050
+                </span>
+              </div>
+              <Balk breedte="97%" />
+            </div>
+          </div>
+
+          <div className="mt-6 rounded-lg bg-[#F7F8F7] p-4">
+            <p className="font-body text-sm text-text-soft leading-relaxed">
+              Je houdt in dit voorbeeld ongeveer &euro;400 minder over dan vergelijkbare
+              huishoudens.
+            </p>
+          </div>
+        </div>
+
+        {/* Rechts: wat valt op, zelfde subcomponent als de hero-preview. */}
+        <div>
+          <p className="section-eyebrow mb-3">Wat valt op?</p>
+          <OpvallendRegel icoon="wagentje" label="Boodschappen" verschil="+ €180" />
+          <OpvallendRegel icoon="huis" label="Wonen" verschil="+ €120" />
+          <OpvallendRegel icoon="auto" label="Vervoer" verschil="+ €90" />
+        </div>
+      </div>
+
+      <p className="font-body font-light text-text-muted text-xs mt-7 leading-relaxed">
         Voorbeeldweergave van de opbouw van je resultaat, geen echt huishouden.
       </p>
     </div>
@@ -391,11 +475,13 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      {/* 3. Zo ziet je resultaat eruit: dezelfde preview, groot uitgevoerd, nu
-          met de sectie-eyebrow erboven in plaats van in de kaart zelf. */}
+      {/* 3. Zo ziet je resultaat eruit: eigen ResultaatKaartGroot-component
+          (7-sep-2026, opdracht 3, uitsluitend sectie 3 herzien), niet meer
+          ResultaatPreview zonder compact-prop. Zie de doc-comments bij beide
+          componenten hierboven voor de reden. */}
       <div className="mb-16 md:mb-20">
-        <p className="section-eyebrow mb-4 text-center">Zo ziet je resultaat eruit</p>
-        <ResultaatPreview />
+        <p className="section-eyebrow mb-6 text-center">Zo ziet je resultaat eruit</p>
+        <ResultaatKaartGroot />
       </div>
 
       {/* 4. Brug: een bedrag op zichzelf zegt weinig. Direct na de preview,
