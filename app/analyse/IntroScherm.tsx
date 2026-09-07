@@ -484,16 +484,19 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         <ResultaatKaartGroot />
       </div>
 
-      {/* 4. Brug: een bedrag op zichzelf zegt weinig. Direct na de preview,
-          niet pas onderaan, want dit is het argument dat de preview verklaart. */}
-      <div className="mb-20 md:mb-28 flex flex-col items-center gap-6 sm:flex-row sm:items-center sm:gap-10">
+      {/* 4. Brug: een bedrag op zichzelf zegt weinig. Herzien 7-sep-2026
+          (opdracht "laatste deel"): meer ademruimte tussen accent en tekst,
+          tekst op een leesbare breedte, accent nu rounded-2xl (dezelfde
+          radius als de contrastblokken verderop) in plaats van een cirkel.
+          Tekst, icoon en volgorde ongewijzigd. */}
+      <div className="mb-24 flex flex-col items-center gap-7 sm:flex-row sm:items-center sm:gap-12">
         <span
           aria-hidden="true"
-          className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-full bg-accent-bg sm:h-24 sm:w-24"
+          className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-accent-bg sm:h-24 sm:w-24"
         >
           <Icoon naam="euro" maat={34} />
         </span>
-        <div>
+        <div className="max-w-[560px]">
           <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-2 text-center sm:text-left">
             Een bedrag op zichzelf zegt weinig.
           </h2>
@@ -505,12 +508,16 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      {/* 5. Dit is voor jou als: 2x2 op desktop. */}
-      <div className="mb-20 md:mb-28">
+      {/* 5. Dit is voor jou als: 2x2 op desktop. Herzien 7-sep-2026 (opdracht
+          "laatste deel"): de max-w-[820px] van de grid is losgelaten, zodat
+          dit dezelfde brede 1180px-container gebruikt als de rest van de
+          pagina in plaats van een smalle kolom. Tekst, iconen en volgorde
+          ongewijzigd. */}
+      <div className="mb-24">
         <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-8 text-center">
           Dit is voor jou als...
         </h2>
-        <div className="grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2 max-w-[820px] mx-auto">
+        <div className="grid grid-cols-1 gap-x-14 gap-y-5 md:grid-cols-2">
           {VOOR_JOU_ALS.map((zin) => (
             <div key={zin} className="flex items-start gap-3">
               <span className="text-accent shrink-0 mt-0.5">✓</span>
@@ -520,8 +527,12 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      {/* 6. Je hoeft niets voor te bereiden: zacht groen contrastblok. */}
-      <div className="mb-20 md:mb-28 rounded-2xl bg-green-light p-8 sm:p-10 md:p-12">
+      {/* 6. Je hoeft niets voor te bereiden: zacht groen contrastblok. Herzien
+          7-sep-2026 (opdracht "laatste deel"): de vier items gebruiken nu de
+          volle breedte van het blok (max-w-[760px] losgelaten) en krijgen op
+          md+ een subtiele verticale separator, zoals gevraagd. Tekst, iconen
+          en volgorde ongewijzigd. */}
+      <div className="mb-20 rounded-2xl bg-green-light p-8 sm:p-10 md:p-12">
         <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-2 text-center">
           Je hoeft niets voor te bereiden
         </h2>
@@ -529,9 +540,9 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
           Je hoeft niet eerst je administratie of bankapp erbij te pakken. Een schatting is
           genoeg.
         </p>
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4 max-w-[760px] mx-auto">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-4 md:gap-x-0 md:divide-x md:divide-[#CFE1DA]">
           {NIET_VOORBEREIDEN.map((item) => (
-            <div key={item.label} className="flex flex-col items-center gap-2.5 text-center">
+            <div key={item.label} className="flex flex-col items-center gap-2.5 text-center md:px-6">
               <span className="flex h-11 w-11 items-center justify-center rounded-full bg-white">
                 <Icoon naam={item.icoon} maat={19} />
               </span>
@@ -545,17 +556,22 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         </p>
       </div>
 
-      {/* 7. Eind-CTA: rustige, zachte afsluiting. Zelfde primaire knop, geen
-          tweede actie en geen verwijzing naar de Geldscan (die is nu niet aan
-          de orde). */}
-      <div className="rounded-2xl bg-[#F0F3F1] px-6 py-12 sm:px-10 sm:py-16 text-center">
+      {/* 7. Eind-CTA: rustige, zachte afsluiting. Herzien 7-sep-2026 (opdracht
+          "laatste deel"): de microcopy is nu één regel met bullet-tekens in
+          plaats van de icoon-microrij (MicroRegel blijft ongewijzigd, die
+          wordt nog steeds gebruikt in de hero), en de verticale padding is
+          iets ingekort zodat het blok rond de gevraagde 250-300px hoogte
+          blijft. Kop, knop en de bestaande analyseflow ongewijzigd; geen
+          tweede actie en geen verwijzing naar de Geldscan (die is nu niet
+          aan de orde). */}
+      <div className="rounded-2xl bg-[#F0F3F1] px-6 py-12 sm:px-10 sm:py-14 text-center">
         <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-6">
           Benieuwd hoe jouw huishouden ervoor staat?
         </h2>
         <PrimaireKnop onStart={onStart} groot />
-        <div className="mt-4 flex justify-center">
-          <MicroRegel />
-        </div>
+        <p className="font-body text-xs text-text-muted mt-4">
+          ± 2 minuten · gratis · anoniem · geen bankgegevens
+        </p>
       </div>
     </div>
   );
