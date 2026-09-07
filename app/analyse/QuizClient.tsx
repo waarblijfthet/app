@@ -335,6 +335,36 @@ export default function QuizClient() {
     }
   }, []);
 
+  /**
+   * Stopt de analyse en gaat terug naar de introductie (7-sep-2026). Vóór
+   * deze knop was er geen weg terug: sessionStorage onthoudt de voortgang
+   * bewust over een herlaadbeurt heen (28-aug-2026, pass 5, zie de
+   * voorgevuldRef-hersteleffect hierboven), dus ook een refresh bracht een
+   * bezoeker niet meer bij de introductie. Wist daarom alle drie de
+   * sessionStorage-sleutels van deze flow en zet de state terug naar de
+   * beginwaarden, zodat een volgende start (of refresh) weer bij de
+   * introductie begint in plaats van een halve invulling te hervatten.
+   */
+  const stopAnalyse = useCallback(() => {
+    if (typeof window !== "undefined") {
+      const bevestigd = window.confirm(
+        "Wil je de analyse afbreken? Je antwoorden tot nu toe gaan dan verloren."
+      );
+      if (!bevestigd) return;
+    }
+    try {
+      window.sessionStorage.removeItem(BEWAAR_SLEUTEL);
+      window.sessionStorage.removeItem(NAV_SLEUTEL);
+      window.sessionStorage.removeItem(RESULTAAT_STAP_SLEUTEL);
+    } catch {
+      // stil falen, dan blijft de oude sessie staan maar gaat de bezoeker
+      // wel terug naar de introductie
+    }
+    setData(DEFAULT_QUIZ_DATA);
+    setCurrentId(ALLE_SCHERMEN[0].id);
+    setFase("intro");
+  }, []);
+
   // Meten per scherm in plaats van per categorie (6-sep-2026). De flow heeft
   // 29 schermen in 5 categorieen, dus op categorieniveau was "afgehaakt in
   // vervoer en vaste lasten" het fijnste dat je kon zien, en dat zijn negen
@@ -387,6 +417,7 @@ export default function QuizClient() {
             totaal={actief.length}
             toonVorige={toonVorige}
             onVorige={vorige}
+            onAfbreken={stopAnalyse}
           />
           <huidig.Component
             key={currentId}
@@ -403,6 +434,7 @@ export default function QuizClient() {
           data={data}
           onChange={patch}
           onTerugNaarVragen={terugNaarVragen}
+          onAfbreken={stopAnalyse}
         />
       )}
     </div>

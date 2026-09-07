@@ -28,6 +28,8 @@ interface Props {
   onChange: (u: Partial<QuizData>) => void;
   /** Terug van uitkomst 1 naar de laatste beantwoorde vraag. */
   onTerugNaarVragen: () => void;
+  /** Stopt de analyse en gaat terug naar de introductie (7-sep-2026). */
+  onAfbreken: () => void;
 }
 
 const TITEL_PER_STAP: Record<1 | 2 | 3 | 4, (meerdere: boolean) => string> = {
@@ -45,7 +47,7 @@ const BREEDTE_PER_STAP: Record<1 | 2 | 3 | 4, string> = {
   4: "max-w-2xl",
 };
 
-export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Props) {
+export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAfbreken }: Props) {
   const [substap, setSubstap] = useState<1 | 2 | 3 | 4>(1);
   const hersteldRef = useRef(false);
 
@@ -219,6 +221,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen }: Pr
         stap={substap}
         titel={TITEL_PER_STAP[substap](meerdere)}
         onVorige={vorigeStap}
+        onAfbreken={onAfbreken}
       />
 
       <div key={substap} className="animate-resultaat-in">
