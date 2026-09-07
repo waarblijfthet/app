@@ -484,36 +484,15 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         <ResultaatKaartGroot />
       </div>
 
-      {/* 4. Brug: een bedrag op zichzelf zegt weinig. Herzien 7-sep-2026
-          (opdracht "laatste deel"): meer ademruimte tussen accent en tekst,
-          tekst op een leesbare breedte, accent nu rounded-2xl (dezelfde
-          radius als de contrastblokken verderop) in plaats van een cirkel.
-          Tekst, icoon en volgorde ongewijzigd. */}
-      <div className="mb-24 flex flex-col items-center gap-7 sm:flex-row sm:items-center sm:gap-12">
-        <span
-          aria-hidden="true"
-          className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-accent-bg sm:h-24 sm:w-24"
-        >
-          <Icoon naam="euro" maat={34} />
-        </span>
-        <div className="max-w-[560px]">
-          <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-2 text-center sm:text-left">
-            Een bedrag op zichzelf zegt weinig.
-          </h2>
-          <p className="text-text-soft font-body font-light text-base leading-relaxed text-center sm:text-left">
-            &euro;1.000 aan boodschappen kan voor het ene huishouden normaal zijn en voor het
-            andere opvallend hoog. Daarom vergelijk ik jouw situatie met huishoudens die op jou
-            lijken.
-          </p>
-        </div>
-      </div>
-
-      {/* 5. Dit is voor jou als: 2x2 op desktop. Herzien 7-sep-2026 (opdracht
-          "laatste deel"): de max-w-[820px] van de grid is losgelaten, zodat
-          dit dezelfde brede 1180px-container gebruikt als de rest van de
-          pagina in plaats van een smalle kolom. Tekst, iconen en volgorde
-          ongewijzigd. */}
-      <div className="mb-24">
+      {/* 4. Dit is voor jou als: 2x2 op desktop. Volgorde 7-sep-2026
+          (opdracht "laatste deel", herzien op verzoek van Jarno): deze
+          sectie staat nu vóór het vertrouwensblok en het bruggetje in
+          plaats van erna, zodat de pagina dezelfde volgorde aanhoudt als
+          de bestaande live versie. Container blijft de brede 1180px
+          (geen max-w-[820px] meer). Tekst, iconen en volgorde van de vier
+          punten ongewijzigd; alleen de marge onder is aangepast aan de
+          nieuwe positie. */}
+      <div className="mb-20 md:mb-24">
         <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-8 text-center">
           Dit is voor jou als...
         </h2>
@@ -527,12 +506,13 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
         </div>
       </div>
 
-      {/* 6. Je hoeft niets voor te bereiden: zacht groen contrastblok. Herzien
-          7-sep-2026 (opdracht "laatste deel"): de vier items gebruiken nu de
-          volle breedte van het blok (max-w-[760px] losgelaten) en krijgen op
-          md+ een subtiele verticale separator, zoals gevraagd. Tekst, iconen
-          en volgorde ongewijzigd. */}
-      <div className="mb-20 rounded-2xl bg-green-light p-8 sm:p-10 md:p-12">
+      {/* 5. Je hoeft niets voor te bereiden: zacht groen contrastblok.
+          Volgorde 7-sep-2026 (opdracht "laatste deel", herzien): staat nu
+          na "Dit is voor jou als" en vóór het bruggetje, op verzoek van
+          Jarno. Vier items op de volle breedte van het blok, subtiele
+          verticale separator op md+. Tekst, iconen en volgorde
+          ongewijzigd; marge onder aangepast aan de nieuwe positie. */}
+      <div className="mb-20 md:mb-24 rounded-2xl bg-green-light p-8 sm:p-10 md:p-12">
         <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-2 text-center">
           Je hoeft niets voor te bereiden
         </h2>
@@ -554,6 +534,31 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
           Een paar korte vragen. Gratis, anoniem en zonder bankkoppeling. Je hoeft na afloop
           niets te kopen.
         </p>
+      </div>
+
+      {/* 6. Bruggetje: een bedrag op zichzelf zegt weinig. Volgorde
+          7-sep-2026 (opdracht "laatste deel", herzien): staat nu vlak vóór
+          de eind-CTA in plaats van direct na sectie 3, op verzoek van
+          Jarno. Marge onder verkleind (was mb-24) zodat de overgang naar
+          de CTA net zo strak blijft als voorheen naar het vertrouwensblok.
+          Tekst, icoon en interne opbouw ongewijzigd. */}
+      <div className="mb-16 md:mb-20 flex flex-col items-center gap-7 sm:flex-row sm:items-center sm:gap-12">
+        <span
+          aria-hidden="true"
+          className="flex h-20 w-20 flex-shrink-0 items-center justify-center rounded-2xl bg-accent-bg sm:h-24 sm:w-24"
+        >
+          <Icoon naam="euro" maat={34} />
+        </span>
+        <div className="max-w-[560px]">
+          <h2 className="font-display font-light text-primary text-2xl sm:text-3xl leading-snug mb-2 text-center sm:text-left">
+            Een bedrag op zichzelf zegt weinig.
+          </h2>
+          <p className="text-text-soft font-body font-light text-base leading-relaxed text-center sm:text-left">
+            &euro;1.000 aan boodschappen kan voor het ene huishouden normaal zijn en voor het
+            andere opvallend hoog. Daarom vergelijk ik jouw situatie met huishoudens die op jou
+            lijken.
+          </p>
+        </div>
       </div>
 
       {/* 7. Eind-CTA: rustige, zachte afsluiting. Herzien 7-sep-2026 (opdracht
