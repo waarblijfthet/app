@@ -224,11 +224,15 @@ function OpvallendRegel({
  * bewust: de hero belooft alvast wat sectie 3 uitgebreider laat zien.
  */
 function ResultaatPreview({ compact = false }: { compact?: boolean }) {
-  const ruimteMaat = compact ? "text-2xl sm:text-3xl" : "text-3xl sm:text-4xl";
-  const vergelijkMaat = compact ? "text-xl sm:text-2xl" : "text-2xl sm:text-3xl";
+  // 7-sep-2026, hero-herziening opdracht 4: de kaart in de hero moet duidelijk
+  // groter ogen dan de rest van de pagina, dus geen apart kleiner lettertype
+  // meer voor de compacte variant. Alleen padding en de "Wat valt op"-layout
+  // (grid vs. gestapeld met rand) blijven het verschil tussen hero en sectie 3.
+  const ruimteMaat = "text-3xl sm:text-4xl";
+  const vergelijkMaat = "text-2xl sm:text-3xl";
 
   return (
-    <div className={`card-base border border-[#E6E9E7] ${compact ? "p-5 sm:p-6" : "p-6 sm:p-8"}`}>
+    <div className={`card-base border border-[#E6E9E7] ${compact ? "p-6 sm:p-7" : "p-6 sm:p-8"}`}>
       <div className="flex items-center justify-end mb-4">
         <VoorbeeldPil />
       </div>
@@ -322,27 +326,33 @@ const NIET_VOORBEREIDEN = [
 
 export default function IntroScherm({ onStart }: { onStart: () => void }) {
   return (
-    <div className={`${MAX_BREEDTE} mx-auto`}>
+    <div className={`${MAX_BREEDTE} mx-auto pt-2 md:pt-8`}>
       {/* 1. Hero: twee kolommen op desktop, tekst eerst op mobiel. De DOM-
           volgorde (tekst dan preview) klopt voor beide: flex-col stapelt op
-          mobiel in die volgorde, md:flex-row zet ze op desktop naast elkaar. */}
-      <div className="flex flex-col gap-10 md:flex-row md:items-center md:gap-16 mb-20 md:mb-28">
-        <div className="md:flex-1">
+          mobiel in die volgorde. Op desktop een 1.15fr/1fr-grid in plaats van
+          twee gelijke flex-1 kolommen (7-sep-2026, hero-herziening opdracht 4):
+          de linkerkolom iets breder voor de grotere H1, de rechterkaart met
+          een eigen max-breedte zodat hij niet over de volle kolom uitrekt en
+          met een lichte negatieve marge zodat hij iets hoger begint dan de H1. */}
+      <div className="flex flex-col gap-10 md:grid md:grid-cols-[1.15fr_1fr] md:items-start md:gap-12 mb-16 md:mb-20">
+        <div>
           <p className="section-eyebrow mb-4">Gratis financiële analyse</p>
-          <h1 className="font-display font-light text-primary text-4xl sm:text-5xl leading-[1.1] mb-5">
+          <h1 className="font-display font-light text-primary text-[40px] sm:text-5xl md:text-[52px] leading-[1.05] mb-5">
             Hoe staat jouw huishouden er financieel voor?
           </h1>
-          <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-8 max-w-[480px]">
+          <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-7 max-w-[480px]">
             Ontdek hoeveel financiële ruimte bij jouw situatie past en waar jouw situatie
             afwijkt van vergelijkbare huishoudens.
           </p>
-          <PrimaireKnop onStart={onStart} groot />
-          <div className="mt-4">
+          <button type="button" onClick={onStart} className="btn-primary text-base px-7 py-3.5">
+            {PRIMAIRE_CTA_TEKST}
+          </button>
+          <div className="mt-2.5">
             <MicroRegel />
           </div>
         </div>
 
-        <div className="md:flex-1">
+        <div className="w-full md:max-w-[400px] md:ml-auto md:-mt-2">
           <ResultaatPreview compact />
         </div>
       </div>
