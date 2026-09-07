@@ -105,6 +105,19 @@ export default function WatIsNormaalBedragBoodschappen() {
         leeftijd van de kinderen en regio. Zijn je kinderen een deel van de week
         bij de andere ouder, reken dan ongeveer 10 procent lager.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Dit bedrag krijgt pas echt betekenis naast een huishouden dat qua samenstelling en inkomen op
+        het jouwe lijkt. Bij een gezin met twee inkomens en kinderen staat die volledige vergelijking,
+        boodschappen incluis, in{" "}
+        <Link
+          href="/inzichten/wat-geeft-een-gezin-uit-per-maand"
+          className="hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          wat een gezin met twee inkomens per maand uitgeeft
+        </Link>
+        .
+      </p>
 
       {/* Vijf echte huishoudens in plaats van forumcijfers. De persona-toets van
           30-jul wees uit dat de oude visual op forum-polls met 51 deelnemers het
@@ -256,6 +269,19 @@ export default function WatIsNormaalBedragBoodschappen() {
         huishouden dat 1.000 euro uitgeeft. Reken dat wel even door voordat je eraan begint: als er aan
         het eind van de maand honderden euro&apos;s ontbreken, gaat die 100 euro je vraag niet
         oplossen.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Dat ontbrekende bedrag zegt iets over je totale financiële ruimte, niet over je boodschappen.
+        Een vergelijking per uitgavenpost is niet hetzelfde als weten hoeveel er structureel
+        overblijft. Wil je dat weten? Reken je{" "}
+        <Link
+          href="/inzichten/vrij-besteedbaar-inkomen-berekenen"
+          className="hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          vrij besteedbaar inkomen
+        </Link>{" "}
+        uit.
       </p>
 
       <div

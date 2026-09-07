@@ -3899,7 +3899,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Wat is een normaal boodschappenbedrag per maand? De norm is een ondergrens, echte huishoudens geven meer uit. Bedragen per persoon, stel, gezin en één ouder, plus wat je eraan doet.",
     datum: "2026-06-26",
-    gewijzigd: "2026-09-06",
+    gewijzigd: "2026-09-07",
     datumFormatted: "26 juni 2026",
     leestijd: "9",
     categorie: "Besparen",

@@ -158,6 +158,19 @@ export default function Is4000EuroNettoGoedSalaris() {
       <p className="font-body text-text-soft" style={p}>
         Dat is geen klagen. Dat is gewoon rekenen.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Dat bedrag alleen zegt overigens nog niets over hoeveel ruimte je hebt. Belangrijker is wat
+        er na je vaste lasten en de rest van je vaste uitgaven daadwerkelijk overblijft. Hoe je dat
+        voor je eigen situatie berekent, lees je in{" "}
+        <Link
+          href="/inzichten/vrij-besteedbaar-inkomen-berekenen"
+          className="hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          hoeveel vrij besteedbaar inkomen je overhoudt
+        </Link>
+        .
+      </p>
 
       <h2 className="font-display" style={h2}>
         Waarom een bedrag niets zegt zonder het huishouden erbij
@@ -167,6 +180,19 @@ export default function Is4000EuroNettoGoedSalaris() {
         één grote losse post, maar in de stapeling: de boodschappen liggen ongeveer {euro(verschilBoodschappen)}{" "}
         hoger, en daar komt nog eens {euro(gezin.kinderkosten)} aan opvang, school en sport bij. Geen van
         beide bedragen is op zichzelf schokkend. Samen maken ze het verschil tussen ruimte en een tekort.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Dat geldt niet alleen voor dit ene gezin. Zodra er kinderen, een tweede inkomen of juist maar
+        één inkomen bijkomt, verschuift de hele optelsom. Hoe die begroting er voor een gezin met
+        kinderen per post uitziet, op verschillende inkomens, staat in{" "}
+        <Link
+          href="/inzichten/wat-geeft-een-gezin-uit-per-maand"
+          className="hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          de volledige gezinsbegroting per post
+        </Link>
+        .
       </p>
       <p className="font-body text-text-soft" style={p}>
         Vul je eigen situatie in bij de rekenaar hierboven in, dan zie je de posten die bij jouw
