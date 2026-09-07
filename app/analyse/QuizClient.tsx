@@ -371,31 +371,30 @@ export default function QuizClient() {
 
   return (
     <div ref={containerRef} className="overflow-x-hidden scroll-mt-24">
-      {/* Vragenflow: smalle kolom, een Typeform-gevoel. De resultatenflow
-          bepaalt zijn eigen, bredere breedte per stap (spec sectie 8), dus
-          die staat hieronder bewust buiten deze wrapper. */}
-      {(fase === "intro" || fase === "vraag") && (
-        <div className="max-w-[600px] mx-auto">
-          {fase === "intro" && <IntroScherm onStart={() => setFase("vraag")} />}
+      {/* De introductie is sinds 7-sep-2026 een volwaardige landingpage en
+          bepaalt daarom haar eigen (bredere) breedte, los van de smalle
+          vragenflow hieronder. De vragenflow blijft een smalle kolom, een
+          Typeform-gevoel; de resultatenflow bepaalt zijn eigen, bredere
+          breedte per stap (spec sectie 8) en staat hieronder al buiten elke
+          wrapper. */}
+      {fase === "intro" && <IntroScherm onStart={() => setFase("vraag")} />}
 
-          {fase === "vraag" && (
-            <div>
-              <ProgressBar
-                categorie={huidig.categorie}
-                positie={positie}
-                totaal={actief.length}
-                toonVorige={toonVorige}
-                onVorige={vorige}
-              />
-              <huidig.Component
-                key={currentId}
-                data={data}
-                patch={patch}
-                kiesEnGa={kiesEnGa}
-                ga={advance}
-              />
-            </div>
-          )}
+      {fase === "vraag" && (
+        <div className="max-w-[600px] mx-auto">
+          <ProgressBar
+            categorie={huidig.categorie}
+            positie={positie}
+            totaal={actief.length}
+            toonVorige={toonVorige}
+            onVorige={vorige}
+          />
+          <huidig.Component
+            key={currentId}
+            data={data}
+            patch={patch}
+            kiesEnGa={kiesEnGa}
+            ga={advance}
+          />
         </div>
       )}
 
