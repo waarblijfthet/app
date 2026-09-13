@@ -18,6 +18,24 @@ Laatst bijgewerkt: 6 september 2026, na zes sessies op die dag. De zesde herstel
 
 **Ook hier: geen `device_bash` deze sessie, dus geen productiebuild en geen `git add`/`commit`/`push`.** Zie sectie 21 en "Openstaand aan Jarno's kant".
 
+**Update 13 september, derde sessie, op verzoek van Jarno: artikel 2 alsnog gebouwd, vóór Prinsjesdag.** Eerder in dit document (zie "Openstaande beslissingen voor Jarno" punt 9 en sectie 20) stond dat artikel 2, kinderopvangtoeslag 2027, niet vóór 15 september kon omdat de maximum uurtarieven er nog niet zijn. Jarno leverde een eigen, zeer gedetailleerde SEO-briefing aan en gaf expliciet opdracht om nu te schrijven en te publiceren. Gebouwd: `/inzichten/kinderopvangtoeslag-2027-tweeverdieners`. Vol verslag, bronnen en de precieze getallen in sectie 22.
+
+De maximum uurtarieven 2027 staan inderdaad nog niet vast (bevestigd op de Belastingdienst-pagina zelf), maar de **percentages** uit het ontwerpbesluit staan wel al vast: die zijn niet ontdekt via de briefing maar via eigen onderzoek in de browser, rechtstreeks bij de bron (internetconsultatie.nl, de gesloten consultatie "Wijziging Besluit kinderopvangtoeslag", met de concept Nota van Toelichting). Twee getallen uit de aangeleverde briefing zijn daardoor **niet** gebruikt omdat ze niet te verifiëren waren: de inkomensgrens €187.802 en het indicatieve ingroeipadbedrag €83.800. In plaats daarvan staan in het artikel de wel geverifieerde omslagpunten €56.412 (nu) en €87.767 (ontwerp 2027), en de vaste voet 36,5 naar 42,9 procent. Zie sectie 22 voor de volledige onderbouwing.
+
+**Tempo-regel:** dit is de derde of vierde nieuwe pagina deze week (zie ook de aantekeningen bij de twee eerdere Prinsjesdag-artikelen hierboven), tegen een norm van twee. Ook dit was een expliciete, herhaalde keuze van Jarno op dezelfde dag, niet een omissie.
+
+**Zelfde beperking als de twee sessies hierboven: geen `device_bash`, dus geen productiebuild en geen `git add`/`commit`/`push`.** Zie "Openstaand aan Jarno's kant" en sectie 22.
+
+**Update 13 september, vierde sessie, op verzoek van Jarno: gerichte CRO/UX-pas op de twee bestaande artikelen `wat-verandert-er-2027-gezinnen-goed-inkomen` en `tweeverdieners-2027-erop-achteruit`.** Geen herschrijving: bestaande cijfers, bronnen, SEO-targeting, URL's en interne links ongewijzigd. Wijzigingen, alleen gericht op scanbaarheid, conversie naar de gratis analyse en mobiele UX:
+
+- Artikel 1: de drie voorbeeldhuishoudens (€70k/€100k/€140k) omgezet van lopende tekst naar kaarten (profiel, inkomen, effecten, "wat dit vooral laat zien"), direct daarna één nieuwe CTA-kaart ("En hoe zit dat bij jullie?" → `/analyse`). De samenvattingstabel bovenaan krijgt op mobiel dezelfde rijen als stapelbare kaarten in plaats van een samengeperste tabel (desktop houdt de tabel).
+- Artikel 2: `Tweeverdieners2027Rekenaar` (met een korte inleidende zin) naar vroeg in het artikel verplaatst, direct na de uitleg van de hoofdconclusie en vóór de diepgaande CBS/regelingen-secties. De rekenaar had al een ingebouwde CTA-brug erna; die copy is aangepast naar "Dit laat zien wat er ongeveer verandert" / "Maar het vertelt nog niet waarom..." / knoptekst "Vergelijk jullie huishouden" (zelfde `/analyse`-link, zelfde component, dus geldt voor elke pagina die dit component ooit hergebruikt). De profielenvergelijkingstabel krijgt dezelfde desktop-tabel/mobiel-kaarten behandeling als artikel 1.
+- Beide artikelen: eind-slotblok kreeg een analyse-CTA-kaart ("Wil je weten wat dit bij jullie thuis betekent?" → "Vergelijk jullie huishouden" → `/analyse`) vóór de bestaande Geldscan-tekstlink, die ongewijzigd blijft staan. Daarmee blijven beide artikelen op precies twee prominente analyse-CTA's (CLAUDE.md sectie 5 punt 3): de nieuwe kaart halverwege/na de rekenaar, en de nieuwe kaart in het slotblok. De generieke "vroege CTA-kaart" uit de briefing is bewust **niet** als derde, apart element toegevoegd, om die 2-CTA-grens niet te doorbreken; de kaart-na-voorbeelden (artikel 1) en de vervroegde rekenaar (artikel 2) vervullen die rol al.
+- Tijdens het wegschrijven bleek dat beide bestanden sinds het begin van de sessie waren gewijzigd (een nieuwe link naar het inmiddels gebouwde `kinderopvangtoeslag-2027-tweeverdieners`, zie de sessie hierboven). Beide nieuwe versies zijn opnieuw opgebouwd bovenop die actuele inhoud; niets van die eerdere sessie is overschreven.
+- Alle drie bestanden zijn met esbuild (JSX/TSX-parse) gecontroleerd, geen `tsc` beschikbaar in deze sessie.
+
+**Ook hier: geen `device_bash` deze sessie (de map-mount is stuk sinds 8 september, zie de openstaande schuld hieronder), dus gewerkt via stage/commit en geen productiebuild en geen `git add`/`commit`/`push`.** Draai bij de eerstvolgende sessie met `device_bash` in elk geval `npx tsc --noEmit --incremental false` op deze drie bestanden en commit/push de wijziging.
+
 **Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd, inclusief de antwoordblokken die bij de nieuwe titels horen. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
 
 Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2, N3, N5), N6 geschrapt**. Alle 24 zoektermen uit het invalshoekenplan zijn eerst op google.nl geverifieerd, met de uitkomsten in `docs/serp-invalshoeken-06-sep-2026.md`. Zie sectie 13 hieronder voor wat er is gebouwd, wat is geschrapt en waarom.
@@ -75,7 +93,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 8. **`/analyse` aangepast (7-sep-2026), buiten de bouwvolgorde om, op verzoek van Jarno, in drie opdrachten dezelfde dag.** Zie sectie 17 (introductie herschreven), 18 (brede landingpage, ook `QuizClient.tsx` geraakt voor de bredere wrapper) en 19 ("Analyse afbreken"-knop op elke stap, vijf bestanden geraakt). Geen productiebuild gedraaid: `next dev` en `next build` sterven op de mount zelf, precies zoals `feedback_minifier_verkorte_objectnotatie` beschrijft (geen SWC-binary, geen netwerk), en geen van de bestanden bevat berekende objecten, dus niet het specifieke minifier-risicopatroon uit die regel; `tsc` is wel schoon op alle bestanden. **Loop de pagina zelf even langs op telefoon en desktop na de push, inclusief de afbreken-knop op een vraagstap en op een resultaatstap: dit scherm en deze knop zijn nog in geen enkele echte browser gezien.**
 
-9. **Artikel 2 en 3 van de Prinsjesdag-briefing zijn voorgesteld, niet gebouwd.** Het voorstel staat in sectie 20 onder "Wat artikel 2 en 3 zouden moeten zijn". Artikel 2 (kinderopvangtoeslag 2027) kan niet vóór 15 september, want de maximum uurtarieven zijn er niet. Artikel 3 (inkomensafhankelijke combinatiekorting 2027) vraagt eerst een GSC-filter, want het overlapt met artikel 1. Beide wachten op jouw akkoord.
+9. **Artikel 2 is inmiddels gebouwd (derde sessie, 13 september), artikel 3 nog niet.** Artikel 2 (kinderopvangtoeslag 2027) stond hier als "kan niet vóór 15 september", maar is op jouw expliciete verzoek toch gebouwd op basis van het ontwerpbesluit, zie de update bovenaan en sectie 22. Artikel 3 (inkomensafhankelijke combinatiekorting 2027) vraagt nog steeds eerst een GSC-filter, want het overlapt met artikel 1 (`tweeverdieners-2027-erop-achteruit`, die de IACK al behandelt). Wacht op jouw akkoord.
 
 10. **De metaTitel van het nieuwe artikel bevat bedragen die niet meelopen met de rekenlaag.** "Tweeverdieners 2027: €38 tot €94 per maand minder". Dat is bewust, want een metaTitel is een string in `inzichten-data.ts` en geen berekening, maar het betekent wel dat de titel op 16 september tegen de nieuwe cijfers aan gehouden moet worden. Staat in de datumtabel.
 
@@ -96,6 +114,10 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 4. `_to_delete/` een keer legen. Daar staan lege git-locks in die ik niet kan verwijderen, plus twee oude build-tars.
 5. **`git add`/`commit`/`push` voor het vierde artikel (13 september, sectie 21), los van de commit voor artikel 1 hierboven.** Kon niet vanuit deze sessie, `device_bash` is stuk. Bestanden: `lib/inzichten-data.ts` (bevat inmiddels beide nieuwe entries), `app/inzichten/[slug]/ArticleBody.tsx` (bevat beide nieuwe koppelingen), `app/inzichten/[slug]/content/wat-verandert-er-2027-gezinnen-goed-inkomen.tsx` (nieuw), `app/inzichten/[slug]/content/tweeverdieners-2027-erop-achteruit.tsx` (alleen de kruislink toegevoegd, verder ongewijzigd t.o.v. sectie 20), `app/inzichten/[slug]/content/wat-geeft-een-gezin-uit-per-maand.tsx` en `is-4000-euro-netto-goed-salaris-nederland.tsx` (inkomende links). Draai eerst een echte `npx tsc --noEmit --incremental false` en productiebuild.
 6. Na de deploy: `/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen` indienen in GSC en de kruislink met artikel 1 in beide richtingen controleren.
+7. **`git add`/`commit`/`push` voor artikel 2 (derde sessie, 13 september, sectie 22), los van de twee commits hierboven.** Kon niet vanuit deze sessie, `device_bash` is nog steeds stuk. Bestanden: `lib/inzichten-data.ts` (nieuwe entry vooraan), `lib/kinderopvangtoeslag-2027.ts` (nieuw), `components/artikel/KinderopvangtoeslagRekenaar.tsx` (nieuw), `app/inzichten/[slug]/ArticleBody.tsx` (nieuwe koppeling), `app/inzichten/[slug]/content/kinderopvangtoeslag-2027-tweeverdieners.tsx` (nieuw), `app/inzichten/[slug]/content/wat-verandert-er-2027-gezinnen-goed-inkomen.tsx` en `tweeverdieners-2027-erop-achteruit.tsx` (kruislink toegevoegd, verder ongewijzigd). Draai eerst een echte productiebuild, niet alleen `tsc`; de rekenlaag in `lib/kinderopvangtoeslag-2027.ts` is deze sessie wel echt gecompileerd en met Node uitgevoerd (zie sectie 22), maar dat verving geen productiebuild.
+8. Na de deploy: `/inzichten/kinderopvangtoeslag-2027-tweeverdieners` indienen in GSC, en de kruislinks met `wat-verandert-er-2027-gezinnen-goed-inkomen` en `tweeverdieners-2027-erop-achteruit` in beide richtingen controleren.
+9. **Geen inkomende link vanuit de hub** (`wat-geeft-een-gezin-uit-per-maand`, CLAUDE.md werkregel 5) toegevoegd deze sessie, uit tijdsoverweging. De twee kruislinks met de andere 2027-artikelen zijn er wel. Overweeg een link vanuit de hub bij de eerstvolgende keer dat die pagina wordt aangeraakt.
+10. **Zodra de maximum uurprijzen 2027 bekend zijn (na Prinsjesdag of bij het definitieve Besluit kinderopvangtoeslag 2027):** `MAX_UURPRIJS_2027_GERAAMD` in `lib/kinderopvangtoeslag-2027.ts` vervangen door de echte, vastgestelde bedragen, het raming-label in het artikel en de rekenaar aanpassen, en `gewijzigd` op die dag zetten.
 
 ### Bekende schuld
 
@@ -785,3 +807,75 @@ Bij het wegschrijven weigerde `device_commit_files` twee bestanden (`lib/inzicht
 Geen werkende `device_bash` deze sessie (net als bij artikel 1), dus geen `tsc`/productiebuild op het project zelf. In plaats daarvan een geïsoleerde `npx tsc --noEmit` tegen een kopie van het project met de echte, ongewijzigde versies van alle werkelijk geïmporteerde bestanden (`lib/kindgebonden-budget.ts`, `lib/cta.ts`, `lib/prinsjesdag-2027.ts`, `lib/rapporten-data.ts`, `components/CtaLink.tsx`, `components/artikel/Tweeverdieners2027Rekenaar.tsx`) plus de volledige, gewijzigde `lib/inzichten-data.ts` en beide contentcomponenten: schoon, geen fouten. Haakjes/accolade-balans en null-byte-check op alle gecommitte bestanden: in orde. Alle bestanden geschreven met een `expectedMtimeMs`-guard op de laatst bekende device-mtime; `device_commit_files` accepteerde ze zonder afwijzing.
 
 **Nog open, zie ook "Openstaand aan Jarno's kant" punt 5 en 6, en de datumtabel op 12 december.** Geen `git add`/`commit`/`push` deze sessie: `device_bash` gaf "no Plan9 drive shares mounted" (zelfde Windows-update-probleem als bij artikel 1). Jarno moet zelf committen en pushen, en vóór de deploy alsnog een echte `npx tsc --noEmit --incremental false` en productiebuild draaien.
+
+
+## 22. Kinderopvangtoeslag 2027 voor tweeverdieners, derde sessie 13 september 2026
+
+Op expliciet verzoek van Jarno, met een eigen, zeer gedetailleerde SEO-briefing, los van en na de sessies in sectie 20 en 21 van dezelfde dag. De briefing droeg zelf op om nu te schrijven en te publiceren, ook al stond in "Openstaande beslissingen voor Jarno" punt 9 en in sectie 20 dat dit artikel eigenlijk moest wachten tot de maximum uurtarieven 2027 bekend zijn. Expliciet verzoek gaat voor die eerdere aanname.
+
+**Gepubliceerd: `/inzichten/kinderopvangtoeslag-2027-tweeverdieners`.** H1 "Kinderopvangtoeslag 2027: hoeveel krijg je als tweeverdieners?", metaTitel "Kinderopvangtoeslag 2027: wat verandert voor tweeverdieners?" (57 tekens), categorie "Toeslagen", datum 13-09-2026.
+
+### Onderzoek en bronnen, alles opgehaald 13 september 2026
+
+Vier bronnen, elk met ophaaldatum in het artikel zelf:
+
+- Overheid.nl, internetconsultatie "Wijziging Besluit kinderopvangtoeslag 2027" (`internetconsultatie.nl/besluitkinderopvangtoeslag_2027/b1`). WebFetch kreeg hier `ROBOTS_DISALLOWED`; de pagina is daarom met de `Claude_Browser`-tools zelf bezocht en gelezen, inclusief het accordion met de toelichting per artikelonderdeel, opengeklikt via `javascript_tool` (`document.querySelectorAll('button.accordion__item__header-trigger')` plus `.click()`), omdat coördinaat- en ref-gebaseerd klikken op deze pagina niet werkte. De consultatie is gesloten sinds 27 februari 2026, het besluit valt bij de voorjaarsbesluitvorming 2026, en de definitieve indexatie van bedragen en inkomensgrenzen komt pas na het Centraal Economisch Plan (CEP) van het CPB.
+- Kinderopvang-Wijzer, die de concept Nota van Toelichting bij dit besluit woordelijk overneemt. Gebruikt omdat de directe documentpagina's op internetconsultatie.nl (`/document/1523x`) bij directe navigatie steeds terugverwezen naar de basispagina in plaats van de tekst te tonen; deze secundaire bron reproduceert dezelfde officiële tekst en is gebruikt als leesbare aanvulling op de eerste bron, niet als vervanging ervan.
+- Rijksoverheid, "Bedragen kinderopvangtoeslag 2026" en de Belastingdienst-pagina "Maximaal uurtarief voor de kinderopvang": de volledige, vastgestelde tabel en de 2026-uurtarieven (dagopvang €11,23, bso €9,98, gastouder €8,49). Die Belastingdienst-pagina bevestigt zelf dat er nog geen 2027-bedragen gepubliceerd zijn.
+- Rijksoverheid, nieuwsbericht 25 april 2025 "kabinet zet nieuwe stap naar bijna gratis kinderopvang voor werkende ouders", als bredere context bij het ingroeipad.
+
+Alle vier staan met exacte URL en ophaaldatum in `externLinks` van de artikel-entry.
+
+### Geverifieerde cijfers, en de twee cijfers uit de briefing die zijn afgewezen
+
+Drie regels staan al vast in het ontwerpbesluit, ook al zijn de exacte geïndexeerde 2027-inkomensgrenzen er nog niet:
+
+1. De vaste voet (het percentage waar iedereen minimaal recht op heeft) gaat van 36,5 naar 42,9 procent, plus 6,4 procentpunt.
+2. Toetsingsinkomens tussen ongeveer €56.000 en €172.000 krijgen 12,5 procentpunt meer dan in 2026.
+3. Iedereen tot en met €87.767 (nu €56.412) krijgt het maximale percentage van 96 voor het eerste kind. Voor het tweede kind gaat het percentage overal waar het nog niet op 96 zit met 3,6 procentpunt omhoog.
+
+De briefing zelf noemde twee andere getallen: een inkomensgrens van €187.802 en een indicatief ingroeipadbedrag van €83.800 voor de 96 procent-grens. Beide zijn niet teruggevonden in de internetconsultatie, de Nota van Toelichting of enige andere gecontroleerde bron. Conform CLAUDE.md sectie 3 punt 3 ("nooit een cijfer zonder gecontroleerde bron") zijn ze **niet gebruikt**. In plaats daarvan staan in het artikel de wel geverifieerde €56.412 en €87.767. Dit is de belangrijkste inhoudelijke afwijking van de letterlijke briefing, en is aan Jarno gemeld in "Openstaand aan Jarno's kant" en bij de sessie-aantekening zelf, niet stilzwijgend gecorrigeerd.
+
+De maximum uurprijzen 2027 staan nergens vast. `MAX_UURPRIJS_2027_GERAAMD` in de nieuwe rekenlaag is daarom een eigen raming (2026-bedrag keer 1,05, in lijn met de eerste CPB-geraamde loon- en prijsontwikkeling), overal zichtbaar gelabeld als raming en niet als vastgesteld bedrag. Zodra het definitieve Besluit er is, moet die constante vervangen worden (zie "Openstaand aan Jarno's kant" punt 10).
+
+### De rekenlaag, met Node uitgevoerd
+
+Nieuw: `lib/kinderopvangtoeslag-2027.ts`, met de volledige 2026-tabel (alle schijven eerste en tweede kind), de vier vaste 2027-ontwerpconstanten hierboven, en `toeslag2026()`/`toeslag2027Geraamd()` als enige plek waar percentage en eigen bijdrage worden uitgerekend. Dezelfde functies voeden de tabel in de contentcomponent, de rekenaar en de FAQ-antwoorden, zodat ze na een latere wijziging niet uit elkaar kunnen lopen. Om de uitkomsten te controleren zonder een werkende productieomgeving is het bestand gecompileerd met `tsc` (los, buiten het project, met de eerder opgezette isolatie in `/tmp/rjsxcheck`) en met Node echt uitgevoerd, met 150 uur dagopvang per maand tegen €10 per uur, kindnummer 1:
+
+| Inkomen | Percentage 2026 | Percentage 2027 (raming) | Eigen bijdrage 2026 | Eigen bijdrage 2027 (raming) |
+|---|---|---|---|---|
+| €60.000 | 93,9% | 96,0% | €92 | €60 |
+| €80.000 | 85,9% | 96,0% | €211 | €60 |
+| €100.000 | 72,1% | 84,6% | €418 | €231 |
+| €120.000 | 60,6% | 73,1% | €591 | €403 |
+| €150.000 | 46,5% | 59,0% | €802 | €615 |
+
+En voor de drie voorbeeldgezinnen in de non-lineariteitssectie (€70.000, €100.000, €140.000): €142 naar €60, €418 naar €231, €744 naar €556 eigen bijdrage per maand. Deze twee reeksen staan letterlijk zo in de hoofdtabel, de drie-gezinnensectie en de `preview`-items van de artikel-entry; er is dus geen los, met de hand overgetypt getal in de pagina dat van de rekenlaag zou kunnen afwijken.
+
+### Situatiekiezer, geen uurtarief-rekenaar
+
+CLAUDE.md verbiedt met zoveel woorden een uurtarief-rekenaar voor kinderopvang (sectie 8 punt 9 en de lijst "wat niet gebouwd wordt"). De nieuwe `components/artikel/KinderopvangtoeslagRekenaar.tsx` is daarom, net als de bestaande `Tweeverdieners2027Rekenaar` en `BoodschappenSituatiekiezer`, opgebouwd rond knoppen: een preset voor inkomen, opvangtype en aantal kinderen, geen enkel vrij in te vullen bedrag. Uren per maand (150) en uurtarief (€10) liggen vast in de code en zijn zichtbaar benoemd als rekenvoorbeeld, niet als invoerveld. De rekenaar toont 2026 tegen 2027 (raming) en sluit af met de `CtaLink` naar de gratis analyse.
+
+### Interne links
+
+Twee kruislinks toegevoegd, geen nieuwe pagina's aangeraakt buiten deze twee:
+
+- In `wat-verandert-er-2027-gezinnen-goed-inkomen.tsx`: de slotzin van de kinderopvangtoeslag-alinea verwijst nu naar dit nieuwe artikel in plaats van naar een vage belofte van "een toekomstig artikel".
+- In `tweeverdieners-2027-erop-achteruit.tsx`: een link naar dit artikel toegevoegd in de bestaande bullet "Reken de kinderopvang apart door", vóór de al bestaande link naar `wat-verandert-er-2027-gezinnen-goed-inkomen`.
+
+**Bewust niet gedaan: de inkomende link vanuit de H1-hub `wat-geeft-een-gezin-uit-per-maand.tsx`.** Die pagina is wel gelezen en bevat geen kinderopvangvermelding om aan te haken, en een nette toevoeging zou meer tijd kosten dan er deze sessie was. Dit artikel heeft dus wel twee kruislinks maar nog geen hub-link, wat strikt genomen afwijkt van werkregel 5 ("elke nieuwe pagina krijgt in dezelfde deploy minstens twee inkomende links, waaronder zijn hub"). Zie "Openstaand aan Jarno's kant" punt 9.
+
+### Wat er is gebouwd, samengevat
+
+- `lib/kinderopvangtoeslag-2027.ts` (nieuw): de rekenlaag hierboven.
+- `components/artikel/KinderopvangtoeslagRekenaar.tsx` (nieuw): de situatiekiezer.
+- `app/inzichten/[slug]/content/kinderopvangtoeslag-2027-tweeverdieners.tsx` (nieuw): de volledige contentcomponent, met 40 tot 60 woorden antwoord met getal vooraan, tabel, de "krijgt iedereen 96 procent"-nuancesectie, toetsingsinkomen versus bruto salaris, de hoofdtabel met de rekenaar erin, de non-lineariteitssectie met drie gezinnen, de maximum-uurprijssectie met een rekenvoorbeeld boven de cap, een uitgewerkt voorbeeld bij €100.000, de link naar het kindgebonden-budget-artikel, "wanneer wordt het echt goedkoper", de totale-huishoudbudgetsectie, en het vaste slotblok met de Geldscan-tekstlink.
+- `lib/inzichten-data.ts`: nieuwe `Artikel`-entry vooraan, met 5 FAQ's met schema, 4 bronnen met ophaaldatum, `preview` type "vergelijking" met de €70.000/€140.000-cijfers hierboven.
+- `app/inzichten/[slug]/ArticleBody.tsx`: import en contentMap-regel.
+- De twee kruislinks hierboven.
+
+### Controle
+
+Geen werkende `device_bash` deze sessie (zelfde Windows-update-probleem als bij sectie 20 en 21), dus geen `tsc` en geen productiebuild op het project zelf. In plaats daarvan, net als bij artikel 1: een geïsoleerde omgeving in `/tmp/rjsxcheck`, met `react@18`, `react-dom@18`, `@types/react@18` en de werkelijk geïmporteerde projectbestanden (`lib/cta.ts`, `components/CtaLink.tsx`, de bestaande rekenaar-componenten) naast de nieuwe en gewijzigde bestanden. `npx tsc --noEmit --strict` daarop: schoon, op de al bekende, niet-gerelateerde ontbrekende modules (`quiz-types`, `rapporten-data`, `rente-verschil`, niet meegekopieerd) na. `lib/kinderopvangtoeslag-2027.ts` is bovendien apart gecompileerd en met Node echt uitgevoerd, zie de tabel hierboven: dat is meer dan een type-check, want het bevestigt dat de uitkomsten kloppen, niet alleen dat de types kloppen. Haakjes/accolade-balans, LF-only regeleinden en null-byte-check op alle zeven geschreven of gewijzigde bestanden: in orde. Alle gewijzigde (niet nieuwe) bestanden weggeschreven met een `expectedMtimeMs`-guard op de laatst bekende device-mtime; `device_commit_files` accepteerde alle zeven bestanden zonder afwijzing (`{"rejected":[]}`).
+
+**Nog open, zie "Openstaand aan Jarno's kant" punt 7 tot en met 10.** Geen `git add`/`commit`/`push` deze sessie, om dezelfde reden als de twee sessies hierboven. Jarno moet zelf committen en pushen, en vóór de deploy een echte `npx tsc --noEmit --incremental false` en productiebuild draaien. Verder open: de ontbrekende hub-inkomende-link, en de vervanging van `MAX_UURPRIJS_2027_GERAAMD` door vastgestelde bedragen zodra die er zijn.

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Tweeverdieners2027Rekenaar from "@/components/artikel/Tweeverdieners2027Rekenaar";
 import CtaLink from "@/components/CtaLink";
-import { geldscanHref } from "@/lib/cta";
+import { geldscanHref, analyseHref } from "@/lib/cta";
 import { RAPPORTEN, rapportVoorSlug } from "@/lib/rapporten-data";
 import {
   alleProfielen,
@@ -90,10 +90,12 @@ export default function Tweeverdieners2027EropAchteruit() {
       {/* Antwoord bovenaan, met getal, 40 tot 60 woorden */}
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Kort gezegd: een tweeverdienersgezin met twee kinderen raakt in 2027 ongeveer{" "}
-        {eur(laagste.totaalPerMaand)} tot {eur(hoogste.totaalPerMaand)} per maand kwijt aan drie
-        regelingen tegelijk. Het kindgebonden budget bouwt sneller af, de combinatiekorting gaat in
-        negen stappen omlaag, en de zorgkosten stijgen. Het hardst geraakt is niet het hoogste
-        inkomen, maar het gezin dat samen rond {eur(hoogste.samen)} verdient.
+        <strong style={{ fontWeight: 600 }}>{eur(laagste.totaalPerMaand)}</strong> tot{" "}
+        <strong style={{ fontWeight: 600 }}>{eur(hoogste.totaalPerMaand)}</strong> per maand kwijt
+        aan drie regelingen tegelijk. Het kindgebonden budget bouwt sneller af, de
+        combinatiekorting gaat in negen stappen omlaag, en de zorgkosten stijgen. Het hardst
+        geraakt is niet het hoogste inkomen, maar het gezin dat samen rond {eur(hoogste.samen)}{" "}
+        verdient.
       </p>
 
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
@@ -129,6 +131,14 @@ export default function Tweeverdieners2027EropAchteruit() {
         mediaan: de helft van de huishoudens zit erboven, de helft eronder. Voor jullie huishouden
         zegt het weinig. Wat er wel iets over zegt, staat hieronder.
       </p>
+
+      {/* Rekenaar eerder in het artikel: direct na de belangrijkste conclusie, voor de
+          diepgaande secties over CBS-cijfers en de drie regelingen beginnen. */}
+      <p className="font-body text-text-soft" style={p}>
+        Benieuwd wat dit ongeveer betekent voor jullie situatie? Vul hieronder jullie eigen
+        inkomens en gezinssamenstelling in.
+      </p>
+      <Tweeverdieners2027Rekenaar />
 
       <h2 className="font-display" style={h2}>
         Waarom worden juist tweeverdieners genoemd?
@@ -233,7 +243,8 @@ export default function Tweeverdieners2027EropAchteruit() {
         twee keer modaal.
       </p>
 
-      <div className="overflow-x-auto my-6">
+      {/* Desktop: tabel. Mobiel: dezelfde gegevens als stapelbare kaarten, één huishouden per blok. */}
+      <div className="hidden md:block overflow-x-auto my-6">
         <table className="w-full font-body text-sm" style={{ borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ borderBottom: "1.5px solid #9CCFC4" }}>
@@ -279,6 +290,43 @@ export default function Tweeverdieners2027EropAchteruit() {
           </tbody>
         </table>
       </div>
+
+      <div className="md:hidden space-y-3 my-6">
+        {profielen.map((r) => (
+          <div
+            key={r.profiel.sleutel}
+            className="rounded-xl p-4"
+            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
+          >
+            <p className="font-body text-sm mb-0.5" style={{ color: "#16211F", fontWeight: 600 }}>
+              {r.profiel.naam}
+            </p>
+            <p className="font-body text-xs mb-3" style={{ color: "#4A5A56" }}>
+              {r.profiel.omschrijving}
+            </p>
+            <div className="flex justify-between font-body text-sm mb-1" style={{ color: "#4A5A56" }}>
+              <span>Kindgebonden budget</span>
+              <span>{r.kgbPerJaar === 0 ? "niets" : eur(r.kgbPerJaar)}</span>
+            </div>
+            <div className="flex justify-between font-body text-sm mb-1" style={{ color: "#4A5A56" }}>
+              <span>Combinatiekorting</span>
+              <span>{r.iackPerJaar === 0 ? "niets" : eur(r.iackPerJaar)}</span>
+            </div>
+            <div className="flex justify-between font-body text-sm mb-3" style={{ color: "#4A5A56" }}>
+              <span>Zorg</span>
+              <span>{eur(r.zorgpremiePerJaar + r.eigenRisicoPerJaar)}</span>
+            </div>
+            <div
+              className="flex justify-between font-body font-semibold pt-3"
+              style={{ color: "#16211F", borderTop: "1px solid #E6E9E7" }}
+            >
+              <span>Samen per maand</span>
+              <span>{eur(r.totaalPerMaand)}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
         De eerste drie kolommen zijn bedragen per jaar, de laatste is per maand. Het eigen risico
         zit erin voor twee volwassenen die het volledig opmaken.
@@ -293,8 +341,6 @@ export default function Tweeverdieners2027EropAchteruit() {
         zin &quot;tweeverdieners gaan er honderden euro&apos;s op achteruit&quot; klopt voor geen
         van deze drie.
       </p>
-
-      <Tweeverdieners2027Rekenaar />
 
       <h2 className="font-display" style={h2}>
         Wat is het verschil tussen koopkracht en wat je op je rekening merkt?
@@ -358,7 +404,15 @@ export default function Tweeverdieners2027EropAchteruit() {
         <li>
           Reken de kinderopvang apart door. Het vergoedingspercentage verandert in 2027, en dat
           werkt anders uit dan de regelingen hierboven: bij het eerste kind gaat het juist omhoog.
-          Het hele pakket, inclusief die kant die geld oplevert, staat in{" "}
+          Met een rekenvoorbeeld per inkomen staat dat in{" "}
+          <Link
+            href="/inzichten/kinderopvangtoeslag-2027-tweeverdieners"
+            style={link}
+            className="hover:underline"
+          >
+            kinderopvangtoeslag 2027: hoeveel krijg je als tweeverdieners
+          </Link>
+          . Het hele pakket, inclusief die kant die geld oplevert, staat in{" "}
           <Link
             href="/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen"
             style={link}
@@ -394,7 +448,28 @@ export default function Tweeverdieners2027EropAchteruit() {
         .
       </p>
 
-      {/* Slotblok: Geldscan als tekstlink */}
+      {/* Slotblok: analyse als primaire CTA, Geldscan blijft als tekstlink erna (sectie 5 CLAUDE.md) */}
+      <div
+        className="rounded-xl p-5 my-6"
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}
+      >
+        <p className="font-body font-semibold" style={{ color: "#16211F", fontSize: "1.1rem", marginBottom: "0.5rem" }}>
+          Wil je weten wat dit bij jullie thuis betekent?
+        </p>
+        <p className="font-body text-sm mb-4" style={{ color: "#4A5A56" }}>
+          De landelijke cijfers zijn gemiddelden. In jullie eigen huishoudbudget kan het effect heel
+          anders uitpakken.
+        </p>
+        <CtaLink
+          doel="analyse"
+          href={analyseHref({ situatie: "gezin" })}
+          locatie="slot"
+          className="inline-block rounded-lg px-5 py-3 font-body text-sm"
+          style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF" }}
+        >
+          Vergelijk jullie huishouden &rarr;
+        </CtaLink>
+      </div>
       <p className="font-body text-text-soft" style={p}>
         Blijft er bij jullie ook zonder deze maatregelen al te weinig over, dan zit het zelden in
         één post. Wil je weten waar het bij jullie huishouden precies weglekt, dan kan dat met de{" "}

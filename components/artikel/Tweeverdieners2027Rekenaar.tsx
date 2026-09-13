@@ -190,7 +190,7 @@ export default function Tweeverdieners2027Rekenaar() {
 
       <section>
         <h2 className="font-display" style={brugH2}>
-          Maar dit is maar één onderdeel van jullie maand
+          Dit laat zien wat er ongeveer verandert
         </h2>
         <p className="font-body text-text-soft" style={brugP}>
           {totaalPerMaand === 0
@@ -201,8 +201,8 @@ export default function Tweeverdieners2027Rekenaar() {
           enkel koopkrachtplaatje.
         </p>
         <p className="font-body text-text-soft" style={brugP}>
-          De interessantere vraag is daarom: hoeveel zou er bij een huishouden zoals dat van jullie
-          ongeveer over moeten blijven?
+          Maar het vertelt nog niet waarom jullie iedere maand meer of minder overhouden dan
+          vergelijkbare huishoudens.
         </p>
         <p className="font-body text-text-soft" style={brugPLaatst}>
           De gratis analyse legt jullie hele maand naast vergelijkbare huishoudens en laat zien
@@ -215,7 +215,7 @@ export default function Tweeverdieners2027Rekenaar() {
           className="inline-block rounded-lg px-5 py-3 font-body text-sm"
           style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF" }}
         >
-          Bekijk mijn financi&euml;le situatie &rarr;
+          Vergelijk jullie huishouden &rarr;
         </CtaLink>
         <p className="font-body text-xs" style={{ color: "#4A5A56", marginTop: "0.5rem" }}>
           &plusmn; 2 minuten &middot; gratis &middot; anoniem &middot; geen bankgegevens

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
-import { geldscanHref } from "@/lib/cta";
+import { geldscanHref, analyseHref } from "@/lib/cta";
 import {
   kostenVanDeMaatregel,
   nulpunt,
@@ -30,6 +30,39 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
 
   const voorbeeld70 = kostenVanDeMaatregel("paar", 2, 70000);
   const voorbeeld100 = kostenVanDeMaatregel("paar", 2, 100000);
+
+  const samenvattingRijen = [
+    {
+      onderwerp: "Inkomstenbelasting",
+      wat: "Belastingschijven en heffingskortingen worden in 2027 en 2028 minder volledig gecorrigeerd voor inflatie (raming, gelekt)",
+      effect: "Vermoedelijk licht negatief, sterker naarmate je meer verdient",
+    },
+    {
+      onderwerp: "Kindgebonden budget",
+      wat: `Nieuwe afbouwschijf boven circa ${eur(KGB_2027.tweedeAfbouwpunt)} gezamenlijk inkomen (grens en percentage vast, bedrag raming)`,
+      effect: "Negatief als je kinderen hebt en boven de grens zit, anders geen effect",
+    },
+    {
+      onderwerp: "Kinderopvangtoeslag",
+      wat: "Vergoeding eerste kind naar 96 procent voor ouders die nu nog niet het maximum krijgen (aangekondigd beleid)",
+      effect: "Positief als je kinderen op de opvang hebt",
+    },
+    {
+      onderwerp: "Zorgpremie",
+      wat: "Ramingen lopen uiteen van circa €170 tot €200 per maand, definitief pas 12 november (raming, tegenstrijdige bronnen)",
+      effect: "Negatief, exacte omvang nog niet vast te stellen",
+    },
+    {
+      onderwerp: "Eigen risico",
+      wat: "De ene raming houdt €385 aan, de andere noemt €400 (raming, tegenstrijdige bronnen)",
+      effect: "Onzeker, hooguit een paar euro per maand verschil",
+    },
+    {
+      onderwerp: "Koopkracht landelijk",
+      wat: "Gemiddeld circa min 0,1 procent, circa min 0,2 procent voor hogere inkomens (gelekt, nog niet officieel)",
+      effect: "Zegt weinig over je eigen huishouden, zie hieronder waarom",
+    },
+  ];
 
   return (
     <>
@@ -74,13 +107,15 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
 
       {/* Antwoord bovenaan */}
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Kort gezegd: voor een tweeverdienersgezin met een gezamenlijk inkomen tussen ongeveer
-        &euro;70.000 en &euro;140.000 verandert er in 2027 geen enkel groot bedrag, maar wel een
-        stapeling van kleinere. Het kindgebonden budget bouwt sneller af boven zo&apos;n{" "}
-        {eur(KGB_2027.tweedeAfbouwpunt)} gezamenlijk inkomen, de kinderopvangtoeslag gaat voor het
-        eerste kind juist omhoog naar 96 procent, en de inkomstenbelasting corrigeert minder
-        volledig voor inflatie. Geen van die posten is op zichzelf dramatisch. Bij elkaar bepalen ze
-        wel of januari 2027 voelt als een gewone maand of niet.
+        Kort gezegd: voor een tweeverdienersgezin met een gezamenlijk inkomen tussen ongeveer{" "}
+        <strong style={{ fontWeight: 600 }}>&euro;70.000</strong> en{" "}
+        <strong style={{ fontWeight: 600 }}>&euro;140.000</strong> verandert er in 2027 geen enkel
+        groot bedrag, maar wel een stapeling van kleinere. Het kindgebonden budget bouwt sneller af
+        boven zo&apos;n {eur(KGB_2027.tweedeAfbouwpunt)} gezamenlijk inkomen, de
+        kinderopvangtoeslag gaat voor het eerste kind juist omhoog naar 96 procent, en de
+        inkomstenbelasting corrigeert minder volledig voor inflatie. Geen van die posten is op
+        zichzelf dramatisch. Bij elkaar bepalen ze wel of januari 2027 voelt als een gewone maand
+        of niet.
       </p>
 
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
@@ -98,7 +133,9 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
         Alleen bedragen die vaststaan of expliciet als raming zijn gemarkeerd. Geen bedrag hieronder
         is definitief tot Prinsjesdag, behalve waar dat apart staat vermeld.
       </p>
-      <div className="overflow-x-auto my-6">
+
+      {/* Desktop: tabel. Mobiel: dezelfde rijen als stapelbare kaarten, zelfde tekst. */}
+      <div className="hidden md:block overflow-x-auto my-6">
         <table className="w-full font-body text-sm" style={{ borderCollapse: "collapse" }}>
           <thead>
             <tr style={{ borderBottom: "1.5px solid #9CCFC4" }}>
@@ -114,38 +151,7 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
             </tr>
           </thead>
           <tbody>
-            {[
-              {
-                onderwerp: "Inkomstenbelasting",
-                wat: "Belastingschijven en heffingskortingen worden in 2027 en 2028 minder volledig gecorrigeerd voor inflatie (raming, gelekt)",
-                effect: "Vermoedelijk licht negatief, sterker naarmate je meer verdient",
-              },
-              {
-                onderwerp: "Kindgebonden budget",
-                wat: `Nieuwe afbouwschijf boven circa ${eur(KGB_2027.tweedeAfbouwpunt)} gezamenlijk inkomen (grens en percentage vast, bedrag raming)`,
-                effect: "Negatief als je kinderen hebt en boven de grens zit, anders geen effect",
-              },
-              {
-                onderwerp: "Kinderopvangtoeslag",
-                wat: "Vergoeding eerste kind naar 96 procent voor ouders die nu nog niet het maximum krijgen (aangekondigd beleid)",
-                effect: "Positief als je kinderen op de opvang hebt",
-              },
-              {
-                onderwerp: "Zorgpremie",
-                wat: "Ramingen lopen uiteen van circa €170 tot €200 per maand, definitief pas 12 november (raming, tegenstrijdige bronnen)",
-                effect: "Negatief, exacte omvang nog niet vast te stellen",
-              },
-              {
-                onderwerp: "Eigen risico",
-                wat: "De ene raming houdt €385 aan, de andere noemt €400 (raming, tegenstrijdige bronnen)",
-                effect: "Onzeker, hooguit een paar euro per maand verschil",
-              },
-              {
-                onderwerp: "Koopkracht landelijk",
-                wat: "Gemiddeld circa min 0,1 procent, circa min 0,2 procent voor hogere inkomens (gelekt, nog niet officieel)",
-                effect: "Zegt weinig over je eigen huishouden, zie hieronder waarom",
-              },
-            ].map((r, i) => (
+            {samenvattingRijen.map((r, i) => (
               <tr key={i} style={{ borderBottom: "1px solid #E6E9E7" }}>
                 <td className="py-2 pr-3 align-top" style={{ color: "#16211F", fontWeight: 500 }}>
                   {r.onderwerp}
@@ -160,6 +166,27 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      <div className="md:hidden space-y-3 my-6">
+        {samenvattingRijen.map((r, i) => (
+          <div
+            key={i}
+            className="rounded-xl p-4"
+            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
+          >
+            <p className="font-body text-sm mb-2" style={{ color: "#16211F", fontWeight: 600 }}>
+              {r.onderwerp}
+            </p>
+            <p className="font-body text-sm mb-2" style={{ color: "#4A5A56" }}>
+              {r.wat}
+            </p>
+            <p className="font-body text-sm" style={{ color: "#16211F" }}>
+              <span style={{ fontWeight: 500 }}>Effect: </span>
+              {r.effect}
+            </p>
+          </div>
+        ))}
       </div>
 
       <h2 className="font-display" style={h2}>
@@ -254,9 +281,17 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
         Wat ik hier bewust niet doe, is een bedrag per maand voorrekenen. De maximale uurtarieven
         voor 2027 stonden bij het schrijven van dit artikel nog niet vast, en zonder die tarieven is
         een rekenvoorbeeld gokwerk. Ter referentie de tarieven van 2026: &euro;11,23 voor
-        dagopvang, &euro;9,98 voor buitenschoolse opvang en &euro;8,49 voor gastouderopvang. Zodra de
-        tarieven voor 2027 vaststaan, volgt daar een apart artikel over, met een eigen rekenvoorbeeld
-        in plaats van een schatting hier.
+        dagopvang, &euro;9,98 voor buitenschoolse opvang en &euro;8,49 voor gastouderopvang. De
+        percentages uit het ontwerpbesluit staan wel al vast, en die reken ik met een rekenvoorbeeld
+        wel door in{" "}
+        <Link
+          href="/inzichten/kinderopvangtoeslag-2027-tweeverdieners"
+          style={link}
+          className="hover:underline"
+        >
+          kinderopvangtoeslag 2027: hoeveel krijg je als tweeverdieners
+        </Link>
+        , inclusief wat er verandert zodra de maximum uurprijzen wel bekend zijn.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -294,31 +329,98 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
         </Link>
         . Hier gaat het om het bredere plaatje, inclusief de kant die geld oplevert.
       </p>
-      <p className="font-body text-text-soft" style={p}>
-        <strong style={{ color: "#16211F", fontWeight: 500 }}>
-          Circa &euro;70.000 samen.
-        </strong>{" "}
-        Kindgebonden budget daalt met ongeveer {eur(voorbeeld70.perMaand)} per maand door de nieuwe
-        afbouwschijf. Krijgt dit gezin nu nog niet het maximum voor het eerste kind op de opvang,
-        dan compenseert de stap naar 96 procent daar een deel van.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        <strong style={{ color: "#16211F", fontWeight: 500 }}>
-          Circa &euro;100.000 samen.
-        </strong>{" "}
-        Kindgebonden budget is met de maatregel al vrijwel nul; het feitelijke gemis door de
-        maatregel zelf is ongeveer {eur(voorbeeld100.perMaand)} per maand. De beperktere indexatie
-        van belastingschijven telt hier zwaarder mee dan bij het gezin hierboven.
-      </p>
-      <p className="font-body text-text-soft" style={p}>
-        <strong style={{ color: "#16211F", fontWeight: 500 }}>
-          Circa &euro;140.000 samen.
-        </strong>{" "}
-        Kindgebonden budget is op dit inkomen met of zonder de maatregel al nul, dus die specifieke
-        wijziging kost dit gezin niets extra. Kinderopvangtoeslag kan nog relevant zijn als er
-        kinderen op de opvang zitten. De beperktere indexatie telt hier het zwaarst mee, en in
-        verhouding tot het totale inkomen het minst.
-      </p>
+
+      {/* Drie voorbeeldhuishoudens als kaarten: zelfde cijfers en tekst als voorheen, alleen
+          gestructureerd voor scanbaarheid. Geen nieuwe berekeningen. */}
+      <div className="grid gap-4 my-6 sm:grid-cols-1 md:grid-cols-3">
+        {[
+          {
+            profiel: "Gezin met twee kinderen",
+            inkomen: eur(70000),
+            effecten: [
+              `Kindgebonden budget: ongeveer −${eur(voorbeeld70.perMaand)} per maand door de nieuwe afbouwschijf`,
+            ],
+            conclusieLabel: "Wat dit vooral laat zien",
+            conclusie:
+              "Krijgt dit gezin nu nog niet het maximum voor het eerste kind op de opvang, dan compenseert de stap naar 96 procent daar een deel van.",
+          },
+          {
+            profiel: "Gezin met twee kinderen",
+            inkomen: eur(100000),
+            effecten: [
+              `Kindgebonden budget: al vrijwel nul; feitelijk gemis door de maatregel zelf ongeveer ${eur(voorbeeld100.perMaand)} per maand`,
+            ],
+            conclusieLabel: "Wat dit vooral laat zien",
+            conclusie:
+              "De beperktere indexatie van belastingschijven telt hier zwaarder mee dan bij het gezin hierboven.",
+          },
+          {
+            profiel: "Gezin met twee kinderen",
+            inkomen: eur(140000),
+            effecten: [
+              "Kindgebonden budget: al nul, met of zonder de maatregel, dus geen extra kosten door deze wijziging",
+              "Kinderopvangtoeslag: kan nog relevant zijn als er kinderen op de opvang zitten",
+            ],
+            conclusieLabel: "Wat dit vooral laat zien",
+            conclusie:
+              "De beperktere indexatie telt hier het zwaarst mee, en in verhouding tot het totale inkomen het minst.",
+          },
+        ].map((c, i) => (
+          <div
+            key={i}
+            className="rounded-xl p-4 flex flex-col"
+            style={{ backgroundColor: "#FFFFFF", border: "1px solid #E6E9E7" }}
+          >
+            <p className="font-body text-xs mb-1" style={{ color: "#4A5A56" }}>
+              {c.profiel}
+            </p>
+            <p className="font-display mb-3" style={{ fontSize: "1.4rem", color: "#16211F" }}>
+              {c.inkomen} <span style={{ fontSize: "0.85rem", fontWeight: 300, color: "#4A5A56" }}>samen</span>
+            </p>
+            <ul className="space-y-1.5 mb-3">
+              {c.effecten.map((e, j) => (
+                <li key={j} className="font-body text-sm" style={{ color: "#4A5A56" }}>
+                  {e}
+                </li>
+              ))}
+            </ul>
+            <div className="mt-auto pt-3" style={{ borderTop: "1px solid #E6E9E7" }}>
+              <p className="font-body text-xs mb-1" style={{ color: "#4A5A56", fontWeight: 500 }}>
+                {c.conclusieLabel}
+              </p>
+              <p className="font-body text-sm" style={{ color: "#16211F", fontWeight: 600 }}>
+                {c.conclusie}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* CTA-card direct na de drie voorbeeldcards */}
+      <div
+        className="rounded-xl p-5 my-6"
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}
+      >
+        <p className="font-body font-semibold" style={{ color: "#16211F", fontSize: "1.1rem", marginBottom: "0.5rem" }}>
+          En hoe zit dat bij jullie?
+        </p>
+        <p className="font-body text-sm mb-4" style={{ color: "#4A5A56" }}>
+          Vergelijk jullie eigen huishoudsituatie met vergelijkbare huishoudens.
+        </p>
+        <CtaLink
+          doel="analyse"
+          href={analyseHref({ situatie: "gezin" })}
+          locatie="na-voorbeelden"
+          className="inline-block rounded-lg px-5 py-3 font-body text-sm"
+          style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF" }}
+        >
+          Bekijk jullie situatie &rarr;
+        </CtaLink>
+        <p className="font-body text-xs" style={{ color: "#4A5A56", marginTop: "0.5rem" }}>
+          Gratis &middot; anoniem &middot; geen verplicht gesprek
+        </p>
+      </div>
+
       {/* Bedrag verbatim uit lib/rapporten-data.ts, rapport "tweeverdieners-drie-kinderen"
           (kenmerken: "samen €7.880 netto"). Niet herberekend, niet uit het hoofd getypt. */}
       <p className="font-body text-text-soft" style={p}>
@@ -373,7 +475,28 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
         </li>
       </ol>
 
-      {/* Slotblok: Geldscan als tekstlink */}
+      {/* Slotblok: analyse als primaire CTA, Geldscan blijft als tekstlink erna (sectie 5 CLAUDE.md) */}
+      <div
+        className="rounded-xl p-5 my-6"
+        style={{ backgroundColor: "#E7F1EE", border: "1.5px solid #9CCFC4" }}
+      >
+        <p className="font-body font-semibold" style={{ color: "#16211F", fontSize: "1.1rem", marginBottom: "0.5rem" }}>
+          Wil je weten wat dit bij jullie thuis betekent?
+        </p>
+        <p className="font-body text-sm mb-4" style={{ color: "#4A5A56" }}>
+          De landelijke cijfers zijn gemiddelden. In jullie eigen huishoudbudget kan het effect heel
+          anders uitpakken.
+        </p>
+        <CtaLink
+          doel="analyse"
+          href={analyseHref({ situatie: "gezin" })}
+          locatie="slot"
+          className="inline-block rounded-lg px-5 py-3 font-body text-sm"
+          style={{ backgroundColor: "#0B7A6E", color: "#FFFFFF" }}
+        >
+          Vergelijk jullie huishouden &rarr;
+        </CtaLink>
+      </div>
       <p className="font-body text-text-soft" style={p}>
         De landelijke cijfers zeggen wat er gemiddeld gebeurt. Jullie huishoudboekje is niet
         gemiddeld. Wil je weten waar het bij jullie precies zit, ook los van wat Prinsjesdag

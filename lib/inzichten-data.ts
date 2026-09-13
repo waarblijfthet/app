@@ -317,6 +317,85 @@ const N1_KLEIN = berekenRenteVerschil({
 
 export const artikelen: Artikel[] = [
   {
+    slug: "kinderopvangtoeslag-2027-tweeverdieners",
+    cta: {
+      kop: "Reken uit wat de kinderopvangtoeslag 2027 voor jullie doet",
+      tekst:
+        "De gratis analyse legt jullie hele maand naast vergelijkbare huishoudens, inclusief de posten die in 2027 veranderen. Zo zie je waar het bij jullie om gaat, niet het landelijke gemiddelde.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Kinderopvangtoeslag 2027: hoeveel krijg je als tweeverdieners?",
+    korteTitel: "Kinderopvangtoeslag 2027",
+    metaTitel: "Kinderopvangtoeslag 2027: wat verandert voor tweeverdieners?",
+    metaDescription:
+      "Hoeveel kinderopvangtoeslag krijg je in 2027 als tweeverdieners? Bekijk de nieuwe percentages, inkomensgrenzen en wat dit voor jullie maandlasten betekent.",
+    datum: "2026-09-13",
+    datumFormatted: "13 september 2026",
+    leestijd: "9",
+    categorie: "Toeslagen",
+    excerpt:
+      "De kinderopvangtoeslag gaat in 2027 in het ontwerpbesluit verder omhoog: meer huishoudens krijgen het maximale percentage van 96, en de middenband krijgt 12,5 procentpunt extra. Wat dat concreet scheelt bij €60.000 tot €150.000 gezamenlijk inkomen, doorgerekend met rekenaar.",
+    preview: {
+      type: "vergelijking",
+      label: "Eigen bijdrage kinderopvang per maand, rekenvoorbeeld 1 kind",
+      items: [
+        { naam: "Bij €70.000 in 2026", bedrag: 142, kleur: "#0B7A6E" },
+        { naam: "Bij €70.000 in 2027", bedrag: 60, kleur: "#9CCFC4" },
+        { naam: "Bij €140.000 in 2026", bedrag: 744, kleur: "#0B7A6E" },
+        { naam: "Bij €140.000 in 2027", bedrag: 556, kleur: "#9CCFC4" },
+      ],
+      noot: "Rekenvoorbeeld: 1 kind, dagopvang, 150 uur per maand, €10 per uur. 2027 is een ontwerpbesluit, nog niet definitief.",
+    },
+    faq: [
+      {
+        vraag: "Hoeveel kinderopvangtoeslag krijg ik in 2027?",
+        antwoord:
+          "Dat hangt af van jullie gezamenlijke toetsingsinkomen, het aantal kinderen en het werkelijke opvangtarief. In het ontwerp voor 2027 krijg je tot en met €87.767 het maximale percentage van 96 voor het eerste kind, daarboven daalt dat geleidelijk naar een vaste voet van 42,9 procent. De tabel en de rekenaar op deze pagina laten zien wat dat bij een aantal inkomens ongeveer betekent.",
+      },
+      {
+        vraag: "Tot welk inkomen krijg ik 96 procent kinderopvangtoeslag?",
+        antwoord:
+          "In het ontwerpbesluit voor 2027 geldt het maximale percentage van 96 voor het eerste kind tot en met een gezamenlijk toetsingsinkomen van €87.767, tegen €56.412 nu. Dat bedrag ligt nog niet definitief vast: het besluit valt bij de voorjaarsbesluitvorming 2026 en de precieze grens schuift nog iets op met de jaarlijkse indexatie.",
+      },
+      {
+        vraag: "Verandert de kinderopvangtoeslag voor tweeverdieners in 2027?",
+        antwoord:
+          "Ja. Huishoudens met een toetsingsinkomen tussen ongeveer €56.000 en €172.000, waar veel tweeverdieners met een goed inkomen in vallen, krijgen in het ontwerp 12,5 procentpunt meer dan in 2026. Voor de allerhoogste inkomens gaat de vaste voet van 36,5 naar 42,9 procent.",
+      },
+      {
+        vraag: "Wordt kinderopvang in 2027 goedkoper?",
+        antwoord:
+          "Voor veel huishoudens wel, maar niet automatisch voor de hele rekening. Het percentage stijgt alleen over het deel van je uurtarief tot de maximum uurprijs; rekent je opvangorganisatie meer, dan betaal je dat verschil altijd zelf, ongeacht je percentage. De maximum uurprijs voor 2027 staat bovendien nog niet vast.",
+      },
+      {
+        vraag: "Hoe bereken ik mijn kinderopvangtoeslag voor 2027?",
+        antwoord:
+          "Met jullie gezamenlijke toetsingsinkomen, het aantal kinderen, het type opvang, de uren per maand en het werkelijke uurtarief. De rekenaar op deze pagina laat het effect zien voor een aantal veelvoorkomende situaties. Voor een berekening met je eigen, volledige cijfers is de gratis analyse een goed vervolg.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Overheid.nl: internetconsultatie Wijziging Besluit kinderopvangtoeslag 2027 (opgehaald 13 september 2026)",
+        url: "https://www.internetconsultatie.nl/besluitkinderopvangtoeslag_2027/b1",
+      },
+      {
+        label: "Rijksoverheid: bedragen kinderopvangtoeslag 2026 (opgehaald 13 september 2026)",
+        url: "https://www.rijksoverheid.nl/themas/belastingen-uitkeringen-en-toeslagen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026",
+      },
+      {
+        label: "Belastingdienst: maximaal uurtarief voor de kinderopvang (opgehaald 13 september 2026)",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/toeslagen/kinderopvangtoeslag/hoeveel-kinderopvangtoeslag-kan-ik-krijgen/maximaal-uurtarief-voor-de-kinderopvang",
+      },
+      {
+        label: "Rijksoverheid: kabinet zet nieuwe stap naar bijna gratis kinderopvang voor werkende ouders (opgehaald 13 september 2026)",
+        url: "https://www.rijksoverheid.nl/actueel/nieuws/2025/04/25/kabinet-zet-nieuwe-stap-naar-bijna-gratis-kinderopvang-voor-werkende-ouders",
+      },
+    ],
+  },
+  {
     slug: "wat-verandert-er-2027-gezinnen-goed-inkomen",
     cta: {
       kop: "Reken uit wat 2027 voor jullie huishouden betekent",
