@@ -4,6 +4,8 @@ import KanIemandNaarMijnFinancienKijken from "./content/kan-iemand-naar-mijn-fin
 import RentevastePeriodeLooptAfWatNu from "./content/rentevaste-periode-loopt-af-wat-nu";
 import WatGeeftEenGezinUitPerMaand from "./content/wat-geeft-een-gezin-uit-per-maand";
 import KindgebondenBudget2027Inkomensgrens from "./content/kindgebonden-budget-2027-inkomensgrens";
+import Tweeverdieners2027EropAchteruit from "./content/tweeverdieners-2027-erop-achteruit";
+import WatVerandertEr2027GezinnenGoedInkomen from "./content/wat-verandert-er-2027-gezinnen-goed-inkomen";
 import GoedInkomenWeinigVermogen from "./content/goed-inkomen-weinig-vermogen";
 import HoeWeetIkOfIkFinancieelGezondBen from "./content/hoe-weet-ik-of-ik-financieel-gezond-ben";
 import HoeveelFinancieleRuimteHebIk from "./content/hoeveel-financiele-ruimte-heb-ik";
@@ -97,6 +99,8 @@ const contentMap: Record<string, () => JSX.Element> = {
   "rentevaste-periode-loopt-af-wat-nu": RentevastePeriodeLooptAfWatNu,
   "wat-geeft-een-gezin-uit-per-maand": WatGeeftEenGezinUitPerMaand,
   "kindgebonden-budget-2027-inkomensgrens": KindgebondenBudget2027Inkomensgrens,
+  "tweeverdieners-2027-erop-achteruit": Tweeverdieners2027EropAchteruit,
+  "wat-verandert-er-2027-gezinnen-goed-inkomen": WatVerandertEr2027GezinnenGoedInkomen,
   "goed-inkomen-weinig-vermogen": GoedInkomenWeinigVermogen,
   "hoe-weet-ik-of-ik-financieel-gezond-ben": HoeWeetIkOfIkFinancieelGezondBen,
   "hoeveel-financiele-ruimte-heb-ik": HoeveelFinancieleRuimteHebIk,

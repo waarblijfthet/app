@@ -10,6 +10,14 @@ Laatst bijgewerkt: 6 september 2026, na zes sessies op die dag. De zesde herstel
 
 **Vierde opdracht, zelfde dag, buiten de bouwvolgorde om.** Jarno stuurde een schermafbeelding van de destijds nog live staande versie van dit laatste deel en vroeg om exact die volgorde: "Dit is voor jou als" -> vertrouwensblok -> bruggetje "Een bedrag op zichzelf zegt weinig" -> eind-CTA, in plaats van de afdalingslogica (bruggetje eerst) uit de derde opdracht. Navraag bevestigde: de schermafbeelding is leidend, niet de eerder gegeven volgorde-redenering. Commit b1f2e56, alleen volgorde en mb-marges van drie blokken aangepast, tekst/iconen/containerbreedte ongewijzigd, tsc schoon. Ook ongepusht, hoort bij dezelfde push. **`.git/index.lock` stond opnieuw in de weg** (zie de bekende schuld hieronder over locks); dit keer opgelost zonder Jarno via `device_request_delete_permission` op de gekoppelde map, waarna `rm .git/index.lock` en meteen `git commit` werkte. Dat kan dus voortaan zonder dat Jarno het lock-bestand hoeft weg te halen.
 
+**Update 13 september, op verzoek van Jarno, buiten de volgorde om.** Jarno leverde een SEO-contentbriefing aan voor drie Prinsjesdag-artikelen en koos expliciet voor alle drie nu, boven de schermlijst en boven H2. Artikel 1 is gebouwd en staat in sectie 20. Artikel 2 en 3 zijn voorgesteld, niet gebouwd: die wachten op Prinsjesdag en op een GSC-check. **De schermlijst-actie van 13 september uit de tabel hieronder is dus niet gedaan en schuift op**, terwijl de killgrens van 19 september wel blijft staan. Dat is een bewuste keuze van Jarno geweest, geen omissie, maar het maakt 19 september wel krap: er is dan vijf dagen minder meettijd.
+
+**Let ook op de tempo-regel.** Met artikel 1 staat er deze week één nieuwe pagina. Komen artikel 2 en 3 er allebei bij, dan zijn het er drie in een week tegen een norm van twee. Bouw er hooguit één van de twee vóór 20 september.
+
+**Update 13 september, tweede sessie, buiten de volgorde om, met een cannibalisatie-ontdekking.** Onafhankelijk van bovenstaande sessie kreeg deze sessie van Jarno een eigen, zeer gedetailleerde briefing: een artikel voor tweeverdienersgezinnen met een **goed inkomen** (€70.000 tot €150.000+ samen), gericht op de volledige 2027-stapeling (belasting, kindgebonden budget, kinderopvangtoeslag, zorg) in plaats van op de precieze optelsom van drie regelingen. Gebouwd en gepubliceerd: `/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen`. Bij het wegschrijven bleek dit **dezelfde dag als artikel 1 hierboven** te zijn gebouwd, met forse overlap (dezelfde drie voorbeeldinkomens, een vergelijkbare koopkracht-uitleg). `device_commit_files` weigerde terecht te overschrijven. Aan Jarno voorgelegd; **beslissing: beide artikelen blijven live, gedifferentieerd.** Mijn artikel is ingekort waar het artikel 1 dupliceerde en linkt er nu twee keer naartoe voor de precieze bedragen; artikel 1 linkt terug bij de kinderopvangtoeslag-bullet. Volledig verslag, inclusief bronnen en de FAQ-herschrijving, in sectie 21. **Dit is dus een vierde Prinsjesdag-artikel naast de drie uit de briefing hierboven, niet artikel 2 of 3** — geen inhoudelijke overlap met het voorgestelde artikel 2 (kinderopvangtoeslag 2027, sectie 20), want mijn kinderopvangtoeslag-sectie geeft bewust geen bedrag en verwijst zelf al vooruit naar zo'n apart artikel zodra de uurtarieven er zijn.
+
+**Ook hier: geen `device_bash` deze sessie, dus geen productiebuild en geen `git add`/`commit`/`push`.** Zie sectie 21 en "Openstaand aan Jarno's kant".
+
 **Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd, inclusief de antwoordblokken die bij de nieuwe titels horen. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
 
 Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2, N3, N5), N6 geschrapt**. Alle 24 zoektermen uit het invalshoekenplan zijn eerst op google.nl geverifieerd, met de uitkomsten in `docs/serp-invalshoeken-06-sep-2026.md`. Zie sectie 13 hieronder voor wat er is gebouwd, wat is geschrapt en waarom.
@@ -40,14 +48,18 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | Wanneer | Wat |
 |---|---|
 | 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. |
+| 15 september | Prinsjesdag. De maximum uurtarieven kinderopvang 2027 en het definitieve eigen risico komen die dag naar buiten. Dat zijn de twee cijfers waar artikel 2 op wacht, zie sectie 20. |
 | 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand; tabel en rekenaar volgen vanzelf. Zet `gewijzigd` op die dag. |
+| 16 september | **En in dezelfde beurt `lib/prinsjesdag-2027.ts`**, zie sectie 20: het blok `UITGELEKT` eruit (eigen risico, zorgpremie, koopkrachtpercentages), `IACK_2027_INDEXATIE` vervangen door het definitieve maximum uit het Belastingplan, de NOS-bron uit `externLinks` vervangen door de Miljoenennota. **Controleer daarna of €38, €94 en €51 nog kloppen**: die drie bedragen staan met de hand in de metaTitel, het excerpt en de preview van `tweeverdieners-2027-erop-achteruit`, en die lopen niet automatisch mee met de rekenlaag. |
 | 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
 | 20 september | **+14 dagen op de is-4000 AI-overzicht-fix van 6 september** (sectie 15): GSC Generative AI features nakijken, en meteen is-5000 en het boodschappenartikel controleren op dezelfde knik, want dat kon deze sessie niet vanaf hier. |
+| 11 oktober | Meetpunt `tweeverdieners-2027-erop-achteruit`, 28 dagen na publicatie. Vertoningen en positie op "tweeverdieners 2027" en "wat verandert er voor tweeverdieners 2027". Kijk meteen of Z4 op die tweede term zijn plek houdt of dat de twee elkaar in de weg zitten; dat is het kannibalisatierisico uit sectie 20. |
 | 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast (+28 dagen op de fix van 6 september, sectie 15), pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op, en wat doet H1 na vier weken. Plus de beslissing over `wat-zijn-normale-vaste-lasten-gezin`, zie hieronder. |
 | 5 november | **Meetpunt N5**, de Engelse pagina: haalt hij meer dan 100 vertoningen per week in GSC? Zo niet, dan blijft het bij deze ene Engelse pagina en komt er geen tweede. Nulmeting op 6 september: 1 vertoning in 90 dagen op alles met "salary" erin. |
 | 5 december | **Meetpunt N1 tot N4**, 90 dagen na publicatie. Een pagina met minder dan 20 vertoningen per maand en geen externe links gaat mee in de contentkill van CLAUDE.md sectie 9. Let vooral op N4: die deelt taalgebied met de twee coach-pagina's. |
 | 1 november | Killgrens uit plan sectie 9: onder 3.000 sessies per maand of onder 5 betaalde Geldscans gaan clusters L en B in de wacht. |
 | 12 november | Z1 zorgpremie 2027 bouwen, als de premies bekend zijn. |
+| 12 december | **Meetpunt vierde artikel** (`wat-verandert-er-2027-gezinnen-goed-inkomen`), 90 dagen na publicatie, zie sectie 21. Los van het 11-oktobermeetpunt van artikel 1 hierboven: controleer hier of het vierde artikel en artikel 1 op verschillende zoektermen scoren (de differentiatie werkte) of elkaar toch in de weg zitten (dan alsnog samenvoegen). |
 | 8 december | 2027-sweep over 25 metaTitels. Zet bij elke pagina `gewijzigd`, anders merkt de sitemap er niets van. |
 
 ### Openstaande beslissingen voor Jarno
@@ -63,6 +75,13 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 8. **`/analyse` aangepast (7-sep-2026), buiten de bouwvolgorde om, op verzoek van Jarno, in drie opdrachten dezelfde dag.** Zie sectie 17 (introductie herschreven), 18 (brede landingpage, ook `QuizClient.tsx` geraakt voor de bredere wrapper) en 19 ("Analyse afbreken"-knop op elke stap, vijf bestanden geraakt). Geen productiebuild gedraaid: `next dev` en `next build` sterven op de mount zelf, precies zoals `feedback_minifier_verkorte_objectnotatie` beschrijft (geen SWC-binary, geen netwerk), en geen van de bestanden bevat berekende objecten, dus niet het specifieke minifier-risicopatroon uit die regel; `tsc` is wel schoon op alle bestanden. **Loop de pagina zelf even langs op telefoon en desktop na de push, inclusief de afbreken-knop op een vraagstap en op een resultaatstap: dit scherm en deze knop zijn nog in geen enkele echte browser gezien.**
 
+9. **Artikel 2 en 3 van de Prinsjesdag-briefing zijn voorgesteld, niet gebouwd.** Het voorstel staat in sectie 20 onder "Wat artikel 2 en 3 zouden moeten zijn". Artikel 2 (kinderopvangtoeslag 2027) kan niet vóór 15 september, want de maximum uurtarieven zijn er niet. Artikel 3 (inkomensafhankelijke combinatiekorting 2027) vraagt eerst een GSC-filter, want het overlapt met artikel 1. Beide wachten op jouw akkoord.
+
+10. **De metaTitel van het nieuwe artikel bevat bedragen die niet meelopen met de rekenlaag.** "Tweeverdieners 2027: €38 tot €94 per maand minder". Dat is bewust, want een metaTitel is een string in `inzichten-data.ts` en geen berekening, maar het betekent wel dat de titel op 16 september tegen de nieuwe cijfers aan gehouden moet worden. Staat in de datumtabel.
+
+11. **Er is deze sessie geen productiebuild gedraaid, en dat kon ook niet.** De mount naar de projectmap werkt sinds een Windows-update van 8 september niet meer vanuit `device_bash`: "no Plan9 drive shares mounted". Daardoor is de tar-route uit `feedback_minifier_verkorte_objectnotatie` onbruikbaar, want stap 1 daarvan draait op het device. Wat wel is gedaan: `tsc --strict` schoon op de drie nieuwe bestanden, de rekenlaag daadwerkelijk uitgevoerd zodat de bedragen uit de echte functies komen en niet uit een handmatige narekening, en alle objectvelden expliciet uitgeschreven zodat het minifier-patroon er niet in zit. **Draai de build alsnog vóór de push.**
+12. **Vierde Prinsjesdag-artikel, uit een tweede, gelijktijdige sessie, zie sectie 21.** `/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen`, over de volledige 2027-stapeling voor gezinnen met een goed inkomen. Overlapte bij het schrijven met artikel 1 hierboven; opgelost door beide te differentiëren (Jarno's beslissing, sectie 21). Zelfde beperking als bij artikel 1: geen `device_bash`, dus geen productiebuild en geen commit/push gedaan. **Wanneer artikel 2 (kinderopvangtoeslag 2027) later wordt gebouwd: dit vierde artikel heeft al een kinderopvangtoeslag-sectie die bewust ondiep blijft (geen bedrag, expliciete verwijzing naar "een apart artikel zodra de tarieven bekend zijn") — artikel 2 kan er gewoon overheen gebouwd worden, met een link terug vanuit dit vierde artikel.**
+
 ### Openstaand aan Jarno's kant
 
 1. Bing Webmaster Tools aanzetten en de sitemap indienen. Nu extra de moeite waard: IndexNow dient weer in bij Bing en zonder Webmaster Tools zie je niet wat dat oplevert.
@@ -75,6 +94,8 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
    - `/en/is-5000-net-a-good-salary-netherlands`
    Controleer meteen dat die laatste ook echt rendert; het is de eerste pagina buiten `/inzichten` met eigen metadata en eigen schema.
 4. `_to_delete/` een keer legen. Daar staan lege git-locks in die ik niet kan verwijderen, plus twee oude build-tars.
+5. **`git add`/`commit`/`push` voor het vierde artikel (13 september, sectie 21), los van de commit voor artikel 1 hierboven.** Kon niet vanuit deze sessie, `device_bash` is stuk. Bestanden: `lib/inzichten-data.ts` (bevat inmiddels beide nieuwe entries), `app/inzichten/[slug]/ArticleBody.tsx` (bevat beide nieuwe koppelingen), `app/inzichten/[slug]/content/wat-verandert-er-2027-gezinnen-goed-inkomen.tsx` (nieuw), `app/inzichten/[slug]/content/tweeverdieners-2027-erop-achteruit.tsx` (alleen de kruislink toegevoegd, verder ongewijzigd t.o.v. sectie 20), `app/inzichten/[slug]/content/wat-geeft-een-gezin-uit-per-maand.tsx` en `is-4000-euro-netto-goed-salaris-nederland.tsx` (inkomende links). Draai eerst een echte `npx tsc --noEmit --incremental false` en productiebuild.
+6. Na de deploy: `/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen` indienen in GSC en de kruislink met artikel 1 in beide richtingen controleren.
 
 ### Bekende schuld
 
@@ -580,3 +601,187 @@ Jarno's eigen constatering na het testen van de nieuwe landingpage (sectie 17 en
 **Controle.** `npx tsc --noEmit --incremental false` schoon op alle vijf bestanden. Bij het schrijven van `ProgressBar.tsx` bleek het bestand oorspronkelijk CRLF-regeleinden te hebben (in tegenstelling tot de meeste andere bestanden in dit project, die LF gebruiken); de eerste schrijfpoging zette dat ongemerkt om naar LF, wat de hele file als gewijzigd liet zien in `git diff` en de echte wijziging onleesbaar maakte. Hersteld door het bestand opnieuw met CRLF weg te schrijven vóór de commit. **Check bij een volgend bestand met een onverwacht grote diff eerst of dit hetzelfde regeleinde-probleem is**, vooral bij bestanden die niet recent door een Claude-sessie zijn aangeraakt.
 
 Zoals bij sectie 17 en 18: geen productiebuild mogelijk op deze mount, dus ook deze knop is nog in geen browser gezien. Test in elk geval: klikken op "Analyse afbreken" op de eerste vraag (geen "Vorige"-knop ernaast), op een latere vraag (wel "Vorige" ernaast, geen overlap op mobiel), en op een resultaatstap; controleer dat "annuleren" in de confirm-dialoog niets doet, en dat "OK" echt terug bij de introductie uitkomt, ook na een refresh direct daarna.
+
+## 20. Prinsjesdag-artikel 1: tweeverdieners in 2027, 13 september 2026
+
+Op verzoek van Jarno, met een aangeleverde contentbriefing voor drie artikelen.
+Buiten de bouwvolgorde om; de vier keuzes vooraf staan in de kop van BEGIN HIER.
+
+**Gepubliceerd: `/inzichten/tweeverdieners-2027-erop-achteruit`.**
+metaTitel: "Tweeverdieners 2027: €38 tot €94 per maand minder" (48 tekens).
+
+### Waarom een nieuwe pagina en geen upgrade
+
+`tweeverdieners-toch-krap` bestaat al (58 vertoningen, positie 14,07) en Z4 stond
+op 13 september al op de eerste pagina van "wat verandert er voor tweeverdieners
+2027". Dat is precies de situatie waarin werkregel 8.A.2 zegt: upgraden, niet
+bouwen. Toch is het een nieuwe pagina geworden, om twee redenen:
+
+- `tweeverdieners-toch-krap` staat op een klacht ("waarom voelt het krap"), niet
+  op een regelverandering. Die twee zoekmomenten door elkaar halen kost de
+  bestaande pagina zijn intentie.
+- Z4 gaat over één regeling, de nieuwe pagina telt er drie bij elkaar op. De
+  scheiding in één zin staat in `docs/serp-prinsjesdag-13-sep-2026.md`.
+
+De twee pagina's linken naar elkaar, en dat zijn meteen de twee verplichte
+inkomende links uit werkregel 8.B.5, in dezelfde deploy.
+
+**Dit blijft het grootste risico van deze sessie.** Als de vertoningen op "wat
+verandert er voor tweeverdieners 2027" na vier weken van Z4 naar de nieuwe pagina
+schuiven zonder dat het totaal stijgt, dan is dit kannibalisatie geweest en had
+Z4 uitgebreid moeten worden. Meetpunt staat op 11 oktober in de datumtabel.
+
+### Wat er is gebouwd
+
+- `lib/prinsjesdag-2027.ts` (nieuw). Eén bron voor de IACK, de zorgcijfers, de
+  CPB- en CBS-cijfers en de drie voorbeeldhuishoudens. Het kindgebonden budget
+  zit er bewust niet in: dat komt via een import uit `lib/kindgebonden-budget.ts`,
+  zodat er geen tweede waarheid over dezelfde regeling ontstaat.
+- `components/artikel/Tweeverdieners2027Rekenaar.tsx` (nieuw). Het verplichte
+  interactieve element (8.C.9). Geen bruto-netto-rekenaar, die staan op de
+  niet-bouwen-lijst.
+- `app/inzichten/[slug]/content/tweeverdieners-2027-erop-achteruit.tsx` (nieuw).
+- `lib/inzichten-data.ts`: entry vooraan, met `cta`, vijf FAQ's op geoogste
+  PAA-vragen en vijf bronnen met ophaaldatum.
+- `app/inzichten/[slug]/ArticleBody.tsx`: import en map.
+- `tweeverdieners-toch-krap` en `kindgebonden-budget-2027-inkomensgrens`: elk een
+  link naar de nieuwe pagina, allebei met `gewijzigd: "2026-09-13"`.
+- `docs/serp-prinsjesdag-13-sep-2026.md` (nieuw): de SERP-verificatie.
+
+### De uitkomst die het artikel draagt
+
+Doorgerekend voor drie gezinnen met twee kinderen, alle bedragen uit de echte
+functies en niet met de hand nagerekend:
+
+| Huishouden | Kindgebonden budget | Combinatiekorting | Zorg | Samen per maand |
+|---|---:|---:|---:|---:|
+| Samen €70.000 (€45.000 + €25.000) | €191 | niets | €270 | **€38** |
+| Samen €100.000 (twee keer modaal) | €510 | €346 | €270 | **€94** |
+| Samen €140.000 (€85.000 + €55.000) | niets | €346 | €270 | **€51** |
+
+**Het huishouden in het midden raakt het meeste kwijt, niet het hoogste.** Stel C
+is het kindgebonden budget al kwijt en kan het niet nog een keer verliezen. Dat
+is de kop van het artikel geworden, en het is precies wat de briefing vroeg: niet
+schrijven dat iedereen er honderden euro's op achteruitgaat.
+
+**De tweede vondst is de combinatiekorting.** Die hangt aan het arbeidsinkomen van
+de minstverdienende partner, en de afbouw haalt van het *maximum* af. Verdient
+die partner minder dan €30.400, dan zit hij onder dat maximum en kost de eerste
+stap niets. Twee gezinnen met hetzelfde gezamenlijke inkomen raken dus een
+verschillend bedrag kwijt, afhankelijk van de verdeling. Dat staat op geen van de
+concurrerende pagina's van deze week en is de reden dat de rekenaar twee
+inkomensvragen stelt in plaats van één.
+
+Let op het verschil tussen twee IACK-getallen die allebei kloppen: **€346** is wat
+de maatregel kost (2027 mét naast 2027 zónder, dezelfde methode als bij het
+kindgebonden budget) en **€261** is wat je op je aanslag ziet, want de indexatie
+geeft een deel terug. Het artikel noemt ze allebei en legt het verschil uit. Haal
+ze niet door elkaar bij de herziening op 16 september.
+
+### Wat er is gecorrigeerd
+
+1. **De briefing zei 87,5 procent tweeverdieners in de hoogste 20 procent van de
+   inkomens. Dat is 87 procent.** 87,5 is het tiende deciel alleen; het CBS
+   schrijft over de hoogste twintig procent zelf "87 procent". De pagina gebruikt
+   87 en noemt de grens erbij (€126.700).
+2. **De briefing vroeg om "twee inkomens rond modaal" als Stel A en €100.000 als
+   Stel B. Dat is in 2027 hetzelfde huishouden**, want het CPB zet bruto modaal
+   2027 op €50.000. Stel A is daarom een anderhalfverdiener geworden (€70.000) en
+   Stel B is twee keer modaal. Zo dekken de drie profielen een echt bereik.
+3. **De briefing noemde CPB min 0,3 procent en "ongeveer min 0,1 procent na de
+   recente koopkrachtmaatregelen" naast elkaar.** Dat zijn twee ramingen van
+   verschillende datum en verschillende status. Het artikel zet ze los van elkaar
+   en zegt erbij dat de tweede uit stukken komt die de NOS heeft ingezien.
+4. **De cao-loongroei van 4,2 procent uit sectie 4 is 2026, niet 2027.** Voor 2027
+   raamt het CPB 3,8 procent. Het artikel gebruikt 3,8.
+
+### Openstaande schuld van deze pagina
+
+- Geen productiebuild gedraaid, zie punt 11 bij de openstaande beslissingen.
+- De pagina is in geen enkele browser gezien, ook niet op mobiel. De tabel heeft
+  vijf kolommen en zit in een `overflow-x-auto`, maar dat is niet getest.
+- De regel "Cijfers bijgewerkt op 13 september 2026" staat er wel, en dat mag:
+  alle vijf bronnen zijn deze sessie zelf geopend.
+
+### Wat artikel 2 en 3 zouden moeten zijn
+
+Jarno vroeg om een voorstel; de briefing beschreef alleen artikel 1. Beide zijn
+geverifieerd op google.nl, uitkomsten in `docs/serp-prinsjesdag-13-sep-2026.md`.
+
+**Artikel 2: kinderopvangtoeslag 2027.** Dit is Z3 uit het plan, score 26, en het
+is de derde grote regeling voor precies deze doelgroep. De SERP is Rijksoverheid
+plus commerciële blogs (Kek Mama, Kinderopvang-Wijzer, DebiCare), geen
+AI-overzicht, geen eigen URL, en "Mensen zoeken ook naar" staat vol rekenintentie:
+tabel, berekenen, uurtarief, tweede kind. Niemand rekent het per huishouden uit.
+
+*Kan niet vóór 15 september.* De maximum uurtarieven voor 2027 waren op 31
+augustus nog niet bekend en komen op Prinsjesdag. Zonder die drie bedragen
+(dagopvang, bso, gastouder) is er niets te rekenen. En houd de waarschuwing uit
+sectie 4 vast: **de afschaffing van de toeslag is 2029, niet 2027.** In 2027 gaat
+alleen het vergoedingspercentage omhoog. Wie die twee door elkaar haalt schrijft
+een fout artikel.
+
+**Artikel 3: inkomensafhankelijke combinatiekorting 2027.** Niet in het plan, maar
+de SERP van deze sessie vraagt erom. Op "inkomensafhankelijke combinatiekorting
+2027 afgebouwd" staan alleen adviseurs en de Belastingdienst, met de regel maar
+zonder de gevolgen, en de PAA vraagt letterlijk "Wordt de IACK vanaf 2027
+afgebouwd?", "Tot wanneer heb ik recht op de IACK?" en "Wanneer stopt de IACK?".
+De rekenlaag ligt er al: `berekenIack` en `iackVerlies` in
+`lib/prinsjesdag-2027.ts` kunnen de hele afbouwreeks tot en met 2035 tekenen, en
+dat is precies de vraag die niemand beantwoordt.
+
+*Doe eerst de GSC-check.* Deze pagina overlapt met artikel 1, dat de IACK ook
+uitlegt. De scheiding zou moeten zijn: artikel 1 telt drie regelingen op voor een
+huishouden, artikel 3 beantwoordt één vraag over één regeling over negen jaar.
+Dat is dezelfde scheiding als tussen artikel 1 en Z4, dus hij is houdbaar, maar
+filter GSC eerst op "inkomensafhankelijke combinatiekorting" en "combinatiekorting
+2027" en kijk of artikel 1 daar zelf al op vertoont. Vertoont het, dan upgraden.
+
+**Niet doen: een eigen pagina op "koopkracht 2027" of "koopkracht tweeverdieners
+2027".** Dat blijft de conclusie van 6 september, en de SERP van vandaag bevestigt
+hem: RTL, NOS, Hart van Nederland, Metro en PowNed, allemaal nieuws van twee dagen
+oud. Dat is een ander zoekmoment dan iemand die de analyse invult. Z1 zorgpremie
+staat al op 12 november in de datumtabel en hoort daar te blijven, want de
+premies zijn eerder niet bekend.
+
+## 21. Vierde Prinsjesdag-artikel: gezinnen met een goed inkomen, plus differentiatie van artikel 1, 13 september 2026
+
+Op expliciet en zeer gedetailleerd verzoek van Jarno, buiten de bouwvolgorde om (die zelf voor 13 september "eerst het lek, dan pas de tweede hub" voorschreef; expliciet verzoek gaat voor). Deze sessie kreeg, onafhankelijk van de sessie in sectie 20, een eigen briefing voor een artikel over de financiële gevolgen van Prinsjesdag 2026 voor tweeverdienersgezinnen met een gezamenlijk inkomen van ongeveer €70.000 tot €150.000+. Centrale lezersvraag: "we verdienen samen goed, wat verandert er voor ons in 2027 en merken we dat echt".
+
+**Gepubliceerd: `/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen`.** metaTitel: "2027: wat verandert er voor gezinnen met een goed inkomen?" (58 tekens).
+
+### Cijfers en bronnen
+
+Alles met ophaaldatum 13 september 2026, dus vóór Prinsjesdag (15 september) en overal expliciet als raming of gelekt gelabeld:
+
+- Kindgebonden budget: de nieuwe tweede afbouwschijf, via `lib/kindgebonden-budget.ts` (bestond al, van Z4/sectie 15). Hergebruikt, geen tweede waarheid over dezelfde regeling gemaakt.
+- Kinderopvangtoeslag: vergoeding eerste kind naar 96 procent (Blue Accountants), nog geen wetsvoorstel. De enige overwegend positieve verandering in het pakket, en daarom een eigen sectie. **Bewust geen bedrag per maand genoemd**, want de maximumuurtarieven voor 2027 stonden nog niet vast — de pagina verwijst zelf naar een toekomstig apart artikel zodra dat wel zo is (zie de aantekening bij artikel 2 in sectie 20 en bij "Openstaande beslissingen voor Jarno" punt 12).
+- Inkomstenbelasting: tabelcorrectiefactor 2027-2028 beperkt toegepast (Salaris Vanmorgen 12-sep, Grant Thornton), "vrijheidsbijdrage" geschrapt ten gunste van een hogere arbeidskorting.
+- Koopkracht: dezelfde gelekte Prinsjesdagcijfers als artikel 1 (Salaris Vanmorgen 12-sep, onafhankelijk nogmaals bevestigd bij NOS 11-sep): gemiddeld min 0,1 procent, min 0,2 procent hogere inkomens en werkenden, plus 0,2 procent minima, plus 0,3 procent gepensioneerden.
+- Zorgpremie en eigen risico: bewust **niet** op één cijfer gezet, want de bronnen spreken elkaar tegen (zorgpremie circa €170 tot €200 per maand, eigen risico €385 of €400). Dat verschil staat met zoveel woorden op de pagina.
+
+### Wat er is gebouwd
+
+- Nieuwe `Artikel`-entry in `lib/inzichten-data.ts`: titel, korteTitel, metaTitel, metaDescription (151 tekens), 5 FAQ's, 6 externe bronnen met ophaaldatum, preview type "pijn". Categorie "Toeslagen" (bewust een andere categorie dan artikel 1's "Tweeverdieners").
+- Nieuwe contentcomponent `app/inzichten/[slug]/content/wat-verandert-er-2027-gezinnen-goed-inkomen.tsx`.
+- `app/inzichten/[slug]/ArticleBody.tsx`: import en contentMap-regel.
+- Inkomende links: vanaf de H1-hub `wat-geeft-een-gezin-uit-per-maand.tsx` (eerste item in `spaken`) en vanaf `is-4000-euro-netto-goed-salaris-nederland.tsx` (nieuwe alinea na de bestaande KGB-link).
+
+### De cannibalisatie-ontdekking en de oplossing
+
+Bij het wegschrijven weigerde `device_commit_files` twee bestanden (`lib/inzichten-data.ts`, `ArticleBody.tsx`): dezelfde dag was, in de sessie van sectie 20, al `tweeverdieners-2027-erop-achteruit` toegevoegd. Overlap was fors: zelfde drie voorbeeldinkomens (€70.000/€100.000/€140.000), een vergelijkbare "waarom zegt koopkracht weinig"-uitleg, beide met kans om op dezelfde zoekintentie te ranken. Niet blind overschreven; voorgelegd aan Jarno.
+
+**Beslissing van Jarno: beide artikelen blijven live, gedifferentieerd.** Uitgevoerd:
+
+1. Mijn artikel ingekort waar het artikel 1 dupliceerde: de bulletlijst met drie exacte belastingvoorbeelden geschrapt (één korte alinea over de richting in de plaats), de "drie voorbeelden"-sectie fors ingekort met een link naar artikel 1 voor het exacte bedrag per maand, en de "waarom zegt koopkracht weinig"-sectie verkort met dezelfde verwijzing.
+2. Mijn artikel gepositioneerd als de brede oriëntatiepagina: het enige van de twee dat ook kinderopvangtoeslag (positief), inkomstenbelasting/indexatie en "wat kun je nu al doen" behandelt. Artikel 1 blijft de precieze rekenpagina met de IACK-nuance (verdeling van het inkomen over de partners, niet de som) en de eigen rekenaar.
+3. Twee FAQ's herschreven zodat ze niet meer op dezelfde formulering als artikel 1 concurreren: "Gaan gezinnen met een goed inkomen er in 2027 op achteruit?" werd "Wat betekent Prinsjesdag 2026 voor gezinnen met een goed inkomen?", en "Wat verandert er in 2027 voor tweeverdieners?" werd "Welke onderdelen van het pakket raken een gezin met een goed inkomen het meest?".
+4. Wederzijdse interne links: mijn artikel linkt twee keer naar artikel 1 (bij koopkracht en bij de drie voorbeelden); artikel 1 linkt terug bij de kinderopvangtoeslag-bullet in "wat kun je zelf doen", met een korte toelichting dat dat percentage juist omhoog gaat.
+
+**Verband met het voorgestelde artikel 2 (kinderopvangtoeslag 2027, sectie 20).** Geen conflict: mijn kinderopvangtoeslag-sectie geeft bewust geen bedrag en verwijst zelf al vooruit naar een toekomstig apart artikel. Wie artikel 2 bouwt, kan er gewoon overheen bouwen en er een link vanuit dit artikel naartoe zetten.
+
+### Controle
+
+Geen werkende `device_bash` deze sessie (net als bij artikel 1), dus geen `tsc`/productiebuild op het project zelf. In plaats daarvan een geïsoleerde `npx tsc --noEmit` tegen een kopie van het project met de echte, ongewijzigde versies van alle werkelijk geïmporteerde bestanden (`lib/kindgebonden-budget.ts`, `lib/cta.ts`, `lib/prinsjesdag-2027.ts`, `lib/rapporten-data.ts`, `components/CtaLink.tsx`, `components/artikel/Tweeverdieners2027Rekenaar.tsx`) plus de volledige, gewijzigde `lib/inzichten-data.ts` en beide contentcomponenten: schoon, geen fouten. Haakjes/accolade-balans en null-byte-check op alle gecommitte bestanden: in orde. Alle bestanden geschreven met een `expectedMtimeMs`-guard op de laatst bekende device-mtime; `device_commit_files` accepteerde ze zonder afwijzing.
+
+**Nog open, zie ook "Openstaand aan Jarno's kant" punt 5 en 6, en de datumtabel op 12 december.** Geen `git add`/`commit`/`push` deze sessie: `device_bash` gaf "no Plan9 drive shares mounted" (zelfde Windows-update-probleem als bij artikel 1). Jarno moet zelf committen en pushen, en vóór de deploy alsnog een echte `npx tsc --noEmit --incremental false` en productiebuild draaien.

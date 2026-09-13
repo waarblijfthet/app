@@ -48,8 +48,14 @@ export default function TweeverdienersTochKrap() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Bij twee ongeveer modale inkomens (modaal is in 2026 rond de €48.000 bruto
-        per jaar) lijkt het bedrag dat binnenkomt fors. Maar het bedrag dat
-        automatisch weer vastligt, groeit even hard mee.
+        per jaar en in 2027 €50.000, volgens het CPB) lijkt het bedrag dat
+        binnenkomt fors. Maar het bedrag dat automatisch weer vastligt, groeit
+        even hard mee.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        In 2027 komt daar iets bij: drie regelingen die aan een inkomensgrens
+        hangen versoberen tegelijk. Wat dat per maand kost staat doorgerekend in{" "}
+        <Link href="/inzichten/tweeverdieners-2027-erop-achteruit" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat tweeverdieners in 2027 kwijtraken</Link>.
       </p>
 
       <h2 className="font-display" style={h2}>

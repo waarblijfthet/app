@@ -205,7 +205,11 @@ export default function KindgebondenBudget2027Inkomensgrens() {
       </p>
       <p className="font-body text-text-soft" style={p}>
         Praktisch: kijk niet alleen naar deze post. Reken je hele huishouden door en zet er de
-        andere 2027-veranderingen naast. Zie ook{" "}
+        andere 2027-veranderingen naast. Voor een tweeverdienersgezin staan die bij elkaar in{" "}
+        <Link href="/inzichten/tweeverdieners-2027-erop-achteruit" style={link} className="hover:underline">
+          wat tweeverdieners in 2027 kwijtraken
+        </Link>
+        , met de combinatiekorting en de zorgkosten erbij. Zie ook{" "}
         <Link href="/inzichten/samen-te-veel-verdiend-toeslag-kwijt" style={link} className="hover:underline">
           samenwonen en toeslag kwijt
         </Link>{" "}

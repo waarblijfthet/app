@@ -319,6 +319,13 @@ export default function Is4000EuroNettoGoedSalaris() {
         <Link href="/inzichten/kindgebonden-budget-2027-inkomensgrens" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">kindgebonden budget 2027: vanaf welk inkomen verlies je het sneller</Link>.
       </p>
 
+      <p className="font-body text-text-soft" style={p}>
+        Dat is niet de enige 2027-verandering die met dit inkomen te maken heeft. Belasting,
+        kinderopvangtoeslag en zorgpremie schuiven allemaal een beetje mee. Het hele pakket voor
+        een tweeverdienersgezin staat in{" "}
+        <Link href="/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat verandert er in 2027 voor gezinnen met een goed inkomen</Link>.
+      </p>
+
       <p className="font-body text-text-soft" style={p}>Verdien je dit al, maar merk je dat je vermogen er niet naar groeit? Lees dan <Link href="/inzichten/goed-inkomen-weinig-vermogen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waarom een goed inkomen niet vanzelf vermogen oplevert</Link>.</p>
       <p className="font-body text-text-soft" style={p}>
         Wil je niet alleen weten wat er overblijft maar ook waar het per post naartoe gaat, dan

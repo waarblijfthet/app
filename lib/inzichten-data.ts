@@ -317,6 +317,174 @@ const N1_KLEIN = berekenRenteVerschil({
 
 export const artikelen: Artikel[] = [
   {
+    slug: "wat-verandert-er-2027-gezinnen-goed-inkomen",
+    cta: {
+      kop: "Reken uit wat 2027 voor jullie huishouden betekent",
+      tekst:
+        "De gratis analyse legt jullie hele maand naast vergelijkbare huishoudens, inclusief de posten die in 2027 veranderen. Zo zie je waar het bij jullie om gaat, niet het landelijk gemiddelde.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Wat verandert er in 2027 voor gezinnen met een goed inkomen?",
+    korteTitel: "2027 voor gezinnen met een goed inkomen",
+    metaTitel: "2027: wat verandert er voor gezinnen met een goed inkomen?",
+    metaDescription:
+      "Verdienen jullie samen goed? Bekijk wat Prinsjesdag 2026 verandert aan belasting, toeslagen, kinderopvang en besteedbaar inkomen voor gezinnen in 2027.",
+    datum: "2026-09-13",
+    datumFormatted: "13 september 2026",
+    leestijd: "10",
+    categorie: "Toeslagen",
+    excerpt:
+      "Prinsjesdag 2026 gaat over miljarden en landelijke percentages. Voor een tweeverdienersgezin met een goed inkomen is de vraag die ertoe doet: wat merk je er in 2027 zelf van? Kindgebonden budget, kinderopvangtoeslag, belasting en zorgpremie op een rij, doorgerekend en met bron.",
+    preview: {
+      type: "pijn",
+      label: "Wat er in 2027 verandert voor gezinnen met een goed inkomen",
+      items: [
+        "Kindgebonden budget bouwt sneller af boven circa €65.560",
+        "Kinderopvangtoeslag: eerste kind naar 96 procent vergoed",
+        "Belastingschijven en heffingskortingen minder volledig geïndexeerd",
+        "Zorgpremie stijgt, definitief pas op 12 november",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat betekent Prinsjesdag 2026 voor gezinnen met een goed inkomen?",
+        antwoord:
+          "Geen enkele maatregel op zich is groot: een iets minder volledig geïndexeerde belastingschijf, een sneller afbouwend kindgebonden budget boven ongeveer €65.000 gezamenlijk inkomen, een hogere kinderopvangtoeslag voor het eerste kind, en een hogere zorgpremie. Het is de stapeling die telt, niet het landelijke koopkrachtpercentage. Hoeveel dat precies is, hangt af van jullie eigen inkomen, kinderen en vaste lasten.",
+      },
+      {
+        vraag: "Welke onderdelen van het pakket raken een gezin met een goed inkomen het meest?",
+        antwoord:
+          "Vooral drie dingen: de inkomstenbelasting corrigeert in 2027 en 2028 minder volledig voor inflatie, de arbeidskorting gaat omhoog met een bedrag dat pas op Prinsjesdag bekend wordt, en boven een gezamenlijk toetsingsinkomen van circa €65.560 bouwt het kindgebonden budget sneller af als er kinderen zijn. Voor kinderopvang geldt het tegenovergestelde: de vergoeding voor het eerste kind gaat naar 96 procent voor gezinnen die dat nu nog niet krijgen.",
+      },
+      {
+        vraag: "Wat gebeurt er met de kinderopvangtoeslag in 2027?",
+        antwoord:
+          "Het vergoedingspercentage voor het eerste kind stijgt naar 96 procent, ook voor ouders die daar nu nog geen recht op hebben. Voor tweeverdieners met kinderen op de opvang is dat een van de weinige overwegend positieve veranderingen in dit pakket. De maximale uurtarieven voor 2027 stonden bij het schrijven van dit artikel nog niet vast, dus een bedrag per maand is er nu nog niet bij te zetten.",
+      },
+      {
+        vraag: "Wat gebeurt er met het kindgebonden budget in 2027?",
+        antwoord:
+          "Boven een gezamenlijk toetsingsinkomen van naar verwachting circa €65.560 stijgt het afbouwpercentage van 8,05 naar 12,35 procent. Voor een stel met twee kinderen onder de 12 loopt dat op tot ongeveer €88 per maand bij €90.000 gezamenlijk inkomen, en komt het budget al rond €92.000 op nul uit in plaats van rond €106.000. Het volledige rekenvoorbeeld staat in kindgebonden budget 2027: vanaf welk inkomen verlies je het sneller.",
+      },
+      {
+        vraag: "Hoe weet ik wat Prinsjesdag voor mijn eigen gezin betekent?",
+        antwoord:
+          "Door niet naar één koopkrachtpercentage te kijken, maar naar je eigen inkomen, kinderen, toeslagen en vaste lasten samen. Daarvoor is de gratis analyse bedoeld: die legt jullie huishouden naast vergelijkbare huishoudens en laat zien waar het verschil zit, inclusief de posten die in 2027 veranderen.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "Salaris Vanmorgen: koopkrachtcijfers Prinsjesdag 2026 gelekt (opgehaald 13 september 2026)",
+        url: "https://www.salarisvanmorgen.nl/2026/09/12/prinsjesdag-2026-koopkrachtcijfers-gelekt-hogere-arbeidskorting-toch-in-de-min",
+      },
+      {
+        label: "Grant Thornton: Belastingplan 2027, wat betekent dit (opgehaald 13 september 2026)",
+        url: "https://www.grantthornton.nl/insights/themas/prinsjesdag/2026/belastingplan-2027-wat-betekent-dit/",
+      },
+      {
+        label: "Blue Accountants: verdere verbetering kinderopvangtoeslag per 2027 (opgehaald 13 september 2026)",
+        url: "https://www.blueaccountants.nl/plannen-verdere-verbetering-kinderopvangtoeslag-per-2027",
+      },
+      {
+        label: "Eemskrant: zorgpremie 2027 naar verwachting boven de €2.000 per jaar (opgehaald 13 september 2026)",
+        url: "https://www.eemskrant.nl/zorgpremie-2027-schiet-naar-verwachting-omhoog-voor-het-eerst-boven-de-e-2-000-per-jaar/",
+      },
+      {
+        label: "CPB: concept-Macro Economische Verkenning 2027 (opgehaald 13 september 2026)",
+        url: "https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027",
+      },
+      {
+        label: "Rijksoverheid: kindgebonden budget (opgehaald 13 september 2026)",
+        url: "https://www.rijksoverheid.nl/themas/familie-zorg-en-gezondheid/kindgebonden-budget",
+      },
+    ],
+  },
+  {
+    slug: "tweeverdieners-2027-erop-achteruit",
+    cta: {
+      kop: "Reken uit wat 2027 bij jullie doet",
+      tekst:
+        "De gratis analyse legt jullie hele maand naast vergelijkbare huishoudens, inclusief de posten die in 2027 veranderen. In een paar minuten zie je waar jullie afwijken.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Tweeverdieners gaan er in 2027 op achteruit: wat betekent dat voor jullie inkomen?",
+    korteTitel: "Tweeverdieners in 2027",
+    metaTitel: "Tweeverdieners 2027: \u20ac38 tot \u20ac94 per maand minder",
+    metaDescription:
+      "Drie regelingen veranderen in 2027 voor tweeverdieners met kinderen. Doorgerekend voor drie inkomens, met rekenaar. Het middelste huishouden raakt het meeste kwijt.",
+    datum: "2026-09-13",
+    datumFormatted: "13 september 2026",
+    leestijd: "7",
+    categorie: "Tweeverdieners",
+    excerpt:
+      "Het kindgebonden budget bouwt sneller af, de combinatiekorting gaat in negen stappen omlaag en de zorgkosten stijgen. Voor een gezin met twee kinderen loopt dat op tot ongeveer \u20ac94 per maand. Niet het hoogste inkomen wordt het hardst geraakt, maar het huishouden in het midden.",
+    preview: {
+      type: "vergelijking",
+      label: "Wat 2027 kost, tweeverdieners met twee kinderen",
+      items: [
+        { naam: "Samen \u20ac70.000", bedrag: 38, kleur: "#9CCFC4" },
+        { naam: "Samen \u20ac100.000", bedrag: 94, kleur: "#0B7A6E" },
+        { naam: "Samen \u20ac140.000", bedrag: 51, kleur: "#9CCFC4" },
+      ],
+      noot: "Per maand, indicatief. De zorgcijfers zijn uitgelekt en nog niet definitief.",
+    },
+    faq: [
+      {
+        vraag: "Gaan tweeverdieners er in 2027 op achteruit?",
+        antwoord:
+          "Gemiddeld wel, maar niet allemaal evenveel. Het CPB raamde in augustus een koopkrachtdaling van 0,3 procent voor 2027, mediaan over alle huishoudens. In de Prinsjesdagstukken die de NOS op 11 september heeft ingezien staat 0,1 procent voor alle huishoudens en 0,2 procent voor werkenden. Per huishouden hangt de uitkomst af van het inkomen, het aantal kinderen en de verdeling van dat inkomen over beide partners.",
+      },
+      {
+        vraag: "Hoeveel gaat een tweeverdienersgezin er in 2027 op achteruit?",
+        antwoord:
+          "Doorgerekend voor drie gezinnen met twee kinderen: ongeveer \u20ac38 per maand bij samen \u20ac70.000, \u20ac94 bij \u20ac100.000 en \u20ac51 bij \u20ac140.000. Dat is de optelsom van de snellere afbouw van het kindgebonden budget, de eerste afbouwstap van de combinatiekorting en hogere zorgkosten. Een hogere arbeidskorting en de loonstijging voor 2027 staan er niet tegenover ingerekend, dus dit is de bovenkant.",
+      },
+      {
+        vraag: "Wordt de inkomensafhankelijke combinatiekorting vanaf 2027 afgebouwd?",
+        antwoord:
+          "Ja. De Rijksoverheid schrijft dat de maximale korting vanaf 2027 in negen jaarlijkse stappen wordt afgebouwd, voor alle ouders die er recht op hebben. In 2026 is het maximum \u20ac3.032 per jaar. De maatregel zelf kost ongeveer \u20ac346 per jaar; op je aanslag zie je ongeveer \u20ac260 verschil, omdat de indexatie een deel teruggeeft. Verdient de minstverdienende partner minder dan ongeveer \u20ac30.400, dan zit die onder het maximum en kost de eerste stap nog niets.",
+      },
+      {
+        vraag: "Waarom raakt het hoogste inkomen niet het hardst?",
+        antwoord:
+          "Omdat een gezin dat samen \u20ac140.000 verdient het kindgebonden budget al helemaal kwijt is. Wat er niet meer is, kan ook niet verder dalen. Het gezin dat samen rond \u20ac100.000 verdient zit juist middenin de afbouw en verliest daar het meeste. Dat is precies de reden dat een gemiddeld koopkrachtcijfer weinig zegt over een individueel huishouden.",
+      },
+      {
+        vraag: "Waarom neemt de koopkracht in 2027 af?",
+        antwoord:
+          "Omdat de lonen minder hard stijgen dan de prijzen en er tegelijk regelingen versoberen. Het CPB rekent voor 2027 met een cao-loonstijging van 3,8 procent en een inflatie van 2,8 procent. Dat verschil valt weg tegen hogere zorgkosten en de afbouw van het kindgebonden budget en de combinatiekorting. Het saldo is een kleine min voor de meeste huishoudens.",
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS: inkomen en belastingdruk van een- en tweeverdieners, 9 september 2026 (opgehaald 13 september 2026)",
+        url: "https://www.cbs.nl/nl-nl/longread/statistische-trends/2026/inkomen-en-belastingdruk-van-een-en-tweeverdieners/3-resultaten",
+      },
+      {
+        label: "CPB: concept-Macro Economische Verkenning 2027, kerngegevens (opgehaald 13 september 2026)",
+        url: "https://www.cpb.nl/raming/concept-macro-economische-verkenning-cmev-2027",
+      },
+      {
+        label: "Rijksoverheid: heffingskortingen, met de afbouw van de combinatiekorting vanaf 2027 (opgehaald 13 september 2026)",
+        url: "https://www.rijksoverheid.nl/vraag-en-antwoord/inkomstenbelasting/wat-is-een-heffingskorting-en-welke-heffingskortingen-zijn-er",
+      },
+      {
+        label: "Belastingdienst: tabel inkomensafhankelijke combinatiekorting 2026 (opgehaald 13 september 2026)",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/heffingskortingen/inkomensafhankelijke_combikorting/inkomensafhankelijke-combinatiekorting-2026",
+      },
+      {
+        label: "NOS: uitgelekte koopkrachtcijfers en zorgcijfers, 11 september 2026, nog niet definitief (opgehaald 13 september 2026)",
+        url: "https://nos.nl/artikel/2630601-koopkrachtcijfers-gelekt-minima-er-licht-op-vooruit-hoge-inkomens-iets-in-de-min",
+      },
+    ],
+  },
+  {
     slug: "financiele-ontrouw-partner-verzwijgt-geld",
     cta: {
       kop: "Zet eerst de maand op een rij, samen",
@@ -712,6 +880,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Vanaf 2027 bouwt het kindgebonden budget sneller af boven een gezamenlijk inkomen van circa \u20ac65.000. Doorgerekend per huishouden, met rekenaar.",
     datum: "2026-09-06",
+    gewijzigd: "2026-09-13",
     datumFormatted: "6 september 2026",
     leestijd: "6",
     categorie: "Toeslagen",
@@ -3794,7 +3963,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Twee inkomens en toch elke maand krap? Je bent niet de enige. Waarom twee salarissen vaak dubbele vaste lasten betekenen, en wat eraan helpt.",
     datum: "2026-05-30",
-    gewijzigd: "2026-09-06",
+    gewijzigd: "2026-09-13",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",

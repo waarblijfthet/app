@@ -48,6 +48,7 @@ const BOVEN = 6500;
 const KOLOMMEN = [4000, 5000, 6000, 6500];
 
 const spaken: { slug: string; tekst: string }[] = [
+  { slug: "wat-verandert-er-2027-gezinnen-goed-inkomen", tekst: "Wat verandert er in 2027 voor gezinnen met een goed inkomen?" },
   { slug: "samen-6000-euro-netto-toch-niets-over", tekst: "Samen €6.000 netto en toch niets over" },
   { slug: "tweeverdieners-toch-krap", tekst: "Twee inkomens en toch krap" },
   { slug: "wat-is-normaal-bedrag-boodschappen-per-maand", tekst: "Wat is een normaal bedrag aan boodschappen per maand?" },
