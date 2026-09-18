@@ -6,7 +6,20 @@ import {
   nulpunt,
   KGB_2027,
   VERHOGING_PROCENTPUNT,
+  VERHOGING_PROCENTPUNT_2028,
 } from "@/lib/kindgebonden-budget";
+import {
+  ZORG_2027,
+  KOOPKRACHT_2027,
+  KOOPKRACHTPAKKET_2027,
+  CPB_2027,
+} from "@/lib/prinsjesdag-2027";
+import {
+  MAX_UURPRIJS_2026,
+  MAX_UURPRIJS_2027,
+  OMSLAGPUNT_96_PROCENT_2027,
+  EXTRA_MIDDENBAND_2027,
+} from "@/lib/kinderopvangtoeslag-2027";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -25,6 +38,7 @@ function eur(n: number): string {
 
 export default function WatVerandertEr2027GezinnenGoedInkomen() {
   const pp = (VERHOGING_PROCENTPUNT * 100).toFixed(2).replace(".", ",");
+  const pp2028 = (VERHOGING_PROCENTPUNT_2028 * 100).toFixed(2).replace(".", ",");
   const nulMet = nulpunt("paar", 2);
   const nulZonder = nulpunt("paar", 2, true);
 
@@ -34,32 +48,32 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
   const samenvattingRijen = [
     {
       onderwerp: "Inkomstenbelasting",
-      wat: "Belastingschijven en heffingskortingen worden in 2027 en 2028 minder volledig gecorrigeerd voor inflatie (raming, gelekt)",
-      effect: "Vermoedelijk licht negatief, sterker naarmate je meer verdient",
+      wat: "Bedragen worden per 2027 met 1,01248 vermenigvuldigd in plaats van met de volle tabelcorrectiefactor. Tarief eerste en tweede schijf 0,06 procentpunt omlaag, arbeidskorting €173 omhoog",
+      effect: "Per saldo licht negatief, sterker naarmate je meer verdient",
     },
     {
       onderwerp: "Kindgebonden budget",
-      wat: `Nieuwe afbouwschijf boven circa ${eur(KGB_2027.tweedeAfbouwpunt)} gezamenlijk inkomen (grens en percentage vast, bedrag raming)`,
+      wat: `Nieuwe afbouwschijf boven ${eur(KGB_2027.tweedeAfbouwpunt)} gezamenlijk inkomen: 9,95 procent in plaats van 8,05, en vanaf 2028 12,8 procent`,
       effect: "Negatief als je kinderen hebt en boven de grens zit, anders geen effect",
     },
     {
       onderwerp: "Kinderopvangtoeslag",
-      wat: "Vergoeding eerste kind naar 96 procent voor ouders die nu nog niet het maximum krijgen (aangekondigd beleid)",
+      wat: `Vergoeding eerste kind naar 96 procent tot ${eur(OMSLAGPUNT_96_PROCENT_2027)}, daarboven 5,1 procentpunt erbij. Kleinere stap dan het coalitieakkoord voorzag`,
       effect: "Positief als je kinderen op de opvang hebt",
     },
     {
       onderwerp: "Zorgpremie",
-      wat: "Ramingen lopen uiteen van circa €170 tot €200 per maand, definitief pas 12 november (raming, tegenstrijdige bronnen)",
-      effect: "Negatief, exacte omvang nog niet vast te stellen",
+      wat: "VWS verwacht €12,50 per maand meer, naar gemiddeld €169. Verzekeraars maken hun eigen premie uiterlijk 12 november bekend (raming)",
+      effect: "Negatief, ongeveer €25 per maand voor twee volwassenen",
     },
     {
       onderwerp: "Eigen risico",
-      wat: "De ene raming houdt €385 aan, de andere noemt €400 (raming, tegenstrijdige bronnen)",
-      effect: "Onzeker, hooguit een paar euro per maand verschil",
+      wat: "Van €385 naar €400, mee met de inflatie (vastgesteld in de VWS-begroting)",
+      effect: "Negatief, maar alleen als je het eigen risico ook opmaakt",
     },
     {
       onderwerp: "Koopkracht landelijk",
-      wat: "Gemiddeld circa min 0,1 procent, circa min 0,2 procent voor hogere inkomens (gelekt, nog niet officieel)",
+      wat: "Mediaan min 0,1 procent, min 0,2 procent voor de hoogste twee inkomensgroepen (Macro Economische Verkenning 2027)",
       effect: "Zegt weinig over je eigen huishouden, zie hieronder waarom",
     },
   ];
@@ -119,19 +133,19 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
       </p>
 
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        Cijfers bijgewerkt op 13 september 2026. Prinsjesdag is op 15 september; tot die datum zijn
-        de meeste 2027-bedragen in dit artikel een raming op basis van gelekte Miljoenennotacijfers
-        en de laatste CPB-raming, met bron en ophaaldatum bij elk cijfer. Ik werk dit artikel bij
-        zodra de definitieve stukken er zijn, en opnieuw zodra de zorgpremies op 12 november bekend
-        worden.
+        Cijfers bijgewerkt op 18 september 2026, met de stukken van Prinsjesdag. De vorige versie van
+        dit artikel rekende met gelekte cijfers en ramingen; die zijn allemaal vervangen door de
+        Miljoenennota, de SZW-begroting 2027, de VWS-begroting, de Fiscale sleuteltabel 2027 en de
+        Macro Economische Verkenning. E&eacute;n cijfer blijft een raming: de zorgpremie. Ik werk
+        dat bij zodra de verzekeraars hun premies bekendmaken, uiterlijk 12 november.
       </p>
 
       <h2 className="font-display" style={h2}>
         In één minuut: dit verandert er voor gezinnen in 2027
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Alleen bedragen die vaststaan of expliciet als raming zijn gemarkeerd. Geen bedrag hieronder
-        is definitief tot Prinsjesdag, behalve waar dat apart staat vermeld.
+        Alles hieronder komt uit de Prinsjesdagstukken van 15 september 2026, behalve de zorgpremie:
+        die staat er als raming bij, want de verzekeraars stellen hem zelf vast.
       </p>
 
       {/* Desktop: tabel. Mobiel: dezelfde rijen als stapelbare kaarten, zelfde tekst. */}
@@ -199,8 +213,11 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
         over een fictief gemiddeld huishouden per inkomensgroep, niet over jouw huishouden specifiek.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        En het gemiddelde verbergt spreiding: van plus 0,2 procent voor lage inkomens tot min 0,2
-        procent voor hogere inkomens, volgens de gelekte Prinsjesdagcijfers. Een gezin met een goed
+        En het gemiddelde verbergt spreiding: van plus {KOOPKRACHT_2027.laagsteInkomensgroepPct}{" "}
+        procent voor de laagste inkomensgroep tot min{" "}
+        {Math.abs(KOOPKRACHT_2027.hoogsteTweeInkomensgroepenPct)} procent voor de hoogste twee
+        inkomensgroepen, volgens de SZW-begroting 2027. Bij een kwart van alle huishoudens komt het
+        onder min {Math.abs(KOOPKRACHT_2027.percentiel25Pct)} procent uit. Een gezin met een goed
         inkomen zit dus per definitie aan de kant die op papier het minst goed uitkomt.
       </p>
       <p className="font-body text-text-soft" style={p}>
@@ -222,13 +239,17 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
         Belastingen in 2027: wat betekent dit voor een goed inkomen?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Volgens de gelekte Miljoenennotacijfers dalen de tarieven in de eerste en tweede schijf met
-        maar 0,06 procentpunt, gaat de arbeidskorting omhoog met een bedrag dat bij het schrijven van
-        dit artikel nog niet bekend is, en wordt de zogeheten tabelcorrectiefactor in 2027 en 2028
-        maar gedeeltelijk toegepast. Dat laatste is de belangrijkste voor een goed inkomen: het
-        betekent dat schijfgrenzen en heffingskortingen minder volledig meestijgen met de inflatie
-        dan gebruikelijk, waardoor een steeds groter deel van elke loonsverhoging in een hoger
-        tarief valt of een kleinere heffingskorting oplevert.
+        Het Belastingplan 2027 verlaagt de tarieven in de eerste en tweede schijf met{" "}
+        {KOOPKRACHTPAKKET_2027.tariefVerlagingProcentpunt.toString().replace(".", ",")} procentpunt
+        en verhoogt het maximum van de arbeidskorting met{" "}
+        {eur(KOOPKRACHTPAKKET_2027.arbeidskortingVerhoging)}. Daar staat tegenover dat de
+        tabelcorrectiefactor in 2027 en 2028 maar gedeeltelijk wordt toegepast: de bedragen in de
+        inkomstenbelasting worden per 1 januari 2027 met 1,01248 vermenigvuldigd in plaats van met
+        de volle correctie. De SZW-begroting noemt dat de vrijheidsbijdrage voor burgers. Ook de
+        grens waarboven het hoogste tarief begint blijft staan. Dat laatste tweetal is het
+        belangrijkste voor een goed inkomen: schijfgrenzen en heffingskortingen stijgen minder
+        volledig mee met de inflatie dan gebruikelijk, waardoor een groter deel van elke
+        loonsverhoging in een hoger tarief valt of een kleinere heffingskorting oplevert.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Hoe zwaar dat meetelt hangt af van hoeveel van je inkomen al in de hoogste schijf valt: hoe
@@ -242,10 +263,12 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Vanaf 2027 komt er een tweede afbouwschijf in het kindgebonden budget. Boven een gezamenlijk
-        toetsingsinkomen van naar verwachting circa {eur(KGB_2027.tweedeAfbouwpunt)} gaat het
-        afbouwpercentage van 8,05 naar 12,35 procent, {pp} procentpunt meer. Voor een stel met twee
-        kinderen onder de 12 komt het budget daardoor al rond {eur(nulMet)} gezamenlijk inkomen op
-        nul uit, in plaats van rond {eur(nulZonder)} zonder deze maatregel.
+        toetsingsinkomen van {eur(KGB_2027.tweedeAfbouwpunt)} gaat het afbouwpercentage van 8,05
+        naar 9,95 procent, {pp} procentpunt meer. Het kabinet heeft die stap op Prinsjesdag
+        gehalveerd: hij zou in 2027 al naar 12,35 procent gaan, maar dat gebeurt nu pas in 2028, en
+        dan met 12,8 procent, oftewel {pp2028} procentpunt boven het basispercentage. Voor een stel
+        met twee kinderen onder de 12 komt het budget daardoor al rond {eur(nulMet)} gezamenlijk
+        inkomen op nul uit, in plaats van rond {eur(nulZonder)} zonder deze maatregel.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Ik heb dit voor alle inkomens tussen &euro;60.000 en &euro;95.000 doorgerekend, met een
@@ -272,18 +295,21 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Niet alles in 2027 gaat achteruit. Het vergoedingspercentage van de kinderopvangtoeslag voor
-        het eerste kind stijgt naar 96 procent, ook voor ouders die daar nu nog geen recht op hebben.
-        Voor tweeverdieners met kinderen op de opvang kan dit een van de grotere posten in het
+        het eerste kind gaat naar 96 procent voor iedereen met een gezamenlijk toetsingsinkomen tot{" "}
+        {eur(OMSLAGPUNT_96_PROCENT_2027)}, en daarboven komt er{" "}
+        {(EXTRA_MIDDENBAND_2027 * 100).toFixed(1).replace(".", ",")} procentpunt bij. Voor
+        tweeverdieners met kinderen op de opvang kan dit een van de grotere posten in het
         huishoudbudget zijn, en een hogere vergoeding scheelt dan direct in wat er maandelijks
         overblijft.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Wat ik hier bewust niet doe, is een bedrag per maand voorrekenen. De maximale uurtarieven
-        voor 2027 stonden bij het schrijven van dit artikel nog niet vast, en zonder die tarieven is
-        een rekenvoorbeeld gokwerk. Ter referentie de tarieven van 2026: &euro;11,23 voor
-        dagopvang, &euro;9,98 voor buitenschoolse opvang en &euro;8,49 voor gastouderopvang. De
-        percentages uit het ontwerpbesluit staan wel al vast, en die reken ik met een rekenvoorbeeld
-        wel door in{" "}
+        Wel is die stap kleiner dan het coalitieakkoord voorzag: van de &euro;715 miljoen die
+        ervoor klaarstond is &euro;350 miljoen weggehaald. De maximum uurprijzen zijn nu wel bekend
+        en gaan van {eur(MAX_UURPRIJS_2026.dagopvang)} naar {eur(MAX_UURPRIJS_2027.dagopvang)} voor
+        dagopvang, van {eur(MAX_UURPRIJS_2026.bso)} naar {eur(MAX_UURPRIJS_2027.bso)} voor
+        buitenschoolse opvang en van {eur(MAX_UURPRIJS_2026.gastouder)} naar{" "}
+        {eur(MAX_UURPRIJS_2027.gastouder)} voor gastouderopvang. Met die tarieven erbij is een
+        rekenvoorbeeld wel te maken, en dat staat in{" "}
         <Link
           href="/inzichten/kinderopvangtoeslag-2027-tweeverdieners"
           style={link}
@@ -291,26 +317,27 @@ export default function WatVerandertEr2027GezinnenGoedInkomen() {
         >
           kinderopvangtoeslag 2027: hoeveel krijg je als tweeverdieners
         </Link>
-        , inclusief wat er verandert zodra de maximum uurprijzen wel bekend zijn.
+        , per inkomen doorgerekend.
       </p>
 
       <h2 className="font-display" style={h2}>
         Zorgkosten en andere vaste lasten
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        De zorgpremie voor 2027 is het minst harde cijfer in dit artikel. Verzekeraars maken de
-        premies pas op 12 november bekend. Ramingen die nu circuleren lopen uiteen van ongeveer
-        &euro;170 tot &euro;200 per maand per volwassene, tegenover gemiddeld &euro;159 in 2026. Voor
-        het verplicht eigen risico spreken de bronnen elkaar tegen: de ene raming houdt het op
-        &euro;385, ongewijzigd, de andere noemt &euro;400. Ik reken hier bewust geen tussenbedrag,
-        want geen van beide is nu al hard te noemen.
+        De zorgpremie blijft het minst harde cijfer in dit artikel, maar er staat nu wel een
+        officiële verwachting onder. VWS gaat uit van een stijging van &euro;12,50 per maand, naar
+        gemiddeld {eur(ZORG_2027.premiePerMaand2027)} per maand: van{" "}
+        {eur(ZORG_2027.nominalePremiePerJaar2026)} naar{" "}
+        {eur(ZORG_2027.nominalePremiePerJaar2027)} per jaar. Verzekeraars stellen hun eigen premie
+        vast en maken die uiterlijk 12 november bekend, dus dit blijft een raming. Het verplicht
+        eigen risico staat wel vast: dat gaat van {eur(ZORG_2027.eigenRisico2026)} naar{" "}
+        {eur(ZORG_2027.eigenRisico2027)}, mee met de inflatie.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Voor een gezin met twee volwassenen betekent alleen al de zorgpremie een stijging van
-        ergens tussen de &euro;20 en &euro;80 per maand samen, afhankelijk van welke raming het
-        bij het rechte eind heeft. Dat is een van de posten die in januari op de rekening
-        verschijnt zonder dat er ergens een brief over is gestuurd die het in één keer optelt bij
-        de rest.
+        Voor een gezin met twee volwassenen komt dat samen neer op ongeveer &euro;25 per maand aan
+        premie, plus {eur(30)} per jaar als jullie allebei het eigen risico volmaken. Dat is een van
+        de posten die in januari op de rekening verschijnt zonder dat er ergens een brief over is
+        gestuurd die het in één keer optelt bij de rest.
       </p>
 
       <h2 className="font-display" style={h2}>

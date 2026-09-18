@@ -36,6 +36,17 @@ De maximum uurtarieven 2027 staan inderdaad nog niet vast (bevestigd op de Belas
 
 **Ook hier: geen `device_bash` deze sessie (de map-mount is stuk sinds 8 september, zie de openstaande schuld hieronder), dus gewerkt via stage/commit en geen productiebuild en geen `git add`/`commit`/`push`.** Draai bij de eerstvolgende sessie met `device_bash` in elk geval `npx tsc --noEmit --incremental false` op deze drie bestanden en commit/push de wijziging.
 
+**Update 18 september, op verzoek van Jarno: de Prinsjesdagherziening is gedaan.** Alle vier de
+2027-artikelen staan nu op de definitieve cijfers uit de Miljoenennota, de SZW-begroting 2027, de
+Fiscale sleuteltabel 2027 en de Macro Economische Verkenning. Er staat geen uitgelekt en geen
+geraamd cijfer meer in, behalve de zorgpremie, en die is als raming gelabeld tot uiterlijk
+12 november. Zes dingen bleken anders dan we op 13 september hadden geraamd, waarvan er drie de
+bedragen fors verlagen; het volledige verslag met bron en paginanummer staat in sectie 23. De
+kernvondst van artikel 1 blijft overeind: het huishouden in het midden raakt het meeste kwijt. De
+bedragen gaan van €38/€94/€51 naar €40/€84/€40 per maand. **Er is geen productiebuild gedraaid**:
+`tsc` is schoon op de hele repo, maar `next build` past niet in de tijdslimiet van de shell op dit
+apparaat. Draai hem lokaal vóór de push, en dien daarna de vijf gewijzigde URL's opnieuw in bij GSC.
+
 **Stand van zaken.** Fase 0 af. Fase 1 punt 1 en 3 staan live, dus contentbouw mag lopen. Fase 2 CTR-ronde 1 uitgevoerd, inclusief de antwoordblokken die bij de nieuwe titels horen. Z4 gepubliceerd. De pijler van cluster P verlegd en herschreven. H1 staat er, de eerste van de vijf hubs, met vier inkomende links. De IndexNow-indiening werkt weer na bijna drie maanden stilstand.
 
 Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2, N3, N5), N6 geschrapt**. Alle 24 zoektermen uit het invalshoekenplan zijn eerst op google.nl geverifieerd, met de uitkomsten in `docs/serp-invalshoeken-06-sep-2026.md`. Zie sectie 13 hieronder voor wat er is gebouwd, wat is geschrapt en waarom.
@@ -67,8 +78,8 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 |---|---|
 | 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. |
 | 15 september | Prinsjesdag. De maximum uurtarieven kinderopvang 2027 en het definitieve eigen risico komen die dag naar buiten. Dat zijn de twee cijfers waar artikel 2 op wacht, zie sectie 20. |
-| 16 september | De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen door de definitieve Prinsjesdagcijfers. Alleen dat bestand; tabel en rekenaar volgen vanzelf. Zet `gewijzigd` op die dag. |
-| 16 september | **En in dezelfde beurt `lib/prinsjesdag-2027.ts`**, zie sectie 20: het blok `UITGELEKT` eruit (eigen risico, zorgpremie, koopkrachtpercentages), `IACK_2027_INDEXATIE` vervangen door het definitieve maximum uit het Belastingplan, de NOS-bron uit `externLinks` vervangen door de Miljoenennota. **Controleer daarna of €38, €94 en €51 nog kloppen**: die drie bedragen staan met de hand in de metaTitel, het excerpt en de preview van `tweeverdieners-2027-erop-achteruit`, en die lopen niet automatisch mee met de rekenlaag. |
+| ~~16 september~~ | ~~De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen.~~ **Gedaan op 18 september, zie sectie 23.** Het werden er zeven, want ook de afbouwpunten en het knikpunt klopten niet. |
+| ~~16 september~~ | ~~`lib/prinsjesdag-2027.ts` bijwerken.~~ **Gedaan op 18 september, zie sectie 23.** €38, €94 en €51 klopten inderdaad niet meer en staan nu op €40, €84 en €40, in de metaTitel, het excerpt en de preview. |
 | 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
 | 20 september | **+14 dagen op de is-4000 AI-overzicht-fix van 6 september** (sectie 15): GSC Generative AI features nakijken, en meteen is-5000 en het boodschappenartikel controleren op dezelfde knik, want dat kon deze sessie niet vanaf hier. |
 | 11 oktober | Meetpunt `tweeverdieners-2027-erop-achteruit`, 28 dagen na publicatie. Vertoningen en positie op "tweeverdieners 2027" en "wat verandert er voor tweeverdieners 2027". Kijk meteen of Z4 op die tweede term zijn plek houdt of dat de twee elkaar in de weg zitten; dat is het kannibalisatierisico uit sectie 20. |
@@ -77,6 +88,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | 5 december | **Meetpunt N1 tot N4**, 90 dagen na publicatie. Een pagina met minder dan 20 vertoningen per maand en geen externe links gaat mee in de contentkill van CLAUDE.md sectie 9. Let vooral op N4: die deelt taalgebied met de twee coach-pagina's. |
 | 1 november | Killgrens uit plan sectie 9: onder 3.000 sessies per maand of onder 5 betaalde Geldscans gaan clusters L en B in de wacht. |
 | 12 november | Z1 zorgpremie 2027 bouwen, als de premies bekend zijn. |
+| 12 november | **En in dezelfde beurt: de zorgpremie in `lib/prinsjesdag-2027.ts`.** `ZORG_2027.nominalePremiePerJaar2027` (€2.029) en `premiePerMaand2027` (€169) zijn de raming van VWS. Vervang ze door de werkelijke gemiddelde premie en haal de raming-zin uit de vier 2027-artikelen. |
 | 12 december | **Meetpunt vierde artikel** (`wat-verandert-er-2027-gezinnen-goed-inkomen`), 90 dagen na publicatie, zie sectie 21. Los van het 11-oktobermeetpunt van artikel 1 hierboven: controleer hier of het vierde artikel en artikel 1 op verschillende zoektermen scoren (de differentiatie werkte) of elkaar toch in de weg zitten (dan alsnog samenvoegen). |
 | 8 december | 2027-sweep over 25 metaTitels. Zet bij elke pagina `gewijzigd`, anders merkt de sitemap er niets van. |
 
@@ -95,7 +107,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 9. **Artikel 2 is inmiddels gebouwd (derde sessie, 13 september), artikel 3 nog niet.** Artikel 2 (kinderopvangtoeslag 2027) stond hier als "kan niet vóór 15 september", maar is op jouw expliciete verzoek toch gebouwd op basis van het ontwerpbesluit, zie de update bovenaan en sectie 22. Artikel 3 (inkomensafhankelijke combinatiekorting 2027) vraagt nog steeds eerst een GSC-filter, want het overlapt met artikel 1 (`tweeverdieners-2027-erop-achteruit`, die de IACK al behandelt). Wacht op jouw akkoord.
 
-10. **De metaTitel van het nieuwe artikel bevat bedragen die niet meelopen met de rekenlaag.** "Tweeverdieners 2027: €38 tot €94 per maand minder". Dat is bewust, want een metaTitel is een string in `inzichten-data.ts` en geen berekening, maar het betekent wel dat de titel op 16 september tegen de nieuwe cijfers aan gehouden moet worden. Staat in de datumtabel.
+10. ~~**De metaTitel van het nieuwe artikel bevat bedragen die niet meelopen met de rekenlaag.**~~ **Afgehandeld op 18 september.** De titel staat nu op "Tweeverdieners 2027: €40 tot €84 per maand minder". Het risico blijft bestaan: elke keer dat de rekenlaag verandert, moeten metaTitel, excerpt en preview met de hand mee. Dat geldt ook voor het kindgebonden budget-artikel en het kinderopvangtoeslag-artikel.
 
 11. **Er is deze sessie geen productiebuild gedraaid, en dat kon ook niet.** De mount naar de projectmap werkt sinds een Windows-update van 8 september niet meer vanuit `device_bash`: "no Plan9 drive shares mounted". Daardoor is de tar-route uit `feedback_minifier_verkorte_objectnotatie` onbruikbaar, want stap 1 daarvan draait op het device. Wat wel is gedaan: `tsc --strict` schoon op de drie nieuwe bestanden, de rekenlaag daadwerkelijk uitgevoerd zodat de bedragen uit de echte functies komen en niet uit een handmatige narekening, en alle objectvelden expliciet uitgeschreven zodat het minifier-patroon er niet in zit. **Draai de build alsnog vóór de push.**
 12. **Vierde Prinsjesdag-artikel, uit een tweede, gelijktijdige sessie, zie sectie 21.** `/inzichten/wat-verandert-er-2027-gezinnen-goed-inkomen`, over de volledige 2027-stapeling voor gezinnen met een goed inkomen. Overlapte bij het schrijven met artikel 1 hierboven; opgelost door beide te differentiëren (Jarno's beslissing, sectie 21). Zelfde beperking als bij artikel 1: geen `device_bash`, dus geen productiebuild en geen commit/push gedaan. **Wanneer artikel 2 (kinderopvangtoeslag 2027) later wordt gebouwd: dit vierde artikel heeft al een kinderopvangtoeslag-sectie die bewust ondiep blijft (geen bedrag, expliciete verwijzing naar "een apart artikel zodra de tarieven bekend zijn") — artikel 2 kan er gewoon overheen gebouwd worden, met een link terug vanuit dit vierde artikel.**
@@ -879,3 +891,98 @@ Twee kruislinks toegevoegd, geen nieuwe pagina's aangeraakt buiten deze twee:
 Geen werkende `device_bash` deze sessie (zelfde Windows-update-probleem als bij sectie 20 en 21), dus geen `tsc` en geen productiebuild op het project zelf. In plaats daarvan, net als bij artikel 1: een geïsoleerde omgeving in `/tmp/rjsxcheck`, met `react@18`, `react-dom@18`, `@types/react@18` en de werkelijk geïmporteerde projectbestanden (`lib/cta.ts`, `components/CtaLink.tsx`, de bestaande rekenaar-componenten) naast de nieuwe en gewijzigde bestanden. `npx tsc --noEmit --strict` daarop: schoon, op de al bekende, niet-gerelateerde ontbrekende modules (`quiz-types`, `rapporten-data`, `rente-verschil`, niet meegekopieerd) na. `lib/kinderopvangtoeslag-2027.ts` is bovendien apart gecompileerd en met Node echt uitgevoerd, zie de tabel hierboven: dat is meer dan een type-check, want het bevestigt dat de uitkomsten kloppen, niet alleen dat de types kloppen. Haakjes/accolade-balans, LF-only regeleinden en null-byte-check op alle zeven geschreven of gewijzigde bestanden: in orde. Alle gewijzigde (niet nieuwe) bestanden weggeschreven met een `expectedMtimeMs`-guard op de laatst bekende device-mtime; `device_commit_files` accepteerde alle zeven bestanden zonder afwijzing (`{"rejected":[]}`).
 
 **Nog open, zie "Openstaand aan Jarno's kant" punt 7 tot en met 10.** Geen `git add`/`commit`/`push` deze sessie, om dezelfde reden als de twee sessies hierboven. Jarno moet zelf committen en pushen, en vóór de deploy een echte `npx tsc --noEmit --incremental false` en productiebuild draaien. Verder open: de ontbrekende hub-inkomende-link, en de vervanging van `MAX_UURPRIJS_2027_GERAAMD` door vastgestelde bedragen zodra die er zijn.
+
+## 23. Prinsjesdagherziening: alle vier de 2027-artikelen op de definitieve cijfers, 18 september 2026
+
+Opdracht van Jarno: nagaan of de echte bedragen nu bekend zijn en de artikelen bijwerken met de
+bevestigde cijfers. Dit is de herziening die in de datumtabel op 16 september stond; hij is twee
+dagen later gedaan.
+
+### Waar de cijfers vandaan komen
+
+Alle bronnen zijn in de browser op google.nl-vrije, officiële URL's geopend en gelezen, conform de
+regel dat je geen externLink commit die je niet zelf hebt geopend. De vier dragende documenten:
+
+- CPB, Macro Economische Verkenning 2027, raming 15 september 2026. De kerngegevenstabel is uit de
+  PDF gelezen, niet uit een nieuwsbericht.
+- SZW-begroting 2027, Tweede Kamer 2026/2027, 37 020 XV, nr. 2. Dit document draagt het meeste:
+  p. 116 (kinderopvangtoeslag), p. 143 (kindgebonden budget), p. 175 (IACK, zorg), p. 177
+  (koopkracht per groep), tabel 81 (uurprijzen), tabel 107 (WKB-bedragen), tabel 134
+  (voorbeeldhuishoudens).
+- Ministerie van Financiën, Fiscale sleuteltabel 2027, bijlage bij het pakket Belastingplan 2027.
+- Wetsvoorstel Belastingplan 2027, artikel LI, en het VWS-nieuwsbericht van 15 september.
+
+### Zes dingen die anders bleken dan de raming van 13 september
+
+1. **Het tweede knikpunt in het kindgebonden budget is €61.917, niet €65.560.** De grens stond op
+   €60.000 prijspeil 2024 en is bij nota van wijziging van 20 mei 2026 verlaagd naar €57.950. Meer
+   huishoudens komen er dus boven, niet minder.
+2. **Het afbouwpercentage boven dat knikpunt is voor 2027 9,95 procent en niet 12,35.** Het kabinet
+   voert de stap in twee delen in; pas per 2028 wordt het 12,8 procent. De rekening van 2027 is
+   daarmee ongeveer gehalveerd ten opzichte van wat we hadden gemodelleerd, en die van 2028 hoger.
+3. **De IACK voor 2027 is €2.918** (Fiscale sleuteltabel). De maatregel kost €153 per jaar volgens
+   de SZW-begroting, niet de €346 die we hadden berekend, en op de aanslag zie je €114 in plaats
+   van €261. Onze fout zat in de indexatie: we rekenden met de cpi-raming van 2,8 procent, terwijl
+   het Belastingplan voor 2027 een beperkte inflatiecorrectie van 1,01248 voorschrijft.
+4. **De kinderopvangtoeslagstap is kleiner dan het ontwerpbesluit.** Er ging €350 miljoen af van de
+   €715 miljoen. 96 procent geldt tot €71.903 en niet tot €87.767, de middenband krijgt 5,1 in
+   plaats van 12,5 procentpunt, en de vaste voet gaat naar 39,1 en niet naar 42,9 procent. Het hele
+   ontwerpbesluit uit de internetconsultatie is dus achterhaald; het staat nog in de rekenlaag,
+   maar alleen zodat het artikel het verschil kan benoemen.
+5. **De maximum uurprijzen 2027 zijn wél bekend**: €11,60 dagopvang, €10,31 bso, €8,77 gastouder.
+   Dat was het cijfer waarop artikel 2 zou wachten.
+6. **Het uitgelekte zorgcijfer klopte half.** Eigen risico €385 naar €400: bevestigd. Zorgpremie
+   niet: VWS raamt €12,50 per maand erbij, naar gemiddeld €169 per maand (€1.879 naar €2.029 per
+   jaar), niet de €10 naar €197 die de NOS meldde.
+
+### Wat dat met de bedragen deed
+
+De drie voorbeeldhuishoudens in `tweeverdieners-2027-erop-achteruit` gaan van €38/€94/€51 naar
+€40/€84/€40 per maand. **De kernvondst van het artikel blijft overeind**: het huishouden in het
+midden raakt het meeste kwijt, want het hoogste inkomen is het kindgebonden budget al kwijt en kan
+het niet nog een keer verliezen. Het IACK-kantelpunt verschuift van €30.400 naar €31.800.
+
+Bij het kindgebonden budget kwam er een nuance bij die er eerst niet was: **onder het tweede
+knikpunt gaat het budget er in 2027 juist iets op vooruit**, omdat het afbouwpunt en de kindbedragen
+mee omhoog zijn gegaan. Bij €60.000 is het €312 per maand in 2027 tegen €298 in 2026. Dat staat nu
+onder de tabel.
+
+### Wat er is gewijzigd
+
+Drie rekenlagen: `lib/prinsjesdag-2027.ts` (het blok `UITGELEKT` vervangen door `ZORG_2027`,
+`KOOPKRACHT_2027`, `KOOPKRACHT_TWEEVERDIENERS_2027` en `KOOPKRACHTPAKKET_2027`; `IACK_2027` met het
+gepubliceerde maximum; `INFLATIECORRECTIE_2027`), `lib/kindgebonden-budget.ts` (alle zeven
+2027-constanten, plus de vermogensgrenzen en de leeftijdsbedragen) en
+`lib/kinderopvangtoeslag-2027.ts` (`toeslag2027Geraamd` heet nu `toeslag2027`,
+`MAX_UURPRIJS_2027_GERAAMD` heet `MAX_UURPRIJS_2027`).
+
+Vier artikelen: `tweeverdieners-2027-erop-achteruit`, `wat-verandert-er-2027-gezinnen-goed-inkomen`,
+`kinderopvangtoeslag-2027-tweeverdieners` en `kindgebonden-budget-2027-inkomensgrens`. Plus
+`samen-te-veel-verdiend-toeslag-kwijt`, dat de oude grens van €65.000 noemde. Alle vijf hebben
+`gewijzigd: "2026-09-18"`. Twee rekenaars zijn meegegaan.
+
+In alle vijf zijn de bronnenlijsten vervangen: de NOS-bron, Salaris Vanmorgen, Grant Thornton, Blue
+Accountants en Eemskrant zijn eruit, de vier primaire Prinsjesdagdocumenten zijn erin.
+
+### Eén claim die bewust is weggelaten
+
+De SZW-begroting noemt de koopkracht van de laagste inkomensgroep, de hoogste twee inkomensgroepen
+en gepensioneerden. Het uitgelekte cijfer "min 0,2 procent voor werkenden" staat nergens in de
+definitieve stukken en is daarom nergens overgenomen.
+
+### Wat nog open staat
+
+- **De zorgpremie blijft een raming tot uiterlijk 12 november.** Dat staat in alle vier de
+  artikelen met zoveel woorden. Zet 12 november in de datumtabel.
+- **Er is geen productiebuild gedraaid.** `npx tsc --noEmit --incremental false` is schoon op de
+  hele repo, er staan geen null bytes in de gewijzigde bestanden, alle objectvelden zijn expliciet
+  uitgeschreven en de rekenlaag is met Node uitgevoerd zodat elk bedrag hierboven uit de echte
+  functies komt. Maar `npx next build` past niet in de tijdslimiet van de shell op dit apparaat
+  (120 seconden per aanroep, de build duurt langer). Draai hem lokaal vóór de push.
+- **De verzachting naar 9,95 procent gaat via een nota van wijziging** die nog door beide Kamers
+  moet. Dat staat in de FAQ van het kindgebonden budget-artikel.
+- **Voor het tweede kind in de kinderopvangtoeslag noemt de begroting geen percentage voor 2027.**
+  De rekenaar houdt daar het percentage van 2026 aan en zegt dat er ook bij. Werk dit bij zodra het
+  Besluit kinderopvangtoeslag 2027 in het Staatsblad staat.
+- **GSC-indiening**: alle vijf de URL's opnieuw indienen na de push, want `gewijzigd` staat op
+  18 september en de sitemap-lastmod verandert mee.

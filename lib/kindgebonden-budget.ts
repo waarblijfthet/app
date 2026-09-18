@@ -5,9 +5,9 @@
  * zodat de tabel niet iets anders kan zeggen dan de rekenaar die er tien
  * centimeter boven staat. Zelfde reden als `lib/salaris-vuistregel.ts`.
  *
- * Herkomst van de getallen, opgehaald 6 september 2026:
+ * Herkomst van de getallen.
  *
- * VASTGESTELD (2026)
+ * VASTGESTELD (2026), opgehaald 6 september 2026
  * - Afbouwpunt €29.736 voor een alleenstaande ouder en €39.141 voor paren:
  *   Belastingdienst, "Wat verandert er in 2026 voor uw toeslagen?".
  * - Afbouwpercentage 7,60 procent: AFAS Help Center, "Kindgebonden budget".
@@ -16,21 +16,33 @@
  * - Alleenstaande-ouderkop: afgeleid uit Knab Bieb (17 juli 2026), die voor een
  *   alleenstaande ouder met één kind onder de 12 uitkomt op €5.996 maximaal.
  *
- * WETSVOORSTEL (2027), aangenomen maar de bedragen nog niet definitief
- * - Tweede afbouwpunt bij een toetsingsinkomen van €60.000, prijspeil 2024:
- *   wetgevingskalender.overheid.nl, wijziging Wet op het kindgebonden budget,
- *   en Staatscourant 2026 nr. 14099 van 14 april 2026.
- * - Afbouwpercentage boven dat punt 12,35 procent in 2027 en 12,80 procent in
- *   2028, een verhoging van 4,30 procentpunt: Nederlands Juristenblad en
- *   Kamerstuk 36923 nr. 5 van 21 mei 2026.
- * - Daaruit volgt het basispercentage voor 2027: 12,35 min 4,30 is 8,05.
+ * VASTGESTELD (2027), opgehaald 18 september 2026
+ * Bron voor alle 2027-bedragen hieronder: de SZW-begroting 2027, Tweede Kamer,
+ * vergaderjaar 2026/2027, 37 020 XV, nr. 2, aangeboden op Prinsjesdag
+ * 15 september 2026. Pagina 143 geeft de afbouwpunten en percentages, tabel 107
+ * op diezelfde pagina geeft de netto maximumbedragen per jaar.
+ * - Afbouwpunt €30.910 (alleenstaande) en €40.560 (aanvrager met toeslagpartner).
+ * - Basisafbouw: voor iedere €100 boven dat punt gaat er €8,05 af.
+ * - Tweede knikpunt: €61.917, voor alleenstaanden en paren hetzelfde. Daarboven
+ *   gaat er €9,95 per €100 af.
+ * - Netto maximumbedragen per jaar: €2.653 voor het eerste kind en €2.653 voor
+ *   ieder volgend kind, plus €729 extra voor 12- tot 15-jarigen, €976 extra voor
+ *   16- en 17-jarigen en €3.505 extra voor een alleenstaande ouder.
+ * - Vermogensgrens 2027: €119.122 (alleenstaande) en €158.748 (met toeslagpartner).
  *
- * RAMING (2027), duidelijk als zodanig gemarkeerd in `GERAAMD`
- * Het tweede afbouwpunt staat in prijspeil 2024 en wordt geïndexeerd. De
- * bedragen hieronder zijn de bedragen van 2026 opgehoogd met 3 procent per
- * jaar, in lijn met de inflatieraming van het CPB in de cMEV 2027 (circa 3
- * procent in 2026 en 2027). Zodra Prinsjesdag de definitieve bedragen geeft,
- * vervangen we deze vier getallen en verdwijnt de raming-vlag.
+ * WAT ER OP PRINSJESDAG IS VERANDERD TEN OPZICHTE VAN DE EERDERE RAMING
+ * Drie dingen, en ze maken de maatregel kleiner dan hij tot 15 september leek.
+ * 1. Het tweede knikpunt stond in het oorspronkelijke wetsvoorstel op €60.000
+ *    prijspeil 2024. Bij Nota van Wijziging van 20 mei 2026 (Kamerstukken II
+ *    2025/26, 36923, nr. 5) is dat verlaagd naar €57.950 prijspeil 2024. In
+ *    bedragen van 2027 is dat €61.917, niet de €65.560 die we eerder ramden.
+ * 2. Het hogere afbouwpercentage wordt in twee stappen ingevoerd. Voor 2027 is
+ *    het 9,95 procent in plaats van de eerder voorgenomen 12,35 procent; pas per
+ *    2028 wordt het 12,8 procent. De SZW-begroting noemt dat de verzachting van
+ *    het tweede knikpunt.
+ * 3. De kindbedragen zijn beleidsmatig met €63 verlaagd en daarna geïndexeerd,
+ *    als eerste stap naar een nieuwe kindregeling. Netto komt het bedrag per kind
+ *    daardoor op €2.653 uit.
  */
 
 export const KGB_2026 = {
@@ -42,25 +54,56 @@ export const KGB_2026 = {
 } as const;
 
 export const KGB_2027 = {
-  /** Geraamd: 2026-bedrag plus 3 procent. */
-  afbouwpuntAlleenstaandeOuder: 30630,
-  /** Geraamd: 2026-bedrag plus 3 procent. */
-  afbouwpuntPaar: 40320,
-  /** Geraamd: €60.000 prijspeil 2024, plus drie jaar indexatie van 3 procent. */
-  tweedeAfbouwpunt: 65560,
-  /** Vast: 12,35 min de verhoging van 4,30 procentpunt. */
+  /** SZW-begroting 2027, p. 143. */
+  afbouwpuntAlleenstaandeOuder: 30910,
+  /** SZW-begroting 2027, p. 143. */
+  afbouwpuntPaar: 40560,
+  /** SZW-begroting 2027, p. 143: €57.950 prijspeil 2024, in bedragen van 2027. */
+  tweedeAfbouwpunt: 61917,
+  /** SZW-begroting 2027, p. 143: €8,05 per €100 boven het eerste afbouwpunt. */
   afbouwpercentage: 0.0805,
-  /** Vast: wetsvoorstel. */
-  afbouwpercentageBovenTweedePunt: 0.1235,
-  /** Geraamd: 2026-bedrag plus 3 procent. */
-  maxPerKindTot12: 2657,
-  /** Geraamd: 2026-bedrag plus 3 procent. */
-  alleenstaandeOuderkop: 3518,
+  /** SZW-begroting 2027, p. 143: €9,95 per €100 boven het tweede knikpunt. */
+  afbouwpercentageBovenTweedePunt: 0.0995,
+  /** SZW-begroting 2027, tabel 107. */
+  maxPerKindTot12: 2653,
+  /** SZW-begroting 2027, tabel 107. */
+  alleenstaandeOuderkop: 3505,
+  /** SZW-begroting 2027, tabel 107: extra bedrag per kind van 12 tot en met 15. */
+  extra12tot15: 729,
+  /** SZW-begroting 2027, tabel 107: extra bedrag per kind van 16 en 17. */
+  extra16tot17: 976,
+  /** SZW-begroting 2027, p. 143. */
+  vermogensgrensAlleenstaande: 119122,
+  /** SZW-begroting 2027, p. 143. */
+  vermogensgrensPaar: 158748,
 } as const;
 
-/** De verhoging zelf, in procentpunt. Dit is het enige harde beleidsgetal. */
+/**
+ * Het afbouwpercentage boven het tweede knikpunt vanaf 2028. Staat hier omdat de
+ * stap van 2027 alleen te begrijpen is als je ziet waar hij naartoe loopt.
+ * SZW-begroting 2027, p. 140.
+ */
+export const KGB_2028_AFBOUWPERCENTAGE_BOVEN_TWEEDE_PUNT = 0.128;
+
+/**
+ * De verhoging in 2027 zelf, in procentpunt: 9,95 min 8,05. Dit is wat de
+ * maatregel dit jaar doet, niet waar hij eindigt. Structureel wordt het 4,3
+ * procentpunt, maar dat is pas vanaf 2028.
+ */
 export const VERHOGING_PROCENTPUNT =
   KGB_2027.afbouwpercentageBovenTweedePunt - KGB_2027.afbouwpercentage;
+
+/** De structurele verhoging vanaf 2028, in procentpunt. */
+export const VERHOGING_PROCENTPUNT_2028 =
+  KGB_2028_AFBOUWPERCENTAGE_BOVEN_TWEEDE_PUNT - KGB_2027.afbouwpercentage;
+
+/**
+ * Het percentage dat boven het tweede knikpunt in 2026 gold, oftewel: er was geen
+ * tweede knikpunt en er gold gewoon de basisafbouw. De SZW-begroting zet de
+ * maatregel zo neer: boven circa €61.900 stijgt de afbouw van 7,60 procent in
+ * 2026 naar 9,95 procent in 2027, in plaats van naar 12,35 procent.
+ */
+export const EERDER_VOORGENOMEN_AFBOUWPERCENTAGE_2027 = 0.1235;
 
 export type Huishouden = "paar" | "alleenstaande_ouder";
 

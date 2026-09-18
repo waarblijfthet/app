@@ -5,9 +5,9 @@ import CtaLink from "@/components/CtaLink";
 import { analyseHref } from "@/lib/cta";
 import {
   toeslag2026,
-  toeslag2027Geraamd,
+  toeslag2027,
   MAX_UURPRIJS_2026,
-  MAX_UURPRIJS_2027_GERAAMD,
+  MAX_UURPRIJS_2027,
   type OpvangType,
 } from "@/lib/kinderopvangtoeslag-2027";
 
@@ -46,11 +46,11 @@ export default function KinderopvangtoeslagRekenaar() {
     kindnummer: 1 as const,
   };
   const t26Eerste = toeslag2026(situatieEersteKind);
-  const t27Eerste = toeslag2027Geraamd(situatieEersteKind);
+  const t27Eerste = toeslag2027(situatieEersteKind);
 
   const situatieTweedeKind = { ...situatieEersteKind, kindnummer: 2 as const };
   const t26Tweede = toeslag2026(situatieTweedeKind);
-  const t27Tweede = toeslag2027Geraamd(situatieTweedeKind);
+  const t27Tweede = toeslag2027(situatieTweedeKind);
 
   const totaal26 =
     kinderen === 1 ? t26Eerste : { ...t26Eerste, eigenBijdragePerMaand: t26Eerste.eigenBijdragePerMaand + t26Tweede.eigenBijdragePerMaand, toeslagPerMaand: t26Eerste.toeslagPerMaand + t26Tweede.toeslagPerMaand, totaleKostenPerMaand: t26Eerste.totaleKostenPerMaand + t26Tweede.totaleKostenPerMaand };
@@ -158,13 +158,14 @@ export default function KinderopvangtoeslagRekenaar() {
         Aannames: {kinderen} kind{kinderen === 2 ? "eren" : ""} op de opvang, {UREN_PER_MAAND} uur
         per maand per kind (ongeveer 3,5 dag per week), een tarief van {eur(UURTARIEF)} per uur dat
         de opvangorganisatie rekent. Boven de maximum uurprijs ({eur(MAX_UURPRIJS_2026[opvangType])}{" "}
-        in 2026, geraamd {eur(MAX_UURPRIJS_2027_GERAAMD[opvangType])} in 2027) betaal je altijd zelf
-        bij, ongeacht je vergoedingspercentage.
+        in 2026, {eur(MAX_UURPRIJS_2027[opvangType])} in 2027) betaal je altijd zelf bij, ongeacht
+        je vergoedingspercentage.
       </p>
       <p className="font-body text-xs" style={{ color: "#4A5A56" }}>
-        De 2027-cijfers komen uit het ontwerpbesluit dat bij de voorjaarsbesluitvorming 2026 wordt
-        vastgesteld; de maximum uurprijs voor 2027 is een raming op basis van 5 procent indexatie
-        en nog niet definitief. Dit is een indicatie, geen persoonlijke berekening. De{" "}
+        De 2027-cijfers komen uit de SZW-begroting 2027 van 15 september 2026. Voor het tweede kind
+        noemt die begroting geen percentage voor 2027, dus daarvoor staat hier nog dat van 2026; de
+        werkelijke toeslag valt voor dat kind waarschijnlijk iets hoger uit. Dit is een indicatie,
+        geen persoonlijke berekening. De{" "}
         <CtaLink
           doel="analyse"
           href={analyseHref({ situatie: "gezin" })}

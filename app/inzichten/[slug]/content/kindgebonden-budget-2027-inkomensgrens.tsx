@@ -9,6 +9,9 @@ import {
   KGB_2026,
   KGB_2027,
   VERHOGING_PROCENTPUNT,
+  VERHOGING_PROCENTPUNT_2028,
+  KGB_2028_AFBOUWPERCENTAGE_BOVEN_TWEEDE_PUNT,
+  EERDER_VOORGENOMEN_AFBOUWPERCENTAGE_2027,
   TABEL_INKOMENS,
 } from "@/lib/kindgebonden-budget";
 
@@ -39,6 +42,8 @@ export default function KindgebondenBudget2027Inkomensgrens() {
   const nulZonder = nulpunt("paar", 2, true);
   const verschuiving = Math.round((nulZonder - nulMet) / 100) * 100;
   const pp = (VERHOGING_PROCENTPUNT * 100).toFixed(2).replace(".", ",");
+  const pp2028 = (VERHOGING_PROCENTPUNT_2028 * 100).toFixed(2).replace(".", ",");
+  const pct = (n: number) => (n * 100).toFixed(2).replace(".", ",").replace(",00", "");
 
   return (
     <>
@@ -92,9 +97,9 @@ export default function KindgebondenBudget2027Inkomensgrens() {
       </p>
 
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        Cijfers bijgewerkt op 6 september 2026. Het afbouwpercentage en de grens staan vast in het
-        wetsvoorstel; de bedragen voor 2027 zijn een raming tot Prinsjesdag op 15 september. Ik werk
-        dit artikel daarna bij.
+        Cijfers bijgewerkt op 18 september 2026. De bedragen voor 2027 waren tot Prinsjesdag een
+        raming; ze komen nu allemaal uit de SZW-begroting 2027 van 15 september. Er is meer
+        veranderd dan alleen de nauwkeurigheid, zie de volgende alinea.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -106,16 +111,38 @@ export default function KindgebondenBudget2027Inkomensgrens() {
         vanaf {eur(KGB_2026.afbouwpuntPaar)} gezamenlijk inkomen voor stellen.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Vanaf 2027 komt daar een tweede afbouwpunt bij. Vanaf een toetsingsinkomen van {eur(60000)},
-        prijspeil 2024, stijgt het afbouwpercentage naar 12,35 procent, en in 2028 naar 12,8
-        procent. Dat is een verhoging van {pp} procentpunt bovenop het basispercentage. De
-        redenering van het kabinet is dat het kindgebonden budget bij hogere inkomens niet
-        doelmatig is.
+        Vanaf 2027 komt daar een tweede afbouwpunt bij, op {eur(KGB_2027.tweedeAfbouwpunt)}{" "}
+        gezamenlijk toetsingsinkomen. Boven dat punt gaat het afbouwpercentage naar{" "}
+        {pct(KGB_2027.afbouwpercentageBovenTweedePunt)} procent, {pp} procentpunt bovenop het
+        basispercentage van {pct(KGB_2027.afbouwpercentage)} procent. De redenering van het kabinet
+        is dat het kindgebonden budget bij hogere inkomens niet doelmatig is.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Wat dat betekent voor een huishouden staat nergens uitgerekend. De Rijksoverheid legt de
-        maatregel uit, de Belastingdienst legt de rekenregel uit, en het wetsvoorstel legt de
-        wetstekst uit. Daarom hieronder de tabel.
+        Op Prinsjesdag is die maatregel op twee punten bijgesteld, en allebei de keren viel het de
+        andere kant op dan je zou verwachten. De grens ging omlaag: hij stond op {eur(60000)} in
+        prijspeil 2024 en is bij nota van wijziging verlaagd naar {eur(57950)}, wat in bedragen van
+        2027 neerkomt op {eur(KGB_2027.tweedeAfbouwpunt)}. Meer huishoudens komen daar dus boven.
+        Tegelijk is de stap zelf verzacht: het hogere percentage zou in 2027 al{" "}
+        {pct(EERDER_VOORGENOMEN_AFBOUWPERCENTAGE_2027)} procent worden, maar het kabinet voert hem
+        in twee delen in. Voor 2027 wordt het{" "}
+        {pct(KGB_2027.afbouwpercentageBovenTweedePunt)} procent en pas vanaf 2028{" "}
+        {pct(KGB_2028_AFBOUWPERCENTAGE_BOVEN_TWEEDE_PUNT)} procent, oftewel {pp2028} procentpunt
+        boven het basispercentage. De rekening van dit jaar is dus lager dan hij leek, en die van
+        volgend jaar hoger.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Er verandert nog iets. De kindbedragen zijn beleidsmatig met {eur(63)} per kind verlaagd en
+        daarna ge&iuml;ndexeerd, als eerste stap naar een nieuwe kindregeling. Netto komt het
+        maximum per kind onder de 12 daardoor uit op {eur(KGB_2027.maxPerKindTot12)} per jaar,
+        tegen {eur(KGB_2026.maxPerKindTot12)} in 2026. Ook de vermogensgrens gaat omlaag: boven{" "}
+        {eur(KGB_2027.vermogensgrensPaar)} vermogen op 1 januari 2027 vervalt het recht voor een
+        aanvrager met toeslagpartner, en boven {eur(KGB_2027.vermogensgrensAlleenstaande)} voor een
+        alleenstaande.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Wat dat alles betekent voor een huishouden staat nergens uitgerekend. De Rijksoverheid legt
+        de maatregel uit, de Belastingdienst legt de rekenregel uit, en de begroting geeft de
+        parameters. Daarom hieronder de tabel.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -169,9 +196,10 @@ export default function KindgebondenBudget2027Inkomensgrens() {
         </table>
       </div>
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        Alle bedragen per maand. De bedragen voor 2027 zijn een raming, want de definitieve
-        bedragen komen op Prinsjesdag. Het afbouwpercentage van 12,35 procent en de grens van{" "}
-        {eur(60000)} staan wel vast in het wetsvoorstel.
+        Alle bedragen per maand. Alle 2027-cijfers komen uit de SZW-begroting 2027. Let op de
+        onderste rijen: onder het tweede afbouwpunt gaat het kindgebonden budget er in 2027 juist
+        iets op vooruit, omdat het afbouwpunt en de kindbedragen mee omhoog zijn gegaan. De
+        maatregel begint pas te bijten boven {eur(KGB_2027.tweedeAfbouwpunt)}.
       </p>
 
       <KindgebondenBudgetRekenaar />
@@ -186,10 +214,12 @@ export default function KindgebondenBudget2027Inkomensgrens() {
         huishouden, dat is een gewoon tweeverdienersgezin met twee banen en kinderen op de opvang.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        En het staat niet op zichzelf. Het CPB raamt in de concept-Macro Economische Verkenning
-        2027 dat de koopkracht in 2027 met 0,3 procent daalt, na een plus van 0,6 procent in 2026,
-        bij een inflatie van ongeveer 3 procent. De zorgpremie stijgt volgens de eerste ramingen
-        naar boven de {eur(2000)} per jaar per volwassene. Elk van die posten is op zichzelf te
+        En het staat niet op zichzelf. Het CPB raamt in de Macro Economische Verkenning 2027 dat de
+        koopkracht in 2027 met 0,1 procent daalt, na een plus van 0,6 procent in 2026, bij een
+        inflatie van 2,7 procent. De hoogste twee inkomensgroepen komen volgens de SZW-begroting op
+        min 0,2 procent uit. VWS verwacht dat de gemiddelde zorgpremie stijgt van{" "}
+        {eur(1879)} naar {eur(2029)} per jaar per volwassene, al stellen de verzekeraars die zelf
+        vast en maken ze hem uiterlijk 12 november bekend. Elk van die posten is op zichzelf te
         overzien. Bij elkaar opgeteld verklaren ze waarom januari anders voelt dan december.
       </p>
 

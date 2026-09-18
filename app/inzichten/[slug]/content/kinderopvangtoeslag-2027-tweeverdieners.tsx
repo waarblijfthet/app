@@ -4,13 +4,15 @@ import CtaLink from "@/components/CtaLink";
 import { geldscanHref } from "@/lib/cta";
 import {
   toeslag2026,
-  toeslag2027Geraamd,
+  toeslag2027,
   MAX_UURPRIJS_2026,
-  MAX_UURPRIJS_2027_GERAAMD,
+  MAX_UURPRIJS_2027,
   OMSLAGPUNT_96_PROCENT_2027,
   BOVENGRENS_MIDDENBAND_2027,
   EXTRA_MIDDENBAND_2027,
-  EXTRA_TWEEDE_KIND_2027,
+  EXTRA_HOOGSTE_INKOMENS_2027,
+  ONTWERPBESLUIT_ACHTERHAALD,
+  INGROEIPAD_2027,
   VASTE_VOET_2026,
   VASTE_VOET_2027,
   TABEL_INKOMENS,
@@ -52,13 +54,13 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
   const hoofdRijen = TABEL_INKOMENS.map((inkomen) => ({
     inkomen: inkomen,
     t26: toeslag2026(situatie(inkomen)),
-    t27: toeslag2027Geraamd(situatie(inkomen)),
+    t27: toeslag2027(situatie(inkomen)),
   }));
 
   const drieGezinnen = [70000, 100000, 140000].map((inkomen) => ({
     inkomen: inkomen,
     t26: toeslag2026(situatie(inkomen)),
-    t27: toeslag2027Geraamd(situatie(inkomen)),
+    t27: toeslag2027(situatie(inkomen)),
   }));
 
   const voorbeeld100k = hoofdRijen.find((r) => r.inkomen === 100000)!;
@@ -73,7 +75,7 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
     werkelijkUurtarief: 13,
     kindnummer: 1 as const,
   };
-  const bovenMax27 = toeslag2027Geraamd(bovenMax);
+  const bovenMax27 = toeslag2027(bovenMax);
 
   return (
     <>
@@ -102,7 +104,7 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
         </p>
         <ul className="space-y-1.5">
           {[
-            "Wat er in het ontwerp voor 2027 verandert aan percentages, inkomensgrenzen en maximum uurprijzen",
+            "Wat er in 2027 verandert aan percentages, inkomensgrenzen en maximum uurprijzen",
             "Waarom 96 procent niet hetzelfde is als 96 procent van je hele rekening",
             "Wat dat ongeveer scheelt bij €60.000, €80.000, €100.000, €120.000 en €150.000 gezamenlijk inkomen",
           ].map((item, i) => (
@@ -118,19 +120,19 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
 
       {/* Antwoord bovenaan, binnen 40 tot 60 woorden */}
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Kort gezegd: in het ontwerp voor 2027 krijgen alle werkende ouders met een gezamenlijk
-        toetsingsinkomen tot en met {eur(OMSLAGPUNT_96_PROCENT_2027)} het maximale percentage van 96
-        voor het eerste kind, tegen {eur(56412)} nu. Verdien je samen meer, dan gaat je percentage
-        met {(EXTRA_MIDDENBAND_2027 * 100).toFixed(1).replace(".", ",")} procentpunt omhoog ten
-        opzichte van 2026. Bij €100.000 gezamenlijk inkomen scheelt dat in dit rekenvoorbeeld
-        ongeveer {eur(verschil100k)} per maand eigen bijdrage.
+        Kort gezegd: in 2027 krijgen alle werkende ouders met een gezamenlijk toetsingsinkomen tot{" "}
+        {eur(OMSLAGPUNT_96_PROCENT_2027)} het maximale percentage van 96 voor het eerste kind, tegen{" "}
+        {eur(56412)} nu. Verdien je samen meer, tot {eur(BOVENGRENS_MIDDENBAND_2027)}, dan gaat je
+        percentage met {(EXTRA_MIDDENBAND_2027 * 100).toFixed(1).replace(".", ",")} procentpunt
+        omhoog ten opzichte van 2026. Bij €100.000 gezamenlijk inkomen scheelt dat in dit
+        rekenvoorbeeld ongeveer {eur(verschil100k)} per maand eigen bijdrage.
       </p>
 
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        Cijfers bijgewerkt op 13 september 2026. Dit is nog een ontwerpbesluit: de internetconsultatie
-        is gesloten, maar het kabinet neemt het definitieve besluit bij de voorjaarsbesluitvorming
-        2026 en de maximum uurprijzen voor 2027 staan pas vast na het Centraal Economisch Plan. Ik
-        werk dit artikel bij zodra dat er is.
+        Cijfers bijgewerkt op 18 september 2026, met de SZW-begroting 2027 van Prinsjesdag. De
+        eerdere versie van dit artikel rekende met het ontwerpbesluit uit de internetconsultatie.
+        Dat ontwerp is ingehaald: de stap is kleiner geworden, zie de volgende alinea. Het Besluit
+        kinderopvangtoeslag 2027 legt de bedragen formeel vast.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -141,6 +143,18 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
         alleen wat er verandert en wat dat voor een tweeverdienersgezin met een goed inkomen
         betekent. 2027 is de derde stap in het ingroeipad naar een nieuw stelsel: in 2025 en 2026
         zijn de eerste twee stappen al gezet.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
+        Belangrijk om te weten als je hier eerder over gelezen hebt: de stap van 2027 is op
+        Prinsjesdag kleiner gemaakt. Er stond {INGROEIPAD_2027.gereserveerdMiljoen} miljoen euro
+        voor klaar; daar is {INGROEIPAD_2027.verlaagdMetMiljoen} miljoen van af gehaald, zodat er{" "}
+        {INGROEIPAD_2027.resterendMiljoen} miljoen overblijft. Het ontwerpbesluit uit de
+        internetconsultatie noemde nog 96 procent tot{" "}
+        {eur(ONTWERPBESLUIT_ACHTERHAALD.omslagpunt96Procent)},{" "}
+        {(ONTWERPBESLUIT_ACHTERHAALD.extraMiddenband * 100).toFixed(1).replace(".", ",")}{" "}
+        procentpunt extra in de middenband en een vaste voet van{" "}
+        {pct(ONTWERPBESLUIT_ACHTERHAALD.vasteVoet)}. Geen van die drie getallen is het geworden. De
+        toeslag gaat in 2027 nog steeds omhoog, maar minder ver dan in het coalitieakkoord stond.
       </p>
 
       <div className="overflow-x-auto my-6">
@@ -154,7 +168,7 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
                 2026
               </th>
               <th className="text-right py-2 px-3" style={{ color: "#16211F", fontWeight: 600 }}>
-                2027 (ontwerp)
+                2027
               </th>
               <th className="text-left py-2 pl-3" style={{ color: "#16211F", fontWeight: 600 }}>
                 Gevolg
@@ -179,7 +193,7 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
               </td>
             </tr>
             <tr style={{ borderBottom: "1px solid #E6E9E7" }}>
-              <td className="py-2 pr-3" style={{ color: "#16211F" }}>Middenband ({eur(56000)} tot {eur(BOVENGRENS_MIDDENBAND_2027)})</td>
+              <td className="py-2 pr-3" style={{ color: "#16211F" }}>Middenband ({eur(OMSLAGPUNT_96_PROCENT_2027)} tot {eur(BOVENGRENS_MIDDENBAND_2027)})</td>
               <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>basispercentage</td>
               <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>+{(EXTRA_MIDDENBAND_2027 * 100).toFixed(1).replace(".", ",")} procentpunt</td>
               <td className="py-2 pl-3" style={{ color: "#4A5A56" }}>
@@ -187,27 +201,30 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
               </td>
             </tr>
             <tr style={{ borderBottom: "1px solid #E6E9E7" }}>
-              <td className="py-2 pr-3" style={{ color: "#16211F" }}>Tweede kind</td>
+              <td className="py-2 pr-3" style={{ color: "#16211F" }}>Hoogste inkomens (boven {eur(BOVENGRENS_MIDDENBAND_2027)})</td>
               <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>basispercentage</td>
-              <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>+{(EXTRA_TWEEDE_KIND_2027 * 100).toFixed(1).replace(".", ",")} procentpunt</td>
+              <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>+{(EXTRA_HOOGSTE_INKOMENS_2027 * 100).toFixed(1).replace(".", ",")} procentpunt</td>
               <td className="py-2 pl-3" style={{ color: "#4A5A56" }}>
-                Verschil met het eerste kind wordt iets kleiner
+                Ook hier gaat het percentage omhoog, maar het minst
               </td>
             </tr>
             <tr>
               <td className="py-2 pr-3" style={{ color: "#16211F" }}>Max. uurprijs dagopvang</td>
               <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2026.dagopvang)}</td>
-              <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>nog niet vastgesteld</td>
+              <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2027.dagopvang)}</td>
               <td className="py-2 pl-3" style={{ color: "#4A5A56" }}>
-                Indexatie volgt pas na het Centraal Economisch Plan
+                Boven dit tarief betaal je alles zelf, wat je percentage ook is
               </td>
             </tr>
           </tbody>
         </table>
       </div>
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        Percentages en grenzen komen uit het ontwerpbesluit dat bij de voorjaarsbesluitvorming 2026
-        definitief wordt. De grenzen zelf schuiven nog iets op met de jaarlijkse indexatie.
+        Percentages, grenzen en uurprijzen komen uit de SZW-begroting 2027 van 15 september 2026.
+        Voor het tweede en volgende kind noemt die begroting geen percentage voor 2027; overal waar
+        hieronder met twee kinderen wordt gerekend, staat voor het tweede kind daarom nog het
+        percentage van 2026. De werkelijke toeslag valt voor dat kind dus waarschijnlijk iets hoger
+        uit dan hier staat.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -215,8 +232,8 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Nee, en dat is de belangrijkste nuance in dit hele dossier. 96 procent is het maximale
-        vergoedingspercentage voor het eerste kind, en in het ontwerp voor 2027 geldt dat voor
-        huishoudens met een gezamenlijk toetsingsinkomen tot en met {eur(OMSLAGPUNT_96_PROCENT_2027)}.
+        vergoedingspercentage voor het eerste kind, en in 2027 geldt dat voor huishoudens met een
+        gezamenlijk toetsingsinkomen tot {eur(OMSLAGPUNT_96_PROCENT_2027)}.
         Verdien je samen meer, dan daalt je percentage geleidelijk, tot een vaste voet van
         {" "}{pct(VASTE_VOET_2027)} voor de allerhoogste inkomens.
       </p>
@@ -265,7 +282,7 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
                 % nu (2026)
               </th>
               <th className="text-right py-2 px-3" style={{ color: "#16211F", fontWeight: 600 }}>
-                % ontwerp 2027
+                % in 2027
               </th>
               <th className="text-right py-2 px-3" style={{ color: "#16211F", fontWeight: 600 }}>
                 Eigen bijdrage nu
@@ -289,9 +306,9 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
         </table>
       </div>
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        Alle bedragen per maand, bij het rekenvoorbeeld hierboven. De percentages voor 2027 komen
-        uit het ontwerpbesluit; de maximum uurprijs voor 2027 is een raming van 5 procent
-        indexatie, dus de eigen bijdrage voor 2027 kan nog iets verschuiven.
+        Alle bedragen per maand, bij het rekenvoorbeeld hierboven. Percentages en maximum uurprijs
+        voor 2027 komen uit de SZW-begroting 2027. De inkomensgrenzen van de tabel zelf schuiven met
+        de indexatie nog een klein stuk op, dus lees de bedragen als richting en niet als komma.
       </p>
 
       <KinderopvangtoeslagRekenaar />
@@ -331,13 +348,13 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
         </table>
       </div>
       <p className="font-body text-text-soft" style={p}>
-        Gezin A verdient het minst van de drie en profiteert het minst in euro&apos;s, want het zit
-        met {eur(70000)} al ruim onder het nieuwe omslagpunt van {eur(OMSLAGPUNT_96_PROCENT_2027)} en
-        krijgt dus al in 2026 een hoog percentage. Gezin B en Gezin C zitten allebei in de
-        middenband die in het ontwerp 12,5 procentpunt extra krijgt, en dat levert in dit
-        rekenvoorbeeld een vergelijkbaar maandbedrag op, ook al verdient Gezin C veel meer dan
-        Gezin B. Het is dus niet zo dat een hoger inkomen automatisch een kleinere sprong
-        betekent: waar je in de tabel zit, telt meer dan hoeveel je verdient.
+        Gezin A verdient het minst van de drie en wint het meest, want het zit met {eur(70000)} net
+        onder het nieuwe omslagpunt van {eur(OMSLAGPUNT_96_PROCENT_2027)} en springt daarmee in
+        &eacute;&eacute;n keer naar 96 procent. Gezin B en Gezin C zitten allebei in de middenband
+        die {(EXTRA_MIDDENBAND_2027 * 100).toFixed(1).replace(".", ",")} procentpunt extra krijgt,
+        en dat levert in dit rekenvoorbeeld een vergelijkbaar maandbedrag op, ook al verdient Gezin
+        C veel meer dan Gezin B. Waar je in de tabel zit telt dus meer dan hoeveel je verdient, en
+        vlak onder het omslagpunt zit de grootste sprong.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -346,12 +363,13 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
       <p className="font-body text-text-soft" style={p}>
         Een kinderopvangorganisatie mag een hoger uurtarief rekenen dan de maximum uurprijs
         waarover de overheid toeslag geeft. Het verschil daarboven betaal je altijd zelf, wat je
-        percentage ook is. Bij €13 per uur op dagopvang, boven de maximum uurprijs van
-        {" "}{eur(MAX_UURPRIJS_2026.dagopvang)} in 2026, wordt de toeslag alleen berekend over die
-        {" "}{eur(MAX_UURPRIJS_2026.dagopvang)}. In het rekenvoorbeeld hierboven, bij een inkomen van
-        {" "}{eur(60000)}, is de eigen bijdrage dan {eur(bovenMax27.eigenBijdragePerMaand)} per maand
-        in plaats van {eur(hoofdRijen[0].t27.eigenBijdragePerMaand)}: bijna het dubbele, terwijl het
-        percentage (96) het hoogst mogelijke is.
+        percentage ook is. Bij €13 per uur op dagopvang, boven de maximum uurprijs van{" "}
+        {eur(MAX_UURPRIJS_2027.dagopvang)} in 2027, wordt de toeslag alleen berekend over die{" "}
+        {eur(MAX_UURPRIJS_2027.dagopvang)}. In het rekenvoorbeeld hierboven, bij een inkomen van{" "}
+        {eur(60000)}, is de eigen bijdrage dan {eur(bovenMax27.eigenBijdragePerMaand)} per maand in
+        plaats van {eur(hoofdRijen[0].t27.eigenBijdragePerMaand)}, terwijl het percentage (96) in
+        beide gevallen het hoogst mogelijke is. Dat ene tarief boven de maximum uurprijs weegt in
+        dit voorbeeld dus zwaarder dan het hele verschil tussen 2026 en 2027.
       </p>
       <div className="overflow-x-auto my-6">
         <table className="w-full font-body text-sm" style={{ borderCollapse: "collapse" }}>
@@ -366,27 +384,26 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
             <tr style={{ borderBottom: "1px solid #E6E9E7" }}>
               <td className="py-2 pr-3" style={{ color: "#16211F" }}>Dagopvang</td>
               <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2026.dagopvang)}</td>
-              <td className="text-right py-2 pl-3" style={{ color: "#4A5A56" }}>nog niet vastgesteld</td>
+              <td className="text-right py-2 pl-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2027.dagopvang)}</td>
             </tr>
             <tr style={{ borderBottom: "1px solid #E6E9E7" }}>
               <td className="py-2 pr-3" style={{ color: "#16211F" }}>Buitenschoolse opvang</td>
               <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2026.bso)}</td>
-              <td className="text-right py-2 pl-3" style={{ color: "#4A5A56" }}>nog niet vastgesteld</td>
+              <td className="text-right py-2 pl-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2027.bso)}</td>
             </tr>
             <tr>
               <td className="py-2 pr-3" style={{ color: "#16211F" }}>Gastouderopvang</td>
               <td className="text-right py-2 px-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2026.gastouder)}</td>
-              <td className="text-right py-2 pl-3" style={{ color: "#4A5A56" }}>nog niet vastgesteld</td>
+              <td className="text-right py-2 pl-3" style={{ color: "#4A5A56" }}>{eur(MAX_UURPRIJS_2027.gastouder)}</td>
             </tr>
           </tbody>
         </table>
       </div>
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        De maximum uurprijzen voor 2027 worden pas vastgesteld nadat het Centraal Economisch Plan
-        van het CPB bekend is. Een raming van ongeveer 5 procent indexatie komt uit op {eur(MAX_UURPRIJS_2027_GERAAMD.dagopvang)}
-        {" "}voor dagopvang, {eur(MAX_UURPRIJS_2027_GERAAMD.bso)} voor buitenschoolse opvang en{" "}
-        {eur(MAX_UURPRIJS_2027_GERAAMD.gastouder)} voor gastouderopvang. Dat is geen vastgesteld
-        bedrag.
+        De maximum uurprijzen voor 2027 staan in tabel 81 van de SZW-begroting 2027. Ze gaan met
+        ruim 3 procent omhoog. De begroting gaat er tegelijk van uit dat de tarieven die
+        opvangorganisaties zelf rekenen die indexatie volgen, dus het gat tussen jouw factuur en de
+        maximum uurprijs wordt er niet kleiner van.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -396,15 +413,15 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
         Stel dat jullie opvangrekening, bij het rekenvoorbeeld van 1 kind en 150 uur per maand,
         rond de {eur(voorbeeld100k.t26.totaleKostenPerMaand)} per maand ligt en jullie gezamenlijk
         toetsingsinkomen rond de {eur(100000)} zit. Nu betaal je daarvan zelf ongeveer{" "}
-        {eur(voorbeeld100k.t26.eigenBijdragePerMaand)}. In het ontwerp voor 2027 daalt dat naar
-        ongeveer {eur(voorbeeld100k.t27.eigenBijdragePerMaand)}, zo&apos;n {eur(verschil100k)} per
-        maand minder. Dat is het percentage-effect. Verandert je werkelijke uurtarief niet en blijft
+        {eur(voorbeeld100k.t26.eigenBijdragePerMaand)}. In 2027 daalt dat naar ongeveer{" "}
+        {eur(voorbeeld100k.t27.eigenBijdragePerMaand)}, zo&apos;n {eur(verschil100k)} per maand
+        minder. Dat is het percentage-effect. Verandert je werkelijke uurtarief niet en blijft
         het onder de maximum uurprijs, dan is dat ook wat je in januari op je rekening terugziet.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Het euro-bedrag is de vraag die ertoe doet, niet het percentage op zich. 96 procent klinkt
-        hoger dan 84,6 procent, maar wat je maandelijks overhoudt hangt net zo hard af van je
-        werkelijke opvangrekening als van het percentage waarmee die wordt vergoed.
+        Het euro-bedrag is de vraag die ertoe doet, niet het percentage op zich. Een percentage
+        klinkt groot, maar wat je maandelijks overhoudt hangt net zo hard af van je werkelijke
+        opvangrekening als van het percentage waarmee die wordt vergoed.
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -412,7 +429,7 @@ export default function Kinderopvangtoeslag2027Tweeverdieners() {
       </h2>
       <p className="font-body text-text-soft" style={p}>
         Voor gezinnen met kinderen verandert er in 2027 meer dan alleen de kinderopvangtoeslag.
-        Boven een gezamenlijk toetsingsinkomen van ongeveer €65.560 bouwt het{" "}
+        Boven een gezamenlijk toetsingsinkomen van €61.917 bouwt het{" "}
         <Link href="/inzichten/kindgebonden-budget-2027-inkomensgrens" style={link} className="hover:underline">
           kindgebonden budget in 2027
         </Link>{" "}

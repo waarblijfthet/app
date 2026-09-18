@@ -1,11 +1,13 @@
 /**
- * Kinderopvangtoeslag: de tabel 2026 en de derde stap op het ingroeipad voor 2027.
+ * Kinderopvangtoeslag: de tabel 2026 en de stap die in 2027 wordt gezet.
  *
  * Zelfde reden als `lib/kindgebonden-budget.ts` en `lib/prinsjesdag-2027.ts`: de
  * tabel, de rekenaar en de FAQ-antwoorden op het artikel moeten uit dezelfde
  * functie komen, anders zeggen ze na de eerste wijziging iets anders.
  *
- * Herkomst van de getallen.
+ * Bijgewerkt op 18 september 2026, drie dagen na Prinsjesdag. De vorige versie
+ * rekende met het ontwerpbesluit uit de internetconsultatie. Dat ontwerp is door
+ * de begroting 2027 ingehaald en de getallen zijn kleiner geworden, zie hieronder.
  *
  * VASTGESTELD (2026)
  * - De volledige tabel toetsingsinkomen naar vergoedingspercentage voor het
@@ -14,38 +16,43 @@
  *   herpublicaties van dezelfde tabel gecontroleerd en gelijk bevonden.
  * - Maximum uurprijzen 2026: dagopvang €11,23, buitenschoolse opvang €9,98,
  *   gastouderopvang €8,49. Belastingdienst, "Maximaal uurtarief voor de
- *   kinderopvang", opgehaald 13 september 2026. Diezelfde pagina bevestigt dat
- *   er nog geen 2027-bedragen gepubliceerd zijn.
+ *   kinderopvang", opgehaald 13 september 2026. Bevestigd in de SZW-begroting
+ *   2027, tabel 81.
  *
- * ONTWERP (2027), internetconsultatie gesloten, nog niet definitief
- * - Overheid.nl, internetconsultatie "Wijziging Besluit kinderopvangtoeslag",
- *   opgehaald 13 september 2026: dit is de derde stap op het ingroeipad naar
- *   het nieuwe stelsel, na de eerste stap in 2025 en de tweede in 2026. De
- *   consultatie liep tot en met 27 februari 2026 en is gesloten. Het besluit
- *   valt bij de voorjaarsbesluitvorming 2026; de indexatiepercentages voor de
- *   maximum uurprijzen en toetsingsinkomens komen pas vast te staan na
- *   publicatie van het Centraal Economisch Plan (CEP) van het CPB.
- * - De concept Nota van Toelichting (via Kinderopvang-Wijzer, die de officiële
- *   tekst reproduceert, opgehaald 13 september 2026) noemt drie concrete
- *   wijzigingen voor het eerste kind:
- *   1. De vaste voet (het percentage waar iedereen ten minste recht op heeft,
- *      ongeacht inkomen) gaat van 36,5 naar 42,9 procent, een verhoging van
- *      6,4 procentpunt.
- *   2. Toetsingsinkomens tussen ongeveer €56.000 en €172.000 krijgen een
- *      vergoedingspercentage dat 12,5 procentpunt hoger ligt dan in 2026.
- *   3. Alle werkende ouders met een toetsingsinkomen tot en met €87.767
- *      krijgen recht op het maximale percentage van 96 voor het eerste kind.
- *   Voor het tweede kind gaat het percentage voor iedereen die nog niet op 96
- *   procent zit met circa 3,6 procentpunt omhoog.
- * - Deze drie regels staan vast in het ontwerp; de exacte euro-inkomensgrenzen
- *   voor 2027 verschuiven nog met de indexatie die pas na het CEP bekend is.
- *   Reken daarom met de 2026-grenzen als basis, zoals het ontwerp dat zelf ook
- *   doet ("ten opzichte van 2026").
+ * VASTGESTELD (2027), opgehaald 18 september 2026
+ * Bron: SZW-begroting 2027, Tweede Kamer 2026/2027, 37 020 XV, nr. 2,
+ * aangeboden op Prinsjesdag 15 september 2026.
+ * - Maximum uurprijzen 2027 (tabel 81, p. 121): dagopvang €11,60, buitenschoolse
+ *   opvang €10,31, gastouderopvang €8,77.
+ * - De stap op het ingroeipad (p. 116): voor 2027 was €715 miljoen gereserveerd;
+ *   dat bedrag is met €350 miljoen verlaagd naar €365 miljoen.
+ * - Werkende ouders met een gezamenlijk toetsingsinkomen tot €71.903 krijgen het
+ *   maximale vergoedingspercentage van 96 voor het eerste kind.
+ * - Ouders met een inkomen tussen €71.904 en €175.430 krijgen voor het eerste
+ *   kind een percentage dat 5,1 procentpunt hoger ligt dan in 2026.
+ * - De hoogste inkomens krijgen een percentage dat 2,6 procentpunt hoger ligt dan
+ *   in 2026. De vaste voet gaat daarmee van 36,5 naar 39,1 procent.
  *
- * Nog geen bron: het eerder genoemde indicatieve ingroeipadbedrag van
- * ongeveer €83.800 komt uit een eerdere, niet meer teruggevonden raming en
- * wordt hier niet gebruikt. Het geverifieerde omslagpunt naar 96 procent in
- * het 2027-ontwerp is €87.767.
+ * WAT ER OP PRINSJESDAG IS VERANDERD TEN OPZICHTE VAN HET ONTWERPBESLUIT
+ * Het ontwerpbesluit uit de internetconsultatie ging uit van 96 procent tot
+ * €87.767, 12,5 procentpunt extra in de middenband en een vaste voet van 42,9
+ * procent. Geen van die drie getallen is het geworden. Het kabinet heeft de stap
+ * bewust kleiner gemaakt dan in het coalitieakkoord stond; de toeslag gaat in
+ * 2027 nog steeds omhoog, maar minder ver. Wie het oude ontwerp ergens
+ * tegenkomt, leest een plan dat is bijgesteld.
+ *
+ * NIET GEPUBLICEERD
+ * De begroting noemt de percentages voor het eerste kind. Voor het tweede en
+ * volgende kind staat er geen percentage voor 2027 in. Zolang dat zo is rekenen
+ * de functies hieronder het tweede kind door met het percentage van 2026. Dat is
+ * de voorzichtige kant: de werkelijke toeslag valt voor het tweede kind
+ * waarschijnlijk iets hoger uit. Zet dat er in elke tekst bij.
+ *
+ * De inkomensgrenzen van de 2026-tabel zijn hieronder ook voor 2027 gebruikt.
+ * De begroting zet de maatregel zelf zo neer, als procentpunten "ten opzichte van
+ * 2026". De grenzen schuiven met de indexatie nog een klein stuk op; de twee
+ * grenzen die de begroting wel in bedragen van 2027 noemt (€71.903 en €175.430)
+ * staan hieronder als eigen constante.
  */
 
 export type OpvangType = "dagopvang" | "bso" | "gastouder";
@@ -116,31 +123,51 @@ export const MAX_UURPRIJS_2026: Record<OpvangType, number> = {
   gastouder: 8.49,
 };
 
-/**
- * Geraamd: dezelfde 2026-bedragen plus een indicatieve indexatie van 5
- * procent, in lijn met de eerste CPB-geraamde loon- en prijsontwikkeling voor
- * 2027. Dit is GEEN vastgesteld bedrag: het Besluit kinderopvangtoeslag 2027
- * stelt de echte indexatie pas vast na het Centraal Economisch Plan. Gebruik
- * deze constante alleen met de raming zichtbaar erbij.
- */
-export const MAX_UURPRIJS_2027_GERAAMD: Record<OpvangType, number> = {
-  dagopvang: Math.round(MAX_UURPRIJS_2026.dagopvang * 1.05 * 100) / 100,
-  bso: Math.round(MAX_UURPRIJS_2026.bso * 1.05 * 100) / 100,
-  gastouder: Math.round(MAX_UURPRIJS_2026.gastouder * 1.05 * 100) / 100,
+/** SZW-begroting 2027, tabel 81. Het Besluit kinderopvangtoeslag 2027 legt ze formeel vast. */
+export const MAX_UURPRIJS_2027: Record<OpvangType, number> = {
+  dagopvang: 11.6,
+  bso: 10.31,
+  gastouder: 8.77,
 };
 
-/** Vast in het ontwerp: het omslagpunt waaronder iedereen in 2027 96 procent krijgt. */
-export const OMSLAGPUNT_96_PROCENT_2027 = 87767;
-/** Vast in het ontwerp: bovengrens van de band die 12,5 procentpunt extra krijgt. */
-export const BOVENGRENS_MIDDENBAND_2027 = 172000;
-/** Vast in het ontwerp: de extra procentpunten in de middenband. */
-export const EXTRA_MIDDENBAND_2027 = 0.125;
-/** Vast in het ontwerp: vaste voet 2026 en 2027, en het verschil. */
+/** SZW-begroting 2027, p. 116: tot dit inkomen geldt in 2027 het maximum van 96 procent. */
+export const OMSLAGPUNT_96_PROCENT_2027 = 71903;
+/** SZW-begroting 2027, p. 116: bovengrens van de band die 5,1 procentpunt extra krijgt. */
+export const BOVENGRENS_MIDDENBAND_2027 = 175430;
+/** SZW-begroting 2027, p. 116: de extra procentpunten in de middenband, eerste kind. */
+export const EXTRA_MIDDENBAND_2027 = 0.051;
+/** SZW-begroting 2027, p. 116: de extra procentpunten voor de hoogste inkomens. */
+export const EXTRA_HOOGSTE_INKOMENS_2027 = 0.026;
+/** Vaste voet 2026, uit de tabel van de Belastingdienst. */
 export const VASTE_VOET_2026 = 0.365;
-export const VASTE_VOET_2027 = 0.429;
+/** Vaste voet 2027: 36,5 plus de 2,6 procentpunt uit de begroting. */
+export const VASTE_VOET_2027 = VASTE_VOET_2026 + EXTRA_HOOGSTE_INKOMENS_2027;
 export const VASTE_VOET_VERHOGING = VASTE_VOET_2027 - VASTE_VOET_2026;
-/** Vast in het ontwerp: extra procentpunten voor het tweede kind. */
-export const EXTRA_TWEEDE_KIND_2027 = 0.036;
+
+/** Wat er voor 2027 gereserveerd stond, en wat ervan over is. SZW-begroting 2027, p. 116. */
+export const INGROEIPAD_2027 = {
+  gereserveerdMiljoen: 715,
+  verlaagdMetMiljoen: 350,
+  resterendMiljoen: 365,
+} as const;
+
+/**
+ * Het ontwerpbesluit uit de internetconsultatie, dat door de begroting is
+ * ingehaald. Staat hier alleen zodat het artikel het verschil kan benoemen; geen
+ * enkele berekening gebruikt deze getallen.
+ */
+export const ONTWERPBESLUIT_ACHTERHAALD = {
+  omslagpunt96Procent: 87767,
+  extraMiddenband: 0.125,
+  vasteVoet: 0.429,
+} as const;
+
+/**
+ * De begroting publiceert geen vergoedingspercentage voor het tweede kind in
+ * 2027. Zolang dit true is rekent `toeslag2027` het tweede kind met de tabel van
+ * 2026 door en hoort dat in de tekst te staan.
+ */
+export const TWEEDE_KIND_2027_NIET_GEPUBLICEERD = true;
 
 function schijf(inkomen: number): Schijf {
   return KOT_2026_TABEL.find((s) => inkomen <= s.tot) ?? KOT_2026_TABEL[KOT_2026_TABEL.length - 1];
@@ -157,21 +184,24 @@ export function percentageTweedeKind2026(inkomen: number): number {
 }
 
 /**
- * Vergoedingspercentage eerste kind zoals het ontwerpbesluit 2027 het regelt,
- * toegepast op het 2026-toetsingsinkomen (de definitieve geïndexeerde grenzen
- * voor 2027 zijn er nog niet, zie de toelichting bovenaan dit bestand).
+ * Vergoedingspercentage eerste kind in 2027, zoals de SZW-begroting het beschrijft:
+ * 96 procent tot €71.903, daarboven tot €175.430 het percentage van 2026 plus 5,1
+ * procentpunt, en daarboven het percentage van 2026 plus 2,6 procentpunt.
  */
 export function percentageEersteKind2027(inkomen: number): number {
   if (inkomen <= OMSLAGPUNT_96_PROCENT_2027) return 0.96;
   if (inkomen <= BOVENGRENS_MIDDENBAND_2027) {
     return Math.min(0.96, percentageEersteKind2026(inkomen) + EXTRA_MIDDENBAND_2027);
   }
-  return VASTE_VOET_2027;
+  return Math.min(0.96, percentageEersteKind2026(inkomen) + EXTRA_HOOGSTE_INKOMENS_2027);
 }
 
-/** Vergoedingspercentage tweede kind, 2027-ontwerp: 2026-percentage plus 3,6 procentpunt, tot 96 procent. */
+/**
+ * Vergoedingspercentage tweede kind in 2027. De begroting noemt er geen, dus dit
+ * is het percentage van 2026. Zie `TWEEDE_KIND_2027_NIET_GEPUBLICEERD`.
+ */
 export function percentageTweedeKind2027(inkomen: number): number {
-  return Math.min(0.96, percentageTweedeKind2026(inkomen) + EXTRA_TWEEDE_KIND_2027);
+  return percentageTweedeKind2026(inkomen);
 }
 
 export interface OpvangSituatie {
@@ -221,15 +251,16 @@ export function toeslag2026(situatie: OpvangSituatie): ToeslagUitkomst {
 }
 
 /**
- * Toeslag 2027 op basis van het ontwerpbesluit, met de geraamde (niet
- * vastgestelde) geïndexeerde maximum uurprijs. Altijd tonen als raming.
+ * Toeslag 2027 op basis van de SZW-begroting 2027. Voor het eerste kind zijn de
+ * percentages gepubliceerd; voor het tweede kind rekent dit met de tabel van
+ * 2026, zie `TWEEDE_KIND_2027_NIET_GEPUBLICEERD`.
  */
-export function toeslag2027Geraamd(situatie: OpvangSituatie): ToeslagUitkomst {
+export function toeslag2027(situatie: OpvangSituatie): ToeslagUitkomst {
   const pct =
     situatie.kindnummer === 1
       ? percentageEersteKind2027(situatie.inkomen)
       : percentageTweedeKind2027(situatie.inkomen);
-  return berekenToeslag(situatie, pct, MAX_UURPRIJS_2027_GERAAMD[situatie.opvangType]);
+  return berekenToeslag(situatie, pct, MAX_UURPRIJS_2027[situatie.opvangType]);
 }
 
 /** De inkomens waarop de tabel in het artikel staat. */

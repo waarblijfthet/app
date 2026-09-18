@@ -183,8 +183,9 @@ export default function Tweeverdieners2027Rekenaar() {
         <p className="font-body text-xs mb-4" style={{ color: "#4A5A56" }}>
           Indicatief, geen belastingberekening. Het gezamenlijke bruto-inkomen staat hier voor het
           toetsingsinkomen; met hypotheekrenteaftrek ligt dat lager en valt het kindgebonden budget
-          dus gunstiger uit. De zorgcijfers zijn uitgelekt en nog niet definitief, zie de bronnen
-          onder dit artikel.
+          dus gunstiger uit. De cijfers komen uit de Prinsjesdagstukken van 15 september 2026; alleen
+          de zorgpremie is een raming van VWS tot de verzekeraars hun premie bekendmaken, uiterlijk
+          12 november. Zie de bronnen onder dit artikel.
         </p>
       </div>
 
