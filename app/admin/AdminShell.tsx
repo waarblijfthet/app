@@ -45,7 +45,7 @@ function navGroepen(t: Tellingen): NavGroep[] {
           badge: t.aanvragenNieuw > 0 ? t.aanvragenNieuw : undefined,
           badgeVariant: "waarschuwing",
         },
-        { href: "/admin/analyse-verloop", label: "Analyse-verloop" },
+        { href: "/admin/analyse-verloop", label: "Ingevulde analyses" },
         { href: "/admin/analyses", label: "Analyses met e-mail", badge: t.quiz, badgeVariant: "neutraal" },
         { href: "/admin/leads", label: "Leads", badge: t.leads, badgeVariant: "neutraal" },
       ],
@@ -74,7 +74,7 @@ const MOBIEL_ONDERBALK = [
 const MOBIEL_MEER = [
   { href: "/admin/mailsjablonen", label: "Mailsjablonen" },
   { href: "/admin/prospects", label: "Prospects" },
-  { href: "/admin/analyse-verloop", label: "Analyse-verloop" },
+  { href: "/admin/analyse-verloop", label: "Ingevulde analyses" },
   { href: "/admin/analyses", label: "Analyses met e-mail" },
   { href: "/admin/leads", label: "Leads" },
   { href: "/admin/bezoekers", label: "Bezoekers" },

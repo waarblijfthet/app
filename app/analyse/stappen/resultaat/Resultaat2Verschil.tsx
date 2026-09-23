@@ -7,8 +7,11 @@ import type { AfwijkingEntry } from "./types";
  * schaal (beide gedeeld door hetzelfde max), zodat de lengte direct en zonder
  * legenda te lezen is. Geen bedrag hoeft uit een balk afgeleid te worden, het
  * staat er altijd ook gewoon bij in tekst.
+ *
+ * Geëxporteerd (23-sep-2026) zodat de admin een ingevulde analyse met dezelfde
+ * balken kan tonen als de bezoeker zag.
  */
-function CategorieVergelijking({
+export function CategorieVergelijking({
   label,
   jij,
   benchmark,

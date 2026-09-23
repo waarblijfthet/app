@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { QuizData } from "@/lib/quiz-types";
+import { logGebeurtenis } from "@/lib/track";
 
 interface Props {
   data: QuizData;
@@ -48,6 +49,10 @@ export default function BewaarUitkomst({ data, onChange, resultaat }: Props) {
         );
       }
       const savedToken: string = json.token;
+      // Meting (23-sep-2026): e-mail achtergelaten, gekoppeld aan de sessie.
+      logGebeurtenis("analyse_bewaren_verstuurd", {
+        meta: { marketing: data.toestemmingMarketing === true },
+      });
 
       fetch("/api/send-resultaat", {
         method: "POST",
@@ -91,7 +96,13 @@ export default function BewaarUitkomst({ data, onChange, resultaat }: Props) {
       <div className="text-center mt-6">
         <button
           type="button"
-          onClick={() => setOpen(true)}
+          onClick={() => {
+            setOpen(true);
+            // Meting (23-sep-2026): opent iemand het formulier wel en haakt hij
+            // daarna af, of opent niemand het? Zonder dit waren die twee niet
+            // uit elkaar te houden.
+            logGebeurtenis("analyse_bewaren_geopend");
+          }}
           className="min-h-[44px] px-3 inline-flex items-center font-body text-sm text-text-muted hover:text-primary underline underline-offset-2 transition-colors"
         >
           Ik wil mijn gratis uitkomst alleen bewaren

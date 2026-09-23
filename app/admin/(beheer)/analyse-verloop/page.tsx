@@ -1,6 +1,6 @@
 import AnalyseVerloopTabblad from "@/app/admin/components/AnalyseVerloopTabblad";
 
-export const metadata = { title: "Analyse-verloop | Beheer", robots: "noindex, nofollow" };
+export const metadata = { title: "Ingevulde analyses | Beheer", robots: "noindex, nofollow" };
 
 /**
  * Op verzoek van Jarno (23-sep-2026): zien hoeveel analyses er gestart zijn,
@@ -11,9 +11,9 @@ export const metadata = { title: "Analyse-verloop | Beheer", robots: "noindex, n
 export default function AnalyseVerloopPagina() {
   return (
     <div>
-      <h1 className="font-display text-2xl text-primary mb-1">Analyse-verloop</h1>
+      <h1 className="font-display text-2xl text-primary mb-1">Ingevulde analyses</h1>
       <p className="font-body text-sm text-text-soft mb-5">
-        Wie de analyse opende, op start klikte, tot welk scherm kwam en waar afhaakte.
+        Iedereen die de analyse startte, ook wie afhaakte: tot waar ze kwamen, wat ze invulden en wat ze daarna deden.
       </p>
       <AnalyseVerloopTabblad />
     </div>

@@ -3,11 +3,11 @@
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { CATEGORIE_LABEL } from "@/app/analyse/schermen";
 import Badge from "@/app/admin/ui/Badge";
+import AnalyseResultaatPopup from "./AnalyseResultaatPopup";
 import {
   berekenVerloop,
   formatDuur,
   formatMoment,
-  ingevuldeAntwoorden,
   pct,
   schermLabel,
   STATUS_LABEL,
@@ -32,7 +32,8 @@ import {
  */
 
 export default function AnalyseVerloopTabblad() {
-  const [periode, setPeriode] = useState<Periode>("maand");
+  // Standaard alles (23-sep-2026): Jarno wil het totaal zien, ook wie afhaakte.
+  const [periode, setPeriode] = useState<Periode>("alles");
   const [data, setData] = useState<ApiData | null>(null);
   const [laden, setLaden] = useState(true);
   const [fout, setFout] = useState<string | null>(null);
@@ -104,7 +105,7 @@ export default function AnalyseVerloopTabblad() {
             <div className="px-4 py-3 border-b border-[#F0F3F1]">
               <h2 className="font-body font-semibold text-primary text-sm">Van openen tot Geldscan</h2>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-x divide-y divide-[#F0F3F1]">
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y divide-[#F0F3F1]">
               {berekend.trechter.map((stap, i) => {
                 const vorige = i > 0 ? berekend.trechter[i - 1].aantal : 0;
                 return (
@@ -125,6 +126,55 @@ export default function AnalyseVerloopTabblad() {
               E-mail en Geldscan zijn niet aan een sessie gekoppeld en tellen dus per periode, niet per
               bezoeker.{berekend.toestemming > 0 ? ` Toestemming voor de data-asset: ${berekend.toestemming}.` : ""}
             </p>
+          </section>
+
+          {/* Uitkomst van de afronders */}
+          <section className="card-base overflow-hidden">
+            <div className="px-4 py-3 border-b border-[#F0F3F1]">
+              <h2 className="font-body font-semibold text-primary text-sm">Welke uitkomst de afronders kregen</h2>
+              <p className="text-xs text-text-muted mt-0.5">
+                Zelfde drempel als de conclusie op het resultaatscherm: meer dan €100 boven of onder wat bij een
+                vergelijkbaar huishouden past.
+              </p>
+            </div>
+            <div style={{ overflowX: "auto" }}>
+              <table className="w-full text-sm" style={{ minWidth: 520 }}>
+                <thead>
+                  <tr className="text-left text-text-muted text-xs">
+                    <th className="px-4 py-2 font-medium">Uitkomst</th>
+                    <th className="px-4 py-2 font-medium text-right">Afronders</th>
+                    <th className="px-4 py-2 font-medium text-right">Aanbod gezien</th>
+                    <th className="px-4 py-2 font-medium text-right">Geldscan-klik</th>
+                    <th className="px-4 py-2 font-medium text-right">E-mail</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#F0F3F1]">
+                  {(
+                    [
+                      ["meer", "Meer over dan verwacht"],
+                      ["passend", "Past bij het huishouden"],
+                      ["minder", "Minder over dan verwacht"],
+                    ] as const
+                  ).map(([sleutel, label]) => {
+                    const u = berekend.uitkomsten[sleutel];
+                    return (
+                      <tr key={sleutel}>
+                        <td className="px-4 py-1.5 text-primary">{label}</td>
+                        <td className="px-4 py-1.5 text-right text-primary font-medium">{u.aantal}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{berekend.nazorgGemeten ? u.aanbod : "?"}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{berekend.nazorgGemeten ? u.geldscan : "?"}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{berekend.nazorgGemeten ? u.email : "?"}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+            {!berekend.nazorgGemeten && (
+              <p className="px-4 py-2 border-t border-[#F0F3F1] text-xs text-text-muted font-body">
+                Aanbod, Geldscan-klik en e-mail per bezoeker worden gemeten vanaf 23 september.
+              </p>
+            )}
           </section>
 
           {/* Afhaken per scherm */}
@@ -228,15 +278,24 @@ export default function AnalyseVerloopTabblad() {
           <section className="card-base overflow-hidden">
             <div className="px-4 py-3 border-b border-[#F0F3F1]">
               <h2 className="font-body font-semibold text-primary text-sm">
-                Alle gestarte analyses ({berekend.sessies.length})
+                Alle ingevulde analyses ({berekend.sessies.length})
               </h2>
-              <p className="text-xs text-text-muted mt-0.5">Klik op een regel voor de schermen en de antwoorden.</p>
+              <div className="mt-2 flex flex-wrap gap-2">
+                {(["resultaat", "afgehaakt", "afgebroken", "niet-begonnen", "oude-meting"] as const)
+                  .filter((st) => berekend.statusTelling[st] > 0)
+                  .map((st) => (
+                    <Badge key={st} variant={STATUS_VARIANT[st]}>
+                      {berekend.statusTelling[st]} {STATUS_LABEL[st].toLowerCase()}
+                    </Badge>
+                  ))}
+              </div>
+              <p className="text-xs text-text-muted mt-2">Klik op een regel om de analyse te bekijken zoals de bezoeker hem zag.</p>
             </div>
             {berekend.sessies.length === 0 ? (
               <p className="px-4 py-6 text-sm text-text-muted">Nog geen analyse gestart in deze periode.</p>
             ) : (
               <div style={{ overflowX: "auto" }}>
-                <table className="w-full text-sm" style={{ minWidth: 760 }}>
+                <table className="w-full text-sm" style={{ minWidth: 900 }}>
                   <thead>
                     <tr className="text-left text-text-muted text-xs">
                       <th className="px-4 py-2 font-medium">Gestart</th>
@@ -246,17 +305,17 @@ export default function AnalyseVerloopTabblad() {
                       <th className="px-4 py-2 font-medium">Duur</th>
                       <th className="px-4 py-2 font-medium">Apparaat</th>
                       <th className="px-4 py-2 font-medium">Herkomst</th>
+                      <th className="px-4 py-2 font-medium">Na het resultaat</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#F0F3F1]">
                     {berekend.sessies.slice(0, aantalZichtbaar).map((s) => {
                       const gezien = s.voltooid ? s.totaal : s.verstIndex + 1;
-                      const isOpen = open === s.id;
                       return (
                         <Fragment key={s.id}>
                           <tr
                             className="cursor-pointer hover:bg-[#F7F8F7]"
-                            onClick={() => setOpen(isOpen ? null : s.id)}
+                            onClick={() => setOpen(s.id)}
                           >
                             <td className="px-4 py-2 text-text-soft whitespace-nowrap">
                               {formatMoment(s.created_at)}
@@ -292,14 +351,20 @@ export default function AnalyseVerloopTabblad() {
                             <td className="px-4 py-2 text-text-soft max-w-[220px] truncate" title={s.herkomst}>
                               {s.herkomst}
                             </td>
+                            <td className="px-4 py-2 text-xs text-text-soft whitespace-nowrap">
+                              {!s.voltooid
+                                ? ""
+                                : !s.nazorg.gemeten
+                                ? "onbekend"
+                                : s.nazorg.emailAchtergelaten
+                                ? "E-mail achtergelaten"
+                                : s.nazorg.geldscanKlik
+                                ? "Op Geldscan geklikt"
+                                : s.nazorg.resultaatStap >= 4
+                                ? "Aanbod gezien, niets gedaan"
+                                : `Gestopt op resultaatstap ${s.nazorg.resultaatStap || 1}`}
+                            </td>
                           </tr>
-                          {isOpen && (
-                            <tr className="bg-[#F7F8F7]">
-                              <td colSpan={7} className="px-4 py-4">
-                                <SessieDetail sessie={s} />
-                              </td>
-                            </tr>
-                          )}
                         </Fragment>
                       );
                     })}
@@ -320,79 +385,13 @@ export default function AnalyseVerloopTabblad() {
           </section>
         </>
       )}
-    </div>
-  );
-}
 
-function SessieDetail({ sessie }: { sessie: Verrijkt }) {
-  const antwoorden = ingevuldeAntwoorden(sessie.antwoorden);
-  const categorieen = Array.from(new Set(sessie.schermen.map((s) => s.categorie)));
-  // Ging iemand terug, dan staat het laatst getoonde scherm vóór het verste.
-  const huidigAnders =
-    !sessie.voltooid &&
-    sessie.huidig_scherm &&
-    sessie.huidig_scherm !== "resultaat" &&
-    sessie.huidig_scherm !== sessie.verstId
-      ? sessie.huidig_scherm
-      : null;
-
-  return (
-    <div className="grid gap-6 md:grid-cols-2">
-      <div>
-        <p className="text-xs uppercase tracking-wide text-text-muted mb-2">Schermen voor deze bezoeker</p>
-        {huidigAnders && (
-          <p className="text-xs text-text-soft mb-2">
-            Ging terug en stond als laatste op: {schermLabel(huidigAnders)}.
-          </p>
-        )}
-        <div className="space-y-2">
-          {categorieen.map((cat) => (
-            <div key={cat}>
-              <p className="text-xs font-medium text-primary">
-                {CATEGORIE_LABEL[cat as 1 | 2 | 3 | 4 | 5]}
-              </p>
-              <ul className="mt-0.5">
-                {sessie.schermen
-                  .filter((s) => s.categorie === cat)
-                  .map((s) => {
-                    const isVerst = !sessie.voltooid && s.id === sessie.verstId;
-                    return (
-                      <li key={s.id} className="text-xs flex items-center gap-1.5">
-                        <span className={s.gezien ? (isVerst ? "text-warning" : "text-success") : "text-text-muted"}>
-                          {s.gezien ? (isVerst ? "■" : "✓") : "·"}
-                        </span>
-                        <span className={s.gezien ? "text-primary" : "text-text-muted"}>
-                          {schermLabel(s.id)}
-                          {isVerst ? ", hier gestopt" : ""}
-                        </span>
-                      </li>
-                    );
-                  })}
-              </ul>
-            </div>
-          ))}
-          <p className="text-xs flex items-center gap-1.5">
-            <span className={sessie.voltooid ? "text-success" : "text-text-muted"}>{sessie.voltooid ? "✓" : "·"}</span>
-            <span className={sessie.voltooid ? "text-primary" : "text-text-muted"}>Resultaat</span>
-          </p>
-        </div>
-      </div>
-      <div>
-        <p className="text-xs uppercase tracking-wide text-text-muted mb-2">Ingevulde antwoorden</p>
-        {antwoorden.length === 0 ? (
-          <p className="text-xs text-text-muted">Nog niets ingevuld.</p>
-        ) : (
-          <dl className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-0.5 text-xs">
-            {antwoorden.map(([k, v]) => (
-              <Fragment key={k}>
-                <dt className="text-text-muted">{k}</dt>
-                <dd className="text-primary">{v}</dd>
-              </Fragment>
-            ))}
-          </dl>
-        )}
-        <p className="text-xs text-text-muted mt-3 break-all">Sessie: {sessie.sessie_id}</p>
-      </div>
+      {berekend && open && berekend.sessies.find((s) => s.id === open) && (
+        <AnalyseResultaatPopup
+          sessie={berekend.sessies.find((s) => s.id === open)!}
+          onSluit={() => setOpen(null)}
+        />
+      )}
     </div>
   );
 }

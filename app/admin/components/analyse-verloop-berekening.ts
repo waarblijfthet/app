@@ -1,5 +1,6 @@
 import { DEFAULT_QUIZ_DATA, type QuizData } from "@/lib/quiz-types";
 import { ALLE_SCHERMEN, actieveSchermen } from "@/app/analyse/schermen";
+import { berekenResultaat } from "@/app/analyse/stappen/resultaat/berekenResultaat";
 
 /**
  * Rekenlaag van /admin/analyse-verloop (23-sep-2026), los van de weergave
@@ -32,9 +33,18 @@ export type Sessie = {
 
 type AnalyseBezoek = { sessie_id: string; referrer: string | null; created_at: string };
 
+export type Gebeurtenis = {
+  sessie_id: string;
+  gebeurtenis: string;
+  pakket: string | null;
+  meta: Record<string, unknown> | null;
+  created_at: string;
+};
+
 export type ApiData = {
   sessies: Sessie[];
   analyseBezoeken: AnalyseBezoek[];
+  gebeurtenissen?: Gebeurtenis[];
   emailAchtergelaten: number;
   geldscanAanvragen: number;
 };
@@ -49,7 +59,52 @@ export type Verrijkt = Sessie & {
   totaal: number;
   eigenTest: boolean;
   herkomst: string;
+  nazorg: Nazorg;
 };
+
+/**
+ * Wat er na het resultaat gebeurde. Gemeten vanaf 23-sep-2026; voor oudere
+ * analyses is `gemeten` false en zijn alle velden onbekend, niet nee.
+ */
+export type Nazorg = {
+  gemeten: boolean;
+  resultaatStap: number;
+  geldscanKlik: boolean;
+  bewarenGeopend: boolean;
+  emailAchtergelaten: boolean;
+  aanvraagGestart: boolean;
+  aanvraagVerstuurd: boolean;
+};
+
+const LEGE_NAZORG: Nazorg = {
+  gemeten: false,
+  resultaatStap: 0,
+  geldscanKlik: false,
+  bewarenGeopend: false,
+  emailAchtergelaten: false,
+  aanvraagGestart: false,
+  aanvraagVerstuurd: false,
+};
+
+function nazorgPerSessie(gebeurtenissen: Gebeurtenis[]): Map<string, Nazorg> {
+  const map = new Map<string, Nazorg>();
+  for (const g of gebeurtenissen) {
+    if (!g.sessie_id) continue;
+    const n = map.get(g.sessie_id) ?? { ...LEGE_NAZORG };
+    n.gemeten = true;
+    if (g.gebeurtenis === "analyse_resultaat_stap") {
+      const stap = Number(g.meta?.stap);
+      if (Number.isFinite(stap)) n.resultaatStap = Math.max(n.resultaatStap, stap);
+    }
+    if (g.gebeurtenis === "cta_geldscan") n.geldscanKlik = true;
+    if (g.gebeurtenis === "analyse_bewaren_geopend") n.bewarenGeopend = true;
+    if (g.gebeurtenis === "analyse_bewaren_verstuurd") n.emailAchtergelaten = true;
+    if (g.gebeurtenis === "intake_gestart") n.aanvraagGestart = true;
+    if (g.gebeurtenis === "intake_verzonden") n.aanvraagVerstuurd = true;
+    map.set(g.sessie_id, n);
+  }
+  return map;
+}
 
 export const SCHERM_LABEL: Record<string, string> = {
   huishouden: "Huishouden",
@@ -157,7 +212,11 @@ export function ingevuldeAntwoorden(antwoorden: Record<string, unknown>): [strin
   return uit;
 }
 
-export function verrijk(s: Sessie, herkomstPerSessie: Map<string, string>): Verrijkt {
+export function verrijk(
+  s: Sessie,
+  herkomstPerSessie: Map<string, string>,
+  nazorgMap: Map<string, Nazorg> = new Map()
+): Verrijkt {
   const data = { ...DEFAULT_QUIZ_DATA, ...(s.antwoorden as Partial<QuizData>) } as QuizData;
   let actief: { id: string; categorie: number }[] = [];
   try {
@@ -200,6 +259,7 @@ export function verrijk(s: Sessie, herkomstPerSessie: Map<string, string>): Verr
     totaal: totaal,
     eigenTest: s.antwoorden._eigenaar === true,
     herkomst: herkomstPerSessie.get(s.sessie_id) ?? "Geen paginabezoek gevonden",
+    nazorg: nazorgMap.get(s.sessie_id) ?? LEGE_NAZORG,
   };
 }
 
@@ -213,7 +273,8 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     herkomstPerSessie.set(b.sessie_id, herkomstLabel(b.referrer));
   }
 
-  const alle = data.sessies.map((s) => verrijk(s, herkomstPerSessie));
+  const nazorgMap = nazorgPerSessie(data.gebeurtenissen ?? []);
+  const alle = data.sessies.map((s) => verrijk(s, herkomstPerSessie, nazorgMap));
   const aantalEigen = alle.filter((s) => s.eigenTest).length;
   const sessies = eigenTonen ? alle : alle.filter((s) => !s.eigenTest);
   const perScherm = sessies.filter((s) => s.status !== "oude-meting");
@@ -222,6 +283,44 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
   const gestart = sessies.length;
   const begonnen = sessies.filter((s) => s.eerste_interactie || s.voltooid).length;
   const resultaat = sessies.filter((s) => s.voltooid).length;
+  const aanbodBereikt = sessies.filter((s) => s.nazorg.resultaatStap >= 4).length;
+  const geldscanKlik = sessies.filter((s) => s.nazorg.geldscanKlik).length;
+  const nazorgGemeten = sessies.some((s) => s.nazorg.gemeten);
+
+  // Welke uitkomst de afronders kregen (23-sep-2026). Zelfde drempel van €100
+  // als de conclusiekop op het resultaatscherm. Belangrijk voor de
+  // conversievraag: wie leest dat er meer overblijft dan verwacht, heeft weinig
+  // reden om voor een verklaring te betalen.
+  const uitkomsten = {
+    meer: { aantal: 0, aanbod: 0, geldscan: 0, email: 0 },
+    passend: { aantal: 0, aanbod: 0, geldscan: 0, email: 0 },
+    minder: { aantal: 0, aanbod: 0, geldscan: 0, email: 0 },
+  };
+  for (const s of sessies) {
+    if (!s.voltooid) continue;
+    let overDiff: number;
+    try {
+      const data = { ...DEFAULT_QUIZ_DATA, ...(s.antwoorden as Partial<QuizData>) } as QuizData;
+      overDiff = berekenResultaat(data).overDiff;
+    } catch {
+      continue;
+    }
+    const sleutel = overDiff > 100 ? "meer" : overDiff < -100 ? "minder" : "passend";
+    const rij = uitkomsten[sleutel];
+    rij.aantal++;
+    if (s.nazorg.resultaatStap >= 4) rij.aanbod++;
+    if (s.nazorg.geldscanKlik) rij.geldscan++;
+    if (s.nazorg.emailAchtergelaten) rij.email++;
+  }
+
+  const statusTelling: Record<Status, number> = {
+    resultaat: 0,
+    afgehaakt: 0,
+    afgebroken: 0,
+    "niet-begonnen": 0,
+    "oude-meting": 0,
+  };
+  for (const s of sessies) statusTelling[s.status]++;
 
   // Afhaken per scherm, in de vaste volgorde van de analyse.
   const tabel = ALLE_SCHERMEN.map((sch) => {
@@ -257,11 +356,24 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     sessies: sessies,
     aantalEigen: aantalEigen,
     oudeMeting: sessies.length - perScherm.length,
+    statusTelling: statusTelling,
+    uitkomsten: uitkomsten,
+    nazorgGemeten: nazorgGemeten,
     trechter: [
       { label: "Analyse geopend", uitleg: "sessies met een bezoek aan /analyse", aantal: geopend },
       { label: "Op start geklikt", uitleg: "eerste vraag kwam in beeld", aantal: gestart },
       { label: "Eerste vraag beantwoord", uitleg: "minstens één antwoord gegeven", aantal: begonnen },
       { label: "Resultaat gezien", uitleg: "alle vragen doorlopen", aantal: resultaat },
+      {
+        label: "Aanbodscherm bereikt",
+        uitleg: nazorgGemeten ? "resultaatstap 4 van 4" : "gemeten vanaf 23 sep",
+        aantal: aanbodBereikt,
+      },
+      {
+        label: "Op Geldscan geklikt",
+        uitleg: nazorgGemeten ? "Geldscan-knop, waar ook op de site" : "gemeten vanaf 23 sep",
+        aantal: geldscanKlik,
+      },
       { label: "E-mailadres achtergelaten", uitleg: "resultaat laten mailen", aantal: data.emailAchtergelaten },
       { label: "Geldscan aangevraagd", uitleg: "aanvraagformulier verstuurd", aantal: data.geldscanAanvragen },
     ],

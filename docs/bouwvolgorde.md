@@ -4,9 +4,11 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
 
 **Update 23 september, op verzoek van Jarno: de meting van de analyse gerepareerd, zie sectie 24.** Jarno zag de analyse wel geopend maar "zelden afgerond" en had geen zicht op wat er werd ingevuld. Uitgelezen in productie: **van de 43 sessies die sinds 7 september op start klikten, zagen er 34 het resultaat** (inclusief Jarno's eigen testrondes, die tot vandaag niet te onderscheiden waren). De analyse werd dus wel afgerond; de admin liet het niet zien. Drie oorzaken: "Analyses voltooid" telde alleen wie een e-mailadres achterliet, de afhaaklijst per scherm van 6 september zat in een component dat geen enkele route meer laadde, en het introscherm wordt niet gelogd. Nieuw: `/admin/analyse-verloop` (trechter van openen tot Geldscan, afhaken per scherm, herkomst, en per sessie welke schermen en antwoorden er staan). Daarnaast: het Bezoekers-tabblad bleef voor week, maand en alles op 500 hangen (een `.limit(500)` in de browser), en het Vandaag-dashboard laadde traag (vier golven queries achter elkaar, volledige tabellen opgehaald). Beide opgelost. **Jarno moet `supabase/admin_statistiek.sql` nog draaien**; de code werkt ook zonder, maar dan staat er een gele melding op Bezoekers en is quiz_voortgang nog leesbaar met de anon-sleutel. **Geen productiebuild gedraaid**, zie sectie 24.
+
+**Tweede sessie 23 september, sectie 25:** menu heet nu "Ingevulde analyses" (standaard alles, met telling per status), een klik opent de analyse zoals de bezoeker hem zag, en er wordt nu gemeten wat er na het resultaat gebeurt (resultaatstap, bewaarformulier, e-mail, Geldscan-klik). Plus een onderzoek naar de conversie na het resultaat: `docs/conversie-na-resultaat-23-sep-2026.md`. `supabase/admin_statistiek.sql` is gedraaid (vastgesteld: quiz_voortgang is niet meer leesbaar met de anon-sleutel).
 
 **Gevolg voor de killgrens van 19 september:** die ging uit van "analyse-afronding nul procent". Dat was een meetfout, niet de werkelijkheid. Het lek zit waarschijnlijk vóór de start (openen maar niet op start klikken) en ná het resultaat (resultaat zien maar geen e-mail en geen Geldscan). Welke van de twee groter is, laat `/admin/analyse-verloop` na de deploy zien. Kies daarna één wijziging op die plek, zoals de oorspronkelijke 13-september-actie voorschreef.
 
@@ -81,7 +83,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | Wanneer | Wat |
 |---|---|
 | ~~13 september~~ | ~~Schermlijst lezen in het funneltabblad.~~ **Kon niet: dat tabblad werd door geen route geladen. Vervangen door `/admin/analyse-verloop` op 23 september, zie sectie 24.** |
-| 30 september | Eerste week meten op `/admin/analyse-verloop`, zonder eigen testrondes: waar zit het grootste verlies, tussen openen en start of tussen resultaat en e-mail/Geldscan? Eén wijziging op die plek, daarna een week meten. |
+| 30 september | Eerste week meten op `/admin/analyse-verloop` (menu: Ingevulde analyses), zonder eigen testrondes: hoeveel afronders halen het aanbodscherm, en welke uitkomst kregen ze? Daarna wijziging 1 uit `docs/conversie-na-resultaat-23-sep-2026.md` (e-mail met een echte ruil na stap 2, vinkje optioneel), drie weken meten. |
 | 15 september | Prinsjesdag. De maximum uurtarieven kinderopvang 2027 en het definitieve eigen risico komen die dag naar buiten. Dat zijn de twee cijfers waar artikel 2 op wacht, zie sectie 20. |
 | ~~16 september~~ | ~~De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen.~~ **Gedaan op 18 september, zie sectie 23.** Het werden er zeven, want ook de afbouwpunten en het knikpunt klopten niet. |
 | ~~16 september~~ | ~~`lib/prinsjesdag-2027.ts` bijwerken.~~ **Gedaan op 18 september, zie sectie 23.** €38, €94 en €51 klopten inderdaad niet meer en staan nu op €40, €84 en €40, in de metaTitel, het excerpt en de preview. |
@@ -138,7 +140,8 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 ### Bekende schuld
 
-- ~~De anon-rol mag `quiz_voortgang` nog lezen.~~ De lezingen gaan sinds 23 september via server-routes; het intrekken staat in `supabase/admin_statistiek.sql`. **Tot Jarno dat bestand draait, kan iedereen met de anon-sleutel uit de browserbundle alle huishoudbedragen in quiz_voortgang uitlezen** (vastgesteld op 23 september).
+- ~~De anon-rol mag `quiz_voortgang` nog lezen.~~ Opgelost op 23 september: `supabase/admin_statistiek.sql` is gedraaid, een anonieme lezing geeft nu nul rijen.
+- De drie opvolgmails na de analyse (CLAUDE.md sectie 5, dag 0, 3 en 8) zijn nooit gebouwd; alleen de resultaatmail bestaat. Staat als wijziging 4 in `docs/conversie-na-resultaat-23-sep-2026.md`.
 - `app/admin/AdminClient.tsx`, `app/admin/components/FunnelTabblad.tsx` en `OverzichtTabblad` via AdminClient zijn dode code sinds de zijmenu-shell van 30 juli. Verwijderen kan pas als Jarno de verwijderpermissie geeft; tot die tijd niet meer aan bouwen.
 - De zin "ik verwijder je afschriften en aangeleverde gegevens" klopt alleen zolang Jarno dat met de hand doet. Er verwijdert niets softwarematig.
 - De vier casestudy-pagina's met bedachte namen moeten gecontroleerd op hun illustratielabel in tekst, titel en schema.
@@ -1040,4 +1043,29 @@ Sinds de meting per scherm (6 september) stopten er tien zonder resultaat: vier 
 2. `supabase/admin_statistiek.sql` draaien in de Supabase SQL-editor, daarna de drie controlequery's onderaan het bestand.
 3. Op het apparaat waarmee je test het eigenaarsfilter aanzetten (Bezoekers, "Dit ben ik"), zodat je testrondes voortaan gemarkeerd worden.
 4. Na een week: zie de datumtabel, 30 september.
+
+---
+
+## 25. Ingevulde analyses als resultaatweergave, meting na het resultaat en conversieonderzoek, 23 september 2026
+
+Tweede sessie van de dag, op verzoek van Jarno.
+
+### Wat er gebouwd is
+
+- **Menu "Ingevulde analyses"** (was "Analyse-verloop", route ongewijzigd `/admin/analyse-verloop`). Standaard periode "alles", met boven de lijst een telling per status (resultaat, afgehaakt, afgebroken, niets ingevuld, oude meting).
+- **Popup per analyse** (`app/admin/components/AnalyseResultaatPopup.tsx`): verloop in stappen, bij afronders het resultaat zoals de bezoeker het zag (zelfde conclusiekop, bedrag, verwachting en dezelfde balken), en per onderdeel wat er is ingevuld met Nederlandse labels, totalen en de verwachting ernaast. Bij afhakers bewust geen berekende uitkomst: lege bedragen zouden als nul tellen en een uitkomst tonen die de bezoeker nooit zag.
+- **Rekenlaag van het resultaatscherm verhuisd** naar `app/analyse/stappen/resultaat/berekenResultaat.ts`, zodat de admin exact dezelfde uitkomst toont. Letterlijk verplaatst; een regel-voor-regelvergelijking met het origineel vond alleen de hernoemde functie `zinVoor` naar `zinVoorAfwijking`. `CategorieVergelijking` is geëxporteerd.
+- **Meting na het resultaat**, via `paginagebeurtenissen` op dezelfde sessie-id, zonder migratie: `analyse_resultaat_stap` (met stap 1 t/m 4), `analyse_bewaren_geopend`, `analyse_bewaren_verstuurd`. Samen met het bestaande `cta_geldscan` en `intake_*` staat per bezoeker wat hij na het resultaat deed. In de trechter twee nieuwe stappen: aanbodscherm bereikt en op Geldscan geklikt.
+- **Blok "Welke uitkomst de afronders kregen"**: meer over dan verwacht, passend, minder over dan verwacht (drempel €100, zelfde als de conclusiekop), met per groep aanbod gezien, Geldscan-klik en e-mail. De analyse die Jarno bekeek (23 sep 08:24) kreeg "meer over dan verwacht", €1.403 tegen €583, terwijl stap 3 over hoge uitgaven gaat. Hoe vaak dat voorkomt, laat dit blok zien.
+
+### Onderzoek
+
+`docs/conversie-na-resultaat-23-sep-2026.md`: hoe het nu gaat, wat het onderzoek zegt (leverancierscijfers gemarkeerd), acht wijzigingen in volgorde met meetpunt, wat bewust niet, en een voorgestelde volgorde. Kern: het gratis resultaat beantwoordt de vraag al, de pitch past vaak niet bij de uitkomst, e-mail heeft geen reden (alleen "bewaren", verstopt, verplicht vinkje), en er is geen opvolging.
+
+### Controle
+
+- `tsc` schoon op de hele repo, geen null bytes of CR, objectvelden expliciet uitgeschreven.
+- De popup is met React server-side gerenderd met de antwoorden uit Jarno's schermafbeelding, met de echte Tailwind-config gestyled en in Chromium gefotografeerd op 1280 en 390 pixels breed. Daarbij gevonden en opgelost: een berekende uitkomst bij afhakers (misleidend) en de standaardwaarde "totaalbedrag" bij zorg die als antwoord werd getoond.
+- De rekenlaag van de lijst (status, uitkomstgroep, trechter met de nieuwe stappen) is met Node uitgevoerd op testrijen.
+- **Geen productiebuild gedraaid** (shell-limiet). Build lokaal vóór de push.
 

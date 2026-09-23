@@ -38,6 +38,29 @@ type VoortgangRij = {
   antwoorden: Record<string, unknown> | null;
 };
 
+type Gebeurtenis = {
+  sessie_id: string;
+  gebeurtenis: string;
+  pakket: string | null;
+  meta: Record<string, unknown> | null;
+  created_at: string;
+};
+
+/**
+ * Wat een bezoeker na het resultaat deed (23-sep-2026): welke resultaatstap in
+ * beeld kwam, of hij op de Geldscan klikte, het bewaarformulier opende of een
+ * e-mailadres achterliet, en of hij het aanvraagformulier begon of verstuurde.
+ * Allemaal uit paginagebeurtenissen, op dezelfde sessie-id.
+ */
+const NAZORG_GEBEURTENISSEN = [
+  "analyse_resultaat_stap",
+  "cta_geldscan",
+  "analyse_bewaren_geopend",
+  "analyse_bewaren_verstuurd",
+  "intake_gestart",
+  "intake_verzonden",
+];
+
 type AnalyseBezoek = {
   sessie_id: string;
   referrer: string | null;
@@ -54,7 +77,7 @@ export async function GET(request: NextRequest) {
   const supabase = createServiceClient();
 
   try {
-    const [voortgang, analyseBezoeken, emailRes, geldscanRes] = await Promise.all([
+    const [voortgang, analyseBezoeken, gebeurtenissen, emailRes, geldscanRes] = await Promise.all([
       haalAlleRijen<VoortgangRij>(
         supabase,
         "quiz_voortgang",
@@ -66,6 +89,12 @@ export async function GET(request: NextRequest) {
         "paginabezoeken",
         "sessie_id,referrer,created_at",
         (q) => q.eq("pagina", "/analyse").gte("created_at", sinds)
+      ),
+      haalAlleRijen<Gebeurtenis>(
+        supabase,
+        "paginagebeurtenissen",
+        "sessie_id,gebeurtenis,pakket,meta,created_at",
+        (q) => q.in("gebeurtenis", NAZORG_GEBEURTENISSEN).gte("created_at", sinds)
       ),
       supabase
         .from("quiz_resultaten")
@@ -104,6 +133,7 @@ export async function GET(request: NextRequest) {
       sinds: sinds,
       sessies: sessies,
       analyseBezoeken: analyseBezoeken,
+      gebeurtenissen: gebeurtenissen,
       emailAchtergelaten: emailRes.count ?? 0,
       geldscanAanvragen: geldscanRes.count ?? 0,
     });
