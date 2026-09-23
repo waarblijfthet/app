@@ -83,7 +83,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | Wanneer | Wat |
 |---|---|
 | ~~13 september~~ | ~~Schermlijst lezen in het funneltabblad.~~ **Kon niet: dat tabblad werd door geen route geladen. Vervangen door `/admin/analyse-verloop` op 23 september, zie sectie 24.** |
-| 30 september | Eerste week meten op `/admin/analyse-verloop` (menu: Ingevulde analyses), zonder eigen testrondes: hoeveel afronders halen het aanbodscherm, en welke uitkomst kregen ze? Daarna wijziging 1 uit `docs/conversie-na-resultaat-23-sep-2026.md` (e-mail met een echte ruil na stap 2, vinkje optioneel), drie weken meten. |
+| 30 september | Eerste week meten op `/admin/analyse-verloop` (menu: Ingevulde analyses), zonder eigen testrondes: hoeveel afronders halen het aanbodscherm, en welke uitkomst kregen ze? Daarna de **vraagstap** bouwen (`docs/vraagstap-ontwerp-23-sep-2026.md`, vervangt wijziging 1 tot en met 3 uit het conversiestuk), mits Jarno de drie beslissingen onderaan dat document heeft genomen. Drie weken meten. |
 | 15 september | Prinsjesdag. De maximum uurtarieven kinderopvang 2027 en het definitieve eigen risico komen die dag naar buiten. Dat zijn de twee cijfers waar artikel 2 op wacht, zie sectie 20. |
 | ~~16 september~~ | ~~De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen.~~ **Gedaan op 18 september, zie sectie 23.** Het werden er zeven, want ook de afbouwpunten en het knikpunt klopten niet. |
 | ~~16 september~~ | ~~`lib/prinsjesdag-2027.ts` bijwerken.~~ **Gedaan op 18 september, zie sectie 23.** €38, €94 en €51 klopten inderdaad niet meer en staan nu op €40, €84 en €40, in de metaTitel, het excerpt en de preview. |
@@ -1068,4 +1068,6 @@ Tweede sessie van de dag, op verzoek van Jarno.
 - De popup is met React server-side gerenderd met de antwoorden uit Jarno's schermafbeelding, met de echte Tailwind-config gestyled en in Chromium gefotografeerd op 1280 en 390 pixels breed. Daarbij gevonden en opgelost: een berekende uitkomst bij afhakers (misleidend) en de standaardwaarde "totaalbedrag" bij zorg die als antwoord werd getoond.
 - De rekenlaag van de lijst (status, uitkomstgroep, trechter met de nieuwe stappen) is met Node uitgevoerd op testrijen.
 - **Geen productiebuild gedraaid** (shell-limiet). Build lokaal vóór de push.
+
+**Aanvulling 23 september, derde sessie:** de "stel één vraag"-optie uitgewerkt in `docs/vraagstap-ontwerp-23-sep-2026.md`, met mockup `docs/img/mockup-vraagstap-23-sep-2026.png`. Kern: niet als tussenstap vóór het resultaat (dan kun je nog niets vragen en wordt overslaan de standaard), maar in plaats van resultaatstap 3, met drie voorgekozen vragen per uitkomst, e-mail pas na de keuze, een knop die op mobiel vast in beeld staat, en afhandeling via de bestaande contacten en Jarno's eigen mailbox. Niet gebouwd; wacht op drie beslissingen van Jarno.
 
