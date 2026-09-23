@@ -6,6 +6,7 @@ import { berekenDagbudget, maandagGrens } from "@/lib/outreach/dagbudget";
 import { DOELGROEPEN, DOELGROEP_LABEL } from "@/lib/outreach/labels";
 import { OutreachContact } from "@/lib/outreach/types";
 import { haalAlleRijen, vandaagStartNl } from "@/lib/admin-periode";
+import { BEANTWOORD_PREFIX, VRAAG_ACTIE, VRAAG_PREFIX, vraagstapStatus } from "@/lib/vraagstap";
 
 /**
  * GET /api/admin/vandaag, alle zes blokken van het Vandaag-dashboard in één
@@ -107,6 +108,9 @@ export async function GET() {
       trechterCijfers,
       bezoekCijfers,
       activiteitBronnen,
+      openVragenRes,
+      vraagStatus,
+      beantwoord7dRes,
     ] = await Promise.all([
       haalAlleRijen<OutreachContact>(supabase, "outreach_contacts", "*", (q) => q),
       haalAlleRijen<{ contact_id: string }>(
@@ -202,8 +206,70 @@ export async function GET() {
           .order("created_at", { ascending: false })
           .limit(15),
       ]),
+      // Vraagstap (23-sep-2026): open vragen, stand van de week, beantwoord.
+      supabase
+        .from("contacten")
+        .select("id,email,analyse_token,volgende_actie_op,updated_at")
+        .eq("volgende_actie", VRAAG_ACTIE)
+        .is("archived_at", null)
+        .order("volgende_actie_op", { ascending: true })
+        .limit(50),
+      vraagstapStatus(supabase),
+      supabase
+        .from("contact_notities")
+        .select("id", { count: "exact", head: true })
+        .like("tekst", `${BEANTWOORD_PREFIX}%`)
+        .gte("created_at", zevenDagen),
     ]);
     if (laatsteVerstuurdRes.error) throw laatsteVerstuurdRes.error;
+    if (openVragenRes.error) throw openVragenRes.error;
+    if (beantwoord7dRes.error) throw beantwoord7dRes.error;
+
+    // ── Vraagstap: de vraagtekst hoort bij het contact als notitie ──────────
+    const openContacten = (openVragenRes.data ?? []) as {
+      id: string;
+      email: string;
+      analyse_token: string | null;
+      volgende_actie_op: string | null;
+      updated_at: string;
+    }[];
+    let vraagPerContact = new Map<string, { tekst: string; tijd: string }>();
+    if (openContacten.length) {
+      const { data: vraagNotities, error: vnErr } = await supabase
+        .from("contact_notities")
+        .select("contact_id,tekst,created_at")
+        .in(
+          "contact_id",
+          openContacten.map((c) => c.id)
+        )
+        .like("tekst", `${VRAAG_PREFIX}%`)
+        .order("created_at", { ascending: false });
+      if (vnErr) throw vnErr;
+      vraagPerContact = new Map();
+      for (const n of (vraagNotities ?? []) as { contact_id: string; tekst: string; created_at: string }[]) {
+        if (vraagPerContact.has(n.contact_id)) continue;
+        const [eerste, ...rest] = n.tekst.slice(VRAAG_PREFIX.length).trim().split("\n\nToelichting: ");
+        const toelichting = rest.join(" ").split("\n\nUitkomst:")[0];
+        vraagPerContact.set(n.contact_id, {
+          tekst: eerste.split("\n\n")[0] + (toelichting ? ` (toelichting: ${toelichting.trim()})` : ""),
+          tijd: n.created_at,
+        });
+      }
+    }
+    const vandaagDatum = vandaagStart.slice(0, 10);
+    const vragen = {
+      status: vraagStatus,
+      beantwoordAfgelopenWeek: beantwoord7dRes.count ?? 0,
+      open: openContacten.map((c) => ({
+        contactId: c.id,
+        email: c.email,
+        token: c.analyse_token,
+        uiterlijk: c.volgende_actie_op,
+        vraag: vraagPerContact.get(c.id)?.tekst ?? "(vraag niet gevonden)",
+        gesteld: vraagPerContact.get(c.id)?.tijd ?? c.updated_at,
+        telaat: Boolean(c.volgende_actie_op && c.volgende_actie_op < vandaagDatum),
+      })),
+    };
     if (laatsteGeopendRes.error) throw laatsteGeopendRes.error;
     if (aanvragenZonderRapportRes.error) throw aanvragenZonderRapportRes.error;
 
@@ -228,6 +294,7 @@ export async function GET() {
       },
       prospectsTeReviewen: prospectsTeReviewen,
       contactenActieRijp: contactenActieRijp,
+      vragenOpen: openContacten.length,
     };
 
     // ── Blok 3: deze week vs vorige week ─────────────────────────────────
@@ -370,6 +437,7 @@ export async function GET() {
       week: { dezeWeek: dezeWeek, vorigeWeek: vorigeWeek },
       repliesPerDoelgroep: repliesPerDoelgroep,
       trechter: trechter,
+      vragen: vragen,
       activiteit: activiteit.slice(0, 10),
     });
   } catch (e) {

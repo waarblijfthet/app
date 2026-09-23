@@ -141,6 +141,13 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
  */
 export const RESULTAAT_STAP_SLEUTEL = "wbh-analyse-v2-resultaatstap";
 
+/**
+ * Sessionstorage-sleutel voor een verstuurde vraag uit de vraagstap
+ * (23-sep-2026), zodat stap 4 na een refresh de bevestiging blijft tonen.
+ * QuizClient wist hem samen met RESULTAAT_STAP_SLEUTEL.
+ */
+export const VRAAG_VERSTUURD_SLEUTEL = "wbh-analyse-v2-vraag";
+
 export function parseEur(s: string): number {
   if (!s) return 0;
   return parseInt(s.replace(/[^\d]/g, ""), 10) || 0;

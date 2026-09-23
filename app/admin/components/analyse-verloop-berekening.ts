@@ -74,6 +74,10 @@ export type Nazorg = {
   emailAchtergelaten: boolean;
   aanvraagGestart: boolean;
   aanvraagVerstuurd: boolean;
+  /** Vraagstap (23-sep-2026): laatst gekozen vraag (sleutel), en wat ermee gebeurde. */
+  vraagGekozen: string | null;
+  vraagVerstuurd: boolean;
+  vraagOvergeslagen: boolean;
 };
 
 const LEGE_NAZORG: Nazorg = {
@@ -84,6 +88,9 @@ const LEGE_NAZORG: Nazorg = {
   emailAchtergelaten: false,
   aanvraagGestart: false,
   aanvraagVerstuurd: false,
+  vraagGekozen: null,
+  vraagVerstuurd: false,
+  vraagOvergeslagen: false,
 };
 
 function nazorgPerSessie(gebeurtenissen: Gebeurtenis[]): Map<string, Nazorg> {
@@ -101,6 +108,14 @@ function nazorgPerSessie(gebeurtenissen: Gebeurtenis[]): Map<string, Nazorg> {
     if (g.gebeurtenis === "analyse_bewaren_verstuurd") n.emailAchtergelaten = true;
     if (g.gebeurtenis === "intake_gestart") n.aanvraagGestart = true;
     if (g.gebeurtenis === "intake_verzonden") n.aanvraagVerstuurd = true;
+    if (g.gebeurtenis === "analyse_vraag_gekozen" && typeof g.meta?.keuze === "string") {
+      n.vraagGekozen = g.meta.keuze as string;
+    }
+    if (g.gebeurtenis === "analyse_vraag_verstuurd") {
+      n.vraagVerstuurd = true;
+      if (typeof g.meta?.keuze === "string") n.vraagGekozen = g.meta.keuze as string;
+    }
+    if (g.gebeurtenis === "analyse_vraag_overgeslagen") n.vraagOvergeslagen = true;
     map.set(g.sessie_id, n);
   }
   return map;
@@ -284,6 +299,28 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
   const begonnen = sessies.filter((s) => s.eerste_interactie || s.voltooid).length;
   const resultaat = sessies.filter((s) => s.voltooid).length;
   const aanbodBereikt = sessies.filter((s) => s.nazorg.resultaatStap >= 4).length;
+  const vraagstapGezien = sessies.filter((s) => s.nazorg.resultaatStap >= 3).length;
+  const vraagGesteld = sessies.filter((s) => s.nazorg.vraagVerstuurd).length;
+
+  // Vraagstap per soort vraag: hoe vaak gekozen en hoe vaak daarna verstuurd.
+  const perVraag = new Map<string, { gekozen: number; verstuurd: number }>();
+  for (const s of sessies) {
+    const k = s.nazorg.vraagGekozen;
+    if (!k) continue;
+    const rij = perVraag.get(k) ?? { gekozen: 0, verstuurd: 0 };
+    rij.gekozen++;
+    if (s.nazorg.vraagVerstuurd) rij.verstuurd++;
+    perVraag.set(k, rij);
+  }
+  const vraagstap = {
+    gezien: vraagstapGezien,
+    gekozen: sessies.filter((s) => s.nazorg.vraagGekozen !== null).length,
+    verstuurd: vraagGesteld,
+    overgeslagen: sessies.filter((s) => s.nazorg.vraagOvergeslagen && !s.nazorg.vraagVerstuurd).length,
+    perVraag: Array.from(perVraag.entries())
+      .map(([sleutel, r]) => ({ sleutel: sleutel, ...r }))
+      .sort((a, b) => b.gekozen - a.gekozen),
+  };
   const geldscanKlik = sessies.filter((s) => s.nazorg.geldscanKlik).length;
   const nazorgGemeten = sessies.some((s) => s.nazorg.gemeten);
 
@@ -358,6 +395,7 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     oudeMeting: sessies.length - perScherm.length,
     statusTelling: statusTelling,
     uitkomsten: uitkomsten,
+    vraagstap: vraagstap,
     nazorgGemeten: nazorgGemeten,
     trechter: [
       { label: "Analyse geopend", uitleg: "sessies met een bezoek aan /analyse", aantal: geopend },
@@ -365,8 +403,18 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
       { label: "Eerste vraag beantwoord", uitleg: "minstens één antwoord gegeven", aantal: begonnen },
       { label: "Resultaat gezien", uitleg: "alle vragen doorlopen", aantal: resultaat },
       {
-        label: "Aanbodscherm bereikt",
-        uitleg: nazorgGemeten ? "resultaatstap 4 van 4" : "gemeten vanaf 23 sep",
+        label: "Vraagstap gezien",
+        uitleg: nazorgGemeten ? "resultaatstap 3 van 4" : "gemeten vanaf 23 sep",
+        aantal: vraagstapGezien,
+      },
+      {
+        label: "Vraag gesteld",
+        uitleg: nazorgGemeten ? "met e-mailadres, antwoord binnen 2 werkdagen" : "gemeten vanaf 23 sep",
+        aantal: vraagGesteld,
+      },
+      {
+        label: "Stap 4 bereikt",
+        uitleg: nazorgGemeten ? "aanbod, of bevestiging na een vraag" : "gemeten vanaf 23 sep",
         aantal: aanbodBereikt,
       },
       {

@@ -45,6 +45,30 @@ export default function PrivacyPage() {
             </p>
           </section>
 
+          {/* Toegevoegd 23-sep-2026 bij de vraagstap in de analyse. Bewust in de
+              ik-vorm (CLAUDE.md copyregel 1); de rest van deze pagina staat nog
+              in de wij-vorm en noemt een wachtlijst die niet meer bestaat. Zie
+              docs/bouwvolgorde.md, bekende schuld. */}
+          <section className="mb-10">
+            <h2 className="font-display font-light text-primary text-2xl mb-4">
+              Als je een vraag stelt over je uitkomst
+            </h2>
+            <p className="font-body font-light text-text-soft text-base leading-relaxed">
+              Stel je na de analyse een vraag, dan bewaar ik je e-mailadres, je
+              vraag en de antwoorden uit je analyse. Die heb ik nodig om je
+              persoonlijk te kunnen antwoorden. Je krijgt daarna geen
+              nieuwsbrief. Ik bewaar ze tot je vraagt om ze te verwijderen. Dat
+              doe ik met de hand: stuur een mail naar{" "}
+              <a
+                href="mailto:hallo@waarblijfthet.nl"
+                className="text-primary hover:underline"
+              >
+                hallo@waarblijfthet.nl
+              </a>
+              .
+            </p>
+          </section>
+
           <section className="mb-10">
             <h2 className="font-display font-light text-primary text-2xl mb-4">
               Waarom verzamelen we dit?

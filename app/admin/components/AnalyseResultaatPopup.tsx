@@ -212,7 +212,12 @@ export default function AnalyseResultaatPopup({
                 status={sessie.voltooid ? "ja" : "nee"}
               />
               <Stap label="Resultaat gezien" status={sessie.voltooid ? "ja" : "nee"} />
-              <Stap label="Aanbodscherm" status={nazorg(n.resultaatStap >= 4)} />
+              <Stap label="Vraagstap gezien" status={nazorg(n.resultaatStap >= 3)} />
+              <Stap
+                label={n.vraagOvergeslagen && !n.vraagVerstuurd ? "Vraag overgeslagen" : "Vraag gesteld"}
+                status={n.vraagOvergeslagen && !n.vraagVerstuurd ? "nee" : nazorg(n.vraagVerstuurd)}
+              />
+              <Stap label="Stap 4" status={nazorg(n.resultaatStap >= 4)} />
               <Stap label="Geldscan-knop" status={nazorg(n.geldscanKlik)} />
               <Stap label="Bewaarformulier geopend" status={nazorg(n.bewarenGeopend)} />
               <Stap label="E-mail achtergelaten" status={nazorg(n.emailAchtergelaten)} />

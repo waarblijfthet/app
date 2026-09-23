@@ -1,5 +1,7 @@
 # Vraagstap: "stel me je vraag" als ruil voor een e-mailadres
 
+**Status: gebouwd op 23 september 2026, zie `docs/bouwvolgorde.md` sectie 26.** Besluiten van Jarno: antwoord binnen 2 werkdagen (ja), grens 15 vragen per 7 dagen, de Geldscan mag in elk antwoord één keer genoemd worden (ja).
+
 23 september 2026. Uitwerking van optie 8 uit `docs/conversie-na-resultaat-23-sep-2026.md`, op verzoek van Jarno. Mockup: `docs/img/mockup-vraagstap-23-sep-2026.png`.
 
 ## Oordeel in het kort

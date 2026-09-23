@@ -1,13 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { QuizData, RESULTAAT_STAP_SLEUTEL } from "@/lib/quiz-types";
+import { QuizData, RESULTAAT_STAP_SLEUTEL, VRAAG_VERSTUURD_SLEUTEL } from "@/lib/quiz-types";
 import { logGebeurtenis } from "@/lib/track";
 import ResultaatProgressBar from "./resultaat/ResultaatProgressBar";
 import Resultaat1Uitkomst from "./resultaat/Resultaat1Uitkomst";
 import Resultaat2Verschil from "./resultaat/Resultaat2Verschil";
 import Resultaat3Betekenis from "./resultaat/Resultaat3Betekenis";
 import Resultaat4Aanbod from "./resultaat/Resultaat4Aanbod";
+import Resultaat3Vraag from "./resultaat/Resultaat3Vraag";
+import Resultaat4VraagVerstuurd from "./resultaat/Resultaat4VraagVerstuurd";
 import { berekenResultaat, zinVoorAfwijking } from "./resultaat/berekenResultaat";
 
 interface Props {
@@ -34,9 +36,49 @@ const BREEDTE_PER_STAP: Record<1 | 2 | 3 | 4, string> = {
   4: "max-w-2xl",
 };
 
+type VerstuurdeVraag = { email: string; vraag: string; uiterlijk: string };
+
 export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAfbreken }: Props) {
   const [substap, setSubstap] = useState<1 | 2 | 3 | 4>(1);
   const hersteldRef = useRef(false);
+
+  // Vraagstap (23-sep-2026, docs/vraagstap-ontwerp-23-sep-2026.md). null = nog
+  // niet bekend; dan tonen we de vraagstap, en zegt de server bij versturen
+  // alsnog dat hij vol is. false = uit (handmatig of 15 vragen in 7 dagen),
+  // dan blijft het oude tekstscherm staan.
+  const [vraagAan, setVraagAan] = useState<boolean | null>(null);
+  const [verstuurd, setVerstuurd] = useState<VerstuurdeVraag | null>(null);
+
+  useEffect(() => {
+    let actief = true;
+    fetch("/api/analyse-vraag/status", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((json) => {
+        if (actief) setVraagAan(json?.aan === true);
+      })
+      .catch(() => {
+        if (actief) setVraagAan(false);
+      });
+    try {
+      const bewaard = window.sessionStorage.getItem(VRAAG_VERSTUURD_SLEUTEL);
+      if (bewaard) setVerstuurd(JSON.parse(bewaard) as VerstuurdeVraag);
+    } catch {
+      // stil falen
+    }
+    return () => {
+      actief = false;
+    };
+  }, []);
+
+  function vraagVerstuurd(info: VerstuurdeVraag) {
+    setVerstuurd(info);
+    try {
+      window.sessionStorage.setItem(VRAAG_VERSTUURD_SLEUTEL, JSON.stringify(info));
+    } catch {
+      // stil falen
+    }
+    setSubstap(4);
+  }
 
   // Op een refresh midden in de resultatenflow blijft de bezoeker op dezelfde
   // stap staan. QuizClient wist deze sleutel bij een verse voltooiing, dus
@@ -69,6 +111,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
 
   // Rekenlaag verhuisd naar resultaat/berekenResultaat.ts (23-sep-2026), zodat
   // de admin dezelfde uitkomst kan tonen. Berekening en teksten ongewijzigd.
+  const berekening = berekenResultaat(data);
   const {
     meerdere,
     benches,
@@ -78,7 +121,14 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
     spaardoelWaarde,
     opvallend,
     resultaat,
-  } = berekenResultaat(data);
+  } = berekening;
+  const toonVraagstap = vraagAan !== false && !verstuurd;
+  const titel =
+    substap === 3 && toonVraagstap
+      ? "Jouw vraag"
+      : substap === 4 && verstuurd
+      ? "Vraag verstuurd"
+      : TITEL_PER_STAP[substap](meerdere);
   const zinVoor = zinVoorAfwijking;
 
   function vorigeStap() {
@@ -93,7 +143,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
     <div className={`${BREEDTE_PER_STAP[substap]} mx-auto transition-[max-width] duration-300`}>
       <ResultaatProgressBar
         stap={substap}
-        titel={TITEL_PER_STAP[substap](meerdere)}
+        titel={titel}
         onVorige={vorigeStap}
         onAfbreken={onAfbreken}
       />
@@ -117,8 +167,14 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
             onVerder={() => setSubstap(3)}
           />
         )}
-        {substap === 3 && <Resultaat3Betekenis onVerder={() => setSubstap(4)} />}
-        {substap === 4 && (
+        {substap === 3 && toonVraagstap && (
+          <Resultaat3Vraag r={berekening} onOverslaan={() => setSubstap(4)} onVerstuurd={vraagVerstuurd} />
+        )}
+        {substap === 3 && !toonVraagstap && <Resultaat3Betekenis onVerder={() => setSubstap(4)} />}
+        {substap === 4 && verstuurd && (
+          <Resultaat4VraagVerstuurd email={verstuurd.email} uiterlijk={verstuurd.uiterlijk} />
+        )}
+        {substap === 4 && !verstuurd && (
           <Resultaat4Aanbod data={data} onChange={onChange} resultaat={resultaat} />
         )}
       </div>

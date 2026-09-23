@@ -4,7 +4,7 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
 
 **Update 23 september, op verzoek van Jarno: de meting van de analyse gerepareerd, zie sectie 24.** Jarno zag de analyse wel geopend maar "zelden afgerond" en had geen zicht op wat er werd ingevuld. Uitgelezen in productie: **van de 43 sessies die sinds 7 september op start klikten, zagen er 34 het resultaat** (inclusief Jarno's eigen testrondes, die tot vandaag niet te onderscheiden waren). De analyse werd dus wel afgerond; de admin liet het niet zien. Drie oorzaken: "Analyses voltooid" telde alleen wie een e-mailadres achterliet, de afhaaklijst per scherm van 6 september zat in een component dat geen enkele route meer laadde, en het introscherm wordt niet gelogd. Nieuw: `/admin/analyse-verloop` (trechter van openen tot Geldscan, afhaken per scherm, herkomst, en per sessie welke schermen en antwoorden er staan). Daarnaast: het Bezoekers-tabblad bleef voor week, maand en alles op 500 hangen (een `.limit(500)` in de browser), en het Vandaag-dashboard laadde traag (vier golven queries achter elkaar, volledige tabellen opgehaald). Beide opgelost. **Jarno moet `supabase/admin_statistiek.sql` nog draaien**; de code werkt ook zonder, maar dan staat er een gele melding op Bezoekers en is quiz_voortgang nog leesbaar met de anon-sleutel. **Geen productiebuild gedraaid**, zie sectie 24.
 
@@ -83,7 +83,9 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | Wanneer | Wat |
 |---|---|
 | ~~13 september~~ | ~~Schermlijst lezen in het funneltabblad.~~ **Kon niet: dat tabblad werd door geen route geladen. Vervangen door `/admin/analyse-verloop` op 23 september, zie sectie 24.** |
-| 30 september | Eerste week meten op `/admin/analyse-verloop` (menu: Ingevulde analyses), zonder eigen testrondes: hoeveel afronders halen het aanbodscherm, en welke uitkomst kregen ze? Daarna de **vraagstap** bouwen (`docs/vraagstap-ontwerp-23-sep-2026.md`, vervangt wijziging 1 tot en met 3 uit het conversiestuk), mits Jarno de drie beslissingen onderaan dat document heeft genomen. Drie weken meten. |
+| 30 september | Eerste week van de **vraagstap** (gebouwd 23 september, sectie 26). Op Ingevulde analyses: van wie resultaatstap 3 zag, hoeveel kozen een vraag, hoeveel verstuurden er een, hoeveel sloegen over? Op Vandaag: is elke vraag binnen 2 werkdagen beantwoord? |
+| 14 oktober | Drie weken vraagstap. Meer dan 1 op 10 die stap 3 zag verstuurt een vraag? Zo niet: kop of voorgekozen vragen aanpassen, niet het idee. |
+| Na 20 beantwoorde vragen | Stopcriterium: minder dan 2 Geldscans binnen 30 dagen na een antwoord, dan kijken of de antwoorden te volledig zijn of de stap de verkeerde mensen trekt. |
 | 15 september | Prinsjesdag. De maximum uurtarieven kinderopvang 2027 en het definitieve eigen risico komen die dag naar buiten. Dat zijn de twee cijfers waar artikel 2 op wacht, zie sectie 20. |
 | ~~16 september~~ | ~~De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen.~~ **Gedaan op 18 september, zie sectie 23.** Het werden er zeven, want ook de afbouwpunten en het knikpunt klopten niet. |
 | ~~16 september~~ | ~~`lib/prinsjesdag-2027.ts` bijwerken.~~ **Gedaan op 18 september, zie sectie 23.** €38, €94 en €51 klopten inderdaad niet meer en staan nu op €40, €84 en €40, in de metaTitel, het excerpt en de preview. |
@@ -142,6 +144,8 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 - ~~De anon-rol mag `quiz_voortgang` nog lezen.~~ Opgelost op 23 september: `supabase/admin_statistiek.sql` is gedraaid, een anonieme lezing geeft nu nul rijen.
 - De drie opvolgmails na de analyse (CLAUDE.md sectie 5, dag 0, 3 en 8) zijn nooit gebouwd; alleen de resultaatmail bestaat. Staat als wijziging 4 in `docs/conversie-na-resultaat-23-sep-2026.md`.
+- **De resultaatmail (`/api/send-resultaat`) breekt copyregels**: "Dit patroon is om te buigen", "structureel minder", "het ligt niet aan jou", en een verdict ("Je doet het goed") dat niet meer overeenkomt met de conclusies op het resultaatscherm. Die mail gaat ook naar iedereen die het bewaarformulier gebruikt. Herschrijven bij de eerstvolgende sessie aan de mails.
+- **De privacypagina** staat in de wij-vorm, noemt een wachtlijst die niet meer bestaat, gebruikt "eerlijk", en belooft dat quiz-antwoorden na 2 jaar worden verwijderd terwijl er niets softwarematig verwijdert. Op 23 september is alleen een alinea over de vraagstap toegevoegd, in de ik-vorm.
 - `app/admin/AdminClient.tsx`, `app/admin/components/FunnelTabblad.tsx` en `OverzichtTabblad` via AdminClient zijn dode code sinds de zijmenu-shell van 30 juli. Verwijderen kan pas als Jarno de verwijderpermissie geeft; tot die tijd niet meer aan bouwen.
 - De zin "ik verwijder je afschriften en aangeleverde gegevens" klopt alleen zolang Jarno dat met de hand doet. Er verwijdert niets softwarematig.
 - De vier casestudy-pagina's met bedachte namen moeten gecontroleerd op hun illustratielabel in tekst, titel en schema.
@@ -1070,4 +1074,64 @@ Tweede sessie van de dag, op verzoek van Jarno.
 - **Geen productiebuild gedraaid** (shell-limiet). Build lokaal vóór de push.
 
 **Aanvulling 23 september, derde sessie:** de "stel één vraag"-optie uitgewerkt in `docs/vraagstap-ontwerp-23-sep-2026.md`, met mockup `docs/img/mockup-vraagstap-23-sep-2026.png`. Kern: niet als tussenstap vóór het resultaat (dan kun je nog niets vragen en wordt overslaan de standaard), maar in plaats van resultaatstap 3, met drie voorgekozen vragen per uitkomst, e-mail pas na de keuze, een knop die op mobiel vast in beeld staat, en afhandeling via de bestaande contacten en Jarno's eigen mailbox. Niet gebouwd; wacht op drie beslissingen van Jarno.
+
+---
+
+## 26. Vraagstap gebouwd, 23 september 2026
+
+Op verzoek van Jarno, naar het ontwerp en de mockup van dezelfde dag (`docs/vraagstap-ontwerp-23-sep-2026.md`, `docs/img/mockup-vraagstap-23-sep-2026.png`). Besluiten: antwoord binnen 2 werkdagen, grens 15 vragen per 7 dagen, Geldscan één keer in elk antwoord.
+
+### Wat de bezoeker ziet
+
+- **Resultaatstap 3 is nu "Jouw vraag"** (`app/analyse/stappen/resultaat/Resultaat3Vraag.tsx`):
+  - een kop per uitkomst;
+  - drie voorgekozen vragen uit de eigen cijfers (`vraagKeuzes.ts`), plus een eigen vraag;
+  - na de keuze een optionele toelichting en het e-mailveld;
+  - geen vinkje, wel een honeypotveld tegen bots;
+  - op mobiel staat de knop vast onderaan het scherm, met daaronder "Geen vraag, laat de volgende stap zien".
+- **Na versturen is stap 4 een bevestiging** (`Resultaat4VraagVerstuurd.tsx`): "uiterlijk [dag]", de Geldscan als tekstlink met prijs, en de bewijsregel. Wie overslaat, krijgt het oude aanbodscherm.
+- **Staat de stap uit**, dan ziet de bezoeker weer het oude tekstscherm. Uit gaat hij met `VRAAGSTAP_UIT=1` in Vercel, of vanzelf bij 15 vragen in 7 dagen. De status komt uit `/api/analyse-vraag/status`.
+- **Privacypagina**: een alinea over wat er bij een vraag bewaard wordt.
+
+### Wat er achter gebeurt (`/api/analyse-vraag`, geen migratie)
+
+1. Er wordt een lead aangemaakt, plus een rij in `quiz_resultaten` met token. Die opslag is verhuisd naar `lib/analyse-opslaan.ts`, zodat `/api/quiz-lead` hem gebruikt zonder dat zijn gedrag verandert. Een bestaande marketingtoestemming blijft staan.
+2. Er wordt een contact aangemaakt of bijgewerkt, met volgende actie "Vraag beantwoorden" over 2 werkdagen (Nederlandse tijd, weekenden overgeslagen). De vraag komt erbij als notitie met de prefix "Vraag via analyse:".
+3. Er gaan twee mails uit via Resend:
+   - naar `hallo@waarblijfthet.nl` (aan te passen met `VRAAG_NOTIFICATIE_AAN`), met de bezoeker als antwoordadres, en met het huishouden, het inkomen, de ruimte, de grootste verschillen en links naar de analyse en het contact;
+   - een bevestiging naar de bezoeker, met de link naar zijn uitkomst.
+
+   Mislukt een mail, dan komt er een systeemnotitie bij het contact.
+4. Meetgebeurtenissen:
+   - `analyse_vraag_verstuurd`, weggeschreven door de server op de sessie-id;
+   - `analyse_vraag_gekozen` en `analyse_vraag_overgeslagen`, weggeschreven door de browser.
+
+   Eigen testrondes tellen niet mee in de meting, maar krijgen wel een contact en mails, zodat Jarno de hele route kan proberen.
+
+### Inzicht in de admin
+
+- **Vandaag, bovenaan: blok "Vragen via de analyse".**
+  - Per open vraag: de vraag, het e-mailadres, hoe lang geleden, en uiterlijk wanneer, rood als het te laat is.
+  - Links naar de analyse en het contact, en een knop "Beantwoord ✓". Die knop wist de volgende actie, zet fase warm en schrijft de notitie "Vraag beantwoord" (`/api/admin/vragen/beantwoord`).
+  - Een statusregel: aan of uit, en hoeveel van de 15 er deze week binnen zijn.
+  - Ook in de rij "Te doen".
+- **Ingevulde analyses:**
+  - in de trechter "Vraagstap gezien", "Vraag gesteld" en "Stap 4 bereikt";
+  - een blok "Vraagstap" met gezien, gekozen, verstuurd en overgeslagen, en per soort vraag hoe vaak gekozen en verstuurd;
+  - in de popup en de lijst per bezoeker "Vraag gesteld" of "Vraag overgeslagen".
+
+### Controle
+
+- `tsc` schoon, geen null bytes of CR, objectvelden expliciet uitgeschreven.
+- De vraagkeuzes zijn met Node uitgevoerd voor meer over, minder over en passend. De deadline is getest op woensdag (vrijdag), vrijdag (dinsdag) en zondagnacht (woensdag).
+- De route is met een nep-database en nep-Resend doorlopen:
+  - honeypot, fout e-mailadres, geslaagde vraag (lead, uitkomst zonder onbekende velden, contact, notitie, twee mails met het juiste antwoordadres, HTML ge-escaped, meetgebeurtenis);
+  - een tweede vraag van hetzelfde adres (één contact, twee notities);
+  - de grens van 15, en handmatig uit.
+- De schermen zijn server-side gerenderd met de echte Tailwind-config en in Chromium gefotografeerd. **Daarbij gevonden:** de vaste knopbalk stond op mobiel onder de inhoud in plaats van onderaan het scherm. De transform-animatie van de resultatenflow maakt het omliggende blok tot referentiekader voor `position: fixed`. Opgelost met een portal naar `<body>` en opnieuw gecontroleerd.
+- **Niet gedaan:**
+  - een productiebuild (shell-limiet);
+  - een echte verzending tegen Supabase en Resend.
+
+  Na de deploy één eigen testvraag sturen: komt de mail binnen op hallo@, en staat hij op Vandaag? Klik daarna op Beantwoord.
 

@@ -4,6 +4,7 @@ import { Fragment, useEffect, useMemo, useState } from "react";
 import { CATEGORIE_LABEL } from "@/app/analyse/schermen";
 import Badge from "@/app/admin/ui/Badge";
 import AnalyseResultaatPopup from "./AnalyseResultaatPopup";
+import { VRAAG_SLEUTEL_LABEL } from "@/app/analyse/stappen/resultaat/vraagKeuzes";
 import {
   berekenVerloop,
   formatDuur,
@@ -105,7 +106,7 @@ export default function AnalyseVerloopTabblad() {
             <div className="px-4 py-3 border-b border-[#F0F3F1]">
               <h2 className="font-body font-semibold text-primary text-sm">Van openen tot Geldscan</h2>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y divide-[#F0F3F1]">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-y divide-[#F0F3F1]">
               {berekend.trechter.map((stap, i) => {
                 const vorige = i > 0 ? berekend.trechter[i - 1].aantal : 0;
                 return (
@@ -126,6 +127,56 @@ export default function AnalyseVerloopTabblad() {
               E-mail en Geldscan zijn niet aan een sessie gekoppeld en tellen dus per periode, niet per
               bezoeker.{berekend.toestemming > 0 ? ` Toestemming voor de data-asset: ${berekend.toestemming}.` : ""}
             </p>
+          </section>
+
+          {/* Vraagstap (23-sep-2026) */}
+          <section className="card-base overflow-hidden">
+            <div className="px-4 py-3 border-b border-[#F0F3F1]">
+              <h2 className="font-body font-semibold text-primary text-sm">Vraagstap</h2>
+              <p className="text-xs text-text-muted mt-0.5">
+                Resultaatstap 3: stel me je vraag. De open vragen zelf staan bovenaan Vandaag.
+              </p>
+            </div>
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-[#F0F3F1] border-b border-[#F0F3F1]">
+              {(
+                [
+                  ["Gezien", berekend.vraagstap.gezien, ""],
+                  ["Vraag gekozen", berekend.vraagstap.gekozen, pct(berekend.vraagstap.gekozen, berekend.vraagstap.gezien)],
+                  ["Verstuurd", berekend.vraagstap.verstuurd, pct(berekend.vraagstap.verstuurd, berekend.vraagstap.gezien)],
+                  ["Overgeslagen", berekend.vraagstap.overgeslagen, pct(berekend.vraagstap.overgeslagen, berekend.vraagstap.gezien)],
+                ] as const
+              ).map(([label, aantal, deel]) => (
+                <div key={label} className="px-4 py-3">
+                  <p className="font-body text-xs text-text-muted mb-1">{label}</p>
+                  <p className="font-display font-light text-primary" style={{ fontSize: "1.6rem", lineHeight: 1.1 }}>
+                    {aantal}
+                  </p>
+                  <p className="font-body text-xs text-text-soft">{deel ? `${deel} van wie de stap zag` : "\u00a0"}</p>
+                </div>
+              ))}
+            </div>
+            {berekend.vraagstap.perVraag.length > 0 ? (
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="text-left text-text-muted text-xs">
+                    <th className="px-4 py-2 font-medium">Welke vraag</th>
+                    <th className="px-4 py-2 font-medium text-right">Gekozen</th>
+                    <th className="px-4 py-2 font-medium text-right">Verstuurd</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#F0F3F1]">
+                  {berekend.vraagstap.perVraag.map((v) => (
+                    <tr key={v.sleutel}>
+                      <td className="px-4 py-1.5 text-primary">{VRAAG_SLEUTEL_LABEL[v.sleutel] ?? v.sleutel}</td>
+                      <td className="px-4 py-1.5 text-right text-text-soft">{v.gekozen}</td>
+                      <td className="px-4 py-1.5 text-right text-primary font-medium">{v.verstuurd}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : (
+              <p className="px-4 py-3 text-xs text-text-muted">Nog geen vraag gekozen in deze periode.</p>
+            )}
           </section>
 
           {/* Uitkomst van de afronders */}
@@ -356,12 +407,16 @@ export default function AnalyseVerloopTabblad() {
                                 ? ""
                                 : !s.nazorg.gemeten
                                 ? "onbekend"
+                                : s.nazorg.vraagVerstuurd
+                                ? "Vraag gesteld"
                                 : s.nazorg.emailAchtergelaten
                                 ? "E-mail achtergelaten"
                                 : s.nazorg.geldscanKlik
                                 ? "Op Geldscan geklikt"
                                 : s.nazorg.resultaatStap >= 4
-                                ? "Aanbod gezien, niets gedaan"
+                                ? s.nazorg.vraagOvergeslagen
+                                  ? "Vraag overgeslagen, aanbod gezien"
+                                  : "Aanbod gezien, niets gedaan"
                                 : `Gestopt op resultaatstap ${s.nazorg.resultaatStap || 1}`}
                             </td>
                           </tr>

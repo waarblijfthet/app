@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback, useRef, useEffect } from "react";
-import { QuizData, DEFAULT_QUIZ_DATA, RESULTAAT_STAP_SLEUTEL } from "@/lib/quiz-types";
+import { QuizData, DEFAULT_QUIZ_DATA, RESULTAAT_STAP_SLEUTEL, VRAAG_VERSTUURD_SLEUTEL } from "@/lib/quiz-types";
 import { getSessieId, getApparaat, isEigenaar } from "@/lib/sessie";
 import {
   getBenchmarks,
@@ -307,6 +307,7 @@ export default function QuizClient() {
       // stond (28-aug-2026, resultatenherbouw).
       try {
         window.sessionStorage.removeItem(RESULTAAT_STAP_SLEUTEL);
+        window.sessionStorage.removeItem(VRAAG_VERSTUURD_SLEUTEL);
       } catch {
         // stil falen
       }
@@ -390,6 +391,7 @@ export default function QuizClient() {
       window.sessionStorage.removeItem(BEWAAR_SLEUTEL);
       window.sessionStorage.removeItem(NAV_SLEUTEL);
       window.sessionStorage.removeItem(RESULTAAT_STAP_SLEUTEL);
+      window.sessionStorage.removeItem(VRAAG_VERSTUURD_SLEUTEL);
     } catch {
       // stil falen, dan blijft de oude sessie staan maar gaat de bezoeker
       // wel terug naar de introductie

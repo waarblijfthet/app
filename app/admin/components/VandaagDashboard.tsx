@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import VragenBlok, { type VragenData } from "./VragenBlok";
 
 interface TeDoen {
   gereageerd: number;
@@ -9,6 +10,7 @@ interface TeDoen {
   aanvragenZonderRapport: { aantal: number; oudsteDagen: number | null };
   prospectsTeReviewen: number;
   contactenActieRijp: number;
+  vragenOpen?: number;
 }
 
 interface DagBudget {
@@ -78,6 +80,7 @@ interface VandaagData {
   repliesPerDoelgroep: DoelgroepReplies[];
   trechter: Trechter;
   activiteit: ActiviteitItem[];
+  vragen?: VragenData;
 }
 
 function relatieveTijd(iso: string): string {
@@ -161,9 +164,16 @@ export default function VandaagDashboard() {
   if (fout) return <div className="bg-danger-bg text-danger text-sm rounded-md px-4 py-3">{fout}</div>;
   if (!data) return null;
 
-  const { teDoen, dagbudget, week, repliesPerDoelgroep, trechter, activiteit } = data;
+  const { teDoen, dagbudget, week, repliesPerDoelgroep, trechter, activiteit, vragen } = data;
 
   const teDoenRijen: { aantal: number; tekst: string; href: string }[] = [];
+  if ((teDoen.vragenOpen ?? 0) > 0) {
+    teDoenRijen.push({
+      aantal: teDoen.vragenOpen ?? 0,
+      tekst: `vra${teDoen.vragenOpen === 1 ? "ag" : "gen"} via de analyse te beantwoorden`,
+      href: "/admin/vandaag",
+    });
+  }
   if (teDoen.gereageerd > 0) {
     teDoenRijen.push({
       aantal: teDoen.gereageerd,
@@ -212,6 +222,9 @@ export default function VandaagDashboard() {
 
   return (
     <div className="space-y-6">
+      {/* Vraagstap (23-sep-2026): open vragen staan bovenaan, want daar hangt een belofte van 2 werkdagen aan. */}
+      {vragen && <VragenBlok vragen={vragen} />}
+
       {/* Blok 0: bezoekcijfers, bovenaan want dit is het dagelijkse cijfer */}
       <section className="card-base overflow-hidden">
         <div className="px-4 py-3 border-b border-[#F0F3F1] flex items-baseline justify-between gap-3">

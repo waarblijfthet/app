@@ -59,6 +59,9 @@ const NAZORG_GEBEURTENISSEN = [
   "analyse_bewaren_verstuurd",
   "intake_gestart",
   "intake_verzonden",
+  "analyse_vraag_gekozen",
+  "analyse_vraag_verstuurd",
+  "analyse_vraag_overgeslagen",
 ];
 
 type AnalyseBezoek = {
