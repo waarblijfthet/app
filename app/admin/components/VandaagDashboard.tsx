@@ -21,7 +21,8 @@ interface WeekTelling {
   mailsVerstuurd: number;
   geopend: number;
   replies: number;
-  analysesVoltooid: number;
+  analysesAfgerond: number;
+  resultaatGemaild: number;
   scanAanmeldingen: number;
   scansGeleverd: number;
 }
@@ -90,7 +91,8 @@ const WEEK_RIJEN: { key: keyof WeekTelling; label: string }[] = [
   { key: "mailsVerstuurd", label: "Mails verstuurd" },
   { key: "geopend", label: "Geopend" },
   { key: "replies", label: "Replies" },
-  { key: "analysesVoltooid", label: "Analyses voltooid" },
+  { key: "analysesAfgerond", label: "Analyses afgerond (resultaat gezien)" },
+  { key: "resultaatGemaild", label: "Resultaat gemaild (e-mail achtergelaten)" },
   { key: "scanAanmeldingen", label: "Scan-aanmeldingen" },
   { key: "scansGeleverd", label: "Scans geleverd" },
 ];
@@ -373,6 +375,9 @@ export default function VandaagDashboard() {
           → <span className="font-medium text-primary">{trechter.aanmeldingen}</span> aanmeldingen{" "}
           → <span className="font-medium text-primary">{trechter.betaald}</span> betaald
         </p>
+        <a href="/admin/analyse-verloop" className="text-xs text-accent hover:underline mt-1 inline-block">
+          Bekijk per scherm waar de analyse afhaakt →
+        </a>
       </section>
 
       {/* Blok 6: Laatste activiteit */}

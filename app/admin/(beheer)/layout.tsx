@@ -18,15 +18,20 @@ export default async function BeheerLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Inlogcheck en badgetellingen tegelijk (23-sep-2026). Ze hangen niet van
+  // elkaar af, en achter elkaar kostte dit bij elke adminpagina twee
+  // rondjes naar Supabase in plaats van één. De tellingen worden pas getoond
+  // als de check slaagt, dus er lekt niets naar een niet-ingelogde bezoeker.
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const [
+    {
+      data: { user },
+    },
+    tellingen,
+  ] = await Promise.all([supabase.auth.getUser(), getBadgeTellingen()]);
 
   if (!user) redirect("/admin/login");
   if (!isEmailAllowed(user.email)) redirect("/admin/login");
-
-  const tellingen = await getBadgeTellingen();
 
   return (
     <AdminShell email={user.email ?? ""} tellingen={tellingen}>

@@ -24,7 +24,7 @@ export default function LoginForm() {
       setFout("Emailadres of wachtwoord klopt niet");
       setLaden(false);
     } else {
-      router.push("/admin");
+      router.push("/admin/vandaag");
       router.refresh();
     }
   }

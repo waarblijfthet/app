@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { createClient } from "@/lib/supabase-browser";
 
 type Bezoek = {
   id: string;
@@ -60,16 +59,6 @@ function bronLabel(referrer: string | null): string {
   return "🔗 Overig";
 }
 
-function vanafDatum(filter: FilterOptie): string {
-  if (filter === "vandaag")
-    return new Date(new Date().setHours(0, 0, 0, 0)).toISOString();
-  if (filter === "week")
-    return new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString();
-  if (filter === "maand")
-    return new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString();
-  return new Date(0).toISOString();
-}
-
 function isEigenaarGezet(): boolean {
   if (typeof document === "undefined") return false;
   return document.cookie.includes("wb_eigenaar=true");
@@ -88,9 +77,20 @@ function verwijderEigenaarCookie() {
   window.location.reload();
 }
 
+type Steden = { stad: string; aantal: number }[];
+
+/**
+ * Sinds 23-sep-2026 telt de server (/api/admin/bezoekers). Hiervoor haalde dit
+ * tabblad de laatste 500 bezoeken op in de browser en telde die zelf, waardoor
+ * week, maand en alles op 500 bleven staan.
+ */
 export function BezoekersTabblad() {
   const [bezoeken, setBezoeken] = useState<Bezoek[]>([]);
   const [stats, setStats] = useState<PaginaStat[]>([]);
+  const [steden, setSteden] = useState<Steden>([]);
+  const [totalen, setTotalen] = useState({ views: 0, sessies: 0, mobiel: 0 });
+  const [bron, setBron] = useState<"functie" | "terugval">("functie");
+  const [fout, setFout] = useState<string | null>(null);
   const [view, setView] = useState<ViewOptie>("live");
   const [laden, setLaden] = useState(true);
   const [filter, setFilter] = useState<FilterOptie>("week");
@@ -103,56 +103,39 @@ export function BezoekersTabblad() {
 
   useEffect(() => {
     laadData();
-    const interval = setInterval(laadData, 30000);
+    // Vandaag ververst snel, de langere periodes rustiger: die veranderen per
+    // halve minuut nauwelijks en kosten meer rekenwerk.
+    const interval = setInterval(laadData, filter === "vandaag" ? 30000 : 120000);
     return () => clearInterval(interval);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
   async function laadData() {
-    const supabase = createClient();
-    const { data } = await supabase
-      .from("paginabezoeken")
-      .select("*")
-      .gte("created_at", vanafDatum(filter))
-      .order("created_at", { ascending: false })
-      .limit(500);
-
-    if (data) {
-      setBezoeken(data);
-
-      const paginaMap = new Map<string, PaginaStat>();
-      data.forEach((b: Bezoek) => {
-        const bestaand = paginaMap.get(b.pagina);
-        if (bestaand) {
-          bestaand.totaal++;
-          if (b.apparaat === "mobiel") bestaand.mobiel++;
-          else bestaand.desktop++;
-          if (b.created_at > bestaand.laatste_bezoek)
-            bestaand.laatste_bezoek = b.created_at;
-        } else {
-          paginaMap.set(b.pagina, {
-            pagina: b.pagina,
-            totaal: 1,
-            mobiel: b.apparaat === "mobiel" ? 1 : 0,
-            desktop: b.apparaat === "desktop" ? 1 : 0,
-            laatste_bezoek: b.created_at,
-          });
-        }
+    try {
+      const res = await fetch(`/api/admin/bezoekers?periode=${filter}`, { cache: "no-store" });
+      const json = await res.json();
+      if (!res.ok) throw new Error(json.error || "Kon de bezoekcijfers niet laden.");
+      setBezoeken(json.live as Bezoek[]);
+      setStats(json.statistiek.paginas as PaginaStat[]);
+      setSteden(json.statistiek.steden as Steden);
+      setTotalen({
+        views: json.statistiek.views,
+        sessies: json.statistiek.sessies,
+        mobiel: json.statistiek.mobiel,
       });
-
-      setStats(
-        Array.from(paginaMap.values()).sort((a, b) => b.totaal - a.totaal)
-      );
+      setBron(json.bron);
+      setFout(null);
+    } catch (e) {
+      setFout(e instanceof Error ? e.message : "Kon de bezoekcijfers niet laden.");
     }
     setLaden(false);
   }
 
-  const totaalBezoeken = bezoeken.length;
-  const uniekeSessionen = new Set(bezoeken.map((b) => b.sessie_id)).size;
-  const mobieleBezoeken = bezoeken.filter((b) => b.apparaat === "mobiel").length;
+  const totaalBezoeken = totalen.views;
+  const uniekeSessionen = totalen.sessies;
   const mobieleP =
     totaalBezoeken > 0
-      ? Math.round((mobieleBezoeken / totaalBezoeken) * 100)
+      ? Math.round((totalen.mobiel / totaalBezoeken) * 100)
       : 0;
 
   if (laden) {
@@ -199,6 +182,20 @@ export function BezoekersTabblad() {
         </button>
       </div>
 
+      {fout && (
+        <div className="px-4 py-3 rounded-xl mb-4 border border-red-200 bg-red-50 text-sm text-red-800 font-body">
+          {fout}
+        </div>
+      )}
+      {bron === "terugval" && (
+        <div className="px-4 py-3 rounded-xl mb-4 border border-amber-200 bg-amber-50 text-sm text-amber-900 font-body">
+          De cijfers kloppen, maar worden rij voor rij opgehaald omdat de functie{" "}
+          <code>bezoekers_statistiek</code> nog niet in de database staat. Draai{" "}
+          <code>supabase/admin_statistiek.sql</code> in de Supabase SQL-editor, dan laadt dit tabblad
+          in één keer.
+        </div>
+      )}
+
       {/* Filter + refresh indicator */}
       <div className="flex flex-wrap items-center justify-between gap-4 mb-6">
         <div className="flex gap-2">
@@ -221,7 +218,7 @@ export function BezoekersTabblad() {
         </div>
         <div className="flex items-center gap-2 text-xs text-[#8B958F] font-body">
           <div className="w-2 h-2 rounded-full bg-[#0B7A6E] animate-pulse" />
-          Ververst elke 30 sec
+          Ververst elke {filter === "vandaag" ? "30 sec" : "2 min"}
         </div>
       </div>
 
@@ -232,7 +229,7 @@ export function BezoekersTabblad() {
             className="text-2xl font-semibold text-[#16211F]"
             style={{ fontFamily: "Fraunces, serif" }}
           >
-            {totaalBezoeken}
+            {totaalBezoeken.toLocaleString("nl-NL")}
           </p>
           <p className="text-xs text-[#8B958F] mt-1 font-body">Paginabezoeken</p>
         </div>
@@ -241,7 +238,7 @@ export function BezoekersTabblad() {
             className="text-2xl font-semibold text-[#16211F]"
             style={{ fontFamily: "Fraunces, serif" }}
           >
-            {uniekeSessionen}
+            {uniekeSessionen.toLocaleString("nl-NL")}
           </p>
           <p className="text-xs text-[#8B958F] mt-1 font-body">Unieke sessies</p>
         </div>
@@ -260,7 +257,7 @@ export function BezoekersTabblad() {
       <div className="flex border-b border-[#E6E9E7] mb-4">
         {(
           [
-            ["live", "Live feed"],
+            ["live", "Laatste 50"],
             ["paginas", "Per pagina"],
           ] as const
         ).map(([key, label]) => (
@@ -308,7 +305,7 @@ export function BezoekersTabblad() {
                   </tr>
                 </thead>
                 <tbody>
-                  {bezoeken.slice(0, 50).map((b, i) => (
+                  {bezoeken.map((b, i) => (
                     <tr
                       key={b.id}
                       className={i % 2 === 0 ? "bg-white" : "bg-[#FFFFFF]"}
@@ -371,7 +368,7 @@ export function BezoekersTabblad() {
                       className="text-lg font-semibold text-[#16211F]"
                       style={{ fontFamily: "Fraunces, serif" }}
                     >
-                      {s.totaal}
+                      {s.totaal.toLocaleString("nl-NL")}
                     </span>
                   </div>
                   <div className="h-1.5 bg-[#F0F3F1] rounded-full overflow-hidden mb-2">
@@ -402,20 +399,10 @@ export function BezoekersTabblad() {
                 </p>
                 <div className="bg-white rounded-xl border border-[#E6E9E7] overflow-hidden">
                   {(() => {
-                    const stedenMap = new Map<string, number>();
-                    bezoeken.forEach((b) => {
-                      if (b.stad) {
-                        stedenMap.set(b.stad, (stedenMap.get(b.stad) || 0) + 1);
-                      }
-                    });
-                    const steden = Array.from(stedenMap.entries())
-                      .sort((a, b) => b[1] - a[1])
-                      .slice(0, 8);
-                    const max = steden[0]?.[1] || 1;
-
+                    const max = steden[0]?.aantal || 1;
                     return steden.length > 0 ? (
                       <div className="p-4 space-y-2">
-                        {steden.map(([stad, aantal]) => (
+                        {steden.map(({ stad, aantal }) => (
                           <div key={stad} className="flex items-center gap-3">
                             <span className="text-xs text-[#4A5A56] w-28 flex-shrink-0 font-body">
                               {stad}
@@ -426,7 +413,7 @@ export function BezoekersTabblad() {
                                 style={{ width: `${(aantal / max) * 100}%` }}
                               />
                             </div>
-                            <span className="text-xs font-medium text-[#16211F] w-6 text-right font-body">
+                            <span className="text-xs font-medium text-[#16211F] w-10 text-right font-body">
                               {aantal}
                             </span>
                           </div>

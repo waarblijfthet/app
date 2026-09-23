@@ -4,7 +4,11 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 23 september, op verzoek van Jarno: de meting van de analyse gerepareerd, zie sectie 24.** Jarno zag de analyse wel geopend maar "zelden afgerond" en had geen zicht op wat er werd ingevuld. Uitgelezen in productie: **van de 43 sessies die sinds 7 september op start klikten, zagen er 34 het resultaat** (inclusief Jarno's eigen testrondes, die tot vandaag niet te onderscheiden waren). De analyse werd dus wel afgerond; de admin liet het niet zien. Drie oorzaken: "Analyses voltooid" telde alleen wie een e-mailadres achterliet, de afhaaklijst per scherm van 6 september zat in een component dat geen enkele route meer laadde, en het introscherm wordt niet gelogd. Nieuw: `/admin/analyse-verloop` (trechter van openen tot Geldscan, afhaken per scherm, herkomst, en per sessie welke schermen en antwoorden er staan). Daarnaast: het Bezoekers-tabblad bleef voor week, maand en alles op 500 hangen (een `.limit(500)` in de browser), en het Vandaag-dashboard laadde traag (vier golven queries achter elkaar, volledige tabellen opgehaald). Beide opgelost. **Jarno moet `supabase/admin_statistiek.sql` nog draaien**; de code werkt ook zonder, maar dan staat er een gele melding op Bezoekers en is quiz_voortgang nog leesbaar met de anon-sleutel. **Geen productiebuild gedraaid**, zie sectie 24.
+
+**Gevolg voor de killgrens van 19 september:** die ging uit van "analyse-afronding nul procent". Dat was een meetfout, niet de werkelijkheid. Het lek zit waarschijnlijk vóór de start (openen maar niet op start klikken) en ná het resultaat (resultaat zien maar geen e-mail en geen Geldscan). Welke van de twee groter is, laat `/admin/analyse-verloop` na de deploy zien. Kies daarna één wijziging op die plek, zoals de oorspronkelijke 13-september-actie voorschreef.
 
 **Update 7 september, buiten deze volgorde om, drie opdrachten.** Op expliciet verzoek van Jarno gewerkt aan `/analyse`. Eerste opdracht: `app/analyse/IntroScherm.tsx` herschreven, inhoud en UX binnen de bestaande smalle kolom. Tweede opdracht, dezelfde dag: omgebouwd tot volwaardige brede landingpage (max 1180px, twee-koloms hero, resultaatpreview, kaarten), met een kleine wrapperwijziging in `QuizClient.tsx`. Derde opdracht: een "Analyse afbreken"-knop op elke stap van de vragen- en resultatenflow, want er was geen weg terug naar de introductie, ook niet via een refresh. Geen van de drie is een bouwvolgorde-item of een contentpagina, dus telt niet mee in de tempo-regel van sectie 1. Zie sectie 17, 18 en 19. Ongepusht, hoort bij dezelfde push als de rest van deze sectie.
 
@@ -76,11 +80,12 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 | Wanneer | Wat |
 |---|---|
-| 13 september | Schermlijst lezen in het funneltabblad, één wijziging op het scherm bovenaan. |
+| ~~13 september~~ | ~~Schermlijst lezen in het funneltabblad.~~ **Kon niet: dat tabblad werd door geen route geladen. Vervangen door `/admin/analyse-verloop` op 23 september, zie sectie 24.** |
+| 30 september | Eerste week meten op `/admin/analyse-verloop`, zonder eigen testrondes: waar zit het grootste verlies, tussen openen en start of tussen resultaat en e-mail/Geldscan? Eén wijziging op die plek, daarna een week meten. |
 | 15 september | Prinsjesdag. De maximum uurtarieven kinderopvang 2027 en het definitieve eigen risico komen die dag naar buiten. Dat zijn de twee cijfers waar artikel 2 op wacht, zie sectie 20. |
 | ~~16 september~~ | ~~De vier geraamde constanten in `lib/kindgebonden-budget.ts` vervangen.~~ **Gedaan op 18 september, zie sectie 23.** Het werden er zeven, want ook de afbouwpunten en het knikpunt klopten niet. |
 | ~~16 september~~ | ~~`lib/prinsjesdag-2027.ts` bijwerken.~~ **Gedaan op 18 september, zie sectie 23.** €38, €94 en €51 klopten inderdaad niet meer en staan nu op €40, €84 en €40, in de metaTitel, het excerpt en de preview. |
-| 19 september | Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw tot het lek gevonden is. |
+| ~~19 september~~ | ~~Killgrens: is de analyse-afronding nog nul procent, dan stopt alle contentbouw.~~ **Op 23 september bleek de nul een meetfout: 34 van de 43 starters zagen het resultaat. Zie de update bovenaan en sectie 24.** |
 | 20 september | **+14 dagen op de is-4000 AI-overzicht-fix van 6 september** (sectie 15): GSC Generative AI features nakijken, en meteen is-5000 en het boodschappenartikel controleren op dezelfde knik, want dat kon deze sessie niet vanaf hier. |
 | 11 oktober | Meetpunt `tweeverdieners-2027-erop-achteruit`, 28 dagen na publicatie. Vertoningen en positie op "tweeverdieners 2027" en "wat verandert er voor tweeverdieners 2027". Kijk meteen of Z4 op die tweede term zijn plek houdt of dat de twee elkaar in de weg zitten; dat is het kannibalisatierisico uit sectie 20. |
 | 4 oktober | CTR-ronde 1 meten, de vijf URL's uit sectie 1. Meteen ook: houdt is-4000 de modaalvertoningen vast (+28 dagen op de fix van 6 september, sectie 15), pakt `waarom-hou-ik-nooit-geld-over` de 15 vertoningen van de 301 op, en wat doet H1 na vier weken. Plus de beslissing over `wat-zijn-normale-vaste-lasten-gezin`, zie hieronder. |
@@ -133,7 +138,8 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 
 ### Bekende schuld
 
-- De anon-rol mag `quiz_voortgang` nog lezen omdat het funneltabblad met de browserclient leest. Eerst die lezing naar een server-route, dan pas select intrekken. Staat als waarschuwing in `supabase/quiz_voortgang_v3.sql`.
+- ~~De anon-rol mag `quiz_voortgang` nog lezen.~~ De lezingen gaan sinds 23 september via server-routes; het intrekken staat in `supabase/admin_statistiek.sql`. **Tot Jarno dat bestand draait, kan iedereen met de anon-sleutel uit de browserbundle alle huishoudbedragen in quiz_voortgang uitlezen** (vastgesteld op 23 september).
+- `app/admin/AdminClient.tsx`, `app/admin/components/FunnelTabblad.tsx` en `OverzichtTabblad` via AdminClient zijn dode code sinds de zijmenu-shell van 30 juli. Verwijderen kan pas als Jarno de verwijderpermissie geeft; tot die tijd niet meer aan bouwen.
 - De zin "ik verwijder je afschriften en aangeleverde gegevens" klopt alleen zolang Jarno dat met de hand doet. Er verwijdert niets softwarematig.
 - De vier casestudy-pagina's met bedachte namen moeten gecontroleerd op hun illustratielabel in tekst, titel en schema.
 - Het woord "eerlijk" staat nog 27 keer in `lib/inzichten-data.ts`, in excerpts, metaDescriptions en FAQ-antwoorden. Copyregel 6 verbiedt het. Ruim het op per pagina die je aanraakt, net als de em dashes.
@@ -986,3 +992,52 @@ definitieve stukken en is daarom nergens overgenomen.
   Besluit kinderopvangtoeslag 2027 in het Staatsblad staat.
 - **GSC-indiening**: alle vijf de URL's opnieuw indienen na de push, want `gewijzigd` staat op
   18 september en de sitemap-lastmod verandert mee.
+
+---
+
+## 24. Meting van de analyse, bezoekcijfers en laadtijd van de admin, 23 september 2026
+
+Op verzoek van Jarno, buiten de bouwvolgorde om. Geen contentpagina, telt niet mee in de tempo-regel. Wel een nieuw adminscherm, terwijl CLAUDE.md "geen nieuwe adminschermen" zegt: Jarno vroeg er expliciet om, en het vervangt een scherm (het afhaakblok uit `FunnelTabblad.tsx`) dat er op papier al was maar nooit te zien was.
+
+### Wat er in productie stond
+
+Uitgelezen op 23 september via de publieke API, want `quiz_voortgang` was nog leesbaar met de anon-sleutel.
+
+| Week vanaf | Start geklikt | Eerste antwoord | Resultaat gezien |
+|---|---|---|---|
+| 31 aug | 10 | 8 | 8 |
+| 7 sep | 18 | 16 | 14 |
+| 14 sep | 21 | 18 | 17 |
+| 21 sep (t/m 23 sep) | 4 | 4 | 3 |
+
+Sinds de meting per scherm (6 september) stopten er tien zonder resultaat: vier klikten op start en beantwoordden de eerste vraag niet, de andere zes stopten elk op een ander scherm (extra inkomen, hypotheekaftrek, tussenstand inkomen, woonlasten, zorgverzekering, overige verzekeringen). Er is geen scherm waar mensen massaal afhaken. Nul keer toestemming voor de data-asset. **Jarno's eigen testrondes zitten hierin**; vanaf nu worden ze gemarkeerd.
+
+### De drie oorzaken
+
+1. **"Analyses voltooid" telde `quiz_resultaten`.** Daar komt pas een rij in als iemand op het resultaatscherm een e-mailadres achterlaat (`/api/quiz-lead`). Op Vandaag heet die rij nu "Resultaat gemaild (e-mail achtergelaten)", met erboven een nieuwe rij "Analyses afgerond (resultaat gezien)" uit `quiz_voortgang`. De pagina Analyses heet in het menu nu "Analyses met e-mail". De vrijdagmeting (CLAUDE.md sectie 9) moet "analyses afgerond" voortaan uit de nieuwe rij halen.
+2. **De afhaaklijst per scherm was onzichtbaar.** Gebouwd op 6 september in `FunnelTabblad.tsx`, maar dat component wordt alleen geladen door `AdminClient.tsx`, de oude admin met tabbladen, en die draait sinds de zijmenu-shell van 30 juli nergens meer. De opdracht "lees de schermlijst in het funneltabblad" kon dus niet worden uitgevoerd.
+3. **Het introscherm van /analyse wordt niet gelogd.** Een rij in `quiz_voortgang` ontstaat pas bij de eerste vraag. Wie de landingpagina opent en niet op start klikt, zie je alleen in de paginabezoeken. `/admin/analyse-verloop` legt die twee nu naast elkaar op sessie-id.
+
+### Wat er gebouwd is
+
+- **`/admin/analyse-verloop`** (menu Leveren). Trechter: geopend, start geklikt, eerste antwoord, resultaat, e-mail, Geldscan-aanvraag. Tabel per scherm in de volgorde van de analyse: hoeveel sessies het zagen en hoeveel daar stopten. Herkomst per pagina of site vóór /analyse. Lijst van alle gestarte analyses met status, voortgang, verste scherm, duur en herkomst; klik voor de schermen en de ingevulde antwoorden. Route `app/api/admin/analyse-verloop/route.ts`, rekenlaag `app/admin/components/analyse-verloop-berekening.ts`, weergave `AnalyseVerloopTabblad.tsx`.
+- **In de analyse zelf** (`QuizClient.tsx`), drie extra velden in de antwoorden-JSON, dus zonder migratie: `_eigenaar` (eigenaarscookie gezet, standaard weggelaten op de nieuwe pagina), `_verstScherm` (id van het verste scherm) en het event `analysis_afgebroken` bij de afbreekknop, niet op het resultaatscherm.
+- **Bezoekers-tabblad**: telt nu op de server via `/api/admin/bezoekers`, met de Postgres-functie `bezoekers_statistiek` of, zolang die er niet is, door alle rijen in blokken van 1000 op te halen. In dat laatste geval staat er een gele melding. Vandaag rekent nu vanaf middernacht Nederlandse tijd in plaats van de tijdzone van de browser.
+- **Laadtijd**: de middleware draait niet meer op `/api/admin/*` (elke route controleert zelf), de adminlayout doet de inlogcheck en de badgetellingen tegelijk, en `/api/admin/vandaag` start alle queries in één keer in plaats van in vier golven. De volledige `outreach_mails`-tabel wordt niet meer opgehaald; count-queries tellen, en alleen de geopende mails en de laatste tien komen als rijen mee. Inloggen gaat direct naar `/admin/vandaag` in plaats van via een extra redirect.
+- **Stille afkapping gevonden en gedicht**: Supabase geeft per verzoek hooguit 1000 rijen, ook zonder `limit()`. De Vandaag-route haalde contacten en mails op met de aanname "geen limiet". Nieuw hulpje `haalAlleRijen` in `lib/admin-periode.ts` bladert door. Regel: tellen met count-queries of een Postgres-functie, nooit rijen ophalen om te tellen.
+- **`supabase/admin_statistiek.sql`**: indexen op `paginabezoeken` en `quiz_voortgang`, de functie `bezoekers_statistiek`, en het intrekken van de anon-select op `quiz_voortgang`. Idempotent, met controlequery's onderaan.
+
+### Controle
+
+- `npx tsc --noEmit --incremental false` schoon op de hele repo, geen null bytes en geen CR in de gewijzigde bestanden, objectvelden expliciet uitgeschreven (ook in de bestaande return van de Vandaag-route).
+- De rekenlaag van de nieuwe pagina is gecompileerd en met Node uitgevoerd op echte rijen uit productie. Dat ving een fout: `max_scherm_index` wees in de opnieuw berekende schermenlijst één scherm te ver, omdat die positie is berekend op de lijst van dát moment, en die verschuift als latere antwoorden schermen toevoegen of weghalen. Vandaar het nieuwe veld `_verstScherm`; voor oude rijen geldt `huidig_scherm`. Daarna kwam de afhaaklijst exact overeen met een losse telling in de browser.
+- `haalAlleRijen` getest met een nepclient van 2.345 rijen: drie blokken, geen dubbele of ontbrekende rijen.
+- **Geen productiebuild gedraaid**: `next build` past niet in de 120 seconden van de shell. De pagina is ook niet in een browser gezien, want de admin vraagt een login. Draai de build lokaal, push, en loop dan `/admin/analyse-verloop`, `/admin/bezoekers` (alle vier de periodes) en `/admin/vandaag` langs.
+
+### Wat Jarno moet doen
+
+1. Build lokaal, pushen.
+2. `supabase/admin_statistiek.sql` draaien in de Supabase SQL-editor, daarna de drie controlequery's onderaan het bestand.
+3. Op het apparaat waarmee je test het eigenaarsfilter aanzetten (Bezoekers, "Dit ben ik"), zodat je testrondes voortaan gemarkeerd worden.
+4. Na een week: zie de datumtabel, 30 september.
+

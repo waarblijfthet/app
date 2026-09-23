@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { QuizData, DEFAULT_QUIZ_DATA, RESULTAAT_STAP_SLEUTEL } from "@/lib/quiz-types";
-import { getSessieId, getApparaat } from "@/lib/sessie";
+import { getSessieId, getApparaat, isEigenaar } from "@/lib/sessie";
 import {
   getBenchmarks,
   berekenTotaalInkomen,
@@ -162,6 +162,10 @@ export default function QuizClient() {
   const apparaatRef = useRef<string>("");
   const maxCategorieRef = useRef<number>(1);
   const maxSchermIndexRef = useRef<number>(0);
+  // Id van het verste scherm, naast de positie (23-sep-2026). Een positie
+  // alleen is achteraf niet terug te vertalen naar een scherm, want de lijst
+  // verschuift zodra latere antwoorden schermen toevoegen of weghalen.
+  const verstSchermRef = useRef<string>("");
   const gestartRef = useRef<boolean>(false);
   const gelogdSchermRef = useRef<string>("");
   const eventsRef = useRef<string[]>([]);
@@ -190,6 +194,9 @@ export default function QuizClient() {
       ensureSessie();
       if (!sessieIdRef.current) return;
       maxCategorieRef.current = Math.max(maxCategorieRef.current, categorieArg);
+      if (schermIndexArg >= maxSchermIndexRef.current || !verstSchermRef.current) {
+        verstSchermRef.current = schermArg;
+      }
       maxSchermIndexRef.current = Math.max(maxSchermIndexRef.current, schermIndexArg);
 
       let inkomen = 0;
@@ -248,7 +255,16 @@ export default function QuizClient() {
           maandelijks_over: voltooid ? over : null,
           verdict: verdict,
           grootste_afwijking: grootste,
-          antwoorden: { ...antwoorden, _events: eventsRef.current },
+          // _eigenaar (23-sep-2026): markeert Jarno's eigen testrondes, zodat
+          // /admin/analyse-verloop ze standaard kan weglaten. Zelfde cookie als
+          // het eigenaarsfilter op de paginabezoeken. Staat in de antwoorden en
+          // niet in een eigen kolom, dus geen migratie nodig.
+          antwoorden: {
+            ...antwoorden,
+            _events: eventsRef.current,
+            _eigenaar: isEigenaar(),
+            _verstScherm: verstSchermRef.current,
+          },
         });
         void fetch("/api/analyse-voortgang", {
           method: "POST",
@@ -352,6 +368,24 @@ export default function QuizClient() {
       );
       if (!bevestigd) return;
     }
+    // Het afbreken zelf ook wegschrijven (23-sep-2026), anders is een bewuste
+    // stop op het afhaakoverzicht niet te onderscheiden van wegklikken. Niet
+    // op het resultaatscherm: die bezoeker heeft het resultaat al gezien, en
+    // een nieuwe regel met voltooid = false zou dat overschrijven.
+    if (fase === "vraag") {
+      markeer("analysis_afgebroken");
+      const actieveLijst = actieveSchermen(dataRef.current);
+      logVoortgang(
+        ALLE_SCHERMEN.find((s) => s.id === currentId)?.categorie ?? 1,
+        dataRef.current,
+        false,
+        currentId,
+        Math.max(
+          actieveLijst.findIndex((s) => s.id === currentId),
+          0
+        )
+      );
+    }
     try {
       window.sessionStorage.removeItem(BEWAAR_SLEUTEL);
       window.sessionStorage.removeItem(NAV_SLEUTEL);
@@ -363,7 +397,8 @@ export default function QuizClient() {
     setData(DEFAULT_QUIZ_DATA);
     setCurrentId(ALLE_SCHERMEN[0].id);
     setFase("intro");
-  }, []);
+    gelogdSchermRef.current = "";
+  }, [fase, currentId, markeer, logVoortgang]);
 
   // Meten per scherm in plaats van per categorie (6-sep-2026). De flow heeft
   // 29 schermen in 5 categorieen, dus op categorieniveau was "afgehaakt in

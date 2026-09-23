@@ -40,12 +40,20 @@ export async function middleware(request: NextRequest) {
 
   // Al ingelogd op /admin/login → redirect naar /admin
   if (request.nextUrl.pathname === "/admin/login" && user) {
-    return NextResponse.redirect(new URL("/admin", request.url));
+    return NextResponse.redirect(new URL("/admin/vandaag", request.url));
   }
 
   return supabaseResponse;
 }
 
+/**
+ * Alleen de /admin-pagina's, niet /api/admin (23-sep-2026). Elke API-route
+ * onder /api/admin controleert zelf isAdminRequest(), en een redirect naar de
+ * loginpagina is voor een fetch sowieso geen bruikbaar antwoord. Door ze hier
+ * over te slaan scheelt elke admin-API-aanroep een extra rondje naar Supabase
+ * Auth; op het Vandaag-dashboard waren dat er per lading vier achter elkaar
+ * (middleware en layout voor de pagina, middleware en route voor de data).
+ */
 export const config = {
-  matcher: ["/admin/:path*", "/api/admin/:path*"],
+  matcher: ["/admin/:path*"],
 };
