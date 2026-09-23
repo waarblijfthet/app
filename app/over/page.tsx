@@ -14,12 +14,12 @@ import {
 export const metadata: Metadata = {
   title: "Over Jarno Koopman | Waar blijft het",
   description:
-    "Ik ben Jarno Koopman. Ik verdiende zelf goed en wist toch niet waar ons geld bleef. Daarom kijk ik nu naar de cijfers van andere huishoudens en schrijf ik met de hand op wat opvalt.",
+    "Ik ben Jarno Koopman. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Nu lees ik de cijfers van andere huishoudens en schrijf ik met de hand op wat opvalt.",
   alternates: { canonical: "https://www.waarblijfthet.nl/over" },
   openGraph: {
     title: "Over Jarno Koopman | Waar blijft het",
     description:
-      "Ik verdiende goed en wist toch niet waar ons geld bleef. Dat is waarom Waar blijft het bestaat.",
+      "Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Daarom bestaat Waar blijft het.",
     url: "https://www.waarblijfthet.nl/over",
     type: "website",
   },
@@ -41,13 +41,7 @@ const personSchema = {
       "https://www.linkedin.com/in/jarnokoopman/",
       "https://www.instagram.com/koopmanjarno/",
     ],
-    knowsAbout: [
-      "Persoonlijke financiën",
-      "Huishoudbudget",
-      "Grip op geld",
-      "Besparen",
-      "Sparen",
-    ],
+    knowsAbout: ["Persoonlijke financiën", "Huishoudbudget", "Vaste lasten", "Uitgaven van huishoudens"],
     worksFor: {
       "@type": "Organization",
       name: "Waar blijft het",
@@ -147,44 +141,51 @@ function Vinkje() {
 
 /* --- Vaste inhoud ------------------------------------------------------ */
 
-const WAARDEN: { icoon: React.ReactNode; titel: string; tekst: string }[] = [
+// Feiten in plaats van eigenschappen (23-sep-2026). "Persoonlijk" en
+// "praktisch" waren claims over karakter; CLAUDE.md sectie 4 zegt: positioneer
+// op geleverd werk, nooit op karakter.
+const FEITEN: { icoon: React.ReactNode; titel: string; tekst: string }[] = [
   {
     icoon: IcoonPersoon,
-    titel: "Persoonlijk",
-    tekst: "Ik schrijf de Geldscan zelf.",
+    titel: "Ik schrijf het zelf",
+    tekst: "Elke Geldscan lees en schrijf ik met de hand.",
   },
   {
     icoon: IcoonSchild,
-    titel: "Onafhankelijk",
-    tekst: "Geen financiële producten of provisies.",
+    titel: "Niets te verkopen",
+    tekst: "Geen financiële producten, geen provisie.",
   },
   {
     icoon: IcoonDoel,
-    titel: "Praktisch",
-    tekst: "Geen standaardadvies, maar kijken naar jouw situatie.",
+    titel: "Werk op tafel",
+    tekst: `Alle ${RAPPORTEN.length} rapporten staan openbaar.`,
   },
 ];
 
-const MANIER_VAN_KIJKEN: {
+// Hoe het werkt, in drie stappen (23-sep-2026). Vervangt "Mijn manier van
+// kijken", dat drie algemene beloftes deed en niet zei wat je krijgt.
+const HOE_HET_WERKT: {
   icoon: React.ReactNode;
   titel: string;
   tekst: string;
 }[] = [
   {
     icoon: IcoonVerbanden,
-    titel: "Ik kijk naar verbanden",
+    titel: "Gratis analyse",
     tekst:
-      "Niet alleen naar wat je uitgeeft, maar naar wat samen het beeld vormt.",
+      "Je vult je inkomen en vaste lasten in en ziet hoe dat zich verhoudt tot vergelijkbare huishoudens. Zonder e-mailadres.",
   },
   {
     icoon: IcoonTaal,
-    titel: "Ik maak het begrijpelijk",
-    tekst: "Geen financieel jargon, maar uitleg in gewone taal.",
+    titel: "Geldscan, €49",
+    tekst:
+      "Ik lees je cijfers en schrijf binnen 2 werkdagen op wat het meest opvalt, en wat juist niet uit de toon valt. Valt er niets te repareren, dan staat dat er ook.",
   },
   {
     icoon: IcoonKeuzes,
-    titel: "Ik help je keuzes zien",
-    tekst: "Wat is een probleem, wat is een bewuste keuze en waar zit ruimte?",
+    titel: "Daarna",
+    tekst:
+      "Je afschriften verwijder ik na levering zelf. Wil je verder, dan verreken ik de €49 met een vervolg.",
   },
 ];
 
@@ -194,16 +195,12 @@ const VOOR_WIE: { kop: string; tekst: string }[] = [
     tekst: "Toch blijft er minder over dan je verwacht.",
   },
   {
-    kop: "Je doet het op zich goed.",
-    tekst: "Maar je mist overzicht.",
+    kop: "Je hebt geen schulden.",
+    tekst: "Maar je weet niet waar het geld blijft.",
   },
   {
     kop: "Je wilt weten waar het verschil zit.",
     tekst: "Niet alleen horen dat je minder moet uitgeven.",
-  },
-  {
-    kop: "Je wilt keuzes maken die bij jouw leven passen.",
-    tekst: "En niet bij het gemiddelde huishouden.",
   },
 ];
 
@@ -244,9 +241,10 @@ export default function OverPage() {
                   op hun geld.
                 </h1>
                 <p className="text-text-soft font-body font-light text-lg leading-relaxed max-w-[52ch]">
-                  Ik ben Jarno Koopman. Ik kijk naar cijfers en verbanden en
-                  vertaal ze naar een begrijpelijk verhaal over jouw financiële
-                  situatie.
+                  Ik ben Jarno Koopman. Ik verdien zelf goed en heb jarenlang
+                  niet begrepen waarom het nooit klopte. Nu lees ik de cijfers
+                  van andere huishoudens en schrijf ik met de hand op wat
+                  opvalt.
                 </p>
               </div>
 
@@ -268,7 +266,7 @@ export default function OverPage() {
 
               <div className="lg:col-start-1 lg:row-start-2">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-7 sm:gap-6">
-                  {WAARDEN.map((w) => (
+                  {FEITEN.map((w) => (
                     <div key={w.titel} className="flex gap-3.5 sm:block">
                       <span className="shrink-0 sm:mb-3 sm:block">{w.icoon}</span>
                       <div>
@@ -311,12 +309,12 @@ export default function OverPage() {
                     me af of ik iets over het hoofd zag.
                   </p>
                   <p>
-                    Pas toen ik onze cijfers eindelijk naast elkaar legde, werd
-                    duidelijk wat er gebeurde. Het probleem was niet een enkele
-                    uitgavencategorie. Het ontbrak vooral aan context.
+                    Pas toen ik onze cijfers naast elkaar legde, werd duidelijk
+                    wat er gebeurde. Het zat niet in één uitgave. Ik miste
+                    vooral een vergelijking.
                   </p>
                   <p className="font-body font-normal text-primary">
-                    Daaruit is Waar blijft het? ontstaan.
+                    Daaruit is Waar blijft het ontstaan.
                   </p>
                 </div>
               </div>
@@ -346,18 +344,18 @@ export default function OverPage() {
           </div>
         </section>
 
-        {/* 3. Mijn manier van kijken: drie losse items, veel witruimte, geen cards. */}
+        {/* 3. Hoe het werkt: drie stappen, veel witruimte, geen cards. */}
         <section className="bg-background py-16 sm:py-20">
           <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
             <div className="max-w-[46ch] mb-11 sm:mb-14">
-              <p className="section-eyebrow mb-4">Mijn manier van kijken</p>
+              <p className="section-eyebrow mb-4">Hoe het werkt</p>
               <h2 className="font-display font-light text-primary text-3xl sm:text-4xl">
-                Ik kijk verder dan de losse cijfers.
+                Eerst gratis vergelijken, dan pas betalen als je wilt weten waarom.
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-0">
-              {MANIER_VAN_KIJKEN.map((item, i) => (
+              {HOE_HET_WERKT.map((item, i) => (
                 <div
                   key={item.titel}
                   className={
@@ -390,8 +388,8 @@ export default function OverPage() {
                   Voor wie ik er ben
                 </h2>
                 <p className="text-text-soft font-body font-light text-base sm:text-lg leading-relaxed max-w-[50ch] mb-8">
-                  Voor mensen die goed verdienen, maar merken dat geld toch te
-                  weinig overzicht, ruimte of rust geeft.
+                  Voor mensen in loondienst die goed verdienen en toch elke
+                  maand krap zitten.
                 </p>
 
                 <ul className="space-y-5 max-w-[52ch]">
@@ -416,9 +414,9 @@ export default function OverPage() {
                 </h2>
                 <p className="text-text-soft font-body font-light text-base leading-relaxed max-w-[50ch] mb-7">
                   Alle {RAPPORTEN.length} geldrapporten die ik heb geleverd staan
-                  openbaar op de site, met de cijfers, mijn advies en de reactie
-                  van de klant. Bij {AANTAL_ZONDER_LEK} ervan viel er niets te
-                  repareren, en ook dat lees je gewoon terug.
+                  op de site, met de cijfers, wat ik schreef en de reactie van
+                  de klant. Bij {AANTAL_ZONDER_LEK} ervan viel er niets te
+                  repareren, en dat staat er ook.
                 </p>
 
                 <div className="space-y-3">
@@ -454,13 +452,20 @@ export default function OverPage() {
         {/* 5. Afbakening, compact en laag op de pagina. */}
         <section className="bg-background py-12">
           <div className="max-w-[1200px] mx-auto px-5 sm:px-6">
+            {/* Herschreven 23-sep-2026: de vorige tekst zei dat de vergelijking
+                op Nibud-, CBS- en Belastingdienstcijfers berust. Dat klopt niet:
+                lib/benchmarks.ts rekent met de huishoudens die ik zelf heb
+                doorgerekend, en sluit Nibud bewust uit. */}
             <p className="font-body font-light text-text-muted text-sm leading-relaxed max-w-[76ch] border-t border-[#E1E6E4] pt-7">
-              Ik geef geen financieel advies in de juridische zin, verkoop geen
-              producten en ontvang geen provisie. Ik vergelijk met openbare
-              cijfers van bronnen als het Nibud, het CBS en de Belastingdienst,
-              en met de huishoudens die ik zelf heb doorgerekend. Heb je schulden
-              of een complexe situatie, dan ben je beter op je plek bij een
-              gecertificeerde budgetcoach of bij{" "}
+              Ik ben geen financieel adviseur. Ik geef geen advies over
+              hypotheken, beleggen of verzekeringen, verkoop geen producten en
+              ontvang geen provisie. De vergelijking in de analyse is mijn eigen
+              vuistregel, gebaseerd op de huishoudens die ik zelf heb
+              doorgerekend; die staan allemaal op{" "}
+              <Link href="/rapporten" className="text-accent hover:underline">
+                de rapportenpagina
+              </Link>
+              . Heb je schulden, dan ben je beter geholpen bij{" "}
               <a
                 href="https://geldfit.nl"
                 target="_blank"
@@ -469,14 +474,14 @@ export default function OverPage() {
               >
                 Geldfit
               </a>
-              . Een vraag over je eigen situatie mag altijd naar{" "}
+              . Een vraag mag altijd naar{" "}
               <a
                 href="mailto:hallo@waarblijfthet.nl"
                 className="text-accent hover:underline"
               >
                 hallo@waarblijfthet.nl
               </a>
-              , ik lees alles zelf.
+              . Ik lees alles zelf.
             </p>
           </div>
         </section>
@@ -502,7 +507,7 @@ export default function OverPage() {
               {PRIMAIRE_CTA_LABEL} &rarr;
             </CtaLink>
             <p className="font-body font-light text-white/50 text-sm mt-6">
-              Gratis &bull; vertrouwelijk &bull; geen verkoopgesprek
+              Gratis &bull; zonder e-mailadres &bull; geen verkoopgesprek
             </p>
             <p className="font-body font-light text-white/60 text-sm mt-6">
               Liever meteen een geldrapport?

@@ -4,7 +4,7 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
 
 **Update 23 september, op verzoek van Jarno: de meting van de analyse gerepareerd, zie sectie 24.** Jarno zag de analyse wel geopend maar "zelden afgerond" en had geen zicht op wat er werd ingevuld. Uitgelezen in productie: **van de 43 sessies die sinds 7 september op start klikten, zagen er 34 het resultaat** (inclusief Jarno's eigen testrondes, die tot vandaag niet te onderscheiden waren). De analyse werd dus wel afgerond; de admin liet het niet zien. Drie oorzaken: "Analyses voltooid" telde alleen wie een e-mailadres achterliet, de afhaaklijst per scherm van 6 september zat in een component dat geen enkele route meer laadde, en het introscherm wordt niet gelogd. Nieuw: `/admin/analyse-verloop` (trechter van openen tot Geldscan, afhaken per scherm, herkomst, en per sessie welke schermen en antwoorden er staan). Daarnaast: het Bezoekers-tabblad bleef voor week, maand en alles op 500 hangen (een `.limit(500)` in de browser), en het Vandaag-dashboard laadde traag (vier golven queries achter elkaar, volledige tabellen opgehaald). Beide opgelost. **Jarno moet `supabase/admin_statistiek.sql` nog draaien**; de code werkt ook zonder, maar dan staat er een gele melding op Bezoekers en is quiz_voortgang nog leesbaar met de anon-sleutel. **Geen productiebuild gedraaid**, zie sectie 24.
 
@@ -145,7 +145,12 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 - ~~De anon-rol mag `quiz_voortgang` nog lezen.~~ Opgelost op 23 september: `supabase/admin_statistiek.sql` is gedraaid, een anonieme lezing geeft nu nul rijen.
 - De drie opvolgmails na de analyse (CLAUDE.md sectie 5, dag 0, 3 en 8) zijn nooit gebouwd; alleen de resultaatmail bestaat. Staat als wijziging 4 in `docs/conversie-na-resultaat-23-sep-2026.md`.
 - **De resultaatmail (`/api/send-resultaat`) breekt copyregels**: "Dit patroon is om te buigen", "structureel minder", "het ligt niet aan jou", en een verdict ("Je doet het goed") dat niet meer overeenkomt met de conclusies op het resultaatscherm. Die mail gaat ook naar iedereen die het bewaarformulier gebruikt. Herschrijven bij de eerstvolgende sessie aan de mails.
-- **De privacypagina** staat in de wij-vorm, noemt een wachtlijst die niet meer bestaat, gebruikt "eerlijk", en belooft dat quiz-antwoorden na 2 jaar worden verwijderd terwijl er niets softwarematig verwijdert. Op 23 september is alleen een alinea over de vraagstap toegevoegd, in de ik-vorm.
+- ~~De privacypagina~~ Herschreven op 23 september, zie sectie 27.
+- **Twee privacyzinnen elders kloppen niet met wat de code doet.**
+  - `app/aanbod/components/AanbodAccordion.tsx` zegt "er blijft niets bewaard".
+  - De bevestigingsmail in `app/api/send-intake-bevestiging/route.ts` zegt "direct na het versturen verwijder ik je afschriften en gegevens".
+
+  In werkelijkheid blijven de aanvraag, de anonieme analyse-antwoorden en een eventuele uitkomst met e-mailadres bewaard; alleen de afschriften verwijdert Jarno met de hand. Gelijktrekken met de privacypagina bij de eerstvolgende keer dat die bestanden worden aangeraakt.
 - `app/admin/AdminClient.tsx`, `app/admin/components/FunnelTabblad.tsx` en `OverzichtTabblad` via AdminClient zijn dode code sinds de zijmenu-shell van 30 juli. Verwijderen kan pas als Jarno de verwijderpermissie geeft; tot die tijd niet meer aan bouwen.
 - De zin "ik verwijder je afschriften en aangeleverde gegevens" klopt alleen zolang Jarno dat met de hand doet. Er verwijdert niets softwarematig.
 - De vier casestudy-pagina's met bedachte namen moeten gecontroleerd op hun illustratielabel in tekst, titel en schema.
@@ -1134,4 +1139,52 @@ Op verzoek van Jarno, naar het ontwerp en de mockup van dezelfde dag (`docs/vraa
   - een echte verzending tegen Supabase en Resend.
 
   Na de deploy één eigen testvraag sturen: komt de mail binnen op hallo@, en staat hij op Vandaag? Klik daarna op Beantwoord.
+
+---
+
+## 27. Privacy- en over-pagina herschreven, 23 september 2026
+
+Op verzoek van Jarno: alles wat oud of onjuist was vervangen, en de tekst beknopt en duidelijk gemaakt.
+
+### Privacy (`app/privacy/page.tsx`, volledig herschreven)
+
+Wat er niet klopte:
+
+- de pagina stond in de wij-vorm en noemde een wachtlijst die niet meer bestaat;
+- er stond dat analyse-antwoorden alleen met toestemming bewaard worden, terwijl ze altijd anoniem per scherm worden opgeslagen;
+- er stond dat gegevens na 2 jaar worden verwijderd, terwijl er niets automatisch verwijdert;
+- "Europese servers" bij Supabase is niet na te gaan;
+- Vercel Analytics, freeipapi.com (het IP-adres voor stad of regio), Resend, de vraagstap, de Geldscan-afschriften en de zakelijke outreach ontbraken;
+- het woord "eerlijk" stond erin.
+
+De nieuwe pagina, in de ik-vorm:
+
+- vijf situaties met per situatie wat ik verzamel;
+- waarom dat mag;
+- hoe lang ik het bewaar (eerlijk "zonder vaste termijn" voor de anonieme data, facturen 7 jaar);
+- wie gegevens voor mij verwerkt;
+- cookies (geen voor statistiek of advertenties);
+- rechten en de Autoriteit Persoonsgegevens.
+
+De links naar geldfit.nl en autoriteitpersoonsgegevens.nl zijn in de browser geopend en werken.
+
+### Over (`app/over/page.tsx`)
+
+- **Afbakening.** Er stond dat de vergelijking op Nibud-, CBS- en Belastingdienstcijfers berust. Dat is onjuist: `lib/benchmarks.ts` rekent met de zelf doorgerekende huishoudens en sluit Nibud bewust uit. Nu staat er dat het mijn eigen vuistregel is, met een link naar de rapporten.
+- **De drie waarden "Persoonlijk, Onafhankelijk, Praktisch"** zijn vervangen door drie feiten: ik schrijf het zelf, niets te verkopen, alle rapporten openbaar (via `RAPPORTEN.length`). Dat volgt CLAUDE.md sectie 4: positioneren op geleverd werk, niet op karakter.
+- **"Mijn manier van kijken"** (drie algemene beloftes) is vervangen door "Hoe het werkt": gratis analyse, Geldscan €49, en daarna (afschriften met de hand verwijderd, €49 verrekend bij een vervolg).
+- **Kleinere correcties:**
+  - de bio-zin uit CLAUDE.md staat in de hero en de metadata;
+  - "Waar blijft het?" is "Waar blijft het" geworden;
+  - "mijn advies" is "wat ik schreef" geworden;
+  - "vertrouwelijk" is "zonder e-mailadres" geworden;
+  - "Besparen" en "Sparen" zijn uit het schema gehaald;
+  - "Voor wie" is ingekort van vier naar drie punten.
+
+### Controle
+
+- `tsc` schoon.
+- Beide pagina's zijn server-side gerenderd met de echte Tailwind-config en op 390 pixels breed gefotografeerd.
+- Geen em dashes, geen "eerlijk" en geen PSOhub of CTO in de nieuwe tekst.
+- **Geen productiebuild gedraaid.**
 
