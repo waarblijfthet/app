@@ -4,7 +4,7 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
 
 **Update 23 september, op verzoek van Jarno: de meting van de analyse gerepareerd, zie sectie 24.** Jarno zag de analyse wel geopend maar "zelden afgerond" en had geen zicht op wat er werd ingevuld. Uitgelezen in productie: **van de 43 sessies die sinds 7 september op start klikten, zagen er 34 het resultaat** (inclusief Jarno's eigen testrondes, die tot vandaag niet te onderscheiden waren). De analyse werd dus wel afgerond; de admin liet het niet zien. Drie oorzaken: "Analyses voltooid" telde alleen wie een e-mailadres achterliet, de afhaaklijst per scherm van 6 september zat in een component dat geen enkele route meer laadde, en het introscherm wordt niet gelogd. Nieuw: `/admin/analyse-verloop` (trechter van openen tot Geldscan, afhaken per scherm, herkomst, en per sessie welke schermen en antwoorden er staan). Daarnaast: het Bezoekers-tabblad bleef voor week, maand en alles op 500 hangen (een `.limit(500)` in de browser), en het Vandaag-dashboard laadde traag (vier golven queries achter elkaar, volledige tabellen opgehaald). Beide opgelost. **Jarno moet `supabase/admin_statistiek.sql` nog draaien**; de code werkt ook zonder, maar dan staat er een gele melding op Bezoekers en is quiz_voortgang nog leesbaar met de anon-sleutel. **Geen productiebuild gedraaid**, zie sectie 24.
 
@@ -1187,4 +1187,19 @@ De links naar geldfit.nl en autoriteitpersoonsgegevens.nl zijn in de browser geo
 - Beide pagina's zijn server-side gerenderd met de echte Tailwind-config en op 390 pixels breed gefotografeerd.
 - Geen em dashes, geen "eerlijk" en geen PSOhub of CTO in de nieuwe tekst.
 - **Geen productiebuild gedraaid.**
+
+---
+
+## 28. Gemiste zoekonderwerpen, 23 september 2026
+
+Onderzoek op verzoek van Jarno, volledig in `docs/serp-gemiste-onderwerpen-23-sep-2026.md`. Er is niets gebouwd. De top 10 staat daar; dit zijn de gevolgen voor de volgorde.
+
+- **H2 krijgt een geverifieerde hoofdterm:** "gemiddelde uitgaven per maand 2 personen". Die staat hoog in de autocomplete, heeft een AI-overzicht, en er staat geen eigen cijfer in de top 7.
+- **Nieuw kandidaat-pijler, geparkeerd tot na H2:** "waar sta ik met mijn inkomen", op basis van het gestandaardiseerd inkomen van het CBS per huishouden, in netto per maand. We hebben daar nul vertoningen op. Perplexity citeert voor die vraag nu webwoordenboek, met een bedrag dat geen rekening houdt met de grootte van het huishouden. Deze pagina herstelt ook de top-25-procentclaim.
+- **Voor de beslissing van 4 oktober over `wat-zijn-normale-vaste-lasten-gezin`:** niet weggooien, maar herbouwen op "gemiddelde vaste lasten gezin 4 personen", 2 personen en 1 persoon (vier varianten in de autocomplete).
+- **Voor de 2027-sweep in december:**
+  - een januari-2027-sectie op `netto-loonsverhoging-berekenen`;
+  - "wat wordt duurder in 2027" als sectie in `wat-verandert-er-2027-gezinnen-goed-inkomen`.
+- **Goedkoopste winst:** "Kun je rondkomen van 3000 euro per maand?" staat in "Meer om te vragen" op 5 van de 15 onderzochte zoekresultaten. Een letterlijk antwoordblok op `is-3000-netto-genoeg-gezin` maakt ons in veel zoekresultaten tegelijk zichtbaar.
+- **Volumes zijn klassen, geen getallen**, want er is geen keywordtool. Het anker is is-4000, met ongeveer 3.900 vertoningen per maand. Google Trends gaf één vergelijking en blokkeerde daarna. Keyword Planner was alleen bereikbaar via Google Ads-accounts van andere bedrijven en is niet gebruikt.
 
