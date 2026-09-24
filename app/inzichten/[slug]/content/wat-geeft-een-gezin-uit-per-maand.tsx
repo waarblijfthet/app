@@ -1,7 +1,5 @@
 import Link from "next/link";
 import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
-import CtaLink from "@/components/CtaLink";
-import { geldscanHref } from "@/lib/cta";
 import { rapportVoorSlug, RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import {
   berekenVuistregel,
@@ -66,6 +64,8 @@ const spaken: { slug: string; tekst: string }[] = [
   { slug: "kindgebonden-budget-2027-inkomensgrens", tekst: "Kindgebonden budget 2027: vanaf welk inkomen daalt het?" },
   { slug: "is-4000-euro-netto-goed-salaris-nederland", tekst: "Is €4.000 netto een goed salaris?" },
   { slug: "is-3000-netto-genoeg-gezin", tekst: "Is €3.000 netto genoeg voor een gezin?" },
+  { slug: "top-10-procent-inkomen-nederland", tekst: "Waar sta je met je inkomen? De grenzen per huishouden" },
+  { slug: "gemiddelde-uitgaven-per-maand-2-personen", tekst: "Geen kinderen? De uitgaven per maand voor 2 personen" },
 ];
 
 interface Kolom {
@@ -400,15 +400,13 @@ export default function WatGeeftEenGezinUitPerMaand() {
         ))}
       </ul>
 
-      {/* Slotblok: Geldscan als tekstlink, CLAUDE.md 8.13 */}
+      {/* Geen eigen Geldscan-link hier: de enige Geldscan-verwijzing van een
+          artikel staat in het slotblok van page.tsx (CLAUDE.md sectie 5).
+          Rechtgezet op 24-sep-2026, er stonden er twee op deze pagina. */}
       <p className="font-body text-text-soft" style={p}>
         Wijkt jullie eigen begroting op meerdere posten af en weet je niet welke afwijking de
         oorzaak is en welke het gevolg, dan houdt een vuistregel op. Daarvoor moet iemand naar jullie
-        hele maand kijken. Dat is wat ik doe in de{" "}
-        <CtaLink doel="geldscan" href={geldscanHref()} locatie="slot" style={link} className="hover:underline">
-          Geldscan van &euro;49
-        </CtaLink>
-        , met de hand, binnen twee werkdagen.
+        hele maand kijken, met de hand. Dat kan hieronder, na de gratis analyse.
       </p>
     </>
   );

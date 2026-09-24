@@ -5,6 +5,7 @@ import SalarisBedragenTabel from "@/components/artikel/SalarisBedragenTabel";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import { berekenVuistregel, euro, euroSigned } from "@/lib/salaris-vuistregel";
 import { BRUTO_MODAAL_2026, NETTO_MODAAL_2026_MAAND, BRUTO_VOOR_NETTO } from "@/lib/bruto-netto-referentie";
+import { aandeelMetMeerNl, procent, INKOMEN_PEILJAAR } from "@/lib/inkomensverdeling-cbs";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -42,8 +43,23 @@ export default function Is4000EuroNettoGoedSalaris() {
         netto zelf heb je een bruto jaarinkomen nodig vanaf ongeveer {euro(BRUTO_VOOR_NETTO[4000])}.
         Of dat ook genoeg voelt, hangt af van je huishouden.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Als alleenstaande zit je met {euro(4000)} per maand te besteden rond de grens van de hoogste 25
+        procent: {procent(aandeelMetMeerNl(4000, 1, 0))} van de huishoudens in Nederland heeft meer. Als stel
+        zonder kinderen is dat {procent(aandeelMetMeerNl(4000, 2, 0))}, als gezin met twee kinderen{" "}
+        {procent(aandeelMetMeerNl(4000, 2, 2))} (CBS, cijfers over {INKOMEN_PEILJAAR}, gecorrigeerd voor de
+        grootte van het huishouden). Per huishouden uitgewerkt op{" "}
+        <Link
+          href="/inzichten/top-10-procent-inkomen-nederland"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          waar sta je met je inkomen
+        </Link>
+        .
+      </p>
       <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
-        Cijfers bijgewerkt op 6 september 2026, bronnen en berekening onderaan dit artikel.
+        Cijfers bijgewerkt op 24 september 2026, bronnen en berekening onderaan dit artikel.
       </p>
 
       {/* DEEL 2: het verschil direct visueel, drie huishoudens op hetzelfde bedrag */}
@@ -330,7 +346,8 @@ export default function Is4000EuroNettoGoedSalaris() {
       <p className="font-body text-text-soft" style={p}>
         Wil je niet alleen weten wat er overblijft maar ook waar het per post naartoe gaat, dan
         staat de hele begroting van een gezin met twee inkomens in{" "}
-        <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
+        <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>, en zonder kinderen in{" "}
+        <Link href="/inzichten/gemiddelde-uitgaven-per-maand-2-personen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">de uitgaven per maand voor 2 personen</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Heb je een koopwoning en loopt je rentevaste periode af, dan komt daar een vaste last bij

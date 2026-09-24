@@ -64,3 +64,7 @@ console.log('\nMODAAL 2026/2027 (bruto: CPB cMEV 2027, kerngegeventabel, 6-sep-2
 for (const bruto of [48000, 50000]) {
   console.log(`  ${bruto} bruto/jaar -> netto/mnd excl vakantiegeld`, maandNettoExclVakantiegeld(bruto).toFixed(0), '(afronden op tientallen voor NETTO_MODAAL_2026_MAAND)');
 }
+
+console.log('\nNETTO_INCL_VAKANTIEGELD_VOOR_BRUTO (24-sep-2026, afronden op tientallen)');
+console.log('  100000 alleen ->', maandNettoInclVakantiegeld(100000).toFixed(0));
+console.log('  100000 samen, gelijk verdeeld ->', (2 * maandNettoInclVakantiegeld(50000)).toFixed(0));

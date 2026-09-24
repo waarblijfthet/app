@@ -1,4 +1,7 @@
 import Link from "next/link";
+import { RAPPORTEN } from "@/lib/rapporten-data";
+import { berekenVuistregel, euro, afgerondOpHonderd, type AutoKeuze } from "@/lib/salaris-vuistregel";
+import { aandeelMetMeerNl, procent, INKOMEN_PEILJAAR } from "@/lib/inkomensverdeling-cbs";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -8,10 +11,87 @@ const h2 = {
   fontWeight: 300,
 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
+const link = { color: "#0B7A6E", textDecoration: "none" } as const;
+
+/**
+ * Antwoordronde 24-sep-2026: "Kun je rondkomen van 3000 euro per maand?" stond
+ * op 5 van de 15 geverifieerde SERP's in "Meer om te vragen"
+ * (docs/serp-gemiste-onderwerpen-23-sep-2026.md). Letterlijk beantwoord,
+ * per huishouden, uit berekenVuistregel() en de CBS-verdeling.
+ */
+function overBij3000(volwassenen: 1 | 2, kinderen: number, auto: AutoKeuze): number {
+  return berekenVuistregel({
+    inkomen: 3000,
+    volwassenen: volwassenen,
+    kinderen: kinderen,
+    auto: auto,
+  }).verwachtOver;
+}
 
 export default function Is3000NettoGenoegGezin() {
+  const alleen = overBij3000(1, 0, "geen");
+  const stel = overBij3000(2, 0, "geen");
+  const gezin = overBij3000(2, 2, "eigen");
+
   return (
     <>
+      {/* Antwoord bovenaan, CLAUDE.md 8.8 */}
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Kun je rondkomen van {euro(3000)} per maand? Alleen wel: zonder auto houd je op mijn vuistregel
+        ongeveer {euro(afgerondOpHonderd(alleen))} over. Met z&apos;n tweeën zonder kinderen net, en alleen
+        zonder auto. Een gezin met twee kinderen en een auto komt ongeveer{" "}
+        {euro(afgerondOpHonderd(Math.abs(gezin)))} per maand tekort. Dan is het inkomen te laag voor de
+        opdracht, niet het huishouden slordig.
+      </p>
+      <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
+        Cijfers bijgewerkt op 24 september 2026. Bedragen uit mijn vuistregel op de {RAPPORTEN.length}{" "}
+        huishoudens die ik heb doorgerekend. Ter vergelijking met heel Nederland (CBS, {INKOMEN_PEILJAAR}):
+        als alleenstaande heeft {procent(aandeelMetMeerNl(3000, 1, 0))} van de huishoudens meer te
+        besteden dan {euro(3000)}, als gezin met twee kinderen {procent(aandeelMetMeerNl(3000, 2, 2))}.
+        Meer daarover op{" "}
+        <Link href="/inzichten/top-10-procent-inkomen-nederland" style={link} className="hover:underline">
+          waar sta je met je inkomen
+        </Link>
+        .
+      </p>
+
+      <div className="overflow-x-auto my-6">
+        <table className="w-full font-body text-sm" style={{ borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ borderBottom: "1.5px solid #9CCFC4" }}>
+              <th className="text-left py-2 pr-3" style={{ color: "#16211F", fontWeight: 600 }}>
+                Van {euro(3000)} netto per maand
+              </th>
+              <th className="text-right py-2 pl-3" style={{ color: "#16211F", fontWeight: 600, whiteSpace: "nowrap" }}>
+                Blijft over
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {[
+              { label: "Alleenstaand, geen auto", over: alleen },
+              { label: "Alleenstaand, één auto", over: overBij3000(1, 0, "eigen") },
+              { label: "Stel zonder kinderen, geen auto", over: stel },
+              { label: "Stel zonder kinderen, één auto", over: overBij3000(2, 0, "eigen") },
+              { label: "Stel met één kind, één auto", over: overBij3000(2, 1, "eigen") },
+              { label: "Stel met twee kinderen, één auto", over: gezin },
+            ].map((r) => (
+              <tr key={r.label} style={{ borderBottom: "1px solid #E6E9E7" }}>
+                <td className="py-2 pr-3" style={{ color: "#16211F" }}>
+                  {r.label}
+                </td>
+                <td
+                  className="text-right py-2 pl-3 tabular-nums"
+                  style={{ color: r.over < 0 ? "#B03A2E" : "#4A5A56", whiteSpace: "nowrap" }}
+                >
+                  {r.over < 0 ? "-" + euro(Math.abs(r.over)) : euro(r.over)}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
@@ -51,8 +131,7 @@ export default function Is3000NettoGenoegGezin() {
       </div>
 
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
-        Het eerlijke antwoord: €3.000 netto kan genoeg zijn voor een gezin, maar het is krap, en of
-        het lukt hangt vooral af van je woonlasten. Met een betaalbare hypotheek uit het verleden
+        Voor een gezin is €3.000 netto dus krap, en of het lukt hangt vooral af van je woonlasten. Met een betaalbare hypotheek uit het verleden
         red je het prima. Met een huidige huur of hypotheek in een dure regio wordt het elke maand
         passen en meten, zonder dat je iets verkeerd doet.
       </p>

@@ -3,6 +3,8 @@ import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
 import GezinsbudgetTabel from "@/components/artikel/GezinsbudgetTabel";
 import CtaLink from "@/components/CtaLink";
 import { geldscanHref } from "@/lib/cta";
+import { euro } from "@/lib/salaris-vuistregel";
+import { aandeelMetMeerNl, aandeelMetMeerBinnenType, procent, INKOMEN_PEILJAAR } from "@/lib/inkomensverdeling-cbs";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -17,6 +19,25 @@ const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 export default function Samen6000EuroNettoTochNietsOver() {
   return (
     <>
+      {/* Antwoord in de vraagvorm van AI-zoekmachines (antwoordronde 24-sep-2026), CLAUDE.md 8.8 */}
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Samen {euro(6000)} netto en niets over: is dat normaal? Het inkomen is goed. Met twee kinderen
+        heeft {procent(aandeelMetMeerNl(6000, 2, 2))} van de huishoudens in Nederland meer te besteden,
+        zonder kinderen {procent(aandeelMetMeerNl(6000, 2, 0))}. Bij de twee huishoudens die ik op dit
+        niveau doorrekende was er geen lek. Het geld ging naar jaaruitgaven waarvoor niet gereserveerd
+        werd, en naar een levensstijl die naast het spaardoel niet paste.
+      </p>
+      <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
+        Cijfers bijgewerkt op 24 september 2026. Posities uit de inkomensverdeling van het CBS over{" "}
+        {INKOMEN_PEILJAAR}, gecorrigeerd voor de grootte van het huishouden. Tegenover andere stellen
+        met kinderen heeft {procent(aandeelMetMeerBinnenType("paarMetKinderen", 6000))} meer, dus daar
+        zitten jullie onder het midden. Per huishouden uitgewerkt op{" "}
+        <Link href="/inzichten/top-10-procent-inkomen-nederland" className="hover:underline" style={{ color: "#0B7A6E" }}>
+          waar sta je met je inkomen
+        </Link>
+        .
+      </p>
+
       <SalarisRekenaar
         startInkomen={6000}
         startVolwassenen={2}

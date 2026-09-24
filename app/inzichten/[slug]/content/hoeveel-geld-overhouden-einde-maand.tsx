@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { rapportVoorSlug, RAPPORTEN } from "@/lib/rapporten-data";
+import { berekenVuistregel, euro, afgerondOpHonderd, type AutoKeuze } from "@/lib/salaris-vuistregel";
 
 const h2 = {
   fontSize: "1.6rem",
@@ -8,10 +10,58 @@ const h2 = {
   fontWeight: 300,
 } as const;
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
+const link = { color: "#0B7A6E", textDecoration: "none" } as const;
+
+/**
+ * Antwoordronde 24-sep-2026 (docs/serp-gemiste-onderwerpen-23-sep-2026.md #7):
+ * de zoekvraag is "hoeveel geld moet je overhouden per maand", en het antwoord
+ * hangt van het huishouden af. Elk bedrag hieronder komt uit
+ * berekenVuistregel(), dezelfde bron als de rekenaar op de salarisartikelen.
+ */
+const KOLOMMEN = [3500, 4500, 5500, 6500];
+const HUISHOUDENS: { label: string; volwassenen: 1 | 2; kinderen: number; auto: AutoKeuze }[] = [
+  { label: "Alleenstaand, één auto", volwassenen: 1, kinderen: 0, auto: "eigen" },
+  { label: "Stel zonder kinderen, één auto", volwassenen: 2, kinderen: 0, auto: "eigen" },
+  { label: "Stel met één kind, één auto", volwassenen: 2, kinderen: 1, auto: "eigen" },
+  { label: "Stel met twee kinderen, één auto", volwassenen: 2, kinderen: 2, auto: "eigen" },
+];
+
+/** Verwacht over, expliciet uitgeschreven velden (minifier Next 14.2). */
+function overVoor(inkomen: number, volwassenen: 1 | 2, kinderen: number, auto: AutoKeuze): number {
+  return berekenVuistregel({
+    inkomen: inkomen,
+    volwassenen: volwassenen,
+    kinderen: kinderen,
+    auto: auto,
+  }).verwachtOver;
+}
+
+function bedrag(n: number): string {
+  return n < 0 ? "-" + euro(Math.abs(n)) : euro(n);
+}
 
 export default function HoeveelGeldOverhoudenEindeMaand() {
+  const alleen = overVoor(3500, 1, 0, "eigen");
+  const stel = overVoor(5000, 2, 0, "eigen");
+  const gezin = overVoor(5000, 2, 2, "eigen");
+  const rapport = rapportVoorSlug("stel-zonder-kinderen")!;
+  const spaarPost = rapport.dagelijks.find((post) => post.label === "Spaardoel");
+
   return (
     <>
+      {/* Antwoord bovenaan, CLAUDE.md 8.8 */}
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Hoeveel geld je per maand moet overhouden, hangt af van wie er van het inkomen leeft. Bij een
+        alleenstaande met {euro(3500)} netto en een auto blijft er ongeveer{" "}
+        {euro(afgerondOpHonderd(alleen))} over, bij een stel zonder kinderen met {euro(5000)} ongeveer{" "}
+        {euro(afgerondOpHonderd(stel))} en bij een gezin met twee kinderen en {euro(5000)} ongeveer{" "}
+        {euro(afgerondOpHonderd(gezin))}. Dat is na vaste lasten, boodschappen en vrije tijd.
+      </p>
+      <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
+        Cijfers bijgewerkt op 24 september 2026. De bedragen komen uit mijn vuistregel op de{" "}
+        {RAPPORTEN.length} huishoudens die ik zelf heb doorgerekend, niet uit een landelijke steekproef.
+      </p>
+
       {/* Herken je dit? */}
       <div
         className="rounded-xl p-4 mb-6"
@@ -53,6 +103,67 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
         Als richtlijn zou je aan het einde van de maand zeker 10 procent van je netto-inkomen moeten
         kunnen sparen, het bedrag dat het Nibud adviseert. In de praktijk wordt vaak de 50/30/20 verdeling gebruikt: ongeveer de helft naar vaste lasten, dertig procent vrij besteedbaar en twintig procent sparen. De regel mikt dus op 20 procent, terwijl het Nibud 10 procent als ondergrens noemt waar je naartoe werkt. Maar dat getal zegt weinig over jou, want je vaste lasten bepalen alles. En blijft er weinig over, dan betekent dat meestal niet dat je iets fout doet.
+      </p>
+
+      <h2 className="font-display" style={h2}>
+        Hoeveel geld moet je overhouden per maand, per huishouden?
+      </h2>
+      <p className="font-body text-text-soft" style={p}>
+        Wat er volgens mijn vuistregel overblijft na wonen, boodschappen, vervoer, verzekeringen,
+        abonnementen, kinderen en vrije tijd. Sparen en jaarlijkse uitgaven zoals vakanties moeten
+        hieruit komen.
+      </p>
+      <div className="overflow-x-auto my-6">
+        <table className="w-full font-body text-sm" style={{ borderCollapse: "collapse" }}>
+          <thead>
+            <tr style={{ borderBottom: "1.5px solid #9CCFC4" }}>
+              <th className="text-left py-2 pr-3" style={{ color: "#16211F", fontWeight: 600 }}>
+                Netto per maand
+              </th>
+              {KOLOMMEN.map((k) => (
+                <th key={k} className="text-right py-2 px-3" style={{ color: "#16211F", fontWeight: 600, whiteSpace: "nowrap" }}>
+                  {euro(k)}
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {HUISHOUDENS.map((h) => (
+              <tr key={h.label} style={{ borderBottom: "1px solid #E6E9E7" }}>
+                <td className="py-2 pr-3" style={{ color: "#16211F" }}>
+                  {h.label}
+                </td>
+                {KOLOMMEN.map((k) => {
+                  const over = overVoor(k, h.volwassenen, h.kinderen, h.auto);
+                  return (
+                    <td
+                      key={k}
+                      className="text-right py-2 px-3 tabular-nums"
+                      style={{ color: over < 0 ? "#B03A2E" : "#4A5A56", whiteSpace: "nowrap" }}
+                    >
+                      {bedrag(over)}
+                    </td>
+                  );
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <p className="font-body text-text-soft" style={p}>
+        Wat er echt overblijft, ligt bij veel huishoudens lager dan dit, en meestal niet door een lek.
+        Het stel zonder kinderen dat ik doorrekende had als spaardoel{" "}
+        {spaarPost ? spaarPost.waarde.charAt(0).toLowerCase() + spaarPost.waarde.slice(1) : "meer dan er overbleef"}.
+        Mijn conclusie: {rapport.uitkomstKop.toLowerCase()}. Het verschil zat in reizen, horeca en
+        jaarlijkse uitgaven die in geen maandbegroting staan. Het hele verhaal staat op{" "}
+        <Link href={`/rapporten/${rapport.slug}`} style={link} className="hover:underline">
+          hun rapportpagina
+        </Link>
+        , en wat twee personen per post uitgeven op{" "}
+        <Link href="/inzichten/gemiddelde-uitgaven-per-maand-2-personen" style={link} className="hover:underline">
+          de uitgaven per maand voor 2 personen
+        </Link>
+        .
       </p>
 
       <h2 className="font-display" style={h2}>
@@ -114,7 +225,7 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
       <p className="font-body text-text-soft" style={p}>
         De doorsnee Nederlander heeft ongeveer €21.500 op de spaarrekening (CBS, 2024). Het
         gemiddelde ligt veel hoger, rond €54.700, maar dat komt doordat een kleine groep met veel
-        spaargeld het gemiddelde omhoog trekt. De mediaan, die €21.500, geeft een eerlijker beeld
+        spaargeld het gemiddelde omhoog trekt. De mediaan, die €21.500, geeft een beter beeld
         van de doorsnee. De spreiding is enorm, en daarom is vergelijken met een gemiddelde
         weinig waard.
       </p>

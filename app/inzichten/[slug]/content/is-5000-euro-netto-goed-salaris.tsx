@@ -1,6 +1,7 @@
 import Link from "next/link";
 import SalarisRekenaar from "@/components/artikel/SalarisRekenaar";
 import { euro } from "@/lib/salaris-vuistregel";
+import { aandeelMetMeerNl, procent, grensPerMaandNlRond, INKOMEN_PEILJAAR } from "@/lib/inkomensverdeling-cbs";
 import {
   BRUTO_VOOR_NETTO,
   BRUTO_VOOR_NETTO_SAMEN,
@@ -22,8 +23,31 @@ const h2 = {
 const p = { marginBottom: "1.25rem", fontWeight: 300 } as const;
 
 export default function Is5000EuroNettoGoedSalaris() {
+  const top10Alleen = grensPerMaandNlRond(0.9, 1, 0);
   return (
     <>
+      {/* Antwoord bovenaan (antwoordronde 24-sep-2026), CLAUDE.md 8.8 */}
+      <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F" }}>
+        Is {euro(5000)} netto een goed salaris? Ja. Met {euro(5000)} per maand te besteden heeft als
+        alleenstaande maar {procent(aandeelMetMeerNl(5000, 1, 0))} van de huishoudens in Nederland meer,
+        want de hoogste 10 procent begint rond {top10Alleen === null ? "onbekend" : euro(top10Alleen)}. Als stel
+        zonder kinderen heeft {procent(aandeelMetMeerNl(5000, 2, 0))} meer, als gezin met twee kinderen{" "}
+        {procent(aandeelMetMeerNl(5000, 2, 2))}. Hoog voor één persoon, onder het midden voor een gezin.
+      </p>
+      <p className="font-body text-sm" style={{ ...p, color: "#4A5A56" }}>
+        Cijfers bijgewerkt op 24 september 2026. Posities afgeleid uit de inkomensverdeling van het CBS
+        over {INKOMEN_PEILJAAR}, gecorrigeerd voor de grootte van het huishouden. Per huishouden uitgewerkt
+        op{" "}
+        <Link href="/inzichten/top-10-procent-inkomen-nederland" className="hover:underline" style={{ color: "#0B7A6E" }}>
+          waar sta je met je inkomen
+        </Link>
+        ; wat twee personen ervan uitgeven op{" "}
+        <Link href="/inzichten/gemiddelde-uitgaven-per-maand-2-personen" className="hover:underline" style={{ color: "#0B7A6E" }}>
+          de uitgaven per maand voor 2 personen
+        </Link>
+        .
+      </p>
+
       <SalarisRekenaar
         startInkomen={5000}
         startVolwassenen={2}

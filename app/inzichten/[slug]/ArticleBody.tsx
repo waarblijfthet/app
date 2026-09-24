@@ -1,3 +1,5 @@
+import Top10ProcentInkomenNederland from "./content/top-10-procent-inkomen-nederland";
+import GemiddeldeUitgavenPerMaand2Personen from "./content/gemiddelde-uitgaven-per-maand-2-personen";
 import FinancieleOntrouwPartnerVerzwijgtGeld from "./content/financiele-ontrouw-partner-verzwijgt-geld";
 import PartnerGeeftTeVeelUit from "./content/partner-geeft-te-veel-uit";
 import KanIemandNaarMijnFinancienKijken from "./content/kan-iemand-naar-mijn-financien-kijken";
@@ -94,6 +96,8 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "top-10-procent-inkomen-nederland": Top10ProcentInkomenNederland,
+  "gemiddelde-uitgaven-per-maand-2-personen": GemiddeldeUitgavenPerMaand2Personen,
   "financiele-ontrouw-partner-verzwijgt-geld": FinancieleOntrouwPartnerVerzwijgtGeld,
   "partner-geeft-te-veel-uit": PartnerGeeftTeVeelUit,
   "kan-iemand-naar-mijn-financien-kijken": KanIemandNaarMijnFinancienKijken,

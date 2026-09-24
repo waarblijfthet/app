@@ -323,6 +323,10 @@ export default function PartnerGeeftTeVeelUit() {
             slug: "wat-geeft-een-gezin-uit-per-maand",
             tekst: "Wat geeft een gezin uit per maand? De begroting per post",
           },
+          {
+            slug: "gemiddelde-uitgaven-per-maand-2-personen",
+            tekst: "Gemiddelde uitgaven per maand voor 2 personen, zonder kinderen",
+          },
         ].map((s) => (
           <li key={s.slug} className="font-body text-sm">
             <Link href={`/inzichten/${s.slug}`} style={link} className="hover:underline">

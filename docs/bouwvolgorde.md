@@ -4,7 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 24 september, op verzoek van Jarno: stap 1, 2 en 3 uit sectie 28 in één keer uitgevoerd, zie sectie 29.** Twee nieuwe pagina's (H2 `gemiddelde-uitgaven-per-maand-2-personen` en de pijler `top-10-procent-inkomen-nederland`), één herbouwde pagina op dezelfde URL (`wat-zijn-normale-vaste-lasten-gezin`) en een antwoordronde op vier bestaande pagina's. **Dat breekt de tempo-regel** (twee per week): het was een expliciete opdracht van Jarno ("voer 1, 2 en 3 nu uit"). De volgende nieuwe pagina dus niet vóór 5 oktober. Geen productiebuild gedraaid; tsc is schoon. **Na de push: zeven URL's indienen in GSC**, lijst in sectie 29.
 
 **Update 23 september, op verzoek van Jarno: de meting van de analyse gerepareerd, zie sectie 24.** Jarno zag de analyse wel geopend maar "zelden afgerond" en had geen zicht op wat er werd ingevuld. Uitgelezen in productie: **van de 43 sessies die sinds 7 september op start klikten, zagen er 34 het resultaat** (inclusief Jarno's eigen testrondes, die tot vandaag niet te onderscheiden waren). De analyse werd dus wel afgerond; de admin liet het niet zien. Drie oorzaken: "Analyses voltooid" telde alleen wie een e-mailadres achterliet, de afhaaklijst per scherm van 6 september zat in een component dat geen enkele route meer laadde, en het introscherm wordt niet gelogd. Nieuw: `/admin/analyse-verloop` (trechter van openen tot Geldscan, afhaken per scherm, herkomst, en per sessie welke schermen en antwoorden er staan). Daarnaast: het Bezoekers-tabblad bleef voor week, maand en alles op 500 hangen (een `.limit(500)` in de browser), en het Vandaag-dashboard laadde traag (vier golven queries achter elkaar, volledige tabellen opgehaald). Beide opgelost. **Jarno moet `supabase/admin_statistiek.sql` nog draaien**; de code werkt ook zonder, maar dan staat er een gele melding op Bezoekers en is quiz_voortgang nog leesbaar met de anon-sleutel. **Geen productiebuild gedraaid**, zie sectie 24.
 
@@ -1202,4 +1204,51 @@ Onderzoek op verzoek van Jarno, volledig in `docs/serp-gemiste-onderwerpen-23-se
   - "wat wordt duurder in 2027" als sectie in `wat-verandert-er-2027-gezinnen-goed-inkomen`.
 - **Goedkoopste winst:** "Kun je rondkomen van 3000 euro per maand?" staat in "Meer om te vragen" op 5 van de 15 onderzochte zoekresultaten. Een letterlijk antwoordblok op `is-3000-netto-genoeg-gezin` maakt ons in veel zoekresultaten tegelijk zichtbaar.
 - **Volumes zijn klassen, geen getallen**, want er is geen keywordtool. Het anker is is-4000, met ongeveer 3.900 vertoningen per maand. Google Trends gaf één vergelijking en blokkeerde daarna. Keyword Planner was alleen bereikbaar via Google Ads-accounts van andere bedrijven en is niet gebruikt.
+
+## 29. H2, inkomenspijler, antwoordronde en vaste lasten, 24 september 2026
+
+Opdracht van Jarno: "voer 1, 2 en 3 nu uit", de volgorde uit sectie 28 en `docs/serp-gemiste-onderwerpen-23-sep-2026.md`. Buiten de tempo-regel om, zie BEGIN HIER.
+
+### Bronnen, allemaal in Chrome geopend op 24 september 2026
+
+- CBS, visualisatie "Verdeling gestandaardiseerd inkomen" (3-6-2026), tabel 2024, kolom alle huishoudens, via "Grafiekdata in tabelvorm".
+- CBS, visualisatie "Verdeling besteedbaar inkomen" (3-6-2026), tabel 2024 per huishoudtype.
+- CBS, "Materiële welvaart in Nederland 2024", bijlage A: equivalentiefactoren vanaf verslagjaar 2018 (stel 1,40; stel met twee kinderen 1,91). Let op: sites als nettokompas rekenen nog met de oude 1,37.
+- CBS, begrip "besteedbaar inkomen": bruto min overdrachten, premies (ook zorg) en belastingen.
+- CBS, "Inflatie stijgt naar 3,3 procent in augustus" (8-9-2026, definitief, gelijk aan de snelle raming): wonen, water en energie grootste bijdrage (0,99 procentpunt), consumptie in het buitenland +7,4 procent, voeding -0,5 procent (HICP).
+- Rijksoverheid, VWS-nieuws 15-9-2026: zorgpremie +€12,50 naar €169 per maand, eigen risico €400. Raming tot 12 november.
+
+### Wat er gebouwd is
+
+1. **`lib/inkomensverdeling-cbs.ts`** (nieuw). De CBS-klassen als data, lineaire interpolatie binnen klassen van €2.000, grenzen per huishouden via de equivalentiefactor, afronding op honderden. Geen indexatie naar 2026 (bestaat geen officiële reeks); elke pagina zegt dat de grenzen van 2024 zijn. Kerncijfers: top 10 procent vanaf €5.200 (alleen), €7.200 (stel), €9.800 (stel met twee kinderen); top 25 procent alleen €4.000.
+2. **Pijler `top-10-procent-inkomen-nederland`** (nieuw): tabel per samenstelling, `InkomenspositieKiezer` (nieuwe situatiekiezer, geen bruto-netto-rekenaar), uitleg besteedbaar vs netto, middenklasse (geen officiële grens, dat staat er), stellen-tabel (#2 gezamenlijk inkomen), 100.000 bruto via twee nieuwe constanten in `lib/bruto-netto-referentie.ts` (script bijgewerkt), rapport `stel-zonder-kinderen`.
+3. **H2 `gemiddelde-uitgaven-per-maand-2-personen`** (nieuw): hub stel zonder kinderen op het H1-patroon. Tabel €3.500 tot €6.500, `SalarisRekenaar` 2/0/eigen, samenwonen tegen alleen (factor 1,40), herkomst per post zonder kindposten, rapport `stel-zonder-kinderen` met evaluatiecitaat, inflatie augustus, spakenlijst (14). Intentiescheiding in het commentaar bovenaan.
+4. **Antwoordronde:**
+   - `hoeveel-geld-overhouden-einde-maand`: metaTitel "€400 tot €1.300: hoeveel geld moet je overhouden per maand?" (was "Hoeveel geld overhouden per maand? Richtlijnen 2026"), antwoordblok, tabel per huishouden, twee FAQ's op de zoekvraag, "eerlijker" weg.
+   - `is-3000-netto-genoeg-gezin`: letterlijk antwoord op "Kun je rondkomen van 3000 euro per maand?", tabel per huishouden, CBS-positie, twee FAQ's, "Het eerlijke antwoord" weg (tekst, metaDescription, excerpt). metaTitel ongewijzigd (positie 5,3).
+   - `is-5000-euro-netto-goed-salaris`: metaTitel "Is €5.000 netto een goed salaris? Alleen top 11% van NL" (was "... (2026)"), antwoordblok met posities, FAQ op de letterlijke PAA-vraag, verouderde "€3.100 modaal" vervangen door `NETTO_MODAAL_2026_MAAND`, preview met verkeerde bruto-bedragen (90.000/78.000) nu uit de constanten, kale cpb.nl-bron vervangen.
+   - `samen-6000-euro-netto-toch-niets-over`: antwoordblok in AI-vraagvorm, FAQ "Is 7000 netto gezinsinkomen veel?" (vervangt de overhouden-FAQ, die staat nu op de overhoudenpagina), "€3.100 modaal" vervangen. metaTitel ongewijzigd (CTR 7,34 procent).
+   - `is-4000`: de top-25-procentclaim terug, nu met bron: als alleenstaande met €4.000 te besteden heeft 26 procent meer. Plus links naar pijler en H2.
+5. **Herbouw `wat-zijn-normale-vaste-lasten-gezin`** (zelfde URL): gemiddelde vaste lasten voor gezin van 4, 2 personen en 1 persoon uit de vuistregel, percentage van het inkomen, de vaste lasten van twee echte huishoudens uit `rapporten-data`, herkomst, 2027 als raming. FinBuddy, Vaste Lasten Bond en ConsumentWijzer als bron weg, bespaartips weg, `VasteLastenRadar` niet meer gebruikt (bestand staat er nog).
+6. **H1**: had twee Geldscan-verwijzingen (eigen slotalinea plus het slotblok van page.tsx). De eigen link is weg. Spaken naar H2 en de pijler erbij. N2 (`partner-geeft-te-veel-uit`) linkt nu naar H2.
+
+### Controle
+
+- `tsc --noEmit --incremental false` schoon op de hele repo. Geen NUL, geen CR, geen em dashes in de gewijzigde bestanden.
+- Rekenlaag via de harness: grenzen, posities en alle metaTitels (maximaal 59 tekens) nagelopen, geen `undefined`, `NaN` of `null` in de entries.
+- SSR-render van negen pagina's op 390px met Playwright: geen horizontale paginascroll. De tabel op de pijler had op 390px de kolom "hoogste 10 procent" buiten beeld; teruggebracht naar drie kolommen. Op de vaste-lastenpagina staat het gezin nu als eerste kolom en is de procenttabel gekanteld.
+- Sitemap: beide nieuwe slugs worden door `scripts/generate-sitemap.mjs` opgepikt (regex op `slug:`).
+- **Geen productiebuild** (past niet in de shelltijd). Draai `npm run build` lokaal vóór de push.
+
+### Wat Jarno moet doen
+
+1. Lokaal `npm run build`, dan pushen.
+2. In GSC indienen: `/inzichten/top-10-procent-inkomen-nederland`, `/inzichten/gemiddelde-uitgaven-per-maand-2-personen`, `/inzichten/wat-zijn-normale-vaste-lasten-gezin`, `/inzichten/hoeveel-geld-overhouden-einde-maand`, `/inzichten/is-3000-netto-genoeg-gezin`, `/inzichten/is-5000-euro-netto-goed-salaris`, `/inzichten/samen-6000-euro-netto-toch-niets-over`. is-4000 en H1 zijn licht gewijzigd; opnieuw indienen mag.
+3. Meten op 22 oktober (28 dagen): vertoningen op de nieuwe hoofdtermen, CTR van de twee nieuwe metaTitels (overhouden, is-5000). Oude titels staan hierboven.
+
+### Gepland
+
+- 12 november: zorgpremie 2027 definitief. Naast de vier 2027-artikelen nu ook de laatste FAQ en sectie van `wat-zijn-normale-vaste-lasten-gezin` bijwerken (`ZORG_2027`).
+- Zodra het CBS de verdeling over 2025 publiceert (verwacht rond juni 2027): de tabellen in `lib/inkomensverdeling-cbs.ts` vervangen en `INKOMEN_PEILJAAR` ophogen. De pagina's volgen vanzelf.
+- De twee AI-testvragen uit sectie 28 #9 toevoegen aan de maandelijkse AI-test.
 

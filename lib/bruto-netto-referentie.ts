@@ -98,3 +98,23 @@ export const BRUTO_MODAAL_2027 = 50000;
  * het CPB of CBS.
  */
 export const NETTO_MODAAL_2026_MAAND = 3030;
+
+/**
+ * Netto per maand INCLUSIEF een twaalfde van het vakantiegeld, bij een bruto
+ * jaarinkomen, afgerond op tientallen. Toegevoegd op 24-sep-2026 voor de
+ * pijler `top-10-procent-inkomen-nederland`: het CBS meet besteedbaar inkomen
+ * inclusief vakantiegeld, dus voor een vergelijking met die grenzen is dit de
+ * juiste betekenis van "netto", niet de maandbedragen hierboven. Zelfde script,
+ * zelfde aannames. Eigen berekening, geen officieel cijfer.
+ */
+export const NETTO_INCL_VAKANTIEGELD_VOOR_BRUTO: Record<number, number> = {
+  100000: 5230,
+};
+
+/**
+ * Hetzelfde voor twee partners die samen dit bruto verdienen, gelijk verdeeld.
+ * 100.000 samen is dus twee keer 50.000.
+ */
+export const NETTO_INCL_VAKANTIEGELD_VOOR_BRUTO_SAMEN: Record<number, number> = {
+  100000: 6520,
+};

@@ -128,7 +128,7 @@ export interface Artikel {
  * FAQ-antwoorden hieronder, werkregel 2: elk bedrag komt uit dezelfde functie
  * die de rekenaar en de bedragentabel op het 4.000-artikel gebruiken.
  */
-import { berekenVuistregel, omslagpunt, euro, afgerondOpHonderd, VERVOER, VUISTREGEL } from "./salaris-vuistregel";
+import { berekenVuistregel, omslagpunt, euro, afgerondOpHonderd, VERVOER, VUISTREGEL, VUISTREGEL_HERKOMST } from "./salaris-vuistregel";
 import { RAPPORTEN, rapportVoorSlug, AANTAL_ZONDER_LEK } from "./rapporten-data";
 import {
   berekenRenteVerschil,
@@ -146,7 +146,23 @@ import {
   MARGINAAL_BOVEN_SCHIJFGRENS_2,
   BRUTO_MODAAL_2026,
   NETTO_MODAAL_2026_MAAND,
+  NETTO_INCL_VAKANTIEGELD_VOOR_BRUTO,
+  NETTO_INCL_VAKANTIEGELD_VOOR_BRUTO_SAMEN,
 } from "./bruto-netto-referentie";
+import { ZORG_2027 } from "./prinsjesdag-2027";
+import {
+  grensPerMaandNlRond,
+  grensPerMaandBinnenTypeRond,
+  aandeelMetMeerNl,
+  aandeelMetMeerBinnenType,
+  procent,
+  EQUIVALENTIEFACTOR,
+  factorTekst,
+  INKOMEN_PEILJAAR,
+  BRON_GESTANDAARDISEERD_URL,
+  BRON_BESTEEDBAAR_URL,
+  BRON_EQUIVALENTIE_URL,
+} from "./inkomensverdeling-cbs";
 
 const NR4K_INKOMEN = 4000;
 const NR4K_GEZIN = berekenVuistregel({
@@ -315,7 +331,250 @@ const N1_KLEIN = berekenRenteVerschil({
   verstrekenJaren: RENTEVASTE_PERIODE_JAREN,
 }).verschil;
 
+/**
+ * Een grens uit lib/inkomensverdeling-cbs.ts die er moet zijn. Null betekent
+ * dat de grens in de open bovenklasse van de CBS-tabel valt; voor de grenzen
+ * hieronder kan dat niet, en als het toch gebeurt wil ik een gebroken build in
+ * plaats van een stille nul in een metaTitel.
+ */
+function verplicht(n: number | null, wat: string): number {
+  if (n === null) throw new Error("Inkomensgrens ontbreekt: " + wat);
+  return n;
+}
+
+/**
+ * Berekende bedragen voor de hub H2, `gemiddelde-uitgaven-per-maand-2-personen`
+ * (24-sep-2026, docs/serp-gemiste-onderwerpen-23-sep-2026.md #3). Twee
+ * volwassenen, geen kinderen, één auto. Zelfde functies als de tabel en de
+ * rekenaar op de pagina, nooit met de hand overtypen.
+ */
+const H2_ONDER = 3500;
+const H2_BOVEN = 6500;
+const H2_LAAG = berekenVuistregel({ inkomen: H2_ONDER, volwassenen: 2, kinderen: 0, auto: "eigen" });
+const H2_HOOG = berekenVuistregel({ inkomen: H2_BOVEN, volwassenen: 2, kinderen: 0, auto: "eigen" });
+const H2_SOM_LAAG_ROND = afgerondOpHonderd(H2_ONDER - H2_LAAG.verwachtOver);
+const H2_SOM_HOOG_ROND = afgerondOpHonderd(H2_BOVEN - H2_HOOG.verwachtOver);
+const H2_OMSLAG = omslagpunt(2, 0, "eigen");
+const H2_OMSLAG_ZONDER_AUTO = omslagpunt(2, 0, "geen");
+const H2_BOODSCHAPPEN_HERKOMST = VUISTREGEL_HERKOMST.find((r) => r.post === "Boodschappen, basis voor twee volwassenen")!;
+const H2_CBS_MIDDEN = verplicht(grensPerMaandBinnenTypeRond("paarZonderKinderenOnderAow", 0.5), "H2 midden stellen");
+
+/**
+ * Berekende bedragen voor de pijler `top-10-procent-inkomen-nederland`
+ * (24-sep-2026, #1 en #2 in hetzelfde document). Alles uit
+ * lib/inkomensverdeling-cbs.ts, dezelfde functies als de tabellen en de
+ * situatiekiezer op de pagina.
+ */
+const P_ALLEEN_TOP10 = verplicht(grensPerMaandNlRond(0.9, 1, 0), "alleen top 10");
+const P_STEL_TOP10 = verplicht(grensPerMaandNlRond(0.9, 2, 0), "stel top 10");
+const P_GEZIN_TOP10 = verplicht(grensPerMaandNlRond(0.9, 2, 2), "gezin top 10");
+const P_ALLEEN_TOP25 = verplicht(grensPerMaandNlRond(0.75, 1, 0), "alleen top 25");
+const P_STEL_TOP25 = verplicht(grensPerMaandNlRond(0.75, 2, 0), "stel top 25");
+const P_ALLEEN_MIDDEN = verplicht(grensPerMaandNlRond(0.5, 1, 0), "alleen midden");
+const P_STEL_MIDDEN = verplicht(grensPerMaandNlRond(0.5, 2, 0), "stel midden");
+const P_STEL_BINNEN_MIDDEN = verplicht(grensPerMaandBinnenTypeRond("paarZonderKinderenOnderAow", 0.5), "stellen midden");
+const P_STEL_BINNEN_TOP10 = verplicht(grensPerMaandBinnenTypeRond("paarZonderKinderenOnderAow", 0.9), "stellen top 10");
+const P_GEZIN_BINNEN_MIDDEN = verplicht(grensPerMaandBinnenTypeRond("paarMetKinderen", 0.5), "gezinnen midden");
+/** Zorgpremie per volwassene per maand in 2026, SZW-begroting 2027 p. 175. */
+const P_ZORGPREMIE_MAAND = Math.round(ZORG_2027.nominalePremiePerJaar2026 / 12);
+const P_HONDERD_ALLEEN = NETTO_INCL_VAKANTIEGELD_VOOR_BRUTO[100000];
+const P_HONDERD_SAMEN = NETTO_INCL_VAKANTIEGELD_VOOR_BRUTO_SAMEN[100000];
+const P_HONDERD_ALLEEN_MEER = procent(aandeelMetMeerNl(P_HONDERD_ALLEEN - P_ZORGPREMIE_MAAND, 1, 0));
+const P_HONDERD_SAMEN_MEER = procent(aandeelMetMeerNl(P_HONDERD_SAMEN - 2 * P_ZORGPREMIE_MAAND, 2, 0));
+
+/**
+ * Posities die de antwoordronde van 24-sep-2026 op is-3000, is-5000 en
+ * samen-6000 nodig heeft. Zelfde bron als de pijler.
+ */
+const O_ALLEEN_3500 = afgerondOpHonderd(berekenVuistregel({ inkomen: 3500, volwassenen: 1, kinderen: 0, auto: "eigen" }).verwachtOver);
+const O_STEL_5000 = afgerondOpHonderd(berekenVuistregel({ inkomen: 5000, volwassenen: 2, kinderen: 0, auto: "eigen" }).verwachtOver);
+const O_GEZIN_5000 = afgerondOpHonderd(berekenVuistregel({ inkomen: 5000, volwassenen: 2, kinderen: 2, auto: "eigen" }).verwachtOver);
+const O_STEL_VASTE_LASTEN_5000 = (() => {
+  const v = berekenVuistregel({ inkomen: 5000, volwassenen: 2, kinderen: 0, auto: "eigen" });
+  return v.wonen + v.verzekeringen + v.abonnementen + v.vervoer;
+})();
+const R3000_ALLEEN_GEEN_AUTO = berekenVuistregel({ inkomen: 3000, volwassenen: 1, kinderen: 0, auto: "geen" }).verwachtOver;
+const R3000_STEL_GEEN_AUTO = berekenVuistregel({ inkomen: 3000, volwassenen: 2, kinderen: 0, auto: "geen" }).verwachtOver;
+const R3000_GEZIN = berekenVuistregel({ inkomen: 3000, volwassenen: 2, kinderen: 2, auto: "eigen" }).verwachtOver;
+/**
+ * Vaste lasten per huishoudtype voor de herbouw van
+ * `wat-zijn-normale-vaste-lasten-gezin` (24-sep-2026). Zelfde definitie als de
+ * pagina: wonen (woonlast, energie, internet, lokale lasten), verzekeringen,
+ * abonnementen en één auto. Opvang, school en sport apart.
+ */
+function vasteLastenTotaal(inkomen: number, volwassenen: 1 | 2, kinderen: number): number {
+  const v = berekenVuistregel({ inkomen: inkomen, volwassenen: volwassenen, kinderen: kinderen, auto: "eigen" });
+  return v.wonen + v.verzekeringen + v.abonnementen + v.vervoer;
+}
+const VL_EEN_INKOMEN = 3500;
+const VL_TWEE_INKOMEN = 5000;
+const VL_VIER_INKOMEN = 5500;
+const VL_EEN = vasteLastenTotaal(VL_EEN_INKOMEN, 1, 0);
+const VL_TWEE = vasteLastenTotaal(VL_TWEE_INKOMEN, 2, 0);
+const VL_VIER = vasteLastenTotaal(VL_VIER_INKOMEN, 2, 2);
+const VL_VIER_KINDEREN = 2 * VUISTREGEL.kinderenPerKind;
+const VL_PCT = (totaal: number, inkomen: number) => Math.round((totaal / inkomen) * 100) + " procent";
+
+const POS_3000_ALLEEN = procent(aandeelMetMeerNl(3000, 1, 0));
+const POS_3000_GEZIN = procent(aandeelMetMeerNl(3000, 2, 2));
+const POS_5000_ALLEEN = procent(aandeelMetMeerNl(5000, 1, 0));
+const POS_5000_STEL = procent(aandeelMetMeerNl(5000, 2, 0));
+const POS_5000_GEZIN = procent(aandeelMetMeerNl(5000, 2, 2));
+const POS_7000_STEL = procent(aandeelMetMeerNl(7000, 2, 0));
+const POS_7000_GEZIN = procent(aandeelMetMeerNl(7000, 2, 2));
+const POS_7000_BINNEN_GEZINNEN = procent(aandeelMetMeerBinnenType("paarMetKinderen", 7000));
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "top-10-procent-inkomen-nederland",
+    cta: {
+      kop: "Hoog in de verdeling, en toch niets over?",
+      tekst:
+        "Waar je staat zegt niets over wat er overblijft. De gratis analyse zet jullie uitgaven post voor post naast vergelijkbare huishoudens. In een paar minuten zie je waar jullie afwijken, en waar juist niet.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Top 10 procent inkomen: waar sta jij met je inkomen per maand?",
+    korteTitel: "Waar sta je met je inkomen?",
+    metaTitel: `${euro(P_ALLEEN_TOP10)} alleen, ${euro(P_STEL_TOP10)} samen: top 10 procent inkomen NL`,
+    metaDescription:
+      `Vanaf welk bedrag per maand hoor je bij de hoogste 10 procent? Alleen ${euro(P_ALLEEN_TOP10)}, samen ${euro(P_STEL_TOP10)}, gezin met twee kinderen ${euro(P_GEZIN_TOP10)}. Per huishouden, op cijfers van het CBS.`,
+    datum: "2026-09-24",
+    datumFormatted: "24 september 2026",
+    leestijd: "7",
+    categorie: "Inkomen",
+    excerpt:
+      `Vanaf welk bedrag per maand hoor je bij de hoogste 10 of 25 procent van Nederland? Per huishouden, van alleenstaand tot gezin met drie kinderen, afgeleid uit de inkomensverdeling van het CBS over ${INKOMEN_PEILJAAR}. Plus wat een goed gezamenlijk inkomen is, vergeleken met andere stellen.`,
+    preview: {
+      type: "vergelijking",
+      label: "Grens van de hoogste 10 procent, per maand",
+      items: [
+        { naam: "Alleenstaand", bedrag: P_ALLEEN_TOP10, kleur: "#9CCFC4" },
+        { naam: "Stel zonder kinderen", bedrag: P_STEL_TOP10, kleur: "#6FBCAF" },
+        { naam: "Stel met twee kinderen", bedrag: P_GEZIN_TOP10, kleur: "#0B7A6E" },
+      ],
+      noot: `Besteedbaar inkomen per maand, CBS ${INKOMEN_PEILJAAR}, afgerond op honderden.`,
+    },
+    faq: [
+      {
+        vraag: "Vanaf welk inkomen hoor je bij de top 10 procent van Nederland?",
+        antwoord: `Dat hangt af van je huishouden. Als alleenstaande vanaf ongeveer ${euro(P_ALLEEN_TOP10)} per maand te besteden, als stel zonder kinderen vanaf ${euro(P_STEL_TOP10)} en als gezin met twee kinderen vanaf ${euro(P_GEZIN_TOP10)}. Dat zijn grenzen over ${INKOMEN_PEILJAAR}, afgeleid uit de inkomensverdeling van het CBS en gecorrigeerd voor de grootte van het huishouden. Inkomens zijn sindsdien gestegen, dus in euro's van nu liggen ze iets hoger.`,
+      },
+      {
+        vraag: "Wat is een goed gezamenlijk inkomen?",
+        antwoord: `Vergeleken met andere stellen zonder kinderen onder de AOW-leeftijd zit je met ${euro(P_STEL_BINNEN_MIDDEN)} per maand samen precies in het midden, en vanaf ${euro(P_STEL_BINNEN_TOP10)} bij de hoogste 10 procent. Stellen met kinderen hebben samen meer te besteden, met ${euro(P_GEZIN_BINNEN_MIDDEN)} in het midden, omdat kinderbijslag en kindgebonden budget meetellen. Tegenover heel Nederland hoort een stel zonder kinderen vanaf ${euro(P_STEL_TOP25)} bij de hoogste 25 procent.`,
+      },
+      {
+        vraag: "Behoor ik tot de middenklasse met mijn inkomen?",
+        antwoord: `Er is geen officiële grens voor de middenklasse; het CBS gebruikt die indeling niet. Wat wel vaststaat: de helft van Nederland heeft minder dan ${euro(P_ALLEEN_MIDDEN)} per maand te besteden als alleenstaande, of ${euro(P_STEL_MIDDEN)} als stel. Boven de grens van de hoogste 25 procent (${euro(P_ALLEEN_TOP25)} alleen, ${euro(P_STEL_TOP25)} samen) verdien je meer dan drie op de vier huishoudens. Hogere middenklasse is een woordkeus, geen statistiek.`,
+      },
+      {
+        vraag: "Hoort 100.000 euro bruto bij de top 10 procent?",
+        antwoord: `Als alleenstaande in loondienst komt er van ${euro(100000)} bruto ongeveer ${euro(P_HONDERD_ALLEEN)} netto per maand binnen, inclusief vakantiegeld (eigen berekening, tarieven 2026). Min de zorgpremie heeft dan ${P_HONDERD_ALLEEN_MEER} van de huishoudens meer te besteden: rond de grens van de hoogste 10 procent. Als stel met samen ${euro(100000)} bruto, gelijk verdeeld, heeft ${P_HONDERD_SAMEN_MEER} van de huishoudens meer.`,
+      },
+      {
+        vraag: "Waarom is besteedbaar inkomen iets anders dan mijn netto salaris?",
+        antwoord: `Het CBS telt alles wat binnenkomt: nettoloon inclusief vakantiegeld, plus toeslagen en kinderbijslag, en trekt de zorgpremie eraf. Die premie was in 2026 gemiddeld ${euro(P_ZORGPREMIE_MAAND)} per volwassene per maand. Voor iemand in loondienst heffen vakantiegeld en zorgpremie elkaar grotendeels op, dus het nettobedrag op je loonstrook is een redelijke benadering. Om huishoudens te vergelijken rekent het CBS een stel als ${factorTekst(EQUIVALENTIEFACTOR[2][0])} alleenstaande.`,
+      },
+    ],
+    externLinks: [
+      {
+        label: `CBS: verdeling gestandaardiseerd inkomen ${INKOMEN_PEILJAAR}, gepubliceerd 3 juni 2026 (opgehaald 24 september 2026)`,
+        url: BRON_GESTANDAARDISEERD_URL,
+      },
+      {
+        label: `CBS: verdeling besteedbaar inkomen ${INKOMEN_PEILJAAR} per huishoudtype, gepubliceerd 3 juni 2026 (opgehaald 24 september 2026)`,
+        url: BRON_BESTEEDBAAR_URL,
+      },
+      {
+        label: "CBS: Materiële welvaart in Nederland 2024, bijlage A, equivalentiefactoren (opgehaald 24 september 2026)",
+        url: BRON_EQUIVALENTIE_URL,
+      },
+      {
+        label: "Rijksoverheid: SZW-begroting 2027, gemiddelde zorgpremie op p. 175 (opgehaald 18 september 2026)",
+        url: "https://www.rijksoverheid.nl/documenten/2026/09/15/xv-sociale-zaken-en-werkgelegenheid-rijksbegroting-2027",
+      },
+      {
+        label: "De vijf doorgerekende huishoudens, met hun eigen cijfers",
+        url: "https://www.waarblijfthet.nl/rapporten",
+      },
+    ],
+  },
+  {
+    slug: "gemiddelde-uitgaven-per-maand-2-personen",
+    cta: {
+      kop: "Leg jullie eigen maand ernaast",
+      tekst:
+        "De gratis analyse zet jullie begroting post voor post naast vergelijkbare huishoudens. In een paar minuten zie je op welke posten jullie afwijken, en op welke juist niet.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "stel" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    titel: "Gemiddelde uitgaven per maand voor 2 personen: de begroting per post",
+    korteTitel: "Uitgaven per maand voor 2 personen",
+    metaTitel: `${euro(H2_SOM_LAAG_ROND)} tot ${euro(H2_SOM_HOOG_ROND)}: gemiddelde uitgaven per maand 2 personen`,
+    metaDescription:
+      `Twee personen zonder kinderen geven ${euro(H2_SOM_LAAG_ROND)} tot ${euro(H2_SOM_HOOG_ROND)} per maand uit bij ${euro(H2_ONDER)} tot ${euro(H2_BOVEN)} netto. De hele begroting per post, met per bedrag het aantal huishoudens waarop het rust.`,
+    datum: "2026-09-24",
+    datumFormatted: "24 september 2026",
+    leestijd: "8",
+    categorie: "Gezinsbudget",
+    excerpt: `De volledige maandbegroting van twee volwassenen zonder kinderen, van ${euro(H2_ONDER)} tot ${euro(H2_BOVEN)} netto. Per post, met de herkomst en het aantal huishoudens erbij, plus een stel dat ik helemaal doorrekende en bij wie er geen lek was.`,
+    preview: {
+      type: "vergelijking",
+      label: "Maanduitgaven, twee personen zonder kinderen",
+      items: [
+        { naam: `Bij ${euro(3500)} netto`, bedrag: 3500 - H2_LAAG.verwachtOver, kleur: "#9CCFC4" },
+        { naam: `Bij ${euro(4500)} netto`, bedrag: 4500 - berekenVuistregel({ inkomen: 4500, volwassenen: 2, kinderen: 0, auto: "eigen" }).verwachtOver, kleur: "#6FBCAF" },
+        { naam: `Bij ${euro(5500)} netto`, bedrag: 5500 - berekenVuistregel({ inkomen: 5500, volwassenen: 2, kinderen: 0, auto: "eigen" }).verwachtOver, kleur: "#3E9A8C" },
+        { naam: `Bij ${euro(6500)} netto`, bedrag: 6500 - H2_HOOG.verwachtOver, kleur: "#0B7A6E" },
+      ],
+      noot: "Het verschil zit vrijwel helemaal in wonen en vrije tijd. De andere posten bewegen niet mee met het inkomen.",
+    },
+    faq: [
+      {
+        vraag: "Wat zijn de gemiddelde uitgaven per maand voor 2 personen?",
+        antwoord: `Voor twee volwassenen zonder kinderen met één auto kom ik op ongeveer ${euro(H2_SOM_LAAG_ROND)} per maand bij ${euro(H2_ONDER)} netto en ${euro(H2_SOM_HOOG_ROND)} bij ${euro(H2_BOVEN)} netto. Dat is geen landelijk gemiddelde maar wat ik verwacht op grond van de ${RAPPORTEN.length} huishoudens die ik zelf heb doorgerekend. Ter vergelijking: de helft van de stellen zonder kinderen onder de AOW-leeftijd had in ${INKOMEN_PEILJAAR} meer dan ${euro(H2_CBS_MIDDEN)} per maand te besteden (CBS).`,
+      },
+      {
+        vraag: "Hoeveel geld heb je nodig per maand voor 2 personen?",
+        antwoord: `Op deze vuistregel komt de begroting van twee personen met één auto vanaf ongeveer ${euro(H2_OMSLAG)} netto per maand rond, zonder auto vanaf ongeveer ${euro(H2_OMSLAG_ZONDER_AUTO)}. Daarin zitten wonen, boodschappen, vervoer, verzekeringen, abonnementen en vrije tijd, maar geen reizen en geen sparen. Wie ook wil sparen of op vakantie wil, heeft dus meer nodig.`,
+      },
+      {
+        vraag: "Hoeveel boodschappengeld per maand is normaal voor 2 personen?",
+        antwoord: `In mijn vuistregel ${euro(VUISTREGEL.boodschappenBasisTwee)} per maand voor twee volwassenen. Dat bedrag rust op ${H2_BOODSCHAPPEN_HERKOMST.n} huishoudens (${H2_BOODSCHAPPEN_HERKOMST.herkomst.split(".")[0]}), dus het is een richting en geen norm. Het ligt hoger dan de normbedragen die je elders leest, omdat het gaat om wat huishoudens met een bovenmodaal inkomen werkelijk uitgaven.`,
+      },
+      {
+        vraag: "Is samenwonen goedkoper dan alleen wonen?",
+        antwoord: `Per persoon wel. Het CBS rekent dat een stel ${factorTekst(EQUIVALENTIEFACTOR[2][0])} keer het inkomen van een alleenstaande nodig heeft om even ruim te leven, niet twee keer. Energie, internet, gemeentelijke lasten en abonnementen betaal je maar één keer, en de woning wordt niet twee keer zo duur. Alleen de zorgverzekering verdubbelt.`,
+      },
+      {
+        vraag: "Waarom houden we als stel zonder kinderen niets over terwijl we goed verdienen?",
+        antwoord: `Bij het stel zonder kinderen dat ik doorrekende was er geen lek. Hun uitgaven pasten niet bij het spaardoel dat ze tegelijk nastreefden: reizen, horeca en vrije tijd waren bewuste keuzes die rechtstreeks concurreerden met sparen om eventueel groter te gaan wonen. Reizen en andere jaarlijkse uitgaven staan in geen maandbegroting, en daar zat bij hen het verschil.`,
+      },
+    ],
+    externLinks: [
+      {
+        label: "CBS: inflatie stijgt naar 3,3 procent in augustus, 8 september 2026 (opgehaald 24 september 2026)",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2026/37/inflatie-stijgt-naar-3-3-procent-in-augustus",
+      },
+      {
+        label: `CBS: verdeling besteedbaar inkomen ${INKOMEN_PEILJAAR} per huishoudtype (opgehaald 24 september 2026)`,
+        url: BRON_BESTEEDBAAR_URL,
+      },
+      {
+        label: "CBS: Materiële welvaart in Nederland 2024, bijlage A, equivalentiefactoren (opgehaald 24 september 2026)",
+        url: BRON_EQUIVALENTIE_URL,
+      },
+      {
+        label: "De vijf doorgerekende huishoudens waarop de bedragen rusten, met hun eigen cijfers",
+        url: "https://www.waarblijfthet.nl/rapporten",
+      },
+    ],
+  },
   {
     slug: "kinderopvangtoeslag-2027-tweeverdieners",
     cta: {
@@ -903,7 +1162,7 @@ export const artikelen: Artikel[] = [
     metaTitel: `${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)}: wat geeft een gezin uit per maand?`,
     metaDescription:
       `Een gezin met twee inkomens en twee kinderen geeft ${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)} per maand uit. De hele begroting per post, met per bedrag het aantal huishoudens waarop het rust.`,
-    gewijzigd: "2026-09-06",
+    gewijzigd: "2026-09-24",
     datum: "2026-09-06",
     datumFormatted: "6 september 2026",
     leestijd: "8",
@@ -2700,17 +2959,27 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "is-3000-netto-genoeg-gezin",
+    cta: {
+      kop: "Komt het bij jullie net niet uit?",
+      tekst:
+        "De gratis analyse zet jullie uitgaven post voor post naast vergelijkbare huishoudens. In een paar minuten zie je of het aan het inkomen ligt of aan één post.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin", inkomen: 3000 }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
     korteTitel: "Is €3.000 netto genoeg voor een gezin?",
     titel: "Is €3.000 netto genoeg om rond te komen met een gezin?",
     metaTitel: "Is 3000 euro netto genoeg voor een gezin? (2026)",
     metaDescription:
-      "Kan een gezin rondkomen van 3.000 euro netto? Het eerlijke antwoord, wat kinderen en vaste lasten opslokken, en waarom je woonlasten de doorslag geven.",
+      `Kun je rondkomen van 3.000 euro per maand? Alleen wel, met z'n tweeën net, een gezin met twee kinderen en een auto komt ${euro(afgerondOpHonderd(Math.abs(R3000_GEZIN)))} tekort. Per huishouden uitgerekend.`,
+    gewijzigd: "2026-09-24",
     datum: "2026-06-19",
     datumFormatted: "19 juni 2026",
     leestijd: "5",
     categorie: "Inkomen",
     excerpt:
-      "3.000 euro netto klinkt als genoeg voor een gezin, en toch komt het net niet uit. Het eerlijke antwoord: het kan, maar het is krap, en je woonlasten geven de doorslag.",
+      "3.000 euro netto klinkt als genoeg voor een gezin, en toch komt het net niet uit. Per huishouden uitgerekend: alleen lukt het, met z'n tweeën net, met kinderen en een auto niet. En je woonlasten geven de doorslag.",
     preview: {
       type: "verdeling",
       label: "Waar €3.000 netto heen gaat",
@@ -2722,6 +2991,14 @@ export const artikelen: Artikel[] = [
       uitkomst: "Je woonlasten geven de doorslag",
     },
     faq: [
+      {
+        vraag: "Kun je rondkomen van 3000 euro per maand?",
+        antwoord: `Alleen wel: op mijn vuistregel houdt een alleenstaande zonder auto van ${euro(3000)} netto ongeveer ${euro(afgerondOpHonderd(R3000_ALLEEN_GEEN_AUTO))} over. Een stel zonder kinderen komt net rond, en alleen zonder auto (ongeveer ${euro(afgerondOpHonderd(R3000_STEL_GEEN_AUTO))} over). Een gezin met twee kinderen en een auto komt ongeveer ${euro(afgerondOpHonderd(Math.abs(R3000_GEZIN)))} per maand tekort. Als alleenstaande heeft ${POS_3000_ALLEEN} van de huishoudens in Nederland meer te besteden, als gezin met twee kinderen ${POS_3000_GEZIN} (CBS, ${INKOMEN_PEILJAAR}).`,
+      },
+      {
+        vraag: "Wat is een goed inkomen voor een gezin met twee kinderen?",
+        antwoord: `Tegenover heel Nederland zit een gezin met twee kinderen met ${euro(verplicht(grensPerMaandNlRond(0.5, 2, 2), "gezin midden"))} per maand te besteden in het midden, en vanaf ${euro(P_GEZIN_TOP10)} bij de hoogste 10 procent (CBS, ${INKOMEN_PEILJAAR}). Op mijn vuistregel komt de begroting van zo'n gezin met één auto pas vanaf ongeveer ${euro(H1_OMSLAG)} netto rond. Onder dat bedrag is het krap, zonder dat er iets misgaat.`,
+      },
       {
         vraag: "Is 3.000 euro netto genoeg voor een gezin?",
         antwoord:
@@ -2741,6 +3018,10 @@ export const artikelen: Artikel[] = [
     externLinks: [
       { label: "Nibud: wat kost een kind", url: "https://www.nibud.nl/onderwerpen/kinderen-en-jongeren/wat-kost-een-kind/" },
       { label: "Nibud: uitgaven van huishoudens", url: "https://www.nibud.nl/onderwerpen/uitgaven/" },
+      {
+        label: `CBS: verdeling gestandaardiseerd inkomen ${INKOMEN_PEILJAAR}, gepubliceerd 3 juni 2026 (opgehaald 24 september 2026)`,
+        url: BRON_GESTANDAARDISEERD_URL,
+      },
     ],
   },
   {
@@ -2944,11 +3225,21 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "hoeveel-geld-overhouden-einde-maand",
-    korteTitel: "Hoeveel hoor je over te houden?",
-    titel: "Hoeveel hoor je aan het einde van de maand over te houden in 2026?",
-    metaTitel: "Hoeveel geld overhouden per maand? Richtlijnen 2026",
+    cta: {
+      kop: "Blijft er bij jou minder over dan in de tabel?",
+      tekst:
+        "De gratis analyse zet jouw uitgaven post voor post naast vergelijkbare huishoudens. In een paar minuten zie je waar het verschil zit, en waar juist niet.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Hoeveel geld moet je overhouden?",
+    titel: "Hoeveel geld moet je overhouden per maand? Per huishouden uitgerekend",
+    metaTitel: `${euro(O_ALLEEN_3500)} tot ${euro(O_STEL_5000)}: hoeveel geld moet je overhouden per maand?`,
     metaDescription:
-      "Hoeveel hoor je eind van de maand over te houden? De richtlijnen voor 2026, waarom dat getal weinig over jou zegt, en wat je doet als er niks overblijft.",
+      `Hoeveel geld moet je overhouden per maand? Alleen met ${euro(3500)} netto ongeveer ${euro(O_ALLEEN_3500)}, samen met ${euro(5000)} ongeveer ${euro(O_STEL_5000)}, met twee kinderen ${euro(O_GEZIN_5000)}. Per huishouden, na alle vaste lasten.`,
+    gewijzigd: "2026-09-24",
     datum: "2026-06-19",
     datumFormatted: "19 juni 2026",
     leestijd: "5",
@@ -2966,6 +3257,14 @@ export const artikelen: Artikel[] = [
       uitkomst: "Richtlijn: zeker 10% sparen (Nibud-norm)",
     },
     faq: [
+      {
+        vraag: "Hoeveel geld moet je overhouden per maand?",
+        antwoord: `Dat hangt af van je huishouden. Op mijn vuistregel blijft er bij een alleenstaande met ${euro(3500)} netto en een auto ongeveer ${euro(O_ALLEEN_3500)} over, bij een stel zonder kinderen met ${euro(5000)} ongeveer ${euro(O_STEL_5000)} en bij een gezin met twee kinderen en ${euro(5000)} ongeveer ${euro(O_GEZIN_5000)}. Dat is na vaste lasten, boodschappen en vrije tijd; sparen en vakanties moeten hieruit komen.`,
+      },
+      {
+        vraag: "Hoeveel geld moet je overhouden na vaste lasten?",
+        antwoord: `Na alleen de vaste lasten blijft er veel meer over dan aan het eind van de maand, want boodschappen en vrije tijd moeten er nog af. Een stel zonder kinderen met ${euro(5000)} netto en één auto is in mijn vuistregel ongeveer ${euro(afgerondOpHonderd(O_STEL_VASTE_LASTEN_5000))} kwijt aan wonen, energie, verzekeringen, abonnementen en de auto. Er blijft dan ongeveer ${euro(afgerondOpHonderd(5000 - O_STEL_VASTE_LASTEN_5000))} over voor al het andere.`,
+      },
       {
         vraag: "Hoeveel hoor je over te houden aan het einde van de maand?",
         antwoord:
@@ -4242,11 +4541,11 @@ export const artikelen: Artikel[] = [
     korteTitel: "Is €5.000 netto een goed salaris?",
     titel:
       "Is €5.000 netto een goed salaris? Ja, en dit is wat je er bruto voor moet verdienen",
-    metaTitel: "Is €5.000 netto een goed salaris? (2026)",
+    metaTitel: `Is €5.000 netto een goed salaris? Alleen top ${POS_5000_ALLEEN} van NL`,
     metaDescription:
       `€5.000 netto is een hoog salaris. Als eenverdiener kost dat ongeveer ${euro(BRUTO_VOOR_NETTO[5000])} bruto, met twee inkomens ${euro(EENVERDIENER_MEERKOSTEN_5000)} minder. Waarom het toch niet voelt als een hoog inkomen.`,
     enVertaling: "/en/is-5000-net-a-good-salary-netherlands",
-    gewijzigd: "2026-09-06",
+    gewijzigd: "2026-09-24",
     datum: "2026-07-30",
     datumFormatted: "30 juli 2026",
     leestijd: "7",
@@ -4257,16 +4556,16 @@ export const artikelen: Artikel[] = [
       type: "vergelijking",
       label: "Bruto nodig voor €5.000 netto",
       items: [
-        { naam: "Eén inkomen", bedrag: 90000, kleur: "#B03A2E" },
-        { naam: "Twee inkomens samen", bedrag: 78000, kleur: "#0B7A6E" },
+        { naam: "Eén inkomen", bedrag: BRUTO_VOOR_NETTO[5000], kleur: "#B03A2E" },
+        { naam: "Twee inkomens samen", bedrag: BRUTO_VOOR_NETTO_SAMEN[5000], kleur: "#0B7A6E" },
       ],
-      noot: "Eigen berekening met de tweede schijf van 49,50% boven €78.426 (2026), niet een tabel van de Belastingdienst",
+      noot: `Eigen berekening met het tarief van ${(TARIEF_SCHIJF_3 * 100).toLocaleString("nl-NL")}% boven ${euro(SCHIJFGRENS_2)} (2026), niet een tabel van de Belastingdienst`,
     },
     faq: [
       {
-        vraag: "Is €5.000 netto per maand een goed salaris in Nederland?",
+        vraag: "Is €5000 netto een goed salaris?",
         antwoord:
-          "Ja, dat is een hoog salaris. Het modale netto inkomen ligt in 2026 rond €3.100 per maand, dus met €5.000 netto zit je daar ruim boven. Of het genoeg voelt is een andere vraag: dat hangt af van je huishouden, je woonlast en van wat je tegelijk wilt sparen.",
+          `Ja. Met €5.000 per maand te besteden heeft als alleenstaande maar ${POS_5000_ALLEEN} van de huishoudens in Nederland meer, als stel zonder kinderen ${POS_5000_STEL} en als gezin met twee kinderen ${POS_5000_GEZIN} (CBS, ${INKOMEN_PEILJAAR}, gecorrigeerd voor de grootte van het huishouden). Modaal ligt in 2026 rond ${euro(NETTO_MODAAL_2026_MAAND)} netto per maand (eigen berekening op het bruto modaal van het CPB). Of het genoeg voelt, hangt af van je huishouden, je woonlast en wat je tegelijk wilt sparen.`,
       },
       {
         vraag: "Hoeveel moet je bruto verdienen voor €5.000 netto per maand?",
@@ -4295,8 +4594,8 @@ export const artikelen: Artikel[] = [
         url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/heffingskortingen_boxen_tarieven/boxen_en_tarieven/overzicht_tarieven_en_schijven/",
       },
       {
-        label: "CPB: modaal inkomen 2026",
-        url: "https://www.cpb.nl",
+        label: `CBS: verdeling gestandaardiseerd inkomen ${INKOMEN_PEILJAAR}, gepubliceerd 3 juni 2026 (opgehaald 24 september 2026)`,
+        url: BRON_GESTANDAARDISEERD_URL,
       },
       {
         label: "Nibud: huishoudelijke uitgaven",
@@ -4322,7 +4621,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Twee inkomens, samen €6.000 netto, en toch groeit het spaargeld niet. Bij twee echte huishoudens op dit niveau bleek er geen lek te zijn. Wat er dan wel speelt.",
     datum: "2026-07-30",
-    gewijzigd: "2026-09-06",
+    gewijzigd: "2026-09-24",
     datumFormatted: "30 juli 2026",
     leestijd: "8",
     categorie: "Inkomen",
@@ -4341,7 +4640,7 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Is €6.000 netto samen een goed huishoudinkomen?",
         antwoord:
-          "Ja. Het modale netto inkomen ligt in 2026 rond €3.100 per maand, dus met €6.000 netto samen zit je daar ruim boven. Toch is dit het niveau waarop mensen mij het vaakst vragen waarom er niets overblijft, en dat is geen tegenstrijdigheid: bij dit inkomen is de vraag zelden of je rondkomt, maar waarom je vermogen niet groeit.",
+          `Ja. Het modale netto inkomen ligt in 2026 rond ${euro(NETTO_MODAAL_2026_MAAND)} per maand (eigen berekening op het bruto modaal van het CPB), dus met €6.000 netto samen zit je daar ruim boven. Toch is dit het niveau waarop mensen mij het vaakst vragen waarom er niets overblijft, en dat is geen tegenstrijdigheid: bij dit inkomen is de vraag zelden of je rondkomt, maar waarom je vermogen niet groeit.`,
       },
       {
         vraag: "Waarom houden we niets over terwijl we samen goed verdienen?",
@@ -4354,9 +4653,9 @@ export const artikelen: Artikel[] = [
           "Netto op de rekening wel, bruto niet. Twee inkomens die samen €6.000 netto halen kosten aanzienlijk minder bruto, omdat ieder van beiden zijn eigen heffingskortingen en lagere belastingschijven gebruikt. Een eenverdiener met hetzelfde nettobedrag zit met een groot deel van zijn salaris in de tweede schijf en levert daar bijna de helft van elke extra euro in.",
       },
       {
-        vraag: "Hoeveel zou een gezin met twee inkomens moeten overhouden?",
+        vraag: "Is 7000 netto gezinsinkomen veel?",
         antwoord:
-          "Dat hangt af van het aantal kinderen en van je woonlast. Reken het door met de rekenaar bovenaan dit artikel: die zet naast elkaar wat ik bij een huishouden als het jouwe verwacht en wat er bij jullie werkelijk overblijft. Ligt dat binnen een paar honderd euro van elkaar, dan is er waarschijnlijk niets mis en gaat de vraag over wat je met die ruimte doet.",
+          `Tegenover heel Nederland wel. Met ${euro(7000)} per maand te besteden heeft als stel zonder kinderen maar ${POS_7000_STEL} van de huishoudens meer, en met twee kinderen ${POS_7000_GEZIN} (CBS, ${INKOMEN_PEILJAAR}, gecorrigeerd voor de grootte van het huishouden). Tegenover andere stellen met kinderen zit je er precies in het midden: ${POS_7000_BINNEN_GEZINNEN} heeft meer. Veel voor een stel, gewoon voor een gezin.`,
       },
       {
         vraag: "Hoe kan het dat mijn partner en ik iets anders denken over waar het geld blijft?",
@@ -4372,6 +4671,10 @@ export const artikelen: Artikel[] = [
       {
         label: "CBS: inkomen van tweeverdieners",
         url: "https://www.cbs.nl/nl-nl/cijfers/detail/83676NED",
+      },
+      {
+        label: `CBS: verdeling besteedbaar inkomen ${INKOMEN_PEILJAAR} per huishoudtype, gepubliceerd 3 juni 2026 (opgehaald 24 september 2026)`,
+        url: BRON_BESTEEDBAAR_URL,
       },
       {
         label: "Belastingdienst: schijventarief inkomstenbelasting 2026",
@@ -4397,7 +4700,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "€4.000 netto ligt ruim boven modaal (€3.030 netto in 2026). Wat je overhoudt hangt af van je huishouden: alleen ruim €600, met twee kinderen bijna niets. Reken je eigen situatie door.",
     datum: "2026-05-21",
-    gewijzigd: "2026-09-06",
+    gewijzigd: "2026-09-24",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
     categorie: "Inkomen",
@@ -4855,67 +5158,75 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "wat-zijn-normale-vaste-lasten-gezin",
-    korteTitel: "Vaste lasten: wat is normaal?",
-    titel:
-      "Wat zijn normale vaste lasten voor een gezin? Het eerlijke overzicht voor 2026",
-    metaTitel:
-      "Wat zijn normale vaste lasten voor een gezin in 2026?",
+    cta: {
+      kop: "Liggen jullie vaste lasten hoger dan de tabel?",
+      tekst:
+        "De gratis analyse zet jullie vaste lasten en dagelijkse uitgaven post voor post naast vergelijkbare huishoudens. In een paar minuten zie je waar jullie afwijken, en waar juist niet.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Gemiddelde vaste lasten per huishouden",
+    titel: "Gemiddelde vaste lasten per maand: gezin van 4, 2 personen en 1 persoon",
+    metaTitel: `${euro(afgerondOpHonderd(VL_EEN))} alleen, ${euro(afgerondOpHonderd(VL_VIER))} gezin van 4: gemiddelde vaste lasten`,
     metaDescription:
-      "Voor een gezin liggen de vaste lasten tussen €2.600 en €3.200 per maand. Maar wat is normaal voor jouw situatie? En waar zit de meeste bespaarruimte?",
+      `De vaste lasten per maand voor 1 persoon (${euro(afgerondOpHonderd(VL_EEN))}), 2 personen (${euro(afgerondOpHonderd(VL_TWEE))}) en een gezin van 4 (${euro(afgerondOpHonderd(VL_VIER))} plus kinderen). Per post, met het aantal huishoudens waarop elk bedrag rust.`,
+    gewijzigd: "2026-09-24",
     datum: "2026-05-23",
     datumFormatted: "23 mei 2026",
-    leestijd: "7",
-    categorie: "Inzicht",
+    leestijd: "6",
+    categorie: "Gezinsbudget",
     excerpt:
-      "De vaste lasten voor een gezin in 2026 liggen gemiddeld tussen €2.600 en €3.200 per maand, exclusief boodschappen. Voor veel gezinnen is dat al meer dan twee derde van het netto inkomen. Wat is normaal, en waar zit de bespaarruimte?",
+      `Wat zijn normale vaste lasten? Per post voor 1 persoon, 2 personen en een gezin van 4, met het percentage van het inkomen van ${euro(3500)} tot ${euro(6500)} netto. Plus de vaste lasten van twee echte huishoudens die ik helemaal doorrekende.`,
     preview: {
       type: "vergelijking",
-      label: "Vaste lasten 2026",
+      label: "Vaste lasten per maand, met één auto",
       items: [
-        { naam: "Minimum", bedrag: 2000, kleur: "#0B7A6E" },
-        { naam: "Gemiddeld", bedrag: 2850, kleur: "#0A6A5F" },
+        { naam: `1 persoon, ${euro(VL_EEN_INKOMEN)} netto`, bedrag: VL_EEN, kleur: "#9CCFC4" },
+        { naam: `2 personen, ${euro(VL_TWEE_INKOMEN)} netto`, bedrag: VL_TWEE, kleur: "#3E9A8C" },
+        { naam: `Gezin van 4, ${euro(VL_VIER_INKOMEN)} netto`, bedrag: VL_VIER, kleur: "#0B7A6E" },
       ],
-      noot: "Per maand voor een gezin",
+      noot: "Wonen, energie, lokale lasten, verzekeringen, abonnementen en één auto. Zonder boodschappen en kinderkosten.",
     },
     faq: [
       {
-        vraag: "Wat zijn normale vaste lasten voor een gezin van 4 in 2026?",
-        antwoord:
-          "Gemiddeld liggen de vaste lasten voor een gezin met twee kinderen tussen de €2.600 en €3.200 per maand, exclusief boodschappen. Dit hangt sterk af van de woonsituatie (huur of koop) en de regio. In de Randstad liggen de woonkosten structureel hoger.",
+        vraag: "Wat zijn de gemiddelde vaste lasten voor een gezin van 4 personen?",
+        antwoord: `Voor twee volwassenen en twee kinderen met ${euro(VL_VIER_INKOMEN)} netto en één auto kom ik op ongeveer ${euro(afgerondOpHonderd(VL_VIER))} per maand aan wonen, energie, gemeentelijke lasten, verzekeringen, abonnementen en de auto. Daar komt ${euro(VL_VIER_KINDEREN)} bij voor opvang, school en sport. Dat is ${VL_PCT(VL_VIER + VL_VIER_KINDEREN, VL_VIER_INKOMEN)} van het netto inkomen, en dan zijn boodschappen en vrije tijd nog niet betaald.`,
       },
       {
-        vraag: "Hoeveel procent van je inkomen mag naar vaste lasten?",
-        antwoord:
-          "De vuistregel is maximaal 50 procent van het netto inkomen. Bij €4.000 netto is dat €2.000. In de praktijk zit een groot deel van de gezinnen in Nederland boven die grens, niet door verkeerde keuzes, maar door geleidelijk oplopende kosten.",
+        vraag: "Wat zijn de gemiddelde vaste lasten voor 2 personen?",
+        antwoord: `Voor twee volwassenen zonder kinderen met ${euro(VL_TWEE_INKOMEN)} netto en één auto ongeveer ${euro(afgerondOpHonderd(VL_TWEE))} per maand, ${VL_PCT(VL_TWEE, VL_TWEE_INKOMEN)} van het inkomen. De meeste posten zijn even hoog als voor één persoon; alleen de zorgverzekering verdubbelt en de woonlast is meestal hoger omdat er twee inkomens zijn.`,
       },
       {
-        vraag: "Wat zijn de grootste vaste lasten voor een gezin?",
-        antwoord:
-          "Woonkosten (huur of hypotheek, energie, water) vormen verreweg de grootste post, gemiddeld €1.200 tot €1.800 per maand. Daarna volgen zorgverzekeringen (€316 voor twee volwassenen), vervoer (€280-€480) en abonnementen (€150-€200).",
+        vraag: "Wat zijn de gemiddelde vaste lasten voor 1 persoon?",
+        antwoord: `Voor een alleenstaande met ${euro(VL_EEN_INKOMEN)} netto en een auto ongeveer ${euro(afgerondOpHonderd(VL_EEN))} per maand, ${VL_PCT(VL_EEN, VL_EEN_INKOMEN)} van het inkomen. Dat is naar verhouding het zwaarst: energie, internet, gemeentelijke lasten, abonnementen en de auto kosten voor één persoon bijna evenveel als voor twee, maar er is maar één inkomen.`,
       },
       {
-        vraag: "Waar zit de meeste bespaarruimte in vaste lasten?",
-        antwoord:
-          "Abonnementen, zorgverzekering en vervoer zijn de drie categorieën met de meeste flexibiliteit. Eén keer kritisch doorlopen van alle abonnementen levert gemiddeld €50 tot €100 per maand op. Zorgverzekering optimaliseren scheelt €200 tot €500 per jaar.",
+        vraag: "Hoeveel procent van je inkomen gaat naar vaste lasten?",
+        antwoord: `In mijn vuistregel ${VL_PCT(VL_EEN, VL_EEN_INKOMEN)} voor een alleenstaande met ${euro(VL_EEN_INKOMEN)} netto, ${VL_PCT(VL_TWEE, VL_TWEE_INKOMEN)} voor een stel met ${euro(VL_TWEE_INKOMEN)} en ${VL_PCT(VL_VIER + VL_VIER_KINDEREN, VL_VIER_INKOMEN)} voor een gezin van vier met ${euro(VL_VIER_INKOMEN)}, inclusief de kinderen. Het percentage daalt als je meer verdient, omdat de meeste vaste lasten niet meestijgen. Een vaste norm is er niet; het hangt vooral af van je woonlast.`,
       },
       {
-        vraag: "Zijn vaste lasten in 2026 gestegen?",
-        antwoord:
-          "Ja. Uit onderzoek blijkt dat de vaste lasten voor een gemiddeld gezin in 2026 met €474 zijn gestegen ten opzichte van 2025, vooral door hogere verzekeringspremies, energiebelasting en gemeentelijke heffingen.",
+        vraag: "Worden de vaste lasten in 2027 hoger?",
+        antwoord: `Deels. Het ministerie van VWS verwacht dat de zorgpremie in 2027 stijgt naar gemiddeld ${euro(ZORG_2027.premiePerMaand2027)} per maand per volwassene en het eigen risico van ${euro(ZORG_2027.eigenRisico2026)} naar ${euro(ZORG_2027.eigenRisico2027)} gaat (Rijksoverheid, 15 september 2026). Dat is een raming tot de verzekeraars uiterlijk 12 november hun premies bekendmaken. Wonen, water en energie droegen in augustus 2026 het meest bij aan de inflatie (CBS).`,
       },
     ],
     externLinks: [
       {
-        label: "FinBuddy vaste lasten overzicht 2026",
-        url: "https://www.finbuddy.nl/blogs/wat-zijn-de-gemiddelde-vaste-lasten-bekijk-ze-nu-in-een-overzicht/",
+        label: "CBS: inflatie stijgt naar 3,3 procent in augustus, 8 september 2026 (opgehaald 24 september 2026)",
+        url: "https://www.cbs.nl/nl-nl/nieuws/2026/37/inflatie-stijgt-naar-3-3-procent-in-augustus",
       },
       {
-        label: "Vaste Lasten Bond percentage inkomen",
-        url: "https://www.vastelastenbond.nl/blog/55-procent-van-inkomen-naar-vaste-lasten/",
+        label: "Rijksoverheid: eigen risico, zorgpremie en zorgtoeslag 2027, 15 september 2026 (opgehaald 24 september 2026)",
+        url: "https://www.rijksoverheid.nl/actueel/nieuws/2026/09/15/kabinet-zet-in-op-gezondheid-en-op-zorg-die-klaar-is-voor-de-toekomst",
       },
       {
-        label: "ConsumentWijzer kosten gezin 2026",
-        url: "https://consumentwijzer.nl/kosten-gezin-per-maand/",
+        label: `CBS: verdeling besteedbaar inkomen ${INKOMEN_PEILJAAR} per huishoudtype (opgehaald 24 september 2026)`,
+        url: BRON_BESTEEDBAAR_URL,
+      },
+      {
+        label: "De vijf doorgerekende huishoudens waarop de bedragen rusten, met hun eigen cijfers",
+        url: "https://www.waarblijfthet.nl/rapporten",
       },
     ],
   },
