@@ -361,7 +361,7 @@ export default function RentevastePeriodeLooptAfWatNu() {
         {[
           {
             slug: "hogere-hypotheek-wat-kost-het-per-maand",
-            tekst: "Wat kost een hogere hypotheek echt per maand?",
+            tekst: "Kunnen we dit huis betalen? Wat een hogere hypotheek met jullie maand doet",
           },
           {
             slug: "wat-geeft-een-gezin-uit-per-maand",

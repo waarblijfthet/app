@@ -153,6 +153,14 @@ export default function KostenLevensonderhoudAlleenstaandeOuder2026() {
         optelsom van kosten die niet halveren als je geen partner hebt.
       </p>
 
+      <p className="font-body text-text-soft" style={p}>
+        Sta je nog voor de scheiding en wil je weten of je het in je eentje redt, lees dan{" "}
+        <Link href="/inzichten/scheiden-goed-inkomen-toch-niks-over" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">
+          kan ik rondkomen na een scheiding
+        </Link>
+        . Daar reken je uit wat er verdwijnt als één huishouden er twee wordt.
+      </p>
+
       <h2 className="font-display" style={h2}>
         Waar zit nog bespaarruimte?
       </h2>
