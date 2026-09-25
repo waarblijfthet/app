@@ -1,3 +1,5 @@
+import WatKostEenDagMinderWerken from "./content/wat-kost-een-dag-minder-werken";
+import KindWordt18WatVerandertErFinancieel from "./content/kind-wordt-18-wat-verandert-er-financieel";
 import Top10ProcentInkomenNederland from "./content/top-10-procent-inkomen-nederland";
 import GemiddeldeUitgavenPerMaand2Personen from "./content/gemiddelde-uitgaven-per-maand-2-personen";
 import FinancieleOntrouwPartnerVerzwijgtGeld from "./content/financiele-ontrouw-partner-verzwijgt-geld";
@@ -96,6 +98,8 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "wat-kost-een-dag-minder-werken": WatKostEenDagMinderWerken,
+  "kind-wordt-18-wat-verandert-er-financieel": KindWordt18WatVerandertErFinancieel,
   "top-10-procent-inkomen-nederland": Top10ProcentInkomenNederland,
   "gemiddelde-uitgaven-per-maand-2-personen": GemiddeldeUitgavenPerMaand2Personen,
   "financiele-ontrouw-partner-verzwijgt-geld": FinancieleOntrouwPartnerVerzwijgtGeld,

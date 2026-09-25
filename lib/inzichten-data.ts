@@ -140,6 +140,7 @@ import { berekenVuistregel, omslagpunt, euro, afgerondOpHonderd, VERVOER, VUISTR
 import { RAPPORTEN, rapportVoorSlug, AANTAL_ZONDER_LEK } from "./rapporten-data";
 import {
   berekenRenteVerschil,
+  annuiteit,
   LOOPTIJD_JAREN,
   RENTEVASTE_PERIODE_JAREN,
   RENTE_2016,
@@ -171,6 +172,19 @@ import {
   BRON_VERGOEDINGEN_PERSONAL,
 } from "./budgetcoach-tarieven";
 import { PAKKET_INFO } from "./aanbod-content";
+import {
+  BRONNEN as GM_BRONNEN,
+  BRON_DATUM as GM_DATUM,
+  kinderbijslagPerMaand,
+  KINDERBIJSLAG_KWARTAAL_2026,
+  EIGEN_RISICO_2026,
+  DUO_2026,
+  NIBUD_OUDERBIJDRAGE,
+  NIBUD_KOSTGELD_AANDEEL,
+  NIBUD_KINDKOSTEN_PCT,
+  MAX_OPVANGUREN_PER_MAAND,
+} from "./geldmomenten-bronnen";
+import { percentageEersteKind2026, percentageTweedeKind2026 } from "./kinderopvangtoeslag-2027";
 import {
   grensPerMaandNlRond,
   grensPerMaandBinnenTypeRond,
@@ -282,7 +296,6 @@ const SCHEIDEN_VASTE_LASTEN_DELTA =
 const SCHEIDEN_VERVOER_DELTA = SCHEIDEN_MET_KINDEREN.vervoer + SCHEIDEN_ZONDER_KINDEREN.vervoer - SCHEIDEN_VOOR.vervoer;
 const SCHEIDEN_BOODSCHAPPEN_DELTA =
   SCHEIDEN_MET_KINDEREN.boodschappen + SCHEIDEN_ZONDER_KINDEREN.boodschappen - SCHEIDEN_VOOR.boodschappen;
-const RAPPORT_SCHEIDEN = rapportVoorSlug("alleenstaande-ouder-twee-kinderen")!;
 
 const SAMENGESTELD_BASIS = berekenVuistregel({ inkomen: 6000, volwassenen: 2, kinderen: 1, auto: "eigen" });
 const SAMENGESTELD_VOL = berekenVuistregel({ inkomen: 6000, volwassenen: 2, kinderen: 3, auto: "eigen" });
@@ -445,7 +458,152 @@ const POS_7000_STEL = procent(aandeelMetMeerNl(7000, 2, 0));
 const POS_7000_GEZIN = procent(aandeelMetMeerNl(7000, 2, 2));
 const POS_7000_BINNEN_GEZINNEN = procent(aandeelMetMeerBinnenType("paarMetKinderen", 7000));
 
+/**
+ * Berekende bedragen voor de vijf geldmomenten (25-sep-2026). Elk getal in de
+ * titels, excerpts en FAQ's van die vijf artikelen komt hiervandaan, uit
+ * dezelfde bron als de pagina zelf. Nooit met de hand overtypen.
+ */
+const GM_HUIS_PER_100K = Math.round(annuiteit(100000, RENTE_2026, LOOPTIJD_JAREN));
+const GM_KB_TOT6 = kinderbijslagPerMaand("tot6");
+const GM_KB_TOT18 = kinderbijslagPerMaand("tot18");
+const GM_SCHEIDEN_VERDWENEN =
+  SCHEIDEN_VOOR.verwachtOver - (SCHEIDEN_MET_KINDEREN.verwachtOver + SCHEIDEN_ZONDER_KINDEREN.verwachtOver);
+const GM_KIND_TW = NIBUD_KINDKOSTEN_PCT.tweeouder;
+const GM_KIND_EEN = NIBUD_KINDKOSTEN_PCT.eenouder;
+const GM_TOETS_VOORBEELD = 100000;
+const gmPct = (n: number) => `${Math.round(n * 1000) / 10}`.replace(".", ",") + " procent";
+const gmEuroCent = (n: number) =>
+  "€" + n.toLocaleString("nl-NL", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const GM_KOOPWONINGEN = RAPPORTEN.filter((r) => /koop/.test(r.situatie)).length;
+const GM_BRON = (b: { label: string; url: string }): ExternLink => ({
+  label: `${b.label} (opgehaald ${GM_DATUM})`,
+  url: b.url,
+});
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "wat-kost-een-dag-minder-werken",
+    cta: {
+      kop: "Wat doet minder werken met jullie hele maand?",
+      tekst:
+        "De doorrekening hierboven kijkt alleen naar wat er verandert. De gratis analyse zet jullie hele maand naast vergelijkbare huishoudens, zodat je ziet waar de ruimte nu zit.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    geldscanKeuze: "minder-werken",
+    titel: "Wat kost een dag minder werken voor je hele huishouden?",
+    korteTitel: "Wat kost een dag minder werken?",
+    metaTitel: "Wat kost een dag minder werken? Reken het voor je gezin",
+    metaDescription:
+      "Een dag minder werken kost bruto 20 procent van dat salaris, netto minder. Wat het doet met opvang, toeslagen, pensioen en jullie hele maand, met een korte doorrekening.",
+    datum: "2026-09-25",
+    datumFormatted: "25 september 2026",
+    leestijd: "7",
+    categorie: "Gezinsbudget",
+    excerpt:
+      "Het netto inkomensverlies rekent de WerkUrenBerekenaar uit. Hier gaat het om de vraag erna: wat doet dat verschil met jullie opvang, toeslagen en de rest van de maand, en kunnen jullie het missen?",
+    preview: {
+      type: "pijn",
+      label: "Een dag minder werken",
+      items: ["Bruto 20% van dat salaris", "Vaak een dag minder opvang", "Minder pensioenopbouw"],
+    },
+    faq: [
+      {
+        vraag: "Wat kost een dag minder werken?",
+        antwoord:
+          "Bruto een vijfde van het salaris van wie minder gaat werken, want bij vijf werkdagen is één dag 20 procent. Netto is het verlies kleiner, omdat de uren die wegvallen de uren zijn waarover je het hoogste tarief betaalt. Wat het jullie huishouden kost, is dat netto verschil min wat er aan opvang en reiskosten wegvalt.",
+      },
+      {
+        vraag: "Hoeveel hou ik netto over als ik minder ga werken?",
+        antwoord:
+          "Dat hangt af van je salaris, je toeslagen en je pensioenregeling, en ik reken het niet zelf uit. De WerkUrenBerekenaar van het Nibud laat in ongeveer een kwartier zien wat minder uren betekent voor je netto inkomen. Een proefloonstrook van je werkgever is het andere goede vertrekpunt.",
+      },
+      {
+        vraag: "Is kinderopvang of een dag minder werken voordeliger?",
+        antwoord: `Dat hangt af van wat de opvangdag jullie na toeslag kost tegenover wat die werkdag netto oplevert. De kinderopvangtoeslag hangt niet aan je gewerkte uren: je krijgt hem voor maximaal ${MAX_OPVANGUREN_PER_MAAND} opvanguren per kind per maand, maar alleen voor de uren in je contract. Met twee kinderen op de opvang scheelt een dag minder werken dus vaak meer dan met één.`,
+      },
+      {
+        vraag: "Wat doet een dag minder werken met mijn pensioen?",
+        antwoord:
+          "Bij een pensioen via je werkgever bouw je op over je salaris, dus minder salaris is minder opbouw zolang je minder werkt. Hoeveel precies, weet alleen je pensioenfonds. Op mijnpensioenoverzicht.nl zie je wat je nu opbouwt; vraag je fonds wat een dag minder daaraan verandert.",
+      },
+      {
+        vraag: "Mijn partner wil stoppen met werken. Kunnen we dat betalen?",
+        antwoord:
+          "Dat is niet te zeggen zonder te weten waar jullie geld nu naartoe gaat. Het netto verschil is de helft van het antwoord; de andere helft is of er in de huidige maand ruimte zit die het gat kan opvangen. Zet de maand nu en de maand na de keuze naast elkaar, met jullie eigen bedragen, en kijk samen welke posten het verschil moeten dragen.",
+      },
+    ],
+    externLinks: [
+      GM_BRON(GM_BRONNEN.werkuren),
+      GM_BRON(GM_BRONNEN.opvanguren),
+      GM_BRON(GM_BRONNEN.pensioenoverzicht),
+      {
+        label: "Rijksoverheid: bedragen kinderopvangtoeslag 2026 (opgehaald 13 september 2026)",
+        url: "https://www.rijksoverheid.nl/themas/belastingen-uitkeringen-en-toeslagen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026",
+      },
+    ],
+  },
+  {
+    slug: "kind-wordt-18-wat-verandert-er-financieel",
+    cta: {
+      kop: "Wat doet het jaar van 18 met jullie hele maand?",
+      tekst:
+        "De doorrekening hierboven kijkt alleen naar wat er rond dit kind verandert. De gratis analyse zet jullie hele maand naast vergelijkbare huishoudens, zodat je ziet waar de ruimte nu zit.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    geldscanKeuze: "kind-18",
+    titel: "Je kind wordt 18: wat verandert er financieel voor jullie gezin?",
+    korteTitel: "Kind wordt 18: wat verandert er?",
+    metaTitel: "Kind wordt 18: wat verandert er financieel in 2026?",
+    metaDescription: `De kinderbijslag stopt, ongeveer ${euro(GM_KB_TOT18)} per maand, het kindgebonden budget ook. Er komen zorgpremie, ${euro(EIGEN_RISICO_2026)} eigen risico en vaak studiekosten bij. Wat het met jullie maand doet.`,
+    datum: "2026-09-25",
+    datumFormatted: "25 september 2026",
+    leestijd: "7",
+    categorie: "Gezinsbudget",
+    excerpt:
+      "Niet wat een kind van 18 kost, maar wat er in jullie huishoudbudget verandert als het 18 wordt. Wat stopt, wat begint, wat DUO betaalt en wat ouders gemiddeld bijdragen, met de bedragen van SVB, DUO en Nibud.",
+    preview: {
+      type: "pijn",
+      label: "Als je kind 18 wordt",
+      items: [`Kinderbijslag stopt (≈ ${euro(GM_KB_TOT18)}/mnd)`, "Eigen zorgpremie", `${euro(EIGEN_RISICO_2026)} eigen risico`],
+    },
+    faq: [
+      {
+        vraag: "Wat verandert er financieel als je kind 18 wordt?",
+        antwoord: `De kinderbijslag en het kindgebonden budget stoppen. Voor een kind van 12 tot en met 17 is de kinderbijslag ${gmEuroCent(KINDERBIJSLAG_KWARTAAL_2026.tot18)} per kwartaal, ongeveer ${euro(GM_KB_TOT18)} per maand (SVB, 2026). Er komen kosten bij: een eigen zorgpremie vanaf de maand na de verjaardag, het eigen risico van ${euro(EIGEN_RISICO_2026)} per jaar en vaak een bijdrage aan de studie.`,
+      },
+      {
+        vraag: "Wanneer stopt de kinderbijslag als mijn kind 18 wordt?",
+        antwoord:
+          "De SVB kijkt of je kind op de eerste dag van een kwartaal 18 is. Is dat zo, dan krijg je dat kwartaal geen kinderbijslag meer; is je kind op die dag nog 17, dan krijg je het hele kwartaal nog. Omdat de SVB na afloop van elk kwartaal betaalt, merk je het een kwartaal later op je rekening.",
+      },
+      {
+        vraag: "Moet ik de zorgverzekering van mijn kind van 18 betalen?",
+        antwoord: `Vanaf de eerste maand na de 18e verjaardag is er premie, en vanaf dan geldt ook het eigen risico, in 2026 ${euro(EIGEN_RISICO_2026)}. Wie de premie betaalt, spreken jullie samen af. Ook als je kind op jullie polis blijft en jullie betalen, kan je kind zelf zorgtoeslag aanvragen.`,
+      },
+      {
+        vraag: "Hoeveel geven ouders aan een studerend kind?",
+        antwoord: `Volgens het Nibud draagt ${NIBUD_OUDERBIJDRAGE.hboWoAandeelOuders} procent van de ouders bij aan hbo of universiteit: gemiddeld ${euro(NIBUD_OUDERBIJDRAGE.hboWoThuis)} per maand aan een thuiswonende en ${euro(NIBUD_OUDERBIJDRAGE.hboWoUit)} aan een uitwonende student. Daarnaast krijgt je kind van DUO een basisbeurs van ${gmEuroCent(DUO_2026.hboWo.basisThuis)} thuiswonend of ${gmEuroCent(DUO_2026.hboWo.basisUit)} uitwonend per maand (september tot en met december 2026). Hoeveel jullie bijdragen, hangt af van jullie eigen maand.`,
+      },
+      {
+        vraag: "Hoeveel kostgeld vraag je aan een kind van 18?",
+        antwoord: `Er is geen standaardbedrag, schrijft het Nibud. ${NIBUD_KOSTGELD_AANDEEL} procent van de thuiswonende 18- tot en met 30-jarigen betaalt kostgeld. Het Nibud raadt aan het samen vast te stellen door de posten langs te lopen waar je kind gebruik van maakt, zoals woonlasten, energie en boodschappen.`,
+      },
+    ],
+    externLinks: [
+      GM_BRON(GM_BRONNEN.svb18),
+      GM_BRON(GM_BRONNEN.svbBedragen),
+      GM_BRON(GM_BRONNEN.zorgverzekering18),
+      GM_BRON(GM_BRONNEN.duoBedragen),
+      GM_BRON(GM_BRONNEN.nibudStuderen),
+      GM_BRON(GM_BRONNEN.nibudKostgeld),
+    ],
+  },
   {
     slug: "top-10-procent-inkomen-nederland",
     cta: {
@@ -1114,6 +1272,7 @@ export const artikelen: Artikel[] = [
     korteTitel: "Rentevaste periode loopt af",
     metaTitel: `${euro(N1.verschil)} per maand erbij: rentevaste periode loopt af`,
     metaDescription: `Bij ${euro(N1_HOOFDSOM)} hypotheek en twee procentpunt meer rente stijgt je bruto maandlast ongeveer ${euro(N1.verschil)}. Doorgerekend per hypotheekbedrag, met de formule en een rekenaar.`,
+    gewijzigd: "2026-09-25",
     datum: "2026-09-06",
     datumFormatted: "6 september 2026",
     leestijd: "7",
@@ -1191,7 +1350,7 @@ export const artikelen: Artikel[] = [
     metaTitel: `${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)}: wat geeft een gezin uit per maand?`,
     metaDescription:
       `Een gezin met twee inkomens en twee kinderen geeft ${euro(H1_SOM_LAAG_ROND)} tot ${euro(H1_SOM_HOOG_ROND)} per maand uit. De hele begroting per post, met per bedrag het aantal huishoudens waarop het rust.`,
-    gewijzigd: "2026-09-24",
+    gewijzigd: "2026-09-25",
     datum: "2026-09-06",
     datumFormatted: "6 september 2026",
     leestijd: "8",
@@ -1576,25 +1735,26 @@ export const artikelen: Artikel[] = [
   {
     slug: "scheiden-goed-inkomen-toch-niks-over",
     cta: {
-      kop: "Wil je weten hoe het bij jouw twee huishoudens precies zit?",
+      kop: "Bereken wat er met je maand gebeurt voordat je verdergaat.",
       tekst:
-        "De rekenaar hierboven werkt met een vuistregel, niet met jouw cijfers en niet met alimentatie of kinderopvangtoeslag. Begin met de gratis analyse, die vergelijkt jouw eigen bedragen met vergelijkbare huishoudens. Daarna kun je zelf bepalen of je verder wilt.",
+        "De rekenaar hierboven werkt met een vuistregel, niet met jouw cijfers. De gratis analyse vergelijkt jouw eigen bedragen met vergelijkbare huishoudens. Daarna bepaal je zelf of je verder wilt.",
       primairLabel: PRIMAIRE_CTA_LABEL,
       primairHref: analyseHref({ situatie: "alleenstaande-ouder" }),
       secundairLabel: "Wil je na de analyse weten waarom? Vraag de Geldscan aan",
       secundairHref: GELDSCAN_ROUTE,
     },
-    titel: "Scheiden met een goed inkomen en toch niks over",
-    korteTitel: "Scheiden en toch niks over",
-    metaTitel: "Scheiden met een goed inkomen en toch niks over",
-    metaDescription:
-      "Twee huishoudens kosten meer dan één. Reken door wat een scheiding met je maandbudget doet, met dezelfde vuistregel die ik in mijn geldscans gebruik.",
+    geldscanKeuze: "scheiding",
+    titel: "Kan ik rondkomen na een scheiding?",
+    korteTitel: "Kan ik rondkomen na een scheiding?",
+    metaTitel: "Kan ik rondkomen na een scheiding? Reken het vooraf uit",
+    metaDescription: `Twee huishoudens kosten meer dan één: bij ${euro(6000)} netto samen en twee kinderen verdwijnt er ongeveer ${euro(GM_SCHEIDEN_VERDWENEN)} per maand. Reken je eigen maand uit, met alimentatie als die al bekend is. Geen juridisch advies.`,
+    gewijzigd: "2026-09-25",
     datum: "2026-08-18",
     datumFormatted: "18 augustus 2026",
-    leestijd: "5",
+    leestijd: "7",
     categorie: "Inzicht",
     excerpt:
-      "Vóór de scheiding hield je samen iets over. Erna verdiende je ongeveer hetzelfde deel, en toch schiet er minder over. Dat komt niet door de leuke dingen, maar door de vaste lasten die twee keer opnieuw beginnen.",
+      "Red je het in je eentje? Dat hangt aan je eigen netto, je nieuwe woonlast en je toeslagen, en aan de vaste lasten die na een scheiding twee keer opnieuw beginnen. Reken het uit voordat de mediation begint.",
     preview: {
       type: "vergelijking",
       label: "Wat er twee keer gaat staan na een scheiding",
@@ -1608,29 +1768,34 @@ export const artikelen: Artikel[] = [
     },
     faq: [
       {
-        vraag: "Wat kost een scheiding voor je maandbudget?",
+        vraag: "Kan ik rondkomen na een scheiding?",
         antwoord:
-          "Dat hangt af van je inkomen en het aantal kinderen, niet van een vast bedrag. De rekenaar in dit artikel splitst je eigen huishouden in twee en laat precies zien wat er verdwijnt: vooral de vaste lasten die per huishouden gelden, energie, internet, gemeentelijke lasten, abonnementen en verzekeringen, en die na een scheiding voor beide huishoudens even hard staan.",
+          "Dat hangt aan je eigen netto inkomen, de woonlast van de plek waar je gaat wonen en wat er aan toeslagen verandert. Alimentatie weet je pas als er een afspraak ligt; reken daarom eerst zonder en daarna met het bedrag dat op tafel komt. Leid je nieuwe maand niet af van de oude: straks draag jij alle vaste lasten van een huishouden zelf, en je ex ook.",
+      },
+      {
+        vraag: "Wat kost een scheiding voor je maandbudget?",
+        antwoord: `Bij ${euro(6000)} netto samen en twee kinderen verdwijnt er in mijn vuistregel ongeveer ${euro(GM_SCHEIDEN_VERDWENEN)} per maand. Dat komt vooral door de vaste lasten die per huishouden gelden: energie, internet, gemeentelijke lasten, abonnementen en verzekeringen staan straks voor beide huishoudens. De rekenaar in dit artikel rekent het uit voor jouw inkomen en aantal kinderen.`,
       },
       {
         vraag: "Verandert de inkomensverdeling wat er in totaal verdwijnt?",
         antwoord:
-          "Nee. Schuif de verdeling in de rekenaar hierboven en het totale bedrag dat verdwijnt blijft gelijk, omdat de posten die dubbel gaan staan per huishouden gelden en niet per hoofd. Wat de verdeling wél verandert, is wie van de twee ouders het tekort voelt.",
+          "Nee. Schuif de verdeling in de rekenaar en het totale bedrag dat verdwijnt blijft gelijk, omdat de posten die dubbel gaan staan per huishouden gelden en niet per hoofd. Wat de verdeling wel verandert, is wie van de twee het tekort voelt. Een afgesproken alimentatie verschuift dat weer.",
       },
       {
-        vraag: "Rekent de rekenaar ook alimentatie en kinderopvangtoeslag mee?",
+        vraag: "Rekent de rekenaar alimentatie uit?",
         antwoord:
-          "Nee, bewust niet. De vuistregel achter dit artikel kent alleen inkomen, aantal volwassenen, aantal kinderen en vervoer. Alimentatie en kinderopvangtoeslag kunnen het beeld voor jouw situatie flink veranderen, en dat is precies waar een rapport met je eigen cijfers wel naar kijkt en een vuistregel niet.",
+          "Nee. Ik bereken geen alimentatie en beoordeel geen afspraak. Is er al een bedrag genoemd door je mediator of advocaat, dan kun je het invullen; het gaat dan van het ene huishouden naar het andere. Voor de verdeling van bezittingen, pensioen en alimentatie ga je naar een mediator, een advocaat of het Juridisch Loket.",
       },
       {
-        vraag: `Kan het zijn dat een van de twee huishoudens na de scheiding negatief uitkomt?`,
-        antwoord: `Ja, dat is precies wat er in de rekenaar kan gebeuren bij een ouder met de kinderen en een kleiner deel van het inkomen. Bij een alleenstaande ouder met twee kinderen die ik doorrekende, de kinderen wonen ${RAPPORT_SCHEIDEN.kenmerken.find((k) => k.includes("procent"))}, was de eigen inschatting vooraf: "${RAPPORT_SCHEIDEN.vermoedenBedrag}" Mijn conclusie: "${RAPPORT_SCHEIDEN.uitkomstKop}."`,
-      },
-      {
-        vraag: "Waar kan ik terecht voor de juridische kant van een scheiding?",
+        vraag: "Kan ik mijn huis houden na een scheiding?",
         antwoord:
-          "Niet hier. Dit artikel gaat alleen over het maandbudget nadat de verdeling al is afgesproken. Voor de verdeling van bezittingen, pensioen, alimentatie of een mediator kun je terecht bij een scheidingsplanner, een advocaat of het Juridisch Loket.",
+          "Of de bank de hypotheek op jouw naam alleen zet, beslist de bank, en daar adviseer ik niet over. Wat ik wel uitreken, is wat er van je maand overblijft als jij de woonlast alleen draagt. Een huis dat je elke maand naar nul drukt, is een keuze met een prijs.",
       },
+    ],
+    externLinks: [
+      GM_BRON(GM_BRONNEN.toeslagenScheiden),
+      GM_BRON(GM_BRONNEN.kgbHoeveel),
+      GM_BRON(GM_BRONNEN.geldplanScheiden),
     ],
   },
   {
@@ -3758,34 +3923,59 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "wat-kost-een-kind-per-maand",
+    cta: {
+      kop: "Wat doet een kind erbij met jullie hele maand?",
+      tekst:
+        "De doorrekening hierboven kijkt alleen naar wat er rond het kind verandert. De gratis analyse zet jullie hele maand naast vergelijkbare huishoudens, zodat je ziet waar de ruimte nu zit.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    geldscanKeuze: "kind",
     korteTitel: "Wat kost een kind per maand?",
-    titel: "Wat kost een kind per maand?",
-    metaTitel: "Wat kost een kind per maand?",
-    metaDescription: "Het Nibud rekent dat één kind gemiddeld 15% van het besteedbaar inkomen kost, voor een modaal gezin €887 tot €1.000 per maand. Waar het geld heen gaat.",
+    titel: "Wat kost een kind per maand, en wat doet een tweede kind met jullie maand?",
+    metaTitel: `${GM_KIND_TW[1]} tot ${GM_KIND_TW[2]}%: wat kost een (tweede) kind per maand?`,
+    metaDescription: `Eén kind kost een gezin gemiddeld ${GM_KIND_TW[1]} procent van het besteedbaar inkomen, twee kinderen ${GM_KIND_TW[2]} procent (Nibud). Wat een tweede kind met opvang, kinderbijslag en jullie maand doet.`,
+    gewijzigd: "2026-09-25",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
-    leestijd: "5",
-    categorie: "Inzicht",
-    excerpt: "Een kind krijgen verandert je financiën meer dan je vooraf inschat. Niet de luiers, maar wat er daarna elke maand bijkomt. Het Nibud rekent 15% van je inkomen voor één kind, voor een modaal gezin €887 tot €1.000 per maand.",
+    leestijd: "6",
+    categorie: "Gezinsbudget",
+    excerpt: `Een kind kost gemiddeld ${GM_KIND_TW[1]} procent van het besteedbaar inkomen, twee kinderen ${GM_KIND_TW[2]} procent. Het tweede kind kost dus minder, maar opvang, kinderbijslag en misschien een dag minder werken veranderen tegelijk.`,
     preview: {
       type: "pijn",
       label: "Aandeel van je inkomen (Nibud)",
-      items: ["1 kind ≈ 15%", "2 kinderen ≈ 25%", "3 kinderen ≈ 29%"],
+      items: [`1 kind ≈ ${GM_KIND_TW[1]}%`, `2 kinderen ≈ ${GM_KIND_TW[2]}%`, `3 kinderen ≈ ${GM_KIND_TW[3]}%`],
     },
     faq: [
       {
         vraag: "Wat kost een kind gemiddeld per maand?",
-        antwoord: "Het Nibud rekent dat één kind gemiddeld 15% van het besteedbaar inkomen kost, twee kinderen 25% en drie kinderen 29%. Voor een gezin met twee modale inkomens komt één kind neer op €887 tot €1.000 per maand.",
+        antwoord: `Volgens het Nibud, op basis van CBS, kost één kind een gezin met twee ouders gemiddeld ${GM_KIND_TW[1]} procent van het besteedbaar inkomen, twee kinderen ${GM_KIND_TW[2]} procent en drie kinderen ${GM_KIND_TW[3]} procent. Besteedbaar inkomen is alles wat binnenkomt, ook kinderbijslag en vakantiegeld. Het Nibud noemt het zelf een indicatie.`,
+      },
+      {
+        vraag: "Wat kost een tweede kind?",
+        antwoord: `In procenten minder dan het eerste: van ${GM_KIND_TW[1]} naar ${GM_KIND_TW[2]} procent van het besteedbaar inkomen is ${GM_KIND_TW[2] - GM_KIND_TW[1]} procentpunt erbij. Veel spullen gaan mee, de opvang niet: twee kinderen op de opvang is twee eigen bijdragen. Gaat een van jullie daardoor minder werken, dan verandert ook het inkomen.`,
+      },
+      {
+        vraag: "Is kinderopvang goedkoper als ik een tweede kind heb?",
+        antwoord: `Per uur wel, want voor het tweede kind krijg je een hoger percentage kinderopvangtoeslag. Bij een gezamenlijk toetsingsinkomen van ${euro(GM_TOETS_VOORBEELD)} was dat in 2026 ${gmPct(percentageEersteKind2026(GM_TOETS_VOORBEELD))} voor het eerste en ${gmPct(percentageTweedeKind2026(GM_TOETS_VOORBEELD))} voor het tweede kind. Onder de streep betaal je toch twee eigen bijdragen.`,
+      },
+      {
+        vraag: "Hoeveel kinderbijslag krijg je voor een tweede kind?",
+        antwoord: `Hetzelfde als voor het eerste: de SVB betaalt per kind, naar leeftijd. In het derde kwartaal van 2026 was dat ${gmEuroCent(KINDERBIJSLAG_KWARTAAL_2026.tot6)} per kwartaal tot 6 jaar, ongeveer ${euro(GM_KB_TOT6)} per maand. Voor oudere kinderen is het meer.`,
       },
       {
         vraag: "Kost een kind voor een alleenstaande ouder meer?",
-        antwoord: "Relatief wel. Het Nibud rekent voor een alleenstaande ouder ongeveer 23% van het besteedbaar inkomen voor één kind en 37% voor twee, omdat één inkomen alle kosten draagt.",
+        antwoord: `In procenten van het inkomen wel. Het Nibud rekent voor een eenoudergezin ${GM_KIND_EEN[1]} procent voor één kind, ${GM_KIND_EEN[2]} procent voor twee en ${GM_KIND_EEN[3]} procent voor drie, omdat één inkomen alle kosten draagt.`,
       },
     ],
     externLinks: [
+      GM_BRON(GM_BRONNEN.nibudKind),
+      GM_BRON(GM_BRONNEN.svbBedragen),
       {
-        label: "Nibud: wat kost een kind",
-        url: "https://www.nibud.nl/onderwerpen/kinderen-en-jongeren/wat-kost-een-kind/",
+        label: "Rijksoverheid: bedragen kinderopvangtoeslag 2026 (opgehaald 13 september 2026)",
+        url: "https://www.rijksoverheid.nl/themas/belastingen-uitkeringen-en-toeslagen/kinderopvangtoeslag/bedragen-kinderopvangtoeslag-2026",
       },
     ],
   },  {
@@ -3830,35 +4020,66 @@ export const artikelen: Artikel[] = [
     ],
   },  {
     slug: "hogere-hypotheek-wat-kost-het-per-maand",
-    korteTitel: "Wat kost een hogere hypotheek?",
-    titel: "Wat kost een hogere hypotheek echt per maand?",
-    metaTitel: "Wat kost een hogere hypotheek echt per maand?",
-    metaDescription: "Elke €100.000 extra hypotheek kost bij ~4% rente grofweg €475 per maand, 30 jaar lang. Waarom 'het kan net' gevaarlijk is. Rekenvoorbeeld, geen advies.",
-    gewijzigd: "2026-09-06",
+    cta: {
+      kop: "Wat doet dit huis met jullie hele maand?",
+      tekst:
+        "De doorrekening hierboven kijkt alleen naar de woonposten. De gratis analyse zet jullie hele maand naast vergelijkbare huishoudens, zodat je ziet waar de ruimte nu zit voordat de woonlast omhooggaat.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    geldscanKeuze: "huis",
+    korteTitel: "Kunnen we dit huis betalen?",
+    titel: "Kunnen we dit huis betalen? Wat een hogere hypotheek met jullie maand doet",
+    metaTitel: `${euro(GM_HUIS_PER_100K)} per €100.000: kunnen we dit huis echt betalen?`,
+    metaDescription: `Wat de bank zegt dat je kunt lenen, is iets anders dan wat jullie maand draagt. Elke €100.000 extra kost bij ${RENTE_2026}% ongeveer ${euro(GM_HUIS_PER_100K)} per maand, plus woonlasten die meegroeien. Geen hypotheekadvies.`,
+    gewijzigd: "2026-09-25",
     datum: "2026-05-30",
     datumFormatted: "30 mei 2026",
-    leestijd: "5",
-    categorie: "Inzicht",
-    excerpt: "Een groter huis of overbieden: de hypotheek net wat hoger lijkt op papier klein verschil. Maandelijks voelt het anders, elke €100.000 extra is grofweg €475 per maand, 30 jaar lang. Een rekenvoorbeeld (geen advies).",
+    leestijd: "6",
+    categorie: "Gezinsbudget",
+    excerpt: `Hoeveel je mag lenen zegt de bank. Of het huis past, zie je aan de maand: elke €100.000 extra hypotheek kost bij ${RENTE_2026}% rente ongeveer ${euro(GM_HUIS_PER_100K)} per maand, en energie, lokale lasten en onderhoud groeien mee.`,
     preview: {
       type: "pijn",
       label: "Per €100.000 extra",
-      items: ["≈ €475 per maand", "Rente ~4%, 30 jaar", "Een vaste last die blijft"],
+      items: [`≈ ${euro(GM_HUIS_PER_100K)} per maand`, `Rente ${RENTE_2026}%, ${LOOPTIJD_JAREN} jaar`, "Plus energie, lasten, onderhoud"],
     },
     faq: [
       {
-        vraag: "Wat kost €100.000 extra hypotheek per maand?",
-        antwoord: "Bij een rente van rond de 4% kost elke €100.000 extra hypotheek grofweg €475 per maand aan rente en aflossing (annuïteit, 30 jaar). Dit is een rekenvoorbeeld; je werkelijke last hangt af van rente, looptijd en aftrek.",
+        vraag: "Kunnen we dit huis betalen?",
+        antwoord:
+          "Dat hangt af van twee dingen: wat er per maand bijkomt, en waar jullie geld nu al naartoe gaat. De bank toetst aan leennormen die volgens het Nibud zijn gebaseerd op gemiddelde budgetten, dus de maandlast kan toch niet in jullie budget passen. Zet de woonlast nu en die uit het voorstel naast elkaar, met onderhoud en de andere woonposten erbij, en kijk wat er van jullie maand overblijft.",
       },
       {
-        vraag: "Hoeveel van mijn inkomen mag naar woonlasten?",
-        antwoord: "Het Nibud hanteert als vuistregel dat je woonlasten bij voorkeur niet boven ongeveer een derde van je netto-inkomen uitkomen. Zit je daar ruim boven, dan wordt elke tegenvaller meteen voelbaar.",
+        vraag: "Wat kost €100.000 extra hypotheek per maand?",
+        antwoord: `Bij ${RENTE_2026} procent rente kost elke €100.000 extra ongeveer ${euro(GM_HUIS_PER_100K)} per maand aan rente en aflossing, bij een annuïteitenhypotheek over ${LOOPTIJD_JAREN} jaar, vóór hypotheekrenteaftrek. Dat is een rekenvoorbeeld. Gebruik voor jullie eigen maand de rente en maandlast uit het voorstel dat je krijgt.`,
+      },
+      {
+        vraag: "Wat is het verschil tussen maximaal lenen en wat je kunt betalen?",
+        antwoord:
+          "De bank rekent met wettelijke leennormen voor een gemiddeld huishouden. Het Nibud schrijft zelf dat de maandlasten daardoor toch niet goed in jouw budget kunnen passen. Wat je kunt betalen, hangt af van jullie eigen uitgaven, niet van het gemiddelde.",
+      },
+      {
+        vraag: "Welke woonlasten komen er naast de hypotheek bij?",
+        antwoord:
+          "Het Nibud noemt de onroerendezaakbelasting, afvalstoffen- en rioolheffing, de heffingen van het waterschap en de opstal- en inboedelverzekering. Daarbij komen energie en onderhoud. Een groter huis tilt de meeste van die posten mee.",
+      },
+      {
+        vraag: "Hoeveel onderhoud moet je rekenen voor een koophuis?",
+        antwoord: `Daar is geen vast bedrag voor dat ik kan onderbouwen. Van de ${RAPPORTEN.length} huishoudens die ik doorrekende hadden er ${GM_KOOPWONINGEN} een koophuis, en zij gaven hun woningkosten per jaar zelf op; die staan per huishouden in het artikel. Vraag bij een ander huis wat er de komende jaren aan dak, kozijnen en installaties aankomt, en reserveer dat per maand.`,
       },
     ],
     externLinks: [
+      GM_BRON(GM_BRONNEN.nibudHypotheek),
+      GM_BRON(GM_BRONNEN.nibudWoonlasten),
       {
-        label: "Nibud: uitgaven en woonlasten",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+        label: "Van Bruggen: nieuwe rente vaak bijna dubbel zo hoog, rond 4 procent bij afloop in 2026 (opgehaald 6 september 2026)",
+        url: "https://www.vanbruggen.nl/actueel/nieuws/2026/nieuwe-rente-vaak-bijna-dubbel-zo-hoog",
+      },
+      {
+        label: "Belastingdienst: hypotheekrenteaftrek, welke kosten aftrekbaar zijn (opgehaald 6 september 2026)",
+        url: "https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/prive/inkomstenbelasting/aftrekposten/hypotheekrenteaftrek/hypotheekrenteaftrek",
       },
     ],
   },  {
@@ -5663,6 +5884,7 @@ export const artikelen: Artikel[] = [
       "Kosten levensonderhoud alleenstaande ouder 2026: overzicht",
     metaDescription:
       "Wat kost het als alleenstaande ouder in 2026? Van kinderopvang tot ALO-kop: alle kosten en regelingen op een rij, plus hoeveel inkomen je echt nodig hebt.",
+    gewijzigd: "2026-09-25",
     datum: "2026-06-10",
     datumFormatted: "10 juni 2026",
     leestijd: "7",
