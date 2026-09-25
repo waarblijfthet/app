@@ -4,7 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 25 september, onderzoek, niets gebouwd: het woordveld rond "financieel coach", zie sectie 30 en `docs/serp-coach-woordveld-25-sep-2026.md`.** Op Google is het coach-cluster sinds 23 juli vrijwel verdwenen (0 tot 4 vertoningen per dag, positie 73 tot 99); de 921 vertoningen van de nulmeting vielen bijna allemaal in de drie weken na publicatie in juli. N4 heeft in Google nul vertoningen in 90 dagen, maar staat in Bing op 1 voor de kostenvraag en wordt door Perplexity en ChatGPT als bron gebruikt. Van 36 AI-antwoorden noemden er 2 de Geldscan, allebei op de vraag naar eenmalig kijken zonder traject; 9 stuurden deze doelgroep naar schuldhulp, gemeente of Geldfit. Acht coachzoekopdrachten vertonen op twee eigen URL's tegelijk. Geen nieuwe pagina voorgesteld: alle voorstellen zijn FAQ's, antwoordblokken en metaTitels op bestaande pagina's, **geparkeerd tot Jarno beslist** (vier open vragen in sectie 30). Nieuwe waarheidsschuld: de prijsbandbreedtes op `wat-kost-een-financieel-coach` (€60 tot €150 per uur, €250 tot €800) hebben geen bron en worden nu door twee AI's doorgegeven met Waar blijft het als bron.
 
 **Update 24 september, op verzoek van Jarno: stap 1, 2 en 3 uit sectie 28 in één keer uitgevoerd, zie sectie 29.** Twee nieuwe pagina's (H2 `gemiddelde-uitgaven-per-maand-2-personen` en de pijler `top-10-procent-inkomen-nederland`), één herbouwde pagina op dezelfde URL (`wat-zijn-normale-vaste-lasten-gezin`) en een antwoordronde op vier bestaande pagina's. **Dat breekt de tempo-regel** (twee per week): het was een expliciete opdracht van Jarno ("voer 1, 2 en 3 nu uit"). De volgende nieuwe pagina dus niet vóór 5 oktober. Geen productiebuild gedraaid; tsc is schoon. **Na de push: zeven URL's indienen in GSC**, lijst in sectie 29.
 
@@ -1252,3 +1254,45 @@ Opdracht van Jarno: "voer 1, 2 en 3 nu uit", de volgorde uit sectie 28 en `docs/
 - Zodra het CBS de verdeling over 2025 publiceert (verwacht rond juni 2027): de tabellen in `lib/inkomensverdeling-cbs.ts` vervangen en `INKOMEN_PEILJAAR` ophogen. De pagina's volgen vanzelf.
 - De twee AI-testvragen uit sectie 28 #9 toevoegen aan de maandelijkse AI-test.
 
+## 30. Onderzoek woordveld financieel coach, 25 september 2026
+
+Opdracht: `docs/prompt-onderzoek-coach-woordveld-24-sep-2026.md`. Volledige uitkomst, met werkwijze, uitsluitlijst, alle tabellen en de ingelogde staat per machine: `docs/serp-coach-woordveld-25-sep-2026.md`. Er is niets gebouwd.
+
+### Wat er gedaan is
+
+- Google-autocomplete voor ongeveer 150 startzinnen (Chrome, `hl=nl&gl=nl`).
+- Search Console met een regex op het coach- en adviesveld, 28 dagen en 3 maanden, per zoekopdracht de URL.
+- Vijftien Google-zoekresultaten, met het type aanbieder dat wint.
+- Twaalf AI-vragen in Perplexity (uitgelogd), ChatGPT (uitgelogd, in de ingebouwde browser, want de tijdelijke chat in Jarno's account zegt dat hij geheugen en aangepaste instructies kan gebruiken) en Google AI-modus (uitgelogd). Copilot vroeg om aanmelden; vervangen door Bing organisch.
+- De herkomst in `/admin/analyse-verloop`.
+- Google Trends laadde niet en is overgeslagen.
+
+### Wat eruit kwam
+
+1. Google en Bing zien de site in dit taalgebied totaal verschillend. Google: sinds 23 juli 0 tot 4 coachvertoningen per dag, `/financieel-coach` 1 vertoning op zijn eigen term in 90 dagen, N4 nul (wel geïndexeerd). Bing: bij 6 van de 12 AI-vragen een eigen pagina in de top 7, bij 4 op plek 1.
+2. Type 2: dienstvragen (budgetcoach, financieel coach, geldcoach) gaan naar twee informatieve artikelen, niet naar de dienstpagina.
+3. Type 3: acht coachzoekopdrachten op twee eigen URL's, "financieel coach" op drie.
+4. AI: 2 van de 36 antwoorden noemen de Geldscan (Perplexity en ChatGPT, op "eenmalig kijken zonder traject"); 4 gebruiken een eigen pagina als bron zonder het aanbod te noemen; 9 sturen naar schuldhulp, gemeente of Geldfit; bij "financieel coach voor hoger inkomen" sturen alle drie naar Wft-planners.
+5. De strategische vraag (welke naam) is als rolnaam niet vast te stellen. De enige formulering die twee keer bij de Geldscan uitkwam is een handeling: eenmalig laten kijken, zonder traject.
+6. Nieuw in de autocomplete: "financieel coach hoger inkomen" is de eerste aanvulling na "financieel coach". De SERP en het AI-overzicht worden gewonnen door een coach die zich expliciet op inkomens vanaf €4.000 per maand richt. Segment bezet; geen onderscheidsclaim (CLAUDE.md 4).
+7. AI-bezoekers in de eigen meting: 3 via chatgpt.com, 1 via gemini.google.com. n te klein.
+
+### Geparkeerd, beslissing aan Jarno
+
+Geen van deze voorstellen is een besluit. Ze staan in volgorde in het onderzoeksdocument, onder "Voorgestelde volgorde".
+
+1. **Welke URL krijgt welke coachintentie.** Voorstel: verschil-artikel = wat doet een budgetcoach en het verschil; `wat-kost-een-financieel-coach` = wat kost een budgetcoach of financieel coach; `/financieel-coach` = de dienst. Geen 301. Voorleggen bij CTR-ronde 1 op 4 oktober.
+2. **Prijsbandbreedtes op `wat-kost-een-financieel-coach`:** bron met ophaaldatum zoeken of weghalen (CLAUDE.md regel 3). Plus "budgetcoach" in de metaTitel, met het jaartal vooraan.
+3. **N4:** de vragen "Is er iemand die eenmalig naar mijn uitgaven kan kijken zonder traject?" en "Wie kan mij helpen met mijn financiën?" letterlijk als kop of FAQ, en in het antwoordblok de Geldscan naast de budgetcoach zetten.
+4. **`verschil-budgetcoach-financieel-coach`:** geldcoach in een kop of FAQ, en één FAQ "wie betaalt een budgetcoach".
+5. **`/financieel-coach`:** FAQ "financieel coach voor een hoger inkomen", met de rapporten als bewijs en zonder onderscheidsclaim.
+6. **H1:** letterlijk antwoord op de PAA-vraag "Wat is normaal om per maand uit te geven?".
+7. **Meetpunt N4 van 5 december:** Bing en de AI-test meewegen voordat N4 op Google-vertoningen alleen wordt samengevoegd.
+8. **AI-test:** de vijf vragen uit het onderzoeksdocument toevoegen aan de maandelijkse test (CLAUDE.md 8.E.21), samen met de twee uit sectie 28 #9.
+
+**Tempo:** alles hierboven is een herschrijving van een bestaande pagina, geen nieuwe. Het voorstel is twee per week: wat-kost en verschil in de week van 5 oktober, N4 en `/financieel-coach` in de week van 12 oktober, H1 in de week van 19 oktober.
+
+### Nieuwe waarheidsschuld
+
+- `wat-kost-een-financieel-coach`: "€60 tot €150 per uur" en "€250 tot €800" staan zonder bron. Perplexity en ChatGPT geven ze door met Waar blijft het als bron.
+- N4, "daarna verwijder ik je gegevens": Perplexity geeft het door als eigenschap van de Geldscan. Het klopt alleen zolang Jarno het met de hand doet (bestond al, CLAUDE.md sectie 11).
