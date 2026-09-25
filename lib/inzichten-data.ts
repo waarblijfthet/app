@@ -5964,20 +5964,21 @@ export const artikelen: Artikel[] = [
     korteTitel: "Wat kost een financieel adviseur?",
     titel: "Wat kost een financieel adviseur, en heb je er echt één nodig?",
     metaTitel: "Wat kost een financieel adviseur? Tarieven en alternatieven",
-    metaDescription: "Een financieel adviseur kost €150 tot €300/uur. Voor gezinnen die krap zitten is een eenmalig gesprek van €125 vaak voldoende. Wanneer je wat nodig hebt.",
+    metaDescription: "Wat een financieel adviseur per uur kost, wanneer je een Wft-adviseur echt nodig hebt, en welke vragen over je maandbudget je beter ergens anders stelt.",
+    gewijzigd: "2026-09-25",
     datum: "2026-06-07",
     datumFormatted: "7 juni 2026",
     leestijd: "6",
     categorie: "Financieel advies",
-    excerpt: "Lisanne zocht op 'financieel adviseur' en sloot het tabblad zodra ze het tarief zag: €220/uur. Ze had geen hypotheek nodig, ze wilde weten waarom er nooit geld over was. Dat kost €125, niet €660.",
+    excerpt: "Een financieel adviseur is nodig voor hypotheek, beleggen en pensioen. Wil je vooral weten waarom er elke maand zo weinig overblijft, dan is dat een andere vraag, met andere hulp.",
     preview: {
       type: "vergelijking",
-      label: "Kosten financieel advies vergelijken",
+      label: "Uurtarief financieel adviseur",
       items: [
-        { naam: "Traditionele adviseur (3u)", bedrag: 660, kleur: "#B03A2E" },
-        { naam: "Eenmalig gesprek", bedrag: 125, kleur: "#0B7A6E" },
+        { naam: "Onderkant", bedrag: 150, kleur: "#0B7A6E" },
+        { naam: "Bovenkant", bedrag: 300, kleur: "#B03A2E" },
       ],
-      noot: "Bij €220/uur × 3u vs. €125 eenmalig",
+      noot: "Per uur, volgens de bandbreedte in dit artikel",
     },
     faq: [
       {
@@ -5994,7 +5995,7 @@ export const artikelen: Artikel[] = [
       },
       {
         vraag: "Bestaat gratis financieel advies?",
-        antwoord: "Ja, maar het is niet echt gratis. Bankadviseurs die 'gratis' advies geven, verdienen provisie op de producten die je via hen afsluit. Hun belang en jouw belang lopen dan niet altijd parallel. Een onafhankelijke adviseur met transparant uurtarief is in de meeste gevallen eerlijker.",
+        antwoord: "Ja, maar het is niet echt gratis. Bankadviseurs die 'gratis' advies geven, verdienen provisie op de producten die je via hen afsluit. Hun belang en jouw belang lopen dan niet altijd parallel. Bij een onafhankelijke adviseur met een uurtarief weet je vooraf wat je betaalt.",
       },
     ],
     externLinks: [

@@ -82,25 +82,6 @@ function KostenVergelijker() {
   );
 }
 
-function VoorNa({ rows }: { rows: [string, string, string][] }) {
-  return (
-    <div className="rounded-xl border my-6 overflow-hidden" style={{ borderColor: "#E6E9E7" }}>
-      <div className="grid grid-cols-3" style={{ backgroundColor: "#16211F" }}>
-        {["", "Traditioneel", "Waar blijft het"].map((h, i) => (
-          <div key={i} className="px-4 py-2 font-body text-xs font-medium" style={{ color: "#F7F8F7" }}>{h}</div>
-        ))}
-      </div>
-      {rows.map((r, i) => (
-        <div key={i} className="grid grid-cols-3" style={{ backgroundColor: i % 2 ? "#FFFFFF" : "white" }}>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#16211F", fontWeight: 500 }}>{r[0]}</div>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#B03A2E" }}>{r[1]}</div>
-          <div className="px-4 py-2.5 font-body text-sm" style={{ color: "#0B7A6E", fontWeight: 600 }}>{r[2]}</div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
 export default function WatKostEenFinancieelAdviseur() {
   return (
     <div className="font-body text-text-soft" style={{ lineHeight: 1.75 }}>
@@ -112,7 +93,7 @@ export default function WatKostEenFinancieelAdviseur() {
           {[
             "Wat een traditionele financieel adviseur kost, en waarom dat voor de meeste gezinnen te duur is",
             "Wanneer je een dure adviseur echt nodig hebt, en wanneer niet",
-            "Hoe Lisanne en Thijs voor €125 meer inzicht kregen dan na drie jaar bij hun bank",
+            "Welke vragen je zonder Wft-adviseur kunt laten beantwoorden",
           ].map((item, i) => (
             <li key={i} className="flex gap-2 font-body text-sm" style={{ color: "#16211F" }}>
               <span className="mt-0.5 shrink-0" style={{ color: "#0B7A6E" }}>✓</span>
@@ -124,10 +105,7 @@ export default function WatKostEenFinancieelAdviseur() {
 
       {/* Hook */}
       <p className="font-body" style={{ ...p, fontWeight: 400, color: "#16211F", fontSize: "1.05rem" }}>
-        Lisanne zocht op "financieel adviseur" en klikte op het eerste resultaat. Onderaan de pagina stond een tarief: €220 per uur, minimaal twee uur voor een intakegesprek. Ze sloot het tabblad.
-      </p>
-      <p style={p}>
-        Ze is niet de enige. Veel mensen die weten dat ze hulp nodig hebben bij hun financiën, haken af zodra ze de kosten zien. En dat terwijl er grote prijsverschillen zijn, afhankelijk van wat je nodig hebt, hoe ingewikkeld je situatie is, en of je eigenlijk wel een Wft-gecertificeerd adviseur nodig hebt.
+        Wie zoekt op "financieel adviseur", ziet meestal eerst een uurtarief. De vraag die daarna komt, is of je dat soort advies wel nodig hebt. Dat hangt af van wat je wilt weten: iets over een hypotheek, beleggingen of pensioen, of waarom er elke maand zo weinig overblijft.
       </p>
 
       <h2 className="font-display" style={h2}>Wat kost een financieel adviseur per uur?</h2>
@@ -160,25 +138,6 @@ export default function WatKostEenFinancieelAdviseur() {
       </p>
       <p style={p}>
         Maar de meeste mensen die zoeken op "financieel adviseur" hebben daar helemaal geen behoefte aan. Ze willen weten waarom er aan het einde van de maand niets overblijft. Ze willen inzicht in hun uitgaven. Ze willen grip, niet een beleggingsplan.
-      </p>
-
-      <h2 className="font-display" style={h2}>Lisanne en Thijs, drie jaar bij de bank, nul inzicht</h2>
-      <p style={p}>
-        Lisanne (38) en Thijs (40) hadden een gezinsinkomen van €6.200 netto. Ze hadden jaren geleden een "financieel check-up" gedaan bij hun bank. De adviseur had ze een pensioenplan laten zien en aangeraden om maandelijks €150 extra in te leggen. Ze deden dat braaf.
-      </p>
-      <p style={p}>
-        Maar elke maand was er nog steeds te weinig over. Ze wisten niet waarheen het geld ging. De bankadviseur had nooit naar hun maandbudget gekeken, alleen naar hun vermogen en pensioen. Dat is precies het verschil.
-      </p>
-
-      <VoorNa rows={[
-        ["Focus", "Pensioen en vermogen", "Maandbudget en uitkomst"],
-        ["Tarief", "€220/uur × 3u = €660", "€125 eenmalig"],
-        ["Resultaat", "Pensioenplan, geen dagelijks inzicht", "Concreet: €380/mnd bespaard"],
-        ["Verplichting", "Doorlopend advies aangeboden", "Geen, eenmalig compleet"],
-      ]} />
-
-      <p style={p}>
-        Na een analyse en een gesprek van 45 minuten wisten Lisanne en Thijs wat ze misten: abonnementen die ze waren vergeten (€89/mnd), een flexibel budget voor boodschappen dat geen maximum had, en een gezamenlijke rekening zonder afspraken. Drie aanpassingen, €380 per maand meer ruimte.
       </p>
 
       <KostenVergelijker />
