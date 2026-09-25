@@ -34,6 +34,13 @@ interface Props {
   startKinderen?: number;
   kop?: string;
   intro?: string;
+  /**
+   * Toont een optioneel veld voor alimentatie die al is afgesproken
+   * (25-sep-2026, upgrade scheiding). Ik bereken alimentatie niet: het bedrag
+   * komt van de mediator of advocaat en gaat alleen van het ene huishouden
+   * naar het andere. Het totaal dat verdwijnt verandert er dus niet door.
+   */
+  metAlimentatie?: boolean;
 }
 
 export default function TweeHuishoudensVergelijker({
@@ -41,10 +48,12 @@ export default function TweeHuishoudensVergelijker({
   startKinderen = 2,
   kop = "Wat verdwijnt er echt als één huishouden twee wordt?",
   intro = "Zet hieronder het gezamenlijke inkomen van vóór de scheiding en het aantal kinderen. Schuif daarna de verdeling: je ziet dat het bedrag dat verdwijnt niet verandert, alleen wie het voelt.",
+  metAlimentatie = false,
 }: Props) {
   const [inkomen, setInkomen] = useState(startInkomen);
   const [kinderen, setKinderen] = useState(startKinderen);
   const [verdeling, setVerdeling] = useState(50);
+  const [alimentatie, setAlimentatie] = useState(0);
 
   const voor = berekenVuistregel({ inkomen: inkomen, volwassenen: 2, kinderen: kinderen, auto: "eigen" });
 
@@ -54,7 +63,12 @@ export default function TweeHuishoudensVergelijker({
   const huis1 = berekenVuistregel({ inkomen: inkomen1, volwassenen: 1, kinderen: kinderen, auto: "eigen" });
   const huis2 = berekenVuistregel({ inkomen: inkomen2, volwassenen: 1, kinderen: 0, auto: "eigen" });
 
-  const naTotaal = huis1.verwachtOver + huis2.verwachtOver;
+  // Alimentatie verschuift alleen geld tussen de twee huishoudens.
+  const alim = metAlimentatie ? alimentatie : 0;
+  const over1 = huis1.verwachtOver + alim;
+  const over2 = huis2.verwachtOver - alim;
+
+  const naTotaal = over1 + over2;
   const verdwenen = voor.verwachtOver - naTotaal;
 
   const vervoerDelta = huis1.vervoer + huis2.vervoer - voor.vervoer;
@@ -124,6 +138,40 @@ export default function TweeHuishoudensVergelijker({
             aria-label="Verdeling van het inkomen tussen de twee huishoudens"
           />
         </div>
+
+        {metAlimentatie && (
+          <div className="mt-4">
+            <label htmlFor="thv-alimentatie" className="block font-body text-xs mb-1.5" style={{ color: "#8B958F" }}>
+              Alimentatie die al is afgesproken, per maand (optioneel)
+            </label>
+            <input
+              id="thv-alimentatie"
+              type="text"
+              inputMode="numeric"
+              autoComplete="off"
+              value={alimentatie === 0 ? "" : String(alimentatie)}
+              placeholder="nog niet bekend"
+              onChange={(e) => {
+                const schoon = e.target.value.replace(/[^0-9]/g, "").slice(0, 5);
+                setAlimentatie(schoon === "" ? 0 : Number(schoon));
+              }}
+              className="font-body tabular-nums w-full"
+              style={{
+                minHeight: "48px",
+                padding: "0.6rem 0.75rem",
+                borderRadius: "10px",
+                border: "1px solid #D6E5E0",
+                fontSize: "1rem",
+                color: "#16211F",
+                boxSizing: "border-box",
+              }}
+            />
+            <p className="font-body text-xs mt-1.5" style={{ color: "#5A6B66", lineHeight: 1.55 }}>
+              Ik bereken geen alimentatie. Vul alleen een bedrag in dat je mediator of advocaat al heeft
+              genoemd. Het gaat van het huishouden zonder de kinderen naar het huishouden met de kinderen.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="rounded-xl p-4 mb-4" style={{ backgroundColor: "#FFFFFF", border: "1px solid #D6E5E0" }}>
@@ -136,14 +184,14 @@ export default function TweeHuishoudensVergelijker({
           </div>
           <div>
             <p className="font-body text-[10px] uppercase tracking-wide" style={{ color: "#8B958F" }}>Met de kinderen</p>
-            <p className="font-display tabular-nums" style={{ fontSize: "1.15rem", color: huis1.verwachtOver < 0 ? "#B03A2E" : "#16211F" }}>
-              {euroSigned(huis1.verwachtOver)}
+            <p className="font-display tabular-nums" style={{ fontSize: "1.15rem", color: over1 < 0 ? "#B03A2E" : "#16211F" }}>
+              {euroSigned(over1)}
             </p>
           </div>
           <div>
             <p className="font-body text-[10px] uppercase tracking-wide" style={{ color: "#8B958F" }}>Zonder de kinderen</p>
-            <p className="font-display tabular-nums" style={{ fontSize: "1.15rem", color: huis2.verwachtOver < 0 ? "#B03A2E" : "#16211F" }}>
-              {euroSigned(huis2.verwachtOver)}
+            <p className="font-display tabular-nums" style={{ fontSize: "1.15rem", color: over2 < 0 ? "#B03A2E" : "#16211F" }}>
+              {euroSigned(over2)}
             </p>
           </div>
         </div>
@@ -188,16 +236,16 @@ export default function TweeHuishoudensVergelijker({
         )}
 
         <p className="font-body text-xs mt-4" style={{ color: "#5A6B66" }}>
-          Deze rekensom kent geen kinderalimentatie en geen kinderopvangtoeslag. Bij jou kunnen die het beeld
-          flink veranderen, precies iets waar een rapport wel naar kijkt en een vuistregel niet.
+          {metAlimentatie
+            ? "Deze rekensom rekent geen alimentatie uit en kent geen kinderopvangtoeslag. Een afgesproken alimentatie verschuift alleen wie het tekort voelt, niet hoeveel er verdwijnt."
+            : "Deze rekensom kent geen kinderalimentatie en geen kinderopvangtoeslag. Bij jou kunnen die het beeld flink veranderen, precies iets waar een rapport wel naar kijkt en een vuistregel niet."}
         </p>
 
         <p className="font-body text-sm mt-4 mb-1" style={{ color: "#16211F", fontWeight: 500 }}>
-          Dit is een indicatie. Jouw huishouden is meer dan deze berekening.
+          Dit is een indicatie op basis van jouw invoer en een vuistregel, niet op basis van jouw eigen uitgaven.
         </p>
         <p className="font-body text-sm mb-3" style={{ color: "#4A5A56", fontWeight: 300, lineHeight: 1.7 }}>
-          Wil je zien hoe jouw volledige financiële situatie zich verhoudt tot vergelijkbare
-          huishoudens?
+          Of dit binnen jouw financiële ruimte past, hangt ook af van waar je geld nu al naartoe gaat.
         </p>
         <div className="flex flex-col sm:flex-row gap-3">
           <CtaLink doel="analyse" href={analyseHref1} locatie="rekenaar" className="btn-primary text-center">
@@ -207,7 +255,7 @@ export default function TweeHuishoudensVergelijker({
       </div>
 
       <p className="font-body text-xs mt-3 mb-0" style={{ color: "#5A6B66" }}>
-        Vergelijkingsbedragen op basis van de vijf huishoudens die ik zelf heb doorgerekend, zie{" "}
+        Vergelijkingsbedragen op basis van de {RAPPORTEN.length} huishoudens die ik zelf heb doorgerekend, zie{" "}
         <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E" }}>Rapporten</Link>
         . Niet elke Geldscan vindt een lek: bij {AANTAL_ZONDER_LEK} van de {RAPPORTEN.length} was er niets te
         repareren.
