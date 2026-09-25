@@ -6,6 +6,8 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 Laatst bijgewerkt: 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
 
+**Update 25 september, vierde sessie, onderzoek, niets gebouwd: gaten rond geldmomenten, zie sectie 34 en `docs/gaten-geldmomenten-25-sep-2026.md`.** Top 5: minder werken, groter huis, scheiding, kind erbij, kind wordt 18. De rode draad: mensen zoeken op het moment van een beslissing, en de Geldscan kijkt terug. Voorstel aan Jarno: een tweede ingang "doorrekening vóór een beslissing".
+
 **Update 25 september, derde sessie: het plan uit sectie 32 is gebouwd, op "akkoord, voer alles nu direct uit" van Jarno, zie sectie 33.** Verzonnen case uit wat-kost-een-financieel-adviseur weg (commit bafa14b). Eigen tarievenonderzoek bij 10 aanbieders in `lib/budgetcoach-tarieven.ts`; wat-kost-een-financieel-coach, N4 en het verschil-artikel herschreven op de coachtermen; `/financieel-coach` nieuwe H1, title en FAQ; inkomende links met de ankertekst "budgetcoach zonder schulden". **Jarno: pushen, en daarna de vijf URL's uit sectie 33 in GSC laten herindexeren.** Geen productiebuild gedraaid (kan niet op dit apparaat), wel tsc schoon en een serverrender van de drie artikelen zonder fouten.
 
 **Update 25 september, tweede sessie: plan om op de coachtermen te ranken, op verzoek van Jarno, zie `docs/plan-coach-termen-ranken-25-sep-2026.md` en sectie 32.** Vier herschrijvingen op bestaande URL's (N4 op "budgetcoach zonder schulden", wat-kost op "wat kost een budgetcoach" met een eigen tarievenonderzoek, het verschil-artikel op "wat doet een budgetcoach / geldcoach", de H1 van `/financieel-coach`) en één voorwaardelijke nieuwe pagina (een echt klantverhaal). **Gevonden en als eerste te doen: `wat-kost-een-financieel-adviseur` bevat een verzonnen klantcase ("Lisanne en Thijs", "€380/mnd bespaard") die niet in `rapporten-data` staat en niet als illustratie gelabeld is.** Wacht op akkoord van Jarno.
@@ -1369,3 +1371,11 @@ Opdracht van Jarno: "akkoord, voer alles nu direct uit", het plan uit sectie 32 
 ### Meten
 
 Na 28 dagen in GSC: "budgetcoach zonder schulden", "wat kost een budgetcoach", "budgetcoach kosten", "wat doet een budgetcoach", "geldcoach", "financieel coach". Let op cannibalisatie tussen N4 en wat-kost; de scheiding is prijs (wat-kost) tegenover "is het iets voor mij" (N4).
+
+## 34. Gaten rond geldmomenten, 25 september 2026
+
+Opdracht van Jarno: breed kijken naar vragen die in het aanbod passen maar nu niet bediend worden. Onderzoek, niets gebouwd. Alles staat in `docs/gaten-geldmomenten-25-sep-2026.md`.
+
+- Top 5: (1) een dag minder werken, (2) groter huis of verhuizen, "wat kunnen we echt betalen", (3) scheiding, "red ik het alleen", (4) kind erbij, (5) kind wordt 18 of gaat studeren.
+- ChatGPT benoemde bij het huis zelf een "betaalbaarheidsanalyse op basis van het werkelijke huishoudbudget" en stuurde naar financieel planners. Bij minder werken en scheiding bood hij aan het zelf door te rekenen.
+- Beslissing aan Jarno: een tweede ingang voor de Geldscan ("doorrekening vóór een beslissing") en welke van de vijf eerst. Bij #2 vooraf de Wft-grens bij de AFM nagaan.
