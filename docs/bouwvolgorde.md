@@ -4,7 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 25 september 2026, zesde sessie (de vijf geldmomenten gebouwd, sectie 35). Daarvoor 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 25 september, zesde sessie: de vijf geldmomenten zijn gebouwd, op de uitvoeringsprompt van Jarno, zie sectie 35.** Besluiten van Jarno (gaan vóór CLAUDE.md): alles in één uitvoering, wat **bewust de tempo-regel breekt** (vijf pagina's op één dag tegen een norm van twee per week); **de pakketregel uit CLAUDE.md sectie 5 is losgelaten** voor één tweede ingang naar dezelfde Geldscan (zelfde €49, zelfde levertijd, geen nieuw pakket); de vijf geldmomenten zijn **ingangen, geen nieuwe producten en geen nieuwe positionering**. Gebouwd: keuzeveld op het aanvraagformulier, slotzin per keuze, sectie op /geldscan, zin in de bevestigingsmail, een kleine gedeelde doorrekening, twee nieuwe artikelen en drie upgrades, een telling per keuze op Vandaag. Zeven commits, niets gepusht. **Jarno: productiebuild lokaal draaien, pushen, daarna de zes URL's uit sectie 35 indienen in GSC.** De eerstvolgende nieuwe of herschreven pagina niet vóór 12 oktober, behalve CTR-onderhoud.
 
 **Update 25 september, vijfde sessie: uitvoeringsprompt klaar, niets gebouwd.** `docs/uitvoeringsprompt-geldmomenten-25-sep-2026.md` bouwt de top 5 uit sectie 34 in één uitvoering. Besluiten van Jarno: alles in één keer (breekt bewust de tempo-regel), dezelfde Geldscan met een keuzeveld en een rapportblok "nu tegenover na je keuze", en scheiding als upgrade van de bestaande URL. **Volgende actie: die prompt uitvoeren.**
 
@@ -95,6 +97,11 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | Wanneer | Wat |
 |---|---|
 | ~~13 september~~ | ~~Schermlijst lezen in het funneltabblad.~~ **Kon niet: dat tabblad werd door geen route geladen. Vervangen door `/admin/analyse-verloop` op 23 september, zie sectie 24.** |
+| 23 oktober | **Meetpunt geldmomenten, +28 dagen** (sectie 35): vertoningen en positie van de vijf URL's op hun hoofdtermen, plus het blok "Geldscan-aanvragen met keuze" op Vandaag. |
+| 1 november | **Evaluatie keuze-data** (sectie 35, vraag 6): welke keuzes staan in de aanvragen, en betaalt iemand met een keuze vaker dan zonder? Bij minder dan 5 aanvragen met keuze: niets besluiten, alleen noteren. |
+| 12 november | **Herziening kind-wordt-18**: zorgpremie 2027 en eigen risico 2027 zodra Rijksoverheid ze publiceert. `EIGEN_RISICO_2026` in `lib/geldmomenten-bronnen.ts` krijgt dan een 2027-broer, en de tekst noemt het nieuwe bedrag. |
+| 8 december | **2027-sweep ook voor de geldmomenten**: metaTitel van kind-wordt-18 van 2026 naar 2027. |
+| 1 januari 2027 | **Bedragen geldmomenten herzien**: kinderbijslag (SVB), studiefinanciering (DUO) en eigen risico in `lib/geldmomenten-bronnen.ts`, bron openen, datum bijwerken, `gewijzigd` zetten op de vijf artikelen. |
 | 30 september | Eerste week van de **vraagstap** (gebouwd 23 september, sectie 26). Op Ingevulde analyses: van wie resultaatstap 3 zag, hoeveel kozen een vraag, hoeveel verstuurden er een, hoeveel sloegen over? Op Vandaag: is elke vraag binnen 2 werkdagen beantwoord? |
 | 14 oktober | Drie weken vraagstap. Meer dan 1 op 10 die stap 3 zag verstuurt een vraag? Zo niet: kop of voorgekozen vragen aanpassen, niet het idee. |
 | Na 20 beantwoorde vragen | Stopcriterium: minder dan 2 Geldscans binnen 30 dagen na een antwoord, dan kijken of de antwoorden te volledig zijn of de stap de verkeerde mensen trekt. |
@@ -1381,3 +1388,113 @@ Opdracht van Jarno: breed kijken naar vragen die in het aanbod passen maar nu ni
 - Top 5: (1) een dag minder werken, (2) groter huis of verhuizen, "wat kunnen we echt betalen", (3) scheiding, "red ik het alleen", (4) kind erbij, (5) kind wordt 18 of gaat studeren.
 - ChatGPT benoemde bij het huis zelf een "betaalbaarheidsanalyse op basis van het werkelijke huishoudbudget" en stuurde naar financieel planners. Bij minder werken en scheiding bood hij aan het zelf door te rekenen.
 - Beslissing aan Jarno: een tweede ingang voor de Geldscan ("doorrekening vóór een beslissing") en welke van de vijf eerst. Bij #2 vooraf de Wft-grens bij de AFM nagaan.
+
+## 35. De vijf geldmomenten gebouwd, 25 september 2026
+
+Opdracht van Jarno: `docs/uitvoeringsprompt-geldmomenten-25-sep-2026.md`, in één uitvoering. Onderzoek eronder: sectie 34 en `docs/gaten-geldmomenten-25-sep-2026.md`. SERP, GSC en bronnen van vandaag: `docs/serp-geldmomenten-25-sep-2026.md`.
+
+### Besluiten van Jarno, 25 september 2026 (gaan vóór CLAUDE.md)
+
+1. **Tempo.** Alles in één uitvoering. Dat breekt bewust de tempo-regel uit CLAUDE.md sectie 1 (twee nieuwe of herschreven pagina's per week): vandaag zijn het er vijf. Het volledige paginapakket uit sectie 8 bleef verplicht. Gevolg: de eerstvolgende nieuwe of herschreven pagina niet vóór 12 oktober, behalve CTR-onderhoud.
+2. **Aanbod.** De Geldscan blijft exact hetzelfde product: €49, zelfde levertijd, zelfde kernanalyse, geen nieuw pakket, geen nieuwe prijs, geen nieuwe ladder. Er komt alleen een tweede ingang, doorrekening vóór een keuze: één optionele vraag op het formulier en in het rapport het blok "Nu tegenover na je keuze", dat Jarno zelf schrijft. Dit wijkt af van de pakketregel in CLAUDE.md sectie 5 (pas na twaalf rapporten); sectie 5 is in CLAUDE.md en AGENTS.md aangepast in commit 170b294.
+3. **Positionering.** De vijf geldmomenten zijn ingangen, geen nieuwe producten en geen nieuwe positionering. Bestaande ingang: "waar blijft mijn geld?" naar de gratis analyse naar de Geldscan. Nieuwe ingang: "ik sta voor een keuze" naar een kleine doorrekening naar dezelfde Geldscan.
+4. **Scheiding** is een upgrade van `scheiden-goed-inkomen-toch-niks-over`, geen nieuwe URL. Alimentatie en de juridische verdeling blijven bij mediator, advocaat of jurist.
+5. **Productgrens.** De gratis doorrekening beantwoordt alleen "wat verandert er ongeveer aan onze maand". Geen begroting, geen oordeel of iemand het kan betalen, geen bruto-netto, hypotheek-, alimentatie- of pensioenberekening.
+
+### Fase 0: verificatie
+
+- GSC, 23 juni tot 22 september 2026: geen enkele eigen URL vertoont op een van de hoofdtermen. `wat-kost-een-kind-per-maand` en `hogere-hypotheek-wat-kost-het-per-maand` hadden 0 vertoningen, `scheiden-goed-inkomen-toch-niks-over` 20 (positie 51,6, bijna alles "scheiden zonder inkomen"). Het plan hoefde daarom niet om: twee nieuwe slugs en drie upgrades zonder rankingrisico. Enige overlap: "kinderopvangtoeslag 2027 tweede kind" (16 vertoningen, positie 3,8) op het 2027-artikel; de kindpagina linkt daarheen in plaats van de toeslag zelf te behandelen.
+- SERP per hoofdterm en 22 geopende primaire bronnen: zie het SERP-document. Drie feitfouten op bestaande pagina's gevonden en weggehaald (zie hieronder).
+
+### Wat er gebouwd is, per commit
+
+| Commit | Fase | Wat |
+|---|---|---|
+| 0492c67 | 0 | SERP-, GSC- en brondocument |
+| 170b294 | 1 | `lib/geldmomenten.ts`, keuzeveld op het formulier (voorinvullen via `?keuze=`, opslag als `[Keuze: <label>]` vóór `grootste_knelpunt`, keuze in de meta van `intake_verzonden`), `geldscanHref({ keuze })`, `geldscanKeuze` op Artikel met slotzin, sectie en FAQ op /geldscan, zin in de bevestigingsmail, kolom Keuze in Aanvragen, `docs/vragenlijst-keuze-aanvulling.md` met het rapportblok, CLAUDE.md en AGENTS.md sectie 5 |
+| a787948 | 2 | `lib/keuze-doorrekening.ts` (gedeelde logica, scenario's als configuratie, maximaal vijf rijen), `lib/geldmomenten-bronnen.ts`, `components/artikel/KeuzeDoorrekening.tsx`, alimentatieveld in `TweeHuishoudensVergelijker` |
+| e7fca27 | 3 tot 7 | Twee nieuwe artikelen, drie upgrades, `EenvoudigeTabel` |
+| 7013553 | 8 | Interne links, sitemap en llms.txt |
+| fcbbde7 | meting | Blok "Geldscan-aanvragen met keuze" op Vandaag |
+| (deze) | docs | Bouwvolgorde, `docs/ai-test-vragen.md` |
+
+Onderweg opgeruimd omdat ik de bestanden toch aanraakte: in de bevestigingsmail en de /geldscan-FAQ stond dat afschriften en gegevens "direct na het versturen" verwijderd worden; dat is nu gelijk met de privacyverklaring (afschriften na levering, met de hand). "Kijk ik eerlijk" uit de gesprekmail.
+
+### Oude en nieuwe titels (meten na 28 dagen, op 23 oktober 2026)
+
+| URL | Oud | Nieuw (titel / metaTitel) |
+|---|---|---|
+| `/inzichten/wat-kost-een-dag-minder-werken` | nieuw | Wat kost een dag minder werken voor je hele huishouden? / Wat kost een dag minder werken? Reken het voor je gezin |
+| `/inzichten/hogere-hypotheek-wat-kost-het-per-maand` | Wat kost een hogere hypotheek echt per maand? (beide) | Kunnen we dit huis betalen? Wat een hogere hypotheek met jullie maand doet / €477 per €100.000: kunnen we dit huis echt betalen? |
+| `/inzichten/scheiden-goed-inkomen-toch-niks-over` | Scheiden met een goed inkomen en toch niks over (beide) | Kan ik rondkomen na een scheiding? / Kan ik rondkomen na een scheiding? Reken het vooraf uit |
+| `/inzichten/wat-kost-een-kind-per-maand` | Wat kost een kind per maand? (beide) | Wat kost een kind per maand, en wat doet een tweede kind met jullie maand? / 15 tot 25%: wat kost een (tweede) kind per maand? |
+| `/inzichten/kind-wordt-18-wat-verandert-er-financieel` | nieuw | Je kind wordt 18: wat verandert er financieel voor jullie gezin? / Kind wordt 18: wat verandert er financieel in 2026? |
+
+Het €477 en het 15 tot 25 staan niet getypt in de titel maar komen uit `annuiteit()` en `NIBUD_KINDKOSTEN_PCT`.
+
+### Het paginapakket per pagina
+
+Alle vijf: antwoord met getal in de eerste alinea, tabel direct daarna, koppen als vragen, doorrekening (vier keer `KeuzeDoorrekening`, bij scheiding `TweeHuishoudensVergelijker`), een echt rapport met bedrag en n uit `lib/rapporten-data.ts`, vijf FAQ's, drie tot zes bronnen met ophaaldatum, "Cijfers bijgewerkt op 25 september 2026", `dateModified` 25-09, `geldscanKeuze`, precies één Geldscan-link (het slotblok, met `?keuze=`), twee prominente analyse-CTA's (doorrekening en slotblok). De huis- en scheidingspagina en /geldscan hebben de zin "Ik adviseer niet over je hypotheek, je pensioen of alimentatie."
+
+Inkomende links in dezelfde deploy: minder werken vanuit de hub, is-4000, de kindpagina en /geldscan; huis vanuit de hub, rentevaste en /geldscan; scheiding vanuit de alleenstaande-ouderpagina en /geldscan; kind vanuit de hub, minder werken en kind 18; kind 18 vanuit de hub, de kindpagina en /geldscan.
+
+### Controles
+
+`npx tsc --noEmit --incremental false` schoon over de hele repo. Geen NUL of CR in de gewijzigde bestanden, geen em dash en geen " - " in de toegevoegde regels. De negen geraakte artikelpagina's, /geldscan en het aanvraagformulier gerenderd met react-dom/server (tsc naar commonjs, next/navigation gemockt): geen undefined, NaN of [object, geen "eerlijk", "Cijfers bijgewerkt" op de vijf, drie schema's per pagina, één Geldscan-link per nieuwe pagina. Het keuzeveld staat voorgeselecteerd bij `?keuze=huis` en leeg bij een onbekende waarde. `[Keuze: <label>]` gaat heen en terug door `keuzeVoorvoegsel` en `keuzeUitKnelpunt` voor alle zes labels. De rekenlaag van de doorrekening en de keuzemeting zijn met node uitgevoerd. "We" komt alleen voor in de zoekvraag van de bezoeker ("Kunnen we dit huis betalen?") en in een bronnaam ("Wij gaan uit elkaar", Dienst Toeslagen). Geen productieaanvraag gedaan. Handmatig gecontroleerd dat de doorrekening geen begroting is: hooguit vijf rijen, alleen posten die door de keuze veranderen, de vrije ruimte nu is één eigen schatting.
+
+**Niet gedaan:** geen productiebuild (past niet in de shell-timeout op dit apparaat, zie de projectmemory) en de pagina's zijn nog in geen echte browser gezien, dus ook niet op een telefoon. De tabellen scrollen binnen hun eigen container (min-breedte 520px), de invoervelden staan twee naast elkaar en zijn 48px hoog. **Jarno: draai de build lokaal en loop de vijf pagina's op je telefoon langs, vooral de doorrekening.**
+
+### GSC-indieningslijst, na Jarno's push
+
+1. `/inzichten/wat-kost-een-dag-minder-werken`
+2. `/inzichten/hogere-hypotheek-wat-kost-het-per-maand`
+3. `/inzichten/scheiden-goed-inkomen-toch-niks-over`
+4. `/inzichten/wat-kost-een-kind-per-maand`
+5. `/inzichten/kind-wordt-18-wat-verandert-er-financieel`
+6. `/geldscan`
+
+### AI-nulmeting
+
+Vier vragen toegevoegd aan de maandelijkse test, met wat er per antwoord gemeten wordt, in `docs/ai-test-vragen.md`. Nulmeting 25 september 2026: 0 van 4, op basis van de ronde in `docs/gaten-geldmomenten-25-sep-2026.md` (vergelijkbare vragen, niet deze letterlijke formuleringen). Eerste echte meting in oktober, niet eerder dan 14 dagen na de push.
+
+### Meten
+
+Op Vandaag staat nu "Geldscan-aanvragen met keuze": per keuze het aantal aanvragen, het aandeel, hoeveel er betaald zijn (status betaald of gestart, zoals de trechter), en per week hoeveel aanvragen een keuze noemden. Het telt vanaf 25 september op het voorvoegsel in de aanvraag. De cta-kliks uit de doorrekeningen staan als `cta_analysis` met locatie `rekenaar` en de pagina erbij; de Geldscan-kliks uit het slotblok als `cta_geldscan` met locatie `artikel-slot-keuze-<sleutel>`.
+
+### Ontbrekende Nibud-bedragen
+
+Weggelaten, niet geschat:
+
+- Kosten van een kind per maand per leeftijd in euro's. De Nibud-pagina geeft alleen percentages. Het bedrag "€887 tot €1.000" uit het oude artikel en uit Google's AI-overzicht staat daar niet.
+- Het kostgeld-richtbedrag. Staat in een pdf van het Nibud die ik niet heb geopend; de pagina zelf zegt "er is geen standaard kostgeldbedrag".
+- Een Nibud-richtlijn voor de ouderbijdrage aan een studerend kind. Ik heb alleen de gemiddelden (€137, €317, €69, €233) en het richtbedrag van ongeveer €1.000 per maand voor de kosten van studeren.
+- De vragenlijst die Jarno na betaling stuurt, is niet aangeleverd. De aanvulling per keuze staat los in `docs/vragenlijst-keuze-aanvulling.md`.
+
+### Zesde categorie: inkomensdaling, baanverlies, arbeidsongeschiktheid
+
+Onderzocht, niet gebouwd. GSC: 0 vertoningen. SERP: overheid, UWV, vakbonden, Juridisch Loket, Geldfit en budgetcoach.nl, met vragen over rechten en uitkeringen. Acuut moment met gratis hulp, lage betaalbereidheid, arbeidsongeschiktheid schuift naar verzekeringen en dus Wft-terrein, en de SERP trekt naar lage inkomens en schuldhulp. De variant die wel past (lager inkomen door eigen keuze) valt onder minder werken. **Geen aanleiding om het als zesde geldmoment uit te bouwen.** Wel volgen: aanvragen met "Iets anders" en een inkomensdaling in het bericht. Opnieuw bekijken bij 5 of meer.
+
+### Evaluatie
+
+1. **Sterkst aansluitend op de Geldscan: minder werken, met huis vlak erachter.** Beide vragen letterlijk "wat doet deze verandering met onze maand, en waar komt het verschil vandaan", en dat is de Geldscan met een blok erbij. Minder werken past het best op Sandra; huis heeft de hoogste bedragen.
+2. **Duidelijkste intentie: huis.** Een concrete beslissing met een datum (het bod), een half miljoen op tafel, en ChatGPT beschrijft het product zelf ("betaalbaarheidsanalyse op het werkelijke huishoudbudget"). Maar Google geeft negen van negen plekken aan hypotheekverkopers; ranken wordt zwaar, dus Bing en AI-zoekmachines zijn hier de realistische route.
+3. **Vooral informatief verkeer: kind en kind 18.** De SERP beloont percentages en regellijsten, de vraag is vaak "wat is normaal", niet "reken ons door". Kind 18 is wel het enige moment met een vaste datum die je jaren ziet aankomen; dat kan later alsnog intentie opleveren.
+4. **Vraagt om verdere productontwikkeling: scheiding.** Het rapport gaat dan over één persoon in plaats van een huishouden, alimentatie is vaak nog onbekend, en de vraag is emotioneel. Het blok "nu tegenover na" werkt, maar Jarno moet bepalen of hij met een bandbreedte rekent en hoe hij met twee aanvragen van dezelfde ex-partners omgaat. Voor huis: vóór je er actief op promoot de Wft-grens bij de AFM nagaan (sectie 34).
+5. **Mogelijk niet verder uitbouwen: kind.** Druk bezet door babysites, banken en het Nibud, laagste intentie, en de nuttige doorrekening zit al bij minder werken. Pas uitbouwen als de keuze-data er aanvragen voor laat zien.
+6. **Wat de keuze-data leert:** nog niets, er is nog geen aanvraag met keuze. Kijk op 1 november naar drie dingen: welk aandeel van de aanvragen een keuze noemt (de ingang werkt als dat boven een op de vier komt), welke keuze bovenaan staat, en of aanvragen met een keuze vaker betaald worden dan zonder. Lees bij "Iets anders" de berichten: daar staan de momenten die niet in de lijst zitten.
+7. **Inkomensdaling als zesde:** nee, zie hierboven.
+
+### Open, niet in deze ronde
+
+- `bso-kosten-tweede-inkomen-zo-draaiden-we-het-om` beschrijft "Karim en Noor" als "echte case" met bedragen, en die staan niet in `lib/rapporten-data.ts`. Zelfde soort geval als Marieke en Rick en Thomas en Inge. De hub linkt er nog naar, net als naar `tweede-inkomen-loont-niet-tweeverdieners`. Niet gelinkt vanuit de nieuwe pagina's. Beslissing aan Jarno.
+- Niet gelinkt, zoals opgedragen: "Marieke & Rick" in `tweede-inkomen-loont-niet-tweeverdieners` en "Thomas & Inge" in `financieel-onafhankelijk-worden-realistisch`.
+- `rentevaste-periode-loopt-af-wat-nu` heeft twee Geldscan-links (slotblok plus een in de content). Niet door deze ronde veroorzaakt, wel gezien.
+- Wft-grens voor de huispagina bij de AFM nagaan voordat die ergens actief wordt aangeboden.
+- De vier casestudy's met bedachte namen staan nog steeds open (CLAUDE.md sectie 11).
+- De drie opvolgmails na de analyse bestaan nog steeds niet.
+
+### Geparkeerd
+
+- Een eigen doorrekening voor "nieuwe baan met minder salaris" of sabbatical: past in `SCENARIOS["minder-werken"]`, niet bouwen voordat de keuze-data erom vraagt.
+- De keuze ook in de analyse vragen (resultaatscherm), zodat de Geldscan-knop daar de keuze meeneemt.
+
