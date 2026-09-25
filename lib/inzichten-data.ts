@@ -1,4 +1,5 @@
 import { analyseHref, PRIMAIRE_CTA_LABEL, GELDSCAN_ROUTE } from "./cta";
+import type { KeuzeSleutel } from "./geldmomenten";
 
 export interface FAQItem {
   vraag: string;
@@ -117,6 +118,13 @@ export interface Artikel {
    * er een echte i18n-laag van te maken in plaats van een veld.
    */
   enVertaling?: string;
+  /**
+   * Het geldmoment waar dit artikel over gaat (lib/geldmomenten.ts,
+   * 25-sep-2026). Als dit veld er is, krijgt de enige Geldscan-link in het
+   * slotblok de keuze mee en staat de slotzin van die keuze erboven. Het blijft
+   * dezelfde Geldscan en precies één verwijzing per artikel.
+   */
+  geldscanKeuze?: KeuzeSleutel;
   preview: ArticlePreviewData;
 }
 

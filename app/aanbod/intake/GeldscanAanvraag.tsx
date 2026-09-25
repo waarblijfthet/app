@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { logGebeurtenis } from "@/lib/track";
 import { SITUATIE_OPTIES } from "./opties";
+import { KEUZES, keuzeVoorSleutel, keuzeVoorvoegsel } from "@/lib/geldmomenten";
 
 /**
  * De aanvraagpagina voor de Geldscan (/aanbod/intake?pakket=geldscan).
@@ -16,8 +17,13 @@ import { SITUATIE_OPTIES } from "./opties";
  * de gegevens op die ik nodig heb om het rapport te maken.
  *
  * Vraag hier dus nooit inkomen, woonlasten, uitgaven, auto, hypotheek of
- * bankafschriften uit. Alleen voornaam en e-mailadres zijn verplicht; situatie
- * en het berichtveld zijn optioneel en mogen leeg blijven.
+ * bankafschriften uit. Alleen voornaam en e-mailadres zijn verplicht; situatie,
+ * keuze en het berichtveld zijn optioneel en mogen leeg blijven.
+ *
+ * De keuze (25-sep-2026, lib/geldmomenten.ts) is de tweede ingang naar
+ * dezelfde Geldscan. Er is geen kolom voor: het label gaat als
+ * "[Keuze: <label>]" vóór het bericht in grootste_knelpunt, en in de meta van
+ * intake_verzonden. Zo kost het geen migratie (CLAUDE.md 10.3).
  *
  * Het adviesgesprek en het traject lopen nog via IntakeForm.tsx, dat formulier
  * is hier bewust niet mee veranderd.
@@ -26,6 +32,8 @@ import { SITUATIE_OPTIES } from "./opties";
 interface Props {
   /** Token van de gratis analyse, als de bezoeker daarvandaan komt. */
   token?: string;
+  /** Sleutel uit lib/geldmomenten.ts, via ?keuze=. Onbekend wordt genegeerd. */
+  keuze?: string;
 }
 
 const GROEN = "#0B7A6E";
@@ -237,6 +245,10 @@ function Chevron() {
   );
 }
 
+/** Het pijltje in de selectievelden, gedeeld door situatie en keuze. */
+const SELECT_PIJL =
+  "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B958F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9.5l6 6 6-6'/></svg>\")";
+
 const VELD_STIJL: React.CSSProperties = {
   width: "100%",
   padding: "0.85rem 1rem",
@@ -352,11 +364,12 @@ function Proceslijn() {
   );
 }
 
-export function GeldscanAanvraag({ token }: Props) {
+export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
   const router = useRouter();
   const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
   const [situatie, setSituatie] = useState("");
+  const [keuze, setKeuze] = useState<string>(keuzeVoorSleutel(startKeuze)?.sleutel ?? "");
   const [bericht, setBericht] = useState("");
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
@@ -376,6 +389,7 @@ export function GeldscanAanvraag({ token }: Props) {
   }
 
   useEffect(() => {
+    // Een voorgevulde keuze telt niet als gestart: die kwam uit de link.
     if (!gestartRef.current && (ingevuldeVelden() > 0 || situatie || bericht.trim())) {
       gestartRef.current = true;
       logGebeurtenis("intake_gestart", { pakket: "geldscan" });
@@ -405,6 +419,11 @@ export function GeldscanAanvraag({ token }: Props) {
     const schoonNaam = naam.trim();
     const schoonEmail = email.trim().toLowerCase();
     const schoonBericht = bericht.trim() || null;
+    const gekozen = keuzeVoorSleutel(keuze);
+    // Geen nieuwe kolom: de keuze staat als voorvoegsel voor het bericht.
+    const knelpunt = gekozen
+      ? [keuzeVoorvoegsel(gekozen), schoonBericht].filter(Boolean).join(" ")
+      : schoonBericht;
 
     try {
       const dbRes = await fetch("/api/intake", {
@@ -415,7 +434,7 @@ export function GeldscanAanvraag({ token }: Props) {
           naam: schoonNaam,
           email: schoonEmail,
           gezinssituatie: situatie || null,
-          grootste_knelpunt: schoonBericht,
+          grootste_knelpunt: knelpunt,
           analyse_token: token ?? null,
         }),
       });
@@ -435,6 +454,7 @@ export function GeldscanAanvraag({ token }: Props) {
           email: schoonEmail,
           pakket: "geldscan",
           situatie_details: schoonBericht,
+          keuze: gekozen ? gekozen.sleutel : null,
         }),
       });
       if (!mailRes.ok) {
@@ -444,7 +464,11 @@ export function GeldscanAanvraag({ token }: Props) {
       verzondenRef.current = true;
       logGebeurtenis("intake_verzonden", {
         pakket: "geldscan",
-        meta: { velden: veldenTotaal, totaal: veldenTotaal },
+        meta: {
+          velden: veldenTotaal,
+          totaal: veldenTotaal,
+          keuze: gekozen ? gekozen.sleutel : null,
+        },
       });
       router.push("/aanbod/intake/bedankt?pakket=geldscan");
     } catch (err) {
@@ -628,8 +652,7 @@ export function GeldscanAanvraag({ token }: Props) {
                     ...VELD_STIJL,
                     color: situatie ? DONKER : GRIJS,
                     appearance: "none",
-                    backgroundImage:
-                      "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%238B958F' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'><path d='M6 9.5l6 6 6-6'/></svg>\")",
+                    backgroundImage: SELECT_PIJL,
                     backgroundRepeat: "no-repeat",
                     backgroundPosition: "right 1rem center",
                     paddingRight: "2.75rem",
@@ -644,6 +667,43 @@ export function GeldscanAanvraag({ token }: Props) {
                     </option>
                   ))}
                 </select>
+              </div>
+
+              <div style={{ marginBottom: "1.1rem" }}>
+                <LabelTekst htmlFor="keuze">Staat er een keuze aan te komen? (optioneel)</LabelTekst>
+                <select
+                  id="keuze"
+                  name="keuze"
+                  value={keuze}
+                  onChange={(e) => setKeuze(e.target.value)}
+                  style={{
+                    ...VELD_STIJL,
+                    color: DONKER,
+                    appearance: "none",
+                    backgroundImage: SELECT_PIJL,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right 1rem center",
+                    paddingRight: "2.75rem",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = DONKER)}
+                  onBlur={(e) => (e.target.style.borderColor = RAND)}
+                >
+                  <option value="">Nee, ik wil weten waar het blijft</option>
+                  {KEUZES.map((k) => (
+                    <option key={k.sleutel} value={k.sleutel}>
+                      {k.label}
+                    </option>
+                  ))}
+                </select>
+                {keuze && (
+                  <p
+                    className="font-body"
+                    style={{ fontSize: "0.8rem", color: ZACHT, lineHeight: 1.6, marginTop: "0.45rem" }}
+                  >
+                    Dezelfde Geldscan, met een blok erbij: jullie maand nu naast de maand na de keuze.
+                    Na betaling stel ik er een paar extra vragen over.
+                  </p>
+                )}
               </div>
 
               <div style={{ marginBottom: "1.25rem" }}>

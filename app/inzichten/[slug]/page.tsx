@@ -9,6 +9,7 @@ import { getArtikel, artikelen, laatstGewijzigd } from "@/lib/inzichten-data";
 import ArticleBody from "./ArticleBody";
 import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL, geldscanHref } from "@/lib/cta";
+import { keuzeVoorSleutel } from "@/lib/geldmomenten";
 
 interface Props {
   params: { slug: string };
@@ -53,6 +54,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default function ArtikelPage({ params }: Props) {
   const artikel = getArtikel(params.slug);
   if (!artikel) notFound();
+
+  // Geldmoment van dit artikel, als het er een heeft (25-sep-2026). Stuurt
+  // alleen de slotzin en de ?keuze= op de ene Geldscan-link in het slotblok.
+  const keuze = keuzeVoorSleutel(artikel.geldscanKeuze);
 
   const articleSchema = {
     "@context": "https://schema.org",
@@ -315,15 +320,25 @@ export default function ArtikelPage({ params }: Props) {
                 >
                   {PRIMAIRE_CTA_LABEL} →
                 </CtaLink>
-                <p style={{ marginTop: "0.85rem", marginBottom: 0 }}>
+                {keuze && (
+                  <p
+                    className="font-body text-sm font-light text-text-soft"
+                    style={{ marginTop: "1.1rem", marginBottom: 0, lineHeight: 1.7 }}
+                  >
+                    {keuze.slotzin}
+                  </p>
+                )}
+                <p style={{ marginTop: keuze ? "0.4rem" : "0.85rem", marginBottom: 0 }}>
                   <CtaLink
                     doel="geldscan"
-                    href={geldscanHref()}
-                    locatie="artikel-slot"
+                    href={keuze ? geldscanHref({ keuze: keuze.sleutel }) : geldscanHref()}
+                    locatie={keuze ? `artikel-slot-keuze-${keuze.sleutel}` : "artikel-slot"}
                     className="font-body text-sm hover:underline"
                     style={{ color: "#0B7A6E", textDecoration: "none" }}
                   >
-                    Na de analyse kun je de Geldscan aanvragen, €49 →
+                    {keuze
+                      ? `Geldscan aanvragen, ${PAKKET_INFO.geldscan.prijs} →`
+                      : `Na de analyse kun je de Geldscan aanvragen, ${PAKKET_INFO.geldscan.prijs} →`}
                   </CtaLink>
                 </p>
               </div>

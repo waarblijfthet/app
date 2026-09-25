@@ -1,11 +1,12 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
+import { keuzeVoorSleutel } from "@/lib/geldmomenten";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
-    const { naam, email, pakket, situatie_details, inkomen_wisselt } = await request.json();
+    const { naam, email, pakket, situatie_details, inkomen_wisselt, keuze } = await request.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json(
@@ -15,6 +16,15 @@ export async function POST(request: NextRequest) {
     }
 
     const isGeldscan = pakket === "geldscan";
+    // Alleen een bekende sleutel uit lib/geldmomenten.ts telt; vrije tekst niet.
+    const gekozen = isGeldscan ? keuzeVoorSleutel(typeof keuze === "string" ? keuze : null) : undefined;
+    const keuzeLabelKlein = gekozen
+      ? gekozen.label.charAt(0).toLowerCase() + gekozen.label.slice(1)
+      : null;
+    // Eén zin, geen extra productbelofte (besluit Jarno 25-sep-2026).
+    const keuzeZin = keuzeLabelKlein
+      ? `<p style="margin:0 0 24px;font-size:15px;color:#4A5A56;line-height:1.7;">Je gaf aan dat er een keuze aankomt: ${keuzeLabelKlein}. Na je betaling stuur ik de vragenlijst met een paar extra vragen daarover.</p>`
+      : "";
     const pakketLabel =
       isGeldscan
         ? "Geldscan met persoonlijk geldrapport (€49)"
@@ -30,9 +40,9 @@ export async function POST(request: NextRequest) {
       : "Ik neem binnen één werkdag persoonlijk contact op. Geen standaardmail, maar een bericht dat aansluit op wat je hebt ingevuld.";
     const stappenTitel = isGesprek ? "Zo bereid je je voor" : "Wat er nu gebeurt";
     const stappenHtml = isGesprek
-      ? "1. Ik plan je videogesprek van 45 minuten in en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijk ik eerlijk naar je cijfers en bepaal je samen met mij 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alle aangeleverde gegevens"
+      ? "1. Ik plan je videogesprek van 45 minuten in en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijk ik samen met je naar je cijfers en bepaal je samen met mij 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alle aangeleverde gegevens"
       : isGeldscan
-      ? "1. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>2. Zodra dat betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers voor je rapport<br>3. Optioneel: stuur ook een paar recente bankafschriften mee als bijlage, dan kan ik preciezer zijn. Streep daarin weg wat je niet wilt delen: rekeningnummers, namen van anderen en betalingen die over iemand anders gaan. Ik heb alleen de bedragen en de soort uitgave nodig en ik ben de enige die ze inziet<br>4. Binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF, en direct na het versturen verwijder ik je afschriften en gegevens"
+      ? "1. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>2. Zodra dat betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers voor je rapport<br>3. Optioneel: stuur ook een paar recente bankafschriften mee als bijlage, dan kan ik preciezer zijn. Streep daarin weg wat je niet wilt delen: rekeningnummers, namen van anderen en betalingen die over iemand anders gaan. Ik heb alleen de bedragen en de soort uitgave nodig en ik ben de enige die ze inziet<br>4. Binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF. Je afschriften verwijder ik na levering zelf"
       : "1. Ik lees je aanmelding door<br>2. Je krijgt binnen één werkdag een persoonlijk bericht<br>3. Ik plan het intakegesprek (45 min, video) met je in<br>4. Daarna stel ik samen met jou je plan op maat op";
 
     // Bevestiging naar aanvrager
@@ -61,6 +71,7 @@ export async function POST(request: NextRequest) {
           <p style="margin:0 0 24px;font-size:15px;color:#4A5A56;line-height:1.7;">
             ${intro}
           </p>
+          ${keuzeZin}
           <table cellpadding="0" cellspacing="0" width="100%">
             <tr><td style="background-color:#E7F1EE;border-radius:12px;padding:16px;">
               <p style="margin:0 0 4px;font-size:14px;font-weight:500;color:#16211F;">${stappenTitel}</p>
@@ -99,6 +110,8 @@ export async function POST(request: NextRequest) {
       to: "jarnomilankoopman@gmail.com",
       subject: `Nieuwe intake aanvraag: ${pakketLabel}`,
       html: `<p>Nieuwe aanmelding ontvangen voor <strong>${pakketLabel}</strong> van <strong>${naam}</strong> (${email}).</p>${
+        gekozen ? `<p><strong>Keuze die aankomt:</strong> ${gekozen.label}. Stuur na betaling de aanvullende vragen uit docs/vragenlijst-keuze-aanvulling.md mee.</p>` : ""
+      }${
         inkomen_wisselt ? "<p><strong>Let op: inkomen verschilt sterk per maand.</strong> Niet met een gemiddelde rekenen, en vraag naar de belastingpot en buffer.</p>" : ""
       }${
         situatie_details

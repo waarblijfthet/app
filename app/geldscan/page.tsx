@@ -5,6 +5,8 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { analyseHref, geldscanHref } from "@/lib/cta";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
+import { PAKKET_INFO } from "@/lib/aanbod-content";
+import { KEUZES } from "@/lib/geldmomenten";
 
 export const metadata: Metadata = {
   title: "Geldscan: waarom houd jij zo weinig over? €49",
@@ -309,7 +311,7 @@ const faq = [
   {
     vraag: "Is mijn informatie veilig?",
     antwoord:
-      "Alleen ik zie wat je aanlevert. Er kijkt geen team en geen algoritme mee, en je gegevens gaan niet naar derden. Direct na het versturen van je rapport verwijder ik je afschriften en de gegevens die je hebt ingevuld.",
+      "Alleen ik zie wat je aanlevert. Er kijkt geen team en geen algoritme mee, en je gegevens gaan niet naar derden. Je afschriften verwijder ik na levering van je rapport zelf. Wat er verder bewaard blijft, staat in de privacyverklaring.",
   },
   {
     vraag: "Hoe lang duurt het?",
@@ -324,6 +326,11 @@ const faq = [
   {
     vraag: "Krijg ik alleen advies om te bezuinigen?",
     antwoord: `Nee. Soms is een dure uitgave helemaal geen probleem, en dan schrijf ik dat op. Ik kijk naar het geheel: wat wijkt af, wat wijkt juist niet af, en waar zit de ruimte werkelijk. Bij ${AANTAL_ZONDER_LEK} van de ${RAPPORTEN.length} gepubliceerde rapporten was mijn conclusie dat er niets te repareren viel.`,
+  },
+  {
+    vraag: "Kan de Geldscan ook kijken naar een keuze die eraan komt?",
+    antwoord:
+      "Ja, met dezelfde Geldscan. Geef in je aanvraag aan welke keuze eraan komt, bijvoorbeeld minder werken, een ander huis of een kind dat 18 wordt. Na je betaling stel ik er een paar extra vragen over, en in je rapport zet ik je maand nu naast de maand na de keuze. Welke keuze je maakt, laat ik bij jou.",
   },
   {
     vraag: "Is dit financieel advies?",
@@ -857,6 +864,45 @@ export default function GeldscanPage({
                 Lees ze na →
               </Link>
             </p>
+          </div>
+        </section>
+
+        {/* ── 4b. Staat er een keuze aan te komen? (25-sep-2026) ──────
+            De tweede ingang naar dezelfde Geldscan, bewust klein: geen
+            rekenaar op deze pagina, geen tweede knop, geen nieuwe prijs. Alleen
+            tekstlinks naar de artikelen over de vijf geldmomenten, met hun
+            eigen beperkte doorrekening. Zie lib/geldmomenten.ts. */}
+        <section className="px-6 py-14 sm:py-16" style={{ backgroundColor: "#FFFFFF" }}>
+          <div className="mx-auto max-w-[760px]">
+            <h2
+              className="font-display font-light text-[#16211F]"
+              style={{ fontSize: "clamp(1.5rem, 2.8vw, 2rem)", lineHeight: 1.2 }}
+            >
+              Staat er een keuze aan te komen?
+            </h2>
+            <p className="font-body mt-4 text-[15px] font-light leading-relaxed text-[#4A5A56]">
+              Minder werken, een ander huis, uit elkaar gaan, een kind erbij of een kind dat 18 wordt:
+              zo&apos;n keuze verandert je maand, en dat wil je vooraf weten. Bij elk van die momenten
+              staat een artikel met een kleine gratis doorrekening. Die geeft alleen een indicatie van
+              wat er verandert aan de bedragen die je zelf invult. De Geldscan kijkt daarna naar je
+              hele financiële situatie en zet je maand nu naast de maand na de keuze, voor dezelfde{" "}
+              {PAKKET_INFO.geldscan.prijs} en binnen dezelfde 2 werkdagen. Ik adviseer niet over je
+              hypotheek, je pensioen of alimentatie: ik reken uit wat jullie maandbudget overlaat bij
+              de keuze die je overweegt.
+            </p>
+            <ul className="font-body mt-6 space-y-2 text-[15px]" style={{ listStyle: "none", padding: 0 }}>
+              {KEUZES.filter((k) => k.artikelSlug).map((k) => (
+                <li key={k.sleutel}>
+                  <Link
+                    href={`/inzichten/${k.artikelSlug}`}
+                    className="font-medium hover:underline"
+                    style={{ color: "#0B7A6E", textDecoration: "none" }}
+                  >
+                    {k.label} →
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
         </section>
 

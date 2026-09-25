@@ -4,6 +4,8 @@
 // vervolgstap, nooit de eerste stap. Wie een CTA bouwt gebruikt hier
 // ANALYSE_ROUTE plus analyseHref(), zodat er nooit twee routes ontstaan.
 
+import type { KeuzeSleutel } from "./geldmomenten";
+
 export const ANALYSE_ROUTE = "/analyse";
 
 /** De enige toegestane tekst voor een primaire CTA. */
@@ -32,11 +34,15 @@ export const GELDSCAN_CTA_LABEL = "Geldscan aanvragen";
 /**
  * Bouwt de Geldscan-link. Geef het analysetoken mee als je het hebt, dan
  * koppelt het aanvraagformulier de aanvraag aan die analyse.
+ *
+ * Sinds 25-sep-2026 kan er ook een keuze mee (lib/geldmomenten.ts). Dan staat
+ * het keuzeveld op het formulier al ingevuld. Het blijft dezelfde Geldscan.
  */
-export function geldscanHref(opties: { token?: string } = {}): string {
-  return opties.token
-    ? `${GELDSCAN_ROUTE}&token=${encodeURIComponent(opties.token)}`
-    : GELDSCAN_ROUTE;
+export function geldscanHref(opties: { token?: string; keuze?: KeuzeSleutel } = {}): string {
+  let href = GELDSCAN_ROUTE;
+  if (opties.token) href += `&token=${encodeURIComponent(opties.token)}`;
+  if (opties.keuze) href += `&keuze=${encodeURIComponent(opties.keuze)}`;
+  return href;
 }
 
 /**

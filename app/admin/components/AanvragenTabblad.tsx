@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { IntakeAanvraag } from "../page";
 import DataTabel, { DataTabelKolom } from "../ui/DataTabel";
 import Badge from "../ui/Badge";
+import { keuzeUitKnelpunt } from "@/lib/geldmomenten";
 
 interface Props {
   aanvragen: IntakeAanvraag[];
@@ -204,6 +205,21 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
       filterWaarde: (a) => PAKKET_LABEL[a.pakket] ?? "Adviesgesprek",
       render: (a) => <Badge variant="actie">{PAKKET_LABEL[a.pakket] ?? "Adviesgesprek"}</Badge>,
       sorteerWaarde: (a) => a.pakket,
+    },
+    {
+      // De keuze uit het geldmomentenveld (25-sep-2026). Staat als
+      // "[Keuze: ...]" vooraan in grootste_knelpunt; zie lib/geldmomenten.ts.
+      // Staat er een keuze, dan hoort in het rapport het blok "Nu tegenover na
+      // je keuze" en gaan de extra vragen uit docs/vragenlijst-keuze-aanvulling.md
+      // mee met de vragenlijst na betaling.
+      key: "keuze",
+      header: "Keuze",
+      filterWaarde: (a) => keuzeUitKnelpunt(a.grootste_knelpunt) ?? "",
+      render: (a) => {
+        const k = keuzeUitKnelpunt(a.grootste_knelpunt);
+        return k ? <Badge variant="actie">{k}</Badge> : <span className="text-text-muted">geen</span>;
+      },
+      sorteerWaarde: (a) => keuzeUitKnelpunt(a.grootste_knelpunt) ?? "",
     },
     {
       key: "inkomen",
