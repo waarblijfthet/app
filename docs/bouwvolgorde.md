@@ -1311,3 +1311,5 @@ Op verzoek van Jarno. Volledig in `docs/concurrenten-eenmalige-check-25-sep-2026
 - Geen verkeers- of volumecijfers te zien van buitenaf. "eenmalige financiële check" en "quick scan" hebben geen corpus in de autocomplete.
 
 **Geparkeerd, beslissing aan Jarno:** niets nieuws. Wel bevestigd: de hoek "goed inkomen, toch niks over" en een eenmalig product bestaan ook bij anderen, dus geen onderscheid claimen op hoek, vorm of prijs (CLAUDE.md sectie 4 en regel 3).
+
+**Aanvulling sectie 30, 25 september: "budgetcoach zonder schulden".** Bestaat als zoekterm (eerste aanvulling op "budgetcoach zonder"), heeft nu een AI-overzicht dat naar gemeente, Geldfit en IMW wijst, en de site staat niet in de eerste ongeveer 100 Google-resultaten. In GSC nul vertoningen op alles met "schulden" in 90 dagen. N4 is op deze term gebouwd, maar de woorden staan nergens in de zichtbare tekst van N4. **Geparkeerd voorstel:** de term en de PAA-vraag "Is het mogelijk om budgetbegeleiding te krijgen zonder schulden?" letterlijk als kop en FAQ op N4, in de week van 12 oktober. Details onderaan `docs/serp-coach-woordveld-25-sep-2026.md`.

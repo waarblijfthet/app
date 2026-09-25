@@ -361,3 +361,30 @@ Op verzoek van Jarno dezelfde twaalf vragen gesteld in zijn eigen ChatGPT-accoun
 - Het geheugen maakt de test onbruikbaar als meting: bij drie van de twaalf antwoorden (5, 6, 7) spreekt ChatGPT Jarno aan als eigenaar van Waar blijft het of gebruikt hij gegevens over zijn gezin. Dat bevestigt de waarschuwing van 7 september en de keuze om de AI-test uitgelogd te doen.
 - Ook met dat geheugen noemt ChatGPT de Geldscan als aanbieder alleen bij vraag 4, net als uitgelogd. Bij vraag 5 en 6 komt Waar blijft het ter sprake omdat ChatGPT weet dat Jarno de eigenaar is, niet als aanbeveling aan een zoeker.
 - **Nieuw bij vraag 4: drie aanbieders van een eenmalige check** die in de uitgelogde test niet voorkwamen: Budgetcoach Me (Financiële Check, 2,5 uur), Pien's Budgethulp (€153,67) en Personal Budgetcoach (Quick scan, €250). Dezelfde dag op de sites gecontroleerd, zie `docs/concurrenten-eenmalige-check-25-sep-2026.md`: Budgetcoach Me en Personal Budgetcoach (€250) kloppen; **Pien's Budgethulp biedt geen eenmalig gesprek aan** (alleen bewind en budgetbeheer), daar zat ChatGPT fout. Het segment "eenmalig kijken" is dus niet leeg; dat past bij CLAUDE.md sectie 4 (segment bezet, geen onderscheid claimen op prijs of vorm).
+
+## Verdieping: "budgetcoach zonder schulden", 25 september 2026
+
+Op vraag van Jarno. Eerder getoetst op 6 september (N4, secundaire term) en 7 september ("budgetcoach voor mensen zonder schulden"). Dit is wat er sindsdien bij komt.
+
+**Bestaat de zoekterm?** Ja. "budgetcoach zonder schulden" is de eerste aanvulling op "budgetcoach zonder" (daarna: zonder diploma, zelfstandig). Varianten met "geen schulden", "geldcoach" of "financieel coach" krijgen alleen een plaatsnaam als aanvulling. "hulp zonder schulden" wordt omgedraaid naar "hulp bij schulden zonder schuldsanering". "geen schulden maar" en "geen schulden wel" gaan over bewind en BKR. Volume: niet vast te stellen; het is de enige "zonder schulden"-combinatie met een eigen aanvulling. Let op: in deze Chrome-sessie verschenen ook "leeuwarden", "zwolle" en "kampen" als aanvulling of gerelateerde zoekopdracht. Dat komt vermoedelijk door mijn eigen zoekopdrachten naar concurrenten eerder vandaag in hetzelfde ingelogde account.
+
+**Google, 25 september (Chrome, ingelogd, Tilburg).**
+
+- **AI-overzicht: nu wel** (op 6 september niet). "Een budgetcoach helpt je om inzicht en overzicht te krijgen in je inkomsten en uitgaven, ook als je geen schulden hebt", met FNV en Verder Groep als bron. De opties die het noemt: gemeente Tilburg en Geldfit, maatschappelijke organisaties zoals IMW regio Tilburg, en commerciële budgetcoaches.
+- **Top 10:** imwregiotilburg.nl, budget-kompas.nl ("Budgetbeheer zonder schulden, kan dat?"), mylifebudget.nl, schuldhulpmaatje.nl, budgetcoachme.nl, fnv.nl, verdergroep.nl, careyn.nl, budgethulpnederland.nl, oniswelzijn.nl. Uitkomen met je Inkomen staat op 14.
+- **Meer om te vragen:** Is het mogelijk om budgetbegeleiding te krijgen zonder schulden?; Wat kost een budgetcoach per uur?; Waar kan ik gratis een budgetcoach krijgen?; Wat is het verschil tussen budgetcoach en schuldhulpverlener?
+- **Eigen URL: niet in de eerste ongeveer 100 resultaten.**
+
+**Search Console, 90 dagen:** nul vertoningen op elke zoekopdracht met "zonder schuld", en in totaal één vertoning op iets met "schulden" ("staatsschulden amerika"). De site vertoont dus op geen enkele zoekopdracht waarin het woord schulden voorkomt.
+
+**Bing (uitgelogd):** niet in de top 23. Op 2 staat onebrokegirl.nl met het interview "Geldgeheim: 'Ik heb een budgetcoach, terwijl ik geen schulden heb'" (12 oktober 2025), op 6 en 9 verbruikwijzer.nl met "Beste Budgetcoaches Nederland [top 10] [2026]".
+
+**Waarom de eigen pagina's hier niet verschijnen, voor zover te zien.** N4 is op 6 september gebouwd met deze term als secundaire zoekterm, maar de woorden "budgetcoach zonder schulden" staan nergens in de zichtbare tekst, de titel of een kop van N4; alleen in een codecommentaar. `/financieel-coach` noemt "zonder schulden" ook niet in een kop. Of dat de oorzaak is, is niet vastgesteld: ook de coachtermen waar de pagina's wel op geoptimaliseerd zijn, vertonen sinds juli nauwelijks.
+
+**Wat er in de SERP opvalt.**
+
+1. Google leest de term als budgetbegeleiding en budgetbeheer: de PAA-vraag gaat over budgetbegeleiding, nummer 2 gaat over budgetbeheer, en de rest is gemeente, welzijn en schuldhulp. De zoeker die het aanbod zoekt, krijgt vooral hulp voor mensen die er dichtbij zitten.
+2. Het enige resultaat dat de situatie van de ICP beschrijft, is een persoonlijk verhaal (onebrokegirl, op Bing op 2). In Google staat Uitkomen met je Inkomen op 14.
+3. Lijstjessites ("beste budgetcoaches") ranken in Bing, en daar halen AI's hun lijsten van aanbieders vandaan.
+
+**Voorstel, geparkeerd, beslissing aan Jarno:** geen nieuwe pagina. De term en de PAA-vraag letterlijk op N4: een kop "Is er een budgetcoach voor mensen zonder schulden?" met in het antwoord het verschil tussen budgetbegeleiding (traject) en één keer laten kijken, en een FAQ "Is het mogelijk om budgetbegeleiding te krijgen zonder schulden?". Hoort bij stap 3 van de voorgestelde volgorde (week van 12 oktober). Meten op dezelfde zoekterm in GSC 28 dagen na livegang.
