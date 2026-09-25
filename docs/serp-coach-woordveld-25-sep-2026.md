@@ -336,3 +336,28 @@ Plus, na een eerste herhaling, eventueel "Wat kost het om iemand naar je financi
 3. Het N4-meetpunt van 5 december: alleen Google, of Bing en de AI-test meewegen?
 4. De zin "daarna verwijder ik je gegevens" op N4 wordt nu door Perplexity doorgegeven. Hij klopt alleen zolang je het met de hand doet (bestaande waarheidsschuld).
 5. Nibud: niet opgevraagd, niet nodig voor dit onderzoek.
+
+## Aanvulling: ChatGPT ingelogd op Jarno's account, 25 september 2026
+
+Op verzoek van Jarno dezelfde twaalf vragen gesteld in zijn eigen ChatGPT-account, in Chrome, in een tijdelijke chat (zodat ze niet in zijn geschiedenis komen). Die tijdelijke chat zegt zelf dat hij geheugen en aangepaste instructies kan gebruiken. **Deze uitkomsten zijn dus niet vergelijkbaar met de uitgelogde test** en tellen niet mee in de cijfers hierboven.
+
+| # | Wat ChatGPT ingelogd antwoordde | Waar blijft het genoemd? | Geheugen zichtbaar? |
+|---|---|---|---|
+| 1 | "financieel planner" of "financieel coach voor huishoudens zonder schulden"; spreekt van "geldlekken"; biedt aan in Tilburg te zoeken. Zonder bronnen | nee | ja: de woordkeuze lijkt op onze positionering |
+| 2 | Goossens Financiële dienstverlening (lokaal, kaart), Geldfit, CAK, Rijksoverheid | nee | nee |
+| 3 | budgetcoach, met een tabel budgetcoach tegen adviseur; Nibud; biedt aan het zelf uit te rekenen | nee | nee |
+| 4 | Budgetcoach Me "Financiële Check" van 2,5 uur, Pien's Budgethulp (eenmalig gesprek, €153,67), Personal Budgetcoach "Quick scan" €250, en als vierde: "Waar blijft het biedt een eenmalig Geldrapport voor €49", gelinkt naar `/financieel-coach` | **ja**, als vierde optie | nee |
+| 5 | prijstabel (kort gesprek €60 tot €150, eenmalige check €125 tot €225, analyse met plan €250 tot €500); N4 als "interessant aanbod"; daarna letterlijk "Als je dit vraagt omdat je nadenkt over wat zoiets voor Waar blijft het? zou moeten kosten" | ja | **ja, expliciet**: spreekt Jarno aan als eigenaar |
+| 6 | nee, niet alleen voor schulden; Budgetcoach.nl; daarna "een interessante nuance voor Waar blijft het?" | ja | **ja, expliciet** |
+| 7 | biedt aan zelf te benchmarken, en noemt daarbij de gezinsgrootte uit het geheugen | nee | **ja**: persoonlijke gegevens |
+| 8 | Uitkomen met je Inkomen, Hilde Radt (financieel business coach), FFP, VOFP | nee | nee |
+| 9 | uitleg geldcoach tegen adviseur, geen bronnen | nee | nee |
+| 10 | "financieel coach voor huishoudens zonder schulden of een onafhankelijk financieel planner"; biedt aan in Tilburg te zoeken | nee | ja: dezelfde woordkeuze als vraag 1 |
+| 11 | "waarschijnlijk niet in de eerste plaats een financieel therapeut", eerst cashflow | nee | nee |
+| 12 | stappenplan; biedt aan het budget zelf door te lichten | nee | nee |
+
+**Wat dit toevoegt.**
+
+- Het geheugen maakt de test onbruikbaar als meting: bij drie van de twaalf antwoorden (5, 6, 7) spreekt ChatGPT Jarno aan als eigenaar van Waar blijft het of gebruikt hij gegevens over zijn gezin. Dat bevestigt de waarschuwing van 7 september en de keuze om de AI-test uitgelogd te doen.
+- Ook met dat geheugen noemt ChatGPT de Geldscan als aanbieder alleen bij vraag 4, net als uitgelogd. Bij vraag 5 en 6 komt Waar blijft het ter sprake omdat ChatGPT weet dat Jarno de eigenaar is, niet als aanbeveling aan een zoeker.
+- **Nieuw bij vraag 4: drie aanbieders van een eenmalige check** die in de uitgelogde test niet voorkwamen: Budgetcoach Me (Financiële Check, 2,5 uur), Pien's Budgethulp (€153,67) en Personal Budgetcoach (Quick scan, €250). De prijzen zijn zoals ChatGPT ze op 25 september weergaf, niet door mij op de sites gecontroleerd. Het segment "eenmalig kijken" is dus niet leeg; dat past bij CLAUDE.md sectie 4 (segment bezet, geen onderscheid claimen op prijs of vorm).

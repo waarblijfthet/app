@@ -1292,6 +1292,10 @@ Geen van deze voorstellen is een besluit. Ze staan in volgorde in het onderzoeks
 
 **Tempo:** alles hierboven is een herschrijving van een bestaande pagina, geen nieuwe. Het voorstel is twee per week: wat-kost en verschil in de week van 5 oktober, N4 en `/financieel-coach` in de week van 12 oktober, H1 in de week van 19 oktober.
 
+### Aanvulling: ChatGPT ingelogd
+
+Op verzoek van Jarno dezelfde twaalf vragen in zijn eigen ChatGPT-account (tijdelijke chat). Bij drie van de twaalf spreekt ChatGPT Jarno aan als eigenaar of gebruikt hij gezinsgegevens uit het geheugen, dus dit telt niet als meting. De Geldscan wordt ook dan alleen bij de vraag naar eenmalig kijken genoemd, als vierde optie na Budgetcoach Me, Pien's Budgethulp en Personal Budgetcoach. Details in de aanvulling van het onderzoeksdocument.
+
 ### Nieuwe waarheidsschuld
 
 - `wat-kost-een-financieel-coach`: "€60 tot €150 per uur" en "€250 tot €800" staan zonder bron. Perplexity en ChatGPT geven ze door met Waar blijft het als bron.
