@@ -151,6 +151,19 @@ import {
 } from "./bruto-netto-referentie";
 import { ZORG_2027 } from "./prinsjesdag-2027";
 import {
+  AANTAL_AANBIEDERS,
+  BAND_EENMALIG,
+  BAND_TRAJECT,
+  BAND_UUR,
+  TARIEVEN_OPGEHAALD_TEKST,
+  euroTarief,
+  euroOngeveer,
+  BRON_GEMEENTE_OSS,
+  BRON_REGELHULP,
+  BRON_VERGOEDINGEN_PERSONAL,
+} from "./budgetcoach-tarieven";
+import { PAKKET_INFO } from "./aanbod-content";
+import {
   grensPerMaandNlRond,
   grensPerMaandBinnenTypeRond,
   aandeelMetMeerNl,
@@ -1004,51 +1017,55 @@ export const artikelen: Artikel[] = [
       secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
       secundairHref: GELDSCAN_ROUTE,
     },
-    titel: "Kan iemand naar mijn financiën kijken zonder dat ik schulden heb?",
-    korteTitel: "Naar je financiën laten kijken",
-    metaTitel: "Iemand naar je financiën laten kijken zonder schulden",
-    metaDescription:
-      "Ja. Vier opties naast elkaar: schuldhulp via de gemeente, budgetcoach, financieel planner en de Geldscan van \u20ac49. Met een keuzehulp van drie vragen en de vijf geleverde rapporten als bewijs.",
+    titel: "Budgetcoach zonder schulden: kan dat, en wat kost het?",
+    korteTitel: "Budgetcoach zonder schulden",
+    metaTitel: "Budgetcoach zonder schulden: kan dat, en wat kost het?",
+    metaDescription: `Ja. Sommige gemeenten bieden budgetcoaching gratis aan, ook zonder schulden. Betaald kost een losse check ${euroTarief(BAND_EENMALIG.min)} tot ${euroTarief(Math.round(BAND_EENMALIG.max))}. Met tarieven van ${AANTAL_AANBIEDERS} aanbieders.`,
+    gewijzigd: "2026-09-25",
     datum: "2026-09-06",
     datumFormatted: "6 september 2026",
     leestijd: "7",
     categorie: "Financieel advies",
     excerpt:
-      "Het aanbod in Nederland is of schuldhulp of advies over producten. Wie rondkomt en toch weinig overhoudt, valt bij beide buiten de instap. Wat er wel is, wat het kost en bij welke van de vier je moet zijn.",
+      "Een budgetcoach is niet alleen voor schulden. Wat het kost als je gewoon rondkomt, waar het gratis kan, of iemand eenmalig naar je uitgaven kan kijken, en welke van vier soorten hulp bij jou past.",
     preview: {
       type: "pijn",
       label: "Vier soorten hulp, vier verschillende vragen",
       items: [
-        "Schulden die je niet kunt betalen \u2192 gemeente, kosteloos",
+        "Schulden of achterstanden \u2192 gemeente, kosteloos",
+        "Begeleiding over een paar maanden \u2192 budgetcoach",
         "Een product afsluiten \u2192 adviseur met AFM-vergunning",
         "Weten waar je geld blijft \u2192 vergelijking en rapport",
       ],
     },
     faq: [
       {
-        vraag: "Wie kan mij helpen met overzicht in mijn geld zonder dat ik schulden heb?",
+        vraag: "Kan ik een budgetcoach inschakelen als ik geen schulden heb?",
         antwoord:
-          "Een budgetcoach als je begeleiding over meerdere maanden wilt, een financieel planner als je voor een keuze over een product staat, en voor de vraag waar je maandgeld blijft een vergelijking van je uitgaven met vergelijkbare huishoudens. Schuldhulpverlening via de gemeente is kosteloos maar begint bij een achterstand, dus die valt af als er niets misgaat. Je hoeft geen probleem te hebben om te mogen vragen waar je geld blijft.",
+          "Ja. Een budgetcoach helpt je overzicht te krijgen in je inkomsten en uitgaven, en daar hoef je geen schulden voor te hebben. Sommige gemeenten bieden budgetcoaching aan voor iedere inwoner, ongeacht het inkomen; de gemeente Oss is daar een voorbeeld van. Daarnaast kun je zelf een betaalde budgetcoach inhuren. Je houdt zelf de regie; de coach kijkt mee en neemt niets over.",
       },
       {
-        vraag: "Wat is het verschil tussen een budgetcoach en een geldscan?",
-        antwoord:
-          "Een budgetcoach begeleidt je over een periode, met een reeks gesprekken en een sluitende begroting; je betaalt per uur of per pakket. Een Geldscan is eenmalig: ik vergelijk je uitgaven met vergelijkbare huishoudens en schrijf met de hand een rapport met de drie dingen die het meest opvallen, plus wat juist niet uit de toon valt. Geen begeleiding, geen abonnement. Wie iemand wil die meekijkt en erop houdt, is bij een coach beter af.",
+        vraag: "Wat kost een budgetcoach als je geen schulden hebt?",
+        antwoord: `Hetzelfde als elke andere budgetcoach: het hangt af van wat je afneemt. In een steekproef van ${AANTAL_AANBIEDERS} aanbieders, opgehaald op ${TARIEVEN_OPGEHAALD_TEKST}, kost een losse check ${euroTarief(BAND_EENMALIG.min)} tot ongeveer ${euroOngeveer(BAND_EENMALIG.max)}, een traject van een paar maanden ${euroTarief(BAND_TRAJECT.min)} tot ongeveer ${euroOngeveer(BAND_TRAJECT.max)}, en per uur ${euroTarief(BAND_UUR.min)} tot ${euroTarief(BAND_UUR.max)}. Via sommige gemeenten is het gratis.`,
       },
       {
-        vraag: "Wat kost het om iemand naar je financiën te laten kijken?",
+        vraag: "Waar kan ik gratis een budgetcoach krijgen?",
         antwoord:
-          "Schuldhulpverlening via de gemeente is kosteloos. Een budgetcoach rekent ongeveer \u20ac60 tot \u20ac100 per uur, met pakketten vanaf circa \u20ac250. Bij een financieel planner betaal je advieskosten die je rechtstreeks afrekent, want ze mogen wettelijk niet in het product verwerkt zitten; het bedrag staat in de dienstenwijzer van het kantoor. Mijn Geldscan kost \u20ac49 en wordt binnen 2 werkdagen geleverd.",
+          "Bij sommige gemeenten, die budgetcoaching gratis aanbieden, soms ook als je geen schulden hebt. Via een vrijwilligersorganisatie, waar je gratis of voor een klein bedrag hulp krijgt bij je administratie en je inkomsten en uitgaven. En soms via je werkgever. Bij een deel van de betaalde budgetcoaches is het eerste gesprek gratis.",
+      },
+      {
+        vraag: "Wat is het verschil tussen budgetcoaching en budgetbeheer?",
+        antwoord:
+          "Bij budgetcoaching doe je het zelf en kijkt de coach mee. Bij budgetbeheer beheert een instantie je geld: je inkomen gaat naar een aparte rekening, de beheerder betaalt de vaste lasten en jij krijgt een afgesproken bedrag voor de dagelijkse uitgaven. Budgetbeheer hoort meestal bij schulden en kan door de gemeente verplicht worden. Wie rondkomt en wil weten waar het geld blijft, zoekt een budgetcoach.",
+      },
+      {
+        vraag: "Kan iemand eenmalig naar mijn uitgaven kijken zonder traject?",
+        antwoord: `Ja. ${BAND_EENMALIG.aantalAanbieders} van de ${AANTAL_AANBIEDERS} budgetcoaches in mijn steekproef hebben een losse check, onder namen als quick scan of financiële check, voor ${euroTarief(BAND_EENMALIG.min)} tot ongeveer ${euroOngeveer(BAND_EENMALIG.max)}. Wil je je uitgaven naast vergelijkbare huishoudens zien, dan kan dat met de gratis analyse op deze site; daarna schrijf ik op verzoek een rapport voor ${PAKKET_INFO.geldscan.prijs}.`,
       },
       {
         vraag: "Is het veilig om bankafschriften te delen?",
         antwoord:
-          "Afschriften zijn bij mij optioneel: de vragenlijst werkt ook op bedragen per post. Stuur je ze wel, streep dan rekeningnummers, namen van anderen en betalingen die er niet bij hoeven weg; dat deed het huishouden van het eerste rapport ook. Ik vraag nooit om inloggegevens van je bank en koppel nooit een rekening. Na levering verwijder ik wat je hebt aangeleverd, en dat doe ik met de hand, niet automatisch.",
-      },
-      {
-        vraag: "Kan dit ook online en zonder dat ik iemand hoef te spreken?",
-        antwoord:
-          "Ja, het hele traject gaat per e-mail en er komt geen gesprek aan te pas tenzij je dat zelf wilt. De gratis analyse doe je zonder account en zonder je naam. Voor de Geldscan heb ik alleen een voornaam en een e-mailadres nodig om het betaalverzoek te sturen; je cijfers vraag ik pas na de betaling. Volledig anoniem kan niet, want ik moet het rapport ergens naartoe kunnen sturen.",
+          "Afschriften zijn bij mij optioneel: de vragenlijst werkt ook op bedragen per post. Stuur je ze wel, streep dan rekeningnummers, namen van anderen en betalingen die er niet bij hoeven weg. Ik vraag nooit om inloggegevens van je bank en koppel nooit een rekening. Je afschriften verwijder ik na levering van het rapport, met de hand; wat ik verder bewaar staat in de privacyverklaring.",
       },
     ],
     externLinks: [
@@ -1061,11 +1078,15 @@ export const artikelen: Artikel[] = [
         url: "https://www.afm.nl/nl-nl/consumenten/themas/financieel-advies",
       },
       {
-        label: "Eigen pagina met de tarieven van coaches en de bronnen daaronder, gepubliceerd 2 juli 2026",
-        url: "https://www.waarblijfthet.nl/inzichten/wat-kost-een-financieel-coach",
+        label: `Gemeente Oss: budgetcoaching voor iedere inwoner, ook zonder schulden (opgehaald ${TARIEVEN_OPGEHAALD_TEKST})`,
+        url: BRON_GEMEENTE_OSS,
       },
       {
-        label: "De vijf geleverde rapporten, compleet en met bedragen",
+        label: `Regelhulp (VWS): budgetcoach, budgetbeheer en hulp van een vrijwilliger (opgehaald ${TARIEVEN_OPGEHAALD_TEKST})`,
+        url: BRON_REGELHULP,
+      },
+      {
+        label: "De geleverde rapporten, compleet en met bedragen",
         url: "https://www.waarblijfthet.nl/rapporten",
       },
     ],
@@ -2228,117 +2249,134 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "wat-kost-een-financieel-coach",
-    korteTitel: "Wat kost een financieel coach?",
-    titel: "Wat kost een financieel coach? Tarieven in 2026",
-    metaTitel: "Wat kost een financieel coach? Tarieven 2026",
+    korteTitel: "Wat kost een budgetcoach?",
+    titel: "Wat kost een budgetcoach? Tarieven in 2026",
+    metaTitel: `Budgetcoach kosten 2026: tarieven van ${AANTAL_AANBIEDERS} aanbieders`,
     metaDescription:
-      "Een financieel coach kost gemiddeld €60 tot €150 per uur, een traject €250 tot €800. Bekijk alle tarieven, wanneer het zich terugverdient en de gratis alternatieven.",
-    gewijzigd: "2026-09-06",
+      `Wat kost een budgetcoach? Bij ${AANTAL_AANBIEDERS} aanbieders: eenmalige check ${euroTarief(BAND_EENMALIG.min)} tot ${euroTarief(Math.round(BAND_EENMALIG.max))}, traject ${euroTarief(BAND_TRAJECT.min)} tot ${euroTarief(Math.round(BAND_TRAJECT.max))}. Plus wie het betaalt en wanneer het gratis is.`,
+    gewijzigd: "2026-09-25",
     datum: "2026-07-02",
     datumFormatted: "2 juli 2026",
     leestijd: "6",
     categorie: "Financieel advies",
     excerpt:
-      "Uurtarieven van €60 tot €150, trajecten tot €800. Maar de duurste coach is de 'gratis' adviseur met provisiebelang. Wat je echt betaalt, wanneer het loont en wanneer kosteloze hulp slimmer is.",
+      `De gepubliceerde prijzen van ${AANTAL_AANBIEDERS} budgetcoaches naast elkaar: een eenmalige check, een traject en een uurtarief. Met wie het kan betalen en bij welke gemeente budgetcoaching gratis is, ook zonder schulden.`,
     preview: {
       type: "vergelijking",
-      label: "Kosten financiële hulp vergelijken",
+      label: "Wat een budgetcoach kost",
       items: [
-        { naam: "Coachingtraject (marktprijs)", bedrag: 800, kleur: "#B03A2E" },
-        { naam: "Eenmalig adviesgesprek", bedrag: 125, kleur: "#0B7A6E" },
+        { naam: "Eenmalige check, tot", bedrag: Math.round(BAND_EENMALIG.max), kleur: "#0B7A6E" },
+        { naam: "Traject, tot", bedrag: Math.round(BAND_TRAJECT.max), kleur: "#B03A2E" },
       ],
-      noot: "Traject €250 tot €800 vs. één gericht gesprek van €125",
+      noot: `Hoogste prijs incl. btw bij ${AANTAL_AANBIEDERS} aanbieders, ${TARIEVEN_OPGEHAALD_TEKST}`,
     },
     faq: [
       {
-        vraag: "Wat kost een financieel coach per uur?",
-        antwoord:
-          "Een financieel coach kost in Nederland gemiddeld €60 tot €150 per uur. Coaches in grote steden of met een specialisatie zitten aan de bovenkant. Veel coaches werken ook met vaste pakketten, van circa €250 voor enkele gesprekken tot €800 of meer voor een volledig traject.",
-      },
-      {
         vraag: "Wat kost een budgetcoach per uur?",
         antwoord:
-          "Een budgetcoach rekent doorgaans €60 tot €100 per uur, vaak inclusief btw. Een kennismakingsgesprek is meestal gratis. Bij geldproblemen of schulden is budgetcoaching via de gemeente kosteloos, en steeds meer werkgevers vergoeden een budgetcoach voor hun medewerkers.",
+          `Bij de ${BAND_UUR.aantalAanbieders} aanbieders die een los uurtarief noemen, kost een budgetcoach ${euroTarief(BAND_UUR.min)} tot ${euroTarief(BAND_UUR.max)} per uur. De meeste budgetcoaches werken liever met een pakket, omdat vooraf niet duidelijk is hoeveel uur je nodig hebt. Prijzen opgehaald op ${TARIEVEN_OPGEHAALD_TEKST}.`,
       },
       {
-        vraag: "Wordt een financieel coach vergoed?",
+        vraag: "Wat kost een budgetcoachtraject?",
         antwoord:
-          "Soms. Steeds meer werkgevers vergoeden een budgetcoach of geldcoach, vraag ernaar bij HR. Bij schulden of betalingsachterstanden is hulp via de gemeente gratis. Een financieel coach voor privézaken is voor particulieren niet aftrekbaar van de belasting.",
+          `Een traject van een paar maanden kost bij de ${BAND_TRAJECT.aantalAanbieders} aanbieders met een trajectprijs ${euroTarief(BAND_TRAJECT.min)} tot ongeveer ${euroOngeveer(BAND_TRAJECT.max)} inclusief btw. Het verschil zit in het aantal gesprekken, de duur en of het online of aan huis gebeurt. Prijzen opgehaald op ${TARIEVEN_OPGEHAALD_TEKST}.`,
       },
       {
-        vraag: "Is er een gratis alternatief voor een financieel coach?",
+        vraag: "Wat kost een eenmalige check bij een budgetcoach?",
         antwoord:
-          "Ja. Bij geldproblemen helpen de gemeente en Geldfit kosteloos. Wil je vooral zelf inzicht, dan kun je gratis rekentools van het Nibud gebruiken of een analyse doen die je uitgaven vergelijkt met vergelijkbare huishoudens. Verdien je goed maar houd je structureel weinig over, dan is er weinig gratis aanbod: die groep valt tussen schuldhulp en vermogensadvies in.",
+          `Bij ${BAND_EENMALIG.aantalAanbieders} van de ${AANTAL_AANBIEDERS} aanbieders kost een losse check of een enkel gesprek ${euroTarief(BAND_EENMALIG.min)} tot ongeveer ${euroOngeveer(BAND_EENMALIG.max)} inclusief btw. Soms is het alleen een gesprek, soms krijg je er een budgetplan of jaarplan bij.`,
       },
       {
-        vraag: "Wanneer verdient een financieel coach zich terug?",
+        vraag: "Is een budgetcoach gratis?",
         antwoord:
-          "Zodra één structurele weglek wordt gevonden. Een dubbele verzekering van €40 per maand of €150 per maand te veel aan boodschappen verdient een gesprek van €125 binnen enkele maanden terug. Op deze site staan vijf echte rapporten met de evaluatie van de klant erbij; bij twee van de vijf was de uitkomst dat er niets te repareren viel.",
+          "Soms. Bij sommige gemeenten is budgetcoaching gratis, en niet altijd alleen bij schulden: de gemeente Oss schrijft dat het niet uitmaakt of je weinig of veel verdient. Vraag het bij je eigen gemeente. Bij een commerciële budgetcoach betaal je zelf, al is de kennismaking bij een deel van hen gratis.",
+      },
+      {
+        vraag: "Wie betaalt een budgetcoach?",
+        antwoord:
+          "Meestal betaal je zelf. Aanbieders noemen ook de werkgever (via de werkkostenregeling of een opleidingsbudget), de gemeente (een eigen budgetcoach, de Wmo of bijzondere bijstand) en een persoonsgebonden budget. Of dat voor jou geldt, hangt af van je werkgever, je gemeente en je situatie.",
       },
     ],
     externLinks: [
       {
-        label: "Nibud: inzicht in je uitgaven en rekentools",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
+        label: "Gemeente Oss: budgetcoaching is gratis, ook bij een goed inkomen",
+        url: BRON_GEMEENTE_OSS,
       },
       {
-        label: "Geldfit, kosteloze hulp bij geldzorgen",
-        url: "https://geldfit.nl",
+        label: "Regelhulp (ministerie van VWS): hulp bij geldzaken",
+        url: BRON_REGELHULP,
+      },
+      {
+        label: "Personal Budgetcoach: mogelijke vergoedingen",
+        url: BRON_VERGOEDINGEN_PERSONAL,
       },
     ],
   },
   {
     slug: "verschil-budgetcoach-financieel-coach",
-    korteTitel: "Budgetcoach of financieel coach?",
-    titel: "Budgetcoach of financieel coach: het verschil en wat bij jou past",
-    metaTitel: "Verschil budgetcoach en financieel coach uitgelegd",
+    korteTitel: "Budgetcoach, geldcoach of financieel coach?",
+    titel: "Budgetcoach, geldcoach of financieel coach: wie doet wat?",
+    metaTitel: "Budgetcoach, geldcoach of financieel coach: wie doet wat?",
     metaDescription:
-      "Een budgetcoach helpt bij geldproblemen en schulden, een financieel coach als je genoeg verdient maar weinig overhoudt. Zo kies je de juiste hulp, met kosten per optie.",
-    gewijzigd: "2026-09-06",
+      "Wat doet een budgetcoach, wat is een geldcoach, en wanneer heb je een financieel coach of een Wft-adviseur nodig? Het verschil in één tabel, en welke bij jou past.",
+    gewijzigd: "2026-09-25",
     datum: "2026-07-02",
     datumFormatted: "2 juli 2026",
     leestijd: "6",
     categorie: "Financieel advies",
     excerpt:
-      "Budgetcoach, geldcoach, financieel coach, financieel adviseur: vier termen die door elkaar lopen. Toch bepaalt het verschil of hulp gratis kan zijn en of je aan het juiste adres bent.",
+      "Budgetcoach, geldcoach, financieel coach, financieel adviseur: vier termen die door elkaar lopen. Wat elk doet, wie betaalt, en waarom een budgetcoach niet alleen voor schulden is.",
     preview: {
       type: "pijn",
       label: "Welke hulp past bij welke situatie?",
       items: [
-        "Schulden of achterstanden → budgetcoach, gratis via gemeente",
-        "Goed inkomen, toch niets over → financieel coach",
-        "Hypotheek of beleggen → Wft-adviseur",
-        "Eerst zelf inzicht → analyse",
+        "Schulden of achterstanden \u2192 schuldhulp via de gemeente",
+        "Overzicht kwijt, geen schulden \u2192 budgetcoach",
+        "Hypotheek of beleggen \u2192 Wft-adviseur",
+        "Eerst zelf inzicht \u2192 analyse",
       ],
     },
     faq: [
       {
-        vraag: "Wat is het verschil tussen een geldcoach en een financieel coach?",
+        vraag: "Wat doet een budgetcoach?",
         antwoord:
-          "In de praktijk niets: geldcoach en financieel coach zijn twee namen voor dezelfde rol, iemand die je helpt met inzicht en grip op je dagelijkse geldzaken. Geen van beide titels is beschermd. Kijk daarom naar werkwijze en verdienmodel in plaats van naar de naam.",
+          "Een budgetcoach helpt je je inkomsten en uitgaven op een rij te zetten, je administratie bij te houden en te zien waar ruimte zit. De coach neemt niets over maar helpt je het zelf te doen. Dat kan met schulden, maar ook zonder: sommige gemeenten bieden budgetcoaching aan voor iedere inwoner, ongeacht het inkomen.",
       },
       {
-        vraag: "Wat doet een budgetcoach precies?",
+        vraag: "Wat is een geldcoach?",
         antwoord:
-          "Een budgetcoach helpt bij geldproblemen: administratie ordenen, betalingsachterstanden aanpakken, een haalbaar budget maken en waar nodig doorverwijzen naar schuldhulpverlening. De focus ligt op rondkomen en het voorkomen of oplossen van schulden.",
+          "Een andere naam voor een financieel coach: iemand die je helpt met inzicht en grip op je geldzaken. Het woord zegt niets over de werkwijze, en geen van beide titels is beschermd. Vraag daarom wat je krijgt, hoe lang het duurt en wat het kost.",
       },
       {
-        vraag: "Is een budgetcoach gratis?",
+        vraag: "Wat is het verschil tussen een budgetcoach en een financieel coach?",
         antwoord:
-          "Vaak wel. Bij geldproblemen of schulden bieden gemeenten kosteloze budgetcoaching en schuldhulp, en steeds meer werkgevers vergoeden een budgetcoach. Huur je zelf een particuliere budgetcoach in, dan betaal je doorgaans €60 tot €100 per uur.",
+          "Een budgetcoach richt zich op overzicht in je inkomsten, uitgaven en administratie. Een financieel coach kijkt meestal verder vooruit: wat je met je geld wilt en welke keuzes eraan komen. In de praktijk lopen de termen door elkaar en doen sommige coaches beide. Het grootste praktische verschil is wie betaalt: budgetcoaching is via sommige gemeenten gratis, een financieel coach betaal je meestal zelf.",
+      },
+      {
+        vraag: "Is budgetcoaching hetzelfde als budgetbeheer?",
+        antwoord:
+          "Nee. Bij budgetcoaching doe je het zelf en kijkt de coach mee. Bij budgetbeheer beheert een instantie je geld: je inkomen gaat naar een aparte rekening en de beheerder betaalt de vaste lasten. Budgetbeheer hoort meestal bij schulden.",
       },
       {
         vraag: "Wanneer heb ik een schuldhulpverlener nodig in plaats van een coach?",
         antwoord:
-          "Zodra je rekeningen niet meer kunt betalen of achterstanden oplopen. Schuldhulpverlening via de gemeente is gratis en heeft wettelijke mogelijkheden die een coach niet heeft, zoals een schuldregeling. Wacht er niet mee: hoe eerder je aanklopt, hoe meer er mogelijk is.",
+          "Zodra je rekeningen niet meer kunt betalen of achterstanden oplopen. Schuldhulpverlening via de gemeente is gratis en heeft mogelijkheden die een coach niet heeft, zoals een schuldregeling. Hoe eerder je aanklopt, hoe meer er mogelijk is.",
       },
       {
         vraag: "Heb ik een coach of een financieel adviseur nodig?",
         antwoord:
-          "Dat hangt van je vraag af. Voor producten zoals een hypotheek, pensioen of beleggingen heb je een financieel adviseur met Wft-vergunning nodig. Voor de vraag waarom er elke maand te weinig overblijft, is een financieel coach passender en aanzienlijk goedkoper.",
+          "Dat hangt van je vraag af. Voor producten zoals een hypotheek, pensioen, verzekering of beleggingen heb je een financieel adviseur met Wft-vergunning nodig. Voor de vraag waarom er elke maand te weinig overblijft, heb je geen Wft-adviseur nodig.",
       },
     ],
     externLinks: [
+      {
+        label: `Regelhulp (VWS): budgetcoach, budgetbeheer en hulp van een vrijwilliger (opgehaald ${TARIEVEN_OPGEHAALD_TEKST})`,
+        url: BRON_REGELHULP,
+      },
+      {
+        label: `Gemeente Oss: budgetcoaching voor iedere inwoner (opgehaald ${TARIEVEN_OPGEHAALD_TEKST})`,
+        url: BRON_GEMEENTE_OSS,
+      },
       {
         label: "Geldfit, check welke kosteloze hulp bij jou past",
         url: "https://geldfit.nl",
@@ -4621,7 +4659,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Twee inkomens, samen €6.000 netto, en toch groeit het spaargeld niet. Bij twee echte huishoudens op dit niveau bleek er geen lek te zijn. Wat er dan wel speelt.",
     datum: "2026-07-30",
-    gewijzigd: "2026-09-24",
+    gewijzigd: "2026-09-25",
     datumFormatted: "30 juli 2026",
     leestijd: "8",
     categorie: "Inkomen",
@@ -4700,7 +4738,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "€4.000 netto ligt ruim boven modaal (€3.030 netto in 2026). Wat je overhoudt hangt af van je huishouden: alleen ruim €600, met twee kinderen bijna niets. Reken je eigen situatie door.",
     datum: "2026-05-21",
-    gewijzigd: "2026-09-24",
+    gewijzigd: "2026-09-25",
     datumFormatted: "21 mei 2026",
     leestijd: "6",
     categorie: "Inkomen",

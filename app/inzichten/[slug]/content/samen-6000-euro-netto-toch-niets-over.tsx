@@ -277,6 +277,11 @@ export default function Samen6000EuroNettoTochNietsOver() {
         begroting doorgerekend van €3.500 tot €6.500 netto in{" "}
         <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
       </p>
+      <p className="font-body text-text-soft" style={p}>
+        Liever iemand die een paar maanden met jullie meekijkt? Dat kan ook zonder schulden; wat daar
+        bestaat en wat het kost, staat in{" "}
+        <Link href="/inzichten/kan-iemand-naar-mijn-financien-kijken" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">budgetcoach zonder schulden</Link>.
+      </p>
     </>
   );
 }

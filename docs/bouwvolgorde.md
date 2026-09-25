@@ -4,7 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 25 september, derde sessie: het plan uit sectie 32 is gebouwd, op "akkoord, voer alles nu direct uit" van Jarno, zie sectie 33.** Verzonnen case uit wat-kost-een-financieel-adviseur weg (commit bafa14b). Eigen tarievenonderzoek bij 10 aanbieders in `lib/budgetcoach-tarieven.ts`; wat-kost-een-financieel-coach, N4 en het verschil-artikel herschreven op de coachtermen; `/financieel-coach` nieuwe H1, title en FAQ; inkomende links met de ankertekst "budgetcoach zonder schulden". **Jarno: pushen, en daarna de vijf URL's uit sectie 33 in GSC laten herindexeren.** Geen productiebuild gedraaid (kan niet op dit apparaat), wel tsc schoon en een serverrender van de drie artikelen zonder fouten.
 
 **Update 25 september, tweede sessie: plan om op de coachtermen te ranken, op verzoek van Jarno, zie `docs/plan-coach-termen-ranken-25-sep-2026.md` en sectie 32.** Vier herschrijvingen op bestaande URL's (N4 op "budgetcoach zonder schulden", wat-kost op "wat kost een budgetcoach" met een eigen tarievenonderzoek, het verschil-artikel op "wat doet een budgetcoach / geldcoach", de H1 van `/financieel-coach`) en één voorwaardelijke nieuwe pagina (een echt klantverhaal). **Gevonden en als eerste te doen: `wat-kost-een-financieel-adviseur` bevat een verzonnen klantcase ("Lisanne en Thijs", "€380/mnd bespaard") die niet in `rapporten-data` staat en niet als illustratie gelabeld is.** Wacht op akkoord van Jarno.
 
@@ -1325,3 +1327,45 @@ Op verzoek van Jarno, na sectie 30 en 31. Volledig plan: `docs/plan-coach-termen
 - **Waarheidsfout live:** verzonnen case "Lisanne en Thijs" op `wat-kost-een-financieel-adviseur`, met een beloofde besparing. Ook: het adviesgesprek van €125 in de metaDescription daar (CLAUDE.md 5), en "eerlijk" in het verschil-artikel en op wat-kost (copyregel 6).
 - Voorgestelde volgorde: case eruit (dag 1), tarievenonderzoek, wat-kost en N4 (week 1), verschil en `/financieel-coach` (week 2).
 - Open voor Jarno: akkoord op het plan; Geldscan wel of niet in het antwoordblok van N4 (CLAUDE.md 5); samenvoegen van de twee adviseurspagina's bij de contentkill van 5 december.
+
+## 33. Plan coachtermen gebouwd, 25 september 2026
+
+Opdracht van Jarno: "akkoord, voer alles nu direct uit", het plan uit sectie 32 en `docs/plan-coach-termen-ranken-25-sep-2026.md`. Buiten de tempo-regel om: geen nieuwe pagina's, alleen herschrijvingen op bestaande URL's.
+
+### Bronnen, geopend op 25 september 2026
+
+- De tarievenpagina's van 10 budgetcoaches, per rij met URL in `lib/budgetcoach-tarieven.ts`.
+- Gemeente Oss, budgetcoaching: voor iedere inwoner vanaf 18, "weinig of veel verdient", "altijd gratis", je houdt zelf de regie.
+- Regelhulp (VWS), hulp bij geldzaken: de budgetcoach neemt niets over; budgetbeheer betekent dat een instantie je geld beheert; vrijwilligers helpen gratis of voor een klein bedrag.
+- Personal Budgetcoach (vergoedingen) en Hermans (wie betaalt), voor werkgever, gemeente en PGB als betaler.
+
+### Wat er gebouwd is
+
+1. **wat-kost-een-financieel-adviseur** (commit bafa14b): de verzonnen case Lisanne en Thijs met VoorNa-tabel weg, nieuwe hook, metaDescription zonder het adviesgesprek.
+2. **`lib/budgetcoach-tarieven.ts`** (nieuw): 24 tarieven van 10 aanbieders, btw per rij, bandbreedtes berekend (excl. btw wordt maal 1,21). Elke pagina haalt de bedragen hier vandaan; niets met de hand getypt.
+3. **wat-kost-een-financieel-coach**: titel "Wat kost een budgetcoach? Tarieven in 2026", metaTitel "Budgetcoach kosten 2026: tarieven van 10 aanbieders". Tabellen per soort (eenmalig, traject, uur), H2's op de PAA-vragen (is een budgetcoach gratis, wie betaalt), vijf berekende FAQ's.
+4. **N4 kan-iemand-naar-mijn-financien-kijken**: titel en metaTitel "Budgetcoach zonder schulden: kan dat, en wat kost het?". Antwoordblok variant A: de Geldscan met prijs maar zonder link; de enige Geldscan-link is het slotblok van page.tsx (de tweede, in de content, is weg). Nieuwe H2's: budgetbegeleiding zonder schulden (met het verschil met budgetbeheer), kosten, gratis, eenmalig kijken, goed inkomen. Opties-tabel met de berekende bandbreedtes. "Daarna verwijder ik je gegevens" gecorrigeerd naar wat de privacyverklaring zegt (afschriften na levering, met de hand). "De vier waar wel iets uitkwam" was fout (5 min 2 = 3) en is nu berekend. "Eerlijkste" weg.
+5. **verschil-budgetcoach-financieel-coach**: titel "Budgetcoach, geldcoach of financieel coach: wie doet wat?". De tegenspraak "budgetcoach = schulden" eruit, H2 "Wat is een geldcoach?" erbij, geen bedragen van anderen meer ("€60 tot €150", "€150 tot €300" weg), "eerlijke blik" weg, €125 uit PAKKET_INFO.
+6. **`/financieel-coach`**: H1 "Financieel coach voor wie goed verdient en toch weinig overhoudt", title "Financieel coach bij een goed inkomen, zonder schulden", FAQ "Is er een financieel coach voor mensen met een hoger inkomen?", de bandbreedtes zonder bron vervangen, de budgetcoach-FAQ gecorrigeerd, "eerlijk" weg, link naar N4.
+7. **Inkomende links** met ankertekst "budgetcoach zonder schulden" naar N4: vanuit wat-kost, het verschil-artikel, `/financieel-coach`, samen-6000-euro-netto-toch-niets-over en is-4000-euro-netto-goed-salaris-nederland. `gewijzigd` op 2026-09-25 bij alle zes artikelen.
+
+### Controle
+
+`npx tsc --noEmit --incremental false` schoon. Geen NUL of CR, geen em dashes, geen " - ", geen "eerlijk", geen wij/we in de toegevoegde regels. De oude bandbreedtes staan alleen nog in commentaar. metaTitels 46 tot 59 tekens. De drie artikelen zonder fouten gerenderd met react-dom/server (geen undefined of NaN in de tekst). Geen productiebuild.
+
+### Wat Jarno moet doen
+
+1. Pushen.
+2. In GSC herindexeren: `/inzichten/wat-kost-een-financieel-coach`, `/inzichten/kan-iemand-naar-mijn-financien-kijken`, `/inzichten/verschil-budgetcoach-financieel-coach`, `/financieel-coach`, `/inzichten/wat-kost-een-financieel-adviseur`.
+3. Beslissen over de open punten hieronder.
+
+### Open, niet in deze ronde
+
+- wat-kost-een-financieel-adviseur: de KostenVergelijker rekent nog tegen het adviesgesprek van €125, en "€150 tot €300 per uur" voor een Wft-adviseur heeft geen bron.
+- `/financieel-coach` toont het adviesgesprek van €125 en het traject van €497 in de tarievenlijst. Dat botst met de regel dat het adviesgesprek nooit als prijskaart verschijnt; het traject van €497 staat niet in PAKKET_INFO en is met de hand getypt.
+- financieel-onafhankelijk-worden-realistisch noemt een stel met de naam Thomas en concrete bedragen. Nagaan of dat een echt rapport is; zo niet, dan is het dezelfde soort verzonnen case.
+- samen-6000-euro-netto-toch-niets-over heeft een Geldscan-CtaLink in de content, naast het slotblok.
+
+### Meten
+
+Na 28 dagen in GSC: "budgetcoach zonder schulden", "wat kost een budgetcoach", "budgetcoach kosten", "wat doet een budgetcoach", "geldcoach", "financieel coach". Let op cannibalisatie tussen N4 en wat-kost; de scheiding is prijs (wat-kost) tegenover "is het iets voor mij" (N4).

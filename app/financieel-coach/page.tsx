@@ -6,14 +6,33 @@ import CtaLink from "@/components/CtaLink";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import { FinancieelCoachAccordion } from "./components/FinancieelCoachAccordion";
 import { geldscanHref } from "@/lib/cta";
+import { PAKKET_INFO } from "@/lib/aanbod-content";
+import {
+  BAND_EENMALIG,
+  BAND_TRAJECT,
+  BAND_UUR,
+  AANTAL_AANBIEDERS,
+  TARIEVEN_OPGEHAALD_TEKST,
+  euroTarief,
+  euroOngeveer,
+} from "@/lib/budgetcoach-tarieven";
+
+/*
+ * 25-sep-2026 (plan: docs/plan-coach-termen-ranken-25-sep-2026.md, item 5):
+ * H1 en title op "financieel coach bij een goed inkomen", een FAQ over hoger
+ * inkomen erbij, de bandbreedtes zonder bron (€60 tot €150 per uur, €250 tot
+ * €800) vervangen door de tarieven uit lib/budgetcoach-tarieven.ts, en de
+ * budgetcoach niet langer als "alleen voor schulden" neergezet.
+ */
+const MARKT_TARIEVEN = `Budgetcoaches rekenen in mijn steekproef van ${AANTAL_AANBIEDERS} aanbieders (opgehaald op ${TARIEVEN_OPGEHAALD_TEKST}) ${euroTarief(BAND_UUR.min)} tot ${euroTarief(BAND_UUR.max)} per uur, ${euroTarief(BAND_EENMALIG.min)} tot ongeveer ${euroOngeveer(BAND_EENMALIG.max)} voor een losse check en ${euroTarief(BAND_TRAJECT.min)} tot ongeveer ${euroOngeveer(BAND_TRAJECT.max)} voor een traject.`;
 
 export const metadata: Metadata = {
-  title: "Financieel coach nodig? Online, vanaf gratis, geen traject verplicht",
+  title: "Financieel coach bij een goed inkomen, zonder schulden",
   description:
-    "Financieel coach voor wie goed verdient en toch weinig overhoudt. Doe eerst de gratis analyse, kies daarna zelf voor een geldrapport van €49 of een adviesgesprek. Online, heel Nederland.",
+    `Financieel coach voor wie goed verdient en toch weinig overhoudt, zonder schulden. Doe eerst de gratis analyse, kies daarna zelf voor een geldrapport van ${PAKKET_INFO.geldscan.prijs} of een adviesgesprek. Online, heel Nederland.`,
   alternates: { canonical: "https://www.waarblijfthet.nl/financieel-coach" },
   openGraph: {
-    title: "Financieel coach nodig? Online, vanaf gratis, geen traject verplicht",
+    title: "Financieel coach bij een goed inkomen, zonder schulden",
     description:
       "Financieel coach voor wie goed verdient en toch weinig overhoudt. Doe eerst de gratis analyse, kies daarna zelf een vervolgstap.",
     url: "https://www.waarblijfthet.nl/financieel-coach",
@@ -31,12 +50,12 @@ const faq = [
   {
     vraag: "Wat kost een financieel coach?",
     antwoord:
-      "In Nederland kost een financieel coach gemiddeld €60 tot €150 per uur, en een compleet traject al snel €250 tot €800. Bij mij werkt het anders: de analyse kost je niets, een geldrapport over jouw cijfers €49 eenmalig, een adviesgesprek van 45 minuten €125 eenmalig en een persoonlijk traject van 3 maanden €497. Geen uurtje-factuurtje en geen abonnement.",
+      `${MARKT_TARIEVEN} Bij mij werkt het anders: de analyse kost je niets, een geldrapport over jouw cijfers ${PAKKET_INFO.geldscan.prijs} eenmalig, een adviesgesprek van 45 minuten ${PAKKET_INFO.gesprek.prijs} eenmalig en een persoonlijk traject van 3 maanden €497. Geen uurtje-factuurtje en geen abonnement.`,
   },
   {
     vraag: "Wat is het verschil tussen een budgetcoach en een financieel coach?",
     antwoord:
-      "Een budgetcoach helpt vooral mensen met geldproblemen of schulden: administratie op orde, betalingsachterstanden, rondkomen van een krap budget. Een financieel coach richt zich op mensen die genoeg verdienen maar toch weinig overhouden en meer grip willen. Heb je schulden, dan is een budgetcoach of kosteloze hulp via je gemeente passender.",
+      "Een budgetcoach helpt je overzicht te krijgen in je inkomsten, uitgaven en administratie, met of zonder schulden; sommige gemeenten bieden het gratis aan voor iedere inwoner. Een financieel coach kijkt meestal verder vooruit: wat je met je geld wilt en welke keuzes eraan komen. De termen lopen door elkaar. Heb je schulden of achterstanden, begin dan bij de kosteloze schuldhulp van je gemeente.",
   },
   {
     vraag: "Wat is het verschil tussen een geldcoach en een financieel coach?",
@@ -61,7 +80,12 @@ const faq = [
   {
     vraag: "Ik heb schulden of betalingsachterstanden. Ben ik hier aan het juiste adres?",
     antwoord:
-      "Nee, en dat zeg ik liever eerlijk vooraf. Bij schulden of achterstanden kun je gratis terecht bij je gemeente of via Geldfit. Mijn coaching is voor huishoudens die rond kunnen komen maar structureel minder overhouden dan zou moeten.",
+      "Nee, en dat zeg ik liever vooraf. Bij schulden of achterstanden kun je gratis terecht bij je gemeente of via Geldfit. Mijn coaching is voor huishoudens die rond kunnen komen maar structureel minder overhouden dan zou moeten.",
+  },
+  {
+    vraag: "Is er een financieel coach voor mensen met een hoger inkomen?",
+    antwoord:
+      "Ja. Ik werk voor huishoudens die goed verdienen, geen schulden hebben en toch structureel minder overhouden dan ze verwachten. Ik vergelijk jullie uitgaven post voor post met vergelijkbare huishoudens en schrijf op waar het verschil zit. Er zijn meer coaches die zich op hogere inkomens richten; vergelijk dus wat je krijgt en wat het kost. Wat ik lever, kun je vooraf lezen: de geleverde rapporten staan compleet op deze site.",
   },
   {
     vraag: "Wat levert een financieel coach op?",
@@ -182,10 +206,10 @@ export default function FinancieelCoachPage() {
               <div>
                 <p className="section-eyebrow mb-4">Financieel coach · online · heel Nederland</p>
                 <h1 className="font-display font-light text-primary text-4xl sm:text-5xl mb-5 leading-tight">
-                  Goed verdienen. Toch weinig over?
+                  Financieel coach voor wie goed verdient en toch weinig overhoudt
                 </h1>
                 <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-3">
-                  Je hebt geen schulden en je komt rond. Toch houd je structureel minder over
+                  Goed verdienen, toch weinig over? Je hebt geen schulden en je komt rond. Toch houd je structureel minder over
                   dan je verwacht, en je weet niet precies waarom.
                 </p>
                 <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-8">
@@ -467,9 +491,7 @@ export default function FinancieelCoachPage() {
               Wat kost een financieel coach?
             </h2>
             <p className="font-body font-light text-text-soft leading-relaxed mb-6">
-              De meeste financieel coaches en budgetcoaches in Nederland rekenen €60 tot €150
-              per uur, en trajecten kosten al snel €250 tot €800. Ik houd het simpel en vooraf
-              duidelijk:
+              {MARKT_TARIEVEN} Ik houd het simpel en vooraf duidelijk:
             </p>
             <div className="space-y-2 mb-6">
               {tarieven.map((t) => (
@@ -481,10 +503,14 @@ export default function FinancieelCoachPage() {
               ))}
             </div>
             <p className="font-body font-light text-text-soft leading-relaxed mb-10">
-              Geen uurtarief, geen abonnement, geen verborgen vervolgstappen. Meer weten over
-              tarieven in de markt? Lees{" "}
+              Geen uurtarief, geen abonnement, geen verborgen vervolgstappen. Alle tarieven per
+              aanbieder, met de bron erbij, staan in{" "}
               <Link href="/inzichten/wat-kost-een-financieel-coach" className="hover:underline" style={{ color: "#0B7A6E" }}>
-                wat een financieel coach kost in 2026
+                wat kost een budgetcoach
+              </Link>
+              . Twijfel je of een coach iets voor je is als er niets misgaat, lees dan{" "}
+              <Link href="/inzichten/kan-iemand-naar-mijn-financien-kijken" className="hover:underline" style={{ color: "#0B7A6E" }}>
+                budgetcoach zonder schulden
               </Link>
               .
             </p>
