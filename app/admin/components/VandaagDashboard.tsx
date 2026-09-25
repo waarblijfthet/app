@@ -72,6 +72,67 @@ interface ActiviteitItem {
   tijd: string;
 }
 
+interface KeuzeMetingData {
+  sinds: string;
+  totaal: number;
+  metKeuze: number;
+  perKeuze: { label: string; aantal: number; aandeel: number; betaald: number }[];
+  perWeek: { week: string; totaal: number; metKeuze: number }[];
+}
+
+/**
+ * Geldscan-aanvragen met keuze (25-sep-2026). Doel: zien welke concrete
+ * keuzes tot een aanvraag leiden, niet welke pagina verkeer trekt. Telt op
+ * het voorvoegsel [Keuze: ...] in de aanvraag, zie lib/keuze-meting.ts.
+ */
+function KeuzeBlok({ keuzes }: { keuzes: KeuzeMetingData }) {
+  return (
+    <section className="card-base overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#F0F3F1]">
+        <h2 className="font-body font-semibold text-primary text-sm">Geldscan-aanvragen met keuze</h2>
+        <p className="text-text-muted text-xs mt-0.5">
+          Sinds {keuzes.sinds}: {keuzes.metKeuze} van de {keuzes.totaal} aanvragen noemden een keuze. Betaald is
+          status betaald of gestart.
+        </p>
+      </div>
+      <table className="w-full text-sm">
+        <thead>
+          <tr className="text-left text-text-muted text-xs">
+            <th className="px-4 py-2 font-medium">Keuze</th>
+            <th className="px-4 py-2 font-medium">Aanvragen</th>
+            <th className="px-4 py-2 font-medium">Aandeel</th>
+            <th className="px-4 py-2 font-medium">Betaald</th>
+          </tr>
+        </thead>
+        <tbody className="divide-y divide-[#F0F3F1]">
+          {keuzes.perKeuze.map((k) => (
+            <tr key={k.label}>
+              <td className="px-4 py-2 text-primary font-medium">{k.label}</td>
+              <td className="px-4 py-2 text-text-soft">{k.aantal}</td>
+              <td className="px-4 py-2 text-text-soft">{keuzes.totaal === 0 ? "geen data" : `${k.aandeel}%`}</td>
+              <td className="px-4 py-2 text-text-muted">
+                {k.aantal === 0 ? "geen" : `${k.betaald} van ${k.aantal}`}
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      {keuzes.perWeek.length > 0 && (
+        <div className="px-4 py-3 border-t border-[#F0F3F1]">
+          <p className="text-text-muted text-xs mb-1">Per week (maandag), aanvragen met keuze van het totaal</p>
+          <ul className="text-xs text-text-soft space-y-0.5">
+            {keuzes.perWeek.map((w) => (
+              <li key={w.week}>
+                {w.week}: {w.metKeuze} van {w.totaal}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </section>
+  );
+}
+
 interface VandaagData {
   bezoek: Bezoek;
   teDoen: TeDoen;
@@ -81,6 +142,7 @@ interface VandaagData {
   trechter: Trechter;
   activiteit: ActiviteitItem[];
   vragen?: VragenData;
+  keuzes?: KeuzeMetingData | null;
 }
 
 function relatieveTijd(iso: string): string {
@@ -164,7 +226,7 @@ export default function VandaagDashboard() {
   if (fout) return <div className="bg-danger-bg text-danger text-sm rounded-md px-4 py-3">{fout}</div>;
   if (!data) return null;
 
-  const { teDoen, dagbudget, week, repliesPerDoelgroep, trechter, activiteit, vragen } = data;
+  const { teDoen, dagbudget, week, repliesPerDoelgroep, trechter, activiteit, vragen, keuzes } = data;
 
   const teDoenRijen: { aantal: number; tekst: string; href: string }[] = [];
   if ((teDoen.vragenOpen ?? 0) > 0) {
@@ -392,6 +454,8 @@ export default function VandaagDashboard() {
           Bekijk per scherm waar de analyse afhaakt →
         </a>
       </section>
+
+      {keuzes && <KeuzeBlok keuzes={keuzes} />}
 
       {/* Blok 6: Laatste activiteit */}
       <section className="card-base overflow-hidden">

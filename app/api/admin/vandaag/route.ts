@@ -7,6 +7,7 @@ import { DOELGROEPEN, DOELGROEP_LABEL } from "@/lib/outreach/labels";
 import { OutreachContact } from "@/lib/outreach/types";
 import { haalAlleRijen, vandaagStartNl } from "@/lib/admin-periode";
 import { BEANTWOORD_PREFIX, VRAAG_ACTIE, VRAAG_PREFIX, vraagstapStatus } from "@/lib/vraagstap";
+import { KEUZE_START, meetKeuzes, type KeuzeRij } from "@/lib/keuze-meting";
 
 /**
  * GET /api/admin/vandaag, alle zes blokken van het Vandaag-dashboard in één
@@ -390,6 +391,22 @@ export async function GET() {
       ),
     };
 
+    // ── Geldscan-aanvragen met keuze (25-sep-2026, lib/keuze-meting.ts) ──
+    // Los van de grote Promise.all hierboven, zodat een fout hier alleen dit
+    // blok kost en niet het hele dashboard.
+    let keuzes: ReturnType<typeof meetKeuzes> | null = null;
+    try {
+      const keuzeRijen = await haalAlleRijen<KeuzeRij>(
+        supabase,
+        "intake_aanvragen",
+        "created_at,status,grootste_knelpunt",
+        (q) => q.eq("pakket", "geldscan").gte("created_at", KEUZE_START)
+      );
+      keuzes = meetKeuzes(keuzeRijen, nu);
+    } catch (fout) {
+      console.error("admin/vandaag: keuzemeting mislukt", fout);
+    }
+
     // ── Blok 6: laatste activiteit ───────────────────────────────────────
     const [leadsActiviteitRes, analysesActiviteitRes, aanvragenActiviteitRes, notitiesActiviteitRes] =
       activiteitBronnen;
@@ -438,6 +455,7 @@ export async function GET() {
       repliesPerDoelgroep: repliesPerDoelgroep,
       trechter: trechter,
       vragen: vragen,
+      keuzes: keuzes,
       activiteit: activiteit.slice(0, 10),
     });
   } catch (e) {
