@@ -1300,3 +1300,14 @@ Op verzoek van Jarno dezelfde twaalf vragen in zijn eigen ChatGPT-account (tijde
 
 - `wat-kost-een-financieel-coach`: "€60 tot €150 per uur" en "€250 tot €800" staan zonder bron. Perplexity en ChatGPT geven ze door met Waar blijft het als bron.
 - N4, "daarna verwijder ik je gegevens": Perplexity geeft het door als eigenschap van de Geldscan. Het klopt alleen zolang Jarno het met de hand doet (bestond al, CLAUDE.md sectie 11).
+
+## 31. Drie aanbieders van een eenmalige check bekeken, 25 september 2026
+
+Op verzoek van Jarno. Volledig in `docs/concurrenten-eenmalige-check-25-sep-2026.md`. Niets gebouwd.
+
+- **Budgetcoach Me** (Zwolle): Financiële Check Gesprek van 2,5 uur aan huis, prijs niet op de site. Staat op 1 voor "budgetcoach zwolle", merknaam in de autocomplete, acht werkgevers met logo, 0 Google-reviews. Opent de homepage met "Voldoende inkomen, maar hou je toch niks over?"
+- **Personal Budgetcoach** (Leeuwarden): Quick scan €250 incl. btw, trajecten €450 en €650. Site van 2025, niet in de top 10 op de eigen regio, geen reviews.
+- **Pien's Budgethulp** (Alphen aan den Rijn): bewind en budgetbeheer. Het "eenmalige gesprek van €153,67" dat ChatGPT noemde staat nergens op de site of in de tarievenkaart.
+- Geen verkeers- of volumecijfers te zien van buitenaf. "eenmalige financiële check" en "quick scan" hebben geen corpus in de autocomplete.
+
+**Geparkeerd, beslissing aan Jarno:** niets nieuws. Wel bevestigd: de hoek "goed inkomen, toch niks over" en een eenmalig product bestaan ook bij anderen, dus geen onderscheid claimen op hoek, vorm of prijs (CLAUDE.md sectie 4 en regel 3).
