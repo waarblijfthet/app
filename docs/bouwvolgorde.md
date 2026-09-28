@@ -4,7 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 25 september 2026, zesde sessie (de vijf geldmomenten gebouwd, sectie 35). Daarvoor 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 28 september 2026 (meting in de browser kwam nooit aan, sectie 36). Daarvoor 25 september 2026, zesde sessie (de vijf geldmomenten gebouwd, sectie 35). Daarvoor 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 28 september: de meting vanuit de browser heeft nooit gewerkt, zie sectie 36.** `lib/track.ts` deed sinds 10 juli `void supabase.from(...).insert(...)`, en een Supabase-query zonder `await` of `.then()` wordt nooit verstuurd. Daardoor is `paginagebeurtenissen` leeg: geen CTA-kliks, geen resultaatstappen, geen vraagstap. Dat is waarom bij elke analyse na "Resultaat gezien" alleen vraagtekens staan. De vraagstap zelf staat aan (`/api/analyse-vraag/status` geeft `aan: true`) en is overslaanbaar, zoals ontworpen. Opgelost via een nieuwe server-route `/api/gebeurtenis` met sendBeacon. **Jarno: pushen, daarna één eigen analyse in een privévenster doorlopen tot stap 3 en kijken of het verloop groen wordt.** Pas na een week meten beslissen of de vraagstap verplicht moet.
 
 **Update 25 september, zesde sessie: de vijf geldmomenten zijn gebouwd, op de uitvoeringsprompt van Jarno, zie sectie 35.** Besluiten van Jarno (gaan vóór CLAUDE.md): alles in één uitvoering, wat **bewust de tempo-regel breekt** (vijf pagina's op één dag tegen een norm van twee per week); **de pakketregel uit CLAUDE.md sectie 5 is losgelaten** voor één tweede ingang naar dezelfde Geldscan (zelfde €49, zelfde levertijd, geen nieuw pakket); de vijf geldmomenten zijn **ingangen, geen nieuwe producten en geen nieuwe positionering**. Gebouwd: keuzeveld op het aanvraagformulier, slotzin per keuze, sectie op /geldscan, zin in de bevestigingsmail, een kleine gedeelde doorrekening, twee nieuwe artikelen en drie upgrades, een telling per keuze op Vandaag. Zeven commits, niets gepusht. **Jarno: productiebuild lokaal draaien, pushen, daarna de zes URL's uit sectie 35 indienen in GSC.** De eerstvolgende nieuwe of herschreven pagina niet vóór 12 oktober, behalve CTR-onderhoud.
 
@@ -1497,4 +1499,25 @@ Onderzocht, niet gebouwd. GSC: 0 vertoningen. SERP: overheid, UWV, vakbonden, Ju
 
 - Een eigen doorrekening voor "nieuwe baan met minder salaris" of sabbatical: past in `SCENARIOS["minder-werken"]`, niet bouwen voordat de keuze-data erom vraagt.
 - De keuze ook in de analyse vragen (resultaatscherm), zodat de Geldscan-knop daar de keuze meeneemt.
+
+---
+
+## 36. Meting vanuit de browser gerepareerd, 28 september 2026
+
+Aanleiding: Jarno zag bij analyses van 27 september alleen "Gestart", "Vragen 24 van 24" en "Resultaat gezien" groen, en alles daarna een vraagteken, en vroeg of de vraagstap wel getoond wordt.
+
+**Oorzaak.** `logGebeurtenis` in `lib/track.ts` schreef met de anon-client en zette `void` voor de query. Supabase-js bouwt een query lui: het verzoek gaat pas de deur uit bij `await` of `.then()`. Met Node en de geïnstalleerde supabase-js (postgrest-js 2.106.0) nagespeeld: na `void c.from(...).insert(...)` nul fetch-aanroepen. Dat zit er zo in sinds commit 945745b (10 juli). In productie met de anon-sleutel uitgelezen: `paginagebeurtenissen` heeft nul rijen, voor elke gebeurtenisnaam. De analysevoortgang zelf werkt wel, want die loopt via `/api/analyse-voortgang` (server, awaited).
+
+**Gevolgen buiten de vraagstap.** Alles wat via `logGebeurtenis` liep, is nooit geteld: `cta_analysis` en `cta_geldscan` (CtaLink), aanbodkliks, intake gestart en verlaten, bewaarformulier, resultaatstappen, vraag gekozen en overgeslagen. Tellingen op Vandaag en in Ingevulde analyses die hierop leunen stonden dus op nul of op "onbekend", niet omdat niemand klikte. Nul verstuurde vragen is wel echt: `analyse_vraag_verstuurd` schrijft de server zelf weg, en er staat er geen.
+
+**Vraagstap.** Staat aan (`/api/analyse-vraag/status` gaf op 28 september `{"aan":true}`). Hij is bewust niet verplicht: onder de knop staat "Geen vraag, laat de volgende stap zien" (ontwerp 23 september). Een bezoeker ziet hem pas op resultaatstap 3, dus na twee keer doorklikken. Hoeveel mensen stap 3 halen is tot nu toe onbekend.
+
+**Oplossing.**
+- Nieuw: `app/api/gebeurtenis/route.ts`, schrijft met de service key, eigenaarscookie wordt ook server-side gecontroleerd, gebeurtenisnaam alleen `[a-z0-9_]`, meta maximaal 2000 tekens, altijd 200 terug.
+- `lib/track.ts` stuurt met `navigator.sendBeacon` (text/plain met JSON), zodat een CTA-klik die meteen navigeert ook aankomt; terugval `fetch` met `keepalive`.
+- Admin-teksten "gemeten vanaf 23 september" naar 28 september.
+
+**Controle.** tsc schoon, geen CR of null bytes. De route met Node doorlopen met een nep-database: geldige gebeurtenis geschreven, foute naam geweigerd, eigenaarscookie overgeslagen, kapotte body stil geweigerd. Geen productiebuild (shell-limiet). Na de deploy: eigen analyse in een privévenster (zonder eigenaarscookie) tot en met stap 3, dan moet in Ingevulde analyses "Vraagstap gezien" groen staan.
+
+**Volgende beslissing, niet nu.** Na een week meten: hoeveel bezoekers die het resultaat zien halen stap 3, en hoeveel slaan de vraag over. Pas daarna kiezen tussen de vraagstap naar voren halen, verplicht maken of laten zoals hij is.
 

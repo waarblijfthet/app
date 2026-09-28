@@ -223,7 +223,7 @@ export default function AnalyseVerloopTabblad() {
             </div>
             {!berekend.nazorgGemeten && (
               <p className="px-4 py-2 border-t border-[#F0F3F1] text-xs text-text-muted font-body">
-                Aanbod, Geldscan-klik en e-mail per bezoeker worden gemeten vanaf 23 september.
+                Aanbod, Geldscan-klik en e-mail per bezoeker worden gemeten vanaf 28 september (daarvoor kwam die meting nooit aan).
               </p>
             )}
           </section>

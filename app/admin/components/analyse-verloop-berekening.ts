@@ -404,22 +404,22 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
       { label: "Resultaat gezien", uitleg: "alle vragen doorlopen", aantal: resultaat },
       {
         label: "Vraagstap gezien",
-        uitleg: nazorgGemeten ? "resultaatstap 3 van 4" : "gemeten vanaf 23 sep",
+        uitleg: nazorgGemeten ? "resultaatstap 3 van 4" : "gemeten vanaf 28 sep",
         aantal: vraagstapGezien,
       },
       {
         label: "Vraag gesteld",
-        uitleg: nazorgGemeten ? "met e-mailadres, antwoord binnen 2 werkdagen" : "gemeten vanaf 23 sep",
+        uitleg: nazorgGemeten ? "met e-mailadres, antwoord binnen 2 werkdagen" : "gemeten vanaf 28 sep",
         aantal: vraagGesteld,
       },
       {
         label: "Stap 4 bereikt",
-        uitleg: nazorgGemeten ? "aanbod, of bevestiging na een vraag" : "gemeten vanaf 23 sep",
+        uitleg: nazorgGemeten ? "aanbod, of bevestiging na een vraag" : "gemeten vanaf 28 sep",
         aantal: aanbodBereikt,
       },
       {
         label: "Op Geldscan geklikt",
-        uitleg: nazorgGemeten ? "Geldscan-knop, waar ook op de site" : "gemeten vanaf 23 sep",
+        uitleg: nazorgGemeten ? "Geldscan-knop, waar ook op de site" : "gemeten vanaf 28 sep",
         aantal: geldscanKlik,
       },
       { label: "E-mailadres achtergelaten", uitleg: "resultaat laten mailen", aantal: data.emailAchtergelaten },

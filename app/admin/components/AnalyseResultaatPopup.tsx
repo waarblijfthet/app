@@ -227,7 +227,7 @@ export default function AnalyseResultaatPopup({
             </div>
             {!n.gemeten && (
               <p className="mt-2 text-xs text-text-muted font-body">
-                Wat er na het resultaat gebeurde, wordt gemeten vanaf 23 september. Een vraagteken is onbekend,
+                Wat er na het resultaat gebeurde, wordt gemeten vanaf 28 september (daarvoor kwam die meting nooit aan). Een vraagteken is onbekend,
                 niet nee.
               </p>
             )}
