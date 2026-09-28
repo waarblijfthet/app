@@ -4,7 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 28 september 2026 (meting in de browser kwam nooit aan, sectie 36). Daarvoor 25 september 2026, zesde sessie (de vijf geldmomenten gebouwd, sectie 35). Daarvoor 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 28 september 2026, tweede sessie (Instagram-reel, sectie 37). Daarvoor 28 september 2026 (meting in de browser kwam nooit aan, sectie 36). Daarvoor 25 september 2026, zesde sessie (de vijf geldmomenten gebouwd, sectie 35). Daarvoor 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 28 september, tweede sessie: Instagram-reel 01 gemaakt op verzoek van Jarno, buiten het kanaalplan van CLAUDE.md sectie 7, zie sectie 37.** Niets aan de site veranderd. Alles staat in `Claude outputs/instagram-reel-01/` (niet in git). Jarno: posten volgens de checklist in `script-reel-01.md`, en Instagram-verkeer niet meetellen in de vrijdagmeting, want die gaat over zoekverkeer.
 
 **Update 28 september: de meting vanuit de browser heeft nooit gewerkt, zie sectie 36.** `lib/track.ts` deed sinds 10 juli `void supabase.from(...).insert(...)`, en een Supabase-query zonder `await` of `.then()` wordt nooit verstuurd. Daardoor is `paginagebeurtenissen` leeg: geen CTA-kliks, geen resultaatstappen, geen vraagstap. Dat is waarom bij elke analyse na "Resultaat gezien" alleen vraagtekens staan. De vraagstap zelf staat aan (`/api/analyse-vraag/status` geeft `aan: true`) en is overslaanbaar, zoals ontworpen. Opgelost via een nieuwe server-route `/api/gebeurtenis` met sendBeacon. **Jarno: pushen, daarna één eigen analyse in een privévenster doorlopen tot stap 3 en kijken of het verloop groen wordt.** Pas na een week meten beslissen of de vraagstap verplicht moet.
 
@@ -1521,3 +1523,20 @@ Aanleiding: Jarno zag bij analyses van 27 september alleen "Gestart", "Vragen 24
 
 **Volgende beslissing, niet nu.** Na een week meten: hoeveel bezoekers die het resultaat zien halen stap 3, en hoeveel slaan de vraag over. Pas daarna kiezen tussen de vraagstap naar voren halen, verplicht maken of laten zoals hij is.
 
+---
+
+## 37. Instagram-reel 01, 28 september 2026
+
+Op verzoek van Jarno ("maak een korte reel voor Instagram, met muziek en voice-over, sterke haak in de eerste drie seconden"). Dit valt buiten de bouwvolgorde en buiten het ene kanaal van CLAUDE.md sectie 7, waar Instagram tot 31 januari 2027 dicht staat. Besluit van Jarno, geen wijziging van het plan: er is geen bouwtijd aan de site besteed en de vrijdagmeting blijft over zoekverkeer gaan.
+
+**Wat er is.** In `Claude outputs/instagram-reel-01/`: de reel (30,5 s, 1080 x 1920, 30 fps, -14 LUFS), een versie zonder muziek voor een nummer uit de Instagram-bibliotheek, de cover, het bijschrift, ondertitels (.srt), het script (`script-reel-01.md`) en de renderpijplijn in `render/` (Python met Skia, ffmpeg, muziek en effecten met code gemaakt). Geen sitecode gewijzigd.
+
+**Inhoud.** Haak: "Je verdient goed. En toch haal je steeds weer geld van je spaarrekening?" Twee van de vijf vragenlijsten noemen dat terugboeken letterlijk. Daarna het echte rapport `tweeverdieners-drie-kinderen`: geen vaste last buitensporig, wel bijna €1.000 per maand aan jaaruitgaven waar niets voor apart stond. Dan de Geldscan met prijs, "Bij 2 van de 5 viel er niets te repareren" en de knop "Doe de gratis analyse". Elk getal wordt bij elke render gelezen uit `lib/rapporten-data.ts`, `lib/aanbod-content.ts` en `lib/cta.ts`; klopt een zin niet meer met de data, dan stopt de render. Het resultaatbedrag van het gezin (€850 per maand) staat er bewust niet in, dat leest als belofte.
+
+**Stem.** Een neurale stem (Microsoft nl-NL Fenna, via edge-tts) die over Jarno vertelt, niet als Jarno. Sterker is Jarno zelf in de ik-vorm; de pijplijn neemt eigen opnames per zin over (`reel.py --eigen-stem`).
+
+**Twee dingen die opvielen, beslissing Jarno.**
+- CLAUDE.md copyregel 8 noemt #1C3A2A, #C4603A en #F5F0E8, maar `tailwind.config.ts` en de live site gebruiken #16211F, #F7F8F7 en #0B7A6E. De reel volgt de site. Copyregel 8 bijwerken of de site terugzetten.
+- De site slaat geen UTM-parameters op. Instagram-verkeer is alleen te herkennen aan de verwijzer.
+
+**Voor Jarno.** Posten met de cover, link in bio naar `/analyse?utm_source=instagram&utm_medium=reel&utm_campaign=reel-01`, nagaan of de toestemming van dit gezin ook social media dekt, en Instagram-sessies apart houden van de vrijdagmeting.
