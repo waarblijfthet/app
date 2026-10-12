@@ -1,5 +1,7 @@
 # Plan: de analyse meet het gat, niet de ruimte (12 oktober 2026)
 
+**Volgorde gewijzigd later op 12 oktober (besluit Jarno): dit is fase 2, vanaf 9 november. Eerst de ICP vinden, zie `docs/plan-icp-vinden-12-okt-2026.md`. De meetvraag uit dat plan (stap 0) is de eerste helft van stap 1 hieronder. Stap 4 hieronder is vervangen door het beslismoment van 30 november.**
+
 Aanleiding: een maand zonder nieuwe content, wel analyses, maar vrijwel geen e-mailadressen en nul Geldscans. Vraag van Jarno: kloppen de uitkomsten, vinden we de verkeerde mensen, en wat gaan we doen.
 
 ## 1. Wat de data zegt (12 september tot 12 oktober)

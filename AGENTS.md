@@ -2,11 +2,15 @@
 
 Herschreven op 5-sep-2026 rond één kanaal: zoekverkeer (Google, Bing, AI-zoekmachines). De versie van 17-aug met het verwijzersdoel staat in `docs/archief-claude-md-05-sep-2026.md`. Alles wat hier niet meer staat is bewust weg. `AGENTS.md` is een kopie van dit bestand; wijzig ze altijd samen.
 
+Bijgewerkt op 12-okt-2026, besluit van Jarno: eerst de ICP vinden, daarna de analyse verbeteren, en nieuwe content weer open op de zoektaal van de ICP (sectie 1, 4, 8.H en 9). De versie van 5-sep staat in `docs/archief-claude-md-12-okt-2026.md`.
+
 ## 1. Het enige doel
 
 **100 betaalde Geldscans uit zoekverkeer vóór 31 januari 2027.** Ondergrens waarbij het plan werkt: 50. Onder 20 is het aanbod of de prijs fout, niet het kanaal.
 
 **Begin elke sessie in `docs/bouwvolgorde.md`, sectie BEGIN HIER.** Daar staat de stand van zaken, de eerstvolgende actie en wat er op een datum wacht. Dat bestand houdt zijn naam en wordt na elke sessie bijgewerkt; de datum staat erin, niet in de bestandsnaam. Daaronder staat het logboek met de motivatie per besluit.
+
+**Volgorde tot 30 november 2026.** Fase 1 is de ICP vinden: pagina's op de zoektaal van de ICP (sectie 8.H) en de meetvraag in de analyse ("hoe is het aan het eind van de maand?"). Fase 2, vanaf 9 november, is de analyse die het gat meet tussen wat er op papier en wat er echt overblijft. Plan: `docs/plan-icp-vinden-12-okt-2026.md` (fase 1) en `docs/plan-analyse-meet-het-gat-12-okt-2026.md` (fase 2). Onderbouwing: `docs/serp-icp-zoekgedrag-12-okt-2026.md`.
 
 Achtergrond, alleen lezen als de bouwvolgorde ernaar verwijst: het plan in `docs/plan-seo-conversie-100-geldscans-05-sep-2026.md`, de werkinstructie per fase in `docs/uitvoeringsprompt-opus-seo-100-geldscans-05-sep-2026.md`, de nulmeting in `docs/gsc-nulmeting-05-sep-2026.md`.
 
@@ -22,6 +26,7 @@ Tempo: twee nieuwe of herschreven pagina's per week, nooit meer. Elke pagina hee
 - Verkeer: ongeveer 1.500 tot 2.000 sessies per maand na de knik van 21-aug, 68 procent mobiel. GSC week 18 tot 25 aug: 8.217 vertoningen, 154 klikken, CTR 1,9 procent, positie 7,4. is-4000 staat organisch op plek 1 en is de sterkste interne linkbron.
 - Conversie: analyse 14 gestart, 0 afgerond in de week van 28-aug. Nul betaalde Geldscans uit zoekverkeer, ooit. De enige klant kwam via een mens.
 - Werkend en af: mailketen via Resend, outreach-CRM met automatische follow-ups en afmeldlink, admin met Vandaag-dashboard en bezoekmeting, sitemap, robots en llms.txt via `scripts/generate-sitemap.mjs`.
+- **Stand 12-okt-2026.** GSC 28 dagen: 790 klikken, 38.449 vertoningen; 77 procent van de klikken naar vijf controlepagina's (boodschappen, is-4000, is-5000, kindgebonden budget 2027, kinderopvangtoeslag 2027). Analyse: 54 keer afgerond in een maand, 1 e-mailadres, 0 Geldscans; 41 van de 54 kregen "meer over dan je zelf zou verwachten". 42 van de 119 gevolgde URL's staan niet in de index van Google.
 - Jarno is de enige persoon achter het project en heeft een baan ernaast. Hij schrijft elke Geldscan zelf, dus boven ongeveer 25 per maand komt de levertijd van 2 werkdagen in gevaar; dan gaat de prijs omhoog, niet het kanaal dicht.
 
 ## 3. Harde waarheidsregels (nooit van afwijken)
@@ -38,8 +43,9 @@ Tempo: twee nieuwe of herschreven pagina's per week, nooit meer. Elke pagina hee
 - Eén persoon, Jarno, leest jouw cijfers en schrijft met de hand een geldrapport. Geen app, geen cursus, geen abonnement, geen AI-rapport.
 - Voor de goedverdiener in loondienst die maandelijks krap zit. Dragend: Sandra (tweeverdienergezin, koopwoning, 5.000 tot 8.000 netto samen) en Niels (alleenstaand of DINK, 3.500 tot 6.000 netto). Zzp alleen via analyse en rapport. Overige profielen in `docs/icp-personas.md` zijn geparkeerd; geen persona-toetsrondes meer, echte metingen wegen zwaarder.
 - Waarom hier en niet bij een concurrent: het werk ligt vooraf op tafel. Alle geleverde klantrapporten openbaar, tarieven erbij. Bij twee van de vijf was er geen lek, en dat staat er gewoon.
+- **Hoe de ICP zoekt (12-okt-2026).** Hij noemt zijn inkomen niet en zoekt iets wat hij zelf kan doen: "waar blijft mijn geld", "waarom kan ik niet sparen", "meer geld overhouden", "huishoudboekje excel", "lifestyle inflatie", "jaarlijkse kosten reserveren". Probleemtaal als "goed salaris toch krap" of "ik verdien goed maar" heeft geen autocomplete. Schrijf daarom op de zoekterm van de doe-het-zelver en maak de goedverdiener-hoek een sectie, niet de titel. Zo staat Budgetbuddy in de top 3 op "waarom kan ik niet sparen".
 - Segment, prijs en toon zijn bezet (Budgetbuddy, Goede Geldgewoonten, budgetcoaches met scans van 40 tot 97 euro). Claim daar nooit onderscheid op. Positioneer op geleverd werk en op eigen cijfers, nooit op karakter. Eerlijk, transparant en persoonlijk zijn claims. Laat ze weg.
-- Wat het NIET is: geen schuldhulp, geen boekhouder, geen beleggings- of hypotheekadvies, geen vergunningplichtig advies, geen bespaartips, geen traject als instap.
+- Wat het NIET is: geen schuldhulp, geen boekhouder, geen beleggings- of hypotheekadvies, geen vergunningplichtig advies, geen generieke bespaartips (koffie, energie overstappen), geen traject als instap. Wel: laten zien waar het geld bij echte huishoudens heen ging en hoe je dat zelf nagaat.
 
 ## 5. Aanbod, prijs en CTA-structuur
 
@@ -62,7 +68,7 @@ Tempo: twee nieuwe of herschreven pagina's per week, nooit meer. Elke pagina hee
 2. Geen em dashes, en nooit een koppelteken als scheidingsteken. Komma, punt of nieuwe zin. Geldt ook voor metaTitel, metaDescription, bronlabels, hints en mails.
 3. Belofte van het rapport: de drie dingen die het meest opvallen, plus wat juist niet uit de toon valt. Valt er niets te repareren, dan staat dat er ook. Nooit "je drie grootste lekken".
 4. Noem bij elke vergelijking waarop wel en niet vergeleken wordt, en dat de maatstaf de eigen huishoudens zijn met een kleine n.
-5. Geen diagnose vooraf ("structuurprobleem"), geen jargon, geen bespaartips.
+5. Geen diagnose vooraf ("structuurprobleem"), geen jargon, geen generieke bespaartips.
 6. Het woord "eerlijk" nooit in copy. Eerlijkheid toon je.
 7. PSOhub en de functie CTO nooit noemen. Bio-zin: "Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte."
 8. Toon: nuchter, direct, geen verkooppraat. Fonts Fraunces (kop) en Plus Jakarta Sans (body). Kleuren #1C3A2A groen, #C4603A terracotta, #F5F0E8 en #FDFAF4 creme. De homepage draait op een eigen wijnrood/goud palet (#7B2D3E), bewust en alleen daar.
@@ -78,10 +84,10 @@ Er is één kanaal: mensen die zelf zoeken en landen. Google, Bing en AI-zoekmac
 
 ## 8. SEO en AI-zoekmachines: de werkregels
 
-**Volgorde van werk.** Funnel vóór content: zolang de analyse-afronding niet gemeten is en het grootste lek niet gedicht, gaat er geen nieuwe pagina live (plan sectie 6). Daarna per maand: eerst de CTR-ronde, dan cluster Z, dan hubs, dan spaken.
+**Volgorde van werk (vanaf 12-okt-2026).** Nieuwe of herschreven pagina's alleen op de zoektaal van de ICP (punt H), in de volgorde van `docs/plan-icp-vinden-12-okt-2026.md`. Upgrade een bestaande URL vóór je een nieuwe bouwt. Daarnaast per maand de CTR-ronde. Bedrag-, regeling- en cluster-Z-pagina's alleen onderhoud (2027-sweep, herzieningen, CTA na het eigen getal), geen nieuwe varianten. Hubs en spaken pas weer na het beslismoment van 30 november.
 
 **A. Verificatie**
-1. SERP-verificatie alleen met Chrome op google.nl (hl=nl, gl=nl), één sessie per cluster, uitkomsten in `docs/serp-<cluster>-<datum>.md`: wie staat er, is er een AI-overzicht, wat staat in "Meer om te vragen" en "Mensen zoeken ook naar", staat er een eigen URL. De WebSearch-tool staat niet op Nederland en is voor dit werk verboden. Nibud.nl blokkeert automatisch opvragen; vraag Jarno om die cijfers.
+1. SERP-verificatie alleen in een browser op google.nl (hl=nl, gl=nl): Chrome, of de ingebouwde browser van de app als Chrome niet bereikbaar is, één sessie per cluster, uitkomsten in `docs/serp-<cluster>-<datum>.md`: wie staat er, is er een AI-overzicht, wat staat in "Meer om te vragen" en "Mensen zoeken ook naar", staat er een eigen URL. De WebSearch-tool staat niet op Nederland en is voor dit werk verboden. Nibud.nl blokkeert automatisch opvragen; vraag Jarno om die cijfers.
 2. Vóór elke nieuwe pagina: GSC-filter op de zoekterm. Vertoont een bestaande URL er al op, dan upgraden in plaats van bouwen. Kannibalisatie is de duurste fout op deze site (zes probleemtaal-artikelen, nul rankings).
 3. Zoekvolumes verzin je niet. Er is geen keywordtool en die komt er niet. Beslis op SERP-samenstelling, GSC-vertoningen en de score uit `docs/serp-brainstorm-18-aug-2026.md`.
 
@@ -119,14 +125,19 @@ Er is één kanaal: mensen die zelf zoeken en landen. Google, Bing en AI-zoekmac
 **G. Data-asset**
 25. "Waar blijft het bij [n] huishoudens": medianen per uitgavenpost per huishoudtype uit analyses met toestemming plus de rapporten, n per cel, geen cel onder n van 10, maandelijkse herberekening als job, zichtbare datum, Dataset-schema. Toestemming wordt als één opt-in-zin gevraagd op het resultaatscherm en opgeslagen via een server-route. Zodra de pagina bestaat, citeren artikelen die als eigen bron met n en datum.
 
-**Wat niet gebouwd wordt:** bruto-netto-rekenaars, max-hypotheek-rekenaar, verzekeringen of spaarrentes vergelijken, beleggen of box 3 als hoofdonderwerp, bespaartips, bedragen onder 3.500 of boven 6.500, dienst-keywords met plaatsnaam, nieuwe adminschermen of dashboards, herontwerp van header, footer, hero, /aanbod of /over, nieuwe casestudy's met bedachte namen, uurtarief-rekenaar kinderopvang.
+**H. ICP-zoektaal (12-okt-2026)**
+26. Schrijf op de hoofdterm van de doe-het-zelver, met autocompletebewijs dat de term bestaat (`google.nl/complete/search`, hl=nl, gl=nl), en maak de goedverdiener-hoek een H2 of sectie. Een ICP-kwalificatie in de titel ("bij een hoger inkomen", "toch krap") alleen als die variant zelf in de autocomplete staat.
+27. Geef de zoeker volledig wat de SERP beloont: een sjabloon, een rekenaar of de stappen. De analyse is de kortere weg, geen voorwaarde. Geen e-mailmuur voor een download.
+28. Probleemtaal zonder autocomplete krijgt geen eigen pagina. Bestaande pagina's daarop worden samengevoegd of ge-301'd, na akkoord van Jarno per URL.
+29. Elke pagina uit deze cluster wordt getoetst op wie hij brengt: het aandeel analyse-starters dat "net genoeg" of "te weinig" kiest (sectie 9).
+
+**Wat niet gebouwd wordt:** bruto-netto-rekenaars, max-hypotheek-rekenaar, verzekeringen of spaarrentes vergelijken, budget-apps vergelijken, beleggen of box 3 als hoofdonderwerp, generieke bespaartips, nieuwe pagina's op bedragen of regelingen (alleen onderhoud), bedragen onder 3.500 of boven 6.500, dienst-keywords met plaatsnaam, nieuwe adminschermen of dashboards, herontwerp van header, footer, hero, /aanbod of /over, nieuwe casestudy's met bedachte namen, uurtarief-rekenaar kinderopvang.
 
 ## 9. Meten en killcriteria
 
-Elke vrijdag, tien minuten, met de hand, in één regel in `docs/bouwvolgorde.md`: sessies, analyses gestart, analyses afgerond, e-mailadressen, Geldscan-aanvragen, betaalde Geldscans, URL's met minstens één klik, URL's boven 100 vertoningen en onder 2 procent CTR, eigen URL's geciteerd in de vijf AI-testvragen. Geen nieuw dashboard.
+Elke vrijdag, tien minuten, met de hand, in één regel in `docs/bouwvolgorde.md`: sessies, analyses gestart, analyses afgerond, e-mailadressen, Geldscan-aanvragen, betaalde Geldscans, URL's met minstens één klik, URL's boven 100 vertoningen en onder 2 procent CTR, eigen URL's geciteerd in de vijf AI-testvragen, en zodra de meetvraag er is: per landingspagina het aandeel analyse-starters dat "net genoeg" of "te weinig" kiest. Geen nieuw dashboard.
 
-- **19-sep-2026:** analyse-afronding nog 0 procent, dan stopt alle contentbouw tot het lek gevonden is.
-- **1-nov-2026:** minder dan 3.000 sessies per maand of minder dan 5 betaalde Geldscans uit zoekverkeer, dan gaan clusters L en B in de wacht en gaat alle tijd naar cluster Z, de hubs en de CTR-rondes.
+- **30-nov-2026, beslismoment fase 1** (vervangt het killcriterium van 1-nov): brengen de pagina's uit sectie 8.H naar verhouding meer analyse-starters die "net genoeg" of "te weinig" kiezen dan de bedrag- en regelingpagina's, dan doorbouwen op die cluster en fase 2 afmaken. Geen verschil, of te weinig verkeer om het te zien: dan vindt de ICP ons via zoeken niet in deze vorm en ligt het kanaalbesluit bij Jarno.
 - **31-jan-2027:** 100 is het doel; 50 betekent dat het plan werkt en doorloopt; onder 20 is aanbod of prijs fout, dan eerst 29 euro testen (en pas daarna 9), geen nieuw kanaal openen.
 - **Contentkill:** een pagina die na 90 dagen minder dan 20 vertoningen per maand heeft en geen inkomende links van buiten, wordt samengevoegd of ge-301'd bij de volgende CTR-ronde.
 - **Capaciteitskill:** meer dan 25 Geldscan-aanvragen in een maand, dan gaat de prijs naar 69 euro en niet de levertijd omhoog.
@@ -153,13 +164,16 @@ Elke vrijdag, tien minuten, met de hand, in één regel in `docs/bouwvolgorde.md
 - `lib/benchmarks.ts` is herijkt op de vijf huishoudens met herkomst en n per getal. `VRIJ_PCT` is het enige normatieve getal dat daar niet uit af te leiden is.
 - Em dashes staan nog in honderden metaTitels, metaDescriptions en bronlabels. Ruim ze op per pagina die je aanraakt, in elk geval in elke CTR-ronde.
 - "Structuurprobleem" staat nog in twee artikelen en vier FAQ-antwoorden.
+- Indexering (12-okt): 42 van de 119 gevolgde URL's staan niet in de index, technisch zonder fout, waaronder `/over`, `/analyse` en de probleemtaal-pagina's. Opruimen volgens `docs/plan-icp-vinden-12-okt-2026.md` stap 2.
+- `berekenTotaalInkomen` telt vakantiegeld een factor 12 te laag (`* 0.08 / 12`). Alleen repareren samen met fase 2, want het maakt de uitkomst nog rooskleuriger.
 - Openstaande feitfouten uit `docs/serp-brainstorm-18-aug-2026.md` sectie "Nog open": boodschappenbedrag in goed-salaris-toch-krap, afbouwgrens heffingskortingen in twee artikelen, ongesourcete BSO-bedragen, ongeverifieerde spaarcijfers. Fixen bij de eerste keer dat je die pagina aanraakt.
 
 ## 12. Waar de onderbouwing staat
 
 Raadpleeg alleen als je de reden achter een besluit nodig hebt.
 
-- `docs/plan-seo-conversie-100-geldscans-05-sep-2026.md` en `docs/uitvoeringsprompt-opus-seo-100-geldscans-05-sep-2026.md`: het geldende plan en de fasen.
+- `docs/plan-icp-vinden-12-okt-2026.md`, `docs/plan-analyse-meet-het-gat-12-okt-2026.md` en `docs/serp-icp-zoekgedrag-12-okt-2026.md`: het geldende plan sinds 12-okt.
+- `docs/plan-seo-conversie-100-geldscans-05-sep-2026.md` en `docs/uitvoeringsprompt-opus-seo-100-geldscans-05-sep-2026.md`: het plan van 5-sep, nog geldig voor pakket, waarheidsregels en paginapakket.
 - `docs/serp-inkomensbedragen-17-aug-2026.md`, `docs/serp-brainstorm-18-aug-2026.md`, `docs/artikelkansen-serp-30-jul-2026.md`, `docs/alternatieve-kanalen-jul-2026.md`: geverifieerde SERP's en scores. Niet opnieuw doen.
 - `docs/groeibeslissing-aug-2026.md`: de conversierekensom en de elf gecorrigeerde onderzoekscijfers.
 - `docs/artikel-bouwprompts-aug-2026.md`: de vaste zesstappenwerkwijze en afvinklijst per artikel.
