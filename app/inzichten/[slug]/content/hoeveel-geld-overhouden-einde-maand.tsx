@@ -287,6 +287,9 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
           Doe de gratis analyse &rarr;
         </Link>
       </div>
+      <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
+        Wil je weten hoe je meer overhoudt in plaats van hoeveel: <Link href="/inzichten/meer-geld-overhouden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">meer geld overhouden</Link>. En hoe je uitzoekt waar het nu blijft: <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar blijft mijn geld</Link>.
+      </p>
     </>
   );
 }

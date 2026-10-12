@@ -1,5 +1,7 @@
 # Plan: de ICP vinden, daarna de analyse (12 oktober 2026)
 
+**Uitgevoerd op 12 oktober 2026, derde sessie (bouwvolgorde sectie 40), op verzoek van Jarno in één keer, inclusief fase 2.** Afwijking van de tabel hieronder: `waarom-hou-ik-nooit-geld-over` ging naar `waar-blijft-mijn-geld` in plaats van naar de spaarpagina, omdat de vraag "waarom hou ik nooit geld over" dichter bij "waar blijft mijn geld" ligt.
+
 Opdracht van Jarno: eerst een plan om de juiste ICP te bereiken, daarna de analyse verbeteren. Onderbouwing in `docs/serp-icp-zoekgedrag-12-okt-2026.md`. De analyse-aanpak uit `docs/plan-analyse-meet-het-gat-12-okt-2026.md` is fase 2 van dit plan.
 
 ## De diagnose in drie zinnen

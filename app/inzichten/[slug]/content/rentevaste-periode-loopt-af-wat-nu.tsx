@@ -372,8 +372,8 @@ export default function RentevastePeriodeLooptAfWatNu() {
             tekst: "Samen €6.000 netto en toch niets over",
           },
           {
-            slug: "seizoens-kostenkalender-per-maand",
-            tekst: "De kostenkalender: welke maand welke rekening brengt",
+            slug: "jaarlijkse-kosten-reserveren",
+            tekst: "Jaarlijkse kosten reserveren: hoeveel per maand?",
           },
           {
             slug: "is-4000-euro-netto-goed-salaris-nederland",

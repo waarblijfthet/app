@@ -180,6 +180,9 @@ export default function VasteLastenOverzichtMaken() {
           Doe de gratis analyse &rarr;
         </Link>
       </div>
+      <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
+        Wil je ook je dagelijkse uitgaven en jaaruitgaven bijhouden? Download het <Link href="/inzichten/huishoudboekje-voorbeeld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">gratis huishoudboekje in Excel</Link>.
+      </p>
     </>
   );
 }

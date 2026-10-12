@@ -425,6 +425,9 @@ export default function GemiddeldeUitgavenPerMaand2Personen() {
           </li>
         ))}
       </ul>
+      <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
+        Weet je wat jullie uitgeven, maar niet waar het blijft? Lees <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar blijft mijn geld</Link>.
+      </p>
     </>
   );
 }

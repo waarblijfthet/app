@@ -292,6 +292,7 @@ export default function AnalyseResultaatPopup({
                 data={data}
                 bereikt={true}
                 velden={[
+                  { sleutel: "maandGevoel", label: "Eind van de maand", soort: "keuze" },
                   { sleutel: "volwassenen", label: "Volwassenen", soort: "keuze" },
                   { sleutel: "kinderen", label: "Kinderen", soort: "keuze" },
                   { sleutel: "woonsituatie", label: "Woonsituatie", soort: "keuze" },
@@ -377,7 +378,8 @@ export default function AnalyseResultaatPopup({
                   { sleutel: "sportHobbyKinderen", label: "Sport en hobby kinderen", soort: "eur" },
                   { sleutel: "vrijetijd", label: "Vrije uitgaven", soort: "eur", bench: b?.vrijetijd },
                   { sleutel: "jaarlijkseKosten", label: "Jaarlijkse kosten", soort: "eur", per: "jaarlijkseKostenPer" },
-                  { sleutel: "spaardoel", label: "Spaardoel", soort: "eur" },
+                  { sleutel: "spaardoel", label: "Spaardoel (tot 12 okt)", soort: "eur" },
+                  { sleutel: "werkelijkOver", label: "Echt over (zelf opgegeven)", soort: "eur" },
                 ]}
               />
             </div>

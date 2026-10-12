@@ -36,6 +36,11 @@ export const TOEGESTANE_VELDEN = [
   "verschil_met_benchmark",
   "grootste_afwijking",
   "verdict",
+  // 12-okt-2026: het gat. Ontbreken de kolommen nog, dan valt de
+  // schema-drift-terugval hieronder ze weg (met waarschuwing in de log) en
+  // toont /resultaat/[token] de oude uitkomst.
+  "werkelijk_over",
+  "niet_aanwijsbaar",
 ] as const;
 
 export type OpslaanUitkomst =

@@ -16,6 +16,12 @@ import { bepaalRichting } from "../../components/vergelijking-labels";
 import type { AfwijkingEntry } from "./types";
 
 /**
+ * Vanaf welk verschil tussen papier en werkelijkheid ik van een gat spreek
+ * (12-okt-2026). Onder de 200 euro per maand is het schatruis.
+ */
+export const GAT_DREMPEL = 200;
+
+/**
  * De rekenlaag van het resultaatscherm, letterlijk verhuisd uit
  * Stap6Resultaat.tsx (23-sep-2026) zodat de admin (/admin/analyse-verloop)
  * een ingevulde analyse precies zo kan tonen als de bezoeker hem zag. Er is
@@ -52,22 +58,65 @@ export function berekenResultaat(data: QuizData) {
   const kinderenTotaal = berekenKinderen(data);
   const spaardoelWaarde = parseEur(data.spaardoel);
 
-  const conclusieKop =
+  // Het gat (12-okt-2026): wat er op papier overblijft min wat er volgens de
+  // bezoeker echt overblijft. Alleen als de vraag beantwoord is; oude sessies
+  // in de admin houden zo hun oorspronkelijke kop.
+  const heeftWerkelijk = data.werkelijkOver !== undefined && data.werkelijkOver !== "";
+  const werkelijkOver = heeftWerkelijk ? parseEur(data.werkelijkOver) : null;
+  const gat = werkelijkOver === null ? null : over - werkelijkOver;
+  const soortUitkomst: "gat" | "tekort" | "klopt" | "meer" | "oud" =
+    gat === null
+      ? "oud"
+      : gat >= GAT_DREMPEL
+      ? "gat"
+      : over < 0
+      ? "tekort"
+      : gat > -GAT_DREMPEL
+      ? "klopt"
+      : "meer";
+  const kunnen = meerdere ? "kunnen jullie" : "kun je";
+  const houd = meerdere ? "houden jullie" : "houd je";
+
+  const oudeKop =
     overDiff > 100
       ? `Bij ${onderw} blijft waarschijnlijk meer over dan je zelf zou verwachten.`
       : overDiff < -100
       ? `Bij ${onderw} blijft waarschijnlijk minder over dan logisch is voor ${situatiePos} situatie.`
       : `${situatiePosHoofdletter} financiële ruimte lijkt vooralsnog goed te passen bij ${situatiePos} huishouden.`;
 
+  const conclusieKop =
+    soortUitkomst === "gat" && gat !== null && werkelijkOver !== null
+      ? `Op papier ${houd} ${fmtEur(over)} over. In werkelijkheid is het ${fmtEur(
+          werkelijkOver
+        )}. Ongeveer ${fmtEur(gat)} per maand ${kunnen} niet aanwijzen.`
+      : soortUitkomst === "tekort"
+      ? `Op papier gaat er ${fmtEur(Math.abs(over))} per maand meer uit dan er binnenkomt.`
+      : soortUitkomst === "klopt"
+      ? `${situatiePosHoofdletter} schatting klopt met wat er overblijft. Ik zie hier geen lek.`
+      : soortUitkomst === "meer"
+      ? `Er blijft meer over dan ${situatiePos} uitgaven doen vermoeden. Een lek zie ik hier niet.`
+      : oudeKop;
+
   // De context onder het hoofdbedrag, zodat "financiële ruimte" niet als
   // oordeel wordt gelezen: het verschil met de vergelijking is geen conclusie
   // op zich, alleen een constatering.
-  const contextZin =
+  const oudeContextZin =
     Math.abs(overDiff) < 100
       ? `${situatiePosHoofdletter} ruimte ligt dicht bij wat we bij dit huishouden verwachten.`
       : `Dat betekent niet automatisch dat er ${fmtEur(
           Math.abs(overDiff)
         )} misgaat. Het laat alleen zien dat ${situatiePos} financiële situatie anders uitpakt dan we bij een vergelijkbaar huishouden zouden verwachten.`;
+
+  const contextZin =
+    soortUitkomst === "gat"
+      ? "Dat geld is niet weg. Het gaat naar iets wat je bij het invullen niet zag: losse aankopen, uitgaven die maar een paar keer per jaar langskomen, of posten die hoger zijn dan je schatte. Dat uitzoeken is precies wat de Geldscan doet."
+      : soortUitkomst === "tekort"
+      ? "Dat klopt met wat je zelf merkt aan het eind van de maand. Waar het verschil zit, zie je op de volgende stap."
+      : soortUitkomst === "klopt"
+      ? "Wat je invulde en wat er echt overblijft liggen dicht bij elkaar. Dan heb je je uitgaven goed in beeld, en heb je mij niet nodig om een lek te zoeken."
+      : soortUitkomst === "meer"
+      ? "Waarschijnlijk heb je een paar bedragen wat hoger geschat dan ze zijn. Dat is geen probleem, alleen een reden om de vergelijking op de volgende stap met een korrel zout te nemen."
+      : oudeContextZin;
 
   // Alleen posten met een echte benchmark: bij een zakelijke auto is de
   // vervoerbenchmark 0 (geen vergelijkingsdata voor eigen bijdrage), en €0 als
@@ -135,6 +184,8 @@ export function berekenResultaat(data: QuizData) {
     maandelijks_over_berekend: over,
     benchmark_over_verwacht: benches.vrij_besteedbaar,
     verschil_met_benchmark: overDiff,
+    werkelijk_over: werkelijkOver,
+    niet_aanwijsbaar: gat,
     grootste_afwijking: grootsteAfwijking,
     verdict: verdict,
   };
@@ -154,6 +205,9 @@ export function berekenResultaat(data: QuizData) {
     abonnementenTotaalWaarde: abonnementenTotaalWaarde,
     kinderenTotaal: kinderenTotaal,
     spaardoelWaarde: spaardoelWaarde,
+    werkelijkOver: werkelijkOver,
+    gat: gat,
+    soortUitkomst: soortUitkomst,
     conclusieKop: conclusieKop,
     contextZin: contextZin,
     gesorteerd: gesorteerd,

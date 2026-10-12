@@ -137,7 +137,7 @@ export default function VakantiegeldNettoHoeveelHouJeOver2026() {
         </Link>{" "}
         en de{" "}
         <Link
-          href="/inzichten/seizoens-kostenkalender-per-maand"
+          href="/inzichten/jaarlijkse-kosten-reserveren"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >

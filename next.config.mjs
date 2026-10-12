@@ -13,7 +13,22 @@ const nextConfig = {
       // 6-sep-2026: cluster P geconsolideerd. Deze had 15 vertoningen op positie
       // 57,5. Doel is waarom-hou-ik-nooit-geld-over, dat op dezelfde vraag staat
       // en wel rankt (188 vertoningen). Zie docs/bouwvolgorde-06-sep-2026.md.
-      { source: "/inzichten/waar-blijft-mijn-geld-einde-maand", destination: "/inzichten/waarom-hou-ik-nooit-geld-over", permanent: true },
+      // 12-okt-2026: ICP-cluster (docs/plan-icp-vinden-12-okt-2026.md). Deze
+      // ging eerst naar waarom-hou-ik-nooit-geld-over, die nu zelf doorverwijst;
+      // direct naar het eindpunt, zodat er geen keten van twee 301's ontstaat.
+      { source: "/inzichten/waar-blijft-mijn-geld-einde-maand", destination: "/inzichten/waar-blijft-mijn-geld", permanent: true },
+      // Probleemtaal zonder zoekvolume, samengevoegd in waar-blijft-mijn-geld
+      // (CLAUDE.md 8.H.28). Vier van deze vijf stonden niet in de index van Google.
+      { source: "/inzichten/waarom-hou-ik-nooit-geld-over", destination: "/inzichten/waar-blijft-mijn-geld", permanent: true },
+      { source: "/inzichten/goed-salaris-toch-krap", destination: "/inzichten/waar-blijft-mijn-geld", permanent: true },
+      { source: "/inzichten/goed-salaris-toch-geldstress", destination: "/inzichten/waar-blijft-mijn-geld", permanent: true },
+      { source: "/inzichten/alleen-wonen-goed-salaris-toch-krap", destination: "/inzichten/waar-blijft-mijn-geld", permanent: true },
+      // Huishoudboekje: drie pagina's op dezelfde SERP, nu één met een download.
+      { source: "/inzichten/moet-je-een-huishoudboekje-bijhouden", destination: "/inzichten/huishoudboekje-voorbeeld", permanent: true },
+      { source: "/inzichten/budget-maken-dat-je-volhoudt", destination: "/inzichten/huishoudboekje-voorbeeld", permanent: true },
+      // Jaaruitgaven: kerstpot en seizoenskalender opgenomen in de nieuwe pagina.
+      { source: "/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die", destination: "/inzichten/jaarlijkse-kosten-reserveren", permanent: true },
+      { source: "/inzichten/seizoens-kostenkalender-per-maand", destination: "/inzichten/jaarlijkse-kosten-reserveren", permanent: true },
     ];
   },
 };

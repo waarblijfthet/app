@@ -112,6 +112,27 @@ export async function GET(request: NextRequest) {
     if (emailRes.error) throw emailRes.error;
     if (geldscanRes.error) throw geldscanRes.error;
 
+    // Landingspagina per sessie (12-okt-2026): de eerste pagina die deze
+    // sessie bezocht. Daarmee is per pagina te zien hoeveel invullers krap
+    // zitten (de vraag maandGevoel), de ICP-meting uit
+    // docs/plan-icp-vinden-12-okt-2026.md. In blokken van 50 sessies, want
+    // Supabase geeft maximaal 1000 rijen per verzoek.
+    const landingPerSessie: Record<string, string> = {};
+    const sessieIds = Array.from(new Set(voortgang.map((r) => r.sessie_id).filter(Boolean)));
+    for (let i = 0; i < sessieIds.length; i += 50) {
+      const blok = sessieIds.slice(i, i + 50);
+      const { data: bezoeken, error: bezoekErr } = await supabase
+        .from("paginabezoeken")
+        .select("sessie_id,pagina,created_at")
+        .in("sessie_id", blok)
+        .order("created_at", { ascending: true })
+        .limit(1000);
+      if (bezoekErr) throw bezoekErr;
+      for (const b of (bezoeken ?? []) as { sessie_id: string; pagina: string }[]) {
+        if (!landingPerSessie[b.sessie_id]) landingPerSessie[b.sessie_id] = b.pagina;
+      }
+    }
+
     const sessies = voortgang.map((r) => {
       const antwoorden = { ...(r.antwoorden ?? {}) };
       delete antwoorden.email;
@@ -139,6 +160,7 @@ export async function GET(request: NextRequest) {
       gebeurtenissen: gebeurtenissen,
       emailAchtergelaten: emailRes.count ?? 0,
       geldscanAanvragen: geldscanRes.count ?? 0,
+      landingPerSessie: landingPerSessie,
     });
   } catch (e) {
     console.error("admin/analyse-verloop: ophalen mislukt", e);

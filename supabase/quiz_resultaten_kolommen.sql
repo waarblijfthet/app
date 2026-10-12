@@ -40,3 +40,7 @@ alter table quiz_resultaten add column if not exists grootste_afwijking text;
 alter table quiz_resultaten add column if not exists verdict text;
 
 create unique index if not exists quiz_resultaten_token_idx on quiz_resultaten (token);
+
+-- 12-okt-2026: het gat tussen papier en werkelijkheid
+alter table quiz_resultaten add column if not exists werkelijk_over int;
+alter table quiz_resultaten add column if not exists niet_aanwijsbaar int;

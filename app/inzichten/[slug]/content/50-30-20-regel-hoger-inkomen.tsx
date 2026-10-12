@@ -180,7 +180,7 @@ export default function VijftigDertigTwintigRegelHogerInkomen() {
         de{" "}
         <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>, en dat is een stuk concreter dan een regel onthouden.
       </p>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link> en <Link href="/inzichten/budget-maken-dat-je-volhoudt" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">een budget dat je volhoudt</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/vrij-besteedbaar-inkomen-berekenen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat je vrij besteedbaar overhoudt</Link> en <Link href="/inzichten/huishoudboekje-voorbeeld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">een budget dat je volhoudt</Link>.</p>
     </>
   );
 }

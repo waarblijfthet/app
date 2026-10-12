@@ -11,8 +11,11 @@ export async function POST(request: NextRequest) {
     );
   }
   const resend = new Resend(process.env.RESEND_API_KEY);
-  const { email, token, verdict, maandelijksOver, benchmarkOver } =
+  const { email, token, verdict, maandelijksOver, benchmarkOver, werkelijkOver, nietAanwijsbaar } =
     await request.json();
+  // Het gat (12-okt-2026): staat het erin, dan is dat de kop van de mail.
+  const toonGat =
+    typeof nietAanwijsbaar === "number" && typeof werkelijkOver === "number" && nietAanwijsbaar >= 200;
 
   if (!email || !token) {
     return NextResponse.json(
@@ -45,18 +48,28 @@ export async function POST(request: NextRequest) {
     verdict === "goed" ? "#E7F1EE" : verdict === "matig" ? "#FDF3E3" : "#FDECEA";
   const verdictTekstKleur =
     verdict === "goed" ? "#0B7A6E" : verdict === "matig" ? "#92600A" : "#B03A2E";
-  const verdictTitel =
+  const verdictTitelOud =
     verdict === "goed"
       ? "Je doet het goed"
       : verdict === "matig"
       ? "Er is ruimte voor verbetering"
       : "Dit patroon is om te buigen";
-  const verdictTekst =
+  const verdictTekstOud =
     verdict === "goed"
       ? "Er is ruimte. De vraag is of dat geld doelbewust wordt ingezet."
       : verdict === "matig"
       ? "Je zit dicht bij het gemiddelde maar de buffer is klein."
       : "Je houdt structureel minder over dan vergelijkbare huishoudens. Dit is precies waar ik bij help, en het ligt niet aan jou.";
+  const verdictTitel = toonGat ? "Dit is wat de Geldscan uitzoekt" : verdictTitelOud;
+  const verdictTekst = toonGat
+    ? "Ik lees je cijfers en zoek uit waar dit bedrag naartoe gaat. Binnen 2 werkdagen, met de hand geschreven, voor 49 euro."
+    : verdictTekstOud;
+  const kop = toonGat
+    ? `€${Math.round(nietAanwijsbaar)} per maand kun je niet aanwijzen`
+    : `Je houdt €${Math.round(maandelijksOver)} over`;
+  const onderkop = toonGat
+    ? `Op papier houd je €${Math.round(maandelijksOver)} over, in werkelijkheid €${Math.round(werkelijkOver)}.`
+    : verschilTekst;
 
   try {
     const { error } = await resend.emails.send({
@@ -96,9 +109,9 @@ export async function POST(request: NextRequest) {
             <td style="background-color:#FFFFFF;border-radius:16px;padding:32px;">
               <p style="margin:0 0 8px;font-size:13px;color:#8B958F;text-transform:uppercase;letter-spacing:0.1em;">Jouw analyse</p>
               <h1 style="margin:0 0 8px;font-size:36px;color:#16211F;font-weight:300;">
-                Je houdt €${Math.round(maandelijksOver)} over
+                ${kop}
               </h1>
-              <p style="margin:0 0 24px;font-size:15px;color:#4A5A56;">${verschilTekst}</p>
+              <p style="margin:0 0 24px;font-size:15px;color:#4A5A56;">${onderkop}</p>
 
               <table cellpadding="0" cellspacing="0" style="background-color:${verdictKleur};border-radius:12px;padding:16px;width:100%;">
                 <tr>

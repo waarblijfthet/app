@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { QuizData, RESULTAAT_STAP_SLEUTEL, VRAAG_VERSTUURD_SLEUTEL } from "@/lib/quiz-types";
+import { QuizData, RESULTAAT_STAP_SLEUTEL, VRAAG_VERSTUURD_SLEUTEL, fmtEur } from "@/lib/quiz-types";
 import { logGebeurtenis } from "@/lib/track";
 import ResultaatProgressBar from "./resultaat/ResultaatProgressBar";
 import Resultaat1Uitkomst from "./resultaat/Resultaat1Uitkomst";
@@ -22,7 +22,7 @@ interface Props {
 }
 
 const TITEL_PER_STAP: Record<1 | 2 | 3 | 4, (meerdere: boolean) => string> = {
-  1: (meerdere) => (meerdere ? "Jullie financiële ruimte" : "Jouw financiële ruimte"),
+  1: (meerdere) => (meerdere ? "Jullie uitkomst" : "Jouw uitkomst"),
   2: () => "Waar zit het verschil?",
   3: () => "Wat betekent dit?",
   4: () => "De volgende stap",
@@ -121,7 +121,16 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
     spaardoelWaarde,
     opvallend,
     resultaat,
+    soortUitkomst,
+    werkelijkOver,
+    gat,
   } = berekening;
+  const benchmarkRegel =
+    soortUitkomst === "oud"
+      ? null
+      : `Ter vergelijking: bij een huishouden als ${meerdere ? "het jullie" : "het jouwe"} verwacht ik ongeveer ${fmtEur(
+          benches.vrij_besteedbaar
+        )} ruimte per maand. Dat is mijn eigen vuistregel op inkomen, huishouden en auto, geen norm.`;
   const toonVraagstap = vraagAan !== false && !verstuurd;
   const titel =
     substap === 3 && toonVraagstap
@@ -157,6 +166,13 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
             contextZin={contextZin}
             inkomenWisselend={data.inkomenWisselend}
             spaardoelWaarde={spaardoelWaarde}
+            soortUitkomst={soortUitkomst}
+            werkelijkOver={werkelijkOver}
+            gat={gat}
+            meerdere={meerdere}
+            data={data}
+            onChange={onChange}
+            resultaat={resultaat}
             onVerder={() => setSubstap(2)}
           />
         )}
@@ -164,6 +180,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
           <Resultaat2Verschil
             opvallend={opvallend}
             zinVoor={zinVoor}
+            benchmarkRegel={benchmarkRegel}
             onVerder={() => setSubstap(3)}
           />
         )}

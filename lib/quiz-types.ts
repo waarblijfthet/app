@@ -2,8 +2,17 @@ export type Woonsituatie = "huur" | "koop";
 export type AutoSituatie = "geen" | "eigen" | "lease_privé" | "zakelijk";
 export type KinderenAantal = 0 | 1 | 2 | 3;
 export type ZorgToggle = "per_persoon" | "totaal";
+/**
+ * Hoe het aan het eind van de maand voelt (12-okt-2026). De eerste vraag van
+ * de analyse en de ICP-meting: per landingspagina is te zien hoeveel
+ * invullers krap zitten. Zie docs/plan-icp-vinden-12-okt-2026.md, stap 0.
+ */
+export type MaandGevoel = "ruim" | "net" | "tekort";
 
 export interface QuizData {
+  // Stap 0, hoe het voelt (12-okt-2026)
+  maandGevoel: MaandGevoel | null;
+
   // Stap 1, Profiel
   volwassenen: 1 | 2 | null;
   woonsituatie: Woonsituatie | null;
@@ -67,7 +76,15 @@ export interface QuizData {
   vrijetijd: string;
   jaarlijkseKosten: string;
   jaarlijkseKostenPer: "maand" | "jaar";
+  /** Niet meer gevraagd sinds 12-okt-2026; blijft voor oude sessies in de admin. */
   spaardoel: string;
+  /**
+   * Wat er volgens de bezoeker zelf echt overblijft per maand (12-okt-2026):
+   * opzij gezet plus wat er vlak voor het salaris nog staat. "" is niet
+   * beantwoord, "0" is niets of tekort. Het verschil met de berekende ruimte
+   * is het gat dat het resultaat laat zien.
+   */
+  werkelijkOver: string;
 
   // Stap 6, Lead
   naam: string;
@@ -77,6 +94,7 @@ export interface QuizData {
 }
 
 export const DEFAULT_QUIZ_DATA: QuizData = {
+  maandGevoel: null,
   volwassenen: null,
   woonsituatie: null,
   kinderen: null,
@@ -127,6 +145,7 @@ export const DEFAULT_QUIZ_DATA: QuizData = {
   jaarlijkseKosten: "",
   jaarlijkseKostenPer: "jaar",
   spaardoel: "",
+  werkelijkOver: "",
   naam: "",
   email: "",
   toestemmingOpslaan: false,

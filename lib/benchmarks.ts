@@ -173,13 +173,17 @@ export function getBenchmarks(profiel: {
 export function berekenTotaalInkomen(data: QuizData): number {
   const s1 = parseEur(data.salaris1);
   let e1 = s1;
-  if (data.salaris1InclVakantiegeld) e1 += Math.round(s1 * 0.08 / 12);
+  // Vakantiegeld is 8 procent van het jaarsalaris, dus per maand gemiddeld 8
+  // procent van één maandsalaris. Tot 12-okt-2026 stond hier `* 0.08 / 12`,
+  // een factor 12 te laag. Benadering op netto: het bijzonder tarief maakt het
+  // werkelijke netto vakantiegeld iets lager.
+  if (data.salaris1InclVakantiegeld) e1 += Math.round(s1 * 0.08);
   if (data.salaris1InclDertiende) e1 += Math.round(s1 / 12);
 
   const s2 = parseEur(data.salaris2);
   let e2 = s2;
   if (s2 > 0) {
-    if (data.salaris2InclVakantiegeld) e2 += Math.round(s2 * 0.08 / 12);
+    if (data.salaris2InclVakantiegeld) e2 += Math.round(s2 * 0.08);
     if (data.salaris2InclDertiende) e2 += Math.round(s2 / 12);
   }
 

@@ -379,8 +379,8 @@ function PrimaireKnop({ onStart, groot = false }: { onStart: () => void; groot?:
 const WAT_KRIJG_JE = [
   {
     icoon: "euro" as IcoonNaam,
-    titel: "Jouw financiële ruimte",
-    tekst: "Wat zou je ongeveer moeten overhouden?",
+    titel: "Wat je niet kunt aanwijzen",
+    tekst: "Wat er op papier overblijft, tegenover wat je zelf merkt.",
   },
   {
     icoon: "duo" as IcoonNaam,
@@ -425,8 +425,8 @@ export default function IntroScherm({ onStart }: { onStart: () => void }) {
             Hoe staat jouw huishouden er financieel voor?
           </h1>
           <p className="text-text-soft font-body font-light text-lg leading-relaxed mb-7 max-w-[480px]">
-            Ontdek hoeveel financiële ruimte bij jouw situatie past en waar jouw situatie
-            afwijkt van vergelijkbare huishoudens.
+            Ontdek hoeveel geld er per maand verdwijnt zonder dat je weet waarheen, en waar jouw
+            situatie afwijkt van vergelijkbare huishoudens.
           </p>
           <button type="button" onClick={onStart} className="btn-primary text-base px-7 py-3.5">
             {PRIMAIRE_CTA_TEKST}

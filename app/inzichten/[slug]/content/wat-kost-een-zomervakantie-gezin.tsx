@@ -66,7 +66,7 @@ export default function WatKostEenZomervakantieGezin() {
         opzij. €200 per maand is €2.400 in de zomer. Zo betaal je de vakantie met
         geld dat er al is, in plaats van met de maanden erna. Dit is dezelfde
         gedachte als de{" "}
-        <Link href="/inzichten/seizoens-kostenkalender-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">seizoens-kostenkalender</Link>.
+        <Link href="/inzichten/jaarlijkse-kosten-reserveren" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">seizoens-kostenkalender</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd of er ruimte is voor een vakantiepotje?{" "}

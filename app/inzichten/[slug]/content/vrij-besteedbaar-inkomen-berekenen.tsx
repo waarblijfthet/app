@@ -200,7 +200,7 @@ export default function VrijBesteedbaarInkomenBerekenen() {
         van dat vrije bedrag gaat in de praktijk een deel ongemerkt op aan dingen die je niet
         bijhoudt. Daarover lees je meer in{" "}
         <Link
-          href="/inzichten/waarom-hou-ik-nooit-geld-over"
+          href="/inzichten/waar-blijft-mijn-geld"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >

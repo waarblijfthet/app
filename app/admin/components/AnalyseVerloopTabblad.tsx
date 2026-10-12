@@ -289,6 +289,49 @@ export default function AnalyseVerloopTabblad() {
             </div>
           </section>
 
+          {/* ICP per landingspagina (12-okt-2026) */}
+          {berekend.icpPerLanding.length > 0 && (
+            <section className="card-base overflow-hidden">
+              <div className="px-4 py-3 border-b border-[#F0F3F1]">
+                <h2 className="font-body font-semibold text-primary text-sm">Zitten ze krap? Per landingspagina</h2>
+                <p className="text-xs text-text-muted mt-0.5">
+                  De eerste pagina van de sessie, en wat starters antwoordden op &quot;Hoe is het meestal aan het eind van de
+                  maand?&quot;. Krap is net genoeg plus te weinig. Gemeten vanaf 12 okt.
+                </p>
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table className="w-full text-sm" style={{ minWidth: 560 }}>
+                  <thead>
+                    <tr className="text-left text-text-muted text-xs">
+                      <th className="px-4 py-2 font-medium">Landingspagina</th>
+                      <th className="px-4 py-2 font-medium text-right">Gestart</th>
+                      <th className="px-4 py-2 font-medium text-right">Ruim</th>
+                      <th className="px-4 py-2 font-medium text-right">Net</th>
+                      <th className="px-4 py-2 font-medium text-right">Te weinig</th>
+                      <th className="px-4 py-2 font-medium text-right">Krap</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#F0F3F1]">
+                    {berekend.icpPerLanding.map((r) => (
+                      <tr key={r.pagina}>
+                        <td className="px-4 py-1.5 text-primary max-w-[280px] truncate" title={r.pagina}>
+                          {r.pagina}
+                        </td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.gestart}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.ruim}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.net}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.tekort}</td>
+                        <td className="px-4 py-1.5 text-right text-primary">
+                          {r.beantwoord > 0 ? pct(r.krap, r.beantwoord) : "nog geen"}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
+
           {/* Herkomst */}
           {berekend.herkomst.length > 0 && (
             <section className="card-base overflow-hidden">

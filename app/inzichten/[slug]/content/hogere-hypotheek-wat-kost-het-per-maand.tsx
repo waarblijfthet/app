@@ -176,7 +176,7 @@ export default function HogereHypotheekWatKostHetPerMaand() {
           wat geeft een gezin uit per maand
         </Link>
         . Waarom een hoge vaste last de rest van de maand dichtdrukt:{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={link} className="hover:underline">
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={link} className="hover:underline">
           goed salaris, toch krap
         </Link>
         . Een verbouwing in plaats van verhuizen:{" "}

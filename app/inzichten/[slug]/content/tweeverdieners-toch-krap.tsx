@@ -74,7 +74,7 @@ export default function TweeverdienersTochKrap() {
       <p className="font-body text-text-soft" style={p}>
         Als dit herkenbaar is: jullie doen niks fout. Dit is hetzelfde patroon
         dat speelt bij gezinnen die{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed verdienen en toch krap zitten</Link>.
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed verdienen en toch krap zitten</Link>.
         Het probleem is zelden het inkomen, het is dat de uitgaven ongemerkt
         meegroeien, iets wat ook wel{" "}
         <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">lifestyle-inflatie</Link>{" "}

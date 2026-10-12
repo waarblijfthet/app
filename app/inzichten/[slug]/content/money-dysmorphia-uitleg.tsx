@@ -110,7 +110,7 @@ export default function MoneyDysmorphiaUitleg() {
         </Link>
         , en lees hoe je van het knagende gevoel afkomt in{" "}
         <Link
-          href="/inzichten/goed-salaris-toch-geldstress"
+          href="/inzichten/waar-blijft-mijn-geld"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >

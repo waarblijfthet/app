@@ -79,12 +79,14 @@ interface Props {
   opvallend: AfwijkingEntry[];
   zinVoor: (a: AfwijkingEntry, i: number) => string;
   onVerder: () => void;
+  /** Sinds 12-okt-2026 hier in plaats van op uitkomst 1: de vuistregel voor de ruimte. */
+  benchmarkRegel?: string | null;
 }
 
 /**
  * Uitkomst 2 van 4: maximaal drie afwijkingen, constaterend, niet oordelend.
  */
-export default function Resultaat2Verschil({ opvallend, zinVoor, onVerder }: Props) {
+export default function Resultaat2Verschil({ opvallend, zinVoor, onVerder, benchmarkRegel }: Props) {
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-2 leading-snug">
@@ -93,6 +95,9 @@ export default function Resultaat2Verschil({ opvallend, zinVoor, onVerder }: Pro
       <p className="text-text-soft font-body font-light text-base mb-8">
         Dit zijn de uitgaven die het meest afwijken van vergelijkbare huishoudens.
       </p>
+      {benchmarkRegel && (
+        <p className="text-text-soft font-body font-light text-sm -mt-5 mb-8 leading-relaxed">{benchmarkRegel}</p>
+      )}
 
       {opvallend.length > 0 && (
         <div className="card-base border border-[#E6E9E7]">

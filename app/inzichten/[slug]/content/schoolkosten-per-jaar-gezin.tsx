@@ -64,7 +64,7 @@ export default function SchoolkostenPerJaarGezin() {
         Net als de zomervakantie en december is de schoolstart een voorspelbare
         piek, dus kun je ervoor sparen. Reken op €400 à €600 per schoolgaand kind
         en zet daar maandelijks iets voor opzij. Het hoort thuis in je{" "}
-        <Link href="/inzichten/seizoens-kostenkalender-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">seizoens-kostenkalender</Link>.
+        <Link href="/inzichten/jaarlijkse-kosten-reserveren" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">seizoens-kostenkalender</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Benieuwd of er ruimte is voor zo&apos;n schoolpotje?{" "}

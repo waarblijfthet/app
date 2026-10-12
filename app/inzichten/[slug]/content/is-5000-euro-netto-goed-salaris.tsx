@@ -253,6 +253,9 @@ export default function Is5000EuroNettoGoedSalaris() {
         </Link>
         , met de huishoudtabel en een stuk over wat er verandert als de expatregeling stopt.
       </p>
+      <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
+        Merk je een hoger salaris niet op je spaarrekening? Lees over <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">lifestyle inflatie</Link> en <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar je geld blijft</Link>.
+      </p>
     </>
   );
 }

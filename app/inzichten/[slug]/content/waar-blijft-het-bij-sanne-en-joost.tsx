@@ -97,7 +97,7 @@ export default function WaarBlijftHetBijSanneEnJoost() {
         occasion, houdt al snel €600 tot €700 per maand over in plaats van €150.
         Zonder dat het leven wezenlijk soberder voelt. Het verschil is niet meer
         verdienen, het is structuur, precies zoals bij{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Herken je iets van Sanne en Joost?{" "}

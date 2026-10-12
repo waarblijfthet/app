@@ -208,7 +208,7 @@ export default function PensioenAanvullenHoeveel() {
       <h2 className="font-display" style={h2}>Eerst inzicht in je maandbudget</h2>
       <p className="font-body text-text-soft" style={p}>
         Als je nu al het gevoel hebt dat de maand op is voor het salaris er weer is, is pensioen aanvullen pas stap twee. Stap één is begrijpen waar je geld nu naartoe gaat. Lees ook:{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap, hoe kan dat?</Link>{" "}
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap, hoe kan dat?</Link>{" "}
         en{" "}
         <Link href="/inzichten/hoeveel-sparen-per-maand-normaal-nederland" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoeveel sparen per maand is normaal in Nederland?</Link>
       </p>

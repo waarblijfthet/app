@@ -185,7 +185,7 @@ export default function GezamenlijkeRekeningVoorEnNadelen() {
         Wat zijn normale vaste lasten? Lees:{" "}
         <Link href="/inzichten/wat-zijn-normale-vaste-lasten-gezin" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">normale vaste lasten voor een gezin in 2026</Link>{" "}
         en{" "}
-        <Link href="/inzichten/seizoens-kostenkalender-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">seizoenskosten per maand: wat komt er wanneer aan?</Link>
+        <Link href="/inzichten/jaarlijkse-kosten-reserveren" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">seizoenskosten per maand: wat komt er wanneer aan?</Link>
       </p>
       <p className="font-body text-text-soft" style={p}>
         Wil je samen jullie financiële basis doorlichten?{" "}

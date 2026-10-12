@@ -72,7 +72,7 @@ export default function SchamenNietRondkomenGoedInkomen() {
         over hoe vaak dit in Nederland voorkomt: de {AANTAL_ZONDER_LEK} op {RAPPORTEN.length} hierboven gaat
         over de huishoudens die ik zelf doorrekende, niet over het land. Wil je weten wat een goed inkomen
         met het gevoel van geldstress doet, dat lees je in{" "}
-        <Link href="/inzichten/goed-salaris-toch-geldstress" style={linkStyle} className="hover:underline">
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={linkStyle} className="hover:underline">
           goed salaris, toch geldstress
         </Link>
         .
@@ -101,7 +101,7 @@ export default function SchamenNietRondkomenGoedInkomen() {
         </Link>
         . En voor de volledige uitwerking van waar het geld bij een goed inkomen daadwerkelijk blijft, met
         bedragen, staat mijn artikel{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={linkStyle} className="hover:underline">
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={linkStyle} className="hover:underline">
           goed salaris, maar toch niet rondkomen
         </Link>
         .

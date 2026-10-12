@@ -306,6 +306,9 @@ export default function WatIsNormaalBedragBoodschappen() {
         de rest van de maand, dan staat de volledige begroting van een gezin met twee inkomens in{" "}
         <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
       </p>
+      <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
+        Waar het geld bij echte huishoudens naast de boodschappen naartoe ging, lees je in <Link href="/inzichten/meer-geld-overhouden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">meer geld overhouden</Link>.
+      </p>
     </>
   );
 }

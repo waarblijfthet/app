@@ -143,7 +143,7 @@ export default function VerschilBudgetcoachFinancieelCoach() {
           wat kost een budgetcoach
         </Link>
         . Waarom er bij een goed inkomen toch weinig kan overblijven, lees je in{" "}
-        <Link href="/inzichten/waarom-hou-ik-nooit-geld-over" style={oranje} className="hover:underline">
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={oranje} className="hover:underline">
           waarom hou ik nooit geld over
         </Link>
         .

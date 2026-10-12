@@ -140,7 +140,7 @@ export default function GripOpJeGeldKrijgen() {
         geen sturen, en veel mensen willen hun rekening niet aan een app koppelen. Het draait niet
         om meer data, het draait om een paar duidelijke afspraken die je volhoudt. Zie ook waarom je{" "}
         <Link
-          href="/inzichten/waarom-hou-ik-nooit-geld-over"
+          href="/inzichten/waar-blijft-mijn-geld"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >

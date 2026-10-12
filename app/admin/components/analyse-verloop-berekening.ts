@@ -47,6 +47,8 @@ export type ApiData = {
   gebeurtenissen?: Gebeurtenis[];
   emailAchtergelaten: number;
   geldscanAanvragen: number;
+  /** Eerste pagina per sessie (12-okt-2026). */
+  landingPerSessie?: Record<string, string>;
 };
 
 export type Status = "resultaat" | "afgehaakt" | "afgebroken" | "niet-begonnen" | "oude-meting";
@@ -150,7 +152,9 @@ export const SCHERM_LABEL: Record<string, string> = {
   kinderkosten: "Kinderkosten",
   "vrije-uitgaven": "Vrije uitgaven",
   "jaarlijkse-kosten": "Jaarlijkse kosten",
-  sparen: "Sparen",
+  sparen: "Sparen (tot 12 okt)",
+  "maand-gevoel": "Hoe voelt het eind van de maand",
+  "werkelijk-over": "Echt over per maand",
   resultaat: "Resultaat",
 };
 
@@ -384,6 +388,34 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     }
     herkomstMap.set(bron, rij);
   });
+  // ICP-meting per landingspagina (12-okt-2026): hoeveel starters zeggen dat
+  // het aan het eind van de maand net genoeg of te weinig is. Alleen sessies
+  // die de vraag beantwoordden tellen in het aandeel.
+  const landing = data.landingPerSessie ?? {};
+  const icpMap = new Map<string, { gestart: number; ruim: number; net: number; tekort: number }>();
+  for (const s of sessies) {
+    const pagina = landing[s.sessie_id] ?? "onbekend";
+    const rij = icpMap.get(pagina) ?? { gestart: 0, ruim: 0, net: 0, tekort: 0 };
+    rij.gestart++;
+    const gevoel = s.antwoorden.maandGevoel;
+    if (gevoel === "ruim") rij.ruim++;
+    else if (gevoel === "net") rij.net++;
+    else if (gevoel === "tekort") rij.tekort++;
+    icpMap.set(pagina, rij);
+  }
+  const icpPerLanding = Array.from(icpMap.entries())
+    .map(([pagina, r]) => ({
+      pagina: pagina,
+      gestart: r.gestart,
+      ruim: r.ruim,
+      net: r.net,
+      tekort: r.tekort,
+      beantwoord: r.ruim + r.net + r.tekort,
+      krap: r.net + r.tekort,
+    }))
+    .sort((a, b) => b.gestart - a.gestart)
+    .slice(0, 20);
+
   const herkomst = Array.from(herkomstMap.entries())
     .map(([bron, r]) => ({ bron: bron, ...r }))
     .sort((a, b) => b.geopend - a.geopend)
@@ -428,6 +460,7 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     tabel: tabel,
     maxAfhaak: maxAfhaak,
     herkomst: herkomst,
+    icpPerLanding: icpPerLanding,
     toestemming: sessies.filter((s) => s.toestemming_data_asset).length,
   };
 }

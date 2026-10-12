@@ -98,7 +98,7 @@ export default function OnsBoodschappenbudgetMislukte() {
         <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>. Boodschappen is een van de categorieën die ik vergelijk.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        <strong>Meer praktijkverhalen:</strong> <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">December: zo bouwden we een kerst- en verjaardagspot</a> &middot; <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">De BSO slokte ons tweede inkomen op</a>.
+        <strong>Meer praktijkverhalen:</strong> <a href="/inzichten/jaarlijkse-kosten-reserveren" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">December: zo bouwden we een kerst- en verjaardagspot</a> &middot; <a href="/inzichten/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">De BSO slokte ons tweede inkomen op</a>.
       </p>
     </>
   );

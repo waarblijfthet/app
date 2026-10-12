@@ -66,7 +66,7 @@ export default function WatKostDecemberFeestdagenGezin() {
         maand, bovenop je gewone vaste lasten en boodschappen. Wie geen apart
         potje heeft, betaalt het uit het lopende inkomen, precies het patroon
         dat ik beschrijf bij{" "}
-        <Link href="/inzichten/goed-salaris-toch-krap" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris, toch krap</Link>.
       </p>
       <p className="font-body text-text-soft" style={p}>
         Daar bovenop komt de sociale druk. De buren hebben de mooiste
@@ -91,7 +91,7 @@ export default function WatKostDecemberFeestdagenGezin() {
         <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}en zie waar jullie geld nu naartoe gaat.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Uit de praktijk: lees <a href="/inzichten/kerstpot-en-verjaardagspot-zo-bouwden-we-die" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin een kerst- en verjaardagspot bouwde</a>.
+        Uit de praktijk: lees <a href="/inzichten/jaarlijkse-kosten-reserveren" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin een kerst- en verjaardagspot bouwde</a>.
       </p>
     </>
   );

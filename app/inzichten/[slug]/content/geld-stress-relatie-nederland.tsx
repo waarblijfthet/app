@@ -78,7 +78,7 @@ export default function GeldStressRelatieNederland() {
         alleen toegeven dat het niet klopt, maar ook dat je niet weet waarom.
         Herkenbaar?{" "}
         <Link
-          href="/inzichten/goed-salaris-toch-krap"
+          href="/inzichten/waar-blijft-mijn-geld"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >
@@ -175,7 +175,7 @@ export default function GeldStressRelatieNederland() {
         <Link href="/inzichten/partner-geeft-te-veel-uit" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">mijn partner geeft te veel uit</Link>. Gaat het over uitgaven of een lening die verzwegen worden, dan is dat{" "}
         <Link href="/inzichten/financiele-ontrouw-partner-verzwijgt-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">financi&euml;le ontrouw</Link>, met de cijfers die daarover bekend zijn.
       </p>
-      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/goed-salaris-toch-geldstress" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris en toch geldstress</Link>, <Link href="/inzichten/kosten-verdelen-samenwonen-ongelijk-inkomen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">kosten verdelen bij een ongelijk inkomen</Link> en, als het toch tot een scheiding komt, <Link href="/inzichten/scheiden-goed-inkomen-toch-niks-over" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">scheiden met een goed inkomen en toch niks over</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">goed salaris en toch geldstress</Link>, <Link href="/inzichten/kosten-verdelen-samenwonen-ongelijk-inkomen" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">kosten verdelen bij een ongelijk inkomen</Link> en, als het toch tot een scheiding komt, <Link href="/inzichten/scheiden-goed-inkomen-toch-niks-over" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">scheiden met een goed inkomen en toch niks over</Link>.</p>
     </>
   );
 }

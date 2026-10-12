@@ -76,6 +76,28 @@ function samenstellingVan(data: QuizData): Samenstelling | null {
 
 // ─── Categorie 1: Jouw huishouden ─────────────────────────────────────────────
 
+/**
+ * De eerste vraag (12-okt-2026): hoe het voelt aan het eind van de maand. Dit
+ * is de ICP-meting uit docs/plan-icp-vinden-12-okt-2026.md: per landingspagina
+ * is in /admin/analyse-verloop te zien hoeveel invullers krap zitten. Bewust
+ * vóór de huishoudvraag, zodat ook wie daarna afhaakt meetelt.
+ */
+const MaandGevoelScherm = maakKeuzeScherm({
+  vraag: () => "Hoe is het meestal aan het eind van de maand?",
+  subtekst: () => "Je eerste indruk is genoeg.",
+  huidige: (d) => d.maandGevoel,
+  opties: () => [
+    { value: "ruim", label: "Er blijft ruim wat over", patch: { maandGevoel: "ruim" } },
+    { value: "net", label: "Het is net genoeg", patch: { maandGevoel: "net" } },
+    {
+      value: "tekort",
+      label: "Te weinig, ik vul aan uit spaargeld of sta rood",
+      patch: { maandGevoel: "tekort" },
+    },
+  ],
+});
+
+
 const HuishoudenScherm = maakKeuzeScherm({
   vraag: () => "Met wie woon je?",
   subtekst: () =>
@@ -664,26 +686,31 @@ const JaarlijkseKostenScherm = maakBucketScherm({
   ],
 });
 
-const SparenScherm = maakJaNeeBedragScherm({
-  vraag: () => "Wil je ook meenemen wat je gemiddeld spaart?",
-  subtekst: () => "Volledig optioneel.",
-  neeLabel: "Nee, sla over",
-  jaLabel: "Ja",
-  neePatch: { spaardoel: "" },
-  vervolgVraag: () => "Wat zetten jullie gemiddeld opzij?",
-  veld: "spaardoel",
-  opties: () => [
-    { value: 200, label: "€200" },
-    { value: 500, label: "€500" },
-    { value: 800, label: "€800" },
-    { value: 1200, label: "€1.200+" },
+/**
+ * Vervangt de optionele spaarvraag (12-okt-2026). Verplicht, want het verschil
+ * tussen wat er op papier overblijft en wat er echt overblijft is de uitkomst
+ * van de analyse. Bij de 21 invullers die hun sparen opgaven (12 sep tot 12
+ * okt) verdween mediaan 944 euro per maand in de berekening, en het resultaat
+ * noemde dat ruimte. Zie docs/plan-analyse-meet-het-gat-12-okt-2026.md.
+ */
+const WerkelijkOverScherm = maakBucketScherm({
+  vraag: () => "En hoeveel blijft er echt over, per maand?",
+  subtekst: () =>
+    "Wat je opzij zet, plus wat er nog op je rekening staat vlak voordat je salaris binnenkomt. Kijk gerust even in je bankapp.",
+  veld: "werkelijkOver",
+  customLabel: "Ik vul het bedrag zelf in",
+  buckets: () => [
+    { label: "Niets, of ik kom tekort", value: 0 },
+    { label: "Ongeveer €250", value: 250 },
+    { label: "Ongeveer €500", value: 500 },
+    { label: "€1.000 of meer", value: 1000 },
   ],
-  actiefBijStart: (d) => parseEur(d.spaardoel) > 0,
 });
 
 // ─── De volgorde ───────────────────────────────────────────────────────────────
 
 export const ALLE_SCHERMEN: SchermDef[] = [
+  { id: "maand-gevoel", categorie: 1, Component: MaandGevoelScherm },
   { id: "huishouden", categorie: 1, Component: HuishoudenScherm },
   {
     id: "kinderen-aantal",
@@ -770,7 +797,7 @@ export const ALLE_SCHERMEN: SchermDef[] = [
   },
   { id: "vrije-uitgaven", categorie: 5, Component: VrijeUitgavenScherm },
   { id: "jaarlijkse-kosten", categorie: 5, Component: JaarlijkseKostenScherm },
-  { id: "sparen", categorie: 5, Component: SparenScherm },
+  { id: "werkelijk-over", categorie: 5, Component: WerkelijkOverScherm },
 ];
 
 export function actieveSchermen(data: QuizData): SchermDef[] {

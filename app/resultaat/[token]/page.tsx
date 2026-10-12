@@ -190,6 +190,13 @@ export default async function ResultaatPage({ params }: Props) {
     .slice(0, 2);
 
   const over = r.maandelijks_over_berekend ?? 0;
+  // Het gat (12-okt-2026). Alleen bij resultaten van na die datum, en alleen
+  // als supabase/quiz_resultaten_gat.sql gedraaid is.
+  const nietAanwijsbaar: number | null =
+    typeof r.niet_aanwijsbaar === "number" ? r.niet_aanwijsbaar : null;
+  const werkelijkOver: number | null =
+    typeof r.werkelijk_over === "number" ? r.werkelijk_over : null;
+  const toonGat = nietAanwijsbaar !== null && werkelijkOver !== null && nietAanwijsbaar >= 200;
   const benchmarkOver = r.benchmark_over_verwacht ?? benches.vrij_besteedbaar;
   const verschil = over - benchmarkOver;
   const verdict = (r.verdict ?? "matig") as Verdict;
@@ -223,7 +230,7 @@ export default async function ResultaatPage({ params }: Props) {
                     color: "#8B958F",
                   }}
                 >
-                  {verschil < -50 ? "Het gat" : "Jouw ruimte"}
+                  {toonGat ? "Niet aan te wijzen" : verschil < -50 ? "Het gat" : "Jouw ruimte"}
                 </p>
                 <p
                   className="font-display font-light mb-3"
@@ -233,17 +240,23 @@ export default async function ResultaatPage({ params }: Props) {
                     color: verschil < -50 || over < 0 ? "#B03A2E" : "#16211F",
                   }}
                 >
-                  {verschil < -50
+                  {toonGat && nietAanwijsbaar !== null
+                    ? fmtEur(nietAanwijsbaar)
+                    : verschil < -50
                     ? fmtEur(Math.abs(verschil))
                     : over < 0
                     ? `-${fmtEur(Math.abs(over))}`
                     : fmtEur(over)}
                 </p>
                 <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
-                  {verschil < -50
+                  {toonGat && werkelijkOver !== null
+                    ? `per maand. Op papier blijft er ${fmtEur(over)} over, in werkelijkheid ${fmtEur(
+                        werkelijkOver
+                      )}. Dat verschil is het bedrag om te onderzoeken.`
+                    : verschil < -50
                     ? "per maand minder over dan ik bij deze situatie zou verwachten. Dat is het bedrag om te onderzoeken."
                     : verschil > 50
-                    ? "per maand over, meer dan ik bij deze situatie zou verwachten. Op dit niveau gaat er waarschijnlijk niets mis."
+                    ? "per maand over, meer dan ik bij deze situatie zou verwachten. Of er iets weglekt, zegt deze vergelijking niet: daarvoor moet je weten wat er echt overblijft."
                     : "per maand over, en dat is ongeveer wat ik bij deze situatie zou verwachten."}
                 </p>
 

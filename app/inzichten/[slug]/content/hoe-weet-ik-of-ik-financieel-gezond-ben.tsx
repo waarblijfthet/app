@@ -336,7 +336,7 @@ export default function HoeWeetIkOfIkFinancieelGezondBen() {
         </Link>
         . Woon je alleen, dan telt dit effect vaak nog directer door, zonder een tweede inkomen om het
         op te vangen, zie ook{" "}
-        <Link href="/inzichten/alleen-wonen-goed-salaris-toch-krap" style={linkStyle}>
+        <Link href="/inzichten/waar-blijft-mijn-geld" style={linkStyle}>
           een goed salaris als alleenstaande en toch krap zitten
         </Link>
         . Werk je als zzp&apos;er met een wisselend inkomen, dan rekent dat bovendien anders dan een

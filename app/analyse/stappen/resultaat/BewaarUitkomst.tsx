@@ -10,6 +10,8 @@ interface Props {
   data: QuizData;
   onChange: (u: Partial<QuizData>) => void;
   resultaat: Record<string, unknown>;
+  /** Tekst van de rustige link die het formulier opent (12-okt-2026: ook op uitkomst 1, onder het gat). */
+  linkTekst?: string;
 }
 
 /**
@@ -17,7 +19,7 @@ interface Props {
  * Standaard alleen een rustige tekstlink; het formulier verschijnt pas na een
  * bewuste klik, zodat het nooit met de primaire actie op stap 4 concurreert.
  */
-export default function BewaarUitkomst({ data, onChange, resultaat }: Props) {
+export default function BewaarUitkomst({ data, onChange, resultaat, linkTekst }: Props) {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const [sending, setSending] = useState(false);
@@ -63,6 +65,8 @@ export default function BewaarUitkomst({ data, onChange, resultaat }: Props) {
           verdict: resultaat.verdict,
           maandelijksOver: resultaat.maandelijks_over_berekend,
           benchmarkOver: resultaat.benchmark_over_verwacht,
+          werkelijkOver: resultaat.werkelijk_over ?? null,
+          nietAanwijsbaar: resultaat.niet_aanwijsbaar ?? null,
         }),
       }).catch(console.error);
 
@@ -105,7 +109,7 @@ export default function BewaarUitkomst({ data, onChange, resultaat }: Props) {
           }}
           className="min-h-[44px] px-3 inline-flex items-center font-body text-sm text-text-muted hover:text-primary underline underline-offset-2 transition-colors"
         >
-          Ik wil mijn gratis uitkomst alleen bewaren
+          {linkTekst ?? "Ik wil mijn gratis uitkomst alleen bewaren"}
         </button>
       </div>
     );

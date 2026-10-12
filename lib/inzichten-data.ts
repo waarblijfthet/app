@@ -173,6 +173,20 @@ import {
 } from "./budgetcoach-tarieven";
 import { PAKKET_INFO } from "./aanbod-content";
 import {
+  icpBron,
+  bereikJaarkostenPerMaand,
+  NIBUD_SPAARADVIES_PCT,
+  NIBUD_SPAART_NIET_ELKE_MAAND_PCT,
+  NIBUD_SPAART_MINDER_DAN_10_PCT,
+  NIBUD_BUDGETADVIES_PER_JAAR,
+  VAKANTIEGELD_MIN_PCT,
+  CBS_CAO_LONEN_Q1_2026,
+  CBS_CAO_LONEN_Q1_2026_REEEL,
+} from "./icp-bronnen";
+
+/** Jaaruitgaven per maand over de rapporten, laagste en hoogste (12-okt-2026, ICP-cluster). */
+const ICP_JAAR = bereikJaarkostenPerMaand();
+import {
   BRONNEN as GM_BRONNEN,
   BRON_DATUM as GM_DATUM,
   kinderbijslagPerMaand,
@@ -481,6 +495,179 @@ const GM_BRON = (b: { label: string; url: string }): ExternLink => ({
 });
 
 export const artikelen: Artikel[] = [
+  {
+    slug: "waar-blijft-mijn-geld",
+    cta: {
+      kop: "Hoeveel kun jij niet aanwijzen?",
+      tekst:
+        "De gratis analyse zet wat er op papier overblijft naast wat er echt overblijft, en laat per post zien waar je afwijkt van vergelijkbare huishoudens. Een paar minuten, zonder afschriften.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Waar blijft mijn geld?",
+    titel: "Waar blijft mijn geld? Zo zoek je het in een avond uit",
+    metaTitel: "Waar blijft mijn geld? Zo zoek je het in een avond uit",
+    metaDescription: `Je geld blijft meestal niet in je vaste lasten maar in uitgaven die een paar keer per jaar komen: €${ICP_JAAR.laagste} tot €${ICP_JAAR.hoogste} per maand bij ${RAPPORTEN.length} echte huishoudens. Zo zoek je het uit, met een snelcheck.`,
+    datum: "2026-10-12",
+    datumFormatted: "12 oktober 2026",
+    leestijd: "7",
+    categorie: "Inzicht",
+    excerpt:
+      "Waar je geld blijft, zie je pas als je een paar maanden naast elkaar legt. Vijf stappen voor een avond, wat het bij echte huishoudens bleek te zijn, en een snelcheck op hoeveel je niet kunt aanwijzen.",
+    preview: {
+      type: "pijn",
+      label: "Waar het meestal zit",
+      items: ["Jaaruitgaven die een paar keer per jaar komen", "Vrije uitgaven zonder plafond", "Niet in je vaste lasten"],
+    },
+    faq: [
+      {
+        vraag: "Waar blijft mijn geld?",
+        antwoord: `Meestal niet in je vaste lasten, want die zie je elke maand terug. Het zit in uitgaven die een paar keer per jaar komen, zoals vakantie, feestdagen, onderhoud en de auto, en in vrije uitgaven zonder plafond. Bij de ${RAPPORTEN.length} huishoudens die ik doorrekende ging er €${ICP_JAAR.laagste} tot €${ICP_JAAR.hoogste} per maand naar jaaruitgaven.`,
+      },
+      {
+        vraag: "Hoe kom ik erachter waar mijn geld naartoe gaat?",
+        antwoord:
+          "Pak drie maanden afschriften, geef elke uitgave een plek (vast, dagelijks of jaarlijks), tel de jaarlijkse op en deel door twaalf, en zet wat er op papier overblijft naast wat er echt overblijft. Het verschil is het geld dat je niet kunt aanwijzen.",
+      },
+      {
+        vraag: "Waarom heb ik nooit geld over terwijl ik goed verdien?",
+        antwoord:
+          "Omdat een hoger inkomen meer uitgaven toelaat die je niet hoeft te plannen, en omdat jaaruitgaven bij een hoger inkomen vaak groter zijn: verdere vakanties, een duurder huis om te onderhouden. Zonder een eigen rekening daarvoor zakt je spaargeld steeds terug.",
+      },
+      {
+        vraag: "Waarom zie ik in mijn bankapp niet waar mijn geld blijft?",
+        antwoord:
+          "Omdat je bankapp per maand telt, en jaaruitgaven in een paar maanden vallen. In de maanden ertussen lijkt er ruimte over te blijven, terwijl die al vastligt voor de volgende vakantie of december.",
+      },
+      {
+        vraag: "Kan iemand uitzoeken waar mijn geld blijft?",
+        antwoord: `Ja. Het Persoonlijk Budgetadvies van het Nibud is gratis en wordt volgens het Nibud ${NIBUD_BUDGETADVIES_PER_JAAR} keer per jaar ingevuld. De gratis analyse op deze site vergelijkt met echte huishoudens en zet wat er op papier overblijft naast wat je zelf merkt.`,
+      },
+    ],
+    externLinks: [
+      icpBron("nibudBudgetadvies"),
+      icpBron("wijzerVijfStappen"),
+      icpBron("nibudGeldzaken2024"),
+    ],
+  },
+  {
+    slug: "jaarlijkse-kosten-reserveren",
+    cta: {
+      kop: "Past dit bedrag in jouw maand?",
+      tekst:
+        "De gratis analyse rekent je jaaruitgaven mee en zet wat er op papier overblijft naast wat er echt overblijft.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Jaarlijkse kosten reserveren",
+    titel: "Jaarlijkse kosten reserveren: hoeveel per maand?",
+    metaTitel: "Jaarlijkse kosten reserveren: hoeveel per maand?",
+    metaDescription: `Tel je jaaruitgaven op, deel door twaalf en zet dat apart. Bij ${RAPPORTEN.length} echte huishoudens was dat €${ICP_JAAR.laagste} tot €${ICP_JAAR.hoogste} per maand. Met een rekenhulp en het verschil met een buffer.`,
+    datum: "2026-10-12",
+    datumFormatted: "12 oktober 2026",
+    leestijd: "6",
+    categorie: "Sparen",
+    excerpt:
+      "Vakantie, feestdagen, onderhoud en de auto komen een paar keer per jaar en vreten anders je spaargeld op. Hoeveel je per maand reserveert, wat het bij echte huishoudens was en waarom het geen buffer is.",
+    preview: {
+      type: "pijn",
+      label: "Jaaruitgaven",
+      items: ["Vakantie", "Feestdagen en verjaardagen", "Onderhoud en auto"],
+    },
+    faq: [
+      {
+        vraag: "Hoeveel moet ik reserveren voor jaarlijkse kosten?",
+        antwoord: `Wat ze bij jou per jaar kosten, gedeeld door twaalf. Een landelijke norm is er niet, omdat vakantie en onderhoud sterk verschillen. Bij de ${RAPPORTEN.length} huishoudens die ik doorrekende lag het tussen €${ICP_JAAR.laagste} en €${ICP_JAAR.hoogste} per maand.`,
+      },
+      {
+        vraag: "Wat zijn jaarlijkse kosten?",
+        antwoord:
+          "Uitgaven die je ziet aankomen maar niet elke maand betaalt: vakanties, feestdagen en verjaardagen, onderhoud aan huis en tuin, de auto (onderhoud, APK, banden), tandarts en eigen risico, kleding per seizoen en vaste lasten die per jaar komen, zoals gemeentelijke belastingen.",
+      },
+      {
+        vraag: "Is een buffer hetzelfde als een reservering?",
+        antwoord:
+          "Nee. Een buffer is volgens het Nibud voor onverwachte, grotere en noodzakelijke kosten. Jaaruitgaven zijn niet onverwacht. Komen ze van dezelfde rekening, dan zakt je buffer elk jaar terug en lijkt sparen niet te lukken. Houd ze daarom op aparte rekeningen.",
+      },
+      {
+        vraag: "Mag ik mijn vakantiegeld gebruiken voor jaarlijkse kosten?",
+        antwoord: `Ja. Vakantiegeld is minimaal ${VAKANTIEGELD_MIN_PCT} procent van je brutojaarsalaris, en de meeste werknemers krijgen het in mei of juni. Leg het naast je jaaruitgaven: wat het niet dekt, zet je maandelijks apart.`,
+      },
+      {
+        vraag: "Hoe reserveer je voor vakantie en december?",
+        antwoord:
+          "Tel op wat ze per jaar kosten, deel door twaalf en zet dat bedrag op salarisdag automatisch over naar een aparte rekening. Betaal vakantie en december alleen van die rekening. Na een jaar zie je of het bedrag klopte.",
+      },
+    ],
+    externLinks: [
+      icpBron("nibudBuffer"),
+      icpBron("rijksoverheidVakantiegeld"),
+      icpBron("wijzerVijfStappen"),
+    ],
+  },
+  {
+    slug: "meer-geld-overhouden",
+    cta: {
+      kop: "Waar zit bij jou de ruimte?",
+      tekst:
+        "De gratis analyse zet wat er op papier overblijft naast wat er echt overblijft, en laat per post zien waar je afwijkt van vergelijkbare huishoudens.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Meer geld overhouden",
+    titel: "Meer geld overhouden: zoek eerst waar het nu blijft",
+    metaTitel: "Meer geld overhouden in 2026: zoek eerst waar het blijft",
+    metaDescription:
+      "Meer overhouden begint niet met bezuinigen maar met weten waar je geld nu blijft. Vijf plekken uit de plannen voor echte huishoudens, en een snelcheck op wat je niet kunt aanwijzen.",
+    datum: "2026-10-12",
+    datumFormatted: "12 oktober 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Geen koffietips. Vijf plekken waar de ruimte bij echte huishoudens zat, in de volgorde waarin je ze aanpakt, en een snelcheck op hoeveel je nu niet kunt aanwijzen.",
+    preview: {
+      type: "pijn",
+      label: "Vijf plekken",
+      items: ["Jaaruitgaven apart", "Eén plafond voor vrije uitgaven", "Sparen op salarisdag"],
+    },
+    faq: [
+      {
+        vraag: "Hoe houd ik meer geld over?",
+        antwoord:
+          "Begin bij wat er nu verdwijnt zonder dat je weet waarheen. Geef je jaaruitgaven een eigen rekening, geef alle vrije uitgaven samen één plafond, zet je spaarbedrag apart op salarisdag en zet extra inkomsten zoals vakantiegeld opzij voordat je ze uitgeeft. Pas daarna loont het om naar losse posten te kijken.",
+      },
+      {
+        vraag: "Hoe houd ik meer geld over aan het einde van de maand?",
+        antwoord:
+          "Door het niet aan het einde van de maand te proberen. Wat dan over is, is bijna nooit genoeg. Zet een vast bedrag apart op de dag dat je salaris binnenkomt en richt de rest van de maand in op wat er daarna staat.",
+      },
+      {
+        vraag: "Wat is een normaal bedrag om over te houden per maand?",
+        antwoord: `Het Nibud adviseert minimaal ${NIBUD_SPAARADVIES_PCT} procent van je inkomen opzij te zetten. Wat dat per huishouden in euro's betekent, staat uitgewerkt op de pagina over hoeveel geld je per maand moet overhouden.`,
+      },
+      {
+        vraag: "Helpt een budget om meer geld over te houden?",
+        antwoord:
+          "Eén budget wel, tien niet. Een plafond voor alle vrije uitgaven samen houd je vol; een apart budget voor boodschappen, uitgaan, kleding en online aankopen meestal niet. Belangrijker nog is een aparte rekening voor jaaruitgaven, omdat die anders je spaargeld opmaken.",
+      },
+      {
+        vraag: "Waar zit de ruimte meestal?",
+        antwoord: `Bij de ${RAPPORTEN.length} huishoudens die ik volledig doorrekende ging er €${ICP_JAAR.laagste} tot €${ICP_JAAR.hoogste} per maand naar jaaruitgaven, waar niet altijd apart voor werd gereserveerd, en zaten vrije uitgaven zonder plafond. Bij ${AANTAL_ZONDER_LEK} van de ${RAPPORTEN.length} viel er niets te repareren; daar ging het om kiezen tussen levensstijl en spaardoel.`,
+      },
+    ],
+    externLinks: [
+      icpBron("nibudSparenAanpak"),
+      icpBron("wijzerBetaalJezelfEerst"),
+      icpBron("rijksoverheidVakantiegeld"),
+      icpBron("nibudGeldzaken2024"),
+    ],
+  },
   {
     slug: "wat-kost-een-dag-minder-werken",
     cta: {
@@ -1979,82 +2166,67 @@ export const artikelen: Artikel[] = [
   {
     slug: "huishoudboekje-voorbeeld",
     cta: {
-      kop: "Wil je de vergelijking op je hele maand, niet op één schatting?",
-      tekst: `De rekenaar hierboven werkt met een vuistregel op ${RAPPORTEN.length} huishoudens, niet met jouw cijfers. Bij de gratis analyse vergelijk je je eigen uitgaven met vergelijkbare huishoudens. Wil je dat ik er zelf naar kijk en opschrijf wat opvalt, dat kan bij de Geldscan.`,
+      kop: "Liever niet drie maanden bijhouden?",
+      tekst:
+        "De gratis analyse doet dezelfde vergelijking in een paar minuten: wat er op papier overblijft tegenover wat er echt overblijft, en per post hoe je je verhoudt tot vergelijkbare huishoudens.",
       primairLabel: PRIMAIRE_CTA_LABEL,
-      primairHref: "/analyse",
-      secundairLabel: "Wil je na de analyse weten waarom? Vraag de Geldscan aan",
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
       secundairHref: GELDSCAN_ROUTE,
     },
-    korteTitel: "Huishoudboekje voorbeeld",
-    titel: "Huishoudboekje voorbeeld: waarom bijhouden je nog niet zegt of het veel is",
-    metaTitel: "Huishoudboekje voorbeeld: bijhouden is niet het probleem",
+    korteTitel: "Gratis huishoudboekje in Excel",
+    titel: "Gratis huishoudboekje in Excel, met jaaruitgaven en wat er echt overblijft",
+    metaTitel: "Gratis huishoudboekje in Excel, met tabblad jaaruitgaven",
     metaDescription:
-      "Een huishoudboekje maken kan overal, bij Rabobank, Nibud en Wijzer in geldzaken. Hier een kort voorbeeld, plus de vergelijking die geen sjabloon meelevert.",
+      "Download gratis een huishoudboekje in Excel: je maand, je jaaruitgaven en de uitkomst. Eerst je schatting, dan de werkelijkheid, zodat je ziet waar je geld blijft.",
     datum: "2026-08-17",
+    gewijzigd: "2026-10-12",
     datumFormatted: "17 augustus 2026",
-    leestijd: "4",
+    leestijd: "6",
     categorie: "Inzicht",
     excerpt:
-      "Een huishoudboekje maken is overal te downloaden. Na een paar maanden weet je precies wat er wegging, en nog steeds niet of dat veel is. Een kort voorbeeld, en de vergelijking die daarna pas komt.",
+      "Een huishoudboekje in Excel dat meer doet dan optellen: je zet je schatting naast drie maanden echte bedragen, en ziet wat je jaaruitgaven per maand vragen. Gratis, zonder e-mailadres.",
     preview: {
       type: "pijn",
-      label: "Waarom een huishoudboekje niet genoeg is",
+      label: "Wat erin zit",
       items: [
-        "Elke week een paar bonnetjes en pinbetalingen overtikken",
-        "Na twee maanden precies weten wat er wegging",
-        "Nog steeds geen idee of dat veel is voor jouw huishouden",
-        "Het boekje ligt stil, de eigenlijke vraag staat nog open",
+        "Je maand: schatting tegenover werkelijkheid",
+        "Je jaaruitgaven, gedeeld door twaalf",
+        "Wat er op papier over is, en wat echt",
       ],
     },
     faq: [
       {
-        vraag: "Wat moet er in een huishoudboekje voorbeeld staan?",
+        vraag: "Hoe maak je een huishoudboekje in Excel?",
         antwoord:
-          "Twee kanten: wat er binnenkomt en wat eruit gaat, verdeeld in een paar vaste categorieën. Denk aan wonen en vaste lasten, boodschappen, vervoer, verzekeringen en abonnementen, vrije tijd en sparen. Nibud beschrijft in het eigen stappenplan dezelfde opbouw: eerst kiezen wat je bijhoudt, dan digitaal of op papier, daarna een kasboek met een inkomsten- en een uitgavenkant.",
+          "Maak een kolom voor de post, een voor je schatting en drie voor drie maanden echte bedragen. Verdeel de posten in inkomsten, vaste lasten en dagelijkse uitgaven, met een totaal per blok. Zet je jaaruitgaven op een apart tabblad, gedeeld door twaalf. De uitkomst is inkomsten min alle uitgaven min die jaarreservering.",
       },
       {
-        vraag: "Hoe maak je een huishoudboekje?",
-        antwoord:
-          "Kies eerst welke categorieën je wilt bijhouden, kies daarna of je dat digitaal doet (Excel of een app) of op papier, en noteer vanaf dan elke uitgave onder de juiste categorie. Rabobank en Wijzer in geldzaken hebben allebei een gratis sjabloon als je liever niet zelf een indeling maakt.",
+        vraag: "Is er een gratis huishoudboekje?",
+        antwoord: `Ja. Het huishoudboekje op deze pagina is gratis te downloaden, zonder e-mailadres, en werkt in Excel, Numbers en Google Sheets. Wie liever niets bijhoudt, kan het gratis Persoonlijk Budgetadvies van het Nibud invullen; dat wordt volgens het Nibud ${NIBUD_BUDGETADVIES_PER_JAAR} keer per jaar gebruikt.`,
       },
       {
-        vraag: "Ik houd al een huishoudboekje bij, waarom voelt het dan nog steeds krap?",
-        antwoord: `Waarschijnlijk omdat je nu wel weet wat er wegging, maar niet of dat veel is voor een huishouden als het jouwe. Nibud noemt dat zelf ook in het eigen stappenplan: pas bij een aparte vergelijking met andere huishoudens zie je aan welke posten je meer uitgeeft dan gemiddeld. Bij een stel zonder kinderen dat ik doorrekende was de eigen schatting vooraf: "${HB_STEL.vermoedenBedrag}" Bij het doorrekenen bleek de conclusie: "${HB_STEL.uitkomstKop}." Hun uitgaven pasten niet bij het spaardoel dat ze zelf hadden, en dat verschil zie je niet terug in een huishoudboekje zonder vergelijking.`,
+        vraag: "Wat is het beste huishoudboekje?",
+        antwoord:
+          "Het boekje dat je drie maanden volhoudt. Een bank-app deelt automatisch in, Excel geeft je de vrijheid om je schatting naast de werkelijkheid te zetten, papier werkt als je elke uitgave precies wilt zien. Wat de meeste sjablonen missen, is een tabblad voor jaaruitgaven.",
       },
       {
-        vraag: "Is een kant en klaar sjabloon van Rabobank of Nibud goed genoeg?",
+        vraag: "Hoe lang moet je een huishoudboekje bijhouden?",
         antwoord:
-          "Voor het registreren wel, ze zijn gratis en ze werken. Voor het antwoord op de vraag of jouw bedragen veel zijn heb je er niets aan, want een sjabloon geeft alleen je eigen cijfers terug. Daarvoor heb je een tweede getal nodig om naast het jouwe te leggen.",
+          "Drie maanden is genoeg om te zien waar je geld blijft. Eén maand is te toevallig, en daarna houdt bijna niemand het vol. Na drie maanden weet je welke posten afwijken van je schatting, en daar richt je je op.",
       },
       {
-        vraag: "Moet ik dan altijd een huishoudboekje blijven bijhouden?",
+        vraag: "Wat zet je in een huishoudboekje?",
         antwoord:
-          'Niet per se. Tijdelijk bijhouden is nuttig om te zien waar je geld heen gaat, maar blijvend registreren houdt bijna niemand vol. Waarom dat zo is en wat op de lange termijn beter werkt staat in "Moet je een huishoudboekje bijhouden?".',
+          "Je inkomsten, je vaste lasten (wonen, energie, verzekeringen, abonnementen), je dagelijkse uitgaven (boodschappen, vervoer, kleding, uitgaan, kinderen) en apart je jaaruitgaven, zoals vakantie, feestdagen, onderhoud en de auto.",
       },
     ],
     externLinks: [
-      {
-        label: "Rabobank: gratis huishoudboekje downloaden, geraadpleegd 17 augustus 2026",
-        url: "https://www.rabobank.nl/particulieren/financieel-gezond/inkomsten-en-uitgaven/huishoudboekje-downloaden",
-      },
-      {
-        label: "Nibud: stappenplan een kasboek maken, geraadpleegd 17 augustus 2026",
-        url: "https://www.nibud.nl/tools/stappenplan-kasboek-maken/",
-      },
-      {
-        label: "Wijzer in geldzaken: overzicht huishoudboekjes, geraadpleegd 17 augustus 2026",
-        url: "https://www.wijzeringeldzaken.nl/huishoudboekjes/",
-      },
+      icpBron("wijzerVijfStappen"),
+      icpBron("nibudBudgetadvies"),
+      icpBron("nibudGeldzaken2024"),
     ],
   },
-  /**
-   * titel en metaTitel hier zijn op 17-aug-2026 (klus 6, docs/artikel-bouwprompts-aug-2026.md)
-   * aangescherpt met "twee kinderen", nadat de SERP voor "4000 euro netto gezin twee kinderen
-   * rondkomen" bleek te overlappen met wat dit artikel al beantwoordt. Conclusie toen: geen
-   * apart artikel, wel dit artikel scherper op die zoekterm zetten. Zie het logboek voor de
-   * volledige afweging.
-   */
   {
     slug: "niet-rondkomen-met-4000-euro-netto",
     cta: {
@@ -2146,70 +2318,6 @@ export const artikelen: Artikel[] = [
       {
         label: "Modaal inkomen 2026 (CPB-kerncijfers), geraadpleegd 17 augustus 2026",
         url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
-      },
-    ],
-  },
-  {
-    slug: "alleen-wonen-goed-salaris-toch-krap",
-    cta: {
-      kop: "Klopt jouw vermoeden, of zit je ernaast zoals zij?",
-      tekst: `Bij de alleenstaande hierboven klopte het vermoeden, alleen was het bedrag groter dan gedacht. Bij de gratis analyse zie je in een paar minuten waar jouw eigen bedragen afwijken. Daarna bepaal je zelf of je wilt weten waarom.`,
-      primairLabel: PRIMAIRE_CTA_LABEL,
-      primairHref: analyseHref({ situatie: "alleenstaand" }),
-      secundairLabel: "Wil je na de analyse weten waarom? Vraag de Geldscan aan",
-      secundairHref: GELDSCAN_ROUTE,
-    },
-    korteTitel: "Alleen wonen, goed salaris, toch krap",
-    titel: "Alleen wonen met een goed salaris en toch elke maand krap",
-    metaTitel: "Alleen wonen, goed salaris en toch krap? Zo zit dat",
-    metaDescription:
-      "Je woont alleen, verdient goed en houdt toch niks over. Waarom alleen wonen per persoon duurder is, welke stille posten meespelen, en wat wel helpt.",
-    datum: "2026-07-11",
-    datumFormatted: "11 juli 2026",
-    leestijd: "5",
-    categorie: "Inzicht",
-    excerpt:
-      "Geen scheiding, geen kinderen, geen schulden, en toch is het elke maand op. Waarom een leven alleen per persoon duurder uitpakt dan samenwonen, en waarom dat bij een goed salaris juist ongezien weglekt.",
-    preview: {
-      type: "pijn",
-      label: "Waarom het alleen sneller weglekt",
-      items: [
-        "Alle vaste lasten op een inkomen, niets te delen",
-        "Vaker uit eten en gemak, zonder huisgenoot",
-        "Abonnementen die je volledig zelf betaalt",
-        "Geen partner om je uitgaven aan te toetsen",
-      ],
-    },
-    faq: [
-      {
-        vraag: "Is alleen wonen echt duurder dan samenwonen?",
-        antwoord:
-          "Per persoon wel. Huur of hypotheek, energie, internet en veel dagelijkse kosten zijn nauwelijks lager voor een dan voor twee, maar je draagt ze in je eentje. Een alleenstaande met een goed salaris houdt daardoor vaak minder over dan een tweeverdiener met eenzelfde bedrag per persoon.",
-      },
-      {
-        vraag: "Waarom hou ik niks over terwijl ik alleen ben en goed verdien?",
-        antwoord:
-          "Omdat je alle lasten alleen draagt en je uitgaven ongemerkt meegroeien met je inkomen. Zonder huisgenoot schuift er bovendien geld naar gemak en naar buiten de deur. Dat voelt niet als een misstap, maar telt stil op tot een fors bedrag per maand.",
-      },
-      {
-        vraag: "Ligt het aan mij dat het niet lukt?",
-        antwoord:
-          "Bijna nooit. Het zit vaker in hoe je inkomen is verdeeld dan in hoeveel je uitgeeft. Wie alleen woont mist de spiegel van een partner en heeft vaak geen systeem dat het inkomen vooraf verdeelt. Meer verdienen lost dat niet op, een vaste verdeling wel.",
-      },
-      {
-        vraag: "Wat kan ik als eerste doen?",
-        antwoord:
-          "Pak de afschriften van de laatste twee maanden en tel je vaste lasten, je dagelijkse uitgaven en wat overblijft op. Vaak zie je dan meteen waar de ruimte zit, zonder zuiniger te hoeven leven. De gratis analyse vergelijkt je uitgaven met vergelijkbare huishoudens.",
-      },
-      {
-        vraag: "Bestaat er een echt voorbeeld van een alleenstaande die dit liet uitzoeken?",
-        antwoord: `Ja. Op /rapporten staat het geldrapport van een alleenstaande met ${ALLEEN_RAPPORT.kenmerken[4]} in een huurappartement. Haar eigen vermoeden vooraf: "${ALLEEN_RAPPORT.vermoeden}" Mijn conclusie na het doorrekenen: "${ALLEEN_RAPPORT.uitkomstKop}." Haar volledige cijfers, mijn advies en haar evaluatie na drie maanden staan open, met haar toestemming en zonder haar naam.`,
-      },
-    ],
-    externLinks: [
-      {
-        label: "Nibud: uitgaven van een alleenstaande",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
   },
@@ -2313,58 +2421,6 @@ export const artikelen: Artikel[] = [
       {
         label: "Nibud: omgaan met geld en vergelijken",
         url: "https://www.nibud.nl/onderwerpen/rondkomen/",
-      },
-    ],
-  },
-  {
-    slug: "moet-je-een-huishoudboekje-bijhouden",
-    korteTitel: "Huishoudboekje: wel of niet?",
-    titel: "Moet je een huishoudboekje bijhouden? Waarom structuur beter werkt",
-    metaTitel: "Moet je een huishoudboekje bijhouden? Eerlijk antwoord",
-    metaDescription:
-      "Nee, je hoeft geen huishoudboekje bij te houden. Waarom het bij de meesten niet beklijft, wat het wel en niet oplost, en welk alternatief beter werkt.",
-    datum: "2026-07-11",
-    datumFormatted: "11 juli 2026",
-    leestijd: "5",
-    categorie: "Inzicht",
-    excerpt:
-      "Overal krijg je hetzelfde advies: houd een huishoudboekje bij. Maar elke uitgave noteren vecht tegen je eigen gedrag en houdt bijna niemand vol. Waarom dat zo is, en waarom je geld vooraf verdelen beter werkt dan achteraf registreren.",
-    preview: {
-      type: "verdeling",
-      label: "Verdelen in plaats van bijhouden",
-      posten: [
-        { naam: "Vaste lasten", pct: 50, kleur: "#16211F" },
-        { naam: "Dagelijkse uitgaven", pct: 30, kleur: "#0A6A5F" },
-        { naam: "Sparen en doelen", pct: 20, kleur: "#0B7A6E" },
-      ],
-      uitkomst: "Zo hoef je niets bij te houden",
-    },
-    faq: [
-      {
-        vraag: "Moet je een huishoudboekje bijhouden om grip te krijgen?",
-        antwoord:
-          "Nee. Een huishoudboekje kan eenmalig nuttig zijn om te zien waar je geld heen gaat, maar het blijvend bijhouden verandert je gedrag niet en houdt bijna niemand vol. Je geld vooraf verdelen in een simpel systeem werkt beter, want dan hoef je niets meer te registreren.",
-      },
-      {
-        vraag: "Waarom houd ik een huishoudboekje nooit vol?",
-        antwoord:
-          "Omdat het volledig op discipline leunt: elke dag elke uitgave noteren, ook als je moe bent. Mis je een paar dagen, dan klopt het overzicht niet meer en haak je af. Dat is geen gebrek aan doorzettingsvermogen, het is een methode die tegen normaal gedrag in werkt.",
-      },
-      {
-        vraag: "Wat werkt beter dan een huishoudboekje?",
-        antwoord:
-          "Structuur in plaats van registratie. Zodra je salaris binnenkomt gaat een vast deel naar je vaste lasten, een deel naar sparen en een deel naar dagelijkse uitgaven, elk op een eigen plek. Wat op je uitgavenrekening staat mag op. De verdeling doet dan het werk.",
-      },
-      {
-        vraag: "Wanneer is een huishoudboekje wel zinvol?",
-        antwoord:
-          "Tijdelijk, als je een paar weken wilt ontdekken waar je geld precies blijft. Zie het als een momentopname, niet als een gewoonte voor altijd. Daarna zet je de structuur op en kun je het boekje weer loslaten.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Nibud: inzicht in je uitgaven en rekentools",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
       },
     ],
   },
@@ -3236,55 +3292,6 @@ export const artikelen: Artikel[] = [
     ],
   },
   {
-    slug: "goed-salaris-toch-geldstress",
-    korteTitel: "Goed salaris, toch geldstress",
-    titel: "Goed salaris, toch geldstress: zo kwam er bij ons thuis weer rust",
-    metaTitel: "Goed salaris en toch geldstress? Zo krijg je er weer rust in",
-    metaDescription:
-      "Geldstress ondanks een goed inkomen? Een kwart van de hoge inkomens komt moeilijk rond. Zo kreeg ik er bij ons thuis weer rust in, in vier stappen.",
-    datum: "2026-06-19",
-    datumFormatted: "19 juni 2026",
-    leestijd: "6",
-    categorie: "Inzicht",
-    excerpt:
-      "Je verdient goed en hebt toch een knoop in je maag van geld. Je bent niet de enige: zelfs een kwart van de hoge inkomens komt moeilijk rond. Waarom dat geen karakterfout is, en de vier stappen waarmee er bij ons thuis weer rust kwam.",
-    preview: {
-      type: "statistiek",
-      label: "Hoog inkomen en toch moeite met rondkomen",
-      segmenten: [
-        { label: "Moeite met rondkomen", pct: 24, kleur: "#E4F1EE", tekstKleur: "#92600A" },
-        { label: "Komt rond", pct: 76, kleur: "#E7F1EE", tekstKleur: "#0B7A6E" },
-      ],
-    },
-    faq: [
-      {
-        vraag: "Kun je geldstress hebben met een goed inkomen?",
-        antwoord:
-          "Ja. Uit onderzoek van Deloitte en het Nibud (2025) blijkt dat zelfs een kwart van de mensen met een hoog inkomen moeite heeft om rond te komen. Geldstress hangt niet alleen samen met de hoogte van je inkomen, maar vooral met of je geld een duidelijke bestemming heeft.",
-      },
-      {
-        vraag: "Hoe kom ik van geldstress af?",
-        antwoord:
-          "Begin met inzicht: zet je inkomen, vaste lasten en dagelijkse uitgaven naast elkaar. Verdeel daarna je inkomen meteen na binnenkomst over aparte rekeningen, bouw een kleine buffer op voor tegenvallers, en praat erover met je partner. De vaagheid die de stress voedt verdwijnt zodra je het zwart op wit ziet.",
-      },
-      {
-        vraag: "Ligt geldstress aan mezelf?",
-        antwoord:
-          "Meestal niet. Geldstress met een goed inkomen is bijna nooit een karakterfout. Je geld verdwijnt omdat het geen richting heeft, niet omdat je iets verkeerd doet. Met een paar vaste afspraken buig je het om, zonder dat je meer hoeft te verdienen.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Deloitte: 47% van Nederland is financieel kwetsbaar",
-        url: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
-      },
-      {
-        label: "Nibud: Geldzaken in de praktijk 2024",
-        url: "https://www.nibud.nl/onderzoeksrapporten/rapport-geldzaken-in-de-praktijk-2024/",
-      },
-    ],
-  },
-  {
     slug: "grip-op-je-geld-krijgen",
     korteTitel: "Grip op je geld krijgen",
     titel: "Geen grip op je geld, terwijl je goed verdient? Zo kreeg ik er controle over",
@@ -3337,101 +3344,64 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "waarom-lukt-sparen-niet",
-    korteTitel: "Waarom sparen niet lukt",
-    titel: "Sparen lukt nooit, zelfs met een goed salaris? Zo doorbrak ik dat patroon",
-    metaTitel: "Waarom lukt sparen niet, en hoe je het doorbreekt",
-    metaDescription:
-      "Elke maand niks over, ook met een goed inkomen? Sparen mislukt zelden door discipline. Zo draai je de volgorde om en lukt het wel.",
+    cta: {
+      kop: "Waar gaat jouw spaargeld naartoe?",
+      tekst:
+        "De gratis analyse zet wat er op papier overblijft naast wat er echt overblijft, en laat per post zien waar je afwijkt van vergelijkbare huishoudens.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Waarom kan ik niet sparen?",
+    titel: "Waarom kan ik niet sparen, ook met een goed inkomen?",
+    metaTitel: "Waarom kan ik niet sparen, ook met een goed inkomen?",
+    metaDescription: `Sparen mislukt meestal door de volgorde en door jaaruitgaven die van je spaarrekening komen. Het Nibud adviseert ${NIBUD_SPAARADVIES_PCT} procent; ${NIBUD_SPAART_MINDER_DAN_10_PCT} procent haalt dat niet. Zo draai je het om.`,
     datum: "2026-06-19",
+    gewijzigd: "2026-10-12",
     datumFormatted: "19 juni 2026",
-    leestijd: "6",
+    leestijd: "7",
     categorie: "Sparen",
     excerpt:
-      "Je neemt je voor te sparen en elke maand is het geld op voordat je eraan toekomt. Het ligt zelden aan je discipline. Zo doorbreek je het patroon door de volgorde om te draaien en de onregelmatige kosten af te vangen.",
+      `Sparen lukt zelden door gebrek aan discipline. Het mislukt omdat je spaart wat overblijft en omdat vakantie, onderhoud en december van dezelfde rekening komen. Met de spaardoelen van ${RAPPORTEN.length} echte huishoudens.`,
     preview: {
       type: "statistiek",
       label: "Hoeveel Nederlanders sparen",
       segmenten: [
-        { label: "Spaart minder dan 10%", pct: 41, kleur: "#E4F1EE", tekstKleur: "#92600A" },
-        { label: "Spaart 10% of meer", pct: 59, kleur: "#E7F1EE", tekstKleur: "#0B7A6E" },
+        { label: `Spaart minder dan ${NIBUD_SPAARADVIES_PCT}%`, pct: NIBUD_SPAART_MINDER_DAN_10_PCT, kleur: "#E4F1EE", tekstKleur: "#92600A" },
+        { label: `Spaart ${NIBUD_SPAARADVIES_PCT}% of meer`, pct: 100 - NIBUD_SPAART_MINDER_DAN_10_PCT, kleur: "#E7F1EE", tekstKleur: "#0B7A6E" },
       ],
     },
     faq: [
       {
-        vraag: "Waarom lukt sparen niet ondanks een goed inkomen?",
+        vraag: "Waarom kan ik niet sparen?",
         antwoord:
-          "Meestal omdat je sparen als restpost behandelt: je spaart wat aan het einde van de maand overblijft, en dat is bijna niks. Daarnaast trekken vaste lasten en onregelmatige kosten zoals premies en reparaties je spaarplan stilletjes leeg. Het ligt zelden aan luxe of discipline.",
+          "Meestal om twee redenen tegelijk. Je spaart wat er aan het eind van de maand overblijft, en dat is bijna nooit veel. En je spaarrekening betaalt ook vakantie, onderhoud en december, waardoor het saldo steeds terugzakt. Een vast bedrag op salarisdag en een aparte rekening voor jaaruitgaven lossen allebei op.",
       },
       {
-        vraag: "Hoe begin ik met sparen als er nooit iets overblijft?",
+        vraag: "Waarom verdien ik zoveel geld, maar kan ik niet sparen?",
         antwoord:
-          "Draai de volgorde om: zet op de dag dat je salaris binnenkomt automatisch een vast bedrag op een aparte spaarrekening, en verdeel daarna pas de rest. Begin desnoods klein en laat het bedrag oplopen. Zet er een apart potje naast voor onregelmatige uitgaven, zodat die je spaargeld niet leegtrekken.",
+          "Omdat een hoger inkomen meer uitgaven meebrengt die niet elke maand komen: verdere vakanties, een duurder huis om te onderhouden, meer verjaardagen en feestdagen. Die voelen niet als vaste lasten en worden dus vaak niet gereserveerd. Daarnaast groeien vrije uitgaven mee met wat er binnenkomt.",
       },
       {
-        vraag: "Hoeveel zou ik per maand moeten sparen?",
+        vraag: "Wat is een normaal bedrag om te sparen per maand?",
+        antwoord: `Het Nibud adviseert elk huishouden minimaal ${NIBUD_SPAARADVIES_PCT} procent van het maandinkomen opzij te zetten, eerst voor een buffer en daarna voor andere doelen. Lukt dat niet, begin dan lager en verhoog het als het een paar maanden blijft staan.`,
+      },
+      {
+        vraag: "Hoeveel mensen kunnen niet sparen?",
+        antwoord: `Volgens het Nibud-onderzoek Geldzaken in de praktijk 2024 spaart de meerderheid wel, maar ${NIBUD_SPAART_NIET_ELKE_MAAND_PCT} procent niet consequent elke maand, en zo'n ${NIBUD_SPAART_MINDER_DAN_10_PCT} procent spaart minder dan ${NIBUD_SPAARADVIES_PCT} procent van het inkomen.`,
+      },
+      {
+        vraag: "Waarom haal ik steeds geld van mijn spaarrekening?",
         antwoord:
-          "Het Nibud adviseert om waar mogelijk ongeveer 10% van je netto-inkomen te sparen. Ongeveer 41% van de Nederlanders haalt dat niet (Nibud, 2024). Lukt 10% nog niet, begin dan lager en bouw het op.",
+          "Omdat er geen andere plek is voor uitgaven die je wel ziet aankomen maar niet maandelijks betaalt, zoals vakantie, de autorekening en december. Geef die een eigen rekening met een vast bedrag per maand, dan blijft je spaargeld staan.",
       },
     ],
     externLinks: [
-      {
-        label: "CBS: vermogen van huishoudens 2024",
-        url: "https://longreads.cbs.nl/materiele-welvaart-in-nederland-2024/vermogen-van-huishoudens/",
-      },
-      {
-        label: "Nibud: sparen",
-        url: "https://www.nibud.nl/onderwerpen/sparen/",
-      },
-    ],
-  },
-  {
-    slug: "budget-maken-dat-je-volhoudt",
-    korteTitel: "Een budget dat je volhoudt",
-    titel: "Waarom je budget altijd mislukt, en hoe je er een maakt die je wel volhoudt",
-    metaTitel: "Budget maken dat je volhoudt: zo lukt het wel",
-    metaDescription:
-      "Je budget houdt nooit lang stand? Dat ligt niet aan je discipline. De drie redenen waarom budgetten mislukken en hoe je er een maakt zonder dagelijks bijhouden.",
-    datum: "2026-06-19",
-    datumFormatted: "19 juni 2026",
-    leestijd: "6",
-    categorie: "Besparen",
-    excerpt:
-      "De eerste week lukt het, daarna zakt het weg. De meeste budgetten mislukken niet door gebrek aan discipline, maar omdat ze dagelijks bijhouden vereisen en te strak zijn. Zo maak je er een die je wel volhoudt.",
-    preview: {
-      type: "pijn",
-      label: "Waarom budgetten sneuvelen",
-      items: [
-        "Het vereist elke uitgave bijhouden, dat houd je niet vol",
-        "Het is te strak, geen ruimte voor iets leuks of een tegenvaller",
-        "Het klopt niet met de werkelijkheid, jaarposten zijn vergeten",
-      ],
-    },
-    faq: [
-      {
-        vraag: "Waarom mislukt mijn budget steeds?",
-        antwoord:
-          "Door drie dingen: het vereist dagelijks bijhouden, het is te strak zonder ruimte voor leuke dingen of tegenvallers, en het klopt niet met je werkelijke uitgaven omdat jaarposten zoals verzekeringen en de gemeentelijke aanslag ontbreken. Geen van die drie heeft met discipline te maken.",
-      },
-      {
-        vraag: "Hoe houd ik een budget vol zonder alles bij te houden?",
-        antwoord:
-          "Doe het werk vooraf in plaats van elke dag. Verdeel je inkomen op de dag dat het binnenkomt over aparte rekeningen voor vaste lasten, dagelijks geld, sparen en onregelmatige uitgaven. Het bedrag op je dagelijkse rekening is dan je budget, zonder dat je iets hoeft te turven.",
-      },
-      {
-        vraag: "Werkt de 50/30/20-regel?",
-        antwoord:
-          "Als startverhouding wel: ongeveer 50% naar vaste lasten, 30% vrij besteedbaar en 20% sparen. Maar klopt die verhouding niet met jouw vaste lasten, pas hem dan aan. Een budget moet bij jouw situatie passen, niet andersom.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Nibud: huishoudelijke uitgaven",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/huishoudelijke-uitgaven/",
-      },
-      {
-        label: "Nibud: een financiele buffer opbouwen",
-        url: "https://www.nibud.nl/onderwerpen/sparen/een-financiele-buffer-opbouwen/",
-      },
+      icpBron("nibudSparenAanpak"),
+      icpBron("nibudGeldzaken2024"),
+      icpBron("nibudBuffer"),
+      icpBron("wijzerBetaalJezelfEerst"),
     ],
   },
   {
@@ -3504,57 +3474,6 @@ export const artikelen: Artikel[] = [
       {
         label: "Nibud: stappenplan maandelijks sparen",
         url: "https://www.nibud.nl/tools/stappenplan-maandelijks-sparen/",
-      },
-    ],
-  },
-  {
-    slug: "waarom-hou-ik-nooit-geld-over",
-    korteTitel: "Nooit geld over ondanks goed inkomen",
-    titel: "Waarom hou ik nooit geld over, terwijl ik goed verdien?",
-    metaTitel: "Waarom hou ik nooit geld over ondanks een goed inkomen?",
-    metaDescription:
-      "Goed verdienen en toch niks overhouden? Dit zijn de vier manieren waarop je geld onzichtbaar verdwijnt, en waarom meer verdienen het zelden oplost.",
-    datum: "2026-06-18",
-    datumFormatted: "18 juni 2026",
-    leestijd: "6",
-    categorie: "Inzicht",
-    excerpt:
-      "Je verdient prima en houdt toch niks over. Het ligt zelden aan je inkomen, en bijna altijd aan vier onzichtbare lekken. Waarom een hoger salaris het niet oplost, en wat wel werkt.",
-    preview: {
-      type: "pijn",
-      label: "Waar het onzichtbaar weglekt",
-      items: [
-        "Vaste lasten en abonnementen die stilletjes groeien",
-        "Uitgaven die je niet bijhoudt: pinnen voelt niet als geld",
-        "Geen buffer, dus elke tegenvaller uit je maandbudget",
-        "Levensstijlinflatie: meer verdienen, meer uitgeven",
-      ],
-    },
-    faq: [
-      {
-        vraag: "Waarom hou ik nooit geld over terwijl ik genoeg verdien?",
-        antwoord:
-          "Meestal niet door je inkomen, maar door de structuur eromheen. Je geld verdwijnt onzichtbaar via sluipende vaste lasten, uitgaven die je niet bijhoudt, het ontbreken van een buffer en levensstijlinflatie. Samen slaan die een groot gat zonder dat er een grote uitgave aan te wijzen is.",
-      },
-      {
-        vraag: "Lost meer verdienen het probleem op?",
-        antwoord:
-          "Zelden. Door de belastingschijven en de afbouw van heffingskortingen levert een bruto stijging vaak verrassend weinig netto op. En zolang het lek in je structuur zit, loopt een hoger inkomen er gewoon doorheen. Een vast verdeelsysteem helpt meer dan een hoger salaris.",
-      },
-      {
-        vraag: "Wat is de eerste stap om grip te krijgen?",
-        antwoord:
-          "Inzicht, niet bezuinigen. Pak de afschriften van de afgelopen twee maanden en tel je vaste lasten, je dagelijkse uitgaven en wat er echt overblijft op. De verrassing zit bijna altijd in de dagelijkse uitgaven die niemand bijhoudt.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Nibud: uitgaven van huishoudens",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
-      },
-      {
-        label: "CBS: besparingen huishoudens",
-        url: "https://www.cbs.nl/nl-nl/nieuws/2025/22/besparingen-huishoudens-namen-sterk-toe-in-2024",
       },
     ],
   },
@@ -3846,38 +3765,6 @@ export const artikelen: Artikel[] = [
       {
         label: "Nibud: uitgaven van huishoudens",
         url: "https://www.nibud.nl/onderwerpen/uitgaven/",
-      },
-    ],
-  },  {
-    slug: "kerstpot-en-verjaardagspot-zo-bouwden-we-die",
-    korteTitel: "Kerst- en verjaardagspot: een echte case",
-    titel: "December overviel ons elk jaar, zo bouwden we een kerst- en verjaardagspot",
-    metaTitel: "Kerst- en verjaardagspot opbouwen: zo werkt het",
-    metaDescription: "Een december-klap van €500+, elk jaar. Door pieken te vertalen naar €150 per maand in drie potjes staat de kerstpot nu altijd klaar. De aanpak.",
-    datum: "2026-05-31",
-    datumFormatted: "31 mei 2026",
-    leestijd: "5",
-    categorie: "Sparen",
-    excerpt: "Daan en Roos werden elk jaar overvallen door december. Door hun jaarlijkse pieken (±€1.800) om te rekenen naar €150 per maand in drie potjes, voelt geen enkele piekmaand nog als een klap. Een echte case.",
-    preview: {
-      type: "pijn",
-      label: "De rekensom",
-      items: ["€1.800/jaar aan pieken", "÷ 12 = €150/maand", "Geen december-klap meer"],
-    },
-    faq: [
-      {
-        vraag: "Hoe spaar je voor de feestdagen zonder in december klem te zitten?",
-        antwoord: "Tel je voorspelbare jaarlijkse pieken op (Sinterklaas + kerst ±€500, verjaardagen, vakantie), deel door twaalf en zet dat maandbedrag automatisch in aparte potjes op je salarisdag. Dan staat de kerstpot er gewoon.",
-      },
-      {
-        vraag: "Hoeveel kosten de feestmaanden gemiddeld?",
-        antwoord: "December kost een huishouden al gauw €500 extra aan cadeaus, duurdere boodschappen en uitjes. Tel je verjaardagen en vakantie erbij, dan kom je in deze case op zo'n €1.800 aan voorspelbare pieken per jaar.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Vastelastenbond: wat geven we uit aan Sinterklaas",
-        url: "https://www.vastelastenbond.nl/blog/wat-geven-we-uit-aan-sinterklaas/",
       },
     ],
   },  {
@@ -4207,38 +4094,6 @@ export const artikelen: Artikel[] = [
       {
         vraag: "Wat zouden ze anders kunnen doen?",
         antwoord: "Geld eerst een bestemming geven en dan pas uitgeven. Met een spaardoel dat vooraf wordt afgeroomd en een begrensd 'uit eten'-budget is €800 tot 1.000 per maand sparen haalbaar, zonder soberder te leven.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Nibud: uitgaven van huishoudens",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
-      },
-    ],
-  },  {
-    slug: "seizoens-kostenkalender-per-maand",
-    korteTitel: "Seizoens-kostenkalender",
-    titel: "De seizoens-kostenkalender: welke kosten komen er per maand aan?",
-    metaTitel: "Seizoenskosten per maand: wat komt er wanneer aan?",
-    metaDescription: "Het jaar zit vol verborgen kostenpieken, van de zomervakantie tot december. Bekijk per maand wat eraan komt en hoe je het uitsmeert met een potje.",
-    datum: "2026-05-30",
-    datumFormatted: "30 mei 2026",
-    leestijd: "5",
-    categorie: "Inzicht",
-    excerpt: "De 'gemiddelde maand' bestaat niet. Elk seizoen heeft zijn eigen kostenpiek. Bekijk met onze interactieve kalender wat er per maand aankomt, en hoe je die pieken uitsmeert over het jaar.",
-    preview: {
-      type: "pijn",
-      label: "De pieken",
-      items: ["Zomer", "Schoolstart", "December"],
-    },
-    faq: [
-      {
-        vraag: "Wat zijn de grootste kostenpieken in het jaar?",
-        antwoord: "De zomervakantie (al gauw €2.000+ voor een gezin), de schoolstart in augustus (schoolspullen, contributies, kleding) en december (Sinterklaas en kerst, samen zo'n €500).",
-      },
-      {
-        vraag: "Hoe voorkom ik dat seizoenspieken mijn budget slopen?",
-        antwoord: "Smeer ze uit over het jaar. Een piek van €1.200 in één maand is een probleem; verdeeld over twaalf maanden is dat €100 per maand. Zet het opzij in een apart potje waar je niet aankomt.",
       },
     ],
     externLinks: [
@@ -4673,19 +4528,26 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "lifestyle-inflatie-meer-verdienen-meer-uitgeven",
-    korteTitel: "Lifestyle-inflatie: meer verdienen, niks over",
-    titel:
-      "Lifestyle-inflatie: waarom meer verdienen niet meer overhouden betekent",
-    metaTitel:
-      "Lifestyle-inflatie, meer verdienen en toch krap",
-    metaDescription:
-      "Je verdient meer dan vroeger, maar houdt niks extra over? Dat heet lifestyle-inflatie. Zo groeien je uitgaven ongemerkt mee, en zo houd je het tegen.",
+    cta: {
+      kop: "Waar is jouw loonsverhoging gebleven?",
+      tekst:
+        "De gratis analyse laat zien in welke posten je meer uitgeeft dan vergelijkbare huishoudens, en zet wat er op papier overblijft naast wat er echt overblijft.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Wil je daarna weten waarom? Vraag de Geldscan aan",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Lifestyle inflatie",
+    titel: "Lifestyle inflatie: wat is het en hoe merk je het?",
+    metaTitel: "Lifestyle inflatie: wat is het en hoe merk je het?",
+    metaDescription: `Lifestyle inflatie is dat je uitgaven meestijgen met je inkomen. De cao-lonen stegen begin 2026 met ${CBS_CAO_LONEN_Q1_2026} procent (CBS). Zo zie je of het bij jou speelt, met een rekenhulp.`,
     datum: "2026-05-30",
+    gewijzigd: "2026-10-12",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
     categorie: "Inzicht",
     excerpt:
-      "Je kreeg er salaris bij, en toch voelt het elke maand even krap. Dat is lifestyle-inflatie: je uitgaven groeien ongemerkt mee met je inkomen. Wat het is, waarom het iedereen overkomt, en hoe je het tegenhoudt.",
+      "Je verdient meer dan een paar jaar geleden, en toch groeit je spaarrekening niet. Wat lifestyle inflatie is, hoe het verschilt van gewone inflatie, en hoe je uitrekent waar je loonsverhoging is gebleven.",
     preview: {
       type: "pijn",
       label: "Het patroon",
@@ -4693,30 +4555,34 @@ export const artikelen: Artikel[] = [
     },
     faq: [
       {
-        vraag: "Wat is lifestyle-inflatie?",
+        vraag: "Wat is lifestyle inflatie?",
         antwoord:
-          "Lifestyle-inflatie is het verschijnsel dat je uitgaven meegroeien met je inkomen. Als je meer gaat verdienen, ga je bijna ongemerkt duurder leven: een duurdere auto, vaker uit eten, een groter huis. Het gevolg is dat een hoger inkomen niet leidt tot meer overhouden.",
+          "Lifestyle inflatie is dat je uitgaven meegroeien met je inkomen, zodat een hoger salaris niet tot meer ruimte leidt. Het gebeurt in kleine stappen: vaker bestellen, een abonnement erbij, een duurdere auto of vakantie. Elke stap is te verantwoorden; samen houden ze je spaarrekening op hetzelfde niveau.",
       },
       {
-        vraag: "Waarom houd ik niks over terwijl ik meer ben gaan verdienen?",
-        antwoord:
-          "Twee dingen tegelijk: een deel van je loonsverhoging is alleen inflatiecorrectie (in 2026 was de cao-stijging 4,5% nominaal, maar reëel zo'n 2%), en de rest lekt weg doordat je uitgaven meegroeien. Bij hogere inkomens verdwijnt bovendien meer aan belasting en afbouw van heffingskortingen.",
+        vraag: "Wat is het verschil tussen lifestyle inflatie en inflatie?",
+        antwoord: `Gewone inflatie is dat hetzelfde duurder wordt. Lifestyle inflatie is dat je duurder of meer gaat kopen. Een deel van je loonsverhoging gaat op aan gewone inflatie: volgens het CBS stegen de cao-lonen in het eerste kwartaal van 2026 met ${CBS_CAO_LONEN_Q1_2026} procent, maar gecorrigeerd voor inflatie met ${CBS_CAO_LONEN_Q1_2026_REEEL} procent.`,
       },
       {
-        vraag: "Hoe houd ik lifestyle-inflatie tegen?",
+        vraag: "Hoe weet ik of ik last heb van lifestyle inflatie?",
         antwoord:
-          "Laat je uitgaven niet automatisch meestijgen met je inkomen. De simpelste methode: zet bij elke loonsverhoging meteen een vast deel apart, vóórdat het normaal gaat voelen op je rekening. Een vaste verdeling, zoals de potjesmethode, maakt dat concreet.",
+          "Vergelijk je netto inkomen en wat je per maand opzij zet van een paar jaar terug met nu. Is je inkomen gestegen en je sparen niet of nauwelijks, dan is het verschil in je maand opgegaan. De rekenhulp op deze pagina rekent het voor je uit.",
+      },
+      {
+        vraag: "Hoe voorkom je lifestyle inflatie?",
+        antwoord:
+          "Zet bij elke loonsverhoging meteen een deel apart, voordat het nieuwe bedrag normaal voelt. Doe hetzelfde met vakantiegeld en een dertiende maand. En kijk eens per jaar naar je spaarpercentage in plaats van je saldo: blijft dat gelijk terwijl je inkomen stijgt, dan zie je het daar.",
+      },
+      {
+        vraag: "Is lifestyle inflatie slecht?",
+        antwoord:
+          "Niet als je het bewust kiest. Een grotere woning of verdere reis die je wilt, is geen lek. Het wordt een probleem als je spaardoel en je levensstijl allebei blijven staan terwijl er maar voor een van de twee ruimte is.",
       },
     ],
     externLinks: [
-      {
-        label: "CBS: cao-lonen eerste kwartaal 2026 (+4,5%)",
-        url: "https://www.cbs.nl/nl-nl/nieuws/2026/14/cao-lonen-in-eerste-kwartaal-4-5-procent-hoger",
-      },
-      {
-        label: "Modaal inkomen 2026 (CPB-kerncijfers)",
-        url: "https://www.raisin.com/nl-nl/economie/modaal-inkomen/",
-      },
+      icpBron("cbsCaoLonen"),
+      icpBron("nibudSparenAanpak"),
+      icpBron("nibudGeldzaken2024"),
     ],
   },
   {
@@ -5115,67 +4981,6 @@ export const artikelen: Artikel[] = [
       {
         label: "CBS vermogensstatistieken 2024",
         url: "https://www.cbs.nl/nl-nl/cijfers/detail/83834NED",
-      },
-    ],
-  },
-  {
-    slug: "goed-salaris-toch-krap",
-    korteTitel: "Goed salaris en toch krap",
-    titel:
-      "Goed salaris, maar toch niet rondkomen? Dit is waarom",
-    metaTitel: "Goed salaris, maar toch niet rondkomen? Dit is waarom",
-    metaDescription:
-      "Je verdient goed maar houdt weinig over. De drie oorzaken die meestal samen een gat slaan, met een echt voorbeeld van een gezin dat hetzelfde overkwam.",
-    datum: "2026-05-19",
-    datumFormatted: "19 mei 2026",
-    leestijd: "8",
-    categorie: "Inzicht",
-    excerpt:
-      "Je verdient genoeg. Niet extreem, maar genoeg. En toch staat er aan het einde van de maand bijna niks meer op de rekening. Dit is meestal waarom, en wat er wel werkt.",
-    preview: {
-      type: "pijn",
-      label: "Herken jij dit?",
-      items: ["Goed verdienen", "Toch niet rondkomen", "Geen idee waarom"],
-    },
-    faq: [
-      {
-        vraag: "Waarom houd ik weinig over terwijl ik goed verdien?",
-        antwoord:
-          "Meestal niet door je inkomen, maar door drie dingen die ongemerkt optellen: sluipende vaste lasten en abonnementen (gemiddeld al meer dan €200 per maand), onderschatte boodschappen, en het ontbreken van een buffer voor terugkerende 'onverwachte' uitgaven. Samen slaan die een groot gat.",
-      },
-      {
-        vraag: "Ligt het aan mijn inkomen of aan iets anders?",
-        antwoord:
-          "Bijna altijd aan structuur, niet aan inkomen. Gezinnen die hetzelfde verdienen maar meer overhouden, verdelen hun geld direct: vaste lasten van een aparte rekening, sparen in aparte potjes en een vast bedrag voor dagelijkse uitgaven. Meer verdienen zonder systeem lost het zelden op.",
-      },
-      {
-        vraag: "Hoeveel geeft een gemiddeld gezin uit aan abonnementen?",
-        antwoord:
-          "Inmiddels meer dan €200 per maand aan streaming, sport, apps en telefoon samen. Tien jaar geleden was dat een fractie. De meeste mensen schatten hun eigen abonnementskosten op ongeveer de helft van wat ze werkelijk betalen.",
-      },
-      {
-        vraag: "Wat is de eerste stap om meer over te houden?",
-        antwoord:
-          "Inzicht, niet bezuinigen. Pak de afschriften van de afgelopen twee maanden en tel drie dingen op: vaste lasten, boodschappen en wat er overblijft. Pas als je ziet waar het heen gaat, kun je gericht bijsturen.",
-      },
-      {
-        vraag: "Is dit hetzelfde als geldstress door een goed salaris?",
-        antwoord:
-          "Niet helemaal. Dit artikel gaat over waar je geld concreet blijft. Gaat het je vooral om het knagende gevoel en hoe je daar rust in krijgt, lees dan mijn artikel 'Goed salaris, toch geldstress'. Wil je precies weten via welke vier lekken geld wegstroomt, lees dan 'Waarom hou ik nooit geld over'.",
-      },
-    ],
-    externLinks: [
-      {
-        label: "Nibud: uitgaven van huishoudens",
-        url: "https://www.nibud.nl/onderwerpen/uitgaven/",
-      },
-      {
-        label: "CBS: cao-lonen eerste kwartaal 2026 (+4,5%)",
-        url: "https://www.cbs.nl/nl-nl/nieuws/2026/14/cao-lonen-in-eerste-kwartaal-4-5-procent-hoger",
-      },
-      {
-        label: "Deloitte: 47% van Nederland is financieel kwetsbaar (2024)",
-        url: "https://www.deloitte.com/nl/nl/about/press-room/47-percent-van-nederland-is-financieel-kwetsbaar.html",
       },
     ],
   },

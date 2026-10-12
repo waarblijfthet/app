@@ -143,7 +143,7 @@ export default function NettoLoonsverhogingBerekenen() {
         ongemerkt mee omhoog. Daarom voelt een opslag na een paar maanden alweer als niks. Hoe dat
         werkt, lees je in{" "}
         <Link
-          href="/inzichten/waarom-hou-ik-nooit-geld-over"
+          href="/inzichten/waar-blijft-mijn-geld"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
           className="hover:underline"
         >

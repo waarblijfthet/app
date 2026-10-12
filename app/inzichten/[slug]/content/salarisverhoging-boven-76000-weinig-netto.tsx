@@ -131,7 +131,7 @@ export default function SalarisverhoginBoven76000() {
         toch weinig voelt overhouden, zit vaak niet alleen in de belasting. Het
         zit in de{" "}
         <Link
-          href="/inzichten/goed-salaris-toch-krap"
+          href="/inzichten/waar-blijft-mijn-geld"
           className="hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >

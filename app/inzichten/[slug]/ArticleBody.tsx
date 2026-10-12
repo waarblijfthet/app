@@ -1,3 +1,6 @@
+import WaarBlijftMijnGeld from "./content/waar-blijft-mijn-geld";
+import JaarlijkseKostenReserveren from "./content/jaarlijkse-kosten-reserveren";
+import MeerGeldOverhouden from "./content/meer-geld-overhouden";
 import WatKostEenDagMinderWerken from "./content/wat-kost-een-dag-minder-werken";
 import KindWordt18WatVerandertErFinancieel from "./content/kind-wordt-18-wat-verandert-er-financieel";
 import Top10ProcentInkomenNederland from "./content/top-10-procent-inkomen-nederland";
@@ -14,11 +17,8 @@ import WatVerandertEr2027GezinnenGoedInkomen from "./content/wat-verandert-er-20
 import GoedInkomenWeinigVermogen from "./content/goed-inkomen-weinig-vermogen";
 import HoeWeetIkOfIkFinancieelGezondBen from "./content/hoe-weet-ik-of-ik-financieel-gezond-ben";
 import HoeveelFinancieleRuimteHebIk from "./content/hoeveel-financiele-ruimte-heb-ik";
-import GoedsalarisTochKrap from "./content/goed-salaris-toch-krap";
-import AlleenWonenGoedSalarisTochKrap from "./content/alleen-wonen-goed-salaris-toch-krap";
 import PratenOverGeldMetJePartner from "./content/praten-over-geld-met-je-partner";
 import WaaromLijktIedereenRijker from "./content/waarom-lijkt-iedereen-rijker";
-import MoetJeEenHuishoudboekjeBijhouden from "./content/moet-je-een-huishoudboekje-bijhouden";
 import HuishoudboekjeVoorbeeld from "./content/huishoudboekje-voorbeeld";
 import PiekerenOverGeld from "./content/piekeren-over-geld";
 import BoodschappenDuitslandVoordeel from "./content/boodschappen-duitsland-voordeel";
@@ -47,7 +47,6 @@ import WaarBlijftHetBijSanneEnJoost from "./content/waar-blijft-het-bij-sanne-en
 import WaarBlijftHetBijMarkEnLisa from "./content/waar-blijft-het-bij-mark-en-lisa";
 import WaarBlijftHetBijFatima from "./content/waar-blijft-het-bij-fatima";
 import WaarBlijftHetBijDavidEnTom from "./content/waar-blijft-het-bij-david-en-tom";
-import SeizoensKostenkalenderPerMaand from "./content/seizoens-kostenkalender-per-maand";
 import WatKostEenZomervakantieGezin from "./content/wat-kost-een-zomervakantie-gezin";
 import ZonnepanelenTerugverdientijd from "./content/zonnepanelen-terugverdientijd";
 import GeldmythesDieJeArmHouden from "./content/geldmythes-die-je-arm-houden";
@@ -56,7 +55,6 @@ import SchoolkostenPerJaarGezin from "./content/schoolkosten-per-jaar-gezin";
 import HogereHypotheekWatKostHetPerMaand from "./content/hogere-hypotheek-wat-kost-het-per-maand";
 import VerbouwenFinancieleValkuilen from "./content/verbouwen-financiele-valkuilen";
 import OnsBoodschappenbudgetMislukte from "./content/ons-boodschappenbudget-mislukte-tot-we-dit-deden";
-import KerstpotVerjaardagspotZoBouwdenWeDie from "./content/kerstpot-en-verjaardagspot-zo-bouwden-we-die";
 import BsoKostenTweedeInkomen from "./content/bso-kosten-tweede-inkomen-zo-draaiden-we-het-om";
 import PensioenAanvullenHoeveel from "./content/pensioen-aanvullen-hoeveel-heb-je-nodig";
 import FinancieelOnafhankelijkWordenRealistisch from "./content/financieel-onafhankelijk-worden-realistisch";
@@ -65,16 +63,13 @@ import GezamenlijkeRekeningVoorEnNadelen from "./content/gezamenlijke-rekening-v
 import TweedeInkomenLoonNietTweeverdieners from "./content/tweede-inkomen-loont-niet-tweeverdieners";
 import WatKostEenFinancieelAdviseur from "./content/wat-kost-een-financieel-adviseur";
 import WatDoetEenFinancieelAdviseur from "./content/wat-doet-een-financieel-adviseur";
-import WaaromHouIkNooitGeldOver from "./content/waarom-hou-ik-nooit-geld-over";
 import BrutoNaarNettoLoonstrookUitleg from "./content/bruto-naar-netto-loonstrook-uitleg";
 import VasteLastenOverzichtMaken from "./content/vaste-lasten-overzicht-maken";
 import GeldIndelenSalarisPotjesSysteem from "./content/geld-indelen-salaris-potjes-systeem";
 import KostenVerdelenSamenwonenOngelijkInkomen from "./content/kosten-verdelen-samenwonen-ongelijk-inkomen";
 import VakantiegeldNettoHoeveelHouJeOver2026 from "./content/vakantiegeld-netto-hoeveel-hou-je-over-2026";
-import GoedSalarisTochGeldstress from "./content/goed-salaris-toch-geldstress";
 import GripOpJeGeldKrijgen from "./content/grip-op-je-geld-krijgen";
 import WaaromLuktSparenNiet from "./content/waarom-lukt-sparen-niet";
-import BudgetMakenDatJeVolhoudt from "./content/budget-maken-dat-je-volhoudt";
 import HoeveelGeldOverhoudenEindeMaand from "./content/hoeveel-geld-overhouden-einde-maand";
 import VrijBesteedbaarInkomenBerekenen from "./content/vrij-besteedbaar-inkomen-berekenen";
 import NettoLoonsverhogingBerekenen from "./content/netto-loonsverhoging-berekenen";
@@ -98,6 +93,9 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "waar-blijft-mijn-geld": WaarBlijftMijnGeld,
+  "jaarlijkse-kosten-reserveren": JaarlijkseKostenReserveren,
+  "meer-geld-overhouden": MeerGeldOverhouden,
   "wat-kost-een-dag-minder-werken": WatKostEenDagMinderWerken,
   "kind-wordt-18-wat-verandert-er-financieel": KindWordt18WatVerandertErFinancieel,
   "top-10-procent-inkomen-nederland": Top10ProcentInkomenNederland,
@@ -114,13 +112,10 @@ const contentMap: Record<string, () => JSX.Element> = {
   "goed-inkomen-weinig-vermogen": GoedInkomenWeinigVermogen,
   "hoe-weet-ik-of-ik-financieel-gezond-ben": HoeWeetIkOfIkFinancieelGezondBen,
   "hoeveel-financiele-ruimte-heb-ik": HoeveelFinancieleRuimteHebIk,
-  "alleen-wonen-goed-salaris-toch-krap": AlleenWonenGoedSalarisTochKrap,
   "praten-over-geld-met-je-partner": PratenOverGeldMetJePartner,
   "waarom-lijkt-iedereen-rijker": WaaromLijktIedereenRijker,
-  "moet-je-een-huishoudboekje-bijhouden": MoetJeEenHuishoudboekjeBijhouden,
   "huishoudboekje-voorbeeld": HuishoudboekjeVoorbeeld,
   "piekeren-over-geld": PiekerenOverGeld,
-  "goed-salaris-toch-krap": GoedsalarisTochKrap,
   "boodschappen-duitsland-voordeel": BoodschappenDuitslandVoordeel,
   "spaardoelen-maandelijkse-inleg": SpaardoelenMaandelijkseInleg,
   "salarisverhoging-boven-76000-weinig-netto": SalarisverhoginBoven76000,
@@ -147,7 +142,6 @@ const contentMap: Record<string, () => JSX.Element> = {
   "waar-blijft-het-bij-mark-en-lisa": WaarBlijftHetBijMarkEnLisa,
   "waar-blijft-het-bij-fatima": WaarBlijftHetBijFatima,
   "waar-blijft-het-bij-david-en-tom": WaarBlijftHetBijDavidEnTom,
-  "seizoens-kostenkalender-per-maand": SeizoensKostenkalenderPerMaand,
   "wat-kost-een-zomervakantie-gezin": WatKostEenZomervakantieGezin,
   "zonnepanelen-terugverdientijd": ZonnepanelenTerugverdientijd,
   "geldmythes-die-je-arm-houden": GeldmythesDieJeArmHouden,
@@ -156,7 +150,6 @@ const contentMap: Record<string, () => JSX.Element> = {
   "hogere-hypotheek-wat-kost-het-per-maand": HogereHypotheekWatKostHetPerMaand,
   "verbouwen-financiele-valkuilen": VerbouwenFinancieleValkuilen,
   "ons-boodschappenbudget-mislukte-tot-we-dit-deden": OnsBoodschappenbudgetMislukte,
-  "kerstpot-en-verjaardagspot-zo-bouwden-we-die": KerstpotVerjaardagspotZoBouwdenWeDie,
   "bso-kosten-tweede-inkomen-zo-draaiden-we-het-om": BsoKostenTweedeInkomen,
   "pensioen-aanvullen-hoeveel-heb-je-nodig": PensioenAanvullenHoeveel,
   "financieel-onafhankelijk-worden-realistisch": FinancieelOnafhankelijkWordenRealistisch,
@@ -165,16 +158,13 @@ const contentMap: Record<string, () => JSX.Element> = {
   "tweede-inkomen-loont-niet-tweeverdieners": TweedeInkomenLoonNietTweeverdieners,
   "wat-kost-een-financieel-adviseur": WatKostEenFinancieelAdviseur,
   "wat-doet-een-financieel-adviseur": WatDoetEenFinancieelAdviseur,
-  "waarom-hou-ik-nooit-geld-over": WaaromHouIkNooitGeldOver,
   "bruto-naar-netto-loonstrook-uitleg": BrutoNaarNettoLoonstrookUitleg,
   "vaste-lasten-overzicht-maken": VasteLastenOverzichtMaken,
   "geld-indelen-salaris-potjes-systeem": GeldIndelenSalarisPotjesSysteem,
   "kosten-verdelen-samenwonen-ongelijk-inkomen": KostenVerdelenSamenwonenOngelijkInkomen,
   "vakantiegeld-netto-hoeveel-hou-je-over-2026": VakantiegeldNettoHoeveelHouJeOver2026,
-  "goed-salaris-toch-geldstress": GoedSalarisTochGeldstress,
   "grip-op-je-geld-krijgen": GripOpJeGeldKrijgen,
   "waarom-lukt-sparen-niet": WaaromLuktSparenNiet,
-  "budget-maken-dat-je-volhoudt": BudgetMakenDatJeVolhoudt,
   "hoeveel-geld-overhouden-einde-maand": HoeveelGeldOverhoudenEindeMaand,
   "vrij-besteedbaar-inkomen-berekenen": VrijBesteedbaarInkomenBerekenen,
   "netto-loonsverhoging-berekenen": NettoLoonsverhogingBerekenen,
