@@ -4,7 +4,9 @@ Levend document, bijgewerkt na elke sessie. Basis: `docs/plan-seo-conversie-100-
 
 ## BEGIN HIER
 
-Laatst bijgewerkt: 28 september 2026, tweede sessie (Instagram-reel, sectie 37). Daarvoor 28 september 2026 (meting in de browser kwam nooit aan, sectie 36). Daarvoor 25 september 2026, zesde sessie (de vijf geldmomenten gebouwd, sectie 35). Daarvoor 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+Laatst bijgewerkt: 12 oktober 2026 (analyse-onderzoek en plan, sectie 38). Daarvoor 28 september 2026, tweede sessie (Instagram-reel, sectie 37). Daarvoor 28 september 2026 (meting in de browser kwam nooit aan, sectie 36). Daarvoor 25 september 2026, zesde sessie (de vijf geldmomenten gebouwd, sectie 35). Daarvoor 25 september 2026, derde sessie (het plan uit sectie 32 gebouwd, sectie 33). Daarvoor 25 september 2026 (onderzoek woordveld financieel coach, sectie 30, niets gebouwd). Daarvoor 24 september 2026 (H2, de inkomenspijler, de antwoordronde en de herbouw van de vaste-lastenpagina, sectie 29). Daarvoor 23 september 2026 (meting van de analyse en de admin, sectie 24 en 25; vraagstap gebouwd, sectie 26; privacy en over herschreven, sectie 27; gemiste zoekonderwerpen, sectie 28). Daarvoor: 6 september 2026, na zes sessies op die dag. De zesde herstelde de AI-overzicht-citatie van is-4000, zie sectie 15. Er staan lokale commits klaar die Jarno nog moet pushen. Begin met `git log --oneline -8` om te zien of dat nog klopt. **Zolang die push niet is gedaan zijn nieuwe of gewijzigde pagina's niet live** (gecontroleerd op 6 september: `/inzichten/rentevaste-periode-loopt-af-wat-nu` gaf een 404), en dus is de GSC-indiening ook niet gedaan. Zie "Openstaand aan Jarno's kant".
+
+**Update 12 oktober: de analyse vertelt de doelgroep dat er niets aan de hand is, zie sectie 38 en `docs/plan-analyse-meet-het-gat-12-okt-2026.md`.** 54 afgeronde analyses in een maand, rekensom klopt, maar 41 van de 54 kregen "meer over dan je zelf zou verwachten" (mediaan 1.610 euro ruimte), ook 31 van de 36 in de inkomensband van Sandra en Niels. Bij wie invulde wat hij spaart verdwijnt mediaan 944 euro per maand in de berekening, en het resultaat noemt dat ruimte. **Eerstvolgende actie, de enige bouwklus: stap 1 uit het plan, de analyse meet het gat tussen berekende en werkelijke ruimte.** Meten op 26 oktober. Op 1 november gaat het killcriterium af (0 betaald); dan beslist Jarno over doel of kanaal, zie stap 4 van het plan.
 
 **Update 28 september, tweede sessie: Instagram-reel 01 gemaakt op verzoek van Jarno, buiten het kanaalplan van CLAUDE.md sectie 7, zie sectie 37.** Niets aan de site veranderd. Alles staat in `Claude outputs/instagram-reel-01/` (niet in git). Jarno: posten volgens de checklist in `script-reel-01.md`, en Instagram-verkeer niet meetellen in de vrijdagmeting, want die gaat over zoekverkeer.
 
@@ -101,6 +103,7 @@ Daarbovenop de batchdag van vanavond: **vijf nieuwe pagina's gebouwd (N1, N4, N2
 | Wanneer | Wat |
 |---|---|
 | ~~13 september~~ | ~~Schermlijst lezen in het funneltabblad.~~ **Kon niet: dat tabblad werd door geen route geladen. Vervangen door `/admin/analyse-verloop` op 23 september, zie sectie 24.** |
+| 26 oktober | **Meetpunt analyse-gat** (sectie 38): aandeel afgeronde analyses met een gat boven 300 euro, e-mailadressen, Geldscan-klikken vanaf het resultaat. |
 | 23 oktober | **Meetpunt geldmomenten, +28 dagen** (sectie 35): vertoningen en positie van de vijf URL's op hun hoofdtermen, plus het blok "Geldscan-aanvragen met keuze" op Vandaag. |
 | 1 november | **Evaluatie keuze-data** (sectie 35, vraag 6): welke keuzes staan in de aanvragen, en betaalt iemand met een keuze vaker dan zonder? Bij minder dan 5 aanvragen met keuze: niets besluiten, alleen noteren. |
 | 12 november | **Herziening kind-wordt-18**: zorgpremie 2027 en eigen risico 2027 zodra Rijksoverheid ze publiceert. `EIGEN_RISICO_2026` in `lib/geldmomenten-bronnen.ts` krijgt dan een 2027-broer, en de tekst noemt het nieuwe bedrag. |
@@ -1540,3 +1543,12 @@ Op verzoek van Jarno ("maak een korte reel voor Instagram, met muziek en voice-o
 - De site slaat geen UTM-parameters op. Instagram-verkeer is alleen te herkennen aan de verwijzer.
 
 **Voor Jarno.** Posten met de cover, link in bio naar `/analyse?utm_source=instagram&utm_medium=reel&utm_campaign=reel-01`, nagaan of de toestemming van dit gezin ook social media dekt, en Instagram-sessies apart houden van de vrijdagmeting.
+
+## 38. Analyse-onderzoek en plan, 12 oktober 2026
+
+Op verzoek van Jarno: kloppen de uitkomsten van de analyse, en waarom komt de doelgroep niet. Niets gebouwd. Chrome was niet bereikbaar; uitgelezen via de ingebouwde browser van de app, ingelogd door Jarno, met de bestaande admin-API's (`analyse-verloop`, `bezoekers`, `search-analytics`). `.env.local` bevat alleen placeholders, dus rechtstreeks Supabase uitlezen vanaf dit apparaat kan niet.
+
+Bevindingen en plan staan in `docs/plan-analyse-meet-het-gat-12-okt-2026.md`. In het kort: de rekensom klopt, het model niet. De analyse telt schattingen op, en volgens de eigen rapporten zijn juist die schattingen het lek. 77 procent van de zoekklikken gaat naar vijf controleerpagina's. Gevonden bug: vakantiegeld in `berekenTotaalInkomen` is een factor 12 te laag; alleen repareren samen met stap 1.
+
+Geparkeerd: extra vragen voor ontbrekende posten (aflossingen, kleding, cadeaus, huisdieren). Pas overwegen als het gat na 26 oktober niet genoeg zegt.
+
