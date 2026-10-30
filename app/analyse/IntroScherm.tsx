@@ -8,7 +8,9 @@ import type { MaandGevoel } from "@/lib/quiz-types";
  *
  * Ontwerp gekozen door Jarno op het design-canvas "Introscherm analyse
  * mobiel", richting B ("Vraag 1 als begin van de analyse"), met zijn
- * aanvulling: geen voorbeeld eronder, het moet rustig zijn. Zie
+ * aanvulling: geen voorbeeld eronder, het moet rustig zijn. Kop "Waar blijft
+ * je geld?" in plaats van "jullie", want een deel van de bezoekers woont
+ * alleen (Jarno, 30-okt-2026). Zie
  * docs/introscherm-analyse-30-okt-2026.md en bouwvolgorde sectie 43.
  *
  * Waarom zo:
@@ -60,7 +62,7 @@ export default function IntroScherm({
           Gratis analyse
         </p>
         <h1 className="font-display font-light text-primary text-[30px] sm:text-4xl leading-[1.12] mb-2.5">
-          Waar blijft jullie geld?
+          Waar blijft je geld?
         </h1>
         <p className="font-body text-[15px] sm:text-base leading-relaxed text-text-soft">
           In 3 minuten zie je wat je niet kunt aanwijzen, en waar je afwijkt van huishoudens zoals het jouwe.
