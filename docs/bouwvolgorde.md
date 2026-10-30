@@ -1643,4 +1643,7 @@ Niet gedaan: e-mail- of interviewopt-in (de vijf klanten eerst), opvolgmails.
 - Ingevulde analyses, trechter: nieuwe stap "Geldscan in beeld" direct vóór "Op Geldscan geklikt", zodat het percentage eronder klik per aanbodweergave is. Telt stap 1 en de vraagstap (vanaf 30 okt) plus resultaatstap 4 zonder verstuurde vraag.
 - Ingevulde analyses, tabel per sessie: kolommen Gevoel, Aanbod gezien (plekken), Wil en Houdt tegen.
 - tsc schoon, `berekenVerloop` met nepdata nagerekend.
+- "Zitten ze krap? Per landingspagina" telt nu alleen sessies vanaf 12 okt (`MEETVRAAG_SINDS`), zodat Gestart en de antwoorden over dezelfde periode gaan, met kolommen Afgerond en Afgerond krap.
+
+**Afhaken in de vragen (gelezen 30 okt, sinds 7 sep, eigen tests eruit):** 104 begonnen, 87 afgerond (84 procent); mediaan 3,4 minuten voor wie afrondt, 33 seconden voor wie afhaakt. 8 van de 17 afhakers stoppen in het inkomensblok (inkomen, partner, vakantiegeld, extra inkomen, hypotheekaftrek, recap), de rest verspreid tot scherm 16. Mobiel 45 van 56, desktop 42 van 48. Sinds 12 okt: krap 10 van 16 afgerond, ruim 14 van 16. Het grootste verlies zit vóór de start: in de maand tot 30 okt 173 weergaven van /analyse tegen 60 starts. Niets aan veranderd; meelezen op 15 december.
 

@@ -297,6 +297,9 @@ export function verrijk(
   };
 }
 
+/** Eerste sessie met de vraag "Hoe is het meestal aan het eind van de maand?" (12-okt-2026, 17:32 UTC). */
+export const MEETVRAAG_SINDS = "2026-10-12T17:30:00Z";
+
 export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
 
   // Herkomst: de verwijzer van het eerste /analyse-bezoek in die sessie.
@@ -413,15 +416,26 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
   // het aan het eind van de maand net genoeg of te weinig is. Alleen sessies
   // die de vraag beantwoordden tellen in het aandeel.
   const landing = data.landingPerSessie ?? {};
-  const icpMap = new Map<string, { gestart: number; ruim: number; net: number; tekort: number }>();
+  // Sinds 30-okt-2026 alleen sessies vanaf de invoering van de meetvraag
+  // (MEETVRAAG_SINDS), anders telt "Gestart" over een langere periode dan de
+  // antwoorden ernaast. Plus afgerond, totaal en voor wie krap zit.
+  const icpMap = new Map<
+    string,
+    { gestart: number; ruim: number; net: number; tekort: number; afgerond: number; krapAfgerond: number }
+  >();
   for (const s of sessies) {
+    if (s.created_at < MEETVRAAG_SINDS) continue;
     const pagina = landing[s.sessie_id] ?? "onbekend";
-    const rij = icpMap.get(pagina) ?? { gestart: 0, ruim: 0, net: 0, tekort: 0 };
+    const rij = icpMap.get(pagina) ?? { gestart: 0, ruim: 0, net: 0, tekort: 0, afgerond: 0, krapAfgerond: 0 };
     rij.gestart++;
     const gevoel = s.antwoorden.maandGevoel;
     if (gevoel === "ruim") rij.ruim++;
     else if (gevoel === "net") rij.net++;
     else if (gevoel === "tekort") rij.tekort++;
+    if (s.voltooid) {
+      rij.afgerond++;
+      if (gevoel === "net" || gevoel === "tekort") rij.krapAfgerond++;
+    }
     icpMap.set(pagina, rij);
   }
   const icpPerLanding = Array.from(icpMap.entries())
@@ -433,6 +447,8 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
       tekort: r.tekort,
       beantwoord: r.ruim + r.net + r.tekort,
       krap: r.net + r.tekort,
+      afgerond: r.afgerond,
+      krapAfgerond: r.krapAfgerond,
     }))
     .sort((a, b) => b.gestart - a.gestart)
     .slice(0, 20);

@@ -297,11 +297,12 @@ export default function AnalyseVerloopTabblad() {
                 <h2 className="font-body font-semibold text-primary text-sm">Zitten ze krap? Per landingspagina</h2>
                 <p className="text-xs text-text-muted mt-0.5">
                   De eerste pagina van de sessie, en wat starters antwoordden op &quot;Hoe is het meestal aan het eind van de
-                  maand?&quot;. Krap is net genoeg plus te weinig. Gemeten vanaf 12 okt.
+                  maand?&quot;. Krap is net genoeg plus te weinig. Alleen sessies vanaf 12 okt, toen die vraag erbij kwam.
+                  Afgerond krap: van wie krap zit, hoeveel het resultaat zagen.
                 </p>
               </div>
               <div style={{ overflowX: "auto" }}>
-                <table className="w-full text-sm" style={{ minWidth: 560 }}>
+                <table className="w-full text-sm" style={{ minWidth: 720 }}>
                   <thead>
                     <tr className="text-left text-text-muted text-xs">
                       <th className="px-4 py-2 font-medium">Landingspagina</th>
@@ -310,6 +311,8 @@ export default function AnalyseVerloopTabblad() {
                       <th className="px-4 py-2 font-medium text-right">Net</th>
                       <th className="px-4 py-2 font-medium text-right">Te weinig</th>
                       <th className="px-4 py-2 font-medium text-right">Krap</th>
+                      <th className="px-4 py-2 font-medium text-right">Afgerond</th>
+                      <th className="px-4 py-2 font-medium text-right">Afgerond krap</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#F0F3F1]">
@@ -324,6 +327,10 @@ export default function AnalyseVerloopTabblad() {
                         <td className="px-4 py-1.5 text-right text-text-soft">{r.tekort}</td>
                         <td className="px-4 py-1.5 text-right text-primary">
                           {r.beantwoord > 0 ? pct(r.krap, r.beantwoord) : "nog geen"}
+                        </td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.afgerond}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">
+                          {r.krap > 0 ? `${r.krapAfgerond} van ${r.krap}` : ""}
                         </td>
                       </tr>
                     ))}
