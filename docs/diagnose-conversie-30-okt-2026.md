@@ -120,5 +120,24 @@ Meten: aanbodweergaven per week (nu ongeveer 1). Verwachting eerlijk: van 3 naar
 
 ## 7. Bijvangst
 
-- **De verwijzersautomaat staat sinds 18 augustus stil.** 177 mail-1's en 205 follow-ups verstuurd, laatste mail-1 op 18 augustus, laatste follow-up op 13 augustus, 0 reacties, 4 bounces (`/api/admin/outreach`). Op Vandaag staan 108 prospects "te reviewen" en 106 follow-ups "rijp". CLAUDE.md sectie 7 gaat ervan uit dat de automaat doorloopt; dat doet hij niet. Gezien 0 reacties op 177 is herstarten geen prioriteit, maar de aanname in CLAUDE.md klopt niet.
+- De verwijzersmails staan bewust uit (Jarno, 30 oktober): weinig respons, geen tijd om het goed te doen. CLAUDE.md sectie 7 zegt nog dat de automaat doorloopt; die zin klopt niet meer.
 - Vrijdagmeting 30 oktober staat in de bouwvolgorde, sectie 41.
+
+## 8. Vervolgvraag van Jarno: bestaat de doelgroep, en wil hij wat ik aanbied?
+
+**Bestaat hij? Ja.** Nibud, *Geldzaken in de praktijk 2024* (n=1.563, februari 2024, opgehaald 30 oktober 2026): bij hogere inkomens (zonder partner boven €2.625 netto, met partner boven €4.750) vindt 15 procent rondkomen moeilijk en maakt 20 procent zich regelmatig tot altijd zorgen; 38 procent van de steekproef valt in die groep. https://nibc.nl/media/tr5atdol/rapport-geldzaken-in-de-praktijk-2024-het-leven-betaalbaar.pdf. Let op: de Nibud-grens ligt lager dan de band van Sandra en Niels, dus het aandeel in die band is niet uit dit rapport af te leiden. Op de site komen ze ook: 7 afronders in 18 dagen in de inkomensband die zeggen dat het krap is.
+
+**Wil hij wat je aanbiedt? Niet bewezen, en de signalen wijzen op: niet in deze vorm.**
+1. **Niemand heeft het ooit zelf gezocht.** Vier van de vijf rapporten waren gratis scans bij mensen die gevraagd werden (plan van 26 juli), de enige betaalde kwam via een mens. Er is dus bewijs dat het werk waarde heeft, maar nul bewijs dat iemand er uit zichzelf om vraagt.
+2. **De waarde zat in structuur en rust, niet in het vinden van een lek.** In alle vijf evaluaties (`lib/rapporten-data.ts`, veld `evaluatie`) is de verandering een structuur: automatisch reserveren voor jaarkosten, een vaste buffer, een vast privébedrag. Twee van de vijf hadden geen lek; het stel zonder kinderen: "gestopt met zoeken naar iets dat financieel mis zou zijn". De drie vervolggesprekken gingen over structuur en zekerheid. Het aanbod verkoopt een diagnose ("ik zoek uit waarom"); geleverd werd een systeem plus geruststelling.
+3. **Ze zoeken het zelf.** De ICP-zoektaal is doe-het-zelftaal (huishoudboekje excel, jaarlijkse kosten reserveren). Extern: 34 procent haalt informatie liever zelf van internet (Nibud 2017), en "kan het zelf" is de hoofdreden om geen hulp te zoeken bij geldbeheer (37 procent, Money Advice Service 2017).
+4. **Inzicht is gratis.** Bankapps en de ABN AMRO-coach bieden het zonder kosten.
+Tegensignaal: zes keer "voelt krap" op de vraagstap. De nieuwsgierigheid naar het waarom bestaat.
+
+**Werkhypothese.** De doelgroep bestaat en de pijn is echt, maar wat hij wil is rust en een structuur die werkt, het liefst zelf opgezet, misschien met iemand die één keer meekijkt. Een rapport dat uitzoekt waar het geld heen gaat, is een antwoord op een vraag die hij zichzelf niet stelt ("ik weet ongeveer wel waar het heen gaat").
+
+**Toetsen met weinig tijd**
+1. **De vijf klanten bellen of mailen, één vraag** (een uur): "Had je hier zelf naar gezocht, wat was het je waard, en wat had je het liefst gekregen: het rapport, de opzet, of het gesprek?" Dit is het sterkste bewijs dat er te krijgen is.
+2. **Eén tik op het resultaat voor wie krap zit** (een kleine bouwklus, patroon van de vraagstap): "Wat zou je nu het meest helpen?" Iemand die mijn cijfers bekijkt / een opzet om jaarkosten en buffer zelf te regelen / weten of dit normaal is / een keuze laten doorrekenen / niks, ik weet genoeg. Bij ongeveer 12 per maand na zes tot acht weken rond de 25 antwoorden. Samen met besluit 1, zodat de Geldscan ook echt gezien wordt.
+3. Pas daarna, als "zelf regelen" wint: het aanbod rond die structuur bouwen. Niet eerder.
+
