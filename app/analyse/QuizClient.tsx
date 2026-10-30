@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useRef, useEffect } from "react";
 import { QuizData, DEFAULT_QUIZ_DATA, RESULTAAT_STAP_SLEUTEL, VRAAG_VERSTUURD_SLEUTEL } from "@/lib/quiz-types";
+import type { MaandGevoel } from "@/lib/quiz-types";
 import { getSessieId, getApparaat, isEigenaar } from "@/lib/sessie";
 import {
   getBenchmarks,
@@ -337,6 +338,25 @@ export default function QuizClient() {
     [patch, advance]
   );
 
+  /**
+   * Start vanaf het introscherm met het antwoord op de eerste vraag
+   * (30-okt-2026). Het scherm maand-gevoel wordt overgeslagen; met "vorige"
+   * kan de bezoeker er nog naar terug. De plek (boven of onder op het intro)
+   * gaat mee in _events, zodat de admin ziet hoe er gestart is.
+   */
+  const startMetGevoel = useCallback(
+    (g: MaandGevoel, plek: "boven" | "onder") => {
+      markeer(plek === "boven" ? "analysis_intro_vraag_boven" : "analysis_intro_vraag_onder");
+      const nieuw = { ...dataRef.current, maandGevoel: g };
+      dataRef.current = nieuw;
+      patch({ maandGevoel: g });
+      const volgende = volgendeSchermId("maand-gevoel", nieuw) ?? ALLE_SCHERMEN[0].id;
+      setCurrentId(volgende);
+      setFase("vraag");
+    },
+    [markeer, patch]
+  );
+
   const vorige = useCallback(() => {
     const prev = vorigeSchermId(currentId, dataRef.current);
     if (prev !== null) setCurrentId(prev);
@@ -444,7 +464,7 @@ export default function QuizClient() {
           Typeform-gevoel; de resultatenflow bepaalt zijn eigen, bredere
           breedte per stap (spec sectie 8) en staat hieronder al buiten elke
           wrapper. */}
-      {fase === "intro" && <IntroScherm onStart={() => setFase("vraag")} />}
+      {fase === "intro" && <IntroScherm onStartMetGevoel={startMetGevoel} />}
 
       {fase === "vraag" && (
         <div className="max-w-[600px] mx-auto">

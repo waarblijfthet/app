@@ -440,6 +440,45 @@ export default function AnalyseVerloopTabblad() {
             )}
           </section>
 
+          {/* Introscherm per apparaat (30-okt-2026) */}
+          {berekend.introPerApparaat.length > 0 && (
+            <section className="card-base overflow-hidden">
+              <div className="px-4 py-3 border-b border-[#F0F3F1]">
+                <h2 className="font-body font-semibold text-primary text-sm">Introscherm: wie start er, per apparaat</h2>
+                <p className="text-xs text-text-muted mt-0.5">
+                  Unieke sessies op /analyse, en hoeveel daarvan de analyse startten. Nieuw intro: de eerste vraag staat
+                  als drie knoppen op het intro (vanaf 31 okt aangenomen). Via de vraag: gestart met een tik op die knoppen.
+                </p>
+              </div>
+              <div style={{ overflowX: "auto" }}>
+                <table className="w-full text-sm" style={{ minWidth: 560 }}>
+                  <thead>
+                    <tr className="text-left text-text-muted text-xs">
+                      <th className="px-4 py-2 font-medium">Apparaat en intro</th>
+                      <th className="px-4 py-2 font-medium text-right">Sessies</th>
+                      <th className="px-4 py-2 font-medium text-right">Gestart</th>
+                      <th className="px-4 py-2 font-medium text-right">Start</th>
+                      <th className="px-4 py-2 font-medium text-right">Via de vraag</th>
+                      <th className="px-4 py-2 font-medium text-right">Afgerond</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[#F0F3F1]">
+                    {berekend.introPerApparaat.map((r) => (
+                      <tr key={r.groep}>
+                        <td className="px-4 py-1.5 text-primary">{r.groep}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.sessies}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.gestart}</td>
+                        <td className="px-4 py-1.5 text-right text-primary">{pct(r.gestart, r.sessies)}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.viaIntro}</td>
+                        <td className="px-4 py-1.5 text-right text-text-soft">{r.afgerond}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </section>
+          )}
+
           {/* Herkomst */}
           {berekend.herkomst.length > 0 && (
             <section className="card-base overflow-hidden">

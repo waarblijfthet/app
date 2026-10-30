@@ -31,7 +31,7 @@ export type Sessie = {
   antwoorden: Record<string, unknown>;
 };
 
-type AnalyseBezoek = { sessie_id: string; referrer: string | null; created_at: string };
+type AnalyseBezoek = { sessie_id: string; referrer: string | null; created_at: string; apparaat?: string | null };
 
 export type Gebeurtenis = {
   sessie_id: string;
@@ -297,6 +297,13 @@ export function verrijk(
   };
 }
 
+/**
+ * Vanaf wanneer het nieuwe introscherm live staat (30-okt-2026: de eerste
+ * vraag als drie knoppen op het intro). Aangenomen op 31 okt; zet dit op de
+ * echte deploydatum als die anders is.
+ */
+export const INTRO_NIEUW_SINDS = "2026-10-31T00:00:00Z";
+
 /** Eerste sessie met de vraag "Hoe is het meestal aan het eind van de maand?" (12-okt-2026, 17:32 UTC). */
 export const MEETVRAAG_SINDS = "2026-10-12T17:30:00Z";
 
@@ -509,6 +516,35 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     (s) => s.nazorg.aanbodGezien.length > 0 || s.nazorg.behoefte !== null || s.nazorg.bezwaar !== null
   );
 
+  // Start op het introscherm per apparaat, vóór en na het nieuwe intro
+  // (30-okt-2026). Noemer: unieke sessies met een bezoek aan /analyse, met het
+  // apparaat van het eerste bezoek. Eigen tests tellen niet mee in de starts
+  // (die vallen al weg in `sessies`); in de bezoeken zitten ze ook niet, want
+  // de paginateller slaat de eigenaarscookie over.
+  const eersteBezoek = new Map<string, AnalyseBezoek>();
+  for (const b of oplopend) {
+    if (b.sessie_id && !eersteBezoek.has(b.sessie_id)) eersteBezoek.set(b.sessie_id, b);
+  }
+  const introRijen = new Map<string, { sessies: number; gestart: number; viaIntro: number; afgerond: number }>();
+  eersteBezoek.forEach((b, sessieId) => {
+    const apparaat = b.apparaat === "mobiel" ? "Mobiel" : b.apparaat === "desktop" ? "Desktop" : "Onbekend";
+    const periodeLabel = b.created_at >= INTRO_NIEUW_SINDS ? "nieuw intro" : "oud intro";
+    const sleutel = `${apparaat}, ${periodeLabel}`;
+    const rij = introRijen.get(sleutel) ?? { sessies: 0, gestart: 0, viaIntro: 0, afgerond: 0 };
+    rij.sessies++;
+    const s = perSessie.get(sessieId);
+    if (s && !s.eigenTest) {
+      rij.gestart++;
+      const events = Array.isArray(s.antwoorden._events) ? (s.antwoorden._events as string[]) : [];
+      if (events.some((e) => e.startsWith("analysis_intro_vraag"))) rij.viaIntro++;
+      if (s.voltooid) rij.afgerond++;
+    }
+    introRijen.set(sleutel, rij);
+  });
+  const introPerApparaat = Array.from(introRijen.entries())
+    .map(([groep, r]) => ({ groep: groep, ...r }))
+    .sort((a, b) => (a.groep < b.groep ? -1 : 1));
+
   const herkomst = Array.from(herkomstMap.entries())
     .map(([bron, r]) => ({ bron: bron, ...r }))
     .sort((a, b) => b.geopend - a.geopend)
@@ -559,6 +595,7 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     maxAfhaak: maxAfhaak,
     herkomst: herkomst,
     icpPerLanding: icpPerLanding,
+    introPerApparaat: introPerApparaat,
     inzicht: inzichtGroepen.map((g) => ({ groep: g, ...inzicht[g] })),
     inzichtPlekken: inzichtPlekken,
     inzichtGemeten: inzichtGemeten,

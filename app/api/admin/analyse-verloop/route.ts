@@ -72,6 +72,8 @@ type AnalyseBezoek = {
   sessie_id: string;
   referrer: string | null;
   created_at: string;
+  /** 30-okt-2026: voor de start per apparaat op het introscherm. */
+  apparaat: string | null;
 };
 
 export async function GET(request: NextRequest) {
@@ -94,7 +96,7 @@ export async function GET(request: NextRequest) {
       haalAlleRijen<AnalyseBezoek>(
         supabase,
         "paginabezoeken",
-        "sessie_id,referrer,created_at",
+        "sessie_id,referrer,created_at,apparaat",
         (q) => q.eq("pagina", "/analyse").gte("created_at", sinds)
       ),
       haalAlleRijen<Gebeurtenis>(
