@@ -112,6 +112,13 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
   // Rekenlaag verhuisd naar resultaat/berekenResultaat.ts (23-sep-2026), zodat
   // de admin dezelfde uitkomst kan tonen. Berekening en teksten ongewijzigd.
   const berekening = berekenResultaat(data);
+  // Krap (30-okt-2026): een gat of tekort, of zelf "net genoeg" of "te weinig"
+  // gekozen. Dan staat de Geldscan al op stap 1 en op de vraagstap.
+  const krap =
+    berekening.soortUitkomst === "gat" ||
+    berekening.soortUitkomst === "tekort" ||
+    data.maandGevoel === "net" ||
+    data.maandGevoel === "tekort";
   const {
     meerdere,
     benches,
@@ -173,6 +180,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
             data={data}
             onChange={onChange}
             resultaat={resultaat}
+            krap={krap}
             onVerder={() => setSubstap(2)}
           />
         )}
@@ -185,7 +193,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
           />
         )}
         {substap === 3 && toonVraagstap && (
-          <Resultaat3Vraag r={berekening} onOverslaan={() => setSubstap(4)} onVerstuurd={vraagVerstuurd} />
+          <Resultaat3Vraag r={berekening} onOverslaan={() => setSubstap(4)} onVerstuurd={vraagVerstuurd} krap={krap} />
         )}
         {substap === 3 && !toonVraagstap && <Resultaat3Betekenis onVerder={() => setSubstap(4)} />}
         {substap === 4 && verstuurd && (

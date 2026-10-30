@@ -5,6 +5,7 @@ import { CATEGORIE_LABEL } from "@/app/analyse/schermen";
 import Badge from "@/app/admin/ui/Badge";
 import AnalyseResultaatPopup from "./AnalyseResultaatPopup";
 import { VRAAG_SLEUTEL_LABEL } from "@/app/analyse/stappen/resultaat/vraagKeuzes";
+import { BEHOEFTE_LABEL, BEZWAAR_LABEL } from "@/app/analyse/stappen/resultaat/inzichtVragen";
 import {
   berekenVerloop,
   formatDuur,
@@ -331,6 +332,106 @@ export default function AnalyseVerloopTabblad() {
               </div>
             </section>
           )}
+
+          {/* Wat willen ze, en zien ze het aanbod (30-okt-2026) */}
+          <section className="card-base overflow-hidden">
+            <div className="px-4 py-3 border-b border-[#F0F3F1]">
+              <h2 className="font-body font-semibold text-primary text-sm">Wat willen ze, en zien ze het aanbod?</h2>
+              <p className="text-xs text-text-muted mt-0.5">
+                Afgeronde analyses per antwoord op de eerste vraag. Krap is net genoeg plus te weinig; &quot;krap, in de
+                band&quot; is daarvan het deel met een stel vanaf €5.000 netto of alleenstaand vanaf €3.500 (salarissen
+                zoals ingevuld). Aanbod gezien: de Geldscan kwam op stap 1, de vraagstap of stap 4 in beeld. Gemeten vanaf
+                30 okt.
+              </p>
+            </div>
+            {!berekend.inzichtGemeten ? (
+              <p className="px-4 py-3 text-sm text-text-muted">Nog geen metingen. Zichtbaar na de eerste analyse na de deploy.</p>
+            ) : (
+              <>
+                <div style={{ overflowX: "auto" }}>
+                  <table className="w-full text-sm" style={{ minWidth: 720 }}>
+                    <thead>
+                      <tr className="text-left text-text-muted text-xs">
+                        <th className="px-4 py-2 font-medium">Groep</th>
+                        <th className="px-4 py-2 font-medium text-right">Afgerond</th>
+                        <th className="px-4 py-2 font-medium text-right">Aanbod gezien</th>
+                        <th className="px-4 py-2 font-medium text-right">Geklikt</th>
+                        <th className="px-4 py-2 font-medium text-right">Behoefte</th>
+                        {Object.keys(BEHOEFTE_LABEL).map((k) => (
+                          <th key={k} className="px-4 py-2 font-medium text-right">
+                            {BEHOEFTE_LABEL[k]}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#F0F3F1]">
+                      {berekend.inzicht.map((r) => (
+                        <tr key={r.groep}>
+                          <td className="px-4 py-1.5 text-primary">
+                            {r.groep === "ruim"
+                              ? "Ruim"
+                              : r.groep === "krap"
+                              ? "Krap"
+                              : r.groep === "krap-band"
+                              ? "Krap, in de band"
+                              : "Eerste vraag leeg"}
+                          </td>
+                          <td className="px-4 py-1.5 text-right text-text-soft">{r.afgerond}</td>
+                          <td className="px-4 py-1.5 text-right text-text-soft">{r.aanbodGezien}</td>
+                          <td className="px-4 py-1.5 text-right text-text-soft">{r.geldscanKlik}</td>
+                          <td className="px-4 py-1.5 text-right text-text-soft">{r.behoefteBeantwoord}</td>
+                          {Object.keys(BEHOEFTE_LABEL).map((k) => (
+                            <td key={k} className="px-4 py-1.5 text-right text-primary">
+                              {r.behoefte[k] ?? 0}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <div className="border-t border-[#F0F3F1]" style={{ overflowX: "auto" }}>
+                  <table className="w-full text-sm" style={{ minWidth: 560 }}>
+                    <thead>
+                      <tr className="text-left text-text-muted text-xs">
+                        <th className="px-4 py-2 font-medium">Wat houdt ze tegen (stap 4)</th>
+                        {berekend.inzicht.map((r) => (
+                          <th key={r.groep} className="px-4 py-2 font-medium text-right">
+                            {r.groep === "ruim"
+                              ? "Ruim"
+                              : r.groep === "krap"
+                              ? "Krap"
+                              : r.groep === "krap-band"
+                              ? "In de band"
+                              : "Leeg"}
+                          </th>
+                        ))}
+                      </tr>
+                    </thead>
+                    <tbody className="divide-y divide-[#F0F3F1]">
+                      {Object.keys(BEZWAAR_LABEL).map((k) => (
+                        <tr key={k}>
+                          <td className="px-4 py-1.5 text-primary">{BEZWAAR_LABEL[k]}</td>
+                          {berekend.inzicht.map((r) => (
+                            <td key={r.groep} className="px-4 py-1.5 text-right text-text-soft">
+                              {r.bezwaar[k] ?? 0}
+                            </td>
+                          ))}
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+                <p className="px-4 py-2 text-xs text-text-muted border-t border-[#F0F3F1]">
+                  Aanbod in beeld per plek:{" "}
+                  {["stap1", "vraagstap", "stap4"]
+                    .map((p) => `${p === "stap1" ? "stap 1" : p === "stap4" ? "stap 4" : "vraagstap"} ${berekend.inzichtPlekken[p]?.gezien ?? 0}`)
+                    .join(", ")}
+                  .
+                </p>
+              </>
+            )}
+          </section>
 
           {/* Herkomst */}
           {berekend.herkomst.length > 0 && (

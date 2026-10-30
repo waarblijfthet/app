@@ -1,4 +1,10 @@
+"use client";
+
+import { useEffect, useRef } from "react";
 import CtaLink from "@/components/CtaLink";
+import { logGebeurtenis } from "@/lib/track";
+import EenTikVraag from "./EenTikVraag";
+import { BEZWAAR_OPTIES } from "./inzichtVragen";
 import { QuizData } from "@/lib/quiz-types";
 import { geldscanHref } from "@/lib/cta";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
@@ -24,6 +30,15 @@ interface Props {
  * onderzoekt WAAROM, en dat is precies wat hier staat.
  */
 export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
+  // Aanbod in beeld (30-okt-2026), zelfde gebeurtenis als op stap 1 en de
+  // vraagstap, zodat de admin per plek telt.
+  const gelogd = useRef(false);
+  useEffect(() => {
+    if (gelogd.current) return;
+    gelogd.current = true;
+    logGebeurtenis("analyse_aanbod_gezien", { pakket: "geldscan", meta: { plek: "stap4" } });
+  }, []);
+
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-1 leading-snug">
@@ -78,6 +93,16 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
           Ik schreef er inmiddels {RAPPORTEN.length} uit. Bij {AANTAL_ZONDER_LEK} daarvan bleek er
           geen lek te zitten, en dat schreef ik er ook zo in.
         </p>
+      </div>
+
+      <div className="mt-6">
+        <EenTikVraag
+          vraag="Nog niet? Wat houdt je tegen?"
+          opties={BEZWAAR_OPTIES}
+          gebeurtenis="analyse_aanbod_bezwaar"
+          meta={{ gevoel: data.maandGevoel }}
+          dankTekst="Dank je. Dat neem ik mee."
+        />
       </div>
 
       <ToestemmingDataAsset />

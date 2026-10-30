@@ -2,6 +2,9 @@ import { fmtEur, QuizData } from "@/lib/quiz-types";
 import Link from "next/link";
 import BewaarUitkomst from "./BewaarUitkomst";
 import { rapportVoorSlug } from "@/lib/rapporten-data";
+import EenTikVraag from "./EenTikVraag";
+import GeldscanTekstlink from "./GeldscanTekstlink";
+import { behoefteOpties } from "./inzichtVragen";
 
 interface Props {
   conclusieKop: string;
@@ -103,6 +106,11 @@ interface NieuweProps extends Props {
   data: QuizData;
   onChange: (u: Partial<QuizData>) => void;
   resultaat: Record<string, unknown>;
+  /**
+   * Zit deze bezoeker krap (30-okt-2026): een gat of tekort, of op de eerste
+   * vraag "net genoeg" of "te weinig". Dan staat de Geldscan al hier.
+   */
+  krap: boolean;
 }
 
 /**
@@ -114,7 +122,7 @@ interface NieuweProps extends Props {
  * die kop). Oude sessies in de admin tonen de oude uitkomst.
  */
 export default function Resultaat1Uitkomst(props: NieuweProps) {
-  const { soortUitkomst, werkelijkOver, gat, over, conclusieKop, contextZin, onVerder } = props;
+  const { soortUitkomst, werkelijkOver, gat, over, conclusieKop, contextZin, onVerder, krap } = props;
   if (soortUitkomst === "oud" || werkelijkOver === null) {
     return <OudeUitkomst {...props} />;
   }
@@ -181,6 +189,24 @@ export default function Resultaat1Uitkomst(props: NieuweProps) {
           linkTekst="Stuur me deze uitkomst, met het gat erin"
         />
       )}
+
+      {krap && (
+        <div className="mt-6">
+          <GeldscanTekstlink
+            plek="stap1"
+            inleiding={isGat ? "Wil je weten waar dat bedrag heen gaat?" : "Wil je weten waarom het krap is?"}
+          />
+        </div>
+      )}
+
+      <div className="mt-6 pt-5 border-t border-[#E6E9E7]">
+        <EenTikVraag
+          vraag="Wat zou je nu het meest helpen?"
+          opties={behoefteOpties(props.meerdere)}
+          gebeurtenis="analyse_behoefte"
+          meta={{ uitkomst: soortUitkomst, gevoel: props.data.maandGevoel }}
+        />
+      </div>
 
       <div className="mt-8 text-center">
         <button type="button" onClick={onVerder} className="btn-primary">

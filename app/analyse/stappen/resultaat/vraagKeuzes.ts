@@ -11,7 +11,15 @@ import type { ResultaatBerekening } from "./berekenResultaat";
  * Copyregels: ik-vorm, geen bespaartips, geen diagnose vooraf.
  */
 
-export type Uitkomst = "meer" | "passend" | "minder";
+/**
+ * meer, passend en minder zijn de oude uitkomsten (vergelijking met een
+ * vergelijkbaar huishouden). Sinds 30-okt-2026 volgt de vraagstap dezelfde
+ * uitkomst als stap 1 (gat, tekort, klopt, ruimer); de oude blijven alleen
+ * voor sessies zonder de vraag "wat blijft er echt over". Reden: iemand met
+ * een gat las op stap 1 dat hij geld niet kon aanwijzen en op stap 3 dat er
+ * "genoeg over" bleef.
+ */
+export type Uitkomst = "meer" | "passend" | "minder" | "gat" | "tekort" | "klopt" | "ruimer";
 
 export type VraagKeuze = { sleutel: string; tekst: string };
 
@@ -27,6 +35,7 @@ export function bepaalUitkomst(overDiff: number): Uitkomst {
 }
 
 export function vraagstapTekst(r: ResultaatBerekening): VraagstapTekst {
+  if (r.soortUitkomst !== "oud") return nieuweVraagstapTekst(r);
   const uitkomst = bepaalUitkomst(r.overDiff);
   const wij = r.meerdere ? "jullie" : "jou";
   const onsMij = r.meerdere ? "ons" : "mij";
@@ -91,6 +100,77 @@ export function vraagstapTekst(r: ResultaatBerekening): VraagstapTekst {
   };
 }
 
+/** De vraagstap op dezelfde uitkomst als stap 1 (30-okt-2026). */
+function nieuweVraagstapTekst(r: ResultaatBerekening): VraagstapTekst {
+  const wij = r.meerdere ? "jullie" : "jou";
+  const onsMij = r.meerdere ? "ons" : "mij";
+  const Wij = r.meerdere ? "Jullie" : "Jouw";
+  const uitleg = "Stel me je vraag. Ik lees je uitkomst erbij en antwoord je binnen 2 werkdagen persoonlijk.";
+  const eersteBekijken: VraagKeuze = { sleutel: "eerste", tekst: "Wat zou jij als eerste bekijken?" };
+  const geldscanVraag: VraagKeuze = {
+    sleutel: "geldscan",
+    tekst: "Wat kan een Geldscan zien dat deze vergelijking niet ziet?",
+  };
+  const hoger = r.gesorteerd.find((a) => a.diff > 0);
+  const post = hoger ?? r.gesorteerd[0];
+  const postEerst: VraagKeuze = post
+    ? { sleutel: "post-eerst", tekst: `Waar zou jij bij ${post.label.toLowerCase()} als eerste naar kijken?` }
+    : eersteBekijken;
+  const postVraag: VraagKeuze | null = r.gesorteerd[0]
+    ? {
+        sleutel: "post",
+        tekst: `Is ${fmtEur(r.gesorteerd[0].jij)} aan ${r.gesorteerd[0].label.toLowerCase()} veel voor ${onsMij}?`,
+      }
+    : null;
+
+  if (r.soortUitkomst === "gat" && r.gat !== null) {
+    return {
+      uitkomst: "gat",
+      kop: `Bij ${wij} is ongeveer ${fmtEur(r.gat)} per maand niet aan te wijzen.`,
+      inleiding: `Wil je weten waar ik als eerste zou zoeken? ${uitleg}`,
+      keuzes: [
+        { sleutel: "gat-waar", tekst: "Waar zit zo'n bedrag meestal?" },
+        postEerst,
+        geldscanVraag,
+      ],
+    };
+  }
+  if (r.soortUitkomst === "tekort") {
+    return {
+      uitkomst: "tekort",
+      kop: `Bij ${wij} gaat er op papier meer uit dan er binnenkomt.`,
+      inleiding: `Wil je weten waar ik als eerste zou kijken? ${uitleg}`,
+      keuzes: [
+        postEerst,
+        { sleutel: "tekort-waarom", tekst: `Hoe kan het dat het bij ${onsMij} niet rondkomt?` },
+        geldscanVraag,
+      ],
+    };
+  }
+  if (r.soortUitkomst === "klopt") {
+    return {
+      uitkomst: "klopt",
+      kop: `${Wij} schatting klopt met wat er overblijft.`,
+      inleiding: `Voelt het toch krap, of wil je iets weten over een post? ${uitleg}`,
+      keuzes: [
+        { sleutel: "voelt-krap", tekst: "Het klopt, maar het voelt toch krap. Hoe kan dat?" },
+        postVraag ?? geldscanVraag,
+        eersteBekijken,
+      ],
+    };
+  }
+  return {
+    uitkomst: "ruimer",
+    kop: `Volgens ${r.meerdere ? "jullie" : "je"} eigen cijfers blijft er bij ${wij} genoeg over.`,
+    inleiding: `Klopt dat niet met hoe het voelt? ${uitleg}`,
+    keuzes: [
+      { sleutel: "voelt-krap", tekst: "Het voelt krapper dan dit. Hoe kan dat?" },
+      postVraag ?? geldscanVraag,
+      eersteBekijken,
+    ],
+  };
+}
+
 /** Leesbare naam per sleutel, voor de admin. */
 export const VRAAG_SLEUTEL_LABEL: Record<string, string> = {
   "voelt-krap": "Het voelt krapper",
@@ -99,5 +179,7 @@ export const VRAAG_SLEUTEL_LABEL: Record<string, string> = {
   "waarom-minder": "Waarom minder over?",
   eerste: "Wat zou jij eerst bekijken?",
   geldscan: "Wat ziet een Geldscan meer?",
+  "gat-waar": "Waar zit zo'n bedrag?",
+  "tekort-waarom": "Waarom komt het niet rond?",
   eigen: "Eigen vraag",
 };

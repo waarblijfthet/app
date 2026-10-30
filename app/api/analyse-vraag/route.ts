@@ -38,6 +38,10 @@ const UITKOMST_LABEL: Record<string, string> = {
   meer: "meer over dan verwacht",
   passend: "past bij het huishouden",
   minder: "minder over dan verwacht",
+  gat: "gat tussen papier en werkelijkheid",
+  tekort: "tekort op papier",
+  klopt: "schatting klopt, geen lek",
+  ruimer: "echt meer over dan op papier",
 };
 
 const AUTO_LABEL: Record<string, string> = {

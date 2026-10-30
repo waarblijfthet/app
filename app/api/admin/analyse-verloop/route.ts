@@ -62,6 +62,10 @@ const NAZORG_GEBEURTENISSEN = [
   "analyse_vraag_gekozen",
   "analyse_vraag_verstuurd",
   "analyse_vraag_overgeslagen",
+  // 30-okt-2026: waar de Geldscan in beeld kwam, en de twee vragen met één tik.
+  "analyse_aanbod_gezien",
+  "analyse_behoefte",
+  "analyse_aanbod_bezwaar",
 ];
 
 type AnalyseBezoek = {

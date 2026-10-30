@@ -6,6 +6,7 @@ import { logGebeurtenis } from "@/lib/track";
 import { getApparaat, getSessieId, isEigenaar } from "@/lib/sessie";
 import type { ResultaatBerekening } from "./berekenResultaat";
 import { vraagstapTekst } from "./vraagKeuzes";
+import GeldscanTekstlink from "./GeldscanTekstlink";
 
 interface Props {
   r: ResultaatBerekening;
@@ -13,6 +14,8 @@ interface Props {
   onOverslaan: () => void;
   /** Vraag verstuurd: door naar de bevestiging, met de beloofde datum. */
   onVerstuurd: (info: { email: string; vraag: string; uiterlijk: string }) => void;
+  /** Krap of een gat (30-okt-2026): dan staat de Geldscan naast de vragen. */
+  krap?: boolean;
 }
 
 /**
@@ -25,7 +28,7 @@ interface Props {
  * om hem te vinden. Geen toestemmingsvinkje: het antwoord is waar de bezoeker
  * zelf om vraagt.
  */
-export default function Resultaat3Vraag({ r, onOverslaan, onVerstuurd }: Props) {
+export default function Resultaat3Vraag({ r, onOverslaan, onVerstuurd, krap }: Props) {
   const t = vraagstapTekst(r);
   const [gekozen, setGekozen] = useState<string | null>(null);
   const [eigenVraag, setEigenVraag] = useState("");
@@ -175,6 +178,11 @@ export default function Resultaat3Vraag({ r, onOverslaan, onVerstuurd }: Props) 
           <p className="font-body text-xs text-text-muted leading-relaxed">
             Geen nieuwsbrief, geen verkoopgesprek. Over beleggen en hypotheken geef ik geen advies.
           </p>
+          {krap && (
+            <div className="mt-5 rounded-xl border border-accent/25 bg-green-light px-4 py-3">
+              <GeldscanTekstlink plek="vraagstap" inleiding="Liever geen vraag, maar dat ik je cijfers zelf bekijk?" />
+            </div>
+          )}
         </>
       )}
 

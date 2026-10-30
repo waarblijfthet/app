@@ -80,6 +80,12 @@ export type Nazorg = {
   vraagGekozen: string | null;
   vraagVerstuurd: boolean;
   vraagOvergeslagen: boolean;
+  /** 30-okt-2026: plekken waar de Geldscan in beeld kwam (stap1, vraagstap, stap4). */
+  aanbodGezien: string[];
+  /** Antwoord op "Wat zou je nu het meest helpen?" (sleutel). */
+  behoefte: string | null;
+  /** Antwoord op "Wat houdt je tegen?" (sleutel). */
+  bezwaar: string | null;
 };
 
 const LEGE_NAZORG: Nazorg = {
@@ -93,13 +99,16 @@ const LEGE_NAZORG: Nazorg = {
   vraagGekozen: null,
   vraagVerstuurd: false,
   vraagOvergeslagen: false,
+  aanbodGezien: [],
+  behoefte: null,
+  bezwaar: null,
 };
 
 function nazorgPerSessie(gebeurtenissen: Gebeurtenis[]): Map<string, Nazorg> {
   const map = new Map<string, Nazorg>();
   for (const g of gebeurtenissen) {
     if (!g.sessie_id) continue;
-    const n = map.get(g.sessie_id) ?? { ...LEGE_NAZORG };
+    const n = map.get(g.sessie_id) ?? { ...LEGE_NAZORG, aanbodGezien: [] };
     n.gemeten = true;
     if (g.gebeurtenis === "analyse_resultaat_stap") {
       const stap = Number(g.meta?.stap);
@@ -118,6 +127,12 @@ function nazorgPerSessie(gebeurtenissen: Gebeurtenis[]): Map<string, Nazorg> {
       if (typeof g.meta?.keuze === "string") n.vraagGekozen = g.meta.keuze as string;
     }
     if (g.gebeurtenis === "analyse_vraag_overgeslagen") n.vraagOvergeslagen = true;
+    if (g.gebeurtenis === "analyse_aanbod_gezien" && typeof g.meta?.plek === "string") {
+      const plek = g.meta.plek as string;
+      if (!n.aanbodGezien.includes(plek)) n.aanbodGezien = [...n.aanbodGezien, plek];
+    }
+    if (g.gebeurtenis === "analyse_behoefte" && typeof g.meta?.keuze === "string") n.behoefte = g.meta.keuze as string;
+    if (g.gebeurtenis === "analyse_aanbod_bezwaar" && typeof g.meta?.keuze === "string") n.bezwaar = g.meta.keuze as string;
     map.set(g.sessie_id, n);
   }
   return map;
@@ -416,6 +431,62 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     .sort((a, b) => b.gestart - a.gestart)
     .slice(0, 20);
 
+  // Wat willen ze, en zien ze het aanbod (30-okt-2026)? Per groep op de eerste
+  // vraag, met "krap in de band" apart: stel vanaf 5.000 netto samen,
+  // alleenstaand vanaf 3.500 (de band van Sandra en Niels, CLAUDE.md sectie 4).
+  // Inkomen is salaris 1 plus salaris 2 zoals ingevuld, zonder toeslagen.
+  // Alleen afgeronde analyses.
+  const inzichtGroepen = ["ruim", "krap", "krap-band", "onbekend"] as const;
+  type InzichtGroep = (typeof inzichtGroepen)[number];
+  const leegInzicht = () => ({
+    afgerond: 0,
+    aanbodGezien: 0,
+    geldscanKlik: 0,
+    behoefteBeantwoord: 0,
+    behoefte: {} as Record<string, number>,
+    bezwaarBeantwoord: 0,
+    bezwaar: {} as Record<string, number>,
+  });
+  const inzicht: Record<InzichtGroep, ReturnType<typeof leegInzicht>> = {
+    ruim: leegInzicht(),
+    krap: leegInzicht(),
+    "krap-band": leegInzicht(),
+    onbekend: leegInzicht(),
+  };
+  const inzichtPlekken: Record<string, { gezien: number }> = {};
+  for (const s of sessies) {
+    if (!s.voltooid) continue;
+    const gevoel = s.antwoorden.maandGevoel;
+    const groepen: InzichtGroep[] = [];
+    if (gevoel === "ruim") groepen.push("ruim");
+    else if (gevoel === "net" || gevoel === "tekort") {
+      groepen.push("krap");
+      const inkomen = Number(s.antwoorden.salaris1 || 0) + Number(s.antwoorden.salaris2 || 0);
+      const twee = Number(s.antwoorden.volwassenen) === 2;
+      if ((twee && inkomen >= 5000) || (!twee && inkomen >= 3500)) groepen.push("krap-band");
+    } else groepen.push("onbekend");
+    for (const gr of groepen) {
+      const rij = inzicht[gr];
+      rij.afgerond++;
+      if (s.nazorg.aanbodGezien.length > 0) rij.aanbodGezien++;
+      if (s.nazorg.geldscanKlik) rij.geldscanKlik++;
+      if (s.nazorg.behoefte) {
+        rij.behoefteBeantwoord++;
+        rij.behoefte[s.nazorg.behoefte] = (rij.behoefte[s.nazorg.behoefte] ?? 0) + 1;
+      }
+      if (s.nazorg.bezwaar) {
+        rij.bezwaarBeantwoord++;
+        rij.bezwaar[s.nazorg.bezwaar] = (rij.bezwaar[s.nazorg.bezwaar] ?? 0) + 1;
+      }
+    }
+    for (const plek of s.nazorg.aanbodGezien) {
+      inzichtPlekken[plek] = { gezien: (inzichtPlekken[plek]?.gezien ?? 0) + 1 };
+    }
+  }
+  const inzichtGemeten = sessies.some(
+    (s) => s.nazorg.aanbodGezien.length > 0 || s.nazorg.behoefte !== null || s.nazorg.bezwaar !== null
+  );
+
   const herkomst = Array.from(herkomstMap.entries())
     .map(([bron, r]) => ({ bron: bron, ...r }))
     .sort((a, b) => b.geopend - a.geopend)
@@ -461,6 +532,9 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     maxAfhaak: maxAfhaak,
     herkomst: herkomst,
     icpPerLanding: icpPerLanding,
+    inzicht: inzichtGroepen.map((g) => ({ groep: g, ...inzicht[g] })),
+    inzichtPlekken: inzichtPlekken,
+    inzichtGemeten: inzichtGemeten,
     toestemming: sessies.filter((s) => s.toestemming_data_asset).length,
   };
 }
