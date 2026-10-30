@@ -181,6 +181,20 @@ export async function GET() {
         telTabel("intake_aanvragen", "created_at", dertigDagenGeleden, null, (q) =>
           q.in("status", ["betaald", "gestart"])
         ),
+        // 30-okt-2026: aanbod in beeld en Geldscan-klik, per sessie (unieke
+        // sessie-id's; een sessie kan het aanbod op drie plekken zien).
+        supabase
+          .from("paginagebeurtenissen")
+          .select("sessie_id")
+          .eq("gebeurtenis", "analyse_aanbod_gezien")
+          .gte("created_at", dertigDagenGeleden)
+          .limit(1000),
+        supabase
+          .from("paginagebeurtenissen")
+          .select("sessie_id")
+          .eq("gebeurtenis", "cta_geldscan")
+          .gte("created_at", dertigDagenGeleden)
+          .limit(1000),
       ]),
       // Blok 0: bezoekcijfers
       Promise.all([
@@ -345,8 +359,13 @@ export async function GET() {
     });
 
     // ── Blok 5: trechter, klein, 30 dagen ────────────────────────────────
-    const [bezoekersRpc, gestart30, voltooid30, leads30, aanmeldingen30, betaald30] = trechterCijfers;
+    const [bezoekersRpc, gestart30, voltooid30, leads30, aanmeldingen30, betaald30, aanbodRes, klikRes] =
+      trechterCijfers;
     if (bezoekersRpc.error) throw bezoekersRpc.error;
+    const uniekeSessies = (res: { data: unknown; error: unknown }): number => {
+      if (res.error || !Array.isArray(res.data)) return 0;
+      return new Set((res.data as { sessie_id: string | null }[]).map((r) => r.sessie_id).filter(Boolean)).size;
+    };
     const trechter = {
       bezoekers: (bezoekersRpc.data as number | null) ?? 0,
       gestart: gestart30,
@@ -354,6 +373,8 @@ export async function GET() {
       leads: leads30,
       aanmeldingen: aanmeldingen30,
       betaald: betaald30,
+      aanbodGezien: uniekeSessies(aanbodRes),
+      geldscanKlik: uniekeSessies(klikRes),
     };
 
     // ── Blok 0: bezoekcijfers en best bezochte pagina's ──────────────────

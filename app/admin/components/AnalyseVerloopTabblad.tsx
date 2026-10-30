@@ -490,7 +490,7 @@ export default function AnalyseVerloopTabblad() {
               <p className="px-4 py-6 text-sm text-text-muted">Nog geen analyse gestart in deze periode.</p>
             ) : (
               <div style={{ overflowX: "auto" }}>
-                <table className="w-full text-sm" style={{ minWidth: 900 }}>
+                <table className="w-full text-sm" style={{ minWidth: 1200 }}>
                   <thead>
                     <tr className="text-left text-text-muted text-xs">
                       <th className="px-4 py-2 font-medium">Gestart</th>
@@ -501,6 +501,10 @@ export default function AnalyseVerloopTabblad() {
                       <th className="px-4 py-2 font-medium">Apparaat</th>
                       <th className="px-4 py-2 font-medium">Herkomst</th>
                       <th className="px-4 py-2 font-medium">Na het resultaat</th>
+                      <th className="px-4 py-2 font-medium">Gevoel</th>
+                      <th className="px-4 py-2 font-medium">Aanbod gezien</th>
+                      <th className="px-4 py-2 font-medium">Wil</th>
+                      <th className="px-4 py-2 font-medium">Houdt tegen</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[#F0F3F1]">
@@ -562,6 +566,26 @@ export default function AnalyseVerloopTabblad() {
                                   ? "Vraag overgeslagen, aanbod gezien"
                                   : "Aanbod gezien, niets gedaan"
                                 : `Gestopt op resultaatstap ${s.nazorg.resultaatStap || 1}`}
+                            </td>
+                            <td className="px-4 py-2 text-xs text-text-soft whitespace-nowrap">
+                              {s.antwoorden.maandGevoel === "ruim"
+                                ? "ruim"
+                                : s.antwoorden.maandGevoel === "net"
+                                ? "net genoeg"
+                                : s.antwoorden.maandGevoel === "tekort"
+                                ? "te weinig"
+                                : ""}
+                            </td>
+                            <td className="px-4 py-2 text-xs text-text-soft whitespace-nowrap">
+                              {s.nazorg.aanbodGezien
+                                .map((p) => (p === "stap1" ? "stap 1" : p === "stap4" ? "stap 4" : "vraagstap"))
+                                .join(", ")}
+                            </td>
+                            <td className="px-4 py-2 text-xs text-text-soft whitespace-nowrap">
+                              {s.nazorg.behoefte ? BEHOEFTE_LABEL[s.nazorg.behoefte] ?? s.nazorg.behoefte : ""}
+                            </td>
+                            <td className="px-4 py-2 text-xs text-text-soft whitespace-nowrap">
+                              {s.nazorg.bezwaar ? BEZWAAR_LABEL[s.nazorg.bezwaar] ?? s.nazorg.bezwaar : ""}
                             </td>
                           </tr>
                         </Fragment>

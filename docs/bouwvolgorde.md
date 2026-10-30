@@ -1638,3 +1638,9 @@ Getest: tsc schoon over de hele repo, geen null bytes, LF. Serverrender (methode
 
 Niet gedaan: e-mail- of interviewopt-in (de vijf klanten eerst), opvolgmails.
 
+**Aanvulling, zelfde dag, op vraag van Jarno: meer zicht in de admin.**
+- Vandaag, trechter 30 dagen: twee nieuwe tussenstappen "aanbod gezien" en "op Geldscan geklikt", als unieke sessies uit `paginagebeurtenissen` (`analyse_aanbod_gezien`, `cta_geldscan`).
+- Ingevulde analyses, trechter: nieuwe stap "Geldscan in beeld" direct vóór "Op Geldscan geklikt", zodat het percentage eronder klik per aanbodweergave is. Telt stap 1 en de vraagstap (vanaf 30 okt) plus resultaatstap 4 zonder verstuurde vraag.
+- Ingevulde analyses, tabel per sessie: kolommen Gevoel, Aanbod gezien (plekken), Wil en Houdt tegen.
+- tsc schoon, `berekenVerloop` met nepdata nagerekend.
+

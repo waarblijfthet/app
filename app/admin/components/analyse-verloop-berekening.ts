@@ -320,6 +320,12 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
   const aanbodBereikt = sessies.filter((s) => s.nazorg.resultaatStap >= 4).length;
   const vraagstapGezien = sessies.filter((s) => s.nazorg.resultaatStap >= 3).length;
   const vraagGesteld = sessies.filter((s) => s.nazorg.vraagVerstuurd).length;
+  // Geldscan in beeld (30-okt-2026): op stap 1, de vraagstap of stap 4. Vóór
+  // 30 okt bestond alleen stap 4; die telt mee als resultaatstap 4 zonder
+  // verstuurde vraag (na een vraag toont stap 4 de bevestiging, niet het aanbod).
+  const aanbodInBeeld = sessies.filter(
+    (s) => s.nazorg.aanbodGezien.length > 0 || (s.nazorg.resultaatStap >= 4 && !s.nazorg.vraagVerstuurd)
+  ).length;
 
   // Vraagstap per soort vraag: hoe vaak gekozen en hoe vaak daarna verstuurd.
   const perVraag = new Map<string, { gekozen: number; verstuurd: number }>();
@@ -519,6 +525,11 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
         label: "Stap 4 bereikt",
         uitleg: nazorgGemeten ? "aanbod, of bevestiging na een vraag" : "gemeten vanaf 28 sep",
         aantal: aanbodBereikt,
+      },
+      {
+        label: "Geldscan in beeld",
+        uitleg: nazorgGemeten ? "stap 1, vraagstap of stap 4 (stap 1 en vraagstap vanaf 30 okt)" : "gemeten vanaf 28 sep",
+        aantal: aanbodInBeeld,
       },
       {
         label: "Op Geldscan geklikt",

@@ -45,6 +45,9 @@ interface Trechter {
   leads: number;
   aanmeldingen: number;
   betaald: number;
+  /** 30-okt-2026: sessies die de Geldscan in beeld kregen, en die erop klikten. */
+  aanbodGezien?: number;
+  geldscanKlik?: number;
 }
 
 interface BezoekPeriode {
@@ -446,6 +449,8 @@ export default function VandaagDashboard() {
           <span className="font-medium text-primary">{trechter.bezoekers}</span> bezoekers{" "}
           → <span className="font-medium text-primary">{trechter.gestart}</span> gestart{" "}
           → <span className="font-medium text-primary">{trechter.voltooid}</span> voltooid{" "}
+          → <span className="font-medium text-primary">{trechter.aanbodGezien ?? 0}</span> aanbod gezien{" "}
+          → <span className="font-medium text-primary">{trechter.geldscanKlik ?? 0}</span> op Geldscan geklikt{" "}
           → <span className="font-medium text-primary">{trechter.leads}</span> leads{" "}
           → <span className="font-medium text-primary">{trechter.aanmeldingen}</span> aanmeldingen{" "}
           → <span className="font-medium text-primary">{trechter.betaald}</span> betaald
