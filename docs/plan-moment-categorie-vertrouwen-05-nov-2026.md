@@ -12,7 +12,7 @@
 
 ## 1. Wat de fora laten zien
 
-**Bronnen en grenzen.** Reddit (r/geldzaken) was vanuit deze omgeving niet bereikbaar: de ingebouwde browser en de zoektool weigeren reddit.com. Gelezen: zes Viva-threads over krap zitten en budgetteren, drie pagina's over hulp zoeken, en de blog van een budgetcoach. Opgehaald 5 november 2026; de threads lopen van 2009 tot 2026 en een Viva-publiek is geen doorsnee van de ICP. Dit is richting, geen bewijs, en geen bron voor copy (CLAUDE.md regel 3).
+**Bronnen en grenzen.** Reddit (r/geldzaken) was vanuit deze omgeving niet bereikbaar: de ingebouwde browser en de zoektool weigeren reddit.com. Jarno leverde later twee draadjes aan, zie 1b. Gelezen: zes Viva-threads over krap zitten en budgetteren, drie pagina's over hulp zoeken, en de blog van een budgetcoach. Opgehaald 5 november 2026; de threads lopen van 2009 tot 2026 en een Viva-publiek is geen doorsnee van de ICP. Dit is richting, geen bewijs, en geen bron voor copy (CLAUDE.md regel 3).
 
 | Bron | Wat erin staat |
 |---|---|
@@ -40,6 +40,36 @@
 - **L3. Beantwoord "wat als ik de verkeerde tref" met een persoon,** niet met een keurmerk: naam, gezicht, wat ik met je cijfers doe en wat niet, en de openbare rapporten.
 - **L4. Gebruik hun woorden.** "Iemand die een keer meekijkt", "overzicht", "rust". "Budgetcoach" alleen als zoekterm met "zonder schulden" erbij.
 - **L5. Hang het aan aanleidingen die mensen zelf noemen:** samenwonen, een loonsverhoging of nieuwe baan, meer of minder werken, en de jaarlijkse klappers (december, APK, vakantie).
+
+## 1b. Reddit r/geldzaken, twee draadjes (aangeleverd door Jarno)
+
+Jarno sloeg twee draadjes van 8 augustus 2026 op als HTML; de eerste ongeveer 85 en 100 reacties zijn gelezen (de pagina laadt de rest pas bij scrollen).
+
+| Draadje | Wie en wat |
+|---|---|
+| "Eindelijk het leven op orde, maar we komen maar nèt rond" (101 punten, 383 reacties) | Stel van 30 en 34, samen ongeveer €5.000 netto (32 en 24 uur, een partner deels afgekeurd), huur €720, leaseauto, gehuurd witgoed, €500 per maand aflossen. Zet de volledige begroting openbaar en vraagt: "Heeft iemand misschien zin om met ons mee te kijken? Kritisch zijn mag." |
+| "Leven zoveel mensen nou boven hun stand?" (185 punten, 597 reacties) | Stel midden 30 met goed inkomen en vermogen, verbaasd over een omgeving die "met bakken" uitgeeft. Discussie over maximale hypotheek, lease en Klarna, social media, en "laat ze toch". |
+
+**Wat opvalt.**
+
+1. **Cijfers delen is de drempel niet.** Het stel zet elke post openbaar, tot de therapiekosten aan toe, onder een schuilnaam. Anoniem en gratis, met tientallen meelezers. De drempel voor de Geldscan is dus niet het laten zien van je geld, maar één onbekende persoon, betalen en je naam.
+2. **De vraag is letterlijk "iemand die meekijkt".** Precies het woord uit punt 2, en ze vragen het aan vreemden omdat dat gratis en snel is.
+3. **Het hoogst gewaardeerde antwoord is geruststelling met een getal** (167 punten): "Je spaart 850€ per maand, en lost 500€ per maand af. Niets mis mee." Daarna pas de concrete punten. Dat is de belofte van het rapport (wat opvalt plus wat juist niet uit de toon valt) in één reactie.
+4. **De snelste winst kwam van dingen die ze niet kenden.** Aftrek van zorgkosten, kwijtschelding of pauze bij DUO, een vergeten reiskostenvergoeding. In de update: "Ik wist van beide niet dat dit bestond" en "een paar honderd euro op vooruit".
+5. **De menigte spreekt zichzelf tegen.** De lease is "killing" en "echt niet zo verkeerd"; de boodschappen zijn "echt laag" en "mega hoog". De vrager moet zelf kiezen uit 85 meningen. Dat is wat een persoon met vergelijkingscijfers wel kan en een draadje niet.
+6. **Papier tegenover echt, in hun eigen woorden.** Op papier gaat er €850 naar sparen, maar "het spaardoel voor vakantie halen we eigenlijk nooit door onverwachte kosten", en uit die pot gaan ook kerst en verjaardagen. "Elke maand ongeveer 1 tegenvaller verwijderd van niet kunnen sparen." Dat is het gat uit de analyse.
+7. **Oordelen werkt averechts.** In het tweede draadje lokt "boven je stand" vooral verdediging uit: "Deze posts zijn zo cringe", "Waarom kijk je zo veel naar anderen?", "laat die mensen lekker". De mensen die het zelf raakt, verklaren het met de huizenmarkt, kinderopvang en pech met timing, niet met hun eigen keuzes.
+8. **Waar Waar blijft het al genoemd wordt.** Onderaan het eerste draadje (2 punten): "Misschien kan je iemand eens mee laten kijken, met een neutraal advies, heeft vrienden van ons toen wel geholpen", met een link naar /geldscan. Wie dat schreef is niet bekend. Het is het enige voorbeeld van via via dat we buiten de klanten zelf zien.
+
+**Extra lessen.**
+
+- **L6. De drempel is de persoon en het betalen, niet de cijfers.** Anoniem kan tot het moment van betalen, en het aanvraagformulier vraagt al alleen voornaam en e-mail. Dat mag er vaker bij staan: "Je hoeft niets te laten zien voordat je besluit."
+- **L7. Begin met wat goed gaat, met hun eigen getal.** Op het resultaatscherm en in het rapport: eerst "dit gaat goed" (sparen plus aflossen samen), dan wat opvalt. Het populairste antwoord deed precies dat.
+- **L8. Zet tegenover de menigte één uitgezocht antwoord.** "Niet tachtig meningen, één die je cijfers naast echte huishoudens legt." Zonder claim over anderen; het verschil zit in de vergelijking met n.
+- **L9. Regelingen die mensen missen zijn snelle, concrete winst** (zorgkosten aftrekken, DUO, reiskosten). Als vaste vraag in de Geldscan-vragenlijst: "Welke regelingen en vergoedingen gebruik je?" Informatie, geen fiscaal advies.
+- **L10. Nooit oordelen.** Geen "boven je stand", geen "lekken aan alle kanten". Wel: waar het geld heen gaat en wat je zelf wilt.
+
+**Mogelijk kanaal, besluit Jarno.** Op r/geldzaken vragen mensen letterlijk om iemand die meekijkt, met hun cijfers erbij. Jarno zou daar onder eigen naam kunnen meekijken, zonder link en zonder verkoop, zoals elke andere reageerder. Dat bouwt naamsbekendheid op de plek waar de vraag gesteld wordt. Het botst met CLAUDE.md 7 (forums dicht als promotiekanaal), en de regels van de subreddit over zelfpromotie heb ik niet kunnen lezen. Besluit 5.
 
 ## 2. Punt 1: een moment dat dwingt
 
@@ -97,6 +127,7 @@ De geldmomenten zijn als ingang goed bedacht, maar ze staan niet op de plek waar
 2. Tekstlinktest "Laat mij een keer meekijken" op resultaatstap 1 (2b).
 3. Volgorde: eerst de coachvragen uit sectie 30, dan pas `kan-iemand-naar-mijn-financien-kijken` (2c).
 4. Via via openen naast zoekverkeer: vijf klanten, één naam, tien gesprekken (3c), plus CLAUDE.md 7 aanpassen.
+5. Zelf meekijken op r/geldzaken onder eigen naam, zonder link of verkoop (1b).
 
 Zonder besluit te doen, want het is onderhoud of al afgesproken: 2a (/over indexeren), 3a (citaten volgens het bestaande format), 1b en 1c (slotzinnen en CTA op bestaande pagina's, samen met de 2027-sweep), 3b als klein blok bij het aanbod.
 

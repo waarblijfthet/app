@@ -1741,5 +1741,7 @@ Vraag van Jarno: werk de drie redenen uit waarom hypotheek- en budgetcoaches wel
 
 Belangrijkste vondsten: (1) in zes threads over krap zitten noemt niemand een professional; het advies is bijhouden, potjes, automatisch sparen, en de groep relativeert; (2) bezwaren tegen hulp zijn zelfbeeld, vertrouwen en afhankelijkheid, niet prijs; (3) de geldmomenten staan op positie 25 tot 45 en brachten in 90 dagen geen analyse, samenwonen staat op 11; (4) "jarno koopman" wordt gezocht (26 keer in 90 dagen) maar `/over` is "URL is unknown to Google" terwijl hij technisch in orde is en in de sitemap staat, met een dubbele sitenaam in de title; (5) een Google-bedrijfsprofiel mag niet voor bedrijven die alleen online werken, dus mijn eerdere advies daarover vervalt.
 
+Aanvulling: twee Reddit-draadjes van 8 aug 2026, aangeleverd door Jarno (plan sectie 1b). Een stel met ongeveer €5.000 netto zet zijn hele begroting openbaar en vraagt "Heeft iemand misschien zin om met ons mee te kijken?"; het populairste antwoord is geruststelling met hun eigen getal; de snelste winst kwam van regelingen die ze niet kenden; de menigte spreekt zichzelf tegen; onderaan raadt iemand de Geldscan aan met link ("heeft vrienden van ons toen wel geholpen"). Nieuw besluit 5: zelf meekijken op r/geldzaken onder eigen naam.
+
 Correctie op het gesprek van vandaag: het advies "vraag de vijf klanten om een Google-review op een bedrijfsprofiel" kan niet; vervangen door echte citaten volgens het aanleverformat (plan 3a).
 
