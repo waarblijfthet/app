@@ -102,6 +102,8 @@ interface NieuweProps extends Props {
   soortUitkomst: "gat" | "tekort" | "klopt" | "meer" | "oud";
   werkelijkOver: number | null;
   gat: number | null;
+  /** 5-nov-2026: gat bij wie "ruim" zegt; dan "verschil" in plaats van "niet aan te wijzen". */
+  gatBijRuim?: boolean;
   meerdere: boolean;
   data: QuizData;
   onChange: (u: Partial<QuizData>) => void;
@@ -128,6 +130,7 @@ export default function Resultaat1Uitkomst(props: NieuweProps) {
   }
   const voorbeeld = rapportVoorSlug("alleenstaand-huurwoning");
   const isGat = soortUitkomst === "gat" && gat !== null;
+  const bijRuim = isGat && props.gatBijRuim === true;
 
   return (
     <div>
@@ -153,8 +156,10 @@ export default function Resultaat1Uitkomst(props: NieuweProps) {
 
         {isGat && gat !== null && (
           <div className="pt-6 text-center">
-            <p className="section-eyebrow mb-2">Niet aan te wijzen</p>
-            <p className="font-display font-light text-[#C4603A] text-5xl sm:text-6xl leading-none mb-2">
+            <p className="section-eyebrow mb-2">{bijRuim ? "Verschil" : "Niet aan te wijzen"}</p>
+            <p
+              className={`font-display font-light ${bijRuim ? "text-primary" : "text-[#C4603A]"} text-5xl sm:text-6xl leading-none mb-2`}
+            >
               {fmtEur(gat)}
             </p>
             <p className="text-text-muted font-body text-sm">per maand</p>
@@ -163,7 +168,7 @@ export default function Resultaat1Uitkomst(props: NieuweProps) {
 
         <p className="text-primary font-body text-sm text-center mt-5 leading-relaxed">{contextZin}</p>
 
-        {isGat && voorbeeld && (
+        {isGat && !bijRuim && voorbeeld && (
           <p className="font-body font-light text-text-soft text-xs mt-5 pt-4 border-t border-[#E6E9E7] leading-relaxed">
             Bij een van de rapporten die ik schreef zat het grootste verschil precies tussen wat iemand dacht uit te
             geven en wat er werkelijk naar losse uitgaven en jaaruitgaven ging.{" "}
@@ -173,7 +178,7 @@ export default function Resultaat1Uitkomst(props: NieuweProps) {
             .
           </p>
         )}
-        {isGat && (
+        {isGat && !bijRuim && (
           <p className="font-body font-light text-text-muted text-xs mt-4 leading-relaxed">
             Het gat is een schatting: het verschil tussen twee getallen die je allebei uit je hoofd invulde. Hoe groter
             het is, hoe minder toeval het wordt.
@@ -186,7 +191,7 @@ export default function Resultaat1Uitkomst(props: NieuweProps) {
           data={props.data}
           onChange={props.onChange}
           resultaat={props.resultaat}
-          linkTekst="Stuur me deze uitkomst, met het gat erin"
+          linkTekst={bijRuim ? "Stuur me deze uitkomst, met het verschil erin" : "Stuur me deze uitkomst, met het gat erin"}
         />
       )}
 
@@ -194,7 +199,13 @@ export default function Resultaat1Uitkomst(props: NieuweProps) {
         <div className="mt-6">
           <GeldscanTekstlink
             plek="stap1"
-            inleiding={isGat ? "Wil je weten waar dat bedrag heen gaat?" : "Wil je weten waarom het krap is?"}
+            inleiding={
+              bijRuim
+                ? "Telde je dat al mee en wil je weten waar het verschil heen gaat?"
+                : isGat
+                ? "Wil je weten waar dat bedrag heen gaat?"
+                : "Wil je weten waarom het krap is?"
+            }
           />
         </div>
       )}

@@ -176,6 +176,7 @@ export default function Stap6Resultaat({ data, onChange, onTerugNaarVragen, onAf
             soortUitkomst={soortUitkomst}
             werkelijkOver={werkelijkOver}
             gat={gat}
+            gatBijRuim={berekening.gatBijRuim}
             meerdere={meerdere}
             data={data}
             onChange={onChange}

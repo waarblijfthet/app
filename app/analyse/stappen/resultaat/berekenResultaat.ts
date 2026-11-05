@@ -76,6 +76,13 @@ export function berekenResultaat(data: QuizData) {
       : "meer";
   const kunnen = meerdere ? "kunnen jullie" : "kun je";
   const houd = meerdere ? "houden jullie" : "houd je";
+  // Gat bij wie zegt dat het ruim is (5-nov-2026): 17 van de 22 "ruim"-
+  // afronders sinds 12 okt kregen "zoveel per maand kun je niet aanwijzen".
+  // Bij wie het ruim heeft is het verschil vaak niet aan te tonen als lek; het
+  // kan sparen, beleggen of aflossen zijn dat niet is meegeteld. Dan geen
+  // lek-kop, maar het verschil en die vraag. Bouwvolgorde sectie 44 en 45.
+  const gatBijRuim = soortUitkomst === "gat" && data.maandGevoel === "ruim";
+  const jij = meerdere ? "jullie" : "je";
 
   const oudeKop =
     overDiff > 100
@@ -85,7 +92,11 @@ export function berekenResultaat(data: QuizData) {
       : `${situatiePosHoofdletter} financiële ruimte lijkt vooralsnog goed te passen bij ${situatiePos} huishouden.`;
 
   const conclusieKop =
-    soortUitkomst === "gat" && gat !== null && werkelijkOver !== null
+    gatBijRuim && gat !== null && werkelijkOver !== null
+      ? `Op papier ${houd} ${fmtEur(over)} over. ${meerdere ? "Jullie schatten" : "Je schat"} dat er ${fmtEur(
+          werkelijkOver
+        )} overblijft.`
+      : soortUitkomst === "gat" && gat !== null && werkelijkOver !== null
       ? `Op papier ${houd} ${fmtEur(over)} over. In werkelijkheid is het ${fmtEur(
           werkelijkOver
         )}. Ongeveer ${fmtEur(gat)} per maand ${kunnen} niet aanwijzen.`
@@ -108,7 +119,15 @@ export function berekenResultaat(data: QuizData) {
         )} misgaat. Het laat alleen zien dat ${situatiePos} financiële situatie anders uitpakt dan we bij een vergelijkbaar huishouden zouden verwachten.`;
 
   const contextZin =
-    soortUitkomst === "gat"
+    gatBijRuim && gat !== null
+      ? `${meerdere ? "Jullie zeggen" : "Je zegt"} dat het aan het eind van de maand ruim is, dus dit verschil hoeft geen lek te zijn. Het kan geld zijn dat ${jij} automatisch opzij ${
+          meerdere ? "zetten" : "zet"
+        }, ${meerdere ? "beleggen" : "belegt"} of extra ${meerdere ? "aflossen" : "aflost"} en niet ${
+          meerdere ? "meetelden" : "meetelde"
+        }. Zit dat er al in, dan gaat er ongeveer ${fmtEur(gat)} per maand naar iets wat ${jij} bij het invullen niet ${
+          meerdere ? "zagen" : "zag"
+        }.`
+      : soortUitkomst === "gat"
       ? "Dat geld is niet weg. Het gaat naar iets wat je bij het invullen niet zag: losse aankopen, uitgaven die maar een paar keer per jaar langskomen, of posten die hoger zijn dan je schatte. Dat uitzoeken is precies wat de Geldscan doet."
       : soortUitkomst === "tekort"
       ? "Dat klopt met wat je zelf merkt aan het eind van de maand. Waar het verschil zit, zie je op de volgende stap."
@@ -208,6 +227,7 @@ export function berekenResultaat(data: QuizData) {
     werkelijkOver: werkelijkOver,
     gat: gat,
     soortUitkomst: soortUitkomst,
+    gatBijRuim: gatBijRuim,
     conclusieKop: conclusieKop,
     contextZin: contextZin,
     gesorteerd: gesorteerd,

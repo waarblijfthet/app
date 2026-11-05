@@ -42,11 +42,15 @@ export type Gebeurtenis = {
 };
 
 export type ApiData = {
+  sinds?: string;
   sessies: Sessie[];
   analyseBezoeken: AnalyseBezoek[];
   gebeurtenissen?: Gebeurtenis[];
   emailAchtergelaten: number;
   geldscanAanvragen: number;
+  /** 5-nov-2026: tijdstippen, zodat per week te tellen is. */
+  emailMomenten?: string[];
+  aanvraagMomenten?: string[];
   /** Eerste pagina per sessie (12-okt-2026). */
   landingPerSessie?: Record<string, string>;
 };
@@ -307,6 +311,153 @@ export const INTRO_NIEUW_SINDS = "2026-10-30T14:00:00Z"; // eerste sessie met de
 /** Eerste sessie met de vraag "Hoe is het meestal aan het eind van de maand?" (12-okt-2026, 17:32 UTC). */
 export const MEETVRAAG_SINDS = "2026-10-12T17:30:00Z";
 
+/** Vanaf wanneer de Geldscan ook op stap 1 en de vraagstap staat, plus de behoeftevraag (zelfde deploy als het intro). */
+export const AANBOD_SINDS = INTRO_NIEUW_SINDS;
+
+/**
+ * De uitkomst die de bezoeker op resultaatstap 1 zag (sinds 12-okt-2026):
+ * gat, tekort, klopt of meer; "oud" voor analyses zonder de vraag wat er echt
+ * overblijft. Zelfde functie als het resultaatscherm, dus geen eigen drempels.
+ */
+export type Uitkomst = "gat" | "tekort" | "klopt" | "meer" | "oud";
+
+export function uitkomstVan(s: Sessie): Uitkomst {
+  try {
+    const data = { ...DEFAULT_QUIZ_DATA, ...(s.antwoorden as Partial<QuizData>) } as QuizData;
+    return berekenResultaat(data).soortUitkomst;
+  } catch {
+    return "oud";
+  }
+}
+
+export const UITKOMST_LABEL: Record<Uitkomst, string> = {
+  gat: "Gat: meer op papier dan echt",
+  tekort: "Tekort op papier",
+  klopt: "Klopt",
+  meer: "Echt meer dan op papier",
+  oud: "Zonder de vraag wat er echt overblijft",
+};
+
+export const GEVOEL_LABEL: Record<string, string> = {
+  ruim: "Ruim",
+  net: "Net genoeg",
+  tekort: "Te weinig",
+  leeg: "Niet beantwoord",
+};
+
+/** Afronders per antwoord op de eerste vraag en per uitkomst. */
+export function uitkomstPerGevoel(sessies: Sessie[]) {
+  const gevoelens = ["ruim", "net", "tekort", "leeg"];
+  const uitkomsten: Uitkomst[] = ["gat", "tekort", "klopt", "meer", "oud"];
+  const tabel: Record<string, Record<Uitkomst, number>> = {};
+  for (const g of gevoelens) tabel[g] = { gat: 0, tekort: 0, klopt: 0, meer: 0, oud: 0 };
+  for (const s of sessies) {
+    if (!s.voltooid) continue;
+    const g = typeof s.antwoorden.maandGevoel === "string" && tabel[s.antwoorden.maandGevoel as string]
+      ? (s.antwoorden.maandGevoel as string)
+      : "leeg";
+    tabel[g][uitkomstVan(s)]++;
+  }
+  return gevoelens
+    .map((g) => ({
+      gevoel: g,
+      perUitkomst: tabel[g],
+      totaal: uitkomsten.reduce((som, u) => som + tabel[g][u], 0),
+    }))
+    .filter((r) => r.totaal > 0);
+}
+
+/**
+ * Kerncijfers (5-nov-2026): acht getallen, elk een deel van het vorige, over
+ * één venster [van, tot). Gebruikt voor "deze week tegenover vorige week" en
+ * voor de gekozen periode, zodat elk getal op de pagina dezelfde definitie
+ * heeft. Alles telt unieke sessies; een sessie hoort bij het venster waarin
+ * ze begon (eerste bezoek aan /analyse, of de start van de analyse).
+ */
+export type Kerncijfers = {
+  opAnalyse: number;
+  gestart: number;
+  afgerond: number;
+  krap: number;
+  gat: number;
+  aanbodGezien: number;
+  geklikt: number;
+  aangevraagd: number;
+  emailAchtergelaten: number;
+  geklikSite: number;
+  behoefte: Record<string, number>;
+  bezwaar: Record<string, number>;
+};
+
+export const KERNCIJFER_UITLEG: { sleutel: keyof Kerncijfers; label: string; uitleg: string; noemer?: keyof Kerncijfers }[] = [
+  { sleutel: "opAnalyse", label: "Op de analyse", uitleg: "unieke bezoekers van /analyse, zonder jouw eigen bezoeken" },
+  { sleutel: "gestart", label: "Gestart", uitleg: "minstens één vraag beantwoord (ook de tik op het intro)", noemer: "opAnalyse" },
+  { sleutel: "afgerond", label: "Afgerond", uitleg: "alle vragen door, resultaat gezien", noemer: "gestart" },
+  { sleutel: "krap", label: "Zitten krap", uitleg: "van de afronders: net genoeg of te weinig op de eerste vraag", noemer: "afgerond" },
+  { sleutel: "gat", label: "Uitkomst gat", uitleg: "van de afronders: op papier minstens €200 meer over dan echt", noemer: "afgerond" },
+  { sleutel: "aanbodGezien", label: "Geldscan in beeld", uitleg: "van de afronders: de Geldscan kwam op stap 1, de vraagstap of stap 4 in beeld", noemer: "afgerond" },
+  { sleutel: "geklikt", label: "Op Geldscan geklikt", uitleg: "van de afronders: klik naar het aanvraagformulier", noemer: "aanbodGezien" },
+  { sleutel: "aangevraagd", label: "Aangevraagd", uitleg: "aanvraagformulier Geldscan verstuurd, van waar ook op de site" },
+];
+
+export function berekenKerncijfers(data: ApiData, eigenTonen: boolean, van: string, tot: string): Kerncijfers {
+  const binnen = (t: string) => t >= van && t < tot;
+  const sessies = data.sessies.filter(
+    (s) => binnen(s.created_at) && (eigenTonen || s.antwoorden._eigenaar !== true)
+  );
+  const nazorg = nazorgPerSessie(data.gebeurtenissen ?? []);
+
+  const eersteBezoek = new Map<string, string>();
+  for (const b of data.analyseBezoeken) {
+    if (!b.sessie_id) continue;
+    const eerder = eersteBezoek.get(b.sessie_id);
+    if (!eerder || b.created_at < eerder) eersteBezoek.set(b.sessie_id, b.created_at);
+  }
+  let opAnalyse = 0;
+  eersteBezoek.forEach((t) => {
+    if (binnen(t)) opAnalyse++;
+  });
+
+  const gestart = sessies.filter((s) => s.eerste_interactie || s.voltooid);
+  const afgerond = sessies.filter((s) => s.voltooid);
+  const krap = afgerond.filter((s) => s.antwoorden.maandGevoel === "net" || s.antwoorden.maandGevoel === "tekort");
+  const gat = afgerond.filter((s) => uitkomstVan(s) === "gat");
+  const nz = (s: Sessie) => nazorg.get(s.sessie_id) ?? LEGE_NAZORG;
+  const aanbod = afgerond.filter(
+    (s) => nz(s).aanbodGezien.length > 0 || (nz(s).resultaatStap >= 4 && !nz(s).vraagVerstuurd)
+  );
+  const geklikt = afgerond.filter((s) => nz(s).geldscanKlik);
+
+  const klikSite = new Set(
+    (data.gebeurtenissen ?? [])
+      .filter((g) => g.gebeurtenis === "cta_geldscan" && binnen(g.created_at))
+      .map((g) => g.sessie_id)
+  );
+
+  const behoefte: Record<string, number> = {};
+  const bezwaar: Record<string, number> = {};
+  for (const s of afgerond) {
+    const n = nz(s);
+    if (n.behoefte) behoefte[n.behoefte] = (behoefte[n.behoefte] ?? 0) + 1;
+    if (n.bezwaar) bezwaar[n.bezwaar] = (bezwaar[n.bezwaar] ?? 0) + 1;
+  }
+
+  return {
+    opAnalyse: opAnalyse,
+    gestart: gestart.length,
+    afgerond: afgerond.length,
+    krap: krap.length,
+    gat: gat.length,
+    aanbodGezien: aanbod.length,
+    geklikt: geklikt.length,
+    aangevraagd: (data.aanvraagMomenten ?? []).filter(binnen).length,
+    emailAchtergelaten: (data.emailMomenten ?? []).filter(binnen).length,
+    geklikSite: klikSite.size,
+    behoefte: behoefte,
+    bezwaar: bezwaar,
+  };
+}
+
 export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
 
   // Herkomst: de verwijzer van het eerste /analyse-bezoek in die sessie.
@@ -323,19 +474,9 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
   const sessies = eigenTonen ? alle : alle.filter((s) => !s.eigenTest);
   const perScherm = sessies.filter((s) => s.status !== "oude-meting");
 
-  const geopend = herkomstPerSessie.size;
-  const gestart = sessies.length;
-  const begonnen = sessies.filter((s) => s.eerste_interactie || s.voltooid).length;
-  const resultaat = sessies.filter((s) => s.voltooid).length;
-  const aanbodBereikt = sessies.filter((s) => s.nazorg.resultaatStap >= 4).length;
+  // De trechter staat sinds 5-nov-2026 in berekenKerncijfers.
   const vraagstapGezien = sessies.filter((s) => s.nazorg.resultaatStap >= 3).length;
   const vraagGesteld = sessies.filter((s) => s.nazorg.vraagVerstuurd).length;
-  // Geldscan in beeld (30-okt-2026): op stap 1, de vraagstap of stap 4. Vóór
-  // 30 okt bestond alleen stap 4; die telt mee als resultaatstap 4 zonder
-  // verstuurde vraag (na een vraag toont stap 4 de bevestiging, niet het aanbod).
-  const aanbodInBeeld = sessies.filter(
-    (s) => s.nazorg.aanbodGezien.length > 0 || (s.nazorg.resultaatStap >= 4 && !s.nazorg.vraagVerstuurd)
-  ).length;
 
   // Vraagstap per soort vraag: hoe vaak gekozen en hoe vaak daarna verstuurd.
   const perVraag = new Map<string, { gekozen: number; verstuurd: number }>();
@@ -356,34 +497,7 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
       .map(([sleutel, r]) => ({ sleutel: sleutel, ...r }))
       .sort((a, b) => b.gekozen - a.gekozen),
   };
-  const geldscanKlik = sessies.filter((s) => s.nazorg.geldscanKlik).length;
   const nazorgGemeten = sessies.some((s) => s.nazorg.gemeten);
-
-  // Welke uitkomst de afronders kregen (23-sep-2026). Zelfde drempel van €100
-  // als de conclusiekop op het resultaatscherm. Belangrijk voor de
-  // conversievraag: wie leest dat er meer overblijft dan verwacht, heeft weinig
-  // reden om voor een verklaring te betalen.
-  const uitkomsten = {
-    meer: { aantal: 0, aanbod: 0, geldscan: 0, email: 0 },
-    passend: { aantal: 0, aanbod: 0, geldscan: 0, email: 0 },
-    minder: { aantal: 0, aanbod: 0, geldscan: 0, email: 0 },
-  };
-  for (const s of sessies) {
-    if (!s.voltooid) continue;
-    let overDiff: number;
-    try {
-      const data = { ...DEFAULT_QUIZ_DATA, ...(s.antwoorden as Partial<QuizData>) } as QuizData;
-      overDiff = berekenResultaat(data).overDiff;
-    } catch {
-      continue;
-    }
-    const sleutel = overDiff > 100 ? "meer" : overDiff < -100 ? "minder" : "passend";
-    const rij = uitkomsten[sleutel];
-    rij.aantal++;
-    if (s.nazorg.resultaatStap >= 4) rij.aanbod++;
-    if (s.nazorg.geldscanKlik) rij.geldscan++;
-    if (s.nazorg.emailAchtergelaten) rij.email++;
-  }
 
   const statusTelling: Record<Status, number> = {
     resultaat: 0,
@@ -484,7 +598,10 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
   };
   const inzichtPlekken: Record<string, { gezien: number }> = {};
   for (const s of sessies) {
-    if (!s.voltooid) continue;
+    // Alleen vanaf 30 okt (AANBOD_SINDS): daarvoor bestonden aanbod op stap 1
+    // en de behoeftevraag niet, en telde "Afgerond" over een andere periode
+    // dan de kolommen ernaast.
+    if (!s.voltooid || s.created_at < AANBOD_SINDS) continue;
     const gevoel = s.antwoorden.maandGevoel;
     const groepen: InzichtGroep[] = [];
     if (gevoel === "ruim") groepen.push("ruim");
@@ -555,42 +672,9 @@ export function berekenVerloop(data: ApiData, eigenTonen: boolean) {
     aantalEigen: aantalEigen,
     oudeMeting: sessies.length - perScherm.length,
     statusTelling: statusTelling,
-    uitkomsten: uitkomsten,
+    uitkomstPerGevoel: uitkomstPerGevoel(sessies),
     vraagstap: vraagstap,
     nazorgGemeten: nazorgGemeten,
-    trechter: [
-      { label: "Analyse geopend", uitleg: "sessies met een bezoek aan /analyse", aantal: geopend },
-      { label: "Op start geklikt", uitleg: "eerste vraag kwam in beeld", aantal: gestart },
-      { label: "Eerste vraag beantwoord", uitleg: "minstens één antwoord gegeven", aantal: begonnen },
-      { label: "Resultaat gezien", uitleg: "alle vragen doorlopen", aantal: resultaat },
-      {
-        label: "Vraagstap gezien",
-        uitleg: nazorgGemeten ? "resultaatstap 3 van 4" : "gemeten vanaf 28 sep",
-        aantal: vraagstapGezien,
-      },
-      {
-        label: "Vraag gesteld",
-        uitleg: nazorgGemeten ? "met e-mailadres, antwoord binnen 2 werkdagen" : "gemeten vanaf 28 sep",
-        aantal: vraagGesteld,
-      },
-      {
-        label: "Stap 4 bereikt",
-        uitleg: nazorgGemeten ? "aanbod, of bevestiging na een vraag" : "gemeten vanaf 28 sep",
-        aantal: aanbodBereikt,
-      },
-      {
-        label: "Geldscan in beeld",
-        uitleg: nazorgGemeten ? "stap 1, vraagstap of stap 4 (stap 1 en vraagstap vanaf 30 okt)" : "gemeten vanaf 28 sep",
-        aantal: aanbodInBeeld,
-      },
-      {
-        label: "Op Geldscan geklikt",
-        uitleg: nazorgGemeten ? "Geldscan-knop, waar ook op de site" : "gemeten vanaf 28 sep",
-        aantal: geldscanKlik,
-      },
-      { label: "E-mailadres achtergelaten", uitleg: "resultaat laten mailen", aantal: data.emailAchtergelaten },
-      { label: "Geldscan aangevraagd", uitleg: "aanvraagformulier verstuurd", aantal: data.geldscanAanvragen },
-    ],
     tabel: tabel,
     maxAfhaak: maxAfhaak,
     herkomst: herkomst,

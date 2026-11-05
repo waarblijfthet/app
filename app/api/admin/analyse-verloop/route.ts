@@ -105,18 +105,15 @@ export async function GET(request: NextRequest) {
         "sessie_id,gebeurtenis,pakket,meta,created_at",
         (q) => q.in("gebeurtenis", NAZORG_GEBEURTENISSEN).gte("created_at", sinds)
       ),
-      supabase
-        .from("quiz_resultaten")
-        .select("id", { count: "exact", head: true })
-        .gte("created_at", sinds),
-      supabase
-        .from("intake_aanvragen")
-        .select("id", { count: "exact", head: true })
-        .eq("pakket", "geldscan")
-        .gte("created_at", sinds),
+      // Momenten in plaats van alleen een telling (5-nov-2026), zodat de
+      // admin "deze week tegenover vorige week" kan tellen uit één ophaalronde.
+      haalAlleRijen<{ created_at: string }>(supabase, "quiz_resultaten", "created_at", (q) =>
+        q.gte("created_at", sinds)
+      ),
+      haalAlleRijen<{ created_at: string }>(supabase, "intake_aanvragen", "created_at", (q) =>
+        q.eq("pakket", "geldscan").gte("created_at", sinds)
+      ),
     ]);
-    if (emailRes.error) throw emailRes.error;
-    if (geldscanRes.error) throw geldscanRes.error;
 
     // Landingspagina per sessie (12-okt-2026): de eerste pagina die deze
     // sessie bezocht. Daarmee is per pagina te zien hoeveel invullers krap
@@ -164,8 +161,10 @@ export async function GET(request: NextRequest) {
       sessies: sessies,
       analyseBezoeken: analyseBezoeken,
       gebeurtenissen: gebeurtenissen,
-      emailAchtergelaten: emailRes.count ?? 0,
-      geldscanAanvragen: geldscanRes.count ?? 0,
+      emailAchtergelaten: emailRes.length,
+      geldscanAanvragen: geldscanRes.length,
+      emailMomenten: emailRes.map((r) => r.created_at),
+      aanvraagMomenten: geldscanRes.map((r) => r.created_at),
       landingPerSessie: landingPerSessie,
     });
   } catch (e) {

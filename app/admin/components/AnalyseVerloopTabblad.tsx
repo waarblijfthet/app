@@ -7,7 +7,13 @@ import AnalyseResultaatPopup from "./AnalyseResultaatPopup";
 import { VRAAG_SLEUTEL_LABEL } from "@/app/analyse/stappen/resultaat/vraagKeuzes";
 import { BEHOEFTE_LABEL, BEZWAAR_LABEL } from "@/app/analyse/stappen/resultaat/inzichtVragen";
 import {
+  berekenKerncijfers,
   berekenVerloop,
+  GEVOEL_LABEL,
+  KERNCIJFER_UITLEG,
+  UITKOMST_LABEL,
+  type Kerncijfers,
+  type Uitkomst,
   formatDuur,
   formatMoment,
   pct,
@@ -33,15 +39,98 @@ import {
  * in beeld kwam, en het is niet beantwoord.
  */
 
+const DAG = 86400000;
+
+function datumKort(ms: number): string {
+  return new Date(ms).toLocaleDateString("nl-NL", { day: "numeric", month: "short", timeZone: "Europe/Amsterdam" });
+}
+
+/**
+ * Weekblok (5-nov-2026): de acht getallen die er per week toe doen, de
+ * laatste 7 dagen tegenover de 7 dagen daarvoor. Vaste periode, los van de
+ * periodeknoppen, zodat het blok elke keer hetzelfde betekent.
+ */
+function Weekblok({ deze, vorige, vanMs, totMs }: { deze: Kerncijfers; vorige: Kerncijfers; vanMs: number; totMs: number }) {
+  const lijst = (r: Record<string, number>, labels: Record<string, string>) =>
+    Object.entries(r)
+      .sort((a, b) => b[1] - a[1])
+      .map(([k, n]) => `${labels[k] ?? k} ${n}`)
+      .join(", ");
+  return (
+    <section className="card-base overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#F0F3F1]">
+        <h2 className="font-body font-semibold text-primary text-sm">Deze week tegenover vorige week</h2>
+        <p className="text-xs text-text-muted mt-0.5">
+          Laatste 7 dagen ({datumKort(totMs - 7 * DAG)} tot vandaag) tegenover de 7 dagen daarvoor ({datumKort(vanMs)} tot{" "}
+          {datumKort(totMs - 7 * DAG)}). Unieke bezoekers; het percentage is het deel van het getal waar het uit volgt.
+        </p>
+      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y divide-[#F0F3F1]">
+        {KERNCIJFER_UITLEG.map((k) => {
+          const nu = deze[k.sleutel] as number;
+          const toen = vorige[k.sleutel] as number;
+          const noemer = k.noemer ? (deze[k.noemer] as number) : 0;
+          const verschil = nu - toen;
+          return (
+            <div key={k.sleutel} className="px-4 py-3">
+              <p className="font-body text-xs text-text-muted mb-1">{k.label}</p>
+              <p className="font-display font-light text-primary" style={{ fontSize: "1.8rem", lineHeight: 1.1 }}>
+                {nu}
+                {k.noemer && noemer > 0 && (
+                  <span className="font-body text-xs text-text-soft ml-1.5">{pct(nu, noemer)}</span>
+                )}
+              </p>
+              <p className="font-body text-xs text-text-soft mt-0.5">
+                vorige week {toen}
+                {verschil !== 0 && (
+                  <span className={verschil > 0 ? "text-success ml-1" : "text-danger ml-1"}>
+                    ({verschil > 0 ? "+" : ""}
+                    {verschil})
+                  </span>
+                )}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+      <div className="px-4 py-3 border-t border-[#F0F3F1] text-xs text-text-soft font-body space-y-1">
+        <p>
+          E-mailadres achtergelaten: {deze.emailAchtergelaten} (vorige week {vorige.emailAchtergelaten}). Klikken op de
+          Geldscan op de hele site, ook buiten de analyse: {deze.geklikSite} (vorige week {vorige.geklikSite}).
+        </p>
+        <p>Wat zou je nu het meest helpen: {lijst(deze.behoefte, BEHOEFTE_LABEL) || "nog geen antwoord deze week"}.</p>
+        <p>Wat houdt je tegen: {lijst(deze.bezwaar, BEZWAAR_LABEL) || "nog geen antwoord deze week"}.</p>
+      </div>
+      <details className="border-t border-[#F0F3F1]">
+        <summary className="px-4 py-2 text-xs text-accent cursor-pointer font-body">Zo is elk getal geteld</summary>
+        <ul className="px-4 pb-3 text-xs text-text-soft font-body space-y-0.5">
+          {KERNCIJFER_UITLEG.map((k) => (
+            <li key={k.sleutel}>
+              <span className="text-primary">{k.label}:</span> {k.uitleg}.
+            </li>
+          ))}
+          <li>
+            Een bezoeker hoort bij de week waarin hij /analyse opende of de analyse startte. Jouw eigen testrondes tellen
+            niet mee.
+          </li>
+        </ul>
+      </details>
+    </section>
+  );
+}
+
 export default function AnalyseVerloopTabblad() {
-  // Standaard alles (23-sep-2026): Jarno wil het totaal zien, ook wie afhaakte.
-  const [periode, setPeriode] = useState<Periode>("alles");
+  // Standaard 30 dagen (5-nov-2026). Het weekblok bovenaan heeft een vaste
+  // periode; de periodeknoppen gelden alleen voor wat eronder staat.
+  const [periode, setPeriode] = useState<Periode>("maand");
   const [data, setData] = useState<ApiData | null>(null);
+  const [maandData, setMaandData] = useState<ApiData | null>(null);
   const [laden, setLaden] = useState(true);
   const [fout, setFout] = useState<string | null>(null);
   const [eigenTonen, setEigenTonen] = useState(false);
   const [open, setOpen] = useState<string | null>(null);
   const [aantalZichtbaar, setAantalZichtbaar] = useState(50);
+  const [nu] = useState(() => Date.now());
 
   useEffect(() => {
     let actief = true;
@@ -52,6 +141,7 @@ export default function AnalyseVerloopTabblad() {
         if (!res.ok) throw new Error(json.error || "Kon het analyse-verloop niet laden.");
         if (actief) {
           setData(json as ApiData);
+          if (periode === "maand") setMaandData(json as ApiData);
           setFout(null);
         }
       })
@@ -66,29 +156,41 @@ export default function AnalyseVerloopTabblad() {
     };
   }, [periode]);
 
+  // Het weekblok heeft 14 dagen nodig; die komen uit de 30-dagenset. Staat de
+  // knop op iets anders, dan wordt die set één keer apart opgehaald.
+  useEffect(() => {
+    if (maandData || periode === "maand") return;
+    fetch(`/api/admin/analyse-verloop?periode=maand`, { cache: "no-store" })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((json) => {
+        if (json) setMaandData(json as ApiData);
+      })
+      .catch(() => {});
+  }, [maandData, periode]);
+
   const berekend = useMemo(() => (data ? berekenVerloop(data, eigenTonen) : null), [data, eigenTonen]);
+  const week = useMemo(() => {
+    if (!maandData) return null;
+    const tot = new Date(nu + 60000).toISOString();
+    const midden = new Date(nu - 7 * DAG).toISOString();
+    const van = new Date(nu - 14 * DAG).toISOString();
+    return {
+      deze: berekenKerncijfers(maandData, eigenTonen, midden, tot),
+      vorige: berekenKerncijfers(maandData, eigenTonen, van, midden),
+      vanMs: nu - 14 * DAG,
+    };
+  }, [maandData, eigenTonen, nu]);
+  const periodeCijfers = useMemo(
+    () =>
+      data
+        ? berekenKerncijfers(data, eigenTonen, data.sinds ?? "1970-01-01T00:00:00Z", new Date(nu + 60000).toISOString())
+        : null,
+    [data, eigenTonen, nu]
+  );
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex gap-2">
-          {(["vandaag", "week", "maand", "alles"] as const).map((p) => (
-            <button
-              key={p}
-              onClick={() => {
-                setPeriode(p);
-                setAantalZichtbaar(50);
-              }}
-              className={`text-xs px-3 py-1.5 rounded-full border transition-all font-body ${
-                periode === p
-                  ? "bg-primary text-white border-primary"
-                  : "bg-white text-text-soft border-[#E6E9E7] hover:border-primary"
-              }`}
-            >
-              {p === "week" ? "7 dagen" : p === "maand" ? "30 dagen" : p}
-            </button>
-          ))}
-        </div>
+      <div className="flex flex-wrap items-center justify-end gap-3">
         {berekend && berekend.aantalEigen > 0 && (
           <label className="flex items-center gap-2 text-xs text-text-soft font-body">
             <input type="checkbox" checked={eigenTonen} onChange={(e) => setEigenTonen(e.target.checked)} />
@@ -100,36 +202,112 @@ export default function AnalyseVerloopTabblad() {
       {fout && <div className="bg-danger-bg text-danger text-sm rounded-md px-4 py-3">{fout}</div>}
       {laden && !data && <p className="text-text-muted text-sm">Laden...</p>}
 
-      {berekend && (
+      {week ? (
+        <Weekblok deze={week.deze} vorige={week.vorige} vanMs={week.vanMs} totMs={nu} />
+      ) : (
+        !fout && <p className="text-text-muted text-sm">Weekcijfers laden...</p>
+      )}
+
+      {berekend && periodeCijfers && (
         <>
-          {/* Trechter */}
-          <section className="card-base overflow-hidden">
-            <div className="px-4 py-3 border-b border-[#F0F3F1]">
-              <h2 className="font-body font-semibold text-primary text-sm">Van openen tot Geldscan</h2>
+          {/* Per periode (5-nov-2026): alles hieronder volgt de periodeknoppen. */}
+          <div className="flex flex-wrap items-center justify-between gap-3 pt-2">
+            <div>
+              <h2 className="font-display text-lg text-primary">Per periode</h2>
+              <p className="text-xs text-text-muted font-body">Alles hieronder volgt deze knoppen.</p>
             </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 divide-x divide-y divide-[#F0F3F1]">
-              {berekend.trechter.map((stap, i) => {
-                const vorige = i > 0 ? berekend.trechter[i - 1].aantal : 0;
+            <div className="flex gap-2">
+              {(["vandaag", "week", "maand", "alles"] as const).map((p) => (
+                <button
+                  key={p}
+                  onClick={() => {
+                    setPeriode(p);
+                    setAantalZichtbaar(50);
+                  }}
+                  className={`text-xs px-3 py-1.5 rounded-full border transition-all font-body ${
+                    periode === p
+                      ? "bg-primary text-white border-primary"
+                      : "bg-white text-text-soft border-[#E6E9E7] hover:border-primary"
+                  }`}
+                >
+                  {p === "week" ? "7 dagen" : p === "maand" ? "30 dagen" : p}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <section className="card-base overflow-hidden">
+            <div className="grid grid-cols-2 sm:grid-cols-4 divide-x divide-y divide-[#F0F3F1]">
+              {KERNCIJFER_UITLEG.map((k) => {
+                const n = periodeCijfers[k.sleutel] as number;
+                const noemer = k.noemer ? (periodeCijfers[k.noemer] as number) : 0;
                 return (
-                  <div key={stap.label} className="px-4 py-3">
-                    <p className="font-body text-xs text-text-muted mb-1">{stap.label}</p>
-                    <p className="font-display font-light text-primary" style={{ fontSize: "1.8rem", lineHeight: 1.1 }}>
-                      {stap.aantal.toLocaleString("nl-NL")}
-                    </p>
-                    <p className="font-body text-xs text-text-soft mt-0.5">
-                      {i > 0 && vorige > 0 ? `${pct(stap.aantal, vorige)} van vorige stap` : stap.uitleg}
+                  <div key={k.sleutel} className="px-4 py-3">
+                    <p className="font-body text-xs text-text-muted mb-1">{k.label}</p>
+                    <p className="font-display font-light text-primary" style={{ fontSize: "1.6rem", lineHeight: 1.1 }}>
+                      {n}
+                      {k.noemer && noemer > 0 && (
+                        <span className="font-body text-xs text-text-soft ml-1.5">{pct(n, noemer)}</span>
+                      )}
                     </p>
                   </div>
                 );
               })}
             </div>
-            <p className="px-4 py-3 border-t border-[#F0F3F1] text-xs text-text-muted font-body">
-              Geopend komt uit de paginabezoeken, zonder jouw eigen bezoeken als het eigenaarsfilter aanstaat.
-              E-mail en Geldscan zijn niet aan een sessie gekoppeld en tellen dus per periode, niet per
-              bezoeker.{berekend.toestemming > 0 ? ` Toestemming voor de data-asset: ${berekend.toestemming}.` : ""}
+            <p className="px-4 py-2 border-t border-[#F0F3F1] text-xs text-text-muted font-body">
+              Zelfde telling als het weekblok. E-mailadres achtergelaten: {periodeCijfers.emailAchtergelaten}.
+              {berekend.toestemming > 0 ? ` Toestemming voor de data-asset: ${berekend.toestemming}.` : ""}
             </p>
           </section>
 
+          {/* Uitkomst per gevoel (5-nov-2026), vervangt de oude vergelijking */}
+          <section className="card-base overflow-hidden">
+            <div className="px-4 py-3 border-b border-[#F0F3F1]">
+              <h2 className="font-body font-semibold text-primary text-sm">Welke uitkomst zagen de afronders?</h2>
+              <p className="text-xs text-text-muted mt-0.5">
+                Per antwoord op &quot;Hoe is het meestal aan het eind van de maand?&quot;, met dezelfde berekening als
+                resultaatstap 1. Gat: op papier minstens €200 meer over dan wat er echt overblijft.
+              </p>
+            </div>
+            <div style={{ overflowX: "auto" }}>
+              <table className="w-full text-sm" style={{ minWidth: 560 }}>
+                <thead>
+                  <tr className="text-left text-text-muted text-xs">
+                    <th className="px-4 py-2 font-medium">Eerste vraag</th>
+                    <th className="px-4 py-2 font-medium text-right">Afgerond</th>
+                    {(["gat", "tekort", "klopt", "meer", "oud"] as Uitkomst[]).map((u) => (
+                      <th key={u} className="px-4 py-2 font-medium text-right" title={UITKOMST_LABEL[u]}>
+                        {u === "gat" ? "Gat" : u === "tekort" ? "Tekort" : u === "klopt" ? "Klopt" : u === "meer" ? "Meer" : "Oud"}
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#F0F3F1]">
+                  {berekend.uitkomstPerGevoel.map((r) => (
+                    <tr key={r.gevoel}>
+                      <td className="px-4 py-1.5 text-primary">{GEVOEL_LABEL[r.gevoel] ?? r.gevoel}</td>
+                      <td className="px-4 py-1.5 text-right text-primary font-medium">{r.totaal}</td>
+                      {(["gat", "tekort", "klopt", "meer", "oud"] as Uitkomst[]).map((u) => (
+                        <td key={u} className="px-4 py-1.5 text-right text-text-soft">
+                          {r.perUitkomst[u] || ""}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="px-4 py-2 border-t border-[#F0F3F1] text-xs text-text-muted font-body">
+              Tekort: op papier gaat er meer uit dan erin komt. Klopt: papier en echt liggen binnen €200. Meer: er blijft
+              echt meer over dan op papier. Oud: analyses van vóór 12 okt, toen die vraag er nog niet was.
+            </p>
+          </section>
+
+          <details className="card-base overflow-hidden">
+            <summary className="px-4 py-3 cursor-pointer font-body font-semibold text-primary text-sm">
+              Verdieping: vraagstap, afhaken per scherm, landingspagina&apos;s, behoefte, intro en herkomst
+            </summary>
+            <div className="space-y-6 p-3 bg-[#FAFBFA]">
           {/* Vraagstap (23-sep-2026) */}
           <section className="card-base overflow-hidden">
             <div className="px-4 py-3 border-b border-[#F0F3F1]">
@@ -177,55 +355,6 @@ export default function AnalyseVerloopTabblad() {
               </table>
             ) : (
               <p className="px-4 py-3 text-xs text-text-muted">Nog geen vraag gekozen in deze periode.</p>
-            )}
-          </section>
-
-          {/* Uitkomst van de afronders */}
-          <section className="card-base overflow-hidden">
-            <div className="px-4 py-3 border-b border-[#F0F3F1]">
-              <h2 className="font-body font-semibold text-primary text-sm">Welke uitkomst de afronders kregen</h2>
-              <p className="text-xs text-text-muted mt-0.5">
-                Zelfde drempel als de conclusie op het resultaatscherm: meer dan €100 boven of onder wat bij een
-                vergelijkbaar huishouden past.
-              </p>
-            </div>
-            <div style={{ overflowX: "auto" }}>
-              <table className="w-full text-sm" style={{ minWidth: 520 }}>
-                <thead>
-                  <tr className="text-left text-text-muted text-xs">
-                    <th className="px-4 py-2 font-medium">Uitkomst</th>
-                    <th className="px-4 py-2 font-medium text-right">Afronders</th>
-                    <th className="px-4 py-2 font-medium text-right">Aanbod gezien</th>
-                    <th className="px-4 py-2 font-medium text-right">Geldscan-klik</th>
-                    <th className="px-4 py-2 font-medium text-right">E-mail</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#F0F3F1]">
-                  {(
-                    [
-                      ["meer", "Meer over dan verwacht"],
-                      ["passend", "Past bij het huishouden"],
-                      ["minder", "Minder over dan verwacht"],
-                    ] as const
-                  ).map(([sleutel, label]) => {
-                    const u = berekend.uitkomsten[sleutel];
-                    return (
-                      <tr key={sleutel}>
-                        <td className="px-4 py-1.5 text-primary">{label}</td>
-                        <td className="px-4 py-1.5 text-right text-primary font-medium">{u.aantal}</td>
-                        <td className="px-4 py-1.5 text-right text-text-soft">{berekend.nazorgGemeten ? u.aanbod : "?"}</td>
-                        <td className="px-4 py-1.5 text-right text-text-soft">{berekend.nazorgGemeten ? u.geldscan : "?"}</td>
-                        <td className="px-4 py-1.5 text-right text-text-soft">{berekend.nazorgGemeten ? u.email : "?"}</td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            {!berekend.nazorgGemeten && (
-              <p className="px-4 py-2 border-t border-[#F0F3F1] text-xs text-text-muted font-body">
-                Aanbod, Geldscan-klik en e-mail per bezoeker worden gemeten vanaf 28 september (daarvoor kwam die meting nooit aan).
-              </p>
             )}
           </section>
 
@@ -347,8 +476,8 @@ export default function AnalyseVerloopTabblad() {
               <p className="text-xs text-text-muted mt-0.5">
                 Afgeronde analyses per antwoord op de eerste vraag. Krap is net genoeg plus te weinig; &quot;krap, in de
                 band&quot; is daarvan het deel met een stel vanaf €5.000 netto of alleenstaand vanaf €3.500 (salarissen
-                zoals ingevuld). Aanbod gezien: de Geldscan kwam op stap 1, de vraagstap of stap 4 in beeld. Gemeten vanaf
-                30 okt.
+                zoals ingevuld). Aanbod gezien: de Geldscan kwam op stap 1, de vraagstap of stap 4 in beeld. Alleen
+                afronders vanaf 30 okt, toen dit erbij kwam.
               </p>
             </div>
             {!berekend.inzichtGemeten ? (
@@ -447,7 +576,7 @@ export default function AnalyseVerloopTabblad() {
                 <h2 className="font-body font-semibold text-primary text-sm">Introscherm: wie start er, per apparaat</h2>
                 <p className="text-xs text-text-muted mt-0.5">
                   Unieke sessies op /analyse, en hoeveel daarvan de analyse startten. Nieuw intro: de eerste vraag staat
-                  als drie knoppen op het intro (vanaf 31 okt aangenomen). Via de vraag: gestart met een tik op die knoppen.
+                  als drie knoppen op het intro (live sinds 30 okt rond 15:00). Via de vraag: gestart met een tik op die knoppen.
                 </p>
               </div>
               <div style={{ overflowX: "auto" }}>
@@ -514,6 +643,9 @@ export default function AnalyseVerloopTabblad() {
               </div>
             </section>
           )}
+
+            </div>
+          </details>
 
           {/* Per sessie */}
           <section className="card-base overflow-hidden">

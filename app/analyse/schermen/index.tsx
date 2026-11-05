@@ -696,14 +696,20 @@ const JaarlijkseKostenScherm = maakBucketScherm({
 const WerkelijkOverScherm = maakBucketScherm({
   vraag: () => "En hoeveel blijft er echt over, per maand?",
   subtekst: () =>
-    "Wat je opzij zet, plus wat er nog op je rekening staat vlak voordat je salaris binnenkomt. Kijk gerust even in je bankapp.",
+    "Tel mee wat je elke maand opzij zet, belegt of extra aflost, plus wat er nog op je rekening staat vlak voordat je salaris binnenkomt. Kijk gerust even in je bankapp.",
   veld: "werkelijkOver",
-  customLabel: "Ik vul het bedrag zelf in",
+  // 5-nov-2026: de bovenste keuze was "€1.000 of meer" en telde als precies
+  // 1.000. Wie meer overhield kreeg zo een gat dat er niet hoeft te zijn (4 van
+  // de 37 afronders sinds 12 okt, alle vier "ruim"). Nu tot €2.500 en daarboven
+  // zelf invullen. Bouwvolgorde sectie 44 en 45.
+  customLabel: "Meer, of een ander bedrag: ik vul het zelf in",
   buckets: () => [
     { label: "Niets, of ik kom tekort", value: 0 },
     { label: "Ongeveer €250", value: 250 },
     { label: "Ongeveer €500", value: 500 },
-    { label: "€1.000 of meer", value: 1000 },
+    { label: "Ongeveer €1.000", value: 1000 },
+    { label: "Ongeveer €1.500", value: 1500 },
+    { label: "Ongeveer €2.500", value: 2500 },
   ],
 });
 
