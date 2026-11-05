@@ -23,15 +23,15 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
     // onderdeel. Zie docs/plan-positionering-aanbod-05-nov-2026.md.
     hoeHetWerkt: [
       "Je meldt je aan met je voornaam en e-mailadres",
-      "Je krijgt per e-mail een betaallink van 49 euro, in je bevestigingsmail of uiterlijk binnen 1 werkdag",
-      "Na betaling stuur je in wat je hebt: je eigen overzicht (Excel, Google Sheet, je bankapp of budgetapp) of een korte vragenlijst",
+      "Je krijgt per e-mail een betaalverzoek van 49 euro (Tikkie of overboeking), in je bevestigingsmail of uiterlijk binnen 1 werkdag",
+      "Na betaling stuur je op wat je hebt: je eigen overzicht (Excel, Google Sheet, je bankapp of budgetapp) of een korte vragenlijst",
       "Bankafschriften mogen, maar hoeven niet",
-      "Binnen 2 werkdagen daarna heb je je rapport. Wat je aanleverde verwijder ik daarna zelf",
+      "Binnen 2 werkdagen daarna heb je je rapport. Wat je stuurde verwijder ik daarna",
     ],
     watJeKrijgt: [
       "Een rapport dat ik zelf schrijf, geen sjabloon en geen algoritme",
-      "Nagekeken: de drie dingen die het meest opvallen, wat er ontbreekt, en wat juist niet uit de toon valt",
-      "Je potjes uitgerekend: welke rekening waarvoor, met jouw bedragen voor vaste lasten, jaarkosten, leefgeld, buffer en sparen",
+      "Nagekeken: de drie dingen die het meest opvallen, en wat er ontbreekt",
+      "Je potjes uitgerekend: per potje het bedrag dat er elke maand in moet",
       "Waar je afwijkt van vergelijkbare huishoudens, en waar niet",
       "Als er niets te repareren valt, staat dat er ook",
       "In gewone taal, te delen met je partner. Daarna doe je het zelf",

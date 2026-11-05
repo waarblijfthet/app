@@ -11,7 +11,7 @@ import { RAPPORTEN, AANTAL_ZONDER_VERVOLG, rapportVoorSlug } from "@/lib/rapport
 export const metadata: Metadata = {
   title: "Tarieven: Geldscan €49 en vervolgsessie €125",
   description:
-    "Ik kijk je cijfers na en reken je potjes uit, met jouw bedragen: welke rekening waarvoor, wat er naar jaarkosten, buffer en sparen gaat. Aanleveren met je eigen overzicht of een korte vragenlijst. 49 euro, eenmalig. Vijf echte rapporten staan op de site, met de cijfers, mijn advies en de evaluatie van de klant, dus je weet wat je koopt voordat je betaalt.",
+    "Ik kijk je cijfers na en reken je potjes uit. Je stuurt je eigen overzicht of vult een korte vragenlijst in. 49 euro, eenmalig. Vijf echte rapporten staan op de site, met de cijfers, mijn advies en de evaluatie van de klant, dus je weet wat je koopt voordat je betaalt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -58,7 +58,7 @@ const heroStappen: {
     kicker: "Al een overzicht",
     titel: "Geldscan",
     prijs: "€49",
-    tekst: "Ik kijk je cijfers na en reken je potjes uit, met jouw bedragen.",
+    tekst: "Ik kijk je cijfers na en reken je potjes uit.",
     nadruk: true,
   },
   {
@@ -66,7 +66,7 @@ const heroStappen: {
     kicker: "Daarna, als je wil",
     titel: "Persoonlijke vervolgsessie",
     prijs: "€125",
-    tekst: "We zetten je nieuwe verdeling samen neer, of toetsen hem.",
+    tekst: "We lopen je potjes samen door.",
     nadruk: false,
   },
 ];
@@ -169,23 +169,23 @@ function VoordeelIcoontje({ naam }: { naam: VoordeelIcoon }) {
 const geldscanVoordelen: { icoon: VoordeelIcoon; titel: string; tekst: string }[] = [
   {
     icoon: "loep",
-    titel: "Stuur in wat je hebt",
+    titel: "Stuur op wat je hebt",
     tekst: "Je eigen overzicht (Excel, bankapp, budgetapp) of een korte vragenlijst.",
   },
   {
     icoon: "uitleg",
     titel: "Nagekeken",
-    tekst: "Wat klopt, wat ontbreekt en wat juist niet uit de toon valt.",
+    tekst: "Wat klopt en wat ontbreekt.",
   },
   {
     icoon: "doel",
     titel: "Je potjes, uitgerekend",
-    tekst: "Welke rekening waarvoor, met jouw bedragen voor jaarkosten, buffer en sparen.",
+    tekst: "Per potje het bedrag dat er elke maand in moet.",
   },
   {
     icoon: "vink",
     titel: "Daarna doe je het zelf",
-    tekst: "Of je zet het samen met mij neer in een vervolgsessie.",
+    tekst: "Of je loopt het samen met mij door in een vervolgsessie.",
   },
 ];
 
@@ -226,10 +226,10 @@ function TrustIcoontje({ naam }: { naam: TrustIcoon }) {
 
 const geldscanTrust: { icoon: TrustIcoon; titel: string; tekst: string }[] = [
   { icoon: "eenmalig", titel: "Eenmalige betaling", tekst: "Geen abonnement." },
-  { icoon: "slot", titel: "Alleen ik zie het", tekst: "Wat je aanlevert verwijder ik na levering zelf." },
+  { icoon: "slot", titel: "Alleen ik zie het", tekst: "Na je rapport verwijder ik wat je stuurde." },
   {
     icoon: "persoon",
-    titel: "Geen ander belang",
+    titel: "Ik verkoop verder niets",
     tekst: "Vaste prijs. Geen producten, geen provisie.",
   },
 ];
@@ -321,7 +321,7 @@ const sessieVoordelen: { icoon: SessieIcoon; titel: string; tekst: string }[] = 
   },
   {
     icoon: "personen",
-    titel: "Geen ander belang",
+    titel: "Ik verkoop verder niets",
     tekst: "Vaste prijs, geen producten, geen provisie.",
   },
 ];
@@ -363,9 +363,9 @@ export default function AanbodPage() {
                     marginBottom: "1.5rem",
                   }}
                 >
-                  Duidelijkheid begint
+                  Begin gratis,
                   <span className="block" style={{ color: "#C4603A" }}>
-                    met de juiste keuze.
+                    of laat het nakijken.
                   </span>
                 </h1>
 
@@ -581,8 +581,8 @@ export default function AanbodPage() {
                 className="font-body mx-auto mt-4 max-w-[560px] font-light leading-relaxed"
                 style={{ color: "#4A5A56" }}
               >
-                Welke rekening waarvoor, wat er per maand naar je jaarkosten, je buffer en je
-                spaardoel gaat, met jouw bedragen. Eén keer. Daarna doe je het zelf.
+                Je krijgt per potje het bedrag dat er elke maand in moet, met jouw cijfers. Eén
+                keer. Daarna doe je het zelf.
               </p>
             </div>
 
@@ -780,7 +780,7 @@ export default function AanbodPage() {
                   Je cijfers nagekeken, je potjes uitgerekend.
                 </p>
                 <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
-                  Stuur in wat je hebt. Eén keer, €49.
+                  Stuur op wat je hebt. Eén keer, €49.
                 </p>
               </div>
               <CtaLink
@@ -814,14 +814,14 @@ export default function AanbodPage() {
                   Persoonlijke vervolgsessie · €125
                 </h2>
                 <p className="font-body mt-3 text-lg font-medium" style={{ color: "#0B7A6E" }}>
-                  Samen je nieuwe verdeling neerzetten.
+                  Samen je potjes doorlopen.
                 </p>
                 <p
                   className="font-body mt-4 max-w-[520px] font-light leading-relaxed"
                   style={{ color: "#4A5A56" }}
                 >
-                  Na je Geldscan kun je de nieuwe verdeling in 45 minuten samen met mij neerzetten of
-                  toetsen. Dat is optioneel.
+                  Na je Geldscan kun je in 45 minuten samen met mij je potjes doorlopen en je
+                  vragen stellen. Dat hoeft niet.
                 </p>
 
                 <div className="mt-10">

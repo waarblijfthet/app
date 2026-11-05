@@ -12,12 +12,12 @@ import { KEUZES } from "@/lib/geldmomenten";
 export const metadata: Metadata = {
   title: "Geldscan €49: ik kijk je cijfers na en reken je potjes uit",
   description:
-    "Je hebt je geld al in beeld en toch schuift het? Stuur je Excel, bankapp-overzicht of de korte vragenlijst. Ik kijk het na en reken je potjes uit, met jouw bedragen. €49 eenmalig, binnen 2 werkdagen.",
+    "Je hebt je geld al in beeld en toch schuift het? Stuur je Excel, je bankapp of een korte vragenlijst. Ik kijk het na en reken je potjes uit. €49 eenmalig, binnen 2 werkdagen.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
     title: "Geldscan €49: ik kijk je cijfers na en reken je potjes uit",
     description:
-      "Welke rekening waarvoor, wat er per maand naar je jaarkosten, buffer en spaardoel gaat, met jouw bedragen. Eén keer, daarna doe je het zelf. €49 eenmalig.",
+      "Per potje het bedrag dat er elke maand in moet, met jouw cijfers. Eén keer, daarna doe je het zelf. €49 eenmalig.",
     url: "https://www.waarblijfthet.nl/geldscan",
     type: "website",
   },
@@ -189,7 +189,7 @@ function PreviewKopje({ tekst }: { tekst: string }) {
 const heroWaarden: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
   {
     icoon: "document",
-    titel: "Stuur in wat je hebt",
+    titel: "Stuur op wat je hebt",
     tekst: "Je Excel, je bankapp of een korte vragenlijst.",
   },
   {
@@ -218,7 +218,7 @@ const stappen: {
   },
   {
     icoon: "document",
-    titel: "Stuur in wat je hebt",
+    titel: "Stuur op wat je hebt",
     tekst: (
       <>
         Je eigen overzicht: een Excel, Google Sheet, je bankapp of budgetapp. Heb je dat niet, dan
@@ -242,8 +242,8 @@ const stappen: {
     titel: "Ik kijk het na",
     tekst: (
       <>
-        Wat klopt, wat ontbreekt en wat juist niet uit de toon valt, naast vergelijkbare
-        huishoudens. Wat ik nog mis, vraag ik je.
+        Ik kijk wat klopt en wat ontbreekt, en vergelijk je cijfers met huishoudens zoals het
+        jouwe. Mis ik iets, dan vraag ik het.
       </>
     ),
   },
@@ -252,8 +252,7 @@ const stappen: {
     titel: "Je potjes, uitgerekend",
     tekst: (
       <>
-        Binnen 2 werkdagen: wat opvalt, en welke rekening waarvoor met jouw bedragen voor vaste
-        lasten, jaarkosten, leefgeld, buffer en sparen.
+        Binnen 2 werkdagen: wat opvalt, en per potje het bedrag dat er elke maand in moet.
       </>
     ),
   },
@@ -264,7 +263,7 @@ const procesTrust: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
     icoon: "slot",
     titel: "Jouw gegevens zijn veilig",
     tekst:
-      "Alleen ik zie wat je aanlevert. Je bestanden en afschriften verwijder ik na levering zelf.",
+      "Alleen ik zie wat je opstuurt. Na je rapport verwijder ik het.",
   },
   {
     icoon: "pen",
@@ -279,12 +278,12 @@ const watJeKrijgt: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
   {
     icoon: "checklist",
     titel: "Nagekeken",
-    tekst: "Wat klopt, wat ontbreekt en wat juist niet uit de toon valt.",
+    tekst: "Wat klopt en wat ontbreekt.",
   },
   {
     icoon: "doel",
     titel: "Je potjes, uitgerekend",
-    tekst: "Welke rekening waarvoor, met jouw bedragen voor jaarkosten, buffer en sparen.",
+    tekst: "Per potje het bedrag dat er elke maand in moet.",
   },
   {
     icoon: "staaf",
@@ -293,7 +292,7 @@ const watJeKrijgt: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
   },
   {
     icoon: "lamp",
-    titel: "Geen ander belang",
+    titel: "Ik verkoop verder niets",
     tekst: "Vaste prijs. Geen producten, geen provisie, geen traject.",
   },
 ];
@@ -305,9 +304,9 @@ const watJeKrijgt: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
 
 const faq = [
   {
-    vraag: "Wat moet ik aanleveren?",
+    vraag: "Wat moet ik opsturen?",
     antwoord:
-      "Wat je al hebt. Een Excel of Google Sheet met je begroting, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Heb je dat niet, dan vul je een korte vragenlijst in, of gebruik ik je gratis analyse. Bankafschriften mogen, maar hoeven niet. Streep weg wat er voor mij niet toe doet, zoals rekeningnummers en namen van anderen.",
+      "Wat je al hebt. Een Excel of Google Sheet, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Heb je dat niet, dan vul je een korte vragenlijst in, of gebruik ik je gratis analyse. Bankafschriften mogen, maar hoeven niet. Streep weg wat er voor mij niet toe doet, zoals rekeningnummers en namen van anderen.",
   },
   {
     vraag: "Hoe betaal ik?",
@@ -315,9 +314,9 @@ const faq = [
       "Na je aanvraag krijg je per e-mail een betaalverzoek van €49: een Tikkie of een gewone overboeking. Geen account, geen creditcard en geen abonnement. Pas na betaling stuur je iets in.",
   },
   {
-    vraag: "Ik heb al een begroting. Wat voeg jij dan toe?",
+    vraag: "Ik heb al een overzicht. Wat voeg jij dan toe?",
     antwoord:
-      "Ik kijk wat erin klopt en wat ontbreekt, bijvoorbeeld jaarkosten die niet per maand zijn meegenomen of regelingen die je niet gebruikt, en ik leg je cijfers naast vergelijkbare huishoudens. Daarna reken ik uit hoeveel er per maand naar je vaste lasten, je jaarkosten, je buffer en je spaardoel moet, en op welke rekening. Dat zet je daarna zelf door.",
+      "Ik kijk wat erin klopt en wat ontbreekt. Vaak zijn dat uitgaven die één keer per jaar komen, zoals vakantie of de autoverzekering, of een toeslag die je laat liggen. Ook leg ik je cijfers naast huishoudens zoals het jouwe. Daarna reken ik per potje uit hoeveel er elke maand in moet. Dat zet je zelf in je bankapp.",
   },
   {
     vraag: "Kunnen we dit samen doen, met mijn partner?",
@@ -327,22 +326,22 @@ const faq = [
   {
     vraag: "Mijn inkomen wisselt per maand. Werkt het dan ook?",
     antwoord:
-      "Ja. Stuur dan je inkomsten van de afgelopen maanden mee. Ik reken je potjes uit op een magere maand, zodat ze ook dan blijven staan, en wat er in een goede maand bij komt gaat naar je buffer.",
+      "Ja. Stuur dan je inkomsten van de afgelopen maanden mee. Ik reken je potjes uit op een magere maand, zodat het dan ook lukt. Wat je in een goede maand meer verdient, gaat naar je buffer.",
   },
   {
     vraag: "Is mijn informatie veilig?",
     antwoord:
-      "Alleen ik zie wat je aanlevert. Er kijkt geen team en geen algoritme mee, en je gegevens gaan niet naar derden. Je afschriften verwijder ik na levering van je rapport zelf. Wat er verder bewaard blijft, staat in de privacyverklaring.",
+      "Alleen ik zie wat je opstuurt. Er kijkt geen team en geen computerprogramma mee, en je gegevens gaan niet naar anderen. Na je rapport verwijder ik wat je stuurde. Wat er verder bewaard blijft, staat in de privacyverklaring.",
   },
   {
     vraag: "Hoe lang duurt het?",
     antwoord:
-      "Je krijgt je rapport binnen 2 werkdagen nadat je informatie compleet is. Het aanleveren zelf kost je een paar minuten.",
+      "Je krijgt je rapport binnen 2 werkdagen nadat je informatie compleet is. Het opsturen kost je een paar minuten.",
   },
   {
     vraag: "Is de Geldscan automatisch?",
     antwoord:
-      "Nee. Ik schrijf elk rapport zelf, met de hand. Er is geen sjabloon waarin ik jouw bedragen giet, en er kijkt geen algoritme mee.",
+      "Nee. Ik schrijf elk rapport zelf, met de hand. Er is geen sjabloon waarin ik jouw bedragen giet, en er kijkt geen computerprogramma mee.",
   },
   {
     vraag: "Krijg ik alleen advies om te bezuinigen?",
@@ -380,7 +379,7 @@ const serviceSchema = {
   serviceType: "Persoonlijke geldscan",
   name: "Geldscan, Waar blijft het",
   description:
-    "Persoonlijk geschreven geldrapport over je huishoudfinanciën: je cijfers nagekeken en je potjes uitgerekend met jouw bedragen. Aanleveren met je eigen overzicht of een korte vragenlijst. Binnen 2 werkdagen na aanlevering. €49 eenmalig.",
+    "Persoonlijk geschreven geldrapport over je huishoudfinanciën: je cijfers nagekeken en je potjes uitgerekend met jouw bedragen. Je stuurt je eigen overzicht of vult een korte vragenlijst in. Binnen 2 werkdagen. €49 eenmalig.",
   url: "https://www.waarblijfthet.nl/geldscan",
   areaServed: { "@type": "Country", name: "Nederland" },
   provider: {
@@ -502,8 +501,8 @@ export default function GeldscanPage({
                   className="font-body mt-5 max-w-[470px] font-light leading-relaxed"
                   style={{ fontSize: "1.05rem", color: "#4A5A56" }}
                 >
-                  Welke rekening waarvoor, wat er per maand naar je jaarkosten, je buffer en je
-                  spaardoel gaat, met jouw bedragen. Eén keer. Daarna doe je het zelf.
+                  Je krijgt per potje het bedrag dat er elke maand in moet, met jouw cijfers. Eén
+                  keer. Daarna doe je het zelf.
                 </p>
 
                 <div className="mt-9 grid max-w-[500px] grid-cols-1 gap-6 sm:grid-cols-2">
@@ -754,15 +753,15 @@ export default function GeldscanPage({
               className="font-display font-light text-[#16211F]"
               style={{ fontSize: "clamp(1.7rem, 3.2vw, 2.4rem)", lineHeight: 1.18 }}
             >
-              Stuur in wat je hebt. Ik kijk het na en reken je potjes uit.
+              Stuur op wat je hebt. Ik kijk het na en reken je potjes uit.
             </h2>
             <p
               className="font-body mt-4 max-w-[640px] font-light leading-relaxed"
               style={{ fontSize: "1.05rem", color: "#4A5A56" }}
             >
               Een Excel of Google Sheet, het uitgavenoverzicht in je bankapp, of een export uit je
-              budgetapp. Ik kijk wat klopt, wat ontbreekt en wat juist niet uit de toon valt, en ik
-              reken uit hoeveel er waarheen moet. Daarna doe je het zelf.
+              budgetapp. Ik kijk wat klopt en wat ontbreekt, en ik reken uit hoeveel er elke maand
+              in elk potje moet. Daarna doe je het zelf.
             </p>
 
             {voorbeeld && voorbeeldRegels.length > 0 && (
@@ -839,7 +838,7 @@ export default function GeldscanPage({
                 Zo werkt de Geldscan
               </h2>
               <p className="font-body mt-3 font-light leading-relaxed text-[#4A5A56]">
-                In vier heldere stappen naar persoonlijk inzicht.
+                Zo gaat het, in vier stappen.
               </p>
             </div>
 
@@ -1115,7 +1114,7 @@ export default function GeldscanPage({
                 Je cijfers nagekeken, je potjes uitgerekend.
               </h2>
               <p className="font-body mt-3 font-light leading-relaxed text-white/70">
-                Stuur in wat je hebt. Eén keer, daarna doe je het zelf.
+                Stuur op wat je hebt. Eén keer, daarna doe je het zelf.
               </p>
             </div>
 

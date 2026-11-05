@@ -14,9 +14,8 @@ import ToestemmingDataAsset from "./ToestemmingDataAsset";
 // 5-nov-2026: de belofte is wat de vijf klanten kregen, een nagekeken maand
 // met een structuur en bedragen (docs/plan-positionering-aanbod-05-nov-2026.md).
 const PUNTEN = [
-  "Nagekeken: wat opvalt, wat ontbreekt en wat juist niet uit de toon valt",
-  "Je potjes uitgerekend: welke rekening waarvoor, met jouw bedragen",
-  "Hoeveel er per maand naar jaarkosten, buffer en sparen gaat",
+  "Nagekeken: wat opvalt en wat ontbreekt",
+  "Je potjes uitgerekend: per potje het bedrag dat er elke maand in moet",
   "Eén keer. Daarna doe je het zelf, geen traject",
 ];
 
@@ -52,8 +51,8 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
 
       <div className="rounded-xl border-[1.5px] border-accent/25 bg-green-light p-6 sm:p-8">
         <p className="text-text-soft font-body font-light text-sm mb-1 leading-relaxed">
-          Bij de Geldscan kijk ik je cijfers zelf na en reken ik uit hoeveel er
-          waarheen moet. Heb je een eigen overzicht, Excel of bankapp, dan stuur je dat in.
+          Bij de Geldscan kijk ik je cijfers zelf na en reken ik je potjes uit.
+          Heb je een eigen overzicht, Excel of bankapp, dan stuur je dat op.
         </p>
         <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
           Je krijgt een rapport dat ik zelf schrijf, binnen 2 werkdagen.

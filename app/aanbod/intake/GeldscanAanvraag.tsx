@@ -50,7 +50,7 @@ const LICHTGROEN = "#E7F1EE";
 const WAARDEN = [
   {
     icoon: "persoon" as const,
-    titel: "Stuur in wat je hebt",
+    titel: "Stuur op wat je hebt",
     regel: "Je Excel, je bankapp of een korte vragenlijst.",
   },
   {
@@ -78,7 +78,7 @@ const STAPPEN = [
   },
   {
     icoon: "document" as const,
-    titel: "Insturen wat je hebt",
+    titel: "Opsturen wat je hebt",
     regel: "Je eigen overzicht (Excel, Google Sheet, bankapp of budgetapp) of een korte vragenlijst. Afschriften hoeven niet.",
   },
   {
@@ -89,7 +89,7 @@ const STAPPEN = [
   {
     icoon: "grafiek" as const,
     titel: "Je potjes, uitgerekend",
-    regel: "Binnen 2 werkdagen: wat opvalt, en welke rekening waarvoor met jouw bedragen.",
+    regel: "Binnen 2 werkdagen: wat opvalt, en per potje het bedrag dat er elke maand in moet.",
   },
 ];
 
@@ -100,9 +100,9 @@ const FAQ = [
       "Na je aanvraag, met een betaalverzoek van €49: een Tikkie of een gewone overboeking. Het staat in je bevestigingsmail, of je krijgt het uiterlijk binnen 1 werkdag van mij. Pas na betaling stuur je iets in.",
   },
   {
-    vraag: "Wat moet ik insturen?",
+    vraag: "Wat moet ik opsturen?",
     antwoord:
-      "Wat je al hebt. Een Excel of Google Sheet met je begroting, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Heb je dat niet, dan vul je een korte vragenlijst in, of gebruik ik je gratis analyse. Bankafschriften mogen, maar hoeven niet. Nu, bij de aanvraag, stuur je nog niets.",
+      "Wat je al hebt. Een Excel of Google Sheet, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Heb je dat niet, dan vul je een korte vragenlijst in, of gebruik ik je gratis analyse. Bankafschriften mogen, maar hoeven niet. Nu, bij de aanvraag, stuur je nog niets.",
   },
   {
     vraag: "Hoe lang duurt het voordat ik mijn Geldscan ontvang?",
@@ -554,9 +554,8 @@ export function GeldscanAanvraag({ token, keuze: startKeuze, spoor: startSpoor }
               className="font-body"
               style={{ color: ZACHT, fontSize: "1rem", lineHeight: 1.75, maxWidth: "32rem" }}
             >
-              Ik kijk je cijfers na en reken je potjes uit: welke rekening waarvoor, met jouw bedragen.
-              Je betaalt €49 en stuurt daarna in wat je hebt, je eigen overzicht of een korte
-              vragenlijst.
+              Ik kijk je cijfers na en reken je potjes uit. Je betaalt €49 en stuurt daarna op wat je
+              hebt: je eigen overzicht of een korte vragenlijst.
             </p>
 
             <ul
@@ -656,7 +655,7 @@ export function GeldscanAanvraag({ token, keuze: startKeuze, spoor: startSpoor }
               </div>
 
               <div style={{ marginBottom: "1.1rem" }}>
-                <LabelTekst htmlFor="spoor">Hoe wil je aanleveren? (optioneel)</LabelTekst>
+                <LabelTekst htmlFor="spoor">Wat stuur je op? (optioneel)</LabelTekst>
                 <select
                   id="spoor"
                   name="spoor"
@@ -811,8 +810,8 @@ export function GeldscanAanvraag({ token, keuze: startKeuze, spoor: startSpoor }
                     Wat gebeurt er daarna?
                   </p>
                   <p style={{ color: ZACHT, fontSize: "0.85rem", lineHeight: 1.6 }}>
-                    Je krijgt een bevestiging per e-mail met de betaallink, of de link volgt uiterlijk
-                    binnen 1 werkdag. Na betaling stuur je in wat je hebt.
+                    Je krijgt een mail met het betaalverzoek, of het volgt uiterlijk
+                    binnen 1 werkdag. Na betaling stuur je op wat je hebt.
                   </p>
                 </div>
               </div>

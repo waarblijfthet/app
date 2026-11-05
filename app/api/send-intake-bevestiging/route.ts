@@ -43,7 +43,7 @@ export async function POST(request: NextRequest) {
     const betaallink = isGeldscan ? geldscanBetaallink() : null;
     const betaalStap = betaallink
       ? "Betaal €49 via de knop hieronder"
-      : "Je krijgt uiterlijk binnen één werkdag een betaallink van €49 van mij";
+      : "Je krijgt uiterlijk binnen één werkdag een betaalverzoek van €49 van mij";
     const pakketLabel =
       isGeldscan
         ? "Geldscan met persoonlijk geldrapport (€49)"
@@ -56,8 +56,8 @@ export async function POST(request: NextRequest) {
       ? "Ik neem binnen één werkdag persoonlijk contact op om je adviesgesprek (45 min, video) in te plannen. Je krijgt dan ook het betaalverzoek (€125)."
       : isGeldscan
       ? betaallink
-        ? "Hieronder staat de betaallink van €49. Zodra je hebt betaald, stuur je als antwoord op deze mail in wat je hebt. Binnen twee werkdagen nadat alles compleet is, krijg je je rapport als PDF."
-        : "Ik stuur je uiterlijk binnen één werkdag een betaallink van €49. Zodra je hebt betaald, stuur je in wat je hebt. Binnen twee werkdagen nadat alles compleet is, krijg je je rapport als PDF."
+        ? "Hieronder staat het betaalverzoek van €49. Zodra je hebt betaald, stuur je als antwoord op deze mail in wat je hebt. Binnen twee werkdagen nadat alles compleet is, krijg je je rapport als PDF."
+        : "Ik stuur je uiterlijk binnen één werkdag een betaalverzoek van €49. Zodra je hebt betaald, stuur je op wat je hebt. Binnen twee werkdagen nadat alles compleet is, krijg je je rapport als PDF."
       : "Ik neem binnen één werkdag persoonlijk contact op. Geen standaardmail, maar een bericht dat aansluit op wat je hebt ingevuld.";
     const stappenTitel = isGesprek ? "Zo bereid je je voor" : "Wat er nu gebeurt";
     const stappenHtml = isGesprek
