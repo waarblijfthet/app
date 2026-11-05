@@ -299,10 +299,10 @@ export function verrijk(
 
 /**
  * Vanaf wanneer het nieuwe introscherm live staat (30-okt-2026: de eerste
- * vraag als drie knoppen op het intro). Aangenomen op 31 okt; zet dit op de
- * echte deploydatum als die anders is.
+ * vraag als drie knoppen op het intro). Vastgesteld op 5 nov uit de _events
+ * in productie: live tussen 12:53 en 15:45 NL op 30 okt.
  */
-export const INTRO_NIEUW_SINDS = "2026-10-31T00:00:00Z";
+export const INTRO_NIEUW_SINDS = "2026-10-30T14:00:00Z"; // eerste sessie met de vraag op het intro: 30 okt 15:45 NL, laatste met het oude intro 12:53 NL
 
 /** Eerste sessie met de vraag "Hoe is het meestal aan het eind van de maand?" (12-okt-2026, 17:32 UTC). */
 export const MEETVRAAG_SINDS = "2026-10-12T17:30:00Z";
