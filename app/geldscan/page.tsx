@@ -4,19 +4,19 @@ import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { analyseHref, geldscanHref } from "@/lib/cta";
-import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
+import { RAPPORTEN, AANTAL_ZONDER_LEK, rapportVoorSlug } from "@/lib/rapporten-data";
 import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { KEUZES } from "@/lib/geldmomenten";
 
 export const metadata: Metadata = {
-  title: "Geldscan: waarom houd jij zo weinig over? €49",
+  title: "Geldscan €49: ik kijk je cijfers na en zet je maand neer",
   description:
-    "Je bankapp laat zien wat je hebt uitgegeven. De Geldscan legt uit waarom dat bij jouw huishouden zo uitpakt en wat ik concreet zou veranderen. Persoonlijk geschreven, €49 eenmalig, binnen 2 werkdagen.",
+    "Je hebt je geld al in beeld en toch schuift het? Stuur je Excel, bankapp-overzicht of de korte vragenlijst. Ik kijk het na en zet je maand neer, met jouw bedragen. €49 eenmalig, binnen 2 werkdagen.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
-    title: "Geldscan: waarom houd jij zo weinig over? €49",
+    title: "Geldscan €49: ik kijk je cijfers na en zet je maand neer",
     description:
-      "Ik analyseer je inkomsten en uitgaven en geef je duidelijkheid over wat opvalt, waarom en wat je ermee kunt. €49 eenmalig.",
+      "Welke rekening waarvoor, wat er per maand naar je jaarkosten, buffer en spaardoel gaat, met jouw bedragen. Eén keer, daarna doe je het zelf. €49 eenmalig.",
     url: "https://www.waarblijfthet.nl/geldscan",
     type: "website",
   },
@@ -187,14 +187,14 @@ function PreviewKopje({ tekst }: { tekst: string }) {
 
 const heroWaarden: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
   {
-    icoon: "persoon",
-    titel: "Persoonlijk geschreven",
-    tekst: "Geen standaardrapport.",
+    icoon: "document",
+    titel: "Stuur in wat je hebt",
+    tekst: "Je Excel, je bankapp of een korte vragenlijst.",
   },
   {
-    icoon: "document",
-    titel: "Je ziet de onderbouwing",
-    tekst: "De cijfers en mijn conclusie staan er allebei in.",
+    icoon: "persoon",
+    titel: "Daarna doe je het zelf",
+    tekst: "Geen traject, geen abonnement.",
   },
 ];
 
@@ -208,51 +208,51 @@ const stappen: {
 }[] = [
   {
     icoon: "persoon",
-    titel: "Start met je situatie",
+    titel: "Aanvragen en betalen",
     tekst: (
       <>
-        Je vult je gegevens en financiële situatie in. Heb je de{" "}
-        <CtaLink
-          doel="analyse"
-          href={analyseHref()}
-          locatie="geldscan-stap1"
-          className="font-medium hover:underline"
-          style={{ color: "#0B7A6E", textDecoration: "none" }}
-        >
-          gratis analyse
-        </CtaLink>{" "}
-        al gedaan? Dan kun je daarop voortbouwen.
+        Je laat je voornaam en e-mailadres achter. Je krijgt per e-mail een betaallink van €49.
       </>
     ),
   },
   {
     icoon: "document",
-    titel: "Deel wat je hebt",
+    titel: "Stuur in wat je hebt",
     tekst: (
       <>
-        Je kunt bankafschriften toevoegen als je die hebt. Handig voor extra detail, maar niet
-        nodig om de Geldscan te maken.
+        Je eigen overzicht: een Excel, Google Sheet, je bankapp of budgetapp. Heb je dat niet, dan
+        vul je een korte vragenlijst in, of gebruik ik je{" "}
+        <CtaLink
+          doel="analyse"
+          href={analyseHref()}
+          locatie="geldscan-stap2"
+          className="font-medium hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          gratis analyse
+        </CtaLink>
+        .
       </>
     ),
-    optioneel: "Optioneel, maar handig voor extra detail.",
+    optioneel: "Bankafschriften mogen, maar hoeven niet.",
   },
   {
     icoon: "loep",
-    titel: "Ik analyseer jouw situatie",
+    titel: "Ik kijk het na",
     tekst: (
       <>
-        Ik kijk naar je inkomsten, uitgaven en opvallende verschillen en leg verbanden tussen de
-        cijfers.
+        Wat klopt, wat ontbreekt en wat juist niet uit de toon valt, naast vergelijkbare
+        huishoudens. Wat ik nog mis, vraag ik je.
       </>
     ),
   },
   {
     icoon: "rapport",
-    titel: "Je ontvangt je Geldscan",
+    titel: "Je maand, neergezet",
     tekst: (
       <>
-        Binnen 2 werkdagen ontvang je je persoonlijke rapport met wat opvalt, waarom het opvalt en
-        waar ik als eerste naar zou kijken.
+        Binnen 2 werkdagen: wat opvalt, en welke rekening waarvoor met jouw bedragen voor vaste
+        lasten, jaarkosten, leefgeld, buffer en sparen.
       </>
     ),
   },
@@ -263,7 +263,7 @@ const procesTrust: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
     icoon: "slot",
     titel: "Jouw gegevens zijn veilig",
     tekst:
-      "Alleen ik zie ze. Direct na het versturen van je rapport verwijder ik wat je hebt aangeleverd.",
+      "Alleen ik zie wat je aanlevert. Je bestanden en afschriften verwijder ik na levering zelf.",
   },
   {
     icoon: "pen",
@@ -276,24 +276,24 @@ const procesTrust: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
 
 const watJeKrijgt: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
   {
-    icoon: "staaf",
-    titel: "Duidelijke uitleg",
-    tekst: "Je ziet precies wat opvalt in jouw cijfers.",
-  },
-  {
-    icoon: "lamp",
-    titel: "Inzicht in oorzaken",
-    tekst: "Ik leg uit waarom het verschil ontstaat.",
-  },
-  {
     icoon: "checklist",
-    titel: "Concrete aandachtspunten",
-    tekst: "Praktische punten waar je direct mee kunt.",
+    titel: "Nagekeken",
+    tekst: "Wat klopt, wat ontbreekt en wat juist niet uit de toon valt.",
   },
   {
     icoon: "doel",
-    titel: "Persoonlijk advies",
-    tekst: "Onafhankelijk, zonder provisies of producten, geschreven voor jouw situatie.",
+    titel: "Je maand, neergezet",
+    tekst: "Welke rekening waarvoor, met jouw bedragen voor jaarkosten, buffer en sparen.",
+  },
+  {
+    icoon: "staaf",
+    titel: "Vergeleken",
+    tekst: "Waar je afwijkt van vergelijkbare huishoudens, en waar niet.",
+  },
+  {
+    icoon: "lamp",
+    titel: "Geen ander belang",
+    tekst: "Vaste prijs. Geen producten, geen provisie, geen traject.",
   },
 ];
 
@@ -304,9 +304,14 @@ const watJeKrijgt: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
 
 const faq = [
   {
-    vraag: "Moet ik bankafschriften aanleveren?",
+    vraag: "Wat moet ik aanleveren?",
     antwoord:
-      "Nee, dat is optioneel. De ingevulde analyse is meestal voldoende. Met afschriften kan ik preciezer naar je uitgaven kijken. Je mag daarin wegstrepen wat er voor mij niet toe doet, zoals rekeningnummers en namen van anderen. Ik heb de bedragen en de soort uitgave nodig, niet bij wie je hebt gepind.",
+      "Wat je al hebt. Een Excel of Google Sheet met je begroting, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Heb je dat niet, dan vul je een korte vragenlijst in, of gebruik ik je gratis analyse. Bankafschriften mogen, maar hoeven niet. Streep weg wat er voor mij niet toe doet, zoals rekeningnummers en namen van anderen.",
+  },
+  {
+    vraag: "Ik heb al een begroting. Wat voeg jij dan toe?",
+    antwoord:
+      "Ik kijk wat erin klopt en wat ontbreekt, bijvoorbeeld jaarkosten die niet per maand zijn meegenomen of regelingen die je niet gebruikt, en ik leg je cijfers naast vergelijkbare huishoudens. Daarna reken ik uit hoeveel er per maand naar je vaste lasten, je jaarkosten, je buffer en je spaardoel moet, en op welke rekening. Dat zet je daarna zelf door.",
   },
   {
     vraag: "Is mijn informatie veilig?",
@@ -355,7 +360,7 @@ const serviceSchema = {
   serviceType: "Persoonlijke geldscan",
   name: "Geldscan, Waar blijft het",
   description:
-    "Persoonlijk geschreven geldrapport over je huishoudfinanciën. Wat opvalt, waarom het opvalt en waar ik als eerste naar zou kijken. Binnen 2 werkdagen na aanlevering van je cijfers. €49 eenmalig.",
+    "Persoonlijk geschreven geldrapport over je huishoudfinanciën: je cijfers nagekeken en je maand neergezet met jouw bedragen. Aanleveren met je eigen overzicht of een korte vragenlijst. Binnen 2 werkdagen na aanlevering. €49 eenmalig.",
   url: "https://www.waarblijfthet.nl/geldscan",
   areaServed: { "@type": "Country", name: "Nederland" },
   provider: {
@@ -411,6 +416,11 @@ export default function GeldscanPage({
      en boodschappen vallen daar niets meer in te vullen. */
   const intakeHref = geldscanHref({ token });
 
+  // Het voorbeeld in "Heb je al een overzicht?": de eerste twee regels van het
+  // plan uit een echt rapport (CLAUDE.md 3.2: bedragen alleen uit rapporten-data).
+  const voorbeeld = rapportVoorSlug("alleenstaand-huurwoning");
+  const voorbeeldRegels = voorbeeld ? voorbeeld.plan.slice(0, 2) : [];
+
   const StartKnop = ({ locatie }: { locatie: string }) => (
     <CtaLink doel="geldscan" href={intakeHref} locatie={locatie} className="btn-primary">
       Start de Geldscan →
@@ -465,15 +475,15 @@ export default function GeldscanPage({
                   className="font-body text-lg font-medium leading-snug"
                   style={{ color: "#0B7A6E" }}
                 >
-                  Het complete inzicht in jouw geld.
+                  Ik kijk je cijfers na en zet je maand neer.
                 </p>
 
                 <p
                   className="font-body mt-5 max-w-[470px] font-light leading-relaxed"
                   style={{ fontSize: "1.05rem", color: "#4A5A56" }}
                 >
-                  Ik analyseer je inkomsten en uitgaven en geef je duidelijkheid over wat opvalt,
-                  waarom en wat je ermee kunt.
+                  Welke rekening waarvoor, wat er per maand naar je jaarkosten, je buffer en je
+                  spaardoel gaat, met jouw bedragen. Eén keer. Daarna doe je het zelf.
                 </p>
 
                 <div className="mt-9 grid max-w-[500px] grid-cols-1 gap-6 sm:grid-cols-2">
@@ -651,8 +661,12 @@ export default function GeldscanPage({
                     €49 eenmalig
                   </p>
                   <p className="font-body max-w-[440px] text-sm font-light leading-relaxed text-[#4A5A56]">
-                    Je betaalt één keer en ontvangt je persoonlijke rapport binnen 2 werkdagen
-                    nadat je informatie compleet is.
+                    Je betaalt één keer en ontvangt je rapport binnen 2 werkdagen nadat je
+                    informatie compleet is. Heb je al een overzicht?{" "}
+                    <a href="#nakijken" className="font-medium hover:underline" style={{ color: "#0B7A6E" }}>
+                      Zo werkt dat
+                    </a>
+                    .
                   </p>
                 </div>
               </div>
@@ -662,6 +676,96 @@ export default function GeldscanPage({
                 <p className="font-body mt-3 text-xs font-light text-[#8B958F]">Geen abonnement.</p>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* ── 2b. Heb je al een overzicht? (5-nov-2026) ─────────────────
+            Het tweede spoor uit docs/plan-positionering-aanbod-05-nov-2026.md.
+            "Ja, laat het nakijken" in components/SplitsVraag.tsx landt hier.
+            Het voorbeeld komt uit lib/rapporten-data.ts, nooit uitgetypt. */}
+        <section
+          id="nakijken"
+          className="px-6 py-16 sm:py-20"
+          style={{ backgroundColor: "#E7F1EE", scrollMarginTop: "80px" }}
+        >
+          <div className="mx-auto max-w-[900px]">
+            <p
+              className="font-body mb-4 text-xs font-medium uppercase tracking-[0.18em]"
+              style={{ color: "#4A5A56" }}
+            >
+              Heb je al een overzicht?
+            </p>
+            <h2
+              className="font-display font-light text-[#16211F]"
+              style={{ fontSize: "clamp(1.7rem, 3.2vw, 2.4rem)", lineHeight: 1.18 }}
+            >
+              Stuur in wat je hebt. Ik kijk het na en zet je maand neer.
+            </h2>
+            <p
+              className="font-body mt-4 max-w-[640px] font-light leading-relaxed"
+              style={{ fontSize: "1.05rem", color: "#4A5A56" }}
+            >
+              Een Excel of Google Sheet, het uitgavenoverzicht in je bankapp, of een export uit je
+              budgetapp. Ik kijk wat klopt, wat ontbreekt en wat juist niet uit de toon valt, en ik
+              reken uit hoeveel er waarheen moet. Daarna doe je het zelf.
+            </p>
+
+            {voorbeeld && voorbeeldRegels.length > 0 && (
+              <div className="mt-8 rounded-2xl border border-[#9CCFC4] bg-white p-6 sm:p-7">
+                <p className="font-body text-xs font-medium uppercase tracking-[0.14em] text-[#8B958F]">
+                  Zo zag dat er bij een klant uit
+                </p>
+                <p className="font-body mt-2 text-sm font-light text-[#4A5A56]">{voorbeeld.situatie}</p>
+                <ul className="font-body mt-4 space-y-2" style={{ listStyle: "none", padding: 0 }}>
+                  {voorbeeldRegels.map((regel) => (
+                    <li key={regel} className="flex items-start gap-2.5 text-[0.95rem] text-[#16211F]">
+                      <span style={{ color: "#0B7A6E" }} aria-hidden="true">
+                        ✓
+                      </span>
+                      <span>{regel}</span>
+                    </li>
+                  ))}
+                </ul>
+                <p className="font-body mt-4 text-sm font-light text-[#4A5A56]">
+                  Een echt rapport, gepubliceerd met toestemming.{" "}
+                  <Link
+                    href={`/rapporten/${voorbeeld.slug}`}
+                    className="font-medium hover:underline"
+                    style={{ color: "#0B7A6E" }}
+                  >
+                    Lees het hele rapport
+                  </Link>
+                  .
+                </p>
+              </div>
+            )}
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:gap-6">
+              <CtaLink
+                doel="geldscan"
+                href={geldscanHref({ token: token, spoor: "overzicht" })}
+                locatie="geldscan-nakijken"
+                className="btn-primary text-center"
+              >
+                Laat mijn overzicht nakijken, €49 →
+              </CtaLink>
+              <p className="font-body text-sm font-light text-[#4A5A56]">
+                Je hoeft niets te laten zien voordat je besluit. Je stuurt het pas na betaling.
+              </p>
+            </div>
+            <p className="font-body mt-6 text-sm font-light text-[#4A5A56]">
+              Nog geen overzicht?{" "}
+              <CtaLink
+                doel="analyse"
+                href={analyseHref()}
+                locatie="geldscan-nakijken"
+                className="font-medium hover:underline"
+                style={{ color: "#0B7A6E", textDecoration: "none" }}
+              >
+                Begin met de gratis analyse
+              </CtaLink>
+              , of vraag de Geldscan aan en vul na betaling de korte vragenlijst in.
+            </p>
           </div>
         </section>
 
@@ -953,11 +1057,10 @@ export default function GeldscanPage({
                 className="font-display font-light text-white"
                 style={{ fontSize: "clamp(1.7rem, 3vw, 2.2rem)", lineHeight: 1.18 }}
               >
-                Klaar voor inzicht?
+                Je maand, nagekeken en neergezet.
               </h2>
               <p className="font-body mt-3 font-light leading-relaxed text-white/70">
-                Ontdek wat er in jouw financiële situatie speelt en waar je als eerste naar zou
-                kijken.
+                Stuur in wat je hebt. Eén keer, daarna doe je het zelf.
               </p>
             </div>
 

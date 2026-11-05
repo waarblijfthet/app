@@ -1,11 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import CtaLink from "@/components/CtaLink";
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { RAPPORTEN, rapportVoorSlug, type Post } from "@/lib/rapporten-data";
-import { geldscanHref } from "@/lib/cta";
+import SplitsVraag from "@/components/SplitsVraag";
 
 export function generateStaticParams() {
   return RAPPORTEN.map((r) => ({ slug: r.slug }));
@@ -191,20 +190,16 @@ export default function RapportPagina({ params }: { params: { slug: string } }) 
         <section className="bg-card py-14">
           <div className="max-w-2xl mx-auto px-6 text-center">
             <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-4">
-              Hoe staat jouw situatie ervoor?
+              Wil je dat ik zo naar jouw cijfers kijk?
             </h2>
             <p className="font-body font-light text-text-soft leading-relaxed mb-7">
-              Begin met de gratis analyse. In een paar minuten zie je waar jouw huishouden afwijkt van
-              vergelijkbare huishoudens. Daarna bepaal je zelf of je verder wilt.
+              Ik kijk na wat er staat en zet je maand neer, met jouw bedragen. Heb je nog geen
+              overzicht, dan begin je met de gratis analyse.
             </p>
-            <CtaLink doel="analyse" href="/analyse" locatie="rapport-slot" className="btn-primary">
-              Doe de gratis analyse &rarr;
-            </CtaLink>
-            <p className="font-body font-light text-text-muted text-sm mt-5">
-              <CtaLink doel="geldscan" href={geldscanHref()} locatie="rapport-slot" className="hover:underline">
-                Na de analyse kun je de Geldscan aanvragen, &euro;49 &rarr;
-              </CtaLink>
-            </p>
+            {/* 5-nov-2026: één vraag in plaats van analyseknop plus Geldscan-link. */}
+            <div className="text-left">
+              <SplitsVraag plek="rapport-slot" />
+            </div>
           </div>
         </section>
       </main>

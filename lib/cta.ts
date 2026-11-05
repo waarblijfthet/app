@@ -1,7 +1,8 @@
 // Eén bron voor de primaire conversieroute van de hele site.
 //
-// De gratis analyse is de enige primaire ingang. De Geldscan is altijd een
-// vervolgstap, nooit de eerste stap. Wie een CTA bouwt gebruikt hier
+// Sinds 5-nov-2026 zijn er twee ingangen, via één vraag ("Heb je al een
+// overzicht van je uitgaven?", components/SplitsVraag.tsx): nee gaat naar de
+// gratis analyse, ja naar de Geldscan met je eigen overzicht. Wie een CTA bouwt gebruikt hier
 // ANALYSE_ROUTE plus analyseHref(), zodat er nooit twee routes ontstaan.
 
 import type { KeuzeSleutel } from "./geldmomenten";
@@ -38,12 +39,47 @@ export const GELDSCAN_CTA_LABEL = "Geldscan aanvragen";
  * Sinds 25-sep-2026 kan er ook een keuze mee (lib/geldmomenten.ts). Dan staat
  * het keuzeveld op het formulier al ingevuld. Het blijft dezelfde Geldscan.
  */
-export function geldscanHref(opties: { token?: string; keuze?: KeuzeSleutel } = {}): string {
+export function geldscanHref(
+  opties: { token?: string; keuze?: KeuzeSleutel; spoor?: SpoorSleutel } = {}
+): string {
   let href = GELDSCAN_ROUTE;
   if (opties.token) href += `&token=${encodeURIComponent(opties.token)}`;
   if (opties.keuze) href += `&keuze=${encodeURIComponent(opties.keuze)}`;
+  if (opties.spoor) href += `&spoor=${encodeURIComponent(opties.spoor)}`;
   return href;
 }
+
+/**
+ * Twee sporen naar dezelfde Geldscan (5-nov-2026, besluit Jarno, zie
+ * docs/plan-positionering-aanbod-05-nov-2026.md). Wie nog geen overzicht
+ * heeft, begint met de gratis analyse. Wie al een Excel, bankapp-overzicht of
+ * budgetapp heeft, stuurt dat in en laat het nakijken. Zelfde product, zelfde
+ * prijs, zelfde levertijd.
+ *
+ * Opslag zonder nieuwe kolom, net als de keuze: "[Spoor: ...]" vóór het
+ * bericht in grootste_knelpunt.
+ */
+export type SpoorSleutel = "overzicht" | "vragenlijst";
+
+export const SPOREN: { sleutel: SpoorSleutel; label: string; voorvoegsel: string }[] = [
+  {
+    sleutel: "overzicht",
+    label: "Mijn eigen overzicht (Excel, bankapp of budgetapp)",
+    voorvoegsel: "[Spoor: eigen overzicht]",
+  },
+  {
+    sleutel: "vragenlijst",
+    label: "Een korte vragenlijst of mijn gratis analyse",
+    voorvoegsel: "[Spoor: vragenlijst]",
+  },
+];
+
+export function spoorVoorSleutel(sleutel: string | null | undefined) {
+  return SPOREN.find((s) => s.sleutel === sleutel);
+}
+
+/** Waar "Ja, ik heb al een overzicht" naartoe gaat: de uitleg op /geldscan. */
+export const NAKIJKEN_ROUTE = "/geldscan#nakijken";
 
 /**
  * Het adviesgesprek. Er is geen agendatool: de bezoeker vult het

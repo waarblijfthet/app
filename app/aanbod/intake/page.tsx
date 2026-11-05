@@ -45,6 +45,7 @@ export default function IntakePage({
     inkomen?: string;
     inkomenWisselt?: string;
     keuze?: string;
+    spoor?: string;
   };
 }) {
   // De Geldscan is een aanvraag, geen intake: korte aanvraag, daarna met de
@@ -52,7 +53,14 @@ export default function IntakePage({
   if (searchParams.pakket === "geldscan") {
     // ?keuze= komt van een artikel over een geldmoment (lib/geldmomenten.ts).
     // Onbekende waarden vallen weg in GeldscanAanvraag zelf.
-    return <GeldscanAanvraag token={searchParams.token} keuze={searchParams.keuze} />;
+    // ?spoor= (5-nov-2026): "overzicht" van wie zijn eigen overzicht instuurt.
+    return (
+      <GeldscanAanvraag
+        token={searchParams.token}
+        keuze={searchParams.keuze}
+        spoor={searchParams.spoor}
+      />
+    );
   }
 
   // Het adviesgesprek werkt sinds 30-aug-2026 net zo: alleen naam, e-mailadres

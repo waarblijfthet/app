@@ -11,11 +11,13 @@ import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import BewaarUitkomst from "./BewaarUitkomst";
 import ToestemmingDataAsset from "./ToestemmingDataAsset";
 
+// 5-nov-2026: de belofte is wat de vijf klanten kregen, een nagekeken maand
+// met een structuur en bedragen (docs/plan-positionering-aanbod-05-nov-2026.md).
 const PUNTEN = [
-  "Persoonlijke analyse van jullie situatie",
-  "Inzicht in wat echt opvalt en waarom",
-  "Welke verschillen logisch of bewust zijn en welke aandacht verdienen",
-  "Concrete punten die ik als eerste zou onderzoeken",
+  "Nagekeken: wat opvalt, wat ontbreekt en wat juist niet uit de toon valt",
+  "Je maand neergezet: welke rekening waarvoor, met jouw bedragen",
+  "Hoeveel er per maand naar jaarkosten, buffer en sparen gaat",
+  "Eén keer. Daarna doe je het zelf, geen traject",
 ];
 
 interface Props {
@@ -42,19 +44,19 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
   return (
     <div>
       <h2 className="font-display font-light text-primary text-2xl sm:text-3xl mb-1 leading-snug">
-        Je weet nu waar het verschil zit.
+        Je weet nu ongeveer waar het verschil zit.
       </h2>
       <p className="font-display font-light text-primary/70 text-xl sm:text-2xl mb-6 leading-snug">
-        De volgende vraag is waarom.
+        De volgende stap is je maand zo neerzetten dat het niet meer schuift.
       </p>
 
       <div className="rounded-xl border-[1.5px] border-accent/25 bg-green-light p-6 sm:p-8">
         <p className="text-text-soft font-body font-light text-sm mb-1 leading-relaxed">
-          Bij de Geldscan bekijk ik jullie situatie persoonlijk en onderzoek ik
-          wat er achter de opvallendste verschillen zit.
+          Bij de Geldscan kijk ik je cijfers zelf na en reken ik uit hoeveel er
+          waarheen moet. Heb je een eigen overzicht, Excel of bankapp, dan stuur je dat in.
         </p>
         <p className="text-text-soft font-body font-light text-sm mb-5 leading-relaxed">
-          Je ontvangt een persoonlijk geschreven analyse van jullie situatie.
+          Je krijgt een rapport dat ik zelf schrijf, binnen 2 werkdagen.
         </p>
         <ul className="space-y-2 mb-6">
           {PUNTEN.map((punt) => (
@@ -81,7 +83,7 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
           locatie="analyse-resultaat"
           className="btn-primary w-full sm:w-auto text-base"
         >
-          Laat mij uitzoeken wat hierachter zit, €49 →
+          Laat mij het nakijken en neerzetten, €49 →
         </CtaLink>
         <p className="font-body text-text-muted text-xs mt-3">
           Binnen 2 werkdagen persoonlijk geschreven.

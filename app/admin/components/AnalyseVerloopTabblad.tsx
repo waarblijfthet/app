@@ -98,6 +98,17 @@ function Weekblok({ deze, vorige, vanMs, totMs }: { deze: Kerncijfers; vorige: K
           E-mailadres achtergelaten: {deze.emailAchtergelaten} (vorige week {vorige.emailAchtergelaten}). Klikken op de
           Geldscan op de hele site, ook buiten de analyse: {deze.geklikSite} (vorige week {vorige.geklikSite}).
         </p>
+        <p>
+          Splitsvraag &quot;Heb je al een overzicht?&quot;: {deze.splitsingGezien} keer gezien, {deze.splitsingNee} nee,{" "}
+          {deze.splitsingJa} ja{deze.splitsingGezien > 0 ? ` (${pct(deze.splitsingJa, deze.splitsingGezien)} ja)` : ""}
+          {Object.keys(deze.splitsingJaPerPlek).length > 0
+            ? `, ja per plek: ${Object.entries(deze.splitsingJaPerPlek)
+                .map(([plek, n]) => `${plek} ${n}`)
+                .join(", ")}`
+            : ""}
+          . Vorige week {vorige.splitsingGezien} gezien, {vorige.splitsingJa} ja. Aanvragen met eigen overzicht:{" "}
+          {deze.aangevraagdOverzicht} (vorige week {vorige.aangevraagdOverzicht}).
+        </p>
         <p>Wat zou je nu het meest helpen: {lijst(deze.behoefte, BEHOEFTE_LABEL) || "nog geen antwoord deze week"}.</p>
         <p>Wat houdt je tegen: {lijst(deze.bezwaar, BEZWAAR_LABEL) || "nog geen antwoord deze week"}.</p>
       </div>

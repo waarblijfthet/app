@@ -51,6 +51,8 @@ export type ApiData = {
   /** 5-nov-2026: tijdstippen, zodat per week te tellen is. */
   emailMomenten?: string[];
   aanvraagMomenten?: string[];
+  /** 5-nov-2026: per Geldscan-aanvraag het spoor (eigen overzicht, vragenlijst, onbekend). */
+  aanvraagSporen?: { created_at: string; spoor: string }[];
   /** Eerste pagina per sessie (12-okt-2026). */
   landingPerSessie?: Record<string, string>;
 };
@@ -387,6 +389,13 @@ export type Kerncijfers = {
   geklikSite: number;
   behoefte: Record<string, number>;
   bezwaar: Record<string, number>;
+  /** De splitsvraag: unieke sessies die hem zagen, en wie nee of ja koos. */
+  splitsingGezien: number;
+  splitsingNee: number;
+  splitsingJa: number;
+  /** Ja per plek, bijvoorbeeld artikel-slot of rapport-slot. */
+  splitsingJaPerPlek: Record<string, number>;
+  aangevraagdOverzicht: number;
 };
 
 export const KERNCIJFER_UITLEG: { sleutel: keyof Kerncijfers; label: string; uitleg: string; noemer?: keyof Kerncijfers }[] = [
@@ -434,6 +443,18 @@ export function berekenKerncijfers(data: ApiData, eigenTonen: boolean, van: stri
       .map((g) => g.sessie_id)
   );
 
+  // De splitsvraag telt los van de analysesessies: hij staat vooral onder
+  // artikelen en rapporten, dus ook bij bezoekers die nooit aan de analyse begonnen.
+  const gebInVenster = (data.gebeurtenissen ?? []).filter((g) => binnen(g.created_at));
+  const uniek = (lijst: Gebeurtenis[]) => new Set(lijst.map((g) => g.sessie_id)).size;
+  const splitsKeuzes = gebInVenster.filter((g) => g.gebeurtenis === "cta_splitsing");
+  const splitsingJaPerPlek: Record<string, number> = {};
+  for (const g of splitsKeuzes) {
+    if (g.meta?.keuze !== "ja") continue;
+    const plek = typeof g.meta?.plek === "string" ? (g.meta.plek as string) : "onbekend";
+    splitsingJaPerPlek[plek] = (splitsingJaPerPlek[plek] ?? 0) + 1;
+  }
+
   const behoefte: Record<string, number> = {};
   const bezwaar: Record<string, number> = {};
   for (const s of afgerond) {
@@ -455,6 +476,12 @@ export function berekenKerncijfers(data: ApiData, eigenTonen: boolean, van: stri
     geklikSite: klikSite.size,
     behoefte: behoefte,
     bezwaar: bezwaar,
+    splitsingGezien: uniek(gebInVenster.filter((g) => g.gebeurtenis === "splitsing_gezien")),
+    splitsingNee: uniek(splitsKeuzes.filter((g) => g.meta?.keuze === "nee")),
+    splitsingJa: uniek(splitsKeuzes.filter((g) => g.meta?.keuze === "ja")),
+    splitsingJaPerPlek: splitsingJaPerPlek,
+    aangevraagdOverzicht: (data.aanvraagSporen ?? []).filter((a) => binnen(a.created_at) && a.spoor === "overzicht")
+      .length,
   };
 }
 

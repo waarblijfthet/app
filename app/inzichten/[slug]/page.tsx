@@ -3,12 +3,13 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
+import SplitsVraag from "@/components/SplitsVraag";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getArtikel, artikelen, laatstGewijzigd } from "@/lib/inzichten-data";
 import ArticleBody from "./ArticleBody";
 import { PAKKET_INFO } from "@/lib/aanbod-content";
-import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL, geldscanHref } from "@/lib/cta";
+import { ANALYSE_ROUTE, geldscanHref } from "@/lib/cta";
 import { keuzeVoorSleutel } from "@/lib/geldmomenten";
 
 interface Props {
@@ -296,9 +297,12 @@ export default function ArtikelPage({ params }: Props) {
                   marginBottom: "2.5rem",
                 }}
               >
-                {/* Het slot van elk artikel, punt 22. Eén primaire analyse-CTA
-                    en daaronder, tekstueel en ondergeschikt, de enige
-                    Geldscan-verwijzing van het artikel. */}
+                {/* Het slot van elk artikel. Sinds 5-nov-2026 één vraag in
+                    plaats van één analyseknop: "Heb je al een overzicht?"
+                    (components/SplitsVraag.tsx). Nee gaat naar de analyse met
+                    de situatieparameters van het artikel, ja naar de uitleg
+                    van de Geldscan. Bij een geldmoment blijft daaronder de
+                    Geldscan-link met de keuze staan. */}
                 <p
                   className="font-body font-medium text-primary"
                   style={{ marginBottom: "0.5rem", fontSize: "1.1rem" }}
@@ -312,14 +316,7 @@ export default function ArtikelPage({ params }: Props) {
                   {artikel.cta?.tekst ??
                     "Algemene gemiddelden vertellen iets. Jouw eigen financiële situatie vertelt meer."}
                 </p>
-                <CtaLink
-                  doel="analyse"
-                  href={artikel.cta?.primairHref ?? ANALYSE_ROUTE}
-                  locatie="artikel-slot"
-                  className="btn-primary"
-                >
-                  {PRIMAIRE_CTA_LABEL} →
-                </CtaLink>
+                <SplitsVraag plek="artikel-slot" analyseHref={artikel.cta?.primairHref ?? ANALYSE_ROUTE} />
                 {keuze && (
                   <p
                     className="font-body text-sm font-light text-text-soft"
@@ -328,19 +325,19 @@ export default function ArtikelPage({ params }: Props) {
                     {keuze.slotzin}
                   </p>
                 )}
-                <p style={{ marginTop: keuze ? "0.4rem" : "0.85rem", marginBottom: 0 }}>
-                  <CtaLink
-                    doel="geldscan"
-                    href={keuze ? geldscanHref({ keuze: keuze.sleutel }) : geldscanHref()}
-                    locatie={keuze ? `artikel-slot-keuze-${keuze.sleutel}` : "artikel-slot"}
-                    className="font-body text-sm hover:underline"
-                    style={{ color: "#0B7A6E", textDecoration: "none" }}
-                  >
-                    {keuze
-                      ? `Geldscan aanvragen, ${PAKKET_INFO.geldscan.prijs} →`
-                      : `Na de analyse kun je de Geldscan aanvragen, ${PAKKET_INFO.geldscan.prijs} →`}
-                  </CtaLink>
-                </p>
+                {keuze && (
+                  <p style={{ marginTop: "0.4rem", marginBottom: 0 }}>
+                    <CtaLink
+                      doel="geldscan"
+                      href={geldscanHref({ keuze: keuze.sleutel })}
+                      locatie={`artikel-slot-keuze-${keuze.sleutel}`}
+                      className="font-body text-sm hover:underline"
+                      style={{ color: "#0B7A6E", textDecoration: "none" }}
+                    >
+                      {`Geldscan aanvragen, ${PAKKET_INFO.geldscan.prijs} →`}
+                    </CtaLink>
+                  </p>
+                )}
               </div>
 
               {/* FAQ sectie */}

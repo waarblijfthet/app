@@ -2,6 +2,8 @@ import Link from "next/link";
 import EenvoudigeTabel from "@/components/artikel/EenvoudigeTabel";
 import JaarkostenTeller from "@/components/artikel/JaarkostenTeller";
 import DownloadLink from "@/components/artikel/DownloadLink";
+import CtaLink from "@/components/CtaLink";
+import { NAKIJKEN_ROUTE } from "@/lib/cta";
 import { rapportVoorSlug, RAPPORTEN } from "@/lib/rapporten-data";
 import {
   ICP_BRONNEN,
@@ -55,6 +57,20 @@ function DownloadKnop() {
       <DownloadLink href={HUISHOUDBOEKJE_DOWNLOAD} bestand="huishoudboekje" className="btn-primary inline-block text-center">
         Download het huishoudboekje (.xlsx) &darr;
       </DownloadLink>
+      {/* 5-nov-2026: wie dit invult, heeft daarna een overzicht. De logische
+          volgende stap is het laten nakijken (plan positionering, spoor B). */}
+      <p className="font-body text-sm mt-4" style={{ color: "#4A5A56", lineHeight: 1.6, marginBottom: 0 }}>
+        Ingevuld?{" "}
+        <CtaLink
+          doel="geldscan"
+          href={NAKIJKEN_ROUTE}
+          locatie="huishoudboekje-download"
+          className="font-medium hover:underline"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+        >
+          Stuur het op, dan kijk ik het na en zet ik je maand neer, €49 →
+        </CtaLink>
+      </p>
     </div>
   );
 }

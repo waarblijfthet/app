@@ -4,13 +4,14 @@ import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CtaLink from "@/components/CtaLink";
-import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL, geldscanHref, GELDSCAN_CTA_LABEL } from "@/lib/cta";
+import SplitsVraag from "@/components/SplitsVraag";
+import { ANALYSE_ROUTE, geldscanHref, GELDSCAN_CTA_LABEL } from "@/lib/cta";
 import { RAPPORTEN, AANTAL_ZONDER_VERVOLG, rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Tarieven: geldrapport, gesprek en traject",
+  title: "Tarieven: Geldscan €49 en vervolgsessie €125",
   description:
-    "Ik schrijf een persoonlijk geldrapport over jouw cijfers, met de drie dingen die het meest opvallen en wat juist niet. 49 euro, eenmalig. Vijf echte rapporten staan op de site, met de cijfers, mijn advies en de evaluatie van de klant, dus je weet wat je koopt voordat je betaalt.",
+    "Ik kijk je cijfers na en zet je maand neer, met jouw bedragen: welke rekening waarvoor, wat er naar jaarkosten, buffer en sparen gaat. Aanleveren met je eigen overzicht of een korte vragenlijst. 49 euro, eenmalig. Vijf echte rapporten staan op de site, met de cijfers, mijn advies en de evaluatie van de klant, dus je weet wat je koopt voordat je betaalt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -57,7 +58,7 @@ const heroStappen: {
     kicker: "Daarna begrijpen",
     titel: "Geldscan",
     prijs: "€49",
-    tekst: "Ik kijk zelf naar jouw cijfers en leg uit wat opvalt en waarom.",
+    tekst: "Ik kijk je cijfers na en zet je maand neer, met jouw bedragen.",
     nadruk: true,
   },
   {
@@ -65,7 +66,7 @@ const heroStappen: {
     kicker: "Daarna bespreken",
     titel: "Persoonlijke vervolgsessie",
     prijs: "€125",
-    tekst: "We bespreken je uitkomst en bepalen samen wat de beste volgende stap is.",
+    tekst: "We zetten je nieuwe verdeling samen neer, of toetsen hem.",
     nadruk: false,
   },
 ];
@@ -168,23 +169,23 @@ function VoordeelIcoontje({ naam }: { naam: VoordeelIcoon }) {
 const geldscanVoordelen: { icoon: VoordeelIcoon; titel: string; tekst: string }[] = [
   {
     icoon: "loep",
-    titel: "Ik kijk zelf naar jouw cijfers",
-    tekst: "Geen automatische tool, maar een persoonlijke analyse door mij.",
+    titel: "Stuur in wat je hebt",
+    tekst: "Je eigen overzicht (Excel, bankapp, budgetapp) of een korte vragenlijst.",
   },
   {
     icoon: "uitleg",
-    titel: "Je krijgt mijn uitleg",
-    tekst: "Je ontvangt heldere uitleg bij wat opvalt en waarom jij afwijkt.",
+    titel: "Nagekeken",
+    tekst: "Wat klopt, wat ontbreekt en wat juist niet uit de toon valt.",
   },
   {
     icoon: "doel",
-    titel: "Concrete aandachtspunten",
-    tekst: "Praktische inzichten waar je direct iets mee kunt.",
+    titel: "Je maand, neergezet",
+    tekst: "Welke rekening waarvoor, met jouw bedragen voor jaarkosten, buffer en sparen.",
   },
   {
     icoon: "vink",
-    titel: "Daarna kun jij kiezen",
-    tekst: "Gebruik het inzicht zelf, of bespreek het in een vervolgsessie.",
+    titel: "Daarna doe je het zelf",
+    tekst: "Of je zet het samen met mij neer in een vervolgsessie.",
   },
 ];
 
@@ -225,11 +226,11 @@ function TrustIcoontje({ naam }: { naam: TrustIcoon }) {
 
 const geldscanTrust: { icoon: TrustIcoon; titel: string; tekst: string }[] = [
   { icoon: "eenmalig", titel: "Eenmalige betaling", tekst: "Geen abonnement." },
-  { icoon: "slot", titel: "100% vertrouwelijk", tekst: "Je gegevens zijn veilig." },
+  { icoon: "slot", titel: "Alleen ik zie het", tekst: "Wat je aanlevert verwijder ik na levering zelf." },
   {
     icoon: "persoon",
-    titel: "Persoonlijk en onafhankelijk",
-    tekst: "Geen provisies. Geen producten.",
+    titel: "Geen ander belang",
+    tekst: "Vaste prijs. Geen producten, geen provisie.",
   },
 ];
 
@@ -320,8 +321,8 @@ const sessieVoordelen: { icoon: SessieIcoon; titel: string; tekst: string }[] = 
   },
   {
     icoon: "personen",
-    titel: "Praktisch en onafhankelijk",
-    tekst: "Eerlijk advies, zonder provisies of producten.",
+    titel: "Geen ander belang",
+    tekst: "Vaste prijs, geen producten, geen provisie.",
   },
 ];
 
@@ -372,8 +373,8 @@ export default function AanbodPage() {
                   className="font-body max-w-[460px] font-light leading-relaxed"
                   style={{ fontSize: "1.05rem", color: "#4A5A56" }}
                 >
-                  Van gratis inzicht tot persoonlijke begeleiding.
-                  <span className="block">Kies de stap die nu past bij jouw situatie.</span>
+                  Nog geen overzicht? Begin gratis.
+                  <span className="block">Heb je er al een? Dan kijk ik het na en zet ik je maand neer.</span>
                 </p>
 
                 {/* De drie stappen. Naast elkaar zodra er ruimte is, met een
@@ -439,15 +440,8 @@ export default function AanbodPage() {
                   ))}
                 </div>
 
-                <div className="mt-10">
-                  <CtaLink
-                    doel="analyse"
-                    href={ANALYSE_ROUTE}
-                    locatie="aanbod-hero"
-                    className="btn-primary"
-                  >
-                    {PRIMAIRE_CTA_LABEL} →
-                  </CtaLink>
+                <div className="mt-10 max-w-[520px]">
+                  <SplitsVraag plek="aanbod-hero" analyseHref={ANALYSE_ROUTE} />
                 </div>
               </div>
 
@@ -581,14 +575,14 @@ export default function AanbodPage() {
                 className="font-body mt-3 text-lg font-medium"
                 style={{ color: "#0B7A6E" }}
               >
-                Het complete inzicht in jouw geld.
+                Ik kijk je cijfers na en zet je maand neer.
               </p>
               <p
                 className="font-body mx-auto mt-4 max-w-[560px] font-light leading-relaxed"
                 style={{ color: "#4A5A56" }}
               >
-                Ik analyseer je inkomsten en uitgaven en geef je duidelijkheid over wat opvalt,
-                waarom en wat je ermee kunt.
+                Welke rekening waarvoor, wat er per maand naar je jaarkosten, je buffer en je
+                spaardoel gaat, met jouw bedragen. Eén keer. Daarna doe je het zelf.
               </p>
             </div>
 
@@ -783,10 +777,10 @@ export default function AanbodPage() {
             <div className="mt-5 flex flex-col gap-6 rounded-2xl border border-[#D5E5E0] bg-white px-6 py-7 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="font-display mb-1.5 text-xl font-light text-[#16211F]">
-                  Klaar om echt inzicht te krijgen?
+                  Je maand, nagekeken en neergezet.
                 </p>
                 <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
-                  Ontdek wat er in jouw Geldscan staat.
+                  Stuur in wat je hebt. Eén keer, €49.
                 </p>
               </div>
               <CtaLink
@@ -820,14 +814,14 @@ export default function AanbodPage() {
                   Persoonlijke vervolgsessie · €125
                 </h2>
                 <p className="font-body mt-3 text-lg font-medium" style={{ color: "#0B7A6E" }}>
-                  Verdiep je inzicht. Bespreek wat je nu weet.
+                  Samen je nieuwe verdeling neerzetten.
                 </p>
                 <p
                   className="font-body mt-4 max-w-[520px] font-light leading-relaxed"
                   style={{ color: "#4A5A56" }}
                 >
-                  Na je Geldscan kun je in een persoonlijke sessie je uitkomst bespreken. We kijken
-                  samen naar de keuzes die bij jouw situatie passen.
+                  Na je Geldscan kun je de nieuwe verdeling in 45 minuten samen met mij neerzetten of
+                  toetsen. Dat is optioneel.
                 </p>
 
                 <div className="mt-10">

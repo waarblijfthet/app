@@ -1,7 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import type { MaandGevoel } from "@/lib/quiz-types";
+import { NAKIJKEN_ROUTE } from "@/lib/cta";
+import { logGebeurtenis } from "@/lib/track";
 
 /**
  * Het scherm vóór de analyse: sinds 30-okt-2026 is dat vraag 1 zelf.
@@ -124,6 +127,25 @@ export default function IntroScherm({
 
       <p className="font-body text-[13px] leading-relaxed text-center mt-6" style={{ color: HULP }}>
         Anoniem · geen bankgegevens · je hoeft niets te kopen
+      </p>
+
+      {/* 5-nov-2026: de tweede ingang, voor wie al een overzicht heeft. Klein,
+          zodat de vraag hierboven de start blijft. */}
+      <p className="font-body text-[13px] leading-relaxed text-center mt-3" style={{ color: HULP }}>
+        Heb je al een overzicht van je uitgaven?{" "}
+        <Link
+          href={NAKIJKEN_ROUTE}
+          onClick={() =>
+            logGebeurtenis("cta_splitsing", {
+              pakket: "geldscan",
+              meta: { plek: "analyse-intro", keuze: "ja", pagina: "/analyse", vervolgpagina: NAKIJKEN_ROUTE },
+            })
+          }
+          className="underline underline-offset-2 hover:opacity-80"
+          style={{ color: "#0B7A6E" }}
+        >
+          Laat het nakijken
+        </Link>
       </p>
     </div>
   );

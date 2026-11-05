@@ -19,20 +19,22 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
   geldscan: {
     naam: "Geldrapport",
     prijs: "€49",
+    // 5-nov-2026: twee manieren van aanleveren en de maandstructuur als vast
+    // onderdeel. Zie docs/plan-positionering-aanbod-05-nov-2026.md.
     hoeHetWerkt: [
-      "Je meldt je aan met je naam en e-mailadres",
-      "Ik stuur je binnen 1 werkdag een betaalverzoek van 49 euro, altijd vanaf hallo@waarblijfthet.nl",
-      "Na betaling vul je de analyse in, dat kost 2 minuten",
-      "Optioneel stuur je een paar recente bankafschriften mee, dan kijk ik naar wat er echt gebeurde in plaats van naar schattingen",
-      "Binnen 2 werkdagen daarna heb je je rapport, en direct daarna verwijder ik alles wat je hebt aangeleverd",
+      "Je meldt je aan met je voornaam en e-mailadres",
+      "Je krijgt per e-mail een betaallink van 49 euro, in je bevestigingsmail of uiterlijk binnen 1 werkdag",
+      "Na betaling stuur je in wat je hebt: je eigen overzicht (Excel, Google Sheet, je bankapp of budgetapp) of een korte vragenlijst",
+      "Bankafschriften mogen, maar hoeven niet",
+      "Binnen 2 werkdagen daarna heb je je rapport. Wat je aanleverde verwijder ik daarna zelf",
     ],
     watJeKrijgt: [
       "Een rapport dat ik zelf schrijf, geen sjabloon en geen algoritme",
-      "De drie dingen die het meest opvallen, met per stuk wat het je per jaar kost",
-      "Per stuk wat ik zou doen, en wat het niet oplost",
-      "De posten die ik géén probleem vind, want die zijn er ook",
-      "En als er niets te repareren valt, staat dat er ook",
-      "In gewone taal, herleesbaar en te delen met je partner",
+      "Nagekeken: de drie dingen die het meest opvallen, wat er ontbreekt, en wat juist niet uit de toon valt",
+      "Je maand neergezet: welke rekening waarvoor, met jouw bedragen voor vaste lasten, jaarkosten, leefgeld, buffer en sparen",
+      "Waar je afwijkt van vergelijkbare huishoudens, en waar niet",
+      "Als er niets te repareren valt, staat dat er ook",
+      "In gewone taal, te delen met je partner. Daarna doe je het zelf",
     ],
   },
   gesprek: {

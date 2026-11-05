@@ -7,13 +7,15 @@ import Image from "next/image";
 import { logGebeurtenis } from "@/lib/track";
 import { SITUATIE_OPTIES } from "./opties";
 import { KEUZES, keuzeVoorSleutel, keuzeVoorvoegsel } from "@/lib/geldmomenten";
+import { SPOREN, spoorVoorSleutel } from "@/lib/cta";
 
 /**
  * De aanvraagpagina voor de Geldscan (/aanbod/intake?pakket=geldscan).
  *
  * Dit is bewust geen intake en geen checkout, maar een korte aanvraag. De
  * betaling gaat met de hand: de bezoeker laat contactgegevens achter, ik neem
- * contact op, stuur een betaalverzoek van 49 euro, en pas na betaling vraag ik
+ * contact op (sinds 5-nov-2026 kan de betaallink direct in de bevestigingsmail,
+ * zie app/api/send-intake-bevestiging), stuur een betaalverzoek van 49 euro, en pas na betaling vraag ik
  * de gegevens op die ik nodig heb om het rapport te maken.
  *
  * Vraag hier dus nooit inkomen, woonlasten, uitgaven, auto, hypotheek of
@@ -34,6 +36,8 @@ interface Props {
   token?: string;
   /** Sleutel uit lib/geldmomenten.ts, via ?keuze=. Onbekend wordt genegeerd. */
   keuze?: string;
+  /** Hoe iemand aanlevert (5-nov-2026, lib/cta.ts SPOREN), via ?spoor=. */
+  spoor?: string;
 }
 
 const GROEN = "#0B7A6E";
@@ -68,37 +72,37 @@ const STAPPEN = [
     regel: "Je vult het formulier in en verstuurt je aanvraag.",
   },
   {
-    icoon: "mail" as const,
-    titel: "Ik neem contact op",
-    regel: "Ik bekijk je aanvraag en neem contact met je op.",
-  },
-  {
     icoon: "euro" as const,
-    titel: "Betaalverzoek",
-    regel: "Je ontvangt een betaalverzoek voor de Geldscan (€49).",
+    titel: "Betalen",
+    regel: "Je krijgt per e-mail een betaallink van €49, in je bevestigingsmail of uiterlijk binnen 1 werkdag.",
   },
   {
     icoon: "document" as const,
-    titel: "Meer informatie",
-    regel: "Na betaling vraag ik je om meer informatie voor je scan.",
+    titel: "Insturen wat je hebt",
+    regel: "Je eigen overzicht (Excel, Google Sheet, bankapp of budgetapp) of een korte vragenlijst. Afschriften hoeven niet.",
+  },
+  {
+    icoon: "mail" as const,
+    titel: "Ik kijk het na",
+    regel: "Wat ik nog mis, vraag ik je. Ik schrijf alles zelf.",
   },
   {
     icoon: "grafiek" as const,
-    titel: "Jouw Geldscan",
-    regel: "Ik maak het rapport en stuur het binnen 2 werkdagen naar je op.",
+    titel: "Je maand, neergezet",
+    regel: "Binnen 2 werkdagen: wat opvalt, en welke rekening waarvoor met jouw bedragen.",
   },
 ];
 
 const FAQ = [
   {
-    vraag: "Wanneer ontvang ik een betaalverzoek?",
+    vraag: "Wanneer betaal ik?",
     antwoord:
-      "Nadat ik je aanvraag heb gelezen neem ik contact met je op en stuur ik je een betaalverzoek van €49.",
+      "Na je aanvraag. De betaallink van €49 staat in je bevestigingsmail, of je krijgt hem uiterlijk binnen 1 werkdag van mij. Pas na betaling stuur je iets in.",
   },
   {
-    vraag: "Moet ik nu al bankafschriften aanleveren?",
+    vraag: "Wat moet ik insturen?",
     antwoord:
-      "Nee. Dat is nu niet nodig. Na betaling vraag ik je om de informatie die voor jouw Geldscan nodig is. Bankafschriften kun je eventueel toevoegen voor extra detail.",
+      "Wat je al hebt. Een Excel of Google Sheet met je begroting, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Heb je dat niet, dan vul je een korte vragenlijst in, of gebruik ik je gratis analyse. Bankafschriften mogen, maar hoeven niet. Nu, bij de aanvraag, stuur je nog niets.",
   },
   {
     vraag: "Hoe lang duurt het voordat ik mijn Geldscan ontvang?",
@@ -364,12 +368,13 @@ function Proceslijn() {
   );
 }
 
-export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
+export function GeldscanAanvraag({ token, keuze: startKeuze, spoor: startSpoor }: Props) {
   const router = useRouter();
   const [naam, setNaam] = useState("");
   const [email, setEmail] = useState("");
   const [situatie, setSituatie] = useState("");
   const [keuze, setKeuze] = useState<string>(keuzeVoorSleutel(startKeuze)?.sleutel ?? "");
+  const [spoor, setSpoor] = useState<string>(spoorVoorSleutel(startSpoor)?.sleutel ?? "");
   const [bericht, setBericht] = useState("");
   const [bezig, setBezig] = useState(false);
   const [fout, setFout] = useState<string | null>(null);
@@ -420,10 +425,16 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
     const schoonEmail = email.trim().toLowerCase();
     const schoonBericht = bericht.trim() || null;
     const gekozen = keuzeVoorSleutel(keuze);
-    // Geen nieuwe kolom: de keuze staat als voorvoegsel voor het bericht.
-    const knelpunt = gekozen
-      ? [keuzeVoorvoegsel(gekozen), schoonBericht].filter(Boolean).join(" ")
-      : schoonBericht;
+    const gekozenSpoor = spoorVoorSleutel(spoor);
+    // Geen nieuwe kolom: spoor en keuze staan als voorvoegsel voor het bericht.
+    const knelpunt =
+      [
+        gekozenSpoor ? gekozenSpoor.voorvoegsel : null,
+        gekozen ? keuzeVoorvoegsel(gekozen) : null,
+        schoonBericht,
+      ]
+        .filter(Boolean)
+        .join(" ") || null;
 
     try {
       const dbRes = await fetch("/api/intake", {
@@ -455,6 +466,7 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
           pakket: "geldscan",
           situatie_details: schoonBericht,
           keuze: gekozen ? gekozen.sleutel : null,
+          spoor: gekozenSpoor ? gekozenSpoor.sleutel : null,
         }),
       });
       if (!mailRes.ok) {
@@ -468,6 +480,7 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
           velden: veldenTotaal,
           totaal: veldenTotaal,
           keuze: gekozen ? gekozen.sleutel : null,
+          spoor: gekozenSpoor ? gekozenSpoor.sleutel : null,
         },
       });
       router.push("/aanbod/intake/bedankt?pakket=geldscan");
@@ -541,8 +554,9 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
               className="font-body"
               style={{ color: ZACHT, fontSize: "1rem", lineHeight: 1.75, maxWidth: "32rem" }}
             >
-              Ik neem contact met je op, stuur je een betaalverzoek van €49 en vraag na betaling
-              om meer informatie. Daarna maak ik jouw persoonlijke Geldscan.
+              Ik kijk je cijfers na en zet je maand neer: welke rekening waarvoor, met jouw bedragen.
+              Je betaalt €49 en stuurt daarna in wat je hebt, je eigen overzicht of een korte
+              vragenlijst.
             </p>
 
             <ul
@@ -584,7 +598,7 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
               className="font-body"
               style={{ color: ZACHT, fontSize: "0.9rem", lineHeight: 1.6, marginBottom: "1.5rem" }}
             >
-              Vul je gegevens in, dan neem ik contact met je op.
+              Alleen je voornaam en e-mailadres zijn nodig. De rest stuur je pas na betaling.
             </p>
 
             {token && (
@@ -639,6 +653,42 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
                   onFocus={(e) => (e.target.style.borderColor = DONKER)}
                   onBlur={(e) => (e.target.style.borderColor = RAND)}
                 />
+              </div>
+
+              <div style={{ marginBottom: "1.1rem" }}>
+                <LabelTekst htmlFor="spoor">Hoe wil je aanleveren? (optioneel)</LabelTekst>
+                <select
+                  id="spoor"
+                  name="spoor"
+                  value={spoor}
+                  onChange={(e) => setSpoor(e.target.value)}
+                  style={{
+                    ...VELD_STIJL,
+                    color: spoor ? DONKER : GRIJS,
+                    appearance: "none",
+                    backgroundImage: SELECT_PIJL,
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "right 1rem center",
+                    paddingRight: "2.75rem",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = DONKER)}
+                  onBlur={(e) => (e.target.style.borderColor = RAND)}
+                >
+                  <option value="">Weet ik nog niet</option>
+                  {SPOREN.map((s) => (
+                    <option key={s.sleutel} value={s.sleutel}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+                {spoor === "overzicht" && (
+                  <p
+                    className="font-body"
+                    style={{ fontSize: "0.8rem", color: ZACHT, lineHeight: 1.6, marginTop: "0.45rem" }}
+                  >
+                    Je stuurt het pas na betaling, als antwoord op mijn mail. Wat ik nog mis, vraag ik je.
+                  </p>
+                )}
               </div>
 
               <div style={{ marginBottom: "1.1rem" }}>
@@ -761,8 +811,8 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
                     Wat gebeurt er daarna?
                   </p>
                   <p style={{ color: ZACHT, fontSize: "0.85rem", lineHeight: 1.6 }}>
-                    Ik neem contact met je op en stuur je een betaalverzoek. Na betaling vraag ik je
-                    om meer informatie voor je Geldscan.
+                    Je krijgt een bevestiging per e-mail met de betaallink, of de link volgt uiterlijk
+                    binnen 1 werkdag. Na betaling stuur je in wat je hebt.
                   </p>
                 </div>
               </div>
@@ -940,10 +990,10 @@ export function GeldscanAanvraag({ token, keuze: startKeuze }: Props) {
                 className="font-display font-light"
                 style={{ color: DONKER, fontSize: "1.4rem", marginBottom: "0.35rem" }}
               >
-                Klaar voor inzicht?
+                Je maand, nagekeken en neergezet.
               </h2>
               <p className="font-body" style={{ color: ZACHT, fontSize: "0.92rem", lineHeight: 1.6 }}>
-                Vraag je Geldscan aan en zie wat er in jouw cijfers opvalt.
+                Eén keer, €49. Daarna doe je het zelf.
               </p>
             </div>
           </div>

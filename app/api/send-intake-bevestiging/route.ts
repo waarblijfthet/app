@@ -1,12 +1,25 @@
 import { Resend } from "resend";
 import { NextRequest, NextResponse } from "next/server";
 import { keuzeVoorSleutel } from "@/lib/geldmomenten";
+import { spoorVoorSleutel } from "@/lib/cta";
+
+/**
+ * Betaallink voor de Geldscan (5-nov-2026). Zet in Vercel de omgevingsvariabele
+ * GELDSCAN_BETAALLINK op een herbruikbare betaallink van €49 (bijvoorbeeld een
+ * betaalverzoek van je bank of een Tikkie die lang genoeg geldig is). Staat hij
+ * er niet, dan zegt de mail dat de link binnen een werkdag komt, en staat er
+ * in de melding aan Jarno dat hij hem zelf moet sturen. Nooit stil terugvallen.
+ */
+function geldscanBetaallink(): string | null {
+  const link = (process.env.GELDSCAN_BETAALLINK ?? "").trim();
+  return /^https:\/\/[^\s"<>]+$/.test(link) ? link : null;
+}
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(request: NextRequest) {
   try {
-    const { naam, email, pakket, situatie_details, inkomen_wisselt, keuze } = await request.json();
+    const { naam, email, pakket, situatie_details, inkomen_wisselt, keuze, spoor } = await request.json();
 
     if (!email || !email.includes("@")) {
       return NextResponse.json(
@@ -25,6 +38,12 @@ export async function POST(request: NextRequest) {
     const keuzeZin = keuzeLabelKlein
       ? `<p style="margin:0 0 24px;font-size:15px;color:#4A5A56;line-height:1.7;">Je gaf aan dat er een keuze aankomt: ${keuzeLabelKlein}. Na je betaling stuur ik de vragenlijst met een paar extra vragen daarover.</p>`
       : "";
+    const gekozenSpoor = isGeldscan ? spoorVoorSleutel(typeof spoor === "string" ? spoor : null) : undefined;
+    const eigenOverzicht = gekozenSpoor?.sleutel === "overzicht";
+    const betaallink = isGeldscan ? geldscanBetaallink() : null;
+    const betaalStap = betaallink
+      ? "Betaal €49 via de knop hieronder"
+      : "Je krijgt uiterlijk binnen één werkdag een betaallink van €49 van mij";
     const pakketLabel =
       isGeldscan
         ? "Geldscan met persoonlijk geldrapport (€49)"
@@ -36,13 +55,17 @@ export async function POST(request: NextRequest) {
     const intro = isGesprek
       ? "Ik neem binnen één werkdag persoonlijk contact op om je adviesgesprek (45 min, video) in te plannen. Je krijgt dan ook het betaalverzoek (€125)."
       : isGeldscan
-      ? "Na je aanvraag stuur ik je een betaalverzoek. Zodra dat betaald is, vraag ik je de analyse in te vullen, en binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF per e-mail."
+      ? betaallink
+        ? "Hieronder staat de betaallink van €49. Zodra je hebt betaald, stuur je als antwoord op deze mail in wat je hebt. Binnen twee werkdagen nadat alles compleet is, krijg je je rapport als PDF."
+        : "Ik stuur je uiterlijk binnen één werkdag een betaallink van €49. Zodra je hebt betaald, stuur je in wat je hebt. Binnen twee werkdagen nadat alles compleet is, krijg je je rapport als PDF."
       : "Ik neem binnen één werkdag persoonlijk contact op. Geen standaardmail, maar een bericht dat aansluit op wat je hebt ingevuld.";
     const stappenTitel = isGesprek ? "Zo bereid je je voor" : "Wat er nu gebeurt";
     const stappenHtml = isGesprek
       ? "1. Ik plan je videogesprek van 45 minuten in en je krijgt het betaalverzoek (€125)<br>2. Doe vooraf de analyse, dat is je vertrekpunt (bankafschriften mogen, optioneel)<br>3. In het gesprek kijk ik samen met je naar je cijfers en bepaal je samen met mij 2 à 3 concrete doelen<br>4. Achteraf krijg je een schriftelijke samenvatting, en direct daarna verwijder ik alle aangeleverde gegevens"
+      : isGeldscan && eigenOverzicht
+      ? `1. ${betaalStap}<br>2. Stuur daarna als antwoord op deze mail je overzicht: een Excel of Google Sheet, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Streep weg wat je niet wilt delen, zoals rekeningnummers en namen van anderen<br>3. Wat ik nog mis, vraag ik je, plus een paar vragen over wat cijfers niet laten zien<br>4. Binnen twee werkdagen nadat alles compleet is: wat opvalt, en je maand neergezet met jouw bedragen. Wat je aanleverde verwijder ik daarna zelf`
       : isGeldscan
-      ? "1. Na je aanvraag stuur ik je een betaalverzoek (€49)<br>2. Zodra dat betaald is, vraag ik je de analyse in te vullen (2 minuten), dat geeft me de cijfers voor je rapport<br>3. Optioneel: stuur ook een paar recente bankafschriften mee als bijlage, dan kan ik preciezer zijn. Streep daarin weg wat je niet wilt delen: rekeningnummers, namen van anderen en betalingen die over iemand anders gaan. Ik heb alleen de bedragen en de soort uitgave nodig en ik ben de enige die ze inziet<br>4. Binnen twee werkdagen daarna ontvang je jouw persoonlijke geldrapport als PDF. Je afschriften verwijder ik na levering zelf"
+      ? `1. ${betaalStap}<br>2. Daarna stuur ik je een korte vragenlijst. Heb je de gratis analyse al gedaan, dan gebruik ik die. Heb je zelf een overzicht (Excel, bankapp, budgetapp), stuur dat dan als antwoord op deze mail, dat is net zo goed<br>3. Bankafschriften mogen, maar hoeven niet. Streep weg wat je niet wilt delen<br>4. Binnen twee werkdagen nadat alles compleet is: wat opvalt, en je maand neergezet met jouw bedragen. Wat je aanleverde verwijder ik daarna zelf`
       : "1. Ik lees je aanmelding door<br>2. Je krijgt binnen één werkdag een persoonlijk bericht<br>3. Ik plan het intakegesprek (45 min, video) met je in<br>4. Daarna stel ik samen met jou je plan op maat op";
 
     // Bevestiging naar aanvrager
@@ -84,13 +107,26 @@ export async function POST(request: NextRequest) {
 
         <tr><td style="height:16px;"></td></tr>
 
-        <tr><td style="background-color:#16211F;border-radius:16px;padding:24px;text-align:center;">
+        ${
+          betaallink
+            ? `<tr><td style="background-color:#16211F;border-radius:16px;padding:24px;text-align:center;">
+          <p style="margin:0 0 8px;font-size:13px;color:rgba(245,240,232,0.75);">De Geldscan, €49 eenmalig</p>
+          <a href="${betaallink}"
+             style="display:inline-block;background-color:#0B7A6E;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;">
+            Betaal €49 →
+          </a>
+          <p style="margin:12px 0 0;font-size:12px;color:rgba(245,240,232,0.6);">Zet je voornaam in de omschrijving, dan koppel ik de betaling aan je aanvraag.</p>
+        </td></tr>`
+            : isGeldscan && eigenOverzicht
+            ? ""
+            : `<tr><td style="background-color:#16211F;border-radius:16px;padding:24px;text-align:center;">
           <p style="margin:0 0 8px;font-size:13px;color:rgba(245,240,232,0.6);">Terwijl je wacht</p>
           <a href="https://www.waarblijfthet.nl/analyse"
              style="display:inline-block;background-color:#0B7A6E;color:#FFFFFF;text-decoration:none;padding:12px 24px;border-radius:10px;font-size:14px;font-weight:500;">
             Doe de analyse →
           </a>
-        </td></tr>
+        </td></tr>`
+        }
 
         <tr><td style="padding:16px 0;text-align:center;">
           <p style="margin:0;font-size:12px;color:#8B958F;">Waar blijft het · waarblijfthet.nl</p>
@@ -110,6 +146,14 @@ export async function POST(request: NextRequest) {
       to: "jarnomilankoopman@gmail.com",
       subject: `Nieuwe intake aanvraag: ${pakketLabel}`,
       html: `<p>Nieuwe aanmelding ontvangen voor <strong>${pakketLabel}</strong> van <strong>${naam}</strong> (${email}).</p>${
+        isGeldscan
+          ? `<p><strong>Aanleveren:</strong> ${gekozenSpoor ? gekozenSpoor.label : "nog niet gekozen"}.</p><p><strong>Betaallink in de bevestigingsmail:</strong> ${
+              betaallink
+                ? "ja."
+                : "NEE, GELDSCAN_BETAALLINK staat niet in Vercel. Stuur zelf binnen een werkdag een betaallink van €49."
+            }</p>`
+          : ""
+      }${
         gekozen ? `<p><strong>Keuze die aankomt:</strong> ${gekozen.label}. Stuur na betaling de aanvullende vragen uit docs/vragenlijst-keuze-aanvulling.md mee.</p>` : ""
       }${
         inkomen_wisselt ? "<p><strong>Let op: inkomen verschilt sterk per maand.</strong> Niet met een gemiddelde rekenen, en vraag naar de belastingpot en buffer.</p>" : ""

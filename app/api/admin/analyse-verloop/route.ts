@@ -66,6 +66,9 @@ const NAZORG_GEBEURTENISSEN = [
   "analyse_aanbod_gezien",
   "analyse_behoefte",
   "analyse_aanbod_bezwaar",
+  // 5-nov-2026: de splitsvraag "Heb je al een overzicht?" (components/SplitsVraag.tsx).
+  "splitsing_gezien",
+  "cta_splitsing",
 ];
 
 type AnalyseBezoek = {
@@ -110,8 +113,11 @@ export async function GET(request: NextRequest) {
       haalAlleRijen<{ created_at: string }>(supabase, "quiz_resultaten", "created_at", (q) =>
         q.gte("created_at", sinds)
       ),
-      haalAlleRijen<{ created_at: string }>(supabase, "intake_aanvragen", "created_at", (q) =>
-        q.eq("pakket", "geldscan").gte("created_at", sinds)
+      haalAlleRijen<{ created_at: string; grootste_knelpunt: string | null }>(
+        supabase,
+        "intake_aanvragen",
+        "created_at,grootste_knelpunt",
+        (q) => q.eq("pakket", "geldscan").gte("created_at", sinds)
       ),
     ]);
 
@@ -165,6 +171,15 @@ export async function GET(request: NextRequest) {
       geldscanAanvragen: geldscanRes.length,
       emailMomenten: emailRes.map((r) => r.created_at),
       aanvraagMomenten: geldscanRes.map((r) => r.created_at),
+      // Alleen het spoor, nooit het bericht zelf: dat hoort niet in deze route.
+      aanvraagSporen: geldscanRes.map((r) => ({
+        created_at: r.created_at,
+        spoor: (r.grootste_knelpunt ?? "").startsWith("[Spoor: eigen overzicht]")
+          ? "overzicht"
+          : (r.grootste_knelpunt ?? "").startsWith("[Spoor: vragenlijst]")
+          ? "vragenlijst"
+          : "onbekend",
+      })),
       landingPerSessie: landingPerSessie,
     });
   } catch (e) {
