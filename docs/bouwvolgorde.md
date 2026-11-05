@@ -1714,7 +1714,7 @@ Bewust overgeslagen, met reden:
 - Positie 18 tot 57 op de hoofdterm (financieel adviseur, financieel coach, verschil budgetcoach, kind per maand, kind wordt 18, dag minder werken, hogere hypotheek, vaste lasten overzicht, sparen per maand, meer-geld-overhouden, waar-blijft-mijn-geld): daar is ranking het probleem, niet de titel.
 - Te weinig zoektermdata om op te schrijven (minder dan 15 vertoningen op herkenbare termen): achteraf betalen, netto loonsverhoging, normale vaste lasten gezin, nibud-boodschappen-versus-werkelijkheid (die laatste ook om niet tegen het boodschappenartikel in te gaan).
 
-Copyregel 6 en "eerlijk verdelen": op `kosten-verdelen-samenwonen-ongelijk-inkomen` is "eerlijk" de zoekterm zelf ("hoe verdeel je kosten eerlijk", 19 vertoningen). Uit de metaDescription gehaald, in titel, FAQ's en tekst laten staan. **Beslissing Jarno** of de regel ook voor dit onderwerpwoord geldt.
+Copyregel 6 en "eerlijk verdelen": op `kosten-verdelen-samenwonen-ongelijk-inkomen` is "eerlijk" de zoekterm zelf ("hoe verdeel je kosten eerlijk", 19 vertoningen). Uit de metaDescription gehaald, in titel, FAQ's en tekst laten staan. **Besloten door Jarno, 5 november: "eerlijk" mag op deze pagina blijven staan** (het is de zoekterm, geen claim over mezelf).
 
 Getest: tsc schoon over de hele repo, geen null bytes, geen em dashes in de diff, titellengtes 51 tot 60 tekens. Geen productiebuild (past niet in de shell-timeout).
 
