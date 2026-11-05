@@ -50,13 +50,13 @@ const LICHTGROEN = "#E7F1EE";
 const WAARDEN = [
   {
     icoon: "persoon" as const,
-    titel: "Persoonlijk geschreven",
-    regel: "Geen standaardrapport.",
+    titel: "Stuur in wat je hebt",
+    regel: "Je Excel, je bankapp of een korte vragenlijst.",
   },
   {
     icoon: "schild" as const,
-    titel: "Je ziet het rekenwerk",
-    regel: "De cijfers en de conclusie staan er allebei in.",
+    titel: "Betalen met een betaalverzoek",
+    regel: "Tikkie of overboeking, pas na je aanvraag. Geen account.",
   },
   {
     icoon: "klok" as const,
@@ -74,7 +74,7 @@ const STAPPEN = [
   {
     icoon: "euro" as const,
     titel: "Betalen",
-    regel: "Je krijgt per e-mail een betaallink van €49, in je bevestigingsmail of uiterlijk binnen 1 werkdag.",
+    regel: "Je krijgt per e-mail een betaalverzoek van €49 (Tikkie of overboeking), in je bevestigingsmail of uiterlijk binnen 1 werkdag.",
   },
   {
     icoon: "document" as const,
@@ -88,7 +88,7 @@ const STAPPEN = [
   },
   {
     icoon: "grafiek" as const,
-    titel: "Je maand, neergezet",
+    titel: "Je potjes, uitgerekend",
     regel: "Binnen 2 werkdagen: wat opvalt, en welke rekening waarvoor met jouw bedragen.",
   },
 ];
@@ -97,7 +97,7 @@ const FAQ = [
   {
     vraag: "Wanneer betaal ik?",
     antwoord:
-      "Na je aanvraag. De betaallink van €49 staat in je bevestigingsmail, of je krijgt hem uiterlijk binnen 1 werkdag van mij. Pas na betaling stuur je iets in.",
+      "Na je aanvraag, met een betaalverzoek van €49: een Tikkie of een gewone overboeking. Het staat in je bevestigingsmail, of je krijgt het uiterlijk binnen 1 werkdag van mij. Pas na betaling stuur je iets in.",
   },
   {
     vraag: "Wat moet ik insturen?",
@@ -554,7 +554,7 @@ export function GeldscanAanvraag({ token, keuze: startKeuze, spoor: startSpoor }
               className="font-body"
               style={{ color: ZACHT, fontSize: "1rem", lineHeight: 1.75, maxWidth: "32rem" }}
             >
-              Ik kijk je cijfers na en zet je maand neer: welke rekening waarvoor, met jouw bedragen.
+              Ik kijk je cijfers na en reken je potjes uit: welke rekening waarvoor, met jouw bedragen.
               Je betaalt €49 en stuurt daarna in wat je hebt, je eigen overzicht of een korte
               vragenlijst.
             </p>
@@ -990,7 +990,7 @@ export function GeldscanAanvraag({ token, keuze: startKeuze, spoor: startSpoor }
                 className="font-display font-light"
                 style={{ color: DONKER, fontSize: "1.4rem", marginBottom: "0.35rem" }}
               >
-                Je maand, nagekeken en neergezet.
+                Je cijfers nagekeken, je potjes uitgerekend.
               </h2>
               <p className="font-body" style={{ color: ZACHT, fontSize: "0.92rem", lineHeight: 1.6 }}>
                 Eén keer, €49. Daarna doe je het zelf.

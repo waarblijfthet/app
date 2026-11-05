@@ -193,7 +193,7 @@ export default function RapportPagina({ params }: { params: { slug: string } }) 
               Wil je dat ik zo naar jouw cijfers kijk?
             </h2>
             <p className="font-body font-light text-text-soft leading-relaxed mb-7">
-              Ik kijk na wat er staat en zet je maand neer, met jouw bedragen. Heb je nog geen
+              Ik kijk na wat er staat en reken je potjes uit, met jouw bedragen. Heb je nog geen
               overzicht, dan begin je met de gratis analyse.
             </p>
             {/* 5-nov-2026: één vraag in plaats van analyseknop plus Geldscan-link. */}

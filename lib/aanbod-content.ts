@@ -31,7 +31,7 @@ export const PAKKET_INFO: Record<Pakket, PakketInfo> = {
     watJeKrijgt: [
       "Een rapport dat ik zelf schrijf, geen sjabloon en geen algoritme",
       "Nagekeken: de drie dingen die het meest opvallen, wat er ontbreekt, en wat juist niet uit de toon valt",
-      "Je maand neergezet: welke rekening waarvoor, met jouw bedragen voor vaste lasten, jaarkosten, leefgeld, buffer en sparen",
+      "Je potjes uitgerekend: welke rekening waarvoor, met jouw bedragen voor vaste lasten, jaarkosten, leefgeld, buffer en sparen",
       "Waar je afwijkt van vergelijkbare huishoudens, en waar niet",
       "Als er niets te repareren valt, staat dat er ook",
       "In gewone taal, te delen met je partner. Daarna doe je het zelf",

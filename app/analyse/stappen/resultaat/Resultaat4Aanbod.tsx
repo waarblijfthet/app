@@ -15,7 +15,7 @@ import ToestemmingDataAsset from "./ToestemmingDataAsset";
 // met een structuur en bedragen (docs/plan-positionering-aanbod-05-nov-2026.md).
 const PUNTEN = [
   "Nagekeken: wat opvalt, wat ontbreekt en wat juist niet uit de toon valt",
-  "Je maand neergezet: welke rekening waarvoor, met jouw bedragen",
+  "Je potjes uitgerekend: welke rekening waarvoor, met jouw bedragen",
   "Hoeveel er per maand naar jaarkosten, buffer en sparen gaat",
   "Eén keer. Daarna doe je het zelf, geen traject",
 ];
@@ -47,7 +47,7 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
         Je weet nu ongeveer waar het verschil zit.
       </h2>
       <p className="font-display font-light text-primary/70 text-xl sm:text-2xl mb-6 leading-snug">
-        De volgende stap is je maand zo neerzetten dat het niet meer schuift.
+        De volgende stap is je geld zo over je potjes verdelen dat het niet meer schuift.
       </p>
 
       <div className="rounded-xl border-[1.5px] border-accent/25 bg-green-light p-6 sm:p-8">
@@ -83,7 +83,7 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
           locatie="analyse-resultaat"
           className="btn-primary w-full sm:w-auto text-base"
         >
-          Laat mij het nakijken en neerzetten, €49 →
+          Laat mij het nakijken en uitrekenen, €49 →
         </CtaLink>
         <p className="font-body text-text-muted text-xs mt-3">
           Binnen 2 werkdagen persoonlijk geschreven.

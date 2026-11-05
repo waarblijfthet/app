@@ -11,7 +11,7 @@ import { RAPPORTEN, AANTAL_ZONDER_VERVOLG, rapportVoorSlug } from "@/lib/rapport
 export const metadata: Metadata = {
   title: "Tarieven: Geldscan €49 en vervolgsessie €125",
   description:
-    "Ik kijk je cijfers na en zet je maand neer, met jouw bedragen: welke rekening waarvoor, wat er naar jaarkosten, buffer en sparen gaat. Aanleveren met je eigen overzicht of een korte vragenlijst. 49 euro, eenmalig. Vijf echte rapporten staan op de site, met de cijfers, mijn advies en de evaluatie van de klant, dus je weet wat je koopt voordat je betaalt.",
+    "Ik kijk je cijfers na en reken je potjes uit, met jouw bedragen: welke rekening waarvoor, wat er naar jaarkosten, buffer en sparen gaat. Aanleveren met je eigen overzicht of een korte vragenlijst. 49 euro, eenmalig. Vijf echte rapporten staan op de site, met de cijfers, mijn advies en de evaluatie van de klant, dus je weet wat je koopt voordat je betaalt.",
   robots: { index: true, follow: true },
   alternates: { canonical: "https://www.waarblijfthet.nl/aanbod" },
 };
@@ -48,22 +48,22 @@ const heroStappen: {
 }[] = [
   {
     nummer: "01",
-    kicker: "Eerst ontdekken",
+    kicker: "Nog geen overzicht",
     titel: "Gratis analyse",
     tekst: "Ontdek waar je afwijkt van vergelijkbare huishoudens.",
     nadruk: false,
   },
   {
     nummer: "02",
-    kicker: "Daarna begrijpen",
+    kicker: "Al een overzicht",
     titel: "Geldscan",
     prijs: "€49",
-    tekst: "Ik kijk je cijfers na en zet je maand neer, met jouw bedragen.",
+    tekst: "Ik kijk je cijfers na en reken je potjes uit, met jouw bedragen.",
     nadruk: true,
   },
   {
     nummer: "03",
-    kicker: "Daarna bespreken",
+    kicker: "Daarna, als je wil",
     titel: "Persoonlijke vervolgsessie",
     prijs: "€125",
     tekst: "We zetten je nieuwe verdeling samen neer, of toetsen hem.",
@@ -179,7 +179,7 @@ const geldscanVoordelen: { icoon: VoordeelIcoon; titel: string; tekst: string }[
   },
   {
     icoon: "doel",
-    titel: "Je maand, neergezet",
+    titel: "Je potjes, uitgerekend",
     tekst: "Welke rekening waarvoor, met jouw bedragen voor jaarkosten, buffer en sparen.",
   },
   {
@@ -374,7 +374,7 @@ export default function AanbodPage() {
                   style={{ fontSize: "1.05rem", color: "#4A5A56" }}
                 >
                   Nog geen overzicht? Begin gratis.
-                  <span className="block">Heb je er al een? Dan kijk ik het na en zet ik je maand neer.</span>
+                  <span className="block">Heb je er al een? Dan kijk ik het na en reken ik je potjes uit.</span>
                 </p>
 
                 {/* De drie stappen. Naast elkaar zodra er ruimte is, met een
@@ -575,7 +575,7 @@ export default function AanbodPage() {
                 className="font-body mt-3 text-lg font-medium"
                 style={{ color: "#0B7A6E" }}
               >
-                Ik kijk je cijfers na en zet je maand neer.
+                Ik kijk je cijfers na en reken je potjes uit.
               </p>
               <p
                 className="font-body mx-auto mt-4 max-w-[560px] font-light leading-relaxed"
@@ -777,7 +777,7 @@ export default function AanbodPage() {
             <div className="mt-5 flex flex-col gap-6 rounded-2xl border border-[#D5E5E0] bg-white px-6 py-7 sm:px-8 lg:flex-row lg:items-center lg:justify-between">
               <div>
                 <p className="font-display mb-1.5 text-xl font-light text-[#16211F]">
-                  Je maand, nagekeken en neergezet.
+                  Je cijfers nagekeken, je potjes uitgerekend.
                 </p>
                 <p className="font-body text-sm font-light leading-relaxed text-[#4A5A56]">
                   Stuur in wat je hebt. Eén keer, €49.

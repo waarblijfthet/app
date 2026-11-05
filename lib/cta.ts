@@ -64,12 +64,12 @@ export type SpoorSleutel = "overzicht" | "vragenlijst";
 export const SPOREN: { sleutel: SpoorSleutel; label: string; voorvoegsel: string }[] = [
   {
     sleutel: "overzicht",
-    label: "Mijn eigen overzicht (Excel, bankapp of budgetapp)",
+    label: "Mijn eigen overzicht",
     voorvoegsel: "[Spoor: eigen overzicht]",
   },
   {
     sleutel: "vragenlijst",
-    label: "Een korte vragenlijst of mijn gratis analyse",
+    label: "Vragenlijst of gratis analyse",
     voorvoegsel: "[Spoor: vragenlijst]",
   },
 ];

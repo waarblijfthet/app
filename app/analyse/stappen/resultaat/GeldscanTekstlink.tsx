@@ -36,7 +36,7 @@ export default function GeldscanTekstlink({ plek, inleiding }: Props) {
         locatie={`analyse-${plek}`}
         className="text-[#0B7A6E] font-medium underline underline-offset-2 hover:text-primary"
       >
-        Laat mij het nakijken en je maand neerzetten, Geldscan €49 →
+        Laat mij het nakijken en je potjes uitrekenen, Geldscan €49 →
       </CtaLink>{" "}
       <span className="text-text-muted text-xs">Binnen 2 werkdagen persoonlijk geschreven.</span>
     </p>

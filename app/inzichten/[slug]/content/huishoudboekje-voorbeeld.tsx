@@ -68,7 +68,7 @@ function DownloadKnop() {
           className="font-medium hover:underline"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
         >
-          Stuur het op, dan kijk ik het na en zet ik je maand neer, €49 →
+          Stuur het op, dan kijk ik het na en reken ik je potjes uit, €49 →
         </CtaLink>
       </p>
     </div>

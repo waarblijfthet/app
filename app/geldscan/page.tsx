@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import CtaLink from "@/components/CtaLink";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -9,12 +10,12 @@ import { PAKKET_INFO } from "@/lib/aanbod-content";
 import { KEUZES } from "@/lib/geldmomenten";
 
 export const metadata: Metadata = {
-  title: "Geldscan €49: ik kijk je cijfers na en zet je maand neer",
+  title: "Geldscan €49: ik kijk je cijfers na en reken je potjes uit",
   description:
-    "Je hebt je geld al in beeld en toch schuift het? Stuur je Excel, bankapp-overzicht of de korte vragenlijst. Ik kijk het na en zet je maand neer, met jouw bedragen. €49 eenmalig, binnen 2 werkdagen.",
+    "Je hebt je geld al in beeld en toch schuift het? Stuur je Excel, bankapp-overzicht of de korte vragenlijst. Ik kijk het na en reken je potjes uit, met jouw bedragen. €49 eenmalig, binnen 2 werkdagen.",
   alternates: { canonical: "https://www.waarblijfthet.nl/geldscan" },
   openGraph: {
-    title: "Geldscan €49: ik kijk je cijfers na en zet je maand neer",
+    title: "Geldscan €49: ik kijk je cijfers na en reken je potjes uit",
     description:
       "Welke rekening waarvoor, wat er per maand naar je jaarkosten, buffer en spaardoel gaat, met jouw bedragen. Eén keer, daarna doe je het zelf. €49 eenmalig.",
     url: "https://www.waarblijfthet.nl/geldscan",
@@ -211,7 +212,7 @@ const stappen: {
     titel: "Aanvragen en betalen",
     tekst: (
       <>
-        Je laat je voornaam en e-mailadres achter. Je krijgt per e-mail een betaallink van €49.
+        Je laat je voornaam en e-mailadres achter. Je krijgt per e-mail een betaalverzoek van €49: een Tikkie of een gewone overboeking.
       </>
     ),
   },
@@ -248,7 +249,7 @@ const stappen: {
   },
   {
     icoon: "rapport",
-    titel: "Je maand, neergezet",
+    titel: "Je potjes, uitgerekend",
     tekst: (
       <>
         Binnen 2 werkdagen: wat opvalt, en welke rekening waarvoor met jouw bedragen voor vaste
@@ -282,7 +283,7 @@ const watJeKrijgt: { icoon: IcoonNaam; titel: string; tekst: string }[] = [
   },
   {
     icoon: "doel",
-    titel: "Je maand, neergezet",
+    titel: "Je potjes, uitgerekend",
     tekst: "Welke rekening waarvoor, met jouw bedragen voor jaarkosten, buffer en sparen.",
   },
   {
@@ -309,9 +310,24 @@ const faq = [
       "Wat je al hebt. Een Excel of Google Sheet met je begroting, een schermafbeelding van het uitgavenoverzicht in je bankapp, of een export uit je budgetapp. Heb je dat niet, dan vul je een korte vragenlijst in, of gebruik ik je gratis analyse. Bankafschriften mogen, maar hoeven niet. Streep weg wat er voor mij niet toe doet, zoals rekeningnummers en namen van anderen.",
   },
   {
+    vraag: "Hoe betaal ik?",
+    antwoord:
+      "Na je aanvraag krijg je per e-mail een betaalverzoek van €49: een Tikkie of een gewone overboeking. Geen account, geen creditcard en geen abonnement. Pas na betaling stuur je iets in.",
+  },
+  {
     vraag: "Ik heb al een begroting. Wat voeg jij dan toe?",
     antwoord:
       "Ik kijk wat erin klopt en wat ontbreekt, bijvoorbeeld jaarkosten die niet per maand zijn meegenomen of regelingen die je niet gebruikt, en ik leg je cijfers naast vergelijkbare huishoudens. Daarna reken ik uit hoeveel er per maand naar je vaste lasten, je jaarkosten, je buffer en je spaardoel moet, en op welke rekening. Dat zet je daarna zelf door.",
+  },
+  {
+    vraag: "Kunnen we dit samen doen, met mijn partner?",
+    antwoord:
+      "Ja. De Geldscan gaat over jullie huishouden, dus stuur gerust allebei je deel in. Verdienen jullie niet hetzelfde, zet dat dan in je bericht: dan reken ik ook uit wat ieder per maand naar de gezamenlijke potjes overmaakt.",
+  },
+  {
+    vraag: "Mijn inkomen wisselt per maand. Werkt het dan ook?",
+    antwoord:
+      "Ja. Stuur dan je inkomsten van de afgelopen maanden mee. Ik reken je potjes uit op een magere maand, zodat ze ook dan blijven staan, en wat er in een goede maand bij komt gaat naar je buffer.",
   },
   {
     vraag: "Is mijn informatie veilig?",
@@ -338,6 +354,10 @@ const faq = [
       "Ja, met dezelfde Geldscan. Geef in je aanvraag aan welke keuze eraan komt, bijvoorbeeld minder werken, een ander huis of een kind dat 18 wordt. Na je betaling stel ik er een paar extra vragen over, en in je rapport zet ik je maand nu naast de maand na de keuze. Welke keuze je maakt, laat ik bij jou.",
   },
   {
+    vraag: "Wat als ik er niets nieuws uit haal?",
+    antwoord: `Lees eerst een van de ${RAPPORTEN.length} gepubliceerde rapporten, dan weet je precies wat je krijgt voordat je betaalt. Valt er bij jou niets te repareren, dan schrijf ik dat op, zoals bij ${AANTAL_ZONDER_LEK} van de ${RAPPORTEN.length}. Dan weet je ook dat, met de cijfers erbij.`,
+  },
+  {
     vraag: "Is dit financieel advies?",
     antwoord:
       "Nee. De Geldscan is een persoonlijke analyse van je huishoudfinanciën. Voor belasting, hypotheek, beleggen en vergelijkbaar gespecialiseerd advies verwijs ik waar nodig door. Ik ben ook geen schuldhulp: heb je betalingsachterstanden, dan is kosteloze hulp via je gemeente of Geldfit passender.",
@@ -360,7 +380,7 @@ const serviceSchema = {
   serviceType: "Persoonlijke geldscan",
   name: "Geldscan, Waar blijft het",
   description:
-    "Persoonlijk geschreven geldrapport over je huishoudfinanciën: je cijfers nagekeken en je maand neergezet met jouw bedragen. Aanleveren met je eigen overzicht of een korte vragenlijst. Binnen 2 werkdagen na aanlevering. €49 eenmalig.",
+    "Persoonlijk geschreven geldrapport over je huishoudfinanciën: je cijfers nagekeken en je potjes uitgerekend met jouw bedragen. Aanleveren met je eigen overzicht of een korte vragenlijst. Binnen 2 werkdagen na aanlevering. €49 eenmalig.",
   url: "https://www.waarblijfthet.nl/geldscan",
   areaServed: { "@type": "Country", name: "Nederland" },
   provider: {
@@ -475,7 +495,7 @@ export default function GeldscanPage({
                   className="font-body text-lg font-medium leading-snug"
                   style={{ color: "#0B7A6E" }}
                 >
-                  Ik kijk je cijfers na en zet je maand neer.
+                  Ik kijk je cijfers na en reken je potjes uit.
                 </p>
 
                 <p
@@ -509,7 +529,16 @@ export default function GeldscanPage({
               </div>
 
               {/* Rechts: hoe het eindproduct eruitziet */}
-              <div className="relative">
+              {/* Op mobiel valt de voorbeeldweergave weg: in de bezoekerstest van
+                  5-nov las die als een leeg plaatje en duwde hij prijs en knop
+                  anderhalf scherm naar beneden. De link naar de echte rapporten
+                  blijft wel staan. */}
+              <p className="font-body -mt-6 text-sm font-light sm:hidden">
+                <Link href="/rapporten" className="hover:underline" style={{ color: "#0B7A6E", textDecoration: "none" }}>
+                  Lees {RAPPORTEN.length} echte rapporten, zo ziet het eruit →
+                </Link>
+              </p>
+              <div className="relative hidden sm:block">
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute -right-24 -top-24 hidden h-[440px] w-[440px] rounded-full lg:block"
@@ -676,6 +705,32 @@ export default function GeldscanPage({
                 <p className="font-body mt-3 text-xs font-light text-[#8B958F]">Geen abonnement.</p>
               </div>
             </div>
+
+            {/* Wie kijkt er? De bezoekerstest van 5-nov: wie €49 overweegt
+                voor iemand die zijn cijfers leest, wil eerst een gezicht en een
+                naam zien. Feiten uit app/over/page.tsx, niets nieuws. */}
+            <div className="mt-6 flex items-start gap-4 px-1">
+              <span
+                className="flex-shrink-0 overflow-hidden rounded-full"
+                style={{ width: 52, height: 52, backgroundColor: "#16211F" }}
+              >
+                <Image
+                  src="/jarno.jpg"
+                  alt="Jarno Koopman"
+                  width={52}
+                  height={52}
+                  className="h-full w-full object-cover"
+                />
+              </span>
+              <p className="font-body max-w-[640px] text-sm font-light leading-relaxed text-[#4A5A56]">
+                <span className="font-medium text-[#16211F]">Jarno Koopman.</span> Ik lees je
+                cijfers en schrijf je rapport zelf. Twee inkomens, drie kinderen, en jarenlang niet
+                begrepen waarom het nooit klopte.{" "}
+                <Link href="/over" className="font-medium hover:underline" style={{ color: "#0B7A6E" }}>
+                  Meer over mij →
+                </Link>
+              </p>
+            </div>
           </div>
         </section>
 
@@ -699,7 +754,7 @@ export default function GeldscanPage({
               className="font-display font-light text-[#16211F]"
               style={{ fontSize: "clamp(1.7rem, 3.2vw, 2.4rem)", lineHeight: 1.18 }}
             >
-              Stuur in wat je hebt. Ik kijk het na en zet je maand neer.
+              Stuur in wat je hebt. Ik kijk het na en reken je potjes uit.
             </h2>
             <p
               className="font-body mt-4 max-w-[640px] font-light leading-relaxed"
@@ -1057,7 +1112,7 @@ export default function GeldscanPage({
                 className="font-display font-light text-white"
                 style={{ fontSize: "clamp(1.7rem, 3vw, 2.2rem)", lineHeight: 1.18 }}
               >
-                Je maand, nagekeken en neergezet.
+                Je cijfers nagekeken, je potjes uitgerekend.
               </h2>
               <p className="font-body mt-3 font-light leading-relaxed text-white/70">
                 Stuur in wat je hebt. Eén keer, daarna doe je het zelf.

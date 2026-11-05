@@ -86,6 +86,9 @@ export default function SplitsVraag({
       >
         Heb je al een overzicht van je uitgaven?
       </p>
+      <p className="font-body" style={{ color: subKleur, fontSize: "0.85rem", marginTop: "-0.5rem", marginBottom: "0.75rem" }}>
+        Een Excel, het overzicht in je bankapp of een budgetapp telt ook.
+      </p>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <Link
           href={analyseHref}
@@ -103,7 +106,7 @@ export default function SplitsVraag({
             className="block"
             style={{ color: donker ? "#4A5A56" : "rgba(255,255,255,0.8)", fontSize: "0.82rem", marginTop: "0.15rem" }}
           >
-            Gratis analyse, ongeveer 3 minuten
+            Gratis en anoniem, ongeveer 3 minuten
           </span>
         </Link>
         <Link
@@ -120,7 +123,7 @@ export default function SplitsVraag({
             Ja, laat het nakijken →
           </span>
           <span className="block" style={{ color: subKleur, fontSize: "0.82rem", marginTop: "0.15rem" }}>
-            Ik zet je maand neer, {PAKKET_INFO.geldscan.prijs} eenmalig
+            Ik kijk het na en reken je potjes uit, {PAKKET_INFO.geldscan.prijs}
           </span>
         </Link>
       </div>

@@ -313,8 +313,9 @@ export default function ArtikelPage({ params }: Props) {
                   className="font-body font-light text-text-soft"
                   style={{ marginBottom: "1rem" }}
                 >
-                  {artikel.cta?.tekst ??
-                    "Algemene gemiddelden vertellen iets. Jouw eigen financiële situatie vertelt meer."}
+                  {/* Niet meer artikel.cta.tekst: die gaat alleen over de gratis
+                      analyse en botste met de splitsvraag (bezoekerstest 5-nov). */}
+                  Algemene gemiddelden vertellen iets. Jouw eigen cijfers vertellen meer.
                 </p>
                 <SplitsVraag plek="artikel-slot" analyseHref={artikel.cta?.primairHref ?? ANALYSE_ROUTE} />
                 {keuze && (
