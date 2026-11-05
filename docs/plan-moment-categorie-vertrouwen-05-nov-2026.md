@@ -1,0 +1,110 @@
+# Moment, categorie en vertrouwen: waarom kopen ze niet, en wat eraan te doen
+
+5 november 2026. Op vraag van Jarno: werk de drie punten uit (een moment dat dwingt, een categorie die mensen kennen, vertrouwen dat al geregeld is) en kijk op fora hoe mensen dit vragen en wat anderen antwoorden. Niets gebouwd; dit is een plan met besluiten voor Jarno. Logboek: bouwvolgorde sectie 47.
+
+## 0. In vijf zinnen
+
+1. Op fora noemt niemand die krap zit een professional; het eerste advies is altijd "houd het bij", en de groep relativeert ("je spaart genoeg, je moet ook genieten"). Wie het wel over hulp heeft, zegt: kan ik zelf, wat als ik de verkeerde tref, wat als de hulp ophoudt.
+2. Dat betekent: verkoop geen lek, verkoop een keer goed neerzetten zodat het daarna zelf lukt, met een gezicht erbij.
+3. Het sterkste moment dat we nu al raken is samenwonen (kosten verdelen, 677 vertoningen in 28 dagen, positie 11); de vijf geldmomenten staan op positie 25 tot 45 en brachten in 90 dagen geen enkele analyse.
+4. Mensen die een mens zoeken bestaan, maar in kleine aantallen en vaak met schulden; wie Jarno via via hoort, zoekt zijn naam ("jarno koopman", 26 keer in 90 dagen) en landt niet op /over, omdat Google /over nog nooit heeft bezocht.
+5. Een Google-bedrijfsprofiel met reviews kan niet: Google sluit bedrijven uit die alleen online werken. Vertrouwen moet dus van echte klantcitaten, een gezicht en via via komen.
+
+## 1. Wat de fora laten zien
+
+**Bronnen en grenzen.** Reddit (r/geldzaken) was vanuit deze omgeving niet bereikbaar: de ingebouwde browser en de zoektool weigeren reddit.com. Gelezen: zes Viva-threads over krap zitten en budgetteren, drie pagina's over hulp zoeken, en de blog van een budgetcoach. Opgehaald 5 november 2026; de threads lopen van 2009 tot 2026 en een Viva-publiek is geen doorsnee van de ICP. Dit is richting, geen bewijs, en geen bron voor copy (CLAUDE.md regel 3).
+
+| Bron | Wat erin staat |
+|---|---|
+| [Waar blijft mijn geld elke maand??!](https://forum.viva.nl/geld-recht/waar-blijft-mijn-geld-elke-maand/list_messages/393586) (2017) | Gezin, 4.300 inkomen, 800 vrij; nieuwe baan met 500 meer. "Waar blijven die 800 euro elke maand?" Eindigt met "we sparen genoeg en je moet ook genieten." |
+| [Budgetteren, hoe pak je het aan?](https://forum.viva.nl/geld-recht/budgetteren-hoe-pak-je-het-aan/list_messages/509376) (dec 2024) | Gezin met app en potjes; kerst, gestolen fiets en APK. "Het wordt meer een geschuif van budgetten." Tip: inzicht in de ING-app, jaarbedrag gedeeld door 12. |
+| [Dilemma: meer werken of niet?](https://forum.viva.nl/werk-studie/dilemma-meer-werken-of-niet/list_messages/513396) (okt 2025) | Net samenwonend, 6.400 bruto samen, huur 1.400, weinig spaargeld. Een keuze-moment; antwoorden: eerst de uitgaven op een rij, en praat met je partner. |
+| [Sparen in 2026](https://forum.viva.nl/geld-recht/sparen-in-2026/list_messages/514078) (dec 2025) | Potjes, automatisch sparen direct na salaris, buffer; Excel werkte na een paar weken niet meer. |
+| [(Hoe) beheer jij je financiën?](https://forum.viva.nl/geld-recht/hoe-beheer-jij-je-financin/list_messages/172328) (2012) | Twee rekeningen, Excel, of "ik houd niks bij"; bankapps van ABN AMRO en Rabobank. |
+| [Hulp bij financiën](https://forum.viva.nl/geld-recht/hulp-bij-financien/list_messages/231681) (2014) | Bezwaren tegen hulp: "Je zult het gewoon zelf moeten leren", "Wat als je de verkeerde treft?", "Eens houdt de hulp op, en dan?" |
+| [Blog van een budgetcoach](https://www.uitkomenmetjeinkomen.nl/blogitem/geen-schulden-of-geldproblemen-wel-behoefte-aan-inzicht-in-de-financi-n) (2021) | Klant: twee fulltime banen, koophuis, geen schulden. "Er is een schaamdrempel." "Budgetcoach" klinkt naar problemen, "financieel adviseur" is een te hoge drempel. Wat de klant kreeg: "inzicht en overzicht" en "rust". |
+
+**Patronen.**
+
+1. **Niemand noemt een professional.** In de zes threads over krap zitten en budgetteren komt geen budgetcoach, financieel coach of adviseur voor. Het eerste advies is in vijf van de zes: houd je uitgaven bij (Excel, kasboek, afschriften, bankapp). Daarna potjes en automatisch sparen.
+2. **De groep haalt de urgentie weg.** "Welkom bij de club", "het gaat om of je het dat waard vindt", "geld is maar geld". De vrager in thread 1 gaat daar zelf in mee. Het probleem wordt normaal gemaakt voordat iemand aan hulp denkt.
+3. **De vraag is verbazing, geen nood.** "Waar blijven die 800 euro", "we verbrassen 800", "een geschuif van budgetten". Mensen noemen hun inkomen wel, en vinden zelf dat het genoeg zou moeten zijn.
+4. **Er is altijd een aanleiding.** Een nieuwe baan met meer salaris, samenwonen, kerst plus APK, meer of minder werken, een tegenvaller met de auto.
+5. **De bezwaren tegen hulp zijn zelfbeeld, vertrouwen en afhankelijkheid.** Prijs en privacy komen niet voor. Wie geen schulden heeft, hoort van de omgeving dat hij geen hulp nodig heeft.
+6. **De woorden voor wat ze wel willen:** overzicht, inzicht, rust, een duwtje in de rug. Niet: een lek vinden.
+
+**Lessen voor het aanbod.**
+
+- **L1. Verkoop geen lek aan mensen die net gehoord hebben dat het normaal is.** Verkoop wat de vijf rapporten en de coachklant opleverden: een keer goed neerzetten, zodat het niet meer schuift.
+- **L2. Beantwoord "kan ik zelf" en "wat als de hulp ophoudt" in de zin naast de knop.** Bijvoorbeeld: "Ik kijk een keer mee en zet het voor je neer. Daarna doe je het zelf, er is geen traject."
+- **L3. Beantwoord "wat als ik de verkeerde tref" met een persoon,** niet met een keurmerk: naam, gezicht, wat ik met je cijfers doe en wat niet, en de openbare rapporten.
+- **L4. Gebruik hun woorden.** "Iemand die een keer meekijkt", "overzicht", "rust". "Budgetcoach" alleen als zoekterm met "zonder schulden" erbij.
+- **L5. Hang het aan aanleidingen die mensen zelf noemen:** samenwonen, een loonsverhoging of nieuwe baan, meer of minder werken, en de jaarlijkse klappers (december, APK, vakantie).
+
+## 2. Punt 1: een moment dat dwingt
+
+**Stand (GSC 90 dagen tot 2 nov, analyses en Geldscan-kliks uit de admin).**
+
+| Geldmoment | Vertoningen | Klikken | Positie | Analyses vanaf de pagina | Waar Google hem voor toont |
+|---|---|---|---|---|---|
+| Minder werken (`wat-kost-een-dag-minder-werken`) | 294 | 3 | 33 | 0 | "dag minder werken" (positie 57 tot 64) |
+| Groter huis (`hogere-hypotheek-wat-kost-het-per-maand`) | 338 | 0 | 45 | 0 | "100.000 hypotheek" (een rekenvraag, positie 36 tot 51) |
+| Uit elkaar (`scheiden-goed-inkomen-toch-niks-over`) | 46 | 1 | 26 | 0 | bijna niets |
+| Kind erbij (`wat-kost-een-kind-per-maand`) | 364 | 0 | 13 | 0 | "wat kost een kind" (positie 21 tot 44) |
+| Kind wordt 18 (`kind-wordt-18-wat-verandert-er-financieel`) | 1.317 | 5 | 30 | 0 | "kinderbijslag na 18", "wat verandert er als je 18 wordt" (regels, positie 53 tot 76) |
+| Ter vergelijking: samenwonen (`kosten-verdelen-samenwonen-ongelijk-inkomen`) | 677 (28 dagen) | 8 | 11 | 1, afgerond | "kosten verdelen samenwonen", "samenwonen ongelijk inkomen" (positie 9 tot 12) |
+
+De geldmomenten zijn als ingang goed bedacht, maar ze staan niet op de plek waar het moment gezocht wordt. Samenwonen wel, en dat is het moment waarop twee inkomens één huishouden worden: Niels als DINK, en later Sandra.
+
+**Voorstellen.**
+
+- **1a. Samenwonen als zesde geldmoment** in `lib/geldmomenten.ts` ("We gaan samenwonen"), met de bestaande kostenverdelingspagina als artikel (`geldscanKeuze`), een slotzin en de KeuzeDoorrekening als die er iets toevoegt (twee inkomens, de vaste lasten samen, wat ieder overhoudt bij 50/50 en naar rato). Geen nieuwe pagina, een upgrade van een URL die al op 11 staat. **Besluit Jarno**: de vijf momenten waren zijn keuze (25 sep); een zesde is een uitbreiding van de tweede ingang.
+- **1b. Loonsverhoging of nieuwe baan als moment** op `lifestyle-inflatie-meer-verdienen-meer-uitgeven` en `netto-loonsverhoging-berekenen`: "Je gaat er straks X op vooruit. Waar wil je dat het heen gaat, voordat het verdwijnt?" Thread 1 is letterlijk dit verhaal. Geen nieuwe keuze nodig; een slotzin en de analyse-CTA. Klein.
+- **1c. De jaarlijkse klapper in december en januari.** `jaarlijkse-kosten-reserveren` staat op positie 4 (weinig vertoningen) en december-uitgaven is al een artikel. Voor de week van 8 december (2027-sweep): op die twee pagina's de analyse-CTA richten op "het jaar dat komt". Geen nieuwe pagina.
+- **1d. Niet doen:** meer geldmoment-pagina's bouwen voordat de bestaande ranken. Kind wordt 18 en groter huis trekken een andere intentie (regels, rekensom); daar helpt een nieuwe titel niet.
+
+**Meten:** Geldscan-aanvragen met `[Keuze: ...]` op Vandaag, en analyses per landingspagina, vanaf de deploy tot 15 december.
+
+## 3. Punt 2: een categorie die mensen kennen
+
+**Stand.**
+
+- `kan-iemand-naar-mijn-financien-kijken`: 276 vertoningen, 11 klikken, positie 20 in 90 dagen. De zoektermen: "wat kost een budgetcoach", "wie betaalt een budgetcoach", "budgetbeheer gratis", "gratis budgetcoach", "budgetcoach zonder schulden". Wie een mens zoekt, denkt aan een budgetcoach en vaak aan gratis hulp of schulden.
+- De merknaam: "jarno koopman" 26 vertoningen, 10 klikken, positie 2, en die landen op `/financieel-coach`, niet op `/over`. URL-inspectie 5 nov: `/over` is "URL is unknown to Google", nooit gecrawld, één keer ingediend op 7 juni. Technisch is alles in orde: status 200, canonical naar zichzelf, index/follow, in `sitemap-0.xml`, en gelinkt vanaf elk artikel. Wel een titelfout: "Over Jarno Koopman | Waar blijft het | Waar blijft het" (de sitenaam dubbel). Dit zijn de mensen die via via van Jarno hoorden en hem opzoeken; de meest waardevolle bezoekers van de site.
+- Het coach-woordveld is sinds 23 juli vrijwel uit Google verdwenen en kannibaliseert op acht termen (sectie 30, vier open vragen, geparkeerd).
+
+**Voorstellen.**
+
+- **2a. /over in Google en op de naam.** Jarno: in Search Console bij URL-inspectie op /over "Indexering aanvragen" (dat kan alleen in de interface, niet via de API). De dubbele sitenaam uit de title halen. Title met de naam vooraan ("Jarno Koopman: ik lees je cijfers en schrijf je geldrapport", controleren op 60 tekens), Person-schema met sameAs staat er al. Doel: wie de naam zoekt, landt op een pagina met gezicht, werkwijze en rapporten. Valt onder indexeringsschuld (CLAUDE.md 11), geen herontwerp van /over.
+- **2b. De Geldscan benoemen in hun woorden, als test.** De tekstlink op resultaatstap 1 is nu "Laat mij het uitzoeken, Geldscan €49 →". Test: "Laat mij een keer meekijken, €49 →" met de regel "Daarna doe je het zelf. Geen traject." eronder. Alleen op stap 1, alleen de tekst, gemeten op kliks per keer in beeld. De naam Geldscan en de prijs blijven (CLAUDE.md 5).
+- **2c. Eerst de geparkeerde coachbesluiten uit sectie 30 nemen**, dan pas iets aan `kan-iemand-naar-mijn-financien-kijken`. Mijn advies: deze pagina wordt de ene plek voor "iemand laten meekijken zonder schulden", met bovenaan wanneer gratis hulp via de gemeente beter is (wie schulden heeft) en wanneer niet. Dat stuurt de schuldhulpzoekers netjes door en laat de rest blijven.
+- **2d. Niet doen:** een nieuwe pagina op "budgetcoach". Dat woordveld trekt vooral mensen met schulden en is al gekannibaliseerd.
+
+## 4. Punt 3: vertrouwen dat al geregeld is
+
+**Correctie op het advies van vandaag.** Een Google-bedrijfsprofiel met reviews kan niet. Google eist dat een bedrijf klanten tijdens openingstijden persoonlijk contact biedt, en noemt "andere bedrijven die alleen online zakendoen" als ongeschikt ([Richtlijnen voor geschiktheid](https://support.google.com/business/answer/13763036?hl=nl), opgehaald 5 nov 2026). De Geldscan wordt op afstand geleverd.
+
+**Voorstellen.**
+
+- **3a. Echte citaten, zoals het aanleverformat al voorschrijft** (CLAUDE.md 7, `docs/aanleverformat-voorbeeldrapporten-30-jul-2026.md`): schriftelijke toestemming, een citaat in eigen woorden, voornaam of initialen. De vijf klanten vragen, met één vraag erbij: "Wat gaf de doorslag om het te doen, en wat bijna niet?" Het antwoord is zowel een citaat als het onderzoek uit sectie 41 besluit 6. Plaatsen: op /rapporten en één citaat direct onder de Geldscan-link op resultaatstap 1. Nooit verzinnen, nooit selectief alleen de lovende vragen (dezelfde lijn als de reviewregels van Google, [bron](https://support.google.com/business/answer/7400114?hl=en)).
+- **3b. Een gezicht bij het aanbod.** Op de plekken waar de Geldscan in beeld komt (stap 1, vraagstap, stap 4) een klein blok: foto, naam, één zin wie je cijfers leest en wat er daarna met je gegevens gebeurt. Bio-zin uit CLAUDE.md 6.7. Antwoord op "wat als ik de verkeerde tref". Geen herontwerp, een blok van drie regels.
+- **3c. Via via als kanaal.** De vijf klanten om één naam vragen en tien gesprekken in eigen kring (sectie 41, besluit 2). De zoekopdrachten op de naam laten zien dat dit al gebeurt; 2a zorgt dat het aankomt. **Besluit Jarno**: dit opent een kanaal dat CLAUDE.md 7 dicht houdt.
+- **3d. Optioneel, niet nu:** een onafhankelijk reviewplatform. Eerst nagaan welk platform een eenmanszaak die online levert toelaat en wat het kost; pas bij meer dan vijf klanten zinvol.
+
+## 5. Besluiten voor Jarno
+
+1. Zesde geldmoment "We gaan samenwonen" op de kostenverdelingspagina (1a).
+2. Tekstlinktest "Laat mij een keer meekijken" op resultaatstap 1 (2b).
+3. Volgorde: eerst de coachvragen uit sectie 30, dan pas `kan-iemand-naar-mijn-financien-kijken` (2c).
+4. Via via openen naast zoekverkeer: vijf klanten, één naam, tien gesprekken (3c), plus CLAUDE.md 7 aanpassen.
+
+Zonder besluit te doen, want het is onderhoud of al afgesproken: 2a (/over indexeren), 3a (citaten volgens het bestaande format), 1b en 1c (slotzinnen en CTA op bestaande pagina's, samen met de 2027-sweep), 3b als klein blok bij het aanbod.
+
+## 6. Volgorde en meten
+
+| Wanneer | Wat |
+|---|---|
+| Deze week | 2a /over indexeren; de vijf klanten mailen met de toestemmingsvraag en de doorslagvraag (3a, 3c) |
+| Na akkoord | 1a samenwonen als moment; 2b tekstlinktest; 3b gezicht bij het aanbod |
+| 8 december | 1b en 1c met de 2027-sweep |
+| 15 december | Lezing: kliks per keer Geldscan in beeld (met en zonder 2b), aanvragen met `[Keuze: ...]`, antwoorden op "wat houdt je tegen", aantal via via-gesprekken en wat eruit kwam |
