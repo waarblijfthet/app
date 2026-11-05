@@ -3422,7 +3422,7 @@ export const artikelen: Artikel[] = [
     metaTitel: `${euro(O_ALLEEN_3500)} tot ${euro(O_STEL_5000)}: hoeveel geld moet je overhouden per maand?`,
     metaDescription:
       `Hoeveel geld moet je overhouden per maand? Alleen met ${euro(3500)} netto ongeveer ${euro(O_ALLEEN_3500)}, samen met ${euro(5000)} ongeveer ${euro(O_STEL_5000)}, met twee kinderen ${euro(O_GEZIN_5000)}. Per huishouden, na alle vaste lasten.`,
-    gewijzigd: "2026-09-24",
+    gewijzigd: "2026-11-05",
     datum: "2026-06-19",
     datumFormatted: "19 juni 2026",
     leestijd: "5",

@@ -163,7 +163,11 @@ export default function WaaromLuktSparenNiet() {
 
       <h2 className="font-display" style={h2}>Verder lezen</h2>
       <p className="font-body text-text-soft" style={p}>
-        Hoe je uitgaven meestijgen met je inkomen:{" "}
+        Waar je begint als je meer wilt overhouden:{" "}
+        <Link href="/inzichten/meer-geld-overhouden" style={link} className="hover:underline">
+          meer geld overhouden
+        </Link>
+        . Hoe je uitgaven meestijgen met je inkomen:{" "}
         <Link href="/inzichten/lifestyle-inflatie-meer-verdienen-meer-uitgeven" style={link} className="hover:underline">
           lifestyle inflatie
         </Link>

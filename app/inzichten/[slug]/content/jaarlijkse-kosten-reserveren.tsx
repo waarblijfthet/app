@@ -148,6 +148,10 @@ export default function JaarlijkseKostenReserveren() {
         <Link href="/inzichten/waar-blijft-mijn-geld" style={link} className="hover:underline">
           waar blijft mijn geld
         </Link>
+        . Waar je verder ruimte vindt:{" "}
+        <Link href="/inzichten/meer-geld-overhouden" style={link} className="hover:underline">
+          meer geld overhouden
+        </Link>
         . Wat een gezin per post uitgeeft:{" "}
         <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={link} className="hover:underline">
           wat geeft een gezin uit per maand

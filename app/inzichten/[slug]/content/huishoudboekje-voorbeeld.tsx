@@ -163,6 +163,10 @@ export default function HuishoudboekjeVoorbeeld() {
         <Link href="/inzichten/waar-blijft-mijn-geld" style={link} className="hover:underline">
           waar blijft mijn geld
         </Link>
+        . Hoe je daarna meer overhoudt:{" "}
+        <Link href="/inzichten/meer-geld-overhouden" style={link} className="hover:underline">
+          meer geld overhouden
+        </Link>
         . Hoe je je jaaruitgaven regelt:{" "}
         <Link href="/inzichten/jaarlijkse-kosten-reserveren" style={link} className="hover:underline">
           jaarlijkse kosten reserveren

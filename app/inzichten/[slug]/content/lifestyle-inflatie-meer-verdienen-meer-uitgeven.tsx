@@ -124,7 +124,11 @@ export default function LifestyleInflatie() {
 
       <h2 className="font-display" style={h2}>Verder lezen</h2>
       <p className="font-body text-text-soft" style={p}>
-        Waar je geld nu blijft:{" "}
+        Hoe je weer meer overhoudt van een hoger inkomen:{" "}
+        <Link href="/inzichten/meer-geld-overhouden" style={link} className="hover:underline">
+          meer geld overhouden
+        </Link>
+        . Waar je geld nu blijft:{" "}
         <Link href="/inzichten/waar-blijft-mijn-geld" style={link} className="hover:underline">
           waar blijft mijn geld
         </Link>

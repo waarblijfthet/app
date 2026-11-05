@@ -234,11 +234,16 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
         En als er niks overblijft?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Blijft er structureel te weinig over, dan is de eerste stap niet bezuinigen maar kijken. Zet
-        je inkomen, je vaste lasten en je dagelijkse uitgaven naast elkaar, zodat je ziet welke van
-        de drie delen uit verhouding is. Negen van de tien keer zit de winst in de vaste lasten of
-        in uitgaven die je niet bijhield. Daarna verdeel je je inkomen meteen, zodat sparen geen
-        sluitpost meer is. Hoe je dat doet, lees je bij{" "}
+        Dan is de vraag niet meer hoeveel, maar hoe. Daarover gaat{" "}
+        <Link
+          href="/inzichten/meer-geld-overhouden"
+          style={{ color: "#0B7A6E", textDecoration: "none" }}
+          className="hover:underline"
+        >
+          meer geld overhouden
+        </Link>
+        : eerst uitzoeken waar het nu blijft, dan de plekken waar bij echte huishoudens ruimte zat.
+        Hoe je je inkomen daarna indeelt, lees je bij{" "}
         <Link
           href="/inzichten/geld-indelen-salaris-potjes-systeem"
           style={{ color: "#0B7A6E", textDecoration: "none" }}
@@ -288,7 +293,7 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
         </Link>
       </div>
       <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
-        Wil je weten hoe je meer overhoudt in plaats van hoeveel: <Link href="/inzichten/meer-geld-overhouden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">meer geld overhouden</Link>. En hoe je uitzoekt waar het nu blijft: <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar blijft mijn geld</Link>.
+        Hoe je uitzoekt waar het nu blijft: <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar blijft mijn geld</Link>.
       </p>
     </>
   );
