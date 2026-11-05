@@ -1743,5 +1743,7 @@ Belangrijkste vondsten: (1) in zes threads over krap zitten noemt niemand een pr
 
 Aanvulling: twee Reddit-draadjes van 8 aug 2026, aangeleverd door Jarno (plan sectie 1b). Een stel met ongeveer €5.000 netto zet zijn hele begroting openbaar en vraagt "Heeft iemand misschien zin om met ons mee te kijken?"; het populairste antwoord is geruststelling met hun eigen getal; de snelste winst kwam van regelingen die ze niet kenden; de menigte spreekt zichzelf tegen; onderaan raadt iemand de Geldscan aan met link ("heeft vrienden van ons toen wel geholpen"). Nieuw besluit 5: zelf meekijken op r/geldzaken onder eigen naam.
 
+Aanvulling 2: drie Reddit-draadjes over hulp en wat werkte (plan sectie 1c). Wie om een coach vraagt krijgt Excel en gratis instanties; het wantrouwen gaat over belangen ("een gratis adviseur wil je iets verkopen"); er is vraag naar een eenmalige toets van een eigen plan; "rust" is het woord voor wat werkte, en dat komt van een structuur met bedragen. Nieuw besluit 6: de belofte van de Geldscan rond "de structuur met jouw bedragen" en "geen producten, geen provisie", plus een eigen begroting als invoer.
+
 Correctie op het gesprek van vandaag: het advies "vraag de vijf klanten om een Google-review op een bedrijfsprofiel" kan niet; vervangen door echte citaten volgens het aanleverformat (plan 3a).
 

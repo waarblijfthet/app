@@ -71,6 +71,30 @@ Jarno sloeg twee draadjes van 8 augustus 2026 op als HTML; de eerste ongeveer 85
 
 **Mogelijk kanaal, besluit Jarno.** Op r/geldzaken vragen mensen letterlijk om iemand die meekijkt, met hun cijfers erbij. Jarno zou daar onder eigen naam kunnen meekijken, zonder link en zonder verkoop, zoals elke andere reageerder. Dat bouwt naamsbekendheid op de plek waar de vraag gesteld wordt. Het botst met CLAUDE.md 7 (forums dicht als promotiekanaal), en de regels van de subreddit over zelfpromotie heb ik niet kunnen lezen. Besluit 5.
 
+## 1c. Reddit, drie draadjes over hulp en wat werkte (aangeleverd door Jarno)
+
+| Draadje | Wie en wat |
+|---|---|
+| r/geldzaken "Financieel adviseur" (nov 2025, 40 reacties) | Krijgt een bedrag waardoor hij boven de box 3-grens komt, heeft zelf een plan en wil dat "laten toetsen door een onafhankelijke financieel adviseur", een of twee gesprekken. "Google levert vooral aanbieders op waar ik geen goed gevoel bij krijg." |
+| r/zuinig "Waar te beginnen? Iemand ervaring met financiële coach?" (mrt 2026, 30 reacties) | Vrouw van 28 met een goed inkomen, net een nieuwbouwhuis gekocht, reserves op. "Ik merk dat ik vastloop in dit proces", "we hebben al beter inzicht", wil "als stel betere doelen stellen". |
+| r/geldzaken "Welke dingen hebben het meest geholpen om je financiën op orde te krijgen?" (dec 2025, 79 reacties) | Wil beginnen met sparen, "geen idee waar te beginnen", vraagt of hij elke dag zijn transacties in Excel moet zetten. |
+
+**Wat opvalt.**
+
+1. **Wie om een coach vraagt, krijgt Excel en gratis instanties.** In het coachdraadje noemt niemand een betaalde coach. Wel: Excel (hoogst gewaardeerd), automatisch sparen, het Nibud, een budgetcoach via het buurtteam of de gemeente, SchuldHulpMaatje, en de "geldreis" via de vakbond (Finvit), die iemand "structuur" en "rust" gaf. Eén reactie: "Je kan natuurlijk iemand hiervoor betalen maar je geeft aan het inzicht reeds te hebben."
+2. **Het wantrouwen gaat over belangen.** "Een gratis adviseur wil je iets verkopen. Een betaalde adviseur wil het liefst je geld in handen hebben voor een prijskaartje. Een adviseur die gewoon meedenkt is mega duur en hoe weet je echt dat je goed advies krijgt?" Over de vermogensadviseurs van de bank: "ze willen vooral hun producten verkopen." Het register van de Federatie Financieel Planners (ffp.nl) krijgt "Dit is de beste tip": een keurmerk lost het vertrouwensprobleem op.
+3. **Er is vraag naar een eenmalige toets van een eigen plan.** De adviseurvrager wil geen relatie, maar "een of twee gesprekken om zaken te valideren", en zegt over alleen Reddit: "Zoals ik met een medische vraag ook naar een arts ga."
+4. **"Rust" is het woord voor wat werkte.** Een aparte rekening voor vaste lasten en een voor leefgeld ("Dit geeft veel rust"), jaarlijkse lasten gedeeld door 12 op een eigen rekening ("geeft me heel veel rust en inzicht"), YNAB ("geeft ontzettend veel rust"). Wat werkt is een structuur met bedragen, niet het bijhouden zelf ("Al je uitgaven tracken levert heel veel werk op en schijncontrole").
+5. **Ook hier een moment.** Een huis gekocht en de reserves op; een erfenis of vermogen boven de box 3-grens; samenwonen en een hoger inkomen ("Een hoger inkomen en samenwonen. De rest was al goed.").
+6. **Automatiseren blijft de vraag.** "Is er een manier om dit tot bepaalde hoogte te automatiseren, of maak je alles handmatig?" Iemand noemt een site die transacties met AI indeelt en vergelijkt met "de gemiddelde Nederlander" (kaiross.nl, niet nagekeken). Bankapps: Rabobank "goede tools", ABN AMRO "rommelig".
+
+**Lessen.**
+
+- **L11. Verkoop rust als iets concreets: de structuur met jouw bedragen.** Welke rekening waarvoor, hoeveel er op de vaste-lastenrekening moet (inclusief jaarlijkse kosten per maand), hoeveel leefgeld, hoeveel automatisch naar sparen op de dag van het salaris. Iedereen kent het idee; niemand weet zijn eigen bedragen. Dat is wat een draadje niet geeft en wat na een keer meekijken zelf door te zetten is (antwoord op "kan ik zelf" en "als de hulp ophoudt").
+- **L12. Zeg welk belang je niet hebt.** Vaste prijs, geen producten, geen provisie, geen traject dat vanzelf doorloopt. Dat zijn feiten over het aanbod, geen karakterclaim (CLAUDE.md 4). Niet zeggen: onafhankelijk adviseur of planner; daar horen registers en vergunningen bij die er niet zijn.
+- **L13. Laat ook toetsen wat iemand zelf al heeft.** Wie al een Excel of begroting heeft (het advies in elk draadje), kan die als invoer voor de Geldscan aanleveren in plaats van afschriften: "Stuur me je begroting, ik kijk er kritisch naar en zet de bedragen neer." Minder werk voor de klant, en het sluit aan op de vraag "heeft iemand zin om mee te kijken?".
+- **L14. Leg uit wanneer gratis hulp beter is.** De gemeente, SchuldHulpMaatje en de vakbond worden als eerste genoemd. Op /geldscan en `kan-iemand-naar-mijn-financien-kijken`: wanneer je daar beter terechtkunt (schulden, achterstanden, lid van een vakbond met zo'n programma) en wanneer niet. Elke bewering over die diensten eerst bij de bron nagaan (CLAUDE.md 3).
+
 ## 2. Punt 1: een moment dat dwingt
 
 **Stand (GSC 90 dagen tot 2 nov, analyses en Geldscan-kliks uit de admin).**
@@ -128,6 +152,7 @@ De geldmomenten zijn als ingang goed bedacht, maar ze staan niet op de plek waar
 3. Volgorde: eerst de coachvragen uit sectie 30, dan pas `kan-iemand-naar-mijn-financien-kijken` (2c).
 4. Via via openen naast zoekverkeer: vijf klanten, één naam, tien gesprekken (3c), plus CLAUDE.md 7 aanpassen.
 5. Zelf meekijken op r/geldzaken onder eigen naam, zonder link of verkoop (1b).
+6. De belofte van de Geldscan herschrijven rond L11 en L12 (de structuur met jouw bedragen; geen producten, geen provisie), en L13 als tweede manier van aanleveren. Raakt de copy van /geldscan, het aanvraagformulier en de vragenlijst, niet de prijs of het pakket.
 
 Zonder besluit te doen, want het is onderhoud of al afgesproken: 2a (/over indexeren), 3a (citaten volgens het bestaande format), 1b en 1c (slotzinnen en CTA op bestaande pagina's, samen met de 2027-sweep), 3b als klein blok bij het aanbod.
 
