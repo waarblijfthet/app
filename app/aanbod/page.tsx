@@ -365,7 +365,7 @@ export default function AanbodPage() {
                 >
                   Begin gratis,
                   <span className="block" style={{ color: "#C4603A" }}>
-                    of laat het nakijken.
+                    of laat iemand meekijken.
                   </span>
                 </h1>
 

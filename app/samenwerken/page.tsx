@@ -5,7 +5,7 @@ import Link from "next/link";
 import { rapportVoorSlug, RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Samenwerken met Waar blijft het | voor professionals",
+  title: "Samenwerken · voor professionals",
   description:
     "Herken je een cliënt bij wie geld onderdeel wordt van het probleem, maar buiten jouw expertise valt? Je hoeft het niet zelf op te lossen. Verwijs door naar de gratis analyse.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken" },
