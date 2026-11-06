@@ -5,6 +5,7 @@ import { IntakeAanvraag } from "../page";
 import DataTabel, { DataTabelKolom } from "../ui/DataTabel";
 import Badge from "../ui/Badge";
 import { keuzeUitKnelpunt } from "@/lib/geldmomenten";
+import { spoorUitKnelpunt, berichtZonderVoorvoegsels } from "@/lib/cta";
 
 interface Props {
   aanvragen: IntakeAanvraag[];
@@ -222,6 +223,19 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
       sorteerWaarde: (a) => keuzeUitKnelpunt(a.grootste_knelpunt) ?? "",
     },
     {
+      // Hoe de klant aanlevert (5-nov-2026, lib/cta.ts SPOREN): eigen
+      // overzicht of vragenlijst. Bepaalt welke mail je na betaling stuurt
+      // (docs/vragenlijst-eigen-overzicht.md).
+      key: "spoor",
+      header: "Aanleveren",
+      filterWaarde: (a) => spoorUitKnelpunt(a.grootste_knelpunt)?.label ?? "",
+      render: (a) => {
+        const s = spoorUitKnelpunt(a.grootste_knelpunt);
+        return s ? <Badge variant="actie">{s.label}</Badge> : <span className="text-text-muted">weet nog niet</span>;
+      },
+      sorteerWaarde: (a) => spoorUitKnelpunt(a.grootste_knelpunt)?.label ?? "",
+    },
+    {
       key: "inkomen",
       header: "Inkomen",
       filterWaarde: (a) => a.inkomen_bracket ?? "",
@@ -230,8 +244,8 @@ export default function AanvragenTabblad({ aanvragen: initAanvragen, contactPerI
     {
       key: "knelpunt",
       header: "Knelpunt",
-      filterWaarde: (a) => a.grootste_knelpunt ?? "",
-      render: (a) => <KnelpuntCell tekst={a.grootste_knelpunt} />,
+      filterWaarde: (a) => berichtZonderVoorvoegsels(a.grootste_knelpunt) ?? "",
+      render: (a) => <KnelpuntCell tekst={berichtZonderVoorvoegsels(a.grootste_knelpunt)} />,
       className: "max-w-[220px]",
     },
     {

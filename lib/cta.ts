@@ -74,6 +74,19 @@ export const SPOREN: { sleutel: SpoorSleutel; label: string; voorvoegsel: string
   },
 ];
 
+/** Het spoor uit grootste_knelpunt, of null als er geen voorvoegsel staat. */
+export function spoorUitKnelpunt(tekst: string | null | undefined): (typeof SPOREN)[number] | null {
+  if (!tekst) return null;
+  return SPOREN.find((s) => tekst.startsWith(s.voorvoegsel)) ?? null;
+}
+
+/** Het bericht zelf, zonder de voorvoegsels [Spoor: ...] en [Keuze: ...]. */
+export function berichtZonderVoorvoegsels(tekst: string | null | undefined): string | null {
+  if (!tekst) return null;
+  const rest = tekst.replace(/^(?:\[(?:Spoor|Keuze): [^\]]+\]\s*)+/, "").trim();
+  return rest.length > 0 ? rest : null;
+}
+
 export function spoorVoorSleutel(sleutel: string | null | undefined) {
   return SPOREN.find((s) => s.sleutel === sleutel);
 }

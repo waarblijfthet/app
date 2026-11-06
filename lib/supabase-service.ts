@@ -16,5 +16,12 @@ export function createServiceClient() {
 
   return createClient(url, key, {
     auth: { persistSession: false },
+    // 6-nov-2026: Next 14 cachet GET-fetches in servercomponenten standaard.
+    // De admin las daardoor soms een oude stand (een nieuwe aanvraag stond wel
+    // in de badge, die een HEAD-telling doet, maar niet in de lijst). Deze
+    // client is alleen voor live data, dus nooit cachen.
+    global: {
+      fetch: (input: RequestInfo | URL, init?: RequestInit) => fetch(input, { ...init, cache: "no-store" }),
+    },
   });
 }

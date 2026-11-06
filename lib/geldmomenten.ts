@@ -95,6 +95,7 @@ export function keuzeVoorvoegsel(keuze: Keuze): string {
  */
 export function keuzeUitKnelpunt(tekst: string | null | undefined): string | null {
   if (!tekst) return null;
-  const m = tekst.match(/^\[Keuze: ([^\]]+)\]/);
+  // Sinds 5-nov-2026 kan "[Spoor: ...]" ervoor staan (lib/cta.ts SPOREN).
+  const m = tekst.match(/^(?:\[Spoor: [^\]]+\]\s*)?\[Keuze: ([^\]]+)\]/);
   return m ? m[1] : null;
 }
