@@ -86,7 +86,8 @@ export default function GeldIndelenSalarisPotjesSysteem() {
       <p className="font-body text-text-soft" style={p}>
         Een vaste-lastenrekening waar al je vaste lasten van afschrijven, en waar je salaris als
         eerste binnenkomt. Een huishoudrekening of aparte pas voor dagelijkse uitgaven zoals
-        boodschappen en tanken, waar je per week of per maand een vast bedrag op zet. Een
+        boodschappen en tanken, waar je per week of per maand een vast bedrag op zet (hoeveel, lees je in{" "}
+        <Link href="/inzichten/leefgeld-per-week" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">leefgeld per week</Link>). Een
         spaarrekening voor je buffer en spaardoelen. En eventueel een aparte rekening of potje voor
         de jaarlijkse en onregelmatige uitgaven, zodat de verzekeringspremie of de gemeentelijke
         aanslag je nooit meer verrast.

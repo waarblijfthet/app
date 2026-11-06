@@ -173,6 +173,11 @@ import {
 } from "./budgetcoach-tarieven";
 import { PAKKET_INFO } from "./aanbod-content";
 import { BANKAPP_BRONNEN } from "./bankapp-bronnen";
+import { leefgeldVoor, NIBUD_LEEFGELD_URL, NIBUD_LEEFGELD_PEILDATUM } from "./leefgeld-nibud";
+
+const LEEFGELD_ALLEEN = leefgeldVoor("Alleenstaande");
+const LEEFGELD_STEL = leefgeldVoor("Stel zonder kinderen");
+const LEEFGELD_GEZIN = leefgeldVoor("Stel, 2 kinderen (8 en 13 jaar)");
 import {
   icpBron,
   bereikJaarkostenPerMaand,
@@ -2297,6 +2302,112 @@ export const artikelen: Artikel[] = [
     ],
   },
   {
+    slug: "leef-ik-boven-mijn-stand",
+    cta: {
+      kop: "Wil je weten of het bij jou past?",
+      tekst:
+        "De gratis analyse legt je uitgaven naast die van huishoudens zoals het jouwe, inclusief wat je jaaruitgaven per maand vragen.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Laat je overzicht nakijken",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Leef ik boven mijn stand?",
+    titel: "Leef ik boven mijn stand? Zes signalen, en een rekensom die het zeker maakt",
+    metaTitel: "Leef ik boven mijn stand? 6 signalen en een simpele rekensom",
+    metaDescription:
+      "Zes signalen dat je boven je stand leeft, en een rekensom met drie getallen waarmee je het zeker weet. Ook als je nooit rood staat.",
+    datum: "2026-11-06",
+    datumFormatted: "6 november 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Je kunt elke maand netjes rondkomen en toch boven je stand leven. Zes signalen, en een rekensom met drie getallen die laat zien of je echt overhoudt.",
+    preview: {
+      type: "pijn",
+      label: "Signalen",
+      items: [
+        "Elke maand geld van je spaarrekening",
+        "Veel betalen per maand: lease, huur, termijnen",
+        "De vakantie overvalt je elk jaar",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Wat betekent boven je stand leven?",
+        antwoord:
+          "Dat je over een heel jaar meer uitgeeft dan er binnenkomt. Het gaat niet over hoe duur je huis of auto is, maar over de vraag of je uitgaven passen bij je inkomen, inclusief de uitgaven die één keer per jaar komen.",
+      },
+      {
+        vraag: "Hoe weet je of je boven je stand leeft?",
+        antwoord:
+          "Reken het uit: inkomen per maand, min je uitgaven per maand, min je jaaruitgaven gedeeld door twaalf. Is dat minder dan nul, dan leef je boven je stand. Signalen zijn geld van je spaarrekening halen om rond te komen, rood staan aan het eind van de maand en geen buffer voor een onverwachte rekening.",
+      },
+      {
+        vraag: "Kun je boven je stand leven zonder schulden?",
+        antwoord:
+          "Ja. Wie geen geld opzij zet voor de vakantie, verjaardagen of verzekeringen die je per jaar betaalt, kan elke maand rondkomen en toch te veel uitgeven. Dat merk je pas als die uitgaven komen, en dan betaal je ze uit je spaargeld of met een creditcard.",
+      },
+      {
+        vraag: "Wat doe je als je boven je stand leeft?",
+        antwoord:
+          "Kijk eerst waar het verschil zit, want vaak zijn het een paar posten. Zet daarna één potje op voor je jaaruitgaven, met elke maand een vast bedrag erin, en begin geen nieuwe termijnbetalingen. Heb je betalingsachterstanden, zoek dan gratis hulp via je gemeente of Geldfit.",
+      },
+    ],
+  },
+  {
+    slug: "leefgeld-per-week",
+    cta: {
+      kop: "Passen je dagelijkse uitgaven bij je inkomen?",
+      tekst:
+        "De gratis analyse legt je uitgaven naast die van huishoudens zoals het jouwe, post voor post.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Laat je overzicht nakijken",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Leefgeld per week",
+    titel: "Leefgeld per week: wat het Nibud rekent, en hoe je je eigen bedrag bepaalt",
+    metaTitel: `Leefgeld per week: ${euro(LEEFGELD_ALLEEN.perWeek)} alleen, ${euro(LEEFGELD_STEL.perWeek)} samen (Nibud)`,
+    metaDescription: `Het Nibud rekent als minimum ${euro(LEEFGELD_ALLEEN.perWeek)} leefgeld per week voor een alleenstaande en ${euro(LEEFGELD_STEL.perWeek)} voor een stel (${NIBUD_LEEFGELD_PEILDATUM}). Wat eronder valt, en hoe je je eigen bedrag bepaalt.`,
+    datum: "2026-11-06",
+    datumFormatted: "6 november 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt:
+      "Hoeveel leefgeld per week is normaal? De Nibud-bedragen per huishouden, wat er wel en niet onder valt, en hoe je met je bankapp je eigen weekbedrag vindt.",
+    preview: {
+      type: "vergelijking",
+      label: "Leefgeld per week, Nibud-minimum",
+      items: [
+        { naam: "Alleenstaande", bedrag: LEEFGELD_ALLEEN.perWeek, kleur: "#0B7A6E" },
+        { naam: "Stel zonder kinderen", bedrag: LEEFGELD_STEL.perWeek, kleur: "#B03A2E" },
+      ],
+      noot: `Nibud, richtlijn leefgeld, ${NIBUD_LEEFGELD_PEILDATUM}`,
+    },
+    faq: [
+      {
+        vraag: "Hoeveel leefgeld per week voor 1 persoon?",
+        antwoord: `Het Nibud rekent als minimum ${euro(LEEFGELD_ALLEEN.perWeek)} per week voor een alleenstaande, ${euro(LEEFGELD_ALLEEN.perMaand)} per maand (${NIBUD_LEEFGELD_PEILDATUM}). Dat is een bedrag voor mensen in de schuldhulp die heel zuinig leven. Met een gewoon inkomen geef je meestal meer uit.`,
+      },
+      {
+        vraag: "Hoeveel leefgeld heeft een gezin nodig?",
+        antwoord: `Volgens de Nibud-richtlijn minimaal ${euro(LEEFGELD_GEZIN.perWeek)} per week voor een stel met twee kinderen van 8 en 13 jaar, ${euro(LEEFGELD_GEZIN.perMaand)} per maand (${NIBUD_LEEFGELD_PEILDATUM}). Het precieze bedrag hangt af van het aantal kinderen, hun leeftijd en je eigen situatie.`,
+      },
+      {
+        vraag: "Wat valt onder leefgeld?",
+        antwoord:
+          "Eten en drinken, persoonlijke verzorging zoals douchegel en de kapper, was- en schoonmaakmiddelen en kleine uitgaven. Vaste lasten, kleding, een auto en vakanties vallen er niet onder.",
+      },
+      {
+        vraag: "Wat is een leefgeldrekening?",
+        antwoord:
+          "Een aparte rekening met een eigen pas, alleen voor je dagelijkse uitgaven. Elke week of elke maand gaat er een vast bedrag naartoe, en je betaalt alles dagelijks met die pas. Is het op, dan is het op.",
+      },
+    ],
+    externLinks: [{ label: "Nibud: leefgeld in de schuldhulpverlening", url: NIBUD_LEEFGELD_URL }],
+  },
+  {
     slug: "niet-rondkomen-met-4000-euro-netto",
     cta: {
       kop: "Klopt dit ongeveer met jouw huishouden, of zit je er ver naast?",
@@ -2450,6 +2561,7 @@ export const artikelen: Artikel[] = [
     metaTitel: "Waarom lijkt iedereen rijker dan jij?",
     metaDescription:
       "Iedereen lijkt meer geld te hebben, terwijl jij prima verdient. Waarom dat gevoel bijna nooit klopt, waarom het goedverdieners raakt, en wat wel helpt.",
+    gewijzigd: "2026-11-06",
     datum: "2026-07-11",
     datumFormatted: "11 juli 2026",
     leestijd: "5",
@@ -3495,7 +3607,7 @@ export const artikelen: Artikel[] = [
     metaTitel: `${euro(O_ALLEEN_3500)} tot ${euro(O_STEL_5000)}: hoeveel geld moet je overhouden per maand?`,
     metaDescription:
       `Hoeveel geld moet je overhouden per maand? Alleen met ${euro(3500)} netto ongeveer ${euro(O_ALLEEN_3500)}, samen met ${euro(5000)} ongeveer ${euro(O_STEL_5000)}, met twee kinderen ${euro(O_GEZIN_5000)}. Per huishouden, na alle vaste lasten.`,
-    gewijzigd: "2026-11-05",
+    gewijzigd: "2026-11-06",
     datum: "2026-06-19",
     datumFormatted: "19 juni 2026",
     leestijd: "5",
@@ -4619,7 +4731,7 @@ export const artikelen: Artikel[] = [
     metaTitel: "Lifestyle inflatie: wat is het en hoe merk je het?",
     metaDescription: `Lifestyle inflatie is dat je uitgaven meestijgen met je inkomen. De cao-lonen stegen begin 2026 met ${CBS_CAO_LONEN_Q1_2026} procent (CBS). Zo zie je of het bij jou speelt, met een rekenhulp.`,
     datum: "2026-05-30",
-    gewijzigd: "2026-10-12",
+    gewijzigd: "2026-11-06",
     datumFormatted: "30 mei 2026",
     leestijd: "6",
     categorie: "Inzicht",
@@ -4680,7 +4792,7 @@ export const artikelen: Artikel[] = [
     metaDescription:
       "Nibud-minimum: €272 alleen, €495 met z'n tweeën, €634 met twee jonge kinderen. In de praktijk €300 tot €400, €550 tot €700 en €700 tot €900 per maand.",
     datum: "2026-06-26",
-    gewijzigd: "2026-11-05",
+    gewijzigd: "2026-11-06",
     datumFormatted: "26 juni 2026",
     leestijd: "9",
     categorie: "Besparen",

@@ -140,6 +140,8 @@ export default function LifestyleInflatie() {
         <Link href="/inzichten/waarom-lukt-sparen-niet" style={link} className="hover:underline">
           waarom kan ik niet sparen
         </Link>
+        . Twijfel je of je boven je stand leeft:{" "}
+        <Link href="/inzichten/leef-ik-boven-mijn-stand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">leef ik boven mijn stand</Link>
         .
       </p>
     </>

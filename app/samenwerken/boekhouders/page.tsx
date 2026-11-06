@@ -5,7 +5,7 @@ import Link from "next/link";
 import { rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor boekhouders die particulieren helpen | Waar blijft het",
+  title: "Samenwerken · voor boekhouders die particulieren helpen",
   description:
     "Jouw klant verdient goed maar houdt weinig over. Jij kent de cijfers, ik breng het volledige huishoudbudget in kaart. Samenwerken boekhouder: vrijblijvend doorverwijzen, geen verkoopgesprek.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/boekhouders" },

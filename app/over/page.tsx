@@ -12,7 +12,7 @@ import {
 } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Over Jarno Koopman | Waar blijft het",
+  title: "Over Jarno Koopman",
   description:
     "Ik ben Jarno Koopman. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte. Nu lees ik de cijfers van andere huishoudens en schrijf ik met de hand op wat opvalt.",
   alternates: { canonical: "https://www.waarblijfthet.nl/over" },

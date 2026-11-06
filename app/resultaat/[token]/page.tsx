@@ -11,7 +11,7 @@ import EmailReminderForm from "./EmailReminderForm";
 import { geldscanHref } from "@/lib/cta";
 
 export const metadata: Metadata = {
-  title: "Jouw financiële analyse | Waar blijft het",
+  title: "Jouw financiële analyse",
   description: "Bekijk jouw persoonlijke financiële analyse op basis van de quiz.",
   robots: { index: false, follow: false },
 };

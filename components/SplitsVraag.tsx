@@ -120,7 +120,7 @@ export default function SplitsVraag({
           }}
         >
           <span className="block font-medium" style={{ color: vraagKleur, fontSize: "0.98rem" }}>
-            Ja, laat het nakijken →
+            Ja, kijk met me mee →
           </span>
           <span className="block" style={{ color: subKleur, fontSize: "0.82rem", marginTop: "0.15rem" }}>
             Ik kijk het na en reken je potjes uit, {PAKKET_INFO.geldscan.prijs}

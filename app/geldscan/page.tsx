@@ -735,7 +735,7 @@ export default function GeldscanPage({
 
         {/* ── 2b. Heb je al een overzicht? (5-nov-2026) ─────────────────
             Het tweede spoor uit docs/plan-positionering-aanbod-05-nov-2026.md.
-            "Ja, laat het nakijken" in components/SplitsVraag.tsx landt hier.
+            "Ja, kijk met me mee" in components/SplitsVraag.tsx landt hier.
             Het voorbeeld komt uit lib/rapporten-data.ts, nooit uitgetypt. */}
         <section
           id="nakijken"

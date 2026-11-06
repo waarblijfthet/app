@@ -5,7 +5,7 @@ import Link from "next/link";
 import { rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor relatietherapeuten | Waar blijft het",
+  title: "Samenwerken · voor relatietherapeuten",
   description:
     "Geld komt steeds terug in de sessie, maar het financiële deel hoort niet bij relatietherapie. Waar blijft het brengt het feitelijk en onafhankelijk in kaart, zodat jij je weer op de relatie kunt richten.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/relatietherapeuten" },

@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor burnout coaches & psychologen | Waar blijft het",
+  title: "Samenwerken · voor burnout coaches & psychologen",
   description:
     "Financiële stress is een van de grootste obstakels bij burnoutherstel. Waar blijft het pakt de geldzorgen aan, zodat jij kunt werken aan energie en herstel.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/burnout-coaches" },

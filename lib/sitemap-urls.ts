@@ -1,4 +1,5 @@
 import { artikelen, laatstGewijzigd } from "./inzichten-data";
+import { RAPPORTEN } from "./rapporten-data";
 
 const BASE = "https://www.waarblijfthet.nl";
 
@@ -7,6 +8,13 @@ const STATISCHE_URLS = [
   `${BASE}/analyse`,
   `${BASE}/adviesgesprek`,
   `${BASE}/aanbod`,
+  // 6-nov-2026: /geldscan, /financieel-coach en de rapporten stonden wel in
+  // public/sitemap.xml (scripts/generate-sitemap.mjs) maar niet hier, dus
+  // IndexNow en de indexeringssync in de admin sloegen ze over.
+  `${BASE}/geldscan`,
+  `${BASE}/financieel-coach`,
+  `${BASE}/rapporten`,
+  ...RAPPORTEN.map((r) => `${BASE}/rapporten/${r.slug}`),
   `${BASE}/inzichten`,
   `${BASE}/over`,
   `${BASE}/woordenlijst`,

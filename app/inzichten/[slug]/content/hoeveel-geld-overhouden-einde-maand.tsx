@@ -293,7 +293,7 @@ export default function HoeveelGeldOverhoudenEindeMaand() {
         </Link>
       </div>
       <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
-        Hoe je uitzoekt waar het nu blijft: <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar blijft mijn geld</Link>.
+        Hoe je uitzoekt waar het nu blijft: <Link href="/inzichten/waar-blijft-mijn-geld" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">waar blijft mijn geld</Link>. Blijft er minder over dan je jaaruitgaven vragen: <Link href="/inzichten/leef-ik-boven-mijn-stand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">leef ik boven mijn stand</Link>.
       </p>
     </>
   );

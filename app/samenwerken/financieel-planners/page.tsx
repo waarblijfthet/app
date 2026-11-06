@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor financieel planners | Waar blijft het",
+  title: "Samenwerken · voor financieel planners",
   description:
     "Cliënten die vermogen willen opbouwen maar geen grip hebben op hun maandbudget. Waar blijft het zorgt voor de cashflow-basis, zodat jij aan het echte werk kunt.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/financieel-planners" },

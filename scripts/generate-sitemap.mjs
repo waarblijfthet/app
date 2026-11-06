@@ -123,12 +123,12 @@ const artikelLijst = uniekeSlugs
 const llms =
   `# Waar blijft het\n\n` +
   `> Gratis financiele analyse en inzicht voor Nederlandse gezinnen die goed verdienen maar toch weinig overhouden. Geen schuldhulp, geen beleggingsadvies, alleen grip op het maandbudget.\n\n` +
-  `Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; daarnaast is er een eenmalig adviesgesprek en persoonlijke begeleiding. Auteur en oprichter: Jarno Koopman.\n\n` +
+  `Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; wie al een overzicht heeft, laat het nakijken met de Geldscan. Auteur en oprichter: Jarno Koopman.\n\n` +
   `## Belangrijkste pagina's\n` +
-  `- [Gratis analyse](${HOST}/analyse): vergelijk in 5 minuten je uitgaven met vergelijkbare gezinnen\n` +
-  `- [Aanbod](${HOST}/aanbod): gratis analyse, eenmalig adviesgesprek en traject\n` +
+  `- [Gratis analyse](${HOST}/analyse): vergelijk in ongeveer 3 minuten je uitgaven met vergelijkbare gezinnen\n` +
+  `- [Aanbod](${HOST}/aanbod): gratis analyse, Geldscan van 49 euro en een vervolgsessie van 125 euro\n` +
   `- [Financieel coach](${HOST}/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt\n` +
-  `- [Geldscan](${HOST}/geldscan): persoonlijk geldrapport over je maandbudget zonder gesprek, 49 euro\n` +
+  `- [Geldscan](${HOST}/geldscan): ik kijk je cijfers na (eigen overzicht of korte vragenlijst) en reken je potjes uit, schriftelijk, 49 euro\n` +
   `- [Rapporten](${HOST}/rapporten): vijf echte, geanonimiseerde geldrapporten met de ingevulde cijfers, mijn advies en de evaluatie van de klant na drie tot vier maanden. Bij twee van de vijf was de uitkomst dat er niets te repareren viel.\n` +
   `- [Inzichten](${HOST}/inzichten): artikelen over grip op je geld\n` +
   `- [Over mij](${HOST}/over): wie en waarom\n` +

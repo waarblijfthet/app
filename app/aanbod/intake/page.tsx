@@ -6,7 +6,7 @@ import { SITUATIE_OPTIES, INKOMEN_OPTIES } from "./opties";
 
 export function generateMetadata(): Metadata {
   return {
-    title: "Aanmelding | Waar blijft het",
+    title: "Aanmelding",
     robots: { index: false, follow: false },
   };
 }

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { rapportVoorSlug } from "@/lib/rapporten-data";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor accountants van ZZP'ers en MKB | Waar blijft het",
+  title: "Samenwerken · voor accountants van ZZP'ers en MKB",
   description:
     "Financiële begeleiding ondernemer: jij kent de onderneming, ik breng het huishouden erachter in kaart. Accountant doorverwijzen klant zonder fiscaal of juridisch advies te geven.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/accountants-ondernemers" },

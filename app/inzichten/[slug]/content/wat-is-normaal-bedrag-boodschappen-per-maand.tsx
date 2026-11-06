@@ -307,7 +307,7 @@ export default function WatIsNormaalBedragBoodschappen() {
         <Link href="/inzichten/wat-geeft-een-gezin-uit-per-maand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">wat geeft een gezin uit per maand</Link>.
       </p>
       <p className="font-body text-text-soft" style={{ marginBottom: "1.25rem", fontWeight: 300 }}>
-        Waar het geld bij echte huishoudens naast de boodschappen naartoe ging, lees je in <Link href="/inzichten/meer-geld-overhouden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">meer geld overhouden</Link>.
+        Waar het geld bij echte huishoudens naast de boodschappen naartoe ging, lees je in <Link href="/inzichten/meer-geld-overhouden" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">meer geld overhouden</Link>. Wil je één vast bedrag per week voor boodschappen en de dagelijkse dingen, lees dan <Link href="/inzichten/leefgeld-per-week" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">leefgeld per week</Link>.
       </p>
     </>
   );

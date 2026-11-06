@@ -4,7 +4,7 @@ import Footer from "@/components/Footer";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "Samenwerken · voor budgetcoaches | Waar blijft het",
+  title: "Samenwerken · voor budgetcoaches",
   description:
     "Cliënten die genoeg verdienen maar toch krap zitten passen niet in schuldhulp. Waar blijft het richt zich precies op dit middensegment, een logische aanvulling op jouw praktijk.",
   alternates: { canonical: "https://www.waarblijfthet.nl/samenwerken/budgetcoaches" },

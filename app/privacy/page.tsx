@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
-  title: "Privacy | Waar blijft het",
+  title: "Privacy",
   description: "Welke gegevens ik verzamel, waarvoor, hoe lang ik ze bewaar en wie ze voor mij verwerkt.",
   robots: { index: false, follow: false },
 };
