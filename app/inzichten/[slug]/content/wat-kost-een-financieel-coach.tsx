@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
 import { analyseHref } from "@/lib/cta";
+import { PAKKET_INFO } from "@/lib/aanbod-content";
 import {
   TARIEVEN,
   TARIEVEN_OPGEHAALD_TEKST,
@@ -192,6 +193,26 @@ export default function WatKostEenFinancieelCoach() {
         meekrijgt: alleen een gesprek, of ook een schriftelijk budgetplan. En de btw: een deel van de
         aanbieders rekent geen btw, een ander deel noemt prijzen exclusief btw.
       </p>
+      {/* 6-nov-2026: wie hier zoekt, zoekt betaalde hulp. Search Console: "wat
+          kost een budgetcoach" positie 11, de pagina 831 vertoningen. De
+          Geldscan staat er los naast, niet in de tabel: die is een steekproef
+          van anderen. */}
+      <h2 style={h2}>Waar staat de Geldscan tussen deze prijzen?</h2>
+      <p style={p}>
+        Ik bied zelf ook iets in deze hoek aan, dus ik zet het ernaast. De Geldscan kost{" "}
+        {PAKKET_INFO.geldscan.prijs}, eenmalig. Je stuurt op wat je hebt: je eigen overzicht of een korte
+        vragenlijst. Ik kijk het na, reken je potjes uit en schrijf binnen 2 werkdagen een rapport.
+      </p>
+      <p style={p}>
+        Er zit geen gesprek bij en geen begeleiding daarna. Wil je erover praten, dan is er een vervolgsessie
+        van {PAKKET_INFO.gesprek.prijs}. Zoek je iemand die een paar maanden met je meeloopt, dan past een
+        budgetcoach uit de tabellen hierboven beter.{" "}
+        <CtaLink doel="geldscan" href="/geldscan" locatie="budgetcoach-vergelijking" style={link} className="hover:underline">
+          Zo werkt de Geldscan
+        </CtaLink>
+        .
+      </p>
+
       <p style={p}>
         Wil je eerst weten of je uitgaven ergens afwijken voordat je iemand betaalt? De{" "}
         <CtaLink doel="analyse" href={analyseHref()} locatie="midden" style={link} className="hover:underline">

@@ -146,11 +146,14 @@ export default function PotjesmethodeGezinHoeWerktHet() {
         Welke banken en apps helpen hierbij?
       </h2>
       <p className="font-body text-text-soft" style={p}>
-        Bijna alle Nederlandse banken bieden subrekeningen of potjes aan.
-        Rabobank heeft &ldquo;Doelsparen&rdquo;, ING heeft
-        &ldquo;Spaarpotjes&rdquo;, ABN AMRO heeft &ldquo;Doelbedragen&rdquo;.
-        Bunq is specifiek gebouwd rondom het potjesconcept en laat je onbeperkt
-        gratis rekeningen aanmaken.
+        De drie grote banken hebben allemaal potjes. Bij de Rabobank heten ze
+        Spaarpotjes (tot 20), bij ING Spaardoelen (tot 10) en bij ABN AMRO ook
+        Spaardoelen, op losse Direct Sparen-rekeningen (tot 10). Hoe je ze
+        aanmaakt, staat in{" "}
+        <Link href="/inzichten/huishoudboekje-bankapp-rabobank-ing-abn-amro" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">
+          huishoudboekje en potjes in je bankapp
+        </Link>
+        .
       </p>
       <p className="font-body text-text-soft" style={p}>
         Je hebt geen speciale app nodig. Twee of drie rekeningen bij je eigen

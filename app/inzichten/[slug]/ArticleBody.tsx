@@ -20,6 +20,7 @@ import HoeveelFinancieleRuimteHebIk from "./content/hoeveel-financiele-ruimte-he
 import PratenOverGeldMetJePartner from "./content/praten-over-geld-met-je-partner";
 import WaaromLijktIedereenRijker from "./content/waarom-lijkt-iedereen-rijker";
 import HuishoudboekjeVoorbeeld from "./content/huishoudboekje-voorbeeld";
+import HuishoudboekjeBankapp from "./content/huishoudboekje-bankapp-rabobank-ing-abn-amro";
 import PiekerenOverGeld from "./content/piekeren-over-geld";
 import BoodschappenDuitslandVoordeel from "./content/boodschappen-duitsland-voordeel";
 import SpaardoelenMaandelijkseInleg from "./content/spaardoelen-maandelijkse-inleg";
@@ -115,6 +116,7 @@ const contentMap: Record<string, () => JSX.Element> = {
   "praten-over-geld-met-je-partner": PratenOverGeldMetJePartner,
   "waarom-lijkt-iedereen-rijker": WaaromLijktIedereenRijker,
   "huishoudboekje-voorbeeld": HuishoudboekjeVoorbeeld,
+  "huishoudboekje-bankapp-rabobank-ing-abn-amro": HuishoudboekjeBankapp,
   "piekeren-over-geld": PiekerenOverGeld,
   "boodschappen-duitsland-voordeel": BoodschappenDuitslandVoordeel,
   "spaardoelen-maandelijkse-inleg": SpaardoelenMaandelijkseInleg,

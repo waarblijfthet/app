@@ -92,7 +92,11 @@ export default function GeldIndelenSalarisPotjesSysteem() {
         aanslag je nooit meer verrast.
       </p>
       <p className="font-body text-text-soft" style={p}>
-        Veel banken laten je binnen één rekening losse potjes aanmaken. Of je nu losse rekeningen
+        Veel banken laten je binnen één rekening losse potjes aanmaken (zo werkt dat bij{" "}
+        <Link href="/inzichten/huishoudboekje-bankapp-rabobank-ing-abn-amro" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">
+          Rabobank, ING en ABN AMRO
+        </Link>
+        ). Of je nu losse rekeningen
         of potjes gebruikt maakt niet uit, het effect is hetzelfde: geld krijgt een bestemming
         voordat je het ziet als vrij besteedbaar.
       </p>

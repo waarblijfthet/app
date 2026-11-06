@@ -172,6 +172,7 @@ import {
   BRON_VERGOEDINGEN_PERSONAL,
 } from "./budgetcoach-tarieven";
 import { PAKKET_INFO } from "./aanbod-content";
+import { BANKAPP_BRONNEN } from "./bankapp-bronnen";
 import {
   icpBron,
   bereikJaarkostenPerMaand,
@@ -2229,6 +2230,73 @@ export const artikelen: Artikel[] = [
     ],
   },
   {
+    slug: "huishoudboekje-bankapp-rabobank-ing-abn-amro",
+    cta: {
+      kop: "Staan je uitgaven al in je bankapp?",
+      tekst:
+        "Dan heb je al een overzicht. Stuur schermafbeeldingen van Inzicht op, dan kijk ik het na en reken ik je potjes uit.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Laat je overzicht nakijken",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Huishoudboekje in je bankapp",
+    titel: "Huishoudboekje en potjes in je bankapp: Rabobank, ING en ABN AMRO",
+    metaTitel: "Huishoudboekje en potjes in je bankapp: Rabo, ING en ABN AMRO",
+    metaDescription:
+      "Waar het huishoudboekje in de app van Rabobank, ING en ABN AMRO zit, hoe je potjes maakt (en hoeveel), en wat je bankapp niet laat zien.",
+    datum: "2026-11-06",
+    datumFormatted: "6 november 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Rabobank, ING en ABN AMRO zetten je uitgaven al in categorieën en hebben potjes. Waar je het vindt, hoeveel potjes je mag maken, en welke uitgaven je app je niet laat zien.",
+    preview: {
+      type: "pijn",
+      label: "Wat erin staat",
+      items: [
+        "Inzicht en budgetten per bank",
+        "Potjes: Rabobank 20, ING 10, ABN AMRO 10",
+        "Het potje dat je app niet voor je maakt",
+      ],
+    },
+    faq: [
+      {
+        vraag: "Heeft de Rabobank een huishoudboekje?",
+        antwoord:
+          "Ja, twee. In de Rabo App heet het Inzicht: je uitgaven staan vanzelf in categorieën en je stelt per categorie een maandbudget in. Daarnaast biedt de Rabobank een gratis huishoudboekje in Excel aan, dat je zelf invult.",
+      },
+      {
+        vraag: "Hoe maak ik een spaarpotje aan bij de Rabobank?",
+        antwoord:
+          "In de Rabo App, bij je Rabo SpaarRekening. Je maakt tot 20 spaarpotjes, elk met een eigen doel, en kiest als je wilt een doelbedrag en einddatum. Samen zijn de potjes net zo groot als het saldo van je spaarrekening.",
+      },
+      {
+        vraag: "Kun je bij ING potjes maken?",
+        antwoord:
+          "Ja, bij ING heten ze Spaardoelen. Je hebt een Oranje Spaarrekening nodig en maakt tot 10 Spaardoelen, elk met een eigen naam, doelbedrag en streefdatum. Dat kan in de ING App en in Mijn ING.",
+      },
+      {
+        vraag: "Kun je bij ABN AMRO potjes maken?",
+        antwoord:
+          "Ja. Voor elk potje open je een Direct Sparen-rekening, zonder extra kosten, tot 10 stuks. Per rekening stel je in de ABN AMRO app een spaardoel met een doelbedrag in.",
+      },
+      {
+        vraag: "Heb ik naast mijn bankapp nog een budget-app nodig?",
+        antwoord:
+          "Meestal niet. Je bankapp zet je uitgaven al in categorieën en heeft budgetten en potjes. Wat ontbreekt, is een plek voor uitgaven die één keer per jaar komen. Daarvoor is één extra potje genoeg, met elke maand een twaalfde van wat je per jaar uitgeeft.",
+      },
+    ],
+    externLinks: [
+      BANKAPP_BRONNEN.raboInzicht,
+      BANKAPP_BRONNEN.raboPotjes,
+      BANKAPP_BRONNEN.ingInzicht,
+      BANKAPP_BRONNEN.ingSpaardoelen,
+      BANKAPP_BRONNEN.abnInzicht,
+      BANKAPP_BRONNEN.abnSpaardoelen,
+    ],
+  },
+  {
     slug: "niet-rondkomen-met-4000-euro-netto",
     cta: {
       kop: "Klopt dit ongeveer met jouw huishouden, of zit je er ver naast?",
@@ -2481,10 +2549,10 @@ export const artikelen: Artikel[] = [
     slug: "wat-kost-een-financieel-coach",
     korteTitel: "Wat kost een budgetcoach?",
     titel: "Wat kost een budgetcoach? Tarieven in 2026",
-    metaTitel: `Budgetcoach kosten 2026: tarieven van ${AANTAL_AANBIEDERS} aanbieders`,
+    metaTitel: `Wat kost een budgetcoach? Prijzen van ${AANTAL_AANBIEDERS} aanbieders (2026)`,
     metaDescription:
-      `Wat kost een budgetcoach? Bij ${AANTAL_AANBIEDERS} aanbieders: eenmalige check ${euroTarief(BAND_EENMALIG.min)} tot ${euroTarief(Math.round(BAND_EENMALIG.max))}, traject ${euroTarief(BAND_TRAJECT.min)} tot ${euroTarief(Math.round(BAND_TRAJECT.max))}. Plus wie het betaalt en wanneer het gratis is.`,
-    gewijzigd: "2026-09-25",
+      `Een budgetcoach kost ${euroTarief(BAND_EENMALIG.min)} tot ${euroTarief(Math.round(BAND_EENMALIG.max))} voor één check en ${euroTarief(BAND_TRAJECT.min)} tot ${euroTarief(Math.round(BAND_TRAJECT.max))} voor een traject, bij ${AANTAL_AANBIEDERS} aanbieders. Per uur, per maand, wie betaalt en wanneer het gratis is.`,
+    gewijzigd: "2026-11-06",
     datum: "2026-07-02",
     datumFormatted: "2 juli 2026",
     leestijd: "6",
@@ -2515,6 +2583,11 @@ export const artikelen: Artikel[] = [
         vraag: "Wat kost een eenmalige check bij een budgetcoach?",
         antwoord:
           `Bij ${BAND_EENMALIG.aantalAanbieders} van de ${AANTAL_AANBIEDERS} aanbieders kost een losse check of een enkel gesprek ${euroTarief(BAND_EENMALIG.min)} tot ongeveer ${euroOngeveer(BAND_EENMALIG.max)} inclusief btw. Soms is het alleen een gesprek, soms krijg je er een budgetplan of jaarplan bij.`,
+      },
+      {
+        vraag: "Wat kost een budgetcoach per maand?",
+        antwoord:
+          `Een prijs per maand noemt geen van de ${AANTAL_AANBIEDERS} aanbieders die ik bekeek. Ze rekenen per pakket: een traject van een paar maanden kost ${euroTarief(BAND_TRAJECT.min)} tot ongeveer ${euroOngeveer(BAND_TRAJECT.max)} in totaal, inclusief btw. Prijzen opgehaald op ${TARIEVEN_OPGEHAALD_TEKST}.`,
       },
       {
         vraag: "Is een budgetcoach gratis?",
@@ -3585,6 +3658,7 @@ export const artikelen: Artikel[] = [
     metaTitel: "Geld indelen na je salaris: het potjessysteem uitgelegd",
     metaDescription:
       "Verdeel je salaris voordat je het uitgeeft. Hoeveel rekeningen je nodig hebt, hoe je sparen automatiseert en waarom jezelf eerst betalen werkt.",
+    gewijzigd: "2026-11-06",
     datum: "2026-06-18",
     datumFormatted: "18 juni 2026",
     leestijd: "6",
@@ -5314,6 +5388,7 @@ export const artikelen: Artikel[] = [
       "De potjesmethode voor gezinnen: zo werkt het echt",
     metaDescription:
       "De potjesmethode werkt, maar niet zo zoals de meeste uitleggen. Hoe je het praktisch inricht voor een gezin, zonder gedoe en zonder spreadsheets.",
+    gewijzigd: "2026-11-06",
     datum: "2026-05-23",
     datumFormatted: "23 mei 2026",
     leestijd: "8",
