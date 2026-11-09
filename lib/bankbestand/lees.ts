@@ -2,12 +2,15 @@
  * Ingang: één bankbestand inlezen, of meerdere samenvoegen zonder dubbele regels.
  * Ondersteund: CAMT.053 (alle banken), CSV van Rabobank en ING, en elke andere CSV via kolomkeuze.
  * MT940 nog niet: Rabobank stopt er volgens Yuki op 15 nov 2026 mee (zakelijk).
+ * Pdf: alleen Rabobank, via leesBankbestandAsync (pdf.js laadt pas als er een pdf gekozen is).
  */
 import type { BankId, Formaat, KolomKeuze, LeesResultaat, Transactie } from "./types";
 import { leesCsv, raadScheidingsteken } from "./csv";
 import { PROFIELEN, leesMetKeuze, normaliseerKop, stelKolommenVoor, type RuweTransactie } from "./profielen";
 import { leesCamt053, type XmlParser } from "./camt053";
 import { naarCenten, naarIsoDatum } from "./waarden";
+import { isRabobankPdf, leesRabobankPdf, type PdfPagina } from "./pdf-rabobank";
+import { isPdf, pdfNaarPaginas } from "./pdf";
 
 /** UTF-8 als dat kan, anders Windows-1252 (oudere exports met é en ë). */
 export function decodeer(bytes: Uint8Array): string {
@@ -187,4 +190,42 @@ export function voegSamen(lijsten: Transactie[][]): Transactie[] {
     }),
   );
   return Array.from(gezien.values()).sort((a, b) => (a.datum < b.datum ? -1 : a.datum > b.datum ? 1 : 0));
+}
+
+/** Leest de tekst van een pdf die al als pagina's met posities is uitgepakt. */
+export function leesPdfPaginas(bestand: string, paginas: PdfPagina[]): LeesResultaat {
+  if (!isRabobankPdf(paginas)) {
+    return {
+      status: "niet-ondersteund",
+      formaat: "pdf",
+      reden: "Van deze bank lees ik de pdf nog niet. Download hetzelfde overzicht als CSV.",
+    };
+  }
+  const ruw = leesRabobankPdf(paginas);
+  if (ruw.length === 0) {
+    return { status: "niet-ondersteund", formaat: "pdf", reden: "In deze pdf vond ik geen boekingen." };
+  }
+  return {
+    status: "gelezen",
+    bank: "rabobank",
+    formaat: "pdf",
+    transacties: metSleutels(ruw, "rabobank", "pdf", bestand, ruw.map((_, i) => i + 1)),
+    waarschuwingen: [],
+  };
+}
+
+/** Zoals leesBankbestand, maar kan ook een pdf lezen. Gebruik deze in de browser. */
+export async function leesBankbestandAsync(
+  bestand: string,
+  inhoud: Uint8Array,
+  opties: { xmlParser?: XmlParser } = {},
+): Promise<LeesResultaat> {
+  if (isPdf(inhoud)) {
+    try {
+      return leesPdfPaginas(bestand, await pdfNaarPaginas(inhoud));
+    } catch {
+      return { status: "niet-ondersteund", formaat: "pdf", reden: "Deze pdf kan ik niet openen." };
+    }
+  }
+  return leesBankbestand(bestand, inhoud, opties);
 }

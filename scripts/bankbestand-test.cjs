@@ -140,4 +140,50 @@ t("Samenvoegen zonder dubbele boekingen", () => {
   assert.strictEqual(alles.length, 5);
   assert.strictEqual(alles[alles.length - 1].datum, "2026-11-01");
 });
+t("Rabobank-pdf: opmaak met kolommen, twee pagina's, legenda", () => {
+  const kop = (extra) => [
+    { s: "Rabo Standaard", x: 34, y: 84 },
+    { s: "Datum vanaf", x: 405, y: 168 }, { s: "01-07-2026", x: 395, y: 180 },
+    { s: "IBAN / Rekeningnummer", x: 37, y: 229 },
+    { s: "NL00", x: 37, y: 241 }, { s: "RABO 0123 4567 89 EUR", x: 62, y: 241 },
+    { s: "Rente", x: 37, y: 259 }, { s: "Type", x: 69, y: 259 }, { s: "Tegenrekening", x: 89, y: 259 },
+    { s: "Naam/omschrijving", x: 206, y: 259 }, { s: "Bedrag af (debet)", x: 420, y: 259 },
+    { s: "Bedrag bij (credit)", x: 509, y: 259 }, { s: "datum", x: 37, y: 265 },
+  ].concat(extra);
+  const p1 = { items: kop([
+    { s: "01-07", x: 37, y: 291 }, { s: "tb", x: 69, y: 291 }, { s: "NL00 INGB 0001 2345 67", x: 89, y: 291 },
+    { s: "2.500,00", x: 530, y: 291 }, { s: "Werkgever BV", x: 206, y: 292 },
+    { s: "Salaris juli", x: 206, y: 301 },
+    { s: "Verwerkingsdatum:", x: 206, y: 311 }, { s: "01-07-2026", x: 297, y: 311 },
+    { s: "02-07", x: 37, y: 328 }, { s: "bc", x: 69, y: 328 }, { s: "Bakker Jansen", x: 206, y: 328 }, { s: "3,50", x: 454, y: 328 },
+    { s: "TILBURG, NLD,", x: 206, y: 338 },
+  ]) };
+  const p2 = { items: kop([
+    { s: "Pas: 4xxxx1234", x: 206, y: 291 },
+    { s: "Verwerkingsdatum:", x: 206, y: 301 }, { s: "02-07-2026", x: 297, y: 301 },
+    { s: "03-07", x: 37, y: 320 }, { s: "ei", x: 69, y: 320 }, { s: "NL00 INGB 0005 5555 55", x: 89, y: 320 },
+    { s: "Energie BV", x: 206, y: 320 }, { s: "1.045,00", x: 440, y: 320 },
+    { s: "Verwerkingsdatum:", x: 206, y: 330 }, { s: "04-07-2026", x: 297, y: 330 },
+    { s: "bc = Betaalautomaat", x: 34, y: 450 }, { s: "ei = Euro-incasso", x: 162, y: 450 },
+  ]) };
+  const r = bb.leesPdfPaginas("afschrift.pdf", [p1, p2]);
+  assert.strictEqual(r.status, "gelezen", JSON.stringify(r));
+  assert.strictEqual(r.formaat, "pdf");
+  const t = r.transacties;
+  assert.deepStrictEqual(t.map(x => x.bedragCent), [250000, -350, -104500]);
+  assert.deepStrictEqual(t.map(x => x.datum), ["2026-07-01", "2026-07-02", "2026-07-04"]);
+  assert.deepStrictEqual(t.map(x => x.code), ["tb", "bc", "ei"]);
+  assert.strictEqual(t[0].eigenIban, "NL00RABO0123456789");
+  assert.strictEqual(t[0].tegenIban, "NL00INGB0001234567");
+  assert.strictEqual(t[0].tegenpartij, "Werkgever BV");
+  assert.strictEqual(t[0].omschrijving, "Salaris juli");
+  assert.strictEqual(t[1].tegenIban, null);
+  assert.strictEqual(t[1].omschrijving, "TILBURG, NLD, Pas: 4xxxx1234");
+});
+
+t("Pdf van een andere bank netjes geweigerd", () => {
+  const r = bb.leesPdfPaginas("x.pdf", [{ items: [{ s: "Rekeningoverzicht", x: 30, y: 50 }] }]);
+  assert.strictEqual(r.status, "niet-ondersteund");
+  assert.strictEqual(r.formaat, "pdf");
+});
 console.log(ok + " tests geslaagd");

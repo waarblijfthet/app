@@ -3,7 +3,7 @@
  * Alles hier draait in de browser: transacties verlaten het apparaat van de bezoeker niet.
  */
 
-export type Formaat = "camt053" | "csv" | "mt940" | "onbekend";
+export type Formaat = "camt053" | "csv" | "pdf" | "mt940" | "onbekend";
 export type BankId = "rabobank" | "ing" | "abnamro" | "sns" | "onbekend";
 
 export type Transactie = {

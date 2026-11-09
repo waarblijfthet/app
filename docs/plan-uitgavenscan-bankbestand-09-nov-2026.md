@@ -35,7 +35,7 @@ Gecontroleerd op 9 november 2026:
 | ING | MT940, CAMT.053, CSV (kommagescheiden), tot 18 maanden; bron gaat over zakelijke rekeningen | support.yuki.nl artikel 80000787467 |
 | Rabobank | MT940, CAMT.053, CSV, maximaal 3 maanden per download; MT940 stopt 15 nov 2026; bron gaat over zakelijke rekeningen. Particuliere CSV bevestigd op 9 nov met Jarno's eigen export: één download van 1 jul t/m 8 nov, twee rekeningen in één bestand, Windows-1252 | support.yuki.nl artikel 80000787699; eigen export |
 
-Bevestigd op 9 nov: de kopregel van de particuliere Rabobank-CSV (alle 1.303 regels gelezen, saldo klopt per rekening op de cent). Nog niet bevestigd: of CAMT.053 voor particulieren in het Rabo-menu staat, wat ING aan particulieren geeft, en downloaden in de Rabo App.
+Bevestigd op 9 nov: de kopregel van de particuliere Rabobank-CSV (alle 1.303 regels gelezen, saldo klopt per rekening op de cent). Volgens Jarno biedt Rabo Online Bankieren particulieren alleen pdf en CSV (geen CAMT.053), en de Rabo App alleen pdf. **Pdf lezen is dus nodig voor mobiel.** De Rabobank-pdf wordt gelezen (`lib/bankbestand/pdf-rabobank.ts`), getest tegen de CSV van dezelfde periode: 1.303 van 1.303 boekingen gelijk op datum, bedrag en rekening, code en tegen-IBAN 100 procent, naam 97 procent (de rest is een naam over twee regels of een kasboeking). Nog niet bevestigd: wat ING aan particulieren geeft, en hoe hun pdf eruitziet.
 
 Wat de echte export leert voor stap 2: 83 van de 1.303 boekingen gaan tussen de twee eigen rekeningen in het bestand, en code tb (overboeking) komt 542 keer voor. Overboekingen naar rekeningen die niet in het bestand staan (partner, spaarrekening elders) zijn dus het grootste risico op dubbel tellen; de tool moet vragen "is dit jullie eigen rekening?". 53 boekingen zijn identiek aan een andere op dezelfde dag en blijven terecht apart. 45 boekingen hebben geen omschrijving, wel een tegenpartij.
 
@@ -50,7 +50,7 @@ Bekende valkuilen: ABN TXT heeft geen kopregel; ABN CAMT kapt de naam af op 24 t
 
 ## 5. Mobiel
 
-68 procent van het verkeer is mobiel. Een bankbestand downloaden en uploaden op de telefoon kan technisch (de bestandskiezer van iOS en Android leest Downloads en Bestanden), en bij ABN AMRO kan het downloaden in de app. Voor Rabobank en ING is dat niet bevestigd. Het blijft omslachtig: app openen, downloaden, opslaan, terug naar de browser, kiezen.
+68 procent van het verkeer is mobiel. Een bankbestand downloaden en uploaden op de telefoon kan technisch (de bestandskiezer van iOS en Android leest Downloads en Bestanden). In de ABN AMRO-app kan het in vijf formaten, in de Rabo App alleen als pdf (Jarno, 9 nov). Voor ING is het niet bevestigd. Omdat de app vaak alleen een pdf geeft, leest de tool pdf's: per bank een eigen lezer op de kolomopmaak, eerst Rabobank. pdf.js wordt zelf geserveerd uit `public/pdfjs/` (legacy-build, voor oudere Safari) en laadt pas als iemand een pdf kiest. Het blijft omslachtig: app openen, downloaden, opslaan, terug naar de browser, kiezen.
 
 Aanpak:
 - Op mobiel drie wegen: (a) "heb je het bestand al, kies het hier", (b) "stuur me de link voor op mijn laptop" (vraagt een e-mailadres, en dat is meteen de natuurlijke vastlegging die nu ontbreekt), (c) de bestaande analyse met schattingen als lichte versie.
@@ -61,11 +61,11 @@ Aanpak:
 
 | Stap | Wat | Status |
 |---|---|---|
-| 1 | Inleeslaag: CAMT.053, Rabobank- en ING-CSV, vangnet met kolomkeuze, ontdubbelen over bestanden (`lib/bankbestand/`) | Gebouwd 9 nov, 10 tests groen, nog geen pagina |
+| 1 | Inleeslaag: CAMT.053, Rabobank- en ING-CSV, Rabobank-pdf, vangnet met kolomkeuze, ontdubbelen over bestanden (`lib/bankbestand/`) | Gebouwd 9 nov, 12 tests groen, Rabobank-csv en -pdf getest op echte exports, nog geen pagina |
 | 2 | Eigen overboekingen herkennen (spaarrekening, partner), categorieën in lagen (naam, IBAN van de incassant, transactiecode, zelf indelen), terugkerende posten; scherm Inzicht; testen op Jarno's eigen Rabobank-data | Volgende |
 | 3 | Plan tegenover werkelijkheid | |
 | 4 | Potjesplan, vergrendeling, iDEAL via Mollie, Excel-export | |
-| 5 | Meer banken via kopregels van testers en het vangnet; mobiele uitleg per bank | |
+| 5 | Meer banken via kopregels van testers en het vangnet; pdf-lezers voor ING en ABN AMRO zodra er een voorbeeld is; mobiele uitleg per bank | |
 
 Na stap 2 kan het live voor Rabobank-klanten, en via het vangnet voor iedereen.
 
