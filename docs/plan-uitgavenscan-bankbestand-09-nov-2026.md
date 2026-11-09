@@ -114,4 +114,5 @@ Elke sessie die aan de uitgavenscan bouwt, houdt zich hieraan. Wijken mag alleen
 12. Strikte schemacontrole: vaste types en bandbreedtes, onbekende velden weigeren, maximaal ongeveer 50 KB. Tekstvelden in de samenvatting mogen alleen waarden uit de vaste lijsten bevatten (merknamen en categorielabels), zodat er geen namen van personen of rekeningnummers mee kunnen, ook niet als iemand de browser omzeilt.
 13. Ook het antwoord van de AI wordt gecontroleerd: vaste vorm, alleen tekst, geen getallen die niet uit de samenvatting komen.
 14. Opslag alleen via server-routes met `createServiceClient()`; admin achter `isAdminRequest()`; inhoud wordt nergens gelogd.
+15. **Voorwaarde vóór livegang:** de AI-aanroepen lopen via een eigen Anthropic-account van Jarno (eigen verwerkersrelatie), niet via het account van PSOhub. Tijdens de proef tijdelijk PSOhub, op besluit van Jarno (9 nov 2026).
 

@@ -27,3 +27,6 @@ next-env.d.ts
 
 # Map voor bestanden die Jarno nog handmatig weggooit, nooit committen
 _to_delete/
+
+# Proefdata met persoonlijke cijfers, nooit in git
+_proef/
