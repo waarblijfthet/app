@@ -77,6 +77,32 @@ Uploads, hoeveel bezoekers het vergrendelde plan zien, hoeveel daarvan betalen. 
 
 Verwachting om eerlijk naast te leggen: bij duizend uploads per maand en 3 procent die €29 betaalt is dat ongeveer €900 per maand. De 100 Geldscans vóór 31 januari 2027 haal je hier niet mee; dit is een plan voor 2027.
 
+### 7.1 Meting per stap (Jarno, 9 nov: "per stap vastleggen of mensen zijn gestart en waar ze afhaken")
+
+Gebouwd, nog niet aangesloten op de wizard (die bestaat nog niet). Zelfde opzet als de analyse:
+
+- Tabel `uitgavenscan_voortgang` (supabase/uitgavenscan_voortgang.sql): één rij per sessie met verste scherm, eerste moment per scherm en kenmerken. RLS aan, geen policies; alleen server-routes met de service key.
+- `lib/uitgavenscan/meting.ts`: de schermenlijst (enige bron voor wizard en admin) en de toegestane kenmerken. Geen bedragen of namen; de route weigert alles daarbuiten.
+- Wizard: `meet(scherm, kenmerken?)` uit `lib/uitgavenscan/meet.ts`, via `/api/uitgavenscan-voortgang`. Eigen rondes (cookie `wb_eigenaar`) worden gemarkeerd, niet weggegooid.
+- Admin: /admin/uitgavenscan-verloop. Trechter (geopend, gestart, gelezen, overzicht, advies, aanvraag geopend, verzonden), afhaken per scherm, per bank, per apparaat, per downloadplek, leesfouten, adviesstatus, mediaan tijd tot advies.
+
+Afspraak voor de wizard, per scherm:
+
+| Scherm | Wanneer meten | Kenmerken |
+|---|---|---|
+| start | bij openen | |
+| bank | bij openen | |
+| apparaat | bij openen (= gestart) | `bank` |
+| downloaden | bij openen | `downloadPlek` |
+| gelezen | als het bestand gelezen is | `formaat`, `aantalBestanden`, `aantalMaanden` |
+| downloaden (opnieuw) | als lezen mislukt | `leesfout` |
+| eigen_rekeningen, inkomen | bij openen | |
+| wat_is_dit, alles_nalopen, grote_bedragen | bij openen, alleen als het scherm komt | `aantalVragen`, `groteBedragen`, `aiIndeling` |
+| overzicht | bij openen | `onbekendProcent` |
+| voorlopig_advies | als het antwoord er is | `adviesStatus` |
+| geldscan_aanvragen | bij openen | |
+| aanvraag_verzonden | na succesvol versturen | |
+
 ## 8. Besluiten van Jarno later op 9 november
 
 1. **Geen KvK, geen Mollie, tot er tractie is.** Dus nog geen echte betaling in het scherm.

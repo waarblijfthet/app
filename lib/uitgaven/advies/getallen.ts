@@ -35,9 +35,17 @@ export function maakGetallen(s: Samenvatting): Getallen {
   g.overige_ontvangsten_per_maand = euroTekst(gem.overigeOntvangsten);
   g.vast_per_maand = euroTekst(gem.vast);
   g.niet_maandelijks_per_maand = euroTekst(gem.nietMaandelijks);
-  g.niet_maandelijks_per_jaar = euroTekst(gem.nietMaandelijks * 12);
+  // Bewust geen bedrag per jaar: een paar maanden met één grote uitgave zeggen niets over een heel jaar.
+  g.niet_maandelijks_totaal = euroTekst(s.perMaand.reduce((a, m) => a + m.nietMaandelijks, 0));
   g.dagelijks_per_maand = euroTekst(gem.dagelijks);
+  const aflossing = s.perMaand.reduce((a, m) => a + m.extraAflossing, 0);
+  if (aflossing > 0) g.extra_aflossing_totaal = euroTekst(aflossing);
+  const perAard = (aard: string) => s.nietMaandelijks.filter((x) => x.aard === aard).reduce((a, x) => a + x.bedrag, 0);
+  if (perAard("eenmalig") > 0) g.eenmalig_totaal = euroTekst(perAard("eenmalig"));
+  if (perAard("jaarlijks") > 0) g.jaarlijks_totaal = euroTekst(perAard("jaarlijks"));
   g.over_per_maand = euroTekst(gem.over);
+  g.over_gewone_maand = euroTekst(gem.overGewoneMaand);
+  if (gem.inkomen > 0) g.vaste_lasten_procent_van_inkomen = Math.round((100 * gem.vast) / gem.inkomen) + " procent";
   g.aantal_maanden = String(s.maanden.length);
   if (s.perMaand.length) {
     const laag = s.perMaand.reduce((a, b) => (b.over < a.over ? b : a));
@@ -50,6 +58,7 @@ export function maakGetallen(s: Samenvatting): Getallen {
   s.perMaand.forEach((m) => {
     g["over_" + maandnaam(m.maand)] = euroTekst(m.over);
     g["niet_maandelijks_" + maandnaam(m.maand)] = euroTekst(m.nietMaandelijks);
+    if (m.extraAflossing > 0) g["extra_aflossing_" + maandnaam(m.maand)] = euroTekst(m.extraAflossing);
   });
   s.categorieen.forEach((c) => {
     g["categorie_" + sleutel(c.naam)] = euroTekst(c.perMaand);

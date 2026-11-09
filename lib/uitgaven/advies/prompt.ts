@@ -20,7 +20,10 @@ Wat de begrippen betekenen:
 - vast: uitgaven die elke maand terugkomen bij dezelfde partij.
 - niet maandelijks: belastingen, vakantie en losse grote uitgaven die niet elke maand komen.
 - dagelijks: alle andere uitgaven, zoals boodschappen, tanken en eten buiten de deur.
-- over: inkomen plus overige ontvangsten, min alle uitgaven. Geld naar de eigen spaarrekening telt niet als uitgave.
+- over: inkomen plus overige ontvangsten, min alle uitgaven. Geld naar de eigen spaarrekening telt niet als uitgave, een extra aflossing ook niet.
+- extra aflossing: een schuld in één keer of extra afgelost. Geen uitgave en geen probleem: het geld ging van spaargeld naar minder schuld. Het verklaart vaak waarom er veel uit de potjes kwam.
+- gewone maand: wat er overblijft zonder losse grote bedragen die niet terugkomen ({over_gewone_maand}). De bedragen per categorie zijn ook zonder die losse bedragen.
+- aard bij niet maandelijks: "eenmalig" komt niet terug (een grote aankoop), "jaarlijks" komt elk jaar terug (een jaarpremie, een aanslag), "onbekend" als de bezoeker het niet zei.
 - sparen: geld dat naar eigen rekeningen en spaarpotjes buiten dit afschrift ging (naar potjes) en wat er weer uit terugkwam (terug uit potjes). Netto gespaard is het verschil. Gaat er veel heen en komt er ook veel terug, dan dekken de potjes in de praktijk de lopende uitgaven. Dat is een belangrijke bevinding als "over" negatief is.
 
 Harde regels:
@@ -35,14 +38,18 @@ Harde regels:
 9. Korte zinnen, begrijpelijk voor iedereen.
 10. In kwaliteit.aandeelOnbekend staat hoeveel procent van de uitgaven nog niet in een categorie valt (Overig en Overige overboekingen). Is dat ${ONVOLLEDIG_VANAF_PROCENT} procent of meer, zeg dan in de kern dat een deel van de uitgaven nog niet is ingedeeld ({aandeel_onbekend}) en trek geen conclusie over een tekort of overschot. Een negatief "over" kan dan komen door geld naar een eigen rekening die nog niet als eigen is aangewezen.
 11. Noem "Overig" en "Overige overboekingen" nooit als een van de drie dingen die opvallen. Daar valt niets uit te leren.
+12. Is {netto_gespaard_per_maand} negatief, dan kwam er meer uit de eigen potjes terug dan erin ging. Zeg dat met zoveel woorden in de kern of de toelichting, en noem het niet als iets wat goed gaat. Is er een extra aflossing, zeg dan dat het spaargeld daar (deels) voor is gebruikt; anders dat het is gebruikt om de maanden rond te krijgen.
+13. Reken niet om naar een jaar. De gegevens beslaan alleen {aantal_maanden} maanden.
+14. Noem als voorbeeld van kosten die niet elke maand komen alleen posten die in nietMaandelijks staan.
+15. Een extra aflossing of een eenmalige uitgave is geen patroon. Noem hem hooguit als verklaring voor een maand of voor geld uit de potjes, nooit als probleem, als "dure maand" of als iets om op te letten. Kijk voor het beeld van een gewone maand naar wat overblijft zonder die posten.
 
 Wat je schrijft:
-- kern: één of twee zinnen met de belangrijkste bevinding. Gaat iets goed, begin daarmee, en noem dan waar het knelt.
+- kern: één of twee zinnen met de belangrijkste bevinding. Gaat iets goed, begin daarmee, en noem dan waar het knelt. Wijkt {over_gewone_maand} flink af van {over_per_maand}, dan vertekenen losse grote bedragen het gemiddelde: ga dan uit van de gewone maand en noem de losse bedragen als verklaring.
 - toelichting: twee tot vier zinnen die de kern onderbouwen met verwijzingen naar getallen.
-- opvallend: precies drie dingen die opvallen. Per ding een titel van hooguit zes woorden, een getal (precies één verwijzing zoals {niet_maandelijks_per_jaar}) en een uitleg van één of twee zinnen. Kies dingen die iemand herkent en waar een plan iets mee kan, zoals kosten die niet elke maand komen, grote verschillen tussen maanden, veel kleine uitgaven, doorlopende abonnementen of een grote categorie. Drie verschillende dingen.
-- watGoedGaat: één of twee zinnen over wat al op orde is.
+- opvallend: precies drie dingen die opvallen. Per ding een titel van hooguit zes woorden, een getal (precies één verwijzing zoals {niet_maandelijks_totaal}) en een uitleg van één of twee zinnen. Kies dingen die iemand herkent en waar een plan iets mee kan, zoals kosten die niet elke maand komen, grote verschillen tussen maanden, veel kleine uitgaven, doorlopende abonnementen of een grote categorie. Drie verschillende dingen.
+- watGoedGaat: één of twee zinnen over wat al op orde is, gebaseerd op een getal met een verwijzing (zoals {vaste_lasten_procent_van_inkomen} of een maand met geld over). Geen algemeenheden als "goed in beeld" of "meerdere rekeningen".
 - eersteStap: één concrete handeling die vanavond kan in de eigen bankapp, zonder bedrag en zonder productadvies. Bijvoorbeeld een aparte spaarrekening aanmaken voor kosten die niet elke maand komen.
-- inHetPlan: precies drie concrete dingen die het volledige plan voor DIT huishouden regelt, elk in één zin. Maak ze specifiek met hun eigen getallen, zodat het voelt als hun plan en niet als een folder. Goed: "Hoeveel er elke maand opzij moet om de {niet_maandelijks_per_jaar} aan jaarkosten op te vangen, en op welke dag." Fout: "Inzicht in je financiën." Noem geen bedragen die in het plan zelf staan en beloof geen besparing.`;
+- inHetPlan: precies drie concrete dingen die het volledige plan voor DIT huishouden regelt, elk in één zin. Maak ze specifiek met hun eigen getallen, zodat het voelt als hun plan en niet als een folder. Goed: "Hoeveel er elke maand opzij moet voor kosten die niet elke maand komen, zoals de {niet_maandelijks_totaal} in deze {aantal_maanden} maanden, en op welke dag." Fout: "Inzicht in je financiën." Noem geen bedragen die in het plan zelf staan en beloof geen besparing.`;
 
 /** JSON-schema voor het antwoord (structured outputs). Lengtes controleert valideerAdvies. */
 export const SCHEMA_VOORLOPIG = {

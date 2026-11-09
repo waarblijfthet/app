@@ -14,9 +14,25 @@ export type Keuzes = {
   inkomenSleutels: string[];
   /** Antwoorden op "wat is dit?": groep (uit vragenOverOnbekend) naar categorie. Optioneel. */
   categorieKeuzes?: Record<string, CategorieId>;
+  /** Antwoorden op "wat was dit?" bij grote losse bedragen: transactie-sleutel naar aard. Lokaal, optioneel. */
+  afwijkingen?: Record<string, Aard>;
 };
 
-export type Soort = "intern" | "inkomen" | "ontvangst" | Bak;
+/**
+ * Wat een groot los bedrag was. Een extra aflossing (een schuld in één keer aflossen) is geen uitgave
+ * maar een verschuiving van vermogen, net als sparen: hij telt niet mee in "over" en staat apart.
+ * Eenmalig en jaarlijks blijven uitgaven die niet elke maand komen, maar het advies en het plan
+ * moeten het verschil weten: een eenmalige aankoop komt niet terug, een jaarlijkse wel.
+ */
+export type Aard = "aflossing" | "eenmalig" | "jaarlijks";
+
+/** Vanaf dit bedrag (per boeking) vraagt de wizard wat het was. */
+export const AFWIJKING_CENT = 100000;
+
+/** Een groot los bedrag in deze categorieën is bijna altijd een extra aflossing (lening, studieschuld, hypotheek). */
+const AFLOSSING_CATEGORIEEN = new Set<string>(["leningen", "wonen"]);
+
+export type Soort = "intern" | "inkomen" | "ontvangst" | "aflossing" | Bak;
 
 /** Waar de categorie vandaan komt: merkenlijst, regel (trefwoord of code), keuze (bezoeker of AI), of nog onbekend. */
 export type Bron = "merk" | "regel" | "keuze" | "onbekend";
@@ -28,6 +44,8 @@ export type Post = {
   merk: string | null;
   groep: string;
   bron: Bron;
+  /** Alleen bij grote losse bedragen: wat het was (gekozen of voorgesteld), anders null. */
+  aard: Aard | null;
 };
 
 export type MaandTotaal = {
@@ -37,11 +55,13 @@ export type MaandTotaal = {
   vastCent: number;
   nietMaandelijksCent: number;
   dagelijksCent: number;
+  /** Extra aflossingen: geen uitgave, telt niet mee in over. */
+  aflossingCent: number;
   overCent: number;
 };
 
 export type VastePost = { groep: string; merk: string | null; categorie: CategorieId; perMaandCent: number; label: string };
-export type LosseGroteUitgave = { merk: string | null; categorie: CategorieId; maand: string; bedragCent: number; label: string };
+export type LosseGroteUitgave = { merk: string | null; categorie: CategorieId; maand: string; bedragCent: number; label: string; aard: Aard | null };
 
 export type Overzicht = {
   maanden: string[];
@@ -49,7 +69,8 @@ export type Overzicht = {
   posten: Post[];
   vasteLasten: VastePost[];
   nietMaandelijks: LosseGroteUitgave[];
-  categorieTotalen: { categorie: CategorieId; bak: Bak; totaalCent: number; aantal: number }[];
+  /** losseGroteCent: het deel uit losse bedragen vanaf AFWIJKING_CENT die niet jaarlijks terugkomen. */
+  categorieTotalen: { categorie: CategorieId; bak: Bak; totaalCent: number; aantal: number; losseGroteCent: number }[];
   aantalRekeningen: number;
   /** Geld naar en van eigen rekeningen en potjes BUITEN de geüploade bestanden, per maand. */
   sparen: { maand: string; heenCent: number; terugCent: number }[];
@@ -111,11 +132,12 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
     const bron: Bron = keuze ? "keuze" : indeling.merk ? "merk" : onbekend ? "onbekend" : "regel";
     return { t: t, bron: bron, indeling: keuze ? { categorie: keuze, merk: indeling.merk, groep: indeling.groep } : indeling };
   });
-  const uitgavenPerGroep = new Map<string, { maanden: Set<string>; bedragen: number[] }>();
+  const uitgavenPerGroep = new Map<string, { categorie: CategorieId; maanden: Set<string>; perBoeking: string[]; bedragen: number[] }>();
   voorlopig.forEach(({ t, indeling }) => {
     if (t.bedragCent >= 0 || (t.tegenIban && eigen.has(t.tegenIban))) return;
-    const g = uitgavenPerGroep.get(indeling.groep) || { maanden: new Set<string>(), bedragen: [] };
+    const g = uitgavenPerGroep.get(indeling.groep) || { categorie: indeling.categorie, maanden: new Set<string>(), perBoeking: [], bedragen: [] };
     g.maanden.add(maandVan(t.datum));
+    g.perBoeking.push(maandVan(t.datum));
     g.bedragen.push(-t.bedragCent);
     uitgavenPerGroep.set(indeling.groep, g);
   });
@@ -128,21 +150,62 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
     const max = Math.max(...g.bedragen);
     if (g.maanden.size >= nodigVoorMaandelijks && perMaand <= 1.5 && max <= min * 1.6 + 500) maandelijks.add(groep);
   });
+  // Komt er bij een partij naast het vaste bedrag soms iets kleins bij (eigen risico naast de premie, een
+  // naheffing naast de termijn), dan telt alleen het terugkerende bedrag als vaste last.
+  // Soms lopen er twee termijnen bij één partij (gemeentebelasting en waterschap via één loket): tot drie banden.
+  const vasteBand = new Map<string, { min: number; max: number }[]>();
+  uitgavenPerGroep.forEach((g, groep) => {
+    // Alleen voor vaste soorten kosten (en nog onbekende): één grote boodschap per maand is geen vaste last.
+    const soortKost = CATEGORIEEN[g.categorie].bak !== "dagelijks" || g.categorie === "overig" || g.categorie === "overboeking";
+    if (maanden.length < 2 || maandelijks.has(groep) || !soortKost) return;
+    let over = g.bedragen.map((b, i) => ({ b: b, m: g.perBoeking[i] }));
+    const banden: { min: number; max: number }[] = [];
+    while (banden.length < 3 && over.length > 0) {
+      let beste = { min: 0, max: 0, maanden: 0, aantal: 0 };
+      for (const kandidaat of over) {
+        const a = kandidaat.b;
+        const marge = Math.max(500, Math.round(a * 0.15));
+        const ms = new Set<string>();
+        let aantal = 0;
+        over.forEach((x) => {
+          if (x.b >= a - marge && x.b <= a + marge) {
+            ms.add(x.m);
+            aantal++;
+          }
+        });
+        if (ms.size > beste.maanden || (ms.size === beste.maanden && aantal < beste.aantal)) beste = { min: a - marge, max: a + marge, maanden: ms.size, aantal: aantal };
+      }
+      if (beste.maanden < nodigVoorMaandelijks || beste.aantal / beste.maanden > 1.5) break;
+      banden.push({ min: beste.min, max: beste.max });
+      over = over.filter((x) => x.b < beste.min || x.b > beste.max);
+    }
+    if (banden.length) vasteBand.set(groep, banden);
+  });
+  const isVast = (groep: string, cent: number) => {
+    if (maandelijks.has(groep)) return true;
+    return (vasteBand.get(groep) || []).some((b) => cent >= b.min && cent <= b.max);
+  };
 
   const posten: Post[] = voorlopig.map(({ t, indeling, bron }) => {
     if (t.tegenIban && eigen.has(t.tegenIban)) {
-      return { t: t, soort: "intern", categorie: null, merk: indeling.merk, groep: indeling.groep, bron: bron };
+      return { t: t, soort: "intern", categorie: null, merk: indeling.merk, groep: indeling.groep, bron: bron, aard: null };
     }
     if (t.bedragCent > 0) {
       const isInkomen = inkomen.has(inkomenSleutel(t));
-      return { t: t, soort: isInkomen ? "inkomen" : "ontvangst", categorie: null, merk: indeling.merk, groep: indeling.groep, bron: bron };
+      return { t: t, soort: isInkomen ? "inkomen" : "ontvangst", categorie: null, merk: indeling.merk, groep: indeling.groep, bron: bron, aard: null };
     }
-    let soort: Bak;
-    if (maandelijks.has(indeling.groep)) soort = "vast";
+    let soort: Soort;
+    if (isVast(indeling.groep, -t.bedragCent)) soort = "vast";
     else if (CATEGORIEEN[indeling.categorie].bak === "nietMaandelijks") soort = "nietMaandelijks";
     else if (-t.bedragCent >= GROTE_UITGAVE_CENT && indeling.categorie !== "boodschappen" && indeling.categorie !== "contant") soort = "nietMaandelijks";
     else soort = "dagelijks";
-    return { t: t, soort: soort, categorie: indeling.categorie, merk: indeling.merk, groep: indeling.groep, bron: bron };
+    let aard: Aard | null = null;
+    if (soort !== "vast" && -t.bedragCent >= AFWIJKING_CENT) {
+      aard = (keuzes.afwijkingen && keuzes.afwijkingen[t.sleutel]) || (AFLOSSING_CATEGORIEEN.has(indeling.categorie) ? "aflossing" : null);
+      if (aard === "aflossing") soort = "aflossing";
+      else if (aard) soort = "nietMaandelijks";
+    }
+    return { t: t, soort: soort, categorie: indeling.categorie, merk: indeling.merk, groep: indeling.groep, bron: bron, aard: aard };
   });
 
   const perMaand: MaandTotaal[] = maanden.map((maand) => {
@@ -160,12 +223,13 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
       vastCent: vastCent,
       nietMaandelijksCent: nietMaandelijksCent,
       dagelijksCent: dagelijksCent,
+      aflossingCent: som("aflossing"),
       overCent: inkomenCent + ontvangstCent - vastCent - nietMaandelijksCent - dagelijksCent,
     };
   });
 
   const vasteLasten: VastePost[] = [];
-  maandelijks.forEach((groep) => {
+  new Set([...Array.from(maandelijks), ...Array.from(vasteBand.keys())]).forEach((groep) => {
     const p = posten.filter((x) => x.groep === groep && x.soort === "vast");
     if (p.length === 0) return;
     const totaal = p.reduce((a, x) => a - x.t.bedragCent, 0);
@@ -188,19 +252,21 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
       maand: maandVan(x.t.datum),
       bedragCent: -x.t.bedragCent,
       label: x.merk || CATEGORIEEN[x.categorie as CategorieId].label,
+      aard: x.aard,
     }))
     .sort((a, b) => b.bedragCent - a.bedragCent);
 
-  const perCategorie = new Map<CategorieId, { bak: Bak; totaalCent: number; aantal: number }>();
+  const perCategorie = new Map<CategorieId, { bak: Bak; totaalCent: number; aantal: number; losseGroteCent: number }>();
   posten.forEach((x) => {
-    if (!x.categorie || x.soort === "intern" || x.soort === "inkomen" || x.soort === "ontvangst") return;
-    const c = perCategorie.get(x.categorie) || { bak: x.soort as Bak, totaalCent: 0, aantal: 0 };
+    if (!x.categorie || x.soort === "intern" || x.soort === "inkomen" || x.soort === "ontvangst" || x.soort === "aflossing") return;
+    const c = perCategorie.get(x.categorie) || { bak: x.soort as Bak, totaalCent: 0, aantal: 0, losseGroteCent: 0 };
     c.totaalCent += -x.t.bedragCent;
+    if (isLosGroot(x)) c.losseGroteCent += -x.t.bedragCent;
     c.aantal++;
     perCategorie.set(x.categorie, c);
   });
   const categorieTotalen = Array.from(perCategorie.entries())
-    .map(([categorie, c]) => ({ categorie: categorie, bak: c.bak, totaalCent: c.totaalCent, aantal: c.aantal }))
+    .map(([categorie, c]) => ({ categorie: categorie, bak: c.bak, totaalCent: c.totaalCent, aantal: c.aantal, losseGroteCent: c.losseGroteCent }))
     .sort((a, b) => b.totaalCent - a.totaalCent);
 
   const inBestanden = eigenIbansUitBestanden(transacties);
@@ -225,6 +291,47 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
   };
 }
 
+/**
+ * Een groot los bedrag dat niet jaarlijks terugkomt (eenmalig, of nog niet beantwoord). Zulke bedragen
+ * vertekenen het beeld van een gewone maand: het gemiddelde per categorie en "over in een gewone maand"
+ * laten ze weg. Ze blijven wel zichtbaar als kosten die niet elke maand komen.
+ */
+export function isLosGroot(p: Post): boolean {
+  return p.soort === "nietMaandelijks" && p.t.bedragCent <= -AFWIJKING_CENT && p.aard !== "jaarlijks";
+}
+
+export type GroteAfwijking = {
+  /** Sleutel voor keuzes.afwijkingen. Lokaal, gaat nooit mee naar de server. */
+  sleutel: string;
+  /** Naam zoals in het afschrift, alleen voor op het scherm van de bezoeker. */
+  label: string;
+  categorie: CategorieId | null;
+  maand: string;
+  bedragCent: number;
+  /** Wat er nu mee gebeurt (gekozen of automatisch), en wat de wizard voorstelt. */
+  aard: Aard | null;
+  voorstel: Aard;
+};
+
+const JAARLIJKS_VOORSTEL = new Set<string>(["belastingen", "verzekeringen", "zorgverzekering", "autovast", "vakantie", "energie"]);
+
+/** Grote losse bedragen, de grootste eerst, om te vragen wat het was. */
+export function groteAfwijkingen(o: Overzicht, max = 6): GroteAfwijking[] {
+  return o.posten
+    .filter((p) => p.t.bedragCent <= -AFWIJKING_CENT && (p.soort === "nietMaandelijks" || p.soort === "dagelijks" || p.soort === "aflossing"))
+    .sort((a, b) => a.t.bedragCent - b.t.bedragCent)
+    .slice(0, max)
+    .map((p) => ({
+      sleutel: p.t.sleutel,
+      label: p.t.tegenpartij || (p.categorie ? CATEGORIEEN[p.categorie].label : "Onbekend"),
+      categorie: p.categorie,
+      maand: maandVan(p.t.datum),
+      bedragCent: -p.t.bedragCent,
+      aard: p.aard,
+      voorstel: p.categorie && AFLOSSING_CATEGORIEEN.has(p.categorie) ? "aflossing" : p.categorie && JAARLIJKS_VOORSTEL.has(p.categorie) ? "jaarlijks" : "eenmalig",
+    }));
+}
+
 export type OnbekendePost = {
   /** Sleutel voor categorieKeuzes. Lokaal, gaat nooit mee naar de server. */
   groep: string;
@@ -245,7 +352,7 @@ const BEDRIJF_CODES = new Set(["bc", "ba", "id", "ei", "ic", "bea", "ide", "eic"
 export function vragenOverOnbekend(o: Overzicht, maxVragen = 8, dekking = 0.8): OnbekendePost[] {
   const perGroep = new Map<string, OnbekendePost>();
   o.posten.forEach((p) => {
-    if (p.soort === "intern" || p.soort === "inkomen" || p.soort === "ontvangst") return;
+    if (p.soort === "intern" || p.soort === "inkomen" || p.soort === "ontvangst" || p.soort === "aflossing") return;
     if (p.categorie !== "overig" && p.categorie !== "overboeking") return;
     const g = perGroep.get(p.groep) || { groep: p.groep, label: p.t.tegenpartij || "Onbekend", aantal: 0, totaalCent: 0, isBedrijf: false };
     g.aantal++;
@@ -269,22 +376,23 @@ export function vragenOverOnbekend(o: Overzicht, maxVragen = 8, dekking = 0.8): 
  * Namen van onbekende tegenpartijen die zeker een bedrijf zijn (pin, iDEAL, incasso), opgeschoond,
  * om door de AI te laten indelen. Overboekingen gaan nooit mee: dat kunnen personen zijn.
  */
-export function onbekendeBedrijfsnamen(o: Overzicht, max = 150): { groep: string; naam: string }[] {
-  const perGroep = new Map<string, { naam: string; totaal: number; bedrijf: boolean }>();
+export function onbekendeBedrijfsnamen(o: Overzicht, max = 150): { groep: string; naam: string; gemiddeldCent: number }[] {
+  const perGroep = new Map<string, { naam: string; totaal: number; aantal: number; bedrijf: boolean }>();
   o.posten.forEach((p) => {
-    if (p.soort === "intern" || p.soort === "inkomen" || p.soort === "ontvangst" || p.bron !== "onbekend") return;
-    const g = perGroep.get(p.groep) || { naam: p.t.tegenpartij, totaal: 0, bedrijf: true };
+    if (p.soort === "intern" || p.soort === "inkomen" || p.soort === "ontvangst" || p.soort === "aflossing" || p.bron !== "onbekend") return;
+    const g = perGroep.get(p.groep) || { naam: p.t.tegenpartij, totaal: 0, aantal: 0, bedrijf: true };
     g.totaal += -p.t.bedragCent;
+    g.aantal++;
     if (!BEDRIJF_CODES.has((p.t.code || "").toLowerCase())) g.bedrijf = false;
     perGroep.set(p.groep, g);
   });
-  const uit: { groep: string; naam: string }[] = [];
+  const uit: { groep: string; naam: string; gemiddeldCent: number }[] = [];
   Array.from(perGroep.entries())
     .filter(([, g]) => g.bedrijf)
     .sort((a, b) => b[1].totaal - a[1].totaal)
     .forEach(([groep, g]) => {
       const naam = schoonBedrijfsnaam(g.naam);
-      if (naam && uit.length < max) uit.push({ groep: groep, naam: naam });
+      if (naam && uit.length < max) uit.push({ groep: groep, naam: naam, gemiddeldCent: Math.round(g.totaal / g.aantal) });
     });
   return uit;
 }

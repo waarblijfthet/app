@@ -1883,3 +1883,29 @@ Tests 8 groen, tsc schoon. **Volgende: Jarno draait de proef met eigen antwoorde
 
 **Vervolg 9 november: proef met AI-indeling (Jarno, eigen terminal).** Claude deelde 79 van 99 onbekende bedrijfsnamen in; onbekend zakte van ongeveer 55 naar 7 procent van de uitgaven. Nog open in keuzes.json: 7 tegenrekeningen (eigen ja of nee) en 20 kleine posten. **Teaser (Jarno):** het voorlopig advies moet concreet genoeg zijn dat mensen het volledige ding willen, maar het plan niet weggeven. De instructie verbiedt nu bedragen per potje, verdeling, overboekingen en stappenplan; nieuw veld `inHetPlan`: drie dingen die het betaalde plan voor dit huishouden regelt, met hun eigen getallen (gecontroleerd: precies drie, geen cijfers buiten verwijzingen). Tests 10 groen. **Open vraag Jarno:** direct na betaling een Excel-budget en een pdf-rapport; zie het antwoord in het gesprek (direct kan pas met een betaalprovider, tot dan na het afvinken van de betaling).
 
+
+**Vervolg 9 november: tweede proefadvies beoordeeld (14:30) en de fouten erachter opgelost.** Het advies klopte technisch, maar zat inhoudelijk op drie plekken mis, steeds door de cijfers eronder:
+- De hypotheek stond als "Bankkosten" (€ 2.402 per maand): de AI zag alleen de naam van de geldverstrekker. Nieuw: regel 4 in `SYSTEEM_INDELEN` (bank of geldverstrekker is bijna nooit bankkosten) en `bewaakIndeling()`: een AI-indeling die niet bij het bedrag past (bankkosten boven € 25 per keer) wordt weer een vraag. `onbekendeBedrijfsnamen()` geeft daarvoor het gemiddelde bedrag mee (lokaal, gaat niet naar de AI).
+- Zorgpremie en gemeentetermijnen stonden als "niet elke maand", omdat er bij dezelfde partij soms een klein extra bedrag bij kwam (eigen risico, tweede termijn). Nieuw in `maakOverzicht`: per partij tot drie terugkerende bedragbanden; alleen boekingen binnen een band zijn vast, de rest volgt de gewone regels. Alleen voor vaste soorten kosten en onbekende posten, zodat één grote boodschap per maand geen vaste last wordt.
+- "€ 38.880 per jaar aan kosten die niet elke maand komen": vier maanden met één grote uitgave × 12. `niet_maandelijks_per_jaar` is vervangen door `niet_maandelijks_totaal` (over de periode); prompt-regel 13 verbiedt omrekenen naar een jaar.
+- Spaargeld aangesproken (netto € 2.290 per maand uit de potjes) werd als iets positiefs gebracht. Prompt-regel 12: bij negatief netto sparen moet het advies dat met zoveel woorden zeggen. Regel 14: als voorbeeld van kosten die niet elke maand komen alleen posten uit `nietMaandelijks`.
+Open vraag aan Jarno: grote losse aflossing (DUO, augustus) telt nu als uitgave die niet elke maand komt; moet een extra aflossing apart, als vorm van sparen? Tests 12 groen, tsc schoon. In `_proef/keuzes.json` staat de geldverstrekker nog op `bankkosten` (oude AI-indeling): op `wonen` zetten en opnieuw draaien.
+
+**Vervolg 9 november: grote losse bedragen (Jarno: "al dat soort afwijkingen moeten we eruit zien te krijgen").** Aanleiding: de DUO-schuld werd in augustus in één keer afgelost (€ 5.661) en telde als uitgave, waardoor augustus een rampmaand leek.
+- `Aard` = aflossing | eenmalig | jaarlijks. Elke losse uitgave vanaf € 1.000 (`AFWIJKING_CENT`) die geen vaste last is, krijgt een aard: gekozen via `keuzes.afwijkingen` (transactie-sleutel, lokaal) of automatisch "aflossing" bij leningen en wonen (de vaste hypotheektermijn blijft vast).
+- Een extra aflossing krijgt soort `aflossing`: geen uitgave, telt niet mee in `over` (net als sparen), staat apart als `aflossingCent` per maand. Eenmalig en jaarlijks blijven "niet elke maand", maar met de aard erbij.
+- `groteAfwijkingen()` levert de vragen voor het nieuwe scherm Stap 3d (canvas), met voorstel. Samenvatting versie 2: `extraAflossing` per maand en gemiddeld, `aard` bij elke post die niet elke maand komt; validator weigert andere waarden.
+- Advies: begrippen extra aflossing en aard, getallen `extra_aflossing_totaal`, `eenmalig_totaal`, `jaarlijks_totaal`; regel 15: een aflossing of eenmalige uitgave is geen patroon en geen "dure maand".
+- `proef-keuzes.cjs` zet de grote bedragen in `keuzes.json` onder `afwijkingen` (veld `gekozen`).
+Tests 13 groen, tsc van het hele project schoon.
+
+**Vervolg 9 november: derde proefadvies (15:28) beoordeeld.** Hypotheek en DUO-aflossing gingen goed. Nog mis: "Webwinkels € 1.081 per maand" kwam grotendeels uit één aankoop van € 2.324, en "wat goed gaat" was vaag ("vaste lasten goed in beeld").
+- `isLosGroot()`: een losse uitgave vanaf € 1.000 die niet jaarlijks terugkomt. Die telt niet mee in het maandgemiddelde per categorie (`losseGroteCent`), en `gemiddeldPerMaand.overGewoneMaand` laat zien wat er in een gewone maand overblijft. Ze blijven zichtbaar bij "niet elke maand".
+- Getallen `over_gewone_maand` en `vaste_lasten_procent_van_inkomen`; de kern gaat uit van de gewone maand als die flink afwijkt van het gemiddelde; "wat goed gaat" moet op een getal rusten.
+- Categorieën in de samenvatting op bedrag per maand gesorteerd.
+Tests 13 groen, tsc project schoon.
+
+**Vervolg 9 november: meting per stap voor de uitgavenscan (Jarno: "net zoals bij de analyse, per stap vastleggen of mensen zijn gestart en waar ze afhaken").** Zie plan sectie 7.1.
+- Nieuw: `supabase/uitgavenscan_voortgang.sql` (nog draaien in de SQL-editor), `lib/uitgavenscan/meting.ts` (schermen en toegestane kenmerken, `valideerMeting`), `lib/uitgavenscan/verloop.ts` (`berekenVerloop`), `lib/uitgavenscan/meet.ts` (client), `app/api/uitgavenscan-voortgang/route.ts`, `app/api/admin/uitgavenscan-verloop/route.ts`, `/admin/uitgavenscan-verloop` met menu-item "Uitgavenscan".
+- Afhaken = verste scherm, behalve wie in het laatste half uur nog iets deed (nog bezig). Gestart = bank gekozen. Schermen die niet iedereen krijgt (wat is dit, alles nalopen, grote bedragen) tellen alleen bij wie ze zag.
+- Tests: `scripts/meting-test.cjs` (2 groen). tsc van het hele project schoon.

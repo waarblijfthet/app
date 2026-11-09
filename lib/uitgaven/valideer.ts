@@ -54,11 +54,11 @@ export function valideerSamenvatting(invoer: unknown): Resultaat {
   if (!isObject(invoer)) return { ok: false, fouten: ["geen object"] };
   const s = invoer;
   alleenSleutels(s, ["versie", "bron", "maanden", "perMaand", "gemiddeldPerMaand", "categorieen", "vasteLasten", "nietMaandelijks", "sparen", "kwaliteit", "kenmerken"], "samenvatting");
-  if (s.versie !== 1) f("versie: onbekend");
+  if (s.versie !== 2) f("versie: onbekend");
   if (s.bron !== "afschrift" && s.bron !== "schatting") f("bron: onbekend");
   lijst(s.maanden, "maanden", 24).forEach((m, i) => maand(m, "maanden[" + i + "]"));
 
-  const bedragVelden = ["inkomen", "overigeOntvangsten", "vast", "nietMaandelijks", "dagelijks", "over"];
+  const bedragVelden = ["inkomen", "overigeOntvangsten", "vast", "nietMaandelijks", "dagelijks", "extraAflossing", "over"];
   lijst(s.perMaand, "perMaand", 24).forEach((m, i) => {
     const pad = "perMaand[" + i + "]";
     if (!isObject(m)) return f(pad + ": geen object");
@@ -68,8 +68,9 @@ export function valideerSamenvatting(invoer: unknown): Resultaat {
   });
   if (!isObject(s.gemiddeldPerMaand)) f("gemiddeldPerMaand: geen object");
   else {
-    alleenSleutels(s.gemiddeldPerMaand, bedragVelden, "gemiddeldPerMaand");
-    bedragVelden.forEach((k) => getal((s.gemiddeldPerMaand as Record<string, unknown>)[k], "gemiddeldPerMaand." + k));
+    const gemVelden = bedragVelden.concat(["overGewoneMaand"]);
+    alleenSleutels(s.gemiddeldPerMaand, gemVelden, "gemiddeldPerMaand");
+    gemVelden.forEach((k) => getal((s.gemiddeldPerMaand as Record<string, unknown>)[k], "gemiddeldPerMaand." + k));
   }
   lijst(s.categorieen, "categorieen", 40).forEach((c, i) => {
     const pad = "categorieen[" + i + "]";
@@ -91,11 +92,12 @@ export function valideerSamenvatting(invoer: unknown): Resultaat {
   lijst(s.nietMaandelijks, "nietMaandelijks", 25).forEach((v, i) => {
     const pad = "nietMaandelijks[" + i + "]";
     if (!isObject(v)) return f(pad + ": geen object");
-    alleenSleutels(v, ["naam", "categorie", "maand", "bedrag"], pad);
+    alleenSleutels(v, ["naam", "categorie", "maand", "bedrag", "aard"], pad);
     naam(v.naam, pad + ".naam");
     categorie(v.categorie, pad + ".categorie");
     maand(v.maand, pad + ".maand");
     getal(v.bedrag, pad + ".bedrag", 0);
+    if (v.aard !== "eenmalig" && v.aard !== "jaarlijks" && v.aard !== "onbekend") f(pad + ".aard: onbekend");
   });
   if (!isObject(s.sparen)) f("sparen: geen object");
   else {

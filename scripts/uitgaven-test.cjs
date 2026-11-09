@@ -40,6 +40,67 @@ t("indelen op merk en trefwoord", () => {
   assert.strictEqual(u.deelIn(tx("2026-07-01", -10, "Shellfish Bar")).categorie, "overig"); // geen "shell" binnen een woord
 });
 
+t("vaste last met losse extra's bij dezelfde partij", () => {
+  const b = [];
+  maanden.forEach((m) => {
+    b.push(tx(m + "-24", 3000, "Werkgever A BV", { iban: "NL00INGB0000000003", code: "cb", oms: "Salaris" }));
+    b.push(tx(m + "-01", -416, "Zilveren Kruis", { iban: "NL00INGB0000000009", code: "ei" }));
+    b.push(tx(m + "-28", -78.59, "Gemeente Tilburg", { iban: "NL00BNGH0000000007", code: "ei", oms: "Termijn gemeentelijke belastingen" }));
+    b.push(tx(m + "-28", -52.21, "Gemeente Tilburg", { iban: "NL00BNGH0000000007", code: "ei", oms: "Termijn waterschap" }));
+  });
+  b.push(tx("2026-07-15", -26, "Zilveren Kruis", { iban: "NL00INGB0000000009", code: "ei", oms: "Eigen risico" }));
+  b.push(tx("2026-08-15", -14, "Zilveren Kruis", { iban: "NL00INGB0000000009", code: "ei", oms: "Eigen risico" }));
+  b.push(tx("2026-11-02", -1, "Albert Heijn 1234", { code: "bc" }));
+  const o = u.maakOverzicht(b, { eigenIbans: [], inkomenSleutels: [] });
+  const zk = o.posten.filter((p) => p.t.tegenpartij === "Zilveren Kruis");
+  assert.ok(zk.filter((p) => p.t.bedragCent === -41600).every((p) => p.soort === "vast"));
+  assert.ok(zk.filter((p) => p.t.bedragCent !== -41600).every((p) => p.soort !== "vast"));
+  const vl = o.vasteLasten.find((v) => v.merk === "Zilveren Kruis");
+  assert.strictEqual(vl.perMaandCent, 41600);
+  assert.ok(o.posten.filter((p) => p.t.tegenpartij === "Gemeente Tilburg").every((p) => p.soort === "vast")); // twee termijnen bij één partij
+});
+
+t("grote afwijkingen: extra aflossing apart, eenmalig en jaarlijks gemarkeerd", () => {
+  const b = [];
+  maanden.forEach((m) => {
+    b.push(tx(m + "-24", 3000, "Werkgever A BV", { iban: "NL00INGB0000000003", code: "cb", oms: "Salaris" }));
+    b.push(tx(m + "-01", -1000, "Hypotheekbank NV", { iban: "NL00ABNA0000000004", code: "ei", oms: "Hypotheek termijn" }));
+  });
+  b.push(tx("2026-08-10", -5661, "DUO", { iban: "NL00INGB0000000010", code: "tb", oms: "Aflossing studieschuld" }));
+  b.push(tx("2026-08-12", -2324, "Coolblue", { code: "id" }));
+  b.push(tx("2026-07-20", -10000, "Hypotheekbank NV", { iban: "NL00ABNA0000000004", code: "tb", oms: "Extra aflossing" }));
+  b.push(tx("2026-11-02", -1, "Albert Heijn 1234", { code: "bc" }));
+  const inkomen = u.inkomenKandidaten(b, new Set(), 4).map((x) => x.sleutel);
+  const o = u.maakOverzicht(b, { eigenIbans: [], inkomenSleutels: inkomen });
+  const duo = o.posten.find((p) => p.t.tegenpartij === "DUO");
+  assert.strictEqual(duo.categorie, "leningen");
+  assert.strictEqual(duo.soort, "aflossing"); // automatisch: een grote losse aflossing is geen uitgave
+  const aug = o.perMaand.find((m) => m.maand === "2026-08");
+  assert.strictEqual(aug.aflossingCent, 566100);
+  assert.strictEqual(aug.overCent, 300000 - 100000 - 232400); // aflossing telt niet mee in over
+  assert.strictEqual(o.posten.find((p) => p.t.bedragCent === -1000000).soort, "aflossing"); // extra op de hypotheek
+  assert.strictEqual(o.posten.filter((p) => p.t.bedragCent === -100000 && p.soort === "vast").length, 4); // de termijn blijft vast
+  const af = u.groteAfwijkingen(o);
+  assert.deepStrictEqual(af.map((x) => [x.label, x.aard, x.voorstel]), [["Hypotheekbank NV", "aflossing", "aflossing"], ["DUO", "aflossing", "aflossing"], ["Coolblue", null, "eenmalig"]]);
+  const o2 = u.maakOverzicht(b, { eigenIbans: [], inkomenSleutels: inkomen, afwijkingen: { [af[2].sleutel]: "eenmalig" } });
+  const s = u.maakSamenvatting(o2);
+  assert.ok(u.valideerSamenvatting(s).ok);
+  assert.strictEqual(s.perMaand.find((m) => m.maand === "2026-08").extraAflossing, 5660);
+  assert.strictEqual(s.nietMaandelijks.find((x) => x.naam === "Coolblue").aard, "eenmalig");
+  assert.strictEqual(s.categorieen.find((c) => c.naam === "Webwinkels").perMaand, 0); // eenmalige aankoop telt niet in het maandgemiddelde
+  assert.strictEqual(s.gemiddeldPerMaand.overGewoneMaand, Math.round((s.perMaand.reduce((a, m) => a + m.over, 0) + 2324) / 4 / 10) * 10);
+  const kapot = JSON.parse(JSON.stringify(s));
+  kapot.nietMaandelijks[0].aard = "iets anders";
+  assert.ok(!u.valideerSamenvatting(kapot).ok);
+});
+
+t("AI-indeling die niet bij het bedrag past wordt weer een vraag", () => {
+  const ai = require("./out/uitgaven/advies/indelen-ai.js");
+  assert.strictEqual(ai.bewaakIndeling("bankkosten", 240200), null);
+  assert.strictEqual(ai.bewaakIndeling("bankkosten", 795), "bankkosten");
+  assert.strictEqual(ai.bewaakIndeling("boodschappen", 240200), "boodschappen");
+});
+
 t("alleen volledige maanden", () => {
   assert.deepStrictEqual(u.volledigeMaanden(boekingen), maanden);
 });
@@ -132,11 +193,11 @@ t("kwaliteit en controle van het advies", () => {
   const g = maakGetallen(s);
   assert.strictEqual(g.inkomen_per_maand, "€ 0");
   const goed = { kern: "Jullie vaste lasten zijn {vast_per_maand} per maand.", toelichting: "Daarnaast {dagelijks_per_maand} aan dagelijkse uitgaven.", opvallend: [
-    { titel: "Kosten niet elke maand", getal: "{niet_maandelijks_per_jaar}", uitleg: "Deze kosten komen in pieken." },
+    { titel: "Kosten niet elke maand", getal: "{niet_maandelijks_totaal}", uitleg: "Deze kosten komen in pieken." },
     { titel: "Veel kleine boodschappen", getal: "{boodschappen_keer_per_maand}", uitleg: "Vaak kleine bedragen." },
     { titel: "Abonnementen", getal: "{abonnementen_per_maand}", uitleg: "Ze lopen elke maand door." } ],
     watGoedGaat: "De vaste lasten zijn stabiel.", eersteStap: "Maak een aparte spaarrekening aan.",
-    inHetPlan: ["Hoeveel er opzij moet voor {niet_maandelijks_per_jaar} aan jaarkosten.", "Welk leefgeld per week past.", "Op welke dag elk potje gevuld wordt."] };
+    inHetPlan: ["Hoeveel er opzij moet voor {niet_maandelijks_totaal} aan jaarkosten.", "Welk leefgeld per week past.", "Op welke dag elk potje gevuld wordt."] };
   assert.ok(valideerAdvies(goed, g).ok);
   assert.ok(vulIn(goed, g).kern.includes("€ "));
   const fout = (f) => { const a = JSON.parse(JSON.stringify(goed)); f(a); return valideerAdvies(a, g).ok; };
