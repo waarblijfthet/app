@@ -89,3 +89,29 @@ Verwachting om eerlijk naast te leggen: bij duizend uploads per maand en 3 proce
 8. **Vervangt punt 2 en 3 deels: de uitgavenscan wordt de nieuwe Geldscan.** Gratis en direct: inzicht plus een kort voorlopig advies (kern, drie dingen die opvallen, wat goed gaat), dynamisch geschreven door Claude op de samenvatting, na een melding vóór het versturen. Betaald: de Geldscan, € 49, een plan op maat dat de AI opstelt uit de cijfers en drie extra vragen (doel, wie regelt het geld, wat voelt krap), door Jarno nagekeken, binnen 24 uur na betaling. Betalen via het bestaande betaalverzoek (Tikkie of overboeking), dus geen Mollie nodig. De samenvatting (zonder namen en rekeningnummers) wordt met toestemming bewaard tot levering en daarna door code verwijderd. AI stelt potjes en verdeling voor, code controleert dat alles optelt en herleidbaar is. Twee routes naar dezelfde Geldscan: het afschrift (voorkeur) of de gratis analyse met schattingen. De betaaltest van € 5 vervalt.
 9. **Stap 1 is een wizard, één keuze per scherm, zoals de analyse** (Jarno): 1a bank kiezen (lijst met logo, een tik gaat door), 1b waar download je het (computer of telefoon, het huidige apparaat gemarkeerd; op mobiel kan "op mijn computer" de link mailen), 1c de stappen voor die bank op dat apparaat plus één knop "Kies het bestand", 1d gelezen (rekeningen gevonden, nog een rekening toevoegen, verder). Echte banklogo's alleen uit de perskit van de bank of met toestemming. De stappen per bank moeten nog met de hand gecontroleerd worden, met schermafbeeldingen.
 
+## 9. Beveiliging: vaste eisen (Jarno, 9 nov 2026)
+
+Elke sessie die aan de uitgavenscan bouwt, houdt zich hieraan. Wijken mag alleen na akkoord van Jarno.
+
+**De Anthropic-sleutel**
+1. Alleen server-side: `ANTHROPIC_API_KEY` in Vercel en lokaal in `.env.local`, nooit met `NEXT_PUBLIC_`, nooit in de repo, nooit in logs of foutmeldingen.
+2. De module die Claude aanroept begint met `import "server-only"`.
+3. Na elke build controleert een script dat `sk-ant` niet in de bestanden voor de browser staat; zo ja, geen deploy.
+4. Eigen workspace in de Anthropic Console met een maandlimiet op de kosten; sleutel direct intrekken bij twijfel.
+
+**Misbruik van de AI-route**
+5. De route neemt alleen de samenvatting aan in het vaste schema; de opdracht aan Claude staat vast op de server. Enig vrij veld: "wat voelt het krapst", maximaal 300 tekens, afgebakend als gegevens.
+6. Limieten per IP en per sessie, een daglimiet voor de hele site, `max_tokens` per aanroep. Tellers in Supabase.
+7. Botcontrole (bijvoorbeeld Cloudflare Turnstile) op de knop die het voorlopig advies maakt.
+
+**Wat iemand uploadt** (het bestand gaat nooit naar de server)
+8. Maximale grootte (20 MB), controle op de echte inhoud (pdf begint met `%PDF`), maximaal aantal regels, inlezen in een worker met tijdslimiet.
+9. Pdf: pdf.js 4.10.38 of nieuwer (lek CVE-2024-4367 gerepareerd in 4.2.67) en `isEvalSupported: false`.
+10. XML met een `DOCTYPE` weigeren.
+11. Tekst uit een bestand nooit als HTML tonen; in Excel-exports cellen die beginnen met `=`, `+`, `-` of `@` voorzien van een apostrof.
+
+**Wat de server binnenkrijgt**
+12. Strikte schemacontrole: vaste types en bandbreedtes, onbekende velden weigeren, maximaal ongeveer 50 KB. Tekstvelden in de samenvatting mogen alleen waarden uit de vaste lijsten bevatten (merknamen en categorielabels), zodat er geen namen van personen of rekeningnummers mee kunnen, ook niet als iemand de browser omzeilt.
+13. Ook het antwoord van de AI wordt gecontroleerd: vaste vorm, alleen tekst, geen getallen die niet uit de samenvatting komen.
+14. Opslag alleen via server-routes met `createServiceClient()`; admin achter `isAdminRequest()`; inhoud wordt nergens gelogd.
+
