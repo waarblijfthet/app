@@ -38,27 +38,27 @@ Harde regels:
 9. Korte zinnen, begrijpelijk voor iedereen.
 10. In kwaliteit.aandeelOnbekend staat hoeveel procent van de uitgaven nog niet in een categorie valt (Overig en Overige overboekingen). Is dat ${ONVOLLEDIG_VANAF_PROCENT} procent of meer, zeg dan in de kern dat een deel van de uitgaven nog niet is ingedeeld ({aandeel_onbekend}) en trek geen conclusie over een tekort of overschot. Een negatief "over" kan dan komen door geld naar een eigen rekening die nog niet als eigen is aangewezen.
 11. Noem "Overig" en "Overige overboekingen" nooit als een van de drie dingen die opvallen. Daar valt niets uit te leren.
-12. Is {netto_gespaard_per_maand} negatief, dan kwam er meer uit de eigen potjes terug dan erin ging. Zeg dat met zoveel woorden in de kern of de toelichting, en noem het niet als iets wat goed gaat. Is er een extra aflossing, zeg dan dat het spaargeld daar (deels) voor is gebruikt; anders dat het is gebruikt om de maanden rond te krijgen.
+12. Is {netto_gespaard_per_maand} negatief, dan kwam er meer uit de eigen potjes terug dan erin ging. Zeg dat met zoveel woorden in de kern of bij wat opvalt, en noem het niet als iets wat goed gaat. Is er een extra aflossing, zeg dan dat het spaargeld daar (deels) voor is gebruikt; anders dat het is gebruikt om de maanden rond te krijgen.
 13. Reken niet om naar een jaar. De gegevens beslaan alleen {aantal_maanden} maanden.
 14. Noem als voorbeeld van kosten die niet elke maand komen alleen posten die in nietMaandelijks staan.
 15. Een extra aflossing of een eenmalige uitgave is geen patroon. Noem hem hooguit als verklaring voor een maand of voor geld uit de potjes, nooit als probleem, als "dure maand" of als iets om op te letten. Kijk voor het beeld van een gewone maand naar wat overblijft zonder die posten.
 
+Hoe het eruitziet: één scherm dat in tien seconden te lezen is. Een kop, drie regels met wat opvalt, één ding dat goed gaat, één handeling voor vanavond en wat het plan regelt. Elk getal staat er hooguit één keer. Liever iets weglaten dan alles noemen: het is een voorproefje, geen rapport.
+
 Wat je schrijft:
-- kern: één of twee zinnen met de belangrijkste bevinding. Gaat iets goed, begin daarmee, en noem dan waar het knelt. Wijkt {over_gewone_maand} flink af van {over_per_maand}, dan vertekenen losse grote bedragen het gemiddelde: ga dan uit van de gewone maand en noem de losse bedragen als verklaring.
-- toelichting: twee tot vier zinnen die de kern onderbouwen met verwijzingen naar getallen.
-- opvallend: precies drie dingen die opvallen. Per ding een titel van hooguit zes woorden, een getal (precies één verwijzing zoals {niet_maandelijks_totaal}) en een uitleg van één of twee zinnen. Kies dingen die iemand herkent en waar een plan iets mee kan, zoals kosten die niet elke maand komen, grote verschillen tussen maanden, veel kleine uitgaven, doorlopende abonnementen of een grote categorie. Drie verschillende dingen.
-- watGoedGaat: één of twee zinnen over wat al op orde is, gebaseerd op een getal met een verwijzing (zoals {vaste_lasten_procent_van_inkomen} of een maand met geld over). Geen algemeenheden als "goed in beeld" of "meerdere rekeningen".
-- eersteStap: één concrete handeling die vanavond kan in de eigen bankapp, zonder bedrag en zonder productadvies. Bijvoorbeeld een aparte spaarrekening aanmaken voor kosten die niet elke maand komen.
-- inHetPlan: precies drie concrete dingen die het volledige plan voor DIT huishouden regelt, elk in één zin. Maak ze specifiek met hun eigen getallen, zodat het voelt als hun plan en niet als een folder. Goed: "Hoeveel er elke maand opzij moet voor kosten die niet elke maand komen, zoals de {niet_maandelijks_totaal} in deze {aantal_maanden} maanden, en op welke dag." Fout: "Inzicht in je financiën." Noem geen bedragen die in het plan zelf staan en beloof geen besparing.`;
+- kern: één zin van hooguit 120 tekens met de belangrijkste bevinding, met hooguit één verwijzing. Iemand moet zich er zonder uitleg in herkennen: geen haakjes, geen "netto", geen "potjes" (zeg spaarrekening of spaargeld). Gaat iets goed, begin daarmee en noem dan waar het knelt. Wijkt {over_gewone_maand} flink af van {over_per_maand}, ga dan uit van de gewone maand. Goed: "In een gewone maand houden jullie {over_gewone_maand} over, toch ging er meer van de spaarrekening af dan erop." Fout: een zin met drie bedragen tussen haakjes.
+- opvallend: precies drie dingen die opvallen. Per ding een titel van hooguit vijf woorden, een getal (precies één verwijzing zoals {niet_maandelijks_totaal}) en een uitleg van één zin van hooguit 140 tekens met hooguit één verwijzing. Drie verschillende getallen, en niet het getal uit de kern. Het scherm zet zelf "per maand" of "in deze maanden" bij het getal; herhaal dat niet in de titel. Kies dingen die iemand herkent en waar een plan iets mee kan: kosten die niet elke maand komen, grote verschillen tussen maanden, veel kleine uitgaven, abonnementen, geld dat heen en weer gaat tussen betaalrekening en spaarrekening. Kies Wonen niet omdat het de grootste categorie is; dat weet iedereen al.
+- watGoedGaat: één zin van hooguit 140 tekens over wat al op orde is, met precies één verwijzing (zoals {vaste_lasten_procent_van_inkomen} of een maand met geld over). Geen algemeenheden als "goed in beeld" of "meerdere rekeningen".
+- eersteStap: één concrete handeling van hooguit 140 tekens die vanavond kan in de eigen bankapp, zonder verwijzing, zonder bedrag en zonder productadvies. Bijvoorbeeld een aparte spaarrekening aanmaken voor kosten die niet elke maand komen.
+- inHetPlan: precies drie dingen die het volledige plan voor dit huishouden regelt, elk één zin van hooguit 100 tekens, zonder verwijzing. Laat ze aansluiten op wat opvalt, zodat de lezer ziet dat het plan over hun eigen punten gaat. Goed: "Hoeveel er elke maand opzij moet voor de kosten die niet elke maand komen, en op welke dag." Fout: "Inzicht in je financiën." Noem geen bedragen en beloof geen besparing.`;
 
 /** JSON-schema voor het antwoord (structured outputs). Lengtes controleert valideerAdvies. */
 export const SCHEMA_VOORLOPIG = {
   type: "object",
   additionalProperties: false,
-  required: ["kern", "toelichting", "opvallend", "watGoedGaat", "eersteStap", "inHetPlan"],
+  required: ["kern", "opvallend", "watGoedGaat", "eersteStap", "inHetPlan"],
   properties: {
     kern: { type: "string" },
-    toelichting: { type: "string" },
     opvallend: {
       type: "array",
       items: {

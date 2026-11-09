@@ -363,10 +363,12 @@ export default function UitgavenscanClient() {
   const kop = scherm === "start" || scherm === "aanvraag_verzonden" ? null : (
     <Kop stap={info.stap} titel={info.titel} voortgang={info.voortgang} onVorige={historie.length ? vorige : undefined} onStoppen={stoppen} />
   );
-  const breed = scherm === "overzicht" || scherm === "voorlopig_advies" || scherm === "alles_nalopen";
+  const breed = scherm === "overzicht" || scherm === "alles_nalopen";
+  // Het advies is één leeskolom: smaller dan het overzicht, zodat het oog niet hoeft te zoeken.
+  const breedte = breed ? "max-w-[920px]" : scherm === "voorlopig_advies" ? "max-w-[680px]" : "max-w-[600px]";
 
   return (
-    <div ref={bovenkant} className={`mx-auto flex flex-col gap-6 md:gap-7 ${breed ? "max-w-[920px]" : "max-w-[600px]"}`}>
+    <div ref={bovenkant} className={`mx-auto flex flex-col gap-6 md:gap-7 ${breedte}`}>
       {kop}
       {scherm === "start" && renderStart()}
       {scherm === "bank" && renderBank()}
@@ -1019,70 +1021,69 @@ export default function UitgavenscanClient() {
           </div>
         </>
       );
+    // Teaser, één leeskolom (Jarno, 9 nov 2026: "te druk, ik weet niet waar ik naar kijk").
+    // Volgorde: kop, wat goed gaat, drie regels wat opvalt, één handeling, wat het plan regelt.
+    // Elk getal staat er één keer en heeft een eenheid; de valideerAdvies-regels bewaken dat.
+    const maanden = overzicht?.maanden ?? [];
+    const periodeKort = maanden.length > 1 ? maandNaam(maanden[0]) + " t/m " + maandNaam(maanden[maanden.length - 1]) : periode;
     return (
       <>
         <div className="flex flex-col gap-4">
-          <div className="flex flex-wrap gap-3 items-center">
-            <span className="inline-flex items-center min-h-[30px] px-3 rounded-full bg-[#E4F1EE] text-accent text-sm font-semibold">Voorlopig advies · gratis</span>
-            <span className="text-sm text-text-soft">Automatisch opgesteld uit je eigen cijfers · {periode}</span>
-          </div>
-          <h1 className="font-display font-light text-[30px] md:text-[44px] leading-[1.15] m-0">{advies.kern}</h1>
-          <p className="m-0 text-base md:text-lg leading-relaxed text-text-soft">{advies.toelichting}</p>
+          <p className="m-0 text-sm text-text-soft">
+            <span className="font-semibold text-accent">Voorlopig advies</span> · gratis · {periodeKort}
+          </p>
+          <h1 className="font-display font-light text-[28px] md:text-[38px] leading-[1.2] m-0">{advies.kern}</h1>
+          <p className="m-0 flex gap-2.5 items-start text-[15px] md:text-base leading-relaxed text-text-soft">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="flex-none mt-1">
+              <path d="M5 12l5 5 9-10" />
+            </svg>
+            <span>{advies.watGoedGaat}</span>
+          </p>
         </div>
-        <div className="flex flex-col gap-4">
-          <p className="m-0 text-sm font-semibold text-accent">Drie dingen die opvallen</p>
-          <div className="grid md:grid-cols-3 gap-4 md:gap-5">
-            {advies.opvallend.map((o, i) => (
-              <Kaart key={i} className="p-6 flex flex-col gap-2">
-                <p className="m-0 font-display text-[26px]">{o.getal}</p>
-                <p className="m-0 font-semibold">{o.titel}</p>
-                <p className="m-0 text-[15px] leading-relaxed text-text-soft">{o.uitleg}</p>
-              </Kaart>
-            ))}
-          </div>
-        </div>
-        <div className="grid md:grid-cols-2 gap-5 md:gap-6">
-          <Kaart className="p-6 md:p-7">
-            <p className="m-0 font-semibold">Wat goed gaat</p>
-            <p className="m-0 mt-2 text-[15px] leading-relaxed text-text-soft">{advies.watGoedGaat}</p>
-          </Kaart>
-          <div className="bg-primary text-white rounded-[20px] p-6 md:p-7">
-            <p className="m-0 text-sm font-semibold text-[#9FD3C9]">Wat je vanavond al kunt doen</p>
-            <p className="m-0 mt-2 text-base leading-relaxed">{advies.eersteStap}</p>
-          </div>
-        </div>
-        <Kaart className="p-6 md:p-9 border-[1.5px] border-accent grid md:grid-cols-[1.25fr_1fr] gap-6 md:gap-9">
-          <div className="flex flex-col gap-3.5">
-            <p className="m-0 text-sm font-semibold text-accent">Geldscan</p>
-            <p className="m-0 font-display font-light text-[26px] md:text-[32px] leading-tight">Je plan op maat, binnen 24 uur na betaling</p>
-            <p className="m-0 text-base leading-relaxed text-text-soft">Wat je volledige plan voor jullie regelt:</p>
-            <ul className="m-0 pl-5 flex flex-col gap-2 text-[15px] leading-relaxed">
-              {advies.inHetPlan.map((p, i) => (
-                <li key={i}>{p}</li>
+        <section aria-labelledby="opvallend-kop" className="flex flex-col gap-3">
+          <p id="opvallend-kop" className="m-0 text-sm font-semibold text-text-soft">Wat opvalt</p>
+          <Kaart className="px-5 md:px-7">
+            <ul className="m-0 p-0 list-none">
+              {advies.opvallend.map((o, i) => (
+                <li key={i} className={`flex flex-col gap-2 md:grid md:grid-cols-[130px_minmax(0,1fr)] md:gap-6 py-5 ${i ? "border-t border-[#EDF0EE]" : ""}`}>
+                  <div className="flex items-baseline gap-2 md:block">
+                    <p className="m-0 font-display text-[24px] md:text-[26px] leading-none whitespace-nowrap">{o.getal}</p>
+                    {o.bij && <p className="m-0 md:mt-1.5 text-[13px] leading-snug text-text-muted">{o.bij}</p>}
+                  </div>
+                  <div>
+                    <p className="m-0 font-semibold">{o.titel}</p>
+                    <p className="m-0 mt-1 text-[15px] leading-relaxed text-text-soft">{o.uitleg}</p>
+                  </div>
+                </li>
               ))}
             </ul>
-            <p className="m-0 text-sm leading-relaxed text-text-soft">
-              <strong className="text-primary">Jarno</strong>, ik maak het plan met jullie cijfers en kijk het zelf na voordat je het krijgt. Ik verdien zelf goed en heb jarenlang niet begrepen waarom het nooit klopte.
+          </Kaart>
+        </section>
+        <div className="rounded-[16px] bg-[#E4F1EE] px-5 py-4 md:px-7">
+          <p className="m-0 text-sm font-semibold text-accent">Vanavond al te doen</p>
+          <p className="m-0 mt-1 text-[15px] leading-relaxed text-primary">{advies.eersteStap}</p>
+        </div>
+        <Kaart className="p-6 md:p-8 border-[1.5px] border-accent flex flex-col gap-4">
+          <div className="flex items-baseline justify-between gap-4 flex-wrap">
+            <p className="m-0 font-display font-light text-[24px] md:text-[28px] leading-tight">Wat jullie plan op maat regelt</p>
+            <p className="m-0 text-sm text-text-soft whitespace-nowrap">
+              <span className="font-display text-[22px] text-primary">€ 49</span> eenmalig
             </p>
           </div>
-          <div className="flex flex-col gap-3">
-            {["Potjes en bedragen, afgestemd op jullie doel", "Welke overboekingen je instelt, op welke dag", "Wanneer de kosten komen die niet elke maand komen", "Na 6 weken een check of het werkt"].map((t) => (
-              <p key={t} className="m-0 flex gap-2.5 items-start text-[15px] leading-snug">
-                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="flex-none mt-0.5">
+          <ul className="m-0 p-0 list-none flex flex-col gap-2.5">
+            {advies.inHetPlan.map((t, i) => (
+              <li key={i} className="flex gap-2.5 items-start text-[15px] leading-relaxed">
+                <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0B7A6E" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="flex-none mt-1">
                   <path d="M5 12l5 5 9-10" />
                 </svg>
-                {t}
-              </p>
+                <span>{t}</span>
+              </li>
             ))}
-            <div className="flex items-baseline gap-2.5 mt-1">
-              <p className="m-0 font-display text-[40px]">€ 49</p>
-              <p className="m-0 text-sm text-text-soft">eenmalig · geen abonnement</p>
-            </div>
-            <Knop breed onClick={() => naar("geldscan_aanvragen")}>
-              Vraag je plan op maat aan
-            </Knop>
-            <p className="m-0 text-sm text-text-soft text-center">Je samenvatting gaat mee. Je hoeft niets opnieuw aan te leveren.</p>
-          </div>
+          </ul>
+          <Knop breed onClick={() => naar("geldscan_aanvragen")}>
+            Vraag je plan op maat aan
+          </Knop>
+          <p className="m-0 text-sm leading-relaxed text-text-soft text-center">Binnen 24 uur na betaling, door Jarno zelf nagekeken. Je samenvatting gaat mee, je hoeft niets opnieuw aan te leveren.</p>
         </Kaart>
       </>
     );

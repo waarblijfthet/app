@@ -193,20 +193,31 @@ t("kwaliteit en controle van het advies", () => {
   assert.ok(s.kwaliteit.aandeelOnbekend >= 0 && s.kwaliteit.aandeelOnbekend <= 100);
   const g = maakGetallen(s);
   assert.strictEqual(g.inkomen_per_maand, "€ 0");
-  const goed = { kern: "Jullie vaste lasten zijn {vast_per_maand} per maand.", toelichting: "Daarnaast {dagelijks_per_maand} aan dagelijkse uitgaven.", opvallend: [
+  const goed = { kern: "Jullie vaste lasten zijn {vast_per_maand} per maand.", opvallend: [
     { titel: "Kosten niet elke maand", getal: "{niet_maandelijks_totaal}", uitleg: "Deze kosten komen in pieken." },
     { titel: "Veel kleine boodschappen", getal: "{boodschappen_keer_per_maand}", uitleg: "Vaak kleine bedragen." },
     { titel: "Abonnementen", getal: "{abonnementen_per_maand}", uitleg: "Ze lopen elke maand door." } ],
-    watGoedGaat: "De vaste lasten zijn stabiel.", eersteStap: "Maak een aparte spaarrekening aan.",
-    inHetPlan: ["Hoeveel er opzij moet voor {niet_maandelijks_totaal} aan jaarkosten.", "Welk leefgeld per week past.", "Op welke dag elk potje gevuld wordt."] };
+    watGoedGaat: "De vaste lasten zijn {vaste_lasten_aantal} vaste posten, dat is overzichtelijk.", eersteStap: "Maak een aparte spaarrekening aan.",
+    inHetPlan: ["Hoeveel er opzij moet voor kosten die niet elke maand komen.", "Welk leefgeld per week past.", "Op welke dag elk potje gevuld wordt."] };
   assert.ok(valideerAdvies(goed, g).ok);
-  assert.ok(vulIn(goed, g).kern.includes("€ "));
+  const ingevuld = vulIn(goed, g);
+  assert.ok(ingevuld.kern.includes("€\u00A0"));
+  assert.strictEqual(ingevuld.opvallend[0].bij, "in deze " + g.aantal_maanden + " maanden");
+  assert.strictEqual(ingevuld.opvallend[2].bij, "per maand");
   const fout = (f) => { const a = JSON.parse(JSON.stringify(goed)); f(a); return valideerAdvies(a, g).ok; };
   assert.strictEqual(fout((a) => { a.kern = "Jullie houden 500 euro over."; }), false);
   assert.strictEqual(fout((a) => { a.kern = "Jullie houden {verzonnen} over."; }), false);
   assert.strictEqual(fout((a) => { a.opvallend[0] = { titel: "Veel overig", getal: "{categorie_overig}", uitleg: "x" }; }), false);
   assert.strictEqual(fout((a) => { a.eersteStap = "Ik raad aan te beleggen."; }), false);
-  assert.strictEqual(fout((a) => { a.toelichting = "Dit klopt \u2014 echt."; }), false);
+  assert.strictEqual(fout((a) => { a.eersteStap = "Dit klopt \u2014 echt."; }), false);
+  // Teaser: kop met hooguit één getal, elk getal één keer, plan zonder getallen, oud veld weg.
+  assert.strictEqual(fout((a) => { a.kern = "Vast {vast_per_maand}, dagelijks {dagelijks_per_maand}."; }), false);
+  assert.strictEqual(fout((a) => { a.kern = "Jullie houden in een gewone maand geld over, maar het blijft niet staan omdat er elke maand weer van alles bij komt dat niet gepland was."; }), false);
+  assert.strictEqual(fout((a) => { a.opvallend[1].getal = "{niet_maandelijks_totaal}"; }), false);
+  assert.strictEqual(fout((a) => { a.opvallend[0].getal = "{vast_per_maand}"; }), false);
+  assert.strictEqual(fout((a) => { a.inHetPlan[0] = "Hoeveel er opzij moet voor {niet_maandelijks_totaal}."; }), false);
+  assert.strictEqual(fout((a) => { a.watGoedGaat = "De vaste lasten zijn stabiel."; }), false);
+  assert.strictEqual(fout((a) => { a.toelichting = "Losse uitleg."; }), false);
   assert.strictEqual(fout((a) => { a.opvallend.pop(); }), false);
   assert.strictEqual(fout((a) => { a.extra = "x"; }), false);
   assert.strictEqual(fout((a) => { a.inHetPlan.pop(); }), false);
