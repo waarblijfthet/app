@@ -101,4 +101,25 @@ t("validator weigert manipulatie", () => {
   assert.strictEqual(u.valideerSamenvatting(null).ok, false);
   assert.strictEqual(u.valideerSamenvatting("tekst").ok, false);
 });
+t("onbekende posten vragen en het antwoord gebruiken", () => {
+  const extra = boekingen.concat([
+    tx("2026-07-10", -85, "Kapsalon De Kam", { code: "bc" }),
+    tx("2026-08-10", -85, "Kapsalon De Kam", { code: "bc" }),
+    tx("2026-09-03", -300, "P. Pietersen", { iban: "NL00INGB0000000009", code: "tb", oms: "oppas" }),
+  ]);
+  const keuzes = { eigenIbans: [SPAAR], inkomenSleutels: [] };
+  const o = u.maakOverzicht(extra, keuzes);
+  const vragen = u.vragenOverOnbekend(o, 8, 1);
+  const kapper = vragen.find((v) => v.label.startsWith("Kapsalon"));
+  const oppas = vragen.find((v) => v.label.startsWith("P. Pietersen"));
+  assert.ok(kapper && kapper.isBedrijf && kapper.aantal === 2);
+  assert.ok(oppas && !oppas.isBedrijf);
+  assert.strictEqual(vragen[0].label, "P. Pietersen");
+  const o2 = u.maakOverzicht(extra, { eigenIbans: [SPAAR], inkomenSleutels: [], categorieKeuzes: { [kapper.groep]: "zorg", [oppas.groep]: "kinderen" } });
+  assert.strictEqual(o2.posten.find((p) => p.t.tegenpartij.startsWith("Kapsalon")).categorie, "zorg");
+  assert.strictEqual(o2.posten.find((p) => p.t.tegenpartij.startsWith("P. Pietersen")).categorie, "kinderen");
+  assert.strictEqual(u.vragenOverOnbekend(o2, 8, 1).length, 0);
+  const json = JSON.stringify(u.maakSamenvatting(o2));
+  assert.ok(!json.includes("Pietersen") && !json.includes("Kapsalon"));
+});
 console.log(ok + " tests geslaagd");

@@ -12,6 +12,8 @@ export type Keuzes = {
   eigenIbans: string[];
   /** Sleutels uit inkomenKandidaten die de bezoeker als inkomen aanvinkte. */
   inkomenSleutels: string[];
+  /** Antwoorden op "wat is dit?": groep (uit vragenOverOnbekend) naar categorie. Optioneel. */
+  categorieKeuzes?: Record<string, CategorieId>;
 };
 
 export type Soort = "intern" | "inkomen" | "ontvangst" | Bak;
@@ -95,7 +97,12 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
   const inkomen = new Set(keuzes.inkomenSleutels);
 
   // Eerst indelen, dan per groep kijken of het elke maand terugkomt.
-  const voorlopig = tx.map((t) => ({ t: t, indeling: deelIn(t) }));
+  const gekozen = keuzes.categorieKeuzes || {};
+  const voorlopig = tx.map((t) => {
+    const indeling = deelIn(t);
+    const keuze = gekozen[indeling.groep];
+    return { t: t, indeling: keuze ? { categorie: keuze, merk: indeling.merk, groep: indeling.groep } : indeling };
+  });
   const uitgavenPerGroep = new Map<string, { maanden: Set<string>; bedragen: number[] }>();
   voorlopig.forEach(({ t, indeling }) => {
     if (t.bedragCent >= 0 || (t.tegenIban && eigen.has(t.tegenIban))) return;
@@ -198,3 +205,44 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
     aantalRekeningen: eigenIbansUitBestanden(transacties).size,
   };
 }
+
+export type OnbekendePost = {
+  /** Sleutel voor categorieKeuzes. Lokaal, gaat nooit mee naar de server. */
+  groep: string;
+  /** Naam zoals in het afschrift, alleen voor op het scherm van de bezoeker. */
+  label: string;
+  aantal: number;
+  totaalCent: number;
+  /** Pin, iDEAL of incasso: zeker een bedrijf. Een overboeking kan ook een persoon zijn. */
+  isBedrijf: boolean;
+};
+
+const BEDRIJF_CODES = new Set(["bc", "ba", "id", "ei", "ic", "bea", "ide", "eic"]);
+
+/**
+ * De grootste uitgaven die niet in een categorie vallen, om aan de bezoeker te vragen.
+ * Stopt bij maxVragen of zodra `dekking` (deel van het onbekende bedrag) gevraagd is.
+ */
+export function vragenOverOnbekend(o: Overzicht, maxVragen = 8, dekking = 0.8): OnbekendePost[] {
+  const perGroep = new Map<string, OnbekendePost>();
+  o.posten.forEach((p) => {
+    if (p.soort === "intern" || p.soort === "inkomen" || p.soort === "ontvangst") return;
+    if (p.categorie !== "overig" && p.categorie !== "overboeking") return;
+    const g = perGroep.get(p.groep) || { groep: p.groep, label: p.t.tegenpartij || "Onbekend", aantal: 0, totaalCent: 0, isBedrijf: false };
+    g.aantal++;
+    g.totaalCent += -p.t.bedragCent;
+    if (BEDRIJF_CODES.has((p.t.code || "").toLowerCase())) g.isBedrijf = true;
+    perGroep.set(p.groep, g);
+  });
+  const lijst = Array.from(perGroep.values()).sort((a, b) => b.totaalCent - a.totaalCent);
+  const totaal = lijst.reduce((s, g) => s + g.totaalCent, 0);
+  const uit: OnbekendePost[] = [];
+  let gedekt = 0;
+  for (const g of lijst) {
+    if (uit.length >= maxVragen || (totaal > 0 && gedekt / totaal >= dekking)) break;
+    uit.push(g);
+    gedekt += g.totaalCent;
+  }
+  return uit;
+}
+
