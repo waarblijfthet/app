@@ -3,7 +3,7 @@
  * Volledig detail voor de schermen; wat naar de server gaat maakt samenvatting.ts hieruit.
  */
 import type { Transactie } from "../bankbestand";
-import { CATEGORIEEN, type Bak, type CategorieId } from "./categorieen";
+import { CATEGORIEEN, schoonBedrijfsnaam, type Bak, type CategorieId } from "./categorieen";
 import { deelIn } from "./indelen";
 import { eigenIbansUitBestanden, inkomenSleutel } from "./kandidaten";
 
@@ -18,12 +18,16 @@ export type Keuzes = {
 
 export type Soort = "intern" | "inkomen" | "ontvangst" | Bak;
 
+/** Waar de categorie vandaan komt: merkenlijst, regel (trefwoord of code), keuze (bezoeker of AI), of nog onbekend. */
+export type Bron = "merk" | "regel" | "keuze" | "onbekend";
+
 export type Post = {
   t: Transactie;
   soort: Soort;
   categorie: CategorieId | null;
   merk: string | null;
   groep: string;
+  bron: Bron;
 };
 
 export type MaandTotaal = {
@@ -103,7 +107,9 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
   const voorlopig = tx.map((t) => {
     const indeling = deelIn(t);
     const keuze = gekozen[indeling.groep];
-    return { t: t, indeling: keuze ? { categorie: keuze, merk: indeling.merk, groep: indeling.groep } : indeling };
+    const onbekend = indeling.categorie === "overig" || indeling.categorie === "overboeking";
+    const bron: Bron = keuze ? "keuze" : indeling.merk ? "merk" : onbekend ? "onbekend" : "regel";
+    return { t: t, bron: bron, indeling: keuze ? { categorie: keuze, merk: indeling.merk, groep: indeling.groep } : indeling };
   });
   const uitgavenPerGroep = new Map<string, { maanden: Set<string>; bedragen: number[] }>();
   voorlopig.forEach(({ t, indeling }) => {
@@ -123,20 +129,20 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
     if (g.maanden.size >= nodigVoorMaandelijks && perMaand <= 1.5 && max <= min * 1.6 + 500) maandelijks.add(groep);
   });
 
-  const posten: Post[] = voorlopig.map(({ t, indeling }) => {
+  const posten: Post[] = voorlopig.map(({ t, indeling, bron }) => {
     if (t.tegenIban && eigen.has(t.tegenIban)) {
-      return { t: t, soort: "intern", categorie: null, merk: indeling.merk, groep: indeling.groep };
+      return { t: t, soort: "intern", categorie: null, merk: indeling.merk, groep: indeling.groep, bron: bron };
     }
     if (t.bedragCent > 0) {
       const isInkomen = inkomen.has(inkomenSleutel(t));
-      return { t: t, soort: isInkomen ? "inkomen" : "ontvangst", categorie: null, merk: indeling.merk, groep: indeling.groep };
+      return { t: t, soort: isInkomen ? "inkomen" : "ontvangst", categorie: null, merk: indeling.merk, groep: indeling.groep, bron: bron };
     }
     let soort: Bak;
     if (maandelijks.has(indeling.groep)) soort = "vast";
     else if (CATEGORIEEN[indeling.categorie].bak === "nietMaandelijks") soort = "nietMaandelijks";
     else if (-t.bedragCent >= GROTE_UITGAVE_CENT && indeling.categorie !== "boodschappen" && indeling.categorie !== "contant") soort = "nietMaandelijks";
     else soort = "dagelijks";
-    return { t: t, soort: soort, categorie: indeling.categorie, merk: indeling.merk, groep: indeling.groep };
+    return { t: t, soort: soort, categorie: indeling.categorie, merk: indeling.merk, groep: indeling.groep, bron: bron };
   });
 
   const perMaand: MaandTotaal[] = maanden.map((maand) => {
@@ -257,5 +263,44 @@ export function vragenOverOnbekend(o: Overzicht, maxVragen = 8, dekking = 0.8): 
     gedekt += g.totaalCent;
   }
   return uit;
+}
+
+/**
+ * Namen van onbekende tegenpartijen die zeker een bedrijf zijn (pin, iDEAL, incasso), opgeschoond,
+ * om door de AI te laten indelen. Overboekingen gaan nooit mee: dat kunnen personen zijn.
+ */
+export function onbekendeBedrijfsnamen(o: Overzicht, max = 150): { groep: string; naam: string }[] {
+  const perGroep = new Map<string, { naam: string; totaal: number; bedrijf: boolean }>();
+  o.posten.forEach((p) => {
+    if (p.soort === "intern" || p.soort === "inkomen" || p.soort === "ontvangst" || p.bron !== "onbekend") return;
+    const g = perGroep.get(p.groep) || { naam: p.t.tegenpartij, totaal: 0, bedrijf: true };
+    g.totaal += -p.t.bedragCent;
+    if (!BEDRIJF_CODES.has((p.t.code || "").toLowerCase())) g.bedrijf = false;
+    perGroep.set(p.groep, g);
+  });
+  const uit: { groep: string; naam: string }[] = [];
+  Array.from(perGroep.entries())
+    .filter(([, g]) => g.bedrijf)
+    .sort((a, b) => b[1].totaal - a[1].totaal)
+    .forEach(([groep, g]) => {
+      const naam = schoonBedrijfsnaam(g.naam);
+      if (naam && uit.length < max) uit.push({ groep: groep, naam: naam });
+    });
+  return uit;
+}
+
+export type Tegenpartij = { groep: string; label: string; categorie: CategorieId; bron: Bron; aantal: number; totaalCent: number };
+
+/** Alle tegenpartijen van uitgaven met hun categorie, voor het optionele scherm "alles nalopen". Lokaal. */
+export function alleTegenpartijen(o: Overzicht): Tegenpartij[] {
+  const perGroep = new Map<string, Tegenpartij>();
+  o.posten.forEach((p) => {
+    if (!p.categorie || p.soort === "intern" || p.soort === "inkomen" || p.soort === "ontvangst") return;
+    const g = perGroep.get(p.groep) || { groep: p.groep, label: p.merk || p.t.tegenpartij || "Onbekend", categorie: p.categorie, bron: p.bron, aantal: 0, totaalCent: 0 };
+    g.aantal++;
+    g.totaalCent += -p.t.bedragCent;
+    perGroep.set(p.groep, g);
+  });
+  return Array.from(perGroep.values()).sort((a, b) => b.totaalCent - a.totaalCent);
 }
 

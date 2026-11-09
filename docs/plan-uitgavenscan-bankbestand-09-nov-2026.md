@@ -115,4 +115,5 @@ Elke sessie die aan de uitgavenscan bouwt, houdt zich hieraan. Wijken mag alleen
 13. Ook het antwoord van de AI wordt gecontroleerd: vaste vorm, alleen tekst, geen getallen die niet uit de samenvatting komen.
 14. Opslag alleen via server-routes met `createServiceClient()`; admin achter `isAdminRequest()`; inhoud wordt nergens gelogd.
 15. **Voorwaarde vóór livegang:** de AI-aanroepen lopen via een eigen Anthropic-account van Jarno (eigen verwerkersrelatie), niet via het account van PSOhub. Tijdens de proef tijdelijk PSOhub, op besluit van Jarno (9 nov 2026).
+16. **Bedrijfsnamen naar de AI (besluit Jarno, 9 nov).** Alleen namen van onbekende tegenpartijen bij pin, iDEAL en incasso, opgeschoond, zonder bedragen; nooit overboekingen. De bezoeker ziet dit vóór het gebeurt en kan het uitzetten ("Liever niet"); dan volgen alleen de vragen. Daarnaast een optioneel scherm om alle tegenpartijen zelf na te lopen, zoals in de bankapp.
 

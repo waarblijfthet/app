@@ -244,3 +244,20 @@ export const TOEGESTANE_NAMEN: ReadonlySet<string> = new Set<string>([
   ...MERKEN.map((m) => m.merk),
   ...Object.values(CATEGORIEEN).map((c) => c.label),
 ]);
+
+/**
+ * Bedrijfsnaam zoals hij naar de AI mag: alleen letters, cijfers en een paar leestekens,
+ * reeksen van vier of meer cijfers (kaart- en referentienummers) eruit, maximaal 60 tekens.
+ */
+export function schoonBedrijfsnaam(naam: string): string | null {
+  const s = (naam || "")
+    .normalize("NFKC")
+    .replace(/[^A-Za-z0-9À-ɏ .&'+-]/g, " ")
+    .replace(/\d{4,}/g, " ")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 60)
+    .trim();
+  return s.length >= 2 ? s : null;
+}
+

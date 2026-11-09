@@ -5,8 +5,10 @@
  *   2. Vul keuzes.json in (true/false bij eigen en inkomen, een categorie bij onbekend), draai opnieuw.
  *      Dan wordt _proef/samenvatting.json gemaakt. Nieuwe onbekende posten worden aan keuzes.json toegevoegd.
  *   Daarna: node scripts/proef-voorlopig-advies.cjs
+ * Met --ai als tweede argument laat het script onbekende bedrijfsnamen (alleen pin, iDEAL, incasso)
+ * eerst door Claude indelen (bron "ai"); daarvoor is ANTHROPIC_API_KEY in .env.local nodig.
  * Vooraf compileren:
- *   npx tsc lib/uitgaven/index.ts lib/bankbestand/index.ts lib/uitgaven/advies/kern.ts --outDir _proef/out --module commonjs --target es2020 --lib es2020,dom --strict --skipLibCheck
+ *   npx tsc lib/uitgaven/index.ts lib/bankbestand/index.ts lib/uitgaven/advies/kern.ts lib/uitgaven/advies/indelen-ai.ts --outDir _proef/out --module commonjs --target es2020 --lib es2020,dom --strict --skipLibCheck
  */
 const fs = require("fs");
 const path = require("path");
@@ -47,7 +49,32 @@ const bekendInkomen = new Map(k.inkomen.map((x) => [x.sleutel, x]));
 k.inkomen = ik.map((x) => bekendInkomen.get(x.sleutel) || { sleutel: x.sleutel, naam: x.label, soort: x.soort, perMaandEuro: euro(x.gemiddeldPerMaandCent), inkomen: x.voorgesteld });
 const categorieKeuzes = Object.fromEntries(k.onbekend.filter((x) => x.categorie).map((x) => [x.groep, x.categorie]));
 const keuzes = { eigenIbans: eigen, inkomenSleutels: k.inkomen.filter((x) => x.inkomen === true).map((x) => x.sleutel), categorieKeuzes: categorieKeuzes };
-const o = u.maakOverzicht(t, keuzes);
+(async () => {
+let o = u.maakOverzicht(t, keuzes);
+if (process.argv[3] === "--ai") {
+  const namen = u.onbekendeBedrijfsnamen(o);
+  if (namen.length) {
+    const env = fs.readFileSync(path.join(repo, ".env.local"), "utf8").split(/\r?\n/).find((r) => r.startsWith("ANTHROPIC_API_KEY="));
+    if (!env) throw new Error("ANTHROPIC_API_KEY niet gevonden in .env.local");
+    const A = require(require.resolve("@anthropic-ai/sdk", { paths: [repo] }));
+    const client = new (A.default || A)({ apiKey: env.slice(18).trim(), maxRetries: 2, timeout: 120000 });
+    const { deelNamenInMetAI } = require(path.join(out, "uitgaven", "advies", "indelen-ai.js"));
+    const r = await deelNamenInMetAI(client, namen.map((x) => x.naam));
+    if (!r.ok) console.log("AI-indeling mislukt:", r.reden);
+    else {
+      let n = 0;
+      namen.forEach((x, i) => {
+        if (!r.categorieen[i]) return;
+        k.onbekend = k.onbekend.filter((y) => y.groep !== x.groep);
+        k.onbekend.push({ groep: x.groep, naam: x.naam, categorie: r.categorieen[i], bron: "ai" });
+        categorieKeuzes[x.groep] = r.categorieen[i];
+        n++;
+      });
+      console.log("AI heeft", n, "van", namen.length, "bedrijfsnamen ingedeeld");
+      o = u.maakOverzicht(t, keuzes);
+    }
+  }
+}
 const bekend = new Set(k.onbekend.map((x) => x.groep));
 u.vragenOverOnbekend(o, 20, 0.95).forEach((x) => {
   if (!bekend.has(x.groep)) k.onbekend.push({ groep: x.groep, naam: x.label, keer: x.aantal, totaalEuro: euro(x.totaalCent), bedrijf: x.isBedrijf, categorie: null });
@@ -57,3 +84,4 @@ const s = u.maakSamenvatting(o);
 s.kwaliteit && fs.writeFileSync(path.join(repo, "_proef", "samenvatting.json"), JSON.stringify(s, null, 2));
 const open = k.eigenRekeningen.filter((x) => x.eigen === null).length + k.onbekend.filter((x) => !x.categorie).length;
 console.log("samenvatting gemaakt | onbekend:", s.kwaliteit.aandeelOnbekend + "% van de uitgaven | nog open vragen in keuzes.json:", open);
+})().catch((e) => console.log("fout:", e && e.status, (e && e.message || "").replace(/sk-ant-[A-Za-z0-9_-]+/g, "[sleutel]").slice(0, 300)));

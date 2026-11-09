@@ -5,6 +5,7 @@ import "server-only";
  */
 import Anthropic from "@anthropic-ai/sdk";
 import { maakVoorlopigAdvies, type AdviesResultaat } from "./kern";
+import { deelNamenInMetAI } from "./indelen-ai";
 
 let client: Anthropic | null = null;
 
@@ -17,3 +18,8 @@ function haalClient(): Anthropic {
 export async function voorlopigAdviesOpServer(invoer: unknown): Promise<AdviesResultaat> {
   return maakVoorlopigAdvies(haalClient(), invoer);
 }
+
+export async function deelNamenInOpServer(invoer: unknown) {
+  return deelNamenInMetAI(haalClient(), invoer);
+}
+
