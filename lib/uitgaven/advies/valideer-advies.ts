@@ -11,12 +11,14 @@ export type VoorlopigAdvies = {
   opvallend: { titel: string; getal: string; uitleg: string }[];
   watGoedGaat: string;
   eersteStap: string;
+  /** Drie dingen die het betaalde plan voor dit huishouden regelt: de teaser. */
+  inHetPlan: string[];
 };
 
 const VERWIJZING = /\{([a-z0-9_]+)\}/g;
 const VERBODEN = [/—/, /–/, / - /, /eerlijk/i, /\bik\b/i, /\bmijn\b/i, /\bwij\b/i, /\bwe\b/i, /beleg/i, /oversluit/i, /overstap/i, /pensioen/i, /garantie/i, /gegarandeerd/i, /crypto/i];
 
-const MAX: Record<string, number> = { kern: 350, toelichting: 800, titel: 60, uitleg: 350, watGoedGaat: 400, eersteStap: 400 };
+const MAX: Record<string, number> = { kern: 350, toelichting: 800, titel: 60, uitleg: 350, watGoedGaat: 400, eersteStap: 400, inHetPlan: 220 };
 
 export function valideerAdvies(invoer: unknown, getallen: Getallen): { ok: true; advies: VoorlopigAdvies } | { ok: false; fouten: string[] } {
   const fouten: string[] = [];
@@ -32,7 +34,7 @@ export function valideerAdvies(invoer: unknown, getallen: Getallen): { ok: true;
   };
   if (typeof invoer !== "object" || invoer === null || Array.isArray(invoer)) return { ok: false, fouten: ["geen object"] };
   const a = invoer as Record<string, unknown>;
-  const sleutels = ["kern", "toelichting", "opvallend", "watGoedGaat", "eersteStap"];
+  const sleutels = ["kern", "toelichting", "opvallend", "watGoedGaat", "eersteStap", "inHetPlan"];
   Object.keys(a).forEach((k) => {
     if (!sleutels.includes(k)) fouten.push("onbekend veld " + k.slice(0, 30));
   });
@@ -40,6 +42,8 @@ export function valideerAdvies(invoer: unknown, getallen: Getallen): { ok: true;
   tekst(a.toelichting, "toelichting", MAX.toelichting);
   tekst(a.watGoedGaat, "watGoedGaat", MAX.watGoedGaat);
   tekst(a.eersteStap, "eersteStap", MAX.eersteStap);
+  if (!Array.isArray(a.inHetPlan) || a.inHetPlan.length !== 3) fouten.push("inHetPlan: niet precies drie");
+  else a.inHetPlan.forEach((x, i) => tekst(x, "inHetPlan[" + i + "]", MAX.inHetPlan));
   if (!Array.isArray(a.opvallend) || a.opvallend.length !== 3) fouten.push("opvallend: niet precies drie");
   else
     a.opvallend.forEach((o, i) => {
@@ -63,5 +67,6 @@ export function vulIn(advies: VoorlopigAdvies, getallen: Getallen): VoorlopigAdv
     opvallend: advies.opvallend.map((o) => ({ titel: v(o.titel), getal: v(o.getal), uitleg: v(o.uitleg) })),
     watGoedGaat: v(advies.watGoedGaat),
     eersteStap: v(advies.eersteStap),
+    inHetPlan: advies.inHetPlan.map(v),
   };
 }

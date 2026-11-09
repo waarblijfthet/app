@@ -51,6 +51,10 @@ const samenvatting = JSON.parse(fs.readFileSync(path.join(repo, "_proef", "samen
     "",
     a.eersteStap,
     "",
+    "## Wat je volledige plan voor jullie regelt (Geldscan)",
+    "",
+    ...a.inHetPlan.map((x) => "- " + x),
+    "",
   ].join("\n");
   fs.writeFileSync(path.join(repo, "_proef", "voorlopig-advies.md"), md);
   fs.writeFileSync(path.join(repo, "_proef", "voorlopig-advies.json"), JSON.stringify(r, null, 2));

@@ -135,7 +135,8 @@ t("kwaliteit en controle van het advies", () => {
     { titel: "Kosten niet elke maand", getal: "{niet_maandelijks_per_jaar}", uitleg: "Deze kosten komen in pieken." },
     { titel: "Veel kleine boodschappen", getal: "{boodschappen_keer_per_maand}", uitleg: "Vaak kleine bedragen." },
     { titel: "Abonnementen", getal: "{abonnementen_per_maand}", uitleg: "Ze lopen elke maand door." } ],
-    watGoedGaat: "De vaste lasten zijn stabiel.", eersteStap: "Maak een aparte spaarrekening aan." };
+    watGoedGaat: "De vaste lasten zijn stabiel.", eersteStap: "Maak een aparte spaarrekening aan.",
+    inHetPlan: ["Hoeveel er opzij moet voor {niet_maandelijks_per_jaar} aan jaarkosten.", "Welk leefgeld per week past.", "Op welke dag elk potje gevuld wordt."] };
   assert.ok(valideerAdvies(goed, g).ok);
   assert.ok(vulIn(goed, g).kern.includes("€ "));
   const fout = (f) => { const a = JSON.parse(JSON.stringify(goed)); f(a); return valideerAdvies(a, g).ok; };
@@ -146,6 +147,8 @@ t("kwaliteit en controle van het advies", () => {
   assert.strictEqual(fout((a) => { a.toelichting = "Dit klopt \u2014 echt."; }), false);
   assert.strictEqual(fout((a) => { a.opvallend.pop(); }), false);
   assert.strictEqual(fout((a) => { a.extra = "x"; }), false);
+  assert.strictEqual(fout((a) => { a.inHetPlan.pop(); }), false);
+  assert.strictEqual(fout((a) => { a.inHetPlan[0] = "Zet 450 euro per week opzij."; }), false);
 });
 t("eigen rekeningen herkennen aan naam en spaarwoord, en sparen apart", () => {
   const ANDER = "NL00RABO0000000010";
