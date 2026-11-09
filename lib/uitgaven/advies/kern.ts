@@ -6,7 +6,7 @@ import type Anthropic from "@anthropic-ai/sdk";
 import type { Samenvatting } from "../samenvatting";
 import { valideerSamenvatting } from "../valideer";
 import { maakGetallen, type Getallen } from "./getallen";
-import { MODEL_VOORLOPIG, SCHEMA_VOORLOPIG, SYSTEEM_VOORLOPIG } from "./prompt";
+import { MAX_ONBEKEND_PROCENT, MODEL_VOORLOPIG, SCHEMA_VOORLOPIG, SYSTEEM_VOORLOPIG } from "./prompt";
 import { valideerAdvies, vulIn, type VoorlopigAdvies } from "./valideer-advies";
 
 export type AdviesResultaat =
@@ -24,6 +24,9 @@ export async function maakVoorlopigAdvies(client: Anthropic, invoer: unknown, ma
   const v = valideerSamenvatting(invoer);
   if (!v.ok) return { ok: false, reden: "samenvatting ongeldig", fouten: v.fouten, pogingen: 0 };
   const samenvatting: Samenvatting = v.samenvatting;
+  if (samenvatting.kwaliteit.aandeelOnbekend > MAX_ONBEKEND_PROCENT) {
+    return { ok: false, reden: "te veel onbekend", fouten: [samenvatting.kwaliteit.aandeelOnbekend + " procent van de uitgaven is nog niet ingedeeld; eerst meer vragen stellen"], pogingen: 0 };
+  }
   const getallen = maakGetallen(samenvatting);
   const gegevens = "<samenvatting>\n" + JSON.stringify(samenvatting) + "\n</samenvatting>\n<getallen>\n" + JSON.stringify(getallen) + "\n</getallen>";
   const berichten: Anthropic.MessageParam[] = [

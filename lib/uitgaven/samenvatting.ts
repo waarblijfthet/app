@@ -17,6 +17,8 @@ export type Samenvatting = {
   categorieen: { naam: string; bak: Bak; perMaand: number; aantalPerMaand: number }[];
   vasteLasten: { naam: string; categorie: string; perMaand: number }[];
   nietMaandelijks: { naam: string; categorie: string; maand: string; bedrag: number }[];
+  /** Hoeveel procent van het uitgegeven bedrag nog niet in een categorie valt. Stuurt de kwaliteitscontrole. */
+  kwaliteit: { aandeelOnbekend: number; aandeelOverboekingen: number };
   kenmerken: {
     aantalRekeningen: number;
     boodschappenKeerPerMaand: number;
@@ -47,6 +49,11 @@ export function maakSamenvatting(o: Overzicht): Samenvatting {
   }));
   const gem = (k: "inkomenCent" | "ontvangstCent" | "vastCent" | "nietMaandelijksCent" | "dagelijksCent" | "overCent") =>
     tientje(o.perMaand.reduce((s, m) => s + m[k], 0) / n);
+
+  const uitgaven = o.posten.filter((p) => p.soort === "vast" || p.soort === "nietMaandelijks" || p.soort === "dagelijks");
+  const totaalUit = uitgaven.reduce((s, p) => s - p.t.bedragCent, 0);
+  const aandeel = (f: (c: string | null) => boolean) =>
+    totaalUit > 0 ? Math.round((100 * uitgaven.filter((p) => f(p.categorie)).reduce((s, p) => s - p.t.bedragCent, 0)) / totaalUit) : 0;
 
   const boodschappen = o.posten.filter((p) => p.categorie === "boodschappen" && p.soort !== "intern" && p.t.bedragCent < 0);
   const abonnementen = o.vasteLasten.filter((v) => v.categorie === "abonnementen");
@@ -81,6 +88,10 @@ export function maakSamenvatting(o: Overzicht): Samenvatting {
       maand: x.maand,
       bedrag: euro(x.bedragCent),
     })),
+    kwaliteit: {
+      aandeelOnbekend: aandeel((c) => c === "overig" || c === "overboeking"),
+      aandeelOverboekingen: aandeel((c) => c === "overboeking"),
+    },
     kenmerken: {
       aantalRekeningen: o.aantalRekeningen,
       boodschappenKeerPerMaand: Math.round(boodschappen.length / n),

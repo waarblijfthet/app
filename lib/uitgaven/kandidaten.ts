@@ -58,8 +58,15 @@ export function rekeningKandidaten(t: Transactie[], max = 6): RekeningKandidaat[
     else k.terugCent += x.bedragCent;
     perIban.set(x.tegenIban, k);
   });
+  // Wie alleen geld stuurt als salaris, uitkering of toeslag is geen eigen rekening; dat is de inkomensvraag.
+  const isInkomstenbron = (iban: string) => {
+    const lijst = t.filter((x) => x.tegenIban === iban);
+    return lijst.every((x) => x.bedragCent > 0) &&
+      lijst.some((x) => (x.code || "").toLowerCase() === "cb" || soortVan(x.tegenpartij, x.omschrijving) !== "overig");
+  };
   return Array.from(perIban.values())
     .filter((k) => k.aantal >= 3 || k.heenCent + k.terugCent >= 50000)
+    .filter((k) => !isInkomstenbron(k.iban))
     .sort((a, b) => b.heenCent + b.terugCent - (a.heenCent + a.terugCent))
     .slice(0, max);
 }

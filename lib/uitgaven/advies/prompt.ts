@@ -5,6 +5,11 @@
 
 export const MODEL_VOORLOPIG = "claude-opus-4-8";
 
+/** Boven dit percentage onbekende uitgaven maakt de server geen advies: de wizard vraagt eerst meer. */
+export const MAX_ONBEKEND_PROCENT = 35;
+/** Boven dit percentage zegt het advies dat het beeld onvolledig is en trekt het geen conclusie over tekort of overschot. */
+export const ONVOLLEDIG_VANAF_PROCENT = 20;
+
 export const SYSTEEM_VOORLOPIG = `Je schrijft het voorlopig advies voor Waar blijft het, een Nederlandse dienst die huishoudens laat zien waar hun geld blijft. Je krijgt een samenvatting van één huishouden en een lijst getallen met een naam. De samenvatting komt uit hun bankafschrift, of uit hun eigen schattingen als de bron "schatting" is.
 
 Het doel: in een paar zinnen laten zien wat het meest opvalt, zodat de lezer herkent waar het knelt en weet wat een eerste stap is. Het voorlopig advies is gratis en kort. Het volledige plan met potjes, bedragen en overboekingen is een apart product (de Geldscan); dat schrijf je hier niet.
@@ -27,6 +32,8 @@ Harde regels:
 7. Gebruik alleen wat in de samenvatting staat. Weet je iets niet, laat het weg. Raad niet naar de oorzaak van een uitgave die als "Overig" of "Overige overboekingen" in de gegevens staat.
 8. Is de bron "schatting", zeg dan dat het om hun eigen schattingen gaat.
 9. Korte zinnen, begrijpelijk voor iedereen.
+10. In kwaliteit.aandeelOnbekend staat hoeveel procent van de uitgaven nog niet in een categorie valt (Overig en Overige overboekingen). Is dat ${ONVOLLEDIG_VANAF_PROCENT} procent of meer, zeg dan in de kern dat een deel van de uitgaven nog niet is ingedeeld ({aandeel_onbekend}) en trek geen conclusie over een tekort of overschot. Een negatief "over" kan dan komen door geld naar een eigen rekening die nog niet als eigen is aangewezen.
+11. Noem "Overig" en "Overige overboekingen" nooit als een van de drie dingen die opvallen. Daar valt niets uit te leren.
 
 Wat je schrijft:
 - kern: één of twee zinnen met de belangrijkste bevinding. Gaat iets goed, begin daarmee, en noem dan waar het knelt.

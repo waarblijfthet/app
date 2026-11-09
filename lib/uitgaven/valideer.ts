@@ -53,7 +53,7 @@ export function valideerSamenvatting(invoer: unknown): Resultaat {
 
   if (!isObject(invoer)) return { ok: false, fouten: ["geen object"] };
   const s = invoer;
-  alleenSleutels(s, ["versie", "bron", "maanden", "perMaand", "gemiddeldPerMaand", "categorieen", "vasteLasten", "nietMaandelijks", "kenmerken"], "samenvatting");
+  alleenSleutels(s, ["versie", "bron", "maanden", "perMaand", "gemiddeldPerMaand", "categorieen", "vasteLasten", "nietMaandelijks", "kwaliteit", "kenmerken"], "samenvatting");
   if (s.versie !== 1) f("versie: onbekend");
   if (s.bron !== "afschrift" && s.bron !== "schatting") f("bron: onbekend");
   lijst(s.maanden, "maanden", 24).forEach((m, i) => maand(m, "maanden[" + i + "]"));
@@ -97,6 +97,13 @@ export function valideerSamenvatting(invoer: unknown): Resultaat {
     maand(v.maand, pad + ".maand");
     getal(v.bedrag, pad + ".bedrag", 0);
   });
+  if (!isObject(s.kwaliteit)) f("kwaliteit: geen object");
+  else {
+    const q = s.kwaliteit;
+    alleenSleutels(q, ["aandeelOnbekend", "aandeelOverboekingen"], "kwaliteit");
+    getal(q.aandeelOnbekend, "kwaliteit.aandeelOnbekend", 0, 100);
+    getal(q.aandeelOverboekingen, "kwaliteit.aandeelOverboekingen", 0, 100);
+  }
   if (!isObject(s.kenmerken)) f("kenmerken: geen object");
   else {
     const k = s.kenmerken;

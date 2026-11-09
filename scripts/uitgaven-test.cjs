@@ -1,6 +1,6 @@
 /**
  * Tests voor lib/uitgaven met verzonnen boekingen. Draaien zoals scripts/bankbestand-test.cjs:
- *   npx --prefix <repo> tsc <repo>/lib/uitgaven/index.ts <repo>/lib/bankbestand/index.ts --outDir ~/bbtest/out --module commonjs --target es2020 --lib es2020,dom --strict --skipLibCheck
+ *   npx --prefix <repo> tsc <repo>/lib/uitgaven/index.ts <repo>/lib/bankbestand/index.ts <repo>/lib/uitgaven/advies/kern.ts --outDir ~/bbtest/out --module commonjs --target es2020 --lib es2020,dom --strict --skipLibCheck
  *   cp <repo>/scripts/uitgaven-test.cjs ~/bbtest/uitgaven-test.js && node ~/bbtest/uitgaven-test.js
  */
 const assert = require("assert");
@@ -49,6 +49,7 @@ t("kandidaten voor de twee vragen", () => {
   const rk = u.rekeningKandidaten(boekingen);
   assert.ok(rk.some((r) => r.iban === SPAAR));
   assert.ok(!rk.some((r) => r.label.startsWith("Netflix")));
+  assert.ok(!rk.some((r) => r.label.startsWith("Werkgever"))); // salaris is geen eigen rekening
   const ik = u.inkomenKandidaten(boekingen, eigen, 4);
   assert.strictEqual(ik[0].soort, "salaris");
   assert.strictEqual(ik[0].voorgesteld, true);
@@ -121,5 +122,29 @@ t("onbekende posten vragen en het antwoord gebruiken", () => {
   assert.strictEqual(u.vragenOverOnbekend(o2, 8, 1).length, 0);
   const json = JSON.stringify(u.maakSamenvatting(o2));
   assert.ok(!json.includes("Pietersen") && !json.includes("Kapsalon"));
+});
+t("kwaliteit en controle van het advies", () => {
+  const { maakGetallen } = require("./out/uitgaven/advies/getallen.js");
+  const { valideerAdvies, vulIn } = require("./out/uitgaven/advies/valideer-advies.js");
+  const o = u.maakOverzicht(boekingen, { eigenIbans: [SPAAR], inkomenSleutels: [] });
+  const s = u.maakSamenvatting(o);
+  assert.ok(s.kwaliteit.aandeelOnbekend >= 0 && s.kwaliteit.aandeelOnbekend <= 100);
+  const g = maakGetallen(s);
+  assert.strictEqual(g.inkomen_per_maand, "€ 0");
+  const goed = { kern: "Jullie vaste lasten zijn {vast_per_maand} per maand.", toelichting: "Daarnaast {dagelijks_per_maand} aan dagelijkse uitgaven.", opvallend: [
+    { titel: "Kosten niet elke maand", getal: "{niet_maandelijks_per_jaar}", uitleg: "Deze kosten komen in pieken." },
+    { titel: "Veel kleine boodschappen", getal: "{boodschappen_keer_per_maand}", uitleg: "Vaak kleine bedragen." },
+    { titel: "Abonnementen", getal: "{abonnementen_per_maand}", uitleg: "Ze lopen elke maand door." } ],
+    watGoedGaat: "De vaste lasten zijn stabiel.", eersteStap: "Maak een aparte spaarrekening aan." };
+  assert.ok(valideerAdvies(goed, g).ok);
+  assert.ok(vulIn(goed, g).kern.includes("€ "));
+  const fout = (f) => { const a = JSON.parse(JSON.stringify(goed)); f(a); return valideerAdvies(a, g).ok; };
+  assert.strictEqual(fout((a) => { a.kern = "Jullie houden 500 euro over."; }), false);
+  assert.strictEqual(fout((a) => { a.kern = "Jullie houden {verzonnen} over."; }), false);
+  assert.strictEqual(fout((a) => { a.opvallend[0] = { titel: "Veel overig", getal: "{categorie_overig}", uitleg: "x" }; }), false);
+  assert.strictEqual(fout((a) => { a.eersteStap = "Ik raad aan te beleggen."; }), false);
+  assert.strictEqual(fout((a) => { a.toelichting = "Dit klopt \u2014 echt."; }), false);
+  assert.strictEqual(fout((a) => { a.opvallend.pop(); }), false);
+  assert.strictEqual(fout((a) => { a.extra = "x"; }), false);
 });
 console.log(ok + " tests geslaagd");

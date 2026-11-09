@@ -48,6 +48,7 @@ export function valideerAdvies(invoer: unknown, getallen: Getallen): { ok: true;
       tekst(r.titel, "opvallend[" + i + "].titel", MAX.titel);
       tekst(r.uitleg, "opvallend[" + i + "].uitleg", MAX.uitleg);
       if (typeof r.getal !== "string" || !/^\{[a-z0-9_]+\}$/.test(r.getal) || !(r.getal.slice(1, -1) in getallen)) fouten.push("opvallend[" + i + "].getal: geen bestaande verwijzing");
+      else if (/^\{categorie_overig/.test(r.getal) || (typeof r.titel === "string" && /overig/i.test(r.titel))) fouten.push("opvallend[" + i + "]: Overig mag geen opvallend punt zijn");
       return 0;
     });
   return fouten.length ? { ok: false, fouten: fouten.slice(0, 20) } : { ok: true, advies: a as unknown as VoorlopigAdvies };

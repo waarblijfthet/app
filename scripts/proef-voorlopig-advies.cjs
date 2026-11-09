@@ -11,7 +11,7 @@
 const fs = require("fs");
 const path = require("path");
 const repo = path.resolve(__dirname, "..");
-const uit = process.argv[2];
+const uit = path.resolve(process.argv[2] || path.join(repo, "_proef", "out"));
 const Anthropic = require(require.resolve("@anthropic-ai/sdk", { paths: [repo] }));
 const AnthropicKlasse = Anthropic.default || Anthropic;
 const { maakVoorlopigAdvies } = require(path.join(uit, "uitgaven", "advies", "kern.js"));
