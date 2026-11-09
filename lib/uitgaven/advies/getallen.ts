@@ -60,6 +60,9 @@ export function maakGetallen(s: Samenvatting): Getallen {
   g.abonnementen_aantal = String(k.abonnementenAantal);
   g.abonnementen_per_maand = euroTekst(k.abonnementenPerMaand);
   g.vaste_lasten_aantal = String(s.vasteLasten.length);
+  g.naar_potjes_per_maand = euroTekst(s.sparen.naarPotjesPerMaand);
+  g.terug_uit_potjes_per_maand = euroTekst(s.sparen.terugUitPotjesPerMaand);
+  g.netto_gespaard_per_maand = euroTekst(s.sparen.nettoPerMaand);
   g.aandeel_onbekend = s.kwaliteit.aandeelOnbekend + " procent";
   return g;
 }

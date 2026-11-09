@@ -17,6 +17,8 @@ export type Samenvatting = {
   categorieen: { naam: string; bak: Bak; perMaand: number; aantalPerMaand: number }[];
   vasteLasten: { naam: string; categorie: string; perMaand: number }[];
   nietMaandelijks: { naam: string; categorie: string; maand: string; bedrag: number }[];
+  /** Geld naar en van eigen rekeningen en potjes buiten de geüploade bestanden, gemiddeld per maand. Geen uitgave. */
+  sparen: { naarPotjesPerMaand: number; terugUitPotjesPerMaand: number; nettoPerMaand: number };
   /** Hoeveel procent van het uitgegeven bedrag nog niet in een categorie valt. Stuurt de kwaliteitscontrole. */
   kwaliteit: { aandeelOnbekend: number; aandeelOverboekingen: number };
   kenmerken: {
@@ -88,6 +90,11 @@ export function maakSamenvatting(o: Overzicht): Samenvatting {
       maand: x.maand,
       bedrag: euro(x.bedragCent),
     })),
+    sparen: {
+      naarPotjesPerMaand: tientje(o.sparen.reduce((a, m) => a + m.heenCent, 0) / n),
+      terugUitPotjesPerMaand: tientje(o.sparen.reduce((a, m) => a + m.terugCent, 0) / n),
+      nettoPerMaand: tientje(o.sparen.reduce((a, m) => a + m.heenCent - m.terugCent, 0) / n),
+    },
     kwaliteit: {
       aandeelOnbekend: aandeel((c) => c === "overig" || c === "overboeking"),
       aandeelOverboekingen: aandeel((c) => c === "overboeking"),

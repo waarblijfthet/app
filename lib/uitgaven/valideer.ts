@@ -53,7 +53,7 @@ export function valideerSamenvatting(invoer: unknown): Resultaat {
 
   if (!isObject(invoer)) return { ok: false, fouten: ["geen object"] };
   const s = invoer;
-  alleenSleutels(s, ["versie", "bron", "maanden", "perMaand", "gemiddeldPerMaand", "categorieen", "vasteLasten", "nietMaandelijks", "kwaliteit", "kenmerken"], "samenvatting");
+  alleenSleutels(s, ["versie", "bron", "maanden", "perMaand", "gemiddeldPerMaand", "categorieen", "vasteLasten", "nietMaandelijks", "sparen", "kwaliteit", "kenmerken"], "samenvatting");
   if (s.versie !== 1) f("versie: onbekend");
   if (s.bron !== "afschrift" && s.bron !== "schatting") f("bron: onbekend");
   lijst(s.maanden, "maanden", 24).forEach((m, i) => maand(m, "maanden[" + i + "]"));
@@ -97,6 +97,14 @@ export function valideerSamenvatting(invoer: unknown): Resultaat {
     maand(v.maand, pad + ".maand");
     getal(v.bedrag, pad + ".bedrag", 0);
   });
+  if (!isObject(s.sparen)) f("sparen: geen object");
+  else {
+    const sp = s.sparen;
+    alleenSleutels(sp, ["naarPotjesPerMaand", "terugUitPotjesPerMaand", "nettoPerMaand"], "sparen");
+    getal(sp.naarPotjesPerMaand, "sparen.naarPotjesPerMaand", 0);
+    getal(sp.terugUitPotjesPerMaand, "sparen.terugUitPotjesPerMaand", 0);
+    getal(sp.nettoPerMaand, "sparen.nettoPerMaand");
+  }
   if (!isObject(s.kwaliteit)) f("kwaliteit: geen object");
   else {
     const q = s.kwaliteit;

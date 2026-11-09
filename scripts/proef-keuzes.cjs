@@ -28,11 +28,18 @@ if (!k) {
   k = {
     uitleg: "Zet 'eigen' op true voor rekeningen van jullie zelf of je partner, 'inkomen' op true voor inkomen, en kies bij 'onbekend' een categorie uit 'categorieen' (of laat null).",
     categorieen: Object.keys(u.CATEGORIEEN),
-    eigenRekeningen: u.rekeningKandidaten(t, 12).map((x) => ({ iban: x.iban, naam: x.label, keer: x.aantal, heenEuro: euro(x.heenCent), terugEuro: euro(x.terugCent), eigen: null })),
+    eigenRekeningen: [],
     inkomen: [],
     onbekend: [],
   };
 }
+const bekendeRekeningen = new Set(k.eigenRekeningen.map((x) => x.iban));
+u.rekeningKandidaten(t, 12).forEach((x) => {
+  if (bekendeRekeningen.has(x.iban)) return;
+  k.eigenRekeningen.push({ iban: x.iban, naam: x.label, keer: x.aantal, heenEuro: euro(x.heenCent), terugEuro: euro(x.terugCent),
+    waarom: x.reden === "naam" ? "zelfde achternaam" : x.reden === "omschrijving" ? "spaarwoord in omschrijving" : null,
+    eigen: x.waarschijnlijkEigen ? true : null });
+});
 const eigen = k.eigenRekeningen.filter((x) => x.eigen === true).map((x) => x.iban);
 const alleEigen = new Set([...u.eigenIbansUitBestanden(t), ...eigen]);
 const ik = u.inkomenKandidaten(t, alleEigen, maanden);

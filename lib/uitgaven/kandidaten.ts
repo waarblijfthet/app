@@ -13,6 +13,9 @@ export type RekeningKandidaat = {
   aantal: number;
   heenCent: number;
   terugCent: number;
+  /** Lijkt op een eigen rekening: dezelfde achternaam als de rekeninghouder, of een spaarwoord in de omschrijving. */
+  waarschijnlijkEigen: boolean;
+  reden: "naam" | "omschrijving" | null;
 };
 
 export type InkomenKandidaat = {
@@ -24,6 +27,31 @@ export type InkomenKandidaat = {
   gemiddeldPerMaandCent: number;
   voorgesteld: boolean;
 };
+
+const GEEN_NAAMDEEL = new Set(["eo", "en", "of", "van", "de", "der", "den", "het", "ter", "ten", "dhr", "mevr", "mw", "fam", "familie", "bv", "nv", "vof"]);
+const SPAARWOORD = /(^| )(spaar\w*|sparen|potje\w*|buffer|reserve\w*)( |$)/;
+
+/** Delen van een naam die iets zeggen: achternamen, zonder voorletters en tussenwoorden. */
+export function naamDelen(naam: string): string[] {
+  return normaliseer(naam)
+    .replace(/[^a-z ]/g, " ")
+    .split(" ")
+    .filter((w) => w.length >= 3 && !GEEN_NAAMDEEL.has(w));
+}
+
+/**
+ * Namen van de rekeninghouders, afgeleid uit overboekingen tussen rekeningen die allebei in de
+ * geüploade bestanden zitten (daar staat de eigen naam als tegenpartij). Blijft op het apparaat.
+ */
+export function eigenNamen(t: Transactie[], extra: string[] = []): Set<string> {
+  const eigen = eigenIbansUitBestanden(t);
+  const delen = new Set<string>();
+  t.forEach((x) => {
+    if (x.tegenIban && eigen.has(x.tegenIban)) naamDelen(x.tegenpartij).forEach((d) => delen.add(d));
+  });
+  extra.forEach((n) => naamDelen(n).forEach((d) => delen.add(d)));
+  return delen;
+}
 
 export function eigenIbansUitBestanden(t: Transactie[]): Set<string> {
   return new Set(t.map((x) => x.eigenIban).filter((x): x is string => !!x));
@@ -39,8 +67,10 @@ function maandVan(datum: string): string {
 }
 
 /** Tegenrekeningen waar veel geld heen of vandaan gaat en die geen bekend bedrijf zijn. */
-export function rekeningKandidaten(t: Transactie[], max = 6): RekeningKandidaat[] {
+export function rekeningKandidaten(t: Transactie[], max = 6, extraNamen: string[] = []): RekeningKandidaat[] {
   const eigen = eigenIbansUitBestanden(t);
+  const namen = eigenNamen(t, extraNamen);
+  const omschrijvingen = new Map<string, string>();
   const perIban = new Map<string, RekeningKandidaat>();
   t.forEach((x) => {
     if (!x.tegenIban || eigen.has(x.tegenIban)) return;
@@ -52,7 +82,10 @@ export function rekeningKandidaten(t: Transactie[], max = 6): RekeningKandidaat[
       aantal: 0,
       heenCent: 0,
       terugCent: 0,
+      waarschijnlijkEigen: false,
+      reden: null,
     };
+    omschrijvingen.set(x.tegenIban, (omschrijvingen.get(x.tegenIban) || "") + " " + normaliseer(x.omschrijving + " " + x.tegenpartij));
     k.aantal++;
     if (x.bedragCent < 0) k.heenCent += -x.bedragCent;
     else k.terugCent += x.bedragCent;
@@ -67,6 +100,11 @@ export function rekeningKandidaten(t: Transactie[], max = 6): RekeningKandidaat[
   return Array.from(perIban.values())
     .filter((k) => k.aantal >= 3 || k.heenCent + k.terugCent >= 50000)
     .filter((k) => !isInkomstenbron(k.iban))
+    .map((k) => {
+      if (naamDelen(k.label).some((d) => namen.has(d))) return Object.assign(k, { waarschijnlijkEigen: true, reden: "naam" as const });
+      if (SPAARWOORD.test(omschrijvingen.get(k.iban) || "")) return Object.assign(k, { waarschijnlijkEigen: true, reden: "omschrijving" as const });
+      return k;
+    })
     .sort((a, b) => b.heenCent + b.terugCent - (a.heenCent + a.terugCent))
     .slice(0, max);
 }

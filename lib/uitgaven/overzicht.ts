@@ -47,6 +47,8 @@ export type Overzicht = {
   nietMaandelijks: LosseGroteUitgave[];
   categorieTotalen: { categorie: CategorieId; bak: Bak; totaalCent: number; aantal: number }[];
   aantalRekeningen: number;
+  /** Geld naar en van eigen rekeningen en potjes BUITEN de geüploade bestanden, per maand. */
+  sparen: { maand: string; heenCent: number; terugCent: number }[];
 };
 
 /** Grens voor een losse uitgave die niet elke maand komt, in centen. */
@@ -195,9 +197,20 @@ export function maakOverzicht(transacties: Transactie[], keuzes: Keuzes): Overzi
     .map(([categorie, c]) => ({ categorie: categorie, bak: c.bak, totaalCent: c.totaalCent, aantal: c.aantal }))
     .sort((a, b) => b.totaalCent - a.totaalCent);
 
+  const inBestanden = eigenIbansUitBestanden(transacties);
+  const sparen = maanden.map((maand) => {
+    const p = posten.filter((x) => x.soort === "intern" && maandVan(x.t.datum) === maand && !(x.t.tegenIban && inBestanden.has(x.t.tegenIban)));
+    return {
+      maand: maand,
+      heenCent: p.filter((x) => x.t.bedragCent < 0).reduce((a, x) => a - x.t.bedragCent, 0),
+      terugCent: p.filter((x) => x.t.bedragCent > 0).reduce((a, x) => a + x.t.bedragCent, 0),
+    };
+  });
+
   return {
     maanden: maanden,
     perMaand: perMaand,
+    sparen: sparen,
     posten: posten,
     vasteLasten: vasteLasten,
     nietMaandelijks: nietMaandelijks,

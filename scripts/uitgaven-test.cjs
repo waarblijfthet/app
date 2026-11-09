@@ -147,4 +147,33 @@ t("kwaliteit en controle van het advies", () => {
   assert.strictEqual(fout((a) => { a.opvallend.pop(); }), false);
   assert.strictEqual(fout((a) => { a.extra = "x"; }), false);
 });
+t("eigen rekeningen herkennen aan naam en spaarwoord, en sparen apart", () => {
+  const ANDER = "NL00RABO0000000010";
+  const extra = boekingen.concat([
+    tx("2026-07-02", -200, "Koopman", { iban: EIGEN.replace("01", "11"), code: "tb", oms: "naar betaal" }),
+    tx("2026-07-03", 200, "J.M. Koopman", { iban: "NL00RABO0000000011", code: "tb" }),
+    tx("2026-07-10", -300, "J. Koopman", { iban: "NL00RABO0000000099", code: "tb", oms: "vakantie" }),
+    tx("2026-08-10", -300, "J. Koopman", { iban: "NL00RABO0000000099", code: "tb", oms: "vakantie" }),
+    tx("2026-09-10", 250, "J. Koopman", { iban: "NL00RABO0000000099", code: "tb", oms: "terug" }),
+    tx("2026-07-15", -150, "Rabo Spaarrekening", { iban: ANDER, code: "tb", oms: "Spaarpot buffer" }),
+    tx("2026-08-15", -150, "Rabo Spaarrekening", { iban: ANDER, code: "tb", oms: "Spaarpot buffer" }),
+    tx("2026-09-15", -150, "Rabo Spaarrekening", { iban: ANDER, code: "tb", oms: "Spaarpot buffer" }),
+    tx("2026-09-20", -400, "P. Jansen", { iban: "NL00INGB0000000077", code: "tb", oms: "auto" }),
+    tx("2026-09-21", -400, "P. Jansen", { iban: "NL00INGB0000000077", code: "tb", oms: "auto" }),
+    tx("2026-09-22", -400, "P. Jansen", { iban: "NL00INGB0000000077", code: "tb", oms: "auto" }),
+  ]);
+  // Een tweede eigen rekening in het bestand, zodat de eigen naam bekend is
+  extra.push(Object.assign(tx("2026-07-02", 200, "J.M. Koopman", { iban: EIGEN, code: "tb" }), { eigenIban: "NL00RABO0000000011" }));
+  const rk = u.rekeningKandidaten(extra, 10);
+  const vind = (iban) => rk.find((r) => r.iban === iban);
+  assert.strictEqual(vind("NL00RABO0000000099").reden, "naam");
+  assert.strictEqual(vind(ANDER).reden, "omschrijving");
+  assert.strictEqual(vind("NL00INGB0000000077").waarschijnlijkEigen, false);
+  const o = u.maakOverzicht(extra, { eigenIbans: rk.filter((r) => r.waarschijnlijkEigen).map((r) => r.iban), inkomenSleutels: [] });
+  const s = u.maakSamenvatting(o);
+  assert.strictEqual(s.sparen.naarPotjesPerMaand, 760); // (600 vakantiepot + 450 spaarpot + 4 x 500 spaarrekening) / 4 maanden, op tientjes
+  assert.ok(s.sparen.terugUitPotjesPerMaand > 0);
+  assert.ok(u.valideerSamenvatting(JSON.parse(JSON.stringify(s))).ok);
+  assert.ok(!JSON.stringify(s).includes("Koopman"));
+});
 console.log(ok + " tests geslaagd");

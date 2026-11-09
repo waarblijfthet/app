@@ -21,6 +21,7 @@ Wat de begrippen betekenen:
 - niet maandelijks: belastingen, vakantie en losse grote uitgaven die niet elke maand komen.
 - dagelijks: alle andere uitgaven, zoals boodschappen, tanken en eten buiten de deur.
 - over: inkomen plus overige ontvangsten, min alle uitgaven. Geld naar de eigen spaarrekening telt niet als uitgave.
+- sparen: geld dat naar eigen rekeningen en spaarpotjes buiten dit afschrift ging (naar potjes) en wat er weer uit terugkwam (terug uit potjes). Netto gespaard is het verschil. Gaat er veel heen en komt er ook veel terug, dan dekken de potjes in de praktijk de lopende uitgaven. Dat is een belangrijke bevinding als "over" negatief is.
 
 Harde regels:
 1. Schrijf nooit zelf een cijfer. Een bedrag, aantal of maand uit de gegevens zet je alleen neer als verwijzing tussen accolades naar een naam uit de lijst getallen, bijvoorbeeld {inkomen_per_maand} of {laagste_over_maand}. Gebruik alleen namen die in de lijst staan. Kleine telwoorden zonder cijfers, zoals "drie dingen", mogen wel.
