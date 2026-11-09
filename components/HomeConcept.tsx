@@ -2,8 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import CtaLink from "@/components/CtaLink";
-import { HOMEPAGE_CTA_LABEL, analyseHref } from "@/lib/cta";
+import PrimaireCta, { AnalyseUitwijk } from "@/components/PrimaireCta";
+import { PRIMAIRE_CTA_SUB } from "@/lib/cta";
 import { rapportVoorSlug } from "@/lib/rapporten-data";
 
 const CASE_SLUG = "tweeverdieners-drie-kinderen";
@@ -21,11 +21,12 @@ type IcoonNaam =
   | "schild"
   | "hart";
 
+/** Sinds 9-nov-2026 de stappen van de uitgavenscan, de primaire ingang (lib/cta.ts). */
 const STAPPEN: { nummer: string; icoon: IcoonNaam; titel: string; tekst: string }[] = [
-  { nummer: "1", icoon: "huis", titel: "Jouw huishouden", tekst: "Wie woont er mee, en hoe woon je?" },
-  { nummer: "2", icoon: "portemonnee", titel: "Netto inkomen", tekst: "Wat komt er iedere maand binnen?" },
-  { nummer: "3", icoon: "cirkel", titel: "Financiële ruimte", tekst: "Wat blijft er over na je vaste lasten en uitgaven?" },
-  { nummer: "4", icoon: "zoek", titel: "Waar valt het op?", tekst: "Je ziet welke uitgaven het meest afwijken van vergelijkbare huishoudens." },
+  { nummer: "1", icoon: "portemonnee", titel: "Download je afschrift", tekst: "Een bestand uit je bankapp of internetbankieren. Per bank staat erbij hoe." },
+  { nummer: "2", icoon: "schild", titel: "Op je eigen apparaat", tekst: "De pagina leest het bestand zelf. Het gaat nergens heen." },
+  { nummer: "3", icoon: "cirkel", titel: "Waar het heen gaat", tekst: "Vaste lasten, dagelijkse uitgaven en wat niet elke maand komt." },
+  { nummer: "4", icoon: "zoek", titel: "Wat opvalt", tekst: "Een gratis voorlopig advies, en wat een plan voor jullie zou regelen." },
 ];
 
 /** Voorbeeldbedragen die de analyse kan opleveren, geen cijfers van een echte klant. */
@@ -127,11 +128,7 @@ function Icoon({ naam, className = "h-6 w-6" }: { naam: IcoonNaam; className?: s
 }
 
 function AnalyseCta({ locatie, className = "" }: { locatie: string; className?: string }) {
-  return (
-    <CtaLink doel="analyse" href={analyseHref()} locatie={locatie} className={`btn-primary ${className}`.trim()}>
-      {HOMEPAGE_CTA_LABEL} <span aria-hidden="true">→</span>
-    </CtaLink>
-  );
+  return <PrimaireCta locatie={locatie} className={`btn-primary ${className}`.trim()} />;
 }
 
 function HeroScene() {
@@ -150,7 +147,8 @@ function HeroScene() {
             Ontdek gratis hoeveel financiële ruimte er in jouw situatie zit en waar jouw geld anders heen gaat dan je denkt.
           </p>
           <div className="mt-8"><AnalyseCta locatie="hero" className="sm:min-w-[272px]" /></div>
-          <p className="mt-4 font-body text-sm text-text-soft">Een snelle vergelijking van jouw financiële situatie.</p>
+          <p className="mt-4 font-body text-sm text-text-soft">{PRIMAIRE_CTA_SUB}</p>
+          <AnalyseUitwijk locatie="hero" className="mt-2" />
         </div>
 
         <div className="animate-hero-3 mx-auto w-full max-w-[680px] xl:translate-x-2">
@@ -367,7 +365,7 @@ function ProductScene() {
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.6fr)] lg:gap-0">
           <div className="lg:pr-10 xl:pr-14">
             <h2 className="max-w-[600px] font-display text-[36px] font-light leading-[1.04] text-primary sm:text-[44px] lg:text-[50px] xl:text-[54px]">
-              Van je inkomen naar je <span className="text-text-soft">financiële ruimte.</span>
+              Van je bankafschrift naar <span className="text-text-soft">wat er echt gebeurt.</span>
             </h2>
 
             <p className="section-eyebrow mt-9 lg:mt-12">Zo ziet het eruit</p>
@@ -378,12 +376,12 @@ function ProductScene() {
             </div>
 
             <p className="mx-auto mt-10 max-w-[460px] text-center font-display text-[19px] font-light leading-[1.5] text-text-soft lg:mt-14 lg:text-[21px]">
-              Je ziet niet alleen wat je uitgeeft, maar hoe jouw situatie zich verhoudt tot vergelijkbare huishoudens.
+              Je ziet niet alleen wat je uitgeeft, maar ook wat niet elke maand komt en waar het knelt.
             </p>
           </div>
 
           <div className="border-t border-[#D9DEDC] pt-10 lg:border-l lg:border-t-0 lg:pl-12 lg:pt-0 xl:pl-16">
-            <p className="section-eyebrow">Hier zit het grootste verschil.</p>
+            <p className="section-eyebrow">Geen afschrift bij de hand? De snelle schatting.</p>
             <h3 className="mt-4 font-display text-[26px] font-light leading-[1.12] text-primary sm:text-[30px] lg:text-[28px] xl:text-[31px]">
               Dit zijn de uitgaven die het meest afwijken van vergelijkbare huishoudens.
             </h3>
@@ -600,8 +598,10 @@ function FinalCtaScene() {
     <section className="bg-dark-block py-20 sm:py-24 md:py-28">
       <div className="mx-auto max-w-[660px] px-5 text-center sm:px-8">
         <h2 className="font-display text-[34px] font-light leading-tight text-white sm:text-5xl">Benieuwd wat er bij jou opvalt?</h2>
-        <p className="mx-auto mt-5 max-w-[540px] font-body text-base font-light leading-relaxed text-white/80 sm:text-lg">Vergelijk jouw financiële situatie met vergelijkbare huishoudens en ontdek waar het verschil zit.</p>
+        <p className="mx-auto mt-5 max-w-[540px] font-body text-base font-light leading-relaxed text-white/80 sm:text-lg">Lees je bankafschrift in en zie waar jullie geld echt blijft. Daarna krijg je gratis een voorlopig advies.</p>
         <div className="mt-8"><AnalyseCta locatie="slot" /></div>
+        <p className="mt-4 font-body text-sm text-white/60">{PRIMAIRE_CTA_SUB}</p>
+        <AnalyseUitwijk locatie="slot" donker className="mt-2" />
       </div>
     </section>
   );

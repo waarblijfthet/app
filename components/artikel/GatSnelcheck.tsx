@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CtaLink from "@/components/CtaLink";
-import { analyseHref, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { analyseHref, ANALYSE_CTA_LABEL } from "@/lib/cta";
 import { Bedragveld, Tegel, RekenKader, DONKER, ZACHT, type Bedrag } from "./Rekenveld";
 
 /**
@@ -63,7 +63,7 @@ export default function GatSnelcheck({ situatie }: { situatie?: "gezin" | "allee
           vergelijkbare huishoudens, zodat je ziet waar het verschil kan zitten.
         </p>
         <CtaLink doel="analyse" href={href} locatie="rekenaar" className="btn-primary text-center">
-          {PRIMAIRE_CTA_LABEL} &rarr;
+          {ANALYSE_CTA_LABEL} &rarr;
         </CtaLink>
       </div>
     </RekenKader>

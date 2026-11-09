@@ -1,6 +1,6 @@
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
-import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { PRIMAIRE_CTA_LABEL, PRIMAIRE_ROUTE } from "@/lib/cta";
 
 /**
  * Afsluitende footer met vier duidelijke groepen. Op desktop naast elkaar,
@@ -119,8 +119,8 @@ export default function Footer({ toonCta = true }: { toonCta?: boolean } = {}) {
 
           {toonCta && (
             <CtaLink
-              doel="analyse"
-              href={ANALYSE_ROUTE}
+              doel="uitgavenscan"
+              href={PRIMAIRE_ROUTE}
               locatie="footer"
               className="flex md:inline-flex items-center justify-center gap-1.5 font-body w-full md:w-auto"
               style={{

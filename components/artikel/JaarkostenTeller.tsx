@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CtaLink from "@/components/CtaLink";
-import { analyseHref, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { analyseHref, ANALYSE_CTA_LABEL } from "@/lib/cta";
 import { Bedragveld, Tegel, RekenKader, DONKER, ZACHT, type Bedrag } from "./Rekenveld";
 
 /**
@@ -71,7 +71,7 @@ export default function JaarkostenTeller({ situatie }: { situatie?: "gezin" | "a
           naartoe gaat.
         </p>
         <CtaLink doel="analyse" href={href} locatie="rekenaar" className="btn-primary text-center">
-          {PRIMAIRE_CTA_LABEL} &rarr;
+          {ANALYSE_CTA_LABEL} &rarr;
         </CtaLink>
       </div>
     </RekenKader>

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ANALYSE_ROUTE, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { PRIMAIRE_CTA_LABEL, PRIMAIRE_ROUTE } from "@/lib/cta";
 import CtaLink from "@/components/CtaLink";
 
 /* ─────────────────────────────────────────────────────────────────────────
@@ -126,17 +126,21 @@ export default function Header() {
 
   const isOpAnalyse = pathname.startsWith("/analyse");
   const isOpResultaat = pathname.startsWith("/resultaat");
+  const isOpScan = pathname.startsWith("/uitgavenscan");
 
   /* De gratis analyse is de enige primaire conversie-ingang van de site.
      Vanaf elke pagina moet die met één klik bereikbaar zijn, dus staat de
      CTA overal in de header, behalve op de analyse zelf. Op de
      resultaatpagina heeft iemand de analyse net gedaan, daar wijst hij
      naar een nieuwe ronde. */
-  const ctaConfig = isOpAnalyse
-    ? null
-    : isOpResultaat
-    ? { label: "Doe analyse opnieuw", href: ANALYSE_ROUTE }
-    : { label: PRIMAIRE_CTA_LABEL, href: ANALYSE_ROUTE };
+  // Sinds 9-nov-2026 is dat de uitgavenscan (lib/cta.ts). Niet tonen op de scan
+  // en de analyse zelf; na de analyse is de scan de logische volgende stap.
+  const ctaConfig =
+    isOpAnalyse || isOpScan
+      ? null
+      : isOpResultaat
+      ? { label: "Lees je afschrift in", href: PRIMAIRE_ROUTE }
+      : { label: PRIMAIRE_CTA_LABEL, href: PRIMAIRE_ROUTE };
 
   return (
     <header
@@ -199,7 +203,7 @@ export default function Header() {
 
           {ctaConfig && (
             <CtaLink
-              doel="analyse"
+              doel="uitgavenscan"
               href={ctaConfig.href}
               locatie="header"
               className="hidden sm:inline-flex items-center gap-1.5 shrink-0 whitespace-nowrap transition-colors duration-150"
@@ -298,7 +302,7 @@ export default function Header() {
 
           {ctaConfig && (
             <CtaLink
-              doel="analyse"
+              doel="uitgavenscan"
               href={ctaConfig.href}
               locatie="header-mobiel"
               onClick={() => setMobileOpen(false)}

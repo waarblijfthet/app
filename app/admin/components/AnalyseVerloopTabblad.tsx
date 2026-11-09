@@ -99,8 +99,9 @@ function Weekblok({ deze, vorige, vanMs, totMs }: { deze: Kerncijfers; vorige: K
           Geldscan op de hele site, ook buiten de analyse: {deze.geklikSite} (vorige week {vorige.geklikSite}).
         </p>
         <p>
-          Splitsvraag &quot;Heb je al een overzicht?&quot;: {deze.splitsingGezien} keer gezien, {deze.splitsingNee} nee,{" "}
-          {deze.splitsingJa} ja{deze.splitsingGezien > 0 ? ` (${pct(deze.splitsingJa, deze.splitsingGezien)} ja)` : ""}
+          Startblok (sinds 9 nov: knop naar de uitgavenscan, daaronder snelle schatting en nakijken): {deze.splitsingGezien} keer gezien,{" "}
+          {deze.splitsingScan} uitgavenscan, {deze.splitsingNee} snelle schatting (nee),{" "}
+          {deze.splitsingJa} nakijken (ja){deze.splitsingGezien > 0 ? ` (${pct(deze.splitsingJa, deze.splitsingGezien)} ja)` : ""}
           {Object.keys(deze.splitsingJaPerPlek).length > 0
             ? `, ja per plek: ${Object.entries(deze.splitsingJaPerPlek)
                 .map(([plek, n]) => `${plek} ${n}`)

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CtaLink from "@/components/CtaLink";
-import { analyseHref, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { analyseHref, ANALYSE_CTA_LABEL } from "@/lib/cta";
 import { Bedragveld, Tegel, RekenKader, DONKER, ZACHT, type Bedrag } from "./Rekenveld";
 
 /**
@@ -56,7 +56,7 @@ export default function LoonsverhogingSpoor() {
           Dit is een indicatie op basis van jouw invoer. In welke posten dat geld nu zit, laat de gratis analyse zien.
         </p>
         <CtaLink doel="analyse" href={analyseHref()} locatie="rekenaar" className="btn-primary text-center">
-          {PRIMAIRE_CTA_LABEL} &rarr;
+          {ANALYSE_CTA_LABEL} &rarr;
         </CtaLink>
       </div>
     </RekenKader>

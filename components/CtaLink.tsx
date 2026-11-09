@@ -14,6 +14,7 @@ import { logGebeurtenis } from "@/lib/track";
  *   analyse  -> cta_analysis
  *   geldscan -> cta_geldscan
  *   gesprek  -> cta_gesprek
+ *   uitgavenscan -> cta_uitgavenscan (sinds 9-nov-2026 de primaire knop)
  *
  * De kolom gebeurtenis in paginagebeurtenissen is vrije tekst, dus een nieuw
  * doel toevoegen kost geen migratie.
@@ -21,12 +22,13 @@ import { logGebeurtenis } from "@/lib/track";
  * De styling komt van buiten, zodat de visuele hiërarchie uit punt 24 per plek
  * bepaald wordt en dit component niets aan het ontwerp verandert.
  */
-export type CtaDoel = "analyse" | "geldscan" | "gesprek";
+export type CtaDoel = "analyse" | "geldscan" | "gesprek" | "uitgavenscan";
 
 const GEBEURTENIS_VOOR_DOEL: Record<CtaDoel, string> = {
   analyse: "cta_analysis",
   geldscan: "cta_geldscan",
   gesprek: "cta_gesprek",
+  uitgavenscan: "cta_uitgavenscan",
 };
 
 interface Props {

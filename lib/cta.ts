@@ -1,6 +1,13 @@
 // Eén bron voor de primaire conversieroute van de hele site.
 //
-// Sinds 5-nov-2026 zijn er twee ingangen, via één vraag ("Heb je al een
+// Sinds 9-nov-2026 (besluit Jarno, na nul betaalde conversies uit de analyse):
+// de primaire knop overal gaat naar de uitgavenscan op het eigen bankafschrift,
+// PRIMAIRE_ROUTE plus PRIMAIRE_CTA_LABEL. De analyse blijft bestaan als uitwijk
+// voor wie geen afschrift bij de hand heeft ("snelle schatting"), als tekstlink
+// onder de knop, nooit als tweede knop ernaast en niet als keuzescherm vooraf.
+// Bouw je een CTA, gebruik dan PrimaireCta en AnalyseUitwijk (components/PrimaireCta.tsx).
+//
+// Daarvoor, sinds 5-nov-2026 zijn er twee ingangen, via één vraag ("Heb je al een
 // overzicht van je uitgaven?", components/SplitsVraag.tsx): nee gaat naar de
 // gratis analyse, ja naar de Geldscan met je eigen overzicht. Wie een CTA bouwt gebruikt hier
 // ANALYSE_ROUTE plus analyseHref(), zodat er nooit twee routes ontstaan.
@@ -9,11 +16,27 @@ import type { KeuzeSleutel } from "./geldmomenten";
 
 export const ANALYSE_ROUTE = "/analyse";
 
-/** De enige toegestane tekst voor een primaire CTA. */
-export const PRIMAIRE_CTA_LABEL = "Doe de gratis analyse";
+/** De uitgavenscan: het bankafschrift lezen in de browser, daarna een voorlopig advies. */
+export const UITGAVENSCAN_ROUTE = "/uitgavenscan";
 
-/** Homepage heeft één compacte formulering; alle links volgen dezelfde analyseroute. */
-export const HOMEPAGE_CTA_LABEL = "Start de gratis analyse";
+/** Waar de primaire knop naartoe gaat. Typ de route nooit over. */
+export const PRIMAIRE_ROUTE = UITGAVENSCAN_ROUTE;
+
+/** De enige toegestane tekst voor een primaire CTA. */
+export const PRIMAIRE_CTA_LABEL = "Bekijk waar je geld blijft";
+
+/** De regel onder de primaire knop: neemt de drempel van het bankbestand weg. */
+export const PRIMAIRE_CTA_SUB = "Met je bankafschrift · gratis · je bestand blijft op je eigen apparaat";
+
+/** De uitwijk naar de analyse, als tekstlink onder de primaire knop. */
+export const ANALYSE_UITWIJK_VRAAG = "Geen afschrift bij de hand?";
+export const ANALYSE_UITWIJK_LABEL = "Doe de snelle schatting";
+
+/** Voor plekken die bewust naar de analyse wijzen, zoals de analysepagina zelf. */
+export const ANALYSE_CTA_LABEL = "Doe de gratis analyse";
+
+/** Homepage gebruikt dezelfde tekst als de rest van de site. */
+export const HOMEPAGE_CTA_LABEL = PRIMAIRE_CTA_LABEL;
 
 /** De kernboodschap, letterlijk herbruikbaar. */
 export const CTA_KERN =

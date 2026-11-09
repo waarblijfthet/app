@@ -399,7 +399,7 @@ export default function UitgavenscanClient() {
         </div>
         <div className="flex flex-col sm:flex-row sm:items-center gap-4">
           <Knop onClick={() => naar("bank")}>Kies je afschrift</Knop>
-          <a href="/analyse" className="text-[15px] font-medium text-accent">Geen afschrift bij de hand? Doe de analyse met schattingen</a>
+          <a href="/analyse" className="text-[15px] font-medium text-accent">Geen afschrift bij de hand? Doe de snelle schatting</a>
         </div>
         <Slot />
         <Kaart className="p-6 md:p-7">
@@ -523,6 +523,14 @@ export default function UitgavenscanClient() {
           </ol>
           {bankNoot(bank) && <p className="m-0 mt-4 text-sm text-text-soft">{bankNoot(bank)}</p>}
           <p className="m-0 mt-4 text-sm text-text-muted">Kom je er niet uit? Mail naar hallo@waarblijfthet.nl welke bank je hebt, dan zoek ik het uit.</p>
+          {/* 9-nov-2026: hier besluit iemand "te veel gedoe", dus hier staat de uitwijk naar de analyse. */}
+          <p className="m-0 mt-2 text-sm text-text-muted">
+            Lukt downloaden nu niet?{" "}
+            <a href="/analyse" className="font-medium text-accent underline underline-offset-2">
+              Doe de snelle schatting
+            </a>{" "}
+            (3 minuten, zonder bankbestand).
+          </p>
         </Kaart>
         <label className={`flex flex-col items-center justify-center gap-2 min-h-[140px] rounded-[20px] border-2 border-dashed border-[#9FB3AC] bg-white px-6 text-center cursor-pointer hover:border-accent ${leesBezig ? "opacity-60" : ""}`}>
           <span className="font-semibold text-primary">{leesBezig ? "Bezig met lezen..." : "Kies het bestand"}</span>

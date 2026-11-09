@@ -6,7 +6,7 @@ import { logGebeurtenis } from "@/lib/track";
 import EenTikVraag from "./EenTikVraag";
 import { BEZWAAR_OPTIES } from "./inzichtVragen";
 import { QuizData } from "@/lib/quiz-types";
-import { geldscanHref } from "@/lib/cta";
+import { PRIMAIRE_ROUTE, geldscanHref } from "@/lib/cta";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import BewaarUitkomst from "./BewaarUitkomst";
 import ToestemmingDataAsset from "./ToestemmingDataAsset";
@@ -94,6 +94,24 @@ export default function Resultaat4Aanbod({ data, onChange, resultaat }: Props) {
           Ik schreef er inmiddels {RAPPORTEN.length} uit. Bij {AANTAL_ZONDER_LEK} daarvan bleek er
           geen lek te zitten, en dat schreef ik er ook zo in.
         </p>
+      </div>
+
+      {/* 9-nov-2026: wie de schatting deed, kan zijn echte cijfers laten zien. De
+          uitgavenscan is de primaire ingang van de site (lib/cta.ts). */}
+      <div className="mt-6 rounded-xl border border-[#D9DEDC] bg-white p-5 sm:p-6">
+        <p className="font-body text-sm font-medium text-primary mb-1">Wil je het zeker weten?</p>
+        <p className="font-body text-sm text-text-soft leading-relaxed mb-4">
+          Dit was een schatting. Lees je bankafschrift in en zie wat er echt gebeurde, met een
+          gratis voorlopig advies. Je bestand blijft op je eigen apparaat.
+        </p>
+        <CtaLink
+          doel="uitgavenscan"
+          href={PRIMAIRE_ROUTE}
+          locatie="analyse-resultaat"
+          className="inline-flex items-center gap-1.5 font-body text-sm font-semibold text-accent hover:underline"
+        >
+          Lees je afschrift in <span aria-hidden="true">&rarr;</span>
+        </CtaLink>
       </div>
 
       <div className="mt-6">

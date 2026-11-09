@@ -393,6 +393,8 @@ export type Kerncijfers = {
   splitsingGezien: number;
   splitsingNee: number;
   splitsingJa: number;
+  /** Sinds 9-nov-2026: de primaire knop in het blok, naar de uitgavenscan. */
+  splitsingScan: number;
   /** Ja per plek, bijvoorbeeld artikel-slot of rapport-slot. */
   splitsingJaPerPlek: Record<string, number>;
   aangevraagdOverzicht: number;
@@ -479,6 +481,7 @@ export function berekenKerncijfers(data: ApiData, eigenTonen: boolean, van: stri
     splitsingGezien: uniek(gebInVenster.filter((g) => g.gebeurtenis === "splitsing_gezien")),
     splitsingNee: uniek(splitsKeuzes.filter((g) => g.meta?.keuze === "nee")),
     splitsingJa: uniek(splitsKeuzes.filter((g) => g.meta?.keuze === "ja")),
+    splitsingScan: uniek(splitsKeuzes.filter((g) => g.meta?.keuze === "scan")),
     splitsingJaPerPlek: splitsingJaPerPlek,
     aangevraagdOverzicht: (data.aanvraagSporen ?? []).filter((a) => binnen(a.created_at) && a.spoor === "overzicht")
       .length,

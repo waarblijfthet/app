@@ -4,7 +4,8 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CtaLink from "@/components/CtaLink";
-import { analyseHref, PRIMAIRE_CTA_LABEL, geldscanHref } from "@/lib/cta";
+import { geldscanHref } from "@/lib/cta";
+import PrimaireCta, { AnalyseUitwijk } from "@/components/PrimaireCta";
 import {
   rapportVoorSlug,
   AANTAL_ZONDER_LEK,
@@ -494,21 +495,18 @@ export default function OverPage() {
               Benieuwd wat er bij jou opvalt?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-[46ch] mx-auto">
-              Begin met de gratis analyse. Dan zie je eerst zelf hoe jouw
-              situatie zich verhoudt tot vergelijkbare huishoudens.
+              Begin met je eigen bankafschrift. Dan zie je eerst zelf waar jullie
+              geld blijft, en krijg je gratis een voorlopig advies.
             </p>
-            <CtaLink
-              doel="analyse"
-              href={analyseHref()}
+            <PrimaireCta
               locatie="over-slot"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
-            >
-              {PRIMAIRE_CTA_LABEL} &rarr;
-            </CtaLink>
+            />
             <p className="font-body font-light text-white/50 text-sm mt-6">
-              Gratis &bull; zonder e-mailadres &bull; geen verkoopgesprek
+              Gratis &bull; je bestand blijft op je eigen apparaat &bull; geen verkoopgesprek
             </p>
+            <AnalyseUitwijk locatie="over-slot" donker className="mt-2" />
             <p className="font-body font-light text-white/60 text-sm mt-6">
               Liever meteen een geldrapport?
             </p>

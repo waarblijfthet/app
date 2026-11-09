@@ -3,6 +3,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
 import CtaLink from "@/components/CtaLink";
+import PrimaireCta, { AnalyseUitwijk } from "@/components/PrimaireCta";
 import { RAPPORTEN, AANTAL_ZONDER_LEK } from "@/lib/rapporten-data";
 import { FinancieelCoachAccordion } from "./components/FinancieelCoachAccordion";
 import { geldscanHref } from "@/lib/cta";
@@ -29,12 +30,12 @@ const MARKT_TARIEVEN = `Budgetcoaches rekenen in mijn steekproef van ${AANTAL_AA
 export const metadata: Metadata = {
   title: "Financieel coach bij een goed inkomen, zonder schulden",
   description:
-    `Financieel coach voor wie goed verdient en toch weinig overhoudt, zonder schulden. Doe eerst de gratis analyse, kies daarna zelf voor een geldrapport van ${PAKKET_INFO.geldscan.prijs} of een adviesgesprek. Online, heel Nederland.`,
+    `Financieel coach voor wie goed verdient en toch weinig overhoudt, zonder schulden. Begin gratis met je eigen bankafschrift, kies daarna zelf voor een geldrapport van ${PAKKET_INFO.geldscan.prijs} of een adviesgesprek. Online, heel Nederland.`,
   alternates: { canonical: "https://www.waarblijfthet.nl/financieel-coach" },
   openGraph: {
     title: "Financieel coach bij een goed inkomen, zonder schulden",
     description:
-      "Financieel coach voor wie goed verdient en toch weinig overhoudt. Doe eerst de gratis analyse, kies daarna zelf een vervolgstap.",
+      "Financieel coach voor wie goed verdient en toch weinig overhoudt. Begin gratis met je eigen bankafschrift, kies daarna zelf een vervolgstap.",
     url: "https://www.waarblijfthet.nl/financieel-coach",
     type: "website",
   },
@@ -217,12 +218,11 @@ export default function FinancieelCoachPage() {
                   gebeurt. Geen financiële producten, geen provisie, geen oordeel en geen
                   standaard bespaartips.
                 </p>
-                <CtaLink doel="analyse" href="/analyse" locatie="coach-hero" className="btn-primary">
-                  Doe de gratis analyse →
-                </CtaLink>
+                <PrimaireCta locatie="coach-hero" />
                 <p className="font-body font-light text-text-muted text-xs mt-4">
-                  5 minuten · geen account · geen bankkoppeling · direct resultaat
+                  Met je bankafschrift · gratis · je bestand blijft op je eigen apparaat
                 </p>
+                <AnalyseUitwijk locatie="coach-hero" className="mt-2" />
               </div>
 
               {/* Bestaand bewijs als rustig visueel element, geen decoratie */}
@@ -296,16 +296,14 @@ export default function FinancieelCoachPage() {
               Eerst zelf zien wat er aan de hand is
             </h2>
             <p className="font-body font-light text-text-soft leading-relaxed mb-3">
-              Je hoeft niet meteen een coach in te schakelen. De gratis analyse kost ongeveer
-              vijf minuten en laat direct zien waar jouw huishouden afwijkt van vergelijkbare
-              huishoudens.
+              Je hoeft niet meteen een coach in te schakelen. Lees je bankafschrift in en zie in
+              een paar minuten waar jullie geld blijft, met een gratis voorlopig advies erbij.
             </p>
             <p className="font-body font-light text-text-muted text-sm leading-relaxed mb-6">
-              Geen account, geen bankkoppeling, geen verplicht gesprek.
+              Je bestand blijft op je eigen apparaat. Geen account, geen bankkoppeling, geen verplicht gesprek.
             </p>
-            <Link href="/analyse" className="btn-primary">
-              Doe de gratis analyse →
-            </Link>
+            <PrimaireCta locatie="coach-midden" />
+            <AnalyseUitwijk locatie="coach-midden" className="mt-3" />
           </div>
         </section>
 
@@ -416,7 +414,7 @@ export default function FinancieelCoachPage() {
               </div>
             </div>
             <p className="font-body font-light text-text-muted text-xs leading-relaxed mt-6 text-center">
-              Je hoeft niet meteen te weten wat je nodig hebt. Begin met de gratis analyse, daarna bepaal je zelf of je verder wilt.
+              Je hoeft niet meteen te weten wat je nodig hebt. Begin met je eigen bankafschrift, daarna bepaal je zelf of je verder wilt.
             </p>
           </div>
         </section>
@@ -569,19 +567,16 @@ export default function FinancieelCoachPage() {
               Benieuwd waar jouw geld blijft?
             </h2>
             <p className="text-white/70 font-body font-light text-base mb-8 max-w-md mx-auto">
-              Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom. Vijf minuten, geen account, geen bankkoppeling.
+              Eerst ontdekken wat er bij jou gebeurt. Daarna beslis je of je wilt weten waarom. Een paar minuten, je bestand blijft op je eigen apparaat.
             </p>
-            <CtaLink
-              doel="analyse"
-              href="/analyse"
+            <PrimaireCta
               locatie="coach-slot"
               className="btn-primary"
               style={{ backgroundColor: "#0B7A6E", borderColor: "#0B7A6E" }}
-            >
-              Doe de gratis analyse →
-            </CtaLink>
+            />
+            <AnalyseUitwijk locatie="coach-slot" donker className="mt-3" />
             <p className="mt-5 mb-0 text-white/50 font-body font-light text-xs">
-              Na de analyse kun je altijd nog kiezen voor de Geldscan.
+              Daarna kun je altijd nog kiezen voor de Geldscan.
             </p>
           </div>
         </section>

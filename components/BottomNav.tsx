@@ -57,8 +57,9 @@ export function BottomNav() {
 
   const isInzichten = pathname.startsWith("/inzichten");
   const isAanbod = pathname.startsWith("/aanbod");
-  const isAnalyse =
-    pathname.startsWith("/analyse") || pathname.startsWith("/resultaat");
+  // Sinds 9-nov-2026 wijst de middelste knop naar de uitgavenscan (lib/cta.ts). De analyse
+  // blijft bereikbaar via de uitwijklink onder elke primaire knop.
+  const isAnalyse = pathname.startsWith("/uitgavenscan");
 
   return (
     <>
@@ -95,9 +96,9 @@ export function BottomNav() {
             <span className="text-[10px] font-medium">Aanbod</span>
           </Link>
 
-          {/* Analyse, altijd prominent, accent kleur als niet actief */}
+          {/* Uitgavenscan, altijd prominent, accentkleur als niet actief */}
           <Link
-            href="/analyse"
+            href="/uitgavenscan"
             className="flex-1 flex flex-col items-center justify-center gap-1 py-3 px-2 transition-colors"
             style={{ color: isAnalyse ? "#16211F" : "#0B7A6E" }}
             aria-current={isAnalyse ? "page" : undefined}
@@ -119,7 +120,7 @@ export function BottomNav() {
                 marginTop: !isAnalyse ? "-2px" : "0",
               }}
             >
-              Analyse
+              Uitgavenscan
             </span>
           </Link>
         </div>

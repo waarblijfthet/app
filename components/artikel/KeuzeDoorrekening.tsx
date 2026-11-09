@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import CtaLink from "@/components/CtaLink";
-import { analyseHref, PRIMAIRE_CTA_LABEL } from "@/lib/cta";
+import { analyseHref, ANALYSE_CTA_LABEL } from "@/lib/cta";
 import { euro, euroSigned } from "@/lib/salaris-vuistregel";
 import {
   SCENARIOS,
@@ -288,7 +288,7 @@ export default function KeuzeDoorrekening({ keuze }: Props) {
           waar {wie === "je" ? "je" : "jullie"} geld nu al naartoe gaat.
         </p>
         <CtaLink doel="analyse" href={href} locatie="rekenaar" className="btn-primary text-center">
-          {PRIMAIRE_CTA_LABEL} &rarr;
+          {ANALYSE_CTA_LABEL} &rarr;
         </CtaLink>
       </div>
     </div>
