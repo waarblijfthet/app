@@ -35,7 +35,7 @@ import type { VoorlopigAdvies } from "@/lib/uitgaven/advies/valideer-advies";
 import { meet } from "@/lib/uitgavenscan/meet";
 import type { SchermId } from "@/lib/uitgavenscan/meting";
 import { DOELEN, JAARKOSTEN, WIE_REGELT } from "@/lib/uitgavenscan/aanvraag";
-import { BANK_LIJST, bankInfo, stappen, type BankSleutel, type Plek } from "./banken";
+import { BANK_LIJST, bankInfo, bankNoot, plekUitleg, stappen, type BankSleutel, type Plek } from "./banken";
 import { Kaart, Keuze, Knop, Kop, Melding, Slot, TekstKnop, Teller, Titel, euro, euroHeel, maandNaam } from "./ui";
 
 type Bestand = { naam: string; aantal: number; formaat: string };
@@ -462,8 +462,8 @@ export default function UitgavenscanClient() {
         <div className="flex flex-col gap-2.5">
           {(
             [
-              ["computer", "Op een computer", "Via internetbankieren, als CSV" + (b.pdf ? " of pdf" : "")],
-              ["app", "Op mijn telefoon", b.pdf ? "In de app, als pdf" : "In de app lukt het vaak alleen als pdf"],
+              ["computer", "Op een computer", plekUitleg(bank).computer],
+              ["app", "Op mijn telefoon", plekUitleg(bank).app],
             ] as [Plek, string, string][]
           ).map(([p, t, u]) => (
             <button
@@ -506,7 +506,7 @@ export default function UitgavenscanClient() {
         <div className="flex items-center gap-3">
           <span className="w-9 h-9 rounded-full bg-[#EEF1EF] text-text-soft text-xs font-bold flex items-center justify-center">{b.initialen}</span>
           <span className="font-semibold text-primary">
-            {b.naam} · {plek === "app" ? "op je telefoon" : "op de computer"}
+            {b.naam} · {plek === "app" || b.app === "alleen_app" ? "in de app" : "op de computer"}
           </span>
         </div>
         <Titel>{bestanden.length ? "Nog een afschrift toevoegen" : "Zo download je je afschrift"}</Titel>
@@ -519,6 +519,7 @@ export default function UitgavenscanClient() {
               </li>
             ))}
           </ol>
+          {bankNoot(bank) && <p className="m-0 mt-4 text-sm text-text-soft">{bankNoot(bank)}</p>}
           <p className="m-0 mt-4 text-sm text-text-muted">Kom je er niet uit? Mail naar hallo@waarblijfthet.nl welke bank je hebt, dan zoek ik het uit.</p>
         </Kaart>
         <label className={`flex flex-col items-center justify-center gap-2 min-h-[140px] rounded-[20px] border-2 border-dashed border-[#9FB3AC] bg-white px-6 text-center cursor-pointer hover:border-accent ${leesBezig ? "opacity-60" : ""}`}>
