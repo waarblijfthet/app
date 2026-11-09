@@ -33,9 +33,11 @@ Gecontroleerd op 9 november 2026:
 | ABN AMRO | pdf, txt, mt940, xls, camt.053, tot 18 maanden terug, ook in de app | abnamro.nl/en/personal/payments/credit-and-debit-transactions/download.html |
 | SNS (de Volksbank) | pdf, CAMT.053, CSV; alle veldnamen gepubliceerd | snsbank.nl, uitleg van je transactieoverzicht in Mijn SNS |
 | ING | MT940, CAMT.053, CSV (kommagescheiden), tot 18 maanden; bron gaat over zakelijke rekeningen | support.yuki.nl artikel 80000787467 |
-| Rabobank | MT940, CAMT.053, CSV, maximaal 3 maanden per download; MT940 stopt 15 nov 2026; bron gaat over zakelijke rekeningen | support.yuki.nl artikel 80000787699 |
+| Rabobank | MT940, CAMT.053, CSV, maximaal 3 maanden per download; MT940 stopt 15 nov 2026; bron gaat over zakelijke rekeningen. Particuliere CSV bevestigd op 9 nov met Jarno's eigen export: één download van 1 jul t/m 8 nov, twee rekeningen in één bestand, Windows-1252 | support.yuki.nl artikel 80000787699; eigen export |
 
-Nog niet bevestigd: wat Rabobank en ING aan particulieren geven, en de exacte kopregel van de particuliere Rabobank-CSV. Jarno controleert dat met zijn eigen Rabobank-download.
+Bevestigd op 9 nov: de kopregel van de particuliere Rabobank-CSV (alle 1.303 regels gelezen, saldo klopt per rekening op de cent). Nog niet bevestigd: of CAMT.053 voor particulieren in het Rabo-menu staat, wat ING aan particulieren geeft, en downloaden in de Rabo App.
+
+Wat de echte export leert voor stap 2: 83 van de 1.303 boekingen gaan tussen de twee eigen rekeningen in het bestand, en code tb (overboeking) komt 542 keer voor. Overboekingen naar rekeningen die niet in het bestand staan (partner, spaarrekening elders) zijn dus het grootste risico op dubbel tellen; de tool moet vragen "is dit jullie eigen rekening?". 53 boekingen zijn identiek aan een andere op dezelfde dag en blijven terecht apart. 45 boekingen hebben geen omschrijving, wel een tegenpartij.
 
 Aanpak:
 1. CAMT.053 (ISO 20022, XML) als gemeenschappelijke basis. Eén parser voor elke bank die het aanbiedt.

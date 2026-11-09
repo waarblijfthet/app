@@ -1,7 +1,10 @@
 /**
  * Herkenning van CSV-exports per bank op de kopregel.
  *
- * Rabobank: kolommen uit het geheugen, NOG TE BEVESTIGEN met een echte particuliere export.
+ * Rabobank: bevestigd op 9 nov 2026 met een echte particuliere export (26 kolommen, komma, alles tussen
+ *   aanhalingstekens, Windows-1252, bedrag als "+1.234,56"). 1.303 regels op twee rekeningen gelezen,
+ *   saldo na de laatste boeking klopt per rekening op de cent. Eén download besloeg 1 jul t/m 8 nov.
+ *   Codes in die export: tb, bc, id, ei, cb, db, ba, bg, we, ga, cc, kh, ec.
  * ING: kolommen volgens Yuki (support.yuki.nl, artikel 80000787467, geraadpleegd 9 nov 2026).
  * Andere banken: vangnet met kolomkeuze, tot er een echte kopregel is.
  */
