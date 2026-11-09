@@ -47,6 +47,7 @@ const CONTACT_MAILTO = "mailto:hallo@waarblijfthet.nl";
 
 const navLinks = [
   { href: "/analyse", label: "Analyse" },
+  { href: "/uitgavenscan", label: "Uitgavenscan" },
   { href: "/inzichten", label: "Inzichten" },
   { href: "/rapporten", label: "Rapporten" },
   { href: "/aanbod", label: "Aanbod" },

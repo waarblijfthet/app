@@ -147,6 +147,21 @@ export default function IntroScherm({
           Laat het nakijken
         </Link>
       </p>
+
+      {/* 9-nov-2026: de uitgavenscan, voor wie zijn bankafschrift bij de hand heeft. */}
+      <p className="font-body text-[13px] leading-relaxed text-center mt-2" style={{ color: HULP }}>
+        Liever je echte cijfers?{" "}
+        <Link
+          href="/uitgavenscan"
+          onClick={() =>
+            logGebeurtenis("cta_uitgavenscan", { meta: { plek: "analyse-intro", pagina: "/analyse", vervolgpagina: "/uitgavenscan" } })
+          }
+          className="underline underline-offset-2 hover:opacity-80"
+          style={{ color: "#0B7A6E" }}
+        >
+          Scan je bankafschrift
+        </Link>
+      </p>
     </div>
   );
 }

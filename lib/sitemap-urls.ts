@@ -6,6 +6,7 @@ const BASE = "https://www.waarblijfthet.nl";
 const STATISCHE_URLS = [
   `${BASE}/`,
   `${BASE}/analyse`,
+  `${BASE}/uitgavenscan`,
   `${BASE}/adviesgesprek`,
   `${BASE}/aanbod`,
   // 6-nov-2026: /geldscan, /financieel-coach en de rapporten stonden wel in

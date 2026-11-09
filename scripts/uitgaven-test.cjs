@@ -111,6 +111,7 @@ t("kandidaten voor de twee vragen", () => {
   assert.ok(rk.some((r) => r.iban === SPAAR));
   assert.ok(!rk.some((r) => r.label.startsWith("Netflix")));
   assert.ok(!rk.some((r) => r.label.startsWith("Werkgever"))); // salaris is geen eigen rekening
+  assert.ok(!rk.some((r) => r.label.startsWith("Hypotheek"))); // incasso: een bedrijf, geen eigen rekening
   const ik = u.inkomenKandidaten(boekingen, eigen, 4);
   assert.strictEqual(ik[0].soort, "salaris");
   assert.strictEqual(ik[0].voorgesteld, true);

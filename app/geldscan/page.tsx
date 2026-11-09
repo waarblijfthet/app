@@ -820,6 +820,13 @@ export default function GeldscanPage({
               </CtaLink>
               , of vraag de Geldscan aan en vul na betaling de korte vragenlijst in.
             </p>
+            <p className="font-body mt-3 text-sm font-light text-[#4A5A56]">
+              Liever meteen je echte cijfers?{" "}
+              <Link href="/uitgavenscan" className="font-medium hover:underline" style={{ color: "#0B7A6E" }}>
+                Scan je bankafschrift
+              </Link>
+              . Je ziet direct waar je geld heen gaat, en je samenvatting gaat mee met je aanvraag.
+            </p>
           </div>
         </section>
 

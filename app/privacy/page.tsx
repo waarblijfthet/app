@@ -89,6 +89,25 @@ export default function PrivacyPage() {
                 </p>
               </Situatie>
 
+              <Situatie titel="Je doet de uitgavenscan met je bankafschrift">
+                <p>
+                  Je afschrift wordt gelezen in je eigen browser. Het bestand, je boekingen, namen en rekeningnummers
+                  gaan niet naar mij en worden nergens opgeslagen. Sluit je het tabblad, dan is het weg.
+                </p>
+                <p>
+                  Twee dingen gaan wel naar buiten. Namen van winkels en bedrijven die ik niet herken, gaan zonder
+                  bedragen naar Anthropic (de AI-dienst Claude) om ze in te delen; dat kun je uitzetten met
+                  &quot;Liever niet&quot;. En voor je voorlopig advies gaat een samenvatting naar Anthropic: maandtotalen
+                  en categorieën, zonder namen, rekeningnummers of losse boekingen. Volgens de voorwaarden van
+                  Anthropic worden die gegevens niet gebruikt om modellen te trainen.
+                </p>
+                <p>
+                  Per scherm sla ik op hoe ver je kwam, met je bank en of het bestand gelezen kon worden, zonder
+                  bedragen of namen. Zo zie ik waar mensen vastlopen. Vraag je daarna de Geldscan aan, dan bewaar ik je
+                  samenvatting bij je aanvraag tot je plan geleverd is.
+                </p>
+              </Situatie>
+
               <Situatie titel="Je laat je uitkomst mailen of stelt me een vraag">
                 <p>
                   Je e-mailadres, je antwoorden uit de analyse en, als je die stelt, je vraag. Die gebruik ik om je de
@@ -132,6 +151,7 @@ export default function PrivacyPage() {
               <li>Bezoekersstatistiek en anonieme analyse-antwoorden: zonder vaste termijn. Er staat geen naam of e-mailadres in.</li>
               <li>Je e-mailadres, je antwoorden en je vraag: tot je vraagt om ze te verwijderen.</li>
               <li>Bankafschriften: tot je rapport geleverd is.</li>
+              <li>De samenvatting uit de uitgavenscan bij een aanvraag: tot je plan geleverd is.</li>
               <li>Betalingen en facturen: 7 jaar, omdat de Belastingdienst dat verplicht.</li>
             </ul>
             <p>Verwijderen doe ik met de hand. Een mail naar <MailLink /> is genoeg.</p>
@@ -142,6 +162,7 @@ export default function PrivacyPage() {
               <li>Vercel: hosting van de site en de anonieme bezoekersstatistiek.</li>
               <li>Supabase: de database.</li>
               <li>Resend: het versturen van e-mail.</li>
+              <li>Anthropic: het indelen van bedrijfsnamen en het voorlopig advies in de uitgavenscan, zonder namen of rekeningnummers.</li>
               <li>freeipapi.com: stad of regio bij een IP-adres.</li>
             </ul>
             <p>
@@ -174,7 +195,7 @@ export default function PrivacyPage() {
           </Sectie>
 
           <p className="font-body text-text-muted text-sm border-t border-[#E6E9E7] pt-6">
-            Laatst bijgewerkt: 23 september 2026. Meer over mij staat op de{" "}
+            Laatst bijgewerkt: 9 november 2026. Meer over mij staat op de{" "}
             <Link href="/over" className="underline underline-offset-2">
               over-pagina
             </Link>

@@ -13,6 +13,7 @@ const now = new Date().toISOString();
 const statisch = [
   { loc: "/", priority: "1.0" },
   { loc: "/analyse", priority: "0.9" },
+  { loc: "/uitgavenscan", priority: "0.8" },
   { loc: "/inzichten", priority: "0.8" },
   { loc: "/aanbod", priority: "0.8" },
   { loc: "/adviesgesprek", priority: "0.8" },
@@ -126,6 +127,7 @@ const llms =
   `Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; wie al een overzicht heeft, laat het nakijken met de Geldscan. Auteur en oprichter: Jarno Koopman.\n\n` +
   `## Belangrijkste pagina's\n` +
   `- [Gratis analyse](${HOST}/analyse): vergelijk in ongeveer 3 minuten je uitgaven met vergelijkbare gezinnen\n` +
+  `- [Uitgavenscan](${HOST}/uitgavenscan): zie uit je eigen bankafschrift waar je geld blijft; het afschrift blijft op je apparaat\n` +
   `- [Aanbod](${HOST}/aanbod): gratis analyse, Geldscan van 49 euro en een vervolgsessie van 125 euro\n` +
   `- [Financieel coach](${HOST}/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt\n` +
   `- [Geldscan](${HOST}/geldscan): ik kijk je cijfers na (eigen overzicht of korte vragenlijst) en reken je potjes uit, schriftelijk, 49 euro\n` +

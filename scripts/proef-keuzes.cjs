@@ -36,7 +36,9 @@ if (!k) {
   };
 }
 const bekendeRekeningen = new Set(k.eigenRekeningen.map((x) => x.iban));
-u.rekeningKandidaten(t, 12).forEach((x) => {
+const volMaanden = new Set(u.volledigeMaanden(t));
+const tVol = t.filter((x) => volMaanden.has(x.datum.slice(0, 7)));
+u.rekeningKandidaten(tVol, 12).forEach((x) => {
   if (bekendeRekeningen.has(x.iban)) return;
   k.eigenRekeningen.push({ iban: x.iban, naam: x.label, keer: x.aantal, heenEuro: euro(x.heenCent), terugEuro: euro(x.terugCent),
     waarom: x.reden === "naam" ? "zelfde achternaam" : x.reden === "omschrijving" ? "spaarwoord in omschrijving" : null,
@@ -44,7 +46,7 @@ u.rekeningKandidaten(t, 12).forEach((x) => {
 });
 const eigen = k.eigenRekeningen.filter((x) => x.eigen === true).map((x) => x.iban);
 const alleEigen = new Set([...u.eigenIbansUitBestanden(t), ...eigen]);
-const ik = u.inkomenKandidaten(t, alleEigen, maanden);
+const ik = u.inkomenKandidaten(tVol, alleEigen, maanden);
 const bekendInkomen = new Map(k.inkomen.map((x) => [x.sleutel, x]));
 k.inkomen = ik.map((x) => bekendInkomen.get(x.sleutel) || { sleutel: x.sleutel, naam: x.label, soort: x.soort, perMaandEuro: euro(x.gemiddeldPerMaandCent), inkomen: x.voorgesteld });
 const categorieKeuzes = Object.fromEntries(k.onbekend.filter((x) => x.categorie).map((x) => [x.groep, x.categorie]));

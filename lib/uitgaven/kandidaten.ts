@@ -62,6 +62,9 @@ export function inkomenSleutel(t: Transactie): string {
   return t.tegenIban || "naam:" + normaliseer(t.tegenpartij);
 }
 
+/** Incasso, pin, iDEAL en bankkosten: zo betaal je een bedrijf, nooit je eigen rekening. */
+const BETAAL_CODES = new Set(["ei", "ic", "eic", "bc", "ba", "bea", "id", "ide", "db"]);
+
 function maandVan(datum: string): string {
   return datum.slice(0, 7);
 }
@@ -97,9 +100,13 @@ export function rekeningKandidaten(t: Transactie[], max = 6, extraNamen: string[
     return lijst.every((x) => x.bedragCent > 0) &&
       lijst.some((x) => (x.code || "").toLowerCase() === "cb" || soortVan(x.tegenpartij, x.omschrijving) !== "overig");
   };
+  // Naar een eigen rekening boek je over; een incasso of pinbetaling gaat naar een bedrijf (9-nov-2026:
+  // de hypotheekverstrekker en de kinderopvang stonden anders als mogelijke eigen rekening).
+  const isBedrijf = (iban: string) => t.filter((x) => x.tegenIban === iban).every((x) => BETAAL_CODES.has((x.code || "").toLowerCase()));
   return Array.from(perIban.values())
     .filter((k) => k.aantal >= 3 || k.heenCent + k.terugCent >= 50000)
     .filter((k) => !isInkomstenbron(k.iban))
+    .filter((k) => !isBedrijf(k.iban))
     .map((k) => {
       if (naamDelen(k.label).some((d) => namen.has(d))) return Object.assign(k, { waarschijnlijkEigen: true, reden: "naam" as const });
       if (SPAARWOORD.test(omschrijvingen.get(k.iban) || "")) return Object.assign(k, { waarschijnlijkEigen: true, reden: "omschrijving" as const });
