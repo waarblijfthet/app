@@ -33,6 +33,7 @@ import {
 import { bewaakIndeling } from "@/lib/uitgaven/advies/indelen-ai";
 import type { VoorlopigAdvies } from "@/lib/uitgaven/advies/valideer-advies";
 import { meet } from "@/lib/uitgavenscan/meet";
+import { getSessieId } from "@/lib/sessie";
 import type { SchermId } from "@/lib/uitgavenscan/meting";
 import { DOELEN, JAARKOSTEN, WIE_REGELT } from "@/lib/uitgavenscan/aanvraag";
 import { BANK_LIJST, bankInfo, bankNoot, plekUitleg, stappen, type BankSleutel, type Plek } from "./banken";
@@ -313,7 +314,7 @@ export default function UitgavenscanClient() {
     setAdvies(null);
     setAdviesStatus("bezig");
     try {
-      const res = await fetch("/api/uitgavenscan/advies", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ samenvatting: samenvatting }) });
+      const res = await fetch("/api/uitgavenscan/advies", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ samenvatting: samenvatting, sessie_id: getSessieId() }) });
       const d = (await res.json()) as { ok: boolean; advies?: VoorlopigAdvies; status?: AdviesStatus };
       if (d.ok && d.advies) {
         setAdvies(d.advies);
@@ -991,7 +992,7 @@ export default function UitgavenscanClient() {
 
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="text-sm text-text-soft leading-relaxed">
-            Berekend op je apparaat. Voor je voorlopig advies gaat een samenvatting zonder namen en rekeningnummers naar een AI-dienst.{" "}
+            Berekend op je apparaat. Voor je voorlopig advies gaat een samenvatting zonder namen en rekeningnummers naar een AI-dienst. Die samenvatting en het advies bewaar ik, zonder je naam, om de kwaliteit na te kijken.{" "}
             <TekstKnop onClick={() => setToonSamenvatting(!toonSamenvatting)}>{toonSamenvatting ? "Verberg" : "Bekijk wat"}</TekstKnop>
           </div>
           <Knop onClick={() => void maakAdvies()}>Maak mijn voorlopig advies</Knop>

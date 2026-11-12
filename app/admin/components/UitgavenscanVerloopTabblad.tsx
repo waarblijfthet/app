@@ -2,6 +2,8 @@
 
 import { Fragment, useEffect, useMemo, useState } from "react";
 import { berekenVerloop, type Groep, type VoortgangRij } from "@/lib/uitgavenscan/verloop";
+import type { AdviesRij } from "@/lib/uitgavenscan/adviezen";
+import UitgavenscanAdviezen from "./UitgavenscanAdviezen";
 
 /**
  * Uitgavenscan-verloop (9-nov-2026). Op verzoek van Jarno: net als bij de analyse per stap zien of
@@ -79,6 +81,8 @@ export default function UitgavenscanVerloopTabblad() {
   const [rijen, setRijen] = useState<VoortgangRij[] | null>(null);
   const [fout, setFout] = useState<string | null>(null);
   const [eigenTonen, setEigenTonen] = useState(false);
+  const [adviezen, setAdviezen] = useState<AdviesRij[] | null>(null);
+  const [adviezenFout, setAdviezenFout] = useState<string | null>(null);
 
   useEffect(() => {
     let weg = false;
@@ -88,7 +92,11 @@ export default function UitgavenscanVerloopTabblad() {
       .then((d) => {
         if (weg) return;
         if (d.error) setFout(d.error);
-        else setRijen(d.rijen as VoortgangRij[]);
+        else {
+          setRijen(d.rijen as VoortgangRij[]);
+          setAdviezen((d.adviezen as AdviesRij[] | null) ?? null);
+          setAdviezenFout((d.adviezenFout as string | null) ?? null);
+        }
       })
       .catch(() => !weg && setFout("Kon het verloop niet laden."));
     return () => {
@@ -150,6 +158,8 @@ export default function UitgavenscanVerloopTabblad() {
               </tbody>
             </table>
           </section>
+
+          <UitgavenscanAdviezen adviezen={adviezen} fout={adviezenFout} voortgang={rijen ?? []} eigenTonen={eigenTonen} />
 
           <section className="card-base overflow-hidden">
             <div className="px-4 py-3 border-b border-[#F0F3F1]">

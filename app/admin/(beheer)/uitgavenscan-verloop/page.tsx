@@ -12,7 +12,7 @@ export default function UitgavenscanVerloopPagina() {
       <h1 className="font-display text-2xl text-primary mb-1">Uitgavenscan</h1>
       <p className="font-body text-sm text-text-soft mb-5">
         Iedereen die de uitgavenscan opende: of ze een bank kozen, of hun bestand gelezen werd, tot welk scherm ze kwamen en of ze de Geldscan
-        aanvroegen. Zonder bedragen of namen.
+        aanvroegen, en wat de AI hun als voorlopig advies gaf. Zonder boekingen, namen of rekeningnummers.
       </p>
       <UitgavenscanVerloopTabblad />
     </div>

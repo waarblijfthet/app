@@ -103,8 +103,10 @@ export default function PrivacyPage() {
                 </p>
                 <p>
                   Per scherm sla ik op hoe ver je kwam, met je bank en of het bestand gelezen kon worden, zonder
-                  bedragen of namen. Zo zie ik waar mensen vastlopen. Vraag je daarna de Geldscan aan, dan bewaar ik je
-                  samenvatting bij je aanvraag tot je plan geleverd is.
+                  bedragen of namen. Zo zie ik waar mensen vastlopen. Laat je een voorlopig advies maken, dan bewaar ik
+                  die samenvatting en het advies dat je kreeg, zonder naam, e-mailadres of IP-adres. Zo kan ik nakijken
+                  of de adviezen kloppen. Vraag je daarna de Geldscan aan, dan bewaar ik je samenvatting ook bij je
+                  aanvraag tot je plan geleverd is.
                 </p>
               </Situatie>
 
@@ -152,6 +154,7 @@ export default function PrivacyPage() {
               <li>Je e-mailadres, je antwoorden en je vraag: tot je vraagt om ze te verwijderen.</li>
               <li>Bankafschriften: tot je rapport geleverd is.</li>
               <li>De samenvatting uit de uitgavenscan bij een aanvraag: tot je plan geleverd is.</li>
+              <li>De samenvatting en het voorlopig advies uit de uitgavenscan, zonder aanvraag: zonder vaste termijn. Er staat geen naam of e-mailadres in.</li>
               <li>Betalingen en facturen: 7 jaar, omdat de Belastingdienst dat verplicht.</li>
             </ul>
             <p>Verwijderen doe ik met de hand. Een mail naar <MailLink /> is genoeg.</p>
@@ -195,7 +198,7 @@ export default function PrivacyPage() {
           </Sectie>
 
           <p className="font-body text-text-muted text-sm border-t border-[#E6E9E7] pt-6">
-            Laatst bijgewerkt: 9 november 2026. Meer over mij staat op de{" "}
+            Laatst bijgewerkt: 12 november 2026. Meer over mij staat op de{" "}
             <Link href="/over" className="underline underline-offset-2">
               over-pagina
             </Link>
