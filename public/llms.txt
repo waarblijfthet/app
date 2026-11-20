@@ -2,13 +2,14 @@
 
 > Gratis financiele analyse en inzicht voor Nederlandse gezinnen die goed verdienen maar toch weinig overhouden. Geen schuldhulp, geen beleggingsadvies, alleen grip op het maandbudget.
 
-Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; daarnaast is er een eenmalig adviesgesprek en persoonlijke begeleiding. Auteur en oprichter: Jarno Koopman.
+Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvragen waar hun geld blijft. Via een gratis analyse vergelijken ze hun uitgaven met vergelijkbare gezinnen; wie al een overzicht heeft, laat het nakijken met de Geldscan. Auteur en oprichter: Jarno Koopman.
 
 ## Belangrijkste pagina's
-- [Gratis analyse](https://www.waarblijfthet.nl/analyse): vergelijk in 5 minuten je uitgaven met vergelijkbare gezinnen
-- [Aanbod](https://www.waarblijfthet.nl/aanbod): gratis analyse, eenmalig adviesgesprek en traject
+- [Gratis analyse](https://www.waarblijfthet.nl/analyse): vergelijk in ongeveer 3 minuten je uitgaven met vergelijkbare gezinnen
+- [Uitgavenscan](https://www.waarblijfthet.nl/uitgavenscan): zie uit je eigen bankafschrift waar je geld blijft; het afschrift blijft op je apparaat
+- [Aanbod](https://www.waarblijfthet.nl/aanbod): gratis analyse, Geldscan van 49 euro en een vervolgsessie van 125 euro
 - [Financieel coach](https://www.waarblijfthet.nl/financieel-coach): financiele coaching voor wie goed verdient en toch weinig overhoudt
-- [Geldscan](https://www.waarblijfthet.nl/geldscan): persoonlijk geldrapport over je maandbudget zonder gesprek, 49 euro
+- [Geldscan](https://www.waarblijfthet.nl/geldscan): ik kijk je cijfers na (eigen overzicht of korte vragenlijst) en reken je potjes uit, schriftelijk, 49 euro
 - [Rapporten](https://www.waarblijfthet.nl/rapporten): vijf echte, geanonimiseerde geldrapporten met de ingevulde cijfers, mijn advies en de evaluatie van de klant na drie tot vier maanden. Bij twee van de vijf was de uitkomst dat er niets te repareren viel.
 - [Inzichten](https://www.waarblijfthet.nl/inzichten): artikelen over grip op je geld
 - [Over mij](https://www.waarblijfthet.nl/over): wie en waarom
@@ -18,6 +19,7 @@ Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvr
 - [Is EUR 5,000 net a good salary in the Netherlands?](https://www.waarblijfthet.nl/en/is-5000-net-a-good-salary-netherlands): what gross salary that takes, and what is left per household type. The written report is available in English; the site and the free comparison are in Dutch.
 
 ## Artikelen
+- [Salaris eerder in december? Zo lang moet het mee, en zo kom je januari door](https://www.waarblijfthet.nl/inzichten/salaris-december-eerder-lange-januari)
 - [Waar blijft mijn geld? Zo zoek je het in een avond uit](https://www.waarblijfthet.nl/inzichten/waar-blijft-mijn-geld)
 - [Jaarlijkse kosten reserveren: hoeveel per maand?](https://www.waarblijfthet.nl/inzichten/jaarlijkse-kosten-reserveren)
 - [Meer geld overhouden: zoek eerst waar het nu blijft](https://www.waarblijfthet.nl/inzichten/meer-geld-overhouden)
@@ -42,6 +44,9 @@ Waar blijft het helpt mensen met een modaal of bovenmodaal inkomen die zich afvr
 - [Samengesteld gezin: twee huishoudens in één budget](https://www.waarblijfthet.nl/inzichten/samengesteld-gezin-twee-huishoudens-een-budget)
 - [Schamen dat je niet rondkomt met een goed inkomen](https://www.waarblijfthet.nl/inzichten/schamen-niet-rondkomen-goed-inkomen)
 - [Gratis huishoudboekje in Excel, met jaaruitgaven en wat er echt overblijft](https://www.waarblijfthet.nl/inzichten/huishoudboekje-voorbeeld)
+- [Huishoudboekje en potjes in je bankapp: Rabobank, ING en ABN AMRO](https://www.waarblijfthet.nl/inzichten/huishoudboekje-bankapp-rabobank-ing-abn-amro)
+- [Leef ik boven mijn stand? Zes signalen, en een rekensom die het zeker maakt](https://www.waarblijfthet.nl/inzichten/leef-ik-boven-mijn-stand)
+- [Leefgeld per week: wat het Nibud rekent, en hoe je je eigen bedrag bepaalt](https://www.waarblijfthet.nl/inzichten/leefgeld-per-week)
 - [Niet rondkomen met €4.000 netto en twee kinderen? Dit is het rekenwerk erachter](https://www.waarblijfthet.nl/inzichten/niet-rondkomen-met-4000-euro-netto)
 - [Praten over geld met je partner zonder ruzie](https://www.waarblijfthet.nl/inzichten/praten-over-geld-met-je-partner)
 - [Waarom lijkt iedereen rijker dan jij? Over geld vergelijken](https://www.waarblijfthet.nl/inzichten/waarom-lijkt-iedereen-rijker)

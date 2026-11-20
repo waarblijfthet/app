@@ -160,6 +160,15 @@ import {
 } from "./bruto-netto-referentie";
 import { ZORG_2027 } from "./prinsjesdag-2027";
 import {
+  decembersalarisBron,
+  voorbeeldRijen,
+  datumTekst,
+  RIJK_DECEMBER,
+  RIJK_DAGEN,
+  DECEMBER_JAAR,
+  BRON_DATUM_DECEMBERSALARIS,
+} from "./decembersalaris";
+import {
   AANTAL_AANBIEDERS,
   BAND_EENMALIG,
   BAND_TRAJECT,
@@ -500,7 +509,68 @@ const GM_BRON = (b: { label: string; url: string }): ExternLink => ({
   url: b.url,
 });
 
+/**
+ * Voorbeeld voor "salaris-december-eerder-lange-januari" (20-nov-2026): het
+ * vroegste decembersalaris uit de tabel, uit lib/decembersalaris.ts.
+ */
+const DS_VROEGST = voorbeeldRijen()[0];
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "salaris-december-eerder-lange-januari",
+    cta: {
+      kop: "Hoe zag jouw januari er vorig jaar uit?",
+      tekst:
+        "In je afschrift van vorig jaar zie je wat er in december en januari echt van je rekening ging.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Laat je overzicht nakijken",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Salaris eerder in december",
+    titel: "Salaris eerder in december? Zo lang moet het mee, en zo kom je januari door",
+    metaTitel: `Salaris december eerder (${DECEMBER_JAAR}): zo kom je januari door`,
+    metaDescription: `Je werkgever hoeft niet eerder te betalen. Komt je salaris op ${datumTekst(DS_VROEGST.december, false)} en weer op ${datumTekst(DS_VROEGST.januari, false)}, dan doe je ${DS_VROEGST.dagen} dagen met één salaris. Reken je eigen data uit.`,
+    datum: "2026-11-20",
+    datumFormatted: "20 november 2026",
+    leestijd: "5",
+    categorie: "Inzicht",
+    excerpt: `Komt je salaris in december eerder, dan moet het ook januari door. Tot ${DS_VROEGST.dagen} dagen met één salaris, na de duurste maand van het jaar. Hoe lang het bij jou is, en hoe je het overbrugt.`,
+    preview: {
+      type: "pijn",
+      label: "De lange januari",
+      items: ["Salaris voor de kerst", `Tot ${DS_VROEGST.dagen} dagen tot januari`, "December van hetzelfde geld"],
+    },
+    faq: [
+      {
+        vraag: "Komt het salaris in december eerder?",
+        antwoord: `Bij sommige werkgevers wel, maar het is geen recht. De wet zegt alleen dat je maandloon na afloop van de maand betaald moet worden; eerder mag, later niet. Of het bij jou eerder komt, staat in je cao, je contract of de betaalkalender van je salarisadministratie.`,
+      },
+      {
+        vraag: `Wanneer krijgen rijksambtenaren hun salaris in december ${DECEMBER_JAAR}?`,
+        antwoord: `Op ${datumTekst(RIJK_DECEMBER)} ${DECEMBER_JAAR}, volgens de betaaldata van P-Direkt (geopend ${BRON_DATUM_DECEMBERSALARIS}). Normaal is dat de 24e, eerder als die in het weekend of op een feestdag valt. Het januarisalaris komt volgens die regel ${RIJK_DAGEN} dagen later, net zo lang als een gewone maand.`,
+      },
+      {
+        vraag: "Is mijn werkgever verplicht het decembersalaris eerder te betalen?",
+        antwoord:
+          "Nee. Artikel 7:623 van het Burgerlijk Wetboek verplicht je werkgever alleen om het loon na afloop van de afgesproken periode te betalen. Een eerdere betaling in december is een keuze van je werkgever of een afspraak in de cao.",
+      },
+      {
+        vraag: "Waarom is januari financieel zo'n lange maand?",
+        antwoord: `Omdat het decembersalaris zowel de feestdagen als de weken tot het volgende salaris moet betalen. Komt het eerder, dan zijn dat ook nog meer dagen: van ${datumTekst(DS_VROEGST.december, false)} tot ${datumTekst(DS_VROEGST.januari, false)} is ${DS_VROEGST.dagen} dagen. Wie december niet apart heeft gezet, begint januari met minder dan een gewone maand.`,
+      },
+      {
+        vraag: "Hoe kom ik januari door na een vroeg decembersalaris?",
+        antwoord:
+          "Zet op de dag dat het decembersalaris binnenkomt je vaste lasten van januari en je dagelijkse uitgaven tot het januarisalaris apart, en betaal december van wat er overblijft. Een eindejaarsuitkering of dertiende maand gebruik je eerst voor dat gat. Kijk in je afschrift van vorig jaar wat januari toen kostte.",
+      },
+    ],
+    externLinks: [
+      decembersalarisBron("bw7623"),
+      decembersalarisBron("rijksoverheidLoon"),
+      decembersalarisBron("pdirektBetaaldata"),
+    ],
+  },
   {
     slug: "waar-blijft-mijn-geld",
     cta: {

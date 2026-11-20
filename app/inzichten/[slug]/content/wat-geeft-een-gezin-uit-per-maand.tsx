@@ -62,6 +62,7 @@ const spaken: { slug: string; tekst: string }[] = [
   { slug: "rentevaste-periode-loopt-af-wat-nu", tekst: "Je rentevaste periode loopt af: wat het per maand doet" },
   { slug: "wat-kost-een-zomervakantie-gezin", tekst: "Wat kost een zomervakantie met een gezin?" },
   { slug: "wat-kost-december-feestdagen-gezin", tekst: "Wat kost december?" },
+  { slug: "salaris-december-eerder-lange-januari", tekst: "Salaris eerder in december: hoe lang moet het mee?" },
   { slug: "waar-blijft-mijn-geld", tekst: "Waar blijft mijn geld? Zo zoek je het in een avond uit" },
   { slug: "jaarlijkse-kosten-reserveren", tekst: "Jaarlijkse kosten reserveren: hoeveel per maand?" },
   { slug: "meer-geld-overhouden", tekst: "Meer geld overhouden: zoek eerst waar het blijft" },

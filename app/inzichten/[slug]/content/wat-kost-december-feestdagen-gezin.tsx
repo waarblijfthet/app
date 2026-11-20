@@ -87,6 +87,11 @@ export default function WatKostDecemberFeestdagenGezin() {
         <Link href="/inzichten/potjesmethode-gezin-hoe-werkt-het" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">potjesmethode</Link>: je voelt december niet meer als een klap, maar als iets waar je al voor gespaard hebt.
       </p>
       <p className="font-body text-text-soft" style={p}>
+        Komt je salaris in december eerder, dan moet datzelfde salaris ook nog januari door. Hoe lang precies, reken je
+        uit in{" "}
+        <Link href="/inzichten/salaris-december-eerder-lange-januari" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">salaris eerder in december en de lange januari</Link>.
+      </p>
+      <p className="font-body text-text-soft" style={p}>
         Benieuwd of jullie ruimte hebben voor zo&apos;n feestpotje?{" "}
         <Link href="/analyse" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">Doe de analyse</Link>{" "}en zie waar jullie geld nu naartoe gaat.
       </p>

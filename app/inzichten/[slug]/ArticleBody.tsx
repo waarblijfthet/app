@@ -1,3 +1,4 @@
+import SalarisDecemberEerderLangeJanuari from "./content/salaris-december-eerder-lange-januari";
 import WaarBlijftMijnGeld from "./content/waar-blijft-mijn-geld";
 import JaarlijkseKostenReserveren from "./content/jaarlijkse-kosten-reserveren";
 import MeerGeldOverhouden from "./content/meer-geld-overhouden";
@@ -96,6 +97,7 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "salaris-december-eerder-lange-januari": SalarisDecemberEerderLangeJanuari,
   "waar-blijft-mijn-geld": WaarBlijftMijnGeld,
   "jaarlijkse-kosten-reserveren": JaarlijkseKostenReserveren,
   "meer-geld-overhouden": MeerGeldOverhouden,

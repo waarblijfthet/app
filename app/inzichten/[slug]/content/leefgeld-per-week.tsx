@@ -142,6 +142,15 @@ export default function LeefgeldPerWeek() {
         .
       </p>
 
+      <p className="font-body text-text-soft" style={p}>
+        In december en januari telt je weekbedrag dubbel: komt je salaris voor de kerst, dan moet het vaak meer dan vier
+        weken mee. Hoeveel weken het bij jou is, reken je uit in{" "}
+        <Link href="/inzichten/salaris-december-eerder-lange-januari" style={link} className="hover:underline">
+          salaris eerder in december
+        </Link>
+        .
+      </p>
+
       <h2 className="font-display" style={h2}>Een leefgeldrekening</h2>
       <p className="font-body text-text-soft" style={p}>
         Een leefgeldrekening is een aparte rekening met een eigen pas, alleen voor je leefgeld. Elke week, of elke maand na
