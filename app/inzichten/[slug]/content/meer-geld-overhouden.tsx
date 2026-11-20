@@ -151,6 +151,14 @@ export default function MeerGeldOverhouden() {
         <Link href="/inzichten/wat-is-normaal-bedrag-boodschappen-per-maand" style={link} className="hover:underline">
           wat is een normaal bedrag voor boodschappen
         </Link>
+        . Doelen voor het nieuwe jaar die passen bij wat er overblijft:{" "}
+        <Link href="/inzichten/financiele-doelen-stellen-2027" style={link} className="hover:underline">
+          financiële doelen stellen
+        </Link>
+        . Een jaar lang minder kopen:{" "}
+        <Link href="/inzichten/no-buy-year" style={link} className="hover:underline">
+          no buy year
+        </Link>
         .
       </p>
     </>

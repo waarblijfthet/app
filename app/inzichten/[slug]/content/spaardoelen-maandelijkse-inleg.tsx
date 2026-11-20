@@ -191,6 +191,7 @@ export default function SpaardoelenMaandelijkseInleg() {
         Uit de praktijk: lees <a href="/inzichten/jaarlijkse-kosten-reserveren" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">hoe een gezin spaarde voor de feestmaanden</a>.
       </p>
       <p className="font-body text-text-soft" style={p}>Lees ook over <Link href="/inzichten/53-weken-spaaruitdaging-schema-2026" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">de 53-weken spaaruitdaging</Link>.</p>
+      <p className="font-body text-text-soft" style={p}>Welke doelen je voor het hele jaar kiest, en of ze samen in je maand passen, lees je in <Link href="/inzichten/financiele-doelen-stellen-2027" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">financiële doelen stellen</Link>.</p>
     </>
   );
 }

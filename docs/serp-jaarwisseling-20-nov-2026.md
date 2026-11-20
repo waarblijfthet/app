@@ -8,6 +8,8 @@ Let op: de 2027-varianten van seizoenstermen staan op 20 november nog niet in de
 
 ## Shortlist: drie nieuwe pagina's
 
+**Stand 20 november, avond:** alle drie gebouwd (bouwvolgorde sectie 56 en 57), plus het december-artikel herschreven. Nog niet live tot de push.
+
 ### 1. Salaris eerder in december, en dan de lange januari
 
 - **Autocomplete:** "salaris december eerder", "komt salaris in december eerder", "december salaris eerder", "salaris december uitbetaald in januari", "salarisbetaling december". ("januari lange maand" bestaat ook, maar de SERP is lifestyle: RTL, Volkskrant, Libelle, Margriet over het gevoel, niet over geld. Niet als hoofdterm.)

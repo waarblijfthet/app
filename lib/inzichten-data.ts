@@ -162,12 +162,19 @@ import { ZORG_2027 } from "./prinsjesdag-2027";
 import {
   decembersalarisBron,
   voorbeeldRijen,
+  bereikFeestdagen,
   datumTekst,
   RIJK_DECEMBER,
   RIJK_DAGEN,
   DECEMBER_JAAR,
   BRON_DATUM_DECEMBERSALARIS,
 } from "./decembersalaris";
+import {
+  jaarwisselingBron,
+  JAARWISSELING_BRON_DATUM,
+  NIBUD_SPAREN_MIN_PCT,
+  MC_KLEDINGSTUKKEN_PER_JAAR,
+} from "./jaarwisseling-bronnen";
 import {
   AANTAL_AANBIEDERS,
   BAND_EENMALIG,
@@ -515,7 +522,129 @@ const GM_BRON = (b: { label: string; url: string }): ExternLink => ({
  */
 const DS_VROEGST = voorbeeldRijen()[0];
 
+/** Eigen bedragen voor wat-kost-december-feestdagen-gezin (herschreven 20-nov-2026). */
+const DEC_FEEST = {
+  laagste: euro(bereikFeestdagen().laagste),
+  hoogste: euro(bereikFeestdagen().hoogste),
+};
+
 export const artikelen: Artikel[] = [
+  {
+    slug: "financiele-doelen-stellen-2027",
+    cta: {
+      kop: "Wat bleef er in 2026 echt over?",
+      tekst:
+        "In je afschrift zie je wat er per maand echt overbleef. Dat is de ruimte voor je doelen.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Laat je overzicht nakijken",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "Financiële doelen 2027",
+    titel: "Financiële doelen 2027 stellen: begin bij wat er echt overblijft",
+    metaTitel: "Financiële doelen 2027: zo stel je ze op, en passen ze?",
+    metaDescription: `Een doel heeft een bedrag, een datum en een maandbedrag. Het Nibud adviseert minimaal ${NIBUD_SPAREN_MIN_PCT} procent te sparen, eerst een buffer. Stappen, voorbeelden en een rekenhulp.`,
+    datum: "2026-11-20",
+    datumFormatted: "20 november 2026",
+    leestijd: "6",
+    categorie: "Sparen",
+    excerpt:
+      "Begin niet met een wensenlijst, maar met wat er in 2026 echt overbleef. Vijf stappen, voorbeelden van financiële doelen, en een rekenhulp die laat zien of je doelen samen in je maand passen.",
+    preview: {
+      type: "pijn",
+      label: "Financiële doelen 2027",
+      items: ["Terugblik op 2026", "Eerst een buffer", "Hooguit drie doelen"],
+    },
+    faq: [
+      {
+        vraag: "Wat zijn financiële doelen?",
+        antwoord:
+          "Doelen voor je geld met een bedrag en een datum: een buffer opbouwen, sparen voor iets concreets, een schuld aflossen of je pensioen aanvullen. Het verschil met een wens is het maandbedrag: een doel zegt hoeveel je elke maand apart zet.",
+      },
+      {
+        vraag: "Hoe stel je financiële doelen op?",
+        antwoord: `Kijk eerst wat er vorig jaar per maand echt overbleef. Begin met een buffer, zet je jaarkosten apart en kies hooguit drie doelen, elk met een bedrag en een datum. Tel op wat ze samen per maand vragen en zet dat op salarisdag automatisch apart.`,
+      },
+      {
+        vraag: "Wat zijn voorbeelden van financiële doelen?",
+        antwoord:
+          "Een buffer op peil brengen, elke maand een vast bedrag sparen, een studieschuld of lening sneller aflossen, sparen voor een verbouwing of auto, je pensioen aanvullen, of ruimte maken om minder te gaan werken. Kies er niet meer dan drie tegelijk.",
+      },
+      {
+        vraag: "Hoeveel moet je per maand sparen?",
+        antwoord: `Het Nibud adviseert minimaal ${NIBUD_SPAREN_MIN_PCT} procent van je maandelijkse inkomen opzij te zetten, eerst voor een buffer en daarna voor andere doelen (geopend ${JAARWISSELING_BRON_DATUM}). Het is een richtlijn; wat bij jou past, hangt af van wat er nu echt overblijft.`,
+      },
+      {
+        vraag: "Hoe maak ik zelf een financiële planning?",
+        antwoord:
+          "Met een jaarbegroting: alle inkomsten en uitgaven over het hele jaar, inclusief maanden met extra inkomsten zoals vakantiegeld en extra uitgaven zoals de gemeentelijke lasten. Zet je doelen daarin als vaste uitgave op salarisdag, en kijk na drie maanden of het klopt met je afschrift.",
+      },
+    ],
+    externLinks: [
+      jaarwisselingBron("nibudSparen"),
+      jaarwisselingBron("nibudPlannen"),
+      jaarwisselingBron("wijzerVijfStappen"),
+    ],
+  },
+  {
+    slug: "no-buy-year",
+    cta: {
+      kop: "Wat kocht je vorig jaar echt?",
+      tekst:
+        "In je afschrift zie je per categorie wat je vorig jaar uitgaf. Daar begint een no buy year.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref(),
+      secundairLabel: "Laat je overzicht nakijken",
+      secundairHref: GELDSCAN_ROUTE,
+    },
+    korteTitel: "No buy year",
+    titel: "No buy year 2027: zo stel je je regels op, en zo zie je wat het oplevert",
+    metaTitel: "No buy year 2027: regels, lijst en wat het oplevert",
+    metaDescription: `Een jaar alleen kopen wat nodig is. Nederlanders kopen gemiddeld ${MC_KLEDINGSTUKKEN_PER_JAAR} kledingstukken per jaar (Milieu Centraal). Regels, een lijst om in te vullen en wat het oplevert.`,
+    datum: "2026-11-20",
+    datumFormatted: "20 november 2026",
+    leestijd: "6",
+    categorie: "Inzicht",
+    excerpt:
+      "Wat een no buy year is, welke regels je opstelt, een lijst om per categorie in te vullen, en waarom het jou precies oplevert wat je vorig jaar aan die categorieën uitgaf, en niet meer.",
+    preview: {
+      type: "pijn",
+      label: "No buy year",
+      items: ["Wat wel mag", "Wat niet mag", "Wat je niet uitgeeft, apart"],
+    },
+    faq: [
+      {
+        vraag: "Wat is een no buy year?",
+        antwoord:
+          "Een jaar waarin je vooraf vastlegt in welke categorieën je niets nieuws koopt, zoals kleding of woonaccessoires. Boodschappen, vaste lasten en vervanging van wat kapot gaat lopen gewoon door. Het doel is minder uitgeven en bewuster kopen.",
+      },
+      {
+        vraag: "Wat mag je wel kopen tijdens een no buy year?",
+        antwoord:
+          "Wat je zelf op je lijst zet als toegestaan. Meestal zijn dat boodschappen, verzorging die op is, cadeaus met een vast bedrag en vervanging van wat echt kapot is. Schrijf het vooraf op, zodat je niet per aankoop hoeft te twijfelen.",
+      },
+      {
+        vraag: "Wat is het verschil tussen no buy en low buy?",
+        antwoord:
+          "Bij no buy koop je in de gekozen categorieën helemaal niets nieuws. Bij low buy mag het wel, maar met een vast aantal of een vast bedrag per categorie. Low buy is makkelijker vol te houden; no buy laat sneller zien waar je geld heen ging.",
+      },
+      {
+        vraag: "Wat is een no spend challenge?",
+        antwoord:
+          "Een kortere versie: een week of een maand waarin je niets uitgeeft behalve vaste lasten en het hoognodige. Het is een goede proef voordat je aan een heel jaar begint. Dezelfde lijst met wat wel en niet mag werkt daarvoor.",
+      },
+      {
+        vraag: "Hoeveel bespaar je met een no buy year?",
+        antwoord:
+          "Hooguit wat je vorig jaar aan de geschrapte categorieën uitgaf, en alleen als dat geld niet naar iets anders gaat. Kijk daarom in je afschrift wat je per categorie uitgaf, en zet het bedrag dat je niet uitgeeft elke maand meteen apart.",
+      },
+    ],
+    externLinks: [
+      jaarwisselingBron("milieuCentraalConsuminderen"),
+      jaarwisselingBron("nibudBesparen"),
+      jaarwisselingBron("nibudSparen"),
+    ],
+  },
   {
     slug: "salaris-december-eerder-lange-januari",
     cta: {
@@ -4514,48 +4643,60 @@ export const artikelen: Artikel[] = [
   },
   {
     slug: "wat-kost-december-feestdagen-gezin",
+    cta: {
+      kop: "Wat kostte december vorig jaar echt?",
+      tekst:
+        "In je afschrift van vorig jaar zie je wat december echt kostte, post voor post.",
+      primairLabel: PRIMAIRE_CTA_LABEL,
+      primairHref: analyseHref({ situatie: "gezin" }),
+      secundairLabel: "Laat je overzicht nakijken",
+      secundairHref: GELDSCAN_ROUTE,
+    },
     korteTitel: "Wat kost december?",
     titel: "Wat kost december? Sinterklaas en kerst voor een gezin",
     metaTitel: "Wat kost december? Sinterklaas en kerst voor een gezin",
-    metaDescription:
-      "Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar het naartoe gaat, en hoe je de decemberklap voorkomt met een feestpotje.",
+    metaDescription: `Bij ${RAPPORTEN.length} echte huishoudens kostten de feestdagen ${DEC_FEEST.laagste} tot ${DEC_FEEST.hoogste} per jaar. Waarom december als een klap voelt, en hoe je het over het jaar uitsmeert.`,
     datum: "2026-05-30",
+    gewijzigd: "2026-11-20",
     datumFormatted: "30 mei 2026",
     leestijd: "5",
     categorie: "Inzicht",
-    excerpt:
-      "Sinterklaas, kerst, oud en nieuw, allemaal in vier weken. Een gemiddeld huishouden geeft in december zo'n €500 extra uit. Waar dat heen gaat, en hoe je het uitsmeert over het jaar.",
+    excerpt: `Sinterklaas, kerst, oud en nieuw, allemaal in vier weken. Bij de huishoudens van mijn rapporten kostten de feestdagen ${DEC_FEEST.laagste} tot ${DEC_FEEST.hoogste} per jaar. Reken uit wat jouw december kostte, en hoe je het uitsmeert.`,
     preview: {
       type: "pijn",
       label: "December opgeteld",
-      items: ["Sinterklaas", "Kerst", "~€500 in één maand"],
+      items: ["Sinterklaas", "Kerst", "Alles in vier weken"],
     },
     faq: [
       {
-        vraag: "Hoeveel geeft een gemiddeld huishouden uit in december?",
-        antwoord:
-          "Aan de feestdagen samen zo'n €500 extra: Sinterklaas, kerstcadeaus, duurdere boodschappen rond kerst, versiering en uitjes. Niet door één grote aankoop, maar door tientallen kleine die allemaal in dezelfde maand vallen.",
+        vraag: "Hoeveel kost december voor een gezin?",
+        antwoord: `Dat hangt af van hoe jullie de feestdagen vieren. Bij de ${RAPPORTEN.length} huishoudens van wie ik een geldrapport schreef, kostten de feestdagen ${DEC_FEEST.laagste} tot ${DEC_FEEST.hoogste} per jaar. Je eigen bedrag staat in je afschrift van december vorig jaar.`,
       },
       {
-        vraag: "Wat geven Nederlanders gemiddeld uit aan Sinterklaas?",
+        vraag: "Waarom is december financieel zo zwaar?",
         antwoord:
-          "Gemiddeld rond de €113 per persoon aan cadeaus, al geeft ongeveer de helft minder dan €50 per cadeau. Het venijn zit in het aantal cadeaus, niet in de prijs per stuk.",
+          "Omdat cadeaus, extra boodschappen, uitjes en versiering in dezelfde weken vallen, bovenop je gewone vaste lasten. Het is een uitgave die maar één keer per jaar komt en daardoor niet in je maandbudget staat.",
+      },
+      {
+        vraag: "Hoeveel moet je per maand sparen voor december?",
+        antwoord:
+          "Wat december vorig jaar kostte, gedeeld door twaalf. Zet dat bedrag elke maand automatisch apart op een eigen rekening en betaal december alleen daarvan.",
       },
       {
         vraag: "Hoe voorkom ik de financiële decemberklap?",
         antwoord:
-          "Smeer de feestdagen uit over het hele jaar. Zet maandelijks een vast bedrag opzij in een apart potje, €40 per maand is bijna €500 in december. Dan betaal je de feestdagen niet uit één maandinkomen.",
+          "Smeer december uit over het jaar met een eigen potje, zet een dertiende maand of eindejaarsuitkering apart voordat je hem uitgeeft, en houd bij een vroeg decembersalaris rekening met de weken tot januari.",
+      },
+      {
+        vraag: "Komt het salaris in december eerder?",
+        antwoord:
+          "Bij sommige werkgevers wel, maar het is geen recht. Komt het eerder, dan moet het ook langer mee, tot het januarisalaris. Hoeveel dagen dat is, reken je uit in het artikel over salaris eerder in december.",
       },
     ],
     externLinks: [
-      {
-        label: "Vastelastenbond: wat geven we uit aan Sinterklaas",
-        url: "https://www.vastelastenbond.nl/blog/wat-geven-we-uit-aan-sinterklaas/",
-      },
-      {
-        label: "Vastelastenbond: kerst, wat kost dat?",
-        url: "https://www.vastelastenbond.nl/blog/kerst-wat-kost-dat-wat-geven-we-uit-met-kerst/",
-      },
+      jaarwisselingBron("wijzerVijfStappen"),
+      jaarwisselingBron("nibudPlannen"),
+      jaarwisselingBron("nibudSparen"),
     ],
   },
   {

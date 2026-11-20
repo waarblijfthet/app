@@ -1,4 +1,6 @@
 import SalarisDecemberEerderLangeJanuari from "./content/salaris-december-eerder-lange-januari";
+import FinancieleDoelenStellen2027 from "./content/financiele-doelen-stellen-2027";
+import NoBuyYear from "./content/no-buy-year";
 import WaarBlijftMijnGeld from "./content/waar-blijft-mijn-geld";
 import JaarlijkseKostenReserveren from "./content/jaarlijkse-kosten-reserveren";
 import MeerGeldOverhouden from "./content/meer-geld-overhouden";
@@ -97,6 +99,8 @@ import SamengesteldGezinTweeHuishoudensEenBudget from "./content/samengesteld-ge
 import SchamenNietRondkomenGoedInkomen from "./content/schamen-niet-rondkomen-goed-inkomen";
 
 const contentMap: Record<string, () => JSX.Element> = {
+  "financiele-doelen-stellen-2027": FinancieleDoelenStellen2027,
+  "no-buy-year": NoBuyYear,
   "salaris-december-eerder-lange-januari": SalarisDecemberEerderLangeJanuari,
   "waar-blijft-mijn-geld": WaarBlijftMijnGeld,
   "jaarlijkse-kosten-reserveren": JaarlijkseKostenReserveren,

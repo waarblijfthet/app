@@ -142,6 +142,10 @@ export default function LifestyleInflatie() {
         </Link>
         . Twijfel je of je boven je stand leeft:{" "}
         <Link href="/inzichten/leef-ik-boven-mijn-stand" style={{ color: "#0B7A6E", textDecoration: "none" }} className="hover:underline">leef ik boven mijn stand</Link>
+        . Een jaar lang bewust niets nieuws kopen in de categorieën waar het weglekt:{" "}
+        <Link href="/inzichten/no-buy-year" style={link} className="hover:underline">
+          no buy year
+        </Link>
         .
       </p>
     </>

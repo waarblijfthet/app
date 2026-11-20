@@ -63,6 +63,8 @@ const spaken: { slug: string; tekst: string }[] = [
   { slug: "wat-kost-een-zomervakantie-gezin", tekst: "Wat kost een zomervakantie met een gezin?" },
   { slug: "wat-kost-december-feestdagen-gezin", tekst: "Wat kost december?" },
   { slug: "salaris-december-eerder-lange-januari", tekst: "Salaris eerder in december: hoe lang moet het mee?" },
+  { slug: "financiele-doelen-stellen-2027", tekst: "Financiële doelen 2027: passen ze samen in jullie maand?" },
+  { slug: "no-buy-year", tekst: "No buy year: regels en een lijst om in te vullen" },
   { slug: "waar-blijft-mijn-geld", tekst: "Waar blijft mijn geld? Zo zoek je het in een avond uit" },
   { slug: "jaarlijkse-kosten-reserveren", tekst: "Jaarlijkse kosten reserveren: hoeveel per maand?" },
   { slug: "meer-geld-overhouden", tekst: "Meer geld overhouden: zoek eerst waar het blijft" },
